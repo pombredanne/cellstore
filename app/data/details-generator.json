@@ -1,0 +1,8 @@
+﻿{"percentUsageStatsByDomain":
+[
+{"members":"xbrl.io",	"min":1.2, "bottomQuartile":4,"median":8,	"topQuartile":10,	"max":20},
+{"members":"xbrlcloud",			"min":1.5, "bottomQuartile":6,"median":10,	"topQuartile":14,	"max":20}
+], 
+"fiscalYear":"2013", 
+"periodFocus":"Q2"
+}

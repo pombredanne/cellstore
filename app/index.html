@@ -1,0 +1,76 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>secxbrl info</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="bower_components/angular-ui/build/angular-ui.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+    </head>
+    <body ng-app="main">
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="header">
+			<div class="container">
+				<nav class="navbar">
+					<div class="navbar-header">
+						<a href="/" id="logo">
+							<i class="fa fa-cloud fa-2x"></i>
+							<h4>SECXBRL.info<br>
+								<small>SEC Fillings Quality Analytics</small>
+							</h4>
+						</a>
+						<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#menu">
+							 MENU <i class="fa fa-angle-double-down"></i>
+						</button>
+					</div>
+					<div class="nav-collapse" id="menu" role="navigation">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="/" ng-class="{ active: (page == '/views/home.html') }">Home</a></li>
+							<li><a href="/analytics" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Analytics</a></li>
+							<li><a href="/why" ng-class="{ active: (page == '/views/why.html') }">Why SECXBRL.info</a></li>
+							<li><a href="/source" ng-class="{ active: (page == '/views/source.html') }">Source Code</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+        <div class="container" ng-view="true">			
+		</div>
+        <div class="footer">
+			<div class="container">
+				&copy; xbrl.io
+			</div>
+		</div>
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-ui/build/angular-ui.js"></script>
+        <script src="bower_components/angular-ui-bootstrap3/ui-bootstrap-tpls.js"></script>
+		
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js scripts/main.js -->
+        <script src="scripts/googlechart.js"></script>
+        <script src="scripts/main.js"></script>
+        <script src="scripts/AnalyticsCtrl.js"></script>
+        <script src="scripts/DashboardCtrl.js"></script>
+        <!-- endbuild -->
+</body>
+</html>

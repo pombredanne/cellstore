@@ -1,0 +1,26 @@
+﻿[
+{ "entityCik":12345, "conceptName":"fac:Revenue", "unit":"USD",
+"map": "None", "conceptValuesByQuarter":[
+{"value":900000, "fiscalYear":2011, "fiscalPeriod":"Q1"},
+{"value":1001000, "fiscalYear":2011, "fiscalPeriod":"Q2"},
+{"value":801300, "fiscalYear":2011, "fiscalPeriod":"Q3"},
+{"value":1001500, "fiscalYear":2011, "fiscalPeriod":"Q4"},
+{"value":702000, "fiscalYear":2012, "fiscalPeriod":"Q1"},
+{"value":1003000, "fiscalYear":2012, "fiscalPeriod":"Q2"},
+{"value":654000, "fiscalYear":2012, "fiscalPeriod":"Q3"},
+{"value":1005000, "fiscalYear":2012, "fiscalPeriod":"Q4"},
+{"value":1006000, "fiscalYear":2013, "fiscalPeriod":"Q1"},
+{"value":700000, "fiscalYear":2013, "fiscalPeriod":"Q2"},
+{"value":1000000, "fiscalYear":2013, "fiscalPeriod":"Q3"}
+]},
+{ "entityCik":12345, "conceptName":"fac:netIncome", "unit":"USD",
+"map": "None", "conceptValuesByQuarter":[
+{"value":700000, "fiscalYear":2011, "fiscalPeriod":"Q1"},
+{"value":901000, "fiscalYear":2011, "fiscalPeriod":"Q2"},
+{"value":601300, "fiscalYear":2011, "fiscalPeriod":"Q3"},
+{"value":501500, "fiscalYear":2011, "fiscalPeriod":"Q4"},
+{"value":806000, "fiscalYear":2013, "fiscalPeriod":"Q1"},
+{"value":200000, "fiscalYear":2013, "fiscalPeriod":"Q2"},
+{"value":600000, "fiscalYear":2013, "fiscalPeriod":"Q3"}
+]}
+]

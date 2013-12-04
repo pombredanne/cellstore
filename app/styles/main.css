@@ -1,0 +1,100 @@
+.browsehappy {
+  padding: 0.2em 0;
+  margin: 0.2em 0;
+  color: #000;
+  background: #ccc;
+}
+
+.header .container {
+  padding: 20px 0;
+  margin-bottom: 30px;
+  border-bottom: 1px dotted Gainsboro;
+}
+
+.header .container a#logo,
+.header .container a#logo:hover {
+  display: block;
+  float: left;
+  font-size: 1.3em;
+  text-decoration: none;
+}
+
+.header .container a#logo i {
+  float: left;
+  padding: 5px;
+}
+
+.header .container a#logo h4 {
+  display: inline-block;
+  line-height: 0.7;
+}
+
+.header .container button {
+  float: right;
+  color: #2a6496;
+}
+
+.header .container button:hover {
+  background-color: #fafafa;
+}
+
+.header .container a#logo h4 small {
+  font-size: 0.6em;
+}
+
+.header .container .nav a {
+  margin-bottom: 0;
+}
+
+.header .container .nav a:hover {
+  color: #2a6496;
+  background-color: #fafafa;
+}
+
+.header .container .nav .active {
+  margin-bottom: -2px;
+  color: #2a6496;
+  border-bottom: 2px solid #2a6496;
+}
+
+.footer .container {
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px dotted #dcdcdc;
+}
+
+.menu.nav a {
+  display: block;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+}
+
+.menu.nav a:hover {
+  border: 1px solid rgba(82, 168, 236, 0.6);
+}
+
+.menu.nav a.active,
+.menu.nav a.active:hover {
+  color: #2a6496;
+  background-color: #fafafa;
+  border: 1px solid #2a6496;
+}
+
+.menu.nav div {
+  padding: 0 10px 15px 20px;
+}
+
+dl.charttip dt {
+  display: block;
+  padding: 0 10px 10px 10px;
+  border-bottom: 1px solid gainsboro;
+}
+
+dl.charttip dd {
+  display: block;
+  padding: 10px 15px 0 15px;
+  white-space: nowrap;
+}
