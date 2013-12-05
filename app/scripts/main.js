@@ -1,4 +1,6 @@
-angular.module('main', ['ngRoute', 'ui', 'ui.bootstrap', 'googlechart'])
+'use strict';
+
+angular.module('main', ['ngRoute', 'ui', 'ui.bootstrap', 'googlechart', 'navbar-toggle'])
 .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);

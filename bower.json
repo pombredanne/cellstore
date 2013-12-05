@@ -6,7 +6,7 @@
     "angular": "~1.2.3",
     "angular-route": "~1.2.3",
     "angular-ui": "~0.4.0",
-    "angular-ui-bootstrap3":"#0.6.0",
+    "angular-ui-bootstrap3": "~0.6.0",
     "font-awesome": "~4.0.3"
   },
   "devDependencies": {}

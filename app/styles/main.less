@@ -52,10 +52,22 @@
 }
 
 .header .container .nav .active {
-	border-bottom: 2px solid rgb(42, 100, 150);
+	border: none;
+	border-left: 2px solid rgb(42, 100, 150);
+	border-right: 2px solid rgb(42, 100, 150);
 	margin-bottom: -2px;
 	color: rgb(42, 100, 150);
 }
+
+@media(min-width:768px){
+	.header .container .nav .active {
+		border: none;
+		border-bottom: 2px solid rgb(42, 100, 150);
+		margin-bottom: -2px;
+		color: rgb(42, 100, 150);
+	}
+}
+
 
 .footer .container {
 	border-top: 1px dotted rgb(220, 220, 220);

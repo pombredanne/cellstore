@@ -1,3 +1,5 @@
+'use strict';
+
 function DashboardCtrl($scope, $location, $route, $http) {
 	$scope.text = "";
 	$scope.table = null;

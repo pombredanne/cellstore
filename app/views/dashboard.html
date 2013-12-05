@@ -1,5 +1,5 @@
 <div class="row" ng-controller="DashboardCtrl">
-	<div class="menu nav col-md-3">
+	<div class="menu nav col-md-3 col-sm-4">
 		<a href="/analytics">
 			<i class="fa fa-book"></i> Use of Extensions
 		</a>
@@ -13,7 +13,7 @@
 			<i class="fa fa-search"></i> Search facts
 		</a>
 	</div>
-	<div class="col-md-9">
+	<div class="col-md-9 col-sm-8">
 		<div class="row" style="margin-bottom: 20px;">
 			<div class="col-md-12">
 				<input class="form-control" placeholder="Search for a company name or ticker symbol...">
@@ -31,7 +31,7 @@
 					<i class="fa fa-table"></i> Fundamental Accounting Concepts
 				</tab-heading>
 				<div class="row" style="margin-bottom: 20px;">
-					<div class="col-md-3 col-sm-6">
+					<div class="col-md-3 col-sm-6 col-xs-6">
 						<h5>Fiscal Year Focus</h5>
 						<select size=5 ng-model="year" ng-change="change(year, period)" class="form-control">
 							<option>2013</option>
@@ -41,7 +41,7 @@
 							<option>2009</option>
 						</select>
 					</div>
-					<div class="col-md-3 col-sm-6">
+					<div class="col-md-3 col-sm-6 col-xs-6">
 						<h5>Fiscal Period Focus</h5>
 						<select size=5 ng-model="period" ng-change="change(year, period)" class="form-control">
 							<option>FY</option>

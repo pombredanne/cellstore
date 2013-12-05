@@ -1,3 +1,5 @@
+'use strict';
+
 function AnalyticsCtrl($scope, $location, $route, $http) {
 	$scope.year = ($route.current.params.year ? $route.current.params.year : null);
 	$scope.period = ($route.current.params.period ? $route.current.params.period : null);
