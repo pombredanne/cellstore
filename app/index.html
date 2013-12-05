@@ -24,7 +24,7 @@
 
         <div class="header">
 			<div class="container">
-				<nav class="navbar">
+				<div class="navbar" navbar-toggle>
 					<div class="navbar-header">
 						<a href="/" id="logo">
 							<i class="fa fa-cloud fa-2x"></i>
@@ -32,11 +32,11 @@
 								<small>SEC Fillings Quality Analytics</small>
 							</h4>
 						</a>
-						<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#menu">
+						<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
 							 MENU <i class="fa fa-angle-double-down"></i>
 						</button>
 					</div>
-					<div class="nav-collapse" id="menu" role="navigation">
+					<div class="collapse navbar-collapse" role="navigation">
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="/" ng-class="{ active: (page == '/views/home.html') }">Home</a></li>
 							<li><a href="/analytics" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Analytics</a></li>
@@ -44,7 +44,7 @@
 							<li><a href="/source" ng-class="{ active: (page == '/views/source.html') }">Source Code</a></li>
 						</ul>
 					</div>
-				</nav>
+				</div>
 			</div>
 		</div>
         <div class="container" ng-view="true">			
@@ -68,6 +68,7 @@
 
         <!-- build:js scripts/main.js -->
         <script src="scripts/googlechart.js"></script>
+        <script src="scripts/navbar-toggle.js"></script>
         <script src="scripts/main.js"></script>
         <script src="scripts/AnalyticsCtrl.js"></script>
         <script src="scripts/DashboardCtrl.js"></script>

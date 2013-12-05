@@ -54,7 +54,18 @@
 .header .container .nav .active {
   margin-bottom: -2px;
   color: #2a6496;
-  border-bottom: 2px solid #2a6496;
+  border: none;
+  border-right: 2px solid #2a6496;
+  border-left: 2px solid #2a6496;
+}
+
+@media (min-width: 768px) {
+  .header .container .nav .active {
+    margin-bottom: -2px;
+    color: #2a6496;
+    border: none;
+    border-bottom: 2px solid #2a6496;
+  }
 }
 
 .footer .container {
