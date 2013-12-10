@@ -1,0 +1,365 @@
+{
+    "xml": {
+        "source": "http://www.sec.gov/Archives/edgar/data/1496443/000101968712001195/tpnl-20111231.xml",
+        "components": {
+            "balance-sheet": {
+                "format": "Classified",
+                "BalanceSheetDate": {
+                    "imputed": "true",
+                    "rules": {
+                        "rule": "if(true() ) $fro:BalanceSheetDate = $facts:contexts(\"instant\")(\"date\")",
+                        "audit-trail": "BalanceSheetDate[2011-12-31] = $facts:contexts(\"instant\")(\"date\")"
+                    },
+                    "value": "2011-12-31"
+                },
+                "Assets": {
+                    "concept": "us-gaap:Assets",
+                    "unitRef": "usd",
+                    "contextRef": "c0_AsOf31Dec2011",
+                    "decimals": "0",
+                    "value": "7096823",
+                    "validation-rules": [
+                        {
+                            "rule-name": "bs3",
+                            "rule-calculation": {
+                                "rule": "Assets - (AssetsCurrent + AssetsNoncurrent)",
+                                "audit-trail": "Assets[7, 096, 823] - (AssetsCurrent[6,832,777] + AssetsNoncurrent[264,046])"
+                            },
+                            "rule-passed": "false"
+                        },
+                        {
+                            "rule-name": "bs2",
+                            "rule-calculation": {
+                                "rule": "Assets -LiabilitiesAndEquity",
+                                "audit-trail": "Assets[7,096,823] - LiabilitiesAndEquity[7,096,823]"
+                            },
+                            "rule-passed": "true"
+                        }
+                    ]
+                },
+                "AssetsCurrent": {
+                    "concept": "us-gaap:AssetsCurrent",
+                    "unitRef": "usd",
+                    "contextRef": "c0_AsOf31Dec2011",
+                    "decimals": "0",
+                    "value": "6832777",
+                    "validation-rules": [
+                        {
+                            "rule-name": "bs4",
+                            "rule-calculation": {
+                                "rule": "                                Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
+                                "audit-trail": "Liabilities[10,007,608] - (LiabilitiesCurrent[10,007,608] + LiabilitiesNoncurrent[0])"
+                            },
+                            "rule-passed": "true"
+                        },
+                        {
+                            "rule-name": "bs3",
+                            "rule-calculation": {
+                                "rule": "                                Assets - (AssetsCurrent + AssetsNoncurrent)",
+                                "audit-trail": "Assets[7,096,823] - (AssetsCurrent[6,832,777] + AssetsNoncurrent[264,046])"
+                            },
+                            "rule-passed": "true"
+                        }
+                    ]
+                },
+                "AssetsNoncurrent": {
+                    "imputed": "true",
+                    "rules": {
+                        "rule": "if($fro:AssetsNoncurrent = 0 and $fro:AssetsCurrent != 0 and $fro:Assets != 0 ) $fro:AssetsNoncurrent = $fro:Assets - $fro:AssetsCurrent",
+                        "audit-trail": "AssetsNoncurrent[264,046] = Assets[7,096,823] - AssetsCurrent[6,832,777]"
+                    },
+                    "value": "264046",
+                    "validation-rules": [
+                        {
+                            "rule-name": "bs4",
+                            "rule-calculation": {
+                                "rule": "                                Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
+                                "audit-trail": "Liabilities[10,007,608] - (LiabilitiesCurrent[10,007,608] + LiabilitiesNoncurrent[0])"
+                            },
+                            "rule-passed": "true"
+                        },
+                        {
+                            "rule-name": "bs3",
+                            "rule-calculation": {
+                                "rule": "                                Assets - (AssetsCurrent + AssetsNoncurrent)",
+                                "audit-trail": "Assets[7,096,823] - (AssetsCurrent[6,832,777] + AssetsNoncurrent[264,046])"
+                            },
+                            "rule-passed": "true"
+                        }
+                    ]
+                },
+                "LiabilitiesAndEquity": {
+                    "concept": "us-gaap:LiabilitiesAndStockholdersEquity",
+                    "unitRef": "usd",
+                    "contextRef": "c0_AsOf31Dec2011",
+                    "decimals": "0",
+                    "value": "7096823",
+                    "validation-rules": [
+                        {
+                            "rule-name": "bs5",
+                            "rule-calculation": {
+                                "rule": "                                LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
+                                "audit-trail": "LiabilitiesAndEquity[7,096,823] - (Liabilities[10,007,608] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[-2,910,785])"
+                            },
+                            "rule-passed": "true"
+                        },
+                        {
+                            "rule-name": "bs2",
+                            "rule-calculation": {
+                                "rule": "                                Assets -LiabilitiesAndEquity                                ",
+                                "audit-trail": "Assets[7,096,823] - LiabilitiesAndEquity[7,096,823]"
+                            },
+                            "rule-passed": "true"
+                        }
+                    ]
+                },
+                "Liabilities": {
+                    "concept": "us-gaap:Liabilities",
+                    "unitRef": "usd",
+                    "contextRef": "c0_AsOf31Dec2011",
+                    "decimals": "0",
+                    "value": "10007608",
+                    "validation-rules": [
+                        {
+                            "rule-name": "bs5",
+                            "rule-calculation": {
+                                "rule": "                                LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
+                                "audit-trail": "LiabilitiesAndEquity[7,096,823] - (Liabilities[10,007,608] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[-2,910,785])"
+                            },
+                            "rule-passed": "true"
+                        },
+                        {
+                            "rule-name": "bs4",
+                            "rule-calculation": {
+                                "rule": "                                Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
+                                "audit-trail": "Liabilities[10,007,608] - (LiabilitiesCurrent[10,007,608] + LiabilitiesNoncurrent[0])"
+                            },
+                            "rule-passed": "true"
+                        }
+                    ]
+                },
+                "LiabilitiesCurrent": {
+                    "concept": "us-gaap:LiabilitiesCurrent",
+                    "unitRef": "usd",
+                    "contextRef": "c0_AsOf31Dec2011",
+                    "decimals": "0",
+                    "value": "10007608",
+                    "validation-rules": [
+                        {
+                            "rule-name": "bs4",
+                            "rule-calculation": {
+                                "rule": "                                Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
+                                "audit-trail": "Liabilities[10,007,608] - (LiabilitiesCurrent[10,007,608] + LiabilitiesNoncurrent[0])"
+                            },
+                            "rule-passed": "true"
+                        },
+                        {
+                            "rule-name": "bs3",
+                            "rule-calculation": {
+                                "rule": "                                Assets - (AssetsCurrent + AssetsNoncurrent)",
+                                "audit-trail": "Assets[7,096,823] - (AssetsCurrent[6,832,777] + AssetsNoncurrent[264,046])"
+                            },
+                            "rule-passed": "true"
+                        }
+                    ]
+                },
+                "LiabilitiesNoncurrent": {
+                    "imputed": "true",
+                    "rules": {
+                        "rule": "if($fro:LiabilitiesNoncurrent = 0 and $fro:LiabilitiesCurrent != 0 and $fro:Liabilities !=0 ) $fro:LiabilitiesNoncurrent = $fro:Liabilities - $fro:LiabilitiesCurrent",
+                        "audit-trail": "LiabilitiesNoncurrent[0] = Liabilities[10,007,608] - LiabilitiesCurrent[10,007,608]"
+                    },
+                    "value": "0",
+                    "validation-rules": [
+                        {
+                            "rule-name": "bs4",
+                            "rule-calculation": {
+                                "rule": "Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
+                                "audit-trail": "Liabilities[10,007,608] - (LiabilitiesCurrent[10,007,608] + LiabilitiesNoncurrent[0])"
+                            },
+                            "rule-passed": "true"
+                        },
+                        {
+                            "rule-name": "bs3",
+                            "rule-calculation": {
+                                "rule": "Assets - (AssetsCurrent + AssetsNoncurrent)",
+                                "audit-trail": "Assets[7,096,823] - (AssetsCurrent[6,832,777] + AssetsNoncurrent[264,046])"
+                            },
+                            "rule-passed": "true"
+                        }
+                    ]
+                },
+                "CommitmentsAndContingencies": {
+                    "imputed": "true",
+                    "rules": {
+                        "rule": "if($CommitmentsAndContingencies eq jn:null()) $CommitmentsAndContingencies = 0",
+                        "audit-trail": "CommitmentsAndContingencies[0] = 0"
+                    },
+                    "value": "0",
+                    "validation-rules": {
+                        "rule-name": "bs5",
+                        "rule-calculation": {
+                            "rule": "                            LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
+                            "audit-trail": "LiabilitiesAndEquity[7,096,823] - (Liabilities[10,007,608] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[-2,910,785])"
+                        },
+                        "rule-passed": "true"
+                    }
+                },
+                "TemporaryEquity": {
+                    "imputed": "true",
+                    "rules": {
+                        "rule": "if($TemporaryEquity eq jn:null()) $TemporaryEquity = 0",
+                        "audit-trail": "TemporaryEquity[0] = 0"
+                    },
+                    "value": "0",
+                    "validation-rules": {
+                        "rule-name": "bs5",
+                        "rule-calculation": {
+                            "rule": "LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
+                            "audit-trail": "LiabilitiesAndEquity[7,096,823] - (Liabilities[10,007,608] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[-2,910,785])"
+                        },
+                        "rule-passed": "true"
+                    }
+                },
+                "Equity": {
+                    "concept": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+                    "unitRef": "usd",
+                    "contextRef": "c0_AsOf31Dec2011",
+                    "decimals": "0",
+                    "value": "-2910785",
+                    "validation-rules": [
+                        {
+                            "rule-name": "bs5",
+                            "rule-calculation": {
+                                "rule": "LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
+                                "audit-trail": "LiabilitiesAndEquity[7,096,823] - (Liabilities[10,007,608] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[-2,910,785])"
+                            },
+                            "rule-passed": "true"
+                        },
+                        {
+                            "rule-name": "bs1",
+                            "rule-calculation": {
+                                "rule": "Equity - ( EquityAttributableToParent + EquityAttributableToNoncontrollingInterest)",
+                                "audit-trail": "Equity[-2,910,785] - ( EquityAttributableToParent[-2,968,168] + EquityAttributableToNoncontrollingInterest[57,383])"
+                            },
+                            "rule-passed": "true"
+                        }
+                    ]
+                },
+                "EquityAttributableToNoncontrollingInterest": {
+                    "concept": "us-gaap:MinorityInterest",
+                    "unitRef": "usd",
+                    "contextRef": "c0_AsOf31Dec2011",
+                    "decimals": "0",
+                    "value": "57383",
+                    "validation-rules": {
+                        "rule-name": "bs1",
+                        "rule-calculation": {
+                            "rule": "Equity - ( EquityAttributableToParent + EquityAttributableToNoncontrollingInterest)",
+                            "audit-trail": "Equity[-2,910,785] - ( EquityAttributableToParent[-2,968,168] + EquityAttributableToNoncontrollingInterest[57,383])"
+                        },
+                        "rule-passed": "true"
+                    }
+                },
+                "EquityAttributableToParent": {
+                    "concept": "us-gaap:StockholdersEquity",
+                    "unitRef": "usd",
+                    "contextRef": "c0_AsOf31Dec2011",
+                    "decimals": "0",
+                    "value": "-2968168",
+                    "validation-rules": {
+                        "rule-name": "bs1",
+                        "rule-calculation": {
+                            "rule": "Equity - ( EquityAttributableToParent + EquityAttributableToNoncontrollingInterest)",
+                            "audit-trail": "Equity[-2,910,785] - ( EquityAttributableToParent[-2,968,168] + EquityAttributableToNoncontrollingInterest[57,383])"
+                        },
+                        "rule-passed": "true"
+                    }
+                }
+            }
+        },
+        "entity": {
+            "EntityRegistrantName": {
+                "concept": "dei:EntityRegistrantName",
+                "contextRef": "c2_From1Jan2011To31Dec2011",
+                "value": "3PEA INTERNATIONAL, INC."
+            },
+            "EntityCentralIndexKey": {
+                "concept": "dei:EntityCentralIndexKey",
+                "contextRef": "c2_From1Jan2011To31Dec2011",
+                "value": "0001496443"
+            },
+            "EntityFilerCategory": {
+                "concept": "dei:EntityFilerCategory",
+                "contextRef": "c2_From1Jan2011To31Dec2011",
+                "value": "Smaller Reporting Company"
+            },
+            "TradingSymbol": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($TradingSymbol eq jn:null()) $TradingSymbol = 0",
+                    "audit-trail": "TradingSymbol[0] = 0"
+                },
+                "value": "0"
+            }
+        },
+        "filing": {
+            "CurrentFiscalYearEndDate": {
+                "concept": "dei:CurrentFiscalYearEndDate",
+                "contextRef": "c2_From1Jan2011To31Dec2011",
+                "value": "--12-31"
+            },
+            "DocumentFiscalPeriodFocus": {
+                "concept": "dei:DocumentFiscalPeriodFocus",
+                "contextRef": "c2_From1Jan2011To31Dec2011",
+                "value": "FY"
+            },
+            "DocumentType": {
+                "concept": "dei:DocumentType",
+                "contextRef": "c2_From1Jan2011To31Dec2011",
+                "value": "10-K"
+            },
+            "DocumentPeriodEndDate": {
+                "concept": "dei:DocumentPeriodEndDate",
+                "contextRef": "c2_From1Jan2011To31Dec2011",
+                "value": "2011-12-31"
+            },
+            "DocumentFiscalYearFocus": {
+                "concept": "dei:DocumentFiscalYearFocus",
+                "contextRef": "c2_From1Jan2011To31Dec2011",
+                "value": "2011"
+            },
+            "namespaces": {
+                "fro": "http://financialreportontology.wikispaces.com/",
+                "xsi": "http://www.w3.org/2001/XMLSchema-instance",
+                "instance": "http://www.xbrl.org/2003/instance",
+                "us-gaap": "http://fasb.org/us-gaap/2011-01-31",
+                "dei": "http://xbrl.sec.gov/dei/2011-01-31",
+                "tpnl": "http://www.3pea.com/20111231",
+                "linkbase": "http://www.xbrl.org/2003/linkbase",
+                "xbrldi": "http://xbrl.org/2006/xbrldi",
+                "xlink": "http://www.w3.org/1999/xlink"
+            },
+            "contexts": {
+                "instant": {
+                    "id": "c0_AsOf31Dec2011",
+                    "date": "2011-12-31",
+                    "identifier": {
+                        "-scheme": "http://www.sec.gov/CIK",
+                        "#text": "0001496443"
+                    }
+                },
+                "duration": {
+                    "id": "c2_From1Jan2011To31Dec2011",
+                    "duration": "364",
+                    "startDate": "2011-01-01",
+                    "endDate": "2011-12-31",
+                    "identifier": {
+                        "-scheme": "http://www.sec.gov/CIK",
+                        "#text": "0001496443"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,20 +1,80 @@
 <div class="row" ng-controller="SearchCtrl">
-	<div class="menu nav col-md-3 col-sm-4">
-		<a href="/analytics">
-			<i class="fa fa-book"></i> Use of Extensions
-		</a>
-		<a href="/dashboard">
-			<i class="fa fa-bar-chart-o"></i> Company Quality Dashboard
-		</a>
-		<a class="active" href="/search">
-			<i class="fa fa-search"></i> Search facts
-		</a>
-		<div>
-		  Use the search feature to retrieve facts values from the SEC filings.
-		  You can use also concept mappings.
-		</div>
-	</div> 
-	<div class="col-md-9 col-sm-8">
-		Search page, under development
-	</div>
+    <div class="menu nav col-md-3 col-sm-4">
+        <a href="/analytics">
+            <i class="fa fa-book"></i> Use of Extensions
+        </a>
+        <a href="/dashboard">
+            <i class="fa fa-bar-chart-o"></i> Company Quality Dashboard
+        </a>
+        <a class="active" href="/search">
+            <i class="fa fa-search"></i> Search facts
+        </a>
+
+        <div>
+            Use the search feature to retrieve facts values from the SEC filings.
+            You can use also concept mappings.
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-8">
+        <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <h5>Type to search company</h5>
+                <input type="text" ng-model="entity" placeholder="Company Name" ng-keyup="SetCik()"
+                       typeahead="e.name for e in entities | filter:$viewValue | limitTo:8">
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 25px" ng-show="year">
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <h5>Fiscal Year Focus</h5>
+                <select size=5 ng-model="year" ng-change="change(year, period)" class="form-control">
+                    <option>2013</option>
+                    <option>2012</option>
+                    <option>2011</option>
+                    <option>2010</option>
+                    <option>2009</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <h5>Fiscal Period Focus</h5>
+                <select size=5 ng-model="period" ng-change="change(year, period)" class="form-control">
+                    <option>FY</option>
+                    <option>Q1</option>
+                    <option>Q2</option>
+                    <option>Q3</option>
+                    <option>Q4</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-6">
+                <h5>Concept map</h5>
+                <select ng-model="conceptMap" ng-options="c for c in conceptMaps">
+                    <option value="">None</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <h5>&nbsp;</h5>
+                <input type="text" ng-model="conceptMapKey" placeholder="Type to search concept"
+                       typeahead="c for c in conceptMapKeys | filter:$viewValue | limitTo:8">
+            </div>
+        </div>
+        <div class="row" style="padding-top: 5px; padding-bottom: 15px">
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <button class="btn btn-small" ng-click="getValue()">GO</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-6">
+
+                <input type="text" ng-model="factValue" readonly="true" placeholder="Fact Value">
+                <option></option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+
+                <input type="text" ng-model="units" readonly="true" placeholder="Units">
+            </div>
+        </div>
+    </div>
+</div>
 </div>

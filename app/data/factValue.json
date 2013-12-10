@@ -1,0 +1,27 @@
+{
+    "fact": {
+        "-cik": "http://www.sec.gov/CIK 0000004281",
+        "-fpf": "FY",
+        "-fyf": "2012",
+        "-concept": "fac:Assets",
+        "aspect": [
+            {
+                "-name": "xbrl:Concept",
+                "-value": "us-gaap:Assets"
+            },
+            {
+                "-name": "xbrl:Entity",
+                "-value": "http://www.sec.gov/CIK 0000004281"
+            },
+            {
+                "-name": "xbrl:Period",
+                "-value": "2012-12-31"
+            }
+        ],
+        "accession-number": { "-value": "0001193125-13-062916" },
+        "value": {
+            "-unit": "iso4217:USD",
+            "#text": "4.0178999E10"
+        }
+    }
+}

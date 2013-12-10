@@ -38,7 +38,11 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
         })
         .when('/search', {
             templateUrl: '/views/search.html',
-            controller: 'AnalyticsCtrl'
+            controller: 'SearchCtrl'
+        })
+        .when('/search/:year/:period', {
+            templateUrl: '/views/search.html',
+            controller: 'SearchCtrl'
         })
         /*//404
         .otherwise({

@@ -64,7 +64,7 @@
 								<th>Audit</th>
 							</thead>
 							<tbody>
-								<tr>
+								<tr ng-repeat="item in generalInfo">
 									<td>{{item.label}}</td>
 									<td>{{item.value}}</td>
 									<td ng-class="{ warning: item.hasWarning }">{{item.type}}</td>
@@ -83,7 +83,7 @@
 								<th>Audit</th>
 							</thead>
 							<tbody>
-								<tr>
+								<tr ng-repeat="item in balanceSheet">
 									<td>{{item.label}}</td>
 									<td>{{item.value}}</td>
 									<td ng-class="{ warning: item.hasWarning }">{{item.type}}</td>

@@ -1,0 +1,22 @@
+{
+    "entities": {
+        "entity": [
+            {
+                "cik": "0000004281",
+                "name": "ALCOA INC"
+            },
+            {
+                "cik": "0000004962",
+                "name": "AMERICAN EXPRESS CO"
+            },
+            {
+                "cik": "0000012927",
+                "name": "IBM"
+            },
+            {
+                "cik": "0000018230",
+                "name": "ORACLE"
+            }
+        ]
+    }
+}
