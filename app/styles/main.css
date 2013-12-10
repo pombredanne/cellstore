@@ -109,3 +109,28 @@ dl.charttip dd {
   padding: 10px 15px 0 15px;
   white-space: nowrap;
 }
+
+pre {
+  background-color: transparent;
+  border: none;
+}
+
+pre .string {
+  color: green;
+}
+
+pre .number {
+  color: darkorange;
+}
+
+pre .boolean {
+  color: blue;
+}
+
+pre .null {
+  color: magenta;
+}
+
+pre .key {
+  color: red;
+}

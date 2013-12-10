@@ -12,7 +12,7 @@ function AnalyticsCtrl($scope, $location, $route, $http) {
 	};
 	$scope.click = function(item) {
 		if ($scope.year) return;
-		return $scope.change($scope.table.rows[item.row].c[0].v, "FY", "filer");
+		return $scope.change($scope.table.rows[item.row].c[0].v, "FY", "sector");
 	};
 
 	$scope.getdata = function() { 
@@ -51,11 +51,17 @@ function AnalyticsCtrl($scope, $location, $route, $http) {
 
 			$scope.chart.data = $scope.table;
 
-			$http({method: 'GET', url: '/data/data.json'}).
+			$http({
+					method: 'POST', 
+					url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/ExtensionPercentUsageStatsByFiscalYear.jq',
+					data: { domainsAndMembers: [] }
+				}).
 				success(function(data, status, headers, config) {
-					data.percentUsageStatsByYear.forEach(function(item) { 
-						$scope.table.rows.push({c: [ {v: item.fiscalYear}, {v: item.median}, {v: item.min}, {v: item.bottomQuartile}, {v: item.topQuartile}, {v: item.max}, {v: "<dl class='charttip'><dt>" + item.fiscalYear + "</dt><dd>Minimum: " + item.min + "<br>Lower Quartile: " + item.bottomQuartile + "<br>Median: " + item.median + "<br>Upper Quartile: " + item.topQuartile + "<br>Maximum: " + item.max + "</dd></dl>" } ]});
-					});
+					if (data && data.ExtensionUsageStatsByYears)
+						data.ExtensionUsageStatsByYears.forEach(function(item) { 
+							var key = item.fiscalYear;
+							$scope.table.rows.push({c: [ {v: key}, {v: item.median}, {v: item.min}, {v: item.bottomQuartile}, {v: item.topQuartile}, {v: item.max}, {v: "<dl class='charttip'><dt>" + key + "</dt><dd>Minimum: " + item.min + "<br>Lower Quartile: " + item.bottomQuartile + "<br>Median: " + item.median + "<br>Upper Quartile: " + item.topQuartile + "<br>Maximum: " + item.max + "</dd></dl>" } ]});
+						});
 
 					$scope.chart.data = $scope.table;
 				}).
@@ -77,11 +83,18 @@ function AnalyticsCtrl($scope, $location, $route, $http) {
 
 			$scope.chart.data = $scope.table;
 
-			$http({method: 'GET', url: '/data/details-' + $scope.group + '.json'}).
+			$http({
+					method: 'POST', 
+					url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/ExtensionPercentUsageStatsByDomain.jq',
+					data: { fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, domainsAndMembers: [ { domain: $scope.group, members: $scope[$scope.group] } ] }
+				}).
 				success(function(data, status, headers, config) {
-					data.percentUsageStatsByDomain.forEach(function(item) { 
-						$scope.table.rows.push({c: [ {v: item.members}, {v: item.median}, {v: item.min}, {v: item.bottomQuartile}, {v: item.topQuartile}, {v: item.max}, {v: "<dl class='charttip'><dt>" + item.members + "</dt><dd>Minimum: " + item.min + "<br>Lower Quartile: " + item.bottomQuartile + "<br>Median: " + item.median + "<br>Upper Quartile: " + item.topQuartile + "<br>Maximum: " + item.max + "</dd></dl>" } ]});
-					});
+					if (data && data.ExtensionUsageStatsByDomain)
+						data.ExtensionUsageStatsByDomain.forEach(function(item) { 
+							var p1 = item.selector.indexOf("'"), p2 = item.selector.lastIndexOf("'");
+							var key = item.selector.substring(p1 + 1, p2);
+							$scope.table.rows.push({c: [ {v: key}, {v: item.median}, {v: item.min}, {v: item.bottomQuartile}, {v: item.topQuartile}, {v: item.max}, {v: "<dl class='charttip'><dt>" + key + "</dt><dd>Minimum: " + item.min + "<br>Lower Quartile: " + item.bottomQuartile + "<br>Median: " + item.median + "<br>Upper Quartile: " + item.topQuartile + "<br>Maximum: " + item.max + "</dd></dl>" } ]});
+						});
 
 					$scope.chart.data = $scope.table;
 				}).

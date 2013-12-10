@@ -1,5 +1,23 @@
-And here is the code that makes it happen!<br><br>
-
-<pre>
-import module....
-</pre>
+<div class="row" ng-controller="SourceCtrl">
+	<div class="menu nav col-md-3 col-sm-4">
+		<a href="/source/ExtensionPercentUsageStatsByFiscalYear" ng-class="{ active: (query == 'ExtensionPercentUsageStatsByFiscalYear') }">
+			Extension Percent Usage Stats By Fiscal Year
+		</a>
+		<a href="/source/ExtensionPercentUsageStatsByDomain" ng-class="{ active: (query == 'ExtensionPercentUsageStatsByDomain') }">
+			Extension Percent Usage Stats By Domain
+		</a>
+	</div>
+	<div class="col-md-9 col-sm-8">
+		<div ng-hide="query">
+			We are sharing!
+			<h2>Here is how we did it!</h2>
+			<br><br>
+			Just click on the query name to see its contents.
+			<br><br>
+			<br><br>
+			<small>All queries are provided under Apache 2.0 license.<br>
+			Feel free to use them for personal or commercial use.</small>
+		</div>
+		<pre ng-bind-html="content" ng-show="content"></pre>
+	</div>
+</div>

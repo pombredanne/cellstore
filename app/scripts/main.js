@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ui', 'ui.bootstrap', 'googlechart', 'navbar-toggle'])
+angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlechart', 'navbar-toggle'])
 .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);
@@ -13,6 +13,10 @@ angular.module('main', ['ngRoute', 'ui', 'ui.bootstrap', 'googlechart', 'navbar-
             templateUrl: '/views/why.html'
         })
         .when('/source', {
+            templateUrl: '/views/source.html',
+            controller: 'SourceCtrl'
+        })
+        .when('/source/:query', {
             templateUrl: '/views/source.html',
             controller: 'SourceCtrl'
         })
@@ -41,8 +45,8 @@ angular.module('main', ['ngRoute', 'ui', 'ui.bootstrap', 'googlechart', 'navbar-
             templateUrl:'/views/404.html'
         })*/;
 }])
-.run(['$rootScope',
-    function($rootScope) {
+.run(['$rootScope', '$http',
+    function($rootScope, $http) {
         $rootScope.$on('$routeChangeSuccess', function(event, current) {
 			$rootScope.page = current.loadedTemplateUrl;
         });
@@ -57,5 +61,72 @@ angular.module('main', ['ngRoute', 'ui', 'ui.bootstrap', 'googlechart', 'navbar-
                 this.$apply(fn);
             }
         };
+
+		$http({
+				method: 'POST', 
+				url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/FilerSectorList.jq'
+			}).
+			success(function(data, status, headers, config) {
+				if (data && data.members){
+					$rootScope[data.domain] =  [];
+					data.members.forEach(function(item) {
+						$rootScope[data.domain].push(item[data.domain]);
+					});
+					$rootScope.safeApply();
+				}
+			});
+
+		$http({
+				method: 'POST', 
+				url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/GeneratorList.jq'
+			}).
+			success(function(data, status, headers, config) {
+				if (data && data.members){
+					$rootScope[data.domain] =  [];
+					data.members.forEach(function(item) {
+						$rootScope[data.domain].push(item[data.domain]);
+					});
+					$rootScope.safeApply();
+				}
+			});
+
+		$http({
+				method: 'POST', 
+				url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/EntityTypeList.jq'
+			}).
+			success(function(data, status, headers, config) {
+				if (data && data.members){
+					$rootScope[data.domain] =  [];
+					data.members.forEach(function(item) {
+						$rootScope[data.domain].push(item[data.domain]);
+					});
+					$rootScope.safeApply();
+				}
+			});
+
+		$http({
+				method: 'POST', 
+				url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/StockIndexList.jq'
+			}).
+			success(function(data, status, headers, config) {
+				if (data && data.members){
+					$rootScope[data.domain] =  [];
+					data.members.forEach(function(item) {
+						$rootScope[data.domain].push(item[data.domain]);
+					});
+					$rootScope.safeApply();
+				}
+			});
+
+		$http({
+				method: 'POST', 
+				url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/EntityNameTickerCIKTuples.jq'
+			}).
+			success(function(data, status, headers, config) {
+				if (data && data.entityNameTickerSymbolCikTuples){
+					$rootScope.entities =  data.entityNameTickerSymbolCikTuples;
+					$rootScope.safeApply();
+				}
+			});
     }
 ]);
