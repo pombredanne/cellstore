@@ -17,13 +17,23 @@
     </div>
     <div class="col-md-9 col-sm-8">
         <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <h5>Type to search company</h5>
-                <input type="text" ng-model="entity" placeholder="Company Name" ng-keyup="SetCik()"
-                       typeahead="e.name for e in entities | filter:$viewValue | limitTo:8">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <h5>Company</h5>
+				<div class="row">
+					<div class="col-md-12" style="padding-bottom: 15px">
+						<input class="form-control" type="text" ng-model="entity" placeholder="Search for a company by name"
+							typeahead="e.name for e in entities | filter:$viewValue | limitTo:8">
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<input class="form-control" type="text" ng-model="cik" placeholder="Search by CIK"
+							typeahead="e.cik for e in entities | filter:$viewValue | limitTo:8">
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<input class="form-control" type="text" ng-model="ticker" placeholder="Search by ticker symbol"
+							typeahead="e.ticker for e in entities | filter:$viewValue | limitTo:8">
+					</div>
+				</div>
             </div>
-        </div>
-        <div class="row" style="padding-bottom: 25px" ng-show="year">
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <h5>Fiscal Year Focus</h5>
                 <select size=5 ng-model="year" ng-change="change(year, period)" class="form-control">
@@ -45,35 +55,26 @@
                 </select>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-6">
+        <div class="row" style="padding-bottom: 25px" ng-show="year">
+            <div class="col-md-6 col-sm-6 col-xs-6">
                 <h5>Concept map</h5>
-                <select ng-model="conceptMap" ng-options="c for c in conceptMaps">
+                <select ng-model="conceptMap" ng-options="c for c in conceptMaps" class="form-control">
                     <option value="">None</option>
                 </select>
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <h5>&nbsp;</h5>
-                <input type="text" ng-model="conceptMapKey" placeholder="Type to search concept"
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <h5>Concept name</h5>
+                <input type="text" ng-model="conceptMapKey" placeholder="Type to search concept" class="form-control"
                        typeahead="c for c in conceptMapKeys | filter:$viewValue | limitTo:8">
             </div>
         </div>
-        <div class="row" style="padding-top: 5px; padding-bottom: 15px">
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <button class="btn btn-small" ng-click="getValue()">GO</button>
+        <div class="row" style="padding-bottom: 15px">
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <button class="btn btn-default btn-lg btn-block" class="form-control" ng-click="getValue()">GO</button>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-6">
-
-                <input type="text" ng-model="factValue" readonly="true" placeholder="Fact Value">
-                <option></option>
-                </select>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-
-                <input type="text" ng-model="units" readonly="true" placeholder="Units">
-            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+				{{factValue}} {{units}}
+			</div>
         </div>
     </div>
 </div>
