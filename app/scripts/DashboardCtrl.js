@@ -132,13 +132,13 @@ function DashboardCtrl($scope, $location, $route, $http)
                 items = [];
                 for (var key in balanceSheet)
                 {
-                    if (key == "format" || key == "BalanceSheetDate")
+                    if (key == "format")
                     {
                         continue;
                     }
                     item = {};
                     item.label = key.replace(/([a-z])([A-Z])/g, '$1 $2');
-                    item.value = parseFloat(balanceSheet[key].value) > 0 ? parseFloat(balanceSheet[key].value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,") : 0;
+                    item.value = !isNaN(balanceSheet[key].value) ? parseInt(balanceSheet[key].value) > 0 ? parseInt(balanceSheet[key].value).toLocaleString() : 0 : balanceSheet[key].value;
 
                     if (!balanceSheet[key].imputed)
                     {
@@ -189,8 +189,10 @@ function DashboardCtrl($scope, $location, $route, $http)
                     {
                         item.hasWarning = false;
                     }
-
-                    items.push(item);
+                    if (key == "BalanceSheetDate")
+                        $scope.generalInfo.push(item);
+                    else
+                        items.push(item);
 
 
                 }
