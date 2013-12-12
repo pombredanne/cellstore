@@ -5,6 +5,10 @@
   background: #ccc;
 }
 
+.logo {
+  background: url('../images/analytics.svg') no-repeat right top;
+}
+
 .header .container {
   padding: 20px 0;
   margin-bottom: 30px;
@@ -21,7 +25,6 @@
 
 .header .container a#logo i {
   float: left;
-  padding: 5px;
 }
 
 .header .container a#logo h4 {
