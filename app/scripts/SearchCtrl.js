@@ -9,11 +9,12 @@ function SearchCtrl($scope, $location, $route, $http, $filter)
     $scope.conceptMap = $scope.conceptMaps[0];
     $scope.conceptMapKey = '';
     $scope.conceptMapKeys = ['fac:Assets', 'fac:Revenues' , 'fac:Equity'];
-    $scope.entity = '';
     $scope.entities = [];
     $scope.factValue = '';
     $scope.units = '';
-    $scope.Cik = '';
+    $scope.name = '';
+    $scope.cik = '';
+    $scope.ticker = '';
 
     $scope.change = function (year, period)
     {
@@ -26,7 +27,7 @@ function SearchCtrl($scope, $location, $route, $http, $filter)
         $http({method: 'GET', url: '/data/entities.json'})
             .success(function (data, status, headers, config)
             {
-                $scope.entities = data.entities.entity;
+                $scope.entities = data.entityNameTickerSymbolCikTuples;
 
             })
             .error(function (data, status, headers, config)
@@ -38,7 +39,7 @@ function SearchCtrl($scope, $location, $route, $http, $filter)
 
     $scope.getValue = function ()
     {
-        if ($scope.Cik != '' && $scope.period && $scope.year && $scope.conceptMap != null && $scope.conceptMapKey != '')
+        if ($scope.cik != '' && $scope.period && $scope.year && $scope.conceptMap != null && $scope.conceptMapKey != '')
         {
             $http({method: 'GET', url: '/data/factValue.json'})
                 .success(function (data, status, headers, config)
@@ -81,4 +82,64 @@ function SearchCtrl($scope, $location, $route, $http, $filter)
     }
 
     $scope.getEntities();
+
+    $scope.update = function (element)
+    {
+        $scope.entities.filter(function (e)
+        {
+            if (e[element] == $scope[element])
+            {
+                $scope.name = e.name;
+                $scope.cik = e.cik;
+                $scope.ticker = e.ticker;
+                return;
+            }
+        })
+
+    };
+
+    /* $scope.$watch('name', function (value)
+     {
+     $scope.entities.filter(function (e)
+     {
+     if (e.name == value)
+     {
+     $scope.name = e.name;
+     $scope.cik = e.cik;
+     $scope.ticker = e.ticker;
+     return;
+     }
+     })
+
+     });
+
+     $scope.$watch('cik', function (value)
+     {
+     $scope.entities.filter(function (e)
+     {
+     if (e.cik == value)
+     {
+     $scope.name = e.name;
+     $scope.cik = e.cik;
+     $scope.ticker = e.ticker;
+     return;
+     }
+     })
+
+     });
+
+     $scope.$watch('ticker', function (value)
+     {
+     $scope.entities.filter(function (e)
+     {
+     if (e.ticker == value)
+     {
+     $scope.name = e.name;
+     $scope.cik = e.cik;
+     $scope.ticker = e.ticker;
+     return;
+     }
+     })
+
+     });*/
 }

@@ -1,364 +1,1293 @@
 {
-    "xml": {
-        "source": "http://www.sec.gov/Archives/edgar/data/1496443/000101968712001195/tpnl-20111231.xml",
-        "components": {
-            "balance-sheet": {
-                "format": "Classified",
-                "BalanceSheetDate": {
-                    "imputed": "true",
-                    "rules": {
-                        "rule": "if(true() ) $fro:BalanceSheetDate = $facts:contexts(\"instant\")(\"date\")",
-                        "audit-trail": "BalanceSheetDate[2011-12-31] = $facts:contexts(\"instant\")(\"date\")"
-                    },
-                    "value": "2011-12-31"
+    "source": "http://www.sec.gov/Archives/edgar/data/66740/000110465913010881/mmm-20121231.xml",
+    "components": {
+        "balance-sheet": {
+            "format": "Classified",
+            "BalanceSheetDate": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if(true() ) $fro:BalanceSheetDate = $facts:contexts(\"instant\")(\"date\")",
+                    "audit-trail": "BalanceSheetDate[2012-12-31] = $facts:contexts(\"instant\")(\"date\")"
                 },
-                "Assets": {
-                    "concept": "us-gaap:Assets",
-                    "unitRef": "usd",
-                    "contextRef": "c0_AsOf31Dec2011",
-                    "decimals": "0",
-                    "value": "7096823",
-                    "validation-rules": [
-                        {
-                            "rule-name": "bs3",
-                            "rule-calculation": {
-                                "rule": "Assets - (AssetsCurrent + AssetsNoncurrent)",
-                                "audit-trail": "Assets[7, 096, 823] - (AssetsCurrent[6,832,777] + AssetsNoncurrent[264,046])"
-                            },
-                            "rule-passed": "false"
-                        },
-                        {
-                            "rule-name": "bs2",
-                            "rule-calculation": {
-                                "rule": "Assets -LiabilitiesAndEquity",
-                                "audit-trail": "Assets[7,096,823] - LiabilitiesAndEquity[7,096,823]"
-                            },
-                            "rule-passed": "true"
-                        }
-                    ]
-                },
-                "AssetsCurrent": {
-                    "concept": "us-gaap:AssetsCurrent",
-                    "unitRef": "usd",
-                    "contextRef": "c0_AsOf31Dec2011",
-                    "decimals": "0",
-                    "value": "6832777",
-                    "validation-rules": [
-                        {
-                            "rule-name": "bs4",
-                            "rule-calculation": {
-                                "rule": "                                Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
-                                "audit-trail": "Liabilities[10,007,608] - (LiabilitiesCurrent[10,007,608] + LiabilitiesNoncurrent[0])"
-                            },
-                            "rule-passed": "true"
-                        },
-                        {
-                            "rule-name": "bs3",
-                            "rule-calculation": {
-                                "rule": "                                Assets - (AssetsCurrent + AssetsNoncurrent)",
-                                "audit-trail": "Assets[7,096,823] - (AssetsCurrent[6,832,777] + AssetsNoncurrent[264,046])"
-                            },
-                            "rule-passed": "true"
-                        }
-                    ]
-                },
-                "AssetsNoncurrent": {
-                    "imputed": "true",
-                    "rules": {
-                        "rule": "if($fro:AssetsNoncurrent = 0 and $fro:AssetsCurrent != 0 and $fro:Assets != 0 ) $fro:AssetsNoncurrent = $fro:Assets - $fro:AssetsCurrent",
-                        "audit-trail": "AssetsNoncurrent[264,046] = Assets[7,096,823] - AssetsCurrent[6,832,777]"
-                    },
-                    "value": "264046",
-                    "validation-rules": [
-                        {
-                            "rule-name": "bs4",
-                            "rule-calculation": {
-                                "rule": "                                Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
-                                "audit-trail": "Liabilities[10,007,608] - (LiabilitiesCurrent[10,007,608] + LiabilitiesNoncurrent[0])"
-                            },
-                            "rule-passed": "true"
-                        },
-                        {
-                            "rule-name": "bs3",
-                            "rule-calculation": {
-                                "rule": "                                Assets - (AssetsCurrent + AssetsNoncurrent)",
-                                "audit-trail": "Assets[7,096,823] - (AssetsCurrent[6,832,777] + AssetsNoncurrent[264,046])"
-                            },
-                            "rule-passed": "true"
-                        }
-                    ]
-                },
-                "LiabilitiesAndEquity": {
-                    "concept": "us-gaap:LiabilitiesAndStockholdersEquity",
-                    "unitRef": "usd",
-                    "contextRef": "c0_AsOf31Dec2011",
-                    "decimals": "0",
-                    "value": "7096823",
-                    "validation-rules": [
-                        {
-                            "rule-name": "bs5",
-                            "rule-calculation": {
-                                "rule": "                                LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
-                                "audit-trail": "LiabilitiesAndEquity[7,096,823] - (Liabilities[10,007,608] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[-2,910,785])"
-                            },
-                            "rule-passed": "true"
-                        },
-                        {
-                            "rule-name": "bs2",
-                            "rule-calculation": {
-                                "rule": "                                Assets -LiabilitiesAndEquity                                ",
-                                "audit-trail": "Assets[7,096,823] - LiabilitiesAndEquity[7,096,823]"
-                            },
-                            "rule-passed": "true"
-                        }
-                    ]
-                },
-                "Liabilities": {
-                    "concept": "us-gaap:Liabilities",
-                    "unitRef": "usd",
-                    "contextRef": "c0_AsOf31Dec2011",
-                    "decimals": "0",
-                    "value": "10007608",
-                    "validation-rules": [
-                        {
-                            "rule-name": "bs5",
-                            "rule-calculation": {
-                                "rule": "                                LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
-                                "audit-trail": "LiabilitiesAndEquity[7,096,823] - (Liabilities[10,007,608] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[-2,910,785])"
-                            },
-                            "rule-passed": "true"
-                        },
-                        {
-                            "rule-name": "bs4",
-                            "rule-calculation": {
-                                "rule": "                                Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
-                                "audit-trail": "Liabilities[10,007,608] - (LiabilitiesCurrent[10,007,608] + LiabilitiesNoncurrent[0])"
-                            },
-                            "rule-passed": "true"
-                        }
-                    ]
-                },
-                "LiabilitiesCurrent": {
-                    "concept": "us-gaap:LiabilitiesCurrent",
-                    "unitRef": "usd",
-                    "contextRef": "c0_AsOf31Dec2011",
-                    "decimals": "0",
-                    "value": "10007608",
-                    "validation-rules": [
-                        {
-                            "rule-name": "bs4",
-                            "rule-calculation": {
-                                "rule": "                                Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
-                                "audit-trail": "Liabilities[10,007,608] - (LiabilitiesCurrent[10,007,608] + LiabilitiesNoncurrent[0])"
-                            },
-                            "rule-passed": "true"
-                        },
-                        {
-                            "rule-name": "bs3",
-                            "rule-calculation": {
-                                "rule": "                                Assets - (AssetsCurrent + AssetsNoncurrent)",
-                                "audit-trail": "Assets[7,096,823] - (AssetsCurrent[6,832,777] + AssetsNoncurrent[264,046])"
-                            },
-                            "rule-passed": "true"
-                        }
-                    ]
-                },
-                "LiabilitiesNoncurrent": {
-                    "imputed": "true",
-                    "rules": {
-                        "rule": "if($fro:LiabilitiesNoncurrent = 0 and $fro:LiabilitiesCurrent != 0 and $fro:Liabilities !=0 ) $fro:LiabilitiesNoncurrent = $fro:Liabilities - $fro:LiabilitiesCurrent",
-                        "audit-trail": "LiabilitiesNoncurrent[0] = Liabilities[10,007,608] - LiabilitiesCurrent[10,007,608]"
-                    },
-                    "value": "0",
-                    "validation-rules": [
-                        {
-                            "rule-name": "bs4",
-                            "rule-calculation": {
-                                "rule": "Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
-                                "audit-trail": "Liabilities[10,007,608] - (LiabilitiesCurrent[10,007,608] + LiabilitiesNoncurrent[0])"
-                            },
-                            "rule-passed": "true"
-                        },
-                        {
-                            "rule-name": "bs3",
-                            "rule-calculation": {
-                                "rule": "Assets - (AssetsCurrent + AssetsNoncurrent)",
-                                "audit-trail": "Assets[7,096,823] - (AssetsCurrent[6,832,777] + AssetsNoncurrent[264,046])"
-                            },
-                            "rule-passed": "true"
-                        }
-                    ]
-                },
-                "CommitmentsAndContingencies": {
-                    "imputed": "true",
-                    "rules": {
-                        "rule": "if($CommitmentsAndContingencies eq jn:null()) $CommitmentsAndContingencies = 0",
-                        "audit-trail": "CommitmentsAndContingencies[0] = 0"
-                    },
-                    "value": "0",
-                    "validation-rules": {
-                        "rule-name": "bs5",
+                "value": "2012-12-31"
+            },
+            "Assets": {
+                "concept": "us-gaap:Assets",
+                "id": "ID_112",
+                "decimals": "-6",
+                "contextRef": "AS_OF_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "33876000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "bs3",
                         "rule-calculation": {
-                            "rule": "                            LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
-                            "audit-trail": "LiabilitiesAndEquity[7,096,823] - (Liabilities[10,007,608] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[-2,910,785])"
+                            "rule": "Assets - (AssetsCurrent + AssetsNoncurrent)",
+                            "audit-trail": "Assets[33,876,000,000] - (AssetsCurrent[13,630,000,000] + AssetsNoncurrent[20,246,000,000])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "bs2",
+                        "rule-calculation": {
+                            "rule": "Assets - LiabilitiesAndEquity",
+                            "audit-trail": "Assets[33,876,000,000] - LiabilitiesAndEquity[33,876,000,000]"
                         },
                         "rule-passed": "true"
                     }
-                },
-                "TemporaryEquity": {
-                    "imputed": "true",
-                    "rules": {
-                        "rule": "if($TemporaryEquity eq jn:null()) $TemporaryEquity = 0",
-                        "audit-trail": "TemporaryEquity[0] = 0"
+                ]
+            },
+            "AssetsCurrent": {
+                "concept": "us-gaap:AssetsCurrent",
+                "id": "ID_103",
+                "decimals": "-6",
+                "contextRef": "AS_OF_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "13630000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "bs4",
+                        "rule-calculation": {
+                            "rule": "Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
+                            "audit-trail": "Liabilities[15,836,000,000] - (LiabilitiesCurrent[6,200,000,000] + LiabilitiesNoncurrent[9,636,000,000])"
+                        },
+                        "rule-passed": "true"
                     },
-                    "value": "0",
-                    "validation-rules": {
+                    {
+                        "rule-name": "bs3",
+                        "rule-calculation": {
+                            "rule": "Assets - (AssetsCurrent + AssetsNoncurrent)",
+                            "audit-trail": "Assets[33,876,000,000] - (AssetsCurrent[13,630,000,000] + AssetsNoncurrent[20,246,000,000])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "AssetsNoncurrent": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:AssetsNoncurrent = 0 and $fro:AssetsCurrent != 0 and $fro:Assets != 0 ) $fro:AssetsNoncurrent = $fro:Assets - $fro:AssetsCurrent",
+                    "audit-trail": "AssetsNoncurrent[20,246,000,000] = Assets[33,876,000,000] - AssetsCurrent[13,630,000,000]"
+                },
+                "value": "20246000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "bs4",
+                        "rule-calculation": {
+                            "rule": "Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
+                            "audit-trail": "Liabilities[15,836,000,000] - (LiabilitiesCurrent[6,200,000,000] + LiabilitiesNoncurrent[9,636,000,000])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "bs3",
+                        "rule-calculation": {
+                            "rule": "Assets - (AssetsCurrent + AssetsNoncurrent)",
+                            "audit-trail": "Assets[33,876,000,000] - (AssetsCurrent[13,630,000,000] + AssetsNoncurrent[20,246,000,000])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "LiabilitiesAndEquity": {
+                "concept": "us-gaap:LiabilitiesAndStockholdersEquity",
+                "id": "ID_131",
+                "decimals": "-6",
+                "contextRef": "AS_OF_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "33876000000",
+                "validation-rules": [
+                    {
                         "rule-name": "bs5",
                         "rule-calculation": {
                             "rule": "LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
-                            "audit-trail": "LiabilitiesAndEquity[7,096,823] - (Liabilities[10,007,608] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[-2,910,785])"
+                            "audit-trail": "LiabilitiesAndEquity[33,876,000,000] - (Liabilities[15,836,000,000] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[18,040,000,000])"
                         },
                         "rule-passed": "true"
-                    }
-                },
-                "Equity": {
-                    "concept": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
-                    "unitRef": "usd",
-                    "contextRef": "c0_AsOf31Dec2011",
-                    "decimals": "0",
-                    "value": "-2910785",
-                    "validation-rules": [
-                        {
-                            "rule-name": "bs5",
-                            "rule-calculation": {
-                                "rule": "LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
-                                "audit-trail": "LiabilitiesAndEquity[7,096,823] - (Liabilities[10,007,608] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[-2,910,785])"
-                            },
-                            "rule-passed": "true"
-                        },
-                        {
-                            "rule-name": "bs1",
-                            "rule-calculation": {
-                                "rule": "Equity - ( EquityAttributableToParent + EquityAttributableToNoncontrollingInterest)",
-                                "audit-trail": "Equity[-2,910,785] - ( EquityAttributableToParent[-2,968,168] + EquityAttributableToNoncontrollingInterest[57,383])"
-                            },
-                            "rule-passed": "true"
-                        }
-                    ]
-                },
-                "EquityAttributableToNoncontrollingInterest": {
-                    "concept": "us-gaap:MinorityInterest",
-                    "unitRef": "usd",
-                    "contextRef": "c0_AsOf31Dec2011",
-                    "decimals": "0",
-                    "value": "57383",
-                    "validation-rules": {
-                        "rule-name": "bs1",
+                    },
+                    {
+                        "rule-name": "bs2",
                         "rule-calculation": {
-                            "rule": "Equity - ( EquityAttributableToParent + EquityAttributableToNoncontrollingInterest)",
-                            "audit-trail": "Equity[-2,910,785] - ( EquityAttributableToParent[-2,968,168] + EquityAttributableToNoncontrollingInterest[57,383])"
+                            "rule": "Assets - LiabilitiesAndEquity",
+                            "audit-trail": "Assets[33,876,000,000] - LiabilitiesAndEquity[33,876,000,000]"
                         },
                         "rule-passed": "true"
                     }
-                },
-                "EquityAttributableToParent": {
-                    "concept": "us-gaap:StockholdersEquity",
-                    "unitRef": "usd",
-                    "contextRef": "c0_AsOf31Dec2011",
-                    "decimals": "0",
-                    "value": "-2968168",
-                    "validation-rules": {
-                        "rule-name": "bs1",
+                ]
+            },
+            "Liabilities": {
+                "concept": "us-gaap:Liabilities",
+                "id": "ID_122",
+                "decimals": "-6",
+                "contextRef": "AS_OF_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "15836000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "bs5",
                         "rule-calculation": {
-                            "rule": "Equity - ( EquityAttributableToParent + EquityAttributableToNoncontrollingInterest)",
-                            "audit-trail": "Equity[-2,910,785] - ( EquityAttributableToParent[-2,968,168] + EquityAttributableToNoncontrollingInterest[57,383])"
+                            "rule": "LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
+                            "audit-trail": "LiabilitiesAndEquity[33,876,000,000] - (Liabilities[15,836,000,000] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[18,040,000,000])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "bs4",
+                        "rule-calculation": {
+                            "rule": "Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
+                            "audit-trail": "Liabilities[15,836,000,000] - (LiabilitiesCurrent[6,200,000,000] + LiabilitiesNoncurrent[9,636,000,000])"
                         },
                         "rule-passed": "true"
                     }
-                }
-            }
-        },
-        "entity": {
-            "EntityRegistrantName": {
-                "concept": "dei:EntityRegistrantName",
-                "contextRef": "c2_From1Jan2011To31Dec2011",
-                "value": "3PEA INTERNATIONAL, INC."
+                ]
             },
-            "EntityCentralIndexKey": {
-                "concept": "dei:EntityCentralIndexKey",
-                "contextRef": "c2_From1Jan2011To31Dec2011",
-                "value": "0001496443"
+            "LiabilitiesCurrent": {
+                "concept": "us-gaap:LiabilitiesCurrent",
+                "id": "ID_118",
+                "decimals": "-6",
+                "contextRef": "AS_OF_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "6200000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "bs4",
+                        "rule-calculation": {
+                            "rule": "Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
+                            "audit-trail": "Liabilities[15,836,000,000] - (LiabilitiesCurrent[6,200,000,000] + LiabilitiesNoncurrent[9,636,000,000])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "bs3",
+                        "rule-calculation": {
+                            "rule": "Assets - (AssetsCurrent + AssetsNoncurrent)",
+                            "audit-trail": "Assets[33,876,000,000] - (AssetsCurrent[13,630,000,000] + AssetsNoncurrent[20,246,000,000])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
             },
-            "EntityFilerCategory": {
-                "concept": "dei:EntityFilerCategory",
-                "contextRef": "c2_From1Jan2011To31Dec2011",
-                "value": "Smaller Reporting Company"
-            },
-            "TradingSymbol": {
+            "LiabilitiesNoncurrent": {
                 "imputed": "true",
                 "rules": {
-                    "rule": "if($TradingSymbol eq jn:null()) $TradingSymbol = 0",
-                    "audit-trail": "TradingSymbol[0] = 0"
+                    "rule": "if($fro:LiabilitiesNoncurrent = 0 and $fro:LiabilitiesCurrent != 0 and $fro:Liabilities !=0 ) $fro:LiabilitiesNoncurrent = $fro:Liabilities - $fro:LiabilitiesCurrent",
+                    "audit-trail": "LiabilitiesNoncurrent[9,636,000,000] = Liabilities[15,836,000,000] - LiabilitiesCurrent[6,200,000,000]"
                 },
-                "value": "0"
+                "value": "9636000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "bs4",
+                        "rule-calculation": {
+                            "rule": "Liabilities - (LiabilitiesCurrent + LiabilitiesNoncurrent)",
+                            "audit-trail": "Liabilities[15,836,000,000] - (LiabilitiesCurrent[6,200,000,000] + LiabilitiesNoncurrent[9,636,000,000])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "bs3",
+                        "rule-calculation": {
+                            "rule": "Assets - (AssetsCurrent + AssetsNoncurrent)",
+                            "audit-trail": "Assets[33,876,000,000] - (AssetsCurrent[13,630,000,000] + AssetsNoncurrent[20,246,000,000])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "CommitmentsAndContingencies": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($CommitmentsAndContingencies eq jn:null()) $CommitmentsAndContingencies = 0",
+                    "audit-trail": "CommitmentsAndContingencies[0] = 0"
+                },
+                "value": "0",
+                "validation-rules": {
+                    "rule-name": "bs5",
+                    "rule-calculation": {
+                        "rule": "LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
+                        "audit-trail": "LiabilitiesAndEquity[33,876,000,000] - (Liabilities[15,836,000,000] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[18,040,000,000])"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "TemporaryEquity": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($TemporaryEquity eq jn:null()) $TemporaryEquity = 0",
+                    "audit-trail": "TemporaryEquity[0] = 0"
+                },
+                "value": "0",
+                "validation-rules": {
+                    "rule-name": "bs5",
+                    "rule-calculation": {
+                        "rule": "LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
+                        "audit-trail": "LiabilitiesAndEquity[33,876,000,000] - (Liabilities[15,836,000,000] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[18,040,000,000])"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "Equity": {
+                "concept": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+                "id": "ID_130",
+                "decimals": "-6",
+                "contextRef": "AS_OF_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "18040000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "bs5",
+                        "rule-calculation": {
+                            "rule": "LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)",
+                            "audit-trail": "LiabilitiesAndEquity[33,876,000,000] - (Liabilities[15,836,000,000] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + Equity[18,040,000,000])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "bs1",
+                        "rule-calculation": {
+                            "rule": "Equity - ( EquityAttributableToParent + EquityAttributableToNoncontrollingInterest)",
+                            "audit-trail": "Equity[18,040,000,000] - ( EquityAttributableToParent[17,575,000,000] + EquityAttributableToNoncontrollingInterest[465,000,000])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "EquityAttributableToNoncontrollingInterest": {
+                "concept": "us-gaap:MinorityInterest",
+                "id": "ID_129",
+                "decimals": "-6",
+                "contextRef": "AS_OF_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "465000000",
+                "validation-rules": {
+                    "rule-name": "bs1",
+                    "rule-calculation": {
+                        "rule": "Equity - ( EquityAttributableToParent + EquityAttributableToNoncontrollingInterest)",
+                        "audit-trail": "Equity[18,040,000,000] - ( EquityAttributableToParent[17,575,000,000] + EquityAttributableToNoncontrollingInterest[465,000,000])"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "EquityAttributableToParent": {
+                "concept": "us-gaap:StockholdersEquity",
+                "id": "ID_128",
+                "decimals": "-6",
+                "contextRef": "AS_OF_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "17575000000",
+                "validation-rules": {
+                    "rule-name": "bs1",
+                    "rule-calculation": {
+                        "rule": "Equity - ( EquityAttributableToParent + EquityAttributableToNoncontrollingInterest)",
+                        "audit-trail": "Equity[18,040,000,000] - ( EquityAttributableToParent[17,575,000,000] + EquityAttributableToNoncontrollingInterest[465,000,000])"
+                    },
+                    "rule-passed": "true"
+                }
             }
         },
-        "filing": {
-            "CurrentFiscalYearEndDate": {
-                "concept": "dei:CurrentFiscalYearEndDate",
-                "contextRef": "c2_From1Jan2011To31Dec2011",
-                "value": "--12-31"
-            },
-            "DocumentFiscalPeriodFocus": {
-                "concept": "dei:DocumentFiscalPeriodFocus",
-                "contextRef": "c2_From1Jan2011To31Dec2011",
-                "value": "FY"
-            },
-            "DocumentType": {
-                "concept": "dei:DocumentType",
-                "contextRef": "c2_From1Jan2011To31Dec2011",
-                "value": "10-K"
-            },
-            "DocumentPeriodEndDate": {
-                "concept": "dei:DocumentPeriodEndDate",
-                "contextRef": "c2_From1Jan2011To31Dec2011",
-                "value": "2011-12-31"
-            },
-            "DocumentFiscalYearFocus": {
-                "concept": "dei:DocumentFiscalYearFocus",
-                "contextRef": "c2_From1Jan2011To31Dec2011",
-                "value": "2011"
-            },
-            "namespaces": {
-                "fro": "http://financialreportontology.wikispaces.com/",
-                "xsi": "http://www.w3.org/2001/XMLSchema-instance",
-                "instance": "http://www.xbrl.org/2003/instance",
-                "us-gaap": "http://fasb.org/us-gaap/2011-01-31",
-                "dei": "http://xbrl.sec.gov/dei/2011-01-31",
-                "tpnl": "http://www.3pea.com/20111231",
-                "linkbase": "http://www.xbrl.org/2003/linkbase",
-                "xbrldi": "http://xbrl.org/2006/xbrldi",
-                "xlink": "http://www.w3.org/1999/xlink"
-            },
-            "contexts": {
-                "instant": {
-                    "id": "c0_AsOf31Dec2011",
-                    "date": "2011-12-31",
-                    "identifier": {
-                        "-scheme": "http://www.sec.gov/CIK",
-                        "#text": "0001496443"
-                    }
+        "income-statement": {
+            "format": "Multi-step",
+            "IncomeStatementStartPeriod": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if(true() ) $fro:IncomeStatementStartPeriod = $facts:contexts(\"duration\")(\"startDate\")",
+                    "audit-trail": "IncomeStatementStartPeriod[2012-01-01] = $facts:contexts(\"duration\")(\"startDate\")"
                 },
-                "duration": {
-                    "id": "c2_From1Jan2011To31Dec2011",
-                    "duration": "364",
-                    "startDate": "2011-01-01",
-                    "endDate": "2011-12-31",
-                    "identifier": {
-                        "-scheme": "http://www.sec.gov/CIK",
-                        "#text": "0001496443"
+                "value": "2012-01-01"
+            },
+            "Revenues": {
+                "concept": "us-gaap:SalesRevenueNet",
+                "id": "ID_15",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "29904000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "is11",
+                        "rule-calculation": {
+                            "rule": "OperatingIncomeLoss - (Revenues - CostsAndExpenses + OtherOperatingIncome)",
+                            "audit-trail": "OperatingIncomeLoss[6,483,000,000] - (Revenues[29,904,000,000] - CostsAndExpenses[23,421,000,000] + OtherOperatingIncome[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is1",
+                        "rule-calculation": {
+                            "rule": "Revenues - CostOfRevenue - GrossProfit",
+                            "audit-trail": "Revenues[29,904,000,000] - CostOfRevenue[15,685,000,000] - GrossProfit[14,219,000,000]"
+                        },
+                        "rule-passed": "true"
                     }
+                ]
+            },
+            "CostOfRevenue": {
+                "concept": "us-gaap:CostOfRevenue",
+                "id": "ID_18",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "15685000000",
+                "validation-rules": {
+                    "rule-name": "is1",
+                    "rule-calculation": {
+                        "rule": "Revenues - CostOfRevenue - GrossProfit",
+                        "audit-trail": "Revenues[29,904,000,000] - CostOfRevenue[15,685,000,000] - GrossProfit[14,219,000,000]"
+                    },
+                    "rule-passed": "true"
                 }
+            },
+            "GrossProfit": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:GrossProfit = 0 and $fro:Revenues != 0 and $fro:CostOfRevenue != 0 ) $fro:GrossProfit = $fro:Revenues - $fro:CostOfRevenue",
+                    "audit-trail": "GrossProfit[14,219,000,000] = Revenues[29,904,000,000] - CostOfRevenue[15,685,000,000]"
+                },
+                "value": "14219000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "is2",
+                        "rule-calculation": {
+                            "rule": "GrossProfit - OperatingExpenses + OtherOperatingIncome - OperatingIncomeLoss",
+                            "audit-trail": "GrossProfit[14,219,000,000] - OperatingExpenses[7,736,000,000] + OtherOperatingIncome[0] - OperatingIncomeLoss[6,483,000,000]"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is1",
+                        "rule-calculation": {
+                            "rule": "Revenues - CostOfRevenue - GrossProfit",
+                            "audit-trail": "Revenues[29,904,000,000] - CostOfRevenue[15,685,000,000] - GrossProfit[14,219,000,000]"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "OperatingExpenses": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:OperatingExpenses = 0 and $fro:CostsAndExpenses != 0 and $fro:CostOfRevenue != 0 ) $fro:OperatingExpenses = $fro:CostsAndExpenses - $fro:CostOfRevenue",
+                    "audit-trail": "OperatingExpenses[7,736,000,000] = CostsAndExpenses[23,421,000,000] - CostOfRevenue[15,685,000,000]"
+                },
+                "value": "7736000000",
+                "validation-rules": {
+                    "rule-name": "is2",
+                    "rule-calculation": {
+                        "rule": "GrossProfit - OperatingExpenses + OtherOperatingIncome - OperatingIncomeLoss",
+                        "audit-trail": "GrossProfit[14,219,000,000] - OperatingExpenses[7,736,000,000] + OtherOperatingIncome[0] - OperatingIncomeLoss[6,483,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "CostsAndExpenses": {
+                "concept": "us-gaap:CostsAndExpenses",
+                "id": "ID_27",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "23421000000",
+                "validation-rules": {
+                    "rule-name": "is11",
+                    "rule-calculation": {
+                        "rule": "OperatingIncomeLoss - (Revenues - CostsAndExpenses + OtherOperatingIncome)",
+                        "audit-trail": "OperatingIncomeLoss[6,483,000,000] - (Revenues[29,904,000,000] - CostsAndExpenses[23,421,000,000] + OtherOperatingIncome[0])"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "OtherOperatingIncome": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:OtherOperatingIncome = 0 and $fro:OperatingIncomeLoss != 0 and $fro:GrossProfit != 0 and $fro:OperatingExpenses != 0 ) $fro:OtherOperatingIncome = $fro:OperatingIncomeLoss - ( $fro:GrossProfit - $fro:OperatingExpenses )",
+                    "audit-trail": "OtherOperatingIncome[0] = OperatingIncomeLoss[6,483,000,000] - ( GrossProfit[14,219,000,000] - OperatingExpenses[7,736,000,000] )"
+                },
+                "value": "0",
+                "validation-rules": [
+                    {
+                        "rule-name": "is11",
+                        "rule-calculation": {
+                            "rule": "OperatingIncomeLoss - (Revenues - CostsAndExpenses + OtherOperatingIncome)",
+                            "audit-trail": "OperatingIncomeLoss[6,483,000,000] - (Revenues[29,904,000,000] - CostsAndExpenses[23,421,000,000] + OtherOperatingIncome[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is2",
+                        "rule-calculation": {
+                            "rule": "GrossProfit - OperatingExpenses + OtherOperatingIncome - OperatingIncomeLoss",
+                            "audit-trail": "GrossProfit[14,219,000,000] - OperatingExpenses[7,736,000,000] + OtherOperatingIncome[0] - OperatingIncomeLoss[6,483,000,000]"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "OperatingIncomeLoss": {
+                "concept": "us-gaap:OperatingIncomeLoss",
+                "id": "ID_30",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "6483000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "is11",
+                        "rule-calculation": {
+                            "rule": "OperatingIncomeLoss - (Revenues - CostsAndExpenses + OtherOperatingIncome)",
+                            "audit-trail": "OperatingIncomeLoss[6,483,000,000] - (Revenues[29,904,000,000] - CostsAndExpenses[23,421,000,000] + OtherOperatingIncome[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is3",
+                        "rule-calculation": {
+                            "rule": "OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense - IncomeBeforeEquityMethodInvestments",
+                            "audit-trail": "OperatingIncomeLoss[6,483,000,000] + NonoperatingIncomeLossPlusInterestAndDebtExpense[-303,000,000] - IncomeBeforeEquityMethodInvestments[6,351,000,000]"
+                        },
+                        "rule-passed": "false"
+                    },
+                    {
+                        "rule-name": "is2",
+                        "rule-calculation": {
+                            "rule": "GrossProfit - OperatingExpenses + OtherOperatingIncome - OperatingIncomeLoss",
+                            "audit-trail": "GrossProfit[14,219,000,000] - OperatingExpenses[7,736,000,000] + OtherOperatingIncome[0] - OperatingIncomeLoss[6,483,000,000]"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NonoperatingIncomeLoss": {
+                "concept": "us-gaap:NonoperatingIncomeExpense",
+                "id": "ID_38",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "-132000000"
+            },
+            "InterestAndDebtExpense": {
+                "concept": "us-gaap:InterestAndDebtExpense",
+                "id": "ID_32",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "171000000"
+            },
+            "NonoperatingIncomeLossPlusInterestAndDebtExpense": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:NonoperatingIncomeLoss != 0 or $us-gaap:InterestAndDebtExpense != 0 ) $fro:NonoperatingIncomeLossPlusInterestAndDebtExpense = $fro:NonoperatingIncomeLoss - $us-gaap:InterestAndDebtExpense",
+                    "audit-trail": "NonoperatingIncomeLossPlusInterestAndDebtExpense[-303,000,000] = NonoperatingIncomeLoss[-132,000,000] - InterestAndDebtExpense[171,000,000]"
+                },
+                "value": "-303000000",
+                "validation-rules": {
+                    "rule-name": "is3",
+                    "rule-calculation": {
+                        "rule": "OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense - IncomeBeforeEquityMethodInvestments",
+                        "audit-trail": "OperatingIncomeLoss[6,483,000,000] + NonoperatingIncomeLossPlusInterestAndDebtExpense[-303,000,000] - IncomeBeforeEquityMethodInvestments[6,351,000,000]"
+                    },
+                    "rule-passed": "false"
+                }
+            },
+            "IncomeBeforeEquityMethodInvestments": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:IncomeBeforeEquityMethodInvestments = 0 and $fro:IncomeFromContinuingOperationsBeforeTax != 0 ) $fro:IncomeBeforeEquityMethodInvestments = $fro:IncomeFromContinuingOperationsBeforeTax - $fro:IncomeFromEquityMethodInvestments",
+                    "audit-trail": "IncomeBeforeEquityMethodInvestments[6,351,000,000] = IncomeFromContinuingOperationsBeforeTax[6,351,000,000] - IncomeFromEquityMethodInvestments[0]"
+                },
+                "value": "6351000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "is4",
+                        "rule-calculation": {
+                            "rule": "IncomeBeforeEquityMethodInvestments + IncomeFromEquityMethodInvestments - IncomeFromContinuingOperationsBeforeTax",
+                            "audit-trail": "IncomeBeforeEquityMethodInvestments[6,351,000,000] + IncomeFromEquityMethodInvestments[0] - IncomeFromContinuingOperationsBeforeTax[6,351,000,000]"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is3",
+                        "rule-calculation": {
+                            "rule": "OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense - IncomeBeforeEquityMethodInvestments",
+                            "audit-trail": "OperatingIncomeLoss[6,483,000,000] + NonoperatingIncomeLossPlusInterestAndDebtExpense[-303,000,000] - IncomeBeforeEquityMethodInvestments[6,351,000,000]"
+                        },
+                        "rule-passed": "false"
+                    }
+                ]
+            },
+            "IncomeFromEquityMethodInvestments": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($IncomeFromEquityMethodInvestments eq jn:null()) $IncomeFromEquityMethodInvestments = 0",
+                    "audit-trail": "IncomeFromEquityMethodInvestments[0] = 0"
+                },
+                "value": "0",
+                "validation-rules": {
+                    "rule-name": "is4",
+                    "rule-calculation": {
+                        "rule": "IncomeBeforeEquityMethodInvestments + IncomeFromEquityMethodInvestments - IncomeFromContinuingOperationsBeforeTax",
+                        "audit-trail": "IncomeBeforeEquityMethodInvestments[6,351,000,000] + IncomeFromEquityMethodInvestments[0] - IncomeFromContinuingOperationsBeforeTax[6,351,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "IncomeFromContinuingOperationsBeforeTax": {
+                "concept": "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+                "id": "ID_41",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "6351000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "is5",
+                        "rule-calculation": {
+                            "rule": "IncomeFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit - IncomeFromContinuingOperationsAfterTax",
+                            "audit-trail": "IncomeFromContinuingOperationsBeforeTax[6,351,000,000] - IncomeTaxExpenseBenefit[1,840,000,000] - IncomeFromContinuingOperationsAfterTax[4,511,000,000]"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is4",
+                        "rule-calculation": {
+                            "rule": "IncomeBeforeEquityMethodInvestments + IncomeFromEquityMethodInvestments - IncomeFromContinuingOperationsBeforeTax",
+                            "audit-trail": "IncomeBeforeEquityMethodInvestments[6,351,000,000] + IncomeFromEquityMethodInvestments[0] - IncomeFromContinuingOperationsBeforeTax[6,351,000,000]"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "IncomeTaxExpenseBenefit": {
+                "concept": "us-gaap:IncomeTaxExpenseBenefit",
+                "id": "ID_44",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "1840000000",
+                "validation-rules": {
+                    "rule-name": "is5",
+                    "rule-calculation": {
+                        "rule": "IncomeFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit - IncomeFromContinuingOperationsAfterTax",
+                        "audit-trail": "IncomeFromContinuingOperationsBeforeTax[6,351,000,000] - IncomeTaxExpenseBenefit[1,840,000,000] - IncomeFromContinuingOperationsAfterTax[4,511,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "IncomeFromContinuingOperationsAfterTax": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:IncomeFromContinuingOperationsAfterTax = 0 and $fro:NetIncomeLoss != 0 ) $fro:IncomeFromContinuingOperationsAfterTax = $fro:NetIncomeLoss - $fro:IncomeFromDiscontinuedOperations - $fro:ExtraordaryItemsGainLoss",
+                    "audit-trail": "IncomeFromContinuingOperationsAfterTax[4,511,000,000] = NetIncomeLoss[4,511,000,000] - IncomeFromDiscontinuedOperations[0] - ExtraordaryItemsGainLoss[0]"
+                },
+                "value": "4511000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "is6",
+                        "rule-calculation": {
+                            "rule": "IncomeFromContinuingOperationsAfterTax + IncomeFromDiscontinuedOperations + ExtraordaryItemsGainLoss - NetIncomeLoss",
+                            "audit-trail": "IncomeFromContinuingOperationsAfterTax[4,511,000,000] + IncomeFromDiscontinuedOperations[0] + ExtraordaryItemsGainLoss[0] - NetIncomeLoss[4,511,000,000]"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is5",
+                        "rule-calculation": {
+                            "rule": "IncomeFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit - IncomeFromContinuingOperationsAfterTax",
+                            "audit-trail": "IncomeFromContinuingOperationsBeforeTax[6,351,000,000] - IncomeTaxExpenseBenefit[1,840,000,000] - IncomeFromContinuingOperationsAfterTax[4,511,000,000]"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "IncomeFromDiscontinuedOperations": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($IncomeFromDiscontinuedOperations eq jn:null()) $IncomeFromDiscontinuedOperations = 0",
+                    "audit-trail": "IncomeFromDiscontinuedOperations[0] = 0"
+                },
+                "value": "0",
+                "validation-rules": {
+                    "rule-name": "is6",
+                    "rule-calculation": {
+                        "rule": "IncomeFromContinuingOperationsAfterTax + IncomeFromDiscontinuedOperations + ExtraordaryItemsGainLoss - NetIncomeLoss",
+                        "audit-trail": "IncomeFromContinuingOperationsAfterTax[4,511,000,000] + IncomeFromDiscontinuedOperations[0] + ExtraordaryItemsGainLoss[0] - NetIncomeLoss[4,511,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "ExtraordaryItemsGainLoss": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($ExtraordaryItemsGainLoss eq jn:null()) $ExtraordaryItemsGainLoss = 0",
+                    "audit-trail": "ExtraordaryItemsGainLoss[0] = 0"
+                },
+                "value": "0",
+                "validation-rules": {
+                    "rule-name": "is6",
+                    "rule-calculation": {
+                        "rule": "IncomeFromContinuingOperationsAfterTax + IncomeFromDiscontinuedOperations + ExtraordaryItemsGainLoss - NetIncomeLoss",
+                        "audit-trail": "IncomeFromContinuingOperationsAfterTax[4,511,000,000] + IncomeFromDiscontinuedOperations[0] + ExtraordaryItemsGainLoss[0] - NetIncomeLoss[4,511,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "NetIncomeLoss": {
+                "concept": "us-gaap:ProfitLoss",
+                "id": "ID_47",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "4511000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "is10",
+                        "rule-calculation": {
+                            "rule": "NetIncomeLoss + OtherComprehensiveIncome - ComprehensiveIncome",
+                            "audit-trail": "NetIncomeLoss[4,511,000,000] + OtherComprehensiveIncome[231,000,000] - ComprehensiveIncome[4,742,000,000]"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is7",
+                        "rule-calculation": {
+                            "rule": "NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest - NetIncomeLoss",
+                            "audit-trail": "NetIncomeAttributableToParent[4,444,000,000] + NetIncomeAttributableToNoncontrollingInterest[67,000,000] - NetIncomeLoss[4,511,000,000]"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is6",
+                        "rule-calculation": {
+                            "rule": "IncomeFromContinuingOperationsAfterTax + IncomeFromDiscontinuedOperations + ExtraordaryItemsGainLoss - NetIncomeLoss",
+                            "audit-trail": "IncomeFromContinuingOperationsAfterTax[4,511,000,000] + IncomeFromDiscontinuedOperations[0] + ExtraordaryItemsGainLoss[0] - NetIncomeLoss[4,511,000,000]"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetIncomeAttributableToParent": {
+                "concept": "us-gaap:NetIncomeLoss",
+                "id": "ID_53",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "4444000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "is8",
+                        "rule-calculation": {
+                            "rule": "NetIncomeAttributableToParent + PreferredStockDividendsAndOtherAdjustments - NetIncomeAvailableToCommonStockholdersBasic",
+                            "audit-trail": "NetIncomeAttributableToParent[4,444,000,000] + PreferredStockDividendsAndOtherAdjustments[0] - NetIncomeAvailableToCommonStockholdersBasic[4,444,000,000]"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is7",
+                        "rule-calculation": {
+                            "rule": "NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest - NetIncomeLoss",
+                            "audit-trail": "NetIncomeAttributableToParent[4,444,000,000] + NetIncomeAttributableToNoncontrollingInterest[67,000,000] - NetIncomeLoss[4,511,000,000]"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetIncomeAttributableToNoncontrollingInterest": {
+                "concept": "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest",
+                "id": "ID_50",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "67000000",
+                "validation-rules": {
+                    "rule-name": "is7",
+                    "rule-calculation": {
+                        "rule": "NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest - NetIncomeLoss",
+                        "audit-trail": "NetIncomeAttributableToParent[4,444,000,000] + NetIncomeAttributableToNoncontrollingInterest[67,000,000] - NetIncomeLoss[4,511,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "PreferredStockDividendsAndOtherAdjustments": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:PreferredStockDividendsAndOtherAdjustments = 0 and $fro:NetIncomeAttributableToParent != 0 and $fro:NetIncomeAvailableToCommonStockholdersBasic != 0 ) $fro:PreferredStockDividendsAndOtherAdjustments = $fro:NetIncomeAttributableToParent - $fro:NetIncomeAvailableToCommonStockholdersBasic",
+                    "audit-trail": "PreferredStockDividendsAndOtherAdjustments[0] = NetIncomeAttributableToParent[4,444,000,000] - NetIncomeAvailableToCommonStockholdersBasic[4,444,000,000]"
+                },
+                "value": "0",
+                "validation-rules": {
+                    "rule-name": "is8",
+                    "rule-calculation": {
+                        "rule": "NetIncomeAttributableToParent + PreferredStockDividendsAndOtherAdjustments - NetIncomeAvailableToCommonStockholdersBasic",
+                        "audit-trail": "NetIncomeAttributableToParent[4,444,000,000] + PreferredStockDividendsAndOtherAdjustments[0] - NetIncomeAvailableToCommonStockholdersBasic[4,444,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "NetIncomeAvailableToCommonStockholdersBasic": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:NetIncomeAvailableToCommonStockholdersBasic = 0 and $fro:PreferredStockDividendsAndOtherAdjustments = 0 and $fro:NetIncomeAttributableToParent != 0 ) $fro:NetIncomeAvailableToCommonStockholdersBasic = $fro:NetIncomeAttributableToParent",
+                    "audit-trail": "NetIncomeAvailableToCommonStockholdersBasic[4,444,000,000] = NetIncomeAttributableToParent[4,444,000,000]"
+                },
+                "value": "4444000000",
+                "validation-rules": {
+                    "rule-name": "is8",
+                    "rule-calculation": {
+                        "rule": "NetIncomeAttributableToParent + PreferredStockDividendsAndOtherAdjustments - NetIncomeAvailableToCommonStockholdersBasic",
+                        "audit-trail": "NetIncomeAttributableToParent[4,444,000,000] + PreferredStockDividendsAndOtherAdjustments[0] - NetIncomeAvailableToCommonStockholdersBasic[4,444,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "ComprehensiveIncome": {
+                "concept": "us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest",
+                "id": "ID_82",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "4742000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "is10",
+                        "rule-calculation": {
+                            "rule": "NetIncomeLoss + OtherComprehensiveIncome - ComprehensiveIncome",
+                            "audit-trail": "NetIncomeLoss[4,511,000,000] + OtherComprehensiveIncome[231,000,000] - ComprehensiveIncome[4,742,000,000]"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "is9",
+                        "rule-calculation": {
+                            "rule": "ComprehensiveIncomeAttributableToParent + ComprehensiveIncomeAttributableToNoncontrollingInterest - ComprehensiveIncome",
+                            "audit-trail": "ComprehensiveIncomeAttributableToParent[4,719,000,000] + ComprehensiveIncomeAttributableToNoncontrollingInterest[23,000,000] - ComprehensiveIncome[4,742,000,000]"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "OtherComprehensiveIncome": {
+                "concept": "us-gaap:OtherComprehensiveIncomeLossNetOfTax",
+                "id": "ID_79",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "231000000",
+                "validation-rules": {
+                    "rule-name": "is10",
+                    "rule-calculation": {
+                        "rule": "NetIncomeLoss + OtherComprehensiveIncome - ComprehensiveIncome",
+                        "audit-trail": "NetIncomeLoss[4,511,000,000] + OtherComprehensiveIncome[231,000,000] - ComprehensiveIncome[4,742,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "ComprehensiveIncomeAttributableToParent": {
+                "concept": "us-gaap:ComprehensiveIncomeNetOfTax",
+                "id": "ID_88",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "4719000000",
+                "validation-rules": {
+                    "rule-name": "is9",
+                    "rule-calculation": {
+                        "rule": "ComprehensiveIncomeAttributableToParent + ComprehensiveIncomeAttributableToNoncontrollingInterest - ComprehensiveIncome",
+                        "audit-trail": "ComprehensiveIncomeAttributableToParent[4,719,000,000] + ComprehensiveIncomeAttributableToNoncontrollingInterest[23,000,000] - ComprehensiveIncome[4,742,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "ComprehensiveIncomeAttributableToNoncontrollingInterest": {
+                "concept": "us-gaap:ComprehensiveIncomeNetOfTaxAttributableToNoncontrollingInterest",
+                "id": "ID_85",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "23000000",
+                "validation-rules": {
+                    "rule-name": "is9",
+                    "rule-calculation": {
+                        "rule": "ComprehensiveIncomeAttributableToParent + ComprehensiveIncomeAttributableToNoncontrollingInterest - ComprehensiveIncome",
+                        "audit-trail": "ComprehensiveIncomeAttributableToParent[4,719,000,000] + ComprehensiveIncomeAttributableToNoncontrollingInterest[23,000,000] - ComprehensiveIncome[4,742,000,000]"
+                    },
+                    "rule-passed": "true"
+                }
+            }
+        },
+        "cash-flow-statement": {
+            "NetCashFlowsOperating": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:NetCashFlowsOperating = 0 and $fro:NetCashFlowsOperatingContinuing != 0 and $fro:NetCashFlowsOperatingDiscontinued = 0 ) $fro:NetCashFlowsOperating = $fro:NetCashFlowsOperatingContinuing",
+                    "audit-trail": "NetCashFlowsOperating[5,300,000,000] = NetCashFlowsOperatingContinuing[5,300,000,000]"
+                },
+                "value": "5300000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "cs4",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsOperating - (NetCashFlowsOperatingContinuing + NetCashFlowsOperatingDiscontinued)",
+                            "audit-trail": "NetCashFlowsOperating[5,300,000,000] - (NetCashFlowsOperatingContinuing[5,300,000,000] + NetCashFlowsOperatingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "cs1",
+                        "rule-calculation": {
+                            "rule": "let r = NetCashFlow - (NetCashFlowsOperating + NetCashFlowsInvesting + NetCashFlowsFinancing + ExchangeGainsLosses)\n          return if (r ne 0 and r eq ExchangeGainsLosses * -1) then NetCashFlow - (NetCashFlowsOperating + NetCashFlowsInvesting + NetCashFlowsFinancing) else r",
+                            "audit-trail": "let $r = NetCashFlow[664,000,000] - (NetCashFlowsOperating[5,300,000,000] + NetCashFlowsInvesting[-2,686,000,000] + NetCashFlowsFinancing[-2,058,000,000] + ExchangeGainsLosses[108,000,000])\n          return if ($r ne 0 and $r eq ExchangeGainsLosses[108,000,000] * -1) then NetCashFlow[664,000,000] - (NetCashFlowsOperating[5,300,000,000] + NetCashFlowsInvesting[-2,686,000,000] + NetCashFlowsFinancing[-2,058,000,000]) else $r"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetCashFlowsOperatingContinuing": {
+                "concept": "us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+                "id": "ID_292",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "5300000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "cs4",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsOperating - (NetCashFlowsOperatingContinuing + NetCashFlowsOperatingDiscontinued)",
+                            "audit-trail": "NetCashFlowsOperating[5,300,000,000] - (NetCashFlowsOperatingContinuing[5,300,000,000] + NetCashFlowsOperatingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "cs2",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsContinuing - (NetCashFlowsOperatingContinuing + NetCashFlowsInvestingContinuing + NetCashFlowsFinancingContinuing)",
+                            "audit-trail": "NetCashFlowsContinuing[556,000,000] - (NetCashFlowsOperatingContinuing[5,300,000,000] + NetCashFlowsInvestingContinuing[-2,686,000,000] + NetCashFlowsFinancingContinuing[-2,058,000,000])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetCashFlowsOperatingDiscontinued": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($NetCashFlowsOperatingDiscontinued eq jn:null()) $NetCashFlowsOperatingDiscontinued = 0",
+                    "audit-trail": "NetCashFlowsOperatingDiscontinued[0] = 0"
+                },
+                "value": "0",
+                "validation-rules": [
+                    {
+                        "rule-name": "cs4",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsOperating - (NetCashFlowsOperatingContinuing + NetCashFlowsOperatingDiscontinued)",
+                            "audit-trail": "NetCashFlowsOperating[5,300,000,000] - (NetCashFlowsOperatingContinuing[5,300,000,000] + NetCashFlowsOperatingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "cs3",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsDiscontinued - (NetCashFlowsOperatingDiscontinued + NetCashFlowsInvestingDiscontinued + NetCashFlowsFinancingDiscontinued)",
+                            "audit-trail": "NetCashFlowsDiscontinued[0] - (NetCashFlowsOperatingDiscontinued[0] + NetCashFlowsInvestingDiscontinued[0] + NetCashFlowsFinancingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetCashFlowsInvesting": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:NetCashFlowsInvesting = 0 and $fro:NetCashFlowsInvestingContinuing != 0 and $fro:NetCashFlowsInvestingDiscontinued = 0 ) $fro:NetCashFlowsInvesting = $fro:NetCashFlowsInvestingContinuing",
+                    "audit-trail": "NetCashFlowsInvesting[-2,686,000,000] = NetCashFlowsInvestingContinuing[-2,686,000,000]"
+                },
+                "value": "-2686000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "cs5",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsInvesting - (NetCashFlowsInvestingContinuing + NetCashFlowsInvestingDiscontinued)",
+                            "audit-trail": "NetCashFlowsInvesting[-2,686,000,000] - (NetCashFlowsInvestingContinuing[-2,686,000,000] + NetCashFlowsInvestingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "cs1",
+                        "rule-calculation": {
+                            "rule": "let r = NetCashFlow - (NetCashFlowsOperating + NetCashFlowsInvesting + NetCashFlowsFinancing + ExchangeGainsLosses)\n          return if (r ne 0 and r eq ExchangeGainsLosses * -1) then NetCashFlow - (NetCashFlowsOperating + NetCashFlowsInvesting + NetCashFlowsFinancing) else r",
+                            "audit-trail": "let $r = NetCashFlow[664,000,000] - (NetCashFlowsOperating[5,300,000,000] + NetCashFlowsInvesting[-2,686,000,000] + NetCashFlowsFinancing[-2,058,000,000] + ExchangeGainsLosses[108,000,000])\n          return if ($r ne 0 and $r eq ExchangeGainsLosses[108,000,000] * -1) then NetCashFlow[664,000,000] - (NetCashFlowsOperating[5,300,000,000] + NetCashFlowsInvesting[-2,686,000,000] + NetCashFlowsFinancing[-2,058,000,000]) else $r"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetCashFlowsInvestingContinuing": {
+                "concept": "us-gaap:NetCashProvidedByUsedInInvestingActivitiesContinuingOperations",
+                "id": "ID_313",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "-2686000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "cs5",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsInvesting - (NetCashFlowsInvestingContinuing + NetCashFlowsInvestingDiscontinued)",
+                            "audit-trail": "NetCashFlowsInvesting[-2,686,000,000] - (NetCashFlowsInvestingContinuing[-2,686,000,000] + NetCashFlowsInvestingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "cs2",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsContinuing - (NetCashFlowsOperatingContinuing + NetCashFlowsInvestingContinuing + NetCashFlowsFinancingContinuing)",
+                            "audit-trail": "NetCashFlowsContinuing[556,000,000] - (NetCashFlowsOperatingContinuing[5,300,000,000] + NetCashFlowsInvestingContinuing[-2,686,000,000] + NetCashFlowsFinancingContinuing[-2,058,000,000])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetCashFlowsInvestingDiscontinued": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($NetCashFlowsInvestingDiscontinued eq jn:null()) $NetCashFlowsInvestingDiscontinued = 0",
+                    "audit-trail": "NetCashFlowsInvestingDiscontinued[0] = 0"
+                },
+                "value": "0",
+                "validation-rules": [
+                    {
+                        "rule-name": "cs5",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsInvesting - (NetCashFlowsInvestingContinuing + NetCashFlowsInvestingDiscontinued)",
+                            "audit-trail": "NetCashFlowsInvesting[-2,686,000,000] - (NetCashFlowsInvestingContinuing[-2,686,000,000] + NetCashFlowsInvestingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "cs3",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsDiscontinued - (NetCashFlowsOperatingDiscontinued + NetCashFlowsInvestingDiscontinued + NetCashFlowsFinancingDiscontinued)",
+                            "audit-trail": "NetCashFlowsDiscontinued[0] - (NetCashFlowsOperatingDiscontinued[0] + NetCashFlowsInvestingDiscontinued[0] + NetCashFlowsFinancingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetCashFlowsFinancing": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:NetCashFlowsFinancing = 0 and $fro:NetCashFlowsFinancingContinuing != 0 and $fro:NetCashFlowsFinancingDiscontinued = 0 ) $fro:NetCashFlowsFinancing = $fro:NetCashFlowsFinancingContinuing",
+                    "audit-trail": "NetCashFlowsFinancing[-2,058,000,000] = NetCashFlowsFinancingContinuing[-2,058,000,000]"
+                },
+                "value": "-2058000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "cs6",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsFinancing - (NetCashFlowsFinancingContinuing + NetCashFlowsFinancingDiscontinued)",
+                            "audit-trail": "NetCashFlowsFinancing[-2,058,000,000] - (NetCashFlowsFinancingContinuing[-2,058,000,000] + NetCashFlowsFinancingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "cs1",
+                        "rule-calculation": {
+                            "rule": "let r = NetCashFlow - (NetCashFlowsOperating + NetCashFlowsInvesting + NetCashFlowsFinancing + ExchangeGainsLosses)\n          return if (r ne 0 and r eq ExchangeGainsLosses * -1) then NetCashFlow - (NetCashFlowsOperating + NetCashFlowsInvesting + NetCashFlowsFinancing) else r",
+                            "audit-trail": "let $r = NetCashFlow[664,000,000] - (NetCashFlowsOperating[5,300,000,000] + NetCashFlowsInvesting[-2,686,000,000] + NetCashFlowsFinancing[-2,058,000,000] + ExchangeGainsLosses[108,000,000])\n          return if ($r ne 0 and $r eq ExchangeGainsLosses[108,000,000] * -1) then NetCashFlow[664,000,000] - (NetCashFlowsOperating[5,300,000,000] + NetCashFlowsInvesting[-2,686,000,000] + NetCashFlowsFinancing[-2,058,000,000]) else $r"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetCashFlowsFinancingContinuing": {
+                "concept": "us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations",
+                "id": "ID_322",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "-2058000000",
+                "validation-rules": [
+                    {
+                        "rule-name": "cs6",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsFinancing - (NetCashFlowsFinancingContinuing + NetCashFlowsFinancingDiscontinued)",
+                            "audit-trail": "NetCashFlowsFinancing[-2,058,000,000] - (NetCashFlowsFinancingContinuing[-2,058,000,000] + NetCashFlowsFinancingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "cs2",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsContinuing - (NetCashFlowsOperatingContinuing + NetCashFlowsInvestingContinuing + NetCashFlowsFinancingContinuing)",
+                            "audit-trail": "NetCashFlowsContinuing[556,000,000] - (NetCashFlowsOperatingContinuing[5,300,000,000] + NetCashFlowsInvestingContinuing[-2,686,000,000] + NetCashFlowsFinancingContinuing[-2,058,000,000])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetCashFlowsFinancingDiscontinued": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($NetCashFlowsFinancingDiscontinued eq jn:null()) $NetCashFlowsFinancingDiscontinued = 0",
+                    "audit-trail": "NetCashFlowsFinancingDiscontinued[0] = 0"
+                },
+                "value": "0",
+                "validation-rules": [
+                    {
+                        "rule-name": "cs6",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsFinancing - (NetCashFlowsFinancingContinuing + NetCashFlowsFinancingDiscontinued)",
+                            "audit-trail": "NetCashFlowsFinancing[-2,058,000,000] - (NetCashFlowsFinancingContinuing[-2,058,000,000] + NetCashFlowsFinancingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    },
+                    {
+                        "rule-name": "cs3",
+                        "rule-calculation": {
+                            "rule": "NetCashFlowsDiscontinued - (NetCashFlowsOperatingDiscontinued + NetCashFlowsInvestingDiscontinued + NetCashFlowsFinancingDiscontinued)",
+                            "audit-trail": "NetCashFlowsDiscontinued[0] - (NetCashFlowsOperatingDiscontinued[0] + NetCashFlowsInvestingDiscontinued[0] + NetCashFlowsFinancingDiscontinued[0])"
+                        },
+                        "rule-passed": "true"
+                    }
+                ]
+            },
+            "NetCashFlowsContinuing": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:NetCashFlowsContinuing = 0 ) $fro:NetCashFlowsContinuing = $fro:NetCashFlowsOperatingContinuing + $fro:NetCashFlowsInvestingContinuing + $fro:NetCashFlowsFinancingContinuing",
+                    "audit-trail": "NetCashFlowsContinuing[556,000,000] = NetCashFlowsOperatingContinuing[5,300,000,000] + NetCashFlowsInvestingContinuing[-2,686,000,000] + NetCashFlowsFinancingContinuing[-2,058,000,000]"
+                },
+                "value": "556000000",
+                "validation-rules": {
+                    "rule-name": "cs2",
+                    "rule-calculation": {
+                        "rule": "NetCashFlowsContinuing - (NetCashFlowsOperatingContinuing + NetCashFlowsInvestingContinuing + NetCashFlowsFinancingContinuing)",
+                        "audit-trail": "NetCashFlowsContinuing[556,000,000] - (NetCashFlowsOperatingContinuing[5,300,000,000] + NetCashFlowsInvestingContinuing[-2,686,000,000] + NetCashFlowsFinancingContinuing[-2,058,000,000])"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "NetCashFlowsDiscontinued": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "if($fro:NetCashFlowsDiscontinued = 0 ) $fro:NetCashFlowsDiscontinued = $fro:NetCashFlowsOperatingDiscontinued + $fro:NetCashFlowsInvestingDiscontinued + $fro:NetCashFlowsFinancingDiscontinued",
+                    "audit-trail": "NetCashFlowsDiscontinued[0] = NetCashFlowsOperatingDiscontinued[0] + NetCashFlowsInvestingDiscontinued[0] + NetCashFlowsFinancingDiscontinued[0]"
+                },
+                "value": "0",
+                "validation-rules": {
+                    "rule-name": "cs3",
+                    "rule-calculation": {
+                        "rule": "NetCashFlowsDiscontinued - (NetCashFlowsOperatingDiscontinued + NetCashFlowsInvestingDiscontinued + NetCashFlowsFinancingDiscontinued)",
+                        "audit-trail": "NetCashFlowsDiscontinued[0] - (NetCashFlowsOperatingDiscontinued[0] + NetCashFlowsInvestingDiscontinued[0] + NetCashFlowsFinancingDiscontinued[0])"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "ExchangeGainsLosses": {
+                "concept": "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents",
+                "id": "ID_323",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "108000000",
+                "validation-rules": {
+                    "rule-name": "cs1",
+                    "rule-calculation": {
+                        "rule": "let r = NetCashFlow - (NetCashFlowsOperating + NetCashFlowsInvesting + NetCashFlowsFinancing + ExchangeGainsLosses)\n          return if (r ne 0 and r eq ExchangeGainsLosses * -1) then NetCashFlow - (NetCashFlowsOperating + NetCashFlowsInvesting + NetCashFlowsFinancing) else r",
+                        "audit-trail": "let $r = NetCashFlow[664,000,000] - (NetCashFlowsOperating[5,300,000,000] + NetCashFlowsInvesting[-2,686,000,000] + NetCashFlowsFinancing[-2,058,000,000] + ExchangeGainsLosses[108,000,000])\n          return if ($r ne 0 and $r eq ExchangeGainsLosses[108,000,000] * -1) then NetCashFlow[664,000,000] - (NetCashFlowsOperating[5,300,000,000] + NetCashFlowsInvesting[-2,686,000,000] + NetCashFlowsFinancing[-2,058,000,000]) else $r"
+                    },
+                    "rule-passed": "true"
+                }
+            },
+            "NetCashFlow": {
+                "concept": "us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease",
+                "id": "ID_324",
+                "decimals": "-6",
+                "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+                "unitRef": "USDollar",
+                "value": "664000000",
+                "validation-rules": {
+                    "rule-name": "cs1",
+                    "rule-calculation": {
+                        "rule": "let r = NetCashFlow - (NetCashFlowsOperating + NetCashFlowsInvesting + NetCashFlowsFinancing + ExchangeGainsLosses)\n          return if (r ne 0 and r eq ExchangeGainsLosses * -1) then NetCashFlow - (NetCashFlowsOperating + NetCashFlowsInvesting + NetCashFlowsFinancing) else r",
+                        "audit-trail": "let $r = NetCashFlow[664,000,000] - (NetCashFlowsOperating[5,300,000,000] + NetCashFlowsInvesting[-2,686,000,000] + NetCashFlowsFinancing[-2,058,000,000] + ExchangeGainsLosses[108,000,000])\n          return if ($r ne 0 and $r eq ExchangeGainsLosses[108,000,000] * -1) then NetCashFlow[664,000,000] - (NetCashFlowsOperating[5,300,000,000] + NetCashFlowsInvesting[-2,686,000,000] + NetCashFlowsFinancing[-2,058,000,000]) else $r"
+                    },
+                    "rule-passed": "true"
+                }
+            }
+        }
+    },
+    "entity": {
+        "EntityRegistrantName": {
+            "concept": "dei:EntityRegistrantName",
+            "id": "ID_0",
+            "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+            "value": "3M CO"
+        },
+        "EntityCentralIndexKey": {
+            "concept": "dei:EntityCentralIndexKey",
+            "id": "ID_1",
+            "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+            "value": "0000066740"
+        },
+        "EntityFilerCategory": {
+            "concept": "dei:EntityFilerCategory",
+            "id": "ID_9",
+            "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+            "value": "Large Accelerated Filer"
+        },
+        "TradingSymbol": {
+            "imputed": "true",
+            "rules": {
+                "rule": "if($TradingSymbol eq jn:null()) $TradingSymbol = 0",
+                "audit-trail": "TradingSymbol[0] = 0"
+            },
+            "value": "0"
+        }
+    },
+    "filing": {
+        "CurrentFiscalYearEndDate": {
+            "concept": "dei:CurrentFiscalYearEndDate",
+            "id": "ID_5",
+            "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+            "value": "--12-31"
+        },
+        "DocumentFiscalPeriodFocus": {
+            "concept": "dei:DocumentFiscalPeriodFocus",
+            "id": "ID_13",
+            "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+            "value": "FY"
+        },
+        "DocumentType": {
+            "concept": "dei:DocumentType",
+            "id": "ID_2",
+            "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+            "value": "10-K"
+        },
+        "DocumentPeriodEndDate": {
+            "concept": "dei:DocumentPeriodEndDate",
+            "id": "ID_3",
+            "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+            "value": "2012-12-31"
+        },
+        "DocumentFiscalYearFocus": {
+            "concept": "dei:DocumentFiscalYearFocus",
+            "id": "ID_12",
+            "contextRef": "FROM_Jan01_2012_TO_Dec31_2012",
+            "value": "2012"
+        },
+        "namespaces": {
+            "fro": "http://financialreportontology.wikispaces.com/",
+            "xsi": "http://www.w3.org/2001/XMLSchema-instance",
+            "instance": "http://www.xbrl.org/2003/instance",
+            "mmm": "http://www.mmm.com/20121231",
+            "us-gaap": "http://fasb.org/us-gaap/2012-01-31",
+            "dei": "http://xbrl.sec.gov/dei/2012-01-31",
+            "linkbase": "http://www.xbrl.org/2003/linkbase",
+            "xbrldi": "http://xbrl.org/2006/xbrldi",
+            "xlink": "http://www.w3.org/1999/xlink"
+        },
+        "contexts": {
+            "instant": {
+                "id": "AS_OF_Dec31_2012",
+                "date": "2012-12-31",
+                "identifier": {
+                    "@scheme": "http://www.sec.gov/CIK",
+                    "#text": "0000066740"
+                }
+            },
+            "duration": {
+                "id": "FROM_Jan01_2012_TO_Dec31_2012",
+                "duration": "365",
+                "startDate": "2012-01-01",
+                "endDate": "2012-12-31",
+                "identifier": {
+                    "@scheme": "http://www.sec.gov/CIK",
+                    "#text": "0000066740"
+                }
+            }
+        }
+    },
+    "verification": {
+        "key-ratios": {
+            "SustainableGrowthRate": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "((NetIncomeLoss / Revenues) * (1 + ((Assets - Equity) / Equity))) / ((1 / (Revenues / Assets)) - (((NetIncomeLoss / Revenues) * (1 + (((Assets - Equity) / Equity))))))",
+                    "audit-trail": "((NetIncomeLoss[4,511,000,000] div Revenues[29,904,000,000]) * (1 + ((Assets[33,876,000,000] - Equity[18,040,000,000]) div Equity[18,040,000,000]))) div ((1 div (Revenues[29,904,000,000] div Assets[33,876,000,000])) - (((NetIncomeLoss[4,511,000,000] div Revenues[29,904,000,000]) * (1 + (((Assets[33,876,000,000] - Equity[18,040,000,000]) div Equity[18,040,000,000]))))))"
+                },
+                "value": "0.333431887057432183",
+                "facts": [
+                    {
+                        "sheet": "income-statement",
+                        "name": "Revenues"
+                    },
+                    {
+                        "sheet": "balance-sheet",
+                        "name": "Assets"
+                    },
+                    {
+                        "sheet": "balance-sheet",
+                        "name": "Equity"
+                    },
+                    {
+                        "sheet": "income-statement",
+                        "name": "NetIncomeLoss"
+                    }
+                ],
+                "passed": "true"
+            },
+            "ReturnOnAssets": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "NetIncomeLoss / Assets",
+                    "audit-trail": "NetIncomeLoss[4,511,000,000] div Assets[33,876,000,000]"
+                },
+                "value": "0.133162120675404416",
+                "facts": [
+                    {
+                        "sheet": "balance-sheet",
+                        "name": "Assets"
+                    },
+                    {
+                        "sheet": "income-statement",
+                        "name": "NetIncomeLoss"
+                    }
+                ],
+                "passed": "true"
+            },
+            "ReturnOnEquity": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "NetIncomeLoss / Equity",
+                    "audit-trail": "NetIncomeLoss[4,511,000,000] div Equity[18,040,000,000]"
+                },
+                "value": "0.250055432372505543",
+                "facts": [
+                    {
+                        "sheet": "balance-sheet",
+                        "name": "Equity"
+                    },
+                    {
+                        "sheet": "income-statement",
+                        "name": "NetIncomeLoss"
+                    }
+                ],
+                "passed": "true"
+            },
+            "ReturnOnSales": {
+                "imputed": "true",
+                "rules": {
+                    "rule": "NetIncomeLoss / Revenues",
+                    "audit-trail": "NetIncomeLoss[4,511,000,000] div Revenues[29,904,000,000]"
+                },
+                "value": "0.150849384697699304",
+                "facts": [
+                    {
+                        "sheet": "income-statement",
+                        "name": "Revenues"
+                    },
+                    {
+                        "sheet": "income-statement",
+                        "name": "NetIncomeLoss"
+                    }
+                ],
+                "passed": "true"
             }
         }
     }
