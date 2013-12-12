@@ -1,6 +1,6 @@
 'use strict';
 
-function SourceCtrl($scope, $route, $http, API_URL) {
+function SourceCtrl($scope, $route, $http, API_URL, API_TOKEN) {
 	
 	$scope.query = ($route.current.params.query ? $route.current.params.query : null);
 
@@ -30,7 +30,7 @@ function SourceCtrl($scope, $route, $http, API_URL) {
 		$http({
 			method: 'GET', 
 			url: API_URL + '/_queries/public/' + q + '.jq/metadata',
-			params: { token: 'MWVad3Z5MnhuOWltTHFMalFxMnQwRTlsbjZBPToyMDEzLTEyLTEyVDA5OjI0OjEzLjI2NjEyOVo=' }
+			params: { token: API_TOKEN }
 		}).
 		success(function(data, status, headers, config) {
 			if (data){
@@ -39,8 +39,6 @@ function SourceCtrl($scope, $route, $http, API_URL) {
 				$scope.safeApply();
 			}
 		});
-
-		
 
 	};
 

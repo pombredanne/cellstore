@@ -2,6 +2,7 @@
 
 angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlechart', 'navbar-toggle'])
 .constant('API_URL', 'http://secxbrl-info.alpha.xbrl.io/v1')
+.constant('API_TOKEN', 'M1lrQjlCYzdoZnJFY1F3ek15ZnFzRzRLWWg0PToyMDEzLTEyLTEyVDEzOjMxOjI3LjQ4MzYzNVo=')
 .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);
