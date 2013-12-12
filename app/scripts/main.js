@@ -44,10 +44,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
             templateUrl: '/views/search.html',
             controller: 'SearchCtrl'
         })
-        /*//404
+        //404
         .otherwise({
             templateUrl:'/views/404.html'
-        })*/;
+        });
 }])
 .run(['$rootScope', '$http',
     function($rootScope, $http) {
