@@ -1,6 +1,6 @@
 'use strict';
 
-function AnalyticsCtrl($scope, $location, $route, $http) {
+function AnalyticsCtrl($scope, $location, $route, $http, API_URL) {
 	$scope.year = ($route.current.params.year ? $route.current.params.year : null);
 	$scope.period = ($route.current.params.period ? $route.current.params.period : null);
 	$scope.group = ($route.current.params.group ? $route.current.params.group : null);
@@ -54,7 +54,7 @@ function AnalyticsCtrl($scope, $location, $route, $http) {
 
 			$http({
 					method: 'POST', 
-					url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/ExtensionPercentUsageStatsByFiscalYear.jq',
+					url: API_URL + '/_queries/public/ExtensionPercentUsageStatsByFiscalYear.jq',
 					data: { domainsAndMembers: [] }
 				}).
 				success(function(data, status, headers, config) {
@@ -86,7 +86,7 @@ function AnalyticsCtrl($scope, $location, $route, $http) {
 
 			$http({
 					method: 'POST', 
-					url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/ExtensionPercentUsageStatsByDomain.jq',
+					url: API_URL + '/_queries/public/ExtensionPercentUsageStatsByDomain.jq',
 					data: { fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, domainsAndMembers: [ { domain: $scope.group, members: $scope[$scope.group] } ] }
 				}).
 				success(function(data, status, headers, config) {

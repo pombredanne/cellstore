@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlechart', 'navbar-toggle'])
+.constant('API_URL', 'http://secxbrl-info.alpha.xbrl.io/v1')
 .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);
@@ -49,8 +50,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
             templateUrl:'/views/404.html'
         });
 }])
-.run(['$rootScope', '$http',
-    function($rootScope, $http) {
+.run(['$rootScope', '$http', 'API_URL',
+    function($rootScope, $http, API_URL) {
         $rootScope.$on('$routeChangeSuccess', function(event, current) {
 			$rootScope.page = current.loadedTemplateUrl;
         });
@@ -68,7 +69,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
 
 		$http({
 				method: 'POST', 
-				url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/FilerSectorList.jq'
+				url: API_URL + '/_queries/public/FilerSectorList.jq'
 			}).
 			success(function(data, status, headers, config) {
 				if (data && data.members){
@@ -82,7 +83,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
 
 		$http({
 				method: 'POST', 
-				url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/GeneratorList.jq'
+				url: API_URL + '/_queries/public/GeneratorList.jq'
 			}).
 			success(function(data, status, headers, config) {
 				if (data && data.members){
@@ -96,7 +97,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
 
 		$http({
 				method: 'POST', 
-				url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/EntityTypeList.jq'
+				url: API_URL + '/_queries/public/EntityTypeList.jq'
 			}).
 			success(function(data, status, headers, config) {
 				if (data && data.members){
@@ -110,7 +111,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
 
 		$http({
 				method: 'POST', 
-				url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/StockIndexList.jq'
+				url: API_URL + '/_queries/public/StockIndexList.jq'
 			}).
 			success(function(data, status, headers, config) {
 				if (data && data.members){
@@ -124,7 +125,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
 
 		$http({
 				method: 'POST', 
-				url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/EntityNameTickerCIKTuples.jq'
+				url: API_URL + '/_queries/public/EntityNameTickerCIKTuples.jq'
 			}).
 			success(function(data, status, headers, config) {
 				if (data && data.entityNameTickerSymbolCikTuples){

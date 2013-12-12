@@ -1,6 +1,6 @@
 'use strict';
 
-function SourceCtrl($scope, $route, $http) {
+function SourceCtrl($scope, $route, $http, API_URL) {
 	
 	$scope.query = ($route.current.params.query ? $route.current.params.query : null);
 
@@ -29,8 +29,8 @@ function SourceCtrl($scope, $route, $http) {
 
 		$http({
 			method: 'GET', 
-			url: 'http://secxbrl-info.xbrl.io/v1/_queries/public/' + q + '.jq/metadata',
-			params: { token: 'RHFmTm80RHRNK29xd0wxdmlCeTRzYVdLbGlNPToyMDEzLTEyLTEwVDA5OjMyOjQ2Ljg3NDIzNVo=' }
+			url: API_URL + '/_queries/public/' + q + '.jq/metadata',
+			params: { token: 'MWVad3Z5MnhuOWltTHFMalFxMnQwRTlsbjZBPToyMDEzLTEyLTEyVDA5OjI0OjEzLjI2NjEyOVo=' }
 		}).
 		success(function(data, status, headers, config) {
 			if (data){
