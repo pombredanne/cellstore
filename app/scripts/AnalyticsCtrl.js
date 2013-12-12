@@ -31,7 +31,8 @@ function AnalyticsCtrl($scope, $location, $route, $http) {
 		  height: 500,
 		  chartArea:{left:30,top:10,width:"90%",height:"80%"},
 		  tooltip: { isHtml: true },
-		  bar: { groupWidth: "30%" }
+		  bar: { groupWidth: "30%" },
+		  vAxis: { minValue: 0 }
 		};
 		ochart.type = "LineChart";
 		$scope.chart = ochart;
