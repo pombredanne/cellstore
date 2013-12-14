@@ -16,11 +16,29 @@
     </div>
     <div class="col-md-9 col-sm-8">
         <div class="row" style="margin-bottom: 20px;">
-            <div class="col-md-12">
-                <input class="form-control" placeholder="Search for a company name or ticker symbol...">
-            </div>
+			<div class="col-md-7 col-sm-12 col-xs-12">
+				<input class="form-control" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
+					   placeholder="Search for a company by name, CIK or ticker symbol..."
+					   typeahead="entity.name for entity in entities | filter:$viewValue | limitTo:8">
+			</div>
+			<div class="col-md-1 col-sm-2 col-xs-2" ng-show="cik" style="margin-top: 7px;">
+				CIK
+			</div>
+			<div class="col-md-2 col-sm-4 col-xs-4" ng-show="cik" style="margin-top: 7px;">
+				<b>{{cik}}</b>
+			</div>
+			<div class="col-md-1 col-sm-4 col-xs-4" ng-show="ticker" style="margin-top: 7px;">
+				Symbol
+			</div>
+			<div class="col-md-1 col-sm-2 col-xs-2" ng-show="ticker" style="margin-top: 7px;">
+				<b>{{ticker}}</b>
+			</div>
         </div>
-        <tabset>
+		<div ng-hide="name">
+			Please search for a company by its name, the ticker symbol or its CIK.<br>
+			We will load then the fundamental accounting concepts for that company and show you an evolution of the Revenue and Net Income.
+		</div>
+        <tabset ng-show="name">
             <tab select="settab(0)">
                 <tab-heading>
                     <i class="fa fa-bar-chart-o"></i> Evolution Chart

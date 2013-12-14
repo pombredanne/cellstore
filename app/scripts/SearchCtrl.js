@@ -2,40 +2,35 @@
 
 function SearchCtrl($scope, $location, $route, $http)
 {
-    $scope.endyear = 2013;
-    $scope.year = ($route.current.params.year ? $route.current.params.year : null);
-    $scope.period = ($route.current.params.period ? $route.current.params.period : null);
+    $scope.endyear = 2014;
+    $scope.year = ($route.current.params.year ? $route.current.params.year : $scope.endyear - 1);
+    $scope.period = ($route.current.params.period ? $route.current.params.period : "FY");
     $scope.conceptMaps = ['FundamentalAccountingConcepts' ];
     $scope.conceptMap = $scope.conceptMaps[0];
     $scope.conceptMapKey = '';
     $scope.conceptMapKeys = ['fac:Assets', 'fac:Revenues' , 'fac:Equity'];
-    $scope.entities = [];
     $scope.factValue = '';
     $scope.units = '';
-    $scope.name = '';
-    $scope.cik = '';
-    $scope.ticker = '';
+
+	$scope.selectEntity = function(item) { 
+		$scope.cik = item.cik;
+		$scope.name = item.name;
+		$scope.ticker = item.tickers[0];
+		if ($scope.year)
+		{
+			$scope.change($scope.year, $scope.period);
+		}
+		else
+		{
+			$scope.change($scope.endyear - 1, "FY");
+		};
+	};
 
     $scope.change = function (year, period)
     {
-        $location.path("/search/" + year + "/" + period);
+        $location.path("/search/" + year + "/" + period + ($scope.cik ? "/" + $scope.cik : ""));
         $scope.safeApply();
     };
-
-    $scope.getEntities = function ()
-    {
-        $http({method: 'GET', url: '/data/entities.json'})
-            .success(function (data, status, headers, config)
-            {
-                $scope.entities = data.entityNameTickerSymbolCikTuples;
-
-            })
-            .error(function (data, status, headers, config)
-            {
-                $scope.entities = [];
-            });
-
-    }
 
     $scope.getValue = function ()
     {
@@ -57,29 +52,15 @@ function SearchCtrl($scope, $location, $route, $http)
         else
             alert('Complete all parameters!');
 
-
     }
 
-    if (!$route.current.params.year)
-    {
-        $scope.change($scope.endyear - 1, "FY");
-    }
-
-    $scope.getEntities();
-
-    $scope.update = function (element)
-    {
-        $scope.entities.filter(function (e)
-        {
-            if (e[element] == $scope[element])
-            {
-                $scope.name = e.name;
-                $scope.cik = e.cik;
-                $scope.ticker = e.ticker;
-                return;
-            }
-        })
-
-    };
-
+	$scope.$watch("entities", function(newValue, oldValue) {
+		if (newValue && newValue.length > 0)
+		{
+			if ($route.current.params.cik)
+				newValue.forEach(function(entity) {
+					if (entity.cik == $route.current.params.cik) $scope.selectEntity(entity); 
+				});
+		};
+	});
 }

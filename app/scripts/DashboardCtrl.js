@@ -1,8 +1,7 @@
 'use strict';
 
-function DashboardCtrl($scope, $location, $route, $http)
+function DashboardCtrl($scope, $rootScope, $location, $route, $http)
 {
-    $scope.text = "";
     $scope.table = null;
     $scope.endyear = 2014;
     $scope.year = ($route.current.params.year ? $route.current.params.year : null);
@@ -15,9 +14,23 @@ function DashboardCtrl($scope, $location, $route, $http)
     $scope.cashFlowStatement = [];
     $scope.keyRatios = [];
 
+	$scope.selectEntity = function(item) { 
+		$scope.cik = item.cik;
+		$scope.name = item.name;
+		$scope.ticker = item.tickers[0];
+		if (!$scope.year)
+		{
+			$scope.getdata();
+		}
+		else
+		{
+			$scope.getComponent();
+		}
+	};
+
     $scope.change = function (year, period)
     {
-        $location.path("/dashboard/" + year + "/" + period);
+        $location.path("/dashboard/" + $scope.cik + "/" + year + "/" + period);
         $scope.safeApply();
     };
 
@@ -27,7 +40,7 @@ function DashboardCtrl($scope, $location, $route, $http)
         {
             if ($route.current.params.year)
             {
-                $location.path("/dashboard");
+                $location.path("/dashboard/" + $scope.cik);
                 $scope.safeApply();
             }
         }
@@ -378,13 +391,14 @@ function DashboardCtrl($scope, $location, $route, $http)
                 $scope.keyRatios = [];
             });
     }
-    if (!$route.current.params.year)
-    {
-        $scope.getdata();
-    }
-    else
-    {
-        $scope.getComponent();
-    }
+
+	$scope.$watch("entities", function(newValue, oldValue) {
+		if ($route.current.params.cik && newValue && newValue.length > 0)
+		{
+			newValue.forEach(function(entity) {
+				if (entity.cik == $route.current.params.cik) $scope.selectEntity(entity); 
+			});
+		};
+	});
 }
 ;

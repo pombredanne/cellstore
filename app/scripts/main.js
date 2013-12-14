@@ -34,7 +34,11 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl'
         })
-        .when('/dashboard/:year/:period', {
+        .when('/dashboard/:cik', {
+            templateUrl: '/views/dashboard.html',
+            controller: 'DashboardCtrl'
+        })
+        .when('/dashboard/:cik/:year/:period', {
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl'
         })
@@ -43,6 +47,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
             controller: 'SearchCtrl'
         })
         .when('/search/:year/:period', {
+            templateUrl: '/views/search.html',
+            controller: 'SearchCtrl'
+        })
+        .when('/search/:year/:period/:cik', {
             templateUrl: '/views/search.html',
             controller: 'SearchCtrl'
         })
