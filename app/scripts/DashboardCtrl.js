@@ -1,6 +1,6 @@
 'use strict';
 
-function DashboardCtrl($scope, $rootScope, $location, $route, $http)
+function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL)
 {
     $scope.table = null;
     $scope.endyear = 2014;
@@ -14,19 +14,19 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http)
     $scope.cashFlowStatement = [];
     $scope.keyRatios = [];
 
-	$scope.selectEntity = function(item) { 
-		$scope.cik = item.cik;
-		$scope.name = item.name;
-		$scope.ticker = item.tickers[0];
-		if (!$scope.year)
-		{
-			$scope.getdata();
-		}
-		else
-		{
-			$scope.getComponent();
-		}
-	};
+    $scope.selectEntity = function(item) { 
+        $scope.cik = item.cik;
+        $scope.name = item.name;
+        $scope.ticker = item.tickers[0];
+        if (!$scope.year)
+        {
+            $scope.getdata();
+        }
+        else
+        {
+            $scope.getComponent();
+        }
+    };
 
     $scope.change = function (year, period)
     {
@@ -60,7 +60,7 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http)
             colors: ['#428BCA', 'orange'],
             width: "80%",
             height: 500,
-            chartArea: {left: 90, top: 40, width: "90%", height: "80%"},
+            chartArea: {left: 120, top: 40, width: "85%", height: "80%"},
             tooltip: { isHtml: false },
             bar: { groupWidth: "30%" },
             hAxis: { format: "QQQ yyyy" }
@@ -74,14 +74,14 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http)
             {id: "netIncome", label: "Net Income", type: "number"}
         ], "rows": []};
 
-        var dates = {};
+        $scope.httpDates = {};
         for (
             var i = 0; i < 4; i++)
         {
             for (
                 var j = 0; j < 4; j++)
             {
-                dates[($scope.endyear - 4 + i) + "Q" + (j + 1)] = {c: [
+                $scope.httpDates[($scope.endyear - 4 + i) + "Q" + (j + 1)] = {c: [
                     {v: null},
                     {v: null},
                     {v: null}
@@ -90,29 +90,86 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http)
         }
         $scope.chart.data = $scope.table;
 
-        $http({method: 'GET', url: '/data/dashboard.json'})
+		$scope.httpLoaders = 0;
+
+        $http({
+                method: 'POST', 
+                url: API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
+                params: { cik: $scope.cik, conceptName: 'us-gaap:Revenues', map: 'None' }
+            })
             .success(function (data, status, headers, config)
             {
-                data.forEach(function (concept)
-                {
-                    concept.conceptValuesByQuarter.forEach(function (item)
+                if (data && data.valuesByQuarter)
+                    data.valuesByQuarter.forEach(function (itemRev)
                     {
-                        dates[item.fiscalYear + item.fiscalPeriod].c[0]["v"] = item.fiscalPeriod + " " + item.fiscalYear;
-                        var index = (concept.conceptName == "fac:netIncome" ? 2 : 1);
-                        dates[item.fiscalYear + item.fiscalPeriod].c[index]["v"] = item.value;
+						var p = (itemRev.fiscalPeriod == "FY" ? "Q4" : itemRev.fiscalPeriod);
+						var date = $scope.httpDates[itemRev.fiscalYear + p];
+						if (date)
+						{
+							date.c[0]["v"] = p + " " + itemRev.fiscalYear;
+							date.c[1]["v"] = itemRev.value;
+						}
                     });
-                });
-                $.map(dates, function (element, index)
-                {
-                    $scope.table.rows.push(element);
-                });
-                $scope.chart.data = $scope.table;
+				$scope.httpLoaders += 1;
+                $scope.safeApply();
             })
-            .error(function (data, status, headers, config)
-            {
-                $scope.chart = null;
-            });
+			.error(function (data, status, headers, config)
+			{
+				$scope.httpLoaders = -1;
+                $scope.safeApply();
+			});
+		
+		$http({
+				method: 'POST', 
+				url: API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
+				params: { cik: $scope.cik, conceptName: 'us-gaap:NetIncomeLoss', map: 'None' }
+			})
+			.success(function (data, status, headers, config)
+			{
+				if (data && data.valuesByQuarter)
+					data.valuesByQuarter.forEach(function (itemInc)
+					{
+						var p = (itemInc.fiscalPeriod == "FY" ? "Q4" : itemInc.fiscalPeriod);
+						var date = $scope.httpDates[itemInc.fiscalYear + p];
+						if (date)
+						{
+							date.c[0]["v"] = p + " " + itemInc.fiscalYear;
+							date.c[2]["v"] = itemInc.value;
+						}
+					});
+				$scope.httpLoaders += 1;
+                $scope.safeApply();
+			})
+			.error(function (data, status, headers, config)
+			{
+				$scope.httpLoaders = -1;
+                $scope.safeApply();
+			});
     };
+
+	$scope.$watch("httpLoaders", function(newValue, oldValue) { 
+		if (newValue < 0) 
+		{
+			$scope.chart = null;
+		}
+		if (newValue == 2)
+		{
+			$.map($scope.httpDates, function (element, index)
+			{
+				$scope.table.rows.push(element);
+			});
+			$scope.chart.data = $scope.table;
+		}
+	});
+
+    $scope.$watch("entities", function(newValue, oldValue) {
+        if ($route.current.params.cik && newValue && newValue.length > 0)
+        {
+            newValue.forEach(function(entity) {
+                if (entity.cik == $route.current.params.cik) $scope.selectEntity(entity); 
+            });
+        };
+    });
 
     $scope.getComponent = function ()
     {
@@ -391,14 +448,4 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http)
                 $scope.keyRatios = [];
             });
     }
-
-	$scope.$watch("entities", function(newValue, oldValue) {
-		if ($route.current.params.cik && newValue && newValue.length > 0)
-		{
-			newValue.forEach(function(entity) {
-				if (entity.cik == $route.current.params.cik) $scope.selectEntity(entity); 
-			});
-		};
-	});
-}
-;
+};
