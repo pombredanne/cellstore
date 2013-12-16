@@ -1,14 +1,12 @@
 'use strict';
 
-function SearchCtrl($scope, $location, $route, $http)
+function SearchCtrl($scope, $location, $route, $http, API_URL)
 {
     $scope.endyear = 2014;
     $scope.year = ($route.current.params.year ? $route.current.params.year : $scope.endyear - 1);
     $scope.period = ($route.current.params.period ? $route.current.params.period : "FY");
-    $scope.conceptMaps = ['FundamentalAccountingConcepts' ];
-    $scope.conceptMap = $scope.conceptMaps[0];
-    $scope.conceptMapKey = '';
-    $scope.conceptMapKeys = ['fac:Assets', 'fac:Revenues' , 'fac:Equity'];
+    $scope.conceptMaps = [];
+    $scope.conceptMapKeys = [];
     $scope.factValue = '';
     $scope.units = '';
 
@@ -32,22 +30,40 @@ function SearchCtrl($scope, $location, $route, $http)
         $scope.safeApply();
     };
 
+	$scope.getConceptMaps = function() { 
+		$http({
+                method: 'POST', 
+                url: API_URL + '/_queries/public/ConceptMaps.jq'
+            })
+            .success(function (data, status, headers, config)
+            {
+                if (data && data.availableMaps) {
+                    $scope.conceptMaps = data.availableMaps;
+					$scope.conceptMap = $scope.conceptMaps[0];
+				}
+                $scope.safeApply();
+            });
+	};
+
     $scope.getValue = function ()
     {
-        if ($scope.cik != '' && $scope.period && $scope.year && $scope.conceptMap != null && $scope.conceptMapKey != '')
+		$scope.factValue = '';
+		$scope.units = '';
+        if ($scope.cik && $scope.period && $scope.year && $scope.conceptMapKey != '')
         {
-            $http({method: 'GET', url: '/data/factValue.json'})
-                .success(function (data, status, headers, config)
-                {
-                    $scope.factValue = Number(data.fact.value['#text']).toLocaleString();
-                    $scope.units = data.fact.value['-unit'].split(':')[1];
-                })
-                .error(function (data, status, headers, config)
-                {
-                    $scope.factValue = '';
-                    $scope.units = '';
-                });
-
+			if(!$scope.conceptMap) 
+			{
+				$http({
+						method: 'POST', 
+						url: API_URL + '/_queries/public/FactForConcept.jq',
+						params: { cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, conceptName: $scope.conceptKey }
+					})
+					.success(function (data, status, headers, config)
+					{
+						$scope.factValue = Number(data.value).toLocaleString();
+						$scope.units = data.unit.split(':')[1];
+					});
+			}
         }
         else
             alert('Complete all parameters!');
@@ -63,4 +79,43 @@ function SearchCtrl($scope, $location, $route, $http)
 				});
 		};
 	});
+
+	$scope.$watch("conceptMap", function(newValue, oldValue) {
+		$scope.conceptMapKeys = [];
+		$scope.conceptMapKey = "";
+		if (newValue)
+		{
+			$http({
+					method: 'POST', 
+					url: API_URL + '/_queries/public/ConceptMapKeys.jq',
+					params: { mapName: newValue || "None" }
+				})
+				.success(function (data, status, headers, config)
+				{
+					if (data) $scope.conceptMapKeys = data.mapKeys;
+					$scope.safeApply();
+				});
+		}
+		else
+		{
+			if ($scope.cik && $scope.year && $scope.period)
+			{
+				$http({
+						method: 'POST', 
+						url: API_URL + '/_queries/public/FactualConcepts.jq',
+						params: { cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period }
+					})
+					.success(function (data, status, headers, config)
+					{
+						if (data && data.factualConcepts) 
+							data.factualConcepts.forEach(function(item) {
+								$scope.conceptMapKeys.push(item.name);
+							});
+						$scope.safeApply();
+					});
+			}
+		}
+	});
+
+	$scope.getConceptMaps();
 }

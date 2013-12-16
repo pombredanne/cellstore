@@ -18,7 +18,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
             templateUrl: '/views/source.html',
             controller: 'SourceCtrl'
         })
-        .when('/source/:query', {
+        .when('/source/:visibility/:query', {
             templateUrl: '/views/source.html',
             controller: 'SourceCtrl'
         })
