@@ -3,8 +3,8 @@
 function SearchCtrl($scope, $location, $route, $http, API_URL)
 {
     $scope.endyear = 2014;
-    $scope.year = ($route.current.params.year ? $route.current.params.year : $scope.endyear - 1);
-    $scope.period = ($route.current.params.period ? $route.current.params.period : "FY");
+    $scope.year = $scope.endyear - 1;
+    $scope.period = "FY";
     $scope.conceptMaps = [];
     $scope.conceptMapKeys = [];
     $scope.factValue = '';
@@ -14,21 +14,7 @@ function SearchCtrl($scope, $location, $route, $http, API_URL)
 		$scope.cik = item.cik;
 		$scope.name = item.name;
 		$scope.ticker = item.tickers[0];
-		if ($scope.year)
-		{
-			$scope.change($scope.year, $scope.period);
-		}
-		else
-		{
-			$scope.change($scope.endyear - 1, "FY");
-		};
 	};
-
-    $scope.change = function (year, period)
-    {
-        $location.path("/search/" + year + "/" + period + ($scope.cik ? "/" + $scope.cik : ""));
-        $scope.safeApply();
-    };
 
 	$scope.getConceptMaps = function() { 
 		$http({
@@ -80,42 +66,54 @@ function SearchCtrl($scope, $location, $route, $http, API_URL)
 		};
 	});
 
-	$scope.$watch("conceptMap", function(newValue, oldValue) {
-		$scope.conceptMapKeys = [];
-		$scope.conceptMapKey = "";
-		if (newValue)
-		{
-			$http({
-					method: 'POST', 
-					url: API_URL + '/_queries/public/ConceptMapKeys.jq',
-					params: { mapName: newValue || "None" }
-				})
-				.success(function (data, status, headers, config)
-				{
-					if (data) $scope.conceptMapKeys = data.mapKeys;
-					$scope.safeApply();
-				});
-		}
-		else
-		{
-			if ($scope.cik && $scope.year && $scope.period)
+	$scope.$watch(
+		function(scope) {
+			return scope.conceptMap + "|" + scope.cik + "|" + scope.year + "|" + scope.period;
+		}, 
+		function(newValue) {
+			$scope.conceptMapKeys = [];
+
+			var crtMapKey = $scope.conceptMapKey;
+			$scope.conceptMapKey = "";
+
+			if ($scope.conceptMap)
 			{
 				$http({
 						method: 'POST', 
-						url: API_URL + '/_queries/public/FactualConcepts.jq',
-						params: { cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period }
+						url: API_URL + '/_queries/public/ConceptMapKeys.jq',
+						params: { mapName: $scope.conceptMap || "None" }
 					})
 					.success(function (data, status, headers, config)
 					{
-						if (data && data.factualConcepts) 
-							data.factualConcepts.forEach(function(item) {
-								$scope.conceptMapKeys.push(item.name);
-							});
+						if (data) $scope.conceptMapKeys = data.mapKeys;
+						if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) 
+							$scope.conceptMapKey = crtMapKey;
 						$scope.safeApply();
 					});
 			}
+			else
+			{
+				if ($scope.cik && $scope.year && $scope.period)
+				{
+					$http({
+							method: 'POST', 
+							url: API_URL + '/_queries/public/FactualConcepts.jq',
+							params: { cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period }
+						})
+						.success(function (data, status, headers, config)
+						{
+							if (data && data.factualConcepts) 
+								data.factualConcepts.forEach(function(item) {
+									$scope.conceptMapKeys.push(item.name);
+								});
+							if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) 
+								$scope.conceptMapKey = crtMapKey;
+							$scope.safeApply();
+						});
+				}
+			}
 		}
-	});
+	);
 
 	$scope.getConceptMaps();
 }

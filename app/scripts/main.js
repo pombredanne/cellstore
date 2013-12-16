@@ -46,14 +46,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlech
             templateUrl: '/views/search.html',
             controller: 'SearchCtrl'
         })
-        .when('/search/:year/:period', {
-            templateUrl: '/views/search.html',
-            controller: 'SearchCtrl'
-        })
-        .when('/search/:year/:period/:cik', {
-            templateUrl: '/views/search.html',
-            controller: 'SearchCtrl'
-        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'
