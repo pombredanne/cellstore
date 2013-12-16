@@ -1,9 +1,8 @@
 'use strict';
 
-function SearchCtrl($scope, $location, $route, $http, API_URL)
+function SearchCtrl($scope, $location, $route, $http, API_URL, LAST_YEAR)
 {
-    $scope.endyear = 2014;
-    $scope.year = $scope.endyear - 1;
+    $scope.year = LAST_YEAR - 1;
     $scope.period = "FY";
     $scope.conceptMaps = [];
     $scope.conceptMapKeys = [];
@@ -37,19 +36,16 @@ function SearchCtrl($scope, $location, $route, $http, API_URL)
 		$scope.units = '';
         if ($scope.cik && $scope.period && $scope.year && $scope.conceptMapKey != '')
         {
-			if(!$scope.conceptMap) 
-			{
-				$http({
-						method: 'POST', 
-						url: API_URL + '/_queries/public/FactForConcept.jq',
-						params: { cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, conceptName: $scope.conceptKey }
-					})
-					.success(function (data, status, headers, config)
-					{
-						$scope.factValue = Number(data.value).toLocaleString();
-						$scope.units = data.unit.split(':')[1];
-					});
-			}
+			$http({
+					method: 'POST', 
+					url: API_URL + '/_queries/public/FactForConcept.jq',
+					params: { cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, conceptName: $scope.conceptKey, map: $scope.conceptMap }
+				})
+				.success(function (data, status, headers, config)
+				{
+					$scope.factValue = Number(data.value).toLocaleString();
+					$scope.units = data.unit.split(':')[1];
+				});
         }
         else
             alert('Complete all parameters!');

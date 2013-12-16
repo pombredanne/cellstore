@@ -1,11 +1,11 @@
 'use strict';
 
-function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL)
+function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, LAST_YEAR)
 {
     $scope.table = null;
-    $scope.endyear = 2014;
     $scope.year = ($route.current.params.year ? $route.current.params.year : null);
     $scope.period = ($route.current.params.period ? $route.current.params.period : null);
+    $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
     $scope.secondtab = ($route.current.params.year ? true : false);
     $scope.showtab0 = true;
     $scope.generalInfo = [];
@@ -18,19 +18,12 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL)
         $scope.cik = item.cik;
         $scope.name = item.name;
         $scope.ticker = item.tickers[0];
-        if (!$scope.year)
-        {
-            $scope.getdata();
-        }
-        else
-        {
-            $scope.getComponent();
-        }
+        $scope.change($scope.year, $scope.period);
     };
 
     $scope.change = function (year, period)
     {
-        $location.path("/dashboard/" + $scope.cik + "/" + year + "/" + period);
+        $location.path("/dashboard/" + $scope.cik + (year ? "/" + year : "") + (period ? "/" + period : ""));
         $scope.safeApply();
     };
 
@@ -46,12 +39,14 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL)
         }
         else if (!$route.current.params.year)
         {
-            $scope.change($scope.endyear - 1, "FY");
+            $scope.change(LAST_YEAR - 1, "FY");
         }
     };
 
     $scope.getdata = function ()
     {
+		if (!$scope.cik) return;
+
         var ochart = {};
         ochart.options = {
             legend: {position: 'top'},
@@ -81,7 +76,7 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL)
             for (
                 var j = 0; j < 4; j++)
             {
-                $scope.httpDates[($scope.endyear - 4 + i) + "Q" + (j + 1)] = {c: [
+                $scope.httpDates[(LAST_YEAR - 4 + i) + "Q" + (j + 1)] = {c: [
                     {v: null},
                     {v: null},
                     {v: null}
@@ -95,7 +90,7 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL)
         $http({
                 method: 'POST', 
                 url: API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
-                params: { cik: $scope.cik, conceptName: 'us-gaap:Revenues', map: 'None' }
+                params: { cik: $scope.cik, conceptName: 'fac:Revenues', map: 'FundamentalAccountingConcepts' }
             })
             .success(function (data, status, headers, config)
             {
@@ -122,7 +117,7 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL)
 		$http({
 				method: 'POST', 
 				url: API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
-				params: { cik: $scope.cik, conceptName: 'us-gaap:NetIncomeLoss', map: 'None' }
+				params: { cik: $scope.cik, conceptName: 'fac:NetIncomeLoss', map: 'FundamentalAccountingConcepts' }
 			})
 			.success(function (data, status, headers, config)
 			{
@@ -173,6 +168,8 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL)
 
     $scope.getComponent = function ()
     {
+		if (!$scope.cik) return;
+
         $http({method: 'GET', url: '/data/concept.json'})
             .success(function (data, status, headers, config)
             {
@@ -448,4 +445,13 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL)
                 $scope.keyRatios = [];
             });
     }
+	
+	if (!$scope.year)
+	{
+		$scope.getdata();
+	}
+	else
+	{
+		$scope.getComponent();
+	}
 };
