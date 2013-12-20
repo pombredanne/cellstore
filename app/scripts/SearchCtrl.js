@@ -39,7 +39,7 @@ function SearchCtrl($scope, $location, $route, $http, API_URL, LAST_YEAR)
 			$http({
 					method: 'POST', 
 					url: API_URL + '/_queries/public/FactForConcept.jq',
-					params: { cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, conceptName: $scope.conceptKey, map: $scope.conceptMap }
+					params: { cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, conceptName: $scope.conceptMapKey, map: $scope.conceptMap }
 				})
 				.success(function (data, status, headers, config)
 				{

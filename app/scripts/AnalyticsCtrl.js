@@ -61,7 +61,7 @@ function AnalyticsCtrl($scope, $location, $route, $http, API_URL, LAST_YEAR) {
 					if (data && data.ExtensionUsageStatsByYears)
 						data.ExtensionUsageStatsByYears.forEach(function(item) { 
 							var key = item.fiscalYear;
-							$scope.table.rows.push({c: [ {v: key}, {v: item.median}, {v: item.min}, {v: item.bottomQuartile}, {v: item.topQuartile}, {v: item.max}, {v: "<dl class='charttip'><dt>" + key + "</dt><dd>Minimum: " + item.min + "<br>Lower Quartile: " + item.bottomQuartile + "<br>Median: " + item.median + "<br>Upper Quartile: " + item.topQuartile + "<br>Maximum: " + item.max + "</dd></dl>" } ]});
+							$scope.table.rows.push({c: [ {v: key}, {v: item.median}, {v: item.min}, {v: item.bottomQuartile}, {v: item.topQuartile}, {v: item.max}, {v: "<dl class='charttip'><dt>" + key + "</dt><dd>Minimum: " + item.min + "<br>Lower Quartile: " + item.bottomQuartile + "<br>Median: " + item.median + "<br>Upper Quartile: " + item.topQuartile + "<br>Maximum: " + item.max + "<br><small>Sample size: " + item.qty + "</small></dd></dl>" } ]});
 						});
 
 					$scope.chart.data = $scope.table;
@@ -94,7 +94,7 @@ function AnalyticsCtrl($scope, $location, $route, $http, API_URL, LAST_YEAR) {
 						data.ExtensionUsageStatsByDomain.forEach(function(item) { 
 							var p1 = item.selector.indexOf("'"), p2 = item.selector.lastIndexOf("'");
 							var key = item.selector.substring(p1 + 1, p2);
-							$scope.table.rows.push({c: [ {v: key}, {v: item.median}, {v: item.min}, {v: item.bottomQuartile}, {v: item.topQuartile}, {v: item.max}, {v: "<dl class='charttip'><dt>" + key + "</dt><dd>Minimum: " + item.min + "<br>Lower Quartile: " + item.bottomQuartile + "<br>Median: " + item.median + "<br>Upper Quartile: " + item.topQuartile + "<br>Maximum: " + item.max + "</dd></dl>" } ]});
+							$scope.table.rows.push({c: [ {v: key}, {v: item.median}, {v: item.min}, {v: item.bottomQuartile}, {v: item.topQuartile}, {v: item.max}, {v: "<dl class='charttip'><dt>" + key + "</dt><dd>Minimum: " + item.min + "<br>Lower Quartile: " + item.bottomQuartile + "<br>Median: " + item.median + "<br>Upper Quartile: " + item.topQuartile + "<br>Maximum: " + item.max + "<br><small>Sample size: " + item.qty + "</small></dd></dl>" } ]});
 						});
 
 					$scope.chart.data = $scope.table;
