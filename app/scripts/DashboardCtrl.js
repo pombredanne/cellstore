@@ -170,9 +170,34 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, LA
     {
 		if (!$scope.cik) return;
 
-        $http({method: 'GET', url: '/data/concept.json'})
+        $http({
+                method: 'POST', 
+                url: API_URL + '/_queries/public/FactsForReportSchema.jq',
+                params: { cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, reportSchema: 'FundamentalAccountingConcepts' }
+            })
             .success(function (data, status, headers, config)
             {
+				var root = data["Trees"]["fac:FundamentalAccountingConceptsLineItems"]["To"]["fac:FundamentalAccountingConceptsHierarchy"]["To"];
+				
+				var prepareReport = function(list, array) {
+					for (var key in list) {
+						if (list.hasOwnProperty(key)) {
+							var item = {};
+							item.label = list[key]["Label"];
+							item.value = (list[key]["Facts"] ? list[key]["Facts"][0]["Value"] : "");
+							item.audit = list[key]["Name"];
+							array.push(item);
+						}
+					}
+				};
+
+				prepareReport(root["fac:GeneralInformationHierarchy"]["To"], $scope.generalInfo);
+				prepareReport(root["fac:BalanceSheetHierarchy"]["To"], $scope.balanceSheet);
+				prepareReport(root["fac:IncomeStatementHierarchy"]["To"], $scope.incomeStatement);
+				prepareReport(root["fac:CashFlowStatementHierarchy"]["To"], $scope.cashFlowStatement);
+				prepareReport(root["fac:KeyRatiosHierarchy"]["To"], $scope.keyRatios);
+
+				/*
                 var entity = [data.entity, data.filing];
                 var balanceSheet = data.components["balance-sheet"];
                 var incomeStatement = data.components["income-statement"];
@@ -434,6 +459,8 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, LA
                 }
                 $scope.keyRatios = items;
                 items = [];
+				*/
+
             }
         )
             .error(function (data, status, headers, config)
