@@ -183,9 +183,15 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, LA
 					for (var key in list) {
 						if (list.hasOwnProperty(key)) {
 							var item = {};
-							item.label = list[key]["Label"];
-							item.value = (list[key]["Facts"] ? list[key]["Facts"][0]["Value"] : "");
-							item.audit = list[key]["Name"];
+							item.label = list[key]["Label"] ? list[key]["Label"] : "";
+							if (list[key]["Facts"])
+								if (list[key]["Facts"][0]["Type"] == "NumericValue")
+									item.value = parseFloat(list[key]["Facts"][0]["Value"]).toLocaleString();
+								else
+									item.value = list[key]["Facts"][0]["Value"];
+							else 
+								item.value = "";
+							item.audit = list[key]["Name"] ? list[key]["Name"] : "";
 							array.push(item);
 						}
 					}
@@ -197,280 +203,16 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, LA
 				prepareReport(root["fac:CashFlowStatementHierarchy"]["To"], $scope.cashFlowStatement);
 				prepareReport(root["fac:KeyRatiosHierarchy"]["To"], $scope.keyRatios);
 
-				/*
-                var entity = [data.entity, data.filing];
-                var balanceSheet = data.components["balance-sheet"];
-                var incomeStatement = data.components["income-statement"];
-                var cashFlowStatement = data.components["cash-flow-statement"];
-                var keyRatios = data.verification["key-ratios"];
-                var item;
-                var items = [];
-
-                entity.forEach(function (concept)
-                {
-                    for (var key in concept)
-                    {
-                        if (concept[key].value == undefined)
-                        {
-                            continue;
-                        }
-                        item = {};
-                        item.label = key.replace(/([a-z])([A-Z])/g, '$1 $2');
-                        item.value = concept[key].value;
-                        item.hasWarning = false;
-                        item.type = "Reported";
-                        item.audit = concept[key].concept;
-
-                        items.push(item);
-                    }
-
-                })
-                $scope.generalInfo = items;
-
-                items = [];
-                for (var key in balanceSheet)
-                {
-                    if (key == "format")
-                    {
-                        continue;
-                    }
-                    item = {};
-                    item.label = key.replace(/([a-z])([A-Z])/g, '$1 $2');
-                    item.value = !isNaN(balanceSheet[key].value) ? parseInt(balanceSheet[key].value) > 0 ? parseInt(balanceSheet[key].value).toLocaleString() : 0 : balanceSheet[key].value;
-
-                    if (!balanceSheet[key].imputed)
-                    {
-                        item.type = "Reported";
-                        item.audit = balanceSheet[key].concept;
-                    }
-                    else
-                    {
-                        item.type = "Imputed";
-                        item.audit = balanceSheet[key].rules["audit-trail"];
-                    }
-
-                    if (balanceSheet[key]["validation-rules"] != undefined)
-                    {
-                        var validRules = [];
-                        if (balanceSheet[key]["validation-rules"].length == undefined)
-                        {
-                            if (balanceSheet[key]["validation-rules"]["rule-passed"] == "true")
-                            {
-                                item.hasWarning = false;
-                            }
-                            else
-                            {
-                                item.hasWarning = true;
-                            }
-                        }
-                        else
-                        {
-                            balanceSheet[key]["validation-rules"].filter(function (rule)
-                            {
-                                if (rule["rule-passed"] == "true")
-                                {
-                                    validRules.push(true);
-                                }
-                            })
-
-                            if (validRules.length == balanceSheet[key]["validation-rules"].length)
-                            {
-                                item.hasWarning = false;
-                            }
-                            else
-                            {
-                                item.hasWarning = true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        item.hasWarning = false;
-                    }
-                    if (key == "BalanceSheetDate")
-                        $scope.generalInfo.push(item);
-                    else
-                        items.push(item);
-
-
-                }
-                $scope.balanceSheet = items;
-
-                items = [];
-                for (var key in incomeStatement)
-                {
-                    if (key == "format" || key == "IncomeStatementStartPeriod")
-                    {
-                        continue;
-                    }
-                    item = {};
-                    item.label = key.replace(/([a-z])([A-Z])/g, '$1 $2');
-                    item.value = !isNaN(incomeStatement[key].value) ? parseInt(incomeStatement[key].value) > 0 ? parseInt(incomeStatement[key].value).toLocaleString() : 0 : incomeStatement[key].value;
-
-                    if (!incomeStatement[key].imputed)
-                    {
-                        item.type = "Reported";
-                        item.audit = incomeStatement[key].concept;
-                    }
-                    else
-                    {
-                        item.type = "Imputed";
-                        item.audit = incomeStatement[key].rules["audit-trail"];
-                    }
-
-                    if (incomeStatement[key]["validation-rules"] != undefined)
-                    {
-                        var validRules = [];
-                        if (incomeStatement[key]["validation-rules"].length == undefined)
-                        {
-                            if (incomeStatement[key]["validation-rules"]["rule-passed"] == "true")
-                            {
-                                item.hasWarning = false;
-                            }
-                            else
-                            {
-                                item.hasWarning = true;
-                            }
-                        }
-                        else
-                        {
-                            incomeStatement[key]["validation-rules"].filter(function (rule)
-                            {
-                                if (rule["rule-passed"] == "true")
-                                {
-                                    validRules.push(true);
-                                }
-                            })
-
-                            if (validRules.length == incomeStatement[key]["validation-rules"].length)
-                            {
-                                item.hasWarning = false;
-                            }
-                            else
-                            {
-                                item.hasWarning = true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        item.hasWarning = false;
-                    }
-
-                    items.push(item);
-
-
-                }
-                $scope.incomeStatement = items;
-
-                items = [];
-                for (var key in cashFlowStatement)
-                {
-                    item = {};
-                    item.label = key.replace(/([a-z])([A-Z])/g, '$1 $2');
-                    item.value = !isNaN(cashFlowStatement[key].value) ? parseInt(cashFlowStatement[key].value) > 0 ? parseInt(cashFlowStatement[key].value).toLocaleString() : 0 : cashFlowStatement[key].value;
-
-                    if (!cashFlowStatement[key].imputed)
-                    {
-                        item.type = "Reported";
-                        item.audit = cashFlowStatement[key].concept;
-                    }
-                    else
-                    {
-                        item.type = "Imputed";
-                        item.audit = cashFlowStatement[key].rules["audit-trail"];
-                    }
-
-                    if (cashFlowStatement[key]["validation-rules"] != undefined)
-                    {
-                        var validRules = [];
-                        if (cashFlowStatement[key]["validation-rules"].length == undefined)
-                        {
-                            if (cashFlowStatement[key]["validation-rules"]["rule-passed"] == "true")
-                            {
-                                item.hasWarning = false;
-                            }
-                            else
-                            {
-                                item.hasWarning = true;
-                            }
-                        }
-                        else
-                        {
-                            cashFlowStatement[key]["validation-rules"].filter(function (rule)
-                            {
-                                if (rule["rule-passed"] == "true")
-                                {
-                                    validRules.push(true);
-                                }
-                            })
-
-                            if (validRules.length == cashFlowStatement[key]["validation-rules"].length)
-                            {
-                                item.hasWarning = false;
-                            }
-                            else
-                            {
-                                item.hasWarning = true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        item.hasWarning = false;
-                    }
-
-                    items.push(item);
-
-
-                }
-                $scope.cashFlowStatement = items;
-
-                items = [];
-                for (var key in keyRatios)
-                {
-                    item = {};
-                    item.label = key.replace(/([a-z])([A-Z])/g, '$1 $2');
-                    item.value = !isNaN(keyRatios[key].value) ? parseFloat(keyRatios[key].value) != 0 ? parseFloat(keyRatios[key].value).toLocaleString() : 0 : keyRatios[key].value;
-
-                    if (!keyRatios[key].imputed)
-                    {
-                        item.type = "Reported";
-                        item.audit = keyRatios[key].concept;
-                    }
-                    else
-                    {
-                        item.type = "Imputed";
-                        item.audit = keyRatios[key].rules["audit-trail"];
-                    }
-
-                    if (keyRatios[key]["passed"] != 'true')
-                    {
-                        item.hasWarning = true;
-                    }
-                    else
-                    {
-                        item.hasWarning = false;
-                    }
-
-                    items.push(item);
-
-
-                }
-                $scope.keyRatios = items;
-                items = [];
-				*/
-
             }
         )
-            .error(function (data, status, headers, config)
-            {
-                $scope.generalInfo = [];
-                $scope.balanceSheet = [];
-                $scope.incomeStatement = [];
-                $scope.cashFlowStatement = [];
-                $scope.keyRatios = [];
-            });
+		.error(function (data, status, headers, config)
+		{
+			$scope.generalInfo = [];
+			$scope.balanceSheet = [];
+			$scope.incomeStatement = [];
+			$scope.cashFlowStatement = [];
+			$scope.keyRatios = [];
+		});
     }
 	
 	if (!$scope.year)

@@ -43,8 +43,13 @@ function SearchCtrl($scope, $location, $route, $http, API_URL, LAST_YEAR)
 				})
 				.success(function (data, status, headers, config)
 				{
-					$scope.factValue = Number(data.value).toLocaleString();
-					$scope.units = data.unit.split(':')[1];
+					if (data.value) 
+						if(!isNaN(parseFloat(data.value)) && isFinite(data.value) && data.unit)
+						{
+							$scope.factValue = parseFloat(data.value).toLocaleString();
+							$scope.units = data.unit.split(':')[1];
+						}
+						else $scope.factValue = data.value;
 				});
         }
         else
