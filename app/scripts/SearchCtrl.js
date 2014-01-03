@@ -1,12 +1,13 @@
 'use strict';
 
-function SearchCtrl($scope, $location, $route, $http, API_URL, LAST_YEAR)
+function SearchCtrl($scope, $location, $route, $http, $sce, API_URL, LAST_YEAR)
 {
     $scope.year = LAST_YEAR - 1;
     $scope.period = "FY";
     $scope.conceptMaps = [];
     $scope.conceptMapKeys = [];
     $scope.factValue = '';
+    $scope.factText = '';
     $scope.units = '';
 
 	$scope.selectEntity = function(item) { 
@@ -33,6 +34,7 @@ function SearchCtrl($scope, $location, $route, $http, API_URL, LAST_YEAR)
     $scope.getValue = function ()
     {
 		$scope.factValue = '';
+		$scope.factText = '';
 		$scope.units = '';
         if ($scope.cik && $scope.period && $scope.year && $scope.conceptMapKey != '')
         {
@@ -44,12 +46,12 @@ function SearchCtrl($scope, $location, $route, $http, API_URL, LAST_YEAR)
 				.success(function (data, status, headers, config)
 				{
 					if (data.value) 
-						if(!isNaN(parseFloat(data.value)) && isFinite(data.value) && data.unit)
+						if(data.type == "NumericValue")
 						{
 							$scope.factValue = parseFloat(data.value).toLocaleString();
 							$scope.units = data.unit.split(':')[1];
 						}
-						else $scope.factValue = data.value;
+						else $scope.factText = $sce.trustAsHtml(data.value);
 				});
         }
         else

@@ -13,7 +13,6 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css({.tmp,app}) styles/main.css -->
-        <link rel="stylesheet" href="/bower_components/angular-ui/build/angular-ui.css">
         <link rel="stylesheet" href="/styles/main.css">
         <!-- endbuild -->
     </head>
@@ -49,9 +48,29 @@
 		</div>
         <div class="container" ng-view="true">			
 		</div>
-        <div class="footer">
+        <div class="footer navbar navbar-inner navbar-fixed-bottom">
 			<div class="container">
-				&copy; xbrl.io
+				<div class="col-md-1 col-sm-2 col-xs-3">
+					<a href="http://www.xbrl.io" target="_blank" class="logoxbrl">
+						<i class="fa fa-cloud"></i>&nbsp;xbrl.io
+					</a>
+				</div>
+				<div class="col-md-1 col-sm-2 col-xs-3">
+					<a href="http://www.28.io" target="_blank">
+						<i class="logo28" style="display: block; width: 60px; height: 40px;"></i>
+					</a>
+				</div>
+				<div class="col-md-10 col-sm-8 col-xs-6 text-right">
+					<span style="color: lightgray">
+						<a href="mailto:hello@xbrl.io" style="text-decoration: none; font-size: small; margin: 10px 5px 10px 5px; display: inline-block">
+							Contact Us
+						</a>
+						|
+						<a href="http://28msec.zendesk.com" target="_blank" style="text-decoration: none; font-size: small; margin: 10px -15px 10px 5px; display: inline-block">
+							Support
+						</a>
+					</span>
+				</div>
 			</div>
 		</div>
 
@@ -60,8 +79,7 @@
         <script src="/bower_components/angular/angular.js"></script>
         <script src="/bower_components/angular-route/angular-route.js"></script>
         <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="/bower_components/angular-ui/build/angular-ui.js"></script>
-        <script src="/bower_components/angular-ui-bootstrap3/ui-bootstrap-tpls.js"></script>
+        <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
 
         <script src="/scripts/googlechart.js"></script>
         <script src="/scripts/navbar-toggle.js"></script>

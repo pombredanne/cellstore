@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ngSanitize', 'ui', 'ui.bootstrap', 'googlechart', 'navbar-toggle'])
+angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 'navbar-toggle'])
 .constant('API_URL', 'http://secxbrl-info2.alpha.xbrl.io/v1')
 .constant('API_TOKEN', 'ZnRTcnJXR3dNdkkvMkRyR0tMeTZzc0l6ZTBFPToyMDEzLTEyLTIwVDExOjQzOjQ0LjE3NzU5M1o=')
 .constant('LAST_YEAR', 2014)

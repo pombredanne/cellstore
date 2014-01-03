@@ -34,18 +34,19 @@
 				<b>{{ticker}}</b>
 			</div>
         </div>
-		<div ng-hide="name">
+		<div ng-hide="cik">
 			Please search for a company by its name, the ticker symbol or its CIK.<br>
 			We will load then the fundamental accounting concepts for that company and show you an evolution of the Revenue and Net Income.
 		</div>
-        <tabset ng-show="name">
+        <tabset ng-show="cik">
             <tab select="settab(0)">
                 <tab-heading>
                     <i class="fa fa-bar-chart-o"></i> Evolution Chart
                 </tab-heading>
                 <div class="row">
 					<div class="col-md-12 col-sm-12">
-						<div google-chart chart="chart" style="height: 500px"/>
+						<div google-chart chart="chart" style="height: 500px">
+						</div>
 					</div>
 				</div>
 				<div class="row">

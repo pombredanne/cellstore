@@ -76,8 +76,9 @@
             <div class="col-md-3 col-sm-3 col-xs-3">
                 <button class="btn btn-default btn-lg btn-block" class="form-control" ng-click="getValue()">GO</button>
             </div>
-            <div class="col-md-9 col-sm-9 col-xs-9 text-right">
-                <h4>{{factValue}} {{units}}</h4>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+                <h4 ng-show="factValue" class="text-right">{{factValue}} {{units}}</h4>
+				<div data-ng-bind-html="factText"></div>
             </div>
         </div>
         <div class="row" style="padding-top: 15px" ng-hide="year && cik">
