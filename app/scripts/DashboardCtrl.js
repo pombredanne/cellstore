@@ -7,12 +7,8 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, LA
     $scope.period = ($route.current.params.period ? $route.current.params.period : null);
     $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
     $scope.secondtab = ($route.current.params.year ? true : false);
-    $scope.showtab0 = true;
-    $scope.generalInfo = [];
-    $scope.balanceSheet = [];
-    $scope.incomeStatement = [];
-    $scope.cashFlowStatement = [];
-    $scope.keyRatios = [];
+    $scope.reports = [];
+	$scope.showtab = [];
 
     $scope.selectEntity = function(item) { 
         $scope.cik = item.cik;
@@ -205,7 +201,7 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, LA
     $scope.getComponent = function ()
     {
 		if (!$scope.cik) return;
-
+		$scope.reports = [];
         $http({
                 method: 'POST', 
                 url: API_URL + '/_queries/public/FactsForReportSchema.jq',
@@ -220,34 +216,40 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, LA
 						if (list.hasOwnProperty(key)) {
 							var item = {};
 							item.label = list[key]["Label"] ? list[key]["Label"] : "";
-							if (list[key]["Facts"])
-								if (list[key]["Facts"][0]["Type"] == "NumericValue")
-									item.value = parseFloat(list[key]["Facts"][0]["Value"]).toLocaleString();
+							if (list[key]["Facts"]) {
+								item.type = list[key]["Facts"][0]["Type"];
+								if (list[key]["Facts"][0]["Type"] == "NumericValue") {
+									var num = list[key]["Facts"][0]["Value"];
+									if (!num) num = "0";
+									item.value = parseFloat(num).toLocaleString();
+								}
 								else
 									item.value = list[key]["Facts"][0]["Value"];
-							else 
+							}
+							else {
 								item.value = "";
+								item.type = "";
+							}
 							item.audit = list[key]["Name"] ? list[key]["Name"] : "";
 							array.push(item);
 						}
 					}
 				};
-
-				prepareReport(root["fac:GeneralInformationHierarchy"]["To"], $scope.generalInfo);
-				prepareReport(root["fac:BalanceSheetHierarchy"]["To"], $scope.balanceSheet);
-				prepareReport(root["fac:IncomeStatementHierarchy"]["To"], $scope.incomeStatement);
-				prepareReport(root["fac:CashFlowStatementHierarchy"]["To"], $scope.cashFlowStatement);
-				prepareReport(root["fac:KeyRatiosHierarchy"]["To"], $scope.keyRatios);
-
+				
+				for (var report in root) {
+					if (root.hasOwnProperty(report)) {
+						var obj = { name: root[report]["Label"].toString().replace(" [Hierarchy]", ""), items: [] };
+						prepareReport(root[report]["To"], obj.items);
+						$scope.reports.push(obj);
+						$scope.showtab.push(true);
+					}
+				};
+				$scope.safeApply();
             }
         )
 		.error(function (data, status, headers, config)
 		{
-			$scope.generalInfo = [];
-			$scope.balanceSheet = [];
-			$scope.incomeStatement = [];
-			$scope.cashFlowStatement = [];
-			$scope.keyRatios = [];
+			$scope.reports = [];
 		});
     }
 	

@@ -80,10 +80,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="menu nav col-md-12">
-                        <a href="javascript://" ng-click="showtab0=!showtab0">General Information</a>
+                    <div class="menu nav col-md-12" ng-repeat="report in reports">
+                        <a href="javascript://" ng-click="showtab[$index]=!showtab[$index]">{{report.name}}</a>
 
-                        <div class="table-responsive" ng-show="showtab0">
+                        <div class="table-responsive" ng-show="showtab[$index]">
                             <table class="table">
                                 <thead>
                                 <th>Label</th>
@@ -91,92 +91,16 @@
                                 <th>Audit</th>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="item in generalInfo">
+                                <tr ng-repeat="item in report.items">
                                     <td>{{item.label}}</td>
-                                    <td>{{item.value}}</td>
+                                    <td ng-class="{ 'text-right' : (item.type == 'NumericValue')}">{{item.value}}</td>
                                     <td>{{item.audit}}</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-
-                        <a href="javascript://" ng-click="showtab1=!showtab1">Balance Sheet</a>
-
-                        <div class="table-responsive" ng-show="showtab1">
-                            <table class="table">
-                                <thead>
-                                <th>Label</th>
-                                <th>Value</th>
-                                <th>Audit</th>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="item in balanceSheet">
-                                    <td>{{item.label}}</td>
-                                    <td class="text-right">{{item.value}}</td>
-                                    <td>{{item.audit}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <a href="javascript://" ng-click="showtab2=!showtab2">Income Statement</a>
-
-                        <div class="table-responsive" ng-show="showtab2">
-                            <table class="table">
-                                <thead>
-                                <th>Label</th>
-                                <th>Value</th>
-                                <th>Audit</th>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="item in incomeStatement">
-                                    <td>{{item.label}}</td>
-                                    <td class="text-right">{{item.value}}</td>
-                                    <td>{{item.audit}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <a href="javascript://" ng-click="showtab3=!showtab3">Cash Flow Statement</a>
-
-                        <div class="table-responsive" ng-show="showtab3">
-                            <table class="table">
-                                <thead>
-                                <th>Label</th>
-                                <th>Value</th>
-                                <th>Audit</th>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="item in cashFlowStatement">
-                                    <td>{{item.label}}</td>
-                                    <td class="text-right">{{item.value}}</td>
-                                    <td>{{item.audit}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <a href="javascript://" ng-click="showtab4=!showtab4">Key Financial Ratios</a>
-
-                        <div class="table-responsive" ng-show="showtab4">
-                            <table class="table">
-                                <thead>
-                                <th>Label</th>
-                                <th>Value</th>
-                                <th>Audit</th>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="item in keyRatios">
-                                    <td>{{item.label}}</td>
-                                    <td class="text-right">{{item.value}}</td>
-                                    <td>{{item.audit}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+					</div>
+				</div>
             </tab>
         </tabset>
     </div>
