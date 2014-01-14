@@ -47,6 +47,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
             templateUrl: '/views/search.html',
             controller: 'SearchCtrl'
         })
+        .when('/browser', {
+            templateUrl: '/views/browser.html',
+            controller: 'BrowserCtrl'
+        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'
