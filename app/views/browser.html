@@ -1,0 +1,45 @@
+<div class="row" ng-controller="BrowserCtrl">
+        <div class="row text-center" style="padding-bottom: 5px">
+          <h3>Companies</h3>
+        </div>
+        <div ng-hide="results" class="text-center">
+          <i class="fa fa-spinner fa-spin fa-5x"></i>
+        </div>
+        <div ng-show="results">
+          <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
+          <table class="table table-responsive table-condensed table-striped">
+              <thead>
+              <th>#</th>
+              <th>CIK</th>
+              <th>Ticker Symbol</th>
+              <th>Entity Registrant Name</th>
+              <th>Entity Type</th>
+              <th>SIC Code</th>
+              <th>SIC Description</th>
+              <th>Industry Sector</th>
+              <th>Trust</th>
+              <th>SEC Submissions</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in results | filter : search | limitTo : pageCount">
+                  <td>{{$index + 1}}</td>
+                  <td><a href="">{{item.id}}</a></td>
+                  <td>{{item.Ticker}}</td>
+                  <td>{{item.Name}}</td>
+                  <td>{{item.Type}}</td>
+                  <td>{{item.SICCode}}</td>
+                  <td>{{item.SICDescription}}</td>
+                  <td>{{item.Sector}}</td>
+                  <td>{{item.Trust}}</td>
+                  <td><a href="">Submissions</a></td>
+                </tr>
+              </tbody>
+          </table>
+          <a ng-click="getmore()" class="col-sm-2 col-xs-3" href="javascript://" ng-show="pageCount < results.length">Show More</a>
+          <a ng-click="getall()" class="col-sm-2 col-xs-3" href="javascript://" ng-show="pageCount < results.length">Show All</a>
+          <div class="col-sm-8 col-xs-6 text-right">
+            All data as: <a href="{{api_url}}/entities.jq?file=json">JSON</a>, <a href="{{api_url}}/entities.jq?file=xml">XML</a>, <a href="{{api_url}}/entities.jq?file=csv">CSV</a>
+          </div>
+        </div>
+</div>
+
