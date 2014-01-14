@@ -22,6 +22,7 @@ function BrowserCtrl($scope, $http, API_URL) {
   };
   $scope.getall = function() {
     $scope.pageCount = $scope.results.length;
+    $scope.search = "";
   };
   $scope.getdata();
 };
