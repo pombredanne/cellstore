@@ -35,8 +35,8 @@
                 </tr>
               </tbody>
           </table>
-          <a ng-click="getmore()" class="col-sm-2 col-xs-3" href="javascript://" ng-show="pageCount < results.length">Show More</a>
-          <a ng-click="getall()" class="col-sm-2 col-xs-3" href="javascript://" ng-show="pageCount < results.length">Show All</a>
+          <a ng-click="getmore()" class="col-sm-2 col-xs-3" href="javascript://" ng-show="pageCount < results.length"><i class="fa fa-angle-down"></i> Show More</a>
+          <a ng-click="getall()" class="col-sm-2 col-xs-3" href="javascript://" ng-show="pageCount < results.length"><i class="fa fa-angle-double-down"></i> Show All</a>
           <div class="col-sm-8 col-xs-6 text-right">
             All data as: <a href="{{api_url}}/entities.jq?file=json">JSON</a>, <a href="{{api_url}}/entities.jq?file=xml">XML</a>, <a href="{{api_url}}/entities.jq?file=csv">CSV</a>
           </div>
