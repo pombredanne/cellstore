@@ -23,14 +23,14 @@
               <tbody>
                 <tr ng-repeat="item in results | filter : search | limitTo : pageCount">
                   <td>{{$index + 1}}</td>
-                  <td><a href="">{{item.id}}</a></td>
-                  <td>{{item.Ticker}}</td>
-                  <td>{{item.Name}}</td>
-                  <td>{{item.Type}}</td>
-                  <td>{{item.SICCode}}</td>
-                  <td>{{item.SICDescription}}</td>
-                  <td>{{item.Sector}}</td>
-                  <td>{{item.Trust}}</td>
+                  <td><a href="">{{item._id.substr(23)}}</a></td>
+                  <td>{{item.Profiles.SEC.Tickers[0]}}</td>
+                  <td>{{item.Profiles.SEC.CompanyName}}</td>
+                  <td>{{item.Profiles.SEC.CompanyType}}</td>
+                  <td>{{item.Profiles.SEC.SIC}}</td>
+                  <td>{{item.Profiles.SEC.SICDescription}}</td>
+                  <td>{{item.Profiles.SEC.Sector}}</td>
+                  <td>{{item.Profiles.SEC.IsTrust?"Y":"-"}}</td>
                   <td><a href="">Submissions</a></td>
                 </tr>
               </tbody>
