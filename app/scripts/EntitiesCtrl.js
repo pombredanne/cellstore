@@ -1,16 +1,16 @@
 "use strict"
 
-function BrowserCtrl($scope, $http, API_URL) {
+function EntitiesCtrl($scope, $http, API_URL) {
   $scope.results = [];
-  $scope.api_url = API_URL.substring(0,API_URL.length-3);
+  $scope.API_URL = API_URL;
   $scope.getdata = function() {
     $http(
       {
-        method : 'POST',
+        method : 'GET',
         url: API_URL + '/_queries/public/entities.jq',
       }).
       success(function(data, status, headers, config) {
-        $scope.results = data.entities;
+        $scope.results = data;
         $scope.pageCount = 50;
         $scope.safeApply();
       }).

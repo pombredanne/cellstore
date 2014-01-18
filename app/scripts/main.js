@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 'navbar-toggle'])
-.constant('API_URL', 'http://secxbrl-info2.alpha.xbrl.io/v1')
-.constant('API_TOKEN', 'ZnRTcnJXR3dNdkkvMkRyR0tMeTZzc0l6ZTBFPToyMDEzLTEyLTIwVDExOjQzOjQ0LjE3NzU5M1o=')
+.constant('API_URL', 'http://secxbrl.alpha.xbrl.io/v1')
+.constant('API_TOKEN', 'UUtxcCtkeU5sWWttRldNdDIrL1E3czhvRTBBPToyMDE0LTAxLTE0VDA5OjMwOjA3LjEzMTI0MVo=')
 .constant('LAST_YEAR', 2014)
 .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
@@ -47,9 +47,17 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
             templateUrl: '/views/search.html',
             controller: 'SearchCtrl'
         })
-        .when('/browser', {
-            templateUrl: '/views/browser.html',
-            controller: 'BrowserCtrl'
+        .when('/entities', {
+            templateUrl: '/views/entities.html',
+            controller: 'EntitiesCtrl'
+        })
+        .when('/entity/:cik', {
+            templateUrl: '/views/entity.html',
+            controller: 'EntityCtrl'
+        })
+        .when('/filings/:cik', {
+            templateUrl: '/views/filings.html',
+            controller: 'FilingsCtrl'
         })
         //404
         .otherwise({

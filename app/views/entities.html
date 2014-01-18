@@ -1,4 +1,4 @@
-<div class="row" ng-controller="BrowserCtrl">
+<div class="row" ng-controller="EntitiesCtrl">
         <div class="row text-center" style="padding-bottom: 5px">
           <h3>Entities</h3>
         </div>
@@ -23,7 +23,7 @@
               <tbody>
                 <tr ng-repeat="item in results | filter : search | limitTo : pageCount">
                   <td>{{$index + 1}}</td>
-                  <td><a href="">{{item._id.substr(23)}}</a></td>
+                  <td><a href="/entity/{{item._id.substr(23)}}">{{item._id.substr(23)}}</a></td>
                   <td>{{item.Profiles.SEC.Tickers[0]}}</td>
                   <td>{{item.Profiles.SEC.CompanyName}}</td>
                   <td>{{item.Profiles.SEC.CompanyType}}</td>
@@ -31,14 +31,16 @@
                   <td>{{item.Profiles.SEC.SICDescription}}</td>
                   <td>{{item.Profiles.SEC.Sector}}</td>
                   <td>{{item.Profiles.SEC.IsTrust?"Y":"-"}}</td>
-                  <td><a href="">Submissions</a></td>
+                  <td><a href="/filings/{{item._id.substr(23)}}">Submissions</a></td>
                 </tr>
               </tbody>
           </table>
           <a ng-click="getmore()" class="col-sm-2 col-xs-3" href="javascript://" ng-show="pageCount < results.length"><i class="fa fa-angle-down"></i> Show More</a>
           <a ng-click="getall()" class="col-sm-2 col-xs-3" href="javascript://" ng-show="pageCount < results.length"><i class="fa fa-angle-double-down"></i> Show All</a>
           <div class="col-sm-8 col-xs-6 text-right">
-            All data as: <a href="{{api_url}}/entities.jq?file=json">JSON</a>, <a href="{{api_url}}/entities.jq?file=xml">XML</a>, <a href="{{api_url}}/entities.jq?file=csv">CSV</a>
+            All data as: <a href="{{API_URL}}/_queries/public/entities.jq.json" download="entities.json">JSON</a>,
+                         <a href="{{API_URL}}/_queries/public/entities.jq.xml" download="entities.xml">XML</a>,
+                         <a href="{{API_URL}}/_queries/public/entities.jq.text" download="entities.csv">CSV</a>
           </div>
         </div>
 </div>
