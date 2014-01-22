@@ -18,9 +18,7 @@
               <th>Accepted by SEC</th>
               <th>Generator</th>
               <th>Accession Number</th>
-              <th>SEC Filing Page</th>
-              <th>XBRL Instance</th>
-              <th>Fundamental Accounting Concepts</th>
+              <th>Actions</th>
               </thead>
               <tbody>
                 <tr ng-repeat="item in results | filter : search">
@@ -32,10 +30,17 @@
                   <td>{{item.FiscalPeriod}}</td>
                   <td>{{item.Accepted}}</td>
                   <td>{{item.Generator}}</td>
-                  <td><a href="">{{item.AccessionNumber}}</a></td>
-                  <td class="text-center"><a href="{{item.FilingPage}}"><i class="fa fa-archive fa-2x"></i></a></td>
-                  <td class="text-center"><a href="{{item.XBRLInstanceURL}}"><i class="fa fa-external-link fa-2x"></i></a></td>
-                  <td class="text-center"><a href="{{}}"><i class="fa fa-bar-chart-o fa-2x"></i></a></td>
+                  <td><a href="/components/{{item.AccessionNumber}}">{{item.AccessionNumber}}</a></td>
+                  <td class="text-center">
+                    <span class="dropdown">
+                      <a href="javascript://" class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
+                      <ul class="dropdown-menu text-left pull-right">
+                        <li><a href="{{item.SECFilingPage}}">SEC Filing Page</a></li>
+                        <li><a href="{{item.XBRLInstanceURL}}">XBRL Instance</a></li>
+                        <li><a href="{{}}">Fundamental Accounting Concepts</a></li>
+                      </ul>
+                    </span>
+                  </td>
                 </tr>
               </tbody>
           </table>

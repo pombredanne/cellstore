@@ -59,6 +59,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
             templateUrl: '/views/filings.html',
             controller: 'FilingsCtrl'
         })
+        .when('/components/:accession', {
+            templateUrl: '/views/components.html',
+            controller: 'ComponentsCtrl'
+        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'
