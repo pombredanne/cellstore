@@ -63,6 +63,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
             templateUrl: '/views/components.html',
             controller: 'ComponentsCtrl'
         })
+        .when('/facttable/:component', {
+            templateUrl: '/views/facttable.html',
+            controller: 'FactTableCtrl'
+        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'
