@@ -1,4 +1,4 @@
-<div class="row" ng-controller="SearchCtrl">
+<div class="row">
     <div class="menu nav col-md-3 col-sm-4">
         <a href="/analytics">
             <i class="fa fa-book"></i> Use of Extensions
@@ -21,32 +21,29 @@
                 <h5>Company</h5>
 
                 <div class="row">
-					<div class="col-md-12">
-						<input class="form-control" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
-							   placeholder="Search for a company by name, CIK or ticker symbol..."
-							   typeahead="entity.name for entity in entities | filter:$viewValue | limitTo:8">
-					</div>
-					<div class="col-md-2 col-sm-2 col-xs-2" ng-show="cik" style="margin-top: 10px;">
-						CIK
-					</div>
-					<div class="col-md-4 col-sm-4 col-xs-4" ng-show="cik" style="margin-top: 10px;">
-						<b>{{cik}}</b>
-					</div>
-					<div class="col-md-4 col-sm-4 col-xs-4" ng-show="ticker" style="margin-top: 10px;">
-						Symbol
-					</div>
-					<div class="col-md-2 col-sm-2 col-xs-2" ng-show="ticker" style="margin-top: 10px;">
-						<b>{{ticker}}</b>
-					</div>
+                    <div class="col-md-12">
+                        <input class="form-control" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
+                               placeholder="Search for a company by name, CIK or ticker symbol..."
+                               typeahead="entity.name for entity in entities | filter:$viewValue | limitTo:8">
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2" ng-show="cik" style="margin-top: 10px;">
+                        CIK
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4" ng-show="cik" style="margin-top: 10px;">
+                        <b>{{cik}}</b>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4" ng-show="ticker" style="margin-top: 10px;">
+                        Symbol
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2" ng-show="ticker" style="margin-top: 10px;">
+                        <b>{{ticker}}</b>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <h5>Fiscal Year Focus</h5>
                 <select size=4 ng-model="year" class="form-control">
-                    <option>2013</option>
-                    <option>2012</option>
-                    <option>2011</option>
-                    <option>2010</option>
+                    <option ng-repeat="year in years">{{year}}</option>
                 </select>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-6">
@@ -78,15 +75,15 @@
             </div>
             <div class="col-md-9 col-sm-9 col-xs-9">
                 <h4 ng-show="factValue" class="text-right">{{factValue}} {{units}}</h4>
-				<div data-ng-bind-html="factText"></div>
+                <div data-ng-bind-html="factText"></div>
             </div>
         </div>
         <div class="row" style="padding-top: 15px" ng-hide="year && cik">
-			<div class="col-md-12">
-				Please search for a company by its name, the ticker symbol or its CIK.<br>
-				We will load then the concepts (mapped or not mapped) for that company and show you the values.
-			</div>
-		</div>
+            <div class="col-md-12">
+                Please search for a company by its name, the ticker symbol or its CIK.<br>
+                We will load then the concepts (mapped or not mapped) for that company and show you the values.
+            </div>
+        </div>
     </div>
 </div>
 </div>

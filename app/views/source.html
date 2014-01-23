@@ -1,68 +1,68 @@
-<div class="row" ng-controller="SourceCtrl">
-	<div class="menu nav col-md-3 col-sm-4">
-		
-		<h4>Fetching Data</h4>
+<div class="row">
+    <div class="menu nav col-md-3 col-sm-4">
+        
+        <h4>Fetching Data</h4>
 
-		<a href="/source/public/ExtensionPercentUsageStatsByFiscalYear" ng-class="{ active: (query == 'ExtensionPercentUsageStatsByFiscalYear') }">
-			Extension Percent Usage Stats By Fiscal Year
-		</a>
-		<a href="/source/public/ExtensionPercentUsageStatsByDomain" ng-class="{ active: (query == 'ExtensionPercentUsageStatsByDomain') }">
-			Extension Percent Usage Stats By Domain
-		</a>
-		<a href="/source/public/ConceptValuesByQuarter" ng-class="{ active: (query == 'ConceptValuesByQuarter') }">
-			Concept Values by Quarter
-		</a>
-		<a href="/source/public/FactualConcepts" ng-class="{ active: (query == 'FactualConcepts') }">
-			Concepts of a Filing
-		</a>
-		<a href="/source/public/FactForConcept" ng-class="{ active: (query == 'FactForConcept') }">
-			Concept Value in a Filing
-		</a>
+        <a href="/source/public/ExtensionPercentUsageStatsByFiscalYear" ng-class="{ active: (query == 'ExtensionPercentUsageStatsByFiscalYear') }">
+            Extension Percent Usage Stats By Fiscal Year
+        </a>
+        <a href="/source/public/ExtensionPercentUsageStatsByDomain" ng-class="{ active: (query == 'ExtensionPercentUsageStatsByDomain') }">
+            Extension Percent Usage Stats By Domain
+        </a>
+        <a href="/source/public/ConceptValuesByQuarter" ng-class="{ active: (query == 'ConceptValuesByQuarter') }">
+            Concept Values by Quarter
+        </a>
+        <a href="/source/public/FactualConcepts" ng-class="{ active: (query == 'FactualConcepts') }">
+            Concepts of a Filing
+        </a>
+        <a href="/source/public/FactForConcept" ng-class="{ active: (query == 'FactForConcept') }">
+            Concept Value in a Filing
+        </a>
 
-		<h4>Caching Data</h4>
+        <h4>Caching Data</h4>
 
-		<a href="/source/private/UpdateExtensionStatsCache" ng-class="{ active: (query == 'UpdateExtensionStatsCache') }">
-			Create Cache
-		</a>
-		
-		<h4>Lists</h4>
+        <a href="/source/private/UpdateExtensionStatsCache" ng-class="{ active: (query == 'UpdateExtensionStatsCache') }">
+            Create Cache
+        </a>
+        
+        <h4>Lists</h4>
 
-		<a href="/source/public/EntityNameTickerCIKTuples" ng-class="{ active: (query == 'EntityNameTickerCIKTuples') }">
-			Entities (with CIK and Tickers)
-		</a>
-		<a href="/source/public/FilerSectorList" ng-class="{ active: (query == 'FilerSectorList') }">
-			Filer Sectors
-		</a>
-		<a href="/source/public/GeneratorList" ng-class="{ active: (query == 'GeneratorList') }">
-			Generators
-		</a>
-		<a href="/source/public/EntityTypeList" ng-class="{ active: (query == 'EntityTypeList') }">
-			Entity Types
-		</a>
-		<a href="/source/public/StockIndexList" ng-class="{ active: (query == 'StockIndexList') }">
-			Stock Indexes
-		</a>
+        <a href="/source/public/EntityNameTickerCIKTuples" ng-class="{ active: (query == 'EntityNameTickerCIKTuples') }">
+            Entities (with CIK and Tickers)
+        </a>
+        <a href="/source/public/FilerSectorList" ng-class="{ active: (query == 'FilerSectorList') }">
+            Filer Sectors
+        </a>
+        <a href="/source/public/GeneratorList" ng-class="{ active: (query == 'GeneratorList') }">
+            Generators
+        </a>
+        <a href="/source/public/EntityTypeList" ng-class="{ active: (query == 'EntityTypeList') }">
+            Entity Types
+        </a>
+        <a href="/source/public/StockIndexList" ng-class="{ active: (query == 'StockIndexList') }">
+            Stock Indexes
+        </a>
 
-		<h4>Concept Maps</h4>
+        <h4>Concept Maps</h4>
 
-		<a href="/source/public/ConceptMaps" ng-class="{ active: (query == 'ConceptMaps') }">
-			Concept Maps List
-		</a>
-		<a href="/source/public/ConceptMapKeys" ng-class="{ active: (query == 'ConceptMapKeys') }">
-			Concept Map Keys
-		</a>
-	</div>
-	<div class="col-md-9 col-sm-8">
-		<div ng-hide="query">
-			We are sharing!
-			<h2>Here is how we did it!</h2>
-			<br><br>
-			Just click on the query name to see its contents.
-			<br><br>
-			<br><br>
-			<small>All queries are provided under Apache 2.0 license.<br>
-			Feel free to use them for personal or commercial use.</small>
-		</div>
-		<pre ng-bind-html="content" ng-show="content"></pre>
-	</div>
+        <a href="/source/public/ConceptMaps" ng-class="{ active: (query == 'ConceptMaps') }">
+            Concept Maps List
+        </a>
+        <a href="/source/public/ConceptMapKeys" ng-class="{ active: (query == 'ConceptMapKeys') }">
+            Concept Map Keys
+        </a>
+    </div>
+    <div class="col-md-9 col-sm-8">
+        <div ng-hide="query">
+            We are sharing!
+            <h2>Here is how we did it!</h2>
+            <br><br>
+            Just click on the query name to see its contents.
+            <br><br>
+            <br><br>
+            <small>All queries are provided under Apache 2.0 license.<br>
+            Feel free to use them for personal or commercial use.</small>
+        </div>
+        <pre ng-bind-html="content" ng-show="content"></pre>
+    </div>
 </div>

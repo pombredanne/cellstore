@@ -1,62 +1,59 @@
-<div class="row" ng-controller="AnalyticsCtrl">
-	<div class="menu nav col-md-3 col-sm-4">
-		<a class="active" href="/analytics">
-			<i class="fa fa-book"></i> Use of Extensions
-		</a>
-		<div>
-		  This dashboard shows the extensions evolution in time.
-		  It is used to calculate the deviation from the supported yearly standard.
-		</div>
-		<a href="/dashboard">
-			<i class="fa fa-bar-chart-o"></i> Company Quality Dashboard
-		</a>
-		<a href="/search">
-			<i class="fa fa-search"></i> Search facts
-		</a>
-	</div>
-	<div class="col-md-9 col-sm-8">
-		<div class="row" style="padding-bottom: 25px" ng-show="year">
-			<div class="col-md-6 col-sm-12">
-				<h5>Use of Extensions Breakdown</h5>
-				<select size=4 ng-model="group" ng-change="change(year, period, group)" class="form-control">
-					<option value="sector">by Sector</option>
-					<option value="generator">by Generator</option>
-					<option value="entityType">by Entity Type</option>
-					<option value="stockIndex">by Stock Index</option>
-				</select>
-			</div>
-			<div class="col-md-3 col-sm-6 col-xs-6">
-				<h5>Fiscal Year Focus</h5>
-				<select size=4 ng-model="year" ng-change="change(year, period, group)" class="form-control">
-					<option>2013</option>
-					<option>2012</option>
-					<option>2011</option>
-					<option>2010</option>
-				</select>
-			</div>
-			<div class="col-md-3 col-sm-6 col-xs-6">
-				<h5>Fiscal Period Focus</h5>
-				<select size=4 ng-model="period" ng-change="change(year, period, group)" class="form-control">
-					<option>FY</option>
-					<option>Q1</option>
-					<option>Q2</option>
-					<option>Q3</option>
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12 col-sm-12">
-				<div google-chart chart="chart" select="click(selectedItem)" style="height: 500px"/>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12 col-sm-12">
-				<div ng-hide="year">
-					Click on any node to breakdown yearly information on custom criteria.<br>
-					<a href="/source/public/ExtensionPercentUsageStatsByFiscalYear">Click here to see the query that displays this chart!</a>
-				</div>
-				<a href="/source/public/ExtensionPercentUsageStatsByDomain" ng-show="year">Click here to see the query that displays this chart!</a>
-			</div>
-		</div>
-	</div>
+<div class="row">
+    <div class="menu nav col-md-3 col-sm-4">
+        <a class="active" href="/analytics">
+            <i class="fa fa-book"></i> Use of Extensions
+        </a>
+        <div>
+          This dashboard shows the extensions evolution in time.
+          It is used to calculate the deviation from the supported yearly standard.
+        </div>
+        <a href="/dashboard">
+            <i class="fa fa-bar-chart-o"></i> Company Quality Dashboard
+        </a>
+        <a href="/search">
+            <i class="fa fa-search"></i> Search facts
+        </a>
+    </div>
+    <div class="col-md-9 col-sm-8">
+        <div class="row" style="padding-bottom: 25px" ng-show="year">
+            <div class="col-md-6 col-sm-12">
+                <h5>Use of Extensions Breakdown</h5>
+                <select size=4 ng-model="group" ng-change="change(year, period, group)" class="form-control">
+                    <option value="sector">by Sector</option>
+                    <option value="generator">by Generator</option>
+                    <option value="entityType">by Entity Type</option>
+                    <option value="stockIndex">by Stock Index</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <h5>Fiscal Year Focus</h5>
+                <select size=4 ng-model="year" ng-change="change(year, period, group)" class="form-control">
+                    <option ng-repeat="year in years">{{year}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <h5>Fiscal Period Focus</h5>
+                <select size=4 ng-model="period" ng-change="change(year, period, group)" class="form-control">
+                    <option>FY</option>
+                    <option>Q1</option>
+                    <option>Q2</option>
+                    <option>Q3</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div google-chart chart="chart" select="click(selectedItem)" style="height: 500px"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div ng-hide="year">
+                    Click on any node to breakdown yearly information on custom criteria.<br>
+                    <a href="/source/public/ExtensionPercentUsageStatsByFiscalYear">Click here to see the query that displays this chart!</a>
+                </div>
+                <a href="/source/public/ExtensionPercentUsageStatsByDomain" ng-show="year">Click here to see the query that displays this chart!</a>
+            </div>
+        </div>
+    </div>
 </div>
