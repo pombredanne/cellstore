@@ -174,8 +174,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
             templateUrl:'/views/404.html'
         });
 }])
-.run(['$rootScope', '$http', 'API_URL',
-    function($rootScope, $http, API_URL) {
+.run(['$rootScope',
+    function($rootScope) {
         $rootScope.$on('$routeChangeSuccess', function(event, current) {
             $rootScope.page = current.loadedTemplateUrl;
         });
