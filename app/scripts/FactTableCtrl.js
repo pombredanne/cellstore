@@ -1,9 +1,9 @@
 "use strict"
 
-function FactTableCtrl($scope, $route, $http, API_URL) {
+function FactTableCtrl($scope, $route, $http, $backend) {
   $scope.data = [];
   $scope.columns = [];
-  $scope.API_URL = API_URL;
+  $scope.API_URL = $backend.API_URL;
   $scope.EntityRegistrantName = "";
   $scope.NetworkLabel = "";
   $scope.NetworkIdentifier = $route.current.params.component;
@@ -11,7 +11,7 @@ function FactTableCtrl($scope, $route, $http, API_URL) {
     $http(
       {
         method : 'GET',
-        url: API_URL + '/_queries/public/facttable.jq?ident=' + encodeURIComponent($scope.NetworkIdentifier),
+        url: $backend.API_URL + '/_queries/public/facttable.jq?ident=' + encodeURIComponent($scope.NetworkIdentifier),
       }).
       success(function(data, status, headers, config) {
         $scope.data = data.FactTable;

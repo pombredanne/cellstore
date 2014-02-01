@@ -1,46 +1,122 @@
 'use strict';
 
-function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, years, entities)
+function DashboardCtrl($scope, $rootScope, $anchorScroll, $location, $route, $http, $backend, years, periods, entities)
 {
     $scope.table = null;
-    $scope.LAST_YEAR = (new Date()).getFullYear();
-    $scope.year = ($route.current.params.year ? $route.current.params.year : null);
+    $scope.year = ($route.current.params.year ? parseInt($route.current.params.year) : null);
     $scope.period = ($route.current.params.period ? $route.current.params.period : null);
     $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
-    $scope.secondtab = ($route.current.params.year ? true : false);
     $scope.reports = [];
     $scope.showtab = [];
     $scope.years = years;
+	$scope.periods = periods;
     $scope.entities = entities;
+
+	$scope.computeUsage = function() { 
+		$scope.usage = [];
+		years.forEach(function(year) {
+			$scope.usage.push({ used: false, periods: [ { used: false }, { used: false }, { used: false }, { used: false } ] });
+		});
+
+		$http({
+			method: 'GET', 
+			url: $backend.API_URL + '/_queries/public/FYandFPByCIK.jq',
+			params: { _method: 'POST', cik: $scope.cik },
+			cache: true
+		})
+		.success(function (data, status, headers, config)
+		{
+			if (data && data.filings)
+			{
+				data.filings.forEach(function(filing) {
+					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].used = true;
+					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod)].used = true;
+				});
+				$scope.adjustYearPeriod();
+			}
+		});
+	};
+
+	$scope.adjustYearPeriod = function() {		
+		if ($scope.year && !$scope.usage[$scope.years.indexOf($scope.year)].used) 
+			$scope.year = null;
+		
+		if (!$scope.year)
+			for (var i = 0; i < $scope.years.length; i++)
+				if ($scope.usage[i].used)
+				{
+					$scope.year = $scope.years[i];
+					$scope.period = $scope.periods[0];
+					break;
+				}
+
+		if (!$scope.usage[$scope.years.indexOf($scope.year)].periods[$scope.periods.indexOf($scope.period)].used) {
+			var pers = $scope.usage[$scope.years.indexOf($scope.year)].periods;
+			for (var i = 0; i < pers.length; i++)
+				if (pers[i].used) {
+					$scope.period = $scope.periods[i];
+					break;
+				}
+		}
+	};
 
     $scope.selectEntity = function(item) { 
         $scope.cik = item.cik;
         $scope.name = item.name;
         $scope.ticker = item.tickers[0];
-        $scope.change($scope.year, $scope.period);
+		$scope.year = null;
+		$scope.period = null;
+        $scope.change();
     };
 
-    $scope.change = function (year, period)
+	$scope.setYear = function(year, used) {
+		if (used)
+		{
+			$scope.year = year;
+			$scope.adjustYearPeriod();
+			$scope.change();
+		}
+	};
+
+	$scope.setPeriod = function(period, used) {
+		if (used)
+		{
+			$scope.period = period;
+			$scope.adjustYearPeriod();
+			$scope.change();
+		}
+	};
+
+    $scope.change = function ()
     {
-        $location.path("/dashboard/" + $scope.cik + (year ? "/" + year : "") + (period ? "/" + period : ""));
-        $scope.safeApply();
+		if ($scope.year && $scope.period)
+			$scope.goto("/dashboard/" + $scope.cik + "/" + $scope.year + "/" + $scope.period);
+		else
+			$http({
+					method: 'GET', 
+					url: $backend.API_URL + '/_queries/public/LatestFYandFPByCIK.jq',
+					params: { _method: 'POST', cik: $scope.cik },
+					cache: true
+				})
+				.success(function (data, status, headers, config)
+				{
+					if (data && data.latestFYPeriod)
+					{
+						$scope.year = data.latestFYPeriod.fiscalYear;
+						$scope.period = data.latestFYPeriod.fiscalPeriod;
+						$scope.goto("/dashboard/" + $scope.cik + "/" + $scope.year + "/" + $scope.period);
+					}
+					else $scope.goto("/dashboard/" + $scope.cik);
+				})
+				.error(function (data, status, headers, config)
+				{
+					$scope.goto("/dashboard/" + $scope.cik);
+				});
     };
 
-    $scope.settab = function (tab)
-    {
-        if (tab == 0)
-        {
-            if ($route.current.params.year)
-            {
-                $location.path("/dashboard/" + $scope.cik);
-                $scope.safeApply();
-            }
-        }
-        else if (!$route.current.params.year)
-        {
-            $scope.change((new Date()).getFullYear(), "FY");
-        }
-    };
+	$scope.gotoId = function(id) {
+		$scope.$broadcast('scroll-id', id); 
+	};
 
     $scope.getdata = function ()
     {
@@ -71,14 +147,15 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, ye
         ], "rows": []};
 
         $scope.httpDates = {};
+		var lastYear = (new Date()).getFullYear();
         for (
             var i = 0; i < 4; i++)
         {
             for (
                 var j = 0; j < 4; j++)
             {
-                $scope.httpDates[($scope.LAST_YEAR - 4 + i) + "Q" + (j + 1)] = {c: [
-                    {v: "Q" + (j + 1) + " " + ($scope.LAST_YEAR - 4 + i) },
+                $scope.httpDates[(lastYear - 4 + i) + "Q" + (j + 1)] = {c: [
+                    {v: "Q" + (j + 1) + " " + (lastYear - 4 + i) },
                     {v: null},
                     {v: null},
                     {v: null}
@@ -90,9 +167,10 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, ye
         $scope.httpLoaders = 0;
 
         $http({
-                method: 'POST', 
-                url: API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
-                params: { cik: $scope.cik, conceptName: 'fac:Revenues', map: 'FundamentalAccountingConcepts' }
+                method: 'GET', 
+                url: $backend.API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
+                params: { _method: 'POST', cik: $scope.cik, conceptName: 'fac:Revenues', map: 'FundamentalAccountingConcepts' },
+				cache: true
             })
             .success(function (data, status, headers, config)
             {
@@ -113,9 +191,10 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, ye
             });
         
         $http({
-                method: 'POST', 
-                url: API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
-                params: { cik: $scope.cik, conceptName: 'fac:NetIncomeLoss', map: 'FundamentalAccountingConcepts' }
+                method: 'GET', 
+                url: $backend.API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
+                params: { _method: 'POST', cik: $scope.cik, conceptName: 'fac:NetIncomeLoss', map: 'FundamentalAccountingConcepts' },
+				cache: true
             })
             .success(function (data, status, headers, config)
             {
@@ -149,7 +228,7 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, ye
                     var r = parseFloat(item.c[2]["v"]);
                     var i = parseFloat(item.c[3]["v"]);
                     if (!i && !r) { item.c[1]["v"] = " "; return; }
-                    item.c[1]["v"] = "<dl class='charttip'><dt>" + item.c[0]["v"] + "</dt><dd>";
+                    item.c[1]["v"] = "<dl class='chart-tip'><dt>" + item.c[0]["v"] + "</dt><dd>";
                     if (r) item.c[1]["v"] += "<i class='fa fa-square' style='color:#428BCA'></i> Revenue: " + r.toLocaleString();
                     if (i)
                     {
@@ -160,12 +239,13 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, ye
                 }
             }
 
+			var lastYear = (new Date()).getFullYear();
             for (var i = 0; i < 4; i++)
             {
-                var q1 = $scope.httpDates[($scope.LAST_YEAR - 4 + i) + "Q1"];
-                var q2 = $scope.httpDates[($scope.LAST_YEAR - 4 + i) + "Q2"];
-                var q3 = $scope.httpDates[($scope.LAST_YEAR - 4 + i) + "Q3"];
-                var q4 = $scope.httpDates[($scope.LAST_YEAR - 4 + i) + "Q4"];
+                var q1 = $scope.httpDates[(lastYear - 4 + i) + "Q1"];
+                var q2 = $scope.httpDates[(lastYear - 4 + i) + "Q2"];
+                var q3 = $scope.httpDates[(lastYear - 4 + i) + "Q3"];
+                var q4 = $scope.httpDates[(lastYear - 4 + i) + "Q4"];
                 if (q4){
                     var sum=parseFloat(q4.c[2]["v"]);
                     if (q1) sum = sum - parseFloat(q1.c[2]["v"]);
@@ -197,9 +277,10 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, ye
         if (!$scope.cik) return;
         $scope.reports = [];
         $http({
-                method: 'POST', 
-                url: API_URL + '/_queries/public/FactsForReportSchema.jq',
-                params: { cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, reportSchema: 'FundamentalAccountingConcepts' }
+                method: 'GET', 
+                url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
+                params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, reportSchema: 'FundamentalAccountingConcepts' },
+				cache: true
             })
             .success(function (data, status, headers, config)
             {
@@ -249,16 +330,14 @@ function DashboardCtrl($scope, $rootScope, $location, $route, $http, API_URL, ye
 
     if ($route.current.params.cik)
         $scope.entities.forEach(function(entity) {
-            if (entity.cik == $route.current.params.cik) 
-                $scope.selectEntity(entity); 
+            if (entity.cik == $route.current.params.cik){
+				$scope.cik = entity.cik;
+				$scope.name = entity.name;
+				$scope.ticker = entity.tickers[0];
+				$scope.computeUsage();
+			}
         });
-
-    if (!$scope.year)
-    {
-        $scope.getdata();
-    }
-    else
-    {
-        $scope.getComponent();
-    }
+	
+	$scope.getdata();
+    $scope.getComponent();
 };

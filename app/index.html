@@ -21,56 +21,29 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="header">
-			<div class="container">
-				<div class="navbar" navbar-toggle>
-					<div class="navbar-header">
-						<a href="/" id="logo">
-							<i class="logo" style="display: inline-block; width: 48px; height: 32px; margin: 10px;"></i>
-							<h4>SECXBRL.info<br>
-								<small>SEC Fillings Quality Analytics</small>
-							</h4>
-						</a>
-						<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-							 MENU <i class="fa fa-angle-double-down"></i>
-						</button>
-					</div>
-					<div class="collapse navbar-collapse" role="navigation">
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="/" ng-class="{ active: (page == '/views/home.html') }">Home</a></li>
-							<li><a href="/analytics" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Analytics</a></li>
-							<li><a href="/why" ng-class="{ active: (page == '/views/why.html') }">Why SECXBRL.info</a></li>
-							<li><a href="/source" ng-class="{ active: (page == '/views/source.html') }">Source Code</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div class="container" ng-view="true">			
-		</div>
-		<br><br><br>
-        <div class="footer navbar navbar-inner navbar-fixed-bottom">
-			<div class="container">
-				<div class="col-md-1 col-sm-2 col-xs-3">
-					<a href="http://www.xbrl.io" target="_blank" class="logoxbrl"><i class="fa fa-cloud"></i>&nbsp;xbrl.io</a>
-				</div>
-				<div class="col-md-1 col-sm-2 col-xs-3">
-					<a href="http://www.28.io" target="_blank">
-						<i class="logo28" style="display: block; width: 60px; height: 40px;"></i>
+        <div class="header clearfix">
+			<div class="navbar" navbar-toggle>
+				<div class="navbar-header">
+					<a href="/" id="logo">
+						<i class="logo"></i>
+						<h3 class="highlight1">SECXBRL.info</h3> <sup>BETA</sup>
+						<small>SEC Fillings Quality Analytics</small>
 					</a>
+					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+						 Menu <i class="glyphicon glyphicon-collapse-down"></i>
+					</button>
 				</div>
-				<div class="col-md-10 col-sm-8 col-xs-6 text-right">
-					<span style="color: lightgray">
-						<a href="mailto:hello@xbrl.io" style="text-decoration: none; font-size: small; margin: 10px 5px 10px 5px; display: inline-block">
-							Contact Us
-						</a>
-						|
-						<a href="http://28msec.zendesk.com" target="_blank" style="text-decoration: none; font-size: small; margin: 10px -15px 10px 5px; display: inline-block">
-							Support
-						</a>
-					</span>
+				<div class="collapse navbar-collapse" role="navigation">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/analytics" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Quality Analytics</a></li>
+						<li><a href="/entities" ng-class="{ active: (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/filings.html' || page == '/views/components.html' ) }">Browser</a></li>
+						<li><a href="/why" ng-class="{ active: (page == '/views/why.html') }">Why Us</a></li>
+						<li><a href="/source" ng-class="{ active: (page == '/views/source.html') }">Code</a></li>
+					</ul>
 				</div>
 			</div>
+		</div>
+        <div ng-view="true" class="content clearfix">			
 		</div>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -79,19 +52,38 @@
         <script src="/bower_components/angular-route/angular-route.js"></script>
         <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
         <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+        <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
 
-        <script src="/scripts/googlechart.js"></script>
+		<script src="/scripts/googlechart.js"></script>
         <script src="/scripts/navbar-toggle.js"></script>
+        <script src="/scripts/scroll-id.js"></script>
+		<script src="/scripts/constants.js"></script>
         <script src="/scripts/main.js"></script>
-        <script src="/scripts/AnalyticsCtrl.js"></script>
-        <script src="/scripts/DashboardCtrl.js"></script>
         <script src="/scripts/SourceCtrl.js"></script>
-        <script src="/scripts/SearchCtrl.js"></script>
         <script src="/scripts/EntitiesCtrl.js"></script>
         <script src="/scripts/EntityCtrl.js"></script>
         <script src="/scripts/FilingsCtrl.js"></script>
         <script src="/scripts/ComponentsCtrl.js"></script>
         <script src="/scripts/FactTableCtrl.js"></script>
+		<script src="/scripts/AnalyticsCtrl.js"></script>
+        <script src="/scripts/DashboardCtrl.js"></script>
+        <script src="/scripts/SearchCtrl.js"></script>
         <!-- endbuild -->
+
+		<div class="footer clearfix">
+            <div class="navbar">
+                <div class="navbar-header">
+					<a href="/" id="logo">
+						<i class="logo-grayscale"></i>
+						<h3 class="highlight2">SECXBRL.info</h3>
+						<small>SEC Fillings Quality Analytics</small>
+                    </a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="mailto:hello@28.io">Contact Us</a></li>
+                    <li><a href="mailto:support@28.io">Support</a></li>
+                </ul>
+            </div>
+        </div>
 </body>
 </html>

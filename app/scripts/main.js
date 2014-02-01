@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 'navbar-toggle'])
-.constant('API_URL', 'http://secxbrl.alpha.xbrl.io/v1')
-.constant('API_TOKEN', 'UUtxcCtkeU5sWWttRldNdDIrL1E3czhvRTBBPToyMDE0LTAxLTE0VDA5OjMwOjA3LjEzMTI0MVo=')
+angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'constants'])
+.factory('$backend', function($q, $http, API_URL, API_TOKEN) {
+    return {
+		API_URL: API_URL,
+		API_TOKEN: API_TOKEN,
 
-.factory('DimensionService', function($q, $http, API_URL) {
-    return { 
         data: [],
         
         getYears : function() {
@@ -20,6 +20,17 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
             deferred.resolve(that.data['year']);
             return deferred.promise;
         },
+
+		getPeriods : function() { 
+			var that = this;
+            var deferred = $q.defer();
+            if (!that.data['period'] || that.data['period'].length == 0)
+            {
+                that.data["period"] = [ 'FY', 'Q3', 'Q2', 'Q1' ];
+            }
+            deferred.resolve(that.data['period']);
+            return deferred.promise;
+		},
 
         getDomainMembers: function(domain) {
             var that = this;
@@ -50,7 +61,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
                     break;    
             }
             if (url) 
-                $http({ method:"POST", url: url })
+                $http({ method: 'GET', url: url, params: { _method: 'POST' }, cache: true })
                     .success(function(data, status, headers, config) {
                         that.data[domain] =  [];
                         if (data && data.members){
@@ -72,7 +83,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
                 return deferred.promise;
             }
 
-            $http({ method:"POST", url: API_URL + '/_queries/public/EntityNameTickerCIKTuples.jq' })
+            $http({ method: 'GET', url: API_URL + '/_queries/public/EntityNameTickerCIKTuples.jq', params: { _method: 'POST' }, cache: true })
                 .success(function(data, status, headers, config) {
                     that.data['entities'] =  [];
                     if (data) that.data['entities'] = data.entityNameTickerSymbolCikTuples;
@@ -81,10 +92,29 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
 
             return deferred.promise;
 
+        },
+
+        getConceptMaps: function() {
+            var that = this;
+            var deferred = $q.defer();
+            if (that.data['conceptMaps'] && that.data['conceptMaps'].length > 0)
+            {
+                deferred.resolve(that.data['conceptMaps']);
+                return deferred.promise;
+            }
+
+            $http({ method: 'GET', url: API_URL + '/_queries/public/ConceptMaps.jq', params: { _method: 'POST' }, cache: true })
+                .success(function(data, status, headers, config) {
+                    that.data['conceptMaps'] =  [];
+                    if (data) that.data['conceptMaps'] = data.availableMaps;
+                    deferred.resolve(that.data['conceptMaps']);
+                });
+
+            return deferred.promise;
         }
     };
 })
-.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+.config(function ($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);
 
@@ -107,46 +137,62 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
             templateUrl: '/views/analytics.html',
             controller: 'AnalyticsCtrl',
             resolve: {
-                years: function(DimensionService) { return DimensionService.getYears(); }
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); }
             }
         })
         .when('/analytics/:year/:period/:group', {
             templateUrl: '/views/analytics.html',
             controller: 'AnalyticsCtrl',
             resolve: {
-                years: function(DimensionService) { return DimensionService.getYears(); }
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); }
             }
         })
         .when('/dashboard', {
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                years: function(DimensionService) { return DimensionService.getYears(); },
-                entities: function(DimensionService) { return DimensionService.getEntities(); }
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); },
+                entities: function($backend) { return $backend.getEntities(); }
             }
         })
         .when('/dashboard/:cik', {
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                years: function(DimensionService) { return DimensionService.getYears(); },
-                entities: function(DimensionService) { return DimensionService.getEntities(); }
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); },
+                entities: function($backend) { return $backend.getEntities(); }
+            }
+        })
+        .when('/dashboard/:cik/:year', {
+            templateUrl: '/views/dashboard.html',
+            controller: 'DashboardCtrl',
+            resolve: {
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); },
+                entities: function($backend) { return $backend.getEntities(); }
             }
         })
         .when('/dashboard/:cik/:year/:period', {
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                years: function(DimensionService) { return DimensionService.getYears(); },
-                entities: function(DimensionService) { return DimensionService.getEntities(); }
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); },
+                entities: function($backend) { return $backend.getEntities(); }
             }
         })
         .when('/search', {
             templateUrl: '/views/search.html',
             controller: 'SearchCtrl',
             resolve: {
-                years: function(DimensionService) { return DimensionService.getYears(); },
-                entities: function(DimensionService) { return DimensionService.getEntities(); }
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); },
+                entities: function($backend) { return $backend.getEntities(); },
+                conceptMaps: function($backend) { return $backend.getConceptMaps(); }
             }
         })
         .when('/entities', {
@@ -173,22 +219,65 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
         .otherwise({
             templateUrl:'/views/404.html'
         });
-}])
-.run(['$rootScope',
-    function($rootScope) {
-        $rootScope.$on('$routeChangeSuccess', function(event, current) {
-            $rootScope.page = current.loadedTemplateUrl;
-        });
+})
+.run(function($rootScope, $location, $http, $modal, $angularCacheFactory) {
 
-        $rootScope.safeApply = function(fn) {
-            var phase = this.$root.$$phase;
-            if (phase == '$apply' || phase == '$digest') {
-                if (fn && (typeof(fn) === 'function')) {
-                    fn();
-                }
-            } else {
-                this.$apply(fn);
-            }
-        };
-    }
-]);
+	$rootScope.$on('$routeChangeSuccess', function(event, current) {
+		$rootScope.page = current.loadedTemplateUrl;
+	});
+		
+	$rootScope.$on('error', function(event, status, error){
+		$modal.open( {
+			template: "<div class='modal-header h3'> Error {{object.status}} <a href='javascript://' class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body'> {{object.error.description }} <br><a href='javascript://' ng-click='details=true' ng-hide='details' class='dotted'>Show details</a><pre ng-show='details' class='small'>{{object.error | json }}</pre></div>",
+			controller: function ($scope, $modalInstance, object) {
+				$scope.object = object;
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			},
+			resolve: {
+				object: function() { return { status: status, error: error }; }
+			}
+		});
+	});
+
+	$rootScope.$on('alert', function(event, title, message){
+		$modal.open( {
+			template: "<div class='modal-header h3'> {{object.title}} <a href='javascript://' class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body'>{{object.message }}</div><div class='text-right modal-footer'><button class='btn btn-default' ng-click='cancel()'>OK</button></div>",
+			controller: function ($scope, $modalInstance, object) {
+				$scope.object = object;
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			},
+			resolve: {
+				object: function() { return { title: title, message: message }; }
+			}
+		});
+	});
+
+	$rootScope.safeApply = function(fn) {
+		var phase = this.$root.$$phase;
+		if (phase == '$apply' || phase == '$digest') {
+			if (fn && (typeof(fn) === 'function')) {
+				fn();
+			}
+		} else {
+			this.$apply(fn);
+		}
+	};
+
+	$rootScope.goto = function(url) {
+		$location.path(url);
+		$location.replace();
+	};
+
+	$angularCacheFactory('secxbrl', {
+        maxAge: 6000000, // Items added to this cache expire after 15 minutes.
+        cacheFlushInterval: 6000000, // This cache will clear itself every hour.
+        deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
+		storageMode: 'localStorage'
+    });
+
+    $http.defaults.cache = $angularCacheFactory.get('secxbrl');
+});
