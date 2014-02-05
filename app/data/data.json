@@ -1,7 +1,0 @@
-﻿{"percentUsageStatsByYear":[
-{"fiscalYear":2009, "min":1.5, "bottomQuartile":6,"median":10,"topQuartile":14, "max":20},
-{"fiscalYear":2010, "min":1.4, "bottomQuartile":5,"median":9,"topQuartile":12, "max":18},
-{"fiscalYear":2011, "min":1.2, "bottomQuartile":4,"median":8,"topQuartile":10, "max":20},
-{"fiscalYear":2012, "min":1.0, "bottomQuartile":3,"median":7,"topQuartile":9, "max":17},
-{"fiscalYear":2013, "min":0.5, "bottomQuartile":2,"median":5,"topQuartile":8, "max":15}
-]}

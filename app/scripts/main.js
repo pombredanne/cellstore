@@ -1,10 +1,120 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 'navbar-toggle'])
-.constant('API_URL', 'http://secxbrl.alpha.xbrl.io/v1')
-.constant('API_TOKEN', 'UUtxcCtkeU5sWWttRldNdDIrL1E3czhvRTBBPToyMDE0LTAxLTE0VDA5OjMwOjA3LjEzMTI0MVo=')
-.constant('LAST_YEAR', 2014)
-.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'constants'])
+.factory('$backend', function($q, $http, API_URL, API_TOKEN) {
+    return {
+		API_URL: API_URL,
+		API_TOKEN: API_TOKEN,
+
+        data: [],
+        
+        getYears : function() {
+            var that = this;
+            var deferred = $q.defer();
+            if (!that.data['year'] || that.data['year'].length == 0)
+            {
+                that.data["year"] = [];
+                var year = (new Date()).getFullYear();
+                while (year >= 2009) { that.data["year"].push(year); year -= 1; }
+            }
+            deferred.resolve(that.data['year']);
+            return deferred.promise;
+        },
+
+		getPeriods : function() { 
+			var that = this;
+            var deferred = $q.defer();
+            if (!that.data['period'] || that.data['period'].length == 0)
+            {
+                that.data["period"] = [ 'FY', 'Q3', 'Q2', 'Q1' ];
+            }
+            deferred.resolve(that.data['period']);
+            return deferred.promise;
+		},
+
+        getDomainMembers: function(domain) {
+            var that = this;
+            var deferred = $q.defer();
+            if (that.data[domain] && that.data[domain].length > 0)
+            {
+                deferred.resolve(that.data[domain]);
+                return deferred.promise;
+            }
+
+            var url;
+            switch (domain)
+            {
+                case 'sector' :
+                    url = API_URL + '/_queries/public/FilerSectorList.jq';
+                    break;
+            
+                case 'generator' :
+                    url = API_URL + '/_queries/public/GeneratorList.jq';
+                    break;
+            
+                case 'entityType' :
+                    url = API_URL + '/_queries/public/EntityTypeList.jq';
+                    break;
+            
+                case 'stockIndex' :
+                    url = API_URL + '/_queries/public/StockIndexList.jq';
+                    break;    
+            }
+            if (url) 
+                $http({ method: 'GET', url: url, params: { _method: 'POST' }, cache: true })
+                    .success(function(data, status, headers, config) {
+                        that.data[domain] =  [];
+                        if (data && data.members){
+                            data.members.forEach(function(item) {
+                                that.data[domain].push(item[domain]);
+                            });
+                        }
+                        deferred.resolve(that.data[domain]);
+                    });
+            return deferred.promise;
+        },
+
+        getEntities: function() {
+            var that = this;
+            var deferred = $q.defer();
+            if (that.data['entities'] && that.data['entities'].length > 0)
+            {
+                deferred.resolve(that.data['entities']);
+                return deferred.promise;
+            }
+
+            $http({ method: 'GET', url: API_URL + '/_queries/public/EntityNameTickerCIKTuples.jq', params: { _method: 'POST' }, cache: true })
+                .success(function(data, status, headers, config) {
+                    that.data['entities'] =  [];
+                    if (data) that.data['entities'] = data.entityNameTickerSymbolCikTuples;
+                    deferred.resolve(that.data['entities']);
+                });
+
+            return deferred.promise;
+
+        },
+
+        getConceptMaps: function() {
+            var that = this;
+            var deferred = $q.defer();
+            if (that.data['conceptMaps'] && that.data['conceptMaps'].length > 0)
+            {
+                deferred.resolve(that.data['conceptMaps']);
+                return deferred.promise;
+            }
+
+            $http({ method: 'GET', url: API_URL + '/_queries/public/ConceptMaps.jq', params: { _method: 'POST' }, cache: true })
+                .success(function(data, status, headers, config) {
+                    that.data['conceptMaps'] =  [];
+                    if (data) that.data['conceptMaps'] = data.availableMaps;
+                    deferred.resolve(that.data['conceptMaps']);
+                });
+
+            return deferred.promise;
+        }
+    };
+})
+.config(function ($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);
 
@@ -25,27 +135,65 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
         })
         .when('/analytics', {
             templateUrl: '/views/analytics.html',
-            controller: 'AnalyticsCtrl'
+            controller: 'AnalyticsCtrl',
+            resolve: {
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); }
+            }
         })
         .when('/analytics/:year/:period/:group', {
             templateUrl: '/views/analytics.html',
-            controller: 'AnalyticsCtrl'
+            controller: 'AnalyticsCtrl',
+            resolve: {
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); }
+            }
         })
         .when('/dashboard', {
             templateUrl: '/views/dashboard.html',
-            controller: 'DashboardCtrl'
+            controller: 'DashboardCtrl',
+            resolve: {
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); },
+                entities: function($backend) { return $backend.getEntities(); }
+            }
         })
         .when('/dashboard/:cik', {
             templateUrl: '/views/dashboard.html',
-            controller: 'DashboardCtrl'
+            controller: 'DashboardCtrl',
+            resolve: {
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); },
+                entities: function($backend) { return $backend.getEntities(); }
+            }
+        })
+        .when('/dashboard/:cik/:year', {
+            templateUrl: '/views/dashboard.html',
+            controller: 'DashboardCtrl',
+            resolve: {
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); },
+                entities: function($backend) { return $backend.getEntities(); }
+            }
         })
         .when('/dashboard/:cik/:year/:period', {
             templateUrl: '/views/dashboard.html',
-            controller: 'DashboardCtrl'
+            controller: 'DashboardCtrl',
+            resolve: {
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); },
+                entities: function($backend) { return $backend.getEntities(); }
+            }
         })
         .when('/search', {
             templateUrl: '/views/search.html',
-            controller: 'SearchCtrl'
+            controller: 'SearchCtrl',
+            resolve: {
+                years: function($backend) { return $backend.getYears(); },
+                periods: function($backend) { return $backend.getPeriods(); },
+                entities: function($backend) { return $backend.getEntities(); },
+                conceptMaps: function($backend) { return $backend.getConceptMaps(); }
+            }
         })
         .when('/entities', {
             templateUrl: '/views/entities.html',
@@ -71,89 +219,65 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'googlechart', 
         .otherwise({
             templateUrl:'/views/404.html'
         });
-}])
-.run(['$rootScope', '$http', 'API_URL',
-    function($rootScope, $http, API_URL) {
-        $rootScope.$on('$routeChangeSuccess', function(event, current) {
-			$rootScope.page = current.loadedTemplateUrl;
-        });
+})
+.run(function($rootScope, $location, $http, $modal, $angularCacheFactory) {
 
-        $rootScope.safeApply = function(fn) {
-            var phase = this.$root.$$phase;
-            if (phase == '$apply' || phase == '$digest') {
-                if (fn && (typeof(fn) === 'function')) {
-                    fn();
-                }
-            } else {
-                this.$apply(fn);
-            }
-        };
+	$rootScope.$on('$routeChangeSuccess', function(event, current) {
+		$rootScope.page = current.loadedTemplateUrl;
+	});
+		
+	$rootScope.$on('error', function(event, status, error){
+		$modal.open( {
+			template: "<div class='modal-header h3'> Error {{object.status}} <a href='javascript://' class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body'> {{object.error.description }} <br><a href='javascript://' ng-click='details=true' ng-hide='details' class='dotted'>Show details</a><pre ng-show='details' class='small'>{{object.error | json }}</pre></div>",
+			controller: function ($scope, $modalInstance, object) {
+				$scope.object = object;
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			},
+			resolve: {
+				object: function() { return { status: status, error: error }; }
+			}
+		});
+	});
 
-		$http({
-				method: 'POST', 
-				url: API_URL + '/_queries/public/FilerSectorList.jq'
-			}).
-			success(function(data, status, headers, config) {
-				if (data && data.members){
-					$rootScope[data.domain] =  [];
-					data.members.forEach(function(item) {
-						$rootScope[data.domain].push(item[data.domain]);
-					});
-					$rootScope.safeApply();
-				}
-			});
+	$rootScope.$on('alert', function(event, title, message){
+		$modal.open( {
+			template: "<div class='modal-header h3'> {{object.title}} <a href='javascript://' class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body'>{{object.message }}</div><div class='text-right modal-footer'><button class='btn btn-default' ng-click='cancel()'>OK</button></div>",
+			controller: function ($scope, $modalInstance, object) {
+				$scope.object = object;
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			},
+			resolve: {
+				object: function() { return { title: title, message: message }; }
+			}
+		});
+	});
 
-		$http({
-				method: 'POST', 
-				url: API_URL + '/_queries/public/GeneratorList.jq'
-			}).
-			success(function(data, status, headers, config) {
-				if (data && data.members){
-					$rootScope[data.domain] =  [];
-					data.members.forEach(function(item) {
-						$rootScope[data.domain].push(item[data.domain]);
-					});
-					$rootScope.safeApply();
-				}
-			});
+	$rootScope.safeApply = function(fn) {
+		var phase = this.$root.$$phase;
+		if (phase == '$apply' || phase == '$digest') {
+			if (fn && (typeof(fn) === 'function')) {
+				fn();
+			}
+		} else {
+			this.$apply(fn);
+		}
+	};
 
-		$http({
-				method: 'POST', 
-				url: API_URL + '/_queries/public/EntityTypeList.jq'
-			}).
-			success(function(data, status, headers, config) {
-				if (data && data.members){
-					$rootScope[data.domain] =  [];
-					data.members.forEach(function(item) {
-						$rootScope[data.domain].push(item[data.domain]);
-					});
-					$rootScope.safeApply();
-				}
-			});
+	$rootScope.goto = function(url) {
+		$location.path(url);
+		$location.replace();
+	};
 
-		$http({
-				method: 'POST', 
-				url: API_URL + '/_queries/public/StockIndexList.jq'
-			}).
-			success(function(data, status, headers, config) {
-				if (data && data.members){
-					$rootScope[data.domain] =  [];
-					data.members.forEach(function(item) {
-						$rootScope[data.domain].push(item[data.domain]);
-					});
-					$rootScope.safeApply();
-				}
-			});
+	$angularCacheFactory('secxbrl', {
+        maxAge: 6000000, // Items added to this cache expire after 15 minutes.
+        cacheFlushInterval: 6000000, // This cache will clear itself every hour.
+        deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
+		storageMode: 'localStorage'
+    });
 
-		$http({
-				method: 'POST', 
-				url: API_URL + '/_queries/public/EntityNameTickerCIKTuples.jq'
-			}).
-			success(function(data, status, headers, config) {
-				if (data && data.entityNameTickerSymbolCikTuples){
-					$rootScope.entities =  data.entityNameTickerSymbolCikTuples;
-					$rootScope.safeApply();
-				}
-			});
-    }
-]);
+    $http.defaults.cache = $angularCacheFactory.get('secxbrl');
+});

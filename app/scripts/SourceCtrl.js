@@ -1,6 +1,6 @@
 'use strict';
 
-function SourceCtrl($scope, $route, $http, API_URL, API_TOKEN) {
+function SourceCtrl($scope, $route, $location, $http, $backend) {
 	
 	$scope.query = ($route.current.params.query ? $route.current.params.query : null);
 	$scope.visibility = ($route.current.params.visibility ? $route.current.params.visibility : "public");
@@ -30,8 +30,8 @@ function SourceCtrl($scope, $route, $http, API_URL, API_TOKEN) {
 
 		$http({
 			method: 'GET', 
-			url: API_URL + '/_queries/' + v + '/' + q + '.jq/metadata',
-			params: { token: API_TOKEN }
+			url: $backend.API_URL + '/_queries/' + v + '/' + q + '.jq/metadata',
+			params: { token: $backend.API_TOKEN }
 		}).
 		success(function(data, status, headers, config) {
 			if (data){
@@ -43,6 +43,12 @@ function SourceCtrl($scope, $route, $http, API_URL, API_TOKEN) {
 
 	};
 
+	$scope.change = function(visibility, query) { 
+		$scope.visibility = visibility;
+		$scope.query = query;
+		$scope.goto("/source/" + visibility + "/" + query);
+	};
+	
 	if ($scope.query) $scope.getQuery($scope.visibility, $scope.query);
 
 };

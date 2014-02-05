@@ -1,12 +1,14 @@
 <div class="row">
-        <div class="row text-center" style="padding-bottom: 5px" ng-show="result">
+	<div class="col-md-12">
+        <div class="text-center" style="padding-bottom: 5px" ng-show="result">
           <h3>{{result.Profiles.SEC.CompanyName}}</h3>
         </div>
         <div ng-hide="result" class="text-center">
           <i class="fa fa-spinner fa-spin fa-5x"></i>
         </div>
         <div ng-show="result">
-          <table class="table table-responsive">
+		  <div class="table-responsive">
+          <table class="table">
             <tbody>
               <tr>
                 <td class="success col-sm-4">CIK</td><td>{{result._id.substring(23)}}</td>
@@ -37,12 +39,14 @@
               </tr>
             </tbody>
           </table>
+		  </div>
           <div class="text-right">
             Data as: <a href="{{API_URL}}/_queries/public/entities.jq.json?cik={{cik}}" download="{{cik}}.json">JSON</a>,
             <a href="{{API_URL}}/_queries/public/entities.jq.xml?cik={{cik}}" downlaod="{{cik}}.xml">XML</a>,
             <a href="{{API_URL}}/_queries/public/entities.jq.text?cik={{cik}}" download="{{cik}}.csv">CSV</a>
           </div>
         </div>
+	</div>
 </div>
 
 
