@@ -34,7 +34,7 @@
                   <td ng-show="show" ng-repeat="foo in trim(item)">{{trimURL(foo)}}</td>
                   <td><span title="{{item[0]}}">{{trimURL(item[0])}}</span></td>
                   <td>{{item[item.length - 1]}}</td>
-                  <td>{{item[3].replace("iso4217:", "").replace("xbrli:", "")}}</td>
+                  <td>{{clear(item[3])}}</td>
                 </tr>
               </tbody>
           </table>

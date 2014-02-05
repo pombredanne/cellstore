@@ -32,6 +32,9 @@ function FactTableCtrl($scope, $route, $http, API_URL) {
   $scope.trim = function(item) {
     return angular.copy(item).splice(4, item.length - 5);
   };
+  $scope.clear = function(item) {
+    return item.replace("iso4217:", "").replace("xbrli:", "");
+  };
 };
 
 
