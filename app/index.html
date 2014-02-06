@@ -21,7 +21,7 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="header clearfix">
+        <div class="header">
 			<div class="navbar" navbar-toggle>
 				<div class="navbar-header">
 					<a href="/" id="logo">
@@ -34,16 +34,29 @@
 					</button>
 				</div>
 				<div class="collapse navbar-collapse" role="navigation">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/analytics" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Quality Analytics</a></li>
+					<ul class="nav navbar-nav navbar-right" on-document-click="toggleMenu($event, false)">
+						<li><a href="/dashboard" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Data</a></li>
 						<li><a href="/entities" ng-class="{ active: (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/filings.html' || page == '/views/components.html' ) }">Submissions</a></li>
 						<li><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a></li>
-						<li><a href="/why" ng-class="{ active: (page == '/views/why.html') }">Why Us</a></li>
-						<li><a href="/source" ng-class="{ active: (page == '/views/source.html') }">Code</a></li>
+						<li><a href="javascript://" ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">Help & Support</a>
+							<ul class="sub-nav" ng-hide="!visibleMenu">
+								<li><a href="/about">About</a></li>
+								<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
+								<li><a href="https://28msec.zendesk.com/entries/new?forum_id=xxxxx" target="_blank">Ideas</a></li>
+								<li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
+							</ul>
+							<ul class="sub-nav visible-xs">
+								<li><a href="/about">About</a></li>
+								<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
+								<li><a href="https://28msec.zendesk.com/entries/new?forum_id=xxxxx" target="_blank">Ideas</a></li>
+								<li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
+		<div style="clear:both"></div>
         <div ng-view="true" class="content clearfix">			
 		</div>
 
@@ -58,6 +71,7 @@
 		<script src="/scripts/googlechart.js"></script>
         <script src="/scripts/navbar-toggle.js"></script>
         <script src="/scripts/scroll-id.js"></script>
+        <script src="/scripts/document-click.js"></script>
 		<script src="/scripts/constants.js"></script>
         <script src="/scripts/main.js"></script>
         <script src="/scripts/SourceCtrl.js"></script>

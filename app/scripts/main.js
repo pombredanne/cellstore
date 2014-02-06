@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'constants'])
+angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'constants'])
 .factory('$backend', function($q, $http, API_URL, API_TOKEN) {
     return {
 		API_URL: API_URL,
@@ -274,6 +274,11 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	$rootScope.goto = function(url) {
 		$location.path(url);
 		$location.replace();
+	};
+
+	$rootScope.toggleMenu = function(event, visible) { 
+		$rootScope.visibleMenu = visible;
+		if (event && visible) event.stopPropagation();
 	};
 
 	$angularCacheFactory('secxbrl', {
