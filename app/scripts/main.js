@@ -125,6 +125,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         .when('/why', {
             templateUrl: '/views/why.html'
         })
+        .when('/api', {
+            templateUrl: '/views/api.html',
+            controller: 'ApiCtrl'
+        })
         .when('/source', {
             templateUrl: '/views/source.html',
             controller: 'SourceCtrl'

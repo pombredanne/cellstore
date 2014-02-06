@@ -1,0 +1,83 @@
+<div id="api" class="container white">
+    <h1>API</h1>
+    <p>View as <a href="/api.json" target="_blank">JSON</a>.</p>
+    <div ng-bind-html="content.description"></div>
+    <div ng-repeat="api in content.apis">
+        <h2 ng-bind="api.description"></h2>
+        <article ng-hide="operation.implemented === false" ng-repeat="operation in api.operations" class="operation" id="{{operation.nickname}}">
+            <a class="accordion-header" ng-href="{{locationPath}}?anchor={{operation.nickname}}">
+                <p class="monospace">
+                    <span ng-bind="operation.method"
+                          ng-class="'method-' + operation.method"></span>
+                    <span ng-bind="api.path" 
+                          ng-class="'path-' + operation.method"></span>
+                </p>
+                <p ng-bind="operation.summary"></p>
+            </a>
+            <div class="accordion-content accordion-slide">
+            <div class="accordion-content-inner">
+                <div ng-bind-html="operation.notes"></div>
+                <h3>Request Parameters</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Value</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="parameter in operation.parameters">
+                            <td ng-switch on="parameter.paramType">
+                                <span ng-switch-when="query" class="label label-query" tooltip-html-unsafe="<p class='text-left'>This parameter must be specified as a URL query string parameter.</p>" tooltip-trigger="mouseenter" tooltip-placement="left" tooltip-popup-delay="250">query</span>
+                                <span ng-switch-when="path" class="label label-path" tooltip-html-unsafe="<p class='text-left'>This parameter must be specified in the URL path.</p" tooltip-trigger="mouseenter" tooltip-placement="left" tooltip-popup-delay="250">path</span>
+                                <span ng-switch-when="body" class="label label-body" tooltip-html-unsafe="<p class='text-left'>This parameter must be specified in the request body.</p" tooltip-trigger="mouseenter" tooltip-placement="left" tooltip-popup-delay="250">body</span>
+                            <td>
+                                <code><span ng-bind="parameter.name"></span><span class="text-danger" ng-show="parameter.required">*</span></code>
+                            </td>
+                            <td>
+                                <code ng-repeat="value in parameter.enum" ng-bind="value" style="display:block;"></code>
+                            </td>
+                            <td ng-switch on="parameter.name">
+                                <span ng-switch-default ng-bind-html="parameter.description"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>Response Status Codes</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="resp in operation.successMessages">
+                            <td ng-bind="resp.code"></td>
+                            <td ng-bind="resp.message"></td>
+                        </tr>
+                        <tr ng-repeat="resp in operation.responseMessages">
+                            <td ng-bind="resp.code"></td>
+                            <td ng-bind="resp.message"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-if="operation.examples">
+                    <!--h3 ng-show="operation.examples.length === 1">Example</h3>
+                    <h3 ng-show="operation.examples.length > 1">Examples</h3-->
+                    <div ng-repeat="example in operation.examples">
+                        <h3>Example <span ng-show="example.title">&#8212;</span> <span ng-bind="example.title"></span></h3>
+                        <p ng-bind-html="example.description"></p>
+                        <h4>Request</h4>
+                        <pre ng-bind="example.request"></pre>
+                        <h4>Response</h4>
+                        <pre ng-bind="example.response"></pre>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </article>
+    </div>
+</div>

@@ -36,7 +36,8 @@
 				<div class="collapse navbar-collapse" role="navigation">
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="/analytics" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Quality Analytics</a></li>
-						<li><a href="/entities" ng-class="{ active: (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/filings.html' || page == '/views/components.html' ) }">Browser</a></li>
+						<li><a href="/entities" ng-class="{ active: (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/filings.html' || page == '/views/components.html' ) }">Submissions</a></li>
+						<li><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a></li>
 						<li><a href="/why" ng-class="{ active: (page == '/views/why.html') }">Why Us</a></li>
 						<li><a href="/source" ng-class="{ active: (page == '/views/source.html') }">Code</a></li>
 					</ul>
@@ -60,6 +61,7 @@
 		<script src="/scripts/constants.js"></script>
         <script src="/scripts/main.js"></script>
         <script src="/scripts/SourceCtrl.js"></script>
+        <script src="/scripts/ApiCtrl.js"></script>
         <script src="/scripts/EntitiesCtrl.js"></script>
         <script src="/scripts/EntityCtrl.js"></script>
         <script src="/scripts/FilingsCtrl.js"></script>

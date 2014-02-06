@@ -23,7 +23,7 @@
               <th>SEC Submissions</th>
               </thead>
               <tbody>
-                <tr ng-repeat="item in results | filter : search | limitTo : pageCount">
+                <tr ng-repeat="item in results | filter : search | limitTo : 10">
                   <td>{{$index + 1}}</td>
                   <td><a href="/entity/{{item._id.substr(23)}}">{{item._id.substr(23)}}</a></td>
                   <td>{{item.Profiles.SEC.Tickers[0]}}</td>
@@ -38,13 +38,12 @@
               </tbody>
           </table>
 		  </div>
-          <a ng-click="getmore()" class="col-sm-2 col-xs-3" href="javascript://" ng-show="pageCount < results.length"><i class="fa fa-angle-down"></i> Show More</a>
-          <a ng-click="getall()" class="col-sm-2 col-xs-3" href="javascript://" ng-show="pageCount < results.length"><i class="fa fa-angle-double-down"></i> Show All</a>
-          <div class="col-sm-8 col-xs-6 text-right">
-            All data as: <a href="{{API_URL}}/_queries/public/entities.jq.json" download="entities.json">JSON</a>,
-                         <a href="{{API_URL}}/_queries/public/entities.jq.xml" download="entities.xml">XML</a>,
-                         <a href="{{API_URL}}/_queries/public/entities.jq.text" download="entities.csv">CSV</a>
-          </div>
+      <div class="col-sm-8 col-xs-6 text-right">
+        All data as:
+          <a href="{{API_URL}}/_queries/public/entities.jq.json" download="entities.json">JSON</a>,
+          <a href="{{API_URL}}/_queries/public/entities.jq.xml" download="entities.xml">XML</a>,
+          <a href="{{API_URL}}/_queries/public/entities.jq.text" download="entities.csv">CSV</a>
+      </div>
         </div>
 	</div>
 </div>

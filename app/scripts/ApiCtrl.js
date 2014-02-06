@@ -1,20 +1,26 @@
 "use strict"
 
-function EntitiesCtrl($scope, $http, $backend) {
-  $scope.results = [];
+function ApiCtrl($scope, $http, $backend) {
+  $scope.content = "";
   $scope.API_URL = $backend.API_URL;
   $scope.getdata = function() {
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/entities.jq',
+        url: '/api.json',
+        cache:false
       }).
       success(function(data, status, headers, config) {
-        $scope.results = data;
+        $scope.content = data;
         $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
       });
   };
+
+  $scope.needsAuth = function() {
+    return true;
+  };
   $scope.getdata();
 };
+

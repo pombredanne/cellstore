@@ -313,6 +313,10 @@ ul.menu a.active {
 	font-weight: bold;
 }
 
+.white {
+  background: #ffffff;
+}
+
 .white-box {
 	background: #ffffff;
     border-radius: 4px;
@@ -560,4 +564,183 @@ ul.selector li.disabled:after
 .footer .nav .active {
 	color: #2DE46D;
 	background-color: transparent;
+}
+
+#api h2.section {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ecf0f1
+}
+
+#api h1 {
+    word-break: break-all
+}
+
+#api .fixed-accordion .accordion-header {
+    position: fixed;
+    top: 200px
+}
+
+#api code {
+    background-color: transparent
+}
+
+#api .label {
+    cursor: default
+}
+
+#api .label-query {
+    background-color: #27ae60
+}
+
+#api .label-path {
+    background-color: #2980b9
+}
+
+#api .label-body {
+    background-color: #f1c40f
+}
+
+#api table code {
+    background-color: transparent
+}
+
+#api pre {
+    padding-left: 15px;
+    color: #7f8c8d;
+    background-color: #fff;
+    border-left: 7px solid #ecf0f1;
+    border-radius: 0
+}
+
+#api .operation {
+    padding-top: 200px;
+    margin-top: 15px;
+    margin-top: -200px;
+    margin-bottom: 15px
+}
+
+#api .operation .accordion-header {
+    display: block;
+    padding: 15px;
+    color: #555;
+    text-decoration: none !important;
+    background-color: rgba(236, 240, 241, .95)
+}
+
+#api .operation .accordion-header p:last-child {
+    margin: 0
+}
+
+#api .operation .accordion-header .monospace {
+    line-height: 2em;
+    word-break: break-all
+}
+
+#api .operation .accordion-header .method-GET {
+    padding: 4px;
+    color: #fff;
+    background-color: #27ae60;
+    border-radius: 4px
+}
+
+#api .operation .accordion-header .method-POST {
+    padding: 4px;
+    color: #fff;
+    background-color: #2980b9;
+    border-radius: 4px
+}
+
+#api .operation .accordion-header .method-PUT {
+    padding: 4px;
+    color: #fff;
+    background-color: #f1c40f;
+    border-radius: 4px
+}
+
+#api .operation .accordion-header .method-DELETE {
+    padding: 4px;
+    color: #fff;
+    background-color: #e74c3c;
+    border-radius: 4px
+}
+
+#api .operation .accordion-header .method-PATCH {
+    padding: 4px;
+    color: #fff;
+    background-color: #f1c40f;
+    border-radius: 4px
+}
+
+#api .operation .accordion-header .path-GET {
+    color: #27ae60
+}
+
+#api .operation .accordion-header .path-POST {
+    color: #2980b9
+}
+
+#api .operation .accordion-header .path-PUT {
+    color: #f1c40f
+}
+
+#api .operation .accordion-header .path-DELETE {
+    color: #e74c3c
+}
+
+#api .operation .accordion-header .path-PATCH {
+    color: #f1c40f
+}
+
+#api .accordion-content {
+    margin-top: 15px;
+    overflow: hidden
+}
+
+#api .accordion-slide {
+    -webkit-transition: height .5s linear;
+    -moz-transition: height .5s linear;
+    transition: height .5s linear
+}
+
+#api .selected-version a {
+    background-color: #fff !important
+}
+
+#api .versions {
+    width: 100%
+}
+
+#api .versions li {
+    border-bottom: 0 !important
+}
+
+#api .nav-stacked a {
+    color: #555
+}
+
+#api .nav-stacked>li>a:hover, #api .nav-stacked>li>a:focus {
+    color: #27ae60;
+    background-color: transparent
+}
+
+#api .nav-stacked>li.active>a, #api .nav-stacked>li.active>a:hover {
+    color: #fff;
+    background-color: #27ae60
+}
+
+#api .nav-stacked>li+li {
+    margin-top: 0
+}
+
+#api .nav-stacked li.active a {
+    border-radius: 0
+}
+
+#api .content {
+    padding-top: 150px
+}
+
+#api .variable, #api .function {
+    padding-top: 200px;
+    margin-top: -200px
 }
