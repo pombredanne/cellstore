@@ -1,0 +1,239 @@
+xquery version "3.0";
+module namespace cm = "http://api.28.io/collections";
+
+import module namespace req = "http://www.28msec.com/modules/http/request";
+import module namespace resp = "http://www.28msec.com/modules/http/response";
+
+import module namespace util = "http://api.28.io/util"; 
+import module namespace validate = "http://api.28.io/validation";
+
+declare function cm:metadata()
+{
+  db:collection("_28.metadata")[.("kind") eq "collections"]
+};
+
+declare %an:sequential function cm:list-collections()
+as array()
+{
+  let $av-col := db:available-collections()
+  let $metadata := jn:members(cm:metadata()("collections"))
+  let $indices := jn:members(cm:metadata()("indices"))
+  return
+  [
+    $av-col[last()][2], 
+    (: The line above is only there to prevent a bug when using available-collections. It produces no output, but it ensures available-collections is completely read before continuing :)
+    for $c in $av-col
+    let $typed-collection := $metadata[.("name-loc") eq $c]
+    return
+      if (exists($typed-collection))
+      then
+        {| $typed-collection , { "name" : $c, "countItems" : count(db:collection($c)), "countIndexes": count($indices[.("name-loc") eq $c]) } |}
+      else 
+        { "name" : $c, "name-loc" : $c, "type": "structured-item()", "countItems" : count(db:collection($c)), "countIndexes": count($indices[.("name-loc") eq $c]) }
+  ]
+};
+
+declare %an:sequential function cm:get-collection($name as xs:string)
+as object()
+{
+  let $coll := jn:members(cm:list-collections())[.("name-loc") = $name]
+  return
+    if (exists($coll))
+    then $coll
+    else {| |}
+};
+
+
+declare %an:sequential function cm:get-collection-property($name as xs:string, $property as xs:string)
+{
+  variable $collection := cm:get-collection($name);
+  $collection($property)
+};
+
+declare function cm:validate-collection($collection as object())
+as empty-sequence()
+{
+  let $collections-schema :=
+  {
+     "name-ns" : "xs:anyURI",
+     "name-pre" : "xs:string",
+     "name-loc" : "xs:string",
+     "node-type" : "xs:string?",
+     "node-loc" : "xs:string?",
+     "node-ns" : "xs:anyURI?",
+     "annotations" : 
+       [ "required",
+         {
+            "name-ns" : "xs:anyURI",
+            "name-pre" : "xs:string",
+            "name-loc" : "xs:string"
+         }
+      ]
+  }
+  return validate:by-schema($collection, $collections-schema)
+};
+
+
+declare %an:sequential function cm:put-collection($name as xs:string, $collection as object())
+as empty-sequence()
+{      
+  cm:validate-collection($collection);
+  
+  if ($name eq $collection("name-loc"))
+  then ();
+  else fn:error($resp:bad-request, "Collection name does not match name in URI.");
+  
+  cm:get-or-create-collection-dynamic($name);
+  
+  variable $replace-idx := 
+    for $old-collection at $idx in jn:members(db:collection("_28.metadata")[.("kind") eq "collections"]("collections"))
+    where $old-collection("name-loc") eq $name
+    return $idx;
+  
+  replace value of json cm:metadata()("collections")($replace-idx) with $collection;
+    
+};
+
+declare %an:sequential %private function cm:update($obj as object(), $key as xs:string, $value)
+as empty-sequence()
+{  
+  if (fn:empty($obj($key)))
+  then insert json { $key : $value } into $obj;
+  else replace value of json $obj($key) with $value;
+};
+
+declare %an:sequential function cm:put-collection-property($name as xs:string, $property as xs:string, $value)
+as empty-sequence()
+{ 
+  variable $collection := cm:get-or-create-collection-dynamic($name);
+  
+  if ($property = "node")
+  then
+    let $j-value := jn:parse-json($value)
+    return
+    {
+      cm:update($collection, "node-type", $j-value("node-type"));
+      cm:update($collection, "node-loc", $j-value("node-loc"));
+      cm:update($collection, "node-ns", $j-value("node-ns"));
+    }       
+  else      
+    cm:update($collection, $property, $value);
+    
+};
+
+declare %an:sequential function cm:delete-collection($name)
+as empty-sequence()
+{
+   let $collections := cm:metadata()("collections")
+   for $collection at $idx in jn:members($collections)
+   where $collection("name-loc") eq $name
+   return delete json $collections($idx);
+};
+
+declare %an:sequential function cm:delete-collection-property($name as xs:string, $property as xs:string)
+as empty-sequence()
+{
+   variable $collection := cm:get-collection($name);
+   delete json $collection($property);
+};
+
+declare function cm:definition-for-dynamic-collection($name as xs:string) as object()
+{
+  { 
+    "name-ns" : $util:collection-namespace,
+    "name-pre" : "",
+    "name-loc" : $name,
+    "annotations" : [ 
+       { 
+         "name-ns" : "http://zorba.io/annotations",
+         "name-pre" : "",
+         "name-loc" : "mutable" 
+       },
+       { 
+         "name-ns" : "http://zorba.io/annotations",  
+         "name-pre" : "", 
+         "name-loc" : "unordered" 
+       },
+       { 
+         "name-ns" : "http://zorba.io/annotations",
+         "name-pre" : "",
+         "name-loc" : "mutable-nodes"
+       }
+    ] 
+  } 
+};
+
+declare %an:sequential function cm:get-or-create-collection-dynamic($name as xs:string) as object()
+{
+  variable $result := jn:members(cm:metadata()("collections"))[.("name-loc") = $name];
+  if (empty($result))
+  then
+    if (db:available-collections() = $name)
+    then
+    {
+      $result := cm:definition-for-dynamic-collection($name);
+      insert json $result into cm:metadata()("collections") at position 1;
+      jn:members(cm:metadata()("collections"))[.("name-loc") = $name]
+    }
+    else fn:error($resp:bad-request, "Collection does not exist")
+  else $result
+};
+
+declare %an:sequential function cm:dispatch()
+{    
+
+    variable $path-parameters := util:path(3);    
+    variable $path-parameters-count := count($path-parameters);
+    
+    resp:set-header("Access-Control-Allow-Origin",  "*");
+    resp:set-header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+    resp:set-header("Access-Control-Expose-Headers", "X-28msec-Error");
+    resp:set-content-type("application/json");
+
+    switch (true())
+        case req:method-get() return
+        {         
+
+            switch ($path-parameters-count)
+                case 0 return cm:list-collections()
+                case 1 return cm:get-collection($path-parameters)
+                case 2 return cm:get-collection-property($path-parameters[1], $path-parameters[2])
+                default return resp:set-status-code(404)
+                (: Default: Invalid URI, no resource found (404 "Not Found") :)
+        }
+        case req:method-post() return 
+        {        
+ 
+            (: switch ($path-parameters-count)
+                
+                default return :) resp:set-status-code(404)
+        }
+        case req:method-put() return
+        {           
+
+            switch ($path-parameters-count)                
+               (: case 1 return cm:put-collection($path-parameters, jn:parse-json(util:param-or-body("content"))) :)
+                case 2 return cm:put-collection-property($path-parameters[1], $path-parameters[2], util:param-or-body("content"))
+                default return resp:set-status-code(404)
+        }
+        case req:method-delete() return
+        {
+            
+
+            switch ($path-parameters-count)                
+                case 1 return cm:delete-collection($path-parameters)               
+                default return resp:set-status-code(404)
+        }
+        case req:method-options() return
+        {
+            resp:set-status-code(200);
+            variable $request-method := req:header-value("Access-Control-Request-Method");
+            if($request-method) then 
+              resp:set-header("Access-Control-Allow-Methods", $request-method);
+            else ();   
+        }
+        default return
+        {
+            resp:set-status-code(405) (: 405 "Method Not Allowed" :)
+        }
+};

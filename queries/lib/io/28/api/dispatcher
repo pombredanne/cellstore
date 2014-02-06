@@ -1,0 +1,166 @@
+xquery version "3.0";
+module namespace dispatcher = "http://api.28.io/dispatcher"; 
+
+import module namespace req = "http://www.28msec.com/modules/http/request";
+import module namespace response = "http://www.28msec.com/modules/http/response";
+import module namespace parse-xml = "http://zorba.io/modules/xml";
+import module namespace functions = "http://api.28.io/functions";  
+import module namespace browserview = "http://api.28.io/browserview";
+import module namespace xdmview = "http://api.28.io/xdmview";
+import module namespace csvview = "http://api.28.io/csvview";
+import module namespace model = "http://api.28.io/model";
+    
+import schema namespace pul = "http://www.zorba-xquery.com/schemas/pul";
+import schema namespace xdm = "http://www.zorba-xquery.com/schemas/xdm";
+    
+(:~
+ : Main function for the collection browser. May be called from a handler function.
+ : Uses the call URL to determine which page needs to be returned.
+ : The URL for the initial page needs to end with /index
+ :
+ : @return the requested page of the collection browser
+ :) 
+
+declare %an:sequential function dispatcher:restapi() {
+  variable $uri-parts := fn:tokenize(req:path(),"/");
+  variable $uri-end := $uri-parts[fn:last()];
+  variable $resource-type := $uri-parts[4];
+  variable $format := req:parameter-values("format");  
+       
+  variable $verb :=
+    let $candidate := $uri-end
+    return if ($candidate = ("keys","values","names","keyconstraint","tupleconstraint")) then $candidate else ();     
+  variable $resource-name := 
+    functions:decodeURI(fn:string-join($uri-parts[fn:position()>4 and (not($verb) or fn:position() lt fn:last())],"/"));
+  variable $method :=
+    if (req:parameter-values("method") = ("get","post","put","delete"))
+    then req:parameter-values("method")
+    else if (req:method-get()) then "get"
+    else if (req:method-post()) then "post"
+    else if (req:method-put()) then "put"
+    else if (req:method-delete()) then "delete"    
+    (: else if (req:method-options()) then "options" :)
+    else "options";
+  
+  variable $index-value := req:parameter-values("value");  
+  
+  if ($method = "options") then {
+    response:set-header("Access-Control-Allow-Origin","*");
+    response:set-header("Access-Control-Allow-Methods","GET,POST,DELETE,PUT");
+    response:set-header("Access-Control-Allow-Headers", req:header-value("Access-Control-Request-Headers"));
+    response:set-header("Access-Control-Expose-Headers", "x-28msec-node-count, x-28msec-truncated, x-28msec-last");
+    response:set-header("Access-Control-Max-Age","1000");
+    exit returning ();
+  } else ();  
+  
+  if ($format) 
+  then (); 
+  else
+      let $accept-header := req:header-value("Accept")
+      return 
+        $format := (
+          if (fn:contains($accept-header, "text/xml")) then "xml"
+          else if (fn:contains($accept-header, "application/jsonml+json")) then "jsonml"
+          else if (fn:contains($accept-header, "application/json")) then "json" 
+          else if (fn:contains($accept-header, "text/csv")) then "csv"         
+          else "xml" );               
+         
+  switch ($resource-type) 
+  case "browser" return functions:startpage()
+  case "xmltojs" return functions:xmltojs(functions:strip-whitespaces(parse-xml:parse(req:text-content(),())))
+  case "pul" return functions:apply-pul(parse-xml:parse(req:text-content(),())/element()) 
+  default return  
+     
+  try {  
+  let $type := fn:concat($resource-type,if ($resource-name) then "/E" else "", "/",$method, if ($verb) then fn:concat("/",$verb) else ())
+  let $result :=    
+    switch ($type) 
+    case "collections/E/get" return functions:entries($resource-name, (), (), (), $format)
+    case "collections/E/get/keys" return functions:pksearch($resource-name)
+    case "collections/E/get/names" return functions:namesearch($resource-name, req:parameter-values("path"), functions:parse-namespaces(req:parameter-values("namespaces")))
+    case "collections/E/get/values" return functions:valuesearch($resource-name, req:parameter-values("path"), functions:parse-namespaces(req:parameter-values("namespaces")))
+    case "collections/E/get/keyconstraint" return functions:key($resource-name, req:parameter-values("condition"), functions:parse-namespaces(req:parameter-values("namespaces")))
+    case "collections/E/get/tupleconstraint" return functions:tuple($resource-name , req:parameter-values("condition"), functions:parse-namespaces(req:parameter-values("namespaces")))
+    case "collections/get" return functions:collections()
+    case "indexes/get" return functions:indexes() 
+    case "nodes/E/get" return functions:entries((),$resource-name cast as xs:anyURI, (), (), $format)
+    case "indexes/E/get" return functions:entries((), (), $resource-name, $index-value, $format)
+    (:    
+    case "nodes/E/put" return functions:put($resource-name, req:parameter-values("attribute"), req:parameter-values("value"))
+    case "nodes/E/delete" return functions:delete($resource-name, req:parameter-values("attribute"), req:parameter-values("collection"))
+    case "collections/E/post" return functions:insert(req:parameter-values("noderef") cast as xs:anyURI?, req:parameter-values("position"), $resource-name, http:get-content()/element())
+    case "nodes/E/put/rename" return functions:rename($resource-name, req:parameter-values("attribute"), req:parameter-values("name"), req:parameter-values("namespace"))
+    :)    
+    default return $type
+   let $include-noderef := 
+     if ($type = ("collections/E/get","nodes/E/get","indexes/E/get" )) then true() else false() 
+  return
+    if (not($method eq "get") and fn:empty($result)) then () 
+    else if ($format = "xml")
+    then  {
+      response:set-content-type("text/xml; charset=utf-8");
+      response:set-header("Access-Control-Allow-Origin","*");  
+      if ($include-noderef)
+      then <elements>{$result}</elements>
+      else $result
+    } else if ($format = "jsonml")
+    then  {
+      response:set-content-type("application/jsonml+json");
+      response:set-header("Access-Control-Allow-Origin","*");  
+      if ($include-noderef)
+      then <elements>{$result}</elements>
+      else $result
+    } else if ($format = "xdm")
+    then  { 
+      response:set-content-type("text/xml; charset=utf-8");
+      response:set-header("Access-Control-Allow-Origin","*");  
+      if ($include-noderef)
+      then xdmview:show-nodes($result, true())
+      else xdmview:show-nodes($result/element(), false())    
+    } else if ($format = "xdm/jsonml")
+    then  { 
+      response:set-content-type("application/jsonml+json");
+      response:set-header("Access-Control-Allow-Origin","*");  
+      if ($include-noderef)
+      then xdmview:show-nodes($result, true())
+      else xdmview:show-nodes($result/element(), false())
+    } else if ($format = "internal")
+    then  {
+     variable $json := browserview:show-nodes($result);           
+     response:set-content-type("text/plain; charset=utf-8");
+     response:set-header("Access-Control-Allow-Origin","*");  
+     browserview:serialize($json)
+    } else if ($format = "csv")
+    then  {      
+      response:set-content-type("text/csv; charset=utf-8");
+      response:set-header("Access-Control-Allow-Origin","*");  
+      if ($include-noderef)
+      then csvview:show-nodes($result, not(req:parameter-values("headers") eq "false") )
+      else csvview:show-nodes($result/element(), not(req:parameter-values("headers") eq "false") )
+    } else  {
+      ()
+    }
+   } catch * {
+    let $result := <error code="{$err:code}">{$err:description}</error>
+    return
+    if ($format = ("xml","xdm"))
+    then  {
+      response:set-content-type("text/xml; charset=utf-8");
+      response:set-header("Access-Control-Allow-Origin","*");  
+      response:set-status-code(500);
+      <xml>{ $result }</xml>
+    } else if ($format = ("json","xdm/json","xdm/jsonml"))
+    then  {
+      response:set-content-type("application/jsonml+json");
+      response:set-header("Access-Control-Allow-Origin","*");  
+      response:set-status-code(500);
+      <xml>{$result}</xml>     
+    } else   {
+     response:set-content-type("text/plain");
+     response:set-header("Access-Control-Allow-Origin","*");  
+     response:set-status-code(500);
+     $result
+    }  
+  } 
+};
+

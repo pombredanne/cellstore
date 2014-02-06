@@ -1,0 +1,137 @@
+xquery version "3.0";
+module namespace exportimport = "http://api.28.io/exportimport";
+
+import module namespace cm = "http://api.28.io/collections";
+import module namespace in = "http://api.28.io/indices";
+
+import module namespace req = "http://www.28msec.com/modules/http/request";
+import module namespace resp = "http://www.28msec.com/modules/http/response";
+import module namespace fetch = "http://www.zorba-xquery.com/modules/fetch"; 
+import module namespace map = "http://www.28msec.com/modules/maps";
+import module namespace validate = "http://api.28.io/validation";
+import module namespace store = "http://www.28msec.com/modules/store";
+
+declare %an:sequential function exportimport:export()
+{
+  resp:set-content-type("application/json");
+
+  let $metadata := db:collection("_28.metadata"),
+      $scollections := $metadata[.("kind") eq "collections"]("collections"),
+      $scollectionnames := jn:members($scollections)("name-loc")
+  return
+    {
+      "dynamic-collections" : [
+        db:available-collections()[not(. = $scollectionnames or
+                                       exportimport:is-system-collection(.))]
+      ],
+      "static-collections" : $metadata[.("kind") eq "collections"]("collections"),
+      "indices" : $metadata[.("kind") eq "collections"]("indices"),
+      "maps" : $metadata[.("kind") eq "maps"]("maps")
+    }
+};
+
+declare function exportimport:is-system-collection($name as xs:string) as xs:boolean
+{
+  fn:starts-with($name, "_28.") or fn:starts-with($name, "system.")
+};
+
+declare %an:sequential function exportimport:import()
+{
+     
+  try { {
+    variable $import-uri := req:parameter-values("uri");
+  
+    variable $import-string :=
+      if ($import-uri and not($import-uri eq ""))
+      then fetch:content($import-uri)
+      else req:text-content();
+    
+    variable $json := jn:parse-json($import-string);
+    
+    if (empty($json))
+    then fn:error($resp:bad-request, "A JSON metadata file is required for import.");
+    else ();
+    
+    exportimport:import($json, false());
+    ()
+  } } catch * { {
+    resp:set-content-type("application/json");
+    resp:set-status($resp:bad-request);
+    {
+       "error": true(),
+       "code": $err:code,
+       "description": $err:description
+    }
+  } } 
+};
+
+declare %an:sequential function exportimport:import($import as object(), $overwrite as xs:boolean)
+{
+  if (exists($import("dynamic-collections"))
+  and exists($import("static-collections"))
+  and exists($import("indices"))
+  and exists($import("maps")))
+  then ();
+  else fn:error($resp:bad-request, "Required data missing");
+
+  for $dynamic-collection in jn:members($import("dynamic-collections"))
+  where not(exportimport:is-system-collection($dynamic-collection))
+    and not(db:is-available-collection($dynamic-collection))
+  return db:create($dynamic-collection);
+
+  for $static-collection in jn:members($import("static-collections"))
+  let $name := $static-collection("name-loc")
+  return {
+    if (not(db:is-available-collection($name)))
+    then db:create($name);
+    else ();
+    if (fn:empty(db:collection($name)) or $overwrite)
+    then cm:put-collection($name, $static-collection);
+    else ();
+  }
+
+  store:flush();
+
+  for $index in jn:members($import("indices"))
+  let $old-index := in:get-index($index("name-loc"))
+  return 
+    if (exists($old-index))
+    then 
+      if ($overwrite)
+      then in:put-index($index("name-loc"), $index);
+      else ();
+    else in:create-index($index);
+  
+  for $map in jn:members($import("maps"))
+  where not($map("name-loc") = map:available-maps())
+  return exportimport:create-map($map);
+  
+};
+
+declare %an:sequential function exportimport:validate-map($map as object()) as empty-sequence()
+{
+  variable $map-schema :=
+  {
+     "name-loc" : "xs:string",
+     "name-ns" : "xs:anyURI",
+     "key-types" : [ "required", "type" ]
+  };
+  validate:by-schema($map, $map-schema);
+};
+
+declare %an:sequential function exportimport:create-map($map as object())
+{
+   exportimport:validate-map($map);
+
+   if ($map("name-loc") = map:available-maps())
+   then fn:error($resp:bad-request, "Map already exists");
+   else ();
+
+   variable $typearray := [
+     for $type in jn:members($map("key-types"))
+     let $ns := fn:substring-before(fn:substring-after($type,"{"),"}")
+     let $local := fn:substring-after($type,"}")
+     return fn:QName($ns, $local)
+   ];
+   map:create($map("name-loc"), $typearray);
+};

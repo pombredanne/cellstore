@@ -1,0 +1,33 @@
+module namespace authorization = "http://api.28.io/authorization";
+  
+  import module namespace req = "http://www.28msec.com/modules/http/request";
+  import module namespace res = "http://www.28msec.com/modules/http/response";
+  import module namespace project = "http://www.28msec.com/modules/project";
+  import module namespace http-client = "http://expath.org/ns/http-client";
+  import module namespace base64 = "http://zorba.io/modules/base64"; 
+  import module namespace hmac = "http://zorba.io/modules/hmac";
+  
+  declare  %an:sequential function authorization:authorized() as xs:boolean 
+  {
+     if (req:method-options()) then exit returning true(); else ();
+     try
+     {{
+       variable $encoded-token := req:parameter-values("token");
+       variable $token := base64:decode(xs:base64Binary($encoded-token));
+       variable $declared-expiration-date := fn:substring-after($token,":");
+       variable $declared-token := fn:substring-before($token,":");
+       variable $computed-token := hmac:sha1($declared-expiration-date, project:seed());
+       $declared-token eq string($computed-token)
+     }}
+     catch FORG0001
+     {
+       false()
+     }
+  };
+
+  declare %an:sequential function authorization:html-show-login() {  
+  };
+
+  declare %an:sequential function authorization:html-do-login() {
+  };
+ 

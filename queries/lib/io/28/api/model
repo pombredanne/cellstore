@@ -1,0 +1,532 @@
+xquery version "3.0";
+module namespace model = "http://api.28.io/model";
+
+(: fixed imports :)
+import module namespace cdml = "http://www.zorba-xquery.com/modules/store/static/collections/dml";
+import module namespace cddl = "http://www.zorba-xquery.com/modules/store/static/collections/ddl";
+import module namespace iddl = "http://www.zorba-xquery.com/modules/store/static/indexes/ddl";
+import module namespace idml = "http://www.zorba-xquery.com/modules/store/static/indexes/dml";
+import module namespace ref = "http://zorba.io/modules/reference";
+
+import schema namespace pul = "http://www.zorba-xquery.com/schemas/pul";
+import schema namespace xdm = "http://www.zorba-xquery.com/schemas/xdm";
+
+(: import schemas of application :)
+(: xAPPLICATION_SCHEMA_IMPORTS :)
+ 
+(: import collection defining modules of application :)
+(: xAPPLICATION_MODULE_IMPORTS :)
+
+(:~
+ : Returns all collection names 
+ :
+ : @return collection names as a sequence of strings
+ :)
+declare function model:get-collection-names() as xs:string* {
+  for $qname in cddl:declared-collections()
+  let $name := fn:concat(fn:namespace-uri-from-QName($qname),":",fn:local-name-from-QName($qname))
+  order by $name ascending 
+  return $name 
+};
+
+(:~
+ : Returns all index names
+ :
+ : @return index names as a sequence of strings
+ :)
+declare function model:get-index-names() as xs:string* {
+  for $qname in iddl:declared-indexes()
+  let $name := fn:concat(fn:namespace-uri-from-QName($qname),":",fn:local-name-from-QName($qname))
+  order by $name ascending 
+  return $name
+};
+
+(:~
+ : Returns the QName for a collection. Returns the empty sequence if no collection with the given name exists.
+ :
+ : @param $name the name of the collection as string
+ : @return the QName for the collection or the empty sequence 
+ :)
+declare function model:collection-qname($name as xs:string) as xs:QName {
+  let $result :=
+    for $qname in cddl:declared-collections()
+    let $name1 := fn:concat(fn:namespace-uri-from-QName($qname),":",fn:local-name-from-QName($qname))
+    where $name = $name1
+    return $qname
+  return if (fn:empty($result)) then fn:error(xs:QName("model:notfound"),fn:concat("Collection '",$name,"' not found")) else $result
+};
+
+(:~
+ : Returns the QName for an index. Returns the empty sequence if no index with the given name exists.
+ :
+ : @param $name the name of the index as string
+ : @return the QName for the index or the empty sequence 
+ :)
+declare function model:index-qname($name as xs:string) as xs:QName {
+  let $result :=
+    for $qname in iddl:declared-indexes()
+    let $name1 := fn:concat(fn:namespace-uri-from-QName($qname),":",fn:local-name-from-QName($qname))
+    where $name = $name1
+    return $qname
+  return if (fn:empty($result)) then fn:error(xs:QName("model:notfound"),fn:concat("Index '",$name,"' not found")) else $result
+};
+
+(:~
+ : Returns the whole collection with a given name
+ :
+ : @param $name name of collection to return
+ : @return sequence of nodes of the collection
+ :)
+declare function model:get-collection($name as xs:string) as node()* {
+  cdml:collection(model:collection-qname($name))
+};
+
+(:~
+ : Returns "a page" of the collection (a part)
+ :
+ : @param $name the name of the collection as string
+ : @param $page the number of the page starting at 1
+ : @param $pagesize the number of nodes on each page. The last page may have less nodes
+ : @return a sequence of nodes from the collection
+ :)
+declare function model:get-collection($name as xs:string, $first-noderef as xs:anyURI?, $offset as xs:integer?, $limit as xs:integer) {
+  let $qname := model:collection-qname($name)  
+  let $firstpos := 
+    (if ($first-noderef)
+    then fn:index-of(for $n in cdml:collection($qname) return ref:reference($n), $first-noderef)
+    else 0) + (if ($offset) then $offset else 1)
+  let $lastpos := $firstpos + $limit
+  return cdml:collection($qname)[fn:position() >= $firstpos and fn:position() < $lastpos]
+  
+  (:
+  let $min := ($page - 1) * $pagesize + 1
+  let $max := $min + $pagesize
+  return xqddf:collection(model:collection-qname($name))[position()>=$min and position()<$max]
+  :)
+};
+
+(:~
+ : Returns the size of a collection
+ :
+ : @param $name the name of the collection as string
+ : @return the size of the collection
+ : @error if the collection chosen by $name does not exist
+ :)
+declare function model:get-collection-size($name as xs:string) as xs:integer {
+  fn:count(cdml:collection(model:collection-qname($name)))
+};
+
+
+declare function model:get-index-point($index-name as xs:string, $index-key) {
+  idml:probe-index-point-value(model:index-qname($index-name), $index-key)
+};
+
+declare function model:get-node($noderef as xs:anyURI) {
+  ref:dereference($noderef)
+};
+
+declare function model:node-path-index($node as node(), $parent as node()) as xs:integer? {   
+  let $totalcount := fn:count($parent/node()[fn:node-name(.) = fn:node-name($node)])
+  let $ref := ref:reference($node)
+  return
+     if ($totalcount = 1) 
+     then ()
+     else 
+       for $child at $index in $parent/node()[fn:node-name(.) = fn:node-name($node)]
+       where ref:reference($child) = $ref
+       return $index
+};
+
+
+
+declare function model:get-node-path($node) {
+  
+  let $pathnodes := ( $node/ancestor::node(), $node )
+  for $pathnode at $idx in $pathnodes
+  let $index := 
+    if ($idx>1) 
+    then model:node-path-index($pathnode, $pathnodes[$idx - 1])
+    else ()      
+  return
+    <path name="{fn:name($pathnode)}" index="{$index}" ref="{ref:reference($pathnode)}" />
+};
+
+declare function model:get-node-group($noderef as xs:anyURI) {
+  let $basenode := ref:dereference($noderef)
+  let $basename := fn:name($basenode)
+  return ($basenode,$basenode/following-sibling::node()[fn:name(.) = $basename])
+};
+
+declare updating function model:replace-value($noderef as xs:anyURI, $value) {
+  let $node := ref:dereference($noderef)
+  return replace value of node $node with $value
+};
+
+declare updating function model:replace-node($noderef as xs:anyURI, $nodes) {
+  let $node := ref:dereference($noderef)
+  return replace node $node with $nodes
+};
+
+declare updating function model:delete-node($noderef as xs:anyURI) {
+  let $node := ref:dereference($noderef)  
+  return delete node $node  
+};
+
+declare updating function model:delete-node-collection($collection as xs:QName, $noderef as xs:anyURI?) {
+  let $node := ref:dereference($noderef)
+  return cdml:delete-nodes($node)
+};
+
+declare updating function model:rename-node($noderef as xs:anyURI, $name as xs:QName) {
+  let $node := ref:dereference($noderef)
+  return rename node $node as $name
+    
+};
+
+declare updating function model:insert-attribute($noderef as xs:anyURI, $attribute as xs:string, $value) {
+  let $node := ref:dereference($noderef)
+  return insert node attribute { $attribute} { $value} into $node
+};
+
+declare updating function model:insert-node($noderef as xs:anyURI, $position as xs:string, $newnodes) {
+   let $node := ref:dereference($noderef)
+   return  
+   if ($position eq "as last")
+   then insert nodes $newnodes as last into $node
+   else if ($position eq "as first")
+   then insert nodes $newnodes as first into $node
+   else if ($position eq "after")
+   then insert nodes $newnodes after $node
+   else if ($position eq "before")
+   then insert nodes $newnodes before $node
+   else insert nodes $newnodes into $node      
+};
+
+declare updating function model:insert-node-collection($collection as xs:QName, $noderef as xs:anyURI?, $position as xs:string, $nodes) {
+ try {
+   model:insert-node-collection-ordered($collection,$noderef,$position,$nodes)   
+ } catch * {   
+   model:insert-node-collection-ordered($collection,$noderef,"collection",$nodes)        
+ }
+};
+
+
+declare updating function model:insert-node-collection-ordered($collection as xs:QName, $noderef as xs:anyURI?, $position as xs:string, $nodes) {
+ try {
+   model:insert-node-collection($collection,$noderef,$position,$nodes, false())   
+ } catch * {   
+   model:insert-node-collection($collection,$noderef,$position,$nodes, true())        
+ }
+};
+
+declare updating function model:insert-node-collection($collection as xs:QName, $noderef as xs:anyURI?, $position as xs:string, $nodes, $validate as xs:boolean) {
+   let $node := if ($noderef) then ref:dereference($noderef) else ()
+   let $newnodes := 
+      if ($validate eq true()) 
+      then for $n in $nodes return validate strict { $nodes }
+      else $nodes
+   return  
+   if ($position eq "as last")
+   then cdml:insert-nodes-last($collection, $newnodes )
+   else if ($position eq "as first")
+   then cdml:insert-nodes-first($collection, $newnodes)
+   else if ($position eq "after")
+   then cdml:insert-nodes-after($collection, $node, $newnodes )
+   else if ($position eq "before")
+   then cdml:insert-nodes-before($collection, $node, $newnodes )
+   else cdml:insert-nodes($collection, $newnodes )   
+};
+
+
+declare function model:node-reference($node) as xs:string {
+   "undeffined" 
+};
+
+declare %an:sequential function model:make-table($nodes, $namespaces) {
+  variable $columns := <head></head>;
+  
+  variable $rows :=
+    for $node at $idx in $nodes
+    return model:make-table-row($idx, $node, $columns, $namespaces);
+  
+  <table>
+    <head>
+    { for $col in $columns/col
+      order by $col/@base ascending empty least
+      return $col
+    }
+    </head>
+    { $rows }
+   </table>
+};
+
+declare %an:sequential function model:make-table-row($idx, $node, $columns, $namespaces) {
+  variable $nodename := model:node-name($node, $namespaces);
+  variable $row := <row idx="{$idx}" node="{$nodename}" ref="{model:node-reference($node)}"></row>;
+  
+  if ($node/text())
+  then  {      
+      variable $colid := model:get-column-id((), $nodename, false(), $columns);
+      insert node <col id="{$colid}" ref="{model:node-reference($node)}">{fn:data($node)}</col> into $row;
+  } else ();  
+  
+  model:make-table-row($node, (), $row, $columns, $namespaces);
+   
+  $row
+};
+
+declare %an:sequential function model:make-table-row($node, $path as xs:string?, $row, $columns, $namespaces) {
+  variable $noderef := model:node-reference($node);
+  
+  if ($path) 
+  then insert node <base path="{$path}" ref="{$noderef}"/> into $row;
+  else (); 
+      
+  for $attribute in $node/attribute::attribute()
+  return  { 
+    variable $colid := model:get-column-id($path,fn:concat("@",fn:name($attribute)), true(),  $columns);
+    insert node <col ref="{$noderef}" attribute="{fn:name($attribute)}" type="{model:type($attribute)}" id="{$colid}">{fn:data($attribute)}</col> into $row; 
+  }
+  
+  for $child in $node/node()
+  let $node-name := fn:name($child)
+  group by $node-name
+  let $totalcount := fn:count($child) 
+  return  {    
+    if ($totalcount > 1)
+    then  {
+      variable $nodename := if ($child[1]/self::element()) then model:node-name($child[1], $namespaces) else "";
+      variable $colid := model:get-column-id($path,$nodename, false(), $columns);
+      insert node <col id="{$colid}" ref="{model:node-reference($child[1])}" count="{$totalcount}"></col> into $row;
+    }
+    else  {
+      variable $nodename := if ($child/self::element()) then model:node-name($child, $namespaces) else "";
+       
+      if ($child/text())
+      then  {       
+        variable $colid := model:get-column-id($path, $nodename, false(), $columns);
+        insert node <col id="{$colid}" ref="{model:node-reference($child)}" type="{model:type($child)}">{fn:data($child/text())}</col> into $row;
+      } else ();      
+            
+      model:make-table-row($child, fn:concat($path,$nodename,"/"), $row, $columns, $namespaces);
+    }
+    
+  }
+  
+};
+
+declare %an:sequential function model:get-column-id($basepath as xs:string?, $name as xs:string, $isattribute as xs:boolean, $columns) as xs:integer {
+  variable $path := if ($basepath) then fn:concat($basepath,$name) else $name;
+  
+  let $column := $columns/col[@path = $path]
+  return 
+    if ($column) 
+    then exit returning fn:data($column/@id);
+    else ();
+  
+  let $id := fn:count($columns/col)+1
+  return  {
+    insert node <col id="{$id}" path="{$path}">
+      { if ($basepath) then attribute base { $basepath } else () }
+      { if ($isattribute eq true()) then attribute attribute { true() } else () }
+      {$name}
+    </col> into $columns;
+    
+    $id
+  }
+};
+
+declare %an:sequential function model:node-name($node as element(), $namespaces) as xs:string {
+  variable $prefix := model:node-prefix($node, $namespaces);
+  if ($prefix) 
+  then fn:concat($prefix,":",fn:local-name($node))
+  else fn:local-name($node)
+};
+
+declare function model:resolve-qname($name as xs:QName, $namespaces) as xs:string {
+  let $uri := fn:namespace-uri-from-QName($name)
+  let $prefix := $namespaces[@uri = $uri]/@prefix
+  return 
+    if ($prefix) 
+    then fn:concat($prefix,":",fn:local-name-from-QName($name))
+    else xs:string($name)   
+};
+
+
+declare %an:sequential function model:node-prefix($node as element(), $namespaces) as xs:string? {
+   variable $namespace := fn:namespace-uri($node);
+   variable $prefix := $namespaces/namespace[@uri = $namespace];
+   
+   if ($prefix) 
+   then fn:data($prefix/@prefix)
+   else  {
+     variable $hint0 := fn:prefix-from-QName(fn:node-name($node));
+     variable $hint := if ($hint0) then $hint0 else if ($namespace) then "my" else "";
+     variable $newprefix :=  if ($namespaces/namespace/@prefix = $hint) then model:unused-prefix($namespaces) else $hint;
+       
+     insert node <namespace uri="{$namespace}" prefix="{$newprefix}" /> into $namespaces;
+     $newprefix
+   }
+};
+
+declare function model:unused-prefix($namespaces) as xs:string {
+  let $prefixes := ("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
+  return 
+    (for $p in $prefixes where not ($namespaces/namespace/@prefix = $p) return $p)[1]
+};
+
+declare function model:find-keys($collection) {
+  let $nodes := fn:subsequence(model:get-collection($collection), 1, 1000)
+  let $node := $nodes[1]
+  let $count := fn:count($nodes)
+  return (
+  
+  for $attribute in $node/attribute::attribute()
+  let $attrname := fn:name($attribute)
+  where fn:count(fn:distinct-values($nodes/attribute::attribute()[fn:name(.) = $attrname])) eq $count
+  return fn:concat("@",$attrname),
+         
+  for $child in $node/node()
+  where not(fn:empty($child/text()))
+  let $name := fn:name($child)
+  return 
+    if (fn:count(fn:distinct-values($nodes/node()[fn:name(.) = $name])) eq $count) then $name else ()  
+  )
+};
+
+declare function model:type-save($val) as xs:string {
+  try {  model:type($val) } catch * { "error" }
+};
+
+declare function model:type($val as xs:anyAtomicType?) as xs:string { 
+ if ($val instance of xs:untypedAtomic) then 'xs:untypedAtomic'
+ else if ($val instance of xs:anyURI) then 'xs:anyURI'
+ else if ($val instance of xs:ENTITY) then 'xs:ENTITY'
+ else if ($val instance of xs:ID) then 'xs:ID'
+ else if ($val instance of xs:NMTOKEN) then 'xs:NMTOKEN'
+ else if ($val instance of xs:language) then 'xs:language'
+ else if ($val instance of xs:NCName) then 'xs:NCName'
+ else if ($val instance of xs:Name) then 'xs:Name'
+ else if ($val instance of xs:token) then 'xs:token'
+ else if ($val instance of xs:normalizedString)
+         then 'xs:normalizedString'
+ else if ($val instance of xs:string) then 'xs:string'
+ else if ($val instance of xs:QName) then 'xs:QName'
+ else if ($val instance of xs:boolean) then 'xs:boolean'
+ else if ($val instance of xs:base64Binary) then 'xs:base64Binary'
+ else if ($val instance of xs:hexBinary) then 'xs:hexBinary'
+ else if ($val instance of xs:byte) then 'xs:byte'
+ else if ($val instance of xs:short) then 'xs:short'
+ else if ($val instance of xs:int) then 'xs:int'
+ else if ($val instance of xs:long) then 'xs:long'
+ else if ($val instance of xs:unsignedByte) then 'xs:unsignedByte'
+ else if ($val instance of xs:unsignedShort) then 'xs:unsignedShort'
+ else if ($val instance of xs:unsignedInt) then 'xs:unsignedInt'
+ else if ($val instance of xs:unsignedLong) then 'xs:unsignedLong'
+ else if ($val instance of xs:positiveInteger)
+         then 'xs:positiveInteger'
+ else if ($val instance of xs:nonNegativeInteger)
+         then 'xs:nonNegativeInteger'
+ else if ($val instance of xs:negativeInteger)
+         then 'xs:negativeInteger'
+ else if ($val instance of xs:nonPositiveInteger)
+         then 'xs:nonPositiveInteger'
+ else if ($val instance of xs:integer) then 'xs:integer'
+ else if ($val instance of xs:decimal) then 'xs:decimal'
+ else if ($val instance of xs:float) then 'xs:float'
+ else if ($val instance of xs:double) then 'xs:double'
+ else if ($val instance of xs:date) then 'xs:date'
+ else if ($val instance of xs:time) then 'xs:time'
+ else if ($val instance of xs:dateTime) then 'xs:dateTime'
+ else if ($val instance of xs:dayTimeDuration)
+         then 'xs:dayTimeDuration'
+ else if ($val instance of xs:yearMonthDuration)
+         then 'xs:yearMonthDuration'
+ else if ($val instance of xs:duration) then 'xs:duration'
+ else if ($val instance of xs:gMonth) then 'xs:gMonth'
+ else if ($val instance of xs:gYear) then 'xs:gYear'
+ else if ($val instance of xs:gYearMonth) then 'xs:gYearMonth'
+ else if ($val instance of xs:gDay) then 'xs:gDay'
+ else if ($val instance of xs:gMonthDay) then 'xs:gMonthDay'
+ else 'xs:untyped'
+};
+
+declare %an:sequential function model:applyPUL($pul as schema-element(pul:pending-update-list)) {
+  for $op in $pul/element()
+  return model:applyPULOp($op);
+  ()
+}; 
+
+declare updating function model:applyPULOp($pul) { 
+  if ($pul/self::pul:insertBefore)
+  then model:insert-node($pul/pul:target,"before", model:build-nodes($pul/pul:content/element()))
+  else if ($pul/self::pul:insertAfter)
+  then model:insert-node($pul/pul:target,"after", model:build-nodes($pul/pul:content/element()))
+  else if ($pul/self::pul:insertInto)
+  then model:insert-node($pul/pul:target,"into", model:build-nodes($pul/pul:content/element()))
+  else if ($pul/self::pul:insertIntoAsFirst)
+  then model:insert-node($pul/pul:target,"as first", model:build-nodes($pul/pul:content/element()))
+  else if ($pul/self::pul:insertIntoAsLast)
+  then model:insert-node($pul/pul:target,"as last", model:build-nodes($pul/pul:content/element()))
+  else if ($pul/self::pul:insertAttributes)
+  then model:insert-node($pul/pul:target,"attributes", model:build-nodes($pul/pul:content/element()))
+  else if ($pul/self::pul:delete)
+  then model:delete-node($pul/pul:target)
+  else if ($pul/self::pul:replaceNode)
+  then model:replace-node($pul/pul:target, model:build-nodes($pul/pul:content/element()))
+  else if ($pul/self::pul:replaceValue)
+  then model:replace-value($pul/pul:target, $pul/pul:string-value)
+  else if ($pul/self::pul:replaceElementContent)
+  then model:replace-value($pul/pul:target, $pul/pul:text)
+  else if ($pul/self::pul:rename)
+  then model:rename-node($pul/pul:target,$pul/pul:newName)
+  else if ($pul/self::pul:insertAfterIntoCollection)
+  then model:insert-node-collection($pul/pul:collection,$pul/pul:target,"after",model:build-nodes($pul/pul:nodes/element()))
+  else if ($pul/self::pul:insertBeforeIntoCollection)
+  then model:insert-node-collection($pul/pul:collection,$pul/pul:target,"before",model:build-nodes($pul/pul:nodes/element()))
+  else if ($pul/self::pul:insertAsFirstIntoCollection)
+  then model:insert-node-collection($pul/pul:collection,$pul/pul:target,"as first",model:build-nodes($pul/pul:nodes/element()))
+  else if ($pul/self::pul:insertAsLastIntoCollection)
+  then model:insert-node-collection($pul/pul:collection,$pul/pul:target,"as last",model:build-nodes($pul/pul:nodes/element()))
+  else if ($pul/self::pul:insertIntoCollection)
+  then model:insert-node-collection($pul/pul:collection,(),"collection",model:build-nodes($pul/pul:nodes/element()))
+  else if ($pul/self::pul:deleteNodesFromCollection)
+  then for $target in $pul/pul:target return model:delete-node-collection($pul/pul:collection, $target)  
+  else ()
+};
+
+declare function model:element-node($definition as schema-element(xdm:element)) {
+  element { fn:data($definition/@node-name) } 
+  {      
+     for $attribute in $definition/xdm:attributes/xdm:attribute  
+     return attribute { $attribute/@node-name } { fn:data($attribute) },
+     
+     for $child in $definition/xdm:children/element()
+     return model:node($child)
+  }
+};
+
+
+declare function model:node($definition) {
+  if ($definition/self::xdm:element)
+  then model:element-node($definition)
+  else if ($definition/self::xdm:attribute)
+  then attribute { $definition/@node-name } { fn:data($definition) }
+  else if ($definition/self::xdm:text)
+  then text { fn:data($definition) }
+  else if ($definition/self::xdm:comment)
+  then comment { xs:string($definition) }
+  else if ($definition/self::xdm:processing-instruction)
+  then processing-instruction { fn:data($definition/@node-name) } { xs:string($definition) }
+  else if ($definition/self::xdm:document)
+  then ()
+  else if ($definition/self::xdm:namespace)
+  then ()
+  else ()
+};
+
+declare function model:build-nodes($definition) {
+  for $node in $definition
+  return model:node($node)
+};
+

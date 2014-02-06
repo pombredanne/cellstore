@@ -1,0 +1,157 @@
+xquery version "3.0";
+module namespace in = "http://api.28.io/indices";
+
+import module namespace req = "http://www.28msec.com/modules/http/request";
+import module namespace resp = "http://www.28msec.com/modules/http/response"; 
+
+import module namespace util = "http://api.28.io/util"; 
+import module namespace validate = "http://api.28.io/validation";
+
+declare function in:metadata()
+{
+  db:collection("_28.metadata")[.("kind") eq "collections"]
+};
+
+declare %an:sequential function in:list-indices()
+as array()
+{
+  in:metadata()("indices") 
+};
+
+declare %an:sequential function in:get-index($name as xs:string)
+as object()?
+{  
+  for $index in jn:members(in:list-indices())
+  where $index("name-loc") = $name
+  return $index
+};
+
+declare %an:sequential function in:put-index($name as xs:string, $new-index-obj as object())
+as empty-sequence()
+{
+  in:validate-index($new-index-obj);
+  
+  if ($name eq $new-index-obj("name-loc"))
+  then ();
+  else fn:error($resp:bad-request, "Index name does not match name in URI.");
+    
+  let $indices := db:collection("_28.metadata")[.("kind") eq "collections"]("indices")
+
+  for $index at $idx in jn:members($indices)
+  where $index("name-loc") = $name
+  return
+    if ($index("_id") eq $new-index-obj("_id")) 
+    then replace value of json $indices($idx) with $new-index-obj;
+    else fn:error($resp:bad-request, "_id fields do not match");
+         
+};
+
+declare function in:validate-index($index as object())
+as empty-sequence()
+{
+   let $index-schema := 
+   {
+     "_id" : "xs:integer?",
+     "name-loc" : "xs:string",
+     "name-ns" : "xs:anyURI",
+     "name-pre" : "xs:string",
+     "domain-expr" : "domain-expr",
+     "key-types" : [ "required", "type" ],     
+     "key-exprs" : [ "required", "key-expr" ],                                
+     "sources" : [ "optional" , "xs:string" ],
+     "annotations" : 
+       [ "optional" ,
+          {
+             "name-ns" : "xs:anyURI",
+             "name-pre" : "",
+             "name-loc" : "xs:string"
+          }
+       ]
+   }
+  return validate:by-schema($index, $index-schema);
+
+  if (not(jn:size($index("key-exprs")) eq jn:size($index("key-types"))))
+  then fn:error($resp:bad-request, "Number of key expressions does not match number of key types")
+  else ()
+};
+
+declare %an:sequential function in:create-index($new-index as object())
+as empty-sequence()
+{
+   if (exists($new-index("_id")))
+   then delete json $new-index("_id");
+   else ();
+   
+   in:validate-index($new-index);
+   
+   if (exists(in:get-index($new-index("name-loc"))))
+   then fn:error($resp:bad-request, "Index already exists");
+   else ();
+   
+   variable $idx-id := in:metadata()("maxIndexId") + 1;
+   insert json { "_id" : $idx-id } into $new-index;
+   replace value of json in:metadata()("maxIndexId") with $idx-id;
+   insert json $new-index into in:metadata()("indices") at position 1;         
+};
+
+declare %an:sequential function in:refresh-index($index as xs:string)
+as empty-sequence()
+{
+   db:refresh($index);         
+};
+
+
+declare %an:sequential function in:delete-index($name)
+as empty-sequence()
+{
+   let $indices := in:metadata()("indices")
+   for $index at $idx in jn:members($indices)
+   where $index("name-loc") = $name
+   return delete json $indices($idx);
+};
+
+declare %an:sequential function in:dispatch()
+{    
+
+    variable $path-parameters := util:path(3);    
+    variable $path-parameters-count := count($path-parameters);
+    resp:set-content-type("application/json");
+
+    switch (true())
+        case req:method-get() return
+        {         
+
+            switch ($path-parameters-count)
+                case 0 return in:list-indices()
+                case 1 return in:get-index($path-parameters)
+                (: case 2 return util:get-collection-property($path-parameters[1], $path-parameters[2]) :)
+                default return resp:set-status-code(404)
+                (: Default: Invalid URI, no resource found (404 "Not Found") :)
+        }
+        case req:method-post() return 
+        {        
+ 
+             switch ($path-parameters-count)
+               case 0 return in:create-index(jn:parse-json(util:param-or-body("content")))
+               case 1 return in:refresh-index($path-parameters)   
+             default return resp:set-status-code(404)
+        }
+        case req:method-put() return
+        {           
+
+            switch ($path-parameters-count)                
+                case 1 return in:put-index($path-parameters, jn:parse-json(util:param-or-body("content"))) 
+                (: case 2 return util:put-collection-property($path-parameters[1], $path-parameters[2], util:param-or-body("content")) :)
+                default return resp:set-status-code(404)
+        }
+        case req:method-delete() return
+        {            
+            switch ($path-parameters-count)                
+                case 1 return in:delete-index($path-parameters)               
+                default return resp:set-status-code(404)
+        }
+        default return
+        {
+            resp:set-status-code(405) (: 405 "Method Not Allowed" :)
+        }
+};

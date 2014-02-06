@@ -1,0 +1,109 @@
+xquery version "3.0";
+module namespace api = "http://api.28.io/jdbc";
+
+import module namespace req = "http://www.28msec.com/modules/http/request";
+import module namespace res = "http://www.28msec.com/modules/http/response";
+
+import module namespace jdbc = "http://www.28msec.com/modules/jdbc";
+import module namespace store = "http://www.28msec.com/modules/store";
+
+import module namespace zerr = "http://zorba.io/errors";
+
+declare %an:sequential function api:dispatch()
+{ 
+  res:set-header("Access-Control-Allow-Origin",  "*");
+  res:set-header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+  res:set-header("Access-Control-Expose-Headers", "X-28msec-Error");
+
+  variable $segments := tokenize(req:path(), "/");
+  variable $resource := $segments[4];
+
+  res:set-content-type("application/json");
+
+  switch($resource)
+	case "tables" return api:tables()
+	case "import" return api:import()
+	default return res:set-status-code(404)
+};
+
+declare %an:sequential function api:tables()
+{
+    res:set-status-code(200);
+    try { {
+      variable $url  := req:parameter-values("url", error($res:bad-request, "Missing url parameter."));
+      variable $user := req:parameter-values("user");
+      variable $pass := req:parameter-values("pass");
+      
+      variable $conn := jdbc:connect({ "url": $url, "user": $user, "password": $pass });
+      variable $result := jdbc:tables($conn);
+      { "success" : [ $result ] }
+    } }
+    catch * {
+      {
+        res:set-status-code(500);
+        res:set-header("X-28msec-Error", "true");
+        {
+          "error": true(),
+          "code": $err:code,
+          "description": $err:description,
+          "module": $err:module,
+          "line-number": $err:line-number,
+          "column-number": $err:column-number,
+          "line-number-end": $zerr:line-number-end,
+          "column-number-end": $zerr:column-number-end
+        }
+      }
+    }
+};
+
+declare %an:sequential function api:import()
+{
+    res:set-status-code(200);
+    try { {
+      variable $url    := req:parameter-values("url", error($res:bad-request, "Missing url parameter."));
+      variable $user   := req:parameter-values("user");
+      variable $pass   := req:parameter-values("pass");
+      variable $names  := req:parameter-values("names[]", error($res:bad-request, "Missing names parameter."));
+      variable $tables := req:parameter-values("tables[]", error($res:bad-request, "Missing tables parameter."));
+
+      variable $conn := jdbc:connect({ "url": $url, "user": $user, "password": $pass });
+      variable $counter;
+      variable $result := (for $table at $index in $tables
+	let $content := jdbc:execute-query($conn, "SELECT * FROM " || $table)
+	return 
+	{
+		$counter := 0;			
+		if (empty($content)) then ()
+		else 
+		{
+			if (is-available-collection($names[$index])) then (); else create($names[$index]);
+			for $row in $content
+			return { 
+				db:insert($names[$index], $row);
+				$counter := $counter + 1;
+				store:flush-if($counter mod 1000 eq 0);
+			}
+			{ "table" : $names[$index], "records" : $counter }
+		}
+	}
+      );
+      store:flush();
+      { "success" : [ $result ] }
+    } }
+    catch * {
+      {
+        res:set-status-code(500);
+        res:set-header("X-28msec-Error", "true");
+        {
+          "error": true(),
+          "code": $err:code,
+          "description": $err:description,
+          "module": $err:module,
+          "line-number": $err:line-number,
+          "column-number": $err:column-number,
+          "line-number-end": $zerr:line-number-end,
+          "column-number-end": $zerr:column-number-end
+        }
+      }
+    }
+};

@@ -1,0 +1,49 @@
+xquery version "3.0";
+module namespace csvview = "http://api.28.io/csvview";
+
+import module namespace model = "http://api.28.io/model";
+ 
+declare %an:sequential function csvview:show-nodes($nodes, $show-headers as xs:boolean) {
+  variable $namespaces := <namespaces/>;
+  variable $tabledata := model:make-table($nodes, $namespaces);
+  
+  if ($show-headers)
+  then
+    let $headers :=
+      for $column in $tabledata/head/col
+      return fn:data($column)
+    return csvview:line(("#","-", $headers))
+  else ()
+  ,
+    
+  for $row at $idx in $tabledata/row
+  let $cols := (
+    if ($show-headers)
+    then (
+      csvview:column($row/@idx),
+      csvview:column($row/@node)
+    ) else (),
+    for $column in $tabledata/head/col
+    let $data := $row/col[@id = $column/@id]                      
+    return
+      if ($data/@count)
+      then csvview:column(fn:concat($data/@count," Items"))
+      else 
+        if ($data)
+        then csvview:column($data)
+        else csvview:column("()")     
+  )  
+  return csvview:line($cols)
+        
+};
+
+
+declare function csvview:line($entries as xs:string*) {  
+  fn:string-join(
+    for $e in $entries return if ($e eq "") then "" else fn:concat("&quot;",$e,"&quot;"), 
+    ";"),"&#13;&#10;"
+};
+
+declare function csvview:column($data) as xs:string {
+ if ($data) then fn:replace(fn:data($data),"&quot;","&quot;&quot;") else ""
+};
