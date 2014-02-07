@@ -47,8 +47,8 @@ variable $concept := let $concept := req:param-values("conceptName", "us-gaap:Re
                             else $concept;
 
 variable $fact := let $fact := if(exists($conceptMap)) 
-                               then sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years($entity,$concept, $periodFocus, $yearFocus, { "concept-maps" : [ $conceptMap ],  Hypercube: hypercubes:dimensionless-hypercube() } )
-                 else sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years($entity,$concept, $periodFocus, $yearFocus, { Hypercube: hypercubes:dimensionless-hypercube() } )
+                               then sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years($entity,$concept, $periodFocus, $yearFocus, { "concept-maps" : [ $conceptMap ]})
+                 else sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years($entity,$concept, $periodFocus, $yearFocus)
                   return if (empty($fact))
                             then error(QName("local:INVALID-REQUEST"),"fact not found")
                             else $fact;

@@ -77,8 +77,8 @@ variable $fiscalPeriods := if(exists($conceptMap)) then ("FY","Q1","Q2","Q3")
 let $res := 
     let $facts := 
         for $f in if(exists($conceptMap)) 
-                  then sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years($entity,$concept, $fiscalPeriods, $startYear to $endYear, { "concept-maps" : [ $conceptMap ] , Hypercube: hypercubes:dimensionless-hypercube() } )
-                  else sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years($entity,$concept, $fiscalPeriods, $startYear to $endYear, { Hypercube: hypercubes:dimensionless-hypercube() } )
+                  then sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years($entity,$concept, $fiscalPeriods, $startYear to $endYear, { "concept-maps" : [ $conceptMap ] } )
+                  else sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years($entity,$concept, $fiscalPeriods, $startYear to $endYear)
         return {|
             $f,
             { AcceptanceDatetime : archives:archives($f.Archive).Profiles.SEC.AcceptanceDatetime cast as integer,
