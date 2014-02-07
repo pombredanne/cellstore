@@ -52,19 +52,17 @@ a.highlight3:active {
 
 .btn-green{
 	color: #ffffff; 
-	background: #38ae49;
-	border: 0;
+	background: #64B783;
+	border-color: #60b380;
 	border-radius:4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 }
-.btn-green:hover{
+.btn-green:hover,
+.btn-green:active,
+.btn-green:focus {
 	color: #ffffff; 
-	background: #38ae49;
-}
-.btn-green:active{
-	color: #ffffff; 
-	background: #38ae49;
+	outline: none;
 }
 
 .logo {
@@ -188,7 +186,7 @@ a.highlight3:active {
 
 .topbar{
 	border-bottom: 1px solid #4ba16b;
-	background: #64b783;
+	background: #64B783;
 	padding: 3px;
 	box-shadow: 0 1px 2px rgba(84, 171, 117, 0.4);
 	-moz-box-shadow: 0 1px 2px rgba(84, 171, 117, 0.4);
