@@ -6,28 +6,28 @@
     "produces": [
         "application/json"
     ],
-    "description": "foo",
+    "description": "This API can be used to authorize requests. Essentially, there are two endpoints: (1) One for logging in with an email address and a password in order to retrieve a token that can be used for authorizing future request and (2) one for destroying a session identified by a token. ",
     "apis": [
         {
             "path":"/session/login.jq",
+            "description" : "Login",
             "operations":[
                 {
                     "method":"POST",
-                    "summary":"Login",
-                    "notes":"",
+                    "summary":"Login with email and password in order to retrieve a token.",
                     "type":"User",
                     "nickname":"login",
                     "parameters":[
                         {
                             "name":"email",
-                            "description":"Email of user",
+                            "description":"Email of user to login",
                             "required":true,
                             "type":"string",
                             "paramType":"query"
                         },
                         {
                             "name":"password",
-                            "description":"Password of user",
+                            "description":"Password of user to login",
                             "required":true,
                             "type":"string",
                             "paramType":"query"
@@ -35,8 +35,29 @@
                     ],
                     "responseMessages":[
                         {
-                            "code":500,
-                            "message":"Not done yet"
+                            "code": 400,
+                            "message": "if a mandatory parameter is missing",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code" : 403,
+                            "message": "if the user doesn't exist or could not be authenticated",
+                            "responseModel": "Error"
+                        }
+                    ],
+                    "successMessages" : [
+                        {
+                            "code": 200,
+                            "message": "if the user was logged in successfully",
+                            "responseModel": "ProjectToken"
+                        }
+                    ],
+                    "examples": [
+                        {
+                            "title": "Login",
+                            "description": "Login and retrieve a token",
+                            "request": "curl -i -X POST  'http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/session/login.jq?email=you%40xbrl.io&password=secret'",
+                            "response": "{ \"success\" : true, \"token\" : \"2b332b8e-3e90-40d2-8b83-28862ec30ee1\", \"name\" : \"Your Name\" }"
                         }
                     ]
                 }
@@ -44,20 +65,44 @@
         },
         {
             "path":"/session/logout.jq",
+            "description" : "Logout",
             "operations":[
                 {
                     "method":"POST",
-                    "summary":"Logout",
+                    "summary":"Logout the user identified by the given API key.",
                     "notes":"",
                     "type":"User",
                     "nickname":"logout",
                     "parameters":[
-                     
+                        {
+                            "name": "token",
+                            "description": "API token of the current user",
+                            "required": true,
+                            "type": "string",
+                            "paramType":"query"
+                        }
                     ],
                     "responseMessages":[
                         {
-                            "code":500,
-                            "message":"Not done yet"
+                            "code": 400,
+                            "message": "if a mandatory parameter is missing",
+                            "responseModel": "Error"
+                        }
+
+                    ],
+                    "successMessages" : [
+                        {
+                            "code": 200,
+                            "message": "if the user was logged out successfully",
+                            "responseModel": "Error"
+                        }
+                    ],
+                    "examples": [
+                        {
+                            "title": "Logout",
+                            "description": "Logout the user identified by the given token",
+                            "request": "curl -i -X POST  'http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/session/logout.jq?token=a02516b2-2cdb-4ef3-9e2e-adfaa3660b87'",
+                            "response": "{ \"success\" : true }"
                         }
                     ]
                 }
@@ -65,18 +110,55 @@
         }
     ],
     "models": {
-        "Success": {
-            "id": "Success",
-            "description": "Default success response",
+        "ProjectToken": {
+            "id": "ProjectToken",
+            "description": "An object containing the session token, the user id, and the name of the user.",
+            "required" : [
+              "success", "token", "name"
+            ],
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "description": "Whether the requests succeeded or failed."
+                },
+                "token": {
+                    "type": "string",
+                    "description": "The session token that can be used for subsequent requests."
+                },
+                "name" : {
+                    "type": "string",
+                    "description" : "The name of the user that was logged in."
+                }
+            }
+        },
+        "Error": {
+            "id": "Error",
+            "description": "Error information",
+            "required": [
+                "success",
+                "description"
+            ],
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "description": "Whether the requests succeeded or failed."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the error."
+                }
+            }
+        },
+        "Logout": {
+            "id": "Logout",
+            "description": "Information about a successful logout.",
             "required": [
                 "success"
             ],
             "properties": {
                 "success": {
                     "type": "boolean",
-                    "enum": [
-                        "true"
-                    ]
+                    "description": "Whether the requests succeeded or failed."
                 }
             }
         }

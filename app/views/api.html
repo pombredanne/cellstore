@@ -6,12 +6,19 @@
 </div>
 <div id="api" class="container white">
 	<br>
-    <p class="pull-right" >View as <a href="/api.json" target="_blank">JSON</a>.</p>
-    <div ng-bind-html="content.description"></div>
+    <p class="pull-right" >View as <a href="/{{name}}.json" target="_blank">JSON</a>.</p>
+    <h1>Description</h1>
+    <div><strong ng-bind-html="content.description"/></div>
+    <h1>Resource Overview</h1>
     <div ng-repeat="api in content.apis">
-        <h2 ng-bind="api.description"></h2>
+      <ul>
+        <li><a href="javascript://" ng-click="gotoId(api.description)">{{api.path}}: {{api.description}}</a></li>
+      </ul>
+    </div>
+    <div ng-repeat="api in content.apis">
+        <h2 ng-bind="api.description" scroll-id="{{api.description}}"></h2>
         <article ng-hide="operation.implemented === false" ng-repeat="operation in api.operations" class="operation" id="{{operation.nickname}}">
-            <a class="accordion-header" ng-href="{{locationPath}}?anchor={{operation.nickname}}">
+            <a class="accordion-header">
                 <p class="monospace">
                     <span ng-bind="operation.method"
                           ng-class="'method-' + operation.method"></span>

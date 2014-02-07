@@ -10,11 +10,11 @@
     "apis": [
         {
             "path": "/entities.jq.{format}",
-            "description": "Retrieve Entities",
+            "description": "Entities",
             "operations": [
                 {
-                    "method": "GET",
-                    "summary": "List one or more entities",
+                    "method": "POST",
+                    "summary": "List information about all or a selection of entities",
                     "notes": "",
                     "type": "EntityListing",
                     "nickname": "listEntities",
@@ -26,7 +26,7 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "csv",
+                                "text",
                                 "xml"
                             ],
                             "paramType": "path"
@@ -37,9 +37,9 @@
                             "required": false,
                             "type": "string",
                             "enum": [
-                                "dow30",
-                                "sp500",
-                                "fortune100"
+                                "DOW30",
+                                "SP500",
+                                "FORTUNE100"
                             ],
                             "paramType": "query"
                         },
@@ -52,7 +52,7 @@
                         },
                         {
                             "name": "ticker",
-                            "description": "A ticker",
+                            "description": "A ticker symbols",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -60,11 +60,6 @@
                     ],
                     "responseMessages": [
                         {
-                            "code": 400,
-                            "message": "Bad request: a parameter is missing or invalid.",
-                            "responseModel": "Error"
-                        },
-                        {
                             "code": 401,
                             "message": "Unauthorized: the specified project token is invalid or expired.",
                             "responseModel": "Error"
@@ -78,16 +73,27 @@
                     "successMessages": [
                         {
                             "code": 200,
-                            "message": "Returns query listing.",
-                            "responseModel": "QueryListing"
+                            "message": "Returns query listing."
                         }
                     ],
                     "examples": [
                         {
-                            "title": "Listing all DOW30 companies",
+                            "title": "List a specific entity",
                             "description": "",
-                            "request": "",
-                            "response": ""
+                            "request": "curl -X POST http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/entities.jq?cik=1412090",
+                            "response": "[ { \"_id\" : \"http://www.sec.gov/CIK 0001412090\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"CompanyName\" : \"BTHC XV, Inc.\", \"CompanyType\" : \"Corporation\", \"CIK\" : \"0001412090\", \"SIC\" : \"7900\", \"SICDescription\" : \"SERVICES-AMUSEMENT & RECREATION SERVICES\", \"SICGroup\" : 5, \"Taxonomy\" : \"ci\", \"Sector\" : \"Amusement/Recreation Services\", \"Tickers\" : [ \"btxv\" ], \"IsTrust\" : false } } } ]"
+                        },
+                        {
+                            "title": "List all entities",
+                            "description": "",
+                            "request": "curl -X POST http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/entities.jq",
+                            "response": "[ { \"_id\" : \"http://www.sec.gov/CIK 0000886475\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"CompanyName\" : \"'mktg, inc.'\", \"CompanyType\" : \"Corporation\", \"CIK\" : \"0000886475\", \"SIC\" : \"7310\", \"SICDescription\" : \"SERVICES-ADVERTISING\", \"SICGroup\" : 11, \"Taxonomy\" : \"ci\", \"Sector\" : \"Business Services\", \"Tickers\" : [ \"cmkg\" ], \"IsTrust\" : false } } }, { \"_id\" : \"http://www.sec.gov/CIK 0001084869\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"CompanyName\" : \"1 800 FLOWERS COM INC\", \"CompanyType\" : \"Corporation\", \"CIK\" : \"0001084869\", \"SIC\" : \"5990\", \"SICDescription\" : \"RETAIL-RETAIL STORES, NEC\", \"SICGroup\" : 2, \"Taxonomy\" : \"ci\", \"Sector\" : \"Miscellaneous Retail\", \"Tickers\" : [ \"flws\" ], \"IsTrust\" : false } } }, ... ]"
+                        },
+                        {
+                            "title": "List DOW30 as CSV",
+                            "description": "",
+                            "request": "curl -X POST http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/entities.jq.text?index=DOW30",
+                            "response": "[ { \"_id\" : \"http://www.sec.gov/CIK 0000066740\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"CompanyName\" : \"3M CO\", \"CompanyType\" : \"Corporation\", \"CIK\" : \"0000066740\", \"SIC\" : \"3841\", \"SICDescription\" : \"SURGICAL & MEDICAL INSTRUMENTS & APPARATUS\", \"SICGroup\" : 10, \"Taxonomy\" : \"ci\", \"Sector\" : \"Measuring/Analyzing/Photographic/Control/Medical Instruments\", \"Tickers\" : [ \"mmm\" ], \"Tags\" : [ \"DOW30\", \"SP500\", \"FORTUNE100\" ], \"IsTrust\" : false } } }, { \"_id\" : \"http://www.sec.gov/CIK 0000004281\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"CompanyName\" : \"ALCOA INC\", \"CompanyType\" : \"Corporation\", \"CIK\" : \"0000004281\", \"SIC\" : \"3350\", \"SICDescription\" : \"ROLLING DRAWING & EXTRUDING OF NONFERROUS METALS\", \"SICGroup\" : 6, \"Taxonomy\" : \"ci\", \"Sector\" : \"Primary Metal Industries\", \"Tickers\" : [ \"aa\" ], \"Tags\" : [ \"DOW30\", \"SP500\" ], \"IsTrust\" : false } } }, ... ]"
                         }
                     ]
                 }
@@ -95,14 +101,13 @@
         },
         {
             "path": "/filings.jq.{format}",
-            "description": "Retrieve Filings",
+            "description": "Filings",
             "operations": [
                 {
-                    "method": "GET",
-                    "summary": "List one or more entities",
+                    "method": "POST",
+                    "summary": "List the filings of a particular entity",
                     "notes": "",
-                    "type": "EntityListing",
-                    "nickname": "listEntities",
+                    "nickname": "listFilings",
                     "parameters": [
                         {
                             "name": "format",
@@ -111,29 +116,27 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "csv",
+                                "text",
                                 "xml"
                             ],
                             "paramType": "path"
                         },
                         {
-                            "name": "visibility",
-                            "description": "The query visibility.",
+                            "name": "cik",
+                            "description": "The CIK of the entity",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session (if accessing entities beyond DOW30)",
                             "required": false,
                             "type": "string",
-                            "enum": [
-                                "public",
-                                "private"
-                            ],
                             "paramType": "path"
                         }
                     ],
                     "responseMessages": [
-                        {
-                            "code": 400,
-                            "message": "Bad request: a parameter is missing or invalid.",
-                            "responseModel": "Error"
-                        },
                         {
                             "code": 401,
                             "message": "Unauthorized: the specified project token is invalid or expired.",
@@ -148,16 +151,15 @@
                     "successMessages": [
                         {
                             "code": 200,
-                            "message": "Returns query listing.",
-                            "responseModel": "QueryListing"
+                            "message": "Returns all filings for the given entity."
                         }
                     ],
                     "examples": [
                         {
                             "title": "Listing all DOW30 companies",
                             "description": "",
-                            "request": "",
-                            "response": ""
+                            "request": "curl  -X POST  'http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/filings.jq.xml?cik=66740'",
+                            "response": "<Filings>\n  <Filing>\n    <CIK>http://www.sec.gov/CIK 0000066740</CIK>\n    <EntityRegistrantName>3M CO</EntityRegistrantName>\n    <FormType>10-Q</FormType>\n    <FiscalYear>2013</FiscalYear>\n    <FiscalPeriod>Q3</FiscalPeriod>\n    <Accepted>2013-10-31</Accepted>\n    <Generator>IBM Cognos</Generator>\n    <AccessionNumber>0001104659-13-079583</AccessionNumber>\n    <SECFilingPage>http://www.sec.gov/Archives/edgar/data/66740/000110465913079583/0001104659-13-079583-index.htm</SECFilingPage>\n    <XBRLInstanceURL>http://www.sec.gov/Archives/edgar/data/66740/000110465913079583/mmm-20130930.xml</XBRLInstanceURL>\n  </Filing>\n...\n</Filings>"
                         }
                     ]
                 }
@@ -165,11 +167,11 @@
         },
         {
             "path": "/components.jq.{format}",
-            "description": "Retrieve Components",
+            "description": "Components",
             "operations": [
                 {
                     "method": "GET",
-                    "summary": "List one or more entities",
+                    "summary": "List a summary for all components of a given filing",
                     "notes": "",
                     "type": "EntityListing",
                     "nickname": "listEntities",
@@ -187,23 +189,14 @@
                             "paramType": "path"
                         },
                         {
-                            "name": "visibility",
-                            "description": "The query visibility.",
+                            "name": "aid",
+                            "description": "The ID of the filing",
                             "required": false,
                             "type": "string",
-                            "enum": [
-                                "public",
-                                "private"
-                            ],
                             "paramType": "path"
                         }
                     ],
                     "responseMessages": [
-                        {
-                            "code": 400,
-                            "message": "Bad request: a parameter is missing or invalid.",
-                            "responseModel": "Error"
-                        },
                         {
                             "code": 401,
                             "message": "Unauthorized: the specified project token is invalid or expired.",
@@ -218,16 +211,15 @@
                     "successMessages": [
                         {
                             "code": 200,
-                            "message": "Returns query listing.",
-                            "responseModel": "QueryListing"
+                            "message": "Returns all components for the given filing"
                         }
                     ],
                     "examples": [
                         {
-                            "title": "Listing all DOW30 companies",
-                            "description": "",
-                            "request": "",
-                            "response": ""
+                            "title" : "List Component",
+                            "description": "List all comoponents for the accession number 0001193125-10-104261",
+                            "request": "curl  -X POST  'http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/components.jq.json?aid=0001193125-10-104261&token=...'",
+                            "response": "{\n\"CIK\" : \"http://www.sec.gov/CIK 0000108772\",\n\"EntityRegistrantName\" : \"XEROX CORP\",\n\"Components\" : [\n{\n  \"ComponentId\" : \"bff54a99-6aaf-4c42-8156-1b112fdac8d6\",\n  \"AccessionNumber\" : \"0001193125-10-104261\",\n  \"NetworkLabel\" : \"001000 - Statement - Condensed Consolidated Statements of Income (Unaudited)\",\n  \"NetworkIdentifier\" : \"http://xerox.com/role/IncomeStatement\",\n  \"Category\" : \"Statement\",\n  \"SubCategory\" : \"Detail\",\n  \"Table\" : \"bizql:ImpliedTable\",\n  \"Disclosure\" : \"IncomeStatement\" \n },{\n  \"ComponentId\" : \"8db6a185-b987-475c-9e8d-9a93c4240125\",\n  \"AccessionNumber\" : \"0001193125-10-104261\",\n  \"NetworkLabel\" : \"002000 - Statement - Condensed Consolidated Balance Sheets (Unaudited)\",\n  \"NetworkIdentifier\" : \"http://xerox.com/role/BalanceSheet\",\n  \"Category\" : \"Statement\",\n  \"SubCategory\" : \"Detail\",\n  \"Table\" : \"bizql:ImpliedTable\",\n  \"Disclosure\" : \"BalanceSheet\" \n}\n...\n]\n}"
                         }
                     ]
                 }
@@ -391,7 +383,7 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "csv",
+                                "text",
                                 "xml"
                             ],
                             "paramType": "path"
@@ -447,18 +439,21 @@
 
     ],
     "models": {
-        "Success": {
-            "id": "Success",
-            "description": "Default success response",
+        "Error": {
+            "id": "Error",
+            "description": "Error information",
             "required": [
-                "success"
+                "success",
+                "description"
             ],
             "properties": {
                 "success": {
                     "type": "boolean",
-                    "enum": [
-                        "true"
-                    ]
+                    "description": "Whether the requests succeeded or failed."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the error."
                 }
             }
         }
