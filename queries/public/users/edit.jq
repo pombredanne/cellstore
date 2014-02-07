@@ -3,13 +3,7 @@ import module namespace org = "http://nevada.org/organizations";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
-variable $userid := api:required-parameter("userid", $user:VALID_USERID);
-
-session:validate(
-     if (session:validate() eq $userid)
-     then "users_edit_self"
-     else "users_edit"
-);
+variable $userid := session:validate();
 
 variable $firstname := api:required-parameter("firstname", $user:VALID_NAME);
 variable $lastname := api:required-parameter("lastname", $user:VALID_NAME);
