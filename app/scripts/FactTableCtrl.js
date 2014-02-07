@@ -1,6 +1,5 @@
-"use strict"
-
-function FactTableCtrl($scope, $route, $http, $backend) {
+angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http', '$backend',
+ function($scope, $route, $http, $backend) {
   $scope.data = [];
   $scope.columns = [];
   $scope.API_URL = $backend.API_URL;
@@ -35,6 +34,5 @@ function FactTableCtrl($scope, $route, $http, $backend) {
   $scope.clear = function(item) {
     return item.replace("iso4217:", "").replace("xbrli:", "");
   };
-};
-
-
+ }
+]);

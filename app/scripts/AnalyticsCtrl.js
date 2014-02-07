@@ -1,6 +1,5 @@
-'use strict';
-
-function AnalyticsCtrl($scope, $route, $http, $q, $backend, years, periods) {
+angular.module('main').controller('AnalyticsCtrl', ['$scope', '$route', '$http', '$q', '$backend', 'years', 'periods',
+  function($scope, $route, $http, $q, $backend, years, periods) {
     $scope.year = ($route.current.params.year ? $route.current.params.year : null);
     $scope.period = ($route.current.params.period ? $route.current.params.period : null);
     $scope.group = ($route.current.params.group ? $route.current.params.group : null);
@@ -120,4 +119,5 @@ function AnalyticsCtrl($scope, $route, $http, $q, $backend, years, periods) {
     };
 
     $scope.getdata();
-};
+ }
+]);

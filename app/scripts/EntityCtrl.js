@@ -1,6 +1,5 @@
-"use strict"
-
-function EntityCtrl($scope, $route, $http, $backend) {
+angular.module('main').controller('EntityCtrl', ['$scope', '$route', '$http', '$backend',
+ function($scope, $route, $http, $backend) {
   $scope.result = null;
   $scope.API_URL = $backend.API_URL;
   $scope.cik = $route.current.params.cik;
@@ -19,4 +18,5 @@ function EntityCtrl($scope, $route, $http, $backend) {
       });
   };
   $scope.getdata();
-};
+ }
+]);

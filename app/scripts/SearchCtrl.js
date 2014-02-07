@@ -1,7 +1,5 @@
-'use strict';
-
-function SearchCtrl($scope, $location, $route, $http, $sce, $angularCacheFactory, $backend, years, periods, entities, conceptMaps)
-{
+angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route', '$http', '$sce', '$angularCacheFactory', '$backend', 'years', 'periods', 'entities', 'conceptMaps',
+  function($scope, $location, $route, $http, $sce, $angularCacheFactory, $backend, years, periods, entities, conceptMaps){
     $scope.conceptMaps = conceptMaps;
 	$scope.conceptMapKey = conceptMaps[1];
     $scope.conceptMapKeys = [];
@@ -194,4 +192,5 @@ function SearchCtrl($scope, $location, $route, $http, $sce, $angularCacheFactory
             if (entity.cik == $route.current.params.cik) 
 				$scope.selectEntity(entity);
         });
-}
+ }
+]);

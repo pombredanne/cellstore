@@ -1,6 +1,5 @@
-"use strict"
-
-function ComponentsCtrl($scope, $route, $http, $backend) {
+angular.module('main').controller('ComponentsCtrl', ['$scope', '$route', '$http', '$backend',
+ function($scope, $route, $http, $backend) {
   $scope.results = [];
   $scope.API_URL = $backend.API_URL;
   $scope.AccessionNumber = $route.current.params.accession;
@@ -32,5 +31,5 @@ function ComponentsCtrl($scope, $route, $http, $backend) {
 
     return url.substr(0, 20) + "..." + url.substr(url.length - 30);
   }
-};
-
+ }
+]);

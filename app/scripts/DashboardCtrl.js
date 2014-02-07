@@ -1,7 +1,5 @@
-'use strict';
-
-function DashboardCtrl($scope, $rootScope, $anchorScroll, $location, $route, $http, $backend, years, periods, entities)
-{
+angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$anchorScroll', '$location', '$route', '$http', '$backend', 'years', 'periods', 'entities',
+  function($scope, $rootScope, $anchorScroll, $location, $route, $http, $backend, years, periods, entities) {
     $scope.table = null;
     $scope.year = ($route.current.params.year ? parseInt($route.current.params.year) : null);
     $scope.period = ($route.current.params.period ? $route.current.params.period : null);
@@ -340,4 +338,5 @@ function DashboardCtrl($scope, $rootScope, $anchorScroll, $location, $route, $ht
 	
 	$scope.getdata();
     $scope.getComponent();
-};
+  }
+]);

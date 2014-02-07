@@ -122,81 +122,70 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         .when('/', {
             templateUrl: '/views/home.html'
         })
-        .when('/why', {
-            templateUrl: '/views/why.html'
-        })
         .when('/api', {
             templateUrl: '/views/api.html',
             controller: 'ApiCtrl'
-        })
-        .when('/source', {
-            templateUrl: '/views/source.html',
-            controller: 'SourceCtrl'
-        })
-        .when('/source/:visibility/:query', {
-            templateUrl: '/views/source.html',
-            controller: 'SourceCtrl'
         })
         .when('/analytics', {
             templateUrl: '/views/analytics.html',
             controller: 'AnalyticsCtrl',
             resolve: {
-                years: function($backend) { return $backend.getYears(); },
-                periods: function($backend) { return $backend.getPeriods(); }
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
             }
         })
         .when('/analytics/:year/:period/:group', {
             templateUrl: '/views/analytics.html',
             controller: 'AnalyticsCtrl',
             resolve: {
-                years: function($backend) { return $backend.getYears(); },
-                periods: function($backend) { return $backend.getPeriods(); }
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
             }
         })
         .when('/dashboard', {
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                years: function($backend) { return $backend.getYears(); },
-                periods: function($backend) { return $backend.getPeriods(); },
-                entities: function($backend) { return $backend.getEntities(); }
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
             }
         })
         .when('/dashboard/:cik', {
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                years: function($backend) { return $backend.getYears(); },
-                periods: function($backend) { return $backend.getPeriods(); },
-                entities: function($backend) { return $backend.getEntities(); }
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
             }
         })
         .when('/dashboard/:cik/:year', {
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                years: function($backend) { return $backend.getYears(); },
-                periods: function($backend) { return $backend.getPeriods(); },
-                entities: function($backend) { return $backend.getEntities(); }
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
             }
         })
         .when('/dashboard/:cik/:year/:period', {
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                years: function($backend) { return $backend.getYears(); },
-                periods: function($backend) { return $backend.getPeriods(); },
-                entities: function($backend) { return $backend.getEntities(); }
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
             }
         })
         .when('/search', {
             templateUrl: '/views/search.html',
             controller: 'SearchCtrl',
             resolve: {
-                years: function($backend) { return $backend.getYears(); },
-                periods: function($backend) { return $backend.getPeriods(); },
-                entities: function($backend) { return $backend.getEntities(); },
-                conceptMaps: function($backend) { return $backend.getConceptMaps(); }
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
             }
         })
         .when('/entities', {

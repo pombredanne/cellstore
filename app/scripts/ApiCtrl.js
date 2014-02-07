@@ -1,6 +1,5 @@
-"use strict"
-
-function ApiCtrl($scope, $http, $backend) {
+angular.module('main').controller('ApiCtrl', ['$scope', '$http', '$backend',
+ function($scope, $http, $backend) {
   $scope.content = "";
   $scope.API_URL = $backend.API_URL;
   $scope.getdata = function(name) {
@@ -23,5 +22,5 @@ function ApiCtrl($scope, $http, $backend) {
     return true;
   };
   $scope.getdata('queries');
-};
-
+ }
+]);

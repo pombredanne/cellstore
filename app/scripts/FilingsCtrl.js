@@ -1,6 +1,5 @@
-"use strict"
-
-function FilingsCtrl($scope, $route, $http, $backend) {
+angular.module('main').controller('FilingsCtrl', ['$scope', '$route', '$http', '$backend',
+ function($scope, $route, $http, $backend) {
   $scope.results = [];
   $scope.API_URL = $backend.API_URL;
   $scope.cik = $route.current.params.cik;
@@ -18,5 +17,5 @@ function FilingsCtrl($scope, $route, $http, $backend) {
       });
   };
   $scope.getdata();
-};
-
+ }
+]);
