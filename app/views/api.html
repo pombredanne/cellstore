@@ -1,6 +1,11 @@
+<div class="topbar"></div>
 <div id="api" class="container white">
-    <h1>API</h1>
-    <p>View as <a href="/api.json" target="_blank">JSON</a>.</p>
+    <h1 class="text-center">API Documentation</h1>
+    <div class="btn-group">
+      <button class="btn btn-default" ng-class="{ 'btn-green' : name == 'queries' }" ng-click="getdata('queries')">Queries</button>
+      <button class="btn btn-default" ng-class="{ 'btn-green' : name == 'session' }" ng-click="getdata('session')">Authentication</button>
+    </div>
+    <p class="text-right" >View as <a href="/api.json" target="_blank">JSON</a>.</p>
     <div ng-bind-html="content.description"></div>
     <div ng-repeat="api in content.apis">
         <h2 ng-bind="api.description"></h2>

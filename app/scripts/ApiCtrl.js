@@ -3,11 +3,12 @@
 function ApiCtrl($scope, $http, $backend) {
   $scope.content = "";
   $scope.API_URL = $backend.API_URL;
-  $scope.getdata = function() {
+  $scope.getdata = function(name) {
+    $scope.name = name;
     $http(
       {
         method : 'GET',
-        url: '/api.json',
+        url: '/' + name + '.json',
         cache:false
       }).
       success(function(data, status, headers, config) {
@@ -21,6 +22,6 @@ function ApiCtrl($scope, $http, $backend) {
   $scope.needsAuth = function() {
     return true;
   };
-  $scope.getdata();
+  $scope.getdata('queries');
 };
 
