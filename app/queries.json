@@ -6,7 +6,7 @@
     "produces": [
         "application/json"
     ],
-    "description": "foo",
+    "description": "This API can be used to retrieve information about entities, filings, components, or facttables. All information is available as JSON, XML, or CSV. Please note that information outside of the DOW30 can only be accessed using a valid token that can be retrieved by creating an account on http://www.secxbrl.info and logging in using the Session API. Also note, that the POST method can be simulated by using GET and adding the _method=POST parameter to the HTTP request.",
     "apis": [
         {
             "path": "/entities.jq.{format}",
