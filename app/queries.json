@@ -61,7 +61,7 @@
                     "responseMessages": [
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid or expired.",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
                             "responseModel": "Error"
                         },
                         {
@@ -139,7 +139,7 @@
                     "responseMessages": [
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid or expired.",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
                             "responseModel": "Error"
                         },
                         {
@@ -183,7 +183,7 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "csv",
+                                "text",
                                 "xml"
                             ],
                             "paramType": "path"
@@ -199,7 +199,7 @@
                     "responseMessages": [
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid or expired.",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
                             "responseModel": "Error"
                         },
                         {
@@ -243,32 +243,23 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "csv",
+                                "text",
                                 "xml"
                             ],
                             "paramType": "path"
                         },
                         {
-                            "name": "visibility",
-                            "description": "The query visibility.",
+                            "name": "cid",
+                            "description": "The id of the component",
                             "required": false,
                             "type": "string",
-                            "enum": [
-                                "public",
-                                "private"
-                            ],
                             "paramType": "path"
                         }
                     ],
                     "responseMessages": [
                         {
-                            "code": 400,
-                            "message": "Bad request: a parameter is missing or invalid.",
-                            "responseModel": "Error"
-                        },
-                        {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid or expired.",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
                             "responseModel": "Error"
                         },
                         {
@@ -280,16 +271,15 @@
                     "successMessages": [
                         {
                             "code": 200,
-                            "message": "Returns query listing.",
-                            "responseModel": "QueryListing"
+                            "message": "Return the fact table for the given Component"
                         }
                     ],
                     "examples": [
                         {
-                            "title": "Listing all DOW30 companies",
-                            "description": "",
-                            "request": "",
-                            "response": ""
+                            "title": "Fact Table as CSV",
+                            "description": "Retrieve a fact table and render it as CSV.",
+                            "request": "curl  -X POST  'http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/facttable.jq.text?cid=8db6a185-b987-475c-9e8d-9a93c4240125&token=...'",
+                            "response": "\"xbrl:Concept\",\"xbrl:Entity\",\"xbrl:Period\",\"xbrl:Unit\",\"Value\" \n\"us-gaap:AccountsPayable\",\"http://www.sec.gov/CIK 0000108772\",\"2010-03-31\",\"iso4217:USD\",\"1659000000\"\n\"us-gaap:AccountsPayable\",\"http://www.sec.gov/CIK 0000108772\",\"2009-12-31\",\"iso4217:USD\",\"1451000000\""
                         }
                     ]
                 }
@@ -313,7 +303,7 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "csv",
+                                "text",
                                 "xml"
                             ],
                             "paramType": "path"
@@ -338,7 +328,7 @@
                         },
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid or expired.",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
                             "responseModel": "Error"
                         },
                         {
@@ -408,7 +398,7 @@
                         },
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid or expired.",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
                             "responseModel": "Error"
                         },
                         {
