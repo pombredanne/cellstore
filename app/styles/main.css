@@ -10,6 +10,15 @@ html, body {
 	margin: 0px;
 }
 
+.popover {
+	max-width: 650px;
+}
+
+.popover .popover-content {
+	width: 100%;
+	word-wrap: break-all;
+}
+
 .nowrap { 
 	white-space: nowrap;
 }
