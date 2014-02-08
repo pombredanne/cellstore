@@ -3,7 +3,7 @@
         <div class="text-center" style="padding-bottom: 5px" ng-show="data">
           <h3>Facttable for {{EntityRegistrantName}} </h3>
         </div>
-        <div ng-show="data">
+        <div ng-show="Label">
           <table>
             <tbody>
               <tr><td>Network:</td><td>{{Label}}</td></tr>
@@ -13,10 +13,10 @@
             </tbody>
           </table>
         </div>
-        <div ng-hide="data" class="text-center">
+        <div ng-hide="Label" class="text-center">
           <i class="fa fa-spinner fa-spin fa-5x"></i>
         </div>
-        <div ng-show="data">
+        <div ng-show="Label">
           <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
 		  <div class="table-responsive">
           <table class="table table-striped">
