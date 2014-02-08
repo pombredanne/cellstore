@@ -61,8 +61,40 @@ as empty-sequence()
 declare function session:validate()
 as string
 {
-    variable $token := api:required-parameter("api_key", $session:VALID-TOKEN);
+    variable $token := api:required-parameter("token", $session:VALID-TOKEN);
     session:get($token)
+};
+
+declare function session:valid()
+as boolean
+{
+    let $token := api:parameter("token", ".*", ())
+    return
+      if (exists($token))
+      then try {{ session:get($token); true }} catch * {{ false }}
+      else false
+};
+
+declare function session:only-dow30($entities)
+as boolean
+{
+    count(
+        for $e in $entities
+        where count($e.Profiles.SEC.Tags[]) gt 0 and $e.Profiles.SEC.Tags[] = "DOW30"
+        return $e) eq count($entities)
+};
+
+declare function session:error($msg as string, $format as string?)
+{
+	switch ($format)
+        case "xml" return <error><message>{$msg}</message></error>
+	case "text" return $msg
+        default return
+		{
+			"success" : false,
+			"description" : $msg
+		}
+	
 };
 
 declare function session:validate($right-id as string)
@@ -77,6 +109,6 @@ as string
 declare %an:sequential function session:terminate()
 as empty-sequence()
 {
-   session:terminate(api:required-parameter("api_key", $session:VALID-TOKEN))
+   session:terminate(api:required-parameter("token", $session:VALID-TOKEN))
 };
 
