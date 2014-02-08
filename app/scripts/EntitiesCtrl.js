@@ -9,8 +9,9 @@ angular.module('main').controller('EntitiesCtrl', ['$scope', '$http', '$backend'
         url: $backend.API_URL + '/_queries/public/api/entities.jq',
         params : {
           "_method" : "POST",
-          "token" : $scope.token
-        }
+          "token" : $scope.token,
+        },
+        cache: false // too big for cache
       }).
       success(function(data, status, headers, config) {
         $scope.results = data;

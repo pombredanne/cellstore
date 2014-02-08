@@ -281,5 +281,5 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		storageMode: 'localStorage'
     });
 
-    //$http.defaults.cache = $angularCacheFactory.get('secxbrl');
+  $http.defaults.cache = $angularCacheFactory.get('secxbrl');
 });
