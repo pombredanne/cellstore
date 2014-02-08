@@ -9,7 +9,12 @@ angular.module('main').controller('ComponentsCtrl', ['$scope', '$route', '$http'
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/components.jq?accession=' + $scope.AccessionNumber,
+        url: $backend.API_URL + '/_queries/public/api/components.jq',
+        params : {
+          "_method" : "POST",
+          "aid" : $scope.AccessionNumber,
+          "token" : $scope.token
+        }
       }).
       success(function(data, status, headers, config) {
         $scope.results = data.Components;
@@ -18,6 +23,7 @@ angular.module('main').controller('ComponentsCtrl', ['$scope', '$route', '$http'
         $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
+        $scope.$emit("error", status, data);
       });
   };
   $scope.getdata();

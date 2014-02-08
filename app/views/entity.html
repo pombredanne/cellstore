@@ -41,9 +41,9 @@
           </table>
 		  </div>
           <div class="text-right">
-            Data as: <a href="{{API_URL}}/_queries/public/entities.jq.json?cik={{cik}}" download="{{cik}}.json">JSON</a>,
-            <a href="{{API_URL}}/_queries/public/entities.jq.xml?cik={{cik}}" downlaod="{{cik}}.xml">XML</a>,
-            <a href="{{API_URL}}/_queries/public/entities.jq.text?cik={{cik}}" download="{{cik}}.csv">CSV</a>
+            Data as: <a href="{{API_URL}}/_queries/public/api/entities.jq.json?_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.json">JSON</a>,
+            <a href="{{API_URL}}/_queries/public/api/entities.jq.xml?_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" downlaod="{{cik}}.xml">XML</a>,
+            <a href="{{API_URL}}/_queries/public/api/entities.jq.text?_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.csv">CSV</a>
           </div>
         </div>
 	</div>

@@ -53,6 +53,10 @@ return
             case "xml" return local:to-xml($fact-table)
             case "text" return local:to-csv($fact-table)
             default return {
+                EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
+                ShortName : if ($short-name eq "xbrl:DefaultHypercube") then "bizql:ImpliedTable" else $short-name,  
+                Label : $component.Label,
+                AccessionNumber : $component.Archive,
                 Columns : $fact-table[1],
                 FactTable : [ $fact-table[position() gt 1] ]
             }

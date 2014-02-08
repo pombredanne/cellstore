@@ -220,6 +220,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	});
 		
 	$rootScope.$on('error', function(event, status, error){
+    if (status == 401) {
+      alert("Login required");
+      return;
+    }
 		$modal.open( {
 			template: "<div class='modal-header h3'> Error {{object.status}} <a href='javascript://' class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body'> {{object.error.description }} <br><a href='javascript://' ng-click='details=true' ng-hide='details' class='dotted'>Show details</a><pre ng-show='details' class='small'>{{object.error | json }}</pre></div>",
 			controller: function ($scope, $modalInstance, object) {
@@ -277,5 +281,5 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		storageMode: 'localStorage'
     });
 
-    $http.defaults.cache = $angularCacheFactory.get('secxbrl');
+    //$http.defaults.cache = $angularCacheFactory.get('secxbrl');
 });

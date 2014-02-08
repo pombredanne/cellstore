@@ -461,6 +461,49 @@ ul.selector li.disabled:after
     z-index: 100;
 }
 
+.fade-panel-entities {
+    position: absolute;
+	top: 162px;
+	width: 320px;
+	padding: 20px;
+	font-size: 20px;
+    left: 20%;
+    text-align: center;
+    z-index: 101;
+    background: #64b783;
+    color: #ffffff;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.fade-panel-entities .arrow{
+    position: absolute;
+    background: url('../images/arrow_left.png') no-repeat 0 0;
+	background-size: 46px 42px;
+    top: -30px;
+    left: -45px;
+    width: 44px;
+    height: 42px;
+}
+
+@media (min-width: 768px) {
+	.fade-panel-entities {
+		top: 162px;
+		width: 500px;
+		padding: 30px;
+		font-size: 30px;
+	}
+
+	.fade-panel-entities .arrow {
+		background-size: 87px 84px;
+		top: -60px;
+		left: -89px;
+		width: 87px;
+		height: 84px;
+	}
+}
+
 .fade-panel-dashboard {
     position: absolute;
 	top: 82px;

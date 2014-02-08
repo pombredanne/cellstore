@@ -1,13 +1,14 @@
 <div class="row">
 	<div class="col-md-12">
         <div class="text-center" style="padding-bottom: 5px" ng-show="data">
-          <h3>FactTable for {{NetworkLabel}} </h3>
+          <h3>Facttable for {{EntityRegistrantName}} </h3>
         </div>
         <div ng-show="data">
           <table>
             <tbody>
-              <tr><td>Network</td><td>{{NetworkLabel}}</td></tr>
-              <tr><td>Table</td><td>{{NetworkIdentifier}}</td></tr>
+              <tr><td>Network:</td><td>{{Label}}</td></tr>
+              <tr><td>Table:</td><td>{{NetworkIdentifier}}</td></tr>
+              <tr><td>AccessionNumber:</td><td><a href="/components/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
               <tr ng-show="columns.length > 0"><td><label>Show additional Axis... <input type="checkbox" ng-model="show"></input></label></td><td></td></tr>
             </tbody>
           </table>
@@ -41,12 +42,12 @@
               </tbody>
           </table>
 		  </div>
-          <div class="text-right">
-            All data as: <a href="{{API_URL}}/_queries/public/facttable.jq.json?ident={{NetworkIdentifier}}" download="filings-{{cik}}.json">JSON</a>,
-            <a href="{{API_URL}}/_queries/public/facttable.jq.xml?ident={{NetworkIdentifier}}" download="filings-{{cik}}.xml">XML</a>,
-            <a href="{{API_URL}}/_queries/public/facttable.jq.text?ident={{NetworkIdentifier}}" download="filings-{{cik}}.csv">CSV</a>
-          </div>
+      <div class="text-right">
+          All data as: <a href="{{API_URL}}/_queries/public/api/facttable.jq.json?_method=POST&cid={{id}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.json">JSON</a>,
+          <a href="{{API_URL}}/_queries/public/api/facttable.jq.xml?_method=POST&cid={{id}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.xml">XML</a>,
+          <a href="{{API_URL}}/_queries/public/api/facttable.jq.text_method=POST&?cid={{id}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.csv">CSV</a>
         </div>
+      </div>
 	</div>
 </div>
 
