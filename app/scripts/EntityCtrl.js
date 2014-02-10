@@ -8,7 +8,7 @@ angular.module('main').controller('EntityCtrl', ['$scope', '$route', '$http', '$
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/entities.jq',
+        url: $backend.API_URL + '/_queries/public/api/entities.jq',
         params : {
           "_method" : "POST",
           "cik" : $scope.cik,
