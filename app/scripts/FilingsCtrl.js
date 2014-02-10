@@ -7,13 +7,19 @@ angular.module('main').controller('FilingsCtrl', ['$scope', '$route', '$http', '
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/filings.jq?cik=' + $scope.cik,
+        url: $backend.API_URL + '/_queries/public/api/filings.jq',
+        params : {
+          "_method" : "POST",
+          "cik" : $scope.cik,
+          "token" : $scope.token
+        }
       }).
       success(function(data, status, headers, config) {
         $scope.results = data;
         $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
+        $scope.$emit("error", status, data);
       });
   };
   $scope.getdata();

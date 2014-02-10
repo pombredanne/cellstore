@@ -67,7 +67,7 @@
 				<div google-chart chart="chart" style="width: 100%; height: 500px;"></div>
 			</div>
 			<div class="row">
-			<div class=" col-md-6 col-sm-12" ng-repeat="report in reports" scroll-id="report{{$index}}">
+			<div class="col-md-12" ng-repeat="report in reports" scroll-id="report{{$index}}">
 			<div class="white-box nav">
 				<a class="pull-right close small" href="javascript://" ng-click="gotoId('chart')"><i class="fa fa-arrow-up"></i></a>
 				<a class="h4 highlight3" href="javascript://" ng-click="showtab[$index]=!showtab[$index]" style="margin-left: -10px"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a>
@@ -75,15 +75,19 @@
 				<div class="table-responsive" ng-show="showtab[$index]">
 					<table class="table">
 						<thead>
-						<th>Label</th>
-						<th>Value</th>
-						<!--<th>Audit</th>-->
+							<th>Label</th>
+							<th>Value</th>
+							<th>Audit</th>
 						</thead>
 						<tbody>
 						<tr ng-repeat="item in report.items">
 							<td>{{item.label}}</td>
-							<td ng-class="{ 'text-right' : (item.type == 'NumericValue')}">{{item.value}}</td>
-							<!--<td>{{item.audit}}</td>-->
+							<td ng-class="{ 'text-right' : (item.type == 'NumericValue') }">{{item.value}}</td>
+							<td>
+								<a href="javascript://" popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="focus">
+									{{substring(item.auditValue, 30)}}
+								</a>
+							</td>
 						</tr>
 						</tbody>
 					</table>

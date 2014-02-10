@@ -4,22 +4,33 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
   $scope.columns = [];
   $scope.API_URL = $backend.API_URL;
   $scope.EntityRegistrantName = "";
-  $scope.NetworkLabel = "";
-  $scope.NetworkIdentifier = $route.current.params.component;
+  $scope.Label = "";
+  $scope.NetworkIdentifier = "";
+  $scope.AccessionNumber = "";
+  $scope.id = $route.current.params.component;
   $scope.getdata = function() {
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/facttable.jq?ident=' + encodeURIComponent($scope.NetworkIdentifier),
+        url: $backend.API_URL + '/_queries/public/api/facttable.jq',
+        params : {
+          "_method" : "POST",
+          "cid" : $scope.id,
+          "token" : $scope.token
+        }
       }).
       success(function(data, status, headers, config) {
         $scope.data = data.FactTable;
         $scope.columns = data.Columns;
         $scope.columns = $scope.columns.splice(4, $scope.columns.length - 5);
-        $scope.NetworkLabel = data.NetworkLabel;
+        $scope.Label = data.Label;
+        $scope.EntityRegistrantName = data.EntityRegistrantName;
+        $scope.NetworkIdentifier = data.ShortName;
+        $scope.AccessionNumber = data.AccessionNumber;
         $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
+        $scope.$emit("error", status, data);
       });
   };
   $scope.getdata();

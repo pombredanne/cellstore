@@ -270,6 +270,12 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
         }
     });
 
+	$scope.substring = function(string, len) {
+		if (string && string.length > len)
+			return string.substring(0, len) + "...";
+		else return string;
+	};
+
     $scope.getComponent = function ()
     {
         if (!$scope.cik) return;
@@ -289,7 +295,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
                         if (list.hasOwnProperty(key)) {
                             var item = {};
                             item.label = list[key]["Label"] ? list[key]["Label"] : "";
-                            if (list[key]["Facts"]) {
+                            if (list[key]["Facts"] && list[key]["Facts"].length > 0) {
                                 item.type = list[key]["Facts"][0]["Type"];
                                 if (list[key]["Facts"][0]["Type"] == "NumericValue") {
                                     var num = list[key]["Facts"][0]["Value"];
@@ -298,12 +304,31 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
                                 }
                                 else
                                     item.value = list[key]["Facts"][0]["Value"];
+								if (list[key]["Facts"][0]["AuditTrails"] && list[key]["Facts"][0]["AuditTrails"].length > 0)
+								{
+									switch(list[key]["Facts"][0]["AuditTrails"][0]["Type"]) {
+										case 'concept-maps:concept-maps':
+											item.auditLabel = list[key]["Facts"][0]["AuditTrails"][0]["Label"];
+											item.auditValue = list[key]["Facts"][0]["AuditTrails"][0]["Data"]["OriginalConcept"];
+											break;
+
+										case 'hypercubes:dimension-default':
+											item.auditLabel = list[key]["Facts"][0]["AuditTrails"][0]["Label"];
+											item.auditValue = list[key]["Facts"][0]["AuditTrails"][0]["Data"]["Dimension"];
+											break;
+										default: 
+											item.auditLabel = "";
+											item.auditValue = "";
+									}
+								}
+								else item.audit = "";
                             }
                             else {
                                 item.value = "";
                                 item.type = "";
+								item.auditLabel = "";
+								item.auditValue = "";
                             }
-                            item.audit = list[key]["Name"] ? list[key]["Name"] : "";
                             array.push(item);
                         }
                     }

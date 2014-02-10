@@ -2,8 +2,9 @@ import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
-
+import module namespace session = "http://apps.28.io/session";
 
 declare function local:summary-to-xml($components as object*) as element()*
 {
@@ -92,36 +93,36 @@ declare function local:category($component) as string
     normalize-space(tokenize($component.Label, "-")[2])
 };
 
-let $archive := archives:aid(request:param-values("accession"))
-let $format := lower-case(substring-after(request:path(), ".jq."))
-let $archiveObject := let $archive := archives:archives(request:param-values("accession"))
-                      return if (empty($archive))
-                             then error(xs:QName("local:PARAMETER-MISSING"))
-                             else $archive
-let $cik := entities:entities($archiveObject.Entity)._id
-let $entity-registrant-name := entities:entities($archiveObject.Entity).Profiles.SEC.CompanyName
-let $res := { 
-                AccessionNumber : $archive,
-                CIK : $cik,
-                EntityRegistrantName : $entity-registrant-name,
-                Components: [ for $a in if (exists($archive))
-                                       then components:components-for-archives($archive)
-                                       else error(xs:QName("local:foo"))
-                             let $disclosure := local:disclosure($a)
-                             where $disclosure ne "DefaultComponent"
-                             where count(keys(local:presentation($a).Trees)) gt 0
-                             order by $a.Label
-                             
-                             return local:component-summary($a) ]
-            }  
+let $format   := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
+let $aid      := archives:aid(request:param-values("aid")[1])
+let $archive  := archives:archives($aid)
+let $entity   := entities:entities($archive.Entity)
 return
-    switch ($format)
-    case "xml"  return 
-        <Components AccessionNumber="{$res.AccessionNumber}" 
-                    EntityRegistrantName="{$res.EntityRegistrantName}"
-                    CIK="{$cik}">{
-            local:summary-to-xml($res.Components[])
-        }</Components>
-    case "text"  return
-        string-join(local:to-csv($res.Components[]), "")
-    default return $res
+    if (session:only-dow30($entity) or session:valid())
+    then {
+        for $a in $archive
+        let $res := 
+            { 
+                CIK : $archive.Entity,
+                EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
+                Components: [ for $c in components:components-for-archives($a)
+                              let $disclosure := local:disclosure($c)
+                              where $disclosure ne "DefaultComponent" and
+                                    count(keys(local:presentation($c).Trees)) gt 0
+                              order by $c.Label
+                              return local:component-summary($c)
+                            ]
+            }  
+        return
+            switch ($format)
+            case "xml" return 
+                <Components EntityRegistrantName="{$res.EntityRegistrantName}"
+                            CIK="{$res.CIK}">{
+                local:summary-to-xml($res.Components[])
+            }</Components>
+            case "text"  return string-join(local:to-csv($res.Components[]), "")
+            default return $res
+    } else {
+        response:status-code(401);
+        session:error("accessing components of an entity that is not in the DOW30", $format)
+    }

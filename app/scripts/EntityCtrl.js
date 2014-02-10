@@ -8,13 +8,19 @@ angular.module('main').controller('EntityCtrl', ['$scope', '$route', '$http', '$
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/entities.jq?cik=' + $scope.cik,
+        url: $backend.API_URL + '/_queries/public/entities.jq',
+        params : {
+          "_method" : "POST",
+          "cik" : $scope.cik,
+          "token" : $scope.token
+        }
       }).
       success(function(data, status, headers, config) {
         $scope.result = data[0];
         $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
+        $scope.$emit("error", status, data);
       });
   };
   $scope.getdata();

@@ -6,7 +6,12 @@ angular.module('main').controller('EntitiesCtrl', ['$scope', '$http', '$backend'
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/entities.jq',
+        url: $backend.API_URL + '/_queries/public/api/entities.jq',
+        params : {
+          "_method" : "POST",
+          "token" : $scope.token,
+        },
+        cache: false // too big for cache
       }).
       success(function(data, status, headers, config) {
         $scope.results = data;
