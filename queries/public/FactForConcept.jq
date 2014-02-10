@@ -30,7 +30,7 @@ variable $archive := let $archive :=  sec-fiscal:filings-for-entities-and-fiscal
                            then  error(QName("local:INVALID-REQUEST"), "Filing not found")
                            else  $archive;
 
-variable $mapName := let $mapName := req:param-values("map","None")
+variable $mapName := let $mapName := req:param-values("map","FundamentalAccountingConcepts")
                      return 
                          if($mapName ne "None" and not(exists(concept-maps:concept-maps($mapName))))
                             then error(QName("local:INVALID-REQUEST"), "Given map:"||$mapName|| " not found")
@@ -41,7 +41,7 @@ variable $conceptMap :=  if ($mapName eq "None")
                          then ()
                          else concept-maps:concept-maps($mapName);
                     
-variable $concept := let $concept := req:param-values("conceptName", "us-gaap:RevenueRecognitionPolicyTextBlock")
+variable $concept := let $concept := req:param-values("conceptName", "fac:Revenues")
                      return if (empty($concept))
                             then error(QName("local:INVALID-REQUEST"),"conceptName: mandatory parameter not found")
                             else $concept;
@@ -62,20 +62,11 @@ return {
     fiscalYearFocus: $yearFocus,
     conceptName: $concept,
     map: $mapName,
+    originalConcept: $fact.AuditTrails[].Data.OriginalConcept,
     type: $fact.Type,
     unit: $fact.Aspects."xbrl:Unit",
-    value: $value,
-    decimals: $fact.Decimals
+    decimals: $fact.Decimals,
+    value: $value
     (:entity: serialize($entity):)
     (:archive: serialize($archive):)
-    
 }
-
-
-(: archives:archives-for-entities($entity)[secprofiles:fiscal-period($$)=$periodFocus][secprofiles:fiscal-year($$)=$yearFocus]
-
-can be changed to fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $periodFocus, $yearFocus) :)
-
-(: seccore:latest-main-fact-for-concept($archive,$concept)
-
-will need to be changed to seccore:main-facts-for-archives-and-concepts($archive, $concept) :)
