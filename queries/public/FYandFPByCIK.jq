@@ -1,10 +1,11 @@
 
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
-import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace req = "http://www.28msec.com/modules/http-request";
+import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace session = "http://apps.28.io/session";
 
 declare %an:sequential function local:filingPeriodInfo($archives) {
     for $archive in $archives
@@ -15,7 +16,7 @@ declare %an:sequential function local:filingPeriodInfo($archives) {
     }
 };
 
-variable $cik := let $cik := req:param-values("cik","0000354950")
+variable $cik := let $cik := request:param-values("cik","0000354950")
                  return if (empty($cik))
                         then error(QName("local:INVALID-REQUEST"), "cik: mandatory parameter not found")
                         else if (empty(entities:entities(sec:normalize-cik($cik))))
@@ -24,10 +25,15 @@ variable $cik := let $cik := req:param-values("cik","0000354950")
                              
 let $entity := entities:entities(sec:normalize-cik($cik))
 let $archives :=  archives:archives-for-entities($entity)
-return {
-   cik: $cik,
-   companyName: $entity.Profiles.SEC.CompanyName,
-   filings: [local:filingPeriodInfo($archives)]
-}
+let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
+return  if(session:only-dow30($entity) or session:valid()) 
+        then {
+            cik: $cik,
+            companyName: $entity.Profiles.SEC.CompanyName,
+            filings: [local:filingPeriodInfo($archives)]
+        } else {
+            response:status-code(401);
+            session:error("accessing filings of an entity that is not in the DOW30", $format) 
+        }
 
 (: entities:entities(seccore:normalize-cik($cik)) can be simplified to secprofilefilings:filings($cik) :)

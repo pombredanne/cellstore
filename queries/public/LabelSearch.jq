@@ -1,8 +1,6 @@
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace components = "http://xbrl.io/modules/bizql/components";
-import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
 declare function local:label-search-rec($concept, $search, $rank)
 {

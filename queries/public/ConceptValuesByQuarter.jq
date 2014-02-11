@@ -4,14 +4,12 @@ import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace req = "http://www.28msec.com/modules/http-request";
+import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
-import module namespace datetime = "http://www.zorba-xquery.com/modules/datetime";
-
-
+import module namespace session = "http://apps.28.io/session";
 
 declare function local:sample-fact($archives, $concept) as object*
 {
@@ -35,7 +33,7 @@ declare function local:sample-fact($archives, $concept) as object*
 };
 
 
-variable $cik := let $cik := req:param-values("cik","0000104169")
+variable $cik := let $cik := request:param-values("cik","0000104169")
                  return if (empty($cik))
                             then error(QName("local:INVALID-REQUEST"), "cik: mandatory parameter not found")
                             else $cik;
@@ -46,13 +44,13 @@ variable $entity := let $entity := entities:entities(sec:normalize-cik($cik))
                            else  $entity;
 
 
-variable $mapName := let $mapName := req:param-values("map","FundamentalAccountingConcepts")
+variable $mapName := let $mapName := request:param-values("map","FundamentalAccountingConcepts")
                      return if(not(exists(concept-maps:concept-maps($mapName))))
                             then error(QName("local:INVALID-REQUEST"), "Given map:"||$mapName|| " not found")
                             else $mapName;
 
 
-variable $concept := let $concept := req:param-values("conceptName","fac:NetIncomeLoss")
+variable $concept := let $concept := request:param-values("conceptName","fac:NetIncomeLoss")
                      return if (empty($concept))
                             then error(QName("local:INVALID-REQUEST"),"conceptName: mandatory parameter not found")
                             else  $concept;
@@ -61,8 +59,8 @@ variable $conceptMap := if ($mapName eq "None")
                     then ()
                     else concept-maps:concept-maps($mapName);
                                
-variable $startYear :=  req:param-values("startYear","2000") cast as integer;
-variable $endYear := req:param-values("endYear","3000") cast as integer;
+variable $startYear :=  request:param-values("startYear","2000") cast as integer;
+variable $endYear := request:param-values("endYear","3000") cast as integer;
 
 variable $archives := archives:archives-for-entities($entity)
     [sec-fiscal:fiscal-year($$) cast as integer ge $startYear]
@@ -74,6 +72,8 @@ variable $fiscalPeriods := if(exists($conceptMap)) then ("FY","Q1","Q2","Q3")
                              return if(exists($sampleFact) and exists(facts:instant-for-fact($sampleFact))) then ("FY","Q1","Q2","Q3")
                              else ("FY","YTD1","YTD2","YTD3")
                           };
+let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
+
 let $res := 
     let $facts := 
         for $f in if(exists($conceptMap)) 
@@ -102,15 +102,19 @@ let $res :=
                   else $fact[1].Value,
         decimals: $fact[1].Decimals
     }
-return {
-    cik: $cik,
-    companyName: $entity.Profiles.SEC.CompanyName,
-    map: $mapName,
-    concept: $concept,
-    valuesByQuarter: $res
-    
-    (:entity: $entity,
-    archive: serialize($archive):)
-}
+return 
+    if (session:only-dow30($entity) or session:valid())
+    then {
+            cik: $cik,
+            companyName: $entity.Profiles.SEC.CompanyName,
+            map: $mapName,
+            concept: $concept,
+            valuesByQuarter: $res
+    }
+    else {
+        response:status-code(401);
+        session:error("accessing filings of an entity that is not in the DOW30", $format)
+    }
+
 
 (: seccore:latest-main-fact-for-concept must be renamed to seccore:main-facts-for-archives-and-concepts() after the next merge :)

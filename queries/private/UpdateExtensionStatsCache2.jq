@@ -8,7 +8,7 @@ import module namespace credentials = "http://www.28msec.com/modules/credentials
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 
-variable $total := integer(request:param-values("size", "1000"));
+variable $total := integer(request:param-values("size", "100000"));
 
 (: Make sure the collection exists :)
 if(is-available-collection("filingStatsCache2"))

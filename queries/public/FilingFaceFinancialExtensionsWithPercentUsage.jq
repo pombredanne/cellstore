@@ -1,4 +1,6 @@
-import module namespace req = "http://www.28msec.com/modules/http-request";
+import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace session = "http://apps.28.io/session";
+import module namespace response = "http://www.28msec.com/modules/http-response";
 
 import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
@@ -90,10 +92,10 @@ declare function local:rankCalcTags($archive as object, $trees as object*, $leve
 
 
  (:This is Goldman-Sacks, uncomment to force analysis, otherwise DOW30 is analyzed :) 
-let $cik :=  req:param-values("cik","0000886982") 
+let $cik :=  request:param-values("cik","0000886982") 
 (:let $cik := req:param-values("cik"):)
 
-let $stockIndex :=  let $stockIndex := req:param-values("$stockIndex")
+let $stockIndex :=  let $stockIndex := request:param-values("$stockIndex")
                     return  switch(true)
                                 case (empty($cik) and empty($stockIndex))
                                     return "DOW30"
@@ -117,12 +119,12 @@ let $cikEntity:=    let $cikEntity :=   if(exists($cik))
                                 
 let $entities := if(exists($stockIndex)) then $stockIndexEntities else $cikEntity
                                     
-let $periodFocus := let $periodFocus := req:param-values("fiscalPeriodFocus","FY")
+let $periodFocus := let $periodFocus := request:param-values("fiscalPeriodFocus","FY")
                     return  if (empty($periodFocus))
                             then error(QName("local:INVALID-REQUEST"),"fiscalPeriodFocus: mandatory parameter not found")
                             else $periodFocus
 
-let $yearFocus :=   let $yearFocus := req:param-values("fiscalYearFocus","2012") cast as integer
+let $yearFocus :=   let $yearFocus := request:param-values("fiscalYearFocus","2012") cast as integer
                     return  if (empty($yearFocus))
                             then error(QName("local:INVALID-REQUEST"), "fiscalYearFocus: mandatory parameter not found")
                             else $yearFocus
@@ -131,7 +133,7 @@ let $archives :=    let $try := sec-fiscal:filings-for-entities-and-fiscal-perio
                     return if (empty($try))
                            then  error(QName("local:INVALID-REQUEST"), "Filings not found")
                            else  $try
-
+let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :) 
 let $compiledByCompany :=
     for $archive in $archives
     let $faceFinancials :=  components:components-for-archives($archive)    
@@ -145,9 +147,13 @@ let $compiledByCompany :=
          accessionNumber : $archive._id, 
          extensionsByStatement: [$extUsageStatsForFaceFinancials]
     }
-return {
-    fiscalYear : $yearFocus, 
-    fiscalPeriod : $periodFocus,
-    stockIndex : if(exists($stockIndex)) then $stockIndex else "N/A",
-    statementExtensionsByCompany: [$compiledByCompany]
-}
+return  if(session:only-dow30($entities) or session:valid()) 
+        then {
+            fiscalYear : $yearFocus, 
+            fiscalPeriod : $periodFocus,
+            stockIndex : if(exists($stockIndex)) then $stockIndex else "N/A",
+            statementExtensionsByCompany: [$compiledByCompany]
+        } else {
+            response:status-code(401);
+            session:error("accessing filings of an entity that is not in the DOW30", $format)  
+        }
