@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'constants'])
+angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'autocomplete', 'constants'])
 .factory('$backend', function($q, $http, API_URL, API_TOKEN) {
     return {
 		API_URL: API_URL,
@@ -208,6 +208,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/facttable.html',
             controller: 'FactTableCtrl'
         })
+        .when('/auth:returnPage*', {
+            templateUrl: '/views/auth.html',
+			controller: 'AuthCtrl'
+        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'
@@ -215,15 +219,30 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 })
 .run(function($rootScope, $location, $http, $modal, $angularCacheFactory) {
 
+	$angularCacheFactory('secxbrl', {
+        maxAge: 6000000, // Items added to this cache expire after 15 minutes.
+        cacheFlushInterval: 6000000, // This cache will clear itself every hour.
+        deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
+		storageMode: 'localStorage'
+    });
+
+	var cache = $angularCacheFactory.get('secxbrl');
+	$http.defaults.cache = cache;
+	if (cache)
+	{
+		$rootScope.token = cache.get('token');
+		$rootScope.user = cache.get('user');
+	}
+
 	$rootScope.$on('$routeChangeSuccess', function(event, current) {
 		$rootScope.page = current.loadedTemplateUrl;
 	});
 		
 	$rootScope.$on('error', function(event, status, error){
-    if (status == 401) {
-      alert("Login required");
-      return;
-    }
+		if (status == 401) {
+			$rootScope.goto("/auth" + $location.path());
+			return;
+		}
 		$modal.open( {
 			template: "<div class='modal-header h3'> Error {{object.status}} <a href='javascript://' class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body'> {{object.error.description }} <br><a href='javascript://' ng-click='details=true' ng-hide='details' class='dotted'>Show details</a><pre ng-show='details' class='small'>{{object.error | json }}</pre></div>",
 			controller: function ($scope, $modalInstance, object) {
@@ -253,6 +272,34 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		});
 	});
 
+	$rootScope.$on('login', function(event, token, email, name, url){
+		$rootScope.token = token;
+		$rootScope.user = { email: email, name: name };
+		var cache = $angularCacheFactory.get('secxbrl');
+		if (cache)
+		{
+			cache.put('token', angular.copy($rootScope.token));
+			cache.put('user', angular.copy($rootScope.user));
+		}
+		if (url) $rootScope.goto(url);
+	});
+
+	$rootScope.$on('logout', function(event){
+		$rootScope.logout();
+	});
+
+	$rootScope.logout = function() {
+		$rootScope.token = null;
+		$rootScope.user = null;
+		var cache = $angularCacheFactory.get('secxbrl');
+		if (cache)
+		{
+			cache.remove('token');
+			cache.remove('user');
+		}
+		$rootScope.goto('/');
+	};
+
 	$rootScope.safeApply = function(fn) {
 		var phase = this.$root.$$phase;
 		if (phase == '$apply' || phase == '$digest') {
@@ -269,17 +316,15 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		$location.replace();
 	};
 
+	$rootScope.gotologin = function() {
+		var p = $location.path();
+		if (p.length > 5 && p.substring(0, 5) == '/auth') return;
+		$location.path('/auth' + p);
+		$location.replace();
+	};
+
 	$rootScope.toggleMenu = function(event, visible) { 
 		$rootScope.visibleMenu = visible;
 		if (event && visible) event.stopPropagation();
 	};
-
-	$angularCacheFactory('secxbrl', {
-        maxAge: 6000000, // Items added to this cache expire after 15 minutes.
-        cacheFlushInterval: 6000000, // This cache will clear itself every hour.
-        deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
-		storageMode: 'localStorage'
-    });
-
-  $http.defaults.cache = $angularCacheFactory.get('secxbrl');
 });

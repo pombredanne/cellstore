@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="/styles/main.css">
         <!-- endbuild -->
     </head>
-    <body ng-app="main">
+    <body ng-app="main" class="ng-cloak">
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -34,11 +34,18 @@
 					</button>
 				</div>
 				<div class="collapse navbar-collapse" role="navigation">
-					<ul class="nav navbar-nav navbar-right" on-document-click="toggleMenu($event, false)">
-						<li><a href="/dashboard" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Data</a></li>
-						<li><a href="/entities" ng-class="{ active: (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/filings.html' || page == '/views/components.html' ) }">Submissions</a></li>
-						<li><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a></li>
-						<li><a href="javascript://" ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">Help & Support</a>
+					<div class="nav navbar-nav navbar-right" on-document-click="toggleMenu($event, false)">
+						<div ng-show="user" class="ontop">
+							{{user.name}} <a class="btn btn-xs" href="javascript://" ng-click="logout()">Logout</a>
+						</div>
+						<div ng-hide="user" class="ontop">
+							<a class="btn btn-xs" href="javascript://" ng-class="{ active: (page == '/views/auth.html') }" ng-click="gotologin()">Login / Signup</a>
+						</div>
+						<div><a href="/dashboard" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Data</a></div>
+						<div><a href="/entities" ng-class="{ active: (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/filings.html' || page == '/views/components.html' ) }">Submissions</a></div>
+						<div><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a></div>
+						<div>
+							<a href="javascript://" ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">Help & Support</a>
 							<ul class="sub-nav" ng-hide="!visibleMenu">
 								<li><a href="/about">About</a></li>
 								<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
@@ -51,8 +58,8 @@
 								<li><a href="https://28msec.zendesk.com/entries/new?forum_id=xxxxx" target="_blank">Ideas</a></li>
 								<li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
 							</ul>
-						</li>
-					</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -68,13 +75,18 @@
         <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
         <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
 
+		<script src="/scripts/autocomplete.js"></script>
 		<script src="/scripts/googlechart.js"></script>
         <script src="/scripts/navbar-toggle.js"></script>
         <script src="/scripts/scroll-id.js"></script>
         <script src="/scripts/document-click.js"></script>
 		<script src="/scripts/constants.js"></script>
         <script src="/scripts/main.js"></script>
+        <script src="/scripts/SessionService.js"></script>
+        <script src="/scripts/QueriesService.js"></script>
+        <script src="/scripts/UsersService.js"></script>
         <script src="/scripts/ApiCtrl.js"></script>
+        <script src="/scripts/AuthCtrl.js"></script>
         <script src="/scripts/EntitiesCtrl.js"></script>
         <script src="/scripts/EntityCtrl.js"></script>
         <script src="/scripts/FilingsCtrl.js"></script>
