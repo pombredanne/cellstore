@@ -2,7 +2,6 @@ import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 
 declare function local:to-xml($entities as object*) as element()*
 {
@@ -54,42 +53,25 @@ declare function local:to-csv($entities as object*) as string*
     )
 };
 
-declare function local:only-dow30($entities as object*) as boolean
-{
-    count(
-        for $e in $entities
-        where count($e.Profiles.SEC.Tags[]) gt 0 and $e.Profiles.SEC.Tags[] = "DOW30"
-        return $e) eq count($entities)
-};
-
-declare function local:pad-ciks($ciks as string*) as string*
-{
-    for $cik in $ciks
-    let $cik := normalize-space($cik)
-    where $cik castable as integer
-    return
-        format-integer($cik cast as integer, "0000000000") cast as string
-};
-
 let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
-let $ciks    := local:pad-ciks(request:param-values("cik")) ! sec:normalize-cik($$)
+let $ciks    := request:param-values("cik")
 let $indexes := request:param-values("index") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)
 let $tickers := request:param-values("ticker")
 let $entities := 
-    for $e in 
-        if (exists($ciks) or exists($indexes) or exists($tickers))
+    for $entity in 
+        if (exists(($ciks, $indexes, $tickers)))
         then
-            for $e in (entities:entities($ciks),
+            for $entity in (companies:companies($ciks),
                        companies:companies-for-tags($indexes),
                        companies:companies-for-tickers($tickers))
-            group by $e._id (: duplicate elimination :)
-            return $e[1]
+            group by companies:eid($entity) (: duplicate elimination :)
+            return $entity[1]
         else
-            entities:entities()
-    order by $e.Profiles.SEC.CompanyName
-    return  $e
+            entities:entities() (: companies:companies() ? :)
+    order by $entity.Profiles.SEC.CompanyName (: companies:name() ? :)
+    return $entity
 return
     switch ($format)
         case "xml"  return local:to-xml($entities)
-        case "text"  return string-join(local:to-csv($entities), "")
+        case "text"  return string-join(local:to-csv($entities))
         default return [ $entities ]
