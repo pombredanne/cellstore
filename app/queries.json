@@ -353,6 +353,13 @@
                             "description": "The fiscal period of the fact to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
+                            "enum": [
+                                "Q1",
+                                "Q2",
+                                "Q3",
+                                "Q4",
+                                "FY"
+                            ],
                             "paramType": "path"
                         },
                         {

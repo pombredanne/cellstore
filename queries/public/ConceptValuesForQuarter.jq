@@ -19,8 +19,7 @@ variable $periodDataVarieties  := switch($periodFocus)
                                 case "Q1" return ("Q1","YTD1")
                                 case "Q2" return ("Q2","YTD2")
                                 case "Q3" return ("Q3","YTD3")
-                                case "FY" return ("Q4","YTD4")
-                                default return ("Q4","YTD4");
+                                default return ("Q4","FY");
                                 
 variable $yearFocus := let $yearFocus := request:param-values("fiscalYearFocus","2013")
                        return if (empty($yearFocus))

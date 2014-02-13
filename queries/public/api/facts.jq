@@ -37,6 +37,11 @@ let $period   := request:param-values("period", "FY")[1]
 let $year     := request:param-values("year")[1] cast as integer
 let $concept  := request:param-values("concept")[1]
 let $map      := request:param-values("map")[1]
+let $period   := switch($period)
+                 case "Q1" return ("Q1","YTD1")
+                 case "Q2" return ("Q2","YTD2")
+                 case "Q3" return ("Q3","YTD3")
+                 default return ("Q4","FY")
 return 
   if (empty($year) or empty($concept))
   then {
@@ -62,18 +67,20 @@ return
                     $entities, $concept, $period, $year, { "concept-maps" : $map })
                 else sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years(
                     $entities, $concept, $period, $year)
+            order by $fact.Profiles.SEC.Fiscal.Acceptance descending
+            group by $fact.Profiles.SEC.Fiscal.Acceptance,$fact.Profiles.SEC.Fiscal.Period 
             return
                 {|
                     {
-                        CIK: $fact.Aspects.$facts:ENTITY,
-                        CompanyName : companies:companies($fact.Aspects.$facts:ENTITY).Profiles.SEC.CompanyName,
-                        Period: $fact.Profiles.SEC.Fiscal.Period,
-                        Year: $fact.Profiles.SEC.Fiscal.Year,
+                        CIK: $fact[1].Aspects.$facts:ENTITY,
+                        CompanyName : companies:companies($fact[1].Aspects.$facts:ENTITY).Profiles.SEC.CompanyName,
+                        Period: $fact[1].Profiles.SEC.Fiscal.Period,
+                        Year: $fact[1].Profiles.SEC.Fiscal.Year,
                         Concept: $concept,
-                        Type: $fact.Type,
-                        Unit: $fact.Aspects."xbrl:Unit",
-                        Decimals: $fact.Decimals,
-                        Value: $fact.Value
+                        Type: $fact[1].Type,
+                        Unit: $fact[1].Aspects."xbrl:Unit",
+                        Decimals: $fact[1].Decimals,
+                        Value: $fact[1].Value
                     },
                     if (exists($map) and $map eq "FundamentalAccountingConcepts")
                     then {
