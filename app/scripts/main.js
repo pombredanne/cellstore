@@ -208,6 +208,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/facttable.html',
             controller: 'FactTableCtrl'
         })
+        .when('/auth', {
+            templateUrl: '/views/auth.html',
+			controller: 'AuthCtrl'
+        })
         .when('/auth:returnPage*', {
             templateUrl: '/views/auth.html',
 			controller: 'AuthCtrl'
@@ -281,7 +285,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			cache.put('token', angular.copy($rootScope.token));
 			cache.put('user', angular.copy($rootScope.user));
 		}
-		if (url) $rootScope.goto(url);
+		if (!url) url='/';
+		$rootScope.goto(url);
 	});
 
 	$rootScope.$on('logout', function(event){

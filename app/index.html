@@ -16,12 +16,12 @@
         <link rel="stylesheet" href="/styles/main.css">
         <!-- endbuild -->
     </head>
-    <body ng-app="main" class="ng-cloak">
+    <body ng-app="main">
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="header">
+        <div class="header ng-cloak">
 			<div class="navbar" navbar-toggle>
 				<div class="navbar-header">
 					<a href="/" id="logo">
@@ -39,7 +39,7 @@
 							{{user.name}} <a class="btn btn-xs" href="javascript://" ng-click="logout()">Logout</a>
 						</div>
 						<div ng-hide="user" class="ontop">
-							<a class="btn btn-xs" href="javascript://" ng-class="{ active: (page == '/views/auth.html') }" ng-click="gotologin()">Login / Signup</a>
+							<a class="btn btn-xs" href="/auth" ng-class="{ active: (page == '/views/auth.html') }">Login / Signup</a>
 						</div>
 						<div><a href="/dashboard" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Data</a></div>
 						<div><a href="/entities" ng-class="{ active: (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/filings.html' || page == '/views/components.html' ) }">Submissions</a></div>
@@ -64,7 +64,7 @@
 			</div>
 		</div>
 		<div style="clear:both"></div>
-        <div ng-view="true" class="content clearfix">			
+        <div ng-view="true" class="content clearfix ng-cloak">			
 		</div>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -98,7 +98,7 @@
         <!--<script src="/scripts/SourceCtrl.js"></script>-->
         <!-- endbuild -->
 
-		<div class="footer clearfix">
+		<div class="footer clearfix ng-cloak">
             <div class="navbar">
                 <div class="navbar-header">
 					<a href="/" id="logo">
