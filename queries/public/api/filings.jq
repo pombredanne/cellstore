@@ -1,6 +1,9 @@
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
+
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
+import module namespace fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
@@ -39,8 +42,8 @@ declare function local:summary($a)
         EntityRegistrantName : 
             facts:facts-for-archives-and-concepts($a, "dei:EntityRegistrantName").Value,
         FormType : filings:document-types($a),
-        FiscalYear : $a.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
-        FiscalPeriod : $a.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
+        FiscalYear : fiscal:fiscal-year($a),
+        FiscalPeriod : fiscal:fiscal-period($a),
         Accepted : filings:acceptance-dateTimes($a),
         Generator : filings:generators($a),
         AccessionNumber: $a._id,
@@ -48,7 +51,6 @@ declare function local:summary($a)
         XBRLInstanceURL : $a.InstanceURL
     }
 };
-
 
 let $format   := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
 let $ciks     := request:param-values("cik")
@@ -58,7 +60,7 @@ return
     then {
         let $archives :=
                 for $a in filings:filings-for-companies($ciks)
-                order by $a.Profiles.SEC.AcceptanceDatetime descending
+                order by filings:acceptance-dateTimes($a) descending
                 return local:summary($a)
         return
             switch ($format)
