@@ -1,8 +1,15 @@
 <div class="topbar"></div>
 <div class="container">
-	<h2>Restricted access</h2><br>
-	<h4>The page you are trying to access displays information about a company not included in the DOW30.</h4>
-	To view that information you have to login with your account. If you do not have an account, you can create one using the form below.<br><br>
+	<span ng-show="returnPage">
+		<h2>Restricted access</h2><br>
+		<h4>The page you are trying to access displays information about a company not included in the DOW30.</h4>
+		To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form.
+	</span>
+	<span ng-hide="returnPage">
+		<h2>Login or Signup</h2><br>
+		Enter your credentials below. If you do not have an account, you can create one using the registration form.
+	</span>
+	<br><br>
 	<div class="row">
 		<div class="col-md-6">
 			<form role="form" class="white-box" name="loginForm" ng-submit="login()" novalidate spellcheck="false" autocomplete="on">
@@ -85,5 +92,7 @@
 			</form>
 		</div>
 	</div>
-	... or you can go <a href="javascript://" ng-click="back()">BACK</a>.<br><br>
+	<span ng-show="returnPage">
+		... or you can go <a href="javascript://" ng-click="back()">BACK</a>.<br><br>
+	</span>
 </div>

@@ -20,7 +20,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 		$http({
 			method: 'GET', 
 			url: $backend.API_URL + '/_queries/public/FYandFPByCIK.jq',
-			params: { _method: 'POST', cik: $scope.cik },
+			params: { _method: 'POST', cik: $scope.cik, "token" : $scope.token },
 			cache: true
 		})
 		.success(function (data, status, headers, config)
@@ -33,6 +33,10 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 				});
 				$scope.adjustYearPeriod();
 			}
+			else $scope.$emit("error", status, data);
+		})
+		.error(function(data, status) { 
+			$scope.$emit("error", status, data);
 		});
 	};
 
@@ -92,6 +96,12 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 			$scope.factUnit = '';
 		}
 	};
+	
+	$scope.trimURL = function(url) {
+		if (url.length < 40) return url;
+
+		return url.substr(0, 10) + "..." + url.substr(url.length - 30);
+	};
 
     $scope.getValue = function ()
     {
@@ -104,7 +114,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
             $http({
                     method: 'GET', 
                     url: $backend.API_URL + '/_queries/public/FactForConcept.jq',
-                    params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, conceptName: $scope.conceptMapKey, map: $scope.conceptMap || "None" },
+                    params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, conceptName: $scope.conceptMapKey, map: $scope.conceptMap || "None", "token" : $scope.token },
 					cache: true
                 })
                 .success(function (data, status, headers, config)
@@ -129,7 +139,10 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 						$angularCacheFactory.get('secxbrl').put('search-history', angular.copy($scope.searches));
 						$scope.safeApply();
 					}
-                });
+                })
+				.error(function(data, status) { 
+					$scope.$emit("error", status, data);
+				});
         }
         else
             $scope.$emit('alert', 'Error', 'Please fill in all parameters!');
@@ -151,7 +164,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
                 $http({
                         method: 'GET', 
                         url: $backend.API_URL + '/_queries/public/ConceptMapKeys.jq',
-                        params: { _method: 'POST', mapName: $scope.conceptMap || "None" },
+                        params: { _method: 'POST', mapName: $scope.conceptMap || "None", "token" : $scope.token },
 						cache: true
                     })
                     .success(function (data, status, headers, config)
@@ -160,7 +173,10 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
                         if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) 
                             $scope.conceptMapKey = crtMapKey;
                         $scope.safeApply();
-                    });
+                    })
+					.error(function(data, status) { 
+						$scope.$emit("error", status, data);
+					});
             }
             else
             {
@@ -169,7 +185,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
                     $http({
                             method: 'GET', 
                             url: $backend.API_URL + '/_queries/public/FactualConcepts.jq',
-                            params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period },
+                            params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, "token" : $scope.token },
 							cache: true
                         })
                         .success(function (data, status, headers, config)
@@ -181,7 +197,10 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
                             if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) 
                                 $scope.conceptMapKey = crtMapKey;
                             $scope.safeApply();
-                        });
+                        })
+						.error(function(data, status) { 
+							$scope.$emit("error", status, data);
+						});
                 }
             }
         }

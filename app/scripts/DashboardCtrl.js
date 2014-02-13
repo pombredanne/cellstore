@@ -19,7 +19,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
 		$http({
 			method: 'GET', 
 			url: $backend.API_URL + '/_queries/public/FYandFPByCIK.jq',
-			params: { _method: 'POST', cik: $scope.cik },
+			params: { _method: 'POST', cik: $scope.cik, "token" : $scope.token },
 			cache: true
 		})
 		.success(function (data, status, headers, config)
@@ -93,7 +93,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
 			$http({
 					method: 'GET', 
 					url: $backend.API_URL + '/_queries/public/LatestFYandFPByCIK.jq',
-					params: { _method: 'POST', cik: $scope.cik },
+					params: { _method: 'POST', cik: $scope.cik, "token" : $scope.token },
 					cache: true
 				})
 				.success(function (data, status, headers, config)
@@ -104,11 +104,12 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
 						$scope.period = data.latestFYPeriod.fiscalPeriod;
 						$scope.goto("/dashboard/" + $scope.cik + "/" + $scope.year + "/" + $scope.period);
 					}
-					else $scope.goto("/dashboard/" + $scope.cik);
+					else
+						$scope.$emit("error", status, data);
 				})
 				.error(function (data, status, headers, config)
 				{
-					$scope.goto("/dashboard/" + $scope.cik);
+					$scope.$emit("error", status, data);
 				});
     };
 
@@ -167,7 +168,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
         $http({
                 method: 'GET', 
                 url: $backend.API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
-                params: { _method: 'POST', cik: $scope.cik, conceptName: 'fac:Revenues', map: 'FundamentalAccountingConcepts' },
+                params: { _method: 'POST', cik: $scope.cik, conceptName: 'fac:Revenues', map: 'FundamentalAccountingConcepts', "token" : $scope.token },
 				cache: true
             })
             .success(function (data, status, headers, config)
@@ -191,7 +192,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
         $http({
                 method: 'GET', 
                 url: $backend.API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
-                params: { _method: 'POST', cik: $scope.cik, conceptName: 'fac:NetIncomeLoss', map: 'FundamentalAccountingConcepts' },
+                params: { _method: 'POST', cik: $scope.cik, conceptName: 'fac:NetIncomeLoss', map: 'FundamentalAccountingConcepts', "token" : $scope.token },
 				cache: true
             })
             .success(function (data, status, headers, config)
@@ -283,7 +284,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
         $http({
                 method: 'GET', 
                 url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-                params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, reportSchema: 'FundamentalAccountingConcepts' },
+                params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, reportSchema: 'FundamentalAccountingConcepts', "token" : $scope.token },
 				cache: true
             })
             .success(function (data, status, headers, config)
@@ -348,6 +349,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
         .error(function (data, status, headers, config)
         {
             $scope.reports = [];
+			$scope.$emit("error", status, data);
         });
     }
 
