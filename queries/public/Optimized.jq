@@ -1,10 +1,7 @@
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
-import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
 import module namespace req = "http://www.28msec.com/modules/http-request";
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 import module namespace entities ="http://xbrl.io/modules/bizql/entities";
-import module namespace sequences = "http://zorba.io/modules/sequence";
 declare namespace an = "http://zorba.io/annotations";
 
 (: NB: archive id is accession number :) 

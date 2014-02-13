@@ -7,8 +7,8 @@ import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
-import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
+import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
 
 (:
@@ -111,7 +111,7 @@ let $stockIndexEntities :=  let $stockIndexEntities := companies:companies-for-t
                                     else $stockIndexEntities
                                         
 let $cikEntity:=    let $cikEntity :=   if(exists($cik))
-                                        then entities:entities(sec:normalize-cik($cik))
+                                        then entities:entities(companies:eid($cik))
                                         else ()
                     return  if(exists($cik) and empty($cikEntity))
                             then error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")

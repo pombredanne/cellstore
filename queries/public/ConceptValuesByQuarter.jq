@@ -3,6 +3,7 @@ import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
@@ -38,7 +39,7 @@ variable $cik := let $cik := request:param-values("cik","0000104169")
                             then error(QName("local:INVALID-REQUEST"), "cik: mandatory parameter not found")
                             else $cik;
 
-variable $entity := let $entity := entities:entities(sec:normalize-cik($cik))
+variable $entity := let $entity := entities:entities(companies:eid($cik))
                     return if (empty($entity))
                            then  error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
                            else  $entity;

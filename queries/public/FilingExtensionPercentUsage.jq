@@ -1,6 +1,7 @@
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace response = "http://www.28msec.com/modules/http-response";
@@ -21,7 +22,7 @@ variable $yearFocus := let $yearFocus := request:param-values("fiscalYearFocus",
                                 then error(QName("local:INVALID-REQUEST"), "fiscalYearFocus: mandatory parameter not found")
                                 else $yearFocus;
 
-variable $entity := let $entity := entities:entities(sec:normalize-cik($cik))
+variable $entity := let $entity := entities:entities(companies:eid($cik))
                     return if (empty($entity))
                            then  error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
                            else  $entity;
