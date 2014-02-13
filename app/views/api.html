@@ -50,7 +50,7 @@
                                 <code><span ng-bind="parameter.name"></span><span class="text-danger" ng-show="parameter.required">*</span></code>
                             </td>
                             <td>
-                                <code ng-repeat="value in parameter.enum" ng-bind="value" style="display:block;"></code>
+                                <code ng-repeat="value in parameter.enum" ng-bind-html="value" style="display:block;"></code>
                             </td>
                             <td ng-switch on="parameter.name">
                                 <span ng-switch-default ng-bind-html="parameter.description"></span>

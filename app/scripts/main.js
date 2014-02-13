@@ -216,6 +216,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/auth.html',
 			controller: 'AuthCtrl'
         })
+        .when('/concept-map/:name', {
+            templateUrl: '/views/concept-map.html',
+            controller: 'ConceptMapCtrl'
+        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'
