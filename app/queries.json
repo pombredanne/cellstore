@@ -408,7 +408,7 @@
                         {
                             "title": "Retrieve DOW30's us-gaap:Assets for FY 2012",
                             "description": "Retrieve all the us-gaap:Assets concepts reported for all DOW30 companies in the period FY and year 2012 as JSON",
-                            "request": "curl -X POST 'xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/fact.jq?year=2012&concept=us-gaap:Assets&index=dow30'",
+                            "request": "curl -X POST 'xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/facts.jq?year=2012&concept=us-gaap:Assets&index=dow30'",
                             "response": "[\n  {\n    \"CIK\": \"http://www.sec.gov/CIK 0000200406\",\n    \"CompanyName\": \"JOHNSON & JOHNSON\",\n    \"Concept\": \"us-gaap:Assets\",\n    \"Decimals\": -6,\n    \"Period\":   \"FY\",\n    \"Type\": \"NumericValue\",\n    \"Unit\": \"iso4217:USD\",\n    \"Value\": 121347000000,\n    \"Year\": 2012\n  },\n  {\n    \"CIK\": \"http://www.sec.gov/CIK 0000063908\",\n    \"CompanyName\": \"MCDONALDS CORP\",\n    \"Concept\": \"us-gaap:Assets\",\n    \"nDecimals\": -5,\n    \"Period\": \"FY\",\b  \"Type\": \"NumericValue\",\n    \"Unit\": \"iso4217:USD\",\n    \"Value\": 35386500000,\n    \"Year\": 2012\n  }\n  , ... \n]"
                         }
                     ]
