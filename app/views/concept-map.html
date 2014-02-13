@@ -15,7 +15,7 @@
                 <th>Target Concepts</th>
               </thead>
               <tbody>
-                <tr ng-repeat="item in result | filter:search">
+                <tr ng-repeat="item in result | filter:search | orderBy:'name':false">
                   <td>{{item.name}}<br/>{{item.label}}</td>
                   <td>{{item.values}}</td>
                 </tr>
