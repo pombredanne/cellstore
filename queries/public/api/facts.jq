@@ -34,7 +34,7 @@ let $ciks     := distinct-values(companies:eid(request:param-values("cik")))
 let $indexes  := request:param-values("index") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)
 let $tickers  := request:param-values("ticker")
 let $period   := request:param-values("period", "FY")[1]
-let $year     := request:param-values("year")[1] cast as integer
+let $year     := request:param-values("year")[1]
 let $concept  := request:param-values("concept")[1]
 let $map      := request:param-values("map")[1]
 let $period   := switch($period)
@@ -48,6 +48,7 @@ return
     response:status-code(400);
     session:error("missing parameter(s) (" || "year"[empty($year)] || " concept"[empty($concept)] || ")", $format)
   } else
+    let $year := $year cast as integer
     let $entities := (companies:companies($ciks), companies:companies-for-tags($indexes), companies:companies-for-tickers($tickers))
     return switch(true)
       case empty($entities) return {
@@ -92,4 +93,3 @@ return
             case "text" return string-join(local:to-csv($facts))
             case "xml" return <Facts>{local:to-xml($facts)}</Facts>
             default return [ $facts ]
-
