@@ -32,7 +32,7 @@ declare function local:filterByDomain($stats as object,$domainsAndMembers as obj
 
 declare %an:sequential function local:sliceAndDice($startYear as integer, $endYear as integer,$domainsAndMembers as object*) { 
    
-        let $filingStats := collection("filingStatsCache2")
+        let $filingStats := collection("filingStatsCache2")[$$.qtyConcepts castable as decimal]
         for $stats in $filingStats[local:filterByDomain($$,$domainsAndMembers)]
         let $year := try { $stats.fiscalYear cast as integer } catch* { 0 }
         where $stats.periodFocus = "FY" and $year le $endYear and $year ge $startYear
@@ -65,7 +65,7 @@ declare %an:sequential function local:aggregateByIndexAndDice($startYear as inte
     let $stockIndexDomainAndMembers := $domainsAndMembers[$$.domain="stockIndex"]
     let $otherDomainsAndMembers := $domainsAndMembers[not($$.domain="stockIndex")]
     let $stockIndexes := $stockIndexDomainAndMembers.members[]
-    for $stats in collection("filingStatsCache2")[local:filterByDomain($$,$otherDomainsAndMembers)]
+    for $stats in collection("filingStatsCache2")[local:filterByDomain($$,$otherDomainsAndMembers)][$$.qtyConcepts castable as decimal]
     let $year := try { $stats.fiscalYear cast as integer } catch* { 0}
     where $stats.periodFocus = "FY" and $year le $endYear and $year ge $startYear
     order by $stats.percentExtUsage
