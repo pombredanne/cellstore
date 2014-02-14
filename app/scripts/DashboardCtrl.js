@@ -89,7 +89,9 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
     {
 		if ($scope.year && $scope.period)
 			$scope.goto("/dashboard/" + $scope.cik + "/" + $scope.year + "/" + $scope.period);
-		else
+		else 
+		{ 
+			$scope.goto("/dashboard/" + $scope.cik);
 			$http({
 					method: 'GET', 
 					url: $backend.API_URL + '/_queries/public/LatestFYandFPByCIK.jq',
@@ -111,6 +113,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
 				{
 					$scope.$emit("error", status, data);
 				});
+		};
     };
 
 	$scope.gotoId = function(id) {
