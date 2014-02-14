@@ -68,7 +68,7 @@ return
                 else sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years(
                     $entities, $concept, $period, $year)
             order by $fact.Profiles.SEC.Fiscal.Acceptance descending
-            group by $fact.Profiles.SEC.Fiscal.Acceptance,$fact.Profiles.SEC.Fiscal.Period 
+            group by $fact.Aspects."xbrl:Entity", $fact.Profiles.SEC.Fiscal.Acceptance,$fact.Profiles.SEC.Fiscal.Period 
             return
                 {|
                     {
