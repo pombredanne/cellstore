@@ -96,7 +96,7 @@
 							<td>{{s.year}}/{{s.period}}</td>
 							<td>{{s.conceptMap || 'None'}}</td>
 							<td><a href="javascript://" popover="{{s.conceptMapKey}}" popover-placement="top" popover-trigger="focus">{{trimURL(s.conceptMapKey)}}</a></td>
-							<td ng-class="{ 'text-right': s.factType == 'NumericValue' }">
+							<td class="nowrap" ng-class="{ 'text-right': s.factType == 'NumericValue' }">
 								{{ (s.factType == 'NumericValue' ? s.factValue + " " + s.factUnit : s.factText )}}
 							</td>
 						</tr>
