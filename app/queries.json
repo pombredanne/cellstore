@@ -291,7 +291,7 @@
             "operations": [
                 {
                     "method": "GET",
-                    "summary": "Retrieve one or more facts",
+                    "summary": "Retrieve one or more facts for a combination of entity and concept. Additioally, the total of all numeric facts for each concept can be returned (see total parameter)",
                     "notes": "",
                     "type": "FactListing",
                     "nickname": "listFact",
@@ -303,7 +303,7 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "text",
+                                "text (NA if using total)",
                                 "xml"
                             ],
                             "paramType": "path"
@@ -335,9 +335,16 @@
                             "paramType": "path"
                         },
                         {
+                            "name": "sic",
+                            "description": "The industry group",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "path"
+                        },
+                        {
                             "name": "year",
-                            "description": "The fiscal year of the fact to retrieve",
-                            "required": true,
+                            "description": "The fiscal year of the fact to retrieve (default: latest for given period)",
+                            "required": false,
                             "type": "string",
                             "paramType": "path"
                         },
@@ -357,8 +364,18 @@
                                 "Q1",
                                 "Q2",
                                 "Q3",
-                                "Q4",
                                 "FY"
+                            ],
+                            "paramType": "path"
+                        },
+                        {
+                            "name": "total",
+                            "description": "Group by concept and compute the sum of all values in a group",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "true",
+                                "false"
                             ],
                             "paramType": "path"
                         },
@@ -383,7 +400,7 @@
                     "responseMessages": [
                         {
                             "code": 400,
-                            "message": "Bad request: a parameter is missing or invalid",
+                            "message": "Bad request: a parameter is missing or invalid or total is used together with text serialization",
                             "responseModel": "Error"
                         },
                         {
@@ -406,9 +423,9 @@
                     ],
                     "examples": [
                         {
-                            "title": "Retrieve DOW30's us-gaap:Assets for FY 2012",
-                            "description": "Retrieve all the us-gaap:Assets concepts reported for all DOW30 companies in the period FY and year 2012 as JSON",
-                            "request": "curl -X POST 'xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/facts.jq?year=2012&concept=us-gaap:Assets&index=dow30'",
+                            "title": "Retrieve DOW30's us-gaap:Assets for latest fiscal year",
+                            "description": "Retrieve all the us-gaap:Assets concepts reported for all DOW30 companies in the period FY and the latest reported year 2012 as JSON",
+                            "request": "curl -X POST 'xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/facts.jq?concept=us-gaap:Assets&index=dow30'",
                             "response": "[\n  {\n    \"CIK\": \"http://www.sec.gov/CIK 0000200406\",\n    \"CompanyName\": \"JOHNSON & JOHNSON\",\n    \"Concept\": \"us-gaap:Assets\",\n    \"Decimals\": -6,\n    \"Period\":   \"FY\",\n    \"Type\": \"NumericValue\",\n    \"Unit\": \"iso4217:USD\",\n    \"Value\": 121347000000,\n    \"Year\": 2012\n  },\n  {\n    \"CIK\": \"http://www.sec.gov/CIK 0000063908\",\n    \"CompanyName\": \"MCDONALDS CORP\",\n    \"Concept\": \"us-gaap:Assets\",\n    \"nDecimals\": -5,\n    \"Period\": \"FY\",\b  \"Type\": \"NumericValue\",\n    \"Unit\": \"iso4217:USD\",\n    \"Value\": 35386500000,\n    \"Year\": 2012\n  }\n  , ... \n]"
                         }
                     ]
