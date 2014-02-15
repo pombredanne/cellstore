@@ -88,7 +88,7 @@ return
     return switch(true)
       case empty($entities) return {
         response:status-code(404);
-        session:error("entity not found (valid parameters: cik, ticker, index)", $format)
+        session:error("entity not found (valid parameters: cik, ticker, index, sic)", $format)
       }
       case not (session:only-dow30($entities) or session:valid()) return {
         response:status-code(401);
