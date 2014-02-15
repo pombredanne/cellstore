@@ -325,6 +325,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			cache.put('token', angular.copy($rootScope.token));
 			cache.put('user', angular.copy($rootScope.user));
 		}
+		MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'login' });
 		if (!url) url='/';
 		$rootScope.goto(url);
 	});
@@ -342,6 +343,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			cache.remove('token');
 			cache.remove('user');
 		}
+		MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'logout' });
 		$rootScope.goto('/');
 	};
 

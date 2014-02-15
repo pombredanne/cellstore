@@ -36,7 +36,8 @@ angular.module('main').controller('AuthCtrl', ['$scope', '$route', '$http', '$wi
 				.newUser($scope.firstname, $scope.lastname, $scope.email, $scope.password)
 				.then(
 					function(data) { 
-						if (data && data.success)
+						if (data && data.success) {
+							MunchkinHelper.associateLead({ Email: $scope.email, FirstName: $scope.firstname, LastName: $scope.lastname, Company: $scope.companyname, accountsecxbrlinfo: true });
 							(new SessionService($backend.API_URL + '/_queries/public'))
 								.login($scope.email, $scope.password)
 								.then(
@@ -47,6 +48,7 @@ angular.module('main').controller('AuthCtrl', ['$scope', '$route', '$http', '$wi
 									function(data) { 
 										$scope.$emit("error", 500, data);
 									});
+						}
 						else 
 							$scope.$emit("error", 500, data);
 					},
