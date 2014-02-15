@@ -75,7 +75,8 @@
 					</div>
 					<div class="col-md-10 col-sm-10 col-xs-9">
 						<h4 ng-show="factValue" class="text-right">{{factValue}} {{factUnit}}</h4>
-						<div data-ng-bind-html="factText"></div>
+						<div ng-bind-html="factText"></div>
+						<div class="text-left wrap" style="width: 100%" ng-show="originalConcept">Audit: <b>{{originalConcept}}</b></div>
 					</div>
 				</div>
 			</div>				
@@ -96,8 +97,9 @@
 							<td>{{s.year}}/{{s.period}}</td>
 							<td>{{s.conceptMap || 'None'}}</td>
 							<td><a href="javascript://" popover="{{s.conceptMapKey}}" popover-placement="top" popover-trigger="focus">{{trimURL(s.conceptMapKey)}}</a></td>
-							<td class="nowrap" ng-class="{ 'text-right': s.factType == 'NumericValue' }">
-								{{ (s.factType == 'NumericValue' ? s.factValue + " " + s.factUnit : s.factText )}}
+							<td class="nowrap text-right">
+								<div ng-show="s.factValue">{{s.factValue}} {{s.factUnit}}</div>
+								<a href="javascript://" ng-hide="s.factValue" ng-click="showDetails(s.factText)">View Text Block</a>
 							</td>
 						</tr>
 						<tr ng-hide="searches.length">
