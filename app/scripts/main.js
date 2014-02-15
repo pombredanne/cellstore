@@ -114,7 +114,41 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         }
     };
 })
-.config(function ($routeProvider, $locationProvider) {
+
+// Intercept http calls.
+.factory('RootScopeSpinnerInterceptor', function ($q, $rootScope) {
+	return {
+		// On request success
+		request: function (config) {
+			$("#spinner").show();
+			// Return the config or wrap it in a promise if blank.
+			return config || $q.when(config);
+		},
+ 
+		// On request failure
+		requestError: function (rejection) {
+			$("#spinner").show();
+			// Return the promise rejection.
+			return $q.reject(rejection);
+		},
+		 
+		// On response success
+		response: function (response) {
+			$("#spinner").hide();
+			// Return the response or promise.
+			return response || $q.when(response);
+		},
+		 
+		// On response failture
+		responseError: function (rejection) {
+			$("#spinner").hide();
+			// Return the promise rejection.
+			return $q.reject(rejection);
+		}
+	};
+})
+ 
+.config(function ($routeProvider, $locationProvider, $httpProvider) {
 
     $locationProvider.html5Mode(true);
 
@@ -224,6 +258,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         .otherwise({
             templateUrl:'/views/404.html'
         });
+
+		$httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 })
 .run(function($rootScope, $location, $http, $modal, $angularCacheFactory) {
 
@@ -267,7 +303,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 
 	$rootScope.$on('alert', function(event, title, message){
 		$modal.open( {
-			template: "<div class='modal-header h3'> {{object.title}} <a href='javascript://' class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body'>{{object.message }}</div><div class='text-right modal-footer'><button class='btn btn-default' ng-click='cancel()'>OK</button></div>",
+			template: "<div class='modal-header h3'> {{object.title}} <a href='javascript://' class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body' ng-bind-html='object.message'></div><div class='text-right modal-footer'><button class='btn btn-default' ng-click='cancel()'>OK</button></div>",
 			controller: function ($scope, $modalInstance, object) {
 				$scope.object = object;
 				$scope.cancel = function () {
@@ -289,6 +325,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			cache.put('token', angular.copy($rootScope.token));
 			cache.put('user', angular.copy($rootScope.user));
 		}
+		MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'login' });
 		if (!url) url='/';
 		$rootScope.goto(url);
 	});
@@ -306,6 +343,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			cache.remove('token');
 			cache.remove('user');
 		}
+		MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'logout' });
 		$rootScope.goto('/');
 	};
 

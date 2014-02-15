@@ -19,8 +19,24 @@ html, body {
 	word-wrap: break-word;
 }
 
+.modal-body {
+	overflow: auto;
+	max-height: 500px;
+}
+
 .nowrap { 
 	white-space: nowrap;
+}
+
+.wrap {
+	word-wrap: break-word;
+}
+
+#spinner { 
+	color: whitesmoke;
+	position: absolute;
+	top: 10px;
+	left: 290px;
 }
 
 .highlight1 {

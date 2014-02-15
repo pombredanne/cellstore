@@ -1,5 +1,5 @@
-angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route', '$http', '$sce', '$angularCacheFactory', '$backend', 'years', 'periods', 'entities', 'conceptMaps',
-  function($scope, $location, $route, $http, $sce, $angularCacheFactory, $backend, years, periods, entities, conceptMaps){
+angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route', '$http', '$angularCacheFactory', '$backend', 'years', 'periods', 'entities', 'conceptMaps',
+  function($scope, $location, $route, $http, $angularCacheFactory, $backend, years, periods, entities, conceptMaps){
     $scope.conceptMaps = conceptMaps;
     $scope.conceptMapKey = conceptMaps[1];
     $scope.conceptMapKeys = [];
@@ -71,6 +71,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
         $scope.factValue = '';
         $scope.factText = '';
         $scope.factUnit = '';
+		$scope.originalConcept = null;
 		$scope.computeUsage();
 	};
 
@@ -83,6 +84,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 			$scope.factValue = '';
 			$scope.factText = '';
 			$scope.factUnit = '';
+			$scope.originalConcept = null;
 		}
 	};
 
@@ -94,6 +96,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 			$scope.factValue = '';
 			$scope.factText = '';
 			$scope.factUnit = '';
+			$scope.originalConcept = null;
 		}
 	};
 	
@@ -109,6 +112,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
         $scope.factValue = '';
         $scope.factText = '';
         $scope.factUnit = '';
+		$scope.originalConcept = null;
         if ($scope.cik && $scope.period && $scope.year && $scope.conceptMapKey != '')
         {
             $http({
@@ -119,6 +123,8 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
                 })
                 .success(function (data, status, headers, config)
                 {
+					if (data.originalConcept)
+						$scope.originalConcept = data.originalConcept;
                     if (data.value) 
 					{
                         if(data.type == "NumericValue")
@@ -127,14 +133,20 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
                             $scope.factValue = parseFloat(data.value).toLocaleString();
                             $scope.factUnit = data.unit.split(':')[1];
                         }
-                        else $scope.factText = $sce.trustAsHtml(data.value);
+                        else 
+						{
+							$scope.factText = data.value; 
+						}
 
 						$scope.searches.unshift({ 
 							cik: $scope.cik, name: $scope.name, 
 							year: $scope.year, period: $scope.period,
 							conceptMap: $scope.conceptMap,
 							conceptMapKey: $scope.conceptMapKey, 
-							factType: $scope.factType, factValue: $scope.factValue, factUnit: $scope.factUnit, factText: $scope.factText });
+							factType: $scope.factType, 
+							factValue: $scope.factValue, 
+							factUnit: $scope.factUnit, 
+							factText: $scope.factText });
 						if ($scope.searches.length > 15) $scope.searches.pop();
 						$angularCacheFactory.get('secxbrl').put('search-history', angular.copy($scope.searches));
 						$scope.safeApply();
@@ -205,6 +217,10 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
             }
         }
     );
+
+	$scope.showDetails = function(html) {
+		$scope.$emit("alert", "Text Block Details", html);
+	};
     
     if ($route.current.params.cik)
         $scope.entities.forEach(function(entity) {

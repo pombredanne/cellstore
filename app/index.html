@@ -33,6 +33,7 @@
 						 Menu <i class="glyphicon glyphicon-collapse-down"></i>
 					</button>
 				</div>
+				<i class="fa fa-spinner fa-spin fa-2x" id="spinner"></i>
 				<div class="collapse navbar-collapse" role="navigation">
 					<div class="nav navbar-nav navbar-right" on-document-click="toggleMenu($event, false)">
 						<div ng-show="user" class="ontop">
@@ -74,6 +75,8 @@
         <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
         <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
         <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
+
+		<script src="/scripts/munchkinhelper.js"></script>
 
 		<script src="/scripts/autocomplete.js"></script>
 		<script src="/scripts/googlechart.js"></script>
