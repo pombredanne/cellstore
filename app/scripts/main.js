@@ -222,6 +222,16 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
             }
         })
+        .when('/search/:cik', {
+            templateUrl: '/views/search.html',
+            controller: 'SearchCtrl',
+            resolve: {
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+            }
+        })
         .when('/entities', {
             templateUrl: '/views/entities.html',
             controller: 'EntitiesCtrl'
@@ -344,6 +354,15 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			cache.remove('user');
 		}
 		MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'logout' });
+		$rootScope.goto('/');
+	};
+
+	$rootScope.$on('clearCache', function(event){
+		$rootScope.clearCache();
+	});
+
+	$rootScope.clearCache = function() {
+		$angularCacheFactory.clearAll();
 		$rootScope.goto('/');
 	};
 

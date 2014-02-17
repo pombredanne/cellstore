@@ -32,6 +32,10 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
 				});
 				$scope.adjustYearPeriod();
 			}
+			else $scope.$emit("error", status, data);
+		})
+		.error(function(data, status) { 
+			$scope.$emit("error", status, data);
 		});
 	};
 
@@ -48,7 +52,11 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
 					break;
 				}
 
-		if (!$scope.usage[$scope.years.indexOf($scope.year)].periods[$scope.periods.indexOf($scope.period)].used) {
+		if ($scope.period && !$scope.usage[$scope.years.indexOf($scope.year)].periods[$scope.periods.indexOf($scope.period)].used) 
+			$scope.period = null;
+		
+		if (!$scope.period)
+		{
 			var pers = $scope.usage[$scope.years.indexOf($scope.year)].periods;
 			for (var i = 0; i < pers.length; i++)
 				if (pers[i].used) {
@@ -359,10 +367,18 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
     if ($route.current.params.cik)
         $scope.entities.forEach(function(entity) {
             if (entity.cik == $route.current.params.cik){
-				$scope.cik = entity.cik;
-				$scope.name = entity.name;
-				$scope.ticker = entity.tickers[0];
-				$scope.computeUsage();
+				if ($scope.year && $scope.period)
+				{
+					$scope.cik = entity.cik;
+					$scope.name = entity.name;
+					$scope.ticker = entity.tickers[0];
+					$scope.computeUsage();
+				}
+				else { 
+					$scope.year = null; 
+					$scope.period = null;
+					$scope.change();
+				}
 			}
         });
 	
