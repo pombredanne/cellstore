@@ -176,7 +176,7 @@
                 {
                     "method":"GET",
                     "summary":"Get user picture",
-                    "notes":"Use this function as target for image. Use the web API instead of the _queries API! URL: http://nevada.28.io/users/getPicture.jq",
+                    "notes":"Use this function as target for image.",
                     "type":"User",
                     "nickname":"getPicture",
                     "parameters":[

@@ -80,19 +80,19 @@
                         {
                             "title": "Retrieve a specific entity",
                             "description": "",
-                            "request": "curl -X POST http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/entities.jq?cik=1412090",
+                            "request": "curl -X POST [API_URL]/_queries/public/api/entities.jq?cik=1412090",
                             "response": "[ { \"_id\" : \"http://www.sec.gov/CIK 0001412090\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"CompanyName\" : \"BTHC XV, Inc.\", \"CompanyType\" : \"Corporation\", \"CIK\" : \"0001412090\", \"SIC\" : \"7900\", \"SICDescription\" : \"SERVICES-AMUSEMENT & RECREATION SERVICES\", \"SICGroup\" : 5, \"Taxonomy\" : \"ci\", \"Sector\" : \"Amusement/Recreation Services\", \"Tickers\" : [ \"btxv\" ], \"IsTrust\" : false } } } ]"
                         },
                         {
                             "title": "Retrieve all entities",
                             "description": "",
-                            "request": "curl -X POST http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/entities.jq",
+                            "request": "curl -X POST [API_URL]/_queries/public/api/entities.jq",
                             "response": "[ { \"_id\" : \"http://www.sec.gov/CIK 0000886475\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"CompanyName\" : \"'mktg, inc.'\", \"CompanyType\" : \"Corporation\", \"CIK\" : \"0000886475\", \"SIC\" : \"7310\", \"SICDescription\" : \"SERVICES-ADVERTISING\", \"SICGroup\" : 11, \"Taxonomy\" : \"ci\", \"Sector\" : \"Business Services\", \"Tickers\" : [ \"cmkg\" ], \"IsTrust\" : false } } }, { \"_id\" : \"http://www.sec.gov/CIK 0001084869\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"CompanyName\" : \"1 800 FLOWERS COM INC\", \"CompanyType\" : \"Corporation\", \"CIK\" : \"0001084869\", \"SIC\" : \"5990\", \"SICDescription\" : \"RETAIL-RETAIL STORES, NEC\", \"SICGroup\" : 2, \"Taxonomy\" : \"ci\", \"Sector\" : \"Miscellaneous Retail\", \"Tickers\" : [ \"flws\" ], \"IsTrust\" : false } } }, ... ]"
                         },
                         {
                             "title": "Retrieve DOW30 entity information as CSV",
                             "description": "",
-                            "request": "curl -X POST http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/entities.jq.text?index=DOW30",
+                            "request": "curl -X POST [API_URL]/_queries/public/api/entities.jq.text?index=DOW30",
                             "response": "[ { \"_id\" : \"http://www.sec.gov/CIK 0000066740\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"CompanyName\" : \"3M CO\", \"CompanyType\" : \"Corporation\", \"CIK\" : \"0000066740\", \"SIC\" : \"3841\", \"SICDescription\" : \"SURGICAL & MEDICAL INSTRUMENTS & APPARATUS\", \"SICGroup\" : 10, \"Taxonomy\" : \"ci\", \"Sector\" : \"Measuring/Analyzing/Photographic/Control/Medical Instruments\", \"Tickers\" : [ \"mmm\" ], \"Tags\" : [ \"DOW30\", \"SP500\", \"FORTUNE100\" ], \"IsTrust\" : false } } }, { \"_id\" : \"http://www.sec.gov/CIK 0000004281\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"CompanyName\" : \"ALCOA INC\", \"CompanyType\" : \"Corporation\", \"CIK\" : \"0000004281\", \"SIC\" : \"3350\", \"SICDescription\" : \"ROLLING DRAWING & EXTRUDING OF NONFERROUS METALS\", \"SICGroup\" : 6, \"Taxonomy\" : \"ci\", \"Sector\" : \"Primary Metal Industries\", \"Tickers\" : [ \"aa\" ], \"Tags\" : [ \"DOW30\", \"SP500\" ], \"IsTrust\" : false } } }, ... ]"
                         }
                     ]
@@ -158,7 +158,7 @@
                         {
                             "title": "Retrieve all DOW30 companies",
                             "description": "",
-                            "request": "curl  -X POST  'http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/filings.jq.xml?cik=66740'",
+                            "request": "curl  -X POST  '[API_URL]/_queries/public/api/filings.jq.xml?cik=66740'",
                             "response": "<Filings>\n  <Filing>\n    <CIK>http://www.sec.gov/CIK 0000066740</CIK>\n    <EntityRegistrantName>3M CO</EntityRegistrantName>\n    <FormType>10-Q</FormType>\n    <FiscalYear>2013</FiscalYear>\n    <FiscalPeriod>Q3</FiscalPeriod>\n    <Accepted>2013-10-31</Accepted>\n    <Generator>IBM Cognos</Generator>\n    <AccessionNumber>0001104659-13-079583</AccessionNumber>\n    <SECFilingPage>http://www.sec.gov/Archives/edgar/data/66740/000110465913079583/0001104659-13-079583-index.htm</SECFilingPage>\n    <XBRLInstanceURL>http://www.sec.gov/Archives/edgar/data/66740/000110465913079583/mmm-20130930.xml</XBRLInstanceURL>\n  </Filing>\n...\n</Filings>"
                         }
                     ]
@@ -218,7 +218,7 @@
                         {
                             "title" : "Retrieve Component",
                             "description": "Retrieve all comoponents for the accession number 0001193125-10-104261",
-                            "request": "curl  -X POST  'http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/components.jq.json?aid=0001193125-10-104261&token=...'",
+                            "request": "curl  -X POST  '[API_URL]/_queries/public/api/components.jq.json?aid=0001193125-10-104261&token=...'",
                             "response": "{\n\"CIK\" : \"http://www.sec.gov/CIK 0000108772\",\n\"EntityRegistrantName\" : \"XEROX CORP\",\n\"Components\" : [\n{\n  \"ComponentId\" : \"bff54a99-6aaf-4c42-8156-1b112fdac8d6\",\n  \"AccessionNumber\" : \"0001193125-10-104261\",\n  \"NetworkLabel\" : \"001000 - Statement - Condensed Consolidated Statements of Income (Unaudited)\",\n  \"NetworkIdentifier\" : \"http://xerox.com/role/IncomeStatement\",\n  \"Category\" : \"Statement\",\n  \"SubCategory\" : \"Detail\",\n  \"Table\" : \"bizql:ImpliedTable\",\n  \"Disclosure\" : \"IncomeStatement\" \n },{\n  \"ComponentId\" : \"8db6a185-b987-475c-9e8d-9a93c4240125\",\n  \"AccessionNumber\" : \"0001193125-10-104261\",\n  \"NetworkLabel\" : \"002000 - Statement - Condensed Consolidated Balance Sheets (Unaudited)\",\n  \"NetworkIdentifier\" : \"http://xerox.com/role/BalanceSheet\",\n  \"Category\" : \"Statement\",\n  \"SubCategory\" : \"Detail\",\n  \"Table\" : \"bizql:ImpliedTable\",\n  \"Disclosure\" : \"BalanceSheet\" \n}\n...\n]\n}"
                         }
                     ]
@@ -278,7 +278,7 @@
                         {
                             "title": "Fact Table as CSV",
                             "description": "Retrieve a fact table and render it as CSV.",
-                            "request": "curl  -X POST  'http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/facttable.jq.text?cid=8db6a185-b987-475c-9e8d-9a93c4240125&token=...'",
+                            "request": "curl  -X POST  '[API_URL]/_queries/public/api/facttable.jq.text?cid=8db6a185-b987-475c-9e8d-9a93c4240125&token=...'",
                             "response": "\"xbrl:Concept\",\"xbrl:Entity\",\"xbrl:Period\",\"xbrl:Unit\",\"Value\" \n\"us-gaap:AccountsPayable\",\"http://www.sec.gov/CIK 0000108772\",\"2010-03-31\",\"iso4217:USD\",\"1659000000\"\n\"us-gaap:AccountsPayable\",\"http://www.sec.gov/CIK 0000108772\",\"2009-12-31\",\"iso4217:USD\",\"1451000000\""
                         }
                     ]
