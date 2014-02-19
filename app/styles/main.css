@@ -35,8 +35,8 @@ html, body {
 #spinner { 
 	color: whitesmoke;
 	position: absolute;
-	top: 10px;
-	left: 290px;
+	top: 15px;
+	left: 250px;
 }
 
 .highlight1 {
@@ -108,14 +108,14 @@ a.highlight3:active {
 
 .logo28 {
 	background: url('../images/28.svg') no-repeat center center;
+	vertical-align: middle;
 }
 
 .logoxbrl, .logoxbrl:hover {
-	font-size: medium; 
-	text-decoration: none; 
-	margin-top: 10px; 
+	text-decoration: none;
 	display: block;
 	white-space:nowrap;
+	vertical-align: middle;
 }
 
 .validation-error { 
@@ -393,7 +393,22 @@ pre .boolean {
 }
 
 .magnified {
-	font-size: 150%;
+	font-size: 120%;
+	line-height: 1.2;
+}
+
+.spaced {
+	padding: 20px 0px;
+}
+
+@media (min-width: 768px) {
+	.magnified {
+		font-size: 150%;
+		line-height: 1.5;
+	}
+	.spaced {
+		padding: 40px 0px;
+	}
 }
 
 ul.normal {
@@ -661,7 +676,8 @@ ul.selector li.disabled:after
 
 .footer {
 	background-color: #242b32;
-	padding: 20px 0px;
+	padding: 10px 0px;
+	color: #FFFFFF;
 }
 
 .footer .navbar {
@@ -709,6 +725,12 @@ ul.selector li.disabled:after
 .footer .nav .active {
 	color: #2DE46D;
 	background-color: transparent;
+}
+
+@media (min-width: 768px) {
+	.footer {
+		padding: 20px 0px;
+	}
 }
 
 #api h2.section {

@@ -124,10 +124,6 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
 		};
     };
 
-	$scope.gotoId = function(id) {
-		$scope.$broadcast('scroll-id', id); 
-	};
-
     $scope.getdata = function ()
     {
         if (!$scope.cik) return;

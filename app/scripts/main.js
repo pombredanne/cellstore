@@ -382,6 +382,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		$location.replace();
 	};
 
+	$rootScope.gotoId = function(id) {
+		$rootScope.$broadcast('scroll-id', id); 
+	};
+
 	$rootScope.gotologin = function() {
 		var p = $location.path();
 		if (p.length > 5 && p.substring(0, 5) == '/auth') return;
