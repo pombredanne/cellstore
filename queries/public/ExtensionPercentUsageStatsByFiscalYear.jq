@@ -122,7 +122,7 @@ if ($startYear eq "") then {
 } else { (: url encoded parameter for single domain, memberCSV :)
     let $startYear := req:param-values("startYear","2000")
     let $endYear := req:param-values("endYear","2050")
-    let $domain := req:param-values("domainName", "stockIndex")
+    let $domain := req:param-values("domainName", "")
     let $members := tokenize(req:param-values("memberSelectionCSV"),",")
     let $domainsAndMembers := if(exists($domain)) then {domain:$domain,members:[$members]} else ()
     let $result := if(exists($domainsAndMembers[$$.domain="stockIndex"])) 
