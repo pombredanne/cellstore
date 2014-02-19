@@ -1,13 +1,13 @@
 import module namespace req = "http://www.28msec.com/modules/http-request";
 import module namespace base64 = "http://zorba.io/modules/base64";
-
+import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 (:
   Calculate percentage use of extension elements for every filing.
 :)
 declare function local:crossDomainSelector($stats as object, $domains as string*) as string? {
    let $assembly := string-join((
        for $domain in $domains 
-        return $domain||"='"||$stats.$domain||"'"
+        return $domain||"="||$stats.$domain
        ),";")
     return if(string-length($assembly) eq 0) then
                ()
@@ -15,20 +15,25 @@ declare function local:crossDomainSelector($stats as object, $domains as string*
                $assembly
 };
 
+
 declare function local:filterByDomain($stats as object,$domainsAndMembers as object*) as boolean {
     let $matches := 
        for $domainAndMembers in $domainsAndMembers
        let $domain := $domainAndMembers.domain
-       return if($stats.$domain = $domainAndMembers.members[]) then    
-            "true"
-       else
-            ()
+       let $members := if(exists($domainAndMembers.members[])) then $domainAndMembers.members[] else ()
+       return   if($stats.$domain = $members) then    
+                    "true"
+                else if(empty($members)) then "true" 
+                else ()
+     
     return 
         if(count($matches) eq count($domainsAndMembers)) then
             true
         else
             false
 };
+
+
 
 declare %an:sequential function local:sliceAndDice($startYear as integer, $endYear as integer,$domainsAndMembers as object*) { 
    
@@ -37,7 +42,7 @@ declare %an:sequential function local:sliceAndDice($startYear as integer, $endYe
         let $year := try { $stats.fiscalYear cast as integer } catch* { 0 }
         where $stats.periodFocus = "FY" and $year le $endYear and $year ge $startYear
         order by $stats.percentExtUsage
-        let $yearSelector := "fiscalYear='"||$year||"'"
+        let $yearSelector := "fiscalYear="||$year
         group by $domainGroup := string-join(($yearSelector, local:crossDomainSelector($stats,$domainsAndMembers.domain)),";")
         let $qty := count($stats)
         let $groupYear :=  $year[1]
@@ -60,18 +65,25 @@ declare %an:sequential function local:sliceAndDice($startYear as integer, $endYe
  
 };
 
+declare function local:gatherIndexTags() as string* {
+  distinct-values(
+    let $conn := mongo:connect("xbrl")
+    return mongo:find($conn, "entities", { "Profiles.SEC.Tags" : { "$exists" : true } }, { "Profiles.SEC.Tags" : 1}, {}).Profiles.SEC.Tags[]
+    )
+};
+
 declare %an:sequential function local:aggregateByIndexAndDice($startYear as integer, $endYear as integer,$domainsAndMembers as object*)
 { 
     let $stockIndexDomainAndMembers := $domainsAndMembers[$$.domain="stockIndex"]
     let $otherDomainsAndMembers := $domainsAndMembers[not($$.domain="stockIndex")]
-    let $stockIndexes := $stockIndexDomainAndMembers.members[]
+    let $stockIndexes := if(exists($stockIndexDomainAndMembers.members[])) then $stockIndexDomainAndMembers.members[] else local:gatherIndexTags()
     for $stats in collection("filingStatsCache2")[local:filterByDomain($$,$otherDomainsAndMembers)][$$.qtyConcepts castable as decimal]
     let $year := try { $stats.fiscalYear cast as integer } catch* { 0}
     where $stats.periodFocus = "FY" and $year le $endYear and $year ge $startYear
     order by $stats.percentExtUsage
     for $stockIndex in $stockIndexes[$$ = $stats.stockIndexes[]]
-    let $yearSelector := "fiscalYear='"||$year||"'"
-    let $indexSelector := "stockIndex='"||$stockIndex||"'"
+    let $yearSelector := "fiscalYear="||$year
+    let $indexSelector := "stockIndex="||$stockIndex
     group by $domainGroup := string-join(($yearSelector, $indexSelector, local:crossDomainSelector($stats,$otherDomainsAndMembers.domain)),";")
     let $qty := count($stats)
     order by $qty descending
@@ -94,7 +106,7 @@ declare %an:sequential function local:aggregateByIndexAndDice($startYear as inte
 };
 variable $validDomains as string*:= ("generator","stockIndex","entityType","sector"); 
 
-let $startYear := req:param-values("startYear","")
+let $startYear := req:param-values("startYear","2000")
 return 
 if ($startYear eq "") then {
     let $requestObject := parse-json(base64:decode(req:binary-content()))
@@ -110,7 +122,7 @@ if ($startYear eq "") then {
 } else { (: url encoded parameter for single domain, memberCSV :)
     let $startYear := req:param-values("startYear","2000")
     let $endYear := req:param-values("endYear","2050")
-    let $domain := req:param-values("domainName")
+    let $domain := req:param-values("domainName", "")
     let $members := tokenize(req:param-values("memberSelectionCSV"),",")
     let $domainsAndMembers := if(exists($domain)) then {domain:$domain,members:[$members]} else ()
     let $result := if(exists($domainsAndMembers[$$.domain="stockIndex"])) 

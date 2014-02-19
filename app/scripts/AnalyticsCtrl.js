@@ -8,7 +8,6 @@ angular.module('main').controller('AnalyticsCtrl', ['$scope', '$route', '$http',
     $scope.periods = periods;
 
     $scope.change = function(year, period, group) {
-		if ($scope.httpCanceler) { $scope.httpCanceler.resolve(); }
         $scope.goto("/analytics/" + year + "/" + period + "/" + group);
     };
 
@@ -18,8 +17,6 @@ angular.module('main').controller('AnalyticsCtrl', ['$scope', '$route', '$http',
     };
     
     $scope.getdata = function() {
-		$scope.httpCanceler = $q.defer();
-		
 		$scope.chart = {};
         $scope.chart.options = {
           legend:'none',
@@ -58,9 +55,7 @@ angular.module('main').controller('AnalyticsCtrl', ['$scope', '$route', '$http',
             $http({
                     method: 'GET', 
                     url: $backend.API_URL + '/_queries/public/ExtensionPercentUsageStatsByFiscalYear.jq',
-                    params: { _method: 'POST', domainsAndMembers: [] },
-					cache: true,
-					timeout: $scope.httpCanceler.promise
+                    params: { _method: 'POST', domainsAndMembers: [] }
                 }).
                 success(function(data, status, headers, config) {
                     if (data && data.ExtensionUsageStatsByYears)
@@ -96,15 +91,14 @@ angular.module('main').controller('AnalyticsCtrl', ['$scope', '$route', '$http',
             $backend.getDomainMembers($scope.group)
             .then(function(members) {
 				$http({
-						method: 'POST', 
+						method: 'GET', 
 						url: $backend.API_URL + '/_queries/public/ExtensionPercentUsageStatsByDomain.jq',
-						data: { fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, domainsAndMembers: [ { domain: $scope.group, members: members } ] },
-						timeout: $scope.httpCanceler.promise
+						params: { _method: 'POST', fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, domainName: $scope.group, memberSelectionCSV: "" }
 					}).
 					success(function(data, status, headers, config) {
 						if (data && data.ExtensionUsageStatsByDomain)
 							data.ExtensionUsageStatsByDomain.forEach(function(item) { 
-								var p1 = item.selector.indexOf("'"), p2 = item.selector.lastIndexOf("'");
+								var p1 = item.selector.indexOf("="), p2 = item.selector.length;
 								var key = item.selector.substring(p1 + 1, p2);
 								$scope.table.rows.push({c: [ {v: key}, {v: item.median}, {v: item.min}, {v: item.bottomQuartile}, {v: item.topQuartile}, {v: item.max}, {v: "<dl class='chart-tip'><dt>" + key + "</dt><dd>Minimum: " + item.min.toFixed(2).toLocaleString() + "%<br>Lower Quartile: " + item.bottomQuartile.toFixed(2).toLocaleString() + "%<br>Median: " + item.median.toFixed(2).toLocaleString() + "%<br>Upper Quartile: " + item.topQuartile.toFixed(2).toLocaleString() + "%<br>Maximum: " + item.max.toFixed(2).toLocaleString() + "%<br><small>Sample size: " + item.qty.toLocaleString() + "</small></dd></dl>" } ]});
 							});

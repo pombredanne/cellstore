@@ -222,6 +222,16 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
             }
         })
+        .when('/search/:cik', {
+            templateUrl: '/views/search.html',
+            controller: 'SearchCtrl',
+            resolve: {
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+            }
+        })
         .when('/entities', {
             templateUrl: '/views/entities.html',
             controller: 'EntitiesCtrl'
@@ -347,6 +357,15 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		$rootScope.goto('/');
 	};
 
+	$rootScope.$on('clearCache', function(event){
+		$rootScope.clearCache();
+	});
+
+	$rootScope.clearCache = function() {
+		$angularCacheFactory.clearAll();
+		$rootScope.goto('/');
+	};
+
 	$rootScope.safeApply = function(fn) {
 		var phase = this.$root.$$phase;
 		if (phase == '$apply' || phase == '$digest') {
@@ -361,6 +380,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	$rootScope.goto = function(url) {
 		$location.path(url);
 		$location.replace();
+	};
+
+	$rootScope.gotoId = function(id) {
+		$rootScope.$broadcast('scroll-id', id); 
 	};
 
 	$rootScope.gotologin = function() {

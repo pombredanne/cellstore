@@ -21,13 +21,13 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="header ng-cloak">
+        <div class="header">
 			<div class="navbar" navbar-toggle>
 				<div class="navbar-header">
 					<a href="/" id="logo">
 						<i class="logo"></i>
-						<h3 class="highlight1">SECXBRL.info</h3> <sup>BETA</sup>
-						<small>SEC Fillings Quality Analytics</small>
+						<h3 class="highlight1">SECXBRL.info</h3>
+						<br><sup class="pull-right">BETA</sup>
 					</a>
 					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
 						 Menu <i class="glyphicon glyphicon-collapse-down"></i>
@@ -48,15 +48,17 @@
 						<div>
 							<a href="javascript://" ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">Help & Support</a>
 							<ul class="sub-nav" ng-hide="!visibleMenu">
-								<li><a href="/about">About</a></li>
+								<li><a href="mailto:hello@28.io">Contact Us</a></li>
+								<!--<li><a href="/about">About</a></li>-->
 								<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
-								<li><a href="https://28msec.zendesk.com/entries/new?forum_id=xxxxx" target="_blank">Ideas</a></li>
+								<!--<li><a href="https://28msec.zendesk.com/entries/new?forum_id=xxxxx" target="_blank">Ideas</a></li>-->
 								<li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
 							</ul>
 							<ul class="sub-nav visible-xs">
-								<li><a href="/about">About</a></li>
+								<li><a href="mailto:hello@28.io">Contact Us</a></li>
+								<!--<li><a href="/about">About</a></li>-->
 								<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
-								<li><a href="https://28msec.zendesk.com/entries/new?forum_id=xxxxx" target="_blank">Ideas</a></li>
+								<!--<li><a href="https://28msec.zendesk.com/entries/new?forum_id=xxxxx" target="_blank">Ideas</a></li>-->
 								<li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
 							</ul>
 						</div>
@@ -65,8 +67,25 @@
 			</div>
 		</div>
 		<div style="clear:both"></div>
-        <div ng-view="true" class="content clearfix ng-cloak">			
+        <div ng-view="true" class="content clearfix">			
 		</div>
+		<div class="footer clearfix">
+            <div class="navbar">
+                <div class="nav navbar-header" style="padding: 10px">
+					<span style="display: inline-block">Powered by </span>
+					<a href="http://www.28.io" target="_blank" class="logo28" style="display: inline-block">
+						<i style="display: block; width: 80px; height: 40px"></i>
+					</a>
+					<a href="http://www.xbrl.io" target="_blank" class="logoxbrl" style="display: inline-block">
+						<i class="fa fa-cloud"></i>&nbsp;xbrl.io
+					</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="mailto:hello@28.io">Contact Us</a></li>
+                    <li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
+                </ul>
+            </div>
+        </div>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="/bower_components/jquery/jquery.js"></script>
@@ -101,21 +120,5 @@
         <script src="/scripts/ConceptMapCtrl.js"></script>
         <!--<script src="/scripts/SourceCtrl.js"></script>-->
         <!-- endbuild -->
-
-		<div class="footer clearfix ng-cloak">
-            <div class="navbar">
-                <div class="navbar-header">
-					<a href="/" id="logo">
-						<i class="logo-grayscale"></i>
-						<h3 class="highlight2">SECXBRL.info</h3>
-						<small>SEC Fillings Quality Analytics</small>
-                    </a>
-                </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="mailto:hello@28.io">Contact Us</a></li>
-                    <li><a href="mailto:support@28.io">Support</a></li>
-                </ul>
-            </div>
-        </div>
 </body>
 </html>

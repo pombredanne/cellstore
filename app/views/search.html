@@ -1,7 +1,7 @@
 <div class="topbar text-center">
     <div class="btn-group">
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/dashboard.html'" href="/dashboard"><i class="icn icn-dashboard"></i> Fundamental Accounting Concepts</a>
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/search.html'" href="/search"><i class="icn icn-search"></i> Search facts</a>
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/dashboard.html'" href="/dashboard{{(cik?'/' + cik : '')}}"><i class="icn icn-dashboard"></i> Fundamental Accounting Concepts</a>
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/search.html'" href="/search{{(cik?'/' + cik : '')}}"><i class="icn icn-search"></i> Search facts</a>
         <a class="btn btn-xs" ng-model="page" btn-radio="'/views/analytics.html'" href="/analytics"><i class="icn icn-analytics"></i> Use of Extensions</a>
     </div>
 </div>
@@ -76,7 +76,7 @@
 					<div class="col-md-10 col-sm-10 col-xs-9">
 						<h4 ng-show="factValue" class="text-right">{{factValue}} {{factUnit}}</h4>
 						<div ng-bind-html="factText"></div>
-						<div class="text-left wrap" style="width: 100%" ng-show="originalConcept">Audit: <b>{{originalConcept}}</b></div>
+						<div class="text-left wrap" style="width: 100%" ng-show="originalConcept">Audit Trail: <b>{{originalConcept}}</b></div>
 					</div>
 				</div>
 			</div>				
@@ -99,7 +99,7 @@
 							<td><a href="javascript://" popover="{{s.conceptMapKey}}" popover-placement="top" popover-trigger="focus">{{trimURL(s.conceptMapKey)}}</a></td>
 							<td class="nowrap text-right">
 								<div ng-show="s.factValue">{{s.factValue}} {{s.factUnit}}</div>
-								<a href="javascript://" ng-hide="s.factValue" ng-click="showDetails(s.factText)">View Text Block</a>
+								<a href="javascript://" ng-hide="s.factValue" ng-click="showDetails(s.factText)">View Text</a>
 							</td>
 						</tr>
 						<tr ng-hide="searches.length">

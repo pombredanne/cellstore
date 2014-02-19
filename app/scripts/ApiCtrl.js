@@ -7,8 +7,7 @@ angular.module('main').controller('ApiCtrl', ['$scope', '$http', '$backend',
     $http(
       {
         method : 'GET',
-        url: '/' + name + '.json',
-        cache:false
+        url: '/' + name + '.json'
       }).
       success(function(data, status, headers, config) {
         $scope.content = data;
@@ -21,9 +20,7 @@ angular.module('main').controller('ApiCtrl', ['$scope', '$http', '$backend',
   $scope.needsAuth = function() {
     return true;
   };
-	$scope.gotoId = function(id) {
-		$scope.$broadcast('scroll-id', id); 
-	};
+
   $scope.getdata('queries');
  }
 ]);

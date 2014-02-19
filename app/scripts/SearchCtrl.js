@@ -1,5 +1,6 @@
 angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route', '$http', '$angularCacheFactory', '$backend', 'years', 'periods', 'entities', 'conceptMaps',
   function($scope, $location, $route, $http, $angularCacheFactory, $backend, years, periods, entities, conceptMaps){
+    $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
     $scope.conceptMaps = conceptMaps;
     $scope.conceptMapKey = conceptMaps[1];
     $scope.conceptMapKeys = [];
@@ -53,7 +54,11 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 					break;
 				}
 
-		if (!$scope.usage[$scope.years.indexOf($scope.year)].periods[$scope.periods.indexOf($scope.period)].used) {
+		if ($scope.period && !$scope.usage[$scope.years.indexOf($scope.year)].periods[$scope.periods.indexOf($scope.period)].used) 
+			$scope.period = null;
+		
+		if (!$scope.period)
+		{
 			var pers = $scope.usage[$scope.years.indexOf($scope.year)].periods;
 			for (var i = 0; i < pers.length; i++)
 				if (pers[i].used) {
