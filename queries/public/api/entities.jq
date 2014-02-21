@@ -55,14 +55,14 @@ declare function local:to-csv($entities as object*) as string*
 
 let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
 let $ciks    := request:param-values("cik")
-let $indexes := request:param-values("index") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)
+let $tags    := request:param-values("tag") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)
 let $tickers := request:param-values("ticker")
 let $entities := 
     for $entity in 
-        if (exists(($ciks, $indexes, $tickers)))
+        if (exists(($ciks, $tags, $tickers)))
         then
             for $entity in (companies:companies($ciks),
-                       companies:companies-for-tags($indexes),
+                       companies:companies-for-tags($tags),
                        companies:companies-for-tickers($tickers))
             group by companies:eid($entity) (: duplicate elimination :)
             return $entity[1]

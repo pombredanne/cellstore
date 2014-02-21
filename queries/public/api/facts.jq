@@ -65,7 +65,7 @@ declare function local:facts($entities, $period, $year, $concepts, $map)
 
 let $format   := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)            
 let $ciks     := distinct-values(companies:eid(request:param-values("cik")))
-let $indexes  := request:param-values("index") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)
+let $tags     := request:param-values("tag") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)
 let $tickers  := request:param-values("ticker")
 let $sics     := request:param-values("sic")
 let $period   := request:param-values("period", "FY")[1]
@@ -84,11 +84,11 @@ return
     response:status-code(400);
     session:error("missing parameter(s) (concept)", $format)
   } else
-    let $entities := (companies:companies($ciks), companies:companies-for-tags($indexes), companies:companies-for-tickers($tickers), companies:companies-for-SIC($sics))
+    let $entities := (companies:companies($ciks), companies:companies-for-tags($tags), companies:companies-for-tickers($tickers), companies:companies-for-SIC($sics))
     return switch(true)
       case empty($entities) return {
         response:status-code(404);
-        session:error("entity not found (valid parameters: cik, ticker, index, sic)", $format)
+        session:error("entity not found (valid parameters: cik, ticker, tag, sic)", $format)
       }
       case not (session:only-dow30($entities) or session:valid()) return {
         response:status-code(401);
