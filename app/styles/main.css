@@ -35,8 +35,8 @@ html, body {
 #spinner { 
 	color: whitesmoke;
 	position: absolute;
-	top: 15px;
-	left: 250px;
+	top: 20px;
+	left: 165px;
 }
 
 .highlight1 {
@@ -124,6 +124,22 @@ a.highlight3:active {
 	padding: 3px;
 }
 
+.loader {
+    background-color: #000000;
+	color: #FFFFFF;
+    left: 0;
+    position: absolute;
+    top: 0;
+	width: 100%;
+    z-index: 1000;
+}
+
+.loader i {
+	top: 50%;
+	left: 50%;
+	position: absolute;
+}
+
 .header {
 	background-color: #242b32;
 	position: relative;
@@ -139,7 +155,7 @@ a.highlight3:active {
 	display: block;
 	float: left;
 	text-decoration: none;
-	margin-top: 5px;
+	margin-top: 15px;
 }
 
 .header a#logo i {
@@ -226,6 +242,11 @@ a.highlight3:active {
 	list-style: none;
 }
 
+.header .nav .sub-nav li{
+	display: inline-block;
+	width: 45%;
+}
+
 .header .nav .sub-nav a,
 .header .nav .sub-nav a:hover,
 .header .nav .sub-nav a:active,
@@ -234,6 +255,7 @@ a.highlight3:active {
 	text-decoration: none;
 	padding: 5px;
 	font-size: 0.8em;
+	white-space: nowrap;
 }
 
 @media (min-width: 768px) {
@@ -247,10 +269,13 @@ a.highlight3:active {
 		border-radius:0 0 0 6px;
 		-moz-border-radius:0 0 0 6px;
 		-webkit-border-radius:0 0 0 6px;
-		width: 150px;
+		width: 300px;
 		right: -1px;
 	}
-	.header .nav .sub-nav a{
+
+	.header .nav .sub-nav li{
+		margin-right: 27px;
+		width: 100px;
 	}
 }
 
@@ -383,6 +408,8 @@ pre .boolean {
 
 .v-center-area { 
 	position: relative;
+	min-height: 170px;
+	height: 40%;
 }
 
 .v-center-block {
@@ -390,6 +417,12 @@ pre .boolean {
 	top: 50%;
 	margin-top: -100px;
 	width: 100%;
+}
+
+@media (min-width: 768px) {
+	.v-center-block {
+		margin-top: -150px;
+	}
 }
 
 .magnified {

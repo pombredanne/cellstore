@@ -10,13 +10,14 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css({.tmp,app}) styles/main.css -->
+		<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
+		<link rel="stylesheet" href="/bower_components/animate.css/animate.css">
         <link rel="stylesheet" href="/styles/main.css">
         <!-- endbuild -->
     </head>
-    <body ng-app="main">
+    <body ng-app="main" class="ng-cloak">
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -25,8 +26,8 @@
 			<div class="navbar" navbar-toggle>
 				<div class="navbar-header">
 					<a href="/" id="logo">
-						<i class="logo"></i>
-						<h3 class="highlight1">SECXBRL.info</h3>
+						<!--<i class="logo"></i>-->
+						<h3 class="highlight1">SECXBRL<font class="highlight2">.info</font></h3>
 						<br><sup class="pull-right">BETA</sup>
 					</a>
 					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
@@ -40,25 +41,28 @@
 							{{user.name}} <a class="btn btn-xs" href="javascript://" ng-click="logout()">Logout</a>
 						</div>
 						<div ng-hide="user" class="ontop">
-							<a class="btn btn-xs" href="/auth" ng-class="{ active: (page == '/views/auth.html') }">Login / Signup</a>
+							<a class="btn btn-xs" style="border: 1px solid;" href="/auth" ng-class="{ active: (page == '/views/auth.html') }">Login / Signup</a>
 						</div>
-						<div><a href="/dashboard" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Data</a></div>
+						<div><a href="/" ng-class="{ active: (page == '/views/home.html') }">Home</a></div>
+						<div><a href="/dashboard" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html') }">Entities</a></div>
 						<div><a href="/entities" ng-class="{ active: (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/filings.html' || page == '/views/components.html' ) }">Submissions</a></div>
 						<div><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a></div>
 						<div>
-							<a href="javascript://" ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">Help & Support</a>
+							<a href="javascript://" ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">More...</a>
 							<ul class="sub-nav" ng-hide="!visibleMenu">
+								<li><a href="/how">How it Works</a></li>
 								<li><a href="mailto:hello@28.io">Contact Us</a></li>
-								<!--<li><a href="/about">About</a></li>-->
+								<li><a href="/about">About 28msec</a></li>
 								<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
-								<!--<li><a href="https://28msec.zendesk.com/entries/new?forum_id=xxxxx" target="_blank">Ideas</a></li>-->
+								<li><a href="/blog">Our Blog</a></li>
 								<li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
 							</ul>
 							<ul class="sub-nav visible-xs">
+								<li><a href="/how">How it Works</a></li>
 								<li><a href="mailto:hello@28.io">Contact Us</a></li>
-								<!--<li><a href="/about">About</a></li>-->
+								<li><a href="/about">About 28msec</a></li>
 								<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
-								<!--<li><a href="https://28msec.zendesk.com/entries/new?forum_id=xxxxx" target="_blank">Ideas</a></li>-->
+								<li><a href="/blog">Our Blog</a></li>
 								<li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
 							</ul>
 						</div>
@@ -72,12 +76,13 @@
 		<div class="footer clearfix">
             <div class="navbar">
                 <div class="nav navbar-header" style="padding: 10px">
-					<span style="display: inline-block">Powered by </span>
-					<a href="http://www.28.io" target="_blank" class="logo28" style="display: inline-block">
+					<span style="display: inline-block">Developed by </span>
+					<a href="http://www.28msec.com" target="_blank" class="logo28" style="display: inline-block">
 						<i style="display: block; width: 80px; height: 40px"></i>
 					</a>
-					<a href="http://www.xbrl.io" target="_blank" class="logoxbrl" style="display: inline-block">
-						<i class="fa fa-cloud"></i>&nbsp;xbrl.io
+					using &nbsp;
+					<a href="http://www.bizql.io" target="_blank" class="logoxbrl" style="display: inline-block">
+						<i class="fa fa-cloud"></i>&nbsp;BizQL.io
 					</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">

@@ -1,20 +1,35 @@
 <div style="background: #FFFFFF">
-	<div class="v-center-area" style="min-height: 170px;">
-		<img src="/images/bg.jpg" style="width: 100%">
+	<div class="v-center-area" scroll-id="top">
+		<img src="/images/bg.jpg" style="width: 100%; display: none" class="animated fadeIn" onload="$(this).css('display', 'block'); $('.loader').css('display', 'none');">
 		<div class="v-center-block">
 			<div class="container">
-				<h3 class="highlight2"><span class="magnified">The US Public Company<br>Financial Information Repository</span></h3>
+				<h3 class="highlight2"><span class="magnified nowrap">The US Public Company<br>Financial Information<br>Repository</span></h3>
 				<button class="btn btn-green btn-lg magnified" ng-click="gotoId('whatis')">Learn More</button>
 			</div>
+		</div>
+        <div class="loader">
+			<img src="/images/bg.gif" style="width: 100%;">
+			<i class="fa fa-5x fa-spinner fa-spin"></i>
 		</div>
 	</div>
 
 	<div class="container text-center spaced" scroll-id="whatis">
+		<a class="pull-right close small" href="javascript://" ng-click="gotoId('top')"><i class="fa fa-arrow-up"></i></a>
 		<div class="row">
 			<h3><span class="magnified">What is SECXBRL.info?</span></h3>
 		</div>
 		<div class="row">
 			<h4 class="col-md-10 col-md-offset-1" style="color: #727272;"><span class="magnified">A database of US public company financial information submitted to the US Securities and Exchange Commission using the global standard XBRL technical syntax</span></h4>
+		</div>
+		<div class="row text-center">
+			<span style="display: inline-block">Developed by </span>
+			<a href="http://www.28msec.com" target="_blank" class="logo28" style="display: inline-block">
+				<i style="display: block; width: 80px; height: 40px"></i>
+			</a>
+			using &nbsp;
+			<a href="http://www.bizql.io" target="_blank" class="logoxbrl" style="display: inline-block">
+				<i class="fa fa-cloud"></i>&nbsp;BizQL.io
+			</a>
 		</div>
 	</div>
 
@@ -22,21 +37,21 @@
 		<div class="row">
 			<ul class="normal">
 				<li class="col-md-4 text-center">
-					<img src="/images/features_1.png" style="height: 70px">
+					<img src="/images/features_1.png" style="height: 70px" class="animated fadeIn">
 					<h3>Search and Query</h3>
 					<p style="color: #A2A2A2;">
 						This is an easy, fast, highly scalable and cost effective way to retrieve business reporting information stored 
 					</p>
 				</li>
 				<li class="col-md-4 text-center">
-					<img src="/images/features_2.png" style="height: 70px">
+					<img src="/images/features_2.png" style="height: 70px" class="animated fadeIn">
 					<h3>Analytics</h3>
 					<p style="color: #A2A2A2;">
 						This is an easy, fast, highly scalable and cost effective way to retrieve business reporting information stored in XBRL files without the need to understand its complexity 
 					</p>
 				</li>
 				<li class="col-md-4 text-center">
-					<img src="/images/features_3.png" style="height: 70px">
+					<img src="/images/features_3.png" style="height: 70px" class="animated fadeIn">
 					<h3>API for Developers</h3>
 					<p style="color: #A2A2A2;">
 						This is an easy, fast, highly scalable and cost effective way to retrieve business reporting
@@ -49,7 +64,6 @@
 <div style="background: #EEEEEE">
 	<div class="container text-center spaced" scroll-id="details">
 		<h3>Free Access to DOW30 company information</h3>
-		If you need more
-		<button class="btn btn-green btn-lg" ng-click="gotologin()">Sign Up</button>
+		<button class="btn btn-green btn-lg" ng-click="gotologin()">Sign Up</button> to access all SEC dataset
 	</div>
 </div>
