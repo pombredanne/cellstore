@@ -56,7 +56,7 @@
                         {
                             "title": "Login",
                             "description": "Login and retrieve a token",
-                            "request": "curl -i -X POST  'http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/session/login.jq?email=you%40xbrl.io&password=secret'",
+                            "request": "curl -i -X POST  '[API_URL]/_queries/public/session/login.jq?email=you%40xbrl.io&password=secret'",
                             "response": "{ \"success\" : true, \"token\" : \"2b332b8e-3e90-40d2-8b83-28862ec30ee1\", \"name\" : \"Your Name\" }"
                         }
                     ]
@@ -101,7 +101,7 @@
                         {
                             "title": "Logout",
                             "description": "Logout the user identified by the given token",
-                            "request": "curl -i -X POST  'http://xbrl-msb.alpha.xbrl.io/v1/_queries/public/session/logout.jq?token=a02516b2-2cdb-4ef3-9e2e-adfaa3660b87'",
+                            "request": "curl -i -X POST  '[API_URL]/_queries/public/session/logout.jq?token=a02516b2-2cdb-4ef3-9e2e-adfaa3660b87'",
                             "response": "{ \"success\" : true }"
                         }
                     ]
