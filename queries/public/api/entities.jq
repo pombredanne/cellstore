@@ -1,6 +1,7 @@
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-xml($entities as object*) as element()*
@@ -11,7 +12,7 @@ declare function local:to-xml($entities as object*) as element()*
     <Entity>
         <ID>{$e._id}</ID>
         <Profile name="{$e.Profiles.SEC.Name}">
-            <CompanyName>{$e.Profiles.SEC.CompanyName}</CompanyName>
+            <EntityName>{$e.Profiles.SEC.CompanyName}</EntityName>
             <CompanyType>{$e.Profiles.SEC.CompanyType}</CompanyType>
             <SIC>{$e.Profiles.SEC.SIC}</SIC>
             <SICDescription>{$e.Profiles.SEC.SICDescription}</SICDescription>
@@ -40,7 +41,7 @@ declare function local:to-csv($entities as object*) as string*
         return  {
             ID : $e._id,
             Profile : "SEC",
-            CompanyName : $e.Profiles.SEC.CompanyName,
+            EntityName : $e.Profiles.SEC.CompanyName,
             CompanyType : $e.Profiles.SEC.CompanyType,
             SIC : $e.Profiles.SEC.SIC,
             SICDescription : $e.Profiles.SEC.SICDescription,
@@ -72,6 +73,17 @@ let $entities :=
     return $entity
 return
     switch ($format)
-        case "xml"  return local:to-xml($entities)
-        case "text"  return string-join(local:to-csv($entities))
-        default return [ $entities ]
+        case "xml"  return {
+            response:content-type("application/xml");
+            response:serialization-parameters({"omit-xml-declaration" : false});
+            local:to-xml($entities)
+        }
+        case "text" return {
+            response:content-type("application/csv");
+            string-join(local:to-csv($entities))
+        }
+        default return {
+            response:content-type("application/json");
+            response:serialization-parameters({"indent" : true});
+            [ $entities ]
+        }
