@@ -339,6 +339,8 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
                             }
                             array.push(item);
                         }
+                        if (item.value.length == 0)
+                          item.auditValue = "Not Reported";
                     }
                 };
                 
