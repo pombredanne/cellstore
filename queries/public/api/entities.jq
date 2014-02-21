@@ -12,7 +12,7 @@ declare function local:to-xml($entities as object*) as element()*
     <Entity>
         <ID>{$e._id}</ID>
         <Profile name="{$e.Profiles.SEC.Name}">
-            <EntityName>{$e.Profiles.SEC.CompanyName}</EntityName>
+            <CompanyName>{$e.Profiles.SEC.CompanyName}</CompanyName>
             <CompanyType>{$e.Profiles.SEC.CompanyType}</CompanyType>
             <SIC>{$e.Profiles.SEC.SIC}</SIC>
             <SICDescription>{$e.Profiles.SEC.SICDescription}</SICDescription>
@@ -41,7 +41,7 @@ declare function local:to-csv($entities as object*) as string*
         return  {
             ID : $e._id,
             Profile : "SEC",
-            EntityName : $e.Profiles.SEC.CompanyName,
+            CompanyName : $e.Profiles.SEC.CompanyName,
             CompanyType : $e.Profiles.SEC.CompanyType,
             SIC : $e.Profiles.SEC.SIC,
             SICDescription : $e.Profiles.SEC.SICDescription,
