@@ -1,14 +1,15 @@
 <div style="background: #FFFFFF">
 	<div class="v-center-area" scroll-id="top">
-		<img src="/images/bg.jpg" style="width: 100%; display: none" class="animated fadeIn" onload="$(this).css('display', 'block'); $('.loader').css('display', 'none');">
-		<div class="v-center-block">
-			<div class="container">
-				<h3 class="highlight2"><span class="magnified nowrap">The US Public Company<br>Financial Information<br>Repository</span></h3>
-				<button class="btn btn-green btn-lg magnified" ng-click="gotoId('whatis')">Learn More</button>
+		<div class="v-center-content">
+			<img src="/images/bg.jpg" style="width: 100%; display: none" class="animated fadeIn" onload="$(this).css('display', 'block'); $('.loader').css('display', 'none');">
+			<div class="v-center-block">
+				<div class="container">
+					<h3 class="highlight2"><span class="magnified nowrap">The US Public Company<br>Financial Information<br>Repository</span></h3>
+					<button class="btn btn-green btn-lg magnified" ng-click="gotoId('whatis')">Learn More</button>
+				</div>
 			</div>
 		</div>
         <div class="loader">
-			<img src="/images/bg.gif" style="width: 100%;">
 			<i class="fa fa-5x fa-spinner fa-spin"></i>
 		</div>
 	</div>
@@ -22,14 +23,20 @@
 			<h4 class="col-md-10 col-md-offset-1" style="color: #727272;"><span class="magnified">A database of US public company financial information submitted to the US Securities and Exchange Commission using the global standard XBRL technical syntax</span></h4>
 		</div>
 		<div class="row text-center">
-			<span style="display: inline-block">Developed by </span>
-			<a href="http://www.28msec.com" target="_blank" class="logo28" style="display: inline-block">
-				<i style="display: block; width: 80px; height: 40px"></i>
-			</a>
-			using &nbsp;
-			<a href="http://www.bizql.io" target="_blank" class="logoxbrl" style="display: inline-block">
-				<i class="fa fa-cloud"></i>&nbsp;BizQL.io
-			</a>
+			<ul class="poweredby">
+				<li>Developed by </li>
+				<li>
+					<a href="http://www.28msec.com" target="_blank">
+						<img src="/images/28msec.png">
+					</a>
+				</li>
+				<li>using</li>
+				<li>
+					<a href="http://www.bizql.io" target="_blank">
+						BizQL.io
+					</a>
+				</li>
+			</ul>
 		</div>
 	</div>
 

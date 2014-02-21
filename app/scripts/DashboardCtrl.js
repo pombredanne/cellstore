@@ -6,6 +6,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
     $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
     $scope.reports = [];
     $scope.showtab = [];
+	$scope.showchart=true;
     $scope.years = years;
 	$scope.periods = periods;
     $scope.entities = entities;
@@ -130,7 +131,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
 
         var ochart = {};
         ochart.options = {
-            legend: {position: 'top'},
+            legend: {position: 'top', alignment: 'end'},
             curveType: 'function',
             pointSize: 8,
             colors: ['#428BCA', 'orange'],
