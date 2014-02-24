@@ -156,6 +156,9 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         .when('/', {
             templateUrl: '/views/home.html'
         })
+        .when('/about', {
+            templateUrl: '/views/about.html',
+        })
         .when('/api', {
             templateUrl: '/views/api.html',
             controller: 'ApiCtrl'

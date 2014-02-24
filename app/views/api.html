@@ -8,7 +8,7 @@
 	<br>
     <p class="pull-right" >View as <a href="/{{name}}.json" target="_blank">JSON</a>.</p>
     <h1>Description</h1>
-    <div><strong ng-bind-html="content.description"></strong></div>
+    <div ng-bind-html="content.description"></div>
     <h1>Resource Overview</h1>
     <div ng-repeat="api in content.apis">
       <ul>
