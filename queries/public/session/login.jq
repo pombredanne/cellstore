@@ -3,40 +3,91 @@ jsoniq version "1.0";
 import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
-import module namespace res = "http://www.28msec.com/modules/http-response";
-import module namespace req = "http://www.28msec.com/modules/http-request";
+import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace csv = "http://zorba.io/modules/json-csv";
 
-let $email := req:param-values("email")
-let $password := req:param-values("password")
-return
-    if (empty($email) or empty($password))
-    then {
-        res:status-code(400);
+declare function local:to-csv($o as object*)
+{
+    string-join(csv:serialize($o))
+};
+
+declare function local:to-xml($o as object*)
+{
+    <result success="{$o.success}">{
+        if (exists($o.description))
+        then <description>{$o.description}</description>
+        else (),
+        
+        if (exists($o.token))
+        then <token>{$o.token}</token>
+        else (),
+        
+        if (exists($o.name))
+        then <name>{$o.name}</name>
+        else ()
+    }</result>
+};
+
+variable $res := ();
+variable $status := ();
+
+variable $email := request:param-values("email");
+variable $password := request:param-values("password");
+variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+
+if (empty($email) or empty($password))
+then {
+    $status := 400;
+    $res :=
         { 
             success : false, 
-            description : if (empty($email)) 
+            description : (if (empty($email)) 
                           then "email"
-                          else "password"
+                          else "password")
                             || ": parameter missing"
-        }
+        };
+} else {
+    variable $user := try { user:login($email, $password) } catch * { () };
+    variable $expiration := fn:current-dateTime() + xs:dayTimeDuration("P1D");
+    
+    if (empty($user)) 
+    then {
+          $status := 403;
+          $res :=
+            {
+                success : false,
+                description : "invalid email or password"
+            };
     } else {
-        let $user := try { user:login($email, $password) } catch * { () }
-        let $expiration := fn:current-dateTime() + xs:dayTimeDuration("P1D")
-        return
-            if (empty($user)) 
-            then {
-              res:status-code(403);
-              {
-                  success : false,
-                  description : "invalid email or password"
-              }
-            } else {
-                variable $token := session:start($user._id, $expiration);
-                api:success(
-                    { 
-                      token : $token, 
-                      (: id : $user._id, :)
-                      name : ($user.firstname || " " || $user.lastname)
-                    })
-            }
+        variable $token := session:start($user._id, $expiration);
+        
+        $status := 200;
+        
+        $res :=
+            { 
+              token : $token, 
+              success : true,
+              name : ($user.firstname || " " || $user.lastname)
+            };
+    }
+}
+
+response:status-code($status);
+
+switch ($format)
+    case "xml" return {
+        response:content-type("application/xml");
+        response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+        local:to-xml($res)
+    }
+    case "text" case "csv" case "excel" return {
+        response:content-type("text/csv");
+        response:header("Content-Disposition", "attachment; filename=login.csv");
+        local:to-csv($res)
+    }
+    default return {
+        response:content-type("application/json");
+        response:serialization-parameters({"indent" : true});
+        $res
     }

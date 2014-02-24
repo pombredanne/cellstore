@@ -64,9 +64,31 @@ return
                 return local:summary($a)
         return
             switch ($format)
-            case "xml"  return local:to-xml($archives)
-            case "text"  return string-join(local:to-csv($archives), "")
-            default return [ $archives ]
+            case "xml"  return {
+                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+                local:to-xml($archives)
+            }
+            case "csv"  return {
+                response:content-type("text/csv");
+                response:header("Content-Disposition", "attachment; filename=filings.csv");
+                string-join(local:to-csv($archives), "")
+            }
+            case "text"  return {
+                response:content-type("text/csv");
+                response:header("Content-Disposition", "attachment; filename=filings.csv");
+                string-join(local:to-csv($archives), "")
+            }
+            case "excel" return {
+                response:content-type("application/vnd.ms-excel");
+                response:header("Content-Disposition", "attachment; filename=filings.csv");
+                string-join(local:to-csv($archives))
+            }
+
+            default return {
+                response:content-type("application/json");
+                response:serialization-parameters({"indent" : true});
+                [ $archives ]
+            }
     } else {
         response:status-code(401);
         session:error("accessing filings of an entity that is not in the DOW30", $format)

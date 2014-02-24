@@ -74,5 +74,20 @@ return
             default return $res
     } else {
         response:status-code(401);
-        session:error("accessing components of an entity that is not in the DOW30", $format)
+        let $res := session:error("accessing components of an entity that is not in the DOW30", $format)
+        return
+            switch ($format)
+            case "xml" return {
+                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+                $res
+            }
+            case "text" case "csv" case "excel" return {
+                response:content-type("text/plain");
+                $res
+            }
+            default return {
+                response:content-type("application/json");
+                response:serialization-parameters({"indent" : true});
+                $res
+            }
     }

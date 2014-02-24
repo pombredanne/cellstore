@@ -87,13 +87,13 @@ as boolean
 declare function session:error($msg as string, $format as string?)
 {
 	switch ($format)
-        case "xml" return <error><message>{$msg}</message></error>
+    case "xml" return <error><message>{$msg}</message></error>
 	case "text" return $msg
-        default return
-		{
-			"success" : false,
-			"description" : $msg
-		}
+    default return
+	{
+		"success" : false,
+		"description" : $msg
+	}
 	
 };
 
