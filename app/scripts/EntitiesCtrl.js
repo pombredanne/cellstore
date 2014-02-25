@@ -14,7 +14,7 @@ angular.module('main').controller('EntitiesCtrl', ['$scope', '$http', '$backend'
         cache: false // too big for cache
       }).
       success(function(data, status, headers, config) {
-        $scope.results = data;
+        $scope.results = data.Entities;
         $scope.safeApply();
       }).
       error(function(data, status, headers, config) {

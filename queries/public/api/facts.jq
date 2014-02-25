@@ -15,9 +15,17 @@ declare function local:to-csv($o as object*) as string
             return {|
                 for $k in keys($a)
                 return { $k : $a.$k },
-                { "Unit" :  $o."Unit" },
                 { "Value" : $o.Value },
-                { "Decimals" : $o.Decimals }
+                if (exists($o."Unit"))
+                then { "Unit" :  $o."Unit" }
+                else (),
+                if (exists($o.Decimals))
+                then { "Decimals" : $o.Decimals }
+                else(),
+                { "EntityRegistrantName" : $o.EntityRegistrantName },
+                if (exists($o.ReportedConcept))
+                then { "ReportedConcept" : $o.ReportedConcept }
+                else ()
             |}
         )
     )
@@ -25,12 +33,13 @@ declare function local:to-csv($o as object*) as string
 
 declare function local:to-xml($o as object*)
 {
+    (session:comment("xml"),
     <FactTable NetworkIdentifier="http://bizql.io/facts"
             TableName="xbrl:Facts">{
         for $o in $o
         let $a := $o.Aspects
         return
-            <Fact>
+            <Fact>{
                 <Aspects>{
                     for $k in keys($a)
                     return
@@ -38,14 +47,21 @@ declare function local:to-xml($o as object*)
                             <Name>{$k}</Name>
                             <Value>{$a.$k}</Value>
                         </Aspect>
-                }</Aspects>
-                <Value> 
-                    <Unit>{$o.Unit}</Unit>
-                    <NumericValue>{$o.Value}</NumericValue>
-                    <Decimals>{$o.Decimals}</Decimals>
-                </Value>
-            </Fact>
-    }</FactTable>
+                }</Aspects>,
+                <Value>{$o.Value}</Value>,
+                <Type>{$o.Type}</Type>,
+                if (exists($o.Unit))
+                then <Unit>{$o.Unit}</Unit>
+                else(),
+                if (exists($o.Decimals))
+                then <Decimals>{$o.Decimals}</Decimals>
+                else (),
+                <EntityRegistrantName>{$o.EntityRegistrantName}</EntityRegistrantName>,
+                if (exists($o.ReportedConcept))
+                then <ReportedConcept>{$o."ReportedConcept"}</ReportedConcept>
+                else ()
+            }</Fact>
+    }</FactTable>)
 };
 
 declare function local:facts($entities, $period, $year, $concepts, $map)
@@ -67,21 +83,26 @@ declare function local:facts($entities, $period, $year, $concepts, $map)
                     group by $fact.Aspects."xbrl:Entity",
                              $fact.Profiles.SEC.Fiscal.Acceptance,
                              $fact.Profiles.SEC.Fiscal.Period 
-    return {
-        Aspects : {|
-            { "xbrl:ReportingEntity" : $entity._id || " (" || $entity.Profiles.SEC.CompanyName || ")" },
-            { "bizql:FiscalPeriod" : $fact.Profiles.SEC.Fiscal.Period },
-            { "bizql:FiscalYear" : $fact.Profiles.SEC.Fiscal.Year },
-            { "xbrl:Concept" : $concept },
-            if (exists($map))
-            then { "bizql:ReportedConcept" : $fact.AuditTrails[].Data.OriginalConcept }
-            else ()
-        |},
-        Type: $fact[1].Type,
-        Unit: $fact[1].Aspects."xbrl:Unit",
-        Decimals: $fact[1].Decimals,
-        Value: $fact[1].Value
-    }
+    return {|
+        { Aspects : {|
+            { "xbrl:Entity" : $entity[1]._id },
+            { "bizql:FiscalPeriod" : $fact[1].Profiles.SEC.Fiscal.Period },
+            { "bizql:FiscalYear" : $fact[1].Profiles.SEC.Fiscal.Year },
+            { "xbrl:Concept" : $concept[1] }
+        |} },
+        { Type: $fact[1].Type },
+        if (exists($fact[1].Aspects."xbrl:Unit"))
+        then { Unit: $fact[1].Aspects."xbrl:Unit" }
+        else (),
+        if (exists($fact[1].Decimals))
+        then { Decimals: $fact[1].Decimals }
+        else (), 
+        { Value: $fact[1].Value },
+        { "EntityRegistrantName" : $entity[1].Profiles.SEC.CompanyName },
+        if (exists($map))
+        then { "ReportedConcept" : $fact[1].AuditTrails[].Data.OriginalConcept[1] }
+        else ()
+    |}
 };
 
 let $format   := lower-case(request:param-values("format")[1])
@@ -140,9 +161,10 @@ return
             default return {
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
-                { 
-                    NetworkIdentifier : "http://bizql.io/facts",
-                    TableName : "xbrl:Facts",
-                    FactTable : [ $facts ]
-                }
+                {|
+                    { NetworkIdentifier : "http://bizql.io/facts" },
+                    { TableName : "xbrl:Facts" },
+                    { FactTable : [ $facts ] },
+                    session:comment("json")
+                |}
             } 

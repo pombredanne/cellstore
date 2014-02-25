@@ -34,7 +34,7 @@ declare function local:to-xml($o as object*)
     for $o in $o
     let $a := $o.Aspects
     return
-        <Fact>
+        <Fact>{
             <Aspects>{
                 for $k in keys($a)
                 return
@@ -42,14 +42,16 @@ declare function local:to-xml($o as object*)
                         <Name>{$k}</Name>
                         <Value>{$a.$k}</Value>
                     </Aspect>
-            }</Aspects>
-            <Value>
-                <Unit>{$o.Unit}</Unit>
-                <Type>{$o.Type}</Type>
-                <Value>{$o.Value}</Value>
-                <Decimals>{$o.Decimals}</Decimals>
-            </Value>
-        </Fact>
+            }</Aspects>,
+            <Type>{$o.Type}</Type>,
+            <Value>{$o.Value}</Value>,
+            if (exists($o.Unit))
+            then <Unit>{$o.Unit}</Unit>
+            else(),
+            if (exists($o.Decimals))
+            then <Decimals>{$o.Decimals}</Decimals>
+            else ()
+        }</Fact>
 };
 
 let $format  := lower-case(request:param-values("format")[1]) (: text, xml, or json (default) :)
@@ -68,21 +70,25 @@ return
                                 |} },
                                 { "Type" : $f.Type },
                                 { "Value" : $f.Value },
-                                { "Decimals" : $f.Decimals },
-                                { "Unit" : $f."Aspects"."xbrl:Unit" }
-                                
+                                if (exists($f.Decimals))
+                                then { "Decimals" : $f.Decimals }
+                                else (),
+                                if (exists($f."Aspects"."xbrl:Unit"))
+                                then { "Unit" : $f."Aspects"."xbrl:Unit" }
+                                else ()
                             |}
         return 
             switch ($format)
             case "xml" return {
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+                (session:comment("xml"),
                 <FactTable EntityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
                     TableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
                     Label="{$component.Label}"
                     AccessionNumber="{$component.Archive}"
                     NetworkIdentifier="{$component.Role}">{
                     local:to-xml($fact-table)
-                }</FactTable>
+                }</FactTable>)
             }
             case "text" case "csv" return {
                 response:content-type("text/csv");
@@ -97,14 +103,15 @@ return
             default return {
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
-                {
-                    EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
-                    TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name,  
-                    Label : $component.Label,
-                    AccessionNumber : $component.Archive,
-                    NetworkIdentifier: $component.Role,  
-                    FactTable : [ $fact-table ]
-                }
+                {|
+                    { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
+                    { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
+                    { Label : $component.Label },
+                    { AccessionNumber : $component.Archive },
+                    { NetworkIdentifier: $component.Role },  
+                    { FactTable : [ $fact-table ] },
+                    session:comment("json")
+                |}
             }
      } else {
         response:status-code(401);
