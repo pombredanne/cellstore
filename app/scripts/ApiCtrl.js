@@ -7,7 +7,8 @@ angular.module('main').controller('ApiCtrl', ['$scope', '$http', '$backend',
     $http(
       {
         method : 'GET',
-        url: '/' + name + '.json'
+        url: '/' + name + '.json',
+      cache : false
       }).
       success(function(data, status, headers, config) {
         $scope.content = data;

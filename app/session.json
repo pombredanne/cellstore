@@ -19,6 +19,19 @@
                     "nickname":"login",
                     "parameters":[
                         {
+                            "name": "format",
+                            "description": "The result format",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "json",
+                                "text",
+                                "xml",
+                                "excel"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
                             "name":"email",
                             "description":"Email of user to login",
                             "required":true,
@@ -74,6 +87,19 @@
                     "type":"User",
                     "nickname":"logout",
                     "parameters":[
+                        {
+                            "name": "format",
+                            "description": "The result format",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "json",
+                                "text",
+                                "xml",
+                                "excel"
+                            ],
+                            "paramType": "query"
+                        },
                         {
                             "name": "token",
                             "description": "API token of the current user",

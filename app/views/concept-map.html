@@ -9,13 +9,15 @@
 		      <div class="table-responsive">
             <table class="table">
               <thead>
-                <th>Concept/Label</th>
+                <th>Concept</th>
+                <th>Label</th>
                 <th>Target Concepts</th>
               </thead>
               <tbody>
                 <tr ng-repeat="item in result | filter:search | orderBy:'name':false">
-                  <td>{{item.name}}<br/>{{item.label}}</td>
-                  <td>{{item.values}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.label}}</td>
+                  <td><small ng-repeat="v in item.values">{{v}}<br ng-if="!$last"></small></td>
                 </tr>
               </tbody>
             </table>

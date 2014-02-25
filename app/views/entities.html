@@ -44,9 +44,10 @@
 		  </div>
       <div class="col-md-12 text-right">
         All data as:
-          <a href="{{API_URL}}/_queries/public/api/entities.jq.json?_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.json">JSON</a>,
-          <a href="{{API_URL}}/_queries/public/api/entities.jq.xml?_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.xml">XML</a>,
-          <a href="{{API_URL}}/_queries/public/api/entities.jq.text?_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.csv">CSV</a>
+          <a href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.json">JSON</a>,
+          <a href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.xml">XML</a>,
+          <a href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.csv">CSV</a>,
+          <a href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.csv">Excel</a>
       </div>
     </div>
 	</div>

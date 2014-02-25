@@ -38,9 +38,11 @@
           </table>
 		  </div>
           <div class="text-right">
-            All data as: <a href="{{API_URL}}/_queries/public/api/components.jq.json?_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.json">JSON</a>,
-            <a href="{{API_URL}}/_queries/public/api/components.jq.xml?_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.xml">XML</a>,
-            <a href="{{API_URL}}/_queries/public/api/components.jq.text?_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.csv">CSV</a>
+            All data as:
+            <a href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.json" target="_blank">JSON</a>,
+            <a href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.xml" target="_blank">XML</a>,
+            <a href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.csv" target="_blank">CSV</a>,
+            <a href="{{API_URL}}/_queries/public/api/components.jq?format=excel&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.csv" target="_blank">Excel</a>
           </div>
         </div>
 	</div>

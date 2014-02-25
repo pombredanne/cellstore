@@ -9,49 +9,102 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
 import module namespace session = "http://apps.28.io/session";
+import module namespace csv = "http://zorba.io/modules/json-csv";
 
-declare function local:to-xml($fact-table)
+
+declare function local:to-csv($o as object*) as string
 {
-    <FactTable>{
-        let $names := members($fact-table[1])
-        for $f in $fact-table[position() gt 1]
-        return
-            <Fact>{
-                for $i at $y in members($f)
-                return 
-                    element 
-                        { fn:QName("", if (contains($names[$y], ":")) then substring-after($names[$y], ":") else $names[$y]) }
-                        {$i}
-            }</Fact>
-    }</FactTable>
+    string-join(
+        csv:serialize(
+            for $o in $o
+            let $a := $o.Aspects
+            return {|
+                (keys($a) ! { $$ : $a.$$ }),
+                { "Unit" :  $o.Unit },
+                { "Value" : $o.Value },
+                { "Type" : $o.Type },
+                { "Decimals" : $o.Decimals }
+            |}
+        )
+    )
 };
 
-declare function local:to-csv($fact-table)
+declare function local:to-xml($o as object*)
 {
-  string-join(
-    for $f in $fact-table
-    return string-join(members($f) ! ("\"" || ($$ cast as string) || "\""), ","), "\n")
+    for $o in $o
+    let $a := $o.Aspects
+    return
+        <Fact>
+            <Aspects>{
+                for $k in keys($a)
+                return
+                    <Aspect>
+                        <Name>{$k}</Name>
+                        <Value>{$a.$k}</Value>
+                    </Aspect>
+            }</Aspects>
+            <Value>
+                <Unit>{$o.Unit}</Unit>
+                <Type>{$o.Type}</Type>
+                <Value>{$o.Value}</Value>
+                <Decimals>{$o.Decimals}</Decimals>
+            </Value>
+        </Fact>
 };
 
-let $format    := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
+let $format  := lower-case(request:param-values("format")[1]) (: text, xml, or json (default) :)
 let $cid       := request:param-values("cid")[1]
 let $component := components:components($cid)
 let $entity    := archives:entities($component.Archive)
 return
      if (session:only-dow30($entity) or session:valid())
      then {
-        let $fact-table := sec-networks:fact-tables($component)
+        let $fact-table :=  for $f in sec-networks:facts($component, {||})
+                            return {|
+                                { "Aspects" : {|
+                                    for $k in keys($f.Aspects)
+                                    where $k ne "xbrl:Unit"
+                                    return { $k : $f.Aspects.$k }
+                                |} },
+                                { "Type" : $f.Type },
+                                { "Value" : $f.Value },
+                                { "Decimals" : $f.Decimals },
+                                { "Unit" : $f."Aspects"."xbrl:Unit" }
+                                
+                            |}
         return 
             switch ($format)
-            case "xml" return local:to-xml($fact-table)
-            case "text" return local:to-csv($fact-table)
+            case "xml" return {
+                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+                <FactTable EntityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
+                    TableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
+                    Label="{$component.Label}"
+                    AccessionNumber="{$component.Archive}"
+                    NetworkIdentifier="{$component.Role}">{
+                    local:to-xml($fact-table)
+                }</FactTable>
+            }
+            case "text" case "csv" return {
+                response:content-type("text/csv");
+                response:header("Content-Disposition", "attachment; filename=facttable-" || $cid || ".csv");
+                local:to-csv($fact-table)
+            }
+            case "excel" return {
+                response:content-type("application/vnd.ms-excel");
+                response:header("Content-Disposition", "attachment; filename=facttable-" || $cid || ".csv");
+                local:to-csv($fact-table)
+            }
             default return {
-                EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
-                ShortName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name,  
-                Label : $component.Label,
-                AccessionNumber : $component.Archive,
-                Columns : head($fact-table[]),
-                FactTable : [ tail($fact-table[]) ]
+                response:content-type("application/json");
+                response:serialization-parameters({"indent" : true});
+                {
+                    EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
+                    TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name,  
+                    Label : $component.Label,
+                    AccessionNumber : $component.Archive,
+                    NetworkIdentifier: $component.Role,  
+                    FactTable : [ $fact-table ]
+                }
             }
      } else {
         response:status-code(401);

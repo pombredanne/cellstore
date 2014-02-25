@@ -52,7 +52,7 @@ declare function local:summary($a)
     }
 };
 
-let $format   := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
+let $format  := lower-case(request:param-values("format")[1])
 let $ciks     := request:param-values("cik")
 let $entities := companies:companies($ciks)
 return
@@ -68,12 +68,7 @@ return
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
                 local:to-xml($archives)
             }
-            case "csv"  return {
-                response:content-type("text/csv");
-                response:header("Content-Disposition", "attachment; filename=filings.csv");
-                string-join(local:to-csv($archives), "")
-            }
-            case "text"  return {
+            case "csv" case "text" return {
                 response:content-type("text/csv");
                 response:header("Content-Disposition", "attachment; filename=filings.csv");
                 string-join(local:to-csv($archives), "")
@@ -83,7 +78,6 @@ return
                 response:header("Content-Disposition", "attachment; filename=filings.csv");
                 string-join(local:to-csv($archives))
             }
-
             default return {
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});

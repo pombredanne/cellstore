@@ -12,7 +12,7 @@ declare function local:to-xml($entities as object*) as element()*
     <Entity>
         <ID>{$e._id}</ID>
         <Profile name="{$e.Profiles.SEC.Name}">
-            <CompanyName>{$e.Profiles.SEC.CompanyName}</CompanyName>
+            <EntityName>{$e.Profiles.SEC.CompanyName}</EntityName>
             <CompanyType>{$e.Profiles.SEC.CompanyType}</CompanyType>
             <SIC>{$e.Profiles.SEC.SIC}</SIC>
             <SICDescription>{$e.Profiles.SEC.SICDescription}</SICDescription>
@@ -41,7 +41,7 @@ declare function local:to-csv($entities as object*) as string*
         return  {
             ID : $e._id,
             Profile : "SEC",
-            CompanyName : $e.Profiles.SEC.CompanyName,
+            EntityName : $e.Profiles.SEC.CompanyName,
             CompanyType : $e.Profiles.SEC.CompanyType,
             SIC : $e.Profiles.SEC.SIC,
             SICDescription : $e.Profiles.SEC.SICDescription,
@@ -54,7 +54,7 @@ declare function local:to-csv($entities as object*) as string*
     )
 };
 
-let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
+let $format  := lower-case(request:param-values("format")[1])
 let $ciks    := request:param-values("cik")
 let $tags    := request:param-values("tag") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)
 let $tickers := request:param-values("ticker")
@@ -78,8 +78,13 @@ return
             response:serialization-parameters({"omit-xml-declaration" : false});
             local:to-xml($entities)
         }
-        case "text" return {
+        case "text" case "csv" return {
             response:content-type("application/csv");
+            string-join(local:to-csv($entities))
+        }
+        case "excel" return {
+            response:content-type("application/vnd.ms-excel");
+            response:header("Content-Disposition", "attachment; filename=entities.csv");
             string-join(local:to-csv($entities))
         }
         default return {

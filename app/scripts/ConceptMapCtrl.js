@@ -22,12 +22,10 @@ angular.module('main').controller('ConceptMapCtrl', ['$scope', '$route', '$http'
             var item = {};
             item.name  = root[k]["Name"];
             item.label = root[k]["Label"];
-            item.values = "";
+            item.values = [];
             for (var t in root[k]["To"]) {
               if (root[k]["To"].hasOwnProperty(t)) {
-                if (item.values)
-                  item.values += ", ";
-                item.values += root[k]["To"][t]["Name"];
+                item.values.push(root[k]["To"][t]["Name"]);
               }
             }
             $scope.result.push(item);

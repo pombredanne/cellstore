@@ -38,12 +38,12 @@ declare function local:component-summary($component)
         NetworkIdentifier : $component.Role,
         Category : sec-networks:categories($component),
         SubCategory : sec-networks:sub-categories($component),
-        Table : sec-networks:tables($component, { IncludeImpliedTable: true}).Name,
+        Table : sec-networks:tables($component, { IncludeImpliedTable: true}).Name[1],
         Disclosure : sec-networks:disclosures($component)
     }
 };
 
-let $format   := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
+let $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
 let $aid      := archives:aid(request:param-values("aid")[1])
 let $archive  := archives:archives($aid)
 let $entity   := entities:entities($archive.Entity)
@@ -65,13 +65,29 @@ return
             }  
         return
             switch ($format)
-            case "xml" return 
+            case "xml" return {
+                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+
                 <Components EntityRegistrantName="{$res.EntityRegistrantName}"
                             CIK="{$res.CIK}">{
                 local:summary-to-xml($res.Components[])
             }</Components>
-            case "text"  return string-join(local:to-csv($res.Components[]), "")
-            default return $res
+            }
+            case "text" case "csv" return {
+                response:content-type("text/csv");
+                response:header("Content-Disposition", "attachment; filename=components-" || $aid || ".csv");
+                string-join(local:to-csv($res.Components[]), "")
+            }
+            case "excel" return {
+                response:content-type("application/vnd.ms-excel");
+                response:header("Content-Disposition", "attachment; filename=components-" || $aid || ".csv");
+                string-join(local:to-csv($res.Components[]), "")
+            }
+            default return {
+                response:content-type("application/json");
+                response:serialization-parameters({"indent" : true});
+                $res
+            }
     } else {
         response:status-code(401);
         let $res := session:error("accessing components of an entity that is not in the DOW30", $format)
@@ -81,8 +97,13 @@ return
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
                 $res
             }
-            case "text" case "csv" case "excel" return {
+            case "text" case "csv" return {
                 response:content-type("text/plain");
+                $res
+            }
+            case "excel" return {
+                response:content-type("application/vnd.ms-excel");
+                response:header("Content-Disposition", "attachment; filename=components-" || $aid || ".csv");
                 $res
             }
             default return {

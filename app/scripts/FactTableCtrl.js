@@ -21,11 +21,9 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
       }).
       success(function(data, status, headers, config) {
         $scope.data = data.FactTable;
-        $scope.columns = data.Columns;
-        $scope.columns = $scope.columns.splice(4, $scope.columns.length - 5);
         $scope.Label = data.Label;
         $scope.EntityRegistrantName = data.EntityRegistrantName;
-        $scope.NetworkIdentifier = data.ShortName;
+        $scope.NetworkIdentifier = data.NetworkIdentifier;
         $scope.AccessionNumber = data.AccessionNumber;
         $scope.safeApply();
       }).

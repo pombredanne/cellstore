@@ -9,7 +9,7 @@
     "description": "<p>This API allows its users to retrieve financial information provided to the US Securities and Exchange Commission (SEC) by public companies using the XBRL global standard technical syntax. Submitted XBRL information is read by the system, converted to a format which is optimized for query (as opposed to XBRL which is optimized for information exchange), and stored in a database in that queriable format. Additional metadata is added to the system which is commonly used when querying this financial information. Please note that only financial information provided within SEC forms 10-Q and 10-K is provided via this system.</p> <p>Information can be retrieved about entities, the submissions made by those entities, the components contained within those submissions, the model structure of a component, or the facts reported within a component.  All information is provided in the following formats:  JSON (the default), XML, CSV, and Excel.</p> <p>For more information about using this system, you can download this Excel spreadsheet which contains working examples.  Also, this getting started guide is helpful in understanding the information provided by this system.</p> <p>Please note that information outside of the DOW30 can only be accessed using a valid token that can be retrieved by creating an account on http://www.secxbrl.info and login is done using the Session API.</p> <p>Also note, that the POST method can be simulated by using GET and adding the _method=POST parameter to the HTTP request.</p>",
     "apis": [
         {
-            "path": "/entities.jq.{format}",
+            "path": "/entities.jq",
             "description": "Entities",
             "operations": [
                 {
@@ -27,9 +27,10 @@
                             "enum": [
                                 "json",
                                 "text",
-                                "xml"
+                                "xml",
+                                "excel"
                             ],
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "tag",
@@ -79,28 +80,28 @@
                     "examples": [
                         {
                             "title": "Retrieve a specific entity",
-                            "description": "",
-                            "request": "curl [API_URL]/_queries/public/api/entities.jq?_method=POST&cik=1412090",
-                            "response": "[ { \"_id\" : \"http://www.sec.gov/CIK 0001412090\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"EntityName\" : \"BTHC XV, Inc.\", \"EntityType\" : \"Corporation\", \"CIK\" : \"0001412090\", \"SIC\" : \"7900\", \"SICDescription\" : \"SERVICES-AMUSEMENT & RECREATION SERVICES\", \"SICGroup\" : 5, \"Taxonomy\" : \"ci\", \"Sector\" : \"Amusement/Recreation Services\", \"Tickers\" : [ \"btxv\" ], \"IsTrust\" : false } } } ]"
+                            "description": "Retrieve information about a specific entity identified by its CIK and return the result as JSON.",
+                            "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&cik=1412090",
+                            "response": ""
                         },
                         {
                             "title": "Retrieve all entities",
-                            "description": "",
-                            "request": "curl [API_URL]/_queries/public/api/entities.jq?_method=POST",
-                            "response": "[ { \"_id\" : \"http://www.sec.gov/CIK 0000886475\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"EntityName\" : \"'mktg, inc.'\", \"EntityType\" : \"Corporation\", \"CIK\" : \"0000886475\", \"SIC\" : \"7310\", \"SICDescription\" : \"SERVICES-ADVERTISING\", \"SICGroup\" : 11, \"Taxonomy\" : \"ci\", \"Sector\" : \"Business Services\", \"Tickers\" : [ \"cmkg\" ], \"IsTrust\" : false } } }, { \"_id\" : \"http://www.sec.gov/CIK 0001084869\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"EntityName\" : \"1 800 FLOWERS COM INC\", \"EntityType\" : \"Corporation\", \"CIK\" : \"0001084869\", \"SIC\" : \"5990\", \"SICDescription\" : \"RETAIL-RETAIL STORES, NEC\", \"SICGroup\" : 2, \"Taxonomy\" : \"ci\", \"Sector\" : \"Miscellaneous Retail\", \"Tickers\" : [ \"flws\" ], \"IsTrust\" : false } } }, ... ]"
+                            "description": "Retrieve information about all entities and return the information as XML.",
+                            "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&format=xml",
+                            "response": ""
                         },
                         {
-                            "title": "Retrieve DOW30 entity information as CSV",
-                            "description": "",
-                            "request": "curl [API_URL]/_queries/public/api/entities.jq.text?_method=POST&tag=DOW30",
-                            "response": "[ { \"_id\" : \"http://www.sec.gov/CIK 0000066740\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"EntityName\" : \"3M CO\", \"EntityType\" : \"Corporation\", \"CIK\" : \"0000066740\", \"SIC\" : \"3841\", \"SICDescription\" : \"SURGICAL & MEDICAL INSTRUMENTS & APPARATUS\", \"SICGroup\" : 10, \"Taxonomy\" : \"ci\", \"Sector\" : \"Measuring/Analyzing/Photographic/Control/Medical Instruments\", \"Tickers\" : [ \"mmm\" ], \"Tags\" : [ \"DOW30\", \"SP500\", \"FORTUNE100\" ], \"IsTrust\" : false } } }, { \"_id\" : \"http://www.sec.gov/CIK 0000004281\", \"Profiles\" : { \"SEC\" : { \"Name\" : \"SEC\", \"EntityName\" : \"ALCOA INC\", \"EntityType\" : \"Corporation\", \"CIK\" : \"0000004281\", \"SIC\" : \"3350\", \"SICDescription\" : \"ROLLING DRAWING & EXTRUDING OF NONFERROUS METALS\", \"SICGroup\" : 6, \"Taxonomy\" : \"ci\", \"Sector\" : \"Primary Metal Industries\", \"Tickers\" : [ \"aa\" ], \"Tags\" : [ \"DOW30\", \"SP500\" ], \"IsTrust\" : false } } }, ... ]"
+                            "title": "Retrieve information about all DOW30 entities",
+                            "description": "Retrieve information about all DOW30 entities and return the result as CSV.",
+                            "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&tag=DOW30&format=csv",
+                            "response": ""
                         }
                     ]
                 }
             ]
         },
         {
-            "path": "/filings.jq.{format}",
+            "path": "/filings.jq",
             "description": "Filings",
             "operations": [
                 {
@@ -117,23 +118,24 @@
                             "enum": [
                                 "json",
                                 "text",
-                                "xml"
+                                "xml",
+                                "excel"
                             ],
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "cik",
                             "description": "The CIK of the entity",
                             "required": true,
                             "type": "string",
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
                             "required": false,
                             "type": "string",
-                            "paramType": "path"
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages": [
@@ -156,17 +158,17 @@
                     ],
                     "examples": [
                         {
-                            "title": "Retrieve all DOW30 companies",
-                            "description": "",
-                            "request": "curl '[API_URL]/_queries/public/api/filings.jq.xml?_method=POST&cik=66740'",
-                            "response": "<Filings>\n  <Filing>\n    <CIK>http://www.sec.gov/CIK 0000066740</CIK>\n    <EntityRegistrantName>3M CO</EntityRegistrantName>\n    <FormType>10-Q</FormType>\n    <FiscalYear>2013</FiscalYear>\n    <FiscalPeriod>Q3</FiscalPeriod>\n    <Accepted>2013-10-31</Accepted>\n    <Generator>IBM Cognos</Generator>\n    <AccessionNumber>0001104659-13-079583</AccessionNumber>\n    <SECFilingPage>http://www.sec.gov/Archives/edgar/data/66740/000110465913079583/0001104659-13-079583-index.htm</SECFilingPage>\n    <XBRLInstanceURL>http://www.sec.gov/Archives/edgar/data/66740/000110465913079583/mmm-20130930.xml</XBRLInstanceURL>\n  </Filing>\n...\n</Filings>"
+                            "title": "Retrieve the filings of a specific entity",
+                            "description": "Retrieve information about the filings of an entity identified by its CIK. Return the result as XML.",
+                            "request": "[API_URL]/_queries/public/api/filings.jq.xml?_method=POST&cik=66740&format=xml",
+                            "response": ""
                         }
                     ]
                 }
             ]
         },
         {
-            "path": "/components.jq.{format}",
+            "path": "/components.jq",
             "description": "Components",
             "operations": [
                 {
@@ -184,16 +186,17 @@
                             "enum": [
                                 "json",
                                 "text",
-                                "xml"
+                                "xml",
+                                "excel"
                             ],
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "aid",
                             "description": "The ID of the filing",
                             "required": false,
                             "type": "string",
-                            "paramType": "path"
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages": [
@@ -216,17 +219,17 @@
                     ],
                     "examples": [
                         {
-                            "title" : "Retrieve Component",
-                            "description": "Retrieve all comoponents for the accession number 0001193125-10-104261",
-                            "request": "curl  '[API_URL]/_queries/public/api/components.jq.json?_method=POST&aid=0001193125-10-104261&token=...'",
-                            "response": "{\n\"CIK\" : \"http://www.sec.gov/CIK 0000108772\",\n\"EntityRegistrantName\" : \"XEROX CORP\",\n\"Components\" : [\n{\n  \"ComponentId\" : \"bff54a99-6aaf-4c42-8156-1b112fdac8d6\",\n  \"AccessionNumber\" : \"0001193125-10-104261\",\n  \"NetworkLabel\" : \"001000 - Statement - Condensed Consolidated Statements of Income (Unaudited)\",\n  \"NetworkIdentifier\" : \"http://xerox.com/role/IncomeStatement\",\n  \"Category\" : \"Statement\",\n  \"SubCategory\" : \"Detail\",\n  \"Table\" : \"bizql:ImpliedTable\",\n  \"Disclosure\" : \"IncomeStatement\" \n },{\n  \"ComponentId\" : \"8db6a185-b987-475c-9e8d-9a93c4240125\",\n  \"AccessionNumber\" : \"0001193125-10-104261\",\n  \"NetworkLabel\" : \"002000 - Statement - Condensed Consolidated Balance Sheets (Unaudited)\",\n  \"NetworkIdentifier\" : \"http://xerox.com/role/BalanceSheet\",\n  \"Category\" : \"Statement\",\n  \"SubCategory\" : \"Detail\",\n  \"Table\" : \"bizql:ImpliedTable\",\n  \"Disclosure\" : \"BalanceSheet\" \n}\n...\n]\n}"
+                            "title" : "Retrieve information about all component of a filing",
+                            "description": "Retrieve information about all comoponents of a particular filing which is identified by its accession number. The result is returned as JSON.",
+                            "request": "[API_URL]/_queries/public/api/components.jq?_method=POST&aid=0000021344-13-000039",
+                            "response": ""
                         }
                     ]
                 }
             ]
         },
         {
-            "path": "/facttable.jq.{format}",
+            "path": "/facttable.jq",
             "description": "Retrieve a Fact Table",
             "operations": [
                 {
@@ -244,16 +247,17 @@
                             "enum": [
                                 "json",
                                 "text",
-                                "xml"
+                                "xml",
+                                "excel"
                             ],
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "cid",
                             "description": "The id of the component",
                             "required": false,
                             "type": "string",
-                            "paramType": "path"
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages": [
@@ -277,21 +281,21 @@
                     "examples": [
                         {
                             "title": "Fact Table as CSV",
-                            "description": "Retrieve a fact table and render it as CSV.",
-                            "request": "curl '[API_URL]/_queries/public/api/facttable.jq.text?_method=POST&cid=8db6a185-b987-475c-9e8d-9a93c4240125&token=...'",
-                            "response": "\"xbrl:Concept\",\"xbrl:Entity\",\"xbrl:Period\",\"xbrl:Unit\",\"Value\" \n\"us-gaap:AccountsPayable\",\"http://www.sec.gov/CIK 0000108772\",\"2010-03-31\",\"iso4217:USD\",\"1659000000\"\n\"us-gaap:AccountsPayable\",\"http://www.sec.gov/CIK 0000108772\",\"2009-12-31\",\"iso4217:USD\",\"1451000000\""
+                            "description": "Retrieve the fact table for a particular component and return the result as CSV.",
+                            "request": "[API_URL]/_queries/public/api/facttable.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=csv",
+                            "response": ""
                         }
                     ]
                 }
             ]
         },
         {
-            "path": "/facts.jq.{format}",
+            "path": "/facts.jq",
             "description": "Retrieve Facts",
             "operations": [
                 {
                     "method": "GET",
-                    "summary": "Retrieve one or more facts for a combination of entity and concept. Additioally, the total of all numeric facts for each concept can be returned (see total parameter)",
+                    "summary": "Retrieve one or more facts for a combination of entity and concept.",
                     "notes": "",
                     "type": "FactListing",
                     "nickname": "listFact",
@@ -303,24 +307,25 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "text (NA if using total)",
-                                "xml"
+                                "text",
+                                "xml",
+                                "excel"
                             ],
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "cik",
                             "description": "The CIK of the entity",
                             "required": false,
                             "type": "string",
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "ticker",
                             "description": "The ticker of the entity",
                             "required": false,
                             "type": "string",
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "tag",
@@ -332,31 +337,31 @@
                                 "SP500",
                                 "FORTUNE100"
                             ],
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "sic",
                             "description": "The industry group",
                             "required": false,
                             "type": "string",
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
-                            "name": "year",
+                            "name": "fiscalYear",
                             "description": "The fiscal year of the fact to retrieve (default: latest for given period)",
                             "required": false,
                             "type": "string",
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "concept",
                             "description": "The name of the concept to retrieve the fact for",
                             "required": true,
                             "type": "string",
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
-                            "name": "period",
+                            "name": "fiscalPeriod",
                             "description": "The fiscal period of the fact to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
@@ -366,18 +371,7 @@
                                 "Q3",
                                 "FY"
                             ],
-                            "paramType": "path"
-                        },
-                        {
-                            "name": "total",
-                            "description": "Group by concept and compute the sum of all values in a group",
-                            "required": false,
-                            "type": "string",
-                            "enum": [
-                                "true",
-                                "false"
-                            ],
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "map",
@@ -387,14 +381,14 @@
                             "enum": [
                                 "FundamentalAccountingConcepts  <a href=\"/concept-map/FundamentalAccountingConcepts\"><i class=\"fa fa-question\"></i>"
                               ],
-                            "paramType": "path"
+                            "paramType": "query"
                         },
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
                             "required": false,
                             "type": "string",
-                            "paramType": "path"
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages": [
@@ -423,10 +417,16 @@
                     ],
                     "examples": [
                         {
-                            "title": "Retrieve DOW30's us-gaap:Assets for latest fiscal year",
-                            "description": "Retrieve all the us-gaap:Assets concepts reported for all DOW30 companies in the period FY and the latest reported year 2012 as JSON",
-                            "request": "curl 'xbrl-msb.alpha.xbrl.io/v1/_queries/public/api/facts.jq?_method=POST&concept=us-gaap:Assets&tag=dow30'",
-                            "response": "[\n  {\n    \"CIK\": \"http://www.sec.gov/CIK 0000200406\",\n    \"EntityName\": \"JOHNSON & JOHNSON\",\n    \"Concept\": \"us-gaap:Assets\",\n    \"Decimals\": -6,\n    \"Period\":   \"FY\",\n    \"Type\": \"NumericValue\",\n    \"Unit\": \"iso4217:USD\",\n    \"Value\": 121347000000,\n    \"Year\": 2012\n  },\n  {\n    \"CIK\": \"http://www.sec.gov/CIK 0000063908\",\n    \"EntityName\": \"MCDONALDS CORP\",\n    \"Concept\": \"us-gaap:Assets\",\n    \"Decimals\": -5,\n    \"Period\": \"FY\",\b  \"Type\": \"NumericValue\",\n    \"Unit\": \"iso4217:USD\",\n    \"Value\": 35386500000,\n    \"Year\": 2012\n  }\n  , ... \n]"
+                            "title": "Retrieve us-gaap:Assets for DOW30",
+                            "description": "Retrieve the value of us-gaap:Assets for all DOW30 entities for the latest reported year. Return the result as JSON.",
+                            "request": "[API_URL]/_queries/public/api/facts.jq?_method=POST&concept=us-gaap:Assets&tag=dow30",
+                            "response": ""
+                        },
+                        {
+                            "title": "Retrieve fac:NetCashFlow for DOW30",
+                            "description": "Retrieve the value of fac:NetCashFlow (using the FundamentalAccountingConcepts map) for the DOW30 entities for the year 2011. Return the result as CSV.",
+                            "request": "[API_URL]/_queries/public/api/facts.jq?_method=POST&concept=fac:NetCashFlow&tag=dow30&map=FundamentalAccountingConcepts&fiscalYear=2011&format=csv",
+                            "response": ""
                         }
                     ]
                 }

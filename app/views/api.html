@@ -83,10 +83,11 @@
                     <div ng-repeat="example in operation.examples">
                         <h3>Example <span ng-show="example.title">&#8212;</span> <span ng-bind="example.title"></span></h3>
                         <p ng-bind-html="example.description"></p>
-                        <h4>Request</h4>
+                        <h4>Request <a href="{{example.request.replace('[API_URL]', API_URL)}}" target="_blank"><i class="fa fa-play"></i></a></h4>
+
                         <pre ng-bind="example.request.replace('[API_URL]', API_URL)"></pre>
-                        <h4>Response</h4>
-                        <pre ng-bind="example.response.replace('[API_URL]', API_URL)"></pre>
+                        <!--<h4>Response</h4>
+                        <pre ng-bind="example.response.replace('[API_URL]', API_URL)"></pre>-->
                     </div>
                 </div>
             </div>

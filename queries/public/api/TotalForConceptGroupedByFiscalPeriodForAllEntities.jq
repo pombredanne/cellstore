@@ -13,17 +13,14 @@ declare function local:to-csv($o as object*) as string
         csv:serialize(
             for $o in $o
             let $a := $o.Aspects
-            return {
-                "xbrl:ReportingEntity" : "bizql:AllreportingEntitiesMember",
-                "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
-                "xbrl:Concept" : $a."xbrl:Concept",
-                "bizql:FiscalYear" : $a."bizql:FiscalYear",
-                "bizql:FiscalPeriod" : $a."bizql:FiscalPeriod",
-                "bizql:NumReports" : $a."bizql:NumReports",
-                "Unit" :  $o."Unit",
-                "Value" : $o.Value,
-                "Decimals" : "INF"
-            }
+            return {|
+                for $k in keys($a)
+                return { $k : $a.$k },
+                { "Unit" :  $o."Unit" },
+                { "Value" : $o.Value },
+                { "Decimals" : "INF" },
+                { "NumReports" : $o.NumReports }
+            |}
         )
     )
 };
@@ -36,36 +33,20 @@ declare function local:to-xml($o as object*)
         let $a := $o.Aspects
         return
             <Fact>{
-                (<Aspects>
-                    <Aspect>
-                        <Name>xbrl:ReportingEntity</Name>
-                        <Value>bizql:AllreportingEntitiesMember</Value>
-                    </Aspect>
-                    <Aspect>
-                        <Name>dei:LegalEntityAxis</Name>
-                        <Value>sec:DefaultLegalEntity</Value>
-                    </Aspect>
-                    <Aspect>
-                        <Name>xbrl:Concept</Name>
-                        <Value>{$a."xbrl:Concept"}</Value>
-                    </Aspect>
-                    <Aspect>
-                        <Name>bizql:FiscalYear</Name>
-                        <Value>{$a."bizql:FiscalYear"}</Value>
-                    </Aspect>
-                    <Aspect>
-                        <Name>bizql:FiscalPeriod</Name>
-                        <Value>{$a."bizql:FiscalPeriod"}</Value>
-                    </Aspect>
-                    <Aspect>
-                        <Name>bizql:NumReports</Name>
-                        <Value>{$a."bizql:NumReports"}</Value>
-                    </Aspect>
-                </Aspects>,
+                (<Aspects>{
+                    for $k in keys($a)
+                    return
+                        <Aspect>
+                            <Name>{$k}</Name>
+                            <Value>{$a.$k}</Value>
+                        </Aspect>
+                }</Aspects>,
                 <Value>
                     <Unit>{$o.Unit}</Unit>
-                    <NumericValue>{$o.Value}</NumericValue>
+                    <Type>{$o.Value}</Type>
+                    <Value>{$o.Value}</Value>
                     <Decimals>INF</Decimals>
+                    <NumReports>{$o.NumReports}</NumReports>
                 </Value>,
                 if (exists($o.Debug))
                 then
@@ -79,20 +60,20 @@ declare function local:to-xml($o as object*)
     }</FactTable>
 };
  
-let $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]) (: text, xml, or json (default) :)
-let $period  := let $period := upper-case(request:param-values("period", "FY")[1])
-                return  if ($period = ("Q1", "Q2", "Q3", "FY"))
-                        then $period
-                        else error(xs:QName("local:INVALID-PERIOD"), $period || ": period value must be one of Q1, Q2, Q3, FY")
+let $format  := lower-case(request:param-values("format")[1])
+let $period  := let $period := upper-case(request:param-values("fiscalPeriod", "FY")[1])
+                return 
+                    if ($period = ("Q1", "Q2", "Q3", "FY"))
+                    then $period
+                    else error(xs:QName("local:INVALID-PERIOD"),
+                               $period || ": fiscalPeriod value must be one of Q1, Q2, Q3, FY")
 let $concept := request:param-values("concept", "us-gaap:Assets")[1]
 let $map     := request:param-values("map")[1]
 let $tags    := request:param-values("tag")
 let $debug   := request:param-values("debug")
                 
 let $json-result := 
-    (: Computes the total assets of all filing companies, grouped by fiscal year and currency :)
     let $facts :=
-        (: Getting all facts, but restricting to just one per entity and per fiscal year :)
         for $fact in sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years(
             (if (exists($tags))
                 then companies:companies-for-tags(upper-case($tags))
@@ -119,22 +100,27 @@ let $json-result :=
     return {|
         {
             Aspects : {
-                "xbrl:ReportingEntity" : "bizql:AllreportingEntitiesMember",
+                "xbrl:ReportingEntity" : "bizql:AllReportingEntitiesMember",
                 "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
                 "xbrl:Concept" : $concept,
                 "bizql:FiscalYear" : $fyf,
-                "bizql:FiscalPeriod" : $fpf,
-                "bizql:NumReports" : count(distinct-values($fact.Archive))
+                "bizql:FiscalPeriod" : $fpf
             }
         },
         { "Value" : sum($fact.Value[$$ ne null]) },
         { "Type"  : "NumericValue" },
         { "Unit" : $unit },
         { "Decimals"  : "INF" },
+        { "NumReports" : count(distinct-values($fact.Archive)) },
+
         if (exists($debug) and $debug)
         then
             {
-                "Debug" : [ $fact ! { "InstanceURL" : archives:archives(distinct-values($$.Archive)).InstanceURL, "Value" : $$.Value } ]
+                "Debug" : [ $fact ! 
+                            {
+                                "InstanceURL" : archives:archives(distinct-values($$.Archive)).InstanceURL,
+                                "Value" : $$.Value
+                            } ]
             }
         else ()
     |}
@@ -144,12 +130,7 @@ return
         response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
         local:to-xml($json-result)
     }
-    case "text" return {
-        response:content-type("text/csv");
-        response:header("Content-Disposition", "attachment; filename=Total-" || $concept || ".csv");
-        local:to-csv($json-result)
-    }
-    case "csv" return {
+    case "text" case "csv" return {
         response:content-type("text/csv");
         response:header("Content-Disposition", "attachment; filename=Total-" || $concept || ".csv");
         local:to-csv($json-result)
