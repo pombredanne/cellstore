@@ -36,7 +36,7 @@ html, body {
 	color: whitesmoke;
 	position: absolute;
 	top: 20px;
-	left: 165px;
+	left: 170px;
 }
 
 .highlight1 {
@@ -125,11 +125,16 @@ ul.poweredby li {
 .header {
 	background-color: #242b32;
 	position: relative;
+    min-height: 80px;
 }
 
 .header .navbar {
 	margin-bottom: 0px;
 	font-size: 1.3em;
+}
+
+.header .navbar-toggle {
+    margin: 15px 5px;
 }
 
 .header a#logo,

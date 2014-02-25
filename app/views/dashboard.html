@@ -1,7 +1,8 @@
 <div class="topbar text-center">
     <div class="btn-group">
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/dashboard.html'" href="/dashboard{{(cik?'/' + cik : '')}}"><i class="icn icn-dashboard"></i> Fundamental Accounting Concepts</a>
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/search.html'" href="/search{{(cik?'/' + cik : '')}}"><i class="icn icn-search"></i> Search facts</a>
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/information.html'" href="/information{{(cik?'/' + cik : '')}}"><i class="icn icn-analytics"></i> Basic Financial Information</a>
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/dashboard.html'" href="/dashboard{{(cik?'/' + cik : '')}}"><i class="icn icn-dashboard"></i> Income and Revenue</a>
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/search.html'" href="/search{{(cik?'/' + cik : '')}}"><i class="icn icn-search"></i> Search Facts</a>
         <!--<a class="btn btn-xs" ng-model="page" btn-radio="'/views/analytics.html'" href="/analytics"><i class="icn icn-analytics"></i> Use of Extensions</a>-->
     </div>
 </div>
@@ -33,70 +34,13 @@
 				<b>{{ticker}}</b>
 			</div>
 		</div>
-		<div style="padding: 15px 10px; border-top: 1px solid gainsboro; margin: 0px -10px;" class="clearfix" ng-show="cik">
-			<div class="col-md-6 col-sm-6 col-xs-6">
-				<h6 class="nowrap">FISCAL YEAR</h6>
-				<ul class="selector" style="height: 97px">
-					<li ng-repeat="y in usage" ng-class="{ selected: year==years[$index], disabled: !y.used }" ng-click="setYear(years[$index], y.used)">{{years[$index]}}</li>
-				</ul>
-			</div>
-			<div class="col-md-6 col-sm-6 col-xs-6">
-				<span style="margin-left: -15px; margin-top: 5px; float: left;">/</span>
-				<h6 class="nowrap">PERIOD FOCUS</h6>
-				<ul class="selector" style="height: 97px">
-					<li ng-repeat="p in usage[years.indexOf(year)].periods" ng-class="{ selected: period==periods[$index], disabled: !p.used }" ng-click="setPeriod(periods[$index], p.used)">{{periods[$index]}}</li>
-				</ul>
-			</div>
-		</div>
-		<div style="padding: 15px 10px; border-top: 1px solid gainsboro; margin: 0px -10px;" ng-class="{ 'hidden-xs': reports.length }" ng-show="reports.length">
-			<div class="col-xs-12">
-				<h6>FUNDAMENTAL ACCOUNTING</h6>
-				<ul class="normal">
-					<li ng-repeat="report in reports">
-						<a class="highlight3" href="javascript://" ng-click="showtab[$index]=true; gotoId('report' + $index)">{{report.name}}</a>
-					</li>
-				</ul>
-			</div>
-		</div>
 		<div style="clear: both"></div>
 	</div>
 	<div class="col-right col-md-9 col-sm-8 col-xs-12">
 		<div class="col-md-12">
-			<h3>This dashboard displays information about the company filings</h3>
+			<h3>Display the evolution of Net Income and Revenue.</h3>
 			<div class="white-box" scroll-id="chart">
-				<a class="h4 highlight3" href="javascript://" ng-click="showchart=!showchart" style="margin-left: -10px"><i class="fa fa-caret-down" ng-show="showchart"></i><i class="fa fa-caret-right" ng-hide="showchart"></i> Income and Revenue Evolution</a>
-				<div ng-show="showchart">
-					<div google-chart chart="chart" style="width: 100%; height: 500px;"></div>
-				</div>
-			</div>
-			<div class="row">
-			<div class="col-md-12" ng-repeat="report in reports" scroll-id="report{{$index}}">
-			<div class="white-box nav">
-				<a class="pull-right close small" href="javascript://" ng-click="gotoId('chart')"><i class="fa fa-arrow-up"></i></a>
-				<a class="h4 highlight3" href="javascript://" ng-click="showtab[$index]=!showtab[$index]" style="margin-left: -10px"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a>
-
-				<div class="table-responsive" ng-show="showtab[$index]">
-					<table class="table">
-						<thead>
-							<th>Label</th>
-							<th>Value</th>
-							<th>Audit Trail</th>
-						</thead>
-						<tbody>
-						<tr ng-repeat="item in report.items">
-							<td>{{item.label}}</td>
-							<td ng-class="{ 'text-right' : (item.type == 'NumericValue') }">{{item.value}}</td>
-							<td>
-								<a href="javascript://" popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="focus">
-									{{substring(item.auditValue, 30)}}
-								</a>
-							</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			</div>
+				<div google-chart chart="chart" style="width: 100%; height: 500px;"></div>
 			</div>
 		</div>
 	</div>

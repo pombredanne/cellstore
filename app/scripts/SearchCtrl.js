@@ -11,6 +11,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 	$scope.years = years;
 	$scope.periods = periods;
 	$scope.searches = $angularCacheFactory.get('secxbrl').get('search-history') || [];
+	$scope.API_URL = $backend.API_URL;
 
 	$scope.computeUsage = function() { 
 		$scope.usage = [];

@@ -1,7 +1,8 @@
 <div class="topbar text-center">
     <div class="btn-group">
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/dashboard.html'" href="/dashboard{{(cik?'/' + cik : '')}}"><i class="icn icn-dashboard"></i> Fundamental Accounting Concepts</a>
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/search.html'" href="/search{{(cik?'/' + cik : '')}}"><i class="icn icn-search"></i> Search facts</a>
+		<a class="btn btn-xs" ng-model="page" btn-radio="'/views/information.html'" href="/information{{(cik?'/' + cik : '')}}"><i class="icn icn-analytics"></i> Basic Financial Information</a>
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/dashboard.html'" href="/dashboard{{(cik?'/' + cik : '')}}"><i class="icn icn-dashboard"></i> Income and Revenue</a>
+		<a class="btn btn-xs" ng-model="page" btn-radio="'/views/search.html'" href="/search{{(cik?'/' + cik : '')}}"><i class="icn icn-search"></i> Search Facts</a>
         <!--<a class="btn btn-xs" ng-model="page" btn-radio="'/views/analytics.html'" href="/analytics"><i class="icn icn-analytics"></i> Use of Extensions</a>-->
     </div>
 </div>
@@ -42,8 +43,7 @@
 				</ul>
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-6">
-				<span style="margin-left: -15px; margin-top: 5px; float: left;">/</span>
-				<h6 class="nowrap">PERIOD FOCUS</h6>
+				<h6 class="nowrap">FISCAL PERIOD</h6>
 				<ul class="selector" style="height: 97px">
 					<li ng-repeat="p in usage[years.indexOf(year)].periods" ng-class="{ selected: period==periods[$index], disabled: !p.used }" ng-click="setPeriod(periods[$index], p.used)">{{periods[$index]}}</li>
 				</ul>
@@ -53,7 +53,7 @@
 
 	<div class="col-right col-md-9 col-sm-8 col-xs-12">
 		<div class="col-md-12">
-			<h3>Use the search feature to retrieve facts and concepts values from the SEC filings.</h3>
+			<h3>Retrieve facts and concepts values from the SEC filings.</h3>
 			<div class="white-box">
 				<div class="row">
 					<div class="col-md-6 col-sm-6 col-xs-6">
@@ -76,24 +76,27 @@
 					<div class="col-md-10 col-sm-10 col-xs-9">
 						<h4 ng-show="factValue" class="text-right">{{factValue}} {{factUnit}}</h4>
 						<div ng-bind-html="factText"></div>
-						<div class="text-left wrap" style="width: 100%" ng-show="originalConcept">Audit Trail: <b>{{originalConcept}}</b></div>
+						<div class="text-left wrap" ng-show="originalConcept">Audit Trail: <b>{{originalConcept}}</b></div>
+						<div class="text-left wrap" ng-show="factValue || factText">View results as: 
+							<a href="{{API_URL}}/_queries/public/api/facts.jq?format=json&_method=POST&token={{token}}&fiscalYear={{year}}&fiscalPeriod={{period}}&cik={{cik}}&concept={{conceptMapKey}}{{(conceptMap ? '&map=' + conceptMap : '')}}" target="_blank">JSON</a>, <a href="{{API_URL}}/_queries/public/api/facts.jq?format=xml&_method=POST&token={{token}}&fiscalYear={{year}}&fiscalPeriod={{period}}&cik={{cik}}&concept={{conceptMapKey}}{{(conceptMap ? '&map=' + conceptMap : '')}}" target="_blank">XML</a>, <a href="{{API_URL}}/_queries/public/api/facts.jq?format=text&_method=POST&token={{token}}&fiscalYear={{year}}&fiscalPeriod={{period}}&cik={{cik}}&concept={{conceptMapKey}}{{(conceptMap ? '&map=' + conceptMap : '')}}" target="_blank">CSV</a></div>
 					</div>
 				</div>
 			</div>				
 			<h3>Query History</h3>
 			<div class="white-box">
-				<div class="table-responsive">
+				<div style="overflow-x: auto; width: 100%">
 					<table class="table">
-					<thead>
+					<thead class="nowrap">
 						<th>Company</th>
-						<th>Year/Period</th>
+						<th>Fiscal Year<br>Fiscal Period</th>
 						<th>Concept Map</th>
 						<th>Concept Name</th>
-						<th>Value</th>
+						<th class="text-right">Value</th>
+						<!--<th></th>-->
 					</thead>
 					<tbody>
 						<tr ng-repeat="s in searches">
-							<td>{{s.name}}</td>
+							<td class="nowrap">{{s.name}}</td>
 							<td>{{s.year}}/{{s.period}}</td>
 							<td>{{s.conceptMap || 'None'}}</td>
 							<td><a href="javascript://" popover="{{s.conceptMapKey}}" popover-placement="top" popover-trigger="focus">{{trimURL(s.conceptMapKey)}}</a></td>
@@ -101,6 +104,16 @@
 								<div ng-show="s.factValue">{{s.factValue}} {{s.factUnit}}</div>
 								<a href="javascript://" ng-hide="s.factValue" ng-click="showDetails(s.factText)">View Text</a>
 							</td>
+							<!--<td>
+								<span class="dropdown">
+								 <a href="javascript://" class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
+								 <ul class="dropdown-menu text-left pull-right">
+								   <li><a href="{{API_URL}}/_queries/public/api/facts.jq?format=json&_method=POST&token={{token}}&fiscalYear={{s.year}}&fiscalPeriod={{s.period}}&cik={{s.cik}}&concept={{s.conceptMapKey}}{{(s.conceptMap ? '&map=' + s.conceptMap : '')}}" target="_blank">JSON</a></li>
+								   <li><a href="{{API_URL}}/_queries/public/api/facts.jq?format=xml&_method=POST&token={{token}}&fiscalYear={{s.year}}&fiscalPeriod={{s.period}}&cik={{s.cik}}&concept={{s.conceptMapKey}}{{(s.conceptMap ? '&map=' + s.conceptMap : '')}}" target="_blank">XML</a></li>
+								   <li><a href="{{API_URL}}/_queries/public/api/facts.jq?format=text&_method=POST&token={{token}}&fiscalYear={{s.year}}&fiscalPeriod={{s.period}}&cik={{s.cik}}&concept={{s.conceptMapKey}}{{(s.conceptMap ? '&map=' + s.conceptMap : '')}}" target="_blank">CSV</a></li>
+								 </ul>
+							   </span>
+							</td>-->
 						</tr>
 						<tr ng-hide="searches.length">
 							<td class="text-center h4" colspan="5">

@@ -183,8 +183,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
             }
         })
@@ -192,23 +190,39 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
             }
         })
-        .when('/dashboard/:cik/:year', {
-            templateUrl: '/views/dashboard.html',
-            controller: 'DashboardCtrl',
+        .when('/information', {
+            templateUrl: '/views/information.html',
+            controller: 'InformationCtrl',
             resolve: {
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
             }
         })
-        .when('/dashboard/:cik/:year/:period', {
-            templateUrl: '/views/dashboard.html',
-            controller: 'DashboardCtrl',
+        .when('/information/:cik', {
+            templateUrl: '/views/information.html',
+            controller: 'InformationCtrl',
+            resolve: {
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+            }
+        })
+        .when('/information/:cik/:year', {
+            templateUrl: '/views/information.html',
+            controller: 'InformationCtrl',
+            resolve: {
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+            }
+        })
+        .when('/information/:cik/:year/:period', {
+            templateUrl: '/views/information.html',
+            controller: 'InformationCtrl',
             resolve: {
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
