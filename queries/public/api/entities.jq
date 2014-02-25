@@ -3,16 +3,18 @@ import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/c
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
+import module namespace session = "http://apps.28.io/session";
 
 declare function local:to-xml($entities as object*) as element()*
 {
+  (session:comment("xml"),
   <Entities>{
     for $e in $entities
     return
     <Entity>
         <ID>{$e._id}</ID>
         <Profile name="{$e.Profiles.SEC.Name}">
-            <EntityName>{$e.Profiles.SEC.CompanyName}</EntityName>
+            <EntityRegistrantName>{$e.Profiles.SEC.CompanyName}</EntityRegistrantName>
             <CompanyType>{$e.Profiles.SEC.CompanyType}</CompanyType>
             <SIC>{$e.Profiles.SEC.SIC}</SIC>
             <SICDescription>{$e.Profiles.SEC.SICDescription}</SICDescription>
@@ -31,7 +33,7 @@ declare function local:to-xml($entities as object*) as element()*
             </Tags>
         </Profile>
     </Entity>
-  }</Entities>
+  }</Entities>)
 };
 
 declare function local:to-csv($entities as object*) as string*
@@ -90,5 +92,8 @@ return
         default return {
             response:content-type("application/json");
             response:serialization-parameters({"indent" : true});
-            [ $entities ]
+            {|
+                { "Entities" : [ $entities ] },
+                session:comment("json") 
+            |} 
         }

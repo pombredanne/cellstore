@@ -9,7 +9,10 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-xml($c)
 {
-    
+    (
+        session:comment("xml"),
+        <a/>
+    )
 };
 
 declare function local:to-csv($c)
@@ -51,7 +54,10 @@ return
         default return {
             response:content-type("application/json");
             response:serialization-parameters({"indent" : true});
-            $map
+            {|
+                $map,
+                session:comment("json")
+            |}
         }
     else {
         response:status-code(404);

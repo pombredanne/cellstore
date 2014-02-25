@@ -6,6 +6,7 @@ import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
+import module namespace session = "http://apps.28.io/session";
 
 declare function local:to-csv($o as object*) as string
 {
@@ -27,8 +28,11 @@ declare function local:to-csv($o as object*) as string
 
 declare function local:to-xml($o as object*)
 {
+    (
+    session:comment("xml"),
     <FactTable NetworkIdentifier="http://xbrl.io/TotalForConceptGroupedByFiscalPeriodForAllEntities"
             TableName="xbrl:TotalForConceptGroupedByFiscalPeriodForAllEntities">{
+
         for $o in $o
         let $a := $o.Aspects
         return
@@ -41,13 +45,11 @@ declare function local:to-xml($o as object*)
                             <Value>{$a.$k}</Value>
                         </Aspect>
                 }</Aspects>,
-                <Value>
-                    <Unit>{$o.Unit}</Unit>
-                    <Type>{$o.Value}</Type>
-                    <Value>{$o.Value}</Value>
-                    <Decimals>INF</Decimals>
-                    <NumReports>{$o.NumReports}</NumReports>
-                </Value>,
+                <Unit>{$o.Unit}</Unit>,
+                <Type>{$o.Value}</Type>,
+                <Value>{$o.Value}</Value>,
+                <Decimals>INF</Decimals>,
+                <NumReports>{$o.NumReports}</NumReports>,
                 if (exists($o.Debug))
                 then
                     <Debug>{
@@ -57,7 +59,7 @@ declare function local:to-xml($o as object*)
                 else ()
                 )
             }</Fact>
-    }</FactTable>
+    }</FactTable>)
 };
  
 let $format  := lower-case(request:param-values("format")[1])
@@ -143,9 +145,10 @@ return
     default return {
         response:content-type("application/json");
         response:serialization-parameters({"indent" : true});
-        { 
-            NetworkIdentifier : "http://xbrl.io/TotalForConceptGroupedByFiscalPeriodForAllEntities",
-            TableName : "xbrl:TotalForConceptGroupedByFiscalPeriodForAllEntities",
-            FactTable : [ $json-result ]
-        }
+        {|
+            { NetworkIdentifier : "http://xbrl.io/TotalForConceptGroupedByFiscalPeriodForAllEntities" },
+            { TableName : "xbrl:TotalForConceptGroupedByFiscalPeriodForAllEntities" },
+            { FactTable : [ $json-result ] },
+            session:comment("json")
+        |}
     }

@@ -52,26 +52,27 @@ return
     then {
         for $a in $archive
         let $res := 
-            { 
-                CIK : archives:entities($archive)._id,
-                EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
-                Components: [ for $c in sec-networks:networks-for-filings($a)
+            {|
+                { CIK : archives:entities($archive)._id },
+                { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
+                { Components: [ for $c in sec-networks:networks-for-filings($a)
                               let $disclosure := sec-networks:disclosures($c)
                               where $disclosure ne "DefaultComponent" and
                                     exists(sec-networks:model-structures($c))
                               order by $c.Label
                               return local:component-summary($c)
-                            ]
-            }  
+                            ] },
+                session:comment("json")
+            |}  
         return
             switch ($format)
             case "xml" return {
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-
+                (session:comment("xml"),
                 <Components EntityRegistrantName="{$res.EntityRegistrantName}"
                             CIK="{$res.CIK}">{
                 local:summary-to-xml($res.Components[])
-            }</Components>
+            }</Components>)
             }
             case "text" case "csv" return {
                 response:content-type("text/csv");
@@ -95,7 +96,7 @@ return
             switch ($format)
             case "xml" return {
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-                $res
+                (session:comment("xml"), $res)
             }
             case "text" case "csv" return {
                 response:content-type("text/plain");

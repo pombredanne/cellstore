@@ -12,6 +12,7 @@ import module namespace session = "http://apps.28.io/session";
 
 declare function local:to-xml($filings as object*) as element()*
 {
+    ( session:comment("xml"),
     <Filings>{
         for $f in $filings
         return
@@ -27,7 +28,7 @@ declare function local:to-xml($filings as object*) as element()*
             <SECFilingPage>{$f.SECFilingPage}</SECFilingPage>
             <XBRLInstanceURL>{$f.XBRLInstanceURL}</XBRLInstanceURL>
         </Filing>
-    }</Filings>
+    }</Filings>)
 };
 
 declare function local:to-csv($filings as object*) as string*
@@ -81,7 +82,10 @@ return
             default return {
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
-                [ $archives ]
+                {|
+                    { "Archives" : [ $archives ] },
+                    session:comment("json")
+                |}
             }
     } else {
         response:status-code(401);

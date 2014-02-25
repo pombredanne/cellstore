@@ -24,7 +24,7 @@
               <th>SIC Description</th>
               <th>Industry Sector</th>
               <th>Trust</th>
-              <th>SEC Submissions</th>
+              <th>SEC Filings</th>
               </thead>
               <tbody ng-show="search">
                 <tr ng-repeat="item in results | filter : search | limitTo : 20">
@@ -37,7 +37,7 @@
                   <td>{{item.Profiles.SEC.SICDescription}}</td>
                   <td>{{item.Profiles.SEC.Sector}}</td>
                   <td>{{item.Profiles.SEC.IsTrust?"Y":"-"}}</td>
-                  <td><a href="/filings/{{item._id.substr(23)}}">Submissions</a></td>
+                  <td><a href="/filings/{{item._id.substr(23)}}">Filings</a></td>
                 </tr>
               </tbody>
           </table>
