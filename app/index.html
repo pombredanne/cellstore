@@ -9,11 +9,11 @@
         <title>secxbrl info</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css({.tmp,app}) styles/main.css -->
-		<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
-		<link rel="stylesheet" href="/bower_components/animate.css/animate.css">
+        <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
+        <link rel="stylesheet" href="/bower_components/animate.css/animate.css">
         <link rel="stylesheet" href="/styles/main.css">
         <!-- endbuild -->
     </head>
@@ -23,75 +23,77 @@
         <![endif]-->
 
         <div class="header">
-			<div class="navbar" navbar-toggle>
-				<div class="navbar-header">
-					<a href="/" id="logo">
-						<!--<i class="logo"></i>-->
-						<h3 class="highlight1">&nbsp;SECXBRL<font class="highlight2">.info</font></h3>
-						<br><sup class="pull-right">BETA</sup>
-					</a>
-					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-						 Menu <i class="glyphicon glyphicon-collapse-down"></i>
-					</button>
-				</div>
-				<i class="fa fa-spinner fa-spin fa-2x" id="spinner"></i>
-				<div class="collapse navbar-collapse" role="navigation">
-					<div class="nav navbar-nav navbar-right" on-document-click="toggleMenu($event, false)">
-						<div ng-show="user" class="ontop">
-							{{user.name}} <a class="btn btn-xs" href="javascript://" ng-click="logout()">Logout</a>
-						</div>
-						<div ng-hide="user" class="ontop">
-							<a class="btn btn-xs" style="border: 1px solid;" href="/auth" ng-class="{ active: (page == '/views/auth.html') }">Login / Signup</a>
-						</div>
-						<div><a href="/" ng-class="{ active: (page == '/views/home.html') }">Home</a></div>
-						<div><a href="/information" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html' || page == '/views/information.html') }">Entities</a></div>
-						<div><a href="/entities" ng-class="{ active: (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/filings.html' || page == '/views/components.html' ) }">Filings</a></div>
-						<div><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a></div>
-						<div>
-							<a href="javascript://" ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">More...</a>
-							<ul class="sub-nav" ng-hide="!visibleMenu">
-								<li><a href="/how">How it Works</a></li>
-								<li><a href="mailto:hello@28.io">Contact Us</a></li>
-								<li><a href="/dev">Dev Center</a></li>
-								<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
-								<li><a href="/blog">Our Blog</a></li>
-								<li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
-								<li><a href="/company/about">About 28msec</a></li>
-							</ul>
-							<ul class="sub-nav visible-xs">
-								<li><a href="/how">How it Works</a></li>
-								<li><a href="mailto:hello@28.io">Contact Us</a></li>
-								<li><a href="/dev">Dev Center</a></li>
-								<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
-								<li><a href="/blog">Our Blog</a></li>
-								<li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
-								<li><a href="/company/about">About 28msec</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div style="clear:both"></div>
-        <div ng-view="true" class="content clearfix">			
-		</div>
-		<div class="footer clearfix">
+            <div class="navbar" navbar-toggle>
+                <div class="navbar-header">
+                    <a href="/" id="logo">
+                        <!--<i class="logo"></i>-->
+                        <h3 class="highlight1">&nbsp;SECXBRL<font class="highlight2">.info</font></h3>
+                        <br><sup class="pull-right">BETA</sup>
+                    </a>
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                         Menu <i class="glyphicon glyphicon-collapse-down"></i>
+                    </button>
+                </div>
+                <i class="fa fa-spinner fa-spin fa-2x" id="spinner"></i>
+                <div class="collapse navbar-collapse" role="navigation">
+                    <div class="nav navbar-nav navbar-right" on-document-click="toggleMenu($event, false)">
+                        <div ng-show="user" class="ontop">
+                            {{user.name}} <a class="btn btn-xs" href="javascript://" ng-click="logout()">Logout</a>
+                        </div>
+                        <div ng-hide="user" class="ontop">
+                            <a class="btn btn-xs" style="border: 1px solid;" href="/auth" ng-class="{ active: (page == '/views/auth.html') }">Login / Signup</a>
+                        </div>
+                        <div><a href="/" ng-class="{ active: (page == '/views/home.html') }">Home</a></div>
+                        <div><a href="/information" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html' || page == '/views/information.html') }">Entities</a></div>
+                        <div><a href="/entities" ng-class="{ active: (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/filings.html' || page == '/views/components.html' ) }">Filings</a></div>
+                        <div><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a></div>
+                        <div>
+                            <a href="javascript://" ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">More...</a>
+                            <ul class="sub-nav" ng-hide="!visibleMenu">
+                                <li><a href="/about">About</a></li>
+                                <li><a href="mailto:hello@28.io">Contact Us</a></li>
+                                <li><a href="/how">How it Works</a></li>
+                                <li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
+                                <li><a href="/company/about">28msec</a></li>
+                                <li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
+                                <li><a href="/blog">Blog</a></li>
+                                <li><a href="/dev">Dev Center</a></li>
+                            </ul>
+                            <ul class="sub-nav visible-xs">
+                                <li><a href="/about">About</a></li>
+                                <li><a href="mailto:hello@28.io">Contact Us</a></li>
+                                <li><a href="/how">How it Works</a></li>
+                                <li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>
+                                <li><a href="/company/about">28msec</a></li>
+                                <li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
+                                <li><a href="/blog">Blog</a></li>
+                                <li><a href="/dev">Dev Center</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div ng-view="true" class="content clearfix">            
+        </div>
+        <div class="footer clearfix">
             <div class="navbar">
                 <div class="nav navbar-header" style="padding: 10px">
-				<ul class="poweredby">
-					<li>Developed by </li>
-					<li>
-						<a href="http://www.28msec.com" target="_blank">
-							<img src="/images/28msec.png">
-						</a>
-					</li>
-					<li>using</li>
-					<li>
-						<a href="http://www.bizql.io" target="_blank">
-							BizQL.io
-						</a>
-					</li>
-				</ul>
+                <ul class="poweredby">
+                    <li>Developed by </li>
+                    <li>
+                        <a href="http://www.28msec.com" target="_blank">
+                            <img src="/images/28msec.png">
+                        </a>
+                    </li>
+                    <li>using</li>
+                    <li>
+                        <a href="http://www.bizql.io" target="_blank">
+                            BizQL.io
+                        </a>
+                    </li>
+                </ul>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="mailto:hello@28.io">Contact Us</a></li>
@@ -108,14 +110,14 @@
         <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
         <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
 
-		<script src="/scripts/munchkinhelper.js"></script>
+        <script src="/scripts/munchkinhelper.js"></script>
 
-		<script src="/scripts/autocomplete.js"></script>
-		<script src="/scripts/googlechart.js"></script>
+        <script src="/scripts/autocomplete.js"></script>
+        <script src="/scripts/googlechart.js"></script>
         <script src="/scripts/navbar-toggle.js"></script>
         <script src="/scripts/scroll-id.js"></script>
         <script src="/scripts/document-click.js"></script>
-		<script src="/scripts/constants.js"></script>
+        <script src="/scripts/constants.js"></script>
         <script src="/scripts/main.js"></script>
         <script src="/scripts/SessionService.js"></script>
         <script src="/scripts/QueriesService.js"></script>
@@ -127,12 +129,12 @@
         <script src="/scripts/FilingsCtrl.js"></script>
         <script src="/scripts/ComponentsCtrl.js"></script>
         <script src="/scripts/FactTableCtrl.js"></script>
-		<script src="/scripts/AnalyticsCtrl.js"></script>
+        <script src="/scripts/AnalyticsCtrl.js"></script>
         <script src="/scripts/InformationCtrl.js"></script>
         <script src="/scripts/DashboardCtrl.js"></script>
         <script src="/scripts/SearchCtrl.js"></script>
         <script src="/scripts/ConceptMapCtrl.js"></script>
-		<script src="/scripts/CompanyCtrl.js"></script>
+        <script src="/scripts/CompanyCtrl.js"></script>
         <!-- endbuild -->
 </body>
 </html>
