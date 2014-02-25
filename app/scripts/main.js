@@ -264,6 +264,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/concept-map.html',
             controller: 'ConceptMapCtrl'
         })
+        .when('/company/:section', {
+            templateUrl: '/views/company.html',
+			controller: 'CompanyCtrl'
+        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'

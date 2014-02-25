@@ -391,7 +391,8 @@ pre .boolean {
 .v-center-area { 
 	display: block;
     position: relative;
-    min-height: 170px;
+    min-height: 220px;
+	background: #242b32;
 }
 
 .v-center-area:after { 
@@ -403,14 +404,14 @@ pre .boolean {
 .v-center-block {
 	position: absolute;
 	top: 50%;
-	margin-top: -100px;
+	margin-top: -150px;
 	width: 100%;
     z-index: 200;
 }
 
 .v-center-content {
 	position: absolute;
-	top: 0px;
+	bottom: 0px;
 	left: 0px;
 	width: 100%;
     z-index: 100;
@@ -433,6 +434,12 @@ pre .boolean {
 	margin-left: -32px;
 	margin-top: -32px;
 	position: absolute;
+}
+
+@media (min-width: 480px) {
+	.v-center-block {
+		margin-top: -125px;
+	}
 }
 
 @media (min-width: 768px) {
@@ -960,3 +967,343 @@ ul.selector li.disabled:after
     padding-top: 200px;
     margin-top: -200px
 }
+
+
+/* company */
+
+.shot{
+	display:block;
+	padding:5px;
+	margin-top:35px;
+	margin-right:auto;
+	margin-bottom:35px;
+	margin-left:auto;
+	text-align:center;
+	background:#fcfcfc;
+	background-position:center center;
+	background-repeat:no-repeat;
+	border:1px solid #eee;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px;
+	-webkit-box-shadow:0 1px 12px #999;
+	-moz-box-shadow:0 1px 12px #999;
+	box-shadow:0 1px 12px #999
+}
+
+.team{
+	display:block;
+	width:150px;
+	height:150px;
+	padding:2px;
+	margin-right:auto;
+	margin-left:auto;
+	background:#fcfcfc;
+	background-position:center center;
+	background-repeat:no-repeat;
+	background-size:145px 145px;
+	border:1px solid #eee;
+	border-radius:50%;
+	-webkit-box-shadow:0 1px 3px #999;
+	-moz-box-shadow:0 1px 3px #999;
+	box-shadow:0 1px 3px #999
+}
+
+#press .thumbnails .thumbnail{
+	height:250px;
+	margin-bottom:20px
+}
+
+#press .thumbnails .span6:nth-child(odd){
+	margin-left:0
+}
+
+#press .thumbnails .thumbnail *{
+	padding-left:120px;
+	color:#555
+}
+
+#press .thumbnails .thumbnail h4{
+	margin-bottom:0;
+	font-weight:600
+}
+
+#press .thumbnails .thumbnail .date{
+	font-size:12px;
+	color:#666
+}
+
+#press .thumbnails .thumbnail:hover,#press .thumbnails .thumbnail:focus{
+	text-decoration:none;
+	background-color:#fff;
+	border:1px solid #ddd;
+	-webkit-box-shadow:0 1px 3px rgba(0,0,0,.055);
+	-moz-box-shadow:0 1px 3px rgba(0,0,0,.055);
+	box-shadow:0 1px 3px rgba(0,0,0,.055)
+}
+
+#press .thumbnails .thumbnail{
+	padding:10px;
+	background-color:#fdfdfd;
+	background-position:10px center;
+	background-repeat:no-repeat;
+	-webkit-transition:background-color .1s linear;
+	-moz-transition:background-color .1s linear;
+	transition:background-color .1s linear
+}
+
+#press .thumbnail{
+	background-size:100px auto
+}
+
+#company .header {
+	text-align: center;
+	background: transparent;
+}
+
+#company .nav-pills li{
+	border:1px solid #eee;
+	border-right:0
+}
+
+#company .nav-pills li>a{
+	color:#27ae60;
+	border-radius:0
+}
+
+#company .nav-pills li>a:hover{
+	color:#555;
+	background-color:#fff
+}
+
+#company .nav-pills li:first-child{
+	border-bottom-left-radius:4px;
+	border-top-left-radius:4px
+}
+
+#company .nav-pills li:last-child{
+	border-right:1px solid #eee
+}
+
+#company .nav-pills li:last-child{
+	border-top-right-radius:4px;
+	border-bottom-right-radius:4px
+}
+
+#company .nav-pills li.active{
+	background-color:#27ae60;
+	border:1px solid #145b32
+}
+
+#company .nav-pills li.active>a{
+	color:#fff
+}
+
+#company .nav-pills li.active>a:hover{
+	background-color:#27ae60
+}
+
+#r{
+	background-image:url('../images/team/roger.png')
+}
+
+#e{
+	background-image:url('../images/team/eric.png')
+}
+
+#m{
+	background-image:url('../images/team/matthias.png')
+}
+
+#a{
+	background-image:url('../images/team/alexander.png')
+}
+
+#d{
+	background-image:url('../images/team/dennis.png')
+}
+
+#f{
+	background-image:url('../images/team/federico.png')
+}
+
+#g{
+	background-image:url('../images/team/ghislain.png')
+}
+
+#n{
+	background-image:url('../images/team/nicolae.png')
+}
+
+#w{
+	background-image:url('../images/team/william.png')
+}
+
+#p{
+	background-image:url('../images/team/paul.png')
+}
+
+#dana{
+	background-image:url('../images/team/dana.png')
+}
+
+#donald{
+	background-image:url('../images/team/donald.png')
+}
+
+#wolfram{
+	background-image:url('../images/team/wolfram.png')
+}
+
+#t{
+	background-image:url('../images/team/trevor.png')
+}
+
+@media (min--moz-device-pixel-ratio:1.5),(-o-min-device-pixel-ratio:3/2),(-webkit-min-device-pixel-ratio:1.5),(min-device-pixel-ratio:1.5),(min-resolution:144dpi),(min-resolution:1.5dppx){
+	#r{
+		background-image:url('../images/team/roger@2x.png')
+	}
+
+	#e{
+		background-image:url('../images/team/eric.png')
+	}
+
+	#m{
+		background-image:url('../images/team/matthias@2x.png')
+	}
+
+	#a{
+		background-image:url('../images/team/alexander@2x.png')
+	}
+
+	#d{
+		background-image:url('../images/team/dennis.png')
+	}
+
+	#g{
+		background-image:url('../images/team/ghislain@2x.png')
+	}
+
+	#n{
+		background-image:url('../images/team/nicolae.png')
+	}
+
+	#w{
+		background-image:url('../images/team/william.png')
+	}
+
+	#p{
+		background-image:url('../images/team/paul@2x.png')
+	}
+
+	#wolfram{
+		background-image:url('../images/team/wolfram.png')
+	}
+
+	#t{
+		background-image:url('../images/team/trevor@2x.png')
+	}
+
+}
+
+#press .forbes{
+	background-image:url('../images/press/forbes.png')
+}
+
+#press .oreilly{
+	background-image:url('../images/press/oreilly.png')
+}
+
+#press .r451{
+	background-image:url('../images/press/451.png')
+}
+
+#press .gigaom{
+	background-image:url('../images/press/gigaom.png')
+}
+
+#press .techcrunch{
+	background-image:url('../images/press/techcrunch.png')
+}
+
+#press .infoq{
+	background-image:url('../images/press/infoq.png')
+}
+
+#press .it-tna{
+	background-image:url('../images/press/it-tna.png')
+}
+
+#press .informationweek{
+	background-image:url('../images/press/informationweek.png')
+}
+
+@media (min--moz-device-pixel-ratio:1.5),(-o-min-device-pixel-ratio:3/2),(-webkit-min-device-pixel-ratio:1.5),(min-device-pixel-ratio:1.5),(min-resolution:144dpi),(min-resolution:1.5dppx){
+	#press .gigaom{
+		background-image:url('../images/press/gigaom@2x.png')
+	}
+
+	#press .infoq{
+		background-image:url('../images/press/infoq@2x.png')
+	}
+
+	#press .it-tna{
+		background-image:url('../images/press/it-tna@2x.png')
+	}
+
+	#press .techcrunch{
+		background-image:url('../images/press/techcrunch@2x.png')
+	}
+
+	#press .informationweek{
+		background-image:url('../images/press/informationweek@2x.png')
+	}
+
+	#press .r451{
+		background-image:url('../images/press/451@2x.png')
+	}
+
+	#press .forbes{
+		background-image:url('../images/press/forbes@2x.png')
+	}
+
+	#press .oreilly{
+		background-image:url('../images/press/oreilly@2x.png')
+	}
+
+}
+
+.palo-alto{
+	width:400px;
+	height:400px;
+	background-image:url('../images/offices/palo-alto.png');
+	background-size:400px 400px
+}
+
+.zurich{
+	width:400px;
+	height:400px;
+	background-image:url('../images/offices/zurich.png');
+	background-size:400px 400px
+}
+
+@media (min--moz-device-pixel-ratio:1.5),(-o-min-device-pixel-ratio:3/2),(-webkit-min-device-pixel-ratio:1.5),(min-device-pixel-ratio:1.5),(min-resolution:144dpi),(min-resolution:1.5dppx){
+	.palo-alto{
+		width:400px;
+		height:400px;
+		background-image:url('../images/offices/palo-alto@2x.png')
+	}
+
+	.zurich{
+		width:400px;
+		height:400px;
+		background-image:url('../images/offices/zurich@2x.png')
+	}
+
+}
+
+.query-scientists>div{
+	margin-top:40px
+}
+
+/* end company */
