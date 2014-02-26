@@ -30,7 +30,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
             hAxis: { format: "QQQ yyyy" }
         };
         ochart.type = "LineChart";
-        $scope.chart = ochart;
+        $scope.chart1 = ochart;
 
         $scope.table = {"cols": [
             {id: "date", label: "Date", type: "string"},
@@ -40,7 +40,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
         ], "rows": []};
 
         $scope.httpDates = {};
-		var lastYear = (new Date()).getFullYear();
+        var lastYear = (new Date()).getFullYear();
         for (
             var i = 0; i < 4; i++)
         {
@@ -55,7 +55,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
                 ] };
             }
         }
-        $scope.chart.data = $scope.table;
+        $scope.chart1.data = $scope.table;
 
         $scope.httpLoaders = 0;
 
@@ -111,7 +111,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
     $scope.$watch("httpLoaders", function(newValue, oldValue) { 
         if (newValue < 0) 
         {
-            $scope.chart = null;
+            $scope.chart1 = null;
         }
         if (newValue == 2)
         {
@@ -161,7 +161,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
             {
                 $scope.table.rows.push(element);
             });
-            $scope.chart.data = $scope.table;
+            $scope.chart1.data = $scope.table;
             $scope.safeApply();
         }
     });

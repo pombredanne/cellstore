@@ -1,0 +1,85 @@
+<div class="topbar"></div>
+<div class="row">
+	<div class="col-md-12">
+        <div class="text-center" style="padding-bottom: 5px" ng-show="result">
+          <h3>{{result.Profiles.SEC.CompanyName}}</h3>
+        </div>
+        <div ng-show="result">
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="success col-sm-4">Component ID</td><td>{{cid}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">CIK</td><td>{{cik}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Accession Number</td><td>{{AccessionNumber}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Network Identifier</td><td>{{result.NetworkIdentifier}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Network Description</td><td>{{result.NetworkLabel}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Table Name</td><td>{{result.Table}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Disclosure Name</td><td>{{result.Disclosure}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Category</td><td>{{result.Category}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">SubCategory</td><td>{{result.SubCategory}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Component Rendering Link</td><td>{{}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Model Structure Link</td><td>{{}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Fact Table Link</td><td><a href="/facttable/{{cid}}"a><i class="fa fa-external-link-square"></i></a></td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">SEC Preview Link</td><td>{{}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Report Elements</td><td>{{result.ReportElements}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Tables</td><td>{{result.Tables}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Axis</td><td>{{result.Axis}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Members</td><td>{{result.Members}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">LineItems</td><td>{{result.LineItems}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Concepts</td><td>{{result.Concepts}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Abstracts</td><td>{{result.Abstracts}}</td>
+              </tr>
+            </tbody>
+          </table>
+		  </div>
+          <div class="col-md-12 text-right">
+            Data as: <a href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="{{cid}}.json">JSON</a>,
+            <a href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" downlaod="{{cid}}.xml">XML</a>,
+            <a href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="{{cid}}.csv">CSV</a>,
+            <a href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="{{cid}}.csv">Excel</a>
+          </div>
+        </div>
+	</div>
+</div>
+
+
+
