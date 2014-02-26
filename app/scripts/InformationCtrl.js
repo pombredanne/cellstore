@@ -27,7 +27,7 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
 			{
 				data.filings.forEach(function(filing) {
 					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].used = true;
-					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod)].used = true;
+					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod == "Q4" ? "FY" : filing.fiscalPeriod)].used = true;
 				});
 				$scope.adjustYearPeriod();
 			}
