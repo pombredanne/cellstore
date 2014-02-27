@@ -8,6 +8,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
         $scope.cik = item.cik;
         $scope.name = item.name;
         $scope.ticker = item.tickers[0];
+        $scope.goto("/dashboard/" + $scope.cik);
 		$scope.getdata();
 	};
 
