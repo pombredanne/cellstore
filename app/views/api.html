@@ -42,17 +42,17 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="parameter in operation.parameters">
-                            <td ng-switch on="parameter.paramType">
+                            <td class="col-sm-2" ng-switch on="parameter.paramType">
                                 <span ng-switch-when="query" class="label label-query" tooltip-html-unsafe="<p class='text-left'>This parameter must be specified as a URL query string parameter.</p>" tooltip-trigger="mouseenter" tooltip-placement="left" tooltip-popup-delay="250">query</span>
                                 <span ng-switch-when="path" class="label label-path" tooltip-html-unsafe="<p class='text-left'>This parameter must be specified in the URL path.</p" tooltip-trigger="mouseenter" tooltip-placement="left" tooltip-popup-delay="250">path</span>
                                 <span ng-switch-when="body" class="label label-body" tooltip-html-unsafe="<p class='text-left'>This parameter must be specified in the request body.</p" tooltip-trigger="mouseenter" tooltip-placement="left" tooltip-popup-delay="250">body</span>
-                            <td>
+                            <td class="col-sm-2">
                                 <code><span ng-bind="parameter.name"></span><span class="text-danger" ng-show="parameter.required">*</span></code>
                             </td>
-                            <td>
+                            <td class="col-sm-2">
                                 <code ng-repeat="value in parameter.enum" ng-bind-html="value" style="display:block;"></code>
                             </td>
-                            <td ng-switch on="parameter.name">
+                            <td class="col-sm-6" ng-switch on="parameter.name">
                                 <span ng-switch-default ng-bind-html="parameter.description"></span>
                             </td>
                         </tr>
