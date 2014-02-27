@@ -63,12 +63,17 @@ declare function local:to-xml($o as object*)
 };
  
 let $format  := lower-case(request:param-values("format")[1])
-let $period  := let $period := upper-case(request:param-values("fiscalPeriod", "FY")[1])
+let $periods := let $period := upper-case(request:param-values("fiscalPeriod", "FY"))
                 return 
-                    if ($period = ("Q1", "Q2", "Q3", "FY"))
-                    then $period
+                    if ($period = ("Q1", "Q2", "Q3", "FY", "ALL"))
+                    then distinct-values($period)
                     else error(xs:QName("local:INVALID-PERIOD"),
                                $period || ": fiscalPeriod value must be one of Q1, Q2, Q3, FY")
+let $years   := let $years := request:param-values("fiscalYear", "ALL")
+                return
+                    if ($years = "ALL")
+                    then ()
+                    else $years ! $$ cast as integer
 let $concept := request:param-values("concept", "us-gaap:Assets")[1]
 let $map     := request:param-values("map")[1]
 let $tags    := request:param-values("tag")
@@ -82,8 +87,8 @@ let $json-result :=
                 else entities:entities()
             )[$$.Profiles.SEC.IsTrust eq false],
             $concept,
-            $period,
-            (),
+            if ($periods = "ALL") then ("Q1", "Q2", "Q3", "FY") else $periods,
+            $years,
             {|
                 if (exists($map))
                 then { "concept-maps" : $map }
@@ -102,7 +107,7 @@ let $json-result :=
     return {|
         {
             Aspects : {
-                "xbrl:ReportingEntity" : "bizql:AllReportingEntitiesMember",
+                "xbrl:Entity" : "bizql:AllReportingEntitiesMember",
                 "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
                 "xbrl:Concept" : $concept,
                 "bizql:FiscalYear" : $fyf,

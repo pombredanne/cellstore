@@ -5,8 +5,8 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace csv = "http://zorba.io/modules/json-csv";
 import module namespace session = "http://apps.28.io/session";
 
-declare function local:to-xml($entities as object*) as element()*
-{
+declare function local:to-xml($entities as object*)
+{ 
   (session:comment("xml"),
   <Entities>{
     for $e in $entities
@@ -91,7 +91,7 @@ return
         }
         default return {
             response:content-type("application/json");
-            response:serialization-parameters({"indent" : true});
+            response:serialization-parameters({"indent" : false});
             {|
                 { "Entities" : [ $entities ] },
                 session:comment("json") 

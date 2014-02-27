@@ -1,13 +1,16 @@
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
+import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
-declare function local:to-csv($o as object*) as string
+declare function local:to-csv($o as object*) as string?
 {
+    if (exists($o)) (: bug in csv:serialize :)
+    then
     string-join(
         csv:serialize(
             for $o in $o
@@ -29,6 +32,7 @@ declare function local:to-csv($o as object*) as string
             |}
         )
     )
+    else ()
 };
 
 declare function local:to-xml($o as object*)
@@ -64,61 +68,112 @@ declare function local:to-xml($o as object*)
     }</FactTable>)
 };
 
-declare function local:facts($entities, $period, $year, $concepts, $map)
+declare function local:facts($entities, $fiscalPeriods, $fiscalYears, $concepts, $dimensions, $map)
 {
     for $entity in $entities
-    let $year := if (exists($year))
-                 then $year cast as integer 
-                 else if ($period = "FY")
-                      then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year
-                      else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
+    (: compute latest reported fiscalYear if none is specified :)
+    let $years  :=  distinct-values(
+                        for $f in $fiscalYears
+                        return
+                            switch ($f)
+                            case "LATEST" return
+                                for $p in $fiscalPeriods
+                                return
+                                    if ($p eq "FY")
+                                    then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year
+                                    else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
+                            case "ALL" return ()
+                            default return $f
+                    )
+    let $fiscalPeriods := distinct-values(
+                            $fiscalPeriods !
+                                (switch($$)
+                                case "Q1" return ("Q1","YTD1")
+                                case "Q2" return ("Q2","YTD2")
+                                case "Q3" return ("Q3","YTD3")
+                                default return ("Q4","FY")))
     for $concept in $concepts
+    let $aspects :=
+        {|
+            { "xbrl:Concept" : $concept },
+            { "xbrl:Entity" : $entity._id },
+            $dimensions
+        |}
+    let $hypercube := copy $h := hypercubes:dimensionless-hypercube()
+                      modify insert json {|
+                        "dei:LegalEntityAxis" ! { $$ : { Name : $$, Default : "sec:DefaultLegalEntity" } }
+                      |}
+                      into $h.Aspects
+                      return $h
+    let $options :=
+            {|
+                if (exists($map))
+                then { "concept-maps" : $map }
+                else (),
+                { Hypercube : $hypercube }
+            |}
     for $fact in
-                    if (exists($map) and $map eq "FundamentalAccountingConcepts") 
-                    then sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years(
-                        $entity, $concept, $period, $year, { "concept-maps" : $map })
-                    else sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years(
-                        $entity, $concept, $period, $year)
-                    order by $fact.Profiles.SEC.Fiscal.Acceptance descending
-                    group by $fact.Aspects."xbrl:Entity",
-                             $fact.Profiles.SEC.Fiscal.Acceptance,
-                             $fact.Profiles.SEC.Fiscal.Period 
+        for $f in
+            sec-fiscal:facts-for-aspects-and-fiscal-periods-and-years(
+                $aspects, $fiscalPeriods, $years, $options)
+        order by $f.Profiles.SEC.Fiscal.Acceptance descending
+        group by $f.Profiles.SEC.Fiscal.Year,
+                 $f.Profiles.SEC.Fiscal.Period,
+                 $f.Profiles.SEC.Fiscal.Acceptance
+        return $f[1]
     return {|
         { Aspects : {|
-            { "xbrl:Entity" : $entity[1]._id },
-            { "bizql:FiscalPeriod" : $fact[1].Profiles.SEC.Fiscal.Period },
-            { "bizql:FiscalYear" : $fact[1].Profiles.SEC.Fiscal.Year },
-            { "xbrl:Concept" : $concept[1] }
+            { "xbrl:Entity" : $fact.Aspects."xbrl:Entity" },
+            { "dei:LegalEntityAxis" : $fact.Aspects."dei:LegalEntityAxis" },
+            { "bizql:FiscalPeriod" : $fact.Profiles.SEC.Fiscal.Period },
+            { "bizql:FiscalYear" : $fact.Profiles.SEC.Fiscal.Year },
+            { "xbrl:Concept" : $fact.Aspects."xbrl:Concept" }
         |} },
-        { Type: $fact[1].Type },
-        if (exists($fact[1].Aspects."xbrl:Unit"))
-        then { Unit: $fact[1].Aspects."xbrl:Unit" }
-        else (),
-        if (exists($fact[1].Decimals))
-        then { Decimals: $fact[1].Decimals }
+        { Type: $fact.Type },
+        if (exists($fact.Aspects."xbrl:Unit"))
+        then { Unit: $fact.Aspects."xbrl:Unit" }
+        else  (),
+        if (exists($fact.Decimals))
+        then { Decimals: $fact.Decimals }
         else (), 
-        { Value: $fact[1].Value },
-        { "EntityRegistrantName" : $entity[1].Profiles.SEC.CompanyName },
+        { Value: $fact.Value },
+        { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
         if (exists($map))
-        then { "ReportedConcept" : $fact[1].AuditTrails[].Data.OriginalConcept[1] }
-        else ()
+        then { "ReportedConcept" : $fact.AuditTrails[].Data.OriginalConcept[1] }
+        else () 
     |}
 };
 
-let $format   := lower-case(request:param-values("format")[1])
-let $ciks     := distinct-values(companies:eid(request:param-values("cik")))
-let $tags     := request:param-values("tag") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)
-let $tickers  := request:param-values("ticker")
-let $sics     := request:param-values("sic")
-let $period   := request:param-values("fiscalPeriod", "FY")[1]
-let $year     := request:param-values("fiscalYear")[1]
+let $format      := lower-case(request:param-values("format")[1])
+let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
+let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
+let $tickers     := distinct-values(request:param-values("ticker"))
+let $sics        := distinct-values(request:param-values("sic"))
+let $fiscalYears := distinct-values(
+                        for $y in request:param-values("fiscalYear", "LATEST")
+                        return
+                            if ($y eq "LATEST" or $y eq "ALL")
+                            then $y
+                            else if ($y castable as integer)
+                            then $y cast as integer
+                            else ()
+                    )
+let $fiscalPeriods := let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (lower-case($fp) eq "all")
+                        then ("Q1", "Q2", "Q3", "FY")
+                        else $fp
+let $dimensions :=  for $p in request:param-names()
+                    return
+                        switch ($p)
+                        case contains($p, ":") return
+                            {
+                                $p : request:param-values($p)[1]
+                            }
+                        default return ()
 let $concepts := request:param-values("concept")
 let $map      := request:param-values("map")[1]
-let $period   := switch($period)
-                 case "Q1" return ("Q1","YTD1")
-                 case "Q2" return ("Q2","YTD2")
-                 case "Q3" return ("Q3","YTD3")
-                 default return ("Q4","FY")
+
 return 
   if (empty($concepts))
   then {
@@ -141,7 +196,7 @@ return
         session:error("accessing facts of an entity that is not in the DOW30", $format)
       }
       default return
-        let $facts := local:facts($entities, $period, $year, $concepts, $map)
+        let $facts := local:facts($entities, $fiscalPeriods, $fiscalYears, $concepts, $dimensions, $map)
         return
             switch ($format)
             case "xml" return {

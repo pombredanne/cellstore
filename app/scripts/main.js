@@ -265,6 +265,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/components.html',
             controller: 'ComponentsCtrl'
         })
+        .when('/component/:cid', {
+            templateUrl: '/views/component.html',
+            controller: 'ComponentCtrl'
+        })
         .when('/facttable/:component', {
             templateUrl: '/views/facttable.html',
             controller: 'FactTableCtrl'

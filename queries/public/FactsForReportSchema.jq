@@ -22,15 +22,10 @@ variable $yearFocus := let $yearFocus := request:param-values("fiscalYearFocus",
                                 then error(QName("local:INVALID-REQUEST"), "fiscalYearFocus: mandatory parameter not found")
                                 else $yearFocus cast as integer;
 
-variable $entity := let $entity := entities:entities(companies:eid($cik))
+variable $entity := let $entity := entities:entities($cik ! companies:eid($$))
                     return if (empty($entity))
                            then  error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
                            else  $entity;
-
-variable $archive := let $archive :=  sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $periodFocus, $yearFocus)
-                     return if (empty($archive))
-                           then  error(QName("local:INVALID-REQUEST"), "Filing not found")
-                           else  $archive;
                            
 variable $reportSchema := let $reportSchema := request:param-values("reportSchema","FundamentalAccountingConcepts")
                           return if(empty($reportSchema))
@@ -42,6 +37,13 @@ variable $schema := let $schema := report-schemas:report-schemas($reportSchema)
                     then  error(QName("local:INVALID-REQUEST"), "Given reportSchema:"||$schema|| " not found")
                     else $schema;
 
+
+for $entity in $entity
+for $archive in let $a := 
+                    sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $periodFocus, $yearFocus)
+                 return if (empty($a)) 
+                       then  error(QName("local:INVALID-REQUEST"), "Filing not found")
+                       else  $a
 let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :) 
 let $populatedSchema := sec:populate-schema-with-facts($schema, $archive)
 return  if(session:only-dow30($entity) or session:valid())

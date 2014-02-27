@@ -1,6 +1,7 @@
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 
+import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
@@ -21,6 +22,12 @@ declare function local:summary-to-xml($components as object*) as element()*
         <SubCategory>{$c.SubCategory}</SubCategory>
         <Table>{$c.Table}</Table>
         <Disclosure>{$c.Disclosure}</Disclosure>
+        <Tables>{$c.Tables}</Tables>
+        <Axis>{$c.Axis}</Axis>
+        <Members>{$c.Members}</Members>
+        <LineItems>{$c.LineItems}</LineItems>
+        <Concepts>{$c.Concepts}</Concepts>
+        <Abstracts>{$c.Abstracts}</Abstracts>
     </Component>
 };
 
@@ -39,13 +46,22 @@ declare function local:component-summary($component)
         Category : sec-networks:categories($component),
         SubCategory : sec-networks:sub-categories($component),
         Table : sec-networks:tables($component, { IncludeImpliedTable: true}).Name[1],
-        Disclosure : sec-networks:disclosures($component)
+        Disclosure : sec-networks:disclosures($component),
+        ReportElements : sec-networks:num-report-elements($component),
+        Tables : sec-networks:num-tables($component),
+        Axis : sec-networks:num-axes($component),
+        Members : sec-networks:num-members($component),
+        LineItems : sec-networks:num-line-items($component),
+        Concepts : sec-networks:num-concepts($component),
+        Abstracts : sec-networks:num-abstracts($component)
     }
 };
 
 let $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
 let $aid      := archives:aid(request:param-values("aid")[1])
-let $archive  := archives:archives($aid)
+let $cid      := request:param-values("cid")[1]
+let $component := if (exists($cid)) then components:components($cid) else ()
+let $archive  := if (exists($aid)) then archives:archives($aid) else archives:archives($component.Archive)
 let $entity   := entities:entities($archive.Entity)
 return
     if (session:only-dow30($entity) or session:valid())
@@ -55,7 +71,11 @@ return
             {|
                 { CIK : archives:entities($archive)._id },
                 { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
-                { Components: [ for $c in sec-networks:networks-for-filings($a)
+                { FiscalYear            : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
+                { FiscalPeriod          : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
+                { Components: [ for $c in if (exists($component))
+                                          then $component
+                                          else sec-networks:networks-for-filings($a)
                               let $disclosure := sec-networks:disclosures($c)
                               where $disclosure ne "DefaultComponent" and
                                     exists(sec-networks:model-structures($c))
@@ -70,7 +90,9 @@ return
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
                 (session:comment("xml"),
                 <Components EntityRegistrantName="{$res.EntityRegistrantName}"
-                            CIK="{$res.CIK}">{
+                            CIK="{$res.CIK}"
+                            FiscalYear="{$res.FiscalYear}"
+                            FiscalPeriod="{$res.FiscalPeriod}">{
                 local:summary-to-xml($res.Components[])
             }</Components>)
             }

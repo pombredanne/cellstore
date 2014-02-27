@@ -11,7 +11,19 @@ declare function local:to-xml($c)
 {
     (
         session:comment("xml"),
-        <a/>
+        <ConceptMap name="{$c.ShortName}" linkrole="{$c.LinkRole}">{
+            for $k in keys($c.Trees)
+            return
+                <Mapping>{
+                     (
+                         <Concept>{$k}</Concept>,
+                         for $t in keys($c.Trees.$k.To)
+                         return
+                             <MappedTo>{$t}</MappedTo>
+                     )
+                }
+                </Mapping>
+        }</ConceptMap>
     )
 };
 
@@ -22,8 +34,8 @@ declare function local:to-csv($c)
             for $k in keys($c.Trees)
             for $v at $y in keys($c."Trees".$k.To)
             return {
-                "FundamentalConceptName" : $k,
-                "TaxonomyConceptName" : $v,
+                "Concept" : $k,
+                "MappedTo" : $v,
                 "TryOrder" : $y
             }
         )
