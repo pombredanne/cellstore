@@ -30,7 +30,7 @@
             <div class="accordion-content accordion-slide">
             <div class="accordion-content-inner">
                 <div ng-bind-html="operation.notes"></div>
-                <h3>Request Parameters</h3>
+                <h4>Request Parameters</h4>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -58,7 +58,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <h3>Response Status Codes</h3>
+                <h4>Response Status Codes</h4>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -81,9 +81,9 @@
                     <!--h3 ng-show="operation.examples.length === 1">Example</h3>
                     <h3 ng-show="operation.examples.length > 1">Examples</h3-->
                     <div ng-repeat="example in operation.examples">
-                        <h3>Example <span ng-show="example.title">&#8212;</span> <span ng-bind="example.title"></span></h3>
+                        <h4>Example <span ng-show="example.title">&#8212;</span> <span ng-bind="example.title"></span></h4>
                         <p ng-bind-html="example.description"></p>
-                        <h4>Request <a href="{{example.request.replace('[API_URL]', API_URL)}}" target="_blank"><i class="fa fa-play"></i></a></h4>
+                        <h5>Request <a href="{{example.request.replace('[API_URL]', API_URL)}}" target="_blank"><i class="fa fa-play"></i></a></h5>
 
                         <pre ng-bind="example.request.replace('[API_URL]', API_URL)"></pre>
                         <!--<h4>Response</h4>
