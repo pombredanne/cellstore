@@ -19,7 +19,7 @@ declare function local:to-csv($o as object*) as string
             for $o in $o
             let $a := $o.Aspects
             return {|
-                (keys($a) ! { $$ : $a.$$ }),
+                (for $k in keys($a) return { $k : $a.$k }),
                 { "Unit" :  $o.Unit },
                 { "Value" : $o.Value },
                 { "Type" : $o.Type },
