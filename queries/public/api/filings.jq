@@ -10,7 +10,7 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 import module namespace session = "http://apps.28.io/session";
 
 
-declare function local:to-xml($filings as object*) as element()*
+declare function local:to-xml($filings as object*) as node()*
 {
     ( session:comment("xml"),
     <Filings>{

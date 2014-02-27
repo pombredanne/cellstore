@@ -22,6 +22,12 @@ declare function local:summary-to-xml($components as object*) as element()*
         <SubCategory>{$c.SubCategory}</SubCategory>
         <Table>{$c.Table}</Table>
         <Disclosure>{$c.Disclosure}</Disclosure>
+        <Tables>{$c.Tables}</Tables>
+        <Axis>{$c.Axis}</Axis>
+        <Members>{$c.Members}</Members>
+        <LineItems>{$c.LineItems}</LineItems>
+        <Concepts>{$c.Concepts}</Concepts>
+        <Abstracts>{$c.Abstracts}</Abstracts>
     </Component>
 };
 
@@ -65,6 +71,8 @@ return
             {|
                 { CIK : archives:entities($archive)._id },
                 { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
+                { FiscalYear            : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
+                { FiscalPeriod          : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
                 { Components: [ for $c in if (exists($component))
                                           then $component
                                           else sec-networks:networks-for-filings($a)
@@ -82,7 +90,9 @@ return
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
                 (session:comment("xml"),
                 <Components EntityRegistrantName="{$res.EntityRegistrantName}"
-                            CIK="{$res.CIK}">{
+                            CIK="{$res.CIK}"
+                            FiscalYear="{$res.FiscalYear}"
+                            FiscalPeriod="{$res.FiscalPeriod}">{
                 local:summary-to-xml($res.Components[])
             }</Components>)
             }
