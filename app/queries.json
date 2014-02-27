@@ -62,7 +62,7 @@
                     "responseMessages": [
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privileges",
                             "responseModel": "Error"
                         },
                         {
@@ -193,7 +193,7 @@
                         },
                         {
                             "name": "aid",
-                            "description": "The ID of the filing",
+                            "description": "The id of the filing",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -219,8 +219,8 @@
                     ],
                     "examples": [
                         {
-                            "title" : "Retrieve information about all component of a filing",
-                            "description": "Retrieve information about all comoponents of a particular filing which is identified by its accession number. The result is returned as JSON.",
+                            "title" : "Retrieve information about all components of a filing",
+                            "description": "Retrieve information about all components of a particular filing which is identified by its accession number. The result is returned as JSON.",
                             "request": "[API_URL]/_queries/public/api/components.jq?_method=POST&aid=0000021344-13-000039",
                             "response": ""
                         }
@@ -234,7 +234,7 @@
             "operations": [
                 {
                     "method": "GET",
-                    "summary": "Retrieve the fact table for a components",
+                    "summary": "Retrieve the fact table for a given component",
                     "notes": "",
                     "type": "EntityListing",
                     "nickname": "listEntities",
@@ -275,7 +275,7 @@
                     "successMessages": [
                         {
                             "code": 200,
-                            "message": "Return the fact table for the given Component"
+                            "message": "Return the fact table for the given component"
                         }
                     ],
                     "examples": [
