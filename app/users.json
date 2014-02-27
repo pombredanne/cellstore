@@ -23,12 +23,19 @@
                             "type":"string",
                             "paramType":"query"
                         },
-                     {
+                        {
                             "name":"email",
                             "description":"",
                             "required":false,
                             "type":"string",
                             "paramType":"query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -125,6 +132,13 @@
                             "required":true,
                             "type":"string",
                             "paramType":"query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -143,7 +157,7 @@
                     "method":"POST",
                     "summary":"Change user password",
                     "notes":"",
-                    "type":"User",
+                    "type":"Success",
                     "nickname":"resetPassword",
                     "parameters":[
                         {
@@ -155,6 +169,40 @@
                         },
                         {
                             "name":"password",
+                            "description":"",
+                            "required":true,
+                            "type":"string",
+                            "paramType":"query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code":500,
+                            "message":"Not done yet"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path":"/users/forgotPassword.jq",
+            "operations":[
+                {
+                    "method":"POST",
+                    "summary":"Send the email with the reset password token",
+                    "notes":"",
+                    "type":"Success",
+                    "nickname":"forgotPassword",
+                    "parameters":[
+                        {
+                            "name":"email",
                             "description":"",
                             "required":true,
                             "type":"string",
@@ -186,6 +234,13 @@
                             "required":false,
                             "type":"string",
                             "paramType":"query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -221,6 +276,13 @@
                             "type":"file",
                             "dataType" : "file",
                             "paramType":"query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -248,6 +310,13 @@
                             "required":true,
                             "type":"string",
                             "paramType":"query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[

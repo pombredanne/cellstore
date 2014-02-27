@@ -26,19 +26,20 @@
             <div class="navbar" navbar-toggle>
                 <div class="navbar-header">
                     <a href="/" id="logo">
-                        <!--<i class="logo"></i>-->
-                        <h3 class="highlight1">&nbsp;SECXBRL<font class="highlight2">.info</font></h3>
-                        <br><sup class="pull-right">BETA</sup>
+                        <i class="logo"></i>
+                        <h3 class="highlight1">SECXBRL<font class="highlight2">.info</font></h3>
+                        <br>
+                        <small><sup class="pull-right">BETA</sup>US Public Company<br>Financial Information Repository</small>
                     </a>
                     <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                          Menu <i class="glyphicon glyphicon-collapse-down"></i>
                     </button>
                 </div>
-                <i class="fa fa-spinner fa-spin fa-2x" id="spinner"></i>
+                <i class="fa fa-spinner fa-spin fa-3x" id="spinner"></i>
                 <div class="collapse navbar-collapse" role="navigation">
                     <div class="nav navbar-nav navbar-right" on-document-click="toggleMenu($event, false)">
                         <div ng-show="user" class="ontop">
-                            {{user.name}} <a class="btn btn-xs" href="javascript://" ng-click="logout()">Logout</a>
+                            <a href="/account">{{user.firstname}} {{user.lastname}}</a> <a class="btn btn-xs" style="border: 1px solid;" href="javascript://" ng-click="logout()">Logout</a>
                         </div>
                         <div ng-hide="user" class="ontop">
                             <a class="btn btn-xs" style="border: 1px solid;" href="/auth" ng-class="{ active: (page == '/views/auth.html') }">Login / Signup</a>
@@ -124,6 +125,7 @@
         <script src="/scripts/UsersService.js"></script>
         <script src="/scripts/ApiCtrl.js"></script>
         <script src="/scripts/AuthCtrl.js"></script>
+        <script src="/scripts/AccountCtrl.js"></script>
         <script src="/scripts/EntitiesCtrl.js"></script>
         <script src="/scripts/EntityCtrl.js"></script>
         <script src="/scripts/FilingsCtrl.js"></script>

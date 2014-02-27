@@ -11,7 +11,7 @@
 	</span>
 	<br><br>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-6" ng-show="!showForgot">
 			<form role="form" class="white-box" name="loginForm" ng-submit="login()" novalidate spellcheck="false" autocomplete="on">
 				<h4 class="highlight3">Login</h4>
 				<div class="form-group">
@@ -33,7 +33,26 @@
 					</span>
 				</div>
 				<div class="form-group text-right">
-					<button type="submit" class="btn btn-lg btn-green">Login</button>					
+                    <span class="pull-left"><a class="navbar" href="javascript://" ng-click="showForgot=true">Forgot password?</a></span>
+					<button type="submit" class="btn btn-lg btn-green">Login</button>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-6" ng-show="showForgot">
+			<form role="form" class="white-box" name="forgotForm" ng-submit="forgot()" novalidate spellcheck="false" autocomplete="on">
+				<h4 class="highlight3">Forgot Password</h4>
+				<div class="form-group">
+					<input type="email" class="form-control" name="forgotEmail" ng-model="forgotEmail" placeholder="Email" required autocomplete="on">
+					<span class="validation-error" ng-show="forgotForm.forgotEmail.$error.required && forgotAttempted">
+						Email is required.
+					</span>
+					<span class="validation-error" ng-show="forgotForm.forgotEmail.$error.email && forgotAttempted">
+						Email is invalid.
+					</span>
+				</div>
+				<div class="form-group text-right">
+                    <span class="pull-left"><a class="navbar" href="javascript://" ng-click="showForgot=false">Nevermind, I remembered!</a></span>
+					<button type="submit" class="btn btn-lg btn-green">Send me help</button>
 				</div>
 			</form>
 		</div>

@@ -281,6 +281,14 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/auth.html',
 			controller: 'AuthCtrl'
         })
+        .when('/account', {
+            templateUrl: '/views/account.html',
+			controller: 'AccountCtrl'
+        })
+        .when('/account/:section', {
+            templateUrl: '/views/account.html',
+			controller: 'AccountCtrl'
+        })
         .when('/concept-map/:name', {
             templateUrl: '/views/concept-map.html',
             controller: 'ConceptMapCtrl'
@@ -353,9 +361,9 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		});
 	});
 
-	$rootScope.$on('login', function(event, token, email, name, url){
+	$rootScope.$on('login', function(event, token, id, email, firstname, lastname, url){
 		$rootScope.token = token;
-		$rootScope.user = { email: email, name: name };
+		$rootScope.user = { id: id, email: email, firstname: firstname, lastname: lastname };
 		var cache = $angularCacheFactory.get('secxbrl');
 		if (cache)
 		{
@@ -372,6 +380,9 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	});
 
 	$rootScope.logout = function() {
+		if ($rootScope.user)
+			MunchkinHelper.associateLead({ Email: $rootScope.user.email, lastsecxbrlinfoop: 'logout' });
+
 		$rootScope.token = null;
 		$rootScope.user = null;
 		var cache = $angularCacheFactory.get('secxbrl');
@@ -380,7 +391,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			cache.remove('token');
 			cache.remove('user');
 		}
-		MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'logout' });
 		$rootScope.goto('/');
 	};
 
@@ -405,8 +415,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	};
 
 	$rootScope.goto = function(url) {
-		$location.path(url);
-		$location.replace();
+		$location.url(url, true);
 	};
 
 	$rootScope.gotoId = function(id) {
@@ -416,8 +425,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	$rootScope.gotologin = function() {
 		var p = $location.path();
 		if (p.length > 5 && p.substring(0, 5) == '/auth') return;
-		$location.path('/auth' + p);
-		$location.replace();
+		$location.url('/auth' + p, true);
 	};
 
 	$rootScope.toggleMenu = function(event, visible) { 

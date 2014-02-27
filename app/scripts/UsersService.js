@@ -1,445 +1,421 @@
-angular.module('main')
-.factory('UsersService', function($q, $http, $angularCacheFactory){
-
-    var options = {
-        storageMode: 'localStorage'
-    };
-    var UsersServiceCache = $angularCacheFactory('UsersServiceCache', options);
-
+angular.module('main')  
+/**
+ * This API can be used to manage users. Note, that the POST method can be simulated by using GET and adding the _method=POST parameter to the HTTP request. 
+ */
+.factory('UsersService', function($q, $http, $rootScope){
+    /**
+     * @class UsersService
+     * @param {string} domain - The project domain
+     */
     return function(domain) {
         if(typeof(domain) !== 'string') {
-            throw new Error("Domain parameter must be specified as a string."); 
+            throw new Error('Domain parameter must be specified as a string.'); 
         }
+        
+        var root = '';
 
-    this.getUser = function(userid, email){
-        var deferred = $q.defer();
-        
-        var path = domain + '/users/get.jq';
-        var canonicalResource = path;
-        
-        var url = path + '?';
-        
-            
-            if(userid !== undefined) {
-                if(userid instanceof Array) {
-                    userid.forEach(function(p){
-                        url += 'userid=' + encodeURIComponent(userid) + '&';
-                    });
-                } else {
-                    url += 'userid=' + encodeURIComponent(userid) + '&';
-                }
-            }
-        
-            
-            if(email !== undefined) {
-                if(email instanceof Array) {
-                    email.forEach(function(p){
-                        url += 'email=' + encodeURIComponent(email) + '&';
-                    });
-                } else {
-                    url += 'email=' + encodeURIComponent(email) + '&';
-                }
-            }
-        
-        
-        $http({
-            method: 'GET',
-            url: url,
-            
-            
-            cache: UsersServiceCache
-        })
-        .success(function(data, status, headers, config){
-            deferred.resolve(data);
-                
-                
-            
-             
-            
-            
-        })
-        .error(function(data, status, headers, config){
-            deferred.reject(data);
-        });
-        return deferred.promise;
-    };
+        this.$on = function($scope, path, handler) {
+            var url = domain + path;
+            $scope.$on(url, function(event, data){
+                handler(data);
+            });
+            return this;
+        };
 
-    this.newUser = function(firstname, lastname, email, password){
-        var deferred = $q.defer();
+        this.$broadcast = function(path, data){
+            var url = domain + path;
+            $rootScope.$broadcast(url, data);
+            return this;
+        };
         
-        var path = domain + '/users/new.jq';
-        var canonicalResource = path;
-        
-        var url = path + '?';
-        
-            if(firstname === undefined) {
-                deferred.reject(new Error("The firstname parameter is required"));
+        /**
+         * 
+         * @method
+         * @name UsersService#getUser
+         * @param {string} userid - , 
+         * @param {string} email - , 
+         * @param {string} token - The token of the current session, 
+         * 
+         */
+        this.getUser = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/users/get.jq'
+            var url = domain + path;
+            var params = {};
+                params['userid'] = parameters.userid;
+            params['email'] = parameters.email;
+            params['token'] = parameters.token;
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if('GET' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: 'GET',
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //that.$broadcast(url);
+                if(parameters.$cache !== undefined) parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject(data);
+                //cache.removeAll();
+            })
+            ;
             }
-            
-                if(firstname instanceof Array) {
-                    firstname.forEach(function(p){
-                        url += 'firstname=' + encodeURIComponent(firstname) + '&';
-                    });
-                } else {
-                    url += 'firstname=' + encodeURIComponent(firstname) + '&';
-                }
-            
-        
-            if(lastname === undefined) {
-                deferred.reject(new Error("The lastname parameter is required"));
-            }
-            
-                if(lastname instanceof Array) {
-                    lastname.forEach(function(p){
-                        url += 'lastname=' + encodeURIComponent(lastname) + '&';
-                    });
-                } else {
-                    url += 'lastname=' + encodeURIComponent(lastname) + '&';
-                }
-            
-        
-            if(email === undefined) {
-                deferred.reject(new Error("The email parameter is required"));
-            }
-            
-                if(email instanceof Array) {
-                    email.forEach(function(p){
-                        url += 'email=' + encodeURIComponent(email) + '&';
-                    });
-                } else {
-                    url += 'email=' + encodeURIComponent(email) + '&';
-                }
-            
-        
-            if(password === undefined) {
-                deferred.reject(new Error("The password parameter is required"));
-            }
-            
-                if(password instanceof Array) {
-                    password.forEach(function(p){
-                        url += 'password=' + encodeURIComponent(password) + '&';
-                    });
-                } else {
-                    url += 'password=' + encodeURIComponent(password) + '&';
-                }
-            
-        
-        
-        $http({
-            method: 'POST',
-            url: url,
-            
-            
-            cache: UsersServiceCache
-        })
-        .success(function(data, status, headers, config){
-            deferred.resolve(data);
-                
-                
-            
-            UsersServiceCache.remove(canonicalResource);
-            
-             
-            
-            
-        })
-        .error(function(data, status, headers, config){
-            deferred.reject(data);
-        });
-        return deferred.promise;
-    };
+            return deferred.promise;    
+        };
 
-    this.editUser = function(userid, firstname, lastname, email){
-        var deferred = $q.defer();
-        
-        var path = domain + '/users/edit.jq';
-        var canonicalResource = path;
-        
-        var url = path + '?';
-        
-            if(userid === undefined) {
-                deferred.reject(new Error("The userid parameter is required"));
+        /**
+         * 
+         * @method
+         * @name UsersService#newUser
+         * @param {string} firstname - , 
+         * @param {string} lastname - , 
+         * @param {string} email - , 
+         * @param {string} password - Will be removed after notifications are implemented., 
+         * 
+         */
+        this.newUser = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/users/new.jq'
+            var url = domain + path;
+            var params = {};
+            if(parameters.firstname  === undefined) { 
+                deferred.reject(new Error('The firstname parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['firstname'] = parameters.firstname; 
             }
-            
-                if(userid instanceof Array) {
-                    userid.forEach(function(p){
-                        url += 'userid=' + encodeURIComponent(userid) + '&';
-                    });
-                } else {
-                    url += 'userid=' + encodeURIComponent(userid) + '&';
-                }
-            
-        
-            if(firstname === undefined) {
-                deferred.reject(new Error("The firstname parameter is required"));
+        if(parameters.lastname  === undefined) { 
+                deferred.reject(new Error('The lastname parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['lastname'] = parameters.lastname; 
             }
-            
-                if(firstname instanceof Array) {
-                    firstname.forEach(function(p){
-                        url += 'firstname=' + encodeURIComponent(firstname) + '&';
-                    });
-                } else {
-                    url += 'firstname=' + encodeURIComponent(firstname) + '&';
-                }
-            
-        
-            if(lastname === undefined) {
-                deferred.reject(new Error("The lastname parameter is required"));
+        if(parameters.email  === undefined) { 
+                deferred.reject(new Error('The email parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['email'] = parameters.email; 
             }
-            
-                if(lastname instanceof Array) {
-                    lastname.forEach(function(p){
-                        url += 'lastname=' + encodeURIComponent(lastname) + '&';
-                    });
-                } else {
-                    url += 'lastname=' + encodeURIComponent(lastname) + '&';
-                }
-            
-        
-            if(email === undefined) {
-                deferred.reject(new Error("The email parameter is required"));
+        if(parameters.password  === undefined) { 
+                deferred.reject(new Error('The password parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['password'] = parameters.password; 
             }
-            
-                if(email instanceof Array) {
-                    email.forEach(function(p){
-                        url += 'email=' + encodeURIComponent(email) + '&';
-                    });
-                } else {
-                    url += 'email=' + encodeURIComponent(email) + '&';
-                }
-            
-        
-        
-        $http({
-            method: 'POST',
-            url: url,
-            
-            
-            cache: UsersServiceCache
-        })
-        .success(function(data, status, headers, config){
-            deferred.resolve(data);
-                
-                
-            
-            UsersServiceCache.remove(canonicalResource);
-            
-             
-            
-            
-        })
-        .error(function(data, status, headers, config){
-            deferred.reject(data);
-        });
-        return deferred.promise;
-    };
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: 'POST',
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //cache.removeAll();
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject(data);
+                //cache.removeAll();
+            })
+            ;
+            }
+            return deferred.promise;    
+        };
 
-    this.resetPassword = function(userid, password){
-        var deferred = $q.defer();
-        
-        var path = domain + '/users/resetPassword.jq';
-        var canonicalResource = path;
-        
-        var url = path + '?';
-        
-            if(userid === undefined) {
-                deferred.reject(new Error("The userid parameter is required"));
+        /**
+         * 
+         * @method
+         * @name UsersService#editUser
+         * @param {string} userid - , 
+         * @param {string} firstname - , 
+         * @param {string} lastname - , 
+         * @param {string} email - , 
+         * @param {string} token - The token of the current session, 
+         * 
+         */
+        this.editUser = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/users/edit.jq'
+            var url = domain + path;
+            var params = {};
+            if(parameters.userid  === undefined) { 
+                deferred.reject(new Error('The userid parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['userid'] = parameters.userid; 
             }
-            
-                if(userid instanceof Array) {
-                    userid.forEach(function(p){
-                        url += 'userid=' + encodeURIComponent(userid) + '&';
-                    });
-                } else {
-                    url += 'userid=' + encodeURIComponent(userid) + '&';
-                }
-            
-        
-            if(password === undefined) {
-                deferred.reject(new Error("The password parameter is required"));
+        if(parameters.firstname  === undefined) { 
+                deferred.reject(new Error('The firstname parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['firstname'] = parameters.firstname; 
             }
-            
-                if(password instanceof Array) {
-                    password.forEach(function(p){
-                        url += 'password=' + encodeURIComponent(password) + '&';
-                    });
-                } else {
-                    url += 'password=' + encodeURIComponent(password) + '&';
-                }
-            
-        
-        
-        $http({
-            method: 'POST',
-            url: url,
-            
-            
-            cache: UsersServiceCache
-        })
-        .success(function(data, status, headers, config){
-            deferred.resolve(data);
-                
-                
-            
-            UsersServiceCache.remove(canonicalResource);
-            
-             
-            
-            
-        })
-        .error(function(data, status, headers, config){
-            deferred.reject(data);
-        });
-        return deferred.promise;
-    };
+        if(parameters.lastname  === undefined) { 
+                deferred.reject(new Error('The lastname parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['lastname'] = parameters.lastname; 
+            }
+        if(parameters.email  === undefined) { 
+                deferred.reject(new Error('The email parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['email'] = parameters.email; 
+            }
+            params['token'] = parameters.token;
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: 'POST',
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //cache.removeAll();
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject(data);
+                //cache.removeAll();
+            })
+            ;
+            }
+            return deferred.promise;    
+        };
 
-    this.getPicture = function(userid){
-        var deferred = $q.defer();
-        
-        var path = domain + '/users/getPicture.jq';
-        var canonicalResource = path;
-        
-        var url = path + '?';
-        
-            
-            if(userid !== undefined) {
-                if(userid instanceof Array) {
-                    userid.forEach(function(p){
-                        url += 'userid=' + encodeURIComponent(userid) + '&';
-                    });
-                } else {
-                    url += 'userid=' + encodeURIComponent(userid) + '&';
-                }
+        /**
+         * 
+         * @method
+         * @name UsersService#resetPassword
+         * @param {string} userid - , 
+         * @param {string} password - , 
+         * @param {string} token - The token of the current session, 
+         * 
+         */
+        this.resetPassword = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/users/resetPassword.jq'
+            var url = domain + path;
+            var params = {};
+            if(parameters.userid  === undefined) { 
+                deferred.reject(new Error('The userid parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['userid'] = parameters.userid; 
             }
-        
-        
-        $http({
-            method: 'GET',
-            url: url,
-            
-            
-            cache: UsersServiceCache
-        })
-        .success(function(data, status, headers, config){
-            deferred.resolve(data);
-                
-                
-            
-             
-            
-            
-        })
-        .error(function(data, status, headers, config){
-            deferred.reject(data);
-        });
-        return deferred.promise;
-    };
+        if(parameters.password  === undefined) { 
+                deferred.reject(new Error('The password parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['password'] = parameters.password; 
+            }
+            params['token'] = parameters.token;
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: 'POST',
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //cache.removeAll();
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject(data);
+                //cache.removeAll();
+            })
+            ;
+            }
+            return deferred.promise;    
+        };
 
-    this.uploadPicture = function(userid, image){
-        var deferred = $q.defer();
-        
-        var path = domain + '/users/uploadPicture.jq';
-        var canonicalResource = path;
-        
-        var url = path + '?';
-        
-            if(userid === undefined) {
-                deferred.reject(new Error("The userid parameter is required"));
+        /**
+         * 
+         * @method
+         * @name UsersService#forgotPassword
+         * @param {string} email - , 
+         * 
+         */
+        this.forgotPassword = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/users/forgotPassword.jq'
+            var url = domain + path;
+            var params = {};
+            if(parameters.email  === undefined) { 
+                deferred.reject(new Error('The email parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['email'] = parameters.email; 
             }
-            
-                if(userid instanceof Array) {
-                    userid.forEach(function(p){
-                        url += 'userid=' + encodeURIComponent(userid) + '&';
-                    });
-                } else {
-                    url += 'userid=' + encodeURIComponent(userid) + '&';
-                }
-            
-        
-            if(image === undefined) {
-                deferred.reject(new Error("The image parameter is required"));
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: 'POST',
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //cache.removeAll();
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject(data);
+                //cache.removeAll();
+            })
+            ;
             }
-            
-                if(image instanceof Array) {
-                    image.forEach(function(p){
-                        url += 'image=' + encodeURIComponent(image) + '&';
-                    });
-                } else {
-                    url += 'image=' + encodeURIComponent(image) + '&';
-                }
-            
-        
-        
-        $http({
-            method: 'POST',
-            url: url,
-            
-            
-            cache: UsersServiceCache
-        })
-        .success(function(data, status, headers, config){
-            deferred.resolve(data);
-                
-                
-            
-            UsersServiceCache.remove(canonicalResource);
-            
-             
-            
-            
-        })
-        .error(function(data, status, headers, config){
-            deferred.reject(data);
-        });
-        return deferred.promise;
-    };
+            return deferred.promise;    
+        };
 
-    this.removePicture = function(userid){
-        var deferred = $q.defer();
-        
-        var path = domain + '/users/removePicture.jq';
-        var canonicalResource = path;
-        
-        var url = path + '?';
-        
-            if(userid === undefined) {
-                deferred.reject(new Error("The userid parameter is required"));
+        /**
+         * Use this function as target for image.
+         * @method
+         * @name UsersService#getPicture
+         * @param {string} userid - User ID to get picture for. Default is current user., 
+         * @param {string} token - The token of the current session, 
+         * 
+         */
+        this.getPicture = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/users/getPicture.jq'
+            var url = domain + path;
+            var params = {};
+                params['userid'] = parameters.userid;
+            params['token'] = parameters.token;
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if('GET' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: 'GET',
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //that.$broadcast(url);
+                if(parameters.$cache !== undefined) parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject(data);
+                //cache.removeAll();
+            })
+            ;
             }
-            
-                if(userid instanceof Array) {
-                    userid.forEach(function(p){
-                        url += 'userid=' + encodeURIComponent(userid) + '&';
-                    });
-                } else {
-                    url += 'userid=' + encodeURIComponent(userid) + '&';
-                }
-            
-        
-        
-        $http({
-            method: 'POST',
-            url: url,
-            
-            
-            cache: UsersServiceCache
-        })
-        .success(function(data, status, headers, config){
-            deferred.resolve(data);
-                
-                
-            
-            UsersServiceCache.remove(canonicalResource);
-            
-             
-            
-            
-        })
-        .error(function(data, status, headers, config){
-            deferred.reject(data);
-        });
-        return deferred.promise;
-    };
+            return deferred.promise;    
+        };
 
+        /**
+         * 
+         * @method
+         * @name UsersService#uploadPicture
+         * @param {string} userid - , 
+         * @param {file} image - The image file, 
+         * @param {string} token - The token of the current session, 
+         * 
+         */
+        this.uploadPicture = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/users/uploadPicture.jq'
+            var url = domain + path;
+            var params = {};
+            if(parameters.userid  === undefined) { 
+                deferred.reject(new Error('The userid parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['userid'] = parameters.userid; 
+            }
+        if(parameters.image  === undefined) { 
+                deferred.reject(new Error('The image parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['image'] = parameters.image; 
+            }
+            params['token'] = parameters.token;
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: 'POST',
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //cache.removeAll();
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject(data);
+                //cache.removeAll();
+            })
+            ;
+            }
+            return deferred.promise;    
+        };
+
+        /**
+         * 
+         * @method
+         * @name UsersService#removePicture
+         * @param {string} userid - , 
+         * @param {string} token - The token of the current session, 
+         * 
+         */
+        this.removePicture = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/users/removePicture.jq'
+            var url = domain + path;
+            var params = {};
+            if(parameters.userid  === undefined) { 
+                deferred.reject(new Error('The userid parameter is required'));
+                return deferred.promise;
+            } else { 
+                params['userid'] = parameters.userid; 
+            }
+            params['token'] = parameters.token;
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: 'POST',
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //cache.removeAll();
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject(data);
+                //cache.removeAll();
+            })
+            ;
+            }
+            return deferred.promise;    
+        };
     };
-})
-;
+});

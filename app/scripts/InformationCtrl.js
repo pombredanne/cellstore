@@ -27,7 +27,7 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
 			{
 				data.filings.forEach(function(filing) {
 					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].used = true;
-					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod)].used = true;
+					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod == "Q4" ? "FY" : filing.fiscalPeriod)].used = true;
 				});
 				$scope.adjustYearPeriod();
 			}
@@ -190,7 +190,7 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
                 };
                 
                 for (var report in root) {
-                    if (root.hasOwnProperty(report)) {
+                    if (root.hasOwnProperty(report) && report != "fac:KeyRatiosHierarchy") {
                         var obj = { name: root[report]["Label"].toString().replace(" [Hierarchy]", ""), items: [] };
                         prepareReport(root[report]["To"], obj.items);
                         $scope.reports.push(obj);

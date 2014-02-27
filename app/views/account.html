@@ -1,0 +1,49 @@
+<div class="topbar"></div>
+<div class="container">
+	<h2>Your account</h2><br>
+    <h4><b>{{user.firstname}} {{user.lastname}}</b>, this is your account page.</h4>
+    <div style="margin-bottom: 15px;">
+		Here you can <a href="/account/password">Change your password</a>. 
+	</div>
+    <div class="row" ng-show="(section == 'password')">
+		<div class="col-md-12">
+			<form role="form" class="white-box form-inline" name="resetForm" ng-submit="resetPassword()" novalidate spellcheck="false" autocomplete="on">
+                <a href="/account" class="close">&times;</a>
+				<h4 class="highlight3">Change Password</h4>
+				<div class="form-group">
+					<input type="password" class="form-control" name="password" ng-model="password" placeholder="Password" required autocomplete="on" ng-minlength="5">
+					<span class="validation-error" ng-show="resetForm.password.$error.required && resetAttempted">
+						Password is required.
+					</span>
+					<span class="validation-error" ng-show="resetForm.password.$error.minlength && resetAttempted">
+						Password must exceed 5 characters.
+					</span>
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" ng-model="passwordRepeat" placeholder="Confirm Password" required autocomplete="on" equals="{{password}}">
+					<span class="validation-error" ng-show="resetForm.passwordRepeat.$error.required && resetAttempted">
+						Password confirmation is required.
+					</span>
+					<span class="validation-error" ng-show="!resetForm.password.$error.minlength && !resetForm.passwordRepeat.$error.required && resetForm.passwordRepeat.$error.equals && resetAttempted">
+						Password confirmation doesn't match.
+					</span>
+				</div>
+				<div class="form-group text-right">
+					<button type="submit" class="btn btn-green">OK</button>	
+				</div>
+			</form>
+		</div>
+    </div>
+    <div class="row" ng-show="(section == 'info')">
+		<div class="col-md-12">
+			<form role="form" class="white-box" name="editForm" ng-submit="edit()" novalidate spellcheck="false" autocomplete="on">
+                <a href="/account" class="close">&times;</a>
+				<h4 class="highlight3">Personal Information</h4>
+                Under construction
+				<div class="form-group text-right">
+					<button type="submit" class="btn btn-green">Change</button>	
+				</div>
+			</form>
+		</div>
+    </div>
+</div>
