@@ -1,6 +1,7 @@
-angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$anchorScroll', '$location', '$route', '$http', '$backend', 'entities',
-  function($scope, $rootScope, $anchorScroll, $location, $route, $http, $backend, entities) {
-    $scope.table = null;
+angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$anchorScroll', '$location', '$route', '$http', '$backend', 'QueriesService', 'entities',
+  function($scope, $rootScope, $anchorScroll, $location, $route, $http, $backend, QueriesService, entities) {
+    $scope.table1 = null;
+    $scope.table2 = null;
     $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
     $scope.entities = entities;
 
@@ -16,156 +17,157 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
     {
         if (!$scope.cik) return;
 
-        var ochart = {};
-        ochart.options = {
-            legend: {position: 'top', alignment: 'end'},
-            curveType: 'function',
-            pointSize: 8,
-            colors: ['#428BCA', 'orange'],
-            width: "80%",
-            height: 500,
-            chartArea: {left: 120, top: 40, width: "85%", height: "80%"},
-            tooltip: { isHtml: true },
-            focusTarget: 'category', 
-            bar: { groupWidth: "30%" },
-            hAxis: { format: "QQQ yyyy" }
+        $scope.chart1 = {
+            type: "LineChart",
+            options: {
+                legend: {position: 'top', alignment: 'end'},
+                curveType: 'function',
+                pointSize: 8,
+                colors: ['#428BCA', '#ff9900'],
+                width: "80%",
+                height: 500,
+                chartArea: {left: 120, top: 40, width: "85%", height: "80%"},
+                tooltip: { isHtml: true },
+                focusTarget: 'category', 
+                bar: { groupWidth: "30%" },
+                hAxis: { format: "QQQ yyyy" }
+            }
         };
-        ochart.type = "LineChart";
-        $scope.chart1 = ochart;
 
-        $scope.table = {"cols": [
+        $scope.table1 = {"cols": [
             {id: "date", label: "Date", type: "string"},
             {id: "", role: "tooltip", type: "string", p: { role: "tooltip", html: true }},
             {id: "revenue", label: "Revenue", type: "number"},
             {id: "netIncome", label: "Net Income", type: "number"}
         ], "rows": []};
 
+        $scope.chart1.data = $scope.table1;
+
+        $scope.chart2 = {
+            type: "ColumnChart",
+            options: {
+                legend: {position: 'top', alignment: 'end'},
+                colors: ['#428BCA', '#ff9900'],
+                width: "80%",
+                height: 500,
+                chartArea: {left: 120, top: 40, width: "85%", height: "80%"},
+                tooltip: { isHtml: true },
+                focusTarget: 'category', 
+                bar: { groupWidth: "30%" },
+                hAxis: { format: "QQQ yyyy" },
+                vAxis: { minValue: 0 }
+            }
+        };
+        $scope.table2 = {"cols": [
+            {id: "date", label: "Date", type: "string"},
+            {id: "", role: "tooltip", type: "string", p: { role: "tooltip", html: true }},
+            {id: "liabilities", label: "Liabilities", type: "number"},
+            {id: "equity", label: "Equity", type: "number"}
+        ], "rows": []};
+
+        $scope.chart2.data = $scope.table2;
+
         $scope.httpDates = {};
+        var fiscalYears = [];
         var lastYear = (new Date()).getFullYear();
-        for (
-            var i = 0; i < 4; i++)
+        for (var i = 0; i < 4; i++)
         {
-            for (
-                var j = 0; j < 4; j++)
+            for (var j = 0; j < 4; j++)
             {
-                $scope.httpDates[(lastYear - 4 + i) + "Q" + (j + 1)] = {c: [
+                $scope.httpDates[(lastYear - 4 + i) + "Q" + (j + 1)] = [
                     {v: "Q" + (j + 1) + " " + (lastYear - 4 + i) },
                     {v: null},
                     {v: null},
+                    {v: null},
+                    {v: null},
+                    {v: null},
                     {v: null}
-                ] };
+                ];
             }
+            fiscalYears.push(lastYear - 4 + i);
         }
-        $scope.chart1.data = $scope.table;
-
-        $scope.httpLoaders = 0;
-
-        $http({
-                method: 'GET', 
-                url: $backend.API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
-                params: { _method: 'POST', cik: $scope.cik, conceptName: 'fac:Revenues', map: 'FundamentalAccountingConcepts', "token" : $scope.token },
-				cache: true
-            })
-            .success(function (data, status, headers, config)
-            {
-                if (data && data.valuesByQuarter)
-                    data.valuesByQuarter.forEach(function (itemRev)
-                    {
-                        var p = (itemRev.fiscalPeriod == "FY" ? "Q4" : itemRev.fiscalPeriod);
-                        var date = $scope.httpDates[itemRev.fiscalYear + p];
-                        if (date) date.c[2]["v"] = itemRev.value;
-                    });
-                $scope.httpLoaders += 1;
-                $scope.safeApply();
-            })
-            .error(function (data, status, headers, config)
-            {
-                $scope.httpLoaders = -1;
-                $scope.safeApply();
-            });
         
-        $http({
-                method: 'GET', 
-                url: $backend.API_URL + '/_queries/public/ConceptValuesByQuarter.jq',
-                params: { _method: 'POST', cik: $scope.cik, conceptName: 'fac:NetIncomeLoss', map: 'FundamentalAccountingConcepts', "token" : $scope.token },
-				cache: true
-            })
-            .success(function (data, status, headers, config)
-            {
-                if (data && data.valuesByQuarter)
-                    data.valuesByQuarter.forEach(function (itemInc)
-                    {
-                        var p = (itemInc.fiscalPeriod == "FY" ? "Q4" : itemInc.fiscalPeriod);
-                        var date = $scope.httpDates[itemInc.fiscalYear + p];
-                        if (date) date.c[3]["v"] = itemInc.value;
-                    });
-                $scope.httpLoaders += 1;
-                $scope.safeApply();
-            })
-            .error(function (data, status, headers, config)
-            {
-                $scope.httpLoaders = -1;
-                $scope.safeApply();
-            });
-    };
-
-    $scope.$watch("httpLoaders", function(newValue, oldValue) { 
-        if (newValue < 0) 
-        {
-            $scope.chart1 = null;
-        }
-        if (newValue == 2)
-        {
-            var makeTooltip = function(item) {
-                if (!item) { item.c[1]["v"] = " "; return; }
-                if (item.c[0]["v"]) {
-                    var r = parseFloat(item.c[2]["v"]);
-                    var i = parseFloat(item.c[3]["v"]);
-                    if (!i && !r) { item.c[1]["v"] = " "; return; }
-                    item.c[1]["v"] = "<dl class='chart-tip'><dt>" + item.c[0]["v"] + "</dt><dd>";
-                    if (r) item.c[1]["v"] += "<i class='fa fa-square' style='color:#428BCA'></i> Revenue: " + r.toLocaleString();
-                    if (i)
-                    {
-                        if (r) item.c[1]["v"] += "<br>";
-                        item.c[1]["v"] += "<i class='fa fa-square' style='color:orange'></i> Net Income: " + i.toLocaleString();
+        var concepts = ['fac:Revenues', 'fac:NetIncomeLoss', 'fac:LiabilitiesAndEquity', 'fac:Equity'];
+        var qs = (new QueriesService($backend.API_URL + '/_queries/public/api'));
+        qs.listFact({
+                concept: concepts,
+                map: 'FundamentalAccountingConcepts',
+                fiscalYear: fiscalYears,
+                fiscalPeriod: 'ALL',
+                cik: $scope.cik,
+                token: $scope.token})
+           .then(
+                function(data) { 
+                    if (data && data.FactTable)
+                        data.FactTable.forEach(function(item)
+                        {
+                            var p = (item["Aspects"]["bizql:FiscalPeriod"] == "FY" ? "Q4" : item["Aspects"]["bizql:FiscalPeriod"]);
+                            var date = $scope.httpDates[item["Aspects"]["bizql:FiscalYear"] + p];
+                            if (date) {
+                                var index=concepts.indexOf(item["Aspects"]["xbrl:Concept"]);
+                                if (index >= 0) date[index + 1]["v"] = item["Value"];
+                            }
+                        });
+                    
+                    var makeTooltip = function(key, item1, title1, item2, title2) {
+                        if (!item1 && !item2) return " ";
+                        var ret = "<dl class='chart-tip'><dt>" + key + "</dt><dd>";
+                        if (item1) ret += "<i class='fa fa-square' style='color:#428BCA'></i> " + title1 + ": " + item1.toLocaleString();
+                        if (item2) {
+                            if (item1) ret += "<br>";
+                            ret += "<i class='fa fa-square' style='color:orange'></i> " + title2 + ": " + item2.toLocaleString();
+                        }
+                        ret += "</dd></dl>";
+                        return ret;
                     }
-                    item.c[1]["v"] += "</dd></dl>";
-                }
-            }
 
-			var lastYear = (new Date()).getFullYear();
-            for (var i = 0; i < 4; i++)
-            {
-                var q1 = $scope.httpDates[(lastYear - 4 + i) + "Q1"];
-                var q2 = $scope.httpDates[(lastYear - 4 + i) + "Q2"];
-                var q3 = $scope.httpDates[(lastYear - 4 + i) + "Q3"];
-                var q4 = $scope.httpDates[(lastYear - 4 + i) + "Q4"];
-                if (q4){
-                    var sum=parseFloat(q4.c[2]["v"]);
-                    if (q1) sum = sum - parseFloat(q1.c[2]["v"]);
-                    if (q2) sum = sum - parseFloat(q2.c[2]["v"]);
-                    if (q3) sum = sum - parseFloat(q3.c[2]["v"]);
-                    q4.c[2]["v"] = sum;
+                    var lastYear = (new Date()).getFullYear();
+                    for (var i = 0; i < 4; i++)
+                    {
+                        var q1 = $scope.httpDates[(lastYear - 4 + i) + "Q1"];
+                        var q2 = $scope.httpDates[(lastYear - 4 + i) + "Q2"];
+                        var q3 = $scope.httpDates[(lastYear - 4 + i) + "Q3"];
+                        var q4 = $scope.httpDates[(lastYear - 4 + i) + "Q4"];
+                        if (q4){
+                            sum=parseFloat(q4[1]["v"]);
+                            if (q1) sum = sum - parseFloat(q1[1]["v"]);
+                            if (q2) sum = sum - parseFloat(q2[1]["v"]);
+                            if (q3) sum = sum - parseFloat(q3[1]["v"]);
+                            q4[1]["v"] = sum;
 
-                    sum=parseFloat(q4.c[3]["v"]);
-                    if (q1) sum = sum - parseFloat(q1.c[3]["v"]);
-                    if (q2) sum = sum - parseFloat(q2.c[3]["v"]);
-                    if (q3) sum = sum - parseFloat(q3.c[3]["v"]);
-                    q4.c[3]["v"] = sum;
-                }
-                makeTooltip(q1);
-                makeTooltip(q2);
-                makeTooltip(q3);
-                makeTooltip(q4);
-            }
-            $.map($scope.httpDates, function (element, index)
-            {
-                $scope.table.rows.push(element);
-            });
-            $scope.chart1.data = $scope.table;
-            $scope.safeApply();
-        }
-    });
+                            var sum=parseFloat(q4[2]["v"]);
+                            if (q1) sum = sum - parseFloat(q1[2]["v"]);
+                            if (q2) sum = sum - parseFloat(q2[2]["v"]);
+                            if (q3) sum = sum - parseFloat(q3[2]["v"]);
+                            q4[2]["v"] = sum;
+
+                            if (q1) q1[3]["v"] = parseFloat(q1[3]["v"]) - parseFloat(q1[4]["v"]);
+                            if (q2) q2[3]["v"] = parseFloat(q2[3]["v"]) - parseFloat(q2[4]["v"]);
+                            if (q3) q3[3]["v"] = parseFloat(q3[3]["v"]) - parseFloat(q3[4]["v"]);
+                            if (q4) q4[3]["v"] = parseFloat(q4[3]["v"]) - parseFloat(q4[4]["v"]);
+                        }
+                        q1[5]["v"] = makeTooltip(q1[0]["v"], parseFloat(q1[1]["v"]), "Revenue", parseFloat(q1[2]["v"]), "Net Income");
+                        q2[5]["v"] = makeTooltip(q2[0]["v"], parseFloat(q2[1]["v"]), "Revenue", parseFloat(q2[2]["v"]), "Net Income");
+                        q3[5]["v"] = makeTooltip(q3[0]["v"], parseFloat(q3[1]["v"]), "Revenue", parseFloat(q3[2]["v"]), "Net Income");
+                        q4[5]["v"] = makeTooltip(q4[0]["v"], parseFloat(q4[1]["v"]), "Revenue", parseFloat(q4[2]["v"]), "Net Income");
+
+                        q1[6]["v"] = makeTooltip(q1[0]["v"], parseFloat(q1[3]["v"]), "Liabilities", parseFloat(q1[4]["v"]), "Equity");
+                        q2[6]["v"] = makeTooltip(q2[0]["v"], parseFloat(q2[3]["v"]), "Liabilities", parseFloat(q2[4]["v"]), "Equity");
+                        q3[6]["v"] = makeTooltip(q3[0]["v"], parseFloat(q3[3]["v"]), "Liabilities", parseFloat(q3[4]["v"]), "Equity");
+                        q4[6]["v"] = makeTooltip(q4[0]["v"], parseFloat(q4[3]["v"]), "Liabilities", parseFloat(q4[4]["v"]), "Equity");
+                    }
+                    $.map($scope.httpDates, function (el, index)
+                    {
+                        $scope.table1.rows.push({ c: [ el[0], el[5], el[1], el[2] ]});
+                        $scope.table2.rows.push({ c: [ el[0], el[6], el[3], el[4] ]});
+                    });
+                    $scope.chart1.data = $scope.table1;
+                    $scope.chart2.data = $scope.table2;
+
+                    $scope.safeApply();
+                },
+                function(response) { $scope.$emit("error", response.status, response.data); });
+    };
 
 	$scope.substring = function(string, len) {
 		if (string && string.length > len)
