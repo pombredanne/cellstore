@@ -13,7 +13,7 @@ else
     let $expiration := fn:current-dateTime() + xs:dayTimeDuration("P1D")
     let $token := session:start($user._id, $expiration)
     return sendmail:send($email, "Reset your password", 
-            "To reset your password, please click this link:\nhttp://localhost:9000/account/password?token=" || $token || 
+            "To reset your password, please click this link:\nhttp://www.secxbrl.info/account/password?token=" || $token || 
             "\n\nThe link is valid for one day.\nIf you did not as for this, please ignore the message.\n\nSecXBRL.info");
 
 api:success()
