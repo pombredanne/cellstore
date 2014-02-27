@@ -39,7 +39,7 @@
                 <div class="collapse navbar-collapse" role="navigation">
                     <div class="nav navbar-nav navbar-right" on-document-click="toggleMenu($event, false)">
                         <div ng-show="user" class="ontop">
-                            {{user.name}} <a class="btn btn-xs" href="javascript://" ng-click="logout()">Logout</a>
+                            <a href="/account">{{user.firstname}} {{user.lastname}}</a> <a class="btn btn-xs" style="border: 1px solid;" href="javascript://" ng-click="logout()">Logout</a>
                         </div>
                         <div ng-hide="user" class="ontop">
                             <a class="btn btn-xs" style="border: 1px solid;" href="/auth" ng-class="{ active: (page == '/views/auth.html') }">Login / Signup</a>
@@ -125,6 +125,7 @@
         <script src="/scripts/UsersService.js"></script>
         <script src="/scripts/ApiCtrl.js"></script>
         <script src="/scripts/AuthCtrl.js"></script>
+        <script src="/scripts/AccountCtrl.js"></script>
         <script src="/scripts/EntitiesCtrl.js"></script>
         <script src="/scripts/EntityCtrl.js"></script>
         <script src="/scripts/FilingsCtrl.js"></script>

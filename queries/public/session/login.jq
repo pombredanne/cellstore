@@ -23,8 +23,16 @@ declare function local:to-xml($o as object*)
         then <token>{$o.token}</token>
         else (),
         
-        if (exists($o.name))
-        then <name>{$o.name}</name>
+        if (exists($o._id))
+        then <id>{$o._id}</id>
+        else (),
+        
+        if (exists($o.firstname))
+        then <firstname>{$o.firstname}</firstname>
+        else (),
+        
+        if (exists($o.lastname))
+        then <lastname>{$o.lastname}</lastname>
         else ()
     }</result>
 };
@@ -68,7 +76,9 @@ then {
             { 
               token : $token, 
               success : true,
-              name : ($user.firstname || " " || $user.lastname)
+              _id: $user._id,
+              firstname: $user.firstname,
+              lastname: $user.lastname
             };
     }
 }
