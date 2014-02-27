@@ -24,6 +24,11 @@ html, body {
 	max-height: 500px;
 }
 
+.scrolling {
+    overflow-x: auto; 
+    width: 100%;
+}
+
 .nowrap { 
 	white-space: nowrap;
 }

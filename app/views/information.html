@@ -69,7 +69,7 @@
 				<a class="pull-right close small" href="javascript://" ng-click="gotoId('report0')"><i class="fa fa-arrow-up"></i></a>
 				<a class="h4 highlight3" href="javascript://" ng-click="showtab[$index]=!showtab[$index]" style="margin-left: -10px"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a>
 
-				<div class="table-responsive" ng-show="showtab[$index]">
+				<div class="scrolling" ng-show="showtab[$index]">
 					<table class="table">
 						<thead>
 							<th>Label</th>
@@ -78,8 +78,8 @@
 						</thead>
 						<tbody>
 						<tr ng-repeat="item in report.items">
-							<td>{{item.label}}</td>
-							<td ng-class="{ 'text-right' : (item.type == 'NumericValue') }">{{item.value}}</td>
+							<td style="min-width: 250px">{{item.label}}</td>
+							<td class="nowrap" ng-class="{ 'text-right' : (item.type == 'NumericValue') }">{{item.value}}</td>
 							<td>
 								<a href="javascript://" popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="focus">
 									{{substring(item.auditValue, 30)}}
