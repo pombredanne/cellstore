@@ -29,7 +29,6 @@ angular.module('main').controller('AccountCtrl', ['$scope', '$route', '$http', '
         }
       };
 
-
       $scope.qs = $location.search();
       if ($scope.qs && $scope.qs.token) {
           var us = (new UsersService($backend.API_URL + '/_queries/public'));
@@ -47,5 +46,6 @@ angular.module('main').controller('AccountCtrl', ['$scope', '$route', '$http', '
                     $scope.$emit("error", 401, data);
                 });
       }
+      else if (!$scope.token) $scope.$emit("error", 401, null);
   }
 ]);

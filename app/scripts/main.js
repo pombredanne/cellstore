@@ -323,7 +323,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		
 	$rootScope.$on('error', function(event, status, error){
 		if (status == 401) {
-			$rootScope.goto("/auth" + $location.path());
+            var p = $location.path();
+            if (p == '/account' || p == '/account/password' || p == '/account/info')
+                p = '';
+			$rootScope.goto("/auth" + p);
 			return;
 		}
 		$modal.open( {
