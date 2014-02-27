@@ -2,6 +2,7 @@ import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
+import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
@@ -55,12 +56,14 @@ declare function local:summary($a)
 
 let $format  := lower-case(request:param-values("format")[1])
 let $ciks     := request:param-values("cik")
-let $entities := companies:companies($ciks)
+let $fids     := request:param-values("fid")
+let $archives := if (exists($fids)) then archives:archives($fids) else filings:filings-for-companies($ciks)
+let $entities := companies:companies($archives.Entities)
 return
     if (session:only-dow30($entities) or session:valid())
     then {
         let $archives :=
-                for $a in filings:filings-for-companies($ciks)
+                for $a in $archives
                 order by filings:acceptance-dateTimes($a) descending
                 return local:summary($a)
         return
