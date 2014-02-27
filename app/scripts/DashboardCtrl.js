@@ -121,6 +121,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
                         return ret;
                     }
 
+                    var sum;
                     var lastYear = (new Date()).getFullYear();
                     for (var i = 0; i < 4; i++)
                     {
@@ -129,22 +130,28 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
                         var q3 = $scope.httpDates[(lastYear - 4 + i) + "Q3"];
                         var q4 = $scope.httpDates[(lastYear - 4 + i) + "Q4"];
                         if (q4){
-                            sum=parseFloat(q4[1]["v"]);
-                            if (q1) sum = sum - parseFloat(q1[1]["v"]);
-                            if (q2) sum = sum - parseFloat(q2[1]["v"]);
-                            if (q3) sum = sum - parseFloat(q3[1]["v"]);
-                            q4[1]["v"] = sum;
+                            if (q4[1]["v"])
+                            {
+                                sum=(parseFloat(q4[1]["v"]) || 0);
+                                if (q1) sum = sum - (parseFloat(q1[1]["v"]) || 0);
+                                if (q2) sum = sum - (parseFloat(q2[1]["v"]) || 0);
+                                if (q3) sum = sum - (parseFloat(q3[1]["v"]) || 0);
+                                q4[1]["v"] = sum;
+                            }
 
-                            var sum=parseFloat(q4[2]["v"]);
-                            if (q1) sum = sum - parseFloat(q1[2]["v"]);
-                            if (q2) sum = sum - parseFloat(q2[2]["v"]);
-                            if (q3) sum = sum - parseFloat(q3[2]["v"]);
-                            q4[2]["v"] = sum;
+                            if (q4[2]["v"])
+                            {
+                                sum=(parseFloat(q4[2]["v"]) || 0);
+                                if (q1) sum = sum - (parseFloat(q1[2]["v"]) || 0);
+                                if (q2) sum = sum - (parseFloat(q2[2]["v"]) || 0);
+                                if (q3) sum = sum - (parseFloat(q3[2]["v"]) || 0);
+                                q4[2]["v"] = sum;
+                            }
 
-                            if (q1) q1[3]["v"] = parseFloat(q1[3]["v"]) - parseFloat(q1[4]["v"]);
-                            if (q2) q2[3]["v"] = parseFloat(q2[3]["v"]) - parseFloat(q2[4]["v"]);
-                            if (q3) q3[3]["v"] = parseFloat(q3[3]["v"]) - parseFloat(q3[4]["v"]);
-                            if (q4) q4[3]["v"] = parseFloat(q4[3]["v"]) - parseFloat(q4[4]["v"]);
+                            if (q1 && q1[3]["v"]) q1[3]["v"] = (parseFloat(q1[3]["v"]) || 0) - (parseFloat(q1[4]["v"]) || 0);
+                            if (q2 && q2[3]["v"]) q2[3]["v"] = (parseFloat(q2[3]["v"]) || 0) - (parseFloat(q2[4]["v"]) || 0);
+                            if (q3 && q3[3]["v"]) q3[3]["v"] = (parseFloat(q3[3]["v"]) || 0) - (parseFloat(q3[4]["v"]) || 0);
+                            if (q4 && q4[3]["v"]) q4[3]["v"] = (parseFloat(q4[3]["v"]) || 0) - (parseFloat(q4[4]["v"]) || 0);
                         }
                         q1[5]["v"] = makeTooltip(q1[0]["v"], parseFloat(q1[1]["v"]), "Revenue", parseFloat(q1[2]["v"]), "Net Income");
                         q2[5]["v"] = makeTooltip(q2[0]["v"], parseFloat(q2[1]["v"]), "Revenue", parseFloat(q2[2]["v"]), "Net Income");
