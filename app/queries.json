@@ -26,7 +26,7 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "text",
+                                "csv",
                                 "xml",
                                 "excel"
                             ],
@@ -40,7 +40,8 @@
                             "enum": [
                                 "DOW30",
                                 "SP500",
-                                "FORTUNE100"
+                                "FORTUNE100",
+                                "PJI"
                             ],
                             "paramType": "query"
                         },
@@ -117,7 +118,7 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "text",
+                                "csv",
                                 "xml",
                                 "excel"
                             ],
@@ -185,7 +186,7 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "text",
+                                "csv",
                                 "xml",
                                 "excel"
                             ],
@@ -246,7 +247,7 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "text",
+                                "csv",
                                 "xml",
                                 "excel"
                             ],
@@ -307,7 +308,7 @@
                             "type": "string",
                             "enum": [
                                 "json",
-                                "text",
+                                "csv",
                                 "xml",
                                 "excel"
                             ],
@@ -335,7 +336,8 @@
                             "enum": [
                                 "DOW30",
                                 "SP500",
-                                "FORTUNE100"
+                                "FORTUNE100",
+                                "PJI"
                             ],
                             "paramType": "query"
                         },
@@ -348,10 +350,15 @@
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the fact to retrieve (default: latest for given period)",
+                            "description": "The fiscal year of the fact to retrieve (default: LATEST)",
                             "required": false,
                             "type": "string",
-                            "paramType": "query"
+                            "paramType": "query",
+                            "enum": [
+                                "year (e.g. 2011)",
+                                "LATEST",
+                                "ALL"
+                            ],
                         },
                         {
                             "name": "concept",
@@ -369,7 +376,8 @@
                                 "Q1",
                                 "Q2",
                                 "Q3",
-                                "FY"
+                                "FY",
+                                "ALL",
                             ],
                             "paramType": "query"
                         },
@@ -394,7 +402,7 @@
                     "responseMessages": [
                         {
                             "code": 400,
-                            "message": "Bad request: a parameter is missing or invalid or total is used together with text serialization",
+                            "message": "Bad request: a parameter is missing or invalid or total is used together with csv or excel serialization",
                             "responseModel": "Error"
                         },
                         {
