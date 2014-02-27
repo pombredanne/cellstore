@@ -358,7 +358,7 @@
                                 "year (e.g. 2011)",
                                 "LATEST",
                                 "ALL"
-                            ],
+                            ]
                         },
                         {
                             "name": "concept",
@@ -377,7 +377,7 @@
                                 "Q2",
                                 "Q3",
                                 "FY",
-                                "ALL",
+                                "ALL"
                             ],
                             "paramType": "query"
                         },
