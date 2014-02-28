@@ -435,6 +435,12 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		$location.url('/auth' + p, true);
 	};
 
+	$rootScope.substring = function(string, len) {
+		if (string && string.length > len)
+			return string.substring(0, len) + "...";
+		else return string;
+	};
+
 	$rootScope.toggleMenu = function(event, visible) { 
 		$rootScope.visibleMenu = visible;
 		if (event && visible) event.stopPropagation();

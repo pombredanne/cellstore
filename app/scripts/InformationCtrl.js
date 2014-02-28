@@ -123,12 +123,6 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
 		};
     };
 
-	$scope.substring = function(string, len) {
-		if (string && string.length > len)
-			return string.substring(0, len) + "...";
-		else return string;
-	};
-
     $scope.getComponent = function ()
     {
         if (!$scope.cik) return;

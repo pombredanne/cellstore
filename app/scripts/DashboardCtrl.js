@@ -176,12 +176,6 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
                 function(response) { $scope.$emit("error", response.status, response.data); });
     };
 
-	$scope.substring = function(string, len) {
-		if (string && string.length > len)
-			return string.substring(0, len) + "...";
-		else return string;
-	};
-
     if ($route.current.params.cik)
         $scope.entities.forEach(function(entity) {
             if (entity.cik == $route.current.params.cik)
