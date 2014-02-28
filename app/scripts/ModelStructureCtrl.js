@@ -31,6 +31,10 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
         $scope.$emit("error", status, data);
       });
   };
+
+  $scope.rowReset = function() { $scope.row = 0; };
+  $scope.rowIncrement = function() { $scope.row += 1; };
+
   $scope.getdata();
  }
 ]);

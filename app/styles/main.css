@@ -1328,3 +1328,41 @@ ul.selector li.disabled:after
 }
 
 /* end company */
+
+.divtable {
+    min-width: 970px;
+}
+.divtable .line {
+    border-bottom: 1px solid gainsboro;
+}
+.divtable .line.even { 
+    background-color:#f9f9f9;
+}
+.divtable .line > span {
+    display: inline-block;
+    padding: 5px;
+    vertical-align: top;
+    word-wrap: break-word;
+}
+.divtable .line > span:nth-child(1) {
+    width: 3%;
+}
+.divtable .line > span:nth-child(2) {
+    width: 45%;
+}
+.divtable .line > span:nth-child(3) {
+    width: 12%;
+}
+.divtable .line > span:nth-child(4) {
+    width: 10%;
+}
+.divtable .line > span:nth-child(5) {
+    width: 30%;
+}
+.divtable .head {
+    border-bottom: 2px solid gainsboro;
+}
+.divtable .head > span {
+    font-weight: bold;
+    padding: 8px 5px;
+}
