@@ -26,7 +26,7 @@ declare variable $user:VALID_DATETIME as string := "[TZ0-9\\-:\\.]+";
 declare function user:get-by-email($email as string)
 as object()?
 {
-  find($user:collection, { "email" : $email })
+  find($user:collection, { "email" : lower-case($email) })
 };
 
 declare function user:get-existing-by-email($email as string)
@@ -85,7 +85,7 @@ as string
           "_id"       : random:uuid(),
           firstname   : $firstname,
           lastname    : $lastname,
-          email       : $email,
+          email       : lower-case($email),
           hash        : user:compute-hash($salt, $password),
           status      : $user:STATUS_ACTIVE,
           salt        : $salt,      
