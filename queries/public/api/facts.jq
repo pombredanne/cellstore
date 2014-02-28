@@ -82,7 +82,7 @@ declare function local:facts($entities, $fiscalPeriods, $fiscalYears, $concepts,
                                     if ($p eq "FY")
                                     then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year
                                     else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                            case "ALL" return $sec-fiscal:ALL_FISCAL_YEARS
+                            case "ALL" return $sec-fiscal:ALL_FISCAL_YEARS (:needs to be () on PROD :)
                             default return $f
                     )
     let $fiscalPeriods := distinct-values(
@@ -92,17 +92,20 @@ declare function local:facts($entities, $fiscalPeriods, $fiscalYears, $concepts,
                                 case "Q2" return ("Q2","YTD2")
                                 case "Q3" return ("Q3","YTD3")
                                 default return ("Q4","FY")))
+    for $concept in $concepts
     let $aspects :=
         {|
-            { "xbrl:Concept" : $concepts },
-            { "xbrl:Entity" : $entity._id },
-            $dimensions
+            { "xbrl:Concept" : $concept },
+            { "xbrl:Entity" : $entity._id }
         |}
-    let $hypercube := copy $h := hypercubes:dimensionless-hypercube({ Concepts : $concepts })
-                      modify insert json {|
-                        "dei:LegalEntityAxis" ! { $$ : { Name : $$, Default : "sec:DefaultLegalEntity" } }
-                      |}
-                      into $h.Aspects
+    let $hypercube := copy $h := hypercubes:dimensionless-hypercube({ Concepts : $concept })
+                      modify (
+                          insert json {|
+                            "dei:LegalEntityAxis" ! { $$ : { Name : $$, Default : "sec:DefaultLegalEntity" } }
+                          |} into $h.Aspects,
+                          for $d in $dimensions
+                          return insert json $d into $h.Aspects 
+                      )
                       return $h
     let $options :=
             {|
@@ -122,11 +125,10 @@ declare function local:facts($entities, $fiscalPeriods, $fiscalYears, $concepts,
         return $f[1]
     return {|
         { Aspects : {|
-            { "xbrl:Entity" : $fact.Aspects."xbrl:Entity" },
-            { "dei:LegalEntityAxis" : $fact.Aspects."dei:LegalEntityAxis" },
+            for $a in keys($fact.Aspects)
+            return { $a : $fact.Aspects.$a },
             { "bizql:FiscalPeriod" : $fact.Profiles.SEC.Fiscal.Period },
-            { "bizql:FiscalYear" : $fact.Profiles.SEC.Fiscal.Year },
-            { "xbrl:Concept" : $fact.Aspects."xbrl:Concept" }
+            { "bizql:FiscalYear" : $fact.Profiles.SEC.Fiscal.Year }
         |} },
         { Type: $fact.Type },
         if (exists($fact.Aspects."xbrl:Unit"))
@@ -164,15 +166,32 @@ let $fiscalPeriods := let $fp := request:param-values("fiscalPeriod", "FY")
                         else $fp
 let $dimensions :=  for $p in request:param-names()
                     return
-                        switch ($p)
-                        case contains($p, ":") return
+                        if (contains($p, ":"))
+                        then
                             {
-                                $p : request:param-values($p)[1]
-                            }
-                        default return ()
+                                let $default := ends-with(lower-case($p), ":default")
+                                let $all := ((request:param-values($p) ! upper-case($$)) = "ALL")
+                                return
+                                (
+                                    if ($default) then substring-before($p, ":default")
+                                    else $p
+                                ) !
+                                {
+                                   $$ : {| 
+                                            (
+                                                { Name : $$ }, 
+                                                if ($default)
+                                                then { Default : request:param-values($p)[1] }
+                                                else if ($all)
+                                                then ()
+                                                else { Members : [ request:param-values($p) ] }
+                                            )
+                                        |}
+                                }
+                            } 
+                        else ()
 let $concepts := request:param-values("concept")
 let $map      := request:param-values("map")[1]
-
 return 
   if (empty($concepts))
   then {
@@ -221,4 +240,4 @@ return
                     { FactTable : [ $facts ] },
                     session:comment("json")
                 |}
-            } 
+            }

@@ -15,7 +15,7 @@ declare function local:to-xml-rec($o, $level as integer)
 {
     for $o in $o
     return
-        element { $o.Kind } {
+        element { if ($o.Kind eq "Domain") then "Member" else $o.Kind } {
             attribute { "name" } { $o.Name },
             attribute { "label" } { $o.Label },
             if (exists($o.Balance)) then attribute { "balance" } { $o.Balance } else (),
@@ -49,7 +49,7 @@ declare function local:to-csv-rec($objects, $level as integer)
     let $object := {
         "Label" : $o.Label,
         "Name" : $o.Name,
-        "ObjectClass" : $o.Kind,
+        "ObjectClass" : if ($o.Kind eq "Domain") then "Member" else $o.Kind,
         "DataType" : $o.DataType,
         "BaseDataType" : $o.BaseType,
         "Balance" : $o.Balance,
@@ -81,8 +81,9 @@ declare function local:enrich-json-rec($objects, $level as integer)
         copy $o := $object
         modify (
             if (exists($o.Children)) then delete json $o("Children") else (),
-            insert json { Level : $level } into $o
-        )
+            insert json { Level : $level } into $o,
+            if ($o.Kind eq "Domain") then replace value of json $o("Kind") with "Member" else ()
+        ) 
         return {|
             $o,
             let $children := local:enrich-json-rec($object.Children[], $level + 1)
