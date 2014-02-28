@@ -23,9 +23,7 @@ angular.module('main').controller('AccountCtrl', ['$scope', '$route', '$http', '
                     else 
                         $scope.$emit("error", 500, data);
                 },
-                function(data) {
-                    $scope.$emit("error", 500, data);
-                });
+                function(response) { $scope.$emit("error", response.status, response.data); });
         }
       };
 
@@ -42,9 +40,7 @@ angular.module('main').controller('AccountCtrl', ['$scope', '$route', '$http', '
                     else 
                         $scope.$emit("error", 500, data);
                 },
-                function(data) {
-                    $scope.$emit("error", 401, data);
-                });
+                function(response) { $scope.$emit("error", response.status, response.data); });
       }
       else if (!$scope.token) $scope.$emit("error", 401, null);
   }

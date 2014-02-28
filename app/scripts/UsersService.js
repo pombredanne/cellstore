@@ -61,7 +61,7 @@ angular.module('main')
                 if(parameters.$cache !== undefined) parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
             })
             .error(function(data, status, headers, config){
-                deferred.reject(data);
+                deferred.reject({data: data, status: status, headers: headers, config: config});
                 //cache.removeAll();
             })
             ;
@@ -123,7 +123,7 @@ angular.module('main')
                 //cache.removeAll();
             })
             .error(function(data, status, headers, config){
-                deferred.reject(data);
+                deferred.reject({data: data, status: status, headers: headers, config: config});
                 //cache.removeAll();
             })
             ;
@@ -187,7 +187,7 @@ angular.module('main')
                 //cache.removeAll();
             })
             .error(function(data, status, headers, config){
-                deferred.reject(data);
+                deferred.reject({data: data, status: status, headers: headers, config: config});
                 //cache.removeAll();
             })
             ;
@@ -237,7 +237,7 @@ angular.module('main')
                 //cache.removeAll();
             })
             .error(function(data, status, headers, config){
-                deferred.reject(data);
+                deferred.reject({data: data, status: status, headers: headers, config: config});
                 //cache.removeAll();
             })
             ;
@@ -278,7 +278,7 @@ angular.module('main')
                 //cache.removeAll();
             })
             .error(function(data, status, headers, config){
-                deferred.reject(data);
+                deferred.reject({data: data, status: status, headers: headers, config: config});
                 //cache.removeAll();
             })
             ;
@@ -317,7 +317,7 @@ angular.module('main')
                 if(parameters.$cache !== undefined) parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
             })
             .error(function(data, status, headers, config){
-                deferred.reject(data);
+                deferred.reject({data: data, status: status, headers: headers, config: config});
                 //cache.removeAll();
             })
             ;
@@ -367,7 +367,7 @@ angular.module('main')
                 //cache.removeAll();
             })
             .error(function(data, status, headers, config){
-                deferred.reject(data);
+                deferred.reject({data: data, status: status, headers: headers, config: config});
                 //cache.removeAll();
             })
             ;
@@ -410,7 +410,7 @@ angular.module('main')
                 //cache.removeAll();
             })
             .error(function(data, status, headers, config){
-                deferred.reject(data);
+                deferred.reject({data: data, status: status, headers: headers, config: config});
                 //cache.removeAll();
             })
             ;

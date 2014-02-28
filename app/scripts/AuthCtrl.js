@@ -20,7 +20,7 @@ angular.module('main').controller('AuthCtrl', ['$scope', '$route', '$http', '$wi
 						if (data && data.success)
 							$scope.$emit("login", data.token, data._id, $scope.loginEmail, data.firstname, data.lastname, $scope.returnPage);
 					},
-					function(data) { 
+					function(response) { 
 						$scope.loginForm.loginPassword.$setValidity("unauthorized", false);
 						$scope.safeApply();
 					});
@@ -49,16 +49,12 @@ angular.module('main').controller('AuthCtrl', ['$scope', '$route', '$http', '$wi
 										if (data && data.success)
 											$scope.$emit("login", data.token, data._id, $scope.email, data.firstname, data.lastname, $scope.returnPage);
 									},
-									function(data) { 
-										$scope.$emit("error", 500, data);
-									});
+									function(response) { $scope.$emit("error", response.status, response.data); });
 						}
 						else 
 							$scope.$emit("error", 500, data);
 					},
-					function(data) {
-						$scope.$emit("error", 500, data);
-					});
+					function(response) { $scope.$emit("error", response.status, response.data); });
         }
     };
 
@@ -79,9 +75,7 @@ angular.module('main').controller('AuthCtrl', ['$scope', '$route', '$http', '$wi
 							$scope.safeApply();
 						}
 					},
-					function(data) {
-						$scope.$emit("error", 500, data);
-					});
+					function(response) { $scope.$emit("error", response.status, response.data); });
         }
     };
 
