@@ -279,7 +279,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         })
         .when('/auth', {
             templateUrl: '/views/auth.html',
-            ontroller: 'AuthCtrl'
+            controller: 'AuthCtrl'
         })
         .when('/auth:returnPage*', {
             templateUrl: '/views/auth.html',
