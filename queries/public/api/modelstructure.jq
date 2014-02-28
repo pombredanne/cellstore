@@ -66,11 +66,11 @@ declare function local:to-csv-rec($objects, $level as integer)
 
 declare function local:to-csv($model)
 {
-    string-join(
-        csv:serialize(
-            local:to-csv-rec($model.ModelStructure.Children[], 0)
-        )
-    )
+    let $lines := local:to-csv-rec($model.ModelStructure.Children[], 0) 
+    return
+        if (exists($lines))
+        then string-join(csv:serialize($lines))
+        else ""
 };
 
 
@@ -94,7 +94,7 @@ declare function local:enrich-json-rec($objects, $level as integer)
 declare function local:enrich-json($component)
 {
     {
-        ModelStructure : local:enrich-json-rec($component.ModelStructure.Children[], 0),
+        ModelStructure : [ local:enrich-json-rec($component.ModelStructure.Children[], 0) ] ,
         CIK : $component._id,
         EntityRegistrantName : $component.EntityRegistrantName,
         Label : $component.Label,
@@ -126,12 +126,12 @@ return
             }
             case "text" case "csv" return {
                 response:content-type("text/csv");
-                response:header("Content-Disposition", "attachment; filename=facttable-" || $cid || ".csv");
+                response:header("Content-Disposition", "attachment; filename=modelstructure-" || $cid || ".csv");
                 local:to-csv($model)
             }
             case "excel" return {
                 response:content-type("application/vnd.ms-excel");
-                response:header("Content-Disposition", "attachment; filename=facttable-" || $cid || ".csv");
+                response:header("Content-Disposition", "attachment; filename=modelstructure-" || $cid || ".csv");
                 local:to-csv($model)
             }
             default return {
