@@ -273,21 +273,25 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/facttable.html',
             controller: 'FactTableCtrl'
         })
+        .when('/modelstructure/:component', {
+            templateUrl: '/views/modelstructure.html',
+            controller: 'ModelStructureCtrl'
+        })
         .when('/auth', {
             templateUrl: '/views/auth.html',
-			controller: 'AuthCtrl'
+            ontroller: 'AuthCtrl'
         })
         .when('/auth:returnPage*', {
             templateUrl: '/views/auth.html',
-			controller: 'AuthCtrl'
+            controller: 'AuthCtrl'
         })
         .when('/account', {
             templateUrl: '/views/account.html',
-			controller: 'AccountCtrl'
+            controller: 'AccountCtrl'
         })
         .when('/account/:section', {
             templateUrl: '/views/account.html',
-			controller: 'AccountCtrl'
+            controller: 'AccountCtrl'
         })
         .when('/concept-map/:name', {
             templateUrl: '/views/concept-map.html',
@@ -295,7 +299,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         })
         .when('/company/:section', {
             templateUrl: '/views/company.html',
-			controller: 'CompanyCtrl'
+            controller: 'CompanyCtrl'
         })
         //404
         .otherwise({
@@ -310,7 +314,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         maxAge: 6000000, // Items added to this cache expire after 15 minutes.
         cacheFlushInterval: 6000000, // This cache will clear itself every hour.
         deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
-		storageMode: 'localStorage'
+        storageMode: 'localStorage'
     });
 
 	var cache = $angularCacheFactory.get('secxbrl');

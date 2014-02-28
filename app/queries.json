@@ -291,6 +291,67 @@
             ]
         },
         {
+            "path": "/modelstructure.jq",
+            "description": "Retrieve a Model Structure",
+            "operations": [
+                {
+                    "method": "POST",
+                    "summary": "Retrieve the model structure for a given component",
+                    "notes": "",
+                    "type": "EntityListing",
+                    "nickname": "listModelStructure",
+                    "parameters": [
+                        {
+                            "name": "format",
+                            "description": "The result format",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "json",
+                                "csv",
+                                "xml",
+                                "excel"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "cid",
+                            "description": "The id of the component",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code": 500,
+                            "message": "An internal error occurred during the processing of the request.",
+                            "responseModel": "Error"
+                        }
+                    ],
+                    "successMessages": [
+                        {
+                            "code": 200,
+                            "message": "Return the model structure for the given component"
+                        }
+                    ],
+                    "examples": [
+                        {
+                            "title": "Fact Table as CSV",
+                            "description": "Retrieve the model structure for a particular component and return the result as XML.",
+                            "request": "[API_URL]/_queries/public/api/modelstructure.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=xml",
+                            "response": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "path": "/facts.jq",
             "description": "Retrieve Facts",
             "operations": [

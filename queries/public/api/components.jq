@@ -53,9 +53,10 @@ declare function local:component-summary($component)
         Members : sec-networks:num-members($component),
         LineItems : sec-networks:num-line-items($component),
         Concepts : sec-networks:num-concepts($component),
-        Abstracts : sec-networks:num-abstracts($component)
+        Abstracts : count(sec-networks:abstracts($component)) 
     }
 };
+
 
 let $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
 let $aid      := archives:aid(request:param-values("aid")[1])

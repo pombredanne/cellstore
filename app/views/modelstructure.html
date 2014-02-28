@@ -1,0 +1,66 @@
+<div class="topbar"></div>
+<div class="row">
+	<div class="col-md-12">
+        <div class="text-center" style="padding-bottom: 5px" ng-show="data">
+          <h3>Model Structure for {{EntityRegistrantName}} </h3>
+        </div>
+        <div ng-show="Label">
+          <table>
+            <tbody>
+              <tr><td>Network:</td><td>{{Label}}</td></tr>
+              <tr><td>Table:</td><td>{{NetworkIdentifier}}</td></tr>
+              <tr><td>AccessionNumber:</td><td><a href="/components/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div ng-show="Label">
+          <div class="table-responsive">
+          <table class="table table-striped">
+              <thead>
+                <th>Line</th>
+                <th>Label</th>
+                <th>Object Class</th>
+                <th>Balance</th>
+                <th>Report ElementName</th>
+              </thead>
+              <tbody>
+                <script type="text/ng-template" id="item_template_layout.html">
+                  <tr ng-repeat="item in item.Children" ng-include="'item_template_layout.html'">
+                    <td>{{item.Level}}</td>
+                    <td>{{item.Label}}</td>
+                    <td>{{item.Kind}}</td>
+                    <td>{{item.Balance}}</td>
+                    <td>{{item.Name}}</td>
+                  </tr>
+                </script>
+                <tr>
+                  <td>{{data.Level + 1}}</td>
+                  <td>{{data.Label}}</td>
+                  <td>{{data.Kind}}</td>
+                  <td>{{data.Balance}}</td>
+                  <td>{{data.Name}}</td>
+                </tr>
+                <tr ng-repeat="item in data.Children" ng-include="'item_template_layout.html'">
+                  <td>{{item.Level}}</td>
+                  <td>{{item.Label}}</td>
+                  <td>{{item.Kind}}</td>
+                  <td>{{item.Balance}}</td>
+                  <td>{{item.Name}}</td>
+                </tr>
+              </tbody>
+          </table>
+		  </div>
+      </div>
+      <div class="col-md-12 text-right">
+        All data as:
+          <a href="{{API_URL}}/_queries/public/api/modelstructure.jq?format=json&_method=POST&cid={{id}}{{(token?'&token=' + token : '')}}" download="modelstructure-{{cik}}.json" target="_blank">JSON</a>,
+          <a href="{{API_URL}}/_queries/public/api/modelstructure.jq?format=xml&_method=POST&cid={{id}}{{(token?'&token=' + token : '')}}" download="modelstructure-{{cik}}.xml" target="_blank">XML</a>,
+          <a href="{{API_URL}}/_queries/public/api/modelstructure.jq?format=csv&_method=POST&?cid={{id}}{{(token?'&token=' + token : '')}}" download="modelstructure-{{cik}}.csv" target="_blank">CSV</a>,
+          <a href="{{API_URL}}/_queries/public/api/modelstructure.jq?format=excel&_method=POST&?cid={{id}}{{(token?'&token=' + token : '')}}" download="modelstructure-{{cik}}.csv" target="_blank">Excel</a>
+        </div>
+	</div>
+</div>
+
+
+
+
