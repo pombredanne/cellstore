@@ -82,7 +82,7 @@ declare function local:facts($entities, $fiscalPeriods, $fiscalYears, $concepts,
                                     if ($p eq "FY")
                                     then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year
                                     else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                            case "ALL" return ()
+                            case "ALL" return $sec-fiscal:ALL_FISCAL_YEARS
                             default return $f
                     )
     let $fiscalPeriods := distinct-values(
@@ -92,14 +92,13 @@ declare function local:facts($entities, $fiscalPeriods, $fiscalYears, $concepts,
                                 case "Q2" return ("Q2","YTD2")
                                 case "Q3" return ("Q3","YTD3")
                                 default return ("Q4","FY")))
-    for $concept in $concepts
     let $aspects :=
         {|
-            { "xbrl:Concept" : $concept },
+            { "xbrl:Concept" : $concepts },
             { "xbrl:Entity" : $entity._id },
             $dimensions
         |}
-    let $hypercube := copy $h := hypercubes:dimensionless-hypercube()
+    let $hypercube := copy $h := hypercubes:dimensionless-hypercube({ Concepts : $concepts })
                       modify insert json {|
                         "dei:LegalEntityAxis" ! { $$ : { Name : $$, Default : "sec:DefaultLegalEntity" } }
                       |}
