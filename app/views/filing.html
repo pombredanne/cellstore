@@ -1,0 +1,94 @@
+<div class="topbar">
+    <div class="bread-crumb">
+            <span class="dropdown">
+                <a class="dropdown-toggle">{{EntityRegistrantName}}</a>
+                <ul class='dropdown-menu text-left'>
+                    <li><a href="/entity/{{cik.substring(23)}}">Entity Information</a></li>
+                    <li><a href="/filings/{{cik.substring(23)}}">Filings</a></li>
+                </ul>
+            </span>
+        </span>
+    </div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+        <div class="text-center" style="padding-bottom: 5px" ng-show="result">
+          <h3>{{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
+        </div>
+        <div ng-show="result">
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="success col-sm-4">Accession Number</td><td>{{AccessionNumber}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">CIK</td><td>{{cik}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Entity Registrant Name</td><td>{{result.EntityRegistrantName}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Form Type</td><td>{{result.FormType}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Accepted</td><td>{{result.Accepted}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Generator</td><td>{{result.Generator}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Networks</td><td>{{result.Networks}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Report Elements</td><td>{{result.ReportElements}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Tables</td><td>{{result.Tables}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Axis</td><td>{{result.Axis}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Members</td><td>{{result.Members}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Line Items</td><td>{{result.LineItems}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Concepts</td><td>{{result.Concepts}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Abstracts</td><td>{{result.Abstracts}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Footnotes</td><td>{{result.Footnotes}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Facts</td><td>{{result.Facts}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Extension Facts</td><td>{{result.ExtensionFacts}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Extension Concepts</td><td>{{result.ExtensionConcepts}}</td>
+              </tr>
+              <tr>
+                <td class="success col-sm-4">Extension Abstracts</td><td>{{result.ExtensionAbstracts}}</td>
+              </tr>
+            </tbody>
+          </table>
+		  </div>
+          <div class="col-md-12 text-right">
+            Data as: <a href="{{API_URL}}/_queries/public/api/filings.jq?format=json&_method=POST&aid={{aid}}{{(token?'&token=' + token : '')}}" download="{{cid}}.json">JSON</a>,
+            <a href="{{API_URL}}/_queries/public/api/filings.jq?format=xml&_method=POST&aid={{aid}}{{(token?'&token=' + token : '')}}" downlaod="{{aid}}.xml">XML</a>,
+            <a href="{{API_URL}}/_queries/public/api/filings.jq?format=csv&_method=POST&aid={{aid}}{{(token?'&token=' + token : '')}}" download="{{aid}}.csv">CSV</a>,
+            <a href="{{API_URL}}/_queries/public/api/filings.jq?format=csv&_method=POST&aid={{aid}}{{(token?'&token=' + token : '')}}" download="{{aid}}.csv">Excel</a>
+          </div>
+        </div>
+	</div>
+</div>
+
+
+
+

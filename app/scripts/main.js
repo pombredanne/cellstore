@@ -271,6 +271,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/filings.html',
             controller: 'FilingsCtrl'
         })
+        .when('/filing/:aid', {
+            templateUrl: '/views/filing.html',
+            controller: 'FilingCtrl'
+        })
         .when('/components/:accession', {
             templateUrl: '/views/components.html',
             controller: 'ComponentsCtrl'
