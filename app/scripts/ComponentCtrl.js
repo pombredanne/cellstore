@@ -6,6 +6,8 @@ angular.module('main').controller('ComponentCtrl', ['$scope', '$route', '$http',
   $scope.cik = "";
   $scope.cid = $route.current.params.cid;
   $scope.EntityRegistrantName = "";
+  $scope.FiscalYear = "";
+  $scope.FiscalPeriod = "";
   $scope.getdata = function() {
     $http(
       {
@@ -14,14 +16,16 @@ angular.module('main').controller('ComponentCtrl', ['$scope', '$route', '$http',
         params : {
           "_method" : "POST",
           "cid" : $scope.cid,
-          "token" : $scope.token,
+          "token" : $scope.token
+        },
       cache :false
-        }
       }).
       success(function(data, status, headers, config) {
         $scope.result = data.Components[0];
         $scope.cik = data.CIK;
         $scope.EntityRegistrantName = data.EntityRegistrantName;
+        $scope.FiscalYear = data.FiscalYear;
+        $scope.FiscalPeriod = data.FiscalPeriod;
         $scope.AccessionNumber = data.Components[0].AccessionNumber;
         $scope.safeApply();
       }).

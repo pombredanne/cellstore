@@ -356,6 +356,28 @@ ul.poweredby li {
 	background: url('../images/icn_search.png') no-repeat center center;
 }
 
+.topbar .bread-crumb {
+    color: white;
+    font-size: 1.6em;
+    line-height: 1.6;
+    padding-left: 10px;
+}
+
+.topbar .bread-crumb > i {
+    padding: 10px;
+}
+
+.topbar .bread-crumb .dropdown .dropdown-toggle {
+    color: white;
+    font-size: 0.65em;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.topbar .bread-crumb .dropdown.active .dropdown-toggle {
+    color: black;
+}
+
 .cols { 
 	overflow: hidden;
 	min-height: 400px;

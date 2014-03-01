@@ -1,4 +1,15 @@
-<div class="topbar"></div>
+<div class="topbar">
+    <div class="bread-crumb">
+            <span class="dropdown">
+                <a class="dropdown-toggle">{{results[1].EntityRegistrantName}}</a>
+                <ul class='dropdown-menu text-left'>
+                    <li><a href="/entity/{{results[1].CIK.substring(23)}}">Entity Information</a></li>
+                    <li><a href="/filings/{{results[1].CIK.substring(23)}}">Filings</a></li>
+                </ul>
+            </span>
+        </span>
+    </div>
+</div>
 <div class="row">
 	<div class="col-md-12">
         <div class="text-center" style="padding-bottom: 5px" ng-show="results">
@@ -33,6 +44,7 @@
                    <span class="dropdown">
                      <a href="javascript://" class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
                      <ul class="dropdown-menu text-left pull-right">
+                       <li><a href="/entity/{{item.CIK.substr(23)}}">Entity Information</a></li>
                        <li><a href="{{item.SECFilingPage}}">SEC Filing Page</a></li>
                        <li><a href="{{item.XBRLInstanceURL}}">XBRL Instance</a></li>
                        <li><a href="/information/{{item.CIK.substr(23)}}/{{item.FiscalYear}}/{{item.FiscalPeriod}}">Basic Financial Information</a></li>

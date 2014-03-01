@@ -1,8 +1,27 @@
-<div class="topbar"></div>
+<div class="topbar">
+    <div class="bread-crumb">
+            <span class="dropdown">
+                <a class="dropdown-toggle">{{EntityRegistrantName}}</a>
+                <ul class='dropdown-menu text-left'>
+                    <li><a href="/entity/{{cik.substring(23)}}">Entity Information</a></li>
+                    <li><a href="/filings/{{cik.substring(23)}}">Filings</a></li>
+                </ul>
+            </span>
+            <i class="fa fa-angle-right"></i>
+            <span class="dropdown">
+                <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}}</a>
+                <ul class='dropdown-menu text-left'>
+                    <li><a href="/filing/{{AccessionNumber}}">Filing Details</a></li>
+                    <li><a href="/components/{{AccessionNumber}}">Components</a></li>
+                </ul>
+            </span>
+        </span>
+    </div>
+</div>
 <div class="row">
 	<div class="col-md-12">
         <div class="text-center" style="padding-bottom: 5px" ng-show="result">
-          <h3>{{result.Profiles.SEC.CompanyName}}</h3>
+          <h3>{{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
         </div>
         <div ng-show="result">
         <div class="table-responsive">

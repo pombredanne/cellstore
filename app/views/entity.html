@@ -1,4 +1,15 @@
-<div class="topbar"></div>
+<div class="topbar">
+    <div class="bread-crumb">
+            <span class="dropdown">
+                <a class="dropdown-toggle">{{result.Profiles.SEC.CompanyName}}</a>
+                <ul class='dropdown-menu text-left'>
+                    <li><a href="/entity/{{result._id.substring(23)}}">Entity Information</a></li>
+                    <li><a href="/filings/{{result._id.substring(23)}}">Filings</a></li>
+                </ul>
+            </span>
+        </span>
+    </div>
+</div>
 <div class="row">
 	<div class="col-md-12">
         <div class="text-center" style="padding-bottom: 5px" ng-show="result">
