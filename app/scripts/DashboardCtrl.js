@@ -1,5 +1,6 @@
 angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$anchorScroll', '$location', '$route', '$http', '$backend', 'QueriesService', 'entities',
   function($scope, $rootScope, $anchorScroll, $location, $route, $http, $backend, QueriesService, entities) {
+    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.table1 = null;
     $scope.table2 = null;
     $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
@@ -88,8 +89,8 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
         }
         
         var concepts = ['fac:Revenues', 'fac:NetIncomeLoss', 'fac:LiabilitiesAndEquity', 'fac:Equity'];
-        var qs = (new QueriesService($backend.API_URL + '/_queries/public/api'));
-        qs.listFact({
+        
+        $scope.service.listFacts({
                 concept: concepts,
                 map: 'FundamentalAccountingConcepts',
                 fiscalYear: fiscalYears,
@@ -174,6 +175,25 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
                     $scope.safeApply();
                 },
                 function(response) { $scope.$emit("error", response.status, response.data); });
+    };
+
+    $scope.loadPopover = function() {
+        $scope.showPopover = true;
+        $scope.result = null;
+        $scope.service.listEntities({ cik: $scope.cik, token: $scope.token, $method: 'POST' })
+            .then(
+                function(data) {
+                    $scope.result = data.Entities[0];
+                    $scope.safeApply();
+                },
+                function(response) {
+                    $scope.$emit("error", response.status, response.data);
+                });
+    };
+
+    $scope.closePopover = function() { 
+        $scope.showPopover = false;
+        $scope.result = null;
     };
 
     if ($route.current.params.cik)

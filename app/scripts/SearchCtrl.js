@@ -1,6 +1,9 @@
-angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route', '$http', '$angularCacheFactory', '$backend', 'years', 'periods', 'entities', 'conceptMaps',
-  function($scope, $location, $route, $http, $angularCacheFactory, $backend, years, periods, entities, conceptMaps){
+angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route', '$http', '$angularCacheFactory', '$backend', 'QueriesService', 'years', 'periods', 'entities', 'conceptMaps',
+  function($scope, $location, $route, $http, $angularCacheFactory, $backend, QueriesService, years, periods, entities, conceptMaps){
+    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
+    $scope.year = ($route.current.params.year ? parseInt($route.current.params.year) : null);
+    $scope.period = ($route.current.params.period ? $route.current.params.period : null);
     $scope.conceptMaps = conceptMaps;
     $scope.conceptMapKey = conceptMaps[1];
     $scope.conceptMapKeys = [];
@@ -43,7 +46,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 	};
 
 	$scope.adjustYearPeriod = function() {		
-		if ($scope.year && !$scope.usage[$scope.years.indexOf($scope.year)].used) 
+		if ($scope.year && !$scope.usage[$scope.zzzyears.indexOf($scope.year)].used) 
 			$scope.year = null;
 		
 		if (!$scope.year)
@@ -228,6 +231,25 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 		$scope.$emit("alert", "Text Block Details", html);
 	};
     
+    $scope.loadPopover = function() {
+        $scope.showPopover = true;
+        $scope.result = null;
+        $scope.service.listEntities({ cik: $scope.cik, token: $scope.token, $method: 'POST' })
+            .then(
+                function(data) {
+                    $scope.result = data.Entities[0];
+                    $scope.safeApply();
+                },
+                function(response) {
+                    $scope.$emit("error", response.status, response.data);
+                });
+    };
+
+    $scope.closePopover = function() { 
+        $scope.showPopover = false;
+        $scope.result = null;
+    };
+
     if ($route.current.params.cik)
         $scope.entities.forEach(function(entity) {
             if (entity.cik == $route.current.params.cik) 

@@ -15,8 +15,6 @@
                 {
                     "method": "POST",
                     "summary": "Retrieve information about all or a selection of entities",
-                    "notes": "",
-                    "type": "EntityListing",
                     "nickname": "listEntities",
                     "parameters": [
                         {
@@ -108,7 +106,6 @@
                 {
                     "method": "POST",
                     "summary": "Retrieve the filings of a particular entity",
-                    "notes": "",
                     "nickname": "listFilings",
                     "parameters": [
                         {
@@ -175,9 +172,7 @@
                 {
                     "method": "POST",
                     "summary": "Retrieve a summary for all components of a given filing",
-                    "notes": "",
-                    "type": "EntityListing",
-                    "nickname": "listEntities",
+                    "nickname": "listComponents",
                     "parameters": [
                         {
                             "name": "format",
@@ -236,9 +231,7 @@
                 {
                     "method": "POST",
                     "summary": "Retrieve the fact table for a given component",
-                    "notes": "",
-                    "type": "EntityListing",
-                    "nickname": "listEntities",
+                    "nickname": "listFactTable",
                     "parameters": [
                         {
                             "name": "format",
@@ -297,8 +290,6 @@
                 {
                     "method": "POST",
                     "summary": "Retrieve the model structure for a given component",
-                    "notes": "",
-                    "type": "EntityListing",
                     "nickname": "listModelStructure",
                     "parameters": [
                         {
@@ -358,9 +349,7 @@
                 {
                     "method": "POST",
                     "summary": "Retrieve one or more facts for a combination of entity and concept.",
-                    "notes": "",
-                    "type": "FactListing",
-                    "nickname": "listFact",
+                    "nickname": "listFacts",
                     "parameters": [
                         {
                             "name": "format",
