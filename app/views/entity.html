@@ -33,12 +33,12 @@
                 <td class="success col-sm-4">Is a Trust</td><td>{{result.Profiles.SEC.IsTrust?"Yes":"No"}}</td>
               </tr>
               <tr>
-                <td class="success col-sm-4">SEC Submissions</td><td><a href="/filings/{{result._id.substring(23)}}">Submissions</a></td>
+                <td class="success col-sm-4">SEC Filings</td><td><a href="/filings/{{result._id.substring(23)}}">Filings</a></td>
               </tr>
             </tbody>
           </table>
 		  </div>
-          <div class="col-md-12 text-right">
+          <div class="col-md-12 text-right" style="padding-top: 180px">
             Data as: <a href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.json">JSON</a>,
             <a href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" downlaod="{{cik}}.xml">XML</a>,
             <a href="{{API_URL}}/_queries/public/api/entities.jq.text?format=csv&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.csv">CSV</a>,

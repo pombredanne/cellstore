@@ -1,5 +1,6 @@
-angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$anchorScroll', '$location', '$route', '$http', '$backend', 'years', 'periods', 'entities',
-  function($scope, $rootScope, $anchorScroll, $location, $route, $http, $backend, years, periods, entities) {
+angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$anchorScroll', '$location', '$route', '$http', '$backend', 'QueriesService', 'years', 'periods', 'entities',
+  function($scope, $rootScope, $anchorScroll, $location, $route, $http, $backend, QueriesService, years, periods, entities) {
+    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.year = ($route.current.params.year ? parseInt($route.current.params.year) : null);
     $scope.period = ($route.current.params.period ? $route.current.params.period : null);
     $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
@@ -199,7 +200,27 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
             $scope.reports = [];
 			$scope.$emit("error", status, data);
         });
-    }
+    };
+
+    $scope.loadPopover = function() {
+        $scope.showPopover = true;
+        $scope.result = null;
+        $scope.service.listEntities({ cik: $scope.cik, token: $scope.token, $method: 'POST' })
+            .then(
+                function(data) {
+                    $scope.result = data.Entities[0];
+                    $scope.safeApply();
+                },
+                function(response) {
+                    $scope.$emit("error", response.status, response.data);
+                });
+    };
+
+    $scope.closePopover = function() { 
+        $scope.showPopover = false;
+        $scope.result = null;
+    };
+
 
     if ($route.current.params.cik)
         $scope.entities.forEach(function(entity) {
@@ -218,7 +239,7 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
 				}
 			}
         });
-	
+
     $scope.getComponent();
   }
 ]);

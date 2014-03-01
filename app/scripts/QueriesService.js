@@ -48,12 +48,21 @@ angular.module('main')
             params['tag'] = parameters.tag;
             params['cik'] = parameters.cik;
             params['ticker'] = parameters.ticker;
+
+            var body = null; 
+            var method = 'POST';
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                if (body) method = 'POST';
+                else method = 'GET';
+            }
             var cached = parameters.$cache && parameters.$cache.get(url);
-            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
                 deferred.resolve(cached);
             } else {
             $http({
-                method: 'POST',
+                method: method,
                 url: url,
                 params: params
             })
@@ -118,12 +127,12 @@ angular.module('main')
         /**
          * 
          * @method
-         * @name QueriesService#listEntities
+         * @name QueriesService#listComponents
          * @param {string} format - The result format, 
          * @param {string} aid - The id of the filing, 
          * 
          */
-        this.listEntities = function(parameters){
+        this.listComponents = function(parameters){
             var deferred = $q.defer();
             var that = this;
             var path = '/components.jq'
@@ -156,12 +165,12 @@ angular.module('main')
         /**
          * 
          * @method
-         * @name QueriesService#listEntities
+         * @name QueriesService#listFactTable
          * @param {string} format - The result format, 
          * @param {string} cid - The id of the component, 
          * 
          */
-        this.listEntities = function(parameters){
+        this.listFactTable = function(parameters){
             var deferred = $q.defer();
             var that = this;
             var path = '/facttable.jq'
@@ -194,7 +203,45 @@ angular.module('main')
         /**
          * 
          * @method
-         * @name QueriesService#listFact
+         * @name QueriesService#listModelStructure
+         * @param {string} format - The result format, 
+         * @param {string} cid - The id of the component, 
+         * 
+         */
+        this.listModelStructure = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/modelstructure.jq'
+            var url = domain + path;
+            var params = {};
+                params['format'] = parameters.format;
+            params['cid'] = parameters.cid;
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: 'POST',
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //cache.removeAll();
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject({data: data, status: status, headers: headers, config: config});
+                //cache.removeAll();
+            })
+            ;
+            }
+            return deferred.promise;    
+        };
+
+        /**
+         * 
+         * @method
+         * @name QueriesService#listFacts
          * @param {string} format - The result format, 
          * @param {string} cik - The CIK of the entity, 
          * @param {string} ticker - The ticker of the entity, 
@@ -207,7 +254,7 @@ angular.module('main')
          * @param {string} token - The token of the current session (if accessing entities beyond DOW30), 
          * 
          */
-        this.listFact = function(parameters){
+        this.listFacts = function(parameters){
             var deferred = $q.defer();
             var map = 'FundamentalAccountingConcepts  <a href="/concept-map/FundamentalAccountingConcepts"><i class="fa fa-question"></i>';
             var that = this;
