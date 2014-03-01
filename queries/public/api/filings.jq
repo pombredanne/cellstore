@@ -28,6 +28,19 @@ declare function local:to-xml($filings as object*) as node()*
             <AccessionNumber>{$f.AccessionNumber}</AccessionNumber>
             <SECFilingPage>{$f.SECFilingPage}</SECFilingPage>
             <XBRLInstanceURL>{$f.XBRLInstanceURL}</XBRLInstanceURL>
+            <Networks>{$f.Networks}</Networks> 
+            <ReportElements>{$f.ReportElements}</ReportElements> 
+            <Tables>{$f.Tables}</Tables> 
+            <Axis>{$f.Axis}</Axis> 
+            <Members>{$f.Members}</Members> 
+            <LineItems>{$f.LineItems}</LineItems> 
+            <Concepts>{$f.Concepts}</Concepts> 
+            <Abstracts>{$f.Abstracts}</Abstracts> 
+            <Footnotes>{$f.Footnotes}</Footnotes> 
+            <Facts>{$f.Facts}</Facts> 
+            <ExtensionFacts>{$f.ExtensionFacts}</ExtensionFacts>  
+            <ExtensionConcepts>{$f.ExtensionConcepts}</ExtensionConcepts> 
+            <ExtensionAbstracts>{$f.ExtensionAbstracts}</ExtensionAbstracts> 
         </Filing>
     }</Filings>)
 };
@@ -50,14 +63,27 @@ declare function local:summary($a)
         Generator : filings:generators($a),
         AccessionNumber: $a._id,
         SECFilingPage : $a.Profiles.SEC.SECFilingPage,
-        XBRLInstanceURL : $a.InstanceURL
+        XBRLInstanceURL : $a.InstanceURL,
+        Networks : filings:num-networks($a),
+        ReportElements : filings:num-report-elements($a),
+        Tables : filings:num-tables($a),
+        Axis : filings:num-axes($a),
+        Members : filings:num-members($a),
+        LineItems : $a.Statistics.Profiles.SEC.NumDistinctReportElementNamesEndingWithLineItems,
+        Concepts : filings:num-concepts($a),
+        Abstracts : filings:num-abstracts($a),
+        Footnotes : filings:num-footnotes($a),
+        Facts: filings:num-facts($a),
+        ExtensionFacts:  filings:num-extension-facts($a),
+        ExtensionConcepts : filings:num-extension-concepts($a),
+        ExtensionAbstracts : filings:num-extension-abstracts($a) 
     }
 };
 
 let $format  := lower-case(request:param-values("format")[1])
 let $ciks     := request:param-values("cik")
-let $fids     := request:param-values("fid")
-let $archives := (archives:archives($fids), filings:filings-for-companies($ciks))
+let $aids     := request:param-values("aid")
+let $archives := (archives:archives($aids), filings:filings-for-companies($ciks))
 let $entities := companies:companies($archives.Entities)
 return
     if (session:only-dow30($entities) or session:valid())
