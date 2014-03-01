@@ -5,6 +5,10 @@ angular.module('main').controller('ComponentsCtrl', ['$scope', '$route', '$http'
   $scope.AccessionNumber = $route.current.params.accession;
   $scope.cik = "";
   $scope.EntityRegistrantName = "";
+  $scope.FiscalYear = "";
+  $scope.FiscalPeriod = "";
+  $scope.AcceptanceDatetime = "";
+  $scope.FormType = "";
   $scope.getdata = function() {
     $http(
       {
@@ -20,6 +24,10 @@ angular.module('main').controller('ComponentsCtrl', ['$scope', '$route', '$http'
         $scope.results = data.Components;
         $scope.cik = data.CIK;
         $scope.EntityRegistrantName = data.EntityRegistrantName;
+        $scope.FiscalYear = data.FiscalYear;
+        $scope.FiscalPeriod = data.FiscalPeriod;
+        $scope.AcceptanceDatetime = data.AcceptanceDatetime;
+        $scope.FormType = data.FormType;
         $scope.safeApply();
       }).
       error(function(data, status, headers, config) {

@@ -21,7 +21,8 @@ declare function local:to-csv($o as object*) as string
                 { "Value" : $o.Value },
                 { "Decimals" : "INF" },
                 { "NumReports" : $o.NumReports }
-            |}
+            |},
+            { serialize-null-as : "" }
         )
     )
 };

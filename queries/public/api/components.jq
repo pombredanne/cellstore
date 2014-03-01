@@ -1,4 +1,5 @@
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
+import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 
 import module namespace components = "http://xbrl.io/modules/bizql/components";
@@ -33,7 +34,7 @@ declare function local:summary-to-xml($components as object*) as element()*
 
 declare function local:to-csv($filings as object*) as string*
 {
-    csv:serialize($filings)
+    csv:serialize($filings, { serialize-null-as : "" })
 };
 
 declare function local:component-summary($component)
@@ -70,10 +71,13 @@ return
         for $a in $archive
         let $res := 
             {|
-                { CIK : archives:entities($archive)._id },
-                { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
+                { CIK                   : archives:entities($archive)._id },
+                { EntityRegistrantName  : $entity.Profiles.SEC.CompanyName },
                 { FiscalYear            : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
                 { FiscalPeriod          : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
+                { AcceptanceDatetime    : filings:acceptance-dateTimes($archive) },
+                { FormType              : $archive.Profiles.SEC.FormType },
+
                 { Components: [ for $c in if (exists($component))
                                           then $component
                                           else sec-networks:networks-for-filings($a)
@@ -93,7 +97,9 @@ return
                 <Components EntityRegistrantName="{$res.EntityRegistrantName}"
                             CIK="{$res.CIK}"
                             FiscalYear="{$res.FiscalYear}"
-                            FiscalPeriod="{$res.FiscalPeriod}">{
+                            FiscalPeriod="{$res.FiscalPeriod}"
+                            AcceptanceDatetime="{$res.AcceptanceDatetime}"
+                            FormType="{$res.FormType}">{
                 local:summary-to-xml($res.Components[])
             }</Components>)
             }

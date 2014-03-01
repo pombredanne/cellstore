@@ -6,7 +6,11 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
   $scope.Label = "";
   $scope.NetworkIdentifier = "";
   $scope.AccessionNumber = "";
-  $scope.id = $route.current.params.component;
+  $scope.cid = $route.current.params.cid;
+  $scope.FiscalYear = "";
+  $scope.FiscalPeriod = "";
+  $scope.AcceptanceDatetime = "";
+  $scope.FormType = "";
   $scope.getdata = function() {
     $http(
       {
@@ -14,10 +18,9 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
         url: $backend.API_URL + '/_queries/public/api/modelstructure.jq',
         params : {
           "_method" : "POST",
-          "cid" : $scope.id,
+          "cid" : $scope.cid,
           "token" : $scope.token
-        },
-    cache : false
+        }
       }).
       success(function(data, status, headers, config) {
         $scope.data = data.ModelStructure;
@@ -25,6 +28,10 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
         $scope.EntityRegistrantName = data.EntityRegistrantName;
         $scope.NetworkIdentifier = data.NetworkIdentifier;
         $scope.AccessionNumber = data.AccessionNumber;
+        $scope.FiscalYear = data.FiscalYear;
+        $scope.FiscalPeriod = data.FiscalPeriod;
+        $scope.AcceptanceDatetime = data.AcceptanceDatetime;
+        $scope.FormType = data.FormType;
         $scope.safeApply();
       }).
       error(function(data, status, headers, config) {

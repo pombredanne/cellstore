@@ -2,6 +2,7 @@ jsoniq version "1.0";
 
 import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
+import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
 
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 
@@ -24,7 +25,8 @@ declare function local:to-csv($o as object*) as string
                 { "Value" : $o.Value },
                 { "Type" : $o.Type },
                 { "Decimals" : $o.Decimals }
-            |}
+            |},
+            { serialize-null-as : "" }
         )
     )
 };
@@ -58,14 +60,21 @@ let $format  := lower-case(request:param-values("format")[1]) (: text, xml, or j
 let $cid       := request:param-values("cid")[1]
 let $component := components:components($cid)
 let $entity    := archives:entities($component.Archive)
+let $archive   := archives:archives($component.Archive)
 return
      if (session:only-dow30($entity) or session:valid())
      then {
         let $fact-table :=  for $f in sec-networks:facts($component, {||})
+                            let $a := $f.Aspects
                             return {|
                                 { "Aspects" : {|
+                                    { "xbrl:Entity": $a."xbrl:Entity" },
+                                    if (exists($a."dei:LegalEntityAxis")) then { "dei:LegalEntityAxis": $a."dei:LegalEntityAxis" } else (),
+                                    { "xbrl:Period" : $a."xbrl:Period" },
+                                    { "xbrl:Concept" : $a."xbrl:Concept" },
                                     for $k in keys($f.Aspects)
-                                    where $k ne "xbrl:Unit"
+                                    where $k ne "xbrl:Unit" and $k ne "xbrl:Entity" and $k ne "dei:LegalEntityAxis" and 
+                                          $k ne "xbrl:Period" and $k ne "xbrl:Concept"
                                     return { $k : $f.Aspects.$k }
                                 |} },
                                 { "Type" : $f.Type },
@@ -82,11 +91,16 @@ return
             case "xml" return {
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
                 (session:comment("xml"),
-                <FactTable EntityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
-                    TableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
-                    Label="{$component.Label}"
-                    AccessionNumber="{$component.Archive}"
-                    NetworkIdentifier="{$component.Role}">{
+                <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
+                    tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
+                    label="{$component.Label}"
+                    accessionNumber="{$component.Archive}"
+                    networkIdentifier="{$component.Role}"
+                    formType="{$archive.Profiles.SEC.FormType}"
+                    fiscalPeriod="{$archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus}"
+                    fiscalYear="{$archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus}" 
+                    acceptanceDatetime="{filings:acceptance-dateTimes($archive)}"
+                    >{
                     local:to-xml($fact-table)
                 }</FactTable>)
             }
@@ -108,6 +122,10 @@ return
                     { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
                     { Label : $component.Label },
                     { AccessionNumber : $component.Archive },
+                    { FormType : $archive.Profiles.SEC.FormType },
+                    { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
+                    { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
+                    { AcceptanceDatetime : filings:acceptance-dateTimes($archive) },
                     { NetworkIdentifier: $component.Role },  
                     { FactTable : [ $fact-table ] },
                     session:comment("json")

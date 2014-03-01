@@ -7,7 +7,11 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
   $scope.Label = "";
   $scope.NetworkIdentifier = "";
   $scope.AccessionNumber = "";
-  $scope.id = $route.current.params.component;
+  $scope.cid = $route.current.params.cid;
+  $scope.FiscalYear = "";
+  $scope.FiscalPeriod = "";
+  $scope.AcceptanceDatetime = "";
+  $scope.FormType = "";
   $scope.getdata = function() {
     $http(
       {
@@ -15,9 +19,9 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
         url: $backend.API_URL + '/_queries/public/api/facttable.jq',
         params : {
           "_method" : "POST",
-          "cid" : $scope.id,
+          "cid" : $scope.cid,
           "token" : $scope.token
-        }
+        },
       }).
       success(function(data, status, headers, config) {
         $scope.data = data.FactTable;
@@ -25,6 +29,10 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
         $scope.EntityRegistrantName = data.EntityRegistrantName;
         $scope.NetworkIdentifier = data.NetworkIdentifier;
         $scope.AccessionNumber = data.AccessionNumber;
+        $scope.FiscalYear = data.FiscalYear;
+        $scope.FiscalPeriod = data.FiscalPeriod;
+        $scope.AcceptanceDatetime = data.AcceptanceDatetime;
+        $scope.FormType = data.FormType;
         $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
@@ -42,6 +50,23 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
   };
   $scope.clear = function(item) {
     return item.replace("iso4217:", "").replace("xbrli:", "");
+  };
+  $scope.showText = function(html) {
+    $scope.$emit("alert", "Text Details", html);
+  };
+  $scope.enumerate = function(object) {
+    var ret = [];
+    $.map(object, function (el, index) {
+      ret.push(el);
+    });
+    return ret;
+  };
+  $scope.enumerateKeys = function(object) {
+    var ret = [];
+    $.map(object, function (el, index) {
+      ret.push(index);
+    });
+    return ret;
   };
  }
 ]);

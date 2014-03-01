@@ -29,7 +29,8 @@ declare function local:to-csv($o as object*) as string?
                 if (exists($o.ReportedConcept))
                 then { "ReportedConcept" : $o.ReportedConcept }
                 else ()
-            |}
+            |},
+            { serialize-null-as : "" }
         )
     )
     else ()

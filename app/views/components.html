@@ -2,11 +2,20 @@
 <div class="row">
 	<div class="col-md-12">
         <div class="text-center" style="padding-bottom: 5px" ng-show="results">
-          <h3>Components for {{EntityRegistrantName}} ({{AccessionNumber}})</h3>
+          <h3>Components for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
         </div>
         <div ng-show="results">
-          <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
-		  <div class="table-responsive">
+          <table>
+            <tbody>
+              <tr><td>Form Type:</td><td>{{FormType}}</td></tr>
+              <tr><td>Accepted:</td><td>{{AcceptanceDatetime}}</td></tr>
+              <tr><td>Accession Number:</td><td>{{AccessionNumber}}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div ng-show="results">
+          <input type="text" class="form-control" ng-model="search" placeholder="Search components..."/>
+          <div class="table-responsive">
           <table class="table table-condensed table-striped">
               <thead>
               <th>#</th>
@@ -15,7 +24,7 @@
               <th>Subcategory (Level)</th>
               <th>Table</th>
               <th>Disclosure Name</th>
-              <th>Actions</th>
+              <th>Go to</th>
               </thead>
               <tbody>
                 <tr ng-repeat="item in results | filter : search">
@@ -29,9 +38,11 @@
                     <span class="dropdown">
                       <a href="javascript://" class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
                       <ul class="dropdown-menu text-left pull-right">
-                        <li><a href="/component/{{item.ComponentId}}">Details</a></li>
+                        <li><a href="/component/{{item.ComponentId}}">Component Details</a></li>
                         <li><a href="/facttable/{{item.ComponentId}}">Fact Table</a></li>
                         <li><a href="/modelstructure/{{item.ComponentId}}">Model Structure</a></li>
+                        <li><a class="disabled" href="javascript://">BizPivot Rendering</a></li>
+                        <li><a class="disabled" href="javascript://">SEC Preview</a></li>
                       </ul>
                     </span>
                   </td>

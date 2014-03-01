@@ -52,7 +52,8 @@ declare function local:to-csv($entities as object*) as string*
             IsTrust : $e.Profiles.SEC.IsTrust,
             Tickers : string-join($e.Profiles.SEC.Tickers[], " "),
             Tags : string-join($e.Profiles.SEC.Tags[], " ")
-        }
+        },
+        { serialize-null-as : "" }
     )
 };
 

@@ -37,6 +37,12 @@ html, body {
 	word-wrap: break-word;
 }
 
+a.disabled {
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
 #spinner { 
 	color: whitesmoke;
 	position: absolute;

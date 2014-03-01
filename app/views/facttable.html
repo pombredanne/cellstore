@@ -2,35 +2,39 @@
 <div class="row">
 	<div class="col-md-12">
         <div class="text-center" style="padding-bottom: 5px" ng-show="data">
-          <h3>Facttable for {{EntityRegistrantName}} </h3>
+          <h3>Fact Table for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
         </div>
         <div ng-show="Label">
           <table>
             <tbody>
               <tr><td>Network:</td><td>{{Label}}</td></tr>
               <tr><td>Table:</td><td>{{NetworkIdentifier}}</td></tr>
-              <tr><td>AccessionNumber:</td><td><a href="/components/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
+              <tr><td>Accession Number:</td><td><a href="/components/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
+              <tr><td>Form Type:</td><td>{{FormType}}</td></tr>
+              <tr><td>Accepted:</td><td>{{AcceptanceDatetime}}</td></tr>
+              <tr><td>Accession Number:</td><td>{{AccessionNumber}}</td></tr>
             </tbody>
           </table>
         </div>
         <div ng-show="Label">
           <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
-          <div class="table-responsive">
+          <div class="scrolling">
           <table class="table table-striped">
               <thead>
                 <th>#</th>
-                <th ng-repeat="(key, value) in data[1].Aspects">{{key}}</th>
+                <th ng-repeat="key in enumerateKeys(data[0].Aspects)">{{key}}</th>
                 <th>Value</th>
-                <th>Decimals</th>
                 <th>Unit</th>
+                <th>Decimals</th>
               </thead>
               <tbody>
                 <tr ng-repeat="item in data | filter : search">
                   <td>{{$index + 1}}</td>
-                  <td ng-repeat="(key, value) in data[1].Aspects">{{value}}</td>
-                  <td>{{item.Value}}</td>
+                  <td ng-repeat="value in enumerate(item.Aspects)">{{value}}</td>
+                  <td ng-show="(item.Type == 'NumericValue')">{{item.Value}}</td>
+                  <td ng-hide="(item.Type == 'NumericValue')"><a href="javascript://" ng-click="showText(item.Value)">Show Text</a></td>
+                  <td>{{item.Unit=='xbrl:NonNumeric'?"":item.Unit}}</td>
                   <td>{{item.Decimals}}</td>
-                  <td>{{item.Unit}}</td>
                 </tr>
               </tbody>
           </table>
@@ -38,10 +42,10 @@
       </div>
       <div class="col-md-12 text-right">
         All data as:
-          <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=json&_method=POST&cid={{id}}{{(token?'&token=' + token : '')}}" download="facttable-{{cik}}.json" target="_blank">JSON</a>,
-          <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=xml&_method=POST&cid={{id}}{{(token?'&token=' + token : '')}}" download="facttable-{{cik}}.xml" target="_blank">XML</a>,
-          <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=csv&_method=POST&?cid={{id}}{{(token?'&token=' + token : '')}}" download="facttable-{{cik}}.csv" target="_blank">CSV</a>,
-          <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=excel&_method=POST&?cid={{id}}{{(token?'&token=' + token : '')}}" download="facttable-{{cik}}.csv" target="_blank">Excel</a>
+          <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=json&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.json" target="_blank">JSON</a>,
+          <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=xml&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.xml" target="_blank">XML</a>,
+          <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=csv&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.csv" target="_blank">CSV</a>,
+          <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=excel&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.csv" target="_blank">Excel</a>
         </div>
 	</div>
 </div>

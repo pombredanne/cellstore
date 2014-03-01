@@ -269,11 +269,11 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/component.html',
             controller: 'ComponentCtrl'
         })
-        .when('/facttable/:component', {
+        .when('/facttable/:cid', {
             templateUrl: '/views/facttable.html',
             controller: 'FactTableCtrl'
         })
-        .when('/modelstructure/:component', {
+        .when('/modelstructure/:cid', {
             templateUrl: '/views/modelstructure.html',
             controller: 'ModelStructureCtrl'
         })

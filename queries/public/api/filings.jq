@@ -34,7 +34,7 @@ declare function local:to-xml($filings as object*) as node()*
 
 declare function local:to-csv($filings as object*) as string*
 {
-    csv:serialize($filings)
+    csv:serialize($filings, { serialize-null-as : "" })
 };
 
 declare function local:summary($a)

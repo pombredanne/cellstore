@@ -2,6 +2,7 @@ jsoniq version "1.0";
 
 import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
+import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
 
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 
@@ -36,7 +37,12 @@ declare function local:to-xml($model)
                  accessionNumber="{$model.AccessionNumber}"
                  cik="{$model.CIK}"
                  label="{$model.Label}"
-                 networkIdentifier="{$model.NetworkIdentifier}">{
+                 networkIdentifier="{$model.NetworkIdentifier}"
+                 formType="{$model.FormType}"
+                 fiscalPeriod="{$model.FiscalPeriod}"
+                 fiscalYear="{$model.FiscalYear}" 
+                 acceptanceDatetime="{$model.AcceptanceDatetime}"
+                 >{
             local:to-xml-rec($model.ModelStructure.Children[], 0)
         }</Network>
     </Component>)
@@ -69,7 +75,7 @@ declare function local:to-csv($model)
     let $lines := local:to-csv-rec($model.ModelStructure.Children[], 0) 
     return
         if (exists($lines))
-        then string-join(csv:serialize($lines))
+        then string-join(csv:serialize($lines, { serialize-null-as : "" }))
         else ""
 };
 
@@ -100,6 +106,10 @@ declare function local:enrich-json($component)
         EntityRegistrantName : $component.EntityRegistrantName,
         Label : $component.Label,
         AccessionNumber : $component.AccessionNumber,
+        FormType : $component.FormType, 
+        FiscalPeriod : $component.FiscalPeriod,
+        FiscalYear : $component.FiscalYear,
+        AcceptanceDatetime : $component.AcceptanceDatetime,
         NetworkIdentifier: $component.NetworkIdentifier
     }
 };
@@ -108,6 +118,7 @@ let $format    := lower-case(request:param-values("format")[1])
 let $cid       := request:param-values("cid")[1]
 let $component := components:components($cid)
 let $entity    := archives:entities($component.Archive)
+let $archive   := archives:archives($component.Archive)
 return
      if (session:only-dow30($entity) or session:valid())
      then {
@@ -117,6 +128,10 @@ return
                     { ModelStructure : sec-networks:model-structures($component) },
                     { Label : $component.Label },
                     { AccessionNumber : $component.Archive },
+                    { FormType : $archive.Profiles.SEC.FormType },
+                    { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
+                    { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
+                    { AcceptanceDatetime : filings:acceptance-dateTimes($archive) },
                     { NetworkIdentifier: $component.Role }
         |}
         return 
