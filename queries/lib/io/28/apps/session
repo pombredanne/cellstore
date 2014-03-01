@@ -101,7 +101,7 @@ declare function session:error($msg as string, $format as string?)
 {
 	switch ($format)
     case "xml" return <error><message>{$msg}</message></error>
-	case "text" return $msg
+	case "text" or "csv" or "excel" return $msg 
     default return
 	{
 		"success" : false,

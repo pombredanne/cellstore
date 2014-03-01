@@ -57,7 +57,7 @@ declare function local:summary($a)
 let $format  := lower-case(request:param-values("format")[1])
 let $ciks     := request:param-values("cik")
 let $fids     := request:param-values("fid")
-let $archives := if (exists($fids)) then archives:archives($fids) else filings:filings-for-companies($ciks)
+let $archives := (archives:archives($fids), filings:filings-for-companies($ciks))
 let $entities := companies:companies($archives.Entities)
 return
     if (session:only-dow30($entities) or session:valid())

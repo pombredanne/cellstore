@@ -108,7 +108,7 @@ declare function local:facts(
             { "xbrl:Concept" : $concept },
             { "xbrl:Entity" : $entity._id }
         |}
-    let $hypercube := copy $h := hypercubes:dimensionless-hypercube({ Concepts : $concept })
+    let $hypercube := copy $h := hypercubes:dimensionless-hypercube()
                       modify (
                           insert json {|
                             "dei:LegalEntityAxis" ! { $$ : { Name : $$, Default : "sec:DefaultLegalEntity" } }
@@ -230,7 +230,7 @@ return
         if (exists($archives)) then companies:companies($archives.Entity) else () 
     )
     return switch(true)
-      case empty($entities) or empty($archives) return {
+      case empty($entities) and empty($archives) return {
         response:status-code(404);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
       }
