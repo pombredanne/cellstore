@@ -106,14 +106,19 @@ declare function local:facts(
     let $aspects :=
         {|
             { "xbrl:Concept" : $concept },
-            { "xbrl:Entity" : $entity._id }
+            { "xbrl:Entity" : $entity._id },
+            (: This is because of a bug that will be fixed later (hypercube members do not get considered) :)
+            for $d in values($dimensions)
+            let $members := descendant-objects(values($d)).Name
+            where exists($members)
+            return { $d.Name: [ $members ] }
         |}
     let $hypercube := copy $h := hypercubes:dimensionless-hypercube()
                       modify (
                           insert json {|
                             "dei:LegalEntityAxis" ! { $$ : { Name : $$, Default : "sec:DefaultLegalEntity" } }
                           |} into $h.Aspects,
-                          for $d in $dimensions
+                          for $d in $dimensions[not values($$).Name = "dei:LegalEntityAxis"]
                           return insert json $d into $h.Aspects 
                       )
                       return $h
@@ -201,10 +206,12 @@ let $dimensions :=  for $p in request:param-names()
                             then ()
                             else {
                                 Domains : {
-                                    Name: "sec:ImplicitDomain",
-                                    Members: {|
-                                        (request:param-values($dimension-name)) ! { $$ : { Name: $$ } }
-                                    |}
+                                    "sec:ImplicitDomain" : {
+                                        Name: "sec:ImplicitDomain",
+                                        Members: {|
+                                            (request:param-values($dimension-name)) ! { $$ : { Name: $$ } }
+                                        |}
+                                    }
                                 }
                             }
                         |}
