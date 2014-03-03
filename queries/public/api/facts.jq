@@ -92,7 +92,7 @@ declare function local:facts(
                                     if ($p eq "FY")
                                     then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year
                                     else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                            case "ALL" return $sec-fiscal:ALL_FISCAL_YEARS (:needs to be () on PROD :)
+                            case "ALL" return ()
                             default return $f
                     )
     let $fiscalPeriods := distinct-values(
@@ -129,9 +129,7 @@ declare function local:facts(
         for $f in
             (
                 sec-fiscal:facts-for-aspects-and-fiscal-periods-and-years(
-                    $aspects, $fiscalPeriods, $years, $options),
-                facts:facts-for-archives-and-aspects(
-                    $archives, $aspects, $options)
+                    $aspects, $fiscalPeriods, $years, $options)
             )
         order by $f.Profiles.SEC.Fiscal.Acceptance descending
         group by $f.Profiles.SEC.Fiscal.Year,
@@ -186,31 +184,31 @@ let $fiscalPeriods := let $fp := request:param-values("fiscalPeriod", "FY")
                         else $fp
 let $aids := request:param-values("aid")
 let $dimensions :=  for $p in request:param-names()
+                    where contains($p, ":")
+                    group by $dimension-name := if(ends-with(lower-case($p), ":default"))
+                                                then substring-before($p, ":default")
+                                                else $p
+                    let $default := $p = $dimension-name || ":default"
+                    let $all := (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
                     return
-                        if (contains($p, ":"))
-                        then
-                            {
-                                let $default := ends-with(lower-case($p), ":default")
-                                let $all := ((request:param-values($p) ! upper-case($$)) = "ALL")
-                                return
-                                (
-                                    if ($default) then substring-before($p, ":default")
-                                    else $p
-                                ) !
-                                {
-                                   $$ : {| 
-                                            (
-                                                { Name : $$ }, 
-                                                if ($default)
-                                                then { Default : request:param-values($p)[1] }
-                                                else if ($all)
-                                                then ()
-                                                else { Members : [ request:param-values($p) ] }
-                                            )
-                                        |}
+                    {
+                       $dimension-name : {| 
+                            { Name : $dimension-name }, 
+                            if ($default)
+                            then { Default : request:param-values($dimension-name || ":default")[1] }
+                            else (),
+                            if ($all)
+                            then ()
+                            else {
+                                Domains : {
+                                    Name: "sec:ImplicitDomain",
+                                    Members: {|
+                                        (request:param-values($dimension-name)) ! { $$ : { Name: $$ } }
+                                    |}
                                 }
-                            } 
-                        else ()
+                            }
+                        |}
+                    }
 let $concepts := request:param-values("concept")
 let $map      := request:param-values("map")[1]
 return 
