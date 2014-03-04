@@ -139,7 +139,7 @@
                     "responseMessages": [
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privileges",
                             "responseModel": "Error"
                         },
                         {
@@ -198,7 +198,7 @@
                     "responseMessages": [
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privileges",
                             "responseModel": "Error"
                         },
                         {
@@ -257,7 +257,7 @@
                     "responseMessages": [
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privileges",
                             "responseModel": "Error"
                         },
                         {
@@ -316,7 +316,7 @@
                     "responseMessages": [
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privileges",
                             "responseModel": "Error"
                         },
                         {
@@ -457,7 +457,7 @@
                         },
                         {
                             "code": 401,
-                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privliges",
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privileges",
                             "responseModel": "Error"
                         },
                         {
