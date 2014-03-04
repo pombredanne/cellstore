@@ -1,5 +1,5 @@
-angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http', '$sce', '$backend',
- function($scope, $route, $http, $sce, $backend) {
+angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http', '$backend',
+ function($scope, $route, $http, $backend) {
   $scope.data = [];
   $scope.columns = [];
   $scope.API_URL = $backend.API_URL;
