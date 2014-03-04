@@ -102,10 +102,9 @@ declare function local:facts(
                                 case "Q2" return ("Q2","YTD2")
                                 case "Q3" return ("Q3","YTD3")
                                 default return ("Q4","FY")))
-    for $concept in $concepts
     let $aspects :=
         {|
-            { "xbrl:Concept" : $concept },
+            { "xbrl:Concept" : $concepts },
             { "xbrl:Entity" : $entity._id },
             (: This is because of a bug that will be fixed later (hypercube members do not get considered) :)
             for $d in values($dimensions)
@@ -136,11 +135,13 @@ declare function local:facts(
                 sec-fiscal:facts-for-aspects-and-fiscal-periods-and-years(
                     $aspects, $fiscalPeriods, $years, $options)
             )
-        order by $f.Profiles.SEC.Fiscal.Acceptance descending
         group by $f.Profiles.SEC.Fiscal.Year,
                  $f.Profiles.SEC.Fiscal.Period,
-                 $f.Profiles.SEC.Fiscal.Acceptance
-        return $f[1]
+                 $f.Aspects."xbrl:Concept"
+        let $latest-accepted := max(distinct-values($f.Profiles.SEC.Fiscal.Acceptance))
+        return if(empty($latest-accepted))
+               then $f
+               else $f[$$.Profiles.SEC.Fiscal.Acceptance eq $latest-accepted]
     return {|
         { Aspects : {|
             for $a in keys($fact.Aspects)

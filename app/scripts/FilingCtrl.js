@@ -1,6 +1,5 @@
 angular.module('main').controller('FilingCtrl', ['$scope', '$route', '$http', '$backend',
  function($scope, $route, $http, $backend) {
-  $scope.result = [];
   $scope.API_URL = $backend.API_URL;
   $scope.AccessionNumber = $route.current.params.aid;
   $scope.cik = "";
@@ -21,7 +20,8 @@ angular.module('main').controller('FilingCtrl', ['$scope', '$route', '$http', '$
       }).
       success(function(data, status, headers, config) {
         $scope.result = data.Archives[0];
-        $scope.cik = $scope.result.CIK;
+        $scope.cik = $scope.result.CIK.substring(23);
+        $scope.CIK = $scope.result.CIK;
         $scope.EntityRegistrantName = $scope.result.EntityRegistrantName;
         $scope.FiscalYear = $scope.result.FiscalYear;
         $scope.FiscalPeriod = $scope.result.FiscalPeriod;

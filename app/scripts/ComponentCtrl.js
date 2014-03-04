@@ -6,6 +6,7 @@ angular.module('main').controller('ComponentCtrl', ['$scope', '$route', '$http',
   $scope.cik = "";
   $scope.cid = $route.current.params.cid;
   $scope.EntityRegistrantName = "";
+  $scope.component = "";
   $scope.FiscalYear = "";
   $scope.FiscalPeriod = "";
   $scope.getdata = function() {
@@ -21,11 +22,15 @@ angular.module('main').controller('ComponentCtrl', ['$scope', '$route', '$http',
       }).
       success(function(data, status, headers, config) {
         $scope.result = data.Components[0];
-        $scope.cik = data.CIK;
+        $scope.cik = data.CIK.substring(23);
+        $scope.CIK = data.CIK;
         $scope.EntityRegistrantName = data.EntityRegistrantName;
         $scope.FiscalYear = data.FiscalYear;
         $scope.FiscalPeriod = data.FiscalPeriod;
         $scope.AccessionNumber = data.Components[0].AccessionNumber;
+        var p = $scope.result.NetworkLabel.lastIndexOf(' - ');
+        if (p > 0) $scope.component = $scope.result.NetworkLabel.substring(p+3);
+        else $scope.component = $scope.result.NetworkLabel;
         $scope.safeApply();
       }).
       error(function(data, status, headers, config) {

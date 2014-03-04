@@ -1,62 +1,62 @@
-<div class="topbar">
-    <div class="bread-crumb">
-            <span class="dropdown">
-                <a class="dropdown-toggle">{{result.Profiles.SEC.CompanyName}}</a>
-                <ul class='dropdown-menu text-left'>
-                    <li><a href="/entity/{{result._id.substring(23)}}">Entity Information</a></li>
-                    <li><a href="/filings/{{result._id.substring(23)}}">Filings</a></li>
-                </ul>
-            </span>
-        </span>
+<div class="topbar text-center">
+    <div class="btn-group">
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/entity.html'" href="/entity{{(cik?'/' + cik : '')}}"><i class="icn fa fa-home"></i></a>
+        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/filings.html'" href="/filings{{(cik?'/' + cik : '')}}"><i class="icn icn-filings"></i> Filings</a>
+        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/information.html'" href="/information{{(cik?'/' + cik : '')}}"><i class="icn icn-analytics"></i> Basic Financial Information</a>
+        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/dashboard.html'" href="/dashboard{{(cik?'/' + cik : '')}}"><i class="icn icn-dashboard"></i> Basic Analysis</a>
+        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/search.html'" href="/search{{(cik?'/' + cik : '')}}"><i class="icn icn-search"></i> Search Facts</a>
     </div>
 </div>
-<div class="row">
-	<div class="col-md-12">
-        <div class="text-center" style="padding-bottom: 5px" ng-show="result">
-          <h3>{{result.Profiles.SEC.CompanyName}}</h3>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 spaced">
+            <h3 class="text-center">Search Entity</h3>
+			<input class="form-control input-lg input-block" ng-class="{ 'fade-control': !cik }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
+				   placeholder="Search entities by name, CIK, or ticker..." ng-click="focused=true;"
+				   typeahead="entity.name for entity in entities | filter:$viewValue | limitTo:8">
+		</div>
+
+        <div ng-show="result" class="white-box">
+          <h3 class="highlight3">{{result.Profiles.SEC.CompanyName}}</h3>
+		  <div class="scrolling">
+            <table class="table" cellpadding="5">
+              <tr>
+                <td style="width: 40%">CIK</td><td>{{cik}}</td>
+              </tr>
+              <tr>
+                <td>Ticker Symbol</td><td>{{ticker}}</td>
+              </tr>
+              <tr>
+                <td>Entity Type</td><td>{{result.Profiles.SEC.CompanyType}}</td>
+              </tr>
+              <tr>
+                <td>SIC Code</td><td>{{result.Profiles.SEC.SIC}}</td>
+              </tr>
+              <tr>
+                <td>SIC Description</td><td>{{result.Profiles.SEC.SICDescription}}</td>
+              </tr>
+              <tr>
+                <td>Industry Sector</td><td>{{result.Profiles.SEC.Sector}}</td>
+              </tr>
+              <tr>
+                <td>Is a Trust</td><td>{{result.Profiles.SEC.IsTrust?"Yes":"No"}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="white-box-footer" style="padding: 15px;">
+            <a href="/filings/{{cik}}">Filings</a> | 
+            <a href="/information/{{cik}}">Basic Financial Information</a> | 
+            <a href="/dashboard/{{cik}}">Basic Analysis</a> | 
+            <a href="/search/{{cik}}">Search Facts</a>
+          </div>
         </div>
-        <div ng-show="result">
-		  <div class="table-responsive">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td class="success col-sm-4">CIK</td><td>{{result._id.substring(23)}}</td>
-              </tr>
-              <tr>
-                <td class="success col-sm-4">Ticker Symbol</td><td>{{result.Profiles.SEC.Tickers[0]}}</td>
-              </tr>
-              <tr>
-                <td class="success col-sm-4">Entity Registrant Name</td><td>{{result.Profiles.SEC.CompanyName}}</td>
-              </tr>
-              <tr>
-                <td class="success col-sm-4">Entity Type</td><td>{{result.Profiles.SEC.CompanyType}}</td>
-              </tr>
-              <tr>
-                <td class="success col-sm-4">SIC Code</td><td>{{result.Profiles.SEC.SIC}}</td>
-              </tr>
-              <tr>
-                <td class="success col-sm-4">SIC Description</td><td>{{result.Profiles.SEC.SICDescription}}</td>
-              </tr>
-              <tr>
-                <td class="success col-sm-4">Industry Sector</td><td>{{result.Profiles.SEC.Sector}}</td>
-              </tr>
-              <tr>
-                <td class="success col-sm-4">Is a Trust</td><td>{{result.Profiles.SEC.IsTrust?"Yes":"No"}}</td>
-              </tr>
-              <tr>
-                <td class="success col-sm-4">SEC Filings</td><td><a href="/filings/{{result._id.substring(23)}}">Filings</a></td>
-              </tr>
-            </tbody>
-          </table>
-		  </div>
-          <div class="col-md-12 text-right" style="padding-top: 180px">
+          <div class="col-md-12 text-right" ng-show="result">
             Data as: <a href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.json">JSON</a>,
             <a href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" downlaod="{{cik}}.xml">XML</a>,
             <a href="{{API_URL}}/_queries/public/api/entities.jq.text?format=csv&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.csv">CSV</a>,
             <a href="{{API_URL}}/_queries/public/api/entities.jq.text?format=excel&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.csv">CSV</a>
           </div>
-        </div>
 	</div>
 </div>
-
-
