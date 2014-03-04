@@ -325,6 +325,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/company.html',
             controller: 'CompanyCtrl'
         })
+        .when('/example/:example', {
+            templateUrl: '/views/example.html',
+            controller: 'ExampleCtrl'
+        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'
