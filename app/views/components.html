@@ -27,22 +27,20 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-        <div class="text-center" style="padding-bottom: 5px" ng-show="results">
-          <h3>Components for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
-        </div>
-        <div ng-show="results">
-          <table>
+        <div ng-show="results" class="spaced">
+          <div class="container white-box">
+          <h3 class="highlight3">Components for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
+          <table class="table table-condensed small">
             <tbody>
               <tr><td>Form Type:</td><td>{{FormType}}</td></tr>
               <tr><td>Accepted:</td><td>{{AcceptanceDatetime}}</td></tr>
-              <tr><td>Accession Number:</td><td>{{AccessionNumber}}</td></tr>
+              <tr><td>Accession Number:</td><td><a href="/filing/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
             </tbody>
           </table>
-        </div>
-        <div ng-show="results">
+          </div>
           <input type="text" class="form-control" ng-model="search" placeholder="Search components..."/>
-          <div class="table-responsive">
-          <table class="table table-condensed table-striped">
+          <div class="scrolling">
+          <table class="table table-condensed table-striped small">
               <thead>
               <th>#</th>
               <th>Network Label / Name</th>
@@ -76,14 +74,14 @@
               </tbody>
           </table>
 		  </div>
-          <div class="col-md-12 text-right" style="padding-top: 180px">
-            All data as:
-            <a href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.json" target="_blank">JSON</a>,
-            <a href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.xml" target="_blank">XML</a>,
-            <a href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.csv" target="_blank">CSV</a>,
-            <a href="{{API_URL}}/_queries/public/api/components.jq?format=excel&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.csv" target="_blank">Excel</a>
-          </div>
         </div>
+      <div class="col-md-12 text-right" ng-show="results">
+        All data as:
+        <a href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.json" target="_blank">JSON</a>,
+        <a href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.xml" target="_blank">XML</a>,
+        <a href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.csv" target="_blank">CSV</a>,
+        <a href="{{API_URL}}/_queries/public/api/components.jq?format=excel&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.csv" target="_blank">Excel</a>
+      </div>
 	</div>
 </div>
 

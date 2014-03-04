@@ -382,8 +382,14 @@ ul.poweredby li {
     background: url('../images/breadcrumb-sep.png') no-repeat center center;
 }
 
+.bread-crumb .dropdown:hover {
+    background: url('../images/breadcrumb-menu.png') no-repeat right center;
+ }
+
 .bread-crumb .dropdown {
     vertical-align: middle;
+    padding-right: 10px;
+    background: #ffffff;
 }
 
 .bread-crumb .dropdown .dropdown-toggle {

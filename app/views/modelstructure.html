@@ -36,33 +36,31 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-        <div class="text-center" style="padding-bottom: 5px" ng-show="data">
-          <h3>Model Structure for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
-        </div>
         <div ng-show="Label" class="spaced">
-          <table>
-            <tbody>
-              <tr><td>Network:</td><td>{{Label}}</td></tr>
-              <tr><td>Table:</td><td>{{NetworkIdentifier}}</td></tr>
-              <tr><td>Accession Number:</td><td><a href="/components/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
-              <tr><td>Form Type:</td><td>{{FormType}}</td></tr>
-              <tr><td>Accepted:</td><td>{{AcceptanceDatetime}}</td></tr>
-              <tr><td>Accession Number:</td><td>{{AccessionNumber}}</td></tr>
-            </tbody>
-          </table>
+          <div class="container white-box">
+          <h3 class="highlight3">Model Structure for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
+            <table class="table table-condensed small">
+              <tr><td>Network</td><td>{{Label}}</td></tr>
+              <tr><td>Table</td><td>{{NetworkIdentifier}}</td></tr>
+              <tr><td>Accession Number</td><td><a href="/filing/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
+              <tr><td>Form Type</td><td>{{FormType}}</td></tr>
+              <tr><td>Accepted</td><td>{{AcceptanceDatetime}}</td></tr>
+            </table>
+          </div>
+          <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
           <div class="scrolling">
-          <div class="divtable">
-            {{rowReset()}}
-            <div class="line head"><span>#</span><span>Label</span><span>Object Class</span><span>Balance</span><span>Report ElementName</span></div>
-            <script type="text/ng-template" id="item_line.html">{{rowIncrement()}}
-              <div class="line" ng-class="{ even: (row % 2 == 0) }"><span>{{row}}</span><span style="padding-left: {{item.Level * 20}}px">{{item.Label}}</span><span>{{item.Kind}}</span><span>{{item.Balance}}</span><span><a href="javascript://" popover="{{item.Name}}" popover-placement="left" popover-trigger="focus">{{substring(item.Name, 35)}}</a></span></div>
-              <div ng-repeat="item in item.Children" ng-include="'item_line.html'"></div>
-            </script>
-            <div ng-repeat="item in data" ng-include="'item_line.html'"></div>
-		  </div>
+              <div class="divtable small">
+                {{rowReset()}}
+                <div class="line head"><span>#</span><span>Label</span><span>Object Class</span><span>Balance</span><span>Report ElementName</span></div>
+                <script type="text/ng-template" id="item_line.html">{{rowIncrement()}}
+                  <div class="line" ng-class="{ even: (row % 2 == 0) }"><span>{{row}}</span><span style="padding-left: {{item.Level * 20}}px">{{item.Label}}</span><span>{{item.Kind}}</span><span>{{item.Balance}}</span><span><a href="javascript://" popover="{{item.Name}}" popover-placement="left" popover-trigger="focus">{{substring(item.Name, 35)}}</a></span></div>
+                  <div ng-repeat="item in item.Children | filter:search" ng-include="'item_line.html'"></div>
+                </script>
+                <div ng-repeat="item in data | filter:search" ng-include="'item_line.html'"></div>
+              </div>
 		  </div>
       </div>
-      <div class="col-md-12 text-right" ng-show="data">
+      <div class="col-md-12 text-right" ng-show="Label">
         All data as:
           <a href="{{API_URL}}/_queries/public/api/modelstructure.jq?format=json&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="modelstructure-{{cid}}.json" target="_blank">JSON</a>,
           <a href="{{API_URL}}/_queries/public/api/modelstructure.jq?format=xml&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="modelstructure-{{cid}}.xml" target="_blank">XML</a>,
