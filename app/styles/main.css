@@ -337,7 +337,7 @@ ul.poweredby li {
 @media (min-width: 768px) {
 	.topbar .btn-group .btn {
 		font-size: 1.25em;
-		padding: 6px 12px;
+		padding: 5px 10px;
 	}
 
 	.topbar .btn-group .icn {
