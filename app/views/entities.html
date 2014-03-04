@@ -3,7 +3,7 @@
 	<div class="fade-content" ng-hide="search || focused"></div>
 	<div class="fade-panel-entities" ng-hide="search || focused">
 		<div class="arrow"></div>
-		Search companies by business name, CIK or ticker simbol<br>
+		Search entities by business name, CIK or ticker simbol<br>
 		to see information about filings.
 	</div>
 	<div class="col-md-12">
@@ -42,7 +42,7 @@
               </tbody>
           </table>
 		  </div>
-      <div class="col-md-12 text-right" style="padding-top: 180px">
+      <div class="col-md-12 text-right">
         All data as:
           <a href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.json">JSON</a>,
           <a href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.xml">XML</a>,

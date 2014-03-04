@@ -26,8 +26,12 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
       success(function(data, status, headers, config) {
         $scope.data = data.FactTable;
         $scope.Label = data.Label;
+        $scope.cik = (data.CIK || "").substring(23);
         $scope.EntityRegistrantName = data.EntityRegistrantName;
         $scope.NetworkIdentifier = data.NetworkIdentifier;
+        var p = data.Label.lastIndexOf(' - ');
+        if (p > 0) $scope.component = data.Label.substring(p+3);
+        else $scope.component = data.Label;
         $scope.AccessionNumber = data.AccessionNumber;
         $scope.FiscalYear = data.FiscalYear;
         $scope.FiscalPeriod = data.FiscalPeriod;

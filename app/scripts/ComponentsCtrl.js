@@ -22,7 +22,8 @@ angular.module('main').controller('ComponentsCtrl', ['$scope', '$route', '$http'
       }).
       success(function(data, status, headers, config) {
         $scope.results = data.Components;
-        $scope.cik = data.CIK;
+        $scope.cik = data.CIK.substring(23);
+        $scope.CIK = data.CIK;
         $scope.EntityRegistrantName = data.EntityRegistrantName;
         $scope.FiscalYear = data.FiscalYear;
         $scope.FiscalPeriod = data.FiscalPeriod;

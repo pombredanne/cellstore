@@ -263,9 +263,19 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/entities.html',
             controller: 'EntitiesCtrl'
         })
+        .when('/entity', {
+            templateUrl: '/views/entity.html',
+            controller: 'EntityCtrl',
+            resolve: {
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+            }
+        })
         .when('/entity/:cik', {
             templateUrl: '/views/entity.html',
-            controller: 'EntityCtrl'
+            controller: 'EntityCtrl',
+            resolve: {
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+            }
         })
         .when('/filings/:cik', {
             templateUrl: '/views/filings.html',

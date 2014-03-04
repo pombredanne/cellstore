@@ -3,6 +3,7 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
   $scope.data = {};
   $scope.API_URL = $backend.API_URL;
   $scope.EntityRegistrantName = "";
+  $scope.cik = "";
   $scope.Label = "";
   $scope.NetworkIdentifier = "";
   $scope.AccessionNumber = "";
@@ -25,8 +26,12 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
       success(function(data, status, headers, config) {
         $scope.data = data.ModelStructure;
         $scope.Label = data.Label;
+        $scope.cik = (data.CIK || "").substring(23);
         $scope.EntityRegistrantName = data.EntityRegistrantName;
         $scope.NetworkIdentifier = data.NetworkIdentifier;
+        var p = data.Label.lastIndexOf(' - ');
+        if (p > 0) $scope.component = data.Label.substring(p+3);
+        else $scope.component = data.Label;
         $scope.AccessionNumber = data.AccessionNumber;
         $scope.FiscalYear = data.FiscalYear;
         $scope.FiscalPeriod = data.FiscalPeriod;

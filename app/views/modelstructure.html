@@ -1,29 +1,45 @@
-<div class="topbar">
-    <div class="bread-crumb">
-            <span class="dropdown">
-                <a class="dropdown-toggle">{{EntityRegistrantName}}</a>
-                <ul class='dropdown-menu text-left'>
-                    <li><a href="/entity/{{cik.substring(23)}}">Entity Information</a></li>
-                    <li><a href="/filings/{{cik.substring(23)}}">Filings</a></li>
-                </ul>
-            </span>
-            <i class="fa fa-angle-right"></i>
-            <span class="dropdown">
-                <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}}</a>
-                <ul class='dropdown-menu text-left'>
-                    <li><a href="/filing/{{AccessionNumber}}">Filing Details</a></li>
-                    <li><a href="/components/{{AccessionNumber}}">Components</a></li>
-                </ul>
-            </span>
-        </span>
+<div class="topbar text-center">
+    <div class="btn-group">
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/entity.html'" href="/entity/{{cik}}"><i class="icn fa fa-home"></i></a>
+        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="page" href="/filings/{{cik}}"><i class="icn icn-filings"></i> Filings</a>
+        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/information.html'" href="/information/{{cik}}/{{FiscalYear}}/{{FiscalPeriod}}"><i class="icn icn-analytics"></i> Basic Financial Information</a>
+        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/dashboard.html'" href="/dashboard/{{cik}}"><i class="icn icn-dashboard"></i> Basic Analysis</a>
+        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/search.html'" href="/search/{{cik}}/{{FiscalYear}}/{{FiscalPeriod}}"><i class="icn icn-search"></i> Search Facts</a>
     </div>
+</div>
+<div class="bread-crumb">
+    <span class="dropdown">
+        <a class="dropdown-toggle">{{EntityRegistrantName}}</a>
+        <ul class='dropdown-menu text-left'>
+            <li><a href="/entity/{{cik}}">Entity Information</a></li>
+            <li><a href="/filings/{{cik}}">Filings</a></li>
+        </ul>
+    </span>
+    <i class="sep"></i>
+    <span class="dropdown">
+        <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}}</a>
+        <ul class='dropdown-menu text-left'>
+            <li><a href="/filing/{{AccessionNumber}}">Filing Details</a></li>
+            <li><a href="/components/{{AccessionNumber}}">Components</a></li>
+        </ul>
+    </span>
+    <i class="sep"></i>
+    <span class="dropdown">
+        <a class="dropdown-toggle">{{component}}</a>
+        <ul class='dropdown-menu text-left'>
+            <li><a href="/component/{{cid}}">Component Details</a></li>
+            <li><a href="/facttable/{{cid}}">Fact Table</a></li>
+            <li><a href="/modelstructure/{{cid}}">Model Structure</a></li>
+        </ul>
+    </span>
+    <i class="sep"></i>
 </div>
 <div class="row">
 	<div class="col-md-12">
         <div class="text-center" style="padding-bottom: 5px" ng-show="data">
           <h3>Model Structure for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
         </div>
-        <div ng-show="Label">
+        <div ng-show="Label" class="spaced">
           <table>
             <tbody>
               <tr><td>Network:</td><td>{{Label}}</td></tr>
@@ -34,8 +50,6 @@
               <tr><td>Accession Number:</td><td>{{AccessionNumber}}</td></tr>
             </tbody>
           </table>
-        </div>
-        <div ng-show="Label">
           <div class="scrolling">
           <div class="divtable">
             {{rowReset()}}
@@ -48,7 +62,7 @@
 		  </div>
 		  </div>
       </div>
-      <div class="col-md-12 text-right" style="padding-top: 180px">
+      <div class="col-md-12 text-right" ng-show="data">
         All data as:
           <a href="{{API_URL}}/_queries/public/api/modelstructure.jq?format=json&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="modelstructure-{{cid}}.json" target="_blank">JSON</a>,
           <a href="{{API_URL}}/_queries/public/api/modelstructure.jq?format=xml&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="modelstructure-{{cid}}.xml" target="_blank">XML</a>,
