@@ -92,6 +92,7 @@ return
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
                 (session:comment("xml"),
                 <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
+                    cik="{$entity.CIK}"
                     tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
                     label="{$component.Label}"
                     accessionNumber="{$component.Archive}"
@@ -118,6 +119,7 @@ return
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
                 {|
+                    { CIK : $entity._id },
                     { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
                     { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
                     { Label : $component.Label },
