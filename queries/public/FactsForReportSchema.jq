@@ -41,9 +41,11 @@ variable $schema := let $schema := report-schemas:report-schemas($reportSchema)
 for $entity in $entity
 for $archive in let $a := 
                     sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $periodFocus, $yearFocus)
-                 return if (empty($a)) 
+                return if (empty($a)) 
                        then  error(QName("local:INVALID-REQUEST"), "Filing not found")
-                       else  $a
+                       else  (for $a in $a
+                             order by $a.Profiles.SEC.AcceptanceDatetime
+                             return $a)[1]
 let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :) 
 let $populatedSchema := sec:populate-schema-with-facts($schema, $archive)
 return  if(session:only-dow30($entity) or session:valid())

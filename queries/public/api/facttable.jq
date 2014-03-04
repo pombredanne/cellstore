@@ -3,6 +3,7 @@ jsoniq version "1.0";
 import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
+import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 
@@ -56,9 +57,25 @@ declare function local:to-xml($o as object*)
         }</Fact>
 };
 
-let $format  := lower-case(request:param-values("format")[1]) (: text, xml, or json (default) :)
-let $cid       := request:param-values("cid")[1]
-let $component := components:components($cid)
+let $format         := lower-case(request:param-values("format")[1]) (: text, xml, or json (default) :)
+let $cid            := request:param-values("cid")[1]
+
+let $aid            := request:param-values("aid")[1]
+let $cik            := request:param-values("cik")[1]
+let $fiscal-year    := request:param-values("fiscalYear")[1] cast as integer
+let $fiscal-period  := request:param-values("fiscalPeriod")[1]
+let $disclosure     := request:param-values("disclosure")[1]
+
+let $component      :=  if (exists($cid))
+                        then components:components($cid)
+                        else
+                            let $filing :=
+                                if (exists($aid))
+                                then archives:archives($aid)
+                                else fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
+                                        $cik, $fiscal-period, $fiscal-year) 
+                            return sec-networks:networks-for-filings-and-disclosures($filing, $disclosure)
+
 let $entity    := archives:entities($component.Archive)
 let $archive   := archives:archives($component.Archive)
 return

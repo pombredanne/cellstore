@@ -139,7 +139,7 @@ declare function local:facts(
                  $f.Profiles.SEC.Fiscal.Period,
                  $f.Aspects."xbrl:Concept"
         let $latest-accepted := max(distinct-values($f.Profiles.SEC.Fiscal.Acceptance))
-        return if(empty($latest-accepted))
+        return if (empty($latest-accepted))
                then $f
                else $f[$$.Profiles.SEC.Fiscal.Acceptance eq $latest-accepted]
     return {|
