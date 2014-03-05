@@ -4,22 +4,22 @@ angular.module('main').controller('ExampleCtrl', ['$scope', '$route', '$http', '
   $scope.examples = [ 
       { 
         name: "TotalAssets",
-        description: "Total Assets Grouped By Fiscal Period",
+        description: "Total Assets of all 10-Ks grouped by fiscal period and fiscal year.",
         file: 'api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq', 
-        params: { concept: "us-gaap:Assets", period: "FY" } 
+        params: { concept: "us-gaap:Assets", fiscalPeriod: "FY" } 
       },
       { 
         name: "TotalLiabilitiesAndEquity",
-        description: "Total Liabilities And Equity Grouped By Fiscal Period",
+        description: "Total liabilities and equity of all 10-Ks grouped by fiscal period and fiscal year. The selection of the concept is done using a concept named fac:LiabilitiesAndEquity which is defined in the concept map called FundamentalAccountingConcepts.",
         file: 'api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq',
-        params: { concept: "fac:LiabilitiesAndEquity", period: "FY", map: "FundamentalAccountingConcepts" }
+        params: { concept: "fac:LiabilitiesAndEquity", fiscalPeriod: "FY", map: "FundamentalAccountingConcepts" }
       }
    ];
 
   $scope.getExample = function(ex) {
     $scope.data=null;
     $scope.params = {};
-    angular.extend($scope.params, ex.params, $location.search(), { "_method" : "POST", "token" : $scope.token, "format": "json", "$refresh": true });
+    angular.extend($scope.params, ex.params, $location.search(), { "_method" : "POST", "token" : $scope.token, "format": "json" });
     $scope.example = ex;
 
     $http(
