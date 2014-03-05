@@ -40,20 +40,29 @@
           <div class="container white-box">
           <h3 class="highlight3">Model Structure for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
             <table class="table table-condensed small">
-              <tr><td>Network</td><td>{{Label}}</td></tr>
-              <tr><td>Table</td><td>{{NetworkIdentifier}}</td></tr>
-              <tr><td>Accession Number</td><td><a href="/filing/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
-              <tr><td>Form Type</td><td>{{FormType}}</td></tr>
-              <tr><td>Accepted</td><td>{{AcceptanceDatetime}}</td></tr>
+              <thead><th colspan="2">Filing</th></thead>
+              <tbody>
+                  <tr><td width="30%">Accession Number</td><td><a href="/filing/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
+                  <tr><td>Form Type</td><td>{{FormType}}</td></tr>
+                  <tr><td>Accepted</td><td>{{AcceptanceDatetime}}</td></tr>
+              </tbody>
+            </table>
+            <table class="table table-condensed small">
+              <thead><th colspan="2">Component</th></thead>
+              <tbody>
+                  <tr><td width="30%">Network</td><td>{{Label}}</td></tr>
+                  <tr><td>Table</td><td>{{NetworkIdentifier}}</td></tr>
+                  <tr><td>Disclosure</td><td>{{Disclosure}}</td></tr>
+              </tbody>
             </table>
           </div>
           <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
           <div class="scrolling">
-              <div class="divtable small">
+              <div class="divtable small modelstructure">
                 {{rowReset()}}
-                <div class="line head"><span>#</span><span>Label</span><span>Object Class</span><span>Balance</span><span>Report ElementName</span></div>
+                <div class="line head"><span>#</span><span>Label</span><span>Object Class</span><span>Data Type</span><span>Period</span><span>Balance</span><span>Report ElementName</span></div>
                 <script type="text/ng-template" id="item_line.html">{{rowIncrement()}}
-                  <div class="line" ng-class="{ even: (row % 2 == 0) }"><span>{{row}}</span><span style="padding-left: {{item.Level * 20}}px">{{item.Label}}</span><span>{{item.Kind}}</span><span>{{item.Balance}}</span><span><a href="javascript://" popover="{{item.Name}}" popover-placement="left" popover-trigger="focus">{{substring(item.Name, 35)}}</a></span></div>
+                  <div class="line" ng-class="{ even: (row % 2 == 0) }"><span>{{row}}</span><span class="{{ item.Kind }}" ng-style="{ 'padding-left': getIndent(item.Level) + 'px'}">{{item.Label}}</span><span>{{item.Kind}}</span><span>{{getDataType(item.DataType)}}</span><span>{{getPeriodType(item.PeriodType)}}</span><span>{{item.Balance}}</span><span><a href="javascript://" popover="{{item.Name}}" popover-placement="left" popover-trigger="focus">{{substring(item.Name, 35)}}</a></span></div>
                   <div ng-repeat="item in item.Children | filter:search" ng-include="'item_line.html'"></div>
                 </script>
                 <div ng-repeat="item in data | filter:search" ng-include="'item_line.html'"></div>

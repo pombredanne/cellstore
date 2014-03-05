@@ -58,6 +58,11 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
   $scope.showText = function(html) {
     $scope.$emit("alert", "Text Details", html);
   };
+  $scope.showNumber = function(value) {
+    var n = parseFloat(value);
+    if (isNaN(n)) return value;
+    return n.toLocaleString();
+  };
   $scope.enumerate = function(object) {
     var ret = [];
     $.map(object, function (el, index) {

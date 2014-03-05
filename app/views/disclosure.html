@@ -1,0 +1,64 @@
+<div class="topbar">
+</div>
+<div class="row">
+	<div class="col-md-12">
+        <div ng-show="results" class="spaced">
+          <div class="container white-box">
+          <h3 class="highlight3">Components for {{disclosure}} ({{period}} / {{year}})</h3>
+          <table class="table table-condensed small">
+            <tbody>
+              <tr><td>Form Type:</td><td>{{FormType}}</td></tr>
+              <tr><td>Accepted:</td><td>{{AcceptanceDatetime}}</td></tr>
+              <tr><td>Accession Number:</td><td><a href="/filing/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
+            </tbody>
+          </table>
+          </div>
+          <input type="text" class="form-control" ng-model="search" placeholder="Search components..."/>
+          <div class="scrolling">
+          <table class="table table-condensed table-striped small">
+              <thead>
+              <th>#</th>
+              <th>Entity Registrant</th>
+              <th>Network Label / Name</th>
+              <th>Category</th>
+              <th>Subcategory (Level)</th>
+              <th>Table</th>
+              <th>Go to</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in results | filter : search">
+                  <td>{{$index + 1}}</td>
+                  <td>{{EntityRegistrantName}}<br/><small class="nowrap">{{CIK}}</small></td>
+                  <td>{{item.NetworkLabel}}<br/><small><span title="{{item.NetworkIdentifier}}">{{trimNetworkURL(item.NetworkIdentifier)}}</span></small></td>
+                  <td>{{item.Category}}</td>
+                  <td>{{item.SubCategory}}</td>
+                  <td><span title="{{item.Table}}">{{trimTableURL(item.Table)}}</span></td>
+                  <td class="text-center">
+                    <span class="dropdown">
+                      <a href="javascript://" class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
+                      <ul class="dropdown-menu text-left pull-right">
+                        <li><a href="/component/{{item.ComponentId}}">Component Details</a></li>
+                        <li><a href="/facttable/{{item.ComponentId}}">Fact Table</a></li>
+                        <li><a href="/modelstructure/{{item.ComponentId}}">Model Structure</a></li>
+                        <li><a class="disabled" href="javascript://">BizPivot Rendering</a></li>
+                        <li><a class="disabled" href="javascript://">SEC Preview</a></li>
+                      </ul>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+		  </div>
+        </div>
+      <div class="col-md-12 text-right" ng-show="results">
+        All data as:
+        <a href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.json" target="_blank">JSON</a>,
+        <a href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.xml" target="_blank">XML</a>,
+        <a href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.csv" target="_blank">CSV</a>,
+        <a href="{{API_URL}}/_queries/public/api/components.jq?format=excel&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.csv" target="_blank">Excel</a>
+      </div>
+	</div>
+</div>
+
+
+

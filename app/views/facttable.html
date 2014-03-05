@@ -63,7 +63,7 @@
                 <tr ng-repeat="item in data | filter : search">
                   <td>{{$index + 1}}</td>
                   <td ng-repeat="value in enumerate(item.Aspects)" class="nowrap">{{value}}</td>
-                  <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{item.Value}}</td>
+                  <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
                   <td ng-if="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
                   <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a href="javascript://" ng-click="showText(item.Value)">Show Text</a></td>
                   <td>{{item.Unit=='xbrl:NonNumeric'?"":item.Unit}}</td>

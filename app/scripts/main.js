@@ -329,6 +329,18 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/example.html',
             controller: 'ExampleCtrl'
         })
+        .when('/disclosures', {
+            templateUrl: '/views/disclosures.html',
+            controller: 'DisclosuresCtrl',
+            resolve: {
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+            }
+        })
+        .when('/disclosure/:disclosure/:year/:period', {
+            templateUrl: '/views/disclosure.html',
+            controller: 'DisclosureCtrl'
+        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'
