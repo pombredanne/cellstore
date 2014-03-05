@@ -403,9 +403,18 @@ ul.poweredby li {
     color: black;
 }
 
+.dropdown-menu .multicol {
+    display: block;
+    padding: 5px 15px;
+}
+
+.dropdown-menu .multicol small {
+    opacity: 0.5;
+}
+
 .cols { 
 	overflow: hidden;
-	min-height: 400px;
+	min-height: 560px;
 }
 
 .col-left {
@@ -648,7 +657,7 @@ ul.selector li.disabled:after
 	width: 100%;
 	background: #f2f2f2;
 	overflow: hidden;
-	min-height: 400px;
+	min-height: 620px;
 }
 
 .fade-container { 
@@ -712,7 +721,7 @@ ul.selector li.disabled:after
 
 .fade-panel-dashboard {
     position: absolute;
-	top: 82px;
+	top: 112px;
 	width: 320px;
 	padding: 20px;
 	font-size: 20px;
@@ -738,7 +747,7 @@ ul.selector li.disabled:after
 
 @media (min-width: 768px) {
 	.fade-panel-dashboard {
-		top: 112px;
+		top: 142px;
 		width: 500px;
 		padding: 30px;
 		font-size: 30px;
@@ -781,7 +790,7 @@ ul.selector li.disabled:after
 
 @media (min-width: 768px) {
 	.fade-panel-analytics {
-		top: 112px;
+		top: 142px;
 		right: 15px;
 		bottom: auto;
 	}

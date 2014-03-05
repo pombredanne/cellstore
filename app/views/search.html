@@ -59,7 +59,14 @@
 		    <h6 class="nowrap">ENTITY</h6>
 			<input class="form-control" ng-class="{ 'fade-control': !cik }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
 				   placeholder="Search for an entity..." ng-click="focused=true;" ng-readonly="cik"
-				   typeahead="entity.name for entity in entities | filter:$viewValue | limitTo:8">
+                   typeahead-template-url="typeaheadmulti.html"
+				   typeahead="entity for entity in entities | filter:$viewValue | limitTo:8">
+            <script type="text/ng-template" id="typeaheadmulti.html">
+            <a href="javascript://" tabindex="-1" class="multicol">
+               <div ng-bind-html='match.model.name | typeaheadHighlight:query'></div>
+               <small ng-bind-html='"CIK: " + match.model.cik + (match.model.tickers[0] ? ", Ticker: " + match.model.tickers[0] : "") | typeaheadHighlight:query'></small>
+            </a>
+            </script>
 		</div>
 		<div style="padding: 15px 10px;" class="clearfix">
 			<div class="col-md-2 col-sm-4 col-xs-2" ng-show="cik">
