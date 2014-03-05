@@ -327,7 +327,7 @@
         },
         {
             "path": "/modelstructure.jq",
-            "description": "Retrieve a model structure for a given component,"
+            "description": "Retrieve a model structure for a given component",
             "operations": [
                 {
                     "method": "POST",

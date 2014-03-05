@@ -329,6 +329,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/example.html',
             controller: 'ExampleCtrl'
         })
+        .when('/how', {
+            templateUrl: '/views/how.html'
         .when('/disclosures', {
             templateUrl: '/views/disclosures.html',
             controller: 'DisclosuresCtrl',
