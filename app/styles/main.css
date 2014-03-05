@@ -307,8 +307,8 @@ ul.poweredby li {
     color: #ffffff;
     cursor: pointer;
 	line-height: 1.8em;
-    padding: 3px;
-    max-width: 92px;
+    padding: 3px 2px;
+    max-width: 91px;
     overflow: hidden;
 }
 
