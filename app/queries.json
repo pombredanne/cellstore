@@ -316,7 +316,7 @@
                         },
                         {
                             "title": "Fact Table of Coca Cola's Q3/2013 Balance Sheet",
-                            "description": "Retrieve the fact table for a the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050.",
+                            "description": "Retrieve the fact table for the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050.",
                             "request": "[API_URL]/_queries/public/api/facttable.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
                             "response": ""
                         }
@@ -327,11 +327,11 @@
         },
         {
             "path": "/modelstructure.jq",
-            "description": "Retrieve a model structure for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).",
+            "description": "Retrieve a model structure for a given component,"
             "operations": [
                 {
                     "method": "POST",
-                    "summary": "Retrieve the model structure for a given component",
+                    "summary": "Retrieve the model structure for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).",
                     "nickname": "listModelStructure",
                     "parameters": [
                         {
@@ -410,14 +410,14 @@
                     ],
                     "examples": [
                         {
-                            "title": "Fact Table as CSV",
+                            "title": "Model Structure as CSV",
                             "description": "Retrieve the model structure for a particular component and return the result as XML.",
                             "request": "[API_URL]/_queries/public/api/modelstructure.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=xml",
                             "response": ""
                         },
                         {
                             "title": "Model Structure of Coca Cola's Q3/2013 Balance Sheet",
-                            "description": "Retrieve the fact table for a the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050.",
+                            "description": "Retrieve the model structure for a the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050.",
                             "request": "[API_URL]/_queries/public/api/modelstructure.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
                             "response": ""
                         }
