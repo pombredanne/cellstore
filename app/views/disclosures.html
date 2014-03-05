@@ -1,0 +1,53 @@
+<div class="topbar">
+</div>
+
+<div class="cols">
+	<div class="col-left col-md-3 col-sm-4 col-xs-12">
+		<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				<h6 class="nowrap">FISCAL YEAR</h6>
+				<ul class="selector" style="height: 97px">
+					<li ng-repeat="y in years" ng-class="{ selected: (year.indexOf(y) >= 0) }" ng-click="(year.indexOf(y) >= 0 ? year.splice(year.indexOf(y), 1) : year.push(y))">{{y}}</li>
+				</ul>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				<h6 class="nowrap">FISCAL PERIOD</h6>
+				<ul class="selector" style="height: 97px">
+					<li ng-repeat="p in periods" ng-class="{ selected: (period.indexOf(p) >= 0) }" ng-click="(period.indexOf(p) >= 0 ? period.splice(period.indexOf(p), 1) : period.push(p))">{{p}}</li>
+				</ul>
+			</div>
+		</div>
+		<div style="clear: both"></div>
+	</div>
+	<div class="col-right col-md-9 col-sm-8 col-xs-12">
+		<div class="col-md-12">
+			<h3>Find filings, components and facts based on disclosures.</h3>
+			<div class="white-box">
+				<div class="scrolling">
+					<table class="table">
+						<thead>
+							<th>Disclosure</th>
+							<th>Fiscal Year</th>
+							<th>Fiscal Period</th>
+							<th>Number of Filings</th>
+						</thead>
+                        <cols>
+                            <col width="55%"></col>
+                            <col width="15%"></col>
+                            <col width="15%"></col>
+                            <col width="15%"></col>
+                        </cols>
+						<tbody>
+						<tr ng-repeat="item in data">
+							<td style="min-width: 250px"><a href="/disclosure/{{item.Disclosure}}/{{item.FiscalYear}}/{{item.FiscalPeriod}}">{{item.Disclosure}}</a></td>
+                            <td>{{item.FiscalYear}}</td>
+                            <td>{{item.FiscalPeriod}}</td>
+                            <td class="text-right">{{item.Filings}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -26,7 +26,7 @@
             <div class="navbar" navbar-toggle>
                 <div class="navbar-header">
                     <a href="/" id="logo">
-                        <i class="logo"></i>
+                        <i class="logo hidden-xs"></i>
                         <h3 class="highlight1">SECXBRL<font class="highlight2">.info</font></h3>
                         <br>
                         <small><sup class="pull-right">BETA</sup>US Public Company<br>Financial Information Repository</small>
@@ -46,6 +46,7 @@
                         </div>
                         <div><a href="/" ng-class="{ active: (page == '/views/home.html') }">Home</a></div>
                         <div><a href="/entity" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' || page == '/views/component.html' ) }">Entities</a></div>
+                        <!--<div><a href="/disclosures" ng-class="{ active: (page == '/views/disclosures.html') }">Disclosures</a></div>-->
                         <div><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a></div>
                         <div>
                             <a href="javascript://" ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">More...</a>
@@ -140,6 +141,8 @@
         <script src="/scripts/ConceptMapCtrl.js"></script>
         <script src="/scripts/CompanyCtrl.js"></script>
         <script src="/scripts/ExampleCtrl.js"></script>
+        <script src="/scripts/DisclosuresCtrl.js"></script>
+        <script src="/scripts/DisclosureCtrl.js"></script>
         <!-- endbuild -->
 </body>
 </html>

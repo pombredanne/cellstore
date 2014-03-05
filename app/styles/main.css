@@ -125,6 +125,7 @@ ul.poweredby {
 ul.poweredby li {
 	display: inline-block;
 	vertical-align: middle;
+    font-size: 0.8em;
 }
 
 .validation-error { 
@@ -291,7 +292,7 @@ ul.poweredby li {
 .topbar{
 	border-bottom: 1px solid #4ba16b;
 	background: #64B783;
-	padding: 3px;
+	padding: 3px 0px;
 	box-shadow: 0 1px 2px rgba(84, 171, 117, 0.4);
 	-moz-box-shadow: 0 1px 2px rgba(84, 171, 117, 0.4);
 	-webkit-box-shadow: 0 1px 2px rgba(84, 171, 117, 0.4);
@@ -299,7 +300,6 @@ ul.poweredby li {
 
 .topbar .btn-group {
 	margin: 5px 0px;
-	white-space: nowrap;
 }
 
 .topbar .btn-group .btn {
@@ -307,6 +307,9 @@ ul.poweredby li {
     color: #ffffff;
     cursor: pointer;
 	line-height: 1.8em;
+    padding: 3px;
+    max-width: 92px;
+    overflow: hidden;
 }
 
 .topbar .btn-group .btn:hover {
@@ -325,6 +328,8 @@ ul.poweredby li {
 @media (min-width: 600px) {
 	.topbar .btn-group .btn {
 		font-size: 1.1em;
+        padding: 5px;
+        max-width: none;
 	}
 
 	.topbar .btn-group .icn {
@@ -1410,15 +1415,21 @@ ul.selector li.disabled:after
     width: 3%;
 }
 .divtable .line > span:nth-child(2) {
-    width: 45%;
+    width: 35%;
 }
 .divtable .line > span:nth-child(3) {
-    width: 12%;
+    width: 8%;
 }
 .divtable .line > span:nth-child(4) {
-    width: 10%;
+    width: 8%;
 }
 .divtable .line > span:nth-child(5) {
+    width: 8%;
+}
+.divtable .line > span:nth-child(6) {
+    width: 8%;
+}
+.divtable .line > span:nth-child(7) {
     width: 30%;
 }
 .divtable .head {
@@ -1427,4 +1438,22 @@ ul.selector li.disabled:after
 .divtable .head > span {
     font-weight: bold;
     padding: 8px 5px;
+}
+.modelstructure span.Table {
+    color: #cc0099;
+    font-weight: bold;
+}
+.modelstructure span.Axis {
+    color: #9922c6;
+    font-weight: bold;
+}
+.modelstructure span.Member {
+    color: #db58ed;
+}
+.modelstructure span.LineItems {
+    color: #009933;
+    font-weight: bold;
+}
+.modelstructure .line > span:nth-child(6) {
+ text-transform: capitalize;
 }
