@@ -74,7 +74,9 @@ let $component      :=  if (exists($cid))
                                 then archives:archives($aid)
                                 else fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
                                         $cik, $fiscal-period, $fiscal-year) 
-                            return sec-networks:networks-for-filings-and-disclosures($filing, $disclosure)
+                            return  (for $f in sec-networks:networks-for-filings-and-disclosures($filing, $disclosure)
+                                    order by $f.Profiles.SEC.AcceptanceDatetime
+                                    return $f)[1]
 
 let $entity    := archives:entities($component.Archive)
 let $archive   := archives:archives($component.Archive)
@@ -118,6 +120,7 @@ return
                     fiscalPeriod="{$archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus}"
                     fiscalYear="{$archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus}" 
                     acceptanceDatetime="{filings:acceptance-dateTimes($archive)}"
+                    disclosure="{$component.Profiles.SEC.Disclosure}"
                     >{
                     local:to-xml($fact-table)
                 }</FactTable>)
@@ -146,6 +149,7 @@ return
                     { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
                     { AcceptanceDatetime : filings:acceptance-dateTimes($archive) },
                     { NetworkIdentifier: $component.Role },  
+                    { Disclosure : $component.Profiles.SEC.Disclosure },
                     { FactTable : [ $fact-table ] },
                     session:comment("json")
                 |}

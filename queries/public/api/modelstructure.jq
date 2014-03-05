@@ -43,6 +43,7 @@ declare function local:to-xml($model)
                  fiscalPeriod="{$model.FiscalPeriod}"
                  fiscalYear="{$model.FiscalYear}" 
                  acceptanceDatetime="{$model.AcceptanceDatetime}"
+                 disclosure="{$model.Disclosure}"
                  >{
             local:to-xml-rec($model.ModelStructure.Children[], 0)
         }</Network>
@@ -111,7 +112,8 @@ declare function local:enrich-json($component)
         FiscalPeriod : $component.FiscalPeriod,
         FiscalYear : $component.FiscalYear,
         AcceptanceDatetime : $component.AcceptanceDatetime,
-        NetworkIdentifier: $component.NetworkIdentifier
+        NetworkIdentifier: $component.NetworkIdentifier,
+        Disclosure : $component.Disclosure
     }
 };
 
@@ -132,7 +134,9 @@ let $component      :=  if (exists($cid))
                                 then archives:archives($aid)
                                 else fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
                                         $cik, $fiscal-period, $fiscal-year) 
-                            return sec-networks:networks-for-filings-and-disclosures($filing, $disclosure)
+                            return (for $f in sec-networks:networks-for-filings-and-disclosures($filing, $disclosure)
+                                    order by $f.Profiles.SEC.AcceptanceDatetime
+                                    return $f)[1]
 
 let $entity    := archives:entities($component.Archive)
 let $archive   := archives:archives($component.Archive)
@@ -149,7 +153,8 @@ return
                     { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
                     { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
                     { AcceptanceDatetime : filings:acceptance-dateTimes($archive) },
-                    { NetworkIdentifier: $component.Role }
+                    { NetworkIdentifier: $component.Role },
+                    { Disclosure : $component.Profiles.SEC.Disclosure }
         |}
         return 
             switch ($format)
