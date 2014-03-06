@@ -79,19 +79,19 @@
                     "examples": [
                         {
                             "title": "Retrieve a specific entity",
-                            "description": "Retrieve information about a specific entity identified by its CIK and return the result as JSON.",
+                            "description": "Retrieve information about a specific entity identified by its CIK. Return the result as JSON.",
                             "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&cik=1412090",
                             "response": ""
                         },
                         {
                             "title": "Retrieve all entities",
-                            "description": "Retrieve information about all entities and return the information as XML.",
+                            "description": "Retrieve information about all entities. Return the result as XML.",
                             "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&format=xml",
                             "response": ""
                         },
                         {
                             "title": "Retrieve information about all DOW30 entities",
-                            "description": "Retrieve information about all DOW30 entities and return the result as CSV.",
+                            "description": "Retrieve information about all DOW30 entities. Return the result as CSV.",
                             "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&tag=DOW30&format=csv",
                             "response": ""
                         }
@@ -216,7 +216,7 @@
                     "examples": [
                         {
                             "title" : "Retrieve information about all components of a filing",
-                            "description": "Retrieve information about all components of a particular filing which is identified by its accession number. The result is returned as JSON.",
+                            "description": "Retrieve information about all components of a particular filing which is identified by its accession number. Return the result as JSON.",
                             "request": "[API_URL]/_queries/public/api/components.jq?_method=POST&aid=0000021344-13-000039",
                             "response": ""
                         }
@@ -310,13 +310,13 @@
                     "examples": [
                         {
                             "title": "Fact Table as CSV",
-                            "description": "Retrieve the fact table for a particular component and return the result as CSV.",
+                            "description": "Retrieve the fact table for a particular component. Return the result as CSV.",
                             "request": "[API_URL]/_queries/public/api/facttable.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=csv",
                             "response": ""
                         },
                         {
                             "title": "Fact Table of Coca Cola's Q3/2013 Balance Sheet",
-                            "description": "Retrieve the fact table for the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050.",
+                            "description": "Retrieve the fact table for the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050. Return the result as XML.",
                             "request": "[API_URL]/_queries/public/api/facttable.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
                             "response": ""
                         }
@@ -410,14 +410,14 @@
                     ],
                     "examples": [
                         {
-                            "title": "Model Structure as CSV",
-                            "description": "Retrieve the model structure for a particular component and return the result as XML.",
+                            "title": "Model Structure as XML",
+                            "description": "Retrieve the model structure for a particular component. Return the result as XML.",
                             "request": "[API_URL]/_queries/public/api/modelstructure.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=xml",
                             "response": ""
                         },
                         {
                             "title": "Model Structure of Coca Cola's Q3/2013 Balance Sheet",
-                            "description": "Retrieve the model structure for a the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050.",
+                            "description": "Retrieve the model structure for a the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050. Return the result as XML.",
                             "request": "[API_URL]/_queries/public/api/modelstructure.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
                             "response": ""
                         }
