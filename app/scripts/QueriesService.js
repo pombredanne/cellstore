@@ -258,7 +258,7 @@ angular.module('main')
             var deferred = $q.defer();
             var map = 'FundamentalAccountingConcepts  <a href="/concept-map/FundamentalAccountingConcepts"><i class="fa fa-question"></i>';
             var that = this;
-            var path = '/facts.jq'
+            var path = '/facts.jq?dei:LegalEntityAxis=sec:DefaultLegalEntity'
             var url = domain + path;
             var params = {};
                 params['format'] = parameters.format;
