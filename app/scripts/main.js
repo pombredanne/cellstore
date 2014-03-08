@@ -156,6 +156,12 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         .when('/', {
             templateUrl: '/views/home.html'
         })
+        .when('/clear', {
+            templateUrl: '/views/home.html',
+            resolve: {
+                cache: ['$angularCacheFactory', function($angularCacheFactory) { $angularCacheFactory.get('secxbrl').removeAll(); }]
+            }
+        })
         .when('/about', {
             templateUrl: '/views/about.html',
         })

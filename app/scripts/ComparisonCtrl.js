@@ -13,6 +13,11 @@ angular.module('main').controller('ComparisonCtrl', ['$scope', '$route', '$angul
         $scope.name = null;
     };
 
+    $scope.clear = function() { 
+        $angularCacheFactory.get('secxbrl').remove('selection');
+        $route.reload();
+    };
+
     $scope.$watch(
         function() { return angular.toJson($scope.selection) },
         function(newValue) {
