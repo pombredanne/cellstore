@@ -172,18 +172,19 @@ We finally explain the overall architecture and put it in perspective with moder
             <para>To give you an idea how fast the platform is, we created a query to answer the following question: Compute the sum of all values reported against the concept ‘us-gaap:Assets’, on all 10-K SEC XBRL financial filings, aggregated by fiscal period.</para>
             <sect3>
                 <title>Query 1</title>
-				<para>The following link (which you can use) shows you the results of this query, in XML format, exposed via a REST API.
-</para>
-				<para><link
-                        xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq?_method=POST&amp;concept=us-gaap:Assets&amp;period=FY&amp;format=xml">http://secxbrl.xbrl.io/v1/_queries/public/api/
-                                TotalForConceptGroupedByFiscalPeriodForAllEntities.jq?
-                                    _method=POST&amp;
-                                    concept=us-gaap:Assets&amp;
-                                    period=FY&amp;
-                                    format=xml
-                    </link></para>
-                <para>You can take a look at the results in a more human readable form at
-                    http://secxbrl.info/example/TotalAssets or in the following screenshot. </para>
+				<para>The following link (which you can also use) shows you the results of this query, in XML format,
+                    exposed via a REST API.
+                    http://secxbrl.xbrl.io/v1/_queries/public/api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq?_method=POST&amp;concept=us-gaap:Assets&amp;period=FY&amp;format=xml</para>
+                
+                <para>You can take a look at the results in a more human readable form at <link
+                        xlink:href="http://secxbrl.info/example/TotalAssets"
+                        >http://secxbrl.info/example/TotalAssets </link>or in the following
+                    screenshot. </para>
+                <para><inlinemediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/image01.jpg"/>
+                        </imageobject>
+                    </inlinemediaobject></para>
 				<para>This query takes approximately 4.6 seconds to execute. Why is it so fast? Here are the
                     reasons: <itemizedlist>
                         <listitem>
@@ -296,7 +297,7 @@ We finally explain the overall architecture and put it in perspective with moder
                                 <para>To overcome this situation, queries have the capability to
                             interact with a semantic mapping. And so, a user could query the concept
                             fac:LiabilitiesAndEquity (fac standing for
-                            FundamentalAccountingConcepts), which then uses a mapping file and the
+                            FundamentalAccountingConcepts), which then uses a mapping and the
                             query would use either of the concepts
                             us-gaap:LiabilitiesAndStockholdersEquity or
                             us-gaap:LiabilitiesAndPartnersCapital and would return a fact table
@@ -346,11 +347,20 @@ We finally explain the overall architecture and put it in perspective with moder
                         xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;concept=fac:ResearchAndDevelopment&amp;map=FundamentalAccountingConcepts&amp;fiacalPeriod=FY&amp;fiscalYear=2012&amp;tag=dow30"
                         >http://secxbrl.xbrl.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;concept=fac:ResearchAndDevelopment&amp;map=FundamentalAccountingConcepts&amp;fiacalPeriod=FY&amp;fiscalYear=2012&amp;tag=dow30</link></para>
                 <para>Here is what it returns in human-readable form: </para>
-                <para>You can also view the result online at
-                    http://secxbrl.info//example/ResearchAndDevelopment. A full documentation of all
-                    available parameters to the query that retrieves facts are available in the REST
-                    API documentation. For example, the query allows you to filter by multiple
-                    concepts at once and even across fiscal periods and fiscal years.</para>
+                <para><inlinemediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/image07.jpg"/>
+                        </imageobject>
+                    </inlinemediaobject></para>
+                <para>You can also view the result online at <link
+                        xlink:href="http://secxbrl.info//example/ResearchAndDevelopment"
+                        >http://secxbrl.info//example/ResearchAndDevelopment</link>. A full
+                    documentation of all available parameters to the query that retrieves facts are
+                    available in the <link xlink:href="http://secxbrl.info/api">REST API
+                        documentation</link>. For example, the query allows you to filter by
+                    multiple concepts at once and even across fiscal periods and fiscal years.
+                    Additionally, you can use this query to use explicit dimensions when filtering
+                    facts.</para>
                 <para>The first two queries showed you how you can query for individual reported
                     facts from within a public company financial filing. But what if you want to
                     query for an entire component of a financial report? Perhaps you want the
@@ -371,6 +381,11 @@ We finally explain the overall architecture and put it in perspective with moder
                 <para>http://secxbrl.xbrl.io/v1/_queries/public/api/facttable.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet</para>
                 <para>This is what the result looks like in a human readable form (subset of the
                     information): </para>
+                <para><inlinemediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/image02.jpg"/>
+                        </imageobject>
+                    </inlinemediaobject></para>
                 <para>You can also view it online at <link
                         xlink:href="http://www.secxbrl.info/facttable/088ee302-e59f-45d9-94e2-f2a25787f7e2"
                         >http://www.secxbrl.info/facttable/088ee302-e59f-45d9-94e2-f2a25787f7e2</link>.</para>
@@ -385,6 +400,11 @@ We finally explain the overall architecture and put it in perspective with moder
                         >http://secxbrl.xbrl.io/v1/_queries/public/api/modelstructure.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet
                     </link></para>
                 <para>which in a human readable format looks as follows:</para>
+                <para><inlinemediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/image06.jpg"/>
+                        </imageobject>
+                    </inlinemediaobject></para>
                 <para>It’s also viewable online at <link
                         xlink:href="http://www.secxbrl.info/modelstructure/088ee302-e59f-45d9-94e2-f2a25787f7e2"
                         >http://www.secxbrl.info/modelstructure/088ee302-e59f-45d9-94e2-f2a25787f7e2</link>.</para>
@@ -408,8 +428,9 @@ We finally explain the overall architecture and put it in perspective with moder
                 component.</para>
             <para>Suppose you wanted to create a query which (i) grabs information across multiple
                 report components and (ii) combines them into one component such as something like
-                the fundamental accounting concepts (See:
-                http://fundamentalaccountingconcepts.wikispaces.com/).</para>
+                the fundamental accounting concepts (see <link
+                    xlink:href="http://fundamentalaccountingconcepts.wikispaces.com/"
+                    >http://fundamentalaccountingconcepts.wikispaces.com/</link>).</para>
             <para>In the process, you would also like the following to occur:</para>
             <para><itemizedlist>
                     <listitem>
@@ -429,38 +450,46 @@ We finally explain the overall architecture and put it in perspective with moder
                             processes which you might need.</para>
                     </listitem>
                 </itemizedlist>The cooking receipe for your own components looks as follows.</para>
-            <sect3>
-                <title>Identifying the Concepts</title>
-                <para>First, you specify the concepts you need. We will borrow an existing
-                    specification of these concepts which exists in XBRL and in an XML Infoset
-                    format which the XBRL.io system supports: http://www.xbrlsite.com/2013/fac/ </para>
-                
-            </sect3>
-            <sect3>
-                <title>Mapping the concepts</title>
-                <para>Second, you specify a mapping file between the concepts you want and the US
-                    GAAP XBRL Taxonomy concepts filers use. We already showed such a mapping above
-                    when querying for fac:ResearchAndDevelopment facts. </para>
-                
-            </sect3>
-            <sect3>
-                <title>Specifying rules to compute non-reported facts</title>
-                <para>Third, you specify the business rules between the concepts. Again, a standard
-                    format is available which articulates these relations, XBRL Formula:</para>
-                <para><link
-                        xlink:href="http://www.xbrlsite.com/2013/fac/FundamentalAccountingConcepts_Formulas.xml"
-                        >http://www.xbrlsite.com/2013/fac/FundamentalAccountingConcepts_Formulas.xml</link></para>
-                <para>We don’t support XBRL Formulas currently but (but this is being developed
-                    right now). </para>
-                <para>Those three things (concepts/presentation, mappings, and imputations) can be
-                    put together in one descriptive file which we call a report. The example report
-                    for the fundamental accounting concepts can be viewed at: <link
-                        xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/report-schemas.jq?_method=POST&amp;name=FundamentalAccountingConcepts"
-                        >http://secxbrl.xbrl.io/v1/_queries/public/api/report-schemas.jq?_method=POST&amp;name=FundamentalAccountingConcepts</link>.</para>
-                <para>Having such a report uploaded into the system, it’s very simple to execute
-                    it:</para>
-                
-            </sect3>
+            <variablelist>
+                <varlistentry>
+                    <term>Identify the Concepts</term>
+                    <listitem>
+                        <para>First, you specify the concepts you need. We will borrow an existing
+                            specification of these concepts which exists in XBRL and in an XML
+                            Infoset format which the XBRL.io system supports:
+                            http://www.xbrlsite.com/2013/fac/.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Mapping the concepts</term>
+                    <listitem>
+                        <para>Second, you specify a mapping file between the concepts you want and
+                            the US GAAP XBRL Taxonomy concepts filers use. We already showed such a
+                            mapping above when querying for fac:ResearchAndDevelopment facts. </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Specifying rules to compute non-reported facts</term>
+                    <listitem>
+                        <para>Third, you specify the business rules between the concepts. Again, a
+                            standard format is available which articulates these relations, XBRL
+                            Formula:</para>
+                        <para><link
+                                xlink:href="http://www.xbrlsite.com/2013/fac/FundamentalAccountingConcepts_Formulas.xml"
+                                >http://www.xbrlsite.com/2013/fac/FundamentalAccountingConcepts_Formulas.xml</link></para>
+                        <para>We don’t support XBRL Formulas currently but (but this is being
+                            developed right now). </para>
+                        <para>Those three things (concepts/presentation, mappings, and imputations)
+                            can be put together in one descriptive file which we call a report. The
+                            example report for the fundamental accounting concepts can be viewed at:
+                                <link
+                                xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/report-schemas.jq?_method=POST&amp;name=FundamentalAccountingConcepts"
+                                >http://secxbrl.xbrl.io/v1/_queries/public/api/report-schemas.jq?_method=POST&amp;name=FundamentalAccountingConcepts</link>.</para>
+                        <para>Having such a report uploaded into the system, it’s very simple to
+                            execute it:</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
             <sect3>
                 <title>Query 6</title>
                 <para><link
@@ -494,7 +523,7 @@ We finally explain the overall architecture and put it in perspective with moder
 			
 		</sect2>
         <sect2>
-            <title>Feature 4: Application Profiles</title>
+            <title>Feature #4: Application Profiles</title>
             <para>SECXBRL.info showcases how the XBRL-generic BizQL.io platform can be leveraged for
                 SEC in order to easily create an analytics front-end. The core idea is that the
                 powerful BizQL language can be used behind the scenes to create queries; These
@@ -518,6 +547,16 @@ We finally explain the overall architecture and put it in perspective with moder
         <title>Architecture</title>
         <para>In the remainder of this paper, we will dive a bit into the details of the
             architecture that enables all the above features.</para>
+        <figure>
+            <title>image04.jpg</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata
+                        fileref="../../../Downloads/UnderstandingtheUSPublicCompanyFinancialInformationRepository/images/image04.jpg"
+                    />
+                </imageobject>
+            </mediaobject>
+        </figure>
         <para>The system has three important distinguishable layers. Starting at the business-facing
             top, all the way to down to the bottom:</para>
         <sect2>
@@ -533,13 +572,19 @@ We finally explain the overall architecture and put it in perspective with moder
             <para>The front-end communicates with the BizQL.io platform via a REST API. Concretely,
                 it means that it issues requests over the HTTP protocol, for example:<itemizedlist>
                     <listitem>
-                        <para>Getting a list of companies (by index, CIK, etc)</para>
+                        <para>Getting information about an entity (by ticker symbol)</para>
                         <para><link
                                 xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/entities.jq?format=json&amp;_method=POST&amp;index=ko"
                                 >http://secxbrl.xbrl.io/v1/_queries/public/api/entities.jq?format=json&amp;_method=POST&amp;index=ko</link></para>
                     </listitem>
                     <listitem>
-                        <para>Getting a list of filings (by company)</para>
+                        <para>Getting the list of the DOW30 entities (i.e. by tag) and return the data as CSV</para>
+                        <para><link
+                            xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/entities.jq?format=csv&amp;_method=POST&amp;tag=DOW30"
+                            >http://secxbrl.xbrl.io/v1/_queries/public/api/entities.jq?format=json&amp;_method=POST&amp;index=ko</link></para>
+                    </listitem>
+                    <listitem>
+                        <para>Getting a list of filings for one entity (by CIK)</para>
                         <para><link
                                 xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/filings.jq?format=json&amp;_method=POST&amp;cik=0000021344"
                                 >http://secxbrl.xbrl.io/v1/_queries/public/api/filings.jq?format=json&amp;_method=POST&amp;cik=0000021344</link></para>
@@ -566,16 +611,17 @@ We finally explain the overall architecture and put it in perspective with moder
                     </listitem>
                 </itemizedlist></para>
             <para>This API is very simple and generic, and can be reused by other front-ends. It can
-                produce output in any format (JSON, XML, and, CSV). The full documentation of this
-                API is available at http://secxbrl.info/api. Moreover, it is possible to design
-                other APIs with more complex queries, depending on the needs of the
-                front-end.</para>
+                produce output in any format (JSON, XML, and CSV). The full documentation of this
+                API is available at <link xlink:href="http://secxbrl.info/api"
+                    >http://secxbrl.info/api</link>. Moreover, it is possible to design other APIs
+                with more complex queries, depending on the needs of the front-end.</para>
 		</sect2>
         <sect2>
             <title>The SEC Application Profile</title>
             <para>When the REST API is invoked, what happens behind the scenes is that a BizQL.io
                 query gets executed. In this case, it is a BizQL.io query within the SEC application
-                profile, meaning that it knows about the specificities of SEC filings.</para>
+                profile, meaning that it knows about the specificities of SEC filings. For example,
+                the profile knows about fiscal years or fiscal periods.</para>
             <para>The SEC XBRL financial filing system was chosen which was implemented as an
                 application profile of the XBRL.io business reporting platform because it is a good
                 and common implementation approach for making use of XBRL. It was also chosen
@@ -610,12 +656,12 @@ We finally explain the overall architecture and put it in perspective with moder
         <sect2>
             <title>28.io Information Processing and Querying platform http://www.28.io/</title>
             <para>The BizQL.io platform builds on top of the 28.io platform. This is a very flexible
-                information processing platform used by developers to build systems. With the JSONiq
-                language, programmers can query (project, select, join, etc) across a vast number of
-                data sources (MongoDB, JDBC, Cloudant, CloudSearch, graph databases, etc) with very
-                little effort. In spite of our focus on read-only queries, the 28.io platform also
-                supports transactions. The 28.io platform is able to distribute the execution of a
-                query across several machines. </para>
+                information processing platform used by developers to build data intensive systems.
+                With the JSONiq language, programmers can query (project, select, join, etc) across
+                a vast number of data sources (MongoDB, JDBC, Cloudant, CloudSearch, graph
+                databases, etc) with very little effort. In spite of our focus on read-only queries,
+                the 28.io platform also supports transactions. The 28.io platform is able to
+                distribute the execution of a query across several machines. </para>
 		</sect2>
         <sect2>
             <title>JSONiq and NoSQL http://www.jsoniq.org/</title>
