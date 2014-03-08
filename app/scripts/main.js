@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'autocomplete', 'constants'])
-.factory('$backend', function($q, $http, API_URL, API_TOKEN) {
+.factory('$backend', function($q, $http, API_URL, DEBUG) {
     return {
 		API_URL: API_URL,
-		API_TOKEN: API_TOKEN,
+		DEBUG: DEBUG,
 
         data: [],
         
@@ -342,7 +342,20 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         })
         .when('/disclosure/:disclosure/:year/:period', {
             templateUrl: '/views/disclosure.html',
-            controller: 'DisclosureCtrl'
+            controller: 'DisclosureCtrl',
+            resolve: {
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+            }
+        })
+        .when('/comparison', {
+            templateUrl: '/views/comparison.html',
+            controller: 'ComparisonCtrl',
+            resolve: {
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+            }
         })
         //404
         .otherwise({
@@ -351,7 +364,9 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 
 		$httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 })
-.run(function($rootScope, $location, $http, $modal, $angularCacheFactory) {
+.run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {
+
+	$rootScope.DEBUG = $backend.DEBUG;
 
 	$angularCacheFactory('secxbrl', {
         maxAge: 6000000, // Items added to this cache expire after 15 minutes.

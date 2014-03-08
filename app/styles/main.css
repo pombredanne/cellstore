@@ -1464,3 +1464,19 @@ ul.selector li.disabled:after
 .modelstructure .line > span:nth-child(6) {
  text-transform: capitalize;
 }
+
+.selection {
+    min-height: 40px;
+    vertical-align: middle;
+}
+
+.selection .close {
+    font-size: 1em;
+    margin: 3px;
+}
+
+.selection .alert {
+    padding: 3px;
+    margin: 3px;
+    display: inline-block;
+}
