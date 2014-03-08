@@ -155,7 +155,7 @@ We finally explain the overall architecture and put it in perspective with moder
 		</sect2>
         <sect2>
             <title>REST API</title>
-            <para>Second, included with the business user GUI is a REST-based API that allows to manually or programatically retrieve information. This interface provides computer readable formats for the entire system in the JSON, XML, CSV and Excel syntaxes and can be used leveraging standard Internet technologies.</para>
+            <para>Second, included with the business user GUI is a REST-based API that allows to manually or programmatically retrieve information. This interface provides computer readable formats for the entire system in the JSON, XML, CSV and Excel syntaxes and can be used leveraging standard Internet technologies.</para>
             <para>For example, this interface allows you to retrieve all the information that is available in the graphical interface describe above. Additionally, it allows you to search and retrieve facts across entities and filings.</para>
             <para>The interface is described at http://secxbrl.info/api together with examples that make it easy to use.</para>
 		</sect2>

@@ -525,6 +525,26 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "prefix:dimension",
+                            "description": "The name of a dimension used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                              "prefix:value", "ALL"
+                              ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "prefix:dimension:default",
+                            "description": "The default value of an explicit dimension that should be returned if the dimension was not provided explicitly for a fact.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                              "prefix:value"
+                              ],
+                            "paramType": "query"
+                        },
+                        {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
                             "required": false,
@@ -559,8 +579,14 @@
                     "examples": [
                         {
                             "title": "Retrieve us-gaap:Assets for DOW30",
-                            "description": "Retrieve the value of us-gaap:Assets for all DOW30 entities for the latest reported year. Return the result as JSON.",
+                            "description": "Retrieve the value of us-gaap:Assets for all DOW30 entities for the latest reported year. Bring in all data regardless of which characteristic. Return the result as JSON.",
                             "request": "[API_URL]/_queries/public/api/facts.jq?_method=POST&concept=us-gaap:Assets&tag=dow30",
+                            "response": ""
+                        },
+                        {
+                            "title": "Retrieve us-gaap:Assets for DOW30 which relates to the root reporting entity only.",
+                            "description": "Retrieve the value of us-gaap:Assets for all DOW30 entities for the latest reported year which relates to the root reporting entity only. Return the result as JSON.",
+                            "request": "[API_URL]/_queries/public/api/facts.jq?_method=POST&concept=us-gaap:Assets&dei:LegalEntityAxis=sec:DefaultLegalEntity&tag=dow30",
                             "response": ""
                         },
                         {
