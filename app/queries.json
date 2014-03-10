@@ -188,6 +188,59 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "ticker",
+                            "description": "The ticker of the entity",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "tag",
+                            "description": "The tag to filter entities",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "DOW30",
+                                "SP500",
+                                "FORTUNE100",
+                                "PJI"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "sic",
+                            "description": "The industry group",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "fiscalYear",
+                            "description": "The fiscal year of the fact to retrieve (default: ALL)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query",
+                            "enum": [
+                                "year (e.g. 2011)",
+                                "LATEST",
+                                "ALL"
+                            ]
+                        },
+                        {
+                            "name": "fiscalPeriod",
+                            "description": "The fiscal period of the fact to retrieve (default: ALL)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "Q1",
+                                "Q2",
+                                "Q3",
+                                "FY",
+                                "ALL"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
                             "name": "aid",
                             "description": "The id of the filing",
                             "required": false,
