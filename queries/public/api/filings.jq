@@ -80,10 +80,35 @@ declare function local:summary($a)
     }
 };
 
-let $format  := lower-case(request:param-values("format")[1])
-let $ciks     := request:param-values("cik")
+let $format      := lower-case(request:param-values("format")[1])
+let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
+let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
+let $tickers     := distinct-values(request:param-values("ticker"))
+let $sics        := distinct-values(request:param-values("sic"))
+let $fiscalPeriods := let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (lower-case($fp) eq "all")
+                        then ("Q1", "Q2", "Q3", "FY")
+                        else $fp
 let $aids     := request:param-values("aid")
-let $archives := (archives:archives($aids), filings:filings-for-companies($ciks))
+let $ciks := ($ciks, 
+    companies:companies-for-tags($tags),
+    companies:companies-for-tickers($tickers),
+    companies:companies-for-SIC($sics))
+let $fiscalYears := distinct-values(
+                    for $y in request:param-values("fiscalYear", "LATEST")
+                    return
+                        if ($y eq "LATEST" or $y eq "ALL")
+                        then for $cik in $ciks
+                             for $fp in $fiscalPeriods
+                             return
+                                (fiscal:latest-reported-fiscal-period($cik, $fp).year) cast as integer
+                        else if ($y castable as integer)
+                        then $y cast as integer
+                        else () 
+                )
+let $archives := (archives:archives($aids),
+                    fiscal:filings-for-entities-and-fiscal-periods-and-years($ciks, $fiscalPeriods, $fiscalYears)) 
 let $entities := companies:companies($archives.Entities)
 return
     if (session:only-dow30($entities) or session:valid())

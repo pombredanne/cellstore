@@ -79,8 +79,9 @@ for $fiscalYear in request:param-values("fiscalYear") ! $$ cast as integer
 for $fiscalPeriod in request:param-values("fiscalPeriod")
 for $entity in (companies:companies($cik), companies:companies-for-tickers($ticker), companies:companies-for-tags($tag))
 for $archive in sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fiscalPeriod, $fiscalYear) 
-let $facts := for $fact in report-schemas:facts($report, $archive, {||})
-            return
+let $facts :=
+    for $fact in report-schemas:facts($report, $archive, {||})
+    return
     {|
         { Aspects : {|
             for $a in keys($fact.Aspects)
