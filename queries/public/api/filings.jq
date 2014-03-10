@@ -85,10 +85,10 @@ let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
 let $tickers     := distinct-values(request:param-values("ticker"))
 let $sics        := distinct-values(request:param-values("sic"))
-let $fiscalPeriods := let $fp := request:param-values("fiscalPeriod", "FY")
+let $fiscalPeriods := for $fp in request:param-values("fiscalPeriod", "ALL")
                       return
                         if (lower-case($fp) eq "all")
-                        then ("Q1", "Q2", "Q3", "FY")
+                        then ("Q1", "Q2", "Q3", "FY", "YTD1", "YTD2", "YTD3")
                         else $fp
 let $aids     := request:param-values("aid")
 let $ciks := ($ciks, 
@@ -96,9 +96,11 @@ let $ciks := ($ciks,
     companies:companies-for-tickers($tickers),
     companies:companies-for-SIC($sics))
 let $fiscalYears := distinct-values(
-                    for $y in request:param-values("fiscalYear", "LATEST")
+                    for $y in request:param-values("fiscalYear", "ALL")
                     return
-                        if ($y eq "LATEST" or $y eq "ALL")
+                        if ($y eq "ALL")
+                        then 2000 to 2014 (: hack that needs to be replaced by $fiscal:ALL_FISCAL_YEARS :)
+                        else if ($y eq "LATEST")
                         then for $cik in $ciks
                              for $fp in $fiscalPeriods
                              return
@@ -108,7 +110,9 @@ let $fiscalYears := distinct-values(
                         else () 
                 )
 let $archives := (archives:archives($aids),
-                    fiscal:filings-for-entities-and-fiscal-periods-and-years($ciks, $fiscalPeriods, $fiscalYears)) 
+                    for $fp in $fiscalPeriods, $fy in $fiscalYears
+                    return
+                      fiscal:filings-for-entities-and-fiscal-periods-and-years($ciks, $fp, $fy)) 
 let $entities := companies:companies($archives.Entities)
 return
     if (session:only-dow30($entities) or session:valid())
