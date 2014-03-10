@@ -4,6 +4,7 @@ import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
+import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
@@ -36,20 +37,25 @@ variable $schema := let $schema := report-schemas:report-schemas($reportSchema)
                     return if (empty($schema))
                     then  error(QName("local:INVALID-REQUEST"), "Given reportSchema:"||$schema|| " not found")
                     else $schema;
+                    
+variable $aid := request:param-values("aid");
 
 
-for $entity in $entity
-for $archive in let $a := 
+for $archive in 
+        (if (exists($entity))
+        then
+            let $a := 
                     sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $periodFocus, $yearFocus)
                 return if (empty($a)) 
                        then  error(QName("local:INVALID-REQUEST"), "Filing not found")
                        else  (for $a in $a
                              order by $a.Profiles.SEC.AcceptanceDatetime
                              return $a)[1]
+        else (), archives:archives($aid))
 let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :) 
 let $populatedSchema := sec:populate-schema-with-facts($schema, $archive)
 return  if(session:only-dow30($entity) or session:valid())
-        then $populatedSchema
+        then [ $populatedSchema ]
         else {
             response:status-code(401);
             session:error("accessing filings of an entity that is not in the DOW30", $format)
