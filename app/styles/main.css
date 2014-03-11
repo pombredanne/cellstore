@@ -557,9 +557,6 @@ pre .boolean {
 		font-size: 150%;
 		line-height: 1.5;
 	}
-	.spaced {
-		padding: 40px 0px;
-	}
 }
 
 ul.normal {
@@ -1462,21 +1459,17 @@ ul.selector li.disabled:after
     font-weight: bold;
 }
 .modelstructure .line > span:nth-child(6) {
- text-transform: capitalize;
-}
-
-.selection {
-    min-height: 40px;
-    vertical-align: middle;
-}
-
-.selection .close {
-    font-size: 1em;
-    margin: 3px;
+    text-transform: capitalize;
 }
 
 .selection .alert {
     padding: 3px;
     margin: 3px;
     display: inline-block;
+}
+
+@media (min-width: 768px) {
+    .selection .customize {
+        min-height: 550px;
+    }
 }

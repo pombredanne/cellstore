@@ -1,0 +1,50 @@
+<div class="topbar text-center">
+    <div class="btn-group">
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison"><i class="icn fa fa-home"></i></a>
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information"><i class="icn icn-analytics"></i> Basic Financial Information</a>
+        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search"><i class="icn icn-search"></i> Compare Facts</a>
+    </div>
+</div>
+
+<div class="cols">	
+	<div class="col-left col-md-3 col-sm-4 col-xs-12 selection" ng-include="'/views/comparison-filter.html'"></div>
+	<div class="col-right col-md-9 col-sm-8 col-xs-12">
+		<div class="col-md-12">
+			<h3>Compute analytics based on information extracted from the SEC filings.</h3>
+			<div class="row">
+			<div class="col-md-12" ng-repeat="report in reports" scroll-id="report{{$index}}">
+			<div class="white-box nav">
+				<a class="pull-right close small" href="javascript://" ng-click="gotoId('report0')"><i class="fa fa-arrow-up"></i></a>
+				<a class="h4 highlight3" href="javascript://" ng-click="showtab[$index]=!showtab[$index]" style="margin-left: -10px"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a>
+
+				<div class="scrolling" ng-show="showtab[$index]">
+					<table class="table">
+						<thead>
+							<th>Label</th>
+							<th class="text-center">Value</th>
+							<th>Audit Trail</th>
+						</thead>
+                        <cols>
+                            <col width="45%"></col>
+                            <col width="20%"></col>
+                            <col width="35%"></col>
+                        </cols>
+						<tbody>
+						<tr ng-repeat="item in report.items">
+							<td style="min-width: 250px">{{item.label}}</td>
+							<td class="nowrap" ng-class="{ 'text-right' : (item.type == 'NumericValue') }">{{item.value}}</td>
+							<td>
+								<a href="javascript://" popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="focus">
+									{{substring(item.auditValue, 30)}}
+								</a>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

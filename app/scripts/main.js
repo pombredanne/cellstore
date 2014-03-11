@@ -356,11 +356,20 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         })
         .when('/comparison', {
             templateUrl: '/views/comparison.html',
-            controller: 'ComparisonCtrl',
+            controller: 'ComparisonCtrl'
+        })
+        .when('/comparison/information', {
+            templateUrl: '/views/comparison-information.html',
+            controller: 'ComparisonInformationCtrl'
+        })
+        .when('/comparison/search', {
+            templateUrl: '/views/comparison-search.html',
+            controller: 'ComparisonSearchCtrl',
             resolve: {
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }],
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
             }
         })
         //404

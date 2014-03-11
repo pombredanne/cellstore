@@ -126,8 +126,8 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
 
     $scope.getComponent = function ()
     {
-        if (!$scope.cik) return;
         $scope.reports = [];
+        if (!$scope.cik || !$scope.year || !$scope.period) return;
         $http({
                 method: 'GET', 
                 url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
@@ -197,7 +197,6 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
         )
         .error(function (data, status, headers, config)
         {
-            $scope.reports = [];
 			$scope.$emit("error", status, data);
         });
     };
