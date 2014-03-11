@@ -18,11 +18,11 @@ variable $periodFocus := let $periodFocus := request:param-values("fiscalPeriodF
                          return if (empty($periodFocus))
                                 then error(QName("local:INVALID-REQUEST"),"fiscalPeriodFocus: mandatory parameter not found")
                                 else $periodFocus;
-variable $yearFocus := let $yearFocus := request:param-values("fiscalYearFocus","2011")
+variable $yearFocus := let $yearFocus := request:param-values("fiscalYearFocus","2011") ! ($$ cast as integer)
                        return if (empty($yearFocus))
                                 then error(QName("local:INVALID-REQUEST"), "fiscalYearFocus: mandatory parameter not found")
-                                else $yearFocus cast as integer;
-
+                                else $yearFocus;
+                                
 variable $entity := let $entity := entities:entities($cik ! companies:eid($$))
                     return if (empty($entity))
                            then  error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
