@@ -85,11 +85,13 @@ let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
 let $tickers     := distinct-values(request:param-values("ticker"))
 let $sics        := distinct-values(request:param-values("sic"))
-let $fiscalPeriods := for $fp in request:param-values("fiscalPeriod", "ALL")
-                      return
-                        if (lower-case($fp) eq "all")
-                        then ("Q1", "Q2", "Q3", "FY", "YTD1", "YTD2", "YTD3")
-                        else $fp
+let $fiscalPeriods := distinct-values(
+                        for $fp in request:param-values("fiscalPeriod", "ALL")
+                        return
+                            if ($fp eq "ALL")
+                            then ("Q1", "Q2", "Q3", "FY", "YTD1", "YTD2", "YTD3")
+                            else $fp
+                      )
 let $aids     := request:param-values("aid")
 let $ciks := ($ciks, 
     companies:companies-for-tags($tags),

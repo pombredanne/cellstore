@@ -184,11 +184,13 @@ let $fiscalYears := distinct-values(
                             then $y cast as integer
                             else ()
                     )
-let $fiscalPeriods := let $fp := request:param-values("fiscalPeriod", "FY")
-                      return
-                        if (lower-case($fp) eq "all")
-                        then ("Q1", "Q2", "Q3", "FY")
-                        else $fp
+let $fiscalPeriods := distinct-values(
+                        for $fp in request:param-values("fiscalPeriod", "FY")
+                        return
+                            if ($fp eq "ALL")
+                            then ("Q1", "Q2", "Q3", "FY")
+                            else $fp
+                    )
 let $aids := request:param-values("aid")
 let $dimensions :=  for $p in request:param-names()
                     where contains($p, ":")
