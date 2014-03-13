@@ -122,10 +122,56 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "cik",
-                            "description": "The CIK of the entity",
-                            "required": true,
+                            "name": "tag",
+                            "description": "A tag to filter",
+                            "required": false,
                             "type": "string",
+                            "enum": [
+                                "DOW30",
+                                "SP500",
+                                "FORTUNE100",
+                                "PJI"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "cik",
+                            "description": "A CIK number",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "ticker",
+                            "description": "A ticker symbols",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "fiscalYear",
+                            "description": "The fiscal year of the fact to retrieve (default: ALL)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query",
+                            "enum": [
+                                "year (e.g. 2011)",
+                                "LATEST",
+                                "ALL"
+                            ]
+                        },
+                        {
+                            "name": "fiscalPeriod",
+                            "description": "The fiscal period of the fact to retrieve (default: ALL)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "Q1",
+                                "Q2",
+                                "Q3",
+                                "FY",
+                                "ALL"
+                            ],
                             "paramType": "query"
                         },
                         {
@@ -579,22 +625,18 @@
                         },
                         {
                             "name": "prefix:dimension",
-                            "description": "The name and value of a dimension used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved.",
+                            "pattern": "\\w+:\\w+",
+                            "description": "The name of a dimension used for filtering. Accepted format: prefix:dimension. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved",
                             "required": false,
                             "type": "string",
-                            "enum": [
-                              "prefix:value", "ALL"
-                              ],
                             "paramType": "query"
                         },
                         {
-                            "name": "prefix:dimension::default",
-                            "description": "The default value of an explicit dimension that should be returned if the dimension was not provided explicitly for a fact.",
+                            "name": "prefix:dimension:default",
+                            "pattern": "\\w+:\\w+:\\w+",
+                            "description": "The default value of the dimension [prefix:dimension] that should be returned if the dimension was not provided explicitly for a fact. Accepted format: prefix:dimension:default",
                             "required": false,
                             "type": "string",
-                            "enum": [
-                              "prefix:value"
-                              ],
                             "paramType": "query"
                         },
                         {

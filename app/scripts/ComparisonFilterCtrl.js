@@ -1,7 +1,14 @@
 angular.module('main').controller('ComparisonFilterCtrl', ['$scope', '$route', '$angularCacheFactory', '$backend', 'QueriesService',
   function($scope, $route, $angularCacheFactory, $backend, QueriesService) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
-    $backend.getEntities().then(function(e) {
+    $scope.tags = [];
+    $scope.entities = [];
+    $scope.years = [];
+    $scope.periods = [];
+
+    $backend.getTags().then(function(t) {
+        $scope.tags = t;
+        $backend.getEntities().then(function(e) {
             $scope.entities = e;
             $backend.getYears().then(function(y) { 
                 $scope.years = y;
@@ -12,6 +19,7 @@ angular.module('main').controller('ComparisonFilterCtrl', ['$scope', '$route', '
                                     || { entity: [], tag: [ 'DOW30' ], year: [ $scope.years[1] ], period: [ $scope.periods[0] ] };
                 });
             });
+        });
     });
 
     $scope.selectEntity = function(entity) { 

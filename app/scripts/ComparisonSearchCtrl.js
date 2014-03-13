@@ -1,25 +1,184 @@
-angular.module('main').controller('ComparisonSearchCtrl', ['$scope', '$route', '$angularCacheFactory', '$backend', 'QueriesService', 'entities', 'years', 'periods', 'conceptMaps',
-  function($scope, $route, $angularCacheFactory, $backend, QueriesService, entities, years, periods, conceptMaps) {
+angular.module('main').controller('ComparisonSearchCtrl', ['$scope', '$http', '$modal', '$backend', 'QueriesService', 'conceptMaps',
+  function($scope, $http, $modal, $backend, QueriesService, conceptMaps) {
+    $scope.none = "us-gaap Concepts";
+
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
-    $scope.entities = entities;
-    $scope.years = years;
-	$scope.periods = periods;
-    //focus automatically on last year and FY
-	$scope.selection = $angularCacheFactory.get('secxbrl').get('selection') 
-                    || { entity: [], tag: [ 'DOW30' ], year: [ years[1] ], period: [ periods[0] ] };
+    if (conceptMaps.indexOf($scope.none) < 0) conceptMaps.push($scope.none);
     $scope.conceptMaps = conceptMaps;
-    $scope.conceptMapKey = conceptMaps[1];
-	$scope.API_URL = $backend.API_URL;
+    $scope.selection = { conceptMap : conceptMaps[0], filter: null, conceptMapKeys: [], dimensions: [] };
+    $scope.entityIndex = -1;
+    $scope.API_URL = $backend.API_URL;
 
-    $scope.selectEntity = function(entity) { 
-        if ($scope.selection.entity.indexOf(entity) < 0)
-            $scope.selection.entity.push(entity);
-        $scope.name = null;
+    $scope.$watch(
+        function() { 
+                return $scope.selection.conceptMap // +  angular.toJson($scope.selection.filter)
+        },
+        function() {
+            $scope.conceptMapKeys = [];
+            $scope.selection.conceptMapKeys = [];
+            
+            if ($scope.selection.conceptMap && $scope.selection.conceptMap != $scope.none)
+            {
+                $http({
+                        method: 'GET', 
+                        url: $backend.API_URL + '/_queries/public/ConceptMapKeys.jq',
+                        params: { _method: 'POST', mapName: $scope.selection.conceptMap, "token" : $scope.token },
+						cache: true
+                    })
+                    .success(function (data, status, headers, config)
+                    {
+                        if (data) $scope.conceptMapKeys = data.mapKeys;
+                        $scope.safeApply();
+                    })
+					.error(function(data, status) { 
+						$scope.$emit("error", status, data);
+					});
+            }
+            else
+            {
+                //CRD disable for now
+                /*
+                if ($scope.selection.filter)
+                {
+                    $scope.conceptMapKeys = [];
+
+                    var cik = [];
+                    $scope.selection.filter.entity.forEach(function(entity) { cik.push(entity.cik); });
+
+                    $http({
+                            method: 'GET', 
+                            url: $backend.API_URL + '/_queries/public/FactualConcepts.jq',
+                            params: { _method: 'POST', cik: cik, tag: $scope.selection.filter.tag, fiscalYearFocus: $scope.selection.filter.year, fiscalPeriodFocus: $scope.selection.filter.period, "token" : $scope.token },
+                            cache: true
+                        })
+                        .success(function (data, status, headers, config)
+                        {
+                            if (data && data.factualConcepts) 
+                                data.factualConcepts.forEach(function(item) {
+                                    $scope.conceptMapKeys.push(item.name);
+                                });
+                            $scope.safeApply();
+                        })
+                        .error(function(data, status) { 
+                            $scope.$emit("error", status, data);
+                        });
+                }
+                */
+            }
+
+        }
+    );
+    
+    $scope.$on('filterChanged',
+        function(event, selection) {
+            $scope.selection.filter = selection;
+        }
+    );
+
+    $scope.addConceptKey = function(item) {
+        if (item && $scope.selection.conceptMapKeys.indexOf(item) < 0) 
+            $scope.selection.conceptMapKeys.push(item);
+        $scope.conceptMapKey = "";
     };
 
-    $scope.reset = function() { 
-        $angularCacheFactory.get('secxbrl').remove('selection');
-        $route.reload();
+    $scope.addDimension = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'dimension.html',
+            controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+                $scope.dimension = {};
+                $scope.ok = function () {
+                    $scope.dimension.attempted = true;
+                    if(!$scope.dimension.form.$invalid)
+                        $modalInstance.close({ 
+                            name: $scope.dimension.name, 
+                            value: $scope.dimension.value,
+                            defaultValue: $scope.dimension.defaultValue 
+                        });
+                };
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }]
+        });
+
+        modalInstance.result.then(function (item) {
+          if ($scope.selection.dimensions.indexOf(item) < 0) 
+            $scope.selection.dimensions.push(item);
+        });
     };
+
+    $scope.getValues = function() {
+        if ($scope.conceptMapKey)
+            $scope.addConceptKey($scope.conceptMapKey);
+        
+        if ($scope.selection.conceptMapKeys.length == 0)
+        {
+            $scope.$emit('alert', 'Warning', 'Please choose concepts to compare.');
+            return;
+        }
+
+        $scope.data = [];
+        var request = { 
+                _method: "POST", 
+                cik: [], 
+                tag: $scope.selection.filter.tag,
+                fiscalYear: $scope.selection.filter.year,
+                fiscalPeriod: $scope.selection.filter.period,
+                concept: $scope.selection.conceptMapKeys,
+                map: ($scope.selection.conceptMap != $scope.none ? $scope.selection.conceptMap : null),
+                token: $scope.token 
+            };
+        $scope.selection.filter.entity.forEach(function(entity) { request['cik'].push(entity.cik); });
+        $scope.selection.dimensions.forEach(function(dimension) { request[dimension.name] = dimension.value; request[dimension.name + ":default"] = dimension.defaultValue; });
+
+        $scope.service.listFacts(request)
+            .then(function(data) {
+                $scope.data = data.FactTable;
+                $scope.safeApply();
+            },
+            function(response) {
+                $scope.$emit("error", response.status, response.data);
+            });
+    };
+  $scope.trimURL = function(url) {
+    if (url.length < 40) return url;
+
+    return url.substr(0, 10) + "..." + url.substr(url.length - 30);
+  };
+  $scope.trim = function(item) {
+    return angular.copy(item).splice(4, item.length - 5);
+  };
+  $scope.clear = function(item) {
+    return item.replace("iso4217:", "").replace("xbrli:", "");
+  };
+  $scope.showText = function(html) {
+    $scope.$emit("alert", "Text Details", html);
+  };
+  $scope.showNumber = function(value) {
+    var n = parseFloat(value);
+    if (isNaN(n)) return value;
+    return n.toLocaleString();
+  };
+  $scope.enumerate = function(object) {
+    var ret = [];
+    $.map(object, function (el, index) {
+      ret.push(el);
+    });
+    return ret;
+  };
+  $scope.enumerateKeys = function(object) {
+    var ret = [];
+    $.map(object, function (el, index) {
+        if(index == 'xbrl:Entity') $scope.entityIndex = ret.length;
+        ret.push(index);
+    });
+    return ret;
+  };
+
+  $scope.isBlock = function(string) {
+     if (!string) return false;
+     return string.length > 60;
+  };
  }
 ]);

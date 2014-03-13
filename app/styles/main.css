@@ -594,9 +594,16 @@ ul.menu a.active {
 	margin-bottom: 15px;
 }
 
+.white-box-header {
+	padding: 10px 20px;
+	border-bottom: 1px solid gainsboro;
+	border-radius: 3px 3px 0px 0px;
+	margin: -10px -20px 10px -20px;
+}
+
 .white-box-footer {
 	padding: 10px;
-	border-top: 1px solid rgb(190, 190, 190);
+	border-top: 1px solid gainsboro;
 	background: none repeat scroll 0% 0% rgb(250, 251, 251);
 	border-radius: 0px 0px 3px 3px;
 	margin: 10px -20px -10px -20px;
@@ -606,6 +613,10 @@ ul.menu a.active {
 	.white-box {
 		padding: 15px 25px;
 		margin-bottom: 25px;
+	}
+	.white-box-header {
+	    padding: 15px 25px;
+		margin: -15px -25px 10px -25px;
 	}
 	.white-box-footer {
 		margin: 10px -25px -15px -25px;
@@ -1466,6 +1477,11 @@ ul.selector li.disabled:after
     padding: 3px;
     margin: 3px;
     display: inline-block;
+}
+
+.selection .alert .close {
+    font-size: 1em;
+    padding: 3px 2px;
 }
 
 @media (min-width: 768px) {

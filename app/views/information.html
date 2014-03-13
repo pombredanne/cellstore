@@ -134,9 +134,10 @@
 							<td style="min-width: 250px">{{item.label}}</td>
 							<td class="nowrap" ng-class="{ 'text-right' : (item.type == 'NumericValue') }">{{item.value}}</td>
 							<td>
-								<a href="javascript://" popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="focus">
+								<a href="javascript://" popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="focus" ng-if="item.auditValue">
 									{{substring(item.auditValue, 30)}}
 								</a>
+                                <span ng-if="!item.auditValue">Not Reported</span>
 							</td>
 						</tr>
 						</tbody>

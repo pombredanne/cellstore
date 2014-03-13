@@ -136,14 +136,15 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
             })
             .success(function (data, status, headers, config)
             {
-                var root = data["Trees"]["fac:FundamentalAccountingConceptsLineItems"]["To"]["fac:FundamentalAccountingConceptsHierarchy"]["To"];
+                var root = data[0]["Trees"]["fac:FundamentalAccountingConceptsLineItems"]["To"]["fac:FundamentalAccountingConceptsHierarchy"]["To"];
                 
                 var prepareReport = function(list, array) {
                     for (var key in list) {
                         if (list.hasOwnProperty(key)) {
                             var item = {};
                             item.label = list[key]["Label"] ? list[key]["Label"] : "";
-                            if (list[key]["Facts"] && list[key]["Facts"].length > 0) {
+                            if (list[key]["Facts"] && list[key]["Facts"].length > 0) 
+                            {
                                 item.type = list[key]["Facts"][0]["Type"];
                                 if (list[key]["Facts"][0]["Type"] == "NumericValue") {
                                     var num = list[key]["Facts"][0]["Value"];
@@ -152,6 +153,9 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
                                 }
                                 else
                                     item.value = list[key]["Facts"][0]["Value"];
+
+								item.auditLabel = "";
+								item.auditValue = "";
 								if (list[key]["Facts"][0]["AuditTrails"] && list[key]["Facts"][0]["AuditTrails"].length > 0)
 								{
 									switch(list[key]["Facts"][0]["AuditTrails"][0]["Type"]) {
@@ -164,12 +168,8 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
 											item.auditLabel = list[key]["Facts"][0]["AuditTrails"][0]["Label"];
 											item.auditValue = list[key]["Facts"][0]["AuditTrails"][0]["Data"]["Dimension"];
 											break;
-										default: 
-											item.auditLabel = "";
-											item.auditValue = "";
 									}
 								}
-								else item.audit = "";
                             }
                             else {
                                 item.value = "";
@@ -179,8 +179,6 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
                             }
                             array.push(item);
                         }
-                        if (item.value.length == 0)
-                          item.auditValue = "Not Reported";
                     }
                 };
                 

@@ -11,13 +11,13 @@ angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http
             $http({
                     method: 'GET', 
                     url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-                    params: { _method: 'POST', cik: cik, fiscalYearFocus: selection.year, fiscalPeriodFocus: selection.period, reportSchema: 'FundamentalAccountingConcepts', "token" : $scope.token },
+                    params: { _method: 'POST', cik: cik, tag: selection.tag, fiscalYearFocus: selection.year, fiscalPeriodFocus: selection.period, reportSchema: 'FundamentalAccountingConcepts', "token" : $scope.token },
                     cache: false
                 })
                 .success(function (data, status, headers, config)
                 {
-                    var root = data["Trees"]["fac:FundamentalAccountingConceptsLineItems"]["To"]["fac:FundamentalAccountingConceptsHierarchy"]["To"];
-                    console.log(angular.toJson(root));
+                    var root = data[0]["Trees"]["fac:FundamentalAccountingConceptsLineItems"]["To"]["fac:FundamentalAccountingConceptsHierarchy"]["To"];
+
                     var prepareReport = function(list, array) {
                         for (var key in list) {
                             if (list.hasOwnProperty(key)) {
@@ -32,35 +32,13 @@ angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http
                                     }
                                     else
                                         item.value = list[key]["Facts"][0]["Value"];
-                                    if (list[key]["Facts"][0]["AuditTrails"] && list[key]["Facts"][0]["AuditTrails"].length > 0)
-                                    {
-                                        switch(list[key]["Facts"][0]["AuditTrails"][0]["Type"]) {
-                                            case 'concept-maps:concept-maps':
-                                                item.auditLabel = list[key]["Facts"][0]["AuditTrails"][0]["Label"];
-                                                item.auditValue = list[key]["Facts"][0]["AuditTrails"][0]["Data"]["OriginalConcept"];
-                                                break;
-
-                                            case 'hypercubes:dimension-default':
-                                                item.auditLabel = list[key]["Facts"][0]["AuditTrails"][0]["Label"];
-                                                item.auditValue = list[key]["Facts"][0]["AuditTrails"][0]["Data"]["Dimension"];
-                                                break;
-                                            default: 
-                                                item.auditLabel = "";
-                                                item.auditValue = "";
-                                        }
-                                    }
-                                    else item.audit = "";
                                 }
                                 else {
                                     item.value = "";
                                     item.type = "";
-                                    item.auditLabel = "";
-                                    item.auditValue = "";
                                 }
                                 array.push(item);
                             }
-                            if (item.value.length == 0)
-                              item.auditValue = "Not Reported";
                         }
                     };
                     

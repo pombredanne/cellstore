@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'autocomplete', 'constants'])
+angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants'])
 .factory('$backend', function($q, $http, API_URL, DEBUG) {
     return {
 		API_URL: API_URL,
@@ -71,6 +71,20 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                         }
                         deferred.resolve(that.data[domain]);
                     });
+            return deferred.promise;
+        },
+
+        getTags : function() {
+            var that = this;
+            var deferred = $q.defer();
+            if (!that.data['tag'] || that.data['tag'].length == 0)
+            {
+                that.data["tag"] = [ "DOW30",
+                                "SP500",
+                                "FORTUNE100",
+                                "PJI" ];
+            }
+            deferred.resolve(that.data['tag']);
             return deferred.promise;
         },
 
