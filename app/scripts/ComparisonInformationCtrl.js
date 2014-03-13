@@ -1,6 +1,8 @@
 angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http', '$backend', 'QueriesService',
   function($scope, $http, $backend, QueriesService) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
+    $scope.showtab = [];
+    $scope.reports = [];
 
     $scope.$on('filterChanged',
         function(event, selection) {
@@ -16,40 +18,55 @@ angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http
                 })
                 .success(function (data, status, headers, config)
                 {
-                    var root = data[0]["Trees"]["fac:FundamentalAccountingConceptsLineItems"]["To"]["fac:FundamentalAccountingConceptsHierarchy"]["To"];
-
-                    var prepareReport = function(list, array) {
+                    var prepareReport = function(list, array, index) {
+                        var j = 0;
                         for (var key in list) {
                             if (list.hasOwnProperty(key)) {
-                                var item = {};
-                                item.label = list[key]["Label"] ? list[key]["Label"] : "";
+                                if (index == 0)
+                                {
+                                    var item = {};
+                                    item.label = list[key]["Label"] ? list[key]["Label"] : "";
+                                    item.value = [];
+                                    item.type = [];
+                                    array[j] = item;
+                                }
+                                else item = array[j];
+
                                 if (list[key]["Facts"] && list[key]["Facts"].length > 0) {
-                                    item.type = list[key]["Facts"][0]["Type"];
+                                    item.type[index] = list[key]["Facts"][0]["Type"];
                                     if (list[key]["Facts"][0]["Type"] == "NumericValue") {
                                         var num = list[key]["Facts"][0]["Value"];
                                         if (!num) num = "0";
-                                        item.value = parseFloat(num).toLocaleString();
+                                        item.value[index] = parseFloat(num).toLocaleString();
                                     }
                                     else
-                                        item.value = list[key]["Facts"][0]["Value"];
+                                        item.value[index] = list[key]["Facts"][0]["Value"];
                                 }
                                 else {
-                                    item.value = "";
-                                    item.type = "";
+                                    item.value[index] = "";
+                                    item.type[index] = "";
                                 }
-                                array.push(item);
+                                j++;
                             }
                         }
                     };
-                    
-                    for (var report in root) {
-                        if (root.hasOwnProperty(report) && report != "fac:KeyRatiosHierarchy") {
-                            var obj = { name: root[report]["Label"].toString().replace(" [Hierarchy]", ""), items: [] };
-                            prepareReport(root[report]["To"], obj.items);
-                            $scope.reports.push(obj);
-                            $scope.showtab.push(true);
-                        }
-                    };
+
+                    for (var i = 0; i < data.length; i++)
+                    {
+                        var root = data[i]["Trees"]["fac:FundamentalAccountingConceptsLineItems"]["To"]["fac:FundamentalAccountingConceptsHierarchy"]["To"];
+                        var k = 0;
+                        for (var report in root) {
+                            if (root.hasOwnProperty(report) && report != "fac:KeyRatiosHierarchy") {
+                                if (i == 0) {
+                                    var obj = { name: root[report]["Label"].toString().replace(" [Hierarchy]", ""), items: [] };
+                                    $scope.reports[k] = obj;
+                                }
+                                prepareReport(root[report]["To"], $scope.reports[k].items, i);
+                                $scope.showtab.push(true);
+                                k++;
+                            }
+                        };
+                    }
                     $scope.safeApply();
                 }
             )

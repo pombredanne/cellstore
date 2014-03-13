@@ -22,22 +22,15 @@
 						<thead>
 							<th>Label</th>
 							<th class="text-center">Value</th>
-							<th>Audit Trail</th>
 						</thead>
                         <cols>
                             <col width="45%"></col>
                             <col width="20%"></col>
-                            <col width="35%"></col>
                         </cols>
 						<tbody>
 						<tr ng-repeat="item in report.items">
 							<td style="min-width: 250px">{{item.label}}</td>
 							<td class="nowrap" ng-class="{ 'text-right' : (item.type == 'NumericValue') }">{{item.value}}</td>
-							<td>
-								<a href="javascript://" popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="focus">
-									{{substring(item.auditValue, 30)}}
-								</a>
-							</td>
 						</tr>
 						</tbody>
 					</table>

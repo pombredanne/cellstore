@@ -41,6 +41,7 @@ variable $schema := let $schema := report-schemas:report-schemas($reportSchema)
 variable $aid := request:param-values("aid");
 
 
+[ 
 for $archive in 
         (if (exists($entity))
         then
@@ -53,8 +54,9 @@ for $archive in
 let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :) 
 let $populatedSchema := sec:populate-schema-with-facts($schema, $archive)
 return  if(session:only-dow30($entity) or session:valid())
-        then [ $populatedSchema ]
+        then $populatedSchema
         else {
             response:status-code(401);
             session:error("accessing filings of an entity that is not in the DOW30", $format)
         }
+]
