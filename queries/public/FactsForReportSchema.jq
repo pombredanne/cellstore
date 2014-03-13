@@ -44,13 +44,11 @@ variable $aid := request:param-values("aid");
 for $archive in 
         (if (exists($entity))
         then
-            let $a := 
-                    sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $periodFocus, $yearFocus)
-                return if (empty($a)) 
-                       then  error(QName("local:INVALID-REQUEST"), "Filing not found")
-                       else  (for $a in $a
-                             order by $a.Profiles.SEC.AcceptanceDatetime
-                             return $a)[1]
+            for $e in $entity, $p in $periodFocus, $y in $yearFocus
+            for $f in sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($e, $p, $y)
+            order by $f.Profiles.SEC.AcceptanceDatetime
+            group by $e._id, $p, $y
+            return $f[1]
         else (), archives:archives($aid))
 let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :) 
 let $populatedSchema := sec:populate-schema-with-facts($schema, $archive)

@@ -145,6 +145,7 @@ declare function local:facts(
     return {|
         { Aspects : {|
             for $a in keys($fact.Aspects)
+            where $a ne "xbrl:Unit"
             return { $a : $fact.Aspects.$a },
             { "bizql:FiscalPeriod" : $fact.Profiles.SEC.Fiscal.Period },
             { "bizql:FiscalYear" : $fact.Profiles.SEC.Fiscal.Year }
@@ -191,17 +192,22 @@ let $fiscalPeriods := let $fp := request:param-values("fiscalPeriod", "FY")
 let $aids := request:param-values("aid")
 let $dimensions :=  for $p in request:param-names()
                     where contains($p, ":")
-                    group by $dimension-name := if(ends-with(lower-case($p), ":default"))
-                                                then substring-before($p, ":default")
+                    group by $dimension-name := if (ends-with(lower-case($p), ":default"))
+                                                then 
+                                                    if (ends-with(lower-case($p), "::default"))
+                                                    then substring-before($p, "::default")
+                                                    else substring-before($p, ":default")
                                                 else $p
-                    let $default := $p = $dimension-name || ":default"
+                    let $default := ($p = $dimension-name || "::default") or ($p = $dimension-name || ":default")
                     let $all := (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
                     return
                     {
                        $dimension-name : {| 
                             { Name : $dimension-name }, 
                             if ($default)
-                            then { Default : request:param-values($dimension-name || ":default")[1] }
+                            then { Default : 
+                                (request:param-values($dimension-name || "::default"),
+                                 request:param-values($dimension-name || ":default"))[1] }
                             else (),
                             if ($all)
                             then ()

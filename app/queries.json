@@ -579,7 +579,7 @@
                         },
                         {
                             "name": "prefix:dimension",
-                            "description": "The name of a dimension used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved",
+                            "description": "The name and value of a dimension used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved.",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -588,7 +588,7 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "prefix:dimension:default",
+                            "name": "prefix:dimension::default",
                             "description": "The default value of an explicit dimension that should be returned if the dimension was not provided explicitly for a fact.",
                             "required": false,
                             "type": "string",
