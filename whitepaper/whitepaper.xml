@@ -38,7 +38,7 @@
         <para>28msec undertook a project to determine the viability of leveraging the global
             standard XBRL within their core information processing platform. To test this idea,
             28msec determined the best way load the entire set of SEC XBRL financial filings within
-            its platform. SECXBRL.info and BizQL.io resulted.</para>
+            its platform. SECXBRL.info and 28.io resulted.</para>
         <para>All 10-K and 10-Q XBRL filings that were submitted to the SEC by public companies were
             parsed, semantically processed, transformed and finally organized in a form that
             maximizes its queryability by business users, both in terms of productivity (quick to
@@ -61,7 +61,7 @@
                 delivered to their door every day.</emphasis></para> 
     </sect1>
     <sect1>
-        <title>Visionary introduction on BizQL.io</title>
+        <title>Visionary introduction on 28.io</title>
         <sect2>
             <title>A short history of databases</title>
             <para>Data is a very old concept. There was already data in prehistorical times, such as
@@ -113,21 +113,21 @@
                 market than One Machine For A Whole Day llc.</para>
         </sect2>
         <sect2>
-            <title>SEC XBRL financial information and BizQL.io</title>
+            <title>SEC XBRL financial information and 28.io</title>
 			<para>US Public Company financial information is no different than any other data. Database and query technologies can directly be applied to query it and transform it into actionable information. Now that the SEC made it mandatory to submit data in the standardized XBRL format, it is only logical to take this data, put it in a repository using the latest database technologies, and efficiently query it. The power of today's query languages puts no limits on what a business user can ask for, if all the necessary raw data is available. Technical people call these languages "Turing-complete", as a tribute to IT pioneer Alan Turing, who researched on what can be computed and what not.</para>
-			<para>BizQL.io is built on, and inspired by modern database technologies, including all the lessons learnt from SQL. Users can write queries against the US Public Company Information Repository and ask for all the financial information they want.</para>
-			<para>How many dollars do all US companies own in assets, total? What is the DOW 30 company with the highest profit compared with its costs? How many banks recovered the amount, in USD, of the assets they had before the crisis? What is the percentage of S&amp;P 500 companies whose Christmas peak revenues are at least double those of the rest of the year? No problem with BizQL. BizQL.io was designed so that the query is easy to write. The underlying platform was designed so that optimizations occur behind the hood.</para>
+			<para>28.io is built on, and inspired by modern database technologies, including all the lessons learnt from SQL. With secxbrl.info, we have loaded all SEC publicly available XBRL filings into a database. Users can write queries against the US Public Company Information Repository and ask for all the financial information they want.</para>
+			<para>How many dollars do all US companies own in assets, total? What is the DOW 30 company with the highest profit compared with its costs? How many banks recovered the amount, in USD, of the assets they had before the crisis? What is the percentage of S&amp;P 500 companies whose Christmas peak revenues are at least double those of the rest of the year? No problem with 28.io. 28.io was designed so that the query is easy to write. The underlying platform was designed so that optimizations occur behind the hood.</para>
         </sect2>
         <sect2>
             <title>Report semantics and domain specific semantics</title>
 			<para>Each business domain has specific semantics.  XBRL is a global standard, the global standard, for expressing business information semantics. Via the base XBRL specification, XBRL Dimensions, XBRL Formula, and other pieces of the XBRL technical specification, domain semantics can be articulated for different business domains.  SEC XBRL financial filings is only one complex example of such business domains.</para>
-			<para>But all business domains share a common level of semantics, the business report.  XBRL International began to express business report level semantics with the XBRL Abstract Model 2.0 (http://www.xbrl.org/Specification/abstractmodel-primary/PWD-2012-06-06/abstractmodel-primary-pwd-2012-06-06.html).  BizQL.io was implemented in the spirit of the XBRL Abstract Model 2.0.  BizQL.io leverages these common report level semantics.  Business users and technical engineers can leverage world-class techniques for implementing the global standard XBRL for their business domain and never need to pick up the XBRL technical specifications.  Why? Because we did that for you.  We can guarantee you an effective, robust, reliable, predictable, salable, secure, auditable, and cost effective implementation of XBRL for your business domain. And this is with the key feature which most implementations struggle with the most: extensibility.
+			<para>But all business domains share a common level of semantics, the business report.  XBRL International began to express business report level semantics with the XBRL Abstract Model 2.0 (http://www.xbrl.org/Specification/abstractmodel-primary/PWD-2012-06-06/abstractmodel-primary-pwd-2012-06-06.html).  The XBRL extension of 28.io was implemented in the spirit of the XBRL Abstract Model 2.0.  28.io leverages these common report level semantics.  Business users and technical engineers can leverage world-class techniques for implementing the global standard XBRL for their business domain and never need to pick up the XBRL technical specifications.  Why? Because we did that for you.  We can guarantee you an effective, robust, reliable, predictable, salable, secure, auditable, and cost effective implementation of XBRL for your business domain. And this is with the key feature which most implementations struggle with the most: extensibility.
 </para>
 			<para>Arguably, the US GAAP XBRL Taxonomy and SEC implementation of XBRL is one of the most difficult use cases XBRL will ever encounter. All these SEC XBRL financial filings are publicly available. We used these filings to understand how to make XBRL work, with making use of extensibility.</para>
 			<para>We achieve this by doing two things. First, we learned from the US GAAP XBRL Taxonomy and SEC implementation of XBRL via the publicly available SEC XBRL financial filings.  Second, we reverse-engineered a robust solution by eliminating the things which cause problems for SEC XBRL financial filings.  This understanding is the grounding for a rock-solid world-class implementation of XBRL.  This application profile is the base of a strong and stable foundation upon which other business domains can build.</para>
         </sect2>
         <sect2>
-            <title>The BizQL.io vision</title>
+            <title>The 28.io vision</title>
 			<para>With the generalization of reporting standards such as XBRL, and the use of enabling database technologies, the world is going to be more transparent than ever. It has been several decades already that access to raw data was easy (like somebody's address). Now, access to computed, derived, actionable information is becoming easy as well -- because the complexity is handled by the underlying technologies. And, even without changing the queries, it will only get faster as technology evolves and new optimization ideas evolve.</para>
 			<para>Very soon, there will be no excuse anymore for a CEO or a financial analyst to say "Oh, but I did not know that!", when the answer was just a query and the push of a button away.
 </para>
@@ -135,11 +135,11 @@
         <sect2>
             <title>Garbage in, garbage out</title>
 			<para>Key to any information repository or database is validation/verification of the information which goes into the database.  The same query engine used to provide access to information in any information repository is instrumental in keeping the quality of information submitted to the information repository high.  We won’t explore validation/verification in detail in this document, but just realize that the query engine is key to implementing validation/verification.</para>
-			<para>BizQL.io allows those creating a business report and those receiving business reports such as regulators to agree on the level of fidelity of reported information. The more business rules and automated validation, the higher the information fidelity.  BizQL.io is a system for managing this entire information supply chain.</para>
+			<para>28.io allows those creating a business report and those receiving business reports such as regulators to agree on the level of fidelity of reported information. The more business rules and automated validation, the higher the information fidelity.  28.io is a system for managing this entire information supply chain.</para>
         </sect2>
         <sect2>
             <title>Structure of the remainder of this document</title>
-			<para>We start with a guided tour of the SECXBRL.info front-end, which serves as an illustration of what can be achieved on top of this BizQL.io querying platform. We then show what kind of BizQL queries can be executed on the BizQL.io platform, via a REST API called by a front-end (the source code for the BizQL queries themselves is not shown -- it will be in a separate document that specifically targets technical people).
+			<para>We start with a guided tour of the SECXBRL.info front-end, which serves as an illustration of what can be achieved on top of this 28.io querying platform. We then show what kind of queries can be executed on this platform, via a REST API called by a front-end (the source code for the JSONiq queries themselves is not shown -- it will be in a separate document that specifically targets technical people).
 We finally explain the overall architecture and put it in perspective with modern technologies (NoSQL, NOLAP).</para>
         </sect2>
     </sect1>
@@ -160,7 +160,7 @@ We finally explain the overall architecture and put it in perspective with moder
             <para>The interface is described at http://secxbrl.info/api together with examples that make it easy to use.</para>
 		</sect2>
         <sect2>
-            <title>BizQL.io development platform</title>
+            <title>28.io development platform</title>
             <para>Third, there is an integrated development environment (IDE) which both developers and semi-technical business users who have basic programming skills can use.  This IDE allows these developers and semi-technical business users to interact with the US Public Company Financial Information Repository directly. Not a lot of programming skills are required, if you are comfortable writing VBA in Excel, you will be able to make good use of this IDE.  High-level functions are exposed which make it both easy to use the IDE but also very powerful.  But also, don’t be fooled by the simplicity of the IDE.  The IDE is simple, not simplistic. Using this interface, you can pretty much extract any desired actionable information out of the repository. We will give some examples further down below that highlight how sophisticated this is.</para>
 		</sect2>
 	</sect1>
@@ -228,32 +228,30 @@ We finally explain the overall architecture and put it in perspective with moder
                             <para>The semantics of the financial information, the query language and
                                 the platform are seamlessly integrated.<itemizedlist>
                                     <listitem>
-                                        <para>The user interacts with a query language, BizQL-EDGAR,
-                                            which is specialized for the specific domain of the
+                                        <para>The user interacts with a powerful query language (JSONiq),
+                                          which was extended/specialized for the specific domain of the
                                             information, in this case public company financial
                                             filings provided by the SEC EDGAR system.</para>
                                     </listitem>
                                     <listitem>
-                                        <para>BizQL-EDGAR itself leverages a more general business
-                                            reporting query language, BizQL-Core. BizQL-Core works
-                                            on any XBRL business report which adheres to a “General
-                                            Profile”, basically a general-purpose implementation of
+                                      <para>The JSONiq extension for SEC EDGAR itself leverages a more general extension
+                                            that works on any XBRL business report which adheres to a
+                                            “General Profile”, basically a general-purpose implementation of
                                             XBRL-based business reporting based on the architecture
                                             of the US GAAP XBRL Taxonomy and SEC XBRL financial
                                             filings.</para>
                                     </listitem>
                                     <listitem>
-                                        <para>BizQL-Core itself uses the 28.io query platform and
-                                            its query language JSONiq which is an extension of the
-                                            XQuery global standard. We will explain all this in more
-                                            detail later in this document.</para>
+                                        <para>JSONiq itself uses the 28.io query platform and
+                                          is itself an extension of the XQuery global standard.
+                                          We will explain all this in more detail later in this document.</para>
                                     </listitem>
                                 </itemizedlist></para>
                         </listitem>
                     </itemizedlist></para>
 				<para>All of this taken together results in an easy to use query language which is incredibly
                     fast. The complexity of the processing and the information is absorbed by the
-                    underlying BizQL.io and 28.io platforms, exposing an easy to use and domain
+                    underlying 28.io platform, exposing an easy to use and domain
                     specific query language and great performance/speed to the user. Experience the
                     speed for yourself by using the REST service endpoint above. You can even change
                     the US GAAP XBRL Taxonomy concept to your desire. By changing the URL you can
@@ -270,7 +268,7 @@ We finally explain the overall architecture and put it in perspective with moder
                             for the current period and also for the prior period. Usually, we want a
                             value of a fact only once. The platform sorts this. So, there is no
                             duplicate information and queries are still fast. However, there is
-                            always a way to get to all the information using the BizQL.io
+                            always a way to get to all the information using the 28.io
                             development platform.</para>
                     </listitem>
                     <listitem>
@@ -524,9 +522,9 @@ We finally explain the overall architecture and put it in perspective with moder
 		</sect2>
         <sect2>
             <title>Feature #4: Application Profiles</title>
-            <para>SECXBRL.info showcases how the XBRL-generic BizQL.io platform can be leveraged for
+            <para>SECXBRL.info showcases how the XBRL-generic 28.io platform can be leveraged for
                 SEC in order to easily create an analytics front-end. The core idea is that the
-                powerful BizQL language can be used behind the scenes to create queries; These
+                powerful JSONiq language can be used behind the scenes to create queries; These
                 queries are exposed through a REST API, through which they can be executed
                 efficiently; One single call of the REST API can return information, for example in
                 form of (but not limited to) fact tables for existing, or user-defined components --
@@ -534,10 +532,10 @@ We finally explain the overall architecture and put it in perspective with moder
                 Web site and displayed in a human-friendly way. </para>
             <para>Do not be too focused on how the US Public Company Financial Information
                 Repository looks. This information repository is a pure example of what can be done,
-                and is only the visible tip of the BizQL.io platform iceberg. But more importantly,
+                and is only the visible tip of the 28.io platform iceberg. But more importantly,
                 you can build your own tips-of-the-iceberg, and you are only limited by your
                 imagination.</para>
-            <para>The BizQL.io platform can be extended with many more application profiles than
+            <para>The 28.io platform can be extended with many more application profiles than
                 SEC: for example UK filings, FINREP reports, etc, etc. The XBRL principles apply,
                 and 90% of the work has already been done in the XBRL-generic part of the
                 platform.</para>
@@ -562,14 +560,14 @@ We finally explain the overall architecture and put it in perspective with moder
         <sect2>
             <title>The US Public Company Financial Information Repository</title>
             <para><link xlink:href="http://www.secxbrl.info/">http://www.secxbrl.info/</link></para>
-            <para>This is a front-end implementation on top of BizQL.io, more precisely, on top of
-                the SEC application profile. It is a very robust and performant prototype, and it
+            <para>This is a front-end implementation on top of 28.io, more precisely, on top of
+                the SEC application profile of 28.io. It is a very robust and performant prototype, and it
                 was implemented in a very small amount of time and resources (just a few weeks and
                 two persons).</para>
 		</sect2>
         <sect2>
             <title>The REST API</title>
-            <para>The front-end communicates with the BizQL.io platform via a REST API. Concretely,
+            <para>The front-end communicates with the 28.io platform via a REST API. Concretely,
                 it means that it issues requests over the HTTP protocol, for example:<itemizedlist>
                     <listitem>
                         <para>Getting information about an entity (by ticker symbol)</para>
@@ -618,8 +616,8 @@ We finally explain the overall architecture and put it in perspective with moder
 		</sect2>
         <sect2>
             <title>The SEC Application Profile</title>
-            <para>When the REST API is invoked, what happens behind the scenes is that a BizQL.io
-                query gets executed. In this case, it is a BizQL.io query within the SEC application
+            <para>When the REST API is invoked, what happens behind the scenes is that a 28.io
+                query gets executed. In this case, it is a 28.io query within the SEC application
                 profile, meaning that it knows about the specificities of SEC filings. For example,
                 the profile knows about fiscal years or fiscal periods.</para>
             <para>The SEC XBRL financial filing system was chosen which was implemented as an
@@ -629,7 +627,7 @@ We finally explain the overall architecture and put it in perspective with moder
                 implementation. </para>
 		</sect2>
         <sect2>
-            <title>The BizQL Business Reporting Platform (http://www.bizql.io):</title>
+            <title>The 28.io Business Reporting Platform (http://www.bizql.io):</title>
             <para>The XBRL generic profile was designed with two complementary approaches:<itemizedlist>
                     <listitem>
                         <para>A careful understanding of the XBRL specifications (core, dimensions,
@@ -642,11 +640,11 @@ We finally explain the overall architecture and put it in perspective with moder
                             ambiguous, and other aspects which cause problems. Basically, we learned
                             from the SEC.</para>
                     </listitem>
-                </itemizedlist>This is one implementation of the BizQL.io platform specifically
+                </itemizedlist>This is one implementation of the 28.io platform specifically
                 tuned to work with XBRL. Not all forms of XBRL are supported. Currently tuples and
                 complex typed dimensions are not supported. Neither are table linkbases. We are
                 evaluating whether these aspects of XBRL should be supported. </para>
-            <para>Basically XBRL.io allows for two things: (a) business users can use a “general
+            <para>Basically 28.io allows for two things: (a) business users can use a “general
                 profile” which is very comprehensive, very easy to use, no technical knowledge is
                 required to implement a complete system or (b) a technical architect can either copy
                 an existing application profile such as the general profile and “tweak” it to fit
@@ -655,7 +653,7 @@ We finally explain the overall architecture and put it in perspective with moder
 		</sect2>
         <sect2>
             <title>28.io Information Processing and Querying platform http://www.28.io/</title>
-            <para>The BizQL.io platform builds on top of the 28.io platform. This is a very flexible
+            <para>The 28.io platform is a very flexible
                 information processing platform used by developers to build data intensive systems.
                 With the JSONiq language, programmers can query (project, select, join, etc) across
                 a vast number of data sources (MongoDB, JDBC, Cloudant, CloudSearch, graph
@@ -665,7 +663,7 @@ We finally explain the overall architecture and put it in perspective with moder
 		</sect2>
         <sect2>
             <title>JSONiq and NoSQL http://www.jsoniq.org/</title>
-            <para>JSONiq is the language used by the 28.io (and the BizQL.io) platform.</para>
+            <para>JSONiq is the language used by the 28.io platform.</para>
             <para>JSONiq was designed to query NoSQL data, i.e., heterogeneous, hierarchical data
                 (like the XBRL data).</para>
             <para>The main source of inspiration behind JSONiq is XQuery, which has been proven so
@@ -696,7 +694,7 @@ We finally explain the overall architecture and put it in perspective with moder
 	</sect1>
     <sect1>
         <title>Conclusion</title>
-        <para>The added value of the BizQL.io platform is simplicity for the user, with a better
+        <para>The added value of the 28.io platform is simplicity for the user, with a better
             productivity and performance than competition. The system is extremely complex and
             sophisticated. However, that complexity is buried deep, deep within the system and
             hidden from the system’s users. Code which would take you 1000 lines to write if you
@@ -708,7 +706,7 @@ We finally explain the overall architecture and put it in perspective with moder
             database tables, Excel spreadsheets, CSV files, etc. </para>
         <para><emphasis role="bold">If there is one message to remember it would be this: XBRL
                 Analytics Web sites provide views on 80% of the XBRL data: the easy 80%. We went
-                down the last mile. With BizQL.io, you can quickly build your own front-end and
+                down the last mile. With 28.io, you can quickly build your own front-end and
                 provide views on all 100% of it.</emphasis></para>
 	</sect1>
 
