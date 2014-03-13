@@ -13,7 +13,7 @@ angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http
             $http({
                     method: 'GET', 
                     url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-                    params: { _method: 'POST', cik: cik, tag: selection.tag, fiscalYearFocus: selection.year, fiscalPeriodFocus: selection.period, reportSchema: 'FundamentalAccountingConcepts', "token" : $scope.token },
+                    params: { _method: 'POST', cik: cik, tag: selection.tag, fiscalYear: selection.year, fiscalPeriod: selection.period, reportSchema: 'FundamentalAccountingConcepts', "token" : $scope.token },
                     cache: false
                 })
                 .success(function (data, status, headers, config)

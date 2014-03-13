@@ -9,54 +9,76 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 
-
-variable $cik := let $cik := request:param-values("cik","0000021344")
-                 return if (empty($cik))
-                            then error(QName("local:INVALID-REQUEST"), "cik: mandatory parameter not found")
-                            else $cik;
-variable $periodFocus := let $periodFocus := request:param-values("fiscalPeriodFocus","FY")
-                         return if (empty($periodFocus))
-                                then error(QName("local:INVALID-REQUEST"),"fiscalPeriodFocus: mandatory parameter not found")
-                                else $periodFocus;
-variable $yearFocus := let $yearFocus := request:param-values("fiscalYearFocus","2011") ! ($$ cast as integer)
-                       return if (empty($yearFocus))
-                                then error(QName("local:INVALID-REQUEST"), "fiscalYearFocus: mandatory parameter not found")
-                                else $yearFocus ! ($$ cast as integer);
-
-variable $entity := let $entity := entities:entities($cik ! companies:eid($$))
-                    return if (empty($entity))
-                           then  error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
-                           else  $entity;
-                           
-variable $reportSchema := let $reportSchema := request:param-values("reportSchema","FundamentalAccountingConcepts")
-                          return if(empty($reportSchema))
-                          then error(QName("local:INVALID-REQUEST"),"reportSchema: mandatory parameter not found") 
-                          else $reportSchema;
-                          
-variable $schema := let $schema := report-schemas:report-schemas($reportSchema)
-                    return if (empty($schema))
-                    then  error(QName("local:INVALID-REQUEST"), "Given reportSchema:"||$schema|| " not found")
-                    else $schema;
+let $format  := lower-case(request:param-values("format")[1])
+let $ciks    := distinct-values(companies:eid(request:param-values("cik")))
+let $tags    := distinct-values(request:param-values("tag") ! upper-case($$))
+let $tickers := distinct-values(request:param-values("ticker"))
+let $sics    := distinct-values(request:param-values("sic"))
+let $fiscalYears := distinct-values(
+                        for $y in request:param-values("fiscalYear", "LATEST")
+                        return
+                            if ($y eq "LATEST" or $y eq "ALL")
+                            then $y
+                            else if ($y castable as integer)
+                            then $y cast as integer
+                            else ()
+                    )
+let $fiscalPeriods := let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (lower-case($fp) eq "all")
+                        then ("Q1", "Q2", "Q3", "FY")
+                        else $fp
+let $aids     := request:param-values("aid")
+let $report   := request:param-values("reportSchema")[1]
+let $report   := report-schemas:report-schemas($report)
                     
-variable $aid := request:param-values("aid");
 
+let $archives := archives:archives($aids)
+let $entities := (
+        companies:companies($ciks),
+        companies:companies-for-tags($tags),
+        companies:companies-for-tickers($tickers),
+        companies:companies-for-SIC($sics),
+        if (exists($archives)) then companies:companies($archives.Entity) else () 
+    )
+let $archives :=
+    (for $entity in $entities
+    for $year in distinct-values(
+                        for $f in $fiscalYears
+                        return
+                            switch ($f)
+                            case "LATEST" return
+                                for $p in $fiscalPeriods
+                                return
+                                    if ($p eq "FY")
+                                    then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year
+                                    else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
+                            case "ALL" return ()
+                            default return $f
+                    )
+    for $period in distinct-values(
+                            $fiscalPeriods !
+                                (switch($$)
+                                case "Q1" return ("Q1","YTD1")
+                                case "Q2" return ("Q2","YTD2")
+                                case "Q3" return ("Q3","YTD3")
+                                default return ("Q4","FY")))
+    let $f := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $period, $year)
+    order by $f.Profiles.SEC.AcceptanceDatetime
+    group by $entity._id, $period, $year
+    return $f[1], $archives)
 
-[ 
-for $archive in 
-        (if (exists($entity))
-        then
-            for $e in $entity, $p in $periodFocus, $y in $yearFocus
-            for $f in sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($e, $p, $y)
-            order by $f.Profiles.SEC.AcceptanceDatetime
-            group by $e._id, $p, $y
-            return $f[1]
-        else (), archives:archives($aid))
-let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :) 
-let $populatedSchema := sec:populate-schema-with-facts($schema, $archive)
-return  if(session:only-dow30($entity) or session:valid())
-        then $populatedSchema
-        else {
-            response:status-code(401);
-            session:error("accessing filings of an entity that is not in the DOW30", $format)
-        }
-]
+return
+    switch(true)
+    case empty($archives) return {
+        response:status-code(404);
+        session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
+    }
+    case not (session:only-dow30($entities) or session:valid()) return {
+        response:status-code(401);
+        session:error("accessing facts of an entity that is not in the DOW30", $format)
+    }
+    default return [
+        for $archive in $archives
+        return sec:populate-schema-with-facts($report, $archive)
+    ]
