@@ -381,7 +381,7 @@ We finally explain the overall architecture and put it in perspective with moder
                     information): </para>
                 <para><inlinemediaobject>
                         <imageobject>
-                            <imagedata fileref="images/image02.jpg"/>
+                            <imagedata fileref="/images/image02.jpg"/>
                         </imageobject>
                     </inlinemediaobject></para>
                 <para>You can also view it online at <link
@@ -545,18 +545,13 @@ We finally explain the overall architecture and put it in perspective with moder
         <title>Architecture</title>
         <para>In the remainder of this paper, we will dive a bit into the details of the
             architecture that enables all the above features.</para>
-        <figure>
-            <title>image04.jpg</title>
-            <mediaobject>
+
+        <para><inlinemediaobject>
                 <imageobject>
-                    <imagedata
-                        fileref="../../../Downloads/UnderstandingtheUSPublicCompanyFinancialInformationRepository/images/image04.jpg"
-                    />
+                    <imagedata fileref="images/image04.jpg"/>
                 </imageobject>
-            </mediaobject>
-        </figure>
-        <para>The system has three important distinguishable layers. Starting at the business-facing
-            top, all the way to down to the bottom:</para>
+            </inlinemediaobject>The system has three important distinguishable layers. Starting at
+            the business-facing top, all the way to down to the bottom:</para>
         <sect2>
             <title>The US Public Company Financial Information Repository</title>
             <para><link xlink:href="http://www.secxbrl.info/">http://www.secxbrl.info/</link></para>
