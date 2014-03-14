@@ -24,7 +24,7 @@
                             <col width="20%" ng-repeat="n in reports[0].items[0].value track by $index"></col>
                         </cols>
                         <tbody ng-repeat="report in reports">
-                            <tr><td colspan="{{(report.items.length + 1)}}" class="h4"><a class="h4 highlight3" href="javascript://" ng-click="showtab[$index]=!showtab[$index]"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a></td></tr>
+                            <tr><td colspan="{{(report.items.length + 1)}}" class="h4"><a class="h4 highlight3" ng-click="showtab[$index]=!showtab[$index]"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a></td></tr>
                             <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
                                 <td>{{item.label}}</td>
                                 <td class="nowrap" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">

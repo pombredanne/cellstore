@@ -2,6 +2,10 @@ html, body {
 	height: 100%;
 }
 
+a {
+    cursor: pointer;
+}
+
 .table-responsive {
 	border: 0px;
 }
@@ -46,8 +50,17 @@ a.disabled {
 #spinner { 
 	color: whitesmoke;
 	position: absolute;
-	top: 16px;
-	left: 270px;
+	top: 20px;
+	left: 190px;
+    font-size: 2em;
+}
+
+@media (min-width: 768px) {
+    #spinner { 
+        font-size: 3em;
+	    top: 17px;
+	    left: 270px;
+    }
 }
 
 .highlight1 {
@@ -1534,4 +1547,12 @@ ul.selector li.disabled:after
 
 table.excel > tbody > tr > td:first-child {
     min-width: 240px;
+}
+
+#whitepaper {
+    background: #FFFFFF;
+}
+
+#whitepaper img {
+    max-width: 100%;
 }
