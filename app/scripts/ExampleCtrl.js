@@ -6,24 +6,28 @@ angular.module('main').controller('ExampleCtrl', ['$scope', '$route', '$http', '
         name: "TotalAssets",
         description: "Total Assets of all 10-Ks grouped by fiscal period and fiscal year.",
         file: 'api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq', 
+        category: "Whitepaper",
         params: { concept: "us-gaap:Assets", fiscalPeriod: "FY" } 
       },
       { 
         name: "TotalLiabilitiesAndEquity",
         description: "Total liabilities and equity of all 10-Ks grouped by fiscal period and fiscal year. The selection of the concept is done using a concept named fac:LiabilitiesAndEquity which is defined in the concept map called FundamentalAccountingConcepts.",
         file: 'api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq',
+        category: "Whitepaper",
         params: { concept: "fac:LiabilitiesAndEquity", fiscalPeriod: "FY", map: "FundamentalAccountingConcepts" }
       },
       {
         name: "ResearchAndDevelopment",
         description: "All facts for the concept fac:ResearchAndDevelopment for the fiscal period FY, the fiscal year 2012, for all DOW30 entities.",
         file: 'api/facts.jq',
+        category: "Whitepaper",
         params: { concept: "fac:ResearchAndDevelopment", fiscalPeriod: "FY", fiscalYear : "2012", tag : "DOW30", map: "FundamentalAccountingConcepts" }
       },
       {
         name: "FundamentalAccountingConcepts",
         description: "The fact table of the fundamental accounting concepts of Coca Cola's 10-K/2012.",
         file: 'api/facttable-for-report.jq',
+        category: "Whitepaper",
         params: { fiscalPeriod: "FY", fiscalYear : "2012", ticker : "ko", report: "FundamentalAccountingConcepts" }
       }
    ];
@@ -90,7 +94,7 @@ angular.module('main').controller('ExampleCtrl', ['$scope', '$route', '$http', '
 
   $scope.getUrl = function(format) { 
       var p = angular.copy($scope.params);
-      angular.extend(p, { "format": format });
+      if (format) angular.extend(p, { "format": format });
       return $backend.API_URL + '/_queries/public/' + $scope.example.file + '?' + decodeURIComponent($.param(p));
   };
 
@@ -98,10 +102,18 @@ angular.module('main').controller('ExampleCtrl', ['$scope', '$route', '$http', '
       return string.replace(/([A-Z])/g, ' $1');
   };
 
+  $scope.getCategories = function() { 
+      var categories = [];
+      $scope.examples.forEach(function(ex) { if (categories.indexOf(ex.category) < 0) categories.push(ex.category); });
+      return categories;
+  };
+
   if ($route.current.params.example)
       $scope.examples.forEach(function(ex) { 
-        if (ex.name == $route.current.params.example)
+        if (ex.name == $route.current.params.example) {
+            $scope.category = ex.category;
             $scope.getExample(ex);
+        }
       });
  }
 ]);

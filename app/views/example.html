@@ -1,16 +1,48 @@
 <div class="topbar"></div>
+<div class="bread-crumb">
+    <span class="dropdown">
+        <a href="javascript://" class="dropdown-toggle">All Examples</a>
+        <ul class="dropdown-menu">
+            <li ng-repeat="c in getCategories()" class="dropdown-submenu">
+                <a href="javascript://">{{spacify(c)}}</a>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="ex in examples | filter: {category: c}">
+                        <a href="/example/{{ex.name}}">{{spacify(ex.name)}}</a>
+                    </li>
+                </ul>
+          </li>
+        </ul>
+    </span>
+    <i class="sep"></i>
+    <span class="dropdown">
+        <a href="javascript://" class="dropdown-toggle">{{spacify(category)}} Examples</a>
+        <ul class="dropdown-menu">
+            <li ng-repeat="ex in examples | filter: {category: category}">
+                <a href="/example/{{ex.name}}">{{spacify(ex.name)}}</a>
+            </li>
+        </ul>
+        </ul>
+    </span>
+    <i class="sep"></i>
+</div>
 <div class="row">
 	<div class="col-md-12">
         <div class="spaced">
           <div class="container white-box">
-              <span class="dropdown pull-right">
-                <a href="javascript://" class="dropdown-toggle">Other Examples</a>
-                <ul class="dropdown-menu">
-                    <li ng-repeat="ex in examples" ng-if="ex.name!=example.name"><a href="/example/{{ex.name}}">{{spacify(ex.name)}}</a></li>
-                </ul>
-              </span>
+                <span class="dropdown pull-right">
+                    <a href="javascript://" class="dropdown-toggle">Related Examples</a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="ex in examples | filter: {category: category}">
+                            <a href="/example/{{ex.name}}">{{spacify(ex.name)}}</a>
+                        </li>
+                    </ul>
+                    </ul>
+                </span>
               <h3 class="highlight3">{{spacify(example.name)}}</h3>
               <h6 style="color: #999999">{{example.description}}</h6>
+              <div id="api">
+                <pre ng-bind="getUrl(null)"></pre>
+              </div>
               <table class="table table-condensed small">
                 <tbody>
                   <tr ng-repeat="(key, value) in data" ng-if="(key!='FactTable' && key!='Comment')"><td>{{key}}</td><td>{{value}}</td></tr>
