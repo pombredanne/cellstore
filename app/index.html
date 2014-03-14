@@ -10,7 +10,8 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link href="/apple-touch-icon.png" rel="apple-touch-icon">
+        <link href="/favicon.ico" rel="icon">
         <!-- build:css({.tmp,app}) styles/main.css -->
         <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
         <link rel="stylesheet" href="/bower_components/animate.css/animate.css">
@@ -39,7 +40,7 @@
                 <div class="collapse navbar-collapse" role="navigation">
                     <div class="nav navbar-nav navbar-right" on-document-click="toggleMenu($event, false)">
                         <div ng-show="user" class="ontop">
-                            <a href="/account">{{user.firstname}} {{user.lastname}}</a> <a class="btn btn-xs" style="border: 1px solid;" href="javascript://" ng-click="logout()">Logout</a>
+                            <a href="/account">{{user.firstname}} {{user.lastname}}</a> <a class="btn btn-xs" style="border: 1px solid;" ng-click="logout()">Logout</a>
                         </div>
                         <div ng-hide="user" class="ontop">
                             <a class="btn btn-xs" style="border: 1px solid;" href="/auth" ng-class="{ active: (page == '/views/auth.html') }">Login / Signup</a>
@@ -50,7 +51,7 @@
                         <div ng-if="DEBUG"><a href="/comparison" ng-class="{ active: (page == '/views/comparison.html') }">Comparison</a></div>
                         <div><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a></div>
                         <div>
-                            <a href="javascript://" ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">More...</a>
+                            <a ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">More...</a>
                             <ul class="sub-nav" ng-hide="!visibleMenu">
                                 <li><a href="/about">About</a></li>
                                 <li><a href="mailto:hello@28.io">Contact Us</a></li>
