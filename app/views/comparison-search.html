@@ -34,14 +34,14 @@
                 
                 <div class="spaced">
                     <div ng-repeat="key in selection.conceptMapKeys">
-                        <a href="javascript://" ng-click="selection.conceptMapKeys.splice(selection.conceptMapKeys.indexOf(key), 1)"><i class="fa fa-times"></i></a>
-                        <a href="javascript://" popover="{{key}}" popover-position="top" popover-trigger="focus">{{substring(key, 50)}}</a>
+                        <a ng-click="selection.conceptMapKeys.splice(selection.conceptMapKeys.indexOf(key), 1)"><i class="fa fa-times"></i></a>
+                        <a popover="{{key}}" popover-position="top" popover-trigger="focus">{{substring(key, 50)}}</a>
                     </div>
                 </div>
 
-                <h4 class="highlight3">Dimensions <a href="javascript://" class="highlight3" ng-click="addDimension()"><i class="fa fa-plus-square-o"></i></a></h4>
+                <h4 class="highlight3">Dimensions <a class="highlight3" ng-click="addDimension()"><i class="fa fa-plus-square-o"></i></a></h4>
                 <div ng-repeat="key in selection.dimensions">
-                    <a href="javascript://" ng-click="selection.dimensions.splice(selection.dimensions.indexOf(key), 1)"><i class="fa fa-times"></i></a>
+                    <a ng-click="selection.dimensions.splice(selection.dimensions.indexOf(key), 1)"><i class="fa fa-times"></i></a>
                     {{ key.name }} = {{ key.value }}
                 </div>
                 <div ng-hide="selection.dimensions.length">
@@ -109,7 +109,7 @@
                       <td ng-repeat="value in enumerate(item.Aspects)" class="nowrap"><span ng-if="$index==entityIndex">{{value.substring(23)}} ({{item.EntityRegistrantName}})</span><span ng-if="$index!=entityIndex">{{value}}</span></td>
                       <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
                       <td ng-if="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
-                      <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a href="javascript://" ng-click="showText(item.Value)">Show Text</a></td>
+                      <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
                       <td>{{item.Unit=='xbrl:NonNumeric'?"":clear(item.Unit)}}</td>
                       <td>{{item.Decimals}}</td>
                     </tr>

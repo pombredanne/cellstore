@@ -12,7 +12,7 @@
     <h1>Resource Overview</h1>
     <div ng-repeat="api in content.apis">
       <ul>
-        <li><a href="javascript://" ng-click="gotoId(api.description)">{{api.path}}: {{api.description}}</a></li>
+        <li><a ng-click="gotoId(api.description)">{{api.path}}: {{api.description}}</a></li>
       </ul>
     </div>
     <div ng-repeat="api in content.apis">
