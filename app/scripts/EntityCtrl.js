@@ -16,7 +16,7 @@ angular.module('main').controller('EntityCtrl', ['$scope', '$route', '$http', '$
 
     $scope.getdata = function() {
         $scope.result = null;
-        $scope.service.listEntities({ cik: $scope.cik, token: $scope.token, $method: 'POST' })
+        $scope.service.listEntities({ $method: 'POST', cik: $scope.cik, token: $scope.token })
             .then(
                 function(data) {
                     $scope.result = data.Entities[0];

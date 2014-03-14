@@ -202,7 +202,7 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
     $scope.loadPopover = function() {
         $scope.showPopover = true;
         $scope.result = null;
-        $scope.service.listEntities({ cik: $scope.cik, token: $scope.token, $method: 'POST' })
+        $scope.service.listEntities({ $method: 'POST', cik: $scope.cik, token: $scope.token })
             .then(
                 function(data) {
                     $scope.result = data.Entities[0];

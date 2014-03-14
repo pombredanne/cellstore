@@ -91,6 +91,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
         var concepts = ['fac:Revenues', 'fac:NetIncomeLoss', 'fac:LiabilitiesAndEquity', 'fac:Equity'];
         
         $scope.service.listFacts({
+                $method: 'POST',
                 concept: concepts,
                 map: 'FundamentalAccountingConcepts',
                 fiscalYear: fiscalYears,
@@ -180,7 +181,7 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
     $scope.loadPopover = function() {
         $scope.showPopover = true;
         $scope.result = null;
-        $scope.service.listEntities({ cik: $scope.cik, token: $scope.token, $method: 'POST' })
+        $scope.service.listEntities({ $method: 'POST', cik: $scope.cik, token: $scope.token })
             .then(
                 function(data) {
                     $scope.result = data.Entities[0];

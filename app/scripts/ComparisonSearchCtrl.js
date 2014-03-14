@@ -120,7 +120,7 @@ angular.module('main').controller('ComparisonSearchCtrl', ['$scope', '$http', '$
 
         $scope.data = [];
         var request = { 
-                _method: "POST", 
+                $method: "POST", 
                 cik: [], 
                 tag: $scope.selection.filter.tag,
                 fiscalYear: $scope.selection.filter.year,

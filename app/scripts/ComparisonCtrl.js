@@ -11,7 +11,7 @@ angular.module('main').controller('ComparisonCtrl', ['$scope', '$backend', 'Quer
             var cik = [];
             selection.entity.forEach(function(entity) { cik.push(entity.cik); });
             $scope.service.listFilings({ 
-                    _method: "POST", 
+                    $method: 'POST', 
                     cik: cik, 
                     tag: selection.tag,
                     fiscalYear: selection.year,
