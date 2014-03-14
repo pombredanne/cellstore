@@ -25,7 +25,7 @@ let $fiscalYears := distinct-values(
                     )
 let $fiscalPeriods := let $fp := request:param-values("fiscalPeriod", "FY")
                       return
-                        if (lower-case($fp) eq "all")
+                        if (($fp ! lower-case($$)) = "all")
                         then ("Q1", "Q2", "Q3", "FY")
                         else $fp
 let $aids     := request:param-values("aid")
@@ -63,7 +63,7 @@ let $archives :=
                                 case "Q2" return ("Q2","YTD2")
                                 case "Q3" return ("Q3","YTD3")
                                 default return ("Q4","FY")))
-    let $f := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $period, $year)
+    for $f in sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $period, $year)
     order by $f.Profiles.SEC.AcceptanceDatetime
     group by $entity._id, $period, $year
     return $f[1], $archives)
