@@ -1532,11 +1532,6 @@ ul.selector li.disabled:after
     }
 }
 
-table.excel .subtitle {
-    font-weight: bold;
-    background-color: #AAAAAA;
-}
-
 table.excel > tbody > tr > td:first-child {
     min-width: 240px;
 }
