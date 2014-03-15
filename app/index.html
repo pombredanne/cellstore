@@ -47,16 +47,20 @@
                     <a class="btn btn-xs" ng-click="logout()">Logout</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li><a href="/" ng-class="{ active: (page == '/views/home.html') }">Home</a></li>
-                    <li><a href="/entity" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' ) }">Entities</a>
+                    <li ng-class="{ active: (page == '/views/home.html') }">
+                        <a href="/">Home</a>
                     </li>
-                    <li><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a>
+                    <li ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' ) }">
+                        <a href="/entity">Entities</a>
+                    </li>
+                    <li ng-class="{ active: (page == '/views/api.html') }">
+                        <a href="/api">API</a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="/about">About</a></li>
                             <li><a href="/how">How it Works</a></li>
-                            <li><a href="/company/about">28msec</a></li>
                             <li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>    
                         </ul>
                     </li>
@@ -66,8 +70,10 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-    <div class="ng-view"></div>
-    <footer>
+    <div class="wrapper">
+        <div class="ng-view"></div>
+    </div>
+    <footer sticky-footer>
         <div class="navbar container">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="mailto:hello@28.io">Contact Us</a>

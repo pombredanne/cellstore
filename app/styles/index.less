@@ -2,6 +2,9 @@
 @import "fonts.less";
 @import "home.less";
 
+a {
+    cursor: pointer;
+}
 
 //Progress bar
 .ngProgressLite {
@@ -40,7 +43,16 @@
     margin-left: 15px;
 }
 
+.topbar .btn-group {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: @clouds;
+}
+
+
 footer {
     margin-top: 6em;
     background-color: @clouds;
+    z-index: 100;
+    position: relative;
 }

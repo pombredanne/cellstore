@@ -10,7 +10,19 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
     $rootScope.$on('$routeChangeSuccess', function() {
         ngProgressLite.done();
     }); 
-})   
+})
+.directive('stickyFooter', function(){
+    return function($scope, elm) {
+        var resize = function(){
+            var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            var footer = document.querySelector('footer');
+            var view = document.querySelector('.wrapper');
+            view.style.minHeight = (height - 50 - footer.getBoundingClientRect().height) + 'px';
+        };
+        angular.element(window).bind('resize', resize);
+        resize();
+    };
+})
 .factory('$backend', function($q, $http, API_URL, DEBUG) {
     return {
 		API_URL: API_URL,
@@ -346,10 +358,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         .when('/concept-map/:name', {
             templateUrl: '/views/concept-map.html',
             controller: 'ConceptMapCtrl'
-        })
-        .when('/company/:section', {
-            templateUrl: '/views/company.html',
-            controller: 'CompanyCtrl'
         })
         .when('/example/:example', {
             templateUrl: '/views/example.html',
