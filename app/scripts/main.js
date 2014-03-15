@@ -134,28 +134,28 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	return {
 		// On request success
 		request: function (config) {
-			$("#spinner").show();
+			//$("#spinner").show();
 			// Return the config or wrap it in a promise if blank.
 			return config || $q.when(config);
 		},
  
 		// On request failure
 		requestError: function (rejection) {
-			$("#spinner").show();
+			//$("#spinner").show();
 			// Return the promise rejection.
 			return $q.reject(rejection);
 		},
 		 
 		// On response success
 		response: function (response) {
-			$("#spinner").hide();
+			//$("#spinner").hide();
 			// Return the response or promise.
 			return response || $q.when(response);
 		},
 		 
 		// On response failture
 		responseError: function (rejection) {
-			$("#spinner").hide();
+			//$("#spinner").hide();
 			// Return the promise rejection.
 			return $q.reject(rejection);
 		}

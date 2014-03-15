@@ -1,137 +1,79 @@
-<div style="background: #FFFFFF">
-	<div class="v-center-area" scroll-id="top">
-		<div class="v-center-content">
-			<img src="/images/bg.jpg" style="width: 100%; display: none" class="animated fadeIn" onload="$(this).css('display', 'block'); $('.loader').css('display', 'none');">
-			<div class="v-center-block">
-				<div class="container nowrap">
-					<h3 class="highlight2"><span class="magnified nowrap">US Public Company<br>Financial Information<br>Repository</span></h3>
-					<span class="highlight2">(Working prototype developed using BizQL.io)</span>
-					<br><br>
-					<button class="btn btn-green btn-lg magnified" ng-click="goto('/about')">Learn More</button>
-				</div>
-			</div>
-		</div>
-        <div class="loader">
-			<i class="fa fa-5x fa-spinner fa-spin"></i>
-		</div>
-	</div>
-
-	<div class="container text-center spaced" scroll-id="whatis">
-		<a class="pull-right close small" href="javascript://" ng-click="gotoId('top')"><i class="fa fa-arrow-up"></i></a>
-		<div class="row">
-			<h3><span class="magnified">What is SECXBRL.info?</span></h3>
-		</div>
-		<div class="row">
-			<h4 class="col-md-10 col-md-offset-1" style="color: #727272;"><span class="magnified">A database of US public company financial information submitted to the US Securities and Exchange Commission using the global standard XBRL technical syntax</span></h4>
-		</div>
-		<div class="row text-center">
-			<ul class="poweredby">
-				<li>Developed by </li>
-				<li>
-					<a href="http://www.28msec.com" target="_blank">
-						<img src="/images/28msec.png">
-					</a>
-				</li>
-				<li>using</li>
-				<li>
-					<a href="http://www.bizql.io" target="_blank">
-						BizQL.io
-					</a>
-				</li>
-			</ul>
-		</div>
-        <div class="row">
-            <div class="col-sm-6">
-                <table class="thumbnail text-left" style="width: 100%;">
-                <tr>
-                    <td style="width: 110px; padding: 20px;">
-                        <img src="/images/features_1.png" style="width: 70px;" class="animated fadeIn">
-                    </td>
-                    <td>
-                        <h4>Sophisticated Semantic Processing</h4>
-                        Semantically extract or compute any kind of information like facts across filings or fact tables for a particular component.
-                        The platform deals with amendments, allows filtering by explicit dimensions or custom mapping when retrieving facts by concepts.
-                    </td>
-                </tr>
-                </table>
-            </div>
-            <div class="col-sm-6">
-                <table class="thumbnail text-left" style="width: 100%;">
-                <tr>
-                    <td style="width: 110px; padding: 20px;">
-                        <img src="/images/features_2.png" style="width: 70px;" class="animated fadeIn">
-                    </td>
-                    <td>
-                        <h4>Custom Components</h4>
-                        Aggregate information from multiple report components and come up with a uniform representation by mapping or imputing missing values. 
-                        The platform allows you to create your custom components that are populated in real-time allowing you to compare filings.
-                    </td>
-                </tr>
-                </table>
-            </div>
-		</div>
-        <div class="row">
-            <div class="col-sm-6">
-                <table class="thumbnail text-left" style="width: 100%;">
-                <tr>
-                    <td style="width: 110px; padding: 20px;">
-                        <img src="/images/features_3.png" style="width: 70px;" class="animated fadeIn">
-                    </td>
-                    <td>
-                        <h4>Performance</h4>
-                        Queries that took hours or days to compute before, can be executed within seconds. The platform exploits latest database technology and distributes the processing across machines in the cloud.
-                    </td>
-                </tr>
-                </table>
-            </div>
-            <div class="col-sm-6">
-                <table class="thumbnail text-left" style="width: 100%;">
-                <tr>
-                    <td style="width: 110px; padding: 20px;">
-                        <img src="/images/features_4.png" style="width: 70px;" class="animated fadeIn">
-                    </td>
-                    <td>
-                        <h4>Application Profiles</h4>
-                        Analyze information from any kind of profile (e.g. Edgar or FINREP). The platform was designed to store and query data in any profile in real time.
-                    </td>
-                </tr>
-                </table>
+<div id="home">
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div>
+                    <h1>
+                        US Public Company<br>
+                        Financial Information<br>
+                        Repository
+                    </h1>
+                    <p class="subtitle">Powered by <a href="http://28.io">28.io</a></p>
+                    <button class="btn btn-primary btn-lg">Learn More</button>
+                </div>
             </div>
         </div>
-
-	</div>
-</div>
-<div style="background: #EEEEEE">
-	<div class="container text-center spaced" scroll-id="details">
-
-	<div class="container spaced">
-		<div class="row">
-			<ul class="normal">
-				<li class="col-md-4 text-center">
-					<i class="animated fadeIn fa fa-5x fa-bar-chart-o"></i>
-					<h3>UI</h3>
-					<p style="color: #626262;">
-						A powerful user interface allows you to visually explore and compare data within or across entities.
-					</p>
-				</li>
-				<li class="col-md-4 text-center">
-					<i class="animated fadeIn fa fa-5x fa-cogs"></i>
-					<h3>REST API</h3>
-					<p style="color: #626262;">
-						An easy to use REST-based API allows you to manually or programmatically extract information in many data formats to be used in Excel or for building new applications.
-					</p>
-				</li>
-				<li class="col-md-4 text-center">
-					<i class="animated fadeIn fa fa-5x fa-code"></i>
-					<h3>Custom Development using BizQL</h3>
-					<p style="color: #626262;">
-						An extremely powerful and highly optimized query language (BizQL) allows you to develop your own algorithms and extend the provided REST API with only basic programming skills.
-					</p>
-				</li>
-			</ul>
-		</div>
-	</div>
-		<h3>Free Access to DOW30 company information</h3>
-		<button class="btn btn-green btn-lg" ng-click="gotologin()">Sign Up</button> to access all SEC dataset
-	</div>
+    </div>
+    <div class="container">
+        <section class="text-center">
+            <h1>Access to Financial Information the Way It Should Be</h1>
+            <p>
+                Complete database of U.S. public company financial information. User-friendly and affordable access.<br>
+                The database contains information submitted to the SEC using the global standard XBRL syntax.<br>
+            </p>
+            <p>
+                <a href="#" class="btn btn-primary">Download the whitepaper</a>
+            </p>
+        </section>
+        <section class="row">
+            <div class="col-lg-6">
+                <h2>Sophisticated Semantic Analysis</h2>
+                <p>Compare or aggregate facts across filings, entities, periods, or sectors. Filter by any combination of explicit dimensions. Easily deal with amendments or duplicated information. Apply custom mappings of synonymous concepts. Use business rules to compute unreported facts or key ratios.</p>
+                <p>The fesswise servant reveals itself as an unsparred current to those who look. As far as we can estimate, the literature would have us believe that a guiltless rain is not but a shock. They were lost without the endless sleet that composed their yew.</p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="/images/svg/graph.svg" class="pictogram">
+            </div>
+        </section>
+        <section class="row">
+            <div class="col-lg-6 text-center">
+                <img src="/images/svg/clipboard.svg" class="pictogram">
+            </div>
+            <div class="col-lg-6">
+                <h2>Custom Reports</h2>
+                <p>Create reports the way you need them. Add aggregates, ratios, or external information. Create your own validation or verification rules. Compare across competitors or sectors.</p>
+                <p>Some posit the smarty tortellini to be less than awful. A fine of the anime is assumed to be a nicest chinese. The unsought distribution comes from an unmarked iris.</p>
+            </div>
+        </section>
+        <section class="row">
+            <div class="col-lg-6">
+                <h2>Real-Time</h2>
+                <p>Perform truly interactive data analysis. Get answers to even the most sophisticated queries in seconds. Slice and dice, drill down, everything in real-time.</p>
+                <p>Some posit the smarty tortellini to be less than awful. A fine of the anime is assumed to be a nicest chinese. The unsought distribution comes from an unmarked iris.</p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="/images/svg/clocks.svg" class="pictogram">
+            </div>
+        </section>
+        <section class="row">
+            <div class="col-lg-6 text-center">
+                <img src="/images/svg/xbrlfiling.svg" class="pictogram">
+            </div>
+            <div class="col-lg-6">
+                <h2>Bring Your Own Filings</h2>
+                <p>Upload, analyze, and compare your own financial filings. Analyze information in any kind of XBRL profile (e.g. Edgar or FINREP).</p>
+                <p>Some posit the smarty tortellini to be less than awful. A fine of the anime is assumed to be a nicest chinese. The unsought distribution comes from an unmarked iris.</p>
+            </div>
+        </section>
+        <section class="row">
+            <div class="col-lg-6">
+                <h2>Bring Your Own Filings</h2>
+                <p>Upload, analyze, and compare your own financial filings. Analyze information in any kind of XBRL profile (e.g. Edgar or FINREP).</p>
+                <p>Some posit the smarty tortellini to be less than awful. A fine of the anime is assumed to be a nicest chinese. The unsought distribution comes from an unmarked iris.</p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="/images/svg/xbrlfiling.svg" class="pictogram">
+            </div>
+        </section>
+    </div>
 </div>
