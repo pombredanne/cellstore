@@ -1,6 +1,16 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants'])
+angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite'])
+.run(function($rootScope, ngProgressLite) {
+        
+    $rootScope.$on('$routeChangeStart', function() {
+        ngProgressLite.start();
+    }); 
+        
+    $rootScope.$on('$routeChangeSuccess', function() {
+        ngProgressLite.done();
+    }); 
+})   
 .factory('$backend', function($q, $http, API_URL, DEBUG) {
     return {
 		API_URL: API_URL,
@@ -130,33 +140,29 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 })
 
 // Intercept http calls.
-.factory('RootScopeSpinnerInterceptor', function ($q, $rootScope) {
+.factory('RootScopeSpinnerInterceptor', function ($q, $rootScope, ngProgressLite) {
 	return {
 		// On request success
 		request: function (config) {
-			//$("#spinner").show();
-			// Return the config or wrap it in a promise if blank.
+            ngProgressLite.start();
 			return config || $q.when(config);
 		},
  
 		// On request failure
 		requestError: function (rejection) {
-			//$("#spinner").show();
-			// Return the promise rejection.
+            ngProgressLite.start();
 			return $q.reject(rejection);
 		},
 		 
 		// On response success
 		response: function (response) {
-			//$("#spinner").hide();
-			// Return the response or promise.
+            ngProgressLite.done();
 			return response || $q.when(response);
 		},
 		 
 		// On response failture
 		responseError: function (rejection) {
-			//$("#spinner").hide();
-			// Return the promise rejection.
+            ngProgressLite.done();
 			return $q.reject(rejection);
 		}
 	};
