@@ -18,7 +18,7 @@
     <div style="top: 30px; left: 5%; display: block; max-width: 500px; width: 90%;" class="popover bottom right fade in" ng-show="showPopover">
       <!--<div class="arrow" style="position: absolute;"></div>-->
       <div class="popover-inner">
-          <a href="javascript://" ng-click="closePopover()" class="close" style="padding: 6px;">&times;</a>
+          <a ng-click="closePopover()" class="close" style="padding: 6px;">&times;</a>
           <h3 class="popover-title">{{name}}</h3>
           <div class="popover-content">
             <table style="width: 100%" cellpadding="2">
@@ -55,14 +55,14 @@
     </div>
 	<div class="col-left col-md-3 col-sm-4 col-xs-12">
 		<div class="col-xs-12">
-            <span class="pull-right" ng-show="cik"><a href="javascript://" class="highlight3" ng-click="loadPopover()">Details</a> | <a href="/entity" class="highlight3">Switch Entity</a></span>
+            <span class="pull-right" ng-show="cik"><a class="highlight3" ng-click="loadPopover()">Details</a> | <a href="/entity" class="highlight3">Switch Entity</a></span>
 		    <h6 class="nowrap">ENTITY</h6>
 			<input class="form-control" ng-class="{ 'fade-control': !cik }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
 				   placeholder="Search for an entity..." ng-click="focused=true;" ng-readonly="cik"
                    typeahead-template-url="typeaheadmulti.html"
 				   typeahead="entity for entity in entities | filter:$viewValue | limitTo:8">
             <script type="text/ng-template" id="typeaheadmulti.html">
-            <a href="javascript://" tabindex="-1" class="multicol">
+            <a tabindex="-1" class="multicol">
                <div ng-bind-html='match.model.name | typeaheadHighlight:query'></div>
                <small ng-bind-html='"CIK: " + match.model.cik + (match.model.tickers[0] ? ", Ticker: " + match.model.tickers[0] : "") | typeaheadHighlight:query'></small>
             </a>
@@ -101,7 +101,7 @@
 				<h6>FUNDAMENTAL ACCOUNTING</h6>
 				<ul class="normal">
 					<li ng-repeat="report in reports">
-						<a class="highlight3" href="javascript://" ng-click="showtab[$index]=true; gotoId('report' + $index)">{{report.name}}</a>
+						<a class="highlight3" ng-click="showtab[$index]=true; gotoId('report' + $index)">{{report.name}}</a>
 					</li>
 				</ul>
 			</div>
@@ -114,8 +114,8 @@
 			<div class="row">
 			<div class="col-md-12" ng-repeat="report in reports" scroll-id="report{{$index}}">
 			<div class="white-box nav">
-				<a class="pull-right close small" href="javascript://" ng-click="gotoId('report0')"><i class="fa fa-arrow-up"></i></a>
-				<a class="h4 highlight3" href="javascript://" ng-click="showtab[$index]=!showtab[$index]" style="margin-left: -10px"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a>
+				<a class="pull-right close small" ng-click="gotoId('report0')"><i class="fa fa-arrow-up"></i></a>
+				<a class="h4 highlight3" ng-click="showtab[$index]=!showtab[$index]" style="margin-left: -10px"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a>
 
 				<div class="scrolling" ng-show="showtab[$index]">
 					<table class="table">
@@ -134,10 +134,10 @@
 							<td style="min-width: 250px">{{item.label}}</td>
 							<td class="nowrap" ng-class="{ 'text-right' : (item.type == 'NumericValue') }">{{item.value}}</td>
 							<td>
-								<a href="javascript://" popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="focus" ng-if="item.auditValue">
+								<a popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="focus" ng-if="item.auditValue">
 									{{substring(item.auditValue, 30)}}
 								</a>
-                                <span ng-if="!item.auditValue">Not Reported</span>
+                                <span ng-if="!item.auditValue">Not Reported (Coming Soon)</span>
 							</td>
 						</tr>
 						</tbody>

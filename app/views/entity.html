@@ -17,7 +17,7 @@
                    typeahead-template-url="typeaheadmulti.html"
 				   typeahead="entity for entity in entities | filter:$viewValue | limitTo:8">
             <script type="text/ng-template" id="typeaheadmulti.html">
-            <a href="javascript://" tabindex="-1" class="multicol">
+            <a tabindex="-1" class="multicol">
                <div ng-bind-html='match.model.name | typeaheadHighlight:query'></div>
                <small ng-bind-html='"CIK: " + match.model.cik + (match.model.tickers[0] ? ", Ticker: " + match.model.tickers[0] : "") | typeaheadHighlight:query'></small>
             </a>

@@ -23,13 +23,11 @@ let $fiscalYears := distinct-values(
                             then $y cast as integer
                             else ()
                     )
-let $fiscalPeriods := distinct-values(
-                        for $fp in request:param-values("fiscalPeriod", "FY")
-                        return
-                            if ($fp eq "ALL")
-                            then ("Q1", "Q2", "Q3", "FY")
-                            else $fp
-                    )
+let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (($fp ! lower-case($$)) = "all")
+                        then ("Q1", "Q2", "Q3", "FY")
+                        else $fp)
 let $aids     := request:param-values("aid")
 let $report   := request:param-values("reportSchema")[1]
 let $report   := report-schemas:report-schemas($report)
@@ -65,7 +63,7 @@ let $archives :=
                                 case "Q2" return ("Q2","YTD2")
                                 case "Q3" return ("Q3","YTD3")
                                 default return ("Q4","FY")))
-    let $f := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $period, $year)
+    for $f in sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $period, $year)
     order by $f.Profiles.SEC.AcceptanceDatetime
     group by $entity._id, $period, $year
     return $f[1], $archives)

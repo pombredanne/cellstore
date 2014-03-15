@@ -18,7 +18,7 @@
     <div style="top: 30px; left: 5%; display: block; max-width: 500px; width: 90%;" class="popover bottom right fade in" ng-show="showPopover">
       <!--<div class="arrow" style="position: absolute;"></div>-->
       <div class="popover-inner">
-          <a href="javascript://" ng-click="closePopover()" class="close" style="padding: 6px;">&times;</a>
+          <a ng-click="closePopover()" class="close" style="padding: 6px;">&times;</a>
           <h3 class="popover-title">{{name}}</h3>
           <div class="popover-content">
             <table style="width: 100%" cellpadding="2">
@@ -55,14 +55,14 @@
     </div>	
 	<div class="col-left col-md-3 col-sm-4 col-xs-12">
 		<div class="col-xs-12">
-            <span class="pull-right" ng-show="cik"><a href="javascript://" class="highlight3" ng-click="loadPopover()">Details</a> | <a href="/entity" class="highlight3">Switch Entity</a></span>
+            <span class="pull-right" ng-show="cik"><a class="highlight3" ng-click="loadPopover()">Details</a> | <a href="/entity" class="highlight3">Switch Entity</a></span>
 		    <h6 class="nowrap">ENTITY</h6>
 			<input class="form-control" ng-class="{ 'fade-control': !cik }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
 				   placeholder="Search for an entity..." ng-click="focused=true;" ng-readonly="cik"
                    typeahead-template-url="typeaheadmulti.html"
 				   typeahead="entity for entity in entities | filter:$viewValue | limitTo:8">
             <script type="text/ng-template" id="typeaheadmulti.html">
-            <a href="javascript://" tabindex="-1" class="multicol">
+            <a tabindex="-1" class="multicol">
                <div ng-bind-html='match.model.name | typeaheadHighlight:query'></div>
                <small ng-bind-html='"CIK: " + match.model.cik + (match.model.tickers[0] ? ", Ticker: " + match.model.tickers[0] : "") | typeaheadHighlight:query'></small>
             </a>
@@ -146,14 +146,14 @@
 							<td class="nowrap">{{s.name}}</td>
 							<td>{{s.year}}/{{s.period}}</td>
 							<td>{{s.conceptMap || 'None'}}</td>
-							<td><a href="javascript://" popover="{{s.conceptMapKey}}" popover-placement="top" popover-trigger="focus">{{trimURL(s.conceptMapKey)}}</a></td>
+							<td><a popover="{{s.conceptMapKey}}" popover-placement="top" popover-trigger="focus">{{trimURL(s.conceptMapKey)}}</a></td>
 							<td class="nowrap text-right">
 								<div ng-show="s.factValue">{{s.factValue}} {{s.factUnit}}</div>
-								<a href="javascript://" ng-hide="s.factValue" ng-click="showDetails(s.factText)">View Text</a>
+								<a ng-hide="s.factValue" ng-click="showDetails(s.factText)">View Text</a>
 							</td>
 							<!--<td>
 								<span class="dropdown">
-								 <a href="javascript://" class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
+								 <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
 								 <ul class="dropdown-menu text-left pull-right">
 								   <li><a href="{{API_URL}}/_queries/public/api/facts.jq?format=json&_method=POST&token={{token}}&fiscalYear={{s.year}}&fiscalPeriod={{s.period}}&cik={{s.cik}}&concept={{s.conceptMapKey}}{{(s.conceptMap ? '&map=' + s.conceptMap : '')}}" target="_blank">JSON</a></li>
 								   <li><a href="{{API_URL}}/_queries/public/api/facts.jq?format=xml&_method=POST&token={{token}}&fiscalYear={{s.year}}&fiscalPeriod={{s.period}}&cik={{s.cik}}&concept={{s.conceptMapKey}}{{(s.conceptMap ? '&map=' + s.conceptMap : '')}}" target="_blank">XML</a></li>
