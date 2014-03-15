@@ -119,10 +119,10 @@
           </div>
           <div class="col-md-12 text-right" ng-if="data">
             All data as:
-              <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=json&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.json" target="_blank">JSON</a>,
-              <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=xml&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.xml" target="_blank">XML</a>,
-              <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=csv&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.csv" target="_blank">CSV</a>,
-              <a href="{{API_URL}}/_queries/public/api/facttable.jq?format=excel&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.csv" target="_blank">Excel</a>
+              <a href="{{getUrl('json')}}" download="comparison-search.json" target="_blank">JSON</a>,
+              <a href="{{getUrl('xml')}}" download="comparison-search.xml" target="_blank">XML</a>,
+              <a href="{{getUrl('csv')}}" download="comparison-search.csv" target="_blank">CSV</a>,
+              <a href="{{getUrl('excel')}}" download="comparison-search.csv" target="_blank">Excel</a>
             </div>
         </div>
 

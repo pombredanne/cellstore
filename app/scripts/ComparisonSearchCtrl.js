@@ -119,7 +119,7 @@ angular.module('main').controller('ComparisonSearchCtrl', ['$scope', '$http', '$
         }
 
         $scope.data = [];
-        var request = { 
+        $scope.params = { 
                 $method: "POST", 
                 cik: [], 
                 tag: $scope.selection.filter.tag,
@@ -129,10 +129,10 @@ angular.module('main').controller('ComparisonSearchCtrl', ['$scope', '$http', '$
                 map: ($scope.selection.conceptMap != $scope.none ? $scope.selection.conceptMap : null),
                 token: $scope.token 
             };
-        $scope.selection.filter.entity.forEach(function(entity) { request['cik'].push(entity.cik); });
-        $scope.selection.dimensions.forEach(function(dimension) { request[dimension.name] = dimension.value; request[dimension.name + ":default"] = dimension.defaultValue; });
+        $scope.selection.filter.entity.forEach(function(entity) { $scope.params['cik'].push(entity.cik); });
+        $scope.selection.dimensions.forEach(function(dimension) { $scope.params[dimension.name] = dimension.value; $scope.params[dimension.name + ":default"] = dimension.defaultValue; });
 
-        $scope.service.listFacts(request)
+        $scope.service.listFacts($scope.params)
             .then(function(data) {
                 $scope.data = data.FactTable;
                 $scope.safeApply();
@@ -179,6 +179,31 @@ angular.module('main').controller('ComparisonSearchCtrl', ['$scope', '$http', '$
   $scope.isBlock = function(string) {
      if (!string) return false;
      return string.length > 60;
+  };
+
+  $scope.getUrl = function(format) {
+      var str = $backend.API_URL + '/_queries/public/api/facts.jq';
+      var p = [];
+      var index = -1;
+      for(var param in $scope.params)
+          if($scope.params.hasOwnProperty(param) && $scope.params[param]) {
+              if (param == "$method") 
+                  p.push("_method=" + encodeURIComponent($scope.params[param].toString()));
+              else
+                  if (param == "format") {
+                    if (format) {
+                        index = p.length;
+                        p.push(param + "=" + encodeURIComponent(format));
+                    }
+                  }
+                  else
+                    if (Object.prototype.toString.call($scope.params[param]) === "[object Array]")
+                      $scope.params[param].forEach(function(item) { p.push(param + "=" + encodeURIComponent(item)); });
+                    else p.push(param + "=" + encodeURIComponent($scope.params[param].toString()));
+          }
+      if (index < 0 && format) p.push("format=" + encodeURIComponent(format));
+      if (p.length > 0) str += '?' + p.join('&');
+      return str;
   };
  }
 ]);

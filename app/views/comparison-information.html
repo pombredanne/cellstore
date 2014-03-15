@@ -12,7 +12,7 @@
 		<div class="col-md-12">
 			<h3>Compute analytics based on information extracted from the SEC filings.</h3>
 			
-            <div class="white-box nav">
+            <div class="white-box nav" ng-if="reports.length">
                 <div class="scrolling">
                     <table class="table table-condensed small excel">
                         <thead>
@@ -35,6 +35,25 @@
                     </table>
                 </div>
 			</div>
+            <div class="col-md-12 text-right" ng-if="reports.length">
+            All data as:
+              <a href="{{getUrl('json')}}" download="comparison-information.json" target="_blank">JSON</a>,
+              <a href="{{getUrl('xml')}}" download="comparison-information.xml" target="_blank">XML</a>,
+              <a href="{{getUrl('csv')}}" download="comparison-information.csv" target="_blank">CSV</a>,
+              <a href="{{getUrl('excel')}}" download="comparison-information.csv" target="_blank">Excel</a>
+            </div>
+
+            
+            <div class="alert alert-danger" ng-if="error">
+                <h4>You are accessing filings for entities that are not part of DOW30.</h4>
+                To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form.
+            </div>
+            <div class="alert alert-info" ng-if="errormany">
+                <h4>You are trying to compare information from {{filings.length}} filings.</h4>
+                Although our system can display the information, the volume of data will make it very hard to compare visually.<br />
+                We suggest you refine the filter for more accurate information.<br/><br/>
+                <button class="btn btn-green" ng-click="forceShow()">I understand, show the information anyway</button>
+            </div>
 		</div>
 	</div>
 </div>
