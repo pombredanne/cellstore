@@ -7,3 +7,6 @@ app/bower_components
 app/scripts/constants.js
 app/styles/*.css
 .DS_Store
+*~
+*.swp
+*.swo
