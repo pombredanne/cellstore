@@ -30,12 +30,12 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="navbar-collapse">
-                    <span class="sr-only">Toggle navigation<sub>beta</sub></span>
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">secxbrl.info</a>
+                <a class="navbar-brand" href="#">secxbrl.info<sub>beta</sub></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,14 +56,8 @@
                     <li ng-class="{ active: (page == '/views/api.html') }">
                         <a href="/api">API</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/about">About</a></li>
-                            <li><a href="/how">How it Works</a></li>
-                            <li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>    
-                        </ul>
-                    </li>
+                    <li><a href="/how">How it Works</a></li>
+                    <li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -92,6 +86,8 @@
     <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
 
+    <!-- Modules -->
+    <script src="/scripts/modules/sticky_footer.js"></script>
     <script src="/scripts/munchkinhelper.js"></script>
 
     <script src="/scripts/autocomplete.js"></script>
@@ -101,34 +97,36 @@
     <script src="/scripts/scroll-id.js"></script>
     <script src="/scripts/document-click.js"></script>
     <script src="/scripts/constants.js"></script>
-    <script src="/scripts/main.js"></script>
+    <script src="/scripts/app.js"></script>
     <script src="/scripts/SessionService.js"></script>
     <script src="/scripts/QueriesService.js"></script>
     <script src="/scripts/UsersService.js"></script>
-    <script src="/scripts/ApiCtrl.js"></script>
-    <script src="/scripts/AuthCtrl.js"></script>
-    <script src="/scripts/AccountCtrl.js"></script>
-    <script src="/scripts/EntitiesCtrl.js"></script>
-    <script src="/scripts/EntityCtrl.js"></script>
-    <script src="/scripts/FilingsCtrl.js"></script>
-    <script src="/scripts/FilingCtrl.js"></script>
-    <script src="/scripts/ComponentsCtrl.js"></script>
-    <script src="/scripts/ComponentCtrl.js"></script>
-    <script src="/scripts/FactTableCtrl.js"></script>
-    <script src="/scripts/ModelStructureCtrl.js"></script>
-    <script src="/scripts/AnalyticsCtrl.js"></script>
-    <script src="/scripts/InformationCtrl.js"></script>
-    <script src="/scripts/DashboardCtrl.js"></script>
-    <script src="/scripts/SearchCtrl.js"></script>
-    <script src="/scripts/ConceptMapCtrl.js"></script>
-    <script src="/scripts/CompanyCtrl.js"></script>
-    <script src="/scripts/ExampleCtrl.js"></script>
-    <script src="/scripts/DisclosuresCtrl.js"></script>
-    <script src="/scripts/DisclosureCtrl.js"></script>
-    <script src="/scripts/ComparisonFilterCtrl.js"></script>
-    <script src="/scripts/ComparisonCtrl.js"></script>
-    <script src="/scripts/ComparisonInformationCtrl.js"></script>
-    <script src="/scripts/ComparisonSearchCtrl.js"></script>
+    
+    <!-- Controllers -->
+    <script src="/scripts/controllers/api.js"></script>
+    <script src="/scripts/controllers/auth.js"></script>
+    <script src="/scripts/controllers/account.js"></script>
+    <script src="/scripts/controllers/entities.js"></script>
+    <script src="/scripts/controllers/entity.js"></script>
+    <script src="/scripts/controllers/fillings.js"></script>
+    <script src="/scripts/controllers/filling.js"></script>
+    <script src="/scripts/controllers/components.js"></script>
+    <script src="/scripts/controllers/component.js"></script>
+    <script src="/scripts/controllers/fact_table.js"></script>
+    <script src="/scripts/controllers/model_structure.js"></script>
+    <script src="/scripts/controllers/analytics.js"></script>
+    <script src="/scripts/controllers/information.js"></script>
+    <script src="/scripts/controllers/dashboard.js"></script>
+    <script src="/scripts/controllers/search.js"></script>
+    <script src="/scripts/controllers/concept_map.js"></script>
+    <script src="/scripts/controllers/company.js"></script>
+    <script src="/scripts/controllers/example.js"></script>
+    <script src="/scripts/controllers/disclosures.js"></script>
+    <script src="/scripts/controllers/disclosure.js"></script>
+    <script src="/scripts/controllers/comparison_filter.js"></script>
+    <script src="/scripts/controllers/comparison.js"></script>
+    <script src="/scripts/controllers/comparison_information.js"></script>
+    <script src="/scripts/controllers/comparison_search.js"></script>
     <!-- endbuild -->
 </body>
 

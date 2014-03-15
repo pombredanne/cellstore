@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite'])
+angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite', 'stickyFooter'])
 .run(function($rootScope, ngProgressLite) {
         
     $rootScope.$on('$routeChangeStart', function() {
@@ -10,18 +10,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
     $rootScope.$on('$routeChangeSuccess', function() {
         ngProgressLite.done();
     }); 
-})
-.directive('stickyFooter', function(){
-    return function($scope, elm) {
-        var resize = function(){
-            var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-            var footer = document.querySelector('footer');
-            var view = document.querySelector('.wrapper');
-            view.style.minHeight = (height - 50 - footer.getBoundingClientRect().height) + 'px';
-        };
-        angular.element(window).bind('resize', resize);
-        resize();
-    };
 })
 .factory('$backend', function($q, $http, API_URL, DEBUG) {
     return {
