@@ -138,36 +138,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         }
     };
 })
-
-// Intercept http calls.
-.factory('RootScopeSpinnerInterceptor', function ($q, $rootScope, ngProgressLite) {
-	return {
-		// On request success
-		request: function (config) {
-            ngProgressLite.start();
-			return config || $q.when(config);
-		},
- 
-		// On request failure
-		requestError: function (rejection) {
-            ngProgressLite.start();
-			return $q.reject(rejection);
-		},
-		 
-		// On response success
-		response: function (response) {
-            ngProgressLite.done();
-			return response || $q.when(response);
-		},
-		 
-		// On response failture
-		responseError: function (rejection) {
-            ngProgressLite.done();
-			return $q.reject(rejection);
-		}
-	};
-})
- 
 .config(function ($routeProvider, $locationProvider, $httpProvider) {
 
     $locationProvider.html5Mode(true);
@@ -392,8 +362,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         .otherwise({
             templateUrl:'/views/404.html'
         });
-
-		$httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 })
 .run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {
 
