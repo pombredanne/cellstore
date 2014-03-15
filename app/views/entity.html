@@ -1,9 +1,9 @@
 <div id="entity">
     
-<div class="topbar text-center">
+<div class="text-center">
     <div class="btn-group">
         <a class="btn btn-default" ng-model="page" btn-radio="'/views/entity.html'" ng-href="/entity{{(cik?'/' + cik : '')}}">
-            <i class="icn fa fa-home"></i> Home
+            <i class="fa fa-home"></i> Home
         </a>
         <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/filings.html'" ng-href="/filings{{(cik?'/' + cik : '')}}">
             <i class="fa fa-briefcase"></i> Filings
