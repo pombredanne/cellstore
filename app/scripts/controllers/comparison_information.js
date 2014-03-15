@@ -3,24 +3,22 @@ angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.showtab = [];
     $scope.reports = [];
-    $scope.selection = null;
     
     $scope.$on('filterChanged',
         function(event, selection) {
-            $scope.selection = selection;
             if (!selection) return;
             $scope.filings = null;
             $scope.error = false;
             $scope.errormany = false;
             
             var cik = [];
-            $scope.selection.entity.forEach(function(entity) { cik.push(entity.cik); });
+            selection.entity.forEach(function(entity) { cik.push(entity.cik); });
             $scope.service.listFilings({ 
                     $method: 'POST', 
                     cik: cik, 
-                    tag: $scope.selection.tag,
-                    fiscalYear: $scope.selection.year,
-                    fiscalPeriod: $scope.selection.period,
+                    tag: selection.tag,
+                    fiscalYear: selection.year,
+                    fiscalPeriod: selection.period,
                     token: $scope.token 
                 })
                 .then(function(data) {
@@ -41,18 +39,12 @@ angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http
    );
 
    $scope.getInfo = function() {
-        var cik = [];
-            $scope.selection.entity.forEach(function(entity) { cik.push(entity.cik); });
-
         $scope.reports = [];
         $http({
                 method: 'GET', 
                 url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
                 params: { _method: 'POST', 
-                    cik: cik, 
-                    tag: $scope.selection.tag, 
-                    fiscalYear: $scope.selection.year, 
-                    fiscalPeriod: $scope.selection.period, 
+                    aid: $scope.filings,
                     reportSchema: 'FundamentalAccountingConcepts',
                     "token" : $scope.token 
                 },
