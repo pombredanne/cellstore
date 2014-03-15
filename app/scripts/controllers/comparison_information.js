@@ -28,7 +28,6 @@ angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http
                     data.Archives.forEach(function(a) { $scope.filings.push(a.AccessionNumber); });
                     if ($scope.filings.length > 30 && !$scope.nomany) {
                         $scope.errormany = true;
-                        $scope.safeApply();
                     }
                     else $scope.getInfo();
                 },
@@ -112,7 +111,6 @@ angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http
                 }
                 $scope.error = false;
                 $scope.errormany = false;
-                $scope.safeApply();
             }
         )
         .error(function (data, status, headers, config)

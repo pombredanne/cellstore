@@ -22,7 +22,6 @@ angular.module('main').controller('AuthCtrl', ['$scope', '$route', '$http', '$wi
 					},
 					function(response) { 
 						$scope.loginForm.loginPassword.$setValidity("unauthorized", false);
-						$scope.safeApply();
 					});
         }
     };
@@ -72,7 +71,6 @@ angular.module('main').controller('AuthCtrl', ['$scope', '$route', '$http', '$wi
 						if (data && data.success) {
 							$scope.$emit("alert", "Help on the way!", "Please check your email, if you are registered on or system we sent you a link that allows you to change your password.<br><br>The link is valid for 24 hours.");
 							$scope.showForgot = false;
-							$scope.safeApply();
 						}
 					},
 					function(response) { $scope.$emit("error", response.status, response.data); });

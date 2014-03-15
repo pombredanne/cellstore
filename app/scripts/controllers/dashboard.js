@@ -172,8 +172,6 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
                     });
                     $scope.chart1.data = $scope.table1;
                     $scope.chart2.data = $scope.table2;
-
-                    $scope.safeApply();
                 },
                 function(response) { $scope.$emit("error", response.status, response.data); });
     };
@@ -185,7 +183,6 @@ angular.module('main').controller('DashboardCtrl', ['$scope', '$rootScope', '$an
             .then(
                 function(data) {
                     $scope.result = data.Entities[0];
-                    $scope.safeApply();
                 },
                 function(response) {
                     $scope.$emit("error", response.status, response.data);

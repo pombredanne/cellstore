@@ -20,7 +20,6 @@ angular.module('main').controller('EntityCtrl', ['$scope', '$route', '$http', '$
             .then(
                 function(data) {
                     $scope.result = data.Entities[0];
-                    $scope.safeApply();
                 },
                 function(response) {
                     $scope.$emit("error", response.status, response.data);

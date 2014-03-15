@@ -7,7 +7,7 @@ angular.module('document-click', [])
 		  restrict: 'A',
 		  link: function ($scope, $element, $attributes) {
 			$document.on("click", function ($event) {
-				$scope.safeApply(function() { $scope.$eval($attributes.onDocumentClick, { "$event" : $event, "$element": $element }) });
+				$scope.$eval($attributes.onDocumentClick, { "$event" : $event, "$element": $element });
 			});
 		  }
 		};

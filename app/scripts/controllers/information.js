@@ -190,7 +190,6 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
                         $scope.showtab.push(true);
                     }
                 };
-                $scope.safeApply();
             }
         )
         .error(function (data, status, headers, config)
@@ -206,7 +205,6 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
             .then(
                 function(data) {
                     $scope.result = data.Entities[0];
-                    $scope.safeApply();
                 },
                 function(response) {
                     $scope.$emit("error", response.status, response.data);

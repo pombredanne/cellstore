@@ -27,11 +27,12 @@ angular.module('main').controller('ComparisonSearchCtrl', ['$scope', '$http', '$
                     })
                     .success(function (data, status, headers, config)
                     {
-                        if (data) $scope.conceptMapKeys = data.mapKeys;
-                        $scope.safeApply();
+                        if (data) {
+                            $scope.conceptMapKeys = data.mapKeys;
+                        }
                     })
 					.error(function(data, status) { 
-						$scope.$emit("error", status, data);
+						$scope.$emit('error', status, data);
 					});
             }
             else
@@ -57,7 +58,6 @@ angular.module('main').controller('ComparisonSearchCtrl', ['$scope', '$http', '$
                                 data.factualConcepts.forEach(function(item) {
                                     $scope.conceptMapKeys.push(item.name);
                                 });
-                            $scope.safeApply();
                         })
                         .error(function(data, status) { 
                             $scope.$emit("error", status, data);
@@ -135,7 +135,6 @@ angular.module('main').controller('ComparisonSearchCtrl', ['$scope', '$http', '$
         $scope.service.listFacts($scope.params)
             .then(function(data) {
                 $scope.data = data.FactTable;
-                $scope.safeApply();
             },
             function(response) {
                 $scope.$emit("error", response.status, response.data);

@@ -20,7 +20,6 @@ angular.module('main').controller('ComparisonCtrl', ['$scope', '$backend', 'Quer
                 })
                 .then(function(data) {
                     $scope.filings = data.Archives;
-                    $scope.safeApply();
                 },
                 function(response) {
                     if (response.status == "401")

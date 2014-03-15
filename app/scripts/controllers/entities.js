@@ -8,14 +8,13 @@ angular.module('main').controller('EntitiesCtrl', ['$scope', '$http', '$backend'
         method : 'GET',
         url: $backend.API_URL + '/_queries/public/api/entities.jq',
         params : {
-          "_method" : "POST",
-          "token" : $scope.token,
+          '_method' : 'POST',
+          'token' : $scope.token,
         },
         cache: false // too big for cache
       }).
       success(function(data, status, headers, config) {
         $scope.results = data.Entities;
-        $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
       });

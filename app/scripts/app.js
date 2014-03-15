@@ -499,17 +499,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		$rootScope.goto('/');
 	};
 
-	$rootScope.safeApply = function(fn) {
-		var phase = this.$root.$$phase;
-		if (phase == '$apply' || phase == '$digest') {
-			if (fn && (typeof(fn) === 'function')) {
-				fn();
-			}
-		} else {
-			this.$apply(fn);
-		}
-	};
-
 	$rootScope.goto = function(url) {
 		$location.url(url, true);
 	};

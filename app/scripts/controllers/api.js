@@ -12,7 +12,6 @@ angular.module('main').controller('ApiCtrl', ['$scope', '$http', '$backend',
       }).
       success(function(data, status, headers, config) {
         $scope.content = data;
-        $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
       });

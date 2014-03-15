@@ -40,7 +40,6 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
         $scope.AcceptanceDatetime = data.AcceptanceDatetime;
         $scope.FormType = data.FormType;
         $scope.Disclosure = data.Disclosure;
-        $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
         $scope.$emit("error", status, data);

@@ -16,7 +16,6 @@ angular.module('main').controller('FilingsCtrl', ['$scope', '$route', '$http', '
       }).
       success(function(data, status, headers, config) {
         $scope.results = data.Archives;
-        $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
         $scope.$emit("error", status, data);

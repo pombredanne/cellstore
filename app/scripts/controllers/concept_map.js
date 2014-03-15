@@ -36,8 +36,6 @@ angular.module('main').controller('ConceptMapCtrl', ['$scope', '$route', '$http'
         {
           $scope.name = "Fundamental Accounting Concepts";
         }
-
-        $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
         $scope.$emit("error", status, data);

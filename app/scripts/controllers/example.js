@@ -132,7 +132,6 @@ angular.module('main').controller('ExampleCtrl', ['$scope', '$route', '$http', '
       }).
       success(function(data, status, headers, config) {
         $scope.data = data;
-        $scope.safeApply();
       }).
       error(function(data, status, headers, config) {
         $scope.$emit("error", status, data);

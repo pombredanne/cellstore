@@ -158,7 +158,6 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
 							factText: $scope.factText });
 						if ($scope.searches.length > 15) $scope.searches.pop();
 						$angularCacheFactory.get('secxbrl').put('search-history', angular.copy($scope.searches));
-						$scope.safeApply();
 					}
                 })
 				.error(function(data, status) { 
@@ -191,9 +190,9 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
                     .success(function (data, status, headers, config)
                     {
                         if (data) $scope.conceptMapKeys = data.mapKeys;
-                        if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) 
+                        if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) {
                             $scope.conceptMapKey = crtMapKey;
-                        $scope.safeApply();
+                        }
                     })
 					.error(function(data, status) { 
 						$scope.$emit("error", status, data);
@@ -215,9 +214,9 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
                                 data.factualConcepts.forEach(function(item) {
                                     $scope.conceptMapKeys.push(item.name);
                                 });
-                            if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) 
+                            if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) {
                                 $scope.conceptMapKey = crtMapKey;
-                            $scope.safeApply();
+                            }
                         })
 						.error(function(data, status) { 
 							$scope.$emit("error", status, data);
@@ -238,7 +237,6 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
             .then(
                 function(data) {
                     $scope.result = data.Entities[0];
-                    $scope.safeApply();
                 },
                 function(response) {
                     $scope.$emit("error", response.status, response.data);
