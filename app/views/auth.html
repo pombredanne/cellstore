@@ -15,19 +15,19 @@
 				<h3>Login</h3>
 				<div class="form-group">
 					<input type="email" class="form-control" name="loginEmail" ng-model="loginEmail" placeholder="Email" required autocomplete="on">
-					<span class="validation-error" ng-show="loginForm.loginEmail.$error.required && loginAttempted">
+					<span class="text-danger" ng-show="loginForm.loginEmail.$error.required && loginAttempted">
 						Email is required.
 					</span>
-					<span class="validation-error" ng-show="loginForm.loginEmail.$error.email && loginAttempted">
+					<span class="text-danger" ng-show="loginForm.loginEmail.$error.email && loginAttempted">
 						Email is invalid.
 					</span>
 				</div>
 				<div class="form-group">
 					<input type="password" class="form-control" name="loginPassword" ng-model="loginPassword" placeholder="Password" required autocomplete="on">
-					<span class="validation-error" ng-show="loginForm.loginPassword.$error.required && loginAttempted">
+					<span class="text-danger" ng-show="loginForm.loginPassword.$error.required && loginAttempted">
 						Password is required.
 					</span>
-					<span class="validation-error" ng-show="loginForm.loginPassword.$error.unauthorized && loginAttempted">
+					<span class="text-danger" ng-show="loginForm.loginPassword.$error.unauthorized && loginAttempted">
 						Email and Password do not match our records.
 					</span>
 				</div>
@@ -42,10 +42,10 @@
 				<h4 class="highlight3">Forgot Password</h4>
 				<div class="form-group">
 					<input type="email" class="form-control" name="forgotEmail" ng-model="forgotEmail" placeholder="Email" required autocomplete="on">
-					<span class="validation-error" ng-show="forgotForm.forgotEmail.$error.required && forgotAttempted">
+					<span class="text-danger" ng-show="forgotForm.forgotEmail.$error.required && forgotAttempted">
 						Email is required.
 					</span>
-					<span class="validation-error" ng-show="forgotForm.forgotEmail.$error.email && forgotAttempted">
+					<span class="text-danger" ng-show="forgotForm.forgotEmail.$error.email && forgotAttempted">
 						Email is invalid.
 					</span>
 				</div>
@@ -60,46 +60,46 @@
 				<h3>Register</h3>
 				<div class="form-group">
 					<input type="text" class="form-control" name="firstname" ng-model="firstname" placeholder="First Name" required autocomplete="on">
-					<span class="validation-error" ng-show="registerForm.firstname.$error.required && registerAttempted">
+					<span class="text-danger" ng-show="registerForm.firstname.$error.required && registerAttempted">
 						First Name is required.
 					</span>
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" name="lastname" ng-model="lastname" placeholder="Last Name" required autocomplete="on">
-					<span class="validation-error" ng-show="registerForm.lastname.$error.required && registerAttempted">
+					<span class="text-danger" ng-show="registerForm.lastname.$error.required && registerAttempted">
 						Last Name is required.
 					</span>
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" name="companyname" ng-model="companyname" placeholder="Company Name" required autocomplete="on">
-					<span class="validation-error" ng-show="registerForm.companyname.$error.required && registerAttempted">
+					<span class="text-danger" ng-show="registerForm.companyname.$error.required && registerAttempted">
 						Company Name is required.
 					</span>
 				</div>
 				<div class="form-group">
 					<input type="email" class="form-control" name="email" ng-model="email" placeholder="Email" required autocomplete="on">
-					<span class="validation-error" ng-show="registerForm.email.$error.required && registerAttempted">
+					<span class="text-danger" ng-show="registerForm.email.$error.required && registerAttempted">
 						Email is required.
 					</span>
-					<span class="validation-error" ng-show="registerForm.email.$error.email && registerAttempted">
+					<span class="text-danger" ng-show="registerForm.email.$error.email && registerAttempted">
 						Email is invalid.
 					</span>
 				</div>
 				<div class="form-group">
 					<input type="password" class="form-control" name="password" ng-model="password" placeholder="Password" required autocomplete="on" ng-minlength="5">
-					<span class="validation-error" ng-show="registerForm.password.$error.required && registerAttempted">
+					<span class="text-danger" ng-show="registerForm.password.$error.required && registerAttempted">
 						Password is required.
 					</span>
-					<span class="validation-error" ng-show="registerForm.password.$error.minlength && registerAttempted">
+					<span class="text-danger" ng-show="registerForm.password.$error.minlength && registerAttempted">
 						Password must exceed 5 characters.
 					</span>
 				</div>
 				<div class="form-group">
 					<input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" ng-model="passwordRepeat" placeholder="Confirm Password" required autocomplete="on" equals="{{password}}">
-					<span class="validation-error" ng-show="registerForm.passwordRepeat.$error.required && registerAttempted">
+					<span class="text-danger" ng-show="registerForm.passwordRepeat.$error.required && registerAttempted">
 						Password confirmation is required.
 					</span>
-					<span class="validation-error" ng-show="!registerForm.password.$error.minlength && !registerForm.passwordRepeat.$error.required && registerForm.passwordRepeat.$error.equals && registerAttempted">
+					<span class="text-danger" ng-show="!registerForm.password.$error.minlength && !registerForm.passwordRepeat.$error.required && registerForm.passwordRepeat.$error.equals && registerAttempted">
 						Password confirmation doesn't match.
 					</span>
 				</div>
