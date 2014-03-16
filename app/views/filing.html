@@ -1,41 +1,40 @@
 <div id="filing">
-<div class="text-center">
+<div class="menu" ng-show="cik">
     <div class="btn-group">
         <a class="btn btn-default" ng-model="page" btn-radio="'/views/entity.html'" ng-href="/entity{{(cik?'/' + cik : '')}}">
             <i class="fa fa-home"></i> Home
         </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/filings.html'" ng-href="/filings{{(cik?'/' + cik : '')}}">
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/filings.html'" ng-href="/filings{{(cik?'/' + cik : '')}}">
             <i class="fa fa-briefcase"></i> Filings
         </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/information.html'" ng-href="/information{{(cik?'/' + cik : '')}}">
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/information.html'" ng-href="/information{{(cik?'/' + cik : '')}}">
             <i class="fa fa-sitemap"></i> Basic Financial Information
         </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/dashboard.html'" ng-href="/dashboard{{(cik?'/' + cik : '')}}">
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/dashboard.html'" ng-href="/dashboard{{(cik?'/' + cik : '')}}">
             <i class="fa fa-bar-chart-o"></i> Basic Analysis
         </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/search.html'" ng-href="/search{{(cik?'/' + cik : '')}}">
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/search.html'" ng-href="/search{{(cik?'/' + cik : '')}}">
             <i class="fa fa-search"></i> Search Facts
         </a>
     </div>
 </div>
-<div class="bread-crumb">
-    <span class="dropdown">
-        <a class="dropdown-toggle">{{EntityRegistrantName}}</a>
+<ul class="breadcrumb">
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
             <li><a href="/entity/{{cik}}">Entity Information</a></li>
             <li><a href="/filings/{{cik}}">Filings</a></li>
         </ul>
-    </span>
-    <i class="sep"></i>
-    <span class="dropdown">
-        <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}}</a>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
             <li><a href="/filing/{{AccessionNumber}}">Filing Details</a></li>
             <li><a href="/components/{{AccessionNumber}}">Components</a></li>
         </ul>
-    </span>
-    <i class="sep"></i>
-</div>
+    </li>
+    <li></li>
+</ul>
 <div class="container">
 	<div class="col-md-12 spaced">
         <div ng-show="result" class="white-box">

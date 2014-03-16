@@ -1,42 +1,44 @@
 <div id="filings">
-<div class="text-center">
+<div class="menu" ng-show="cik">
     <div class="btn-group">
         <a class="btn btn-default" ng-model="page" btn-radio="'/views/entity.html'" ng-href="/entity{{(cik?'/' + cik : '')}}">
             <i class="fa fa-home"></i> Home
         </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/filings.html'" ng-href="/filings{{(cik?'/' + cik : '')}}">
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/filings.html'" ng-href="/filings{{(cik?'/' + cik : '')}}">
             <i class="fa fa-briefcase"></i> Filings
         </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/information.html'" ng-href="/information{{(cik?'/' + cik : '')}}">
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/information.html'" ng-href="/information{{(cik?'/' + cik : '')}}">
             <i class="fa fa-sitemap"></i> Basic Financial Information
         </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/dashboard.html'" ng-href="/dashboard{{(cik?'/' + cik : '')}}">
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/dashboard.html'" ng-href="/dashboard{{(cik?'/' + cik : '')}}">
             <i class="fa fa-bar-chart-o"></i> Basic Analysis
         </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/search.html'" ng-href="/search{{(cik?'/' + cik : '')}}">
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/search.html'" ng-href="/search{{(cik?'/' + cik : '')}}">
             <i class="fa fa-search"></i> Search Facts
         </a>
     </div>
 </div>
-    <div class="bread-crumb">
-        <span class="dropdown">
-            <a class="dropdown-toggle">{{results[1].EntityRegistrantName}}</a>
+    <ul class="breadcrumb">
+        <li class="dropdown">
+            <a class="dropdown-toggle">{{results[0].EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
             <ul class='dropdown-menu text-left'>
                 <li><a href="/entity/{{cik}}">Entity Information</a></li>
                 <li><a href="/filings/{{cik}}">Filings</a></li>
             </ul>
-        </span>
-        <i class="sep"></i>
-    </div>
-<div class="row">
-	<div class="col-md-12">
-        <div class="text-center" style="padding-bottom: 5px" ng-show="results">
-          <h3>Filings for {{results[1].EntityRegistrantName}} ({{results[1].CIK.substr(23)}})</h3>
+        </li>
+        <li></li>
+    </ul>
+<div class="std-container">
+	<div>
+        <div class="text-center" ng-show="results">
+          <h1>Filings for {{results[0].EntityRegistrantName}} ({{results[0].CIK.substr(23)}})</h1>
         </div>
-        <div class="spaced" ng-show="results">
-          <input type="text" class="form-control" ng-model="search" placeholder="Type here to search for filings"/>
+        <div ng-show="results">
+            <p>
+                <input type="text" class="form-control" ng-model="search" placeholder="Type here to search for filings">
+            </p>
 		  <div class="scrolling">
-           <table class="table table-striped table-condensed">
+           <table class="table table-striped table-condensed table-bordered">
              <thead>
              <th>#</th>
              <th>Entity Registrant Name</th>

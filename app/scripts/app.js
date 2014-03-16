@@ -275,7 +275,28 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         })
         .when('/filings/:cik', {
             templateUrl: '/views/filings.html',
-            controller: 'FilingsCtrl'
+            controller: 'FilingsCtrl',
+            resolve: {
+                results: ['$q', '$http', '$route', '$backend', function($q, $http, $route, $backend){
+                    var deferred = $q.defer();
+                    var cik = $route.current.params.cik;
+                    $http({
+                        method : 'GET',
+                        url: $backend.API_URL + '/_queries/public/api/filings.jq',
+                        params : {
+                            '_method' : 'POST',
+                            'cik' : cik
+                        }
+                    })
+                    .success(function(data, status, headers, config) {
+                        deferred.resolve(data.Archives);
+                    })
+                    .error(function(data, status, headers, config) {
+                        $scope.$emit('error', status, data);
+                    });
+                    return deferred.promise;
+                }]
+            }
         })
         .when('/filing/:aid', {
             templateUrl: '/views/filing.html',
