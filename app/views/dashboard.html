@@ -1,23 +1,23 @@
 <div id="dashboard">
-<div class="text-center">
-    <div class="btn-group">
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/entity.html'" ng-href="/entity{{(cik?'/' + cik : '')}}">
-            <i class="fa fa-home"></i> Home
-        </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/filings.html'" ng-href="/filings{{(cik?'/' + cik : '')}}">
-            <i class="fa fa-briefcase"></i> Filings
-        </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/information.html'" ng-href="/information{{(cik?'/' + cik : '')}}">
-            <i class="fa fa-sitemap"></i> Basic Financial Information
-        </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/dashboard.html'" ng-href="/dashboard{{(cik?'/' + cik : '')}}">
-            <i class="fa fa-bar-chart-o"></i> Basic Analysis
-        </a>
-        <a class="btn btn-default" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/search.html'" ng-href="/search{{(cik?'/' + cik : '')}}">
-            <i class="fa fa-search"></i> Search Facts
-        </a>
+    <div class="menu" ng-show="cik">
+        <div class="btn-group">
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/entity.html'" ng-href="/entity{{(cik?'/' + cik : '')}}">
+                <i class="fa fa-home"></i> Home
+            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/filings.html'" ng-href="/filings{{(cik?'/' + cik : '')}}">
+                <i class="fa fa-briefcase"></i> Filings
+            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/information.html'" ng-href="/information{{(cik?'/' + cik : '')}}">
+                <i class="fa fa-sitemap"></i> Basic Financial Information
+            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/dashboard.html'" ng-href="/dashboard{{(cik?'/' + cik : '')}}">
+                <i class="fa fa-bar-chart-o"></i> Basic Analysis
+            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/search.html'" ng-href="/search{{(cik?'/' + cik : '')}}">
+                <i class="fa fa-search"></i> Search Facts
+            </a>
+        </div>
     </div>
-</div>
 
 <div class="cols fade-container">
 	<div class="fade-content" ng-hide="cik || focused"></div>
@@ -64,6 +64,7 @@
           </div>
       </div>
     </div>
+    <div class="row">
 	<div class="col-left col-md-3 col-sm-4 col-xs-12">
 		<div class="col-xs-12">
             <span class="pull-right" ng-show="cik"><a class="highlight3" ng-click="loadPopover()">Details</a> | <a href="/entity" class="highlight3">Switch Entity</a></span>
@@ -109,5 +110,6 @@
 			</div>
 		</div>
 	</div>
+        </div>
 </div>
 </div>

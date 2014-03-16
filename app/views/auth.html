@@ -1,4 +1,4 @@
-<div class="topbar"></div>
+<div id="auth">
 <div class="container">
 	<span ng-show="returnPage">
 		<h2>Restricted access</h2><br>
@@ -6,14 +6,13 @@
 		To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form.
 	</span>
 	<span ng-hide="returnPage">
-		<h2>Login or Signup</h2><br>
+		<h2>Login or Sign-Up</h2>
 		Enter your credentials below. If you do not have an account, you can create one using the registration form.
 	</span>
-	<br><br>
 	<div class="row">
 		<div class="col-md-6" ng-show="!showForgot">
 			<form role="form" class="white-box" name="loginForm" ng-submit="login()" novalidate spellcheck="false" autocomplete="on">
-				<h4 class="highlight3">Login</h4>
+				<h3>Login</h3>
 				<div class="form-group">
 					<input type="email" class="form-control" name="loginEmail" ng-model="loginEmail" placeholder="Email" required autocomplete="on">
 					<span class="validation-error" ng-show="loginForm.loginEmail.$error.required && loginAttempted">
@@ -34,7 +33,7 @@
 				</div>
 				<div class="form-group text-right">
                     <span class="pull-left"><a class="navbar" ng-click="showForgot=true">Forgot password?</a></span>
-					<button type="submit" class="btn btn-lg btn-green">Login</button>
+					<button type="submit" class="btn btn-primary">Login</button>
 				</div>
 			</form>
 		</div>
@@ -52,13 +51,13 @@
 				</div>
 				<div class="form-group text-right">
                     <span class="pull-left"><a class="navbar" ng-click="showForgot=false">Nevermind, I remembered!</a></span>
-					<button type="submit" class="btn btn-lg btn-green">Send me help</button>
+					<button type="submit" class="btn btn-primary">Send me help</button>
 				</div>
 			</form>
 		</div>
 		<div class="col-md-6">
 			<form role="form" class="white-box" name="registerForm" ng-submit="register()" novalidate spellcheck="false" autocomplete="on">
-				<h4 class="highlight3">Register</h4>
+				<h3>Register</h3>
 				<div class="form-group">
 					<input type="text" class="form-control" name="firstname" ng-model="firstname" placeholder="First Name" required autocomplete="on">
 					<span class="validation-error" ng-show="registerForm.firstname.$error.required && registerAttempted">
@@ -105,7 +104,7 @@
 					</span>
 				</div>
 				<div class="form-group text-right">
-					<button type="submit" class="btn btn-lg btn-green">Register</button>					
+					<button type="submit" class="btn btn-primary">Register</button>					
 				</div>
 
 			</form>
@@ -114,4 +113,5 @@
 	<span ng-show="returnPage">
 		... or you can go <a ng-click="back()">BACK</a>.<br><br>
 	</span>
+</div>
 </div>

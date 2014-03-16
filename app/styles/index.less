@@ -1,6 +1,7 @@
 @import "bootstrap.less";
 @import "fonts.less";
 @import "ng-progress-lite.less";
+@import "auth.less";
 @import "home.less";
 @import "entity.less";
 @import "filings.less";
@@ -15,6 +16,10 @@ a {
 
 .ng-view {
     margin-top: @navbar-height;
+}
+
+.user {    
+    margin-top: 6px;
 }
 
 .menu-btn {
@@ -37,4 +42,12 @@ footer {
 .std-container {
     margin-left: 15px;
     margin-right: 15px;
+}
+
+.col-left {
+    padding: 15px;
+}
+
+.col-right {
+    border-left: 1px solid @clouds;
 }

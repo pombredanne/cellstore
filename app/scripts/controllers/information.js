@@ -1,5 +1,7 @@
-angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$anchorScroll', '$location', '$route', '$http', '$backend', 'QueriesService', 'years', 'periods', 'entities',
-  function($scope, $rootScope, $anchorScroll, $location, $route, $http, $backend, QueriesService, years, periods, entities) {
+angular.module('main').controller('InformationCtrl', function(
+    $scope, $rootScope, $anchorScroll, $location, $route, $http, 
+     $backend, QueriesService, years, periods, entities
+) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.year = ($route.current.params.year ? parseInt($route.current.params.year) : null);
     $scope.period = ($route.current.params.period ? $route.current.params.period : null);
@@ -236,5 +238,4 @@ angular.module('main').controller('InformationCtrl', ['$scope', '$rootScope', '$
         });
 
     $scope.getComponent();
-  }
-]);
+});
