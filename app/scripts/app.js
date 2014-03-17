@@ -17,7 +17,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		DEBUG: DEBUG,
 
         data: [],
-        
+
         getYears : function() {
             var that = this;
             var deferred = $q.defer();
@@ -232,6 +232,14 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         .when('/entities', {
             templateUrl: '/views/entities.html',
             controller: 'EntitiesCtrl'
+        })
+
+        .when('/entity', {
+            templateUrl: '/views/entity.html',
+            controller: 'EntityCtrl',
+            resolve: {
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+            }
         })
         .when('/entity/:cik', {
             templateUrl: '/views/entity.html',
