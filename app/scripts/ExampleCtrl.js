@@ -32,17 +32,17 @@ angular.module('main').controller('ExampleCtrl', ['$scope', '$route', '$http', '
       },
       {
         name: "FilteringAssets",
-        description: "The request returns the fact for the concept us-gaap:Assets of COCA COLA CO for the fiscal period FY and the latest fiscal year in the database.",
+        description: "The request returns the fact for the concept us-gaap:Assets of COCA COLA CO for the fiscal period FY and the fiscal year 2013.",
         file: 'api/facts.jq',
         category : "FactsTutorial",
-        params: { ticker : "ko", concept: "us-gaap:Assets" }
+        params: { ticker : "ko", concept: "us-gaap:Assets", fiscalYear : "2013", fiscalPeriod : "FY" }
       },
       {
         name: "FilteringAssetsAndRevenues",
         description: "The request returns the facts for the concepts us-gaap:Assets and us-gaap:Revenues of COCA COLA CO for the fiscal period FY and the latest fiscal year in the database.",
         file: 'api/facts.jq',
         category : "FactsTutorial",
-        params: { ticker : "ko", concept: [ 'us-gaap:Assets', 'us-gaap:SalesRevenueGoodsNet' ] }
+        params: { ticker : "ko", concept: [ 'us-gaap:Assets', 'us-gaap:SalesRevenueGoodsNet' ], fiscalYear : "2013", fiscalPeriod : "FY"  }
       },
       {
         name: "FilteringAssetsForTicker",
@@ -56,28 +56,28 @@ angular.module('main').controller('ExampleCtrl', ['$scope', '$route', '$http', '
         description: "The request returns the fact for the concept us-gasp:Assets of all DOW30 entities for their fiscal period FY and the latest fiscal year of that entity in the database.",
         file: 'api/facts.jq',
         category : "FactsTutorial",
-        params: { tag : "dow30", concept: "us-gaap:Assets" }
+        params: { tag : "dow30", concept: "us-gaap:Assets", fiscalYear : "2013", fiscalPeriod : "FY"  }
       },
       {
         name: "FilteringAssetsForCIK",
         description: "The request returns the fact for the concept us-gasp:Assets of the entity identified by the CIK 21344 (COCA COLA CO) for the fiscal period FY and the latest fiscal year in the database.",
         file: 'api/facts.jq',
         category : "FactsTutorial",
-        params: { cik : "21344", concept: "us-gaap:Assets" }
+        params: { cik : "21344", concept: "us-gaap:Assets", fiscalYear : "2013", fiscalPeriod : "FY"  }
       },
       {
         name: "FilteringAssetsForSIC",
         description: "The request returns the fact for the concept us-gasp:Assets of all entities with SIC 2080 (Beverages) for the fiscal period FY and the latest fiscal year in the database.",
         file: 'api/facts.jq',
         category : "FactsTutorial",
-        params: { sic : "2080", concept: "us-gaap:Assets" }
+        params: { sic : "2080", concept: "us-gaap:Assets", fiscalYear : "2013", fiscalPeriod : "FY"  }
       },
       {
         name: "FilteringAssetsForTagAndTicker",
         description: "The request returns the fact for the concept us-gasp:Assets of the entities belonging to the DOW30 and the entity with the ticker aa (ALCOA INC) for the fiscal period FY and the latest fiscal year in the database.",
         file: 'api/facts.jq',
         category : "FactsTutorial",
-        params: { ticker : "aa", tag : "dow30", concept: "us-gaap:Assets" }
+        params: { ticker : "aa", tag : "dow30", concept: "us-gaap:Assets", fiscalYear : "2013", fiscalPeriod : "FY"  }
       },
       {
         name: "FilteringAssetsForFiscalYearAndFiscalPeriod",
