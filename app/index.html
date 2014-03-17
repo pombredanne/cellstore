@@ -25,11 +25,11 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" navbar-toggle>
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="navbar-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -40,8 +40,8 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse">
-                <a ng-show="!user" class="btn btn-default pull-right menu-btn" href="/auth">Login</a>
-                <a ng-show="!user" class="btn btn-primary pull-right menu-btn" href="/auth">Sign-Up</a>
+                <a ng-show="!user" class="btn btn-default pull-right menu-btn hidden-sm hidden-xs" href="/auth">Login</a>
+                <a ng-show="!user" class="btn btn-primary pull-right menu-btn hidden-sm hidden-xs" href="/auth">Sign-Up</a>
                 <div ng-show="user" class="pull-right btn-group user">
                     <a class="btn btn-default" href="/account">{{user.firstname}} {{user.lastname}}</a>
                     <a class="btn btn-default" ng-click="logout()"><i class="fa fa-sign-out"></i></a>
@@ -57,6 +57,9 @@
                         <a href="/api">API</a>
                     </li>
                     <li><a href="https://28msec.zendesk.com/hc/en-us/categories/200094533-secxbrl-info" target="_blank">Support</a></li>
+                     <li class="visible-sm visible-xs">
+                         <a href="/auth">Login / Sign-Up</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -92,6 +95,7 @@
     
     <!-- Modules -->
     <script src="/scripts/modules/sticky_footer.js"></script>
+    <script src="/scripts/modules/navbar_toggle.js"></script>
     <script src="/scripts/munchkinhelper.js"></script>
 
     <script src="/scripts/autocomplete.js"></script>
