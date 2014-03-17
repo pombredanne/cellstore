@@ -391,7 +391,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			return;
 		}
 		$modal.open( {
-			template: "<div class='modal-header h3'> Error {{object.status}} <a href='javascript://' class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body'> {{object.error.description }} <br><a href='javascript://' ng-click='details=true' ng-hide='details' class='dotted'>Show details</a><pre ng-show='details' class='small'>{{object.error | json }}</pre></div>",
+			template: "<div class='modal-header h3'> Error {{object.status}} <a class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body'> {{object.error.description }} <br><a ng-click='details=true' ng-hide='details' class='dotted'>Show details</a><pre ng-show='details' class='small'>{{object.error | json }}</pre></div>",
 			controller: [ '$scope', '$modalInstance', 'object', 
 				function ($scope, $modalInstance, object) {
 					$scope.object = object;
@@ -407,7 +407,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 
 	$rootScope.$on('alert', function(event, title, message){
 		$modal.open( {
-			template: "<div class='modal-header h3'> {{object.title}} <a href='javascript://' class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body' ng-bind-html='object.message'></div><div class='text-right modal-footer'><button class='btn btn-default' ng-click='cancel()'>OK</button></div>",
+			template: "<div class='modal-header h3'> {{object.title}} <a class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body' ng-bind-html='object.message'></div><div class='text-right modal-footer'><button class='btn btn-default' ng-click='cancel()'>OK</button></div>",
 			controller: [ '$scope', '$modalInstance', 'object', 
 				function ($scope, $modalInstance, object) {
 					$scope.object = object;

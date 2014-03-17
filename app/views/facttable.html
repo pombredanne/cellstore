@@ -44,11 +44,11 @@
     <li></li>
 </ul>
 
-<div class="row">
-	<div class="col-md-12">
-        <div ng-show="Label" class="spaced">
-          <div class="container white-box">
-              <h3 class="highlight3">Fact Table for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
+<div class="std-container">
+	<div>
+        <div ng-show="Label">
+          <div class="container">
+              <h2>Fact Table for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h2>
               <table class="table table-condensed small">
                 <tbody>
                   <tr><td>Network:</td><td>{{Label}}</td></tr>
@@ -59,8 +59,10 @@
                 </tbody>
               </table>
           </div>
-          <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
-          <div class="scrolling">
+            <p>
+                <input type="text" class="form-control" ng-model="search" placeholder="Type here to search...">
+            </p>
+          <div>
           <table class="table table-striped table-condensed small">
               <thead>
                 <th>#</th>
