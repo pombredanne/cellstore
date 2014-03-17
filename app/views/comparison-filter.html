@@ -1,8 +1,8 @@
-<div ng-controller="ComparisonFilterCtrl" ng-show="selection">
-    <h4 class="nowrap">Selected Filters</h4>
-    <div class="clearfix">
-        <div class="col-xs-12">
-            <h6 class="nowrap">ENTITIES OR ENTITY GROUPS</h6>
+<div ng-controller="ComparisonFilterCtrl" ng-show="selection" id="comparison-filter">
+    <h4>Selected Filters</h4>
+    <div>
+        <div>
+            <h6>ENTITIES OR ENTITY GROUPS</h6>
             <div class="alert alert-success" ng-repeat="t in selection.tag">
                 <a class="close" ng-click="selection.tag.splice($index, 1)">&times;</a>
                 {{t}}
@@ -13,30 +13,30 @@
             </div>
         </div>
     </div>
-    <div class="clearfix">
-        <div class="col-xs-12">
-            <h6 class="nowrap">FISCAL YEARS</h6>
+    <div>
+        <div>
+            <h6>FISCAL YEARS</h6>
             <div class="alert alert-danger" ng-repeat="y in selection.year">
                 <a class="close" ng-click="selection.year.splice($index, 1)">&times;</a>
                 {{y}}
             </div>
         </div>
     </div>
-    <div class="clearfix">
-        <div class="col-xs-12">
-            <h6 class="nowrap">FISCAL PERIODS</h6>
+    <div>
+        <div>
+            <h6>FISCAL PERIODS</h6>
             <div class="alert alert-warning" ng-repeat="p in selection.period">
                 <a class="close" ng-click="selection.period.splice($index, 1)">&times;</a>
                 {{p}}
             </div>
         </div>  
     </div>
-    <div class="clearfix customize" style="padding: 15px 10px; border-top: 1px solid gainsboro; margin: 20px -10px;">
-        <a class="highlight3 pull-right" ng-click="reset()">RESET</a>
-        <h4 class="nowrap">Set Filters</h4>
-        <div class="clearfix">
-            <div class="col-xs-12">
-                <h6 class="nowrap">ADD ENTITY</h6>
+    <div>
+        <a class="pull-right" ng-click="reset()">RESET</a>
+        <h4>Set Filters</h4>
+        <div>
+            <div>
+                <h6>ADD ENTITY</h6>
                 <input class="form-control" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
                        placeholder="Search for an entity..."
                        typeahead-template-url="typeaheadmulti.html"
@@ -53,14 +53,14 @@
                 </span>
             </div>
         </div>
-        <div class="clearfix" style="padding: 15px 10px; border-top: 1px solid gainsboro; margin: 20px -10px;">
-            <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="row">
+            <div class="col-xs-6">
                 <h6 class="nowrap">ADD FISCAL YEAR</h6>
                 <ul class="selector" style="height: 97px">
                     <li ng-repeat="y in years" ng-class="{ selected: (selection.year.indexOf(y) >= 0) }" ng-click="(selection.year.indexOf(y) >= 0 ? selection.year.splice(selection.year.indexOf(y), 1) : selection.year.push(y))">{{y}}</li>
                 </ul>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="col-xs-6">
                 <h6 class="nowrap">ADD FISCAL PERIOD</h6>
                 <ul class="selector" style="height: 97px">
                     <li ng-repeat="p in periods" ng-class="{ selected: (selection.period.indexOf(p) >= 0) }" ng-click="(selection.period.indexOf(p) >= 0 ? selection.period.splice(selection.period.indexOf(p), 1) : selection.period.push(p))">{{p}}</li>
