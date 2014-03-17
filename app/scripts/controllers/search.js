@@ -1,5 +1,4 @@
-angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route', '$http', '$angularCacheFactory', '$backend', 'QueriesService', 'years', 'periods', 'entities', 'conceptMaps',
-  function($scope, $location, $route, $http, $angularCacheFactory, $backend, QueriesService, years, periods, entities, conceptMaps){
+angular.module('main').controller('SearchCtrl', function($scope, $location, $route, $http, $angularCacheFactory, $modal, $backend, QueriesService, years, periods, entities, conceptMaps){
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
     $scope.year = ($route.current.params.year ? parseInt($route.current.params.year) : null);
@@ -195,7 +194,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
                         }
                     })
 					.error(function(data, status) { 
-						$scope.$emit("error", status, data);
+						$scope.$emit('error', status, data);
 					});
             }
             else
@@ -219,7 +218,7 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
                             }
                         })
 						.error(function(data, status) { 
-							$scope.$emit("error", status, data);
+							$scope.$emit('error', status, data);
 						});
                 }
             }
@@ -227,31 +226,28 @@ angular.module('main').controller('SearchCtrl', ['$scope', '$location', '$route'
     );
 
 	$scope.showDetails = function(html) {
-		$scope.$emit("alert", "Text Block Details", html);
+		$scope.$emit('alert', 'Text Block Details', html);
 	};
     
-    $scope.loadPopover = function() {
-        $scope.showPopover = true;
-        $scope.result = null;
-        $scope.service.listEntities({ $method: 'POST', cik: $scope.cik, token: $scope.token })
-            .then(
-                function(data) {
-                    $scope.result = data.Entities[0];
-                },
-                function(response) {
-                    $scope.$emit("error", response.status, response.data);
-                });
+    $scope.openEntityDetails = function(){
+        var modalInstance = $modal.open({
+            templateUrl: '/views/entity_details.html',
+            controller: 'EntityDetailsCtrl',
+            resolve: {
+                name: function(){ return $scope.name; },
+                cik: function(){ return $scope.cik; },
+                ticker: function(){ return $scope.ticker; },
+                result: function () {
+                    return $scope.service.listEntities({ $method: 'POST', cik: $scope.cik, token: $scope.token });
+                }
+            }
+        });
     };
 
-    $scope.closePopover = function() { 
-        $scope.showPopover = false;
-        $scope.result = null;
-    };
-
-    if ($route.current.params.cik)
+    if ($route.current.params.cik) {
         $scope.entities.forEach(function(entity) {
             if (entity.cik == $route.current.params.cik) 
 				$scope.selectEntity(entity);
         });
- }
-]);
+    }
+});

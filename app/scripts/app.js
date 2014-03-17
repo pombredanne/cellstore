@@ -175,26 +175,10 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
             }
         })
-        .when('/dashboard', {
-            templateUrl: '/views/dashboard.html',
-            controller: 'DashboardCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            }
-        })
         .when('/dashboard/:cik', {
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            }
-        })
-        .when('/information', {
-            templateUrl: '/views/information.html',
-            controller: 'InformationCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
             }
         })
@@ -225,16 +209,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
             }
         })
-        .when('/search', {
-            templateUrl: '/views/search.html',
-            controller: 'SearchCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-            }
-        })
         .when('/search/:cik', {
             templateUrl: '/views/search.html',
             controller: 'SearchCtrl',
@@ -258,13 +232,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         .when('/entities', {
             templateUrl: '/views/entities.html',
             controller: 'EntitiesCtrl'
-        })
-        .when('/entity', {
-            templateUrl: '/views/entity.html',
-            controller: 'EntityCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            }
         })
         .when('/entity/:cik', {
             templateUrl: '/views/entity.html',

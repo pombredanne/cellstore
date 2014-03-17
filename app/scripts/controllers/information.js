@@ -12,7 +12,7 @@ angular.module('main').controller('InformationCtrl', function(
 	$scope.periods = periods;
     $scope.entities = entities;
 
-	$scope.computeUsage = function() { 
+	$scope.computeUsage = function() {
 		$scope.usage = [];
 		years.forEach(function(year) {
 			$scope.usage.push({ used: false, periods: [ { used: false }, { used: false }, { used: false }, { used: false } ] });
