@@ -468,7 +468,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	};
 
 	$rootScope.gotoId = function(id) {
-		$rootScope.$broadcast('scroll-id', id); 
+		$rootScope.$broadcast('scroll-id', id);
 	};
 
 	$rootScope.gotologin = function() {
