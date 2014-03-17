@@ -13,6 +13,7 @@ angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http
             
             var cik = [];
             selection.entity.forEach(function(entity) { cik.push(entity.cik); });
+
             $scope.service.listFilings({ 
                     $method: 'POST', 
                     cik: cik, 
@@ -43,7 +44,8 @@ angular.module('main').controller('ComparisonInformationCtrl', ['$scope', '$http
         $http({
                 method: 'GET', 
                 url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-                params: { _method: 'POST', 
+                params: { 
+                    _method: 'POST', 
                     aid: $scope.filings,
                     reportSchema: 'FundamentalAccountingConcepts',
                     "token" : $scope.token 
