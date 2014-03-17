@@ -11,19 +11,19 @@
 				<h4 class="highlight3">Change Password</h4>
 				<div class="form-group">
 					<input type="password" class="form-control" name="password" ng-model="password" placeholder="Password" required autocomplete="on" ng-minlength="5">
-					<span class="validation-error" ng-show="resetForm.password.$error.required && resetAttempted">
+					<span class="text-danger" ng-show="resetForm.password.$error.required && resetAttempted">
 						Password is required.
 					</span>
-					<span class="validation-error" ng-show="resetForm.password.$error.minlength && resetAttempted">
+					<span class="text-danger" ng-show="resetForm.password.$error.minlength && resetAttempted">
 						Password must exceed 5 characters.
 					</span>
 				</div>
 				<div class="form-group">
 					<input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" ng-model="passwordRepeat" placeholder="Confirm Password" required autocomplete="on" equals="{{password}}">
-					<span class="validation-error" ng-show="resetForm.passwordRepeat.$error.required && resetAttempted">
+					<span class="text-danger" ng-show="resetForm.passwordRepeat.$error.required && resetAttempted">
 						Password confirmation is required.
 					</span>
-					<span class="validation-error" ng-show="!resetForm.password.$error.minlength && !resetForm.passwordRepeat.$error.required && resetForm.passwordRepeat.$error.equals && resetAttempted">
+					<span class="text-danger" ng-show="!resetForm.password.$error.minlength && !resetForm.passwordRepeat.$error.required && resetForm.passwordRepeat.$error.equals && resetAttempted">
 						Password confirmation doesn't match.
 					</span>
 				</div>

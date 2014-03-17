@@ -26,13 +26,12 @@
 		Search entities by business name, CIK or ticker simbol<br>
 		to see information about filings.
 	</div>
-    <div style="top: 30px; left: 5%; display: block; max-width: 500px; width: 90%;" class="popover bottom right fade in" ng-show="showPopover">
-      <!--<div class="arrow" style="position: absolute;"></div>-->
+    <div class="popover bottom right fade in" ng-show="showPopover">
       <div class="popover-inner">
-          <a ng-click="closePopover()" class="close" style="padding: 6px;">&times;</a>
+          <a ng-click="closePopover()" class="close">&times;</a>
           <h3 class="popover-title">{{name}}</h3>
           <div class="popover-content">
-            <table style="width: 100%" cellpadding="2">
+            <table class="table" cellpadding="2">
               <tr>
                 <td style="width: 35%">CIK</td><td>{{cik}}</td>
               </tr>
@@ -59,7 +58,7 @@
               </tr>
             </table>
           </div>
-          <div class="popover-footer" style="border-top: 1px dotted gainsboro; padding: 15px;">
+          <div>
             <a href="/entity/{{cik}}">Entity Information</a> | <a href="/filings/{{cik}}">Filings</a>
           </div>
       </div>
@@ -67,7 +66,7 @@
     <div class="row">
 	<div class="col-left col-md-3 col-sm-4 col-xs-12">
 		<div class="col-xs-12">
-            <span class="pull-right" ng-show="cik"><a class="highlight3" ng-click="loadPopover()">Details</a> | <a href="/entity" class="highlight3">Switch Entity</a></span>
+            <span class="pull-right" ng-show="cik"><a ng-click="loadPopover()">Details</a> | <a href="/entity" class="highlight3">Switch Entity</a></span>
 		    <h6 class="nowrap">ENTITY</h6>
 			<input class="form-control" ng-class="{ 'fade-control': !cik }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
 				   placeholder="Search for an entity..." ng-click="focused=true;" ng-readonly="cik"
@@ -80,7 +79,7 @@
             </a>
             </script>
 		</div>
-		<div style="padding: 15px 10px;" class="clearfix">
+		<div>
 			<div class="col-md-2 col-sm-4 col-xs-2" ng-show="cik">
 				CIK
 			</div>
@@ -94,19 +93,18 @@
 				<b>{{ticker}}</b>
 			</div>
 		</div>
-		<div style="clear: both"></div>
 	</div>
 	<div class="col-right col-md-9 col-sm-8 col-xs-12">
-		<div class="col-md-12">
-			<h3>Net Income vs. Revenue</h3>
-			<div class="white-box" scroll-id="chart1">
-				<div google-chart chart="chart1" style="width: 100%; height: 500px;"></div>
+		<div>
+			<h2>Net Income vs. Revenue</h2>
+			<div scroll-id="chart1">
+				<div google-chart chart="chart1"></div>
 			</div>
 		</div>
-		<div class="col-md-12">
-			<h3>Liabilities vs. Equity</h3>
-			<div class="white-box" scroll-id="chart2">
-				<div google-chart chart="chart2" style="width: 100%; height: 500px;"></div>
+		<div>
+			<h2>Liabilities vs. Equity</h2>
+			<div scroll-id="chart2">
+				<div google-chart chart="chart2"></div>
 			</div>
 		</div>
 	</div>
