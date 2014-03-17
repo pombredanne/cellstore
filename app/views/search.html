@@ -109,7 +109,7 @@
 							<td class="nowrap">{{s.name}}</td>
 							<td>{{s.year}}/{{s.period}}</td>
 							<td>{{s.conceptMap || 'None'}}</td>
-							<td><a popover="{{s.conceptMapKey}}" popover-placement="top" popover-trigger="focus">{{trimURL(s.conceptMapKey)}}</a></td>
+							<td><a popover="{{s.conceptMapKey}}" popover-placement="top" popover-trigger="click">{{trimURL(s.conceptMapKey)}}</a></td>
 							<td class="nowrap text-right">
 								<div ng-show="s.factValue">{{s.factValue}} {{s.factUnit}}</div>
 								<a ng-hide="s.factValue" ng-click="showDetails(s.factText)">View Text</a>

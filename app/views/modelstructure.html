@@ -76,7 +76,7 @@
                 {{rowReset()}}
                 <div class="line head"><span>#</span><span>Label</span><span>Object Class</span><span>Data Type</span><span>Period</span><span>Balance</span><span>Report ElementName</span></div>
                 <script type="text/ng-template" id="item_line.html">{{rowIncrement()}}
-                  <div class="line" ng-class="{ even: (row % 2 == 0) }"><span>{{row}}</span><span class="{{ item.Kind }}" ng-style="{ 'padding-left': getIndent(item.Level) + 'px'}">{{item.Label}}</span><span>{{item.Kind}}</span><span>{{getDataType(item.DataType)}}</span><span>{{getPeriodType(item.PeriodType)}}</span><span>{{item.Balance}}</span><span><a popover="{{item.Name}}" popover-placement="left" popover-trigger="focus">{{substring(item.Name, 35)}}</a></span></div>
+                  <div class="line" ng-class="{ even: (row % 2 == 0) }"><span>{{row}}</span><span class="{{ item.Kind }}" ng-style="{ 'padding-left': getIndent(item.Level) + 'px'}">{{item.Label}}</span><span>{{item.Kind}}</span><span>{{getDataType(item.DataType)}}</span><span>{{getPeriodType(item.PeriodType)}}</span><span>{{item.Balance}}</span><span><a popover="{{item.Name}}" popover-placement="left" popover-trigger="click">{{substring(item.Name, 35)}}</a></span></div>
                   <div ng-repeat="item in item.Children | filter:search" ng-include="'item_line.html'"></div>
                 </script>
                 <div ng-repeat="item in data | filter:search" ng-include="'item_line.html'"></div>

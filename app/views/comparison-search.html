@@ -35,7 +35,7 @@
                 <div>
                     <div ng-repeat="key in selection.conceptMapKeys">
                         <a ng-click="selection.conceptMapKeys.splice(selection.conceptMapKeys.indexOf(key), 1)"><i class="fa fa-times"></i></a>
-                        <a popover="{{key}}" popover-position="top" popover-trigger="focus">{{substring(key, 50)}}</a>
+                        <a popover="{{key}}" popover-position="top" popover-trigger="click">{{substring(key, 50)}}</a>
                     </div>
                 </div>
 
