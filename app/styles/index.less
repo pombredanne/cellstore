@@ -45,20 +45,34 @@ footer {
     margin-right: 15px;
 }
 
-.col-left {
-    padding: 15px;
-    padding-left: 30px;
-    section {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid @clouds;
+.cols {
+    width: 100%;
+
+    > div:first-child {
+        
+        padding-bottom: 9999px;
+        margin-bottom: -9999px;
+        
+        padding-left: 30px;
+
+        section {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid @clouds;
+        }
+    }
+
+    > div:last-child {
+        padding-bottom: 9999px;
+        margin-bottom: -9999px;
+        
+        
+        padding-right: 30px;
+
+        border-left: 1px solid @clouds;
     }
 }
 
-.col-right {
-    border-left: 1px solid @clouds;
-    padding-right: 30px;
-}
 
 //Selector
 ul.selector {

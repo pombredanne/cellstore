@@ -20,8 +20,8 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-left col-md-3 col-sm-4 col-xs-12">
+    <div class="row cols">
+        <div class="col-md-3 col-sm-4 col-xs-12">
             <div>
                 <span class="pull-right" ng-show="cik"><a ng-click="openEntityDetails()">Details</a> | <a href="/entity">Switch Entity</a></span>
                 <h6 class="nowrap">ENTITY</h6>
@@ -59,7 +59,7 @@
                     </ul>
                 </div>
             </section>
-            <div ng-class="{ 'hidden-xs': reports.length }" ng-show="reports.length">
+            <div class="hidden-xs" ng-show="reports.length">
                 <div>
                     <h6>FUNDAMENTAL ACCOUNTING</h6>
                     <ul class="normal">
@@ -70,11 +70,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-right col-md-9 col-sm-8 col-xs-12">
+
+        <div class="col-md-9 col-sm-8 col-xs-12">
             <div>
-                <h3>Compute analytics based on information extracted from the SEC filings.</h3>
-                <div class="row">
-                    <div class="col-md-12" ng-repeat="report in reports" scroll-id="report{{$index}}">
+                <h2>Compute analytics based on information extracted from the SEC filings</h2>
+                <div>
+                    <div ng-repeat="report in reports" scroll-id="report{{$index}}">
                         <div>
                             <a class="pull-right close small" ng-click="gotoId('report0')"><i class="fa fa-arrow-up"></i></a>
                             <a class="" ng-click="showtab[$index]=!showtab[$index]"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a>
