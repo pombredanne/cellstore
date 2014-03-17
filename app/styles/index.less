@@ -5,6 +5,7 @@
 @import "home.less";
 @import "entity.less";
 @import "filings.less";
+@import "information.less";
 
 .breadcrumb {
     border-bottom: 1px solid @clouds;
@@ -46,8 +47,50 @@ footer {
 
 .col-left {
     padding: 15px;
+    padding-left: 30px;
 }
 
 .col-right {
     border-left: 1px solid @clouds;
+    padding-right: 30px;
 }
+
+//Selector
+ul.selector {
+    padding: 3px 0px; 
+    margin: 0; 
+    list-style: none;
+    border: 1px solid @clouds;
+    background: white;
+    border-radius: 3px;
+    .box-sizing(border-box);
+    overflow-x: hidden;
+    
+    li {
+        display: block;
+        cursor: pointer;
+        padding: 1px 5px; 
+        
+        &.selected {
+            background: @brand-primary;
+            color: white;
+        }
+        
+        &.disabled {
+            color: @silver;
+            
+            &:after {
+                float: right;
+                font-size: smaller;
+                padding: 1px;
+                content : "N/A";
+            }
+        }
+    }
+}
+
+//Olark
+#habla_sizebutton_a:hover { background-color: lighten(@brand-primary, 15%) !important; }
+#habla_panel_div { background-color: transparent !important; }
+#habla_panel_div #habla_topbar_div { background-color: @brand-primary !important; }
+#habla_panel_div #habla_expanded_div { background-color: white !important; }

@@ -1,4 +1,5 @@
 <div id="information">
+
     <div class="menu" ng-show="cik">
         <div class="btn-group">
             <a class="btn btn-default" ng-model="page" btn-radio="'/views/entity.html'" ng-href="/entity{{(cik?'/' + cik : '')}}">
@@ -19,98 +20,45 @@
         </div>
     </div>
 
-    <div class="cols fade-container">
-        <div class="fade-content" ng-hide="cik || focused"></div>
-        <div class="fade-panel-dashboard" ng-hide="cik || focused">
-            <div class="arrow"></div>
-            Search entities by business name, CIK or ticker simbol
-            <br>to see information about filings.
-        </div>
-        <div class="popover bottom right fade in" ng-show="showPopover">
-            <div class="popover-inner">
-                <a ng-click="closePopover()" class="close">&times;</a>
-                <h3 class="popover-title">{{name}}</h3>
-                <div class="popover-content">
-                    <table class="table" cellpadding="2">
-                        <tr>
-                            <td style="width: 35%">CIK</td>
-                            <td>{{cik}}</td>
-                        </tr>
-                        <tr>
-                            <td>Ticker Symbol</td>
-                            <td>{{ticker}}</td>
-                        </tr>
-                        <tr>
-                            <td>Entity Registrant Name</td>
-                            <td>{{result.Profiles.SEC.CompanyName}}</td>
-                        </tr>
-                        <tr>
-                            <td>Entity Type</td>
-                            <td>{{result.Profiles.SEC.CompanyType}}</td>
-                        </tr>
-                        <tr>
-                            <td>SIC Code</td>
-                            <td>{{result.Profiles.SEC.SIC}}</td>
-                        </tr>
-                        <tr>
-                            <td>SIC Description</td>
-                            <td>{{result.Profiles.SEC.SICDescription}}</td>
-                        </tr>
-                        <tr>
-                            <td>Industry Sector</td>
-                            <td>{{result.Profiles.SEC.Sector}}</td>
-                        </tr>
-                        <tr>
-                            <td>Is a Trust</td>
-                            <td>{{result.Profiles.SEC.IsTrust?"Yes":"No"}}</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="popover-footer">
-                    <a href="/entity/{{cik}}">Entity Information</a> | <a href="/filings/{{cik}}">Filings</a>
-                </div>
-            </div>
-        </div>
+    <div class="row">
         <div class="col-left col-md-3 col-sm-4 col-xs-12">
             <div>
-                <span class="pull-right" ng-show="cik"><a ng-click="loadPopover()">Details</a> | <a href="/entity">Switch Entity</a></span>
+                <span class="pull-right" ng-show="cik"><a ng-click="openEntityDetails()">Details</a> | <a href="/entity">Switch Entity</a></span>
                 <h6 class="nowrap">ENTITY</h6>
-                <input class="form-control" ng-class="{ 'fade-control': !cik }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)" placeholder="Search for an entity..." ng-click="focused=true;" ng-readonly="cik" typeahead-template-url="typeaheadmulti.html"
-                typeahead="entity for entity in entities | filter:$viewValue | limitTo:8">
-                <script type="text/ng-template" id="typeaheadmulti.html">
-                    < a tabindex = "-1"
-                    class = "multicol" > < div ng - bind - html = 'match.model.name | typeaheadHighlight:query' > < /div>
-               <small ng-bind-html='"CIK: " + match.model.cik + (match.model.tickers[0] ? ", Ticker: " + match.model.tickers[0] : "") | typeaheadHighlight:query'></small > < /a>
-                </script>
+                <input class="form-control" type="text" ng-model="name" readonly>
             </div>
-            <div>
-                <div class="col-md-2 col-sm-4 col-xs-2" ng-show="cik">
+            <section class="row">
+                <div class="col-xs-2" ng-show="cik">
                     CIK
                 </div>
-                <div class="col-md-4 col-sm-8 col-xs-4" ng-show="cik">
+                <div class="col-xs-4" ng-show="cik">
                     <b>{{cik}}</b>
                 </div>
-                <div class="col-md-3 col-sm-4 col-xs-3" ng-show="ticker">
+                <div class="col-xs-3" ng-show="ticker">
                     Symbol
                 </div>
-                <div class="col-md-3 col-sm-8 col-xs-3" ng-show="ticker">
+                <div class="col-xs-3" ng-show="ticker">
                     <b>{{ticker}}</b>
                 </div>
-            </div>
-            <div ng-show="cik">
+            </section>
+            <section ng-show="cik" class="row">
                 <div class="col-xs-6">
                     <h6 class="nowrap">FISCAL YEAR</h6>
                     <ul class="selector">
-                        <li ng-repeat="y in usage" ng-class="{ selected: year==years[$index], disabled: !y.used }" ng-click="setYear(years[$index], y.used)">{{years[$index]}}</li>
+                        <li ng-repeat="y in usage" ng-class="{ selected: year==years[$index], disabled: !y.used }" ng-click="setYear(years[$index], y.used)">
+                        {{years[$index]}}
+                        </li>
                     </ul>
                 </div>
                 <div class="col-xs-6">
                     <h6 class="nowrap">FISCAL PERIOD</h6>
                     <ul class="selector">
-                        <li ng-repeat="p in usage[years.indexOf(year)].periods" ng-class="{ selected: period==periods[$index], disabled: !p.used }" ng-click="setPeriod(periods[$index], p.used)">{{periods[$index]}}</li>
+                        <li ng-repeat="p in usage[years.indexOf(year)].periods" ng-class="{ selected: period==periods[$index], disabled: !p.used }" ng-click="setPeriod(periods[$index], p.used)">
+                        {{periods[$index]}}
+                        </li>
                     </ul>
                 </div>
-            </div>
+            </section>
             <div ng-class="{ 'hidden-xs': reports.length }" ng-show="reports.length">
                 <div>
                     <h6>FUNDAMENTAL ACCOUNTING</h6>
@@ -123,7 +71,7 @@
             </div>
         </div>
         <div class="col-right col-md-9 col-sm-8 col-xs-12">
-            <div class="col-md-12">
+            <div>
                 <h3>Compute analytics based on information extracted from the SEC filings.</h3>
                 <div class="row">
                     <div class="col-md-12" ng-repeat="report in reports" scroll-id="report{{$index}}">
@@ -131,11 +79,11 @@
                             <a class="pull-right close small" ng-click="gotoId('report0')"><i class="fa fa-arrow-up"></i></a>
                             <a class="" ng-click="showtab[$index]=!showtab[$index]"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a>
 
-                            <div class="scrolling" ng-show="showtab[$index]">
+                            <div ng-show="showtab[$index]">
                                 <table class="table">
                                     <thead>
                                         <th>Label</th>
-                                        <th class="text-center">Value</th>
+                                        <th>Value</th>
                                         <th>Audit Trail</th>
                                     </thead>
                                     <cols>
@@ -149,8 +97,8 @@
                                             <td class="nowrap" ng-class="{ 'text-right' : (item.type == 'NumericValue') }">{{item.value}}</td>
                                             <td>
                                                 <a popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="focus" ng-if="item.auditValue">
-									{{substring(item.auditValue, 30)}}
-								</a>
+									           {{substring(item.auditValue, 30)}}
+								                </a>
                                                 <span ng-if="!item.auditValue">Not Reported (Coming Soon)</span>
                                             </td>
                                         </tr>

@@ -1,6 +1,6 @@
 angular.module('main').controller('InformationCtrl', function(
-    $scope, $rootScope, $anchorScroll, $location, $route, $http, 
-     $backend, QueriesService, years, periods, entities
+    $scope, $rootScope, $anchorScroll, $location, $route, $http, $modal,
+    $backend, QueriesService, years, periods, entities
 ) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.year = ($route.current.params.year ? parseInt($route.current.params.year) : null);
@@ -174,10 +174,10 @@ angular.module('main').controller('InformationCtrl', function(
 								}
                             }
                             else {
-                                item.value = "";
-                                item.type = "";
-								item.auditLabel = "";
-								item.auditValue = "";
+                                item.value = '';
+                                item.type = '';
+								item.auditLabel = '';
+								item.auditValue = '';
                             }
                             array.push(item);
                         }
@@ -199,27 +199,24 @@ angular.module('main').controller('InformationCtrl', function(
 			$scope.$emit("error", status, data);
         });
     };
-
-    $scope.loadPopover = function() {
-        $scope.showPopover = true;
-        $scope.result = null;
-        $scope.service.listEntities({ $method: 'POST', cik: $scope.cik, token: $scope.token })
-            .then(
-                function(data) {
-                    $scope.result = data.Entities[0];
-                },
-                function(response) {
-                    $scope.$emit("error", response.status, response.data);
-                });
-    };
-
-    $scope.closePopover = function() { 
-        $scope.showPopover = false;
-        $scope.result = null;
+        
+    $scope.openEntityDetails = function(){
+        var modalInstance = $modal.open({
+            templateUrl: '/views/entity_details.html',
+            controller: 'EntityDetailsCtrl',
+            resolve: {
+                name: function(){ return $scope.name; },
+                cik: function(){ return $scope.cik; },
+                ticker: function(){ return $scope.ticker; },
+                result: function () {
+                    return $scope.service.listEntities({ $method: 'POST', cik: $scope.cik, token: $scope.token });
+                }
+            }
+        });
     };
 
 
-    if ($route.current.params.cik)
+    if ($route.current.params.cik) {
         $scope.entities.forEach(function(entity) {
             if (entity.cik == $route.current.params.cik){
 				if ($scope.year && $scope.period)
@@ -236,6 +233,6 @@ angular.module('main').controller('InformationCtrl', function(
 				}
 			}
         });
-
+    }
     $scope.getComponent();
 });
