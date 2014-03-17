@@ -1,8 +1,6 @@
-<div class="topbar">
-</div>
-<div class="row">
-	<div class="col-md-12">
-        <div ng-show="results" class="spaced">
+<div class="std-container">
+	<div>
+        <div ng-show="results">
           <div class="container white-box">
           <h3 class="highlight3">Components for {{disclosure}} ({{period}} / {{year}})</h3>
           <table class="table table-condensed small">
@@ -13,9 +11,12 @@
             </tbody>
           </table>
           </div>
-          <input type="text" class="form-control" ng-model="search" placeholder="Search components..."/>
+          <p>
+            
+            <input type="text" class="form-control" ng-model="search" placeholder="Search components...">
+        </p>
           <div class="scrolling">
-          <table class="table table-condensed table-striped small">
+          <table class="table table-bordered table-condensed table-striped small">
               <thead>
               <th>#</th>
               <th>Entity Registrant</th>
@@ -50,7 +51,7 @@
           </table>
 		  </div>
         </div>
-      <div class="col-md-12 text-right" ng-show="results">
+      <div class="text-right" ng-show="results">
         All data as:
         <a href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.json" target="_blank">JSON</a>,
         <a href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&aid={{AccessionNumber}}{{(token?'&token=' + token : '')}}" download="components-{{AccessionNumber}}.xml" target="_blank">XML</a>,
