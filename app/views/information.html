@@ -78,7 +78,13 @@
                     <div ng-repeat="report in reports" scroll-id="report{{$index}}">
                         <div>
                             <a class="pull-right close small" ng-click="gotoId('report0')"><i class="fa fa-arrow-up"></i></a>
-                            <a class="" ng-click="showtab[$index]=!showtab[$index]"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a>
+                            <h3>
+                                <a ng-click="showtab[$index]=!showtab[$index]">
+                                    <i class="fa fa-caret-down" ng-show="showtab[$index]"></i>
+                                    <i class="fa fa-caret-right" ng-hide="showtab[$index]"></i>
+                                    {{report.name}}
+                                </a>
+                            </h3>
 
                             <div ng-show="showtab[$index]">
                                 <table class="table">

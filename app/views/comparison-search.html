@@ -33,16 +33,15 @@
                 </div>
                 
                 <div>
-                    <div ng-repeat="key in selection.conceptMapKeys">
+                    <div ng-repeat="key in selection.conceptMapKeys" class="label label-concept">
                         <a ng-click="selection.conceptMapKeys.splice(selection.conceptMapKeys.indexOf(key), 1)"><i class="fa fa-times"></i></a>
                         <a popover="{{key}}" popover-position="top" popover-trigger="click">{{substring(key, 50)}}</a>
                     </div>
                 </div>
 
                 <h4>Dimensions <a ng-click="addDimension()"><i class="fa fa-plus-square-o"></i></a></h4>
-                <div ng-repeat="key in selection.dimensions">
-                    <a ng-click="selection.dimensions.splice(selection.dimensions.indexOf(key), 1)"><i class="fa fa-times"></i></a>
-                    {{ key.name }} = {{ key.value }}
+                <div ng-repeat="key in selection.dimensions" class="label label-dimension">
+                    <a ng-click="selection.dimensions.splice(selection.dimensions.indexOf(key), 1)"><i class="fa fa-times"></i> {{ key.name }} = {{ key.value }}</a>
                 </div>
                 <div ng-hide="selection.dimensions.length">
                     No dimension filters used.
@@ -58,14 +57,14 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" name="name" ng-model="dimension.name" placeholder="like dei:LegalEntityAxis" class="form-control" required>
-                                <div class="validation-error" ng-show="dimension.form.name.$error.required && (dimension.form.name.$dirty || dimension.attempted)">
+                                <div class="text-danger" ng-show="dimension.form.name.$error.required && (dimension.form.name.$dirty || dimension.attempted)">
                                     Dimension name is required.
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Value</label>
                                 <input type="text" name="value" ng-model="dimension.value" placeholder="like sec:DefaultLegalEntity" class="form-control" required>
-                                <div class="validation-error" ng-show="dimension.form.value.$error.required && (dimension.form.value.$dirty || dimension.attempted)">
+                                <div class="text-danger" ng-show="dimension.form.value.$error.required && (dimension.form.value.$dirty || dimension.attempted)">
                                     Dimension value is required.
                                 </div>
                                 write ALL to get all the values of the dimension
@@ -77,7 +76,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-green" type="submit">OK</button>
+                            <button class="btn btn-primary" type="submit">OK</button>
                             <button class="btn btn-default" ng-click="cancel()" type="button">Cancel</button>
                         </div>
                     </form>
@@ -91,7 +90,7 @@
             </div>
 		</div>
 
-        <div class="col-md-12">
+        <div style="margin-top: 15px;">
             <div ng-if="data" class="spaced">
               <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
               <div class="scrolling">

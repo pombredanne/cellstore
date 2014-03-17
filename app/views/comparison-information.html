@@ -14,18 +14,26 @@
 			<h2>Compute analytics based on information extracted from the SEC filings</h2>
 			
             <div ng-if="reports.length">
-                <div>
+                <div class="table-responsive">
                     <table class="table table-condensed small">
                         <thead>
                             <th>&nbsp;</th>
                             <th class="text-center nowrap" ng-repeat="n in reports[0].items[0].value track by $index">{{n}}</th>
                         </thead>
-                        <!--colgroup>
-                            <col width="40%"></col>
-                            <col width="20%" ng-repeat="n in reports[0].items[0].value track by $index"></col>
-                        </colgroup-->
+                        <colgroup>
+                            <col></col>
+                            <col ng-repeat="n in reports[0].items[0].value track by $index"></col>
+                        </colgroup>
                         <tbody ng-repeat="report in reports">
-                            <tr><td colspan="{{(report.items.length + 1)}}" class="h4"><a class="h4 highlight3" ng-click="showtab[$index]=!showtab[$index]"><i class="fa fa-caret-down" ng-show="showtab[$index]"></i><i class="fa fa-caret-right" ng-hide="showtab[$index]"></i> {{report.name}}</a></td></tr>
+                            <tr>
+                                <td colspan="{{(report.items.length + 1)}}">
+                                    <a ng-click="showtab[$index]=!showtab[$index]">
+                                        <i class="fa fa-caret-down" ng-show="showtab[$index]"></i>
+                                        <i class="fa fa-caret-right" ng-hide="showtab[$index]"></i>
+                                        {{report.name}}
+                                    </a>
+                                </td>
+                            </tr>
                             <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
                                 <td>{{item.label}}</td>
                                 <td class="nowrap" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
@@ -36,7 +44,7 @@
                     </table>
                 </div>
 			</div>
-    
+
             <div class="text-right" ng-if="reports.length">
                 All data as:
                 <a href="{{getUrl('json')}}" download="comparison-information.json" target="_blank">JSON</a>,
@@ -49,11 +57,12 @@
                 <h4>You are accessing filings for entities that are not part of DOW30.</h4>
                 To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form.
             </div>
+
             <div class="alert alert-info" ng-if="errormany">
                 <h4>You are trying to compare information from {{filings.length}} filings.</h4>
                 Although our system can display the information, the volume of data will make it very hard to compare visually.<br />
                 We suggest you refine the filter for more accurate information.<br/><br/>
-                <button class="btn btn-green" ng-click="forceShow()">I understand, show the information anyway</button>
+                <button class="btn btn-primary" ng-click="forceShow()">I understand, show the information anyway</button>
             </div>
 		</div>
 	</div>
