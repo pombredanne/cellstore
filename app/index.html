@@ -54,14 +54,14 @@
                     <li ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' ) }">
                         <a href="/entity">Entities</a>
                     </li>
+                    <li ng-if="DEBUG" ng-class="{ active: (page == '/views/disclosures.html') }">
+                        <a href="/disclosures">Disclosures</a>
+                    </li>
+                    <li ng-if="DEBUG" ng-class="{ active: (page == '/views/comparison.html' || page == '/views/comparison-information.html' || page == '/views/comparison-search.html') }">
+                        <a href="/comparison">Comparison</a>
+                    </li>
                     <li ng-class="{ active: (page == '/views/api.html') }">
                         <a href="/api">API</a>
-                    </li>
-                    <li ng-if="DEBUG">
-                        <a href="/disclosures" ng-class="{ active: (page == '/views/disclosures.html') }">Disclosures</a>
-                    </li>
-                    <li ng-if="DEBUG">
-                        <a href="/comparison" ng-class="{ active: (page == '/views/comparison.html') }">Comparison</a>
                     </li>
                     <li><a href="https://28msec.zendesk.com/hc/en-us/categories/200094533-secxbrl-info" target="_blank">Support</a></li>
                      <li class="visible-sm visible-xs">
