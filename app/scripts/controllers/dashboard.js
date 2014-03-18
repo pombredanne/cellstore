@@ -89,14 +89,17 @@ angular.module('main').controller('DashboardCtrl', function($scope, $rootScope, 
         
         var concepts = ['fac:Revenues', 'fac:NetIncomeLoss', 'fac:LiabilitiesAndEquity', 'fac:Equity'];
         
-        $scope.service.listFacts({
+        $scope.params = {
                 $method: 'POST',
                 concept: concepts,
                 map: 'FundamentalAccountingConcepts',
                 fiscalYear: fiscalYears,
                 fiscalPeriod: 'ALL',
                 cik: $scope.cik,
-                token: $scope.token})
+                token: $scope.token
+        };
+
+        $scope.service.listFacts($scope.params)
            .then(
                 function(data) { 
                     if (data && data.FactTable)
@@ -190,10 +193,35 @@ angular.module('main').controller('DashboardCtrl', function($scope, $rootScope, 
         });
     };
 
+    $scope.getUrl = function(format) {
+        var str = $backend.API_URL + '/_queries/public/api/facts.jq';
+        var p = [];
+        var index = -1;
+        for(var param in $scope.params)
+            if($scope.params.hasOwnProperty(param) && $scope.params[param]) {
+                if (param == "$method") 
+                    p.push("_method=" + encodeURIComponent($scope.params[param].toString()));
+                else
+                    if (param == "format") {
+                      if (format) {
+                          index = p.length;
+                          p.push(param + "=" + encodeURIComponent(format));
+                      }
+                    }
+                    else
+                      if (Object.prototype.toString.call($scope.params[param]) === "[object Array]")
+                        $scope.params[param].forEach(function(item) { p.push(param + "=" + encodeURIComponent(item)); });
+                      else p.push(param + "=" + encodeURIComponent($scope.params[param].toString()));
+            }
+        if (index < 0 && format) p.push("format=" + encodeURIComponent(format));
+        if (p.length > 0) str += '?' + p.join('&');
+        return str;
+    };
+
     if ($route.current.params.cik) {
         $scope.entities.forEach(function(entity) {
             if (entity.cik == $route.current.params.cik)
 				$scope.selectEntity(entity);
         });
-    }
+    };
 });
