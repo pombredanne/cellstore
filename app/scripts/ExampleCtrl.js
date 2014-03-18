@@ -113,7 +113,36 @@ angular.module('main').controller('ExampleCtrl', ['$scope', '$route', '$http', '
         file: 'api/facts.jq',
         category : "FactsTutorial",
         params: { tag : "dow30", concept: [ "fac:Assets", "fac:LiabilitiesAndEquity" ], map : "FundamentalAccountingConcepts" }
+      },
+      {
+        name: "FilteringGoodwill",
+        description: "The request returns the facts for the concept us-gaap:Goodwill for 3M (latest FY filing).",
+        file: 'api/facts.jq',
+        category : "FactsTutorial",
+        params: { ticker : "mmm", concept: "us-gaap:Goodwill" }
+      },
+      {
+        name: "FilteringGoodwillBrokenDownBySegment",
+        description: "The request returns the facts for the concept us-gaap:Goodwill for 3M (latest FY filing) broken down by business segments.",
+        file: 'api/facts.jq',
+        category : "FactsTutorial",
+        params: { ticker : "mmm", concept: "us-gaap:Goodwill", "us-gaap:StatementBusinessSegmentsAxis" : "ALL" }
+      },
+      {
+        name: "FilteringGoodwillForHealthCare",
+        description: "The request returns the facts for the concept us-gaap:Goodwill for 3M (latest FY filing) for the business segment Health Care.",
+        file: 'api/facts.jq',
+        category : "FactsTutorial",
+        params: { ticker : "mmm", concept: "us-gaap:Goodwill", "us-gaap:StatementBusinessSegmentsAxis" : "mmm:HealthCareMember" }
+      },
+      {
+        name: "FilteringGoodwillBrokenDownBySegmentIncludingDefault",
+        description: "The request returns the facts for the concept us-gaap:Goodwill for 3M (latest FY filing) broken down by business segments including defaults.",
+        file: 'api/facts.jq',
+        category : "FactsTutorial",
+        params: { ticker : "mmm", concept: "us-gaap:Goodwill", "us-gaap:StatementBusinessSegmentsAxis" : "ALL", "us-gaap:StatementBusinessSegmentsAxis::default" : "us-gaap:SegmentDomain" }
       }
+
    ];
 
   $scope.getExample = function(ex) {
