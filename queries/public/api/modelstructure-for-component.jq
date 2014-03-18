@@ -36,6 +36,7 @@ declare function local:to-xml($model)
     <Component>
         <Network entityRegistrantName="{$model.EntityRegistrantName}"
                  accessionNumber="{$model.AccessionNumber}"
+                 tableName="{$model.TableName}"
                  cik="{$model.CIK}"
                  label="{$model.Label}"
                  networkIdentifier="{$model.NetworkIdentifier}"
@@ -108,6 +109,7 @@ declare function local:enrich-json($component)
         EntityRegistrantName : $component.EntityRegistrantName,
         Label : $component.Label,
         AccessionNumber : $component.AccessionNumber,
+        TableName : $component.TableName,
         FormType : $component.FormType, 
         FiscalPeriod : $component.FiscalPeriod,
         FiscalYear : $component.FiscalYear,
@@ -147,6 +149,7 @@ return
                     { CIK : $entity._id },
                     { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
                     { ModelStructure : sec-networks:model-structures($component) },
+                    { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
                     { Label : $component.Label },
                     { AccessionNumber : $component.Archive },
                     { FormType : $archive.Profiles.SEC.FormType },

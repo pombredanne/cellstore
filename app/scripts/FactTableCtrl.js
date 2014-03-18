@@ -7,6 +7,7 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
   $scope.Label = "";
   $scope.NetworkIdentifier = "";
   $scope.AccessionNumber = "";
+  $scope.Table = "";
   $scope.cid = $route.current.params.cid;
   $scope.FiscalYear = "";
   $scope.FiscalPeriod = "";
@@ -21,7 +22,7 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
           "_method" : "POST",
           "cid" : $scope.cid,
           "token" : $scope.token
-        },
+        }
       }).
       success(function(data, status, headers, config) {
         $scope.data = data.FactTable;
@@ -33,6 +34,7 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
         if (p > 0) $scope.component = data.Label.substring(p+3);
         else $scope.component = data.Label;
         $scope.AccessionNumber = data.AccessionNumber;
+        $scope.Table = data.TableName;
         $scope.FiscalYear = data.FiscalYear;
         $scope.FiscalPeriod = data.FiscalPeriod;
         $scope.AcceptanceDatetime = data.AcceptanceDatetime;
