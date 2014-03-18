@@ -3,10 +3,11 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
   $scope.data = [];
   $scope.columns = [];
   $scope.API_URL = $backend.API_URL;
-  $scope.EntityRegistrantName = '';
-  $scope.Label = '';
-  $scope.NetworkIdentifier = '';
-  $scope.AccessionNumber = '';
+  $scope.EntityRegistrantName = "";
+  $scope.Label = "";
+  $scope.NetworkIdentifier = "";
+  $scope.AccessionNumber = "";
+  $scope.Table = "";
   $scope.cid = $route.current.params.cid;
   $scope.FiscalYear = '';
   $scope.FiscalPeriod = '';
@@ -16,12 +17,12 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/api/facttable.jq',
+        url: $backend.API_URL + '/_queries/public/api/facttable-for-component.jq',
         params : {
-          '_method' : 'POST',
-          'cid' : $scope.cid,
-          'token' : $scope.token
-        },
+          "_method" : "POST",
+          "cid" : $scope.cid,
+          "token" : $scope.token
+        }
       }).
       success(function(data, status, headers, config) {
         $scope.data = data.FactTable;
@@ -33,6 +34,7 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
         if (p > 0) $scope.component = data.Label.substring(p+3);
         else $scope.component = data.Label;
         $scope.AccessionNumber = data.AccessionNumber;
+        $scope.Table = data.TableName;
         $scope.FiscalYear = data.FiscalYear;
         $scope.FiscalPeriod = data.FiscalPeriod;
         $scope.AcceptanceDatetime = data.AcceptanceDatetime;

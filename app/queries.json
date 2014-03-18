@@ -324,8 +324,8 @@
             ]
         },
         {
-            "path": "/facttable.jq",
-            "description": "Retrieve a Fact Table",
+            "path": "/facttable-for-component.jq",
+            "description": "Retrieve a Fact Table for a Component",
             "operations": [
                 {
                     "method": "POST",
@@ -410,13 +410,13 @@
                         {
                             "title": "Fact Table as CSV",
                             "description": "Retrieve the fact table for a particular component. Return the result as CSV.",
-                            "request": "[API_URL]/_queries/public/api/facttable.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=csv",
+                            "request": "[API_URL]/_queries/public/api/facttable-for-component.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=csv",
                             "response": ""
                         },
                         {
                             "title": "Fact Table of Coca Cola's Q3/2013 Balance Sheet",
                             "description": "Retrieve the fact table for the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/facttable.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
+                            "request": "[API_URL]/_queries/public/api/facttable-for-component.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
                             "response": ""
                         }
 
@@ -425,8 +425,8 @@
             ]
         },
         {
-            "path": "/modelstructure.jq",
-            "description": "Retrieve a model structure for a given component",
+            "path": "/modelstructure-for-component.jq",
+            "description": "Retrieve a Model structure for a Component.",
             "operations": [
                 {
                     "method": "POST",
@@ -511,13 +511,13 @@
                         {
                             "title": "Model Structure as XML",
                             "description": "Retrieve the model structure for a particular component. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/modelstructure.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=xml",
+                            "request": "[API_URL]/_queries/public/api/modelstructure-for-component.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=xml",
                             "response": ""
                         },
                         {
                             "title": "Model Structure of Coca Cola's Q3/2013 Balance Sheet",
                             "description": "Retrieve the model structure for a the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/modelstructure.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
+                            "request": "[API_URL]/_queries/public/api/modelstructure-for-component.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
                             "response": ""
                         }
                     ]

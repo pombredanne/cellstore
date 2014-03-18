@@ -203,7 +203,7 @@ angular.module('main')
         this.listFactTable = function(parameters){
             var deferred = $q.defer();
             var that = this;
-            var path = '/facttable.jq'
+            var path = '/facttable-for-component.jq'
             var url = domain + path;
             var params = {};
             params['format'] = parameters['format'];
@@ -258,7 +258,7 @@ angular.module('main')
         this.listModelStructure = function(parameters){
             var deferred = $q.defer();
             var that = this;
-            var path = '/modelstructure.jq'
+            var path = '/modelstructure-for-component.jq'
             var url = domain + path;
             var params = {};
             params['format'] = parameters['format'];

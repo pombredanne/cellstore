@@ -376,7 +376,7 @@ We finally explain the overall architecture and put it in perspective with moder
             </sect3>
             <sect3>
                 <title>Query 4</title>
-                <para>http://secxbrl.xbrl.io/v1/_queries/public/api/facttable.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet</para>
+                <para>http://secxbrl.xbrl.io/v1/_queries/public/api/facttable-for-component.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet</para>
                 <para>This is what the result looks like in a human readable form (subset of the
                     information): </para>
                 <para><inlinemediaobject>
@@ -394,8 +394,8 @@ We finally explain the overall architecture and put it in perspective with moder
             <sect3>
                 <title>Query 5</title>
                 <para><link
-                        xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/modelstructure.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet"
-                        >http://secxbrl.xbrl.io/v1/_queries/public/api/modelstructure.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet
+                        xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/modelstructure-for-component.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet"
+                        >http://secxbrl.xbrl.io/v1/_queries/public/api/modelstructure-for-component.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet
                     </link></para>
                 <para>which in a human readable format looks as follows:</para>
                 <para><inlinemediaobject>
@@ -591,8 +591,8 @@ We finally explain the overall architecture and put it in perspective with moder
                     <listitem>
                         <para>Getting the fact table associated with a component
                         <link
-                            xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/facttable.jq?format=json&amp;_method=POST&amp;cid=d0abbc66-0aff-4b9a-b20a-a725cf1ba8f1">
-                            http://secxbrl.xbrl.io/v1/_queries/public/api/facttable.jq?format=json&amp;_method=POST&amp;cid=d0abbc66-0aff-4b9a-b20a-a725cf1ba8f1
+                            xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/facttable-for-component.jq?format=json&amp;_method=POST&amp;cid=d0abbc66-0aff-4b9a-b20a-a725cf1ba8f1">
+                            http://secxbrl.xbrl.io/v1/_queries/public/api/facttable-for-component.jq?format=json&amp;_method=POST&amp;cid=d0abbc66-0aff-4b9a-b20a-a725cf1ba8f1
                         </link></para>
                     </listitem>
                     <listitem>

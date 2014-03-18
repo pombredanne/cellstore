@@ -7,6 +7,7 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
   $scope.Label = "";
   $scope.NetworkIdentifier = "";
   $scope.AccessionNumber = "";
+  $scope.Table = "";
   $scope.cid = $route.current.params.cid;
   $scope.FiscalYear = "";
   $scope.FiscalPeriod = "";
@@ -18,7 +19,7 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/api/modelstructure.jq',
+        url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
         params : {
           "_method" : "POST",
           "cid" : $scope.cid,
@@ -35,6 +36,7 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
         if (p > 0) $scope.component = data.Label.substring(p+3);
         else $scope.component = data.Label;
         $scope.AccessionNumber = data.AccessionNumber;
+        $scope.Table = data.TableName;
         $scope.FiscalYear = data.FiscalYear;
         $scope.FiscalPeriod = data.FiscalPeriod;
         $scope.AcceptanceDatetime = data.AcceptanceDatetime;
