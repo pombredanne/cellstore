@@ -23,11 +23,11 @@ let $fiscalYears := distinct-values(
                             then $y cast as integer
                             else ()
                     )
-let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
+let $fiscalPeriods := let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
                         then ("Q1", "Q2", "Q3", "FY")
-                        else $fp)
+                        else $fp
 let $aids     := request:param-values("aid")
 let $report   := request:param-values("reportSchema")[1]
 let $report   := report-schemas:report-schemas($report)

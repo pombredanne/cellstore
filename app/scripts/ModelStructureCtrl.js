@@ -18,7 +18,7 @@ angular.module('main').controller('ModelStructureCtrl', ['$scope', '$route', '$h
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/api/modelstructure.jq',
+        url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
         params : {
           "_method" : "POST",
           "cid" : $scope.cid,

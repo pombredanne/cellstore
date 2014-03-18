@@ -16,7 +16,7 @@ angular.module('main').controller('FactTableCtrl', ['$scope', '$route', '$http',
     $http(
       {
         method : 'GET',
-        url: $backend.API_URL + '/_queries/public/api/facttable.jq',
+        url: $backend.API_URL + '/_queries/public/api/facttable-for-component.jq',
         params : {
           "_method" : "POST",
           "cid" : $scope.cid,

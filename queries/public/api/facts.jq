@@ -1,5 +1,4 @@
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
