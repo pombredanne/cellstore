@@ -5,3 +5,8 @@ dist
 app/bower_components
 .idea
 app/scripts/constants.js
+app/styles/*.css
+.DS_Store
+*~
+*.swp
+*.swo

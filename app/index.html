@@ -2,154 +2,182 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>secxbrl info</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-        <link href="/apple-touch-icon.png" rel="apple-touch-icon">
-        <link href="/favicon.ico" rel="icon">
-        <!-- build:css({.tmp,app}) styles/main.css -->
-        <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
-        <link rel="stylesheet" href="/bower_components/animate.css/animate.css">
-        <link rel="stylesheet" href="/styles/main.css">
-        <!-- endbuild -->
-    </head>
-    <body ng-app="main" class="ng-cloak">
-        <!--[if lt IE 10]>
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>secxbrl.info - US Public Company Financial Information Repository</title>
+    <meta name="description" content="Complete database of U.S. public company financial information.">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="/favicon.ico" rel="icon">
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/bower_components/animate.css/animate.css">
+    <link rel="stylesheet" href="/styles/index.css">
+    <!-- endbuild -->
+</head>
+
+<body ng-app="main" class="ng-cloak">
+    <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+    <![endif]-->
 
-        <div class="header">
-            <div class="navbar" navbar-toggle>
-                <div class="navbar-header">
-                    <a href="/" id="logo">
-                        <i class="logo hidden-xs"></i>
-                        <h3 class="highlight1">SECXBRL<font class="highlight2">.info</font></h3>
-                        <br>
-                        <small><sup class="pull-right">BETA</sup>US Public Company<br>Financial Information Repository</small>
-                    </a>
-                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                         Menu <i class="glyphicon glyphicon-collapse-down"></i>
-                    </button>
-                </div>
-                <i class="fa fa-spinner fa-spin fa-3x" id="spinner"></i>
-                <div class="collapse navbar-collapse" role="navigation">
-                    <div class="nav navbar-nav navbar-right" on-document-click="toggleMenu($event, false)">
-                        <div ng-show="user" class="ontop">
-                            <a href="/account">{{user.firstname}} {{user.lastname}}</a> <a class="btn btn-xs" style="border: 1px solid;" ng-click="logout()">Logout</a>
-                        </div>
-                        <div ng-hide="user" class="ontop">
-                            <a class="btn btn-xs" style="border: 1px solid;" href="/auth" ng-class="{ active: (page == '/views/auth.html') }">Login / Signup</a>
-                        </div>
-                        <div><a href="/" ng-class="{ active: (page == '/views/home.html') }">Home</a></div>
-                        <div><a href="/entity" ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' || page == '/views/component.html' ) }">Entities</a></div>
-                        <div ng-if="DEBUG"><a href="/disclosures" ng-class="{ active: (page == '/views/disclosures.html') }">Disclosures</a></div>
-                        <div ng-if="DEBUG"><a href="/comparison" ng-class="{ active: (page == '/views/comparison.html') }">Comparison</a></div>
-                        <div><a href="/api" ng-class="{ active: (page == '/views/api.html') }">API</a></div>
-                        <div>
-                            <a ng-class="{ active: (page == '/views/about.html') }" ng-click="toggleMenu($event, true)">More...</a>
-                            <ul class="sub-nav" ng-hide="!visibleMenu">
-                                <li><a href="/about">About</a></li>
-                                <li><a href="mailto:hello@28.io">Contact Us</a></li>
-                                <li><a href="/how">How it Works</a></li>
-                                <!--<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>-->
-                                <li><a href="/company/about">28msec</a></li>
-                                <li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
-                                <!--<li><a href="/blog">Blog</a></li>
-                                <li><a href="/dev">Dev Center</a></li>-->
-                            </ul>
-                            <ul class="sub-nav visible-xs">
-                                <li><a href="/about">About</a></li>
-                                <li><a href="mailto:hello@28.io">Contact Us</a></li>
-                                <li><a href="/how">How it Works</a></li>
-                                <!--<li><a href="https://28msec.zendesk.com" target="_blank">FAQs</a></li>-->
-                                <li><a href="/company/about">28msec</a></li>
-                                <li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
-                                <!--<li><a href="/blog">Blog</a></li>
-                                <li><a href="/dev">Dev Center</a></li>-->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" navbar-toggle>
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">secxbrl.info<sub>beta</sub></a>
             </div>
-        </div>
-        <div style="clear:both"></div>
-        <div ng-view="true" class="content clearfix">            
-        </div>
-        <div class="footer clearfix">
-            <div class="navbar">
-                <div class="nav navbar-header" style="padding: 10px">
-                <ul class="poweredby">
-                    <li>Developed by </li>
-                    <li>
-                        <a href="http://www.28msec.com" target="_blank">
-                            <img src="/images/28msec.png">
-                        </a>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <a ng-show="!user" class="btn btn-default pull-right menu-btn hidden-sm hidden-xs" href="/auth">Login / Sign-Up</a>
+                <div ng-show="user" class="pull-right btn-group user">
+                    <a class="btn btn-default" href="/account">{{user.firstname}} {{user.lastname}}</a>
+                    <a class="btn btn-default" ng-click="logout()"><i class="fa fa-sign-out"></i></a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li ng-class="{ active: (page == '/views/home.html') }">
+                        <a href="/">Home</a>
                     </li>
-                    <li>using</li>
-                    <li>
-                        <a href="http://www.bizql.io" target="_blank">
-                            BizQL.io
-                        </a>
+                    <li ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' ) }">
+                        <a href="/entity">Entities</a>
+                    </li>
+                    <li ng-if="DEBUG" ng-class="{ active: (page == '/views/disclosures.html') }">
+                        <a href="/disclosures">Disclosures</a>
+                    </li>
+                    <li ng-if="DEBUG" ng-class="{ active: (page == '/views/comparison.html' || page == '/views/comparison-information.html' || page == '/views/comparison-search.html') }">
+                        <a href="/comparison">Comparison</a>
+                    </li>
+                    <li ng-class="{ active: (page == '/views/api.html') }">
+                        <a href="/api">API</a>
+                    </li>
+                    <li><a href="https://28msec.zendesk.com/hc/en-us/categories/200094533-secxbrl-info" target="_blank">Support</a></li>
+                     <li class="visible-sm visible-xs">
+                         <a href="/auth">Login / Sign-Up</a>
                     </li>
                 </ul>
-                </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="mailto:hello@28.io">Contact Us</a></li>
-                    <li><a href="https://28msec.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a></li>
-                </ul>
             </div>
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="wrapper">
+        <div class="ng-view"></div>
+    </div>
+    <footer sticky-footer>
+        <div class="container">
+            <p class="text-center copyright">
+                <small>
+                    ©&nbsp;2013 28msec - The Information Agility Company. All rights reserved.
+                    <a href="http://28.io/terms-of-use">Terms of Use</a> - <a href="http://28.io/privacy-policy">Privacy Policy</a>
+                </small>
+            </p>
+        </div>
+    </footer>
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="/bower_components/jquery/jquery.js"></script>
-        <script src="/bower_components/angular/angular.js"></script>
-        <script src="/bower_components/angular-route/angular-route.js"></script>
-        <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
-        <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="/bower_components/jquery/jquery.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/ngprogress-lite/ngprogress-lite.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js"></script>
+    <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+    <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
+    <script src="/bower_components/angulartics/dist/angulartics.min.js"></script>
+    <script src="/bower_components/angulartics/src/angulartics.js"></script>
+	<script src="/bower_components/angulartics/src/angulartics-ga.js"></script>
+    
+    <!-- Modules -->
+    <script src="/scripts/modules/sticky_footer.js"></script>
+    <script src="/scripts/modules/navbar_toggle.js"></script>
+    <script src="/scripts/munchkinhelper.js"></script>
 
-        <script src="/scripts/munchkinhelper.js"></script>
+    <script src="/scripts/autocomplete.js"></script>
+    <script src="/scripts/ng-enter.js"></script>
+    <script src="/scripts/googlechart.js"></script>
+    <script src="/scripts/navbar-toggle.js"></script>
+    <script src="/scripts/scroll-id.js"></script>
+    <script src="/scripts/document-click.js"></script>
+    <script src="/scripts/constants.js"></script>
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/SessionService.js"></script>
+    <script src="/scripts/QueriesService.js"></script>
+    <script src="/scripts/UsersService.js"></script>
+    
+    <!-- Controllers -->
+    <script src="/scripts/controllers/api.js"></script>
+    <script src="/scripts/controllers/auth.js"></script>
+    <script src="/scripts/controllers/account.js"></script>
+    <script src="/scripts/controllers/entities.js"></script>
+    <script src="/scripts/controllers/entity.js"></script>
+    <script src="/scripts/controllers/entity_details.js"></script>
+    <script src="/scripts/controllers/filings.js"></script>
+    <script src="/scripts/controllers/filing.js"></script>
+    <script src="/scripts/controllers/components.js"></script>
+    <script src="/scripts/controllers/component.js"></script>
+    <script src="/scripts/controllers/fact_table.js"></script>
+    <script src="/scripts/controllers/model_structure.js"></script>
+    <script src="/scripts/controllers/analytics.js"></script>
+    <script src="/scripts/controllers/information.js"></script>
+    <script src="/scripts/controllers/dashboard.js"></script>
+    <script src="/scripts/controllers/search.js"></script>
+    <script src="/scripts/controllers/concept_map.js"></script>
+    <script src="/scripts/controllers/company.js"></script>
+    <script src="/scripts/controllers/example.js"></script>
+    <script src="/scripts/controllers/disclosures.js"></script>
+    <script src="/scripts/controllers/disclosure.js"></script>
+    <script src="/scripts/controllers/comparison_filter.js"></script>
+    <script src="/scripts/controllers/comparison.js"></script>
+    <script src="/scripts/controllers/comparison_information.js"></script>
+    <script src="/scripts/controllers/comparison_search.js"></script>
+    <!-- endbuild -->
+    
+    <!-- begin olark code -->
+<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+f[z]=function(){
+(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+0:+new Date};a.P=function(u){
+a.p[u]=new Date-a.p[0]};function s(){
+a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+b.contentWindow[g].open()}catch(w){
+c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+/* custom configuration goes here (www.olark.com/documentation) */
+olark.identify('1878-876-10-2235');/*]]>*/</script><noscript><a href="https://www.olark.com/site/1878-876-10-2235/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+    <!-- end olark code -->
+    
+    <!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <script src="/scripts/autocomplete.js"></script>
-        <script src="/scripts/ng-enter.js"></script>
-        <script src="/scripts/googlechart.js"></script>
-        <script src="/scripts/navbar-toggle.js"></script>
-        <script src="/scripts/scroll-id.js"></script>
-        <script src="/scripts/document-click.js"></script>
-        <script src="/scripts/constants.js"></script>
-        <script src="/scripts/main.js"></script>
-        <script src="/scripts/SessionService.js"></script>
-        <script src="/scripts/QueriesService.js"></script>
-        <script src="/scripts/UsersService.js"></script>
-        <script src="/scripts/ApiCtrl.js"></script>
-        <script src="/scripts/AuthCtrl.js"></script>
-        <script src="/scripts/AccountCtrl.js"></script>
-        <script src="/scripts/EntitiesCtrl.js"></script>
-        <script src="/scripts/EntityCtrl.js"></script>
-        <script src="/scripts/FilingsCtrl.js"></script>
-        <script src="/scripts/FilingCtrl.js"></script>
-        <script src="/scripts/ComponentsCtrl.js"></script>
-        <script src="/scripts/ComponentCtrl.js"></script>
-        <script src="/scripts/FactTableCtrl.js"></script>
-        <script src="/scripts/ModelStructureCtrl.js"></script>
-        <script src="/scripts/AnalyticsCtrl.js"></script>
-        <script src="/scripts/InformationCtrl.js"></script>
-        <script src="/scripts/DashboardCtrl.js"></script>
-        <script src="/scripts/SearchCtrl.js"></script>
-        <script src="/scripts/ConceptMapCtrl.js"></script>
-        <script src="/scripts/CompanyCtrl.js"></script>
-        <script src="/scripts/ExampleCtrl.js"></script>
-        <script src="/scripts/DisclosuresCtrl.js"></script>
-        <script src="/scripts/DisclosureCtrl.js"></script>
-        <script src="/scripts/ComparisonFilterCtrl.js"></script>
-        <script src="/scripts/ComparisonCtrl.js"></script>
-        <script src="/scripts/ComparisonInformationCtrl.js"></script>
-        <script src="/scripts/ComparisonSearchCtrl.js"></script>
-        <!-- endbuild -->
+  ga('create', 'UA-49068040-1', 'secxbrl.info');
+  ga('send', 'pageview');
+
+</script>
+
 </body>
+
 </html>

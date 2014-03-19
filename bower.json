@@ -9,7 +9,10 @@
     "angular-ui-bootstrap-bower": "0.10.0",
     "angular-cache": "2.3.0",
     "font-awesome": "4.0.3",
-    "animate.css": "~3.0.0"
+    "animate.css": "~3.0.0",
+    "bootstrap": "~3.0.0",
+    "ngprogress-lite": "~1.0.4",
+    "angulartics": "~0.14.15"
   },
   "devDependencies": {}
 }

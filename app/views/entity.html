@@ -1,18 +1,30 @@
-<div class="topbar text-center">
+<div id="entity">
+    
+<div class="menu" ng-show="cik">
     <div class="btn-group">
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/entity.html'" href="/entity{{(cik?'/' + cik : '')}}"><i class="icn fa fa-home"></i></a>
-        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/filings.html'" href="/filings{{(cik?'/' + cik : '')}}"><i class="icn icn-filings"></i> Filings</a>
-        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/information.html'" href="/information{{(cik?'/' + cik : '')}}"><i class="icn icn-analytics"></i> Basic Financial Information</a>
-        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/dashboard.html'" href="/dashboard{{(cik?'/' + cik : '')}}"><i class="icn icn-dashboard"></i> Basic Analysis</a>
-        <a class="btn btn-xs" ng-class="{ 'disabled': !cik }" ng-model="page" btn-radio="'/views/search.html'" href="/search{{(cik?'/' + cik : '')}}"><i class="icn icn-search"></i> Search Facts</a>
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/entity.html'" ng-href="/entity{{(cik?'/' + cik : '')}}">
+            <i class="fa fa-home"></i> Home
+        </a>
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/filings.html'" ng-href="/filings{{(cik?'/' + cik : '')}}">
+            <i class="fa fa-briefcase"></i> Filings
+        </a>
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/information.html'" ng-href="/information{{(cik?'/' + cik : '')}}">
+            <i class="fa fa-sitemap"></i> Basic Financial Information
+        </a>
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/dashboard.html'" ng-href="/dashboard{{(cik?'/' + cik : '')}}">
+            <i class="fa fa-bar-chart-o"></i> Basic Analysis
+        </a>
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/search.html'" ng-href="/search{{(cik?'/' + cik : '')}}">
+            <i class="fa fa-search"></i> Search Facts
+        </a>
     </div>
 </div>
 
 <div class="container">
-	<div class="row">
-		<div class="col-md-12 spaced">
-            <h3 class="text-center">Search Entity</h3>
-			<input class="form-control input-lg input-block" ng-class="{ 'fade-control': !cik }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
+	<div>
+		<div>
+            <h2 class="text-center">Search Entity</h2>
+			<input class="form-control input-block input-lg" ng-class="{ 'fade-control': !cik }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
 				   placeholder="Search entities by name, CIK, or ticker..." ng-click="focused=true;"
                    typeahead-template-url="typeaheadmulti.html"
 				   typeahead="entity for entity in entities | filter:$viewValue | limitTo:8">
@@ -24,9 +36,9 @@
             </script>
 		</div>
 
-        <div ng-show="result" class="white-box">
-          <h3 class="highlight3">{{result.Profiles.SEC.CompanyName}}</h3>
-		  <div class="scrolling">
+        <div ng-show="result" class="result">
+          <h3>{{result.Profiles.SEC.CompanyName}}</h3>
+		  <div>
             <table class="table" cellpadding="5">
               <tr>
                 <td style="width: 40%">CIK</td><td>{{cik}}</td>
@@ -51,7 +63,7 @@
               </tr>
             </table>
           </div>
-          <div class="white-box-footer" style="padding: 15px;">
+          <div>
             <a href="/filings/{{cik}}">Filings</a> | 
             <a href="/information/{{cik}}">Basic Financial Information</a> | 
             <a href="/dashboard/{{cik}}">Basic Analysis</a> | 
@@ -65,4 +77,5 @@
             <a href="{{API_URL}}/_queries/public/api/entities.jq.text?format=excel&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.csv">Excel</a>
           </div>
 	</div>
+</div>
 </div>
