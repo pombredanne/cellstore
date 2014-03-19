@@ -78,10 +78,10 @@
         </div>
       <div class="col-md-12 text-right" ng-show="results">
         All data as:
-        <a href="{{API_URL}}/_queries/public/api/filings.jq?format=json&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.json" target="_blank">JSON</a>,
-        <a href="{{API_URL}}/_queries/public/api/filings.jq?format=xml&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.xml" target="_blank">XML</a>,
-        <a href="{{API_URL}}/_queries/public/api/filings.jq?format=csv&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.csv" target="_blank">CSV</a>,
-        <a href="{{API_URL}}/_queries/public/api/filings.jq?format=excel&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.csv" target="_blank">Excel</a>
+        <a href="{{API_URL}}/_queries/public/api/filings.jq?format=json&_method=POST&fiscalPeriod=ALL&cik={{cik}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.json" target="_blank">JSON</a>,
+        <a href="{{API_URL}}/_queries/public/api/filings.jq?format=xml&_method=POST&fiscalPeriod=ALL&cik={{cik}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.xml" target="_blank">XML</a>,
+        <a href="{{API_URL}}/_queries/public/api/filings.jq?format=csv&_method=POST&fiscalPeriod=ALL&cik={{cik}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.csv" target="_blank">CSV</a>,
+        <a href="{{API_URL}}/_queries/public/api/filings.jq?format=excel&_method=POST&fiscalPeriod=ALL&cik={{cik}}{{(token?'&token=' + token : '')}}" download="filings-{{cik}}.csv" target="_blank">Excel</a>
       </div>
 	</div>
 </div>
