@@ -293,7 +293,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                         url: $backend.API_URL + '/_queries/public/api/filings.jq',
                         params : {
                             '_method' : 'POST',
-                            'cik' : cik
+                            'cik' : cik,
+                            'fiscalPeriod': 'ALL'
                         }
                     })
                     .success(function(data, status, headers, config) {
