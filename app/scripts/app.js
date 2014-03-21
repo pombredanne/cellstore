@@ -5,15 +5,15 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         
     $rootScope.$on('$routeChangeStart', function() {
         ngProgressLite.start();
-    }); 
-        
+    });
+
     $rootScope.$on('$routeChangeSuccess', function() {
         ngProgressLite.done();
-    }); 
+    });
 })
 .factory('$backend', function($q, $http, API_URL, DEBUG) {
     return {
-		API_URL: API_URL,
+        API_URL: API_URL,
 		DEBUG: DEBUG,
 
         data: [],
@@ -21,117 +21,110 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         getYears : function() {
             var that = this;
             var deferred = $q.defer();
-            if (!that.data['year'] || that.data['year'].length == 0)
-            {
-                that.data["year"] = [];
+            if (!that.data.year || that.data.year.length === 0) {
+                that.data.year = [];
                 var year = (new Date()).getFullYear();
-                while (year >= 2009) { that.data["year"].push(year); year -= 1; }
+                while (year >= 2009) { that.data.year.push(year); year -= 1; }
             }
-            deferred.resolve(that.data['year']);
+            deferred.resolve(that.data.year);
             return deferred.promise;
         },
 
-		getPeriods : function() { 
-			var that = this;
+		getPeriods : function() {
+            var that = this;
             var deferred = $q.defer();
-            if (!that.data['period'] || that.data['period'].length == 0)
-            {
-                that.data["period"] = [ 'FY', 'Q3', 'Q2', 'Q1' ];
+            if (!that.data.period || that.data.period.length === 0) {
+                that.data.period = [ 'FY', 'Q3', 'Q2', 'Q1' ];
             }
-            deferred.resolve(that.data['period']);
+            deferred.resolve(that.data.period);
             return deferred.promise;
 		},
 
         getDomainMembers: function(domain) {
             var that = this;
             var deferred = $q.defer();
-            if (that.data[domain] && that.data[domain].length > 0)
-            {
+            if (that.data[domain] && that.data[domain].length > 0) {
                 deferred.resolve(that.data[domain]);
                 return deferred.promise;
             }
 
             var url;
-            switch (domain)
-            {
-                case 'sector' :
-                    url = API_URL + '/_queries/public/FilerSectorList.jq';
-                    break;
+            switch (domain) {
+            case 'sector' :
+                url = API_URL + '/_queries/public/FilerSectorList.jq';
+                break;
             
-                case 'generator' :
-                    url = API_URL + '/_queries/public/GeneratorList.jq';
-                    break;
+            case 'generator' :
+                url = API_URL + '/_queries/public/GeneratorList.jq';
+                break;
             
-                case 'entityType' :
-                    url = API_URL + '/_queries/public/EntityTypeList.jq';
-                    break;
+            case 'entityType' :
+                url = API_URL + '/_queries/public/EntityTypeList.jq';
+                break;
             
-                case 'stockIndex' :
-                    url = API_URL + '/_queries/public/StockIndexList.jq';
-                    break;    
+            case 'stockIndex' :
+                url = API_URL + '/_queries/public/StockIndexList.jq';
+                break;
             }
-            if (url) 
+            if (url) {
                 $http({ method: 'GET', url: url, params: { _method: 'POST' }, cache: true })
-                    .success(function(data, status, headers, config) {
-                        that.data[domain] =  [];
-                        if (data && data.members){
-                            data.members.forEach(function(item) {
-                                that.data[domain].push(item[domain]);
-                            });
-                        }
-                        deferred.resolve(that.data[domain]);
-                    });
+                .success(function(data) {
+                    that.data[domain] =  [];
+                    if (data && data.members) {
+                        data.members.forEach(function(item) {
+                            that.data[domain].push(item[domain]);
+                        });
+                    }
+                    deferred.resolve(that.data[domain]);
+                });
+            }
             return deferred.promise;
         },
 
-        getTags : function() {
+        getTags: function() {
             var that = this;
             var deferred = $q.defer();
-            if (!that.data['tag'] || that.data['tag'].length == 0)
-            {
-                that.data["tag"] = [ "DOW30",
-                                "SP500",
-                                "FORTUNE100",
-                                "PJI" ];
+            if (!that.data.tag || that.data.tag.length === 0) {
+                that.data.tag = ['DOW30', 'SP500', 'FORTUNE100', 'PJI'];
             }
-            deferred.resolve(that.data['tag']);
+            deferred.resolve(that.data.tag);
             return deferred.promise;
         },
 
         getEntities: function() {
             var that = this;
             var deferred = $q.defer();
-            if (that.data['entities'] && that.data['entities'].length > 0)
-            {
-                deferred.resolve(that.data['entities']);
+            if (that.data.entities && that.data.entities.length > 0) {
+                deferred.resolve(that.data.entities);
                 return deferred.promise;
             }
 
             $http({ method: 'GET', url: API_URL + '/_queries/public/EntityNameTickerCIKTuples.jq', params: { _method: 'POST' }, cache: true })
-                .success(function(data, status, headers, config) {
-                    that.data['entities'] =  [];
-                    if (data) that.data['entities'] = data.entityNameTickerSymbolCikTuples;
-                    deferred.resolve(that.data['entities']);
-                });
+            .success(function(data) {
+                that.data.entities =  [];
+                if (data) { that.data.entities = data.entityNameTickerSymbolCikTuples; }
+                deferred.resolve(that.data.entities);
+            });
 
             return deferred.promise;
-
         },
 
         getConceptMaps: function() {
             var that = this;
             var deferred = $q.defer();
-            if (that.data['conceptMaps'] && that.data['conceptMaps'].length > 0)
+            if (that.data.conceptMaps && that.data.conceptMaps.length > 0)
             {
-                deferred.resolve(that.data['conceptMaps']);
+                deferred.resolve(that.data.conceptMaps);
                 return deferred.promise;
             }
 
             $http({ method: 'GET', url: API_URL + '/_queries/public/ConceptMaps.jq', params: { _method: 'POST' }, cache: true })
-                .success(function(data, status, headers, config) {
-                    that.data['conceptMaps'] =  [];
-                    if (data) that.data['conceptMaps'] = data.availableMaps;
-                    deferred.resolve(that.data['conceptMaps']);
+                .success(function(data) {
+                    that.data.conceptMaps =  [];
+                    if (data) {
+                        that.data.conceptMaps = data.availableMaps;
+                    }
+                    deferred.resolve(that.data.conceptMaps);
                 });
 
             return deferred.promise;
@@ -140,35 +133,35 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 })
 // Intercept http calls.
 .factory('RootScopeSpinnerInterceptor', function ($q, $rootScope, ngProgressLite) {
-        return {
-                // On request success
-                request: function (config) {
-                        ngProgressLite.start();
-                        // Return the config or wrap it in a promise if blank.
-                        return config || $q.when(config);
-                },
+    return {
+        // On request success
+        request: function (config) {
+            ngProgressLite.start();
+            // Return the config or wrap it in a promise if blank.
+            return config || $q.when(config);
+        },
 
-                // On request failure
-                requestError: function (rejection) {
-                        ngProgressLite.start();
-                        // Return the promise rejection.
-                        return $q.reject(rejection);
-                },
+        // On request failure
+        requestError: function (rejection) {
+            ngProgressLite.start();
+            // Return the promise rejection.
+            return $q.reject(rejection);
+        },
 
-                // On response success
-                response: function (response) {
-                        ngProgressLite.done();
-                        // Return the response or promise.
-                        return response || $q.when(response);
-                },
+        // On response success
+        response: function (response) {
+            ngProgressLite.done();
+            // Return the response or promise.
+            return response || $q.when(response);
+        },
 
-                // On response failture
-                responseError: function (rejection) {
-                        ngProgressLite.done();
-                        // Return the promise rejection.
-                        return $q.reject(rejection);
-                }
-        };
+        // On response failture
+        responseError: function (rejection) {
+            ngProgressLite.done();
+            // Return the promise rejection.
+            return $q.reject(rejection);
+        }
+    };
 })
 .config(function ($routeProvider, $locationProvider, $httpProvider) {
 
@@ -297,11 +290,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                             'fiscalPeriod': 'ALL'
                         }
                     })
-                    .success(function(data, status, headers, config) {
+                    .success(function(data) {
                         deferred.resolve(data.Archives);
-                    })
-                    .error(function(data, status, headers, config) {
-                        $scope.$emit('error', status, data);
                     });
                     return deferred.promise;
                 }]
@@ -420,22 +410,22 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	});
 		
 	$rootScope.$on('error', function(event, status, error){
-		if (status == 401) {
+		if (status === 401) {
             var p = $location.path();
-            if (p == '/account' || p == '/account/password' || p == '/account/info')
+            if (p === '/account' || p === '/account/password' || p === '/account/info') {
                 p = '';
-			$rootScope.goto("/auth" + p);
+            }
+			$rootScope.goto('/auth' + p);
 			return;
 		}
 		$modal.open( {
-			template: "<div class='modal-header h3'> Error {{object.status}} <a class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body'> {{object.error.description }} <br><a ng-click='details=true' ng-hide='details' class='dotted'>Show details</a><pre ng-show='details' class='small'>{{object.error | json }}</pre></div>",
-			controller: [ '$scope', '$modalInstance', 'object', 
-				function ($scope, $modalInstance, object) {
-					$scope.object = object;
-					$scope.cancel = function () {
-						$modalInstance.dismiss('cancel');
+			template: '<div class="modal-header h3"> Error {{object.status}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body"> {{object.error.description }} <br><a ng-click="details=true" ng-hide="details" class="dotted">Show details</a><pre ng-show="details" class="small">{{object.error | json }}</pre></div>',
+			controller: ['$scope', '$modalInstance', 'object', function ($scope, $modalInstance, object) {
+                $scope.object = object;
+				$scope.cancel = function () {
+				    $modalInstance.dismiss('cancel');
 				};
-			}],
+            }],
 			resolve: {
 				object: function() { return { status: status, error: error }; }
 			}
@@ -444,13 +434,12 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 
 	$rootScope.$on('alert', function(event, title, message){
 		$modal.open( {
-			template: "<div class='modal-header h3'> {{object.title}} <a class='close' ng-click='cancel()'>&times;</a></div><div class='modal-body' ng-bind-html='object.message'></div><div class='text-right modal-footer'><button class='btn btn-default' ng-click='cancel()'>OK</button></div>",
-			controller: [ '$scope', '$modalInstance', 'object', 
-				function ($scope, $modalInstance, object) {
-					$scope.object = object;
-					$scope.cancel = function () {
-						$modalInstance.dismiss('cancel');
-				};
+			template: '<div class="modal-header h3"> {{object.title}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
+			controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
+                $scope.object = object;
+				$scope.cancel = function () {
+				    $modalInstance.dismiss('cancel');
+                };
 			}],
 			resolve: {
 				object: function() { return { title: title, message: message }; }
@@ -468,31 +457,33 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			cache.put('user', angular.copy($rootScope.user));
 		}
 		MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'login' });
-		if (!url) url='/';
+		if (!url) {
+            url='/';
+        }
 		$rootScope.goto(url);
 	});
 
-	$rootScope.$on('logout', function(event){
+	$rootScope.$on('logout', function(){
 		$rootScope.logout();
 	});
 
 	$rootScope.logout = function() {
-		if ($rootScope.user)
+		if ($rootScope.user) {
 			MunchkinHelper.associateLead({ Email: $rootScope.user.email, lastsecxbrlinfoop: 'logout' });
+        }
 
 		$rootScope.token = null;
 		$rootScope.user = null;
 		var cache = $angularCacheFactory.get('secxbrl');
-		if (cache)
-		{
+		if (cache) {
 			cache.remove('token');
 			cache.remove('user');
 		}
 		$rootScope.goto('/');
 	};
 
-	$rootScope.$on('clearCache', function(event){
-		$rootScope.clearCache();
+	$rootScope.$on('clearCache', function(){//event
+        $rootScope.clearCache();
 	});
 
 	$rootScope.clearCache = function() {
@@ -510,18 +501,22 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 
 	$rootScope.gotologin = function() {
 		var p = $location.path();
-		if (p.length > 5 && p.substring(0, 5) == '/auth') return;
+		if (p.length > 5 && p.substring(0, 5) === '/auth') { return; }
 		$location.url('/auth' + p, true);
 	};
 
 	$rootScope.substring = function(string, len) {
-		if (string && string.length > len)
-			return string.substring(0, len) + "...";
-		else return string;
+		if (string && string.length > len) {
+			return string.substring(0, len) + '...';
+        } else {
+            return string;
+        }
 	};
 
-	$rootScope.toggleMenu = function(event, visible) { 
+	$rootScope.toggleMenu = function(event, visible) {
 		$rootScope.visibleMenu = visible;
-		if (event && visible) event.stopPropagation();
+		if (event && visible) {
+            event.stopPropagation();
+        }
 	};
 });
