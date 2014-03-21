@@ -1,6 +1,8 @@
-angular.module('main').controller('CompanyCtrl', ['$scope', '$route', '$http',
-  function($scope, $route, $http) {
-    $scope.section = ($route.current.params.section || "about");
+'use strict';
+
+angular.module('main')
+.controller('CompanyCtrl', function($scope, $route, $http) {
+    $scope.section = ($route.current.params.section || 'about');
     $scope.contacted = false;
     $scope.close = function() {
         $scope.contacted = false;
@@ -25,5 +27,4 @@ angular.module('main').controller('CompanyCtrl', ['$scope', '$route', '$http',
             });
         }
     };
-  }
-]);
+});
