@@ -45,7 +45,7 @@ angular.module('main').controller('SearchCtrl', function($scope, $location, $rou
 	};
 
 	$scope.adjustYearPeriod = function() {		
-		if ($scope.year && !$scope.usage[$scope.zzzyears.indexOf($scope.year)].used) 
+		if ($scope.year && !$scope.usage[$scope.years.indexOf($scope.year)].used) 
 			$scope.year = null;
 		
 		if (!$scope.year)

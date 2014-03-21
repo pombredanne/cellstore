@@ -83,6 +83,30 @@ angular.module('main').controller('DashboardCtrl', function($scope, $rootScope, 
                     {v: null},
                     {v: null}
                 ];
+                if (j < 3) 
+                {
+                    $scope.httpDates[(lastYear - 4 + i) + "YTD" + (j + 1)] = [
+                        {v: "YTD" + (j + 1) + " " + (lastYear - 4 + i) },
+                        {v: null},
+                        {v: null},
+                        {v: null},
+                        {v: null},
+                        {v: null},
+                        {v: null}
+                    ];
+                }
+                else 
+                {
+                    $scope.httpDates[(lastYear - 4 + i) + "FY"] = [
+                        {v: "FY " + (lastYear - 4 + i) },
+                        {v: null},
+                        {v: null},
+                        {v: null},
+                        {v: null},
+                        {v: null},
+                        {v: null}
+                    ];
+                }
             }
             fiscalYears.push(lastYear - 4 + i);
         }
@@ -105,7 +129,7 @@ angular.module('main').controller('DashboardCtrl', function($scope, $rootScope, 
                     if (data && data.FactTable)
                         data.FactTable.forEach(function(item)
                         {
-                            var p = (item["Aspects"]["bizql:FiscalPeriod"] == "FY" ? "Q4" : item["Aspects"]["bizql:FiscalPeriod"]);
+                            var p = item["Aspects"]["bizql:FiscalPeriod"];
                             var date = $scope.httpDates[item["Aspects"]["bizql:FiscalYear"] + p];
                             if (date) {
                                 var index=concepts.indexOf(item["Aspects"]["xbrl:Concept"]);
@@ -127,36 +151,52 @@ angular.module('main').controller('DashboardCtrl', function($scope, $rootScope, 
 
                     var sum;
                     var lastYear = (new Date()).getFullYear();
+
                     for (var i = 0; i < 4; i++)
                     {
                         var q1 = $scope.httpDates[(lastYear - 4 + i) + "Q1"];
                         var q2 = $scope.httpDates[(lastYear - 4 + i) + "Q2"];
                         var q3 = $scope.httpDates[(lastYear - 4 + i) + "Q3"];
                         var q4 = $scope.httpDates[(lastYear - 4 + i) + "Q4"];
-                        if (q4){
-                            if (q4[1]["v"])
-                            {
-                                sum=(parseFloat(q4[1]["v"]) || 0);
-                                if (q1) sum = sum - (parseFloat(q1[1]["v"]) || 0);
-                                if (q2) sum = sum - (parseFloat(q2[1]["v"]) || 0);
-                                if (q3) sum = sum - (parseFloat(q3[1]["v"]) || 0);
-                                q4[1]["v"] = sum;
-                            }
 
-                            if (q4[2]["v"])
-                            {
-                                sum=(parseFloat(q4[2]["v"]) || 0);
-                                if (q1) sum = sum - (parseFloat(q1[2]["v"]) || 0);
-                                if (q2) sum = sum - (parseFloat(q2[2]["v"]) || 0);
-                                if (q3) sum = sum - (parseFloat(q3[2]["v"]) || 0);
-                                q4[2]["v"] = sum;
-                            }
+                        var y1 = $scope.httpDates[(lastYear - 4 + i) + "YTD1"];
+                        var y2 = $scope.httpDates[(lastYear - 4 + i) + "YTD2"];
+                        var y3 = $scope.httpDates[(lastYear - 4 + i) + "YTD3"];
+                        var y4 = $scope.httpDates[(lastYear - 4 + i) + "FY"];
 
-                            if (q1 && q1[3]["v"]) q1[3]["v"] = (parseFloat(q1[3]["v"]) || 0) - (parseFloat(q1[4]["v"]) || 0);
-                            if (q2 && q2[3]["v"]) q2[3]["v"] = (parseFloat(q2[3]["v"]) || 0) - (parseFloat(q2[4]["v"]) || 0);
-                            if (q3 && q3[3]["v"]) q3[3]["v"] = (parseFloat(q3[3]["v"]) || 0) - (parseFloat(q3[4]["v"]) || 0);
-                            if (q4 && q4[3]["v"]) q4[3]["v"] = (parseFloat(q4[3]["v"]) || 0) - (parseFloat(q4[4]["v"]) || 0);
+                        if (!q4[1]["v"] && y4[1]["v"])
+                        {
+                            sum=(parseFloat(y4[1]["v"]) || 0);
+                            if (q1) sum = sum - (parseFloat(q1[1]["v"]) || 0);
+                            if (q2) sum = sum - (parseFloat(q2[1]["v"]) || 0);
+                            if (q3) sum = sum - (parseFloat(q3[1]["v"]) || 0);
+                            q4[1]["v"] = sum;
                         }
+
+                        if (!q4[2]["v"] && y4[2]["v"])
+                        {
+                            sum=(parseFloat(y4[2]["v"]) || 0);
+                            if (q1) sum = sum - (parseFloat(q1[2]["v"]) || 0);
+                            if (q2) sum = sum - (parseFloat(q2[2]["v"]) || 0);
+                            if (q3) sum = sum - (parseFloat(q3[2]["v"]) || 0);
+                            q4[2]["v"] = sum;
+                        }
+                        
+                        if (!q4[3]["v"] && y4[3]["v"])
+                        {
+                            q4[3]["v"] = y4[3]["v"];
+                        }
+                        
+                        if (!q4[4]["v"] && y4[4]["v"])
+                        {
+                            q4[4]["v"] = y4[4]["v"];
+                        }
+
+                        if (q1[3]["v"]) q1[3]["v"] = (parseFloat(q1[3]["v"]) || 0) - (parseFloat(q1[4]["v"]) || 0);
+                        if (q2[3]["v"]) q2[3]["v"] = (parseFloat(q2[3]["v"]) || 0) - (parseFloat(q2[4]["v"]) || 0);
+                        if (q3[3]["v"]) q3[3]["v"] = (parseFloat(q3[3]["v"]) || 0) - (parseFloat(q3[4]["v"]) || 0);
+                        if (q4[3]["v"]) q4[3]["v"] = (parseFloat(q4[3]["v"]) || 0) - (parseFloat(q4[4]["v"]) || 0);
+
                         q1[5]["v"] = makeTooltip(q1[0]["v"], parseFloat(q1[1]["v"]), "Revenue", parseFloat(q1[2]["v"]), "Net Income");
                         q2[5]["v"] = makeTooltip(q2[0]["v"], parseFloat(q2[1]["v"]), "Revenue", parseFloat(q2[2]["v"]), "Net Income");
                         q3[5]["v"] = makeTooltip(q3[0]["v"], parseFloat(q3[1]["v"]), "Revenue", parseFloat(q3[2]["v"]), "Net Income");
@@ -166,6 +206,11 @@ angular.module('main').controller('DashboardCtrl', function($scope, $rootScope, 
                         q2[6]["v"] = makeTooltip(q2[0]["v"], parseFloat(q2[3]["v"]), "Liabilities", parseFloat(q2[4]["v"]), "Equity");
                         q3[6]["v"] = makeTooltip(q3[0]["v"], parseFloat(q3[3]["v"]), "Liabilities", parseFloat(q3[4]["v"]), "Equity");
                         q4[6]["v"] = makeTooltip(q4[0]["v"], parseFloat(q4[3]["v"]), "Liabilities", parseFloat(q4[4]["v"]), "Equity");
+
+                        delete $scope.httpDates[(lastYear - 4 + i) + "YTD1"];
+                        delete $scope.httpDates[(lastYear - 4 + i) + "YTD2"];
+                        delete $scope.httpDates[(lastYear - 4 + i) + "YTD3"];
+                        delete $scope.httpDates[(lastYear - 4 + i) + "FY"];
                     }
                     $.map($scope.httpDates, function (el, index)
                     {
