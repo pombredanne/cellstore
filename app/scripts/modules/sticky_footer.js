@@ -1,5 +1,7 @@
+'use strict';
+
 angular.module('stickyFooter', []).directive('stickyFooter', function(){
-    return function($scope, elm) {
+    return function() {
         var resize = function(){
             var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
             var footer = document.querySelector('footer');
@@ -9,4 +11,4 @@ angular.module('stickyFooter', []).directive('stickyFooter', function(){
         angular.element(window).bind('resize', resize);
         resize();
     };
-})
+});
