@@ -21,14 +21,14 @@ angular.module('main').controller('ComponentsCtrl', ['$scope', '$route', '$http'
         }
       }).
       success(function(data, status, headers, config) {
-        $scope.results = data.Components;
-        $scope.cik = data.CIK.substring(23);
-        $scope.CIK = data.CIK;
-        $scope.EntityRegistrantName = data.EntityRegistrantName;
-        $scope.FiscalYear = data.FiscalYear;
-        $scope.FiscalPeriod = data.FiscalPeriod;
-        $scope.AcceptanceDatetime = data.AcceptanceDatetime;
-        $scope.FormType = data.FormType;
+        var a = data['Archives'][0]; // must be only one because we query for only one accession number
+        $scope.results = a['Components'];
+        $scope.cik = a.CIK.substring(23);
+        $scope.EntityRegistrantName = a.EntityRegistrantName;
+        $scope.FiscalYear = a.FiscalYear;
+        $scope.FiscalPeriod = a.FiscalPeriod;
+        $scope.AcceptanceDatetime = a.AcceptanceDatetime;
+        $scope.FormType = a.FormType;
       }).
       error(function(data, status, headers, config) {
         $scope.$emit('error', status, data);

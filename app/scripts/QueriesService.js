@@ -143,6 +143,9 @@ angular.module('main')
          * @param {string} fiscalYear - The fiscal year of the fact to retrieve (default: ALL),
          * @param {string} fiscalPeriod - The fiscal period of the fact to retrieve (default: ALL),
          * @param {string} aid - The id of the filing,
+         * @param {string} cid - The id of a particular component,
+         * @param {string} disclosure - The disclosure to search for (e.g. BalanceSheet),
+         * @param {string} concept - The disclosure to search for (e.g. us-gaap:Goodwill),
          * 
          */
         this.listComponents = function(parameters){
@@ -158,6 +161,9 @@ angular.module('main')
             params['fiscalYear'] = parameters['fiscalYear'];
             params['fiscalPeriod'] = parameters['fiscalPeriod'];
             params['aid'] = parameters['aid'];
+            params['cid'] = parameters['cid'];
+            params['disclosure'] = parameters['disclosure'];
+            params['concept'] = parameters['concept'];
             var body = null;
             var method = 'POST'.toUpperCase();
             if (parameters.$method)
@@ -336,13 +342,13 @@ angular.module('main')
             }
             params['fiscalPeriod'] = parameters['fiscalPeriod'];
             params['map'] = parameters['map'];
-            for(var prop in parameters) 
-                if (parameters.hasOwnProperty(prop)) 
-                    if(/^\w+:\w+$/ig.test(prop)) 
+            for(var prop in parameters)
+                if (parameters.hasOwnProperty(prop))
+                    if(/^\w+:\w+$/ig.test(prop))
                         params[prop]=parameters[prop];
-            for(var prop in parameters) 
-                if (parameters.hasOwnProperty(prop)) 
-                    if(/^\w+:\w+:\w+$/ig.test(prop)) 
+            for(var prop in parameters)
+                if (parameters.hasOwnProperty(prop))
+                    if(/^\w+:\w+:\w+$/ig.test(prop))
                         params[prop]=parameters[prop];
             params['token'] = parameters['token'];
             var body = null;

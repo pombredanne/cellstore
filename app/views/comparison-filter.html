@@ -55,13 +55,13 @@
         </div>
         <div class="row">
             <div class="col-xs-6">
-                <h6 class="nowrap">ADD FISCAL YEAR</h6>
+                <h6 class="nowrap">ADD FISCAL YEARS</h6>
                 <ul class="selector" style="height: 97px">
                     <li ng-repeat="y in years" ng-class="{ selected: (selection.year.indexOf(y) >= 0) }" ng-click="(selection.year.indexOf(y) >= 0 ? selection.year.splice(selection.year.indexOf(y), 1) : selection.year.push(y))">{{y}}</li>
                 </ul>
             </div>
             <div class="col-xs-6">
-                <h6 class="nowrap">ADD FISCAL PERIOD</h6>
+                <h6 class="nowrap">ADD FISCAL PERIODS</h6>
                 <ul class="selector" style="height: 97px">
                     <li ng-repeat="p in periods" ng-class="{ selected: (selection.period.indexOf(p) >= 0) }" ng-click="(selection.period.indexOf(p) >= 0 ? selection.period.splice(selection.period.indexOf(p), 1) : selection.period.push(p))">{{p}}</li>
                 </ul>

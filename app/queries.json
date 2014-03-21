@@ -292,6 +292,27 @@
                             "required": false,
                             "type": "string",
                             "paramType": "query"
+                        },
+                        {
+                            "name": "cid",
+                            "description": "The id of a particular component",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "disclosure",
+                            "description": "The disclosure to search for (e.g. BalanceSheet)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "concept",
+                            "description": "The disclosure to search for (e.g. us-gaap:Goodwill)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages": [
@@ -317,6 +338,12 @@
                             "title" : "Retrieve information about all components of a filing",
                             "description": "Retrieve information about all components of a particular filing which is identified by its accession number. Return the result as JSON.",
                             "request": "[API_URL]/_queries/public/api/components.jq?_method=POST&aid=0000021344-13-000039",
+                            "response": ""
+                        },
+                        {
+                            "title" : "Retrieve information about all components of COCA COLA's latest 10-K",
+                            "description": "Retrieve information about all components of a particular filing which is identified by its accession number. Return the result as JSON.",
+                            "request": "[API_URL]/_queries/public/api/components.jq?_method=POST&ticker=ko",
                             "response": ""
                         }
                     ]

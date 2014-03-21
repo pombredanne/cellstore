@@ -391,6 +391,16 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
             }
         })
+        .when('/comparison/components', {
+            templateUrl: '/views/comparison-components.html',
+            controller: 'ComparisonComponentsCtrl',
+            resolve: {
+                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+                years: ['$backend', function($backend) { return $backend.getYears(); }],
+                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+            }
+        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'
