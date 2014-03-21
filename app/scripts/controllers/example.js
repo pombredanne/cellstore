@@ -141,6 +141,20 @@ angular.module('main').controller('ExampleCtrl', ['$scope', '$route', '$http', '
         file: 'api/facts.jq',
         category : "FactsTutorial",
         params: { ticker : "mmm", concept: "us-gaap:Goodwill", "us-gaap:StatementBusinessSegmentsAxis" : "ALL", "us-gaap:StatementBusinessSegmentsAxis::default" : "us-gaap:SegmentDomain" }
+      },
+      {
+        name: "FilteringTextBlocks",
+        description: "This example shows how you can retrieve several concepts whose value is not a number but a block of (html) text. Specifically, it returns us-gaap:NatureOfOperations, us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock, and us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock for the DOW30 entities of their FY/2012 filings.",
+        file: 'api/facts.jq',
+        category : "DynamicFactTables",
+        params: { tag : "DOW30", concept: ["us-gaap:NatureOfOperations", "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock", "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock"], "dei:LegalEntityAxis" : "sec:DefaultLegalEntity", "dei:LegalEntityAxis::default" : "sec:DefaultLegalEntity", fiscalYear : "2012", fiscalPeriod : "FY" }
+      },
+      {
+        name: "AssetsAndLiabilitiesAndStockholdersEquityDOW30",
+        description: "The request returns the facts for the concepts us-gaap:Assets and us-gaap:LiabilitiesAndStockholdersEquity for all fiscal periods and fiscal years for the DOW30 entities.",
+        file: 'api/facts.jq',
+        category : "DynamicFactTables",
+        params: { tag : "DOW30", fiscalPeriod : "ALL", fiscalYear : "ALL", concept: ["us-gaap:Assets", "us-gaap:LiabilitiesAndStockholdersEquity" ],  "dei:LegalEntityAxis" : "sec:DefaultLegalEntity", "dei:LegalEntityAxis::default" : "sec:DefaultLegalEntity" }
       }
 
    ];

@@ -58,6 +58,7 @@
                             <th>Value</th>
                             <th>Unit</th>
                             <th>Decimals</th>
+                            <th>Entity Registrant Name</th>
                           </thead>
                           <tbody>
                             <tr ng-repeat="item in data.FactTable | filter : search">
@@ -68,6 +69,7 @@
                               <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
                               <td>{{item.Unit=='xbrl:NonNumeric'?"":item.Unit}}</td>
                               <td>{{item.Decimals}}</td>
+                              <td>{{item.EntityRegistrantName}}</td>
                             </tr>
                           </tbody>
                       </table>
