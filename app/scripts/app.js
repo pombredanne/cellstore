@@ -138,9 +138,42 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         }
     };
 })
+// Intercept http calls.
+.factory('RootScopeSpinnerInterceptor', function ($q, $rootScope, ngProgressLite) {
+        return {
+                // On request success
+                request: function (config) {
+                        ngProgressLite.start();
+                        // Return the config or wrap it in a promise if blank.
+                        return config || $q.when(config);
+                },
+
+                // On request failure
+                requestError: function (rejection) {
+                        ngProgressLite.start();
+                        // Return the promise rejection.
+                        return $q.reject(rejection);
+                },
+
+                // On response success
+                response: function (response) {
+                        ngProgressLite.done();
+                        // Return the response or promise.
+                        return response || $q.when(response);
+                },
+
+                // On response failture
+                responseError: function (rejection) {
+                        ngProgressLite.done();
+                        // Return the promise rejection.
+                        return $q.reject(rejection);
+                }
+        };
+})
 .config(function ($routeProvider, $locationProvider, $httpProvider) {
 
     $locationProvider.html5Mode(true);
+    $httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 
     $routeProvider
         .when('/', {
@@ -260,7 +293,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                         url: $backend.API_URL + '/_queries/public/api/filings.jq',
                         params : {
                             '_method' : 'POST',
-                            'cik' : cik
+                            'cik' : cik,
+                            'fiscalPeriod': 'ALL'
                         }
                     })
                     .success(function(data, status, headers, config) {
@@ -319,6 +353,9 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         })
         .when('/how', {
             templateUrl: '/views/how.html'
+        })
+        .when('/pricing', {
+            templateUrl: '/views/pricing.html'
         })
         .when('/disclosures', {
             templateUrl: '/views/disclosures.html',

@@ -86,7 +86,7 @@ angular.module('main')
          * @param {string} cik - A CIK number,
          * @param {string} ticker - A ticker symbols,
          * @param {string} fiscalYear - The fiscal year of the fact to retrieve (default: ALL),
-         * @param {string} fiscalPeriod - The fiscal period of the fact to retrieve (default: ALL),
+         * @param {string} fiscalPeriod - The fiscal period of the fact to retrieve (default: FY),
          * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
          * 
          */

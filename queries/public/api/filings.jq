@@ -88,7 +88,7 @@ let $sics        := distinct-values(request:param-values("sic"))
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
-                        then ("Q1", "Q2", "Q3", "FY", "YTD1", "YTD2", "YTD3")
+                        then ("Q1", "Q2", "Q3", "FY")
                         else $fp)
 let $aids     := request:param-values("aid")
 let $ciks := ($ciks, 

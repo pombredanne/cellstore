@@ -162,7 +162,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the fact to retrieve (default: ALL)",
+                            "description": "The fiscal period of the fact to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
                             "enum": [

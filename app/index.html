@@ -42,8 +42,8 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse">
-                <a ng-show="!user" class="btn btn-default pull-right menu-btn hidden-sm hidden-xs" href="/auth">Login / Sign-Up</a>
-                <div ng-show="user" class="pull-right btn-group user">
+                <a ng-if="!user" class="btn btn-default pull-right menu-btn hidden-sm hidden-xs" href="/auth">Login / Sign-Up</a>
+                <div ng-if="user" class="pull-right btn-group user">
                     <a class="btn btn-default" href="/account">{{user.firstname}} {{user.lastname}}</a>
                     <a class="btn btn-default" ng-click="logout()"><i class="fa fa-sign-out"></i></a>
                 </div>
@@ -51,19 +51,22 @@
                     <li ng-class="{ active: (page == '/views/home.html') }">
                         <a href="/">Home</a>
                     </li>
+                    <li ng-class="{ active: (page == '/views/pricing.html') }">
+                        <a href="/pricing">Pricing</a>
+                    </li>
                     <li ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' ) }">
-                        <a href="/entity">Entities</a>
+                        <a href="/entity">Browse</a>
                     </li>
                     <li ng-if="DEBUG" ng-class="{ active: (page == '/views/disclosures.html') }">
-                        <a href="/disclosures">Disclosures</a>
+                        <a href="/disclosures">Search</a>
                     </li>
                     <li ng-if="DEBUG" ng-class="{ active: (page == '/views/comparison.html' || page == '/views/comparison-information.html' || page == '/views/comparison-search.html') }">
-                        <a href="/comparison">Comparison</a>
+                        <a href="/comparison">Compare</a>
                     </li>
                     <li ng-class="{ active: (page == '/views/api.html') }">
                         <a href="/api">API</a>
                     </li>
-                    <li><a href="https://28msec.zendesk.com/hc/en-us/categories/200094533-secxbrl-info" target="_blank">Support</a></li>
+                     <li><a href="https://secxbrl.zendesk.com/" target="_blank">Support</a></li>
                      <li class="visible-sm visible-xs">
                          <a href="/auth">Login / Sign-Up</a>
                     </li>
