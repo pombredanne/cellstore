@@ -1,78 +1,91 @@
-<div class="menu">
-    <div class="btn-group">
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison"><i class="fa fa-home"></i></a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information"><i class="fa fa-th-large"></i> Basic Financial Information</a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search"><i class="fa fa-search"></i> Search Facts</a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components"><i class="fa fa-quote-left"></i> Search Components</a>
+<div id="comparison-components">
+    <div class="menu">
+        <div class="btn-group">
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison">
+                <i class="fa fa-home"></i>
+            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information">
+                <i class="fa fa-th-large"></i>
+                Basic Financial Information
+            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search">
+                <i class="fa fa-search"></i>
+                Search Facts
+            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components">
+                <i class="fa fa-quote-left"></i>
+                Search Components
+            </a>
+        </div>
     </div>
-</div>
 
-<div class="cols row">
-	<div class="col-left col-md-3 col-sm-4 col-xs-12 selection" ng-include="'/views/comparison-filter.html'"></div>
-	<div class="col-right col-md-9 col-sm-8 col-xs-12">
-		<h2>Search components by disclosures or concepts</h2>
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="input-group">
-          <span class="input-group-addon">
-            <input type="radio" name="choice" ng-model="choice" value="disclosure"> Disclosure
-          </span>
-          <input type="text" class="form-control" ng-model="searchDisclosure">
-        </div><!-- /input-group -->
-      </div><!-- /.col-lg-6 -->
-      <div class="col-lg-6">
-        <div class="input-group">
-          <span class="input-group-addon">
-            <input type="radio" name="choice" ng-model="choice" value="concept"> Concept
-          </span>
-          <input type="text" class="form-control" ng-model="searchConcept">
-        </div><!-- /input-group -->
-      </div><!-- /.col-lg-6 -->
-    </div><!-- /.row -->
-    <div>
-    	<button class="btn btn-primary" class="form-control" ng-click="getValues()">GO</button>
-    </div>
-    <div ng-show="results.length">
-      <input type="text" class="form-control" ng-model="search" placeholder="Search components...">
-      <table class="table table-condensed table-striped small">
-        <thead>
-          <th>#</th>
-          <th>Entity</th>
-          <th>Accession Number</th>
-          <th>Form Type</th>
-          <th>Fiscal Period/Year</th>
-          <th>Network Label / Name</th>
-          <th>Category</th>
-          <th>Table</th>
-          <th>Disclosure Name</th>
-          <th>Go to</th>
-        </thead>
-        <tbody>
-          <tr ng-repeat="item in results | filter : search">
-            <td>{{$index + 1}}</td>
-            <td>{{item.CIK}}<br/><small>({{item.EntityRegistrantName}})</small></td>
-            <td>{{item.AccessionNumber}}</td>
-            <td>{{item.FormType}}</td>
-            <td>{{item.FiscalPeriod}} / {{item.FiscalYear}}</td>
-            <td>{{item.NetworkLabel}}<br/><small><span title="{{item.NetworkIdentifier}}">{{trimNetworkURL(item.NetworkIdentifier)}}</span></small></td>
-            <td>{{item.Category}}</td>
-            <td><span title="{{item.Table}}">{{trimTableURL(item.Table)}}</span></td>
-            <td>{{item.Disclosure}}</td>
-            <td class="text-center">
-              <span class="dropdown">
-                <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
-                <ul class="dropdown-menu text-left pull-right">
-                  <li><a href="/component/{{item.ComponentId}}">Component Details</a></li>
-                  <li><a href="/facttable/{{item.ComponentId}}">Fact Table</a></li>
-                  <li><a href="/modelstructure/{{item.ComponentId}}">Model Structure</a></li>
-                  <li><a class="disabled">BizPivot Rendering</a></li>
-                  <li><a class="disabled">SEC Preview</a></li>
-                </ul>
-              </span>
-            </td>
-          </tr>
-         </tbody>
-      </table>
-    </div>
-  </div>
-</div><!-- cols rows -->
+    <div class="cols row">
+        <div class="col-left col-md-3 col-sm-4 col-xs-12 selection" ng-include="'/views/comparison-filter.html'"></div>
+        <div class="col-right col-md-9 col-sm-8 col-xs-12">
+            <h2>Search components by disclosures or concepts</h2>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input type="radio" name="choice" ng-model="choice" value="disclosure"> Disclosure
+                        </span>
+                        <input type="text" class="form-control" ng-model="searchDisclosure">
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input type="radio" name="choice" ng-model="choice" value="concept"> Concept
+                        </span>
+                        <input type="text" class="form-control" ng-model="searchConcept">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+    	           <button class="btn btn-primary" class="form-control" ng-click="getValues()">GO</button>
+                </div>
+            </div>
+            <div ng-show="results.length">
+                <input type="text" class="form-control" ng-model="search" placeholder="Search components...">
+                <table class="table table-condensed table-striped small">
+                    <thead>
+                        <th>#</th>
+                        <th>Entity</th>
+                        <th>Accession Number</th>
+                        <th>Form Type</th>
+                        <th>Fiscal Period/Year</th>
+                        <th>Network Label / Name</th>
+                        <th>Category</th>
+                        <th>Table</th>
+                        <th>Disclosure Name</th>
+                        <th>Go to</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in results | filter : search">
+                            <td>{{$index + 1}}</td>
+                            <td>{{item.CIK}}<br/><small>({{item.EntityRegistrantName}})</small></td>
+                            <td>{{item.AccessionNumber}}</td>
+                            <td>{{item.FormType}}</td>
+                            <td>{{item.FiscalPeriod}} / {{item.FiscalYear}}</td>
+                            <td>{{item.NetworkLabel}}<br/><small><span title="{{item.NetworkIdentifier}}">{{trimNetworkURL(item.NetworkIdentifier)}}</span></small></td>
+                            <td>{{item.Category}}</td>
+                            <td><span title="{{item.Table}}">{{trimTableURL(item.Table)}}</span></td>
+                            <td>{{item.Disclosure}}</td>
+                            <td class="text-center">
+                                <span class="dropdown">
+                                    <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
+                                    <ul class="dropdown-menu text-left pull-right">
+                                        <li><a href="/component/{{item.ComponentId}}">Component Details</a></li>
+                                        <li><a href="/facttable/{{item.ComponentId}}">Fact Table</a></li>
+                                        <li><a href="/modelstructure/{{item.ComponentId}}">Model Structure</a></li>
+                                        <li><a class="disabled">BizPivot Rendering</a></li>
+                                        <li><a class="disabled">SEC Preview</a></li>
+                                    </ul>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!-- cols rows -->
+</div>
