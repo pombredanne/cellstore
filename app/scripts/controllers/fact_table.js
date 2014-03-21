@@ -20,12 +20,12 @@ angular.module('main')
             method : 'GET',
             url: $backend.API_URL + '/_queries/public/api/facttable-for-component.jq',
             params : {
-            '_method' : 'POST',
-            'cid' : $scope.cid,
-            'token' : $scope.token
+                '_method' : 'POST',
+                'cid' : $scope.cid,
+                'token' : $scope.token
             }
         })
-        .success(function(data, status, headers, config) {
+        .success(function(data) {
             $scope.data = data.FactTable;
             $scope.Label = data.Label;
             $scope.cik = (data.CIK || '').substring(23);
@@ -44,7 +44,7 @@ angular.module('main')
             $scope.AcceptanceDatetime = data.AcceptanceDatetime;
             $scope.FormType = data.FormType;
         })
-        .error(function(data, status, headers, config) {
+        .error(function(data, status) {
             $scope.$emit('error', status, data);
         });
     };
@@ -80,7 +80,7 @@ angular.module('main')
 
     $scope.enumerate = function(object) {
         var ret = [];
-        $.map(object, function (el, index) {
+        $.map(object, function (el) {
             ret.push(el);
         });
         return ret;
