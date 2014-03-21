@@ -1,7 +1,10 @@
-angular.module('main').controller('SearchCtrl', function($scope, $location, $route, $http, $angularCacheFactory, $modal, $backend, QueriesService, years, periods, entities, conceptMaps){
+'use strict';
+
+angular.module('main')
+.controller('SearchCtrl', function($scope, $location, $route, $http, $angularCacheFactory, $modal, $backend, QueriesService, years, periods, entities, conceptMaps){
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
-    $scope.year = ($route.current.params.year ? parseInt($route.current.params.year) : null);
+    $scope.year = ($route.current.params.year ? parseInt($route.current.params.year, 10) : null);
     $scope.period = ($route.current.params.period ? $route.current.params.period : null);
     $scope.conceptMaps = conceptMaps;
     $scope.conceptMapKey = conceptMaps[1];
@@ -15,63 +18,64 @@ angular.module('main').controller('SearchCtrl', function($scope, $location, $rou
 	$scope.searches = $angularCacheFactory.get('secxbrl').get('search-history') || [];
 	$scope.API_URL = $backend.API_URL;
 
-	$scope.computeUsage = function() { 
+	$scope.computeUsage = function() {
 		$scope.usage = [];
-		years.forEach(function(year) {
+		years.forEach(function() {
 			$scope.usage.push({ used: false, periods: [ { used: false }, { used: false }, { used: false }, { used: false } ] });
 		});
 
 		$http({
-			method: 'GET', 
+			method: 'GET',
 			url: $backend.API_URL + '/_queries/public/FYandFPByCIK.jq',
-			params: { _method: 'POST', cik: $scope.cik, "token" : $scope.token },
+			params: { _method: 'POST', cik: $scope.cik, 'token': $scope.token },
 			cache: true
 		})
-		.success(function (data, status, headers, config)
-		{
-			if (data && data.filings)
-			{
+		.success(function(data) {
+			if (data && data.filings) {
 				data.filings.forEach(function(filing) {
 					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].used = true;
 					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod)].used = true;
 				});
 				$scope.adjustYearPeriod();
-			}
-			else $scope.$emit("error", status, data);
+			} else {
+                $scope.$emit('error', status, data);
+            }
 		})
-		.error(function(data, status) { 
-			$scope.$emit("error", status, data);
+		.error(function(data, status) {
+			$scope.$emit('error', status, data);
 		});
 	};
 
-	$scope.adjustYearPeriod = function() {		
-		if ($scope.year && !$scope.usage[$scope.zzzyears.indexOf($scope.year)].used) 
+	$scope.adjustYearPeriod = function() {
+        var i;
+		if ($scope.year && !$scope.usage[$scope.zzzyears.indexOf($scope.year)].used) {
 			$scope.year = null;
-		
-		if (!$scope.year)
-			for (var i = 0; i < $scope.years.length; i++)
-				if ($scope.usage[i].used)
-				{
+        }
+		if (!$scope.year) {
+			for (i = 0; i < $scope.years.length; i++) {
+				if ($scope.usage[i].used) {
 					$scope.year = $scope.years[i];
 					$scope.period = $scope.periods[0];
 					break;
 				}
-
-		if ($scope.period && !$scope.usage[$scope.years.indexOf($scope.year)].periods[$scope.periods.indexOf($scope.period)].used) 
-			$scope.period = null;
-		
+            }
+        }
+		if ($scope.period && !$scope.usage[$scope.years.indexOf($scope.year)].periods[$scope.periods.indexOf($scope.period)].used) {
+            $scope.period = null;
+        }
 		if (!$scope.period)
 		{
 			var pers = $scope.usage[$scope.years.indexOf($scope.year)].periods;
-			for (var i = 0; i < pers.length; i++)
+			for (i = 0; i < pers.length; i++) {
 				if (pers[i].used) {
 					$scope.period = $scope.periods[i];
 					break;
 				}
+            }
 		}
 	};
 
-    $scope.selectEntity = function(item) { 
+    $scope.selectEntity = function(item) {
         $scope.cik = item.cik;
         $scope.name = item.name;
         $scope.ticker = item.tickers[0];
@@ -109,9 +113,10 @@ angular.module('main').controller('SearchCtrl', function($scope, $location, $rou
 	};
 	
 	$scope.trimURL = function(url) {
-		if (url.length < 40) return url;
-
-		return url.substr(0, 10) + "..." + url.substr(url.length - 30);
+		if (url.length < 40) {
+            return url;
+        }
+		return url.substr(0, 10) + '...' + url.substr(url.length - 30);
 	};
 
     $scope.getValue = function ()
@@ -121,105 +126,106 @@ angular.module('main').controller('SearchCtrl', function($scope, $location, $rou
         $scope.factText = '';
         $scope.factUnit = '';
 		$scope.originalConcept = null;
-        if ($scope.cik && $scope.period && $scope.year && $scope.conceptMapKey != '')
+        if ($scope.cik && $scope.period && $scope.year && $scope.conceptMapKey !== '')
         {
             $http({
-                    method: 'GET', 
+                    method: 'GET',
                     url: $backend.API_URL + '/_queries/public/FactForConcept.jq',
-                    params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, conceptName: $scope.conceptMapKey, map: $scope.conceptMap || "None", "token" : $scope.token },
+                    params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, conceptName: $scope.conceptMapKey, map: $scope.conceptMap || 'None', 'token': $scope.token },
 					cache: true
                 })
-                .success(function (data, status, headers, config)
+                .success(function (data)
                 {
-					if (data.originalConcept)
+					if (data.originalConcept) {
 						$scope.originalConcept = data.originalConcept;
-                    if (data.value) 
-					{
-                        if(data.type == "NumericValue")
+                    }
+                    if (data.value) {
+                        if(data.type === 'NumericValue')
                         {
 							$scope.factType = data.type;
                             $scope.factValue = parseFloat(data.value).toLocaleString();
                             $scope.factUnit = data.unit.split(':')[1];
-                        }
-                        else 
-						{
-							$scope.factText = data.value; 
+                        } else {
+							$scope.factText = data.value;
 						}
 
-						$scope.searches.unshift({ 
-							cik: $scope.cik, name: $scope.name, 
-							year: $scope.year, period: $scope.period,
+						$scope.searches.unshift({
+							cik: $scope.cik,
+                            name: $scope.name,
+							year: $scope.year,
+                            period: $scope.period,
 							conceptMap: $scope.conceptMap,
-							conceptMapKey: $scope.conceptMapKey, 
-							factType: $scope.factType, 
-							factValue: $scope.factValue, 
-							factUnit: $scope.factUnit, 
-							factText: $scope.factText });
-						if ($scope.searches.length > 15) $scope.searches.pop();
+							conceptMapKey: $scope.conceptMapKey,
+							factType: $scope.factType,
+							factValue: $scope.factValue,
+							factUnit: $scope.factUnit,
+							factText: $scope.factText
+                        });
+						if ($scope.searches.length > 15){
+                            $scope.searches.pop();
+                        }
 						$angularCacheFactory.get('secxbrl').put('search-history', angular.copy($scope.searches));
 					}
                 })
-				.error(function(data, status) { 
-					$scope.$emit("error", status, data);
+				.error(function(data, status) {
+					$scope.$emit('error', status, data);
 				});
-        }
-        else
+        } else {
             $scope.$emit('alert', 'Error', 'Please fill in all parameters!');
-
-    }
+        }
+    };
 
     $scope.$watch(
         function(scope) {
-            return scope.conceptMap + "|" + scope.cik + "|" + scope.year + "|" + scope.period;
-        }, 
-        function(newValue) {
+            return scope.conceptMap + '|' + scope.cik + '|' + scope.year + '|' + scope.period;
+        },
+        function() {
             $scope.conceptMapKeys = [];
 
             var crtMapKey = $scope.conceptMapKey;
-            $scope.conceptMapKey = "";
+            $scope.conceptMapKey = '';
 
             if ($scope.conceptMap)
             {
                 $http({
-                        method: 'GET', 
-                        url: $backend.API_URL + '/_queries/public/ConceptMapKeys.jq',
-                        params: { _method: 'POST', mapName: $scope.conceptMap || "None", "token" : $scope.token },
-						cache: true
+                    method: 'GET',
+                    url: $backend.API_URL + '/_queries/public/ConceptMapKeys.jq',
+                    params: { _method: 'POST', mapName: $scope.conceptMap || 'None', 'token': $scope.token },
+				    cache: true
+                })
+                .success(function(data){
+                    if (data) {
+                        $scope.conceptMapKeys = data.mapKeys;
+                    }
+                    if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) {
+                        $scope.conceptMapKey = crtMapKey;
+                    }
+                })
+				.error(function(data, status) {
+				    $scope.$emit('error', status, data);
+				});
+            } else {
+                if ($scope.cik && $scope.year && $scope.period)
+                {
+                    $http({
+                        method: 'GET',
+                        url: $backend.API_URL + '/_queries/public/FactualConcepts.jq',
+                        params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, 'token' : $scope.token },
+				        cache: true
                     })
-                    .success(function (data, status, headers, config)
-                    {
-                        if (data) $scope.conceptMapKeys = data.mapKeys;
+                    .success(function (data) {
+                        if (data && data.factualConcepts) {
+                            data.factualConcepts.forEach(function(item) {
+                                $scope.conceptMapKeys.push(item.name);
+                            });
+                        }
                         if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) {
                             $scope.conceptMapKey = crtMapKey;
                         }
                     })
-					.error(function(data, status) { 
-						$scope.$emit('error', status, data);
-					});
-            }
-            else
-            {
-                if ($scope.cik && $scope.year && $scope.period)
-                {
-                    $http({
-                            method: 'GET', 
-                            url: $backend.API_URL + '/_queries/public/FactualConcepts.jq',
-                            params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, "token" : $scope.token },
-							cache: true
-                        })
-                        .success(function (data, status, headers, config)
-                        {
-                            if (data && data.factualConcepts) 
-                                data.factualConcepts.forEach(function(item) {
-                                    $scope.conceptMapKeys.push(item.name);
-                                });
-                            if ($scope.conceptMapKeys.indexOf(crtMapKey) >= 0) {
-                                $scope.conceptMapKey = crtMapKey;
-                            }
-                        })
-						.error(function(data, status) { 
-							$scope.$emit('error', status, data);
-						});
+				    .error(function(data, status) {
+				        $scope.$emit('error', status, data);
+				    });
                 }
             }
         }
@@ -230,7 +236,7 @@ angular.module('main').controller('SearchCtrl', function($scope, $location, $rou
 	};
     
     $scope.openEntityDetails = function(){
-        var modalInstance = $modal.open({
+        $modal.open({
             templateUrl: '/views/entity_details.html',
             controller: 'EntityDetailsCtrl',
             resolve: {
@@ -246,8 +252,9 @@ angular.module('main').controller('SearchCtrl', function($scope, $location, $rou
 
     if ($route.current.params.cik) {
         $scope.entities.forEach(function(entity) {
-            if (entity.cik == $route.current.params.cik) 
-				$scope.selectEntity(entity);
+            if (entity.cik === $route.current.params.cik) {
+                $scope.selectEntity(entity);
+            }
         });
     }
 });
