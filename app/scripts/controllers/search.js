@@ -48,7 +48,7 @@ angular.module('main')
 
 	$scope.adjustYearPeriod = function() {
         var i;
-		if ($scope.year && !$scope.usage[$scope.zzzyears.indexOf($scope.year)].used) {
+		if ($scope.year && !$scope.usage[$scope.years.indexOf($scope.year)].used) {
 			$scope.year = null;
         }
 		if (!$scope.year) {
