@@ -1,15 +1,17 @@
-angular.module('main').controller('AccountCtrl', ['$scope', '$route', '$http', '$location', '$backend', 'SessionService', 'UsersService',
-  function($scope, $route, $http, $location, $backend, SessionService, UsersService) {
-      $scope.section = $route.current.params.section;
-      $scope.resetAttempted = false;
-      $scope.infoAttempted = false;
+'use strict';
 
-      $scope.resetPassword = function() {
+angular.module('main')
+.controller('AccountCtrl', function($scope, $route, $http, $location, $backend, SessionService, UsersService) {
+    $scope.section = $route.current.params.section;
+    $scope.resetAttempted = false;
+    $scope.infoAttempted = false;
+
+    $scope.resetPassword = function() {
         $scope.resetAttempted = true;
         $scope.infoAttempted = false;
 
-        $scope.$broadcast("autocomplete:update");
-        $scope.resetForm.passwordRepeat.$setValidity("equals", $scope.password == $scope.passwordRepeat);
+        $scope.$broadcast('autocomplete:update');
+        $scope.resetForm.passwordRepeat.$setValidity('equals', $scope.password === $scope.passwordRepeat);
 
         if(!$scope.resetForm.$invalid) {
             var us = (new UsersService($backend.API_URL + '/_queries/public'));
@@ -17,31 +19,29 @@ angular.module('main').controller('AccountCtrl', ['$scope', '$route', '$http', '
               .then(
                 function(data) {
                     if(data && data.success) {
-                        $scope.$emit("alert", "Success", "Your password has been changed.");
-                        $scope.goto("/account");
+                        $scope.$emit('alert', 'Success', 'Your password has been changed.');
+                        $scope.goto('/account');
+                    } else {
+                        $scope.$emit('error', 500, data);
                     }
-                    else 
-                        $scope.$emit("error", 500, data);
                 },
-                function(response) { $scope.$emit("error", response.status, response.data); });
+                function(response) { $scope.$emit('error', response.status, response.data); });
         }
-      };
+    };
 
-      $scope.qs = $location.search();
-      if ($scope.qs && $scope.qs.token) {
-          var us = (new UsersService($backend.API_URL + '/_queries/public'));
-          
-          us.getUser({ token: $scope.qs.token })
-            .then(
-                function(data) { 
-                    if (data && data.success && data.user) {
-                        $scope.$emit("login", $scope.qs.token, data.user._id, data.user.email, data.user.firstname, data.user.lastname, $location.path());
-                    }
-                    else 
-                        $scope.$emit("error", 500, data);
-                },
-                function(response) { $scope.$emit("error", response.status, response.data); });
-      }
-      else if (!$scope.token) $scope.$emit("error", 401, null);
-  }
-]);
+    $scope.qs = $location.search();
+    if ($scope.qs && $scope.qs.token) {
+        var us = (new UsersService($backend.API_URL + '/_queries/public'));
+        us.getUser({ token: $scope.qs.token })
+        .then(function(data) {
+            if (data && data.success && data.user) {
+                $scope.$emit('login', $scope.qs.token, data.user._id, data.user.email, data.user.firstname, data.user.lastname, $location.path());
+            } else {
+                $scope.$emit('error', 500, data);
+            }
+        },
+        function(response) { $scope.$emit('error', response.status, response.data); });
+    } else if (!$scope.token) {
+        $scope.$emit('error', 401, null);
+    }
+});
