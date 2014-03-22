@@ -22,14 +22,14 @@ angular.module('main')
             }
         })
         .success(function(data) {
-            $scope.results = data.Components;
-            $scope.cik = data.CIK.substring(23);
-            $scope.CIK = data.CIK;
-            $scope.EntityRegistrantName = data.EntityRegistrantName;
-            $scope.FiscalYear = data.FiscalYear;
-            $scope.FiscalPeriod = data.FiscalPeriod;
-            $scope.AcceptanceDatetime = data.AcceptanceDatetime;
-            $scope.FormType = data.FormType;
+            var a = data.Archives[0]; // must be only one because we query for only one accession number
+            $scope.results = a.Components;
+            $scope.cik = a.CIK.substring(23);
+            $scope.EntityRegistrantName = a.EntityRegistrantName;
+            $scope.FiscalYear = a.FiscalYear;
+            $scope.FiscalPeriod = a.FiscalPeriod;
+            $scope.AcceptanceDatetime = a.AcceptanceDatetime;
+            $scope.FormType = a.FormType;
         })
         .error(function(data, status) {
             $scope.$emit('error', status, data);
@@ -41,38 +41,6 @@ angular.module('main')
         if (url.length < 30) {
             return url;
         }
-<<<<<<< HEAD
-      }).
-      success(function(data, status, headers, config) {
-        var a = data['Archives'][0]; // must be only one because we query for only one accession number
-        $scope.results = a['Components'];
-        $scope.cik = a.CIK.substring(23);
-        $scope.EntityRegistrantName = a.EntityRegistrantName;
-        $scope.FiscalYear = a.FiscalYear;
-        $scope.FiscalPeriod = a.FiscalPeriod;
-        $scope.AcceptanceDatetime = a.AcceptanceDatetime;
-        $scope.FormType = a.FormType;
-      }).
-      error(function(data, status, headers, config) {
-        $scope.$emit('error', status, data);
-      });
-  };
-  $scope.getdata();
-  $scope.trimTableURL = function(url) {
-    if (url.length < 30) {
-        return url;
-    }
-    return url.substr(0, 10) + '...' + url.substr(url.length - 20);
-  }
-  $scope.trimNetworkURL = function(url) {
-    if (url.length < 50) {
-        return url;
-    }
-    return url.substr(0, 20) + '...' + url.substr(url.length - 30);
-  }
- }
-]);
-=======
         return url.substr(0, 10) + '...' + url.substr(url.length - 20);
     };
     
@@ -83,4 +51,3 @@ angular.module('main')
         return url.substr(0, 20) + '...' + url.substr(url.length - 30);
     };
 });
->>>>>>> f01bd6aae38309d81bbca4a484ac852ef95cad02

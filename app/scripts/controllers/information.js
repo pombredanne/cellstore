@@ -125,13 +125,14 @@ angular.module('main')
 
     $scope.getComponent = function () {
         $scope.reports = [];
-        if (!$scope.cik || !$scope.year || !$scope.period) {
+        if (!$scope.filings || $scope.filings.length === 0) {
             return;
         }
+        
         $http({
             method: 'GET',
             url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-            params: { _method: 'POST', cik: $scope.cik, fiscalYearFocus: $scope.year, fiscalPeriodFocus: $scope.period, reportSchema: 'FundamentalAccountingConcepts', 'token' : $scope.token },
+            params: { _method: 'POST', aid: $scope.filings, reportSchema: 'FundamentalAccountingConcepts', 'token' : $scope.token },
             cache: true
         })
         .success(function (data) {
@@ -223,5 +224,22 @@ angular.module('main')
 			}
         });
     }
-    $scope.getComponent();
+
+    if ($scope.cik && $scope.year && $scope.period)
+    {
+        $scope.service.listFilings({
+            $method: 'POST',
+            cik: $scope.cik,
+            fiscalYear: $scope.year,
+            fiscalPeriod: $scope.period,
+            token: $scope.token
+        }).then(function(data) {
+            $scope.filings = [];
+            data.Archives.forEach(function(a) { $scope.filings.push(a.AccessionNumber); });
+            $scope.getComponent();
+        },
+        function(response) {
+            $scope.$emit('error', response.status, response.data);
+        });
+    }
 });

@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-angular.module('main').controller('ComparisonSearchCtrl', ['$scope', '$http', '$modal', '$backend', 'QueriesService', 'conceptMaps',
-  function($scope, $http, $modal, $backend, QueriesService, conceptMaps) {
-    $scope.none = "US-GAAP Taxonomy Concepts";
-=======
 'use strict';
 
 angular.module('main')
 .controller('ComparisonSearchCtrl', function($scope, $http, $modal, $backend, QueriesService, conceptMaps) {
-    $scope.none = 'us-gaap Concepts';
->>>>>>> f01bd6aae38309d81bbca4a484ac852ef95cad02
+    $scope.none = 'US-GAAP Taxonomy Concepts';
 
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     if (conceptMaps.indexOf($scope.none) < 0) {

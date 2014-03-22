@@ -3,7 +3,12 @@ jsoniq version "1.0";
 import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
-import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+import module namespace fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+import module namespace entities = "http://xbrl.io/modules/bizql/entities";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
+
+import module namespace mongo = "http://www.28msec.com/modules/mongodb";
+import module namespace credentials = "http://www.28msec.com/modules/credentials";
 
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 
@@ -118,30 +123,112 @@ declare function local:enrich-json($component)
         Disclosure : $component.Disclosure
     }
 };
+declare function local:components-by-disclosures($disclosures, $aids)
+{
+    let $conn :=   
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    for $aid in $aids
+    return
+        mongo:find($conn, "components", 
+        {
+            $components:ARCHIVE: $aid,
+            "Profiles.SEC.Disclosure": { "$in" : [ $disclosures ] }
+        })
+};
 
-let $format    := lower-case(request:param-values("format")[1]) 
-let $cid       := request:param-values("cid")[1]
+declare function local:components-by-concepts($concepts, $aids)
+{
+    let $conn :=   
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    let $ids := mongo:find($conn, "concepts", 
+        {| 
+            (
+                { "Name" : { "$in" : [ $concepts ] } },
+                { "Archive" : { "$in" : [ $aids ] } }
+            )
+        |}).Component
+    return components:components($ids)
+};
 
-let $aid            := request:param-values("aid")[1]
-let $cik            := request:param-values("cik")[1]
-let $fiscal-year    := request:param-values("fiscalYear")[1] cast as integer
-let $fiscal-period  := request:param-values("fiscalPeriod")[1]
-let $disclosure     := request:param-values("disclosure")[1]
+declare function local:filings(
+    $ciks,
+    $tags,
+    $tickers,
+    $sics,
+    $fp,
+    $fy)
+{
+    let $entities := (
+        companies:companies($ciks),
+        companies:companies-for-tags($tags),
+        companies:companies-for-tickers($tickers),
+        companies:companies-for-SIC($sics)
+    ) 
+    for $entity in $entities
+    for $fy in distinct-values(
+                for $fy in $fy
+                return
+                    switch ($fy)
+                    case "LATEST" return
+                        for $p in $fp
+                        return
+                            if ($p eq "FY")
+                            then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
+                            else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
+                        case "ALL" return ()
+                    default return $fy
+                )
+    for $fp in $fp 
+    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
+};
 
-let $component      :=  if (exists($cid))
-                        then components:components($cid)
-                        else
-                            let $filing :=
-                                if (exists($aid))
-                                then archives:archives($aid)
-                                else fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
-                                        $cik, $fiscal-period, $fiscal-year) 
-                            return (for $f in sec-networks:networks-for-filings-and-disclosures($filing, $disclosure)
-                                    order by $f.Profiles.SEC.AcceptanceDatetime
-                                    return $f)[1]
-
-let $entity    := archives:entities($component.Archive)
+let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
+let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
+let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
+let $tickers     := distinct-values(request:param-values("ticker"))
+let $sics        := distinct-values(request:param-values("sic"))
+let $fiscalYears := distinct-values(
+                        for $y in request:param-values("fiscalYear", "LATEST")
+                        return
+                            if ($y eq "LATEST" or $y eq "ALL")
+                            then $y
+                            else if ($y castable as integer)
+                            then $y cast as integer
+                            else ()
+                    )
+let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (($fp ! lower-case($$)) = "all")
+                        then ("Q1", "Q2", "Q3", "FY")
+                        else $fp)
+let $aids        := archives:aid(request:param-values("aid"))
+let $archives    := (
+                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
+                        archives:archives($aids)
+                    )
+let $cid         := request:param-values("cid")
+let $concepts    := distinct-values(request:param-values("concept"))
+let $disclosures := request:param-values("disclosure")
+let $components  := if (exists($cid))
+                    then components:components($cid)
+                    else if (exists($concepts) or exists($disclosures))
+                    then (local:components-by-concepts($concepts, $archives._id), local:components-by-disclosures($disclosures, $archives._id))
+                    else components:components-for-archives($archives) 
+let $component := $components[1] (: only one for know :)
 let $archive   := archives:archives($component.Archive)
+let $entity    := entities:entities($archives.Entity)
 return
      if (session:only-dow30($entity) or session:valid())
      then {

@@ -13,8 +13,8 @@
           </li>
         </ul>
     </li>
-    <li class="dropdown">
-        <a class="dropdown-toggle">{{spacify(category)}} Examples <span class="fa fa-caret-down"></span></a>
+    <li class="dropdown" ng-if="category">
+        <a class="dropdown-toggle">{{spacify(category)}} <span class="fa fa-caret-down"></span></a>
         <ul class="dropdown-menu">
             <li ng-repeat="ex in examples | filter: {category: category}">
                 <a href="/example/{{ex.name}}">{{spacify(ex.name)}}</a>
@@ -26,7 +26,7 @@
 <div class="std-container">
 	<div>
         <div>
-          <div class="container">
+          <div class="container" ng-if="data">
                 <span class="dropdown pull-right">
                     <a class="dropdown-toggle">Related Examples</a>
                     <ul class="dropdown-menu">
@@ -58,6 +58,7 @@
                             <th>Value</th>
                             <th>Unit</th>
                             <th>Decimals</th>
+                            <th>Entity Registrant Name</th>
                           </thead>
                           <tbody>
                             <tr ng-repeat="item in data.FactTable | filter : search">
@@ -68,6 +69,7 @@
                               <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
                               <td>{{item.Unit=='xbrl:NonNumeric'?"":item.Unit}}</td>
                               <td>{{item.Decimals}}</td>
+                              <td>{{item.EntityRegistrantName}}</td>
                             </tr>
                           </tbody>
                       </table>
