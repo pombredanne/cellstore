@@ -2,7 +2,7 @@
 
 angular.module('main')
 .controller('ComparisonSearchCtrl', function($scope, $http, $modal, $backend, QueriesService, conceptMaps) {
-    $scope.none = 'us-gaap Concepts';
+    $scope.none = 'US-GAAP Taxonomy Concepts';
 
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     if (conceptMaps.indexOf($scope.none) < 0) {

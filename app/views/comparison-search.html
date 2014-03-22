@@ -2,7 +2,8 @@
     <div class="btn-group">
         <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison"><i class="fa fa-home"></i></a>
         <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information"><i class="fa fa-th-large"></i> Basic Financial Information</a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search"><i class="fa fa-search"></i> Facts</a>
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search"><i class="fa fa-search"></i> Search Facts</a>
+        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components"><i class="fa fa-quote-left"></i> Search Components</a>
     </div>
 </div>
 
@@ -56,23 +57,23 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" name="name" ng-model="dimension.name" placeholder="like dei:LegalEntityAxis" class="form-control" required>
+                                <input type="text" name="name" ng-model="dimension.name" placeholder="dei:LegalEntityAxis" class="form-control" required>
                                 <div class="text-danger" ng-show="dimension.form.name.$error.required && (dimension.form.name.$dirty || dimension.attempted)">
                                     Dimension name is required.
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Value</label>
-                                <input type="text" name="value" ng-model="dimension.value" placeholder="like sec:DefaultLegalEntity" class="form-control" required>
+                                <input type="text" name="value" ng-model="dimension.value" placeholder="sec:DefaultLegalEntity or ALL" class="form-control" required>
                                 <div class="text-danger" ng-show="dimension.form.value.$error.required && (dimension.form.value.$dirty || dimension.attempted)">
                                     Dimension value is required.
                                 </div>
-                                write ALL to get all the values of the dimension
+                                filter by value of use ALL to bring in all facts that have this dimension
                             </div>
                             <div class="form-group">
                                 <label>Default Value</label>
-                                <input type="text" ng-model="dimension.defaultValue" placeholder="like sec:DefaultLegalEntity" class="form-control">
-                                will be used in comparisons where the dimension is missing
+                                <input type="text" ng-model="dimension.defaultValue" placeholder="sec:DefaultLegalEntity" class="form-control">
+                                default value to be used if a fact doesn't have that dimension
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -22,17 +22,18 @@ angular.module('main')
             }
         })
         .success(function(data) {
-            $scope.result = data.Components[0];
-            $scope.cik = data.CIK.substring(23);
-            $scope.CIK = data.CIK;
-            $scope.EntityRegistrantName = data.EntityRegistrantName;
-            $scope.FiscalYear = data.FiscalYear;
-            $scope.FiscalPeriod = data.FiscalPeriod;
-            $scope.AccessionNumber = data.Components[0].AccessionNumber;
+            var a = data.Archives[0]; // must be only one because we query for only one accession number
+            $scope.result = a.Components[0];
+            $scope.cik = a.CIK.substring(23);
+            $scope.EntityRegistrantName = a.EntityRegistrantName;
+            $scope.FiscalYear = a.FiscalYear;
+            $scope.FiscalPeriod = a.FiscalPeriod;
+            $scope.AccessionNumber = a.AccessionNumber;
             var p = $scope.result.NetworkLabel.lastIndexOf(' - ');
             if (p > 0) {
                 $scope.component = $scope.result.NetworkLabel.substring(p+3);
-            } else {
+            }
+            else {
                 $scope.component = $scope.result.NetworkLabel;
             }
         })

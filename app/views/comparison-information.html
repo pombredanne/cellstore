@@ -3,7 +3,8 @@
     <div class="btn-group">
         <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison"><i class="fa fa-home"></i></a>
         <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information"><i class="fa fa-th-large"></i> Basic Financial Information</a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search"><i class="fa fa-search"></i> Facts</a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search"><i class="fa fa-search"></i> Search Facts</a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components"><i class="fa fa-quote-left"></i> Search Components</a>
     </div>
 </div>
 
@@ -11,7 +12,7 @@
 	<div class="col-md-3 col-sm-4 col-xs-12" ng-include="'/views/comparison-filter.html'"></div>
 	<div class="col-md-9 col-sm-8 col-xs-12">
 		<div>
-			<h2>Compute analytics based on information extracted from the SEC filings</h2>
+			<h2>Compare Basic Financial Information Across Selected Filings</h2>
 
             <div ng-if="reports.length">
                 <div class="table-responsive">
