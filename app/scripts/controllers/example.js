@@ -258,12 +258,13 @@ angular.module('main').controller('ExampleCtrl', ['$scope', '$route', '$http', '
       return categories;
   };
 
-  if ($route.current.params.example)
+  if ($route.current.params.example) {
       $scope.examples.forEach(function(ex) { 
         if (ex.name == $route.current.params.example) {
             $scope.category = ex.category;
             $scope.getExample(ex);
         }
       });
+  }
  }
 ]);
