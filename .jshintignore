@@ -1,0 +1,4 @@
+app/scripts/munchkinhelper.js
+app/scripts/UsersService.js
+app/scripts/SessionService.js
+app/scripts/QueriesService.js
