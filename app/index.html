@@ -57,7 +57,7 @@
                     <li ng-class="{ active: (page == '/views/analytics.html' || page == '/views/search.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' ) }">
                         <a href="/entity">Browse</a>
                     </li>
-                    <li ng-if="DEBUG" ng-class="{ active: (page == '/views/comparison.html' || page == '/views/comparison-information.html' || page == '/views/comparison-search.html') }">
+                    <li ng-if="DEBUG" ng-class="{ active: (page == '/views/comparison.html' || page == '/views/comparison-information.html' || page == '/views/comparison-search.html' || page == '/views/comparison-components.html') }">
                         <a href="/comparison">Compare &amp; Search</a>
                     </li>
                     <li ng-class="{ active: (page == '/views/api.html') }">
@@ -96,21 +96,21 @@
     <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js"></script>
     <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
-    <script src="/bower_components/angulartics/dist/angulartics.min.js"></script>
     <script src="/bower_components/angulartics/src/angulartics.js"></script>
 	<script src="/bower_components/angulartics/src/angulartics-ga.js"></script>
+    <script src="/bower_components/angular-google-chart/ng-google-chart.js"></script>
     
     <!-- Modules -->
     <script src="/scripts/modules/sticky_footer.js"></script>
     <script src="/scripts/modules/navbar_toggle.js"></script>
+    <script src="/scripts/modules/scroll-id.js"></script>
+    <script src="/scripts/modules/ng-enter.js"></script>
+    <script src="/scripts/modules/googlechart.js"></script>
+    <script src="/scripts/modules/document-click.js"></script>
+    
     <script src="/scripts/munchkinhelper.js"></script>
 
     <script src="/scripts/autocomplete.js"></script>
-    <script src="/scripts/ng-enter.js"></script>
-    <script src="/scripts/googlechart.js"></script>
-    <script src="/scripts/navbar-toggle.js"></script>
-    <script src="/scripts/scroll-id.js"></script>
-    <script src="/scripts/document-click.js"></script>
     <script src="/scripts/constants.js"></script>
     <script src="/scripts/app.js"></script>
     <script src="/scripts/SessionService.js"></script>
