@@ -1,7 +1,7 @@
-<div class="topbar"></div>
-<div class="bread-crumb">
-    <span class="dropdown">
-        <a class="dropdown-toggle">All Examples</a>
+<div>
+<ul class="breadcrumb">
+    <li class="dropdown">
+        <a class="dropdown-toggle">All Examples <span class="fa fa-caret-down"></span></a>
         <ul class="dropdown-menu">
             <li ng-repeat="c in getCategories()" class="dropdown-submenu">
                 <a>{{spacify(c)}}</a>
@@ -12,23 +12,21 @@
                 </ul>
           </li>
         </ul>
-    </span>
-    <i class="sep"></i>
-    <span class="dropdown">
-        <a class="dropdown-toggle">{{spacify(category)}} Examples</a>
+    </li>
+    <li class="dropdown" ng-if="category">
+        <a class="dropdown-toggle">{{spacify(category)}} <span class="fa fa-caret-down"></span></a>
         <ul class="dropdown-menu">
             <li ng-repeat="ex in examples | filter: {category: category}">
                 <a href="/example/{{ex.name}}">{{spacify(ex.name)}}</a>
             </li>
         </ul>
         </ul>
-    </span>
-    <i class="sep"></i>
-</div>
-<div class="row">
-	<div class="col-md-12">
-        <div class="spaced">
-          <div class="container white-box">
+    </li>
+</ul>
+<div class="std-container">
+	<div>
+        <div>
+          <div class="container" ng-if="data">
                 <span class="dropdown pull-right">
                     <a class="dropdown-toggle">Related Examples</a>
                     <ul class="dropdown-menu">
@@ -38,8 +36,8 @@
                     </ul>
                     </ul>
                 </span>
-              <h3 class="highlight3">{{spacify(example.name)}}</h3>
-              <h6 style="color: #999999">{{example.description}}</h6>
+              <h3>{{spacify(example.name)}}</h3>
+              <h6>{{example.description}}</h6>
               <div id="api">
                 <pre ng-bind="getUrl(null)"></pre>
               </div>
@@ -50,8 +48,9 @@
               </table>
           </div>
           <div ng-if="data">
-              <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
-                  <div class="scrolling">
+                
+              <input type="text" class="form-control" ng-model="search" placeholder="Type here to search...">
+                  <div>
                       <table class="table table-striped table-condensed small">
                           <thead>
                             <th>#</th>
@@ -59,6 +58,7 @@
                             <th>Value</th>
                             <th>Unit</th>
                             <th>Decimals</th>
+                            <th>Entity Registrant Name</th>
                           </thead>
                           <tbody>
                             <tr ng-repeat="item in data.FactTable | filter : search">
@@ -69,6 +69,7 @@
                               <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
                               <td>{{item.Unit=='xbrl:NonNumeric'?"":item.Unit}}</td>
                               <td>{{item.Decimals}}</td>
+                              <td>{{item.EntityRegistrantName}}</td>
                             </tr>
                           </tbody>
                       </table>
@@ -84,6 +85,4 @@
         </div>
 	</div>
 </div>
-
-
-
+</div>

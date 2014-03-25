@@ -162,7 +162,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the fact to retrieve (default: ALL)",
+                            "description": "The fiscal period of the fact to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -292,6 +292,27 @@
                             "required": false,
                             "type": "string",
                             "paramType": "query"
+                        },
+                        {
+                            "name": "cid",
+                            "description": "The id of a particular component",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "disclosure",
+                            "description": "The disclosure to search for (e.g. BalanceSheet)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "concept",
+                            "description": "The disclosure to search for (e.g. us-gaap:Goodwill)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages": [
@@ -318,14 +339,20 @@
                             "description": "Retrieve information about all components of a particular filing which is identified by its accession number. Return the result as JSON.",
                             "request": "[API_URL]/_queries/public/api/components.jq?_method=POST&aid=0000021344-13-000039",
                             "response": ""
+                        },
+                        {
+                            "title" : "Retrieve information about all components of COCA COLA's latest 10-K",
+                            "description": "Retrieve information about all components of a particular filing which is identified by its accession number. Return the result as JSON.",
+                            "request": "[API_URL]/_queries/public/api/components.jq?_method=POST&ticker=ko",
+                            "response": ""
                         }
                     ]
                 }
             ]
         },
         {
-            "path": "/facttable.jq",
-            "description": "Retrieve a Fact Table",
+            "path": "/facttable-for-component.jq",
+            "description": "Retrieve a Fact Table for a Component",
             "operations": [
                 {
                     "method": "POST",
@@ -410,13 +437,13 @@
                         {
                             "title": "Fact Table as CSV",
                             "description": "Retrieve the fact table for a particular component. Return the result as CSV.",
-                            "request": "[API_URL]/_queries/public/api/facttable.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=csv",
+                            "request": "[API_URL]/_queries/public/api/facttable-for-component.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=csv",
                             "response": ""
                         },
                         {
                             "title": "Fact Table of Coca Cola's Q3/2013 Balance Sheet",
                             "description": "Retrieve the fact table for the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/facttable.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
+                            "request": "[API_URL]/_queries/public/api/facttable-for-component.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
                             "response": ""
                         }
 
@@ -425,8 +452,8 @@
             ]
         },
         {
-            "path": "/modelstructure.jq",
-            "description": "Retrieve a model structure for a given component",
+            "path": "/modelstructure-for-component.jq",
+            "description": "Retrieve a Model structure for a Component.",
             "operations": [
                 {
                     "method": "POST",
@@ -511,13 +538,13 @@
                         {
                             "title": "Model Structure as XML",
                             "description": "Retrieve the model structure for a particular component. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/modelstructure.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=xml",
+                            "request": "[API_URL]/_queries/public/api/modelstructure-for-component.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=xml",
                             "response": ""
                         },
                         {
                             "title": "Model Structure of Coca Cola's Q3/2013 Balance Sheet",
                             "description": "Retrieve the model structure for a the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/modelstructure.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
+                            "request": "[API_URL]/_queries/public/api/modelstructure-for-component.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
                             "response": ""
                         }
                     ]

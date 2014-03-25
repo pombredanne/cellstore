@@ -1,12 +1,3 @@
-<div class="topbar text-center">
-    <div class="btn-group">
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/information.html'" href="/information{{(cik?'/' + cik : '')}}"><i class="icn icn-analytics"></i> Basic Financial Information</a>
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/dashboard.html'" href="/dashboard{{(cik?'/' + cik : '')}}"><i class="icn icn-dashboard"></i>Basic Analysis</a>
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/search.html'" href="/search"><i class="icn icn-search"></i> Search Facts</a>
-        <a class="btn btn-xs" ng-model="page" btn-radio="'/views/analytics.html'" href="/analytics"><i class="icn icn-analytics"></i> Use of Extensions</a>
-    </div>
-</div>
-
 <div class="cols">
 	<div class="col-left col-md-3 col-sm-4 col-xs-12 fade-container">
 		<div class="fade-content" ng-hide="year"></div>
@@ -36,8 +27,8 @@
 				<li ng-class="{ selected: group == 'stockIndex' }" ng-click="group='stockIndex'; change(year, period, group)">by Stock Index</li>
 			</ul>
 		</div>
-		<div class="col-xs-12 pull-right" style="margin: 20px 0px;">
-			<button class="btn btn-default btn-green btn-block" ng-click="goto('/analytics')">CLEAR BREAKDOWN FILTERS</button>
+		<div class="pull-right">
+			<button class="btn btn-default btn-primary" ng-click="goto('/analytics')">CLEAR BREAKDOWN FILTERS</button>
 		</div>
 		<div style="clear: both"></div>
 	</div>

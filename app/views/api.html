@@ -1,10 +1,12 @@
-<div class="topbar text-center">
+<div id="api" class="container">
+<div class="text-center">
+    <h1>SEC XBRL API</h1>
     <div class="btn-group">
-      <button type="button" class="btn btn-xs" ng-model="name" btn-radio="'queries'" ng-click="getdata('queries')"><i class="icn fa fa-bars"></i> Queries API </button>
-      <button type="button" class="btn btn-xs" ng-model="name" btn-radio="'session'" ng-click="getdata('session')"><i class="icn fa fa-lock"></i> Session API </button>
+      <button type="button" class="btn btn-default" ng-model="name" btn-radio="'queries'" ng-click="getdata('queries')"><i class="icn fa fa-bars"></i> Queries API </button>
+      <button type="button" class="btn btn-default" ng-model="name" btn-radio="'session'" ng-click="getdata('session')"><i class="icn fa fa-lock"></i> Session API </button>
     </div>
 </div>
-<div id="api" class="container white">
+<div id="api" class="container">
 	<br>
     <p class="pull-right" >View as <a href="/{{name}}.json" target="_blank">JSON</a>.</p>
     <h1>Description</h1>
@@ -94,4 +96,5 @@
             </div>
         </article>
     </div>
+</div>
 </div>

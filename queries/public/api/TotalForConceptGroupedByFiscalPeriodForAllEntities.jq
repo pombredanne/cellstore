@@ -127,7 +127,8 @@ let $json-result :=
                 "Debug" : [ $fact ! 
                             {
                                 "InstanceURL" : archives:archives(distinct-values($$.Archive)).InstanceURL,
-                                "Value" : $$.Value
+                                "Value" : $$.Value,
+                                "Decimals" : $$.Decimals
                             } ]
             }
         else ()

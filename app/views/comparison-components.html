@@ -1,0 +1,102 @@
+<div id="comparison-components">
+    <div class="menu">
+        <div class="btn-group">
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison">
+                <i class="fa fa-home"></i>
+            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information">
+                <i class="fa fa-th-large"></i>
+                Basic Financial Information
+            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search">
+                <i class="fa fa-search"></i>
+                Search Facts
+            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components">
+                <i class="fa fa-quote-left"></i>
+                Search Components
+            </a>
+        </div>
+    </div>
+
+    <div class="cols row">
+        <div class="col-left col-md-3 col-sm-4 col-xs-12 selection" ng-include="'/views/comparison-filter.html'"></div>
+        <div class="col-right col-md-9 col-sm-8 col-xs-12">
+            <h2>Search components by disclosures or concepts</h2>
+            <div class="row" id="comparison-components-searchbar">
+                <div class="col-lg-5">
+                    <div class="input-group">
+                        <label class="input-group-addon">
+                            <input type="radio" name="choice" ng-model="choice" value="disclosure" tabindex="-1"> Disclosure
+                        </label>
+                        <input type="text" class="form-control" ng-model="searchDisclosure" ng-focus="choice='disclosure'">
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="input-group">
+                        <label class="input-group-addon">
+                            <input type="radio" name="choice" ng-model="choice" value="concept" tabindex="-1"> Concept
+                        </label>
+                        <input type="text" class="form-control" ng-model="searchConcept" ng-focus="choice='concept'">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+    	           <button class="btn btn-primary" ng-click="getValues()">GO</button>
+                </div>
+            </div>
+            <div ng-if="results.length">
+                <p>
+                    <input type="text" class="form-control" ng-model="search" placeholder="Search components...">
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-striped table-condensed table-bordered small">
+                        <thead>
+                            <th>#</th>
+                            <th>Entity</th>
+                            <th>Accession Number</th>
+                            <th>Form Type</th>
+                            <th>Fiscal Period/Year</th>
+                            <th>Network Label / Name</th>
+                            <th>Category</th>
+                            <th>Table</th>
+                            <th>Disclosure Name</th>
+                            <th>Go to</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in results | filter : search">
+                                <td>{{$index + 1}}</td>
+                                <td>{{item.CIK}}<br/><small>({{item.EntityRegistrantName}})</small></td>
+                                <td>{{item.AccessionNumber}}</td>
+                                <td>{{item.FormType}}</td>
+                                <td>{{item.FiscalPeriod}} / {{item.FiscalYear}}</td>
+                                <td>{{item.NetworkLabel}}<br/><small><span title="{{item.NetworkIdentifier}}">{{trimNetworkURL(item.NetworkIdentifier)}}</span></small></td>
+                                <td>{{item.Category}}</td>
+                                <td><span title="{{item.Table}}">{{trimTableURL(item.Table)}}</span></td>
+                                <td>{{item.Disclosure}}</td>
+                                <td class="text-center">
+                                    <span class="dropdown">
+                                        <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
+                                        <ul class="dropdown-menu text-left pull-right">
+                                            <li><a href="/component/{{item.ComponentId}}">Component Details</a></li>
+                                            <li><a href="/facttable/{{item.ComponentId}}">Fact Table</a></li>
+                                            <li><a href="/modelstructure/{{item.ComponentId}}">Model Structure</a></li>
+                                            <li><a class="disabled">BizPivot Rendering</a></li>
+                                            <li><a class="disabled">SEC Preview</a></li>
+                                        </ul>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="text-right" ng-if="results.length">
+            All data as:
+            <a href="{{getUrl('json')}}" download="comparison-components.json" target="_blank">JSON</a>,
+            <a href="{{getUrl('xml')}}" download="comparison-components.xml" target="_blank">XML</a>,
+            <a href="{{getUrl('csv')}}" download="comparison-components.csv" target="_blank">CSV</a>,
+            <a href="{{getUrl('excel')}}" download="comparison-components.csv" target="_blank">Excel</a>
+        </div>
+    </div><!-- cols rows -->
+</div>

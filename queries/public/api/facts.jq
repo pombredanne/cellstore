@@ -1,5 +1,4 @@
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
@@ -114,9 +113,24 @@ declare function local:facts(
         |}
     let $hypercube := copy $h := hypercubes:dimensionless-hypercube()
                       modify (
-                          insert json {|
-                            "dei:LegalEntityAxis" ! { $$ : { Name : $$, Default : "sec:DefaultLegalEntity" } }
-                          |} into $h.Aspects,
+                          insert json (
+                            if (values($dimensions).Name = "dei:LegalEntityAxis")
+                            then { "dei:LegalEntityAxis" : values($dimensions)[$$.Name eq "dei:LegalEntityAxis"] }
+                            else
+                            {|
+                                "dei:LegalEntityAxis" ! {
+                                $$ : {
+                                        Name : $$,
+                                        Default : "sec:DefaultLegalEntity",
+                                        Domains: {
+                                            "sec:DefaultLegalEntity" : {
+                                                Name: "sec:DefaultLegalEntity"
+                                            }
+                                        }
+                                    }
+                                }
+                            |})
+                          into $h.Aspects,
                           for $d in $dimensions[not values($$).Name = "dei:LegalEntityAxis"]
                           return insert json $d into $h.Aspects 
                       )
@@ -184,13 +198,11 @@ let $fiscalYears := distinct-values(
                             then $y cast as integer
                             else ()
                     )
-let $fiscalPeriods := distinct-values(
-                        for $fp in request:param-values("fiscalPeriod", "FY")
-                        return
-                            if ($fp eq "ALL")
-                            then ("Q1", "Q2", "Q3", "FY")
-                            else $fp
-                    )
+let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (($fp ! lower-case($$)) = "all")
+                        then ("Q1", "Q2", "Q3", "FY")
+                        else $fp)
 let $aids := request:param-values("aid")
 let $dimensions :=  for $p in request:param-names()
                     where contains($p, ":")

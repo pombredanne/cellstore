@@ -1,8 +1,6 @@
-<div class="topbar"></div>
-<div class="row">
-	<div class="col-md-12">
-        <div class="text-center" style="padding-bottom: 5px" ng-show="result.length">
-          <h3>{{name}}</h3>
+<div class="std-container">
+        <div class="text-center" ng-show="result.length">
+          <h2>{{name}}</h2>
         </div>
         <div ng-show="result.length">
           <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..." ng-click="focused=true;"/>
@@ -26,7 +24,6 @@
           Data as: <a href="{{API_URL}}/_queries/public/api/concept-map.jq.json?name={{name}}{{(token?'&token=' + token : '')}}&_method=POST" download="{{name}}.json">JSON</a>
         </div>
       </div>
-	</div>
 </div>
 
 
