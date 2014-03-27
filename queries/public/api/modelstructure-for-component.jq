@@ -109,7 +109,7 @@ declare function local:enrich-json-rec($objects, $level as integer)
 declare function local:enrich-json($component)
 {
     {
-        ModelStructure : [ local:enrich-json-rec($component.ModelStructure.Children[], 0) ] ,
+        ModelStructure : [ local:enrich-json-rec($component.ModelStructure, 0) ] ,
         CIK : $component.CIK,
         EntityRegistrantName : $component.EntityRegistrantName,
         Label : $component.Label,
