@@ -20,7 +20,7 @@ let $entities := entities:entities($archives.Entity)
 return switch(true)
     case empty($archives) return {
         response:status-code(404);
-        session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
+        session:error("entities or archives not found (valid parameters: aid)", $format)
     }
     case not (session:only-dow30($entities) or session:valid()) return {
         response:status-code(401);
