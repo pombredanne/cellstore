@@ -15,7 +15,7 @@
                 <tr ng-repeat="item in result | filter:search | orderBy:'name':false">
                   <td>{{item.name}}</td>
                   <td>{{item.label}}</td>
-                  <td><small ng-repeat="v in item.values">{{v}}<br ng-if="!$last"></small></td>
+                  <td><small ng-repeat="v in item.values track by $index">{{v}}<br ng-if="!$last"></small></td>
                 </tr>
               </tbody>
             </table>
