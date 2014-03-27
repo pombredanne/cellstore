@@ -34,15 +34,16 @@
                 </div>
                 
                 <div>
-                    <div ng-repeat="key in selection.conceptMapKeys" class="label label-concept">
+                    <div ng-repeat="key in selection.conceptMapKeys">
                         <a ng-click="selection.conceptMapKeys.splice(selection.conceptMapKeys.indexOf(key), 1)"><i class="fa fa-times"></i></a>
                         <a popover="{{key}}" popover-position="top" popover-trigger="click">{{substring(key, 50)}}</a>
                     </div>
                 </div>
 
                 <h4>Dimensions <a ng-click="addDimension()"><i class="fa fa-plus-square-o"></i></a></h4>
-                <div ng-repeat="key in selection.dimensions" class="label label-dimension">
-                    <a ng-click="selection.dimensions.splice(selection.dimensions.indexOf(key), 1)"><i class="fa fa-times"></i> {{ key.name }} = {{ key.value }}</a>
+                <div ng-repeat="key in selection.dimensions track by $index">
+                    <a ng-click="selection.dimensions.splice(selection.dimensions.indexOf(key), 1)"><i class="fa fa-times"></i></a>
+                    <a popover="Dimension {{ key.name }} with value {{ key.value }}, considering {{ key.defaultValue }} if missing" popover-position="top" popover-trigger="click">{{ key.name }} = {{ key.value }}</a>
                 </div>
                 <div ng-hide="selection.dimensions.length">
                     No dimension filters used.
@@ -106,7 +107,7 @@
                   <tbody>
                     <tr ng-repeat="item in data | filter : search">
                       <td>{{$index + 1}}</td>
-                      <td ng-repeat="value in enumerate(item.Aspects)" class="nowrap"><span ng-if="$index==entityIndex">{{value.substring(23)}} ({{item.EntityRegistrantName}})</span><span ng-if="$index!=entityIndex">{{value}}</span></td>
+                      <td ng-repeat="value in enumerate(item.Aspects) track by $index" class="nowrap"><span ng-if="$index==entityIndex">{{value.substring(23)}} ({{item.EntityRegistrantName}})</span><span ng-if="$index!=entityIndex">{{value}}</span></td>
                       <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
                       <td ng-if="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
                       <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
