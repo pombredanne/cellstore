@@ -235,26 +235,6 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
             }
         })
-        .when('/search/:cik', {
-            templateUrl: '/views/search.html',
-            controller: 'SearchCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-            }
-        })
-        .when('/search/:cik/:year/:period', {
-            templateUrl: '/views/search.html',
-            controller: 'SearchCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-            }
-        })
         .when('/entities', {
             templateUrl: '/views/entities.html',
             controller: 'EntitiesCtrl'
