@@ -138,6 +138,7 @@ angular.module('main')
         }
 
         $scope.data = [];
+        $scope.columns = [];
         $scope.params = {
             $method: 'POST',
             cik: [],
@@ -149,11 +150,45 @@ angular.module('main')
             token: $scope.token
         };
         $scope.selection.filter.entity.forEach(function(entity) { $scope.params.cik.push(entity.cik); });
-        $scope.selection.dimensions.forEach(function(dimension) { $scope.params[dimension.name] = dimension.value; $scope.params[dimension.name + '::default'] = dimension.defaultValue; });
+        $scope.selection.dimensions.forEach(function(dimension) { 
+            $scope.params[dimension.name] = dimension.value; 
+            if (dimension.defaultValue)
+            {
+                $scope.params[dimension.name + '::default'] = dimension.defaultValue;
+            }
+        });
 
         $scope.service.listFacts($scope.params)
             .then(function(data) {
                 $scope.data = data.FactTable;
+                if ($scope.data && $scope.data.length > 0)
+                {
+                    $scope.columns.push('xbrl:Concept');
+                    $scope.columns.push('xbrl:Entity');
+                    $scope.columns.push('xbrl:Period');
+                    $scope.columns.push('bizql:FiscalPeriod');
+                    $scope.columns.push('bizql:FiscalYear');
+                    var insertIndex = 3;
+                    $.map($scope.data[0].Aspects, function (el, index) {
+                        switch (index)
+                        {
+                            case 'xbrl:Entity':
+                                $scope.entityIndex = 1;
+                                break;
+                            case 'xbrl:Concept':
+                            case 'xbrl:Period':
+                            case 'bizql:FiscalPeriod':
+                            case 'bizql:FiscalYear':
+                                break;
+                            case 'dei:LegalEntityAxis':
+                                $scope.columns.splice(insertIndex, 0, index);
+                                insertIndex++;
+                                break;
+                            default: 
+                                $scope.columns.splice(insertIndex, 0, index);
+                        }
+                    });
+                }
             },
             function(response) {
                 $scope.$emit('error', response.status, response.data);
@@ -185,25 +220,6 @@ angular.module('main')
             return value;
         }
         return n.toLocaleString();
-    };
-
-    $scope.enumerate = function(object) {
-        var ret = [];
-        $.map(object, function (el) {
-            ret.push(el);
-        });
-        return ret;
-    };
-    
-    $scope.enumerateKeys = function(object) {
-        var ret = [];
-        $.map(object, function (el, index) {
-            if(index === 'xbrl:Entity') {
-                $scope.entityIndex = ret.length;
-            }
-            ret.push(index);
-        });
-        return ret;
     };
 
     $scope.isBlock = function(string) {

@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('main')
-.controller('FactTableCtrl', function($scope, $route, $http, $backend) {
+.controller('FactTableCtrl', function($scope, $route, $http, $backend, QueriesService) {
+    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
+    
     $scope.data = [];
     $scope.columns = [];
     $scope.API_URL = $backend.API_URL;
@@ -15,38 +17,62 @@ angular.module('main')
     $scope.FiscalPeriod = '';
     $scope.AcceptanceDatetime = '';
     $scope.FormType = '';
+
     $scope.getdata = function() {
-        $http({
-            method : 'GET',
-            url: $backend.API_URL + '/_queries/public/api/facttable-for-component.jq',
-            params : {
-                '_method' : 'POST',
-                'cid' : $scope.cid,
-                'token' : $scope.token
-            }
-        })
-        .success(function(data) {
-            $scope.data = data.FactTable;
-            $scope.Label = data.Label;
-            $scope.cik = (data.CIK || '').substring(23);
-            $scope.EntityRegistrantName = data.EntityRegistrantName;
-            $scope.NetworkIdentifier = data.NetworkIdentifier;
-            var p = data.Label.lastIndexOf(' - ');
-            if (p > 0) {
-                $scope.component = data.Label.substring(p+3);
-            } else {
-                $scope.component = data.Label;
-            }
-            $scope.AccessionNumber = data.AccessionNumber;
-            $scope.Table = data.TableName;
-            $scope.FiscalYear = data.FiscalYear;
-            $scope.FiscalPeriod = data.FiscalPeriod;
-            $scope.AcceptanceDatetime = data.AcceptanceDatetime;
-            $scope.FormType = data.FormType;
-        })
-        .error(function(data, status) {
-            $scope.$emit('error', status, data);
-        });
+        $scope.data = [];
+        $scope.columns = [];
+        $scope.service.listFactTable({
+                $method : 'POST',
+                cid : $scope.cid,
+                token : $scope.token
+            })
+            .then(function(data) {
+                $scope.data = data.FactTable;
+                $scope.Label = data.Label;
+                $scope.cik = (data.CIK || '').substring(23);
+                $scope.EntityRegistrantName = data.EntityRegistrantName;
+                $scope.NetworkIdentifier = data.NetworkIdentifier;
+                var p = data.Label.lastIndexOf(' - ');
+                if (p > 0) {
+                    $scope.component = data.Label.substring(p+3);
+                } else {
+                    $scope.component = data.Label;
+                }
+                $scope.AccessionNumber = data.AccessionNumber;
+                $scope.Table = data.TableName;
+                $scope.FiscalYear = data.FiscalYear;
+                $scope.FiscalPeriod = data.FiscalPeriod;
+                $scope.AcceptanceDatetime = data.AcceptanceDatetime;
+                $scope.FormType = data.FormType;
+
+                if ($scope.data && $scope.data.length > 0)
+                {
+                    $scope.columns.push('xbrl:Entity');
+                    $scope.columns.push('xbrl:Period');
+                    $scope.columns.push('xbrl:Concept');
+                    var insertIndex = 3;
+                    $.map($scope.data[0].Aspects, function (el, index) {
+                        switch (index)
+                        {
+                            case 'xbrl:Entity':
+                                $scope.entityIndex = 0;
+                                break;
+                            case 'xbrl:Concept':
+                            case 'xbrl:Period':
+                                break;
+                            case 'dei:LegalEntityAxis':
+                                $scope.columns.splice(insertIndex, 0, index);
+                                insertIndex++;
+                                break;
+                            default: 
+                                $scope.columns.splice(insertIndex, 0, index);
+                        }
+                    });
+                }
+            },
+            function(response) {
+                $scope.$emit('error', response.status, response.data);
+            });
     };
 
     $scope.getdata();
@@ -76,22 +102,6 @@ angular.module('main')
             return value;
         }
         return n.toLocaleString();
-    };
-
-    $scope.enumerate = function(object) {
-        var ret = [];
-        $.map(object, function (el) {
-            ret.push(el);
-        });
-        return ret;
-    };
-
-    $scope.enumerateKeys = function(object) {
-        var ret = [];
-        $.map(object, function (el, index) {
-            ret.push(index);
-        });
-        return ret;
     };
 
     $scope.isBlock = function(string) {

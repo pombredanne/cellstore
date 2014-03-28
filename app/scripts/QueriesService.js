@@ -306,6 +306,64 @@ angular.module('main')
         /**
          * 
          * @method
+         * @name QueriesService#listFactTableForReport
+         * @param {string} format - The result format,
+         * @param {string} cik - The CIK of the entity,
+         * @param {string} ticker - The ticker of the entity,
+         * @param {string} tag - The tag to filter entities,
+         * @param {string} sic - The industry group,
+         * @param {string} fiscalYear - The fiscal year of the fact to retrieve (default: LATEST),
+         * @param {string} fiscalPeriod - The fiscal period of the fact to retrieve (default: FY),
+         * @param {string} report - The name of the report to be used (e.g. FundamentalAccountingConcepts),
+         * 
+         */
+        this.listFactTableForReport = function(parameters){
+            var deferred = $q.defer();
+            var report = 'FundamentalAccountingConcepts  <a href="/concept-map/FundamentalAccountingConcepts"><i class="fa fa-question"></i>';
+            var that = this;
+            var path = '/facttable-for-report.jq'
+            var url = domain + path;
+            var params = {};
+            params['format'] = parameters['format'];
+            params['cik'] = parameters['cik'];
+            params['ticker'] = parameters['ticker'];
+            params['tag'] = parameters['tag'];
+            params['sic'] = parameters['sic'];
+            params['fiscalYear'] = parameters['fiscalYear'];
+            params['fiscalPeriod'] = parameters['fiscalPeriod'];
+            params['report'] = parameters['report'];
+            var body = null;
+            var method = 'POST'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
+            }
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: method,
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //cache.removeAll();
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject({data: data, status: status, headers: headers, config: config});
+                //cache.removeAll();
+            })
+            ;
+            }
+            return deferred.promise;
+        };
+
+        /**
+         * 
+         * @method
          * @name QueriesService#listFacts
          * @param {string} format - The result format,
          * @param {string} cik - The CIK of the entity,
@@ -317,7 +375,7 @@ angular.module('main')
          * @param {string} fiscalPeriod - The fiscal period of the fact to retrieve (default: FY),
          * @param {string} map - The concept map that should be used to resolve the concept (default: none),
          * @param {string} prefix:dimension - The name of a dimension used for filtering. Accepted format: prefix:dimension. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved,
-         * @param {string} prefix:dimension:default - The default value of the dimension [prefix:dimension] that should be returned if the dimension was not provided explicitly for a fact. Accepted format: prefix:dimension:default,
+         * @param {string} prefix:dimension::default - The default value of the dimension [prefix:dimension] that should be returned if the dimension was not provided explicitly for a fact. Accepted format: prefix:dimension::default,
          * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
          * 
          */
@@ -344,11 +402,11 @@ angular.module('main')
             params['map'] = parameters['map'];
             for(var prop in parameters)
                 if (parameters.hasOwnProperty(prop))
-                    if(/^\w+:\w+$/ig.test(prop))
+                    if(/^[^:]+:[^:]+$/ig.test(prop))
                         params[prop]=parameters[prop];
             for(var prop in parameters)
                 if (parameters.hasOwnProperty(prop))
-                    if(/^\w+:\w+:\w+$/ig.test(prop))
+                    if(/^[^:]+:[^:]+::default$/ig.test(prop))
                         params[prop]=parameters[prop];
             params['token'] = parameters['token'];
             var body = null;

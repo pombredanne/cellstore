@@ -228,7 +228,7 @@ let $components  := if (exists($cid))
                     else components:components-for-archives($archives) 
 let $component := $components[1] (: only one for know :)
 let $archive   := archives:archives($component.Archive)
-let $entity    := entities:entities($archives.Entity)
+let $entity    := entities:entities($archive.Entity)
 return
      if (session:only-dow30($entity) or session:valid())
      then {
