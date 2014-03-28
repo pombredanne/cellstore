@@ -11,7 +11,7 @@ import module namespace session = "http://apps.28.io/session";
 
 let $format  := lower-case(request:param-values("format")[1])
 let $aids     := request:param-values("aid")
-let $report   := request:param-values("reportSchema")[1]
+let $report   := request:param-values("report")[1]
 let $report   := report-schemas:report-schemas($report)
                     
 

@@ -132,7 +132,7 @@ angular.module('main')
         $http({
             method: 'GET',
             url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-            params: { _method: 'POST', aid: $scope.filings, reportSchema: 'FundamentalAccountingConcepts', 'token' : $scope.token },
+            params: { _method: 'POST', aid: $scope.filings, report: 'FundamentalAccountingConcepts', 'token' : $scope.token },
             cache: true
         })
         .success(function (data) {

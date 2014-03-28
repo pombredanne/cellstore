@@ -7,10 +7,10 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-
+ 
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
-declare function local:to-csv($o as object*) as string?
+declare function local:to-csv($o as object*) as string? 
 {
     if (exists($o)) (: bug in csv:serialize :)
     then
@@ -97,11 +97,11 @@ declare function local:filings(
                             if ($p eq "FY")
                             then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                        case "ALL" return ()
+                    case "ALL" return (2010 to 2015) (: temporary solution until next release :)
                     default return $fy
                 )
     for $fp in $fp 
-    return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
+    return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy ! ($$ cast as integer))
 };
 
 
@@ -122,7 +122,7 @@ let $fiscalYears := distinct-values(
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
-                        then ("Q1", "Q2", "Q3", "FY")
+                        then ("Q1", "Q2", "Q3", "Q4", "FY")
                         else $fp)
 let $aids        := archives:aid(request:param-values("aid"))
 let $archives    := (
@@ -131,8 +131,6 @@ let $archives    := (
                     )
 let $entities    := entities:entities($archives.Entity)
 let $report := request:param-values("report")
-
-
 let $facts :=
     for $archive in $archives
     let $entity    := entities:entities($archive.Entity)

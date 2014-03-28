@@ -26,6 +26,7 @@ angular.module('main')
             $scope.filings = [];
             data.Archives.forEach(function(a) { $scope.filings.push(a.AccessionNumber); });
             if ($scope.filings.length > 30 && !$scope.nomany) {
+                $scope.reports = [];
                 $scope.errormany = true;
             } else {
                 $scope.getInfo();
@@ -42,15 +43,16 @@ angular.module('main')
 
     $scope.getInfo = function() {
         $scope.reports = [];
+        $scope.params = {
+                _method: 'POST',
+                aid: $scope.filings,
+                report: 'FundamentalAccountingConcepts',
+                'token' : $scope.token
+            };
         $http({
             method: 'GET',
             url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-            params: {
-                _method: 'POST',
-                aid: $scope.filings,
-                reportSchema: 'FundamentalAccountingConcepts',
-                'token' : $scope.token
-            },
+            params: $scope.params,
             cache: false
         })
         .success(function (data) {
@@ -112,5 +114,34 @@ angular.module('main')
     $scope.forceShow = function() {
         $scope.nomany=true;
         $scope.getInfo();
+    };
+
+    $scope.getUrl = function(format) {
+        var str = $backend.API_URL + '/_queries/public/api/facttable-for-report.jq';
+        var p = [];
+        var index = -1;
+        Object.keys($scope.params).forEach(function(param){
+            if($scope.params.hasOwnProperty(param) && $scope.params[param]) {
+                if (param === '$method') {
+                    p.push('_method=' + encodeURIComponent($scope.params[param].toString()));
+                } else {
+                    if (param === 'format') {
+                        if (format) {
+                            index = p.length;
+                            p.push(param + '=' + encodeURIComponent(format));
+                        }
+                    } else {
+                        if (Object.prototype.toString.call($scope.params[param]) === '[object Array]') {
+                            $scope.params[param].forEach(function(item) { p.push(param + '=' + encodeURIComponent(item)); });
+                        } else {
+                            p.push(param + '=' + encodeURIComponent($scope.params[param].toString()));
+                        }
+                    }
+                }
+            }
+        });
+        if (index < 0 && format) { p.push('format=' + encodeURIComponent(format)); }
+        if (p.length > 0) { str += '?' + p.join('&'); }
+        return str;
     };
 });
