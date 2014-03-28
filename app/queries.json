@@ -308,8 +308,8 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "concept",
-                            "description": "The disclosure to search for (e.g. us-gaap:Goodwill)",
+                            "name": "reportElement",
+                            "description": "The name of the report element to search for (e.g. us-gaap:Goodwill)",
                             "required": false,
                             "type": "string",
                             "paramType": "query"

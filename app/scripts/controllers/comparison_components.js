@@ -20,8 +20,8 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
             return false;
         }
 
-        if ($scope.choice === 'concept' && !$scope.searchConcept) {
-            $scope.$emit('alert', 'Required field', 'The concept is required for the search.');
+        if ($scope.choice === 'reportElement' && !$scope.searchReportElement) {
+            $scope.$emit('alert', 'Required field', 'The report element is required for the search.');
             return false;
         }
 
@@ -37,7 +37,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         if ($scope.choice === 'disclosure') {
             $scope.params.disclosure = $scope.searchDisclosure;
         } else {
-            $scope.params.concept = $scope.searchConcept;
+            $scope.params.reportElement = $scope.searchReportElement;
         }
 
         $scope.selection.entity.forEach(function (entity) {

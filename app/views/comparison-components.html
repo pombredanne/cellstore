@@ -22,7 +22,7 @@
     <div class="cols row">
         <div class="col-left col-md-3 col-sm-4 col-xs-12 selection" ng-include="'/views/comparison-filter.html'"></div>
         <div class="col-right col-md-9 col-sm-8 col-xs-12">
-            <h2>Search components by disclosures or concepts</h2>
+            <h2>Search components by disclosures or report elements</h2>
             <div class="row" id="comparison-components-searchbar">
                 <div class="col-lg-5">
                     <div class="input-group">
@@ -35,9 +35,9 @@
                 <div class="col-lg-5">
                     <div class="input-group">
                         <label class="input-group-addon">
-                            <input type="radio" name="choice" ng-model="choice" value="concept" tabindex="-1"> Report Element
+                            <input type="radio" name="choice" ng-model="choice" value="reportElement" tabindex="-1"> Report Element
                         </label>
-                        <input type="text" class="form-control" ng-model="searchConcept" ng-focus="choice='concept'">
+                        <input type="text" class="form-control" ng-model="searchReportElement" ng-focus="choice='reportElement'">
                     </div>
                 </div>
                 <div class="col-lg-2">

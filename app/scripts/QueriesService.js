@@ -145,7 +145,7 @@ angular.module('main')
          * @param {string} aid - The id of the filing,
          * @param {string} cid - The id of a particular component,
          * @param {string} disclosure - The disclosure to search for (e.g. BalanceSheet),
-         * @param {string} concept - The disclosure to search for (e.g. us-gaap:Goodwill),
+         * @param {string} reportElement - The name of the report element to search for (e.g. us-gaap:Goodwill),
          * 
          */
         this.listComponents = function(parameters){
@@ -163,7 +163,7 @@ angular.module('main')
             params['aid'] = parameters['aid'];
             params['cid'] = parameters['cid'];
             params['disclosure'] = parameters['disclosure'];
-            params['concept'] = parameters['concept'];
+            params['reportElement'] = parameters['reportElement'];
             var body = null;
             var method = 'POST'.toUpperCase();
             if (parameters.$method)
