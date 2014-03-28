@@ -77,7 +77,8 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
                             'EntityRegistrantName': archive.EntityRegistrantName,
                             'FormType': archive.FormType,
                             'FiscalYear': archive.FiscalYear,
-                            'FiscalPeriod': archive.FiscalPeriod
+                            'FiscalPeriod': archive.FiscalPeriod,
+                            'token': $scope.token
                         });
                         $scope.results[$scope.results.length] = item;
                     });
