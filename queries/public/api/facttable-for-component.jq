@@ -126,7 +126,7 @@ declare function local:filings(
                             if ($p eq "FY")
                             then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                        case "ALL" return ()
+                        case "ALL" return (2010 to 2015)
                     default return $fy
                 )
     for $fp in $fp 

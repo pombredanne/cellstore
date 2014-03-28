@@ -90,6 +90,12 @@ angular.module('main')
             templateUrl: 'dimension.html',
             controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
                 $scope.dimension = {};
+                $scope.links = [
+                  { "Name" : "Legal entity", "Dimension" : "dei:LegalEntityAxis", "Filter" : "ALL", "Default" : "sec:DefaultLegalEntity" },
+                  { "Name" : "Business segment", "Dimension" : "us-gaap:StatementBusinessSegmentsAxis", "Filter" : "ALL", "Default" : "us-gaap:SegmentDomain" },
+                  { "Name" : "Geographic area", "Dimension" : "us-gaap:StatementGeographicalAxis", "Filter" : "ALL", "Default" : "us-gaap:SegmentGeographicalDomain" },
+                  { "Name" : "Scenario", "Dimension" : "us-gaap:StatementScenarioAxis", "Filter" : "ALL", "Default" : "us-gaap:ScenarioUnspecifiedDomain" }
+                ];
                 $scope.ok = function () {
                     $scope.dimension.attempted = true;
                     if(!$scope.dimension.form.$invalid) {
@@ -99,6 +105,12 @@ angular.module('main')
                             defaultValue: $scope.dimension.defaultValue
                         });
                     }
+                };
+
+                $scope.applyLink = function(l) {
+                  $scope.dimension.name = l.Dimension;
+                  $scope.dimension.value = l.Filter;
+                  $scope.dimension.defaultValue = l.Default;
                 };
 
                 $scope.cancel = function () {
@@ -137,7 +149,7 @@ angular.module('main')
             token: $scope.token
         };
         $scope.selection.filter.entity.forEach(function(entity) { $scope.params.cik.push(entity.cik); });
-        $scope.selection.dimensions.forEach(function(dimension) { $scope.params[dimension.name] = dimension.value; $scope.params[dimension.name + ':default'] = dimension.defaultValue; });
+        $scope.selection.dimensions.forEach(function(dimension) { $scope.params[dimension.name] = dimension.value; $scope.params[dimension.name + '::default'] = dimension.defaultValue; });
 
         $scope.service.listFacts($scope.params)
             .then(function(data) {
@@ -229,4 +241,5 @@ angular.module('main')
         if (p.length > 0) { str += '?' + p.join('&'); }
         return str;
     };
+
 });
