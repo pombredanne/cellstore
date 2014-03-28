@@ -379,5 +379,66 @@ angular.module('main')
             }
             return deferred.promise;
         };
+
+        /**
+         * 
+         * @method
+         * @name QueriesService#listReportElements
+         * @param {string} format - The result format,
+         * @param {string} tag - A tag to filter,
+         * @param {string} cik - A CIK number,
+         * @param {string} ticker - A ticker symbols,
+         * @param {string} sic - The industry group,
+         * @param {string} fiscalYear - The fiscal year of the fact to retrieve (default: ALL),
+         * @param {string} fiscalPeriod - The fiscal period of the fact to retrieve (default: FY),
+         * @param {string} aid - The id of the filing,
+         * @param {string} onlyNames - Whether only the names of the report elements should be returned. If so, the values don't contain duplicates. (default: false),
+         * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
+         * 
+         */
+        this.listReportElements = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/report-elements.jq'
+            var url = domain + path;
+            var params = {};
+            params['format'] = parameters['format'];
+            params['tag'] = parameters['tag'];
+            params['cik'] = parameters['cik'];
+            params['ticker'] = parameters['ticker'];
+            params['sic'] = parameters['sic'];
+            params['fiscalYear'] = parameters['fiscalYear'];
+            params['fiscalPeriod'] = parameters['fiscalPeriod'];
+            params['aid'] = parameters['aid'];
+            params['onlyNames'] = parameters['onlyNames'];
+            params['token'] = parameters['token'];
+            var body = null;
+            var method = 'POST'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
+            }
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: method,
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //cache.removeAll();
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject({data: data, status: status, headers: headers, config: config});
+                //cache.removeAll();
+            })
+            ;
+            }
+            return deferred.promise;
+        };
     };
 });

@@ -6,9 +6,31 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.results = [];
     $scope.selection = {};
+    $scope.reportElementNames = [];
 
     $scope.$on('filterChanged', function (event, selection) {
         $scope.selection = selection;
+        $scope.reportElementNames = [];
+        var cik = [];
+        selection.entity.forEach(function(entity) { cik.push(entity.cik); });
+        $scope.service.listReportElements({
+                  "$method" : "POST",
+                  "onlyNames" : true,
+                  "cik": cik,
+                  "tag": selection.tag,
+                  "fiscalYear": selection.year,
+                  "fiscalPeriod": selection.period,
+                  "token": $scope.token
+              }).then(function(data) {
+                $scope.reportElementNames = data.Concepts || [];
+              },
+              function(response) {
+                  if (response.status === '401') {
+                      $scope.error = true;
+                  } else {
+                      $scope.$emit('error', response.status, response.data);
+                  }
+              });
     }
     );
 

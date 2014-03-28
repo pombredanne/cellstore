@@ -37,7 +37,9 @@
                         <label class="input-group-addon">
                             <input type="radio" name="choice" ng-model="choice" value="reportElement" tabindex="-1"> Report Element
                         </label>
-                        <input type="text" class="form-control" ng-model="searchReportElement" ng-focus="choice='reportElement'">
+                        <input type="text" class="form-control" ng-model="searchReportElement"
+                          ng-focus="choice='reportElement'"
+                          typeahead="key for key in reportElementNames | filter:$viewValue | limitTo: 15">
                     </div>
                 </div>
                 <div class="col-lg-2">

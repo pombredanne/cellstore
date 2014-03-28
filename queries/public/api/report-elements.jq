@@ -14,6 +14,32 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare namespace concepts = "http://www.28msec.com/modules/bizql/concepts";
 
+declare function local:to-csv($concepts, $onlyNames)
+{
+    if ($onlyNames)
+    then
+        string-join(("Name", $concepts), "
+")
+    else
+        string-join(csv:serialize($concepts, { serialize-null-as : "" }))
+};
+
+declare function local:to-xml($concepts, $onlyNames)
+{
+    for $c in $concepts
+    return
+        <ReportElement>{
+             if ($onlyNames)
+             then
+                <Name>{$c}</Name>
+             else (
+                <Name>{$c.Name}</Name>,
+                <Component>{$c.Component}</Component>,
+                <Archive>{$c.Archive}</Archive>
+             )
+        }</ReportElement>
+};
+
 declare function local:filings(
     $ciks,
     $tags,
@@ -56,11 +82,10 @@ declare function local:concepts-for-archives($aids)
         } catch mongo:* {
             error(QName("concepts:CONNECTION-FAILED"), $err:description)
         }
-    for $aid in $aids
     return
         mongo:find($conn, "concepts", 
         {
-            "Archive": $aid
+            "Archive": { "$in" : [ $aids ] }
         })
 };
 
@@ -100,24 +125,27 @@ return
             switch ($format)
             case "xml" return {
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-                ()
+                (session:comment("xml"),
+                <ReportElements>{
+                    local:to-xml($concepts, $onlyNames)
+                }</ReportElements>)
             }
             case "text" case "csv" return {
                 response:content-type("text/csv");
                 response:header("Content-Disposition", "attachment; filename=facts.csv");
-                ()
+                local:to-csv($concepts, $onlyNames)
             }
             case "excel" return {
                 response:content-type("application/vnd.ms-excel");
                 response:header("Content-Disposition", "attachment; filename=fact.csv");
-                ()
+                local:to-csv($concepts, $onlyNames)
             }
             default return {
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
                 {|
                     session:comment("json"),
-                    { Concepts : [ $concepts ] }
+                    { ReportElements : [ $concepts ] }
                 |}
             }
         }

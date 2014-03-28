@@ -204,7 +204,7 @@
                         {
                             "title": "Retrieve the filings of a specific entity",
                             "description": "Retrieve information about the filings of an entity identified by its CIK. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/filings.jq.xml?_method=POST&cik=66740&format=xml",
+                            "request": "[API_URL]/_queries/public/api/filings.jq?_method=POST&cik=66740&format=xml",
                             "response": ""
                         }
                     ]
@@ -720,9 +720,144 @@
                     ]
                 }
             ]
+        },
+        {
+            "path": "/report-elements.jq",
+            "description": "Report Elements",
+            "operations": [
+                {
+                    "method": "POST",
+                    "summary": "Retrieve the report elements contained in a set of filings.",
+                    "nickname": "listReportElements",
+                    "parameters": [
+                        {
+                            "name": "format",
+                            "description": "The result format",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "json",
+                                "csv",
+                                "xml",
+                                "excel"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "tag",
+                            "description": "A tag to filter",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "DOW30",
+                                "SP500",
+                                "FORTUNE100",
+                                "PJI"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "cik",
+                            "description": "A CIK number",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "ticker",
+                            "description": "A ticker symbols",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "sic",
+                            "description": "The industry group",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "fiscalYear",
+                            "description": "The fiscal year of the fact to retrieve (default: ALL)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query",
+                            "enum": [
+                                "year (e.g. 2011)",
+                                "LATEST",
+                                "ALL"
+                            ]
+                        },
+                        {
+                            "name": "fiscalPeriod",
+                            "description": "The fiscal period of the fact to retrieve (default: FY)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "Q1",
+                                "Q2",
+                                "Q3",
+                                "FY",
+                                "ALL"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "aid",
+                            "description": "The id of the filing",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "onlyNames",
+                            "description": "Whether only the names of the report elements should be returned. If so, the values don't contain duplicates. (default: false)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "true",
+                                "false"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session (if accessing entities beyond DOW30)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privileges",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code": 500,
+                            "message": "An internal error occurred during the processing of the request.",
+                            "responseModel": "Error"
+                        }
+                    ],
+                    "successMessages": [
+                        {
+                            "code": 200,
+                            "message": "Returns all names of the report elements in the selected filings."
+                        }
+                    ],
+                    "examples": [
+                        {
+                            "title": "Retrieve the the names of all report elements of COCA COLA's latest FY filing",
+                            "description": "Retrieve a set of names of report elements of COCA COLA's latest FY filing.  Return the result as CSV.",
+                            "request": "[API_URL]/_queries/public/api/report-elements.jq?_method=POST&ticker=ko&onlyNames=true&format=csv",
+                            "response": ""
+                        }
+                    ]
+                }
+            ]
         }
-
-
     ],
     "models": {
         "Error": {

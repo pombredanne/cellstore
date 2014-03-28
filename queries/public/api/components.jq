@@ -109,7 +109,7 @@ declare function local:components-by-disclosures($disclosures, $aids)
         })
 };
 
-declare function local:components-by-concepts($concepts, $aids)
+declare function local:components-by-reportElements($reportElements, $aids)
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -122,7 +122,7 @@ declare function local:components-by-concepts($concepts, $aids)
     let $ids := mongo:find($conn, "concepts", 
         {| 
             (
-                { "Name" : { "$in" : [ $concepts ] } },
+                { "Name" : { "$in" : [ $reportElements ] } },
                 { "Archive" : { "$in" : [ $aids ] } }
             )
         |}).Component
@@ -186,12 +186,12 @@ let $archives    := (
                         archives:archives($aids)
                     )
 let $cid         := request:param-values("cid")
-let $concepts    := distinct-values(request:param-values("concept"))
+let $reportElements    := distinct-values(request:param-values("reportElement"))
 let $disclosures := request:param-values("disclosure")
 let $components  := if (exists($cid))
                     then components:components($cid)
-                    else if (exists($concepts) or exists($disclosures))
-                    then (local:components-by-concepts($concepts, $archives._id), local:components-by-disclosures($disclosures, $archives._id))
+                    else if (exists($reportElements) or exists($disclosures))
+                    then (local:components-by-reportElements($reportElements, $archives._id), local:components-by-disclosures($disclosures, $archives._id))
                     else components:components-for-archives($archives) 
 let $entities    := entities:entities($archives.Entity)
 return 
