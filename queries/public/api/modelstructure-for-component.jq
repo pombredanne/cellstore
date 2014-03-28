@@ -51,7 +51,7 @@ declare function local:to-xml($model)
                  acceptanceDatetime="{$model.AcceptanceDatetime}"
                  disclosure="{$model.Disclosure}"
                  >{
-            local:to-xml-rec($model.ModelStructure.Children[], 0)
+            local:to-xml-rec($model.ModelStructure, 0)
         }</Network>
     </Component>)
     
@@ -80,7 +80,7 @@ declare function local:to-csv-rec($objects, $level as integer)
 
 declare function local:to-csv($model)
 {
-    let $lines := local:to-csv-rec($model.ModelStructure.Children[], 0) 
+    let $lines := local:to-csv-rec($model.ModelStructure, 0) 
     return
         if (exists($lines))
         then string-join(csv:serialize($lines, { serialize-null-as : "" }))
@@ -109,7 +109,7 @@ declare function local:enrich-json-rec($objects, $level as integer)
 declare function local:enrich-json($component)
 {
     {
-        ModelStructure : [ local:enrich-json-rec($component.ModelStructure.Children[], 0) ] ,
+        ModelStructure : [ local:enrich-json-rec($component.ModelStructure, 0) ] ,
         CIK : $component.CIK,
         EntityRegistrantName : $component.EntityRegistrantName,
         Label : $component.Label,
