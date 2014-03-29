@@ -43,7 +43,7 @@
                 <h4>Dimensions <a ng-click="addDimension()"><i class="fa fa-plus-square-o"></i></a></h4>
                 <div ng-repeat="key in selection.dimensions track by $index">
                     <a ng-click="selection.dimensions.splice(selection.dimensions.indexOf(key), 1)"><i class="fa fa-times"></i></a>
-                    <a popover="Dimension {{ key.name }} with value {{ key.value }}, considering {{ key.defaultValue }} if missing" popover-position="top" popover-trigger="click">{{ key.name }} = {{ key.value }}</a>
+                    <a popover="Dimension {{ key.name }} with value {{ key.value }}{{ (key.defaultValue ? ', considering ' + key.defaultValue + ' if missing' : '') }}" popover-position="top" popover-trigger="click">{{ key.name }} = {{ key.value }}</a>
                 </div>
                 <div ng-hide="selection.dimensions.length">
                     No dimension filters used.
@@ -102,7 +102,7 @@
               <table class="table table-striped table-condensed small">
                   <thead>
                     <th>#</th>
-                    <th ng-repeat="key in enumerateKeys(data[0].Aspects)">{{key}}</th>
+                    <th ng-repeat="key in columns">{{key}}</th>
                     <th>Value</th>
                     <th>Unit</th>
                     <th>Decimals</th>
@@ -110,7 +110,7 @@
                   <tbody>
                     <tr ng-repeat="item in data | filter : search">
                       <td>{{$index + 1}}</td>
-                      <td ng-repeat="value in enumerate(item.Aspects) track by $index" class="nowrap"><span ng-if="$index==entityIndex">{{value.substring(23)}} ({{item.EntityRegistrantName}})</span><span ng-if="$index!=entityIndex">{{value}}</span></td>
+                      <td ng-repeat="key in columns" class="nowrap"><span ng-if="$index==entityIndex">{{item.Aspects[key].substring(23)}} ({{item.EntityRegistrantName}})</span><span ng-if="$index!=entityIndex">{{item.Aspects[key]}}</span></td>
                       <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
                       <td ng-if="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
                       <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
@@ -121,7 +121,7 @@
               </table>
               </div>
           </div>
-          <div class="col-md-12 text-right" ng-if="data">
+          <div class="text-right" ng-if="data">
             All data as:
               <a href="{{getUrl('json')}}" download="comparison-search.json" target="_blank">JSON</a>,
               <a href="{{getUrl('xml')}}" download="comparison-search.xml" target="_blank">XML</a>,

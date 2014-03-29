@@ -774,16 +774,16 @@
                         },
                         {
                             "name": "prefix:dimension",
-                            "pattern": "\\w+:\\w+",
+                            "pattern": "[^:]+:[^:]+",
                             "description": "The name of a dimension used for filtering. Accepted format: prefix:dimension. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
-                            "name": "prefix:dimension:default",
-                            "pattern": "\\w+:\\w+:\\w+",
-                            "description": "The default value of the dimension [prefix:dimension] that should be returned if the dimension was not provided explicitly for a fact. Accepted format: prefix:dimension:default",
+                            "name": "prefix:dimension::default",
+                            "pattern": "[^:]+:[^:]+::default",
+                            "description": "The default value of the dimension [prefix:dimension] that should be returned if the dimension was not provided explicitly for a fact. Accepted format: prefix:dimension::default",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
