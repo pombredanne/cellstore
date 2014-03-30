@@ -106,7 +106,7 @@ let $fiscalYears := distinct-values(
                         then for $cik in $ciks
                              for $fp in $fiscalPeriods
                              return
-                                (fiscal:latest-reported-fiscal-period($cik, $fp).year) cast as integer
+                                (fiscal:latest-reported-fiscal-period($cik, $fp).year) ! ($$ cast as integer)
                         else if ($y castable as integer)
                         then $y cast as integer
                         else () 
