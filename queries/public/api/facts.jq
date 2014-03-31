@@ -91,7 +91,7 @@ declare function local:facts(
                                     if ($p eq "FY")
                                     then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year
                                     else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                            case "ALL" return ()
+                            case "ALL" return  $sec-fiscal:ALL_FISCAL_YEARS
                             default return $f
                     )
     let $fiscalPeriods := distinct-values(
@@ -201,7 +201,7 @@ let $fiscalYears := distinct-values(
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
-                        then ("Q1", "Q2", "Q3", "FY")
+                        then $sec-fiscal:ALL_FISCAL_PERIODS
                         else $fp)
 let $aids := request:param-values("aid")
 let $dimensions :=  for $p in request:param-names()
