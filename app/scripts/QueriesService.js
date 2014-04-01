@@ -36,6 +36,7 @@ angular.module('main')
          * @param {string} tag - A tag to filter,
          * @param {string} cik - A CIK number,
          * @param {string} ticker - A ticker symbols,
+         * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
          * 
          */
         this.listEntities = function(parameters){
@@ -48,6 +49,7 @@ angular.module('main')
             params['tag'] = parameters['tag'];
             params['cik'] = parameters['cik'];
             params['ticker'] = parameters['ticker'];
+            params['token'] = parameters['token'];
             var body = null;
             var method = 'POST'.toUpperCase();
             if (parameters.$method)
@@ -146,6 +148,7 @@ angular.module('main')
          * @param {string} cid - The id of a particular component,
          * @param {string} disclosure - The disclosure to search for (e.g. BalanceSheet),
          * @param {string} reportElement - The name of the report element to search for (e.g. us-gaap:Goodwill),
+         * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
          * 
          */
         this.listComponents = function(parameters){
@@ -164,6 +167,7 @@ angular.module('main')
             params['cid'] = parameters['cid'];
             params['disclosure'] = parameters['disclosure'];
             params['reportElement'] = parameters['reportElement'];
+            params['token'] = parameters['token'];
             var body = null;
             var method = 'POST'.toUpperCase();
             if (parameters.$method)
@@ -204,6 +208,7 @@ angular.module('main')
          * @param {string} fiscalYear - The fiscal year of the filing,
          * @param {string} fiscalPeriod - The fiscal period of the filing,
          * @param {string} disclosure - The disclosure of the component (e.g. BalanceSheet),
+         * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
          * 
          */
         this.listFactTable = function(parameters){
@@ -219,6 +224,7 @@ angular.module('main')
             params['fiscalYear'] = parameters['fiscalYear'];
             params['fiscalPeriod'] = parameters['fiscalPeriod'];
             params['disclosure'] = parameters['disclosure'];
+            params['token'] = parameters['token'];
             var body = null;
             var method = 'POST'.toUpperCase();
             if (parameters.$method)
@@ -259,6 +265,7 @@ angular.module('main')
          * @param {string} fiscalYear - The fiscal year of the filing,
          * @param {string} fiscalPeriod - The fiscal period of the filing,
          * @param {string} disclosure - The disclosure of the component (e.g. BalanceSheet),
+         * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
          * 
          */
         this.listModelStructure = function(parameters){
@@ -274,6 +281,7 @@ angular.module('main')
             params['fiscalYear'] = parameters['fiscalYear'];
             params['fiscalPeriod'] = parameters['fiscalPeriod'];
             params['disclosure'] = parameters['disclosure'];
+            params['token'] = parameters['token'];
             var body = null;
             var method = 'POST'.toUpperCase();
             if (parameters.$method)
