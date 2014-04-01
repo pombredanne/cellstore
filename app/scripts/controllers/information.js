@@ -153,25 +153,25 @@ angular.module('main')
                             } else {
                                 item.value = list[key].Facts[0].Value;
                             }
-				            item.auditLabel = '';
-				            item.auditValue = '';
-				            if (list[key].Facts[0].AuditTrails && list[key].Facts[0].AuditTrails.length > 0) {
+                            item.auditLabel = '';
+                            item.auditValue = '';
+                            if (list[key].Facts[0].AuditTrails && list[key].Facts[0].AuditTrails.length > 0) {
                                 switch(list[key].Facts[0].AuditTrails[0].Type) {
-                                case 'concept-maps:concept-maps':
-				                    item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
-								    item.auditValue = list[key].Facts[0].AuditTrails[0].Data.OriginalConcept;
-								    break;
-				                case 'hypercubes:dimension-default':
-				                    item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
-				                    item.auditValue = list[key].Facts[0].AuditTrails[0].Data.Dimension;
-								    break;
-				                }
-				            }
+                                case 'bizql:concept-maps':
+                                    item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
+                                    item.auditValue = list[key].Facts[0].AuditTrails[0].Data.OriginalConcept;
+                                    break;
+                                case 'hypercubes:dimension-default':
+                                    item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
+                                    item.auditValue = list[key].Facts[0].AuditTrails[0].Data.Dimension;
+                                    break;
+                                }
+                            }
                         } else {
                             item.value = '';
                             item.type = '';
-				            item.auditLabel = '';
-				            item.auditValue = '';
+                            item.auditLabel = '';
+                            item.auditValue = '';
                         }
                         array.push(item);
                     }
