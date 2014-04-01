@@ -22,7 +22,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
                   "fiscalPeriod": selection.period,
                   "token": $scope.token
               }).then(function(data) {
-                $scope.reportElementNames = data.Concepts || [];
+                $scope.reportElementNames = data.ReportElements || [];
               },
               function(response) {
                   if (response.status === '401') {
