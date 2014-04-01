@@ -126,7 +126,7 @@ declare function local:filings(
                             if ($p eq "FY")
                             then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                        case "ALL" return (2010 to 2015)
+                        case "ALL" return  $fiscal:ALL_FISCAL_YEARS
                     default return $fy
                 )
     for $fp in $fp 
@@ -150,7 +150,7 @@ let $fiscalYears := distinct-values(
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
-                        then ("Q1", "Q2", "Q3", "FY")
+                        then $fiscal:ALL_FISCAL_PERIODS
                         else $fp)
 let $aids        := archives:aid(request:param-values("aid"))
 let $archives    := (

@@ -88,7 +88,7 @@ let $sics        := distinct-values(request:param-values("sic"))
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
-                        then ("Q1", "Q2", "Q3", "FY", "Q4")
+                        then $fiscal:ALL_FISCAL_PERIODS
                         else if (($fp ! lower-case($$)) = "fy")
                         then ("FY", "Q4")
                         else $fp)
@@ -101,7 +101,7 @@ let $fiscalYears := distinct-values(
                     for $y in request:param-values("fiscalYear", "ALL")
                     return
                         if ($y eq "ALL")
-                        then 2000 to 2014 (: hack that needs to be replaced by $fiscal:ALL_FISCAL_YEARS :)
+                        then $fiscal:ALL_FISCAL_YEARS 
                         else if ($y eq "LATEST")
                         then for $cik in $ciks
                              for $fp in $fiscalPeriods
