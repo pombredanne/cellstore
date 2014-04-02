@@ -7,30 +7,39 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     $scope.results = [];
     $scope.selection = {};
     $scope.reportElementNames = [];
+    $scope.disclosureNames = [];
 
     $scope.$on('filterChanged', function (event, selection) {
         $scope.selection = selection;
         $scope.reportElementNames = [];
+        $scope.disclosureNames = [];
         var cik = [];
         selection.entity.forEach(function(entity) { cik.push(entity.cik); });
         $scope.service.listReportElements({
-                  "$method" : "POST",
-                  "onlyNames" : true,
-                  "cik": cik,
-                  "tag": selection.tag,
-                  "fiscalYear": selection.year,
-                  "fiscalPeriod": selection.period,
-                  "token": $scope.token
-              }).then(function(data) {
-                $scope.reportElementNames = data.ReportElements || [];
-              },
-              function(response) {
-                  if (response.status === '401') {
-                      $scope.error = true;
-                  } else {
-                      $scope.$emit('error', response.status, response.data);
-                  }
-              });
+            $method : 'POST',
+            onlyNames : true,
+            cik: cik,
+            tag: selection.tag,
+            fiscalYear: selection.year,
+            fiscalPeriod: selection.period,
+            token: $scope.token
+        }).then(function(data) {
+            $scope.reportElementNames = data.ReportElements || [];
+        },
+        function(response) {
+            $scope.$emit('error', response.status, response.data);
+        });
+
+        $http({
+            url: $backend.API_URL + '/_queries/public/Disclosures.jq',
+            method: 'GET'
+        })
+        .success(function(data) {
+            $scope.disclosureNames = data;
+        })
+        .error(function(data, status) {
+            $scope.$emit('error', status, data);
+        });
     }
     );
 

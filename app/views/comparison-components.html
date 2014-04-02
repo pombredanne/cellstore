@@ -29,7 +29,16 @@
                         <label class="input-group-addon">
                             <input type="radio" name="choice" ng-model="choice" value="disclosure" tabindex="-1"> Disclosure
                         </label>
-                        <input type="text" class="form-control" ng-model="searchDisclosure" ng-focus="choice='disclosure'">
+                        <input type="text" class="form-control" ng-model="searchDisclosure" 
+                          ng-click="choice='disclosure'"
+                          typeahead="key.name for key in disclosureNames | filter:$viewValue | limitTo: 10" typeahead-template-url='typeaheaddisclosures.html'>
+                        <script type="text/ng-template" id="typeaheaddisclosures.html">
+                            <a tabindex="-1" class="multicol">
+                               <div ng-bind-html='match.model.label | typeaheadHighlight:query'></div>
+                               <small ng-bind-html='"TOPIC: " + match.model.topic | typeaheadHighlight:query'></small><br>
+                               <small ng-bind-html='"Name: " + match.model.name | typeaheadHighlight:query'></small>
+                            </a>
+                        </script>
                     </div>
                 </div>
                 <div class="col-lg-5">
