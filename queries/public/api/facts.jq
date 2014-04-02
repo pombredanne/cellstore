@@ -94,13 +94,6 @@ declare function local:facts(
                             case "ALL" return  $sec-fiscal:ALL_FISCAL_YEARS
                             default return $f
                     )
-    let $fiscalPeriods := distinct-values(
-                            $fiscalPeriods !
-                                (switch($$)
-                                case "Q1" return ("Q1","YTD1")
-                                case "Q2" return ("Q2","YTD2")
-                                case "Q3" return ("Q3","YTD3")
-                                default return ("Q4","FY")))
     let $aspects :=
         {|
             { "xbrl:Concept" : $concepts },
