@@ -200,7 +200,11 @@ return
         switch ($format)
         case "xml" return {
             response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-            (session:comment("xml"),
+            (session:comment("xml", {
+                    NumComponents : count($components),
+                    TotalNumComponents: session:num-components(),
+                    TotalNumArchives: session:num-archives()
+                }),
              <Archives>{
                  for $r in $components
                  let $disclosure := sec-networks:disclosures($r)
@@ -238,7 +242,11 @@ return
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
                 {|
-                    (session:comment("json"),
+                    session:comment("json", {
+                        NumComponents : count($components),
+                        TotalNumComponents: session:num-components(),
+                        TotalNumArchives: session:num-archives()
+                    }),
                     { "Archives" : [
                         for $r in $components
                         let $disclosure := sec-networks:disclosures($r)
@@ -261,7 +269,7 @@ return
                             $r ! local:component-summary($$)
                           ]
                         }
-                    ]})
+                    ]}
                 |}
             }
     } else {
@@ -285,6 +293,9 @@ return
             default return {
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
-                $res
+                {|
+                    session:comment("json"),
+                    $res
+                |}
             }
     }

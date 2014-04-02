@@ -13,7 +13,11 @@ import module namespace session = "http://apps.28.io/session";
 
 declare function local:to-xml($filings as object*) as node()*
 {
-    ( session:comment("xml"),
+    ( session:comment("xml", {
+        NumArchives: count($filings),
+        TotalNumArchives: session:num-archives(),
+        TotalNumEntities: session:num-entities()
+    }),
     <Filings>{
         for $f in $filings
         return
@@ -144,7 +148,11 @@ return
                 response:serialization-parameters({"indent" : true});
                 {|
                     { "Archives" : [ $archives ] },
-                    session:comment("json")
+                    session:comment("json", {
+                        NumArchives: count($archives),
+                        TotalNumArchives: session:num-archives(),
+                        TotalNumEntities: session:num-entities()
+                    })
                 |}
             }
     } else {

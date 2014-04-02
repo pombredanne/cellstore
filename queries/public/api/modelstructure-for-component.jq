@@ -37,7 +37,10 @@ declare function local:to-xml-rec($o, $level as integer)
 
 declare function local:to-xml($model)
 {
-    ((session:comment("xml")),
+    ((session:comment("xml", {
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        })),
     <Component>
         <Network entityRegistrantName="{$model.EntityRegistrantName}"
                  accessionNumber="{$model.AccessionNumber}"
@@ -267,7 +270,10 @@ return
                 response:serialization-parameters({"indent" : true});
                 {|
                     local:enrich-json($model), 
-                    session:comment("json")
+                    session:comment("json", {
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        })
                 |}
             }
      } else {

@@ -198,7 +198,12 @@ return
             switch ($format)
             case "xml" return {
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-                (session:comment("xml"),
+                (session:comment("xml", {
+                            NumFacts : count($fact-table),
+                            TotalNumFacts: session:num-facts(),
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        }),
                 <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
                     cik="{$entity.CIK}"
                     tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
@@ -240,7 +245,12 @@ return
                     { NetworkIdentifier: $component.Role },  
                     { Disclosure : $component.Profiles.SEC.Disclosure },
                     { FactTable : [ $fact-table ] },
-                    session:comment("json")
+                    session:comment("json", {
+                            NumFacts : count($fact-table),
+                            TotalNumFacts: session:num-facts(),
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        })
                 |}
             }
      } else {
