@@ -41,7 +41,7 @@ angular.module('main')
 				.then(
 					function(data) {
 						if (data && data.success) {
-							MunchkinHelper.associateLead({ Email: $scope.email, FirstName: $scope.firstname, LastName: $scope.lastname, Company: $scope.companyname, accountsecxbrlinfo: true });
+							//MunchkinHelper.associateLead({ Email: $scope.email, FirstName: $scope.firstname, LastName: $scope.lastname, Company: $scope.companyname, accountsecxbrlinfo: true });
 							(new SessionService($backend.API_URL + '/_queries/public'))
 								.login({ email: $scope.email, password: $scope.password })
 								.then(function(data) {
