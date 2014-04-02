@@ -447,7 +447,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			cache.put('token', angular.copy($rootScope.token));
 			cache.put('user', angular.copy($rootScope.user));
 		}
-		MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'login' });
+		//MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'login' });
 		if (!url) {
             url='/';
         }
@@ -460,7 +460,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 
 	$rootScope.logout = function() {
 		if ($rootScope.user) {
-			MunchkinHelper.associateLead({ Email: $rootScope.user.email, lastsecxbrlinfoop: 'logout' });
+			//MunchkinHelper.associateLead({ Email: $rootScope.user.email, lastsecxbrlinfoop: 'logout' });
         }
 
 		$rootScope.token = null;
