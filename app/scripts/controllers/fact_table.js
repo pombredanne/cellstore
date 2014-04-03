@@ -9,10 +9,9 @@ angular.module('main')
     $scope.API_URL = $backend.API_URL;
     $scope.EntityRegistrantName = '';
     $scope.Label = '';
-    $scope.NetworkIdentifier = '';
-    $scope.AccessionNumber = '';
+    $scope.AccessionNumber = $route.current.params.accession;
+    $scope.NetworkIdentifier = $route.current.params.networkIdentifier;
     $scope.Table = '';
-    $scope.cid = $route.current.params.cid;
     $scope.FiscalYear = '';
     $scope.FiscalPeriod = '';
     $scope.AcceptanceDatetime = '';
@@ -23,7 +22,8 @@ angular.module('main')
         $scope.columns = [];
         $scope.service.listFactTable({
                 $method : 'POST',
-                cid : $scope.cid,
+                aid : $scope.AccessionNumber,
+                networkIdentifier : $scope.NetworkIdentifier,
                 token : $scope.token
             })
             .then(function(data) {

@@ -285,15 +285,15 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl: '/views/components.html',
             controller: 'ComponentsCtrl'
         })
-        .when('/component/:cid', {
+        .when('/component/:accession/:networkIdentifier*', {
             templateUrl: '/views/component.html',
             controller: 'ComponentCtrl'
         })
-        .when('/facttable/:cid', {
+        .when('/facttable/:accession/:networkIdentifier*', {
             templateUrl: '/views/facttable.html',
             controller: 'FactTableCtrl'
         })
-        .when('/modelstructure/:cid', {
+        .when('/modelstructure/:accession/:networkIdentifier*', {
             templateUrl: '/views/modelstructure.html',
             controller: 'ModelStructureCtrl'
         })
