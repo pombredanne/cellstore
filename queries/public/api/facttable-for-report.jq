@@ -41,7 +41,12 @@ declare function local:to-csv($o as object*) as string?
 
 declare function local:to-xml($o as object*)
 {
-    (session:comment("xml"),
+    (session:comment("xml", {
+                            NumFacts : count($o),
+                            TotalNumFacts: session:num-facts(),
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        }),
     <FactTable NetworkIdentifier="http://bizql.io/facttable-for-report"
             TableName="xbrl:FactTableForReport">{
         for $o in $o
@@ -182,7 +187,12 @@ return
                     { NetworkIdentifier : "http://secxbrl.info/facts" },
                     { TableName : "xbrl:Facts" },
                     { FactTable : [ $facts ] },
-                    session:comment("json")
+                    session:comment("json", {
+                            NumFacts : count($facts),
+                            TotalNumFacts: session:num-facts(),
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        })
                 |}
             }
         }
