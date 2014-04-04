@@ -1,4 +1,4 @@
-angular.module('main')  
+angular.module('main')
 /**
  * This API can be used to manage users. Note, that the POST method can be simulated by using GET and adding the _method=POST parameter to the HTTP request. 
  */
@@ -9,9 +9,9 @@ angular.module('main')
      */
     return function(domain) {
         if(typeof(domain) !== 'string') {
-            throw new Error('Domain parameter must be specified as a string.'); 
+            throw new Error('Domain parameter must be specified as a string.');
         }
-        
+
         var root = '';
 
         this.$on = function($scope, path, handler) {
@@ -27,14 +27,14 @@ angular.module('main')
             $rootScope.$broadcast(url, data);
             return this;
         };
-        
+
         /**
          * 
          * @method
          * @name UsersService#getUser
-         * @param {string} userid - , 
-         * @param {string} email - , 
-         * @param {string} token - The token of the current session, 
+         * @param {string} userid - ,
+         * @param {string} email - ,
+         * @param {string} token - The token of the current session,
          * 
          */
         this.getUser = function(parameters){
@@ -43,22 +43,30 @@ angular.module('main')
             var path = '/users/get.jq'
             var url = domain + path;
             var params = {};
-                params['userid'] = parameters.userid;
-            params['email'] = parameters.email;
-            params['token'] = parameters.token;
+            params['userid'] = parameters['userid'];
+            params['email'] = parameters['email'];
+            params['token'] = parameters['token'];
+            var body = null;
+            var method = 'GET'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
+            }
             var cached = parameters.$cache && parameters.$cache.get(url);
-            if('GET' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
                 deferred.resolve(cached);
             } else {
             $http({
-                method: 'GET',
+                method: method,
                 url: url,
                 params: params
             })
             .success(function(data, status, headers, config){
                 deferred.resolve(data);
                 //that.$broadcast(url);
-                if(parameters.$cache !== undefined) parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
+                if(parameters.$cache !== undefined) parameters.$cache.put(url, data, parameters.$cacheItemOpts ?
+parameters.$cacheItemOpts : {});
             })
             .error(function(data, status, headers, config){
                 deferred.reject({data: data, status: status, headers: headers, config: config});
@@ -66,17 +74,17 @@ angular.module('main')
             })
             ;
             }
-            return deferred.promise;    
+            return deferred.promise;
         };
 
         /**
          * 
          * @method
          * @name UsersService#newUser
-         * @param {string} firstname - , 
-         * @param {string} lastname - , 
-         * @param {string} email - , 
-         * @param {string} password - Will be removed after notifications are implemented., 
+         * @param {string} firstname - ,
+         * @param {string} lastname - ,
+         * @param {string} email - ,
+         * @param {string} password - Will be removed after notifications are implemented.,
          * 
          */
         this.newUser = function(parameters){
@@ -85,36 +93,43 @@ angular.module('main')
             var path = '/users/new.jq'
             var url = domain + path;
             var params = {};
-            if(parameters.firstname  === undefined) { 
+            if(parameters['firstname'] === undefined) {
                 deferred.reject(new Error('The firstname parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['firstname'] = parameters.firstname; 
+            } else {
+                params['firstname'] = parameters['firstname'];
             }
-        if(parameters.lastname  === undefined) { 
+            if(parameters['lastname'] === undefined) {
                 deferred.reject(new Error('The lastname parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['lastname'] = parameters.lastname; 
+            } else {
+                params['lastname'] = parameters['lastname'];
             }
-        if(parameters.email  === undefined) { 
+            if(parameters['email'] === undefined) {
                 deferred.reject(new Error('The email parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['email'] = parameters.email; 
+            } else {
+                params['email'] = parameters['email'];
             }
-        if(parameters.password  === undefined) { 
+            if(parameters['password'] === undefined) {
                 deferred.reject(new Error('The password parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['password'] = parameters.password; 
+            } else {
+                params['password'] = parameters['password'];
+            }
+            var body = null;
+            var method = 'POST'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
             }
             var cached = parameters.$cache && parameters.$cache.get(url);
-            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
                 deferred.resolve(cached);
             } else {
             $http({
-                method: 'POST',
+                method: method,
                 url: url,
                 params: params
             })
@@ -128,18 +143,18 @@ angular.module('main')
             })
             ;
             }
-            return deferred.promise;    
+            return deferred.promise;
         };
 
         /**
          * 
          * @method
          * @name UsersService#editUser
-         * @param {string} userid - , 
-         * @param {string} firstname - , 
-         * @param {string} lastname - , 
-         * @param {string} email - , 
-         * @param {string} token - The token of the current session, 
+         * @param {string} userid - ,
+         * @param {string} firstname - ,
+         * @param {string} lastname - ,
+         * @param {string} email - ,
+         * @param {string} token - The token of the current session,
          * 
          */
         this.editUser = function(parameters){
@@ -148,37 +163,44 @@ angular.module('main')
             var path = '/users/edit.jq'
             var url = domain + path;
             var params = {};
-            if(parameters.userid  === undefined) { 
+            if(parameters['userid'] === undefined) {
                 deferred.reject(new Error('The userid parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['userid'] = parameters.userid; 
+            } else {
+                params['userid'] = parameters['userid'];
             }
-        if(parameters.firstname  === undefined) { 
+            if(parameters['firstname'] === undefined) {
                 deferred.reject(new Error('The firstname parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['firstname'] = parameters.firstname; 
+            } else {
+                params['firstname'] = parameters['firstname'];
             }
-        if(parameters.lastname  === undefined) { 
+            if(parameters['lastname'] === undefined) {
                 deferred.reject(new Error('The lastname parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['lastname'] = parameters.lastname; 
+            } else {
+                params['lastname'] = parameters['lastname'];
             }
-        if(parameters.email  === undefined) { 
+            if(parameters['email'] === undefined) {
                 deferred.reject(new Error('The email parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['email'] = parameters.email; 
+            } else {
+                params['email'] = parameters['email'];
             }
-            params['token'] = parameters.token;
+            params['token'] = parameters['token'];
+            var body = null;
+            var method = 'POST'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
+            }
             var cached = parameters.$cache && parameters.$cache.get(url);
-            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
                 deferred.resolve(cached);
             } else {
             $http({
-                method: 'POST',
+                method: method,
                 url: url,
                 params: params
             })
@@ -192,16 +214,16 @@ angular.module('main')
             })
             ;
             }
-            return deferred.promise;    
+            return deferred.promise;
         };
 
         /**
          * 
          * @method
          * @name UsersService#resetPassword
-         * @param {string} userid - , 
-         * @param {string} password - , 
-         * @param {string} token - The token of the current session, 
+         * @param {string} userid - ,
+         * @param {string} password - ,
+         * @param {string} token - The token of the current session,
          * 
          */
         this.resetPassword = function(parameters){
@@ -210,25 +232,32 @@ angular.module('main')
             var path = '/users/resetPassword.jq'
             var url = domain + path;
             var params = {};
-            if(parameters.userid  === undefined) { 
+            if(parameters['userid'] === undefined) {
                 deferred.reject(new Error('The userid parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['userid'] = parameters.userid; 
+            } else {
+                params['userid'] = parameters['userid'];
             }
-        if(parameters.password  === undefined) { 
+            if(parameters['password'] === undefined) {
                 deferred.reject(new Error('The password parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['password'] = parameters.password; 
+            } else {
+                params['password'] = parameters['password'];
             }
-            params['token'] = parameters.token;
+            params['token'] = parameters['token'];
+            var body = null;
+            var method = 'POST'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
+            }
             var cached = parameters.$cache && parameters.$cache.get(url);
-            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
                 deferred.resolve(cached);
             } else {
             $http({
-                method: 'POST',
+                method: method,
                 url: url,
                 params: params
             })
@@ -242,14 +271,14 @@ angular.module('main')
             })
             ;
             }
-            return deferred.promise;    
+            return deferred.promise;
         };
 
         /**
          * 
          * @method
          * @name UsersService#forgotPassword
-         * @param {string} email - , 
+         * @param {string} email - ,
          * 
          */
         this.forgotPassword = function(parameters){
@@ -258,18 +287,25 @@ angular.module('main')
             var path = '/users/forgotPassword.jq'
             var url = domain + path;
             var params = {};
-            if(parameters.email  === undefined) { 
+            if(parameters['email'] === undefined) {
                 deferred.reject(new Error('The email parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['email'] = parameters.email; 
+            } else {
+                params['email'] = parameters['email'];
+            }
+            var body = null;
+            var method = 'POST'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
             }
             var cached = parameters.$cache && parameters.$cache.get(url);
-            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
                 deferred.resolve(cached);
             } else {
             $http({
-                method: 'POST',
+                method: method,
                 url: url,
                 params: params
             })
@@ -283,15 +319,15 @@ angular.module('main')
             })
             ;
             }
-            return deferred.promise;    
+            return deferred.promise;
         };
 
         /**
          * Use this function as target for image.
          * @method
          * @name UsersService#getPicture
-         * @param {string} userid - User ID to get picture for. Default is current user., 
-         * @param {string} token - The token of the current session, 
+         * @param {string} userid - User ID to get picture for. Default is current user.,
+         * @param {string} token - The token of the current session,
          * 
          */
         this.getPicture = function(parameters){
@@ -300,21 +336,29 @@ angular.module('main')
             var path = '/users/getPicture.jq'
             var url = domain + path;
             var params = {};
-                params['userid'] = parameters.userid;
-            params['token'] = parameters.token;
+            params['userid'] = parameters['userid'];
+            params['token'] = parameters['token'];
+            var body = null;
+            var method = 'GET'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
+            }
             var cached = parameters.$cache && parameters.$cache.get(url);
-            if('GET' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
                 deferred.resolve(cached);
             } else {
             $http({
-                method: 'GET',
+                method: method,
                 url: url,
                 params: params
             })
             .success(function(data, status, headers, config){
                 deferred.resolve(data);
                 //that.$broadcast(url);
-                if(parameters.$cache !== undefined) parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
+                if(parameters.$cache !== undefined) parameters.$cache.put(url, data, parameters.$cacheItemOpts ?
+parameters.$cacheItemOpts : {});
             })
             .error(function(data, status, headers, config){
                 deferred.reject({data: data, status: status, headers: headers, config: config});
@@ -322,16 +366,16 @@ angular.module('main')
             })
             ;
             }
-            return deferred.promise;    
+            return deferred.promise;
         };
 
         /**
          * 
          * @method
          * @name UsersService#uploadPicture
-         * @param {string} userid - , 
-         * @param {file} image - The image file, 
-         * @param {string} token - The token of the current session, 
+         * @param {string} userid - ,
+         * @param {file} image - The image file,
+         * @param {string} token - The token of the current session,
          * 
          */
         this.uploadPicture = function(parameters){
@@ -340,25 +384,32 @@ angular.module('main')
             var path = '/users/uploadPicture.jq'
             var url = domain + path;
             var params = {};
-            if(parameters.userid  === undefined) { 
+            if(parameters['userid'] === undefined) {
                 deferred.reject(new Error('The userid parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['userid'] = parameters.userid; 
+            } else {
+                params['userid'] = parameters['userid'];
             }
-        if(parameters.image  === undefined) { 
+            if(parameters['image'] === undefined) {
                 deferred.reject(new Error('The image parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['image'] = parameters.image; 
+            } else {
+                params['image'] = parameters['image'];
             }
-            params['token'] = parameters.token;
+            params['token'] = parameters['token'];
+            var body = null;
+            var method = 'POST'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
+            }
             var cached = parameters.$cache && parameters.$cache.get(url);
-            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
                 deferred.resolve(cached);
             } else {
             $http({
-                method: 'POST',
+                method: method,
                 url: url,
                 params: params
             })
@@ -372,15 +423,15 @@ angular.module('main')
             })
             ;
             }
-            return deferred.promise;    
+            return deferred.promise;
         };
 
         /**
          * 
          * @method
          * @name UsersService#removePicture
-         * @param {string} userid - , 
-         * @param {string} token - The token of the current session, 
+         * @param {string} userid - ,
+         * @param {string} token - The token of the current session,
          * 
          */
         this.removePicture = function(parameters){
@@ -389,19 +440,26 @@ angular.module('main')
             var path = '/users/removePicture.jq'
             var url = domain + path;
             var params = {};
-            if(parameters.userid  === undefined) { 
+            if(parameters['userid'] === undefined) {
                 deferred.reject(new Error('The userid parameter is required'));
                 return deferred.promise;
-            } else { 
-                params['userid'] = parameters.userid; 
+            } else {
+                params['userid'] = parameters['userid'];
             }
-            params['token'] = parameters.token;
+            params['token'] = parameters['token'];
+            var body = null;
+            var method = 'POST'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
+            }
             var cached = parameters.$cache && parameters.$cache.get(url);
-            if('POST' === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
                 deferred.resolve(cached);
             } else {
             $http({
-                method: 'POST',
+                method: method,
                 url: url,
                 params: params
             })
@@ -415,7 +473,7 @@ angular.module('main')
             })
             ;
             }
-            return deferred.promise;    
+            return deferred.promise;
         };
     };
 });
