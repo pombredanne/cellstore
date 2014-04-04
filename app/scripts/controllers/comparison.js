@@ -9,8 +9,6 @@ angular.module('main')
         $scope.selection = selection;
         if (!selection) { return; }
         
-        console.log("memorizing..." + angular.toJson($scope.selection));
-
         $location.search($scope.selection);
         
         $scope.filings = null;

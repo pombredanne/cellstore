@@ -58,9 +58,6 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
             return angular.toJson($scope.selection)
         },
         function(newValue) {
-            
-            console.log("memorizing..." + angular.toJson($scope.selection));
-
             if ($scope.selection) {
                 $location.search($scope.selection);            
             }
