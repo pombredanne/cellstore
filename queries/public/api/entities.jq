@@ -7,7 +7,10 @@ import module namespace session = "http://apps.28.io/session";
 
 declare function local:to-xml($entities as object*)
 { 
-  (session:comment("xml"),
+  (session:comment("xml", {
+        NumEntities: count($entities),
+        TotalNumEntities: session:num-entities() 
+      }),
   <Entities>{
     for $e in $entities
     return
@@ -95,6 +98,9 @@ return
             response:serialization-parameters({"indent" : false});
             {|
                 { "Entities" : [ $entities ] },
-                session:comment("json") 
+                session:comment("json", {
+                        NumEntities: count($entities),
+                        TotalNumEntities: session:num-entities() 
+                    }) 
             |} 
         }

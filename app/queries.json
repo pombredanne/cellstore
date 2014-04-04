@@ -580,6 +580,128 @@
             ]
         },
         {
+            "path": "/facttable-for-report.jq",
+            "description": "Retrieve a Fact Table for a Report",
+            "operations": [
+                {
+                    "method": "POST",
+                    "summary": "Retrieve the fact table for a given set of filings and a report.",
+                    "nickname": "listFactTableForReport",
+                    "parameters": [
+                        {
+                            "name": "format",
+                            "description": "The result format",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "json",
+                                "csv",
+                                "xml",
+                                "excel"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "cik",
+                            "description": "The CIK of the entity",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "ticker",
+                            "description": "The ticker of the entity",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "tag",
+                            "description": "The tag to filter entities",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "DOW30",
+                                "SP500",
+                                "FORTUNE100",
+                                "PJI"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "sic",
+                            "description": "The industry group",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "fiscalYear",
+                            "description": "The fiscal year of the fact to retrieve (default: LATEST)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query",
+                            "enum": [
+                                "year (e.g. 2011)",
+                                "LATEST",
+                                "ALL"
+                            ]
+                        },
+                        {
+                            "name": "fiscalPeriod",
+                            "description": "The fiscal period of the fact to retrieve (default: FY)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "Q1",
+                                "Q2",
+                                "Q3",
+                                "FY",
+                                "ALL"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "report",
+                            "description": "The name of the report to be used (e.g. FundamentalAccountingConcepts)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "FundamentalAccountingConcepts  <a href=\"/concept-map/FundamentalAccountingConcepts\"><i class=\"fa fa-question\"></i>"
+                              ],
+                            "paramType": "query"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privileges",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code": 500,
+                            "message": "An internal error occurred during the processing of the request.",
+                            "responseModel": "Error"
+                        }
+                    ],
+                    "successMessages": [
+                        {
+                            "code": 200,
+                            "message": "Return the fact table for the given component"
+                        }
+                    ],
+                    "examples": [
+                        {
+                            "title": "Fact Table for the Fundamental Accounting Concepts of COCA COLA's 2010..2013 10-K filings as CSV.",
+                            "description": "Retrieve the fact table for a particular component. Return the result as CSV.",
+                            "request": "[API_URL]/_queries/public/api/facttable-for-report.jq?_method=POST&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalYear=2012&fiscalYear=2011&fiscalYear=2010&fiscalPeriod=FY&format=csv",
+                            "response": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "path": "/facts.jq",
             "description": "Retrieve Facts",
             "operations": [
@@ -680,16 +802,16 @@
                         },
                         {
                             "name": "prefix:dimension",
-                            "pattern": "\\w+:\\w+",
+                            "pattern": "[^:]+:[^:]+",
                             "description": "The name of a dimension used for filtering. Accepted format: prefix:dimension. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
-                            "name": "prefix:dimension:default",
-                            "pattern": "\\w+:\\w+:\\w+",
-                            "description": "The default value of the dimension [prefix:dimension] that should be returned if the dimension was not provided explicitly for a fact. Accepted format: prefix:dimension:default",
+                            "name": "prefix:dimension::default",
+                            "pattern": "[^:]+:[^:]+::default",
+                            "description": "The default value of the dimension [prefix:dimension] that should be returned if the dimension was not provided explicitly for a fact. Accepted format: prefix:dimension::default",
                             "required": false,
                             "type": "string",
                             "paramType": "query"

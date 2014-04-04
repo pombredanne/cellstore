@@ -156,9 +156,11 @@ angular.module('main')
         category : 'DynamicFactTables',
         params: { tag : 'DOW30', fiscalPeriod : 'ALL', fiscalYear : 'ALL', concept: ['us-gaap:Assets', 'us-gaap:LiabilitiesAndStockholdersEquity' ],  'dei:LegalEntityAxis' : 'sec:DefaultLegalEntity', 'dei:LegalEntityAxis::default' : 'sec:DefaultLegalEntity' }
     }];
+    $scope.params = {};
 
     $scope.getExample = function(ex) {
         $scope.data=null;
+        $scope.columns = [];
         $scope.params = {};
         angular.extend($scope.params, ex.params, $location.search(), { '_method' : 'POST', 'token' : $scope.token, 'format': 'json' });
         $scope.example = ex;
@@ -172,6 +174,34 @@ angular.module('main')
         })
         .success(function(data) {
             $scope.data = data;
+            if ($scope.data.FactTable && $scope.data.FactTable.length > 0)
+            {
+                $scope.columns.push('xbrl:Concept');
+                $scope.columns.push('xbrl:Entity');
+                $scope.columns.push('xbrl:Period');
+                $scope.columns.push('bizql:FiscalPeriod');
+                $scope.columns.push('bizql:FiscalYear');
+                var insertIndex = 3;
+                $.map($scope.data.FactTable[0].Aspects, function (el, index) {
+                    switch (index)
+                    {
+                        case 'xbrl:Entity':
+                            $scope.entityIndex = 1;
+                            break;
+                        case 'xbrl:Concept':
+                        case 'xbrl:Period':
+                        case 'bizql:FiscalPeriod':
+                        case 'bizql:FiscalYear':
+                            break;
+                        case 'dei:LegalEntityAxis':
+                            $scope.columns.splice(insertIndex, 0, index);
+                            insertIndex++;
+                            break;
+                        default: 
+                            $scope.columns.splice(insertIndex, 0, index);
+                    }
+                });
+            }
         })
         .error(function(data, status) {
             $scope.$emit('error', status, data);
@@ -195,22 +225,6 @@ angular.module('main')
   
     $scope.showText = function(html) {
         $scope.$emit('alert', 'Text Details', html);
-    };
-  
-    $scope.enumerate = function(object) {
-        var ret = [];
-        $.map(object, function (el) {
-            ret.push(el);
-        });
-        return ret;
-    };
-  
-    $scope.enumerateKeys = function(object) {
-        var ret = [];
-        $.map(object, function (el, index) {
-            ret.push(index);
-        });
-        return ret;
     };
 
     $scope.isBlock = function(string) {

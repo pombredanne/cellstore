@@ -76,6 +76,9 @@
                                 <input type="text" ng-model="dimension.defaultValue" placeholder="sec:DefaultLegalEntity" class="form-control">
                                 default value to be used if a fact doesn't have that dimension
                             </div>
+                            <div class="form-group">
+                              Shortcuts: <span ng-repeat="l in links"><a  ng-click="applyLink(l)">{{l.Name}}</a> &nbsp;</span> 
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-primary" type="submit">OK</button>
@@ -99,7 +102,7 @@
               <table class="table table-striped table-condensed small">
                   <thead>
                     <th>#</th>
-                    <th ng-repeat="key in enumerateKeys(data[0].Aspects)">{{key}}</th>
+                    <th ng-repeat="key in columns">{{key}}</th>
                     <th>Value</th>
                     <th>Unit</th>
                     <th>Decimals</th>
@@ -107,7 +110,7 @@
                   <tbody>
                     <tr ng-repeat="item in data | filter : search">
                       <td>{{$index + 1}}</td>
-                      <td ng-repeat="value in enumerate(item.Aspects) track by $index" class="nowrap"><span ng-if="$index==entityIndex">{{value.substring(23)}} ({{item.EntityRegistrantName}})</span><span ng-if="$index!=entityIndex">{{value}}</span></td>
+                      <td ng-repeat="key in columns" class="nowrap"><span ng-if="$index==entityIndex">{{item.Aspects[key].substring(23)}} ({{item.EntityRegistrantName}})</span><span ng-if="$index!=entityIndex">{{item.Aspects[key]}}</span></td>
                       <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
                       <td ng-if="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
                       <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
@@ -118,7 +121,7 @@
               </table>
               </div>
           </div>
-          <div class="col-md-12 text-right" ng-if="data">
+          <div class="text-right" ng-if="data">
             All data as:
               <a href="{{getUrl('json')}}" download="comparison-search.json" target="_blank">JSON</a>,
               <a href="{{getUrl('xml')}}" download="comparison-search.xml" target="_blank">XML</a>,

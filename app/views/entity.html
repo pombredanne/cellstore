@@ -14,9 +14,6 @@
         <a class="btn btn-default" ng-model="page" btn-radio="'/views/dashboard.html'" ng-href="/dashboard{{(cik?'/' + cik : '')}}">
             <i class="fa fa-bar-chart-o"></i> Basic Analysis
         </a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/search.html'" ng-href="/search{{(cik?'/' + cik : '')}}">
-            <i class="fa fa-search"></i> Search Facts
-        </a>
     </div>
 </div>
 
@@ -66,8 +63,7 @@
           <div>
             <a href="/filings/{{cik}}">Filings</a> | 
             <a href="/information/{{cik}}">Basic Financial Information</a> | 
-            <a href="/dashboard/{{cik}}">Basic Analysis</a> | 
-            <a href="/search/{{cik}}">Search Facts</a>
+            <a href="/dashboard/{{cik}}">Basic Analysis</a>
           </div>
         </div>
           <div class="col-md-12 text-right" ng-show="result">

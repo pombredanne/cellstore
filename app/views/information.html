@@ -14,9 +14,6 @@
             <a class="btn btn-default" ng-model="page" btn-radio="'/views/dashboard.html'" ng-href="/dashboard{{(cik?'/' + cik : '')}}">
                 <i class="fa fa-bar-chart-o"></i> Basic Analysis
             </a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/search.html'" ng-href="/search{{(cik?'/' + cik : '')}}">
-                <i class="fa fa-search"></i> Search Facts
-            </a>
         </div>
     </div>
 
@@ -106,7 +103,7 @@
                                                 <a popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="click" ng-if="item.auditValue">
 									           {{substring(item.auditValue, 30)}}
 								                </a>
-                                                <span ng-if="!item.auditValue">Not Reported (Coming Soon)</span>
+                                                <span ng-if="!item.auditValue">Not Reported (Imputation of Business Rules Coming Soon)</span>
                                             </td>
                                         </tr>
                                     </tbody>

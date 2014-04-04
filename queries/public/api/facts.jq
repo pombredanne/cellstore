@@ -39,7 +39,12 @@ declare function local:to-csv($o as object*) as string?
 
 declare function local:to-xml($o as object*)
 {
-    (session:comment("xml"),
+    (session:comment("xml", {
+        NumFacts: count($o),
+        TotalNumFacts: session:num-facts(),
+        TotalNumArchives: session:num-archives(),
+        TotalNumEntities: session:num-entities()
+    }),
     <FactTable NetworkIdentifier="http://bizql.io/facts"
             TableName="xbrl:Facts">{
         for $o in $o
@@ -91,16 +96,9 @@ declare function local:facts(
                                     if ($p eq "FY")
                                     then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year
                                     else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                            case "ALL" return ()
+                            case "ALL" return  $sec-fiscal:ALL_FISCAL_YEARS
                             default return $f
                     )
-    let $fiscalPeriods := distinct-values(
-                            $fiscalPeriods !
-                                (switch($$)
-                                case "Q1" return ("Q1","YTD1")
-                                case "Q2" return ("Q2","YTD2")
-                                case "Q3" return ("Q3","YTD3")
-                                default return ("Q4","FY")))
     let $aspects :=
         {|
             { "xbrl:Concept" : $concepts },
@@ -201,7 +199,7 @@ let $fiscalYears := distinct-values(
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
-                        then ("Q1", "Q2", "Q3", "FY")
+                        then $sec-fiscal:ALL_FISCAL_PERIODS
                         else $fp)
 let $aids := request:param-values("aid")
 let $dimensions :=  for $p in request:param-names()
@@ -292,6 +290,11 @@ return
                     { NetworkIdentifier : "http://bizql.io/facts" },
                     { TableName : "xbrl:Facts" },
                     { FactTable : [ $facts ] },
-                    session:comment("json")
+                    session:comment("json", {
+                            NumFacts: count($facts),
+                            TotalNumFacts: session:num-facts(),
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        })
                 |}
             }

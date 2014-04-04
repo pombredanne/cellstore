@@ -37,7 +37,10 @@ declare function local:to-xml-rec($o, $level as integer)
 
 declare function local:to-xml($model)
 {
-    ((session:comment("xml")),
+    ((session:comment("xml", {
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        })),
     <Component>
         <Network entityRegistrantName="{$model.EntityRegistrantName}"
                  accessionNumber="{$model.AccessionNumber}"
@@ -51,7 +54,7 @@ declare function local:to-xml($model)
                  acceptanceDatetime="{$model.AcceptanceDatetime}"
                  disclosure="{$model.Disclosure}"
                  >{
-            local:to-xml-rec($model.ModelStructure.Children[], 0)
+            local:to-xml-rec($model.ModelStructure, 0)
         }</Network>
     </Component>)
     
@@ -80,7 +83,7 @@ declare function local:to-csv-rec($objects, $level as integer)
 
 declare function local:to-csv($model)
 {
-    let $lines := local:to-csv-rec($model.ModelStructure.Children[], 0) 
+    let $lines := local:to-csv-rec($model.ModelStructure, 0) 
     return
         if (exists($lines))
         then string-join(csv:serialize($lines, { serialize-null-as : "" }))
@@ -109,7 +112,7 @@ declare function local:enrich-json-rec($objects, $level as integer)
 declare function local:enrich-json($component)
 {
     {
-        ModelStructure : [ local:enrich-json-rec($component.ModelStructure.Children[], 0) ] ,
+        ModelStructure : [ local:enrich-json-rec($component.ModelStructure, 0) ] ,
         CIK : $component.CIK,
         EntityRegistrantName : $component.EntityRegistrantName,
         Label : $component.Label,
@@ -187,7 +190,7 @@ declare function local:filings(
                             if ($p eq "FY")
                             then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                        case "ALL" return ()
+                        case "ALL" return $fiscal:ALL_FISCAL_YEARS
                     default return $fy
                 )
     for $fp in $fp 
@@ -211,7 +214,7 @@ let $fiscalYears := distinct-values(
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
-                        then ("Q1", "Q2", "Q3", "FY")
+                        then $fiscal:ALL_FISCAL_PERIODS
                         else $fp)
 let $aids        := archives:aid(request:param-values("aid"))
 let $archives    := (
@@ -228,7 +231,7 @@ let $components  := if (exists($cid))
                     else components:components-for-archives($archives) 
 let $component := $components[1] (: only one for know :)
 let $archive   := archives:archives($component.Archive)
-let $entity    := entities:entities($archives.Entity)
+let $entity    := entities:entities($archive.Entity)
 return
      if (session:only-dow30($entity) or session:valid())
      then {
@@ -267,7 +270,10 @@ return
                 response:serialization-parameters({"indent" : true});
                 {|
                     local:enrich-json($model), 
-                    session:comment("json")
+                    session:comment("json", {
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        })
                 |}
             }
      } else {

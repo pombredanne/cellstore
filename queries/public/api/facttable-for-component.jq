@@ -126,7 +126,7 @@ declare function local:filings(
                             if ($p eq "FY")
                             then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                        case "ALL" return ()
+                        case "ALL" return  $fiscal:ALL_FISCAL_YEARS
                     default return $fy
                 )
     for $fp in $fp 
@@ -150,7 +150,7 @@ let $fiscalYears := distinct-values(
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
-                        then ("Q1", "Q2", "Q3", "FY")
+                        then $fiscal:ALL_FISCAL_PERIODS
                         else $fp)
 let $aids        := archives:aid(request:param-values("aid"))
 let $archives    := (
@@ -167,7 +167,7 @@ let $components  := if (exists($cid))
                     else components:components-for-archives($archives) 
 let $component := $components[1] (: only one for know :)
 let $archive   := archives:archives($component.Archive)
-let $entity    := entities:entities($archives.Entity)
+let $entity    := entities:entities($archive.Entity)
 
 return
      if (session:only-dow30($entity) or session:valid())
@@ -198,7 +198,12 @@ return
             switch ($format)
             case "xml" return {
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-                (session:comment("xml"),
+                (session:comment("xml", {
+                            NumFacts : count($fact-table),
+                            TotalNumFacts: session:num-facts(),
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        }),
                 <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
                     cik="{$entity.CIK}"
                     tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
@@ -240,7 +245,12 @@ return
                     { NetworkIdentifier: $component.Role },  
                     { Disclosure : $component.Profiles.SEC.Disclosure },
                     { FactTable : [ $fact-table ] },
-                    session:comment("json")
+                    session:comment("json", {
+                            NumFacts : count($fact-table),
+                            TotalNumFacts: session:num-facts(),
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        })
                 |}
             }
      } else {

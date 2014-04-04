@@ -33,6 +33,7 @@ angular.module('main')
             $scope.filings = [];
             data.Archives.forEach(function(a) { $scope.filings.push(a.AccessionNumber); });
             if ($scope.filings.length > 30 && !$scope.nomany) {
+                $scope.reports = [];
                 $scope.errormany = true;
             } else {
                 $scope.getInfo();
@@ -49,15 +50,16 @@ angular.module('main')
 
     $scope.getInfo = function() {
         $scope.reports = [];
+        $scope.params = {
+                _method: 'POST',
+                aid: $scope.filings,
+                report: 'FundamentalAccountingConcepts',
+                'token' : $scope.token
+            };
         $http({
             method: 'GET',
             url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-            params: {
-                _method: 'POST',
-                aid: $scope.filings,
-                reportSchema: 'FundamentalAccountingConcepts',
-                'token' : $scope.token
-            },
+            params: $scope.params,
             cache: false
         })
         .success(function (data) {

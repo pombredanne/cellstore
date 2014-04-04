@@ -31,7 +31,8 @@
     "grunt-ng-constant": "~0.4.8",
     "grunt-recess": "~0.3.3",
     "grunt-prettify": "~0.3.4",
-    "grunt-xqlint": "0.0.1"
+    "grunt-xqlint": "0.0.1",
+    "netdna": "~0.0.6"
   },
   "engines": {
     "node": ">=0.8.0"

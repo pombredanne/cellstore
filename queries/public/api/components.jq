@@ -154,7 +154,7 @@ declare function local:filings(
                             if ($p eq "FY")
                             then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                        case "ALL" return ()
+                    case "ALL" return  $fiscal:ALL_FISCAL_YEARS
                     default return $fy
                 )
     for $fp in $fp 
@@ -173,12 +173,12 @@ let $fiscalYears := distinct-values(
                             then $y
                             else if ($y castable as integer)
                             then $y cast as integer
-                            else ()
+                            else  ()
                     )
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
-                        then ("Q1", "Q2", "Q3", "FY")
+                        then $fiscal:ALL_FISCAL_PERIODS
                         else $fp)
 let $aids        := archives:aid(request:param-values("aid"))
 let $archives    := (
@@ -200,7 +200,11 @@ return
         switch ($format)
         case "xml" return {
             response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-            (session:comment("xml"),
+            (session:comment("xml", {
+                    NumComponents : count($components),
+                    TotalNumComponents: session:num-components(),
+                    TotalNumArchives: session:num-archives()
+                }),
              <Archives>{
                  for $r in $components
                  let $disclosure := sec-networks:disclosures($r)
@@ -238,7 +242,11 @@ return
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
                 {|
-                    (session:comment("json"),
+                    session:comment("json", {
+                        NumComponents : count($components),
+                        TotalNumComponents: session:num-components(),
+                        TotalNumArchives: session:num-archives()
+                    }),
                     { "Archives" : [
                         for $r in $components
                         let $disclosure := sec-networks:disclosures($r)
@@ -261,7 +269,7 @@ return
                             $r ! local:component-summary($$)
                           ]
                         }
-                    ]})
+                    ]}
                 |}
             }
     } else {
@@ -285,6 +293,9 @@ return
             default return {
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
-                $res
+                {|
+                    session:comment("json"),
+                    $res
+                |}
             }
     }
