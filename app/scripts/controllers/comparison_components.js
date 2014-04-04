@@ -6,10 +6,11 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     $scope.results = [];
     $scope.reportElementNames = [];
     $scope.disclosureNames = [];
+    $scope.errornoresults = false;
 
     $scope.$on('filterChanged', 
         function (event, selection) {
-            $scope.selection = selection;
+            $scope.selection = angular.copy(selection);
 
             var src = $location.search();
             
@@ -23,6 +24,11 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
                 $scope.selection.reportElement = $scope.searchReportElement;
             }
 
+            if ($scope.selection && ($scope.selection.disclosure || $scope.selection.reportElement)) {
+                $scope.getValues();
+            }
+
+            //refresh the typeaheads
             $scope.reportElementNames = [];
             $scope.disclosureNames = [];
             $scope.service.listReportElements({
@@ -69,7 +75,8 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
             $scope.$emit('alert', 'Fields required for search', 'The disclosure or the report element are required for the search.');
             return false;
         }
-        $scope.getValues();
+        $scope.selection.disclosure = $scope.searchDisclosure;
+        $scope.selection.reportElement = $scope.searchReportElement;
     };
     
     $scope.selectDisclosure = function() {
@@ -83,6 +90,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     };
 
     $scope.getValues = function () {
+        $scope.errornoresults = false;
         $scope.results = [];
 
         $scope.params = {
@@ -113,6 +121,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
                         $scope.results[$scope.results.length] = item;
                     });
                 });
+                $scope.errornoresults = ($scope.results.length == 0);
             },
             function (response) {
                 $scope.$emit('error', response.status, response.data);

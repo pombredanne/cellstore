@@ -12,7 +12,7 @@
 	<div class="col-right col-md-9 col-sm-8 col-xs-12">
 		<div>
 			<h2>Retrieve facts and concepts values from the SEC filings</h2>
-            <div>
+            <form ng-submit="submit()">
 				<div>
                    <label>
                       Concept map
@@ -88,17 +88,15 @@
                 </script>
                 
 				<div>
-					<div>
-						<button class="btn btn-primary" class="form-control" ng-click="getValues()">GO</button>
-					</div>
+					<button class="btn btn-primary" class="form-control" type="submit">GO</button>
 				</div>
-            </div>
+            </form>
+            <br>
 		</div>
 
-        <div style="margin-top: 15px;">
-            <div ng-if="data" class="spaced">
-              <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
-              <div class="scrolling">
+        <div ng-if="data">
+          <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
+          <div class="table-responsive">
               <table class="table table-striped table-condensed small">
                   <thead>
                     <th>#</th>
@@ -119,9 +117,15 @@
                     </tr>
                   </tbody>
               </table>
-              </div>
           </div>
-          <div class="text-right" ng-if="data">
+        </div>
+        <div class="alert alert-info" ng-if="errornoresults">
+            <h4>No results found</h4>
+            Here are some working examples: 
+            <a href="/comparison/search?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY&map=FundamentalAccountingConcepts&concept=fac:Revenues">Revenues for DOW30 in 2013</a> or 
+            <a href="/comparison/search?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1&concept=us-gaap:Assets">Reported Assets for Coca Cola and Walmart throughout 2012</a>
+        </div>
+        <div class="text-right" ng-if="data">
             All data as:
               <a href="{{getUrl('json')}}" download="comparison-search.json" target="_blank">JSON</a>,
               <a href="{{getUrl('xml')}}" download="comparison-search.xml" target="_blank">XML</a>,

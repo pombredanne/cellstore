@@ -12,10 +12,11 @@ angular.module('main')
     $scope.conceptMapKeys = [];
     $scope.entityIndex = -1;
     $scope.API_URL = $backend.API_URL;
+    $scope.errornoresults = false;
     
     $scope.$on('filterChanged',
         function(event, selection) {
-            $scope.selection = selection;
+            $scope.selection = angular.copy(selection);
 
             var src = $location.search();
             
@@ -52,6 +53,11 @@ angular.module('main')
                     $scope.selection[param] = src[param];
                 }
             });
+
+            if ($scope.selection.concept.length > 0)
+            {
+                $scope.getValues();
+            }
         }
     );
 
@@ -163,7 +169,7 @@ angular.module('main')
         }
     };
 
-    $scope.getValues = function() {
+    $scope.submit = function() {
         if ($scope.conceptMapKey) {
             $scope.addConceptKey($scope.conceptMapKey);
         }
@@ -171,11 +177,14 @@ angular.module('main')
         if ($scope.selection.concept.length === 0)
         {
             $scope.$emit('alert', 'Warning', 'Please choose concepts to compare.');
-            return;
+            return false;
         }
+    };
 
+    $scope.getValues = function() {
         $scope.data = [];
         $scope.columns = [];
+        $scope.errornoresults = false;
         $scope.params = {
             $method: 'POST',
             cik: $scope.selection.cik,
@@ -224,6 +233,9 @@ angular.module('main')
                                 $scope.columns.splice(insertIndex, 0, index);
                         }
                     });
+                }
+                else {
+                    $scope.errornoresults = true;
                 }
             },
             function(response) {

@@ -11,7 +11,7 @@ angular.module('main')
     $scope.errormany = false;
     
     $scope.$on('filterChanged', function(event, selection) {
-        $scope.selection = selection;
+        $scope.selection = angular.copy(selection);
         if (!selection) { return; }
         
         $location.search($scope.selection);
