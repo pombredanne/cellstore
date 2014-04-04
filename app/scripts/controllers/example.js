@@ -222,26 +222,14 @@ angular.module('main')
 
     $scope.getUrl = function(format) {
         var str = $backend.API_URL + '/_queries/public/' + $scope.example.file;
-        var p = [];
-        var index = -1;
-        Object.keys($scope.params).forEach(function(param){
-            if($scope.params.hasOwnProperty(param) && $scope.params[param]) {
-                if (param === 'format') {
-                    if (format) {
-                        index = p.length;
-                        p.push(param + '=' + encodeURIComponent(format));
-                    }
-                }
-            } else {
-                if (Object.prototype.toString.call($scope.params[param]) === '[object Array]') {
-                    $scope.params[param].forEach(function(item) { p.push(param + '=' + encodeURIComponent(item)); });
-                } else {
-                    p.push(param + '=' + encodeURIComponent($scope.params[param].toString()));
-                }
-            }
-        });
-        if (index < 0 && format) { p.push('format=' + encodeURIComponent(format)); }
-        if (p.length > 0) { str += '?' + p.join('&'); }
+        var params = angular.copy($scope.params);
+        if (format) {
+            params['format'] = format;
+        }
+        var qs = $scope.wwwFormUrlencoded(params);
+        if (qs) {
+            str += '?' + qs;
+        }
         return str;
     };
 

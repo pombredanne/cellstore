@@ -525,7 +525,13 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	};
 
 	$rootScope.goto = function(url) {
-		$location.url(url, true);
+        if (url === '/') {
+            $location.url(url, true);
+        }
+        else {
+            // keep the query string, if any
+		    $location.path(url);
+        }
 	};
 
 	$rootScope.gotoId = function(id) {

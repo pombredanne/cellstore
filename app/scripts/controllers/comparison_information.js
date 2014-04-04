@@ -1,26 +1,33 @@
 'use strict';
 
 angular.module('main')
-.controller('ComparisonInformationCtrl', function($scope, $http, $backend, QueriesService) {
+.controller('ComparisonInformationCtrl', function($scope, $http, $location, $backend, QueriesService) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
+    $scope.selection = {};
     $scope.showtab = [];
     $scope.reports = [];
+    $scope.filings = null;
+    $scope.error = false;
+    $scope.errormany = false;
     
     $scope.$on('filterChanged', function(event, selection) {
+        $scope.selection = selection;
         if (!selection) { return; }
+        
+        console.log("memorizing..." + angular.toJson($scope.selection));
+
+        $location.search($scope.selection);
+        
         $scope.filings = null;
         $scope.error = false;
         $scope.errormany = false;
-            
-        var cik = [];
-        selection.entity.forEach(function(entity) { cik.push(entity.cik); });
 
         $scope.service.listFilings({
             $method: 'POST',
-            cik: cik,
+            cik: selection.cik,
             tag: selection.tag,
-            fiscalYear: selection.year,
-            fiscalPeriod: selection.period,
+            fiscalYear: selection.fiscalYear,
+            fiscalPeriod: selection.fiscalPeriod,
             token: $scope.token
         }).then(function(data) {
             $scope.filings = [];
@@ -112,5 +119,18 @@ angular.module('main')
     $scope.forceShow = function() {
         $scope.nomany=true;
         $scope.getInfo();
+    };
+
+    $scope.getUrl = function(format) {
+        var str = $backend.API_URL + '/_queries/public/api/facts.jq';
+        var params = angular.copy($scope.params);
+        if (format) {
+            params['format'] = format;
+        }
+        var qs = $scope.wwwFormUrlencoded(params);
+        if (qs) {
+            str += '?' + qs;
+        }
+        return str;
     };
 });

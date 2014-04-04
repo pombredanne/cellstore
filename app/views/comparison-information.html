@@ -1,71 +1,71 @@
 <div>
-<div class="menu">
-    <div class="btn-group">
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison"><i class="fa fa-home"></i></a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information"><i class="fa fa-th-large"></i> Basic Financial Information</a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search"><i class="fa fa-search"></i> Search Facts</a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components"><i class="fa fa-quote-left"></i> Search Components</a>
+    <div class="menu">
+        <div class="btn-group">
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-home"></i></a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-th-large"></i> Basic Financial Information</a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-search"></i> Search Facts</a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-quote-left"></i> Search Components</a>
+        </div>
     </div>
-</div>
 
-<div class="cols row">	
-	<div class="col-md-3 col-sm-4 col-xs-12" ng-include="'/views/comparison-filter.html'"></div>
-	<div class="col-md-9 col-sm-8 col-xs-12">
-		<div>
-			<h2>Compare Basic Financial Information Across Selected Filings</h2>
+    <div class="cols row">	
+        <div class="col-md-3 col-sm-4 col-xs-12" ng-include="'/views/comparison-filter.html'"></div>
+        <div class="col-md-9 col-sm-8 col-xs-12">
+            <div>
+                <h2>Compare Basic Financial Information Across Selected Filings</h2>
 
-            <div ng-if="reports.length">
-                <div class="table-responsive">
-                    <table class="table table-condensed small" id="comparison-information-table">
-                        <thead>
-                            <th>&nbsp;</th>
-                            <th class="text-center nowrap" ng-repeat="n in reports[0].items[0].value track by $index">{{n}}</th>
-                        </thead>
-                        <colgroup>
-                            <col></col>
-                            <col ng-repeat="n in reports[0].items[0].value track by $index"></col>
-                        </colgroup>
-                        <tbody ng-repeat="report in reports">
-                            <tr>
-                                <td colspan="{{report.items[0].value.length}}">
-                                    <a ng-click="showtab[$index]=!showtab[$index]">
-                                        <i class="fa fa-caret-down" ng-show="showtab[$index]"></i>
-                                        <i class="fa fa-caret-right" ng-hide="showtab[$index]"></i>
-                                        {{report.name}}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
-                                <td>{{item.label}}</td>
-                                <td class="nowrap" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
-                                    {{v}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div ng-if="reports.length">
+                    <div class="table-responsive">
+                        <table class="table table-condensed small" id="comparison-information-table">
+                            <thead>
+                                <th>&nbsp;</th>
+                                <th class="text-center nowrap" ng-repeat="n in reports[0].items[0].value track by $index">{{n}}</th>
+                            </thead>
+                            <colgroup>
+                                <col></col>
+                                <col ng-repeat="n in reports[0].items[0].value track by $index"></col>
+                            </colgroup>
+                            <tbody ng-repeat="report in reports">
+                                <tr>
+                                    <td colspan="{{report.items[0].value.length}}">
+                                        <a ng-click="showtab[$index]=!showtab[$index]">
+                                            <i class="fa fa-caret-down" ng-show="showtab[$index]"></i>
+                                            <i class="fa fa-caret-right" ng-hide="showtab[$index]"></i>
+                                            {{report.name}}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
+                                    <td>{{item.label}}</td>
+                                    <td class="nowrap" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
+                                        {{v}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-			</div>
 
-            <div class="text-right" ng-if="reports.length">
-                All data as:
-                <a href="{{getUrl('json')}}" download="comparison-information.json" target="_blank">JSON</a>,
-                <a href="{{getUrl('xml')}}" download="comparison-information.xml" target="_blank">XML</a>,
-                <a href="{{getUrl('csv')}}" download="comparison-information.csv" target="_blank">CSV</a>,
-                <a href="{{getUrl('excel')}}" download="comparison-information.csv" target="_blank">Excel</a>
-            </div>
-            
-            <div class="alert alert-danger" ng-if="error">
-                <h4>You are accessing filings for entities that are not part of DOW30.</h4>
-                To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form.
-            </div>
+                <div class="text-right" ng-if="reports.length">
+                    All data as:
+                    <a href="{{getUrl('json')}}" download="comparison-information.json" target="_blank">JSON</a>,
+                    <a href="{{getUrl('xml')}}" download="comparison-information.xml" target="_blank">XML</a>,
+                    <a href="{{getUrl('csv')}}" download="comparison-information.csv" target="_blank">CSV</a>,
+                    <a href="{{getUrl('excel')}}" download="comparison-information.csv" target="_blank">Excel</a>
+                </div>
+                
+                <div class="alert alert-danger" ng-if="error">
+                    <h4>You are accessing filings for entities that are not part of DOW30.</h4>
+                    To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form.
+                </div>
 
-            <div class="alert alert-info" ng-if="errormany">
-                <h4>You are trying to compare information from {{filings.length}} filings.</h4>
-                Although our system can display the information, the volume of data will make it very hard to compare visually.<br />
-                We suggest you refine the filter for more accurate information.<br/><br/>
-                <button class="btn btn-primary" ng-click="forceShow()">I understand, show the information anyway</button>
+                <div class="alert alert-info" ng-if="errormany">
+                    <h4>You are trying to compare information from {{filings.length}} filings.</h4>
+                    Although our system can display the information, the volume of data will make it very hard to compare visually.<br />
+                    We suggest you refine the filter for more accurate information.<br/><br/>
+                    <button class="btn btn-primary" ng-click="forceShow()">I understand, show the information anyway</button>
+                </div>
             </div>
-		</div>
-	</div>
-</div>
+        </div>
+    </div>
 </div>

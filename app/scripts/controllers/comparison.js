@@ -1,22 +1,27 @@
 'use strict';
 
 angular.module('main')
-.controller('ComparisonCtrl', function($scope, $backend, QueriesService) {
+.controller('ComparisonCtrl', function($scope, $location, $backend, QueriesService) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
+    $scope.selection = {};
     
     $scope.$on('filterChanged', function(event, selection) {
+        $scope.selection = selection;
         if (!selection) { return; }
+        
+        console.log("memorizing..." + angular.toJson($scope.selection));
+
+        $location.search($scope.selection);
+        
         $scope.filings = null;
         $scope.error = false;
-            
-        var cik = [];
-        selection.entity.forEach(function(entity) { cik.push(entity.cik); });
+
         $scope.service.listFilings({
             $method: 'POST',
-            cik: cik,
+            cik: selection.cik,
             tag: selection.tag,
-            fiscalYear: selection.year,
-            fiscalPeriod: selection.period,
+            fiscalYear: selection.fiscalYear,
+            fiscalPeriod: selection.fiscalPeriod,
             token: $scope.token
         })
         .then(function(data) {

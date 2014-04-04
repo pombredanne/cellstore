@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('ComparisonSearchCtrl', function($scope, $http, $modal, $backend, QueriesService, conceptMaps) {
+.controller('ComparisonSearchCtrl', function($scope, $http, $modal, $location, $backend, QueriesService, conceptMaps) {
     $scope.none = 'US-GAAP Taxonomy Concepts';
 
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
@@ -9,78 +9,95 @@ angular.module('main')
         conceptMaps.push($scope.none);
     }
     $scope.conceptMaps = conceptMaps;
-    $scope.selection = { conceptMap : conceptMaps[0], filter: null, conceptMapKeys: [], dimensions: [] };
+    $scope.conceptMapKeys = [];
     $scope.entityIndex = -1;
     $scope.API_URL = $backend.API_URL;
-
-    $scope.$watch(
-        function() {
-            return $scope.selection.conceptMap; // +  angular.toJson($scope.selection.filter)
-        },
-        function() {
-            $scope.conceptMapKeys = [];
-            $scope.selection.conceptMapKeys = [];
-            
-            if ($scope.selection.conceptMap && $scope.selection.conceptMap !== $scope.none)
-            {
-                $http({
-                        method: 'GET',
-                        url: $backend.API_URL + '/_queries/public/ConceptMapKeys.jq',
-                        params: { _method: 'POST', mapName: $scope.selection.conceptMap, 'token' : $scope.token },
-						cache: true
-                    })
-                    .success(function (data) {
-                        if (data) {
-                            $scope.conceptMapKeys = data.mapKeys;
-                        }
-                    })
-					.error(function(data, status) {
-						$scope.$emit('error', status, data);
-					});
-            }
-            else
-            {
-                //CRD disable for now
-                /*
-                if ($scope.selection.filter)
-                {
-                    $scope.conceptMapKeys = [];
-
-                    var cik = [];
-                    $scope.selection.filter.entity.forEach(function(entity) { cik.push(entity.cik); });
-
-                    $http({
-                            method: 'GET', 
-                            url: $backend.API_URL + '/_queries/public/FactualConcepts.jq',
-                            params: { _method: 'POST', cik: cik, tag: $scope.selection.filter.tag, fiscalYearFocus: $scope.selection.filter.year, fiscalPeriodFocus: $scope.selection.filter.period, 'token' : $scope.token },
-                            cache: true
-                        })
-                        .success(function (data, status, headers, config)
-                        {
-                            if (data && data.factualConcepts) 
-                                data.factualConcepts.forEach(function(item) {
-                                    $scope.conceptMapKeys.push(item.name);
-                                });
-                        })
-                        .error(function(data, status) { 
-                            $scope.$emit('error', status, data);
-                        });
-                }
-                */
-            }
-
-        }
-    );
     
     $scope.$on('filterChanged',
         function(event, selection) {
-            $scope.selection.filter = selection;
+            $scope.selection = selection;
+
+            var src = $location.search();
+            
+            if (src.map) {
+                $scope.map = src.map;
+            }
+            else {
+                $scope.map = conceptMaps[0];
+            }
+            $scope.selectMap();
+            
+            if (src.concept) {
+                $scope.selection.concept = [].concat(src.concept);
+            }
+            else {
+                $scope.selection.concept = [];
+            }
+
+            $scope.dimensions = [];
+            Object.keys(src).forEach(function (param) {
+                if (param.indexOf(':') !== -1) {
+                    if (param.substring(param.length - 9, param.length) === '::default') {
+                        var name = param.substring(0, param.length - 9);
+                        $scope.dimensions.forEach(function(d) {
+                            if (d.name === name)
+                            {
+                                d.defaultValue = src[param];
+                            }
+                        });
+                    }
+                    else {
+                        $scope.dimensions.push({ name: param, value: src[param] });
+                    }
+                    $scope.selection[param] = src[param];
+                }
+            });
         }
     );
 
+    $scope.$watch(
+        function() { 
+            return angular.toJson($scope.selection)
+        },
+        function(newValue) {
+            if ($scope.selection) {
+                $location.search($scope.selection);            
+            }
+        }
+    );
+
+    $scope.selectMap = function() {
+        if ($scope.selection.map === $scope.map)
+        {
+            return;
+        }
+
+        $scope.conceptMapKeys = [];
+        $scope.selection.concept = [];
+        $scope.selection.map = $scope.map;
+
+        if ($scope.selection.map && $scope.selection.map !== $scope.none)
+        {
+            $http({
+                    method: 'GET',
+                    url: $backend.API_URL + '/_queries/public/ConceptMapKeys.jq',
+                    params: { _method: 'POST', mapName: $scope.selection.map, 'token' : $scope.token },
+                    cache: true
+                })
+                .success(function (data) {
+                    if (data) {
+                        $scope.conceptMapKeys = data.mapKeys;
+                    }
+                })
+                .error(function(data, status) {
+                    $scope.$emit('error', status, data);
+                });
+        }
+    };
+
     $scope.addConceptKey = function(item) {
-        if (item && $scope.selection.conceptMapKeys.indexOf(item) < 0) {
-            $scope.selection.conceptMapKeys.push(item);
+        if (item && $scope.selection.concept.indexOf(item) < 0) {
+            $scope.selection.concept.push(item);
         }
         $scope.conceptMapKey = '';
     };
@@ -108,8 +125,13 @@ angular.module('main')
         });
 
         modalInstance.result.then(function (item) {
-            if ($scope.selection.dimensions.indexOf(item) < 0) {
-                $scope.selection.dimensions.push(item);
+            if ($scope.dimensions.indexOf(item) < 0) {
+                $scope.dimensions.push(item);
+                $scope.selection[item.name] = item.value;
+                if (item.defaultValue)
+                {
+                    $scope.selection[item.name + '::default'] = item.defaultValue;
+                }
             }
         });
     };
@@ -119,7 +141,7 @@ angular.module('main')
             $scope.addConceptKey($scope.conceptMapKey);
         }
         
-        if ($scope.selection.conceptMapKeys.length === 0)
+        if ($scope.selection.concept.length === 0)
         {
             $scope.$emit('alert', 'Warning', 'Please choose concepts to compare.');
             return;
@@ -128,16 +150,21 @@ angular.module('main')
         $scope.data = [];
         $scope.params = {
             $method: 'POST',
-            cik: [],
-            tag: $scope.selection.filter.tag,
-            fiscalYear: $scope.selection.filter.year,
-            fiscalPeriod: $scope.selection.filter.period,
-            concept: $scope.selection.conceptMapKeys,
-            map: ($scope.selection.conceptMap !== $scope.none ? $scope.selection.conceptMap : null),
+            cik: $scope.selection.cik,
+            tag: $scope.selection.tag,
+            fiscalYear: $scope.selection.fiscalYear,
+            fiscalPeriod: $scope.selection.fiscalPeriod,
+            concept: $scope.selection.concept,
+            map: ($scope.selection.map !== $scope.none ? $scope.selection.map : null),
             token: $scope.token
         };
-        $scope.selection.filter.entity.forEach(function(entity) { $scope.params.cik.push(entity.cik); });
-        $scope.selection.dimensions.forEach(function(dimension) { $scope.params[dimension.name] = dimension.value; $scope.params[dimension.name + ':default'] = dimension.defaultValue; });
+        $scope.dimensions.forEach(function(dimension) { 
+            $scope.params[dimension.name] = dimension.value; 
+            if (dimension.defaultValue)
+            {
+                $scope.params[dimension.name + ':default'] = dimension.defaultValue; 
+            }
+        });
 
         $scope.service.listFacts($scope.params)
             .then(function(data) {
@@ -203,30 +230,14 @@ angular.module('main')
 
     $scope.getUrl = function(format) {
         var str = $backend.API_URL + '/_queries/public/api/facts.jq';
-        var p = [];
-        var index = -1;
-        Object.keys($scope.params).forEach(function(param){
-            if($scope.params.hasOwnProperty(param) && $scope.params[param]) {
-                if (param === '$method') {
-                    p.push('_method=' + encodeURIComponent($scope.params[param].toString()));
-                } else {
-                    if (param === 'format') {
-                        if (format) {
-                            index = p.length;
-                            p.push(param + '=' + encodeURIComponent(format));
-                        }
-                    } else {
-                        if (Object.prototype.toString.call($scope.params[param]) === '[object Array]') {
-                            $scope.params[param].forEach(function(item) { p.push(param + '=' + encodeURIComponent(item)); });
-                        } else {
-                            p.push(param + '=' + encodeURIComponent($scope.params[param].toString()));
-                        }
-                    }
-                }
-            }
-        });
-        if (index < 0 && format) { p.push('format=' + encodeURIComponent(format)); }
-        if (p.length > 0) { str += '?' + p.join('&'); }
+        var params = angular.copy($scope.params);
+        if (format) {
+            params['format'] = format;
+        }
+        var qs = $scope.wwwFormUrlencoded(params);
+        if (qs) {
+            str += '?' + qs;
+        }
         return str;
     };
 });
