@@ -142,6 +142,7 @@ angular.module('main')
          * @param {string} ticker - The ticker of the entity,
          * @param {string} tag - The tag to filter entities,
          * @param {string} sic - The industry group,
+         * @param {string} cik - The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.,
          * @param {string} fiscalYear - The fiscal year of the fact to retrieve (default: ALL),
          * @param {string} fiscalPeriod - The fiscal period of the fact to retrieve (default: ALL),
          * @param {string} aid - The id of the filing,
@@ -161,6 +162,7 @@ angular.module('main')
             params['ticker'] = parameters['ticker'];
             params['tag'] = parameters['tag'];
             params['sic'] = parameters['sic'];
+            params['cik'] = parameters['cik'];
             params['fiscalYear'] = parameters['fiscalYear'];
             params['fiscalPeriod'] = parameters['fiscalPeriod'];
             params['aid'] = parameters['aid'];
