@@ -1,26 +1,31 @@
 'use strict';
 
 angular.module('main')
-.controller('ComparisonInformationCtrl', function($scope, $http, $backend, QueriesService) {
+.controller('ComparisonInformationCtrl', function($scope, $http, $location, $backend, QueriesService) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
+    $scope.selection = {};
     $scope.showtab = [];
     $scope.reports = [];
+    $scope.filings = null;
+    $scope.error = false;
+    $scope.errormany = false;
     
     $scope.$on('filterChanged', function(event, selection) {
+        $scope.selection = angular.copy(selection);
         if (!selection) { return; }
+        
+        $location.search($scope.selection);
+        
         $scope.filings = null;
         $scope.error = false;
         $scope.errormany = false;
-            
-        var cik = [];
-        selection.entity.forEach(function(entity) { cik.push(entity.cik); });
 
         $scope.service.listFilings({
             $method: 'POST',
-            cik: cik,
+            cik: selection.cik,
             tag: selection.tag,
-            fiscalYear: selection.year,
-            fiscalPeriod: selection.period,
+            fiscalYear: selection.fiscalYear,
+            fiscalPeriod: selection.fiscalPeriod,
             token: $scope.token
         }).then(function(data) {
             $scope.filings = [];
@@ -117,31 +122,15 @@ angular.module('main')
     };
 
     $scope.getUrl = function(format) {
-        var str = $backend.API_URL + '/_queries/public/api/facttable-for-report.jq';
-        var p = [];
-        var index = -1;
-        Object.keys($scope.params).forEach(function(param){
-            if($scope.params.hasOwnProperty(param) && $scope.params[param]) {
-                if (param === '$method') {
-                    p.push('_method=' + encodeURIComponent($scope.params[param].toString()));
-                } else {
-                    if (param === 'format') {
-                        if (format) {
-                            index = p.length;
-                            p.push(param + '=' + encodeURIComponent(format));
-                        }
-                    } else {
-                        if (Object.prototype.toString.call($scope.params[param]) === '[object Array]') {
-                            $scope.params[param].forEach(function(item) { p.push(param + '=' + encodeURIComponent(item)); });
-                        } else {
-                            p.push(param + '=' + encodeURIComponent($scope.params[param].toString()));
-                        }
-                    }
-                }
-            }
-        });
-        if (index < 0 && format) { p.push('format=' + encodeURIComponent(format)); }
-        if (p.length > 0) { str += '?' + p.join('&'); }
+        var str = $backend.API_URL + '/_queries/public/api/facts.jq';
+        var params = angular.copy($scope.params);
+        if (format) {
+            params['format'] = format;
+        }
+        var qs = $scope.wwwFormUrlencoded(params);
+        if (qs) {
+            str += '?' + qs;
+        }
         return str;
     };
 });

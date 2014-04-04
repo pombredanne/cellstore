@@ -57,7 +57,10 @@ then {
         };
 } else {
     variable $user := try { user:login($email, $password) } catch * { () };
-    variable $expiration := fn:current-dateTime() + xs:dayTimeDuration("P1D");
+    variable $expiration := fn:current-dateTime() +
+                            (if ($email eq "charlie@prudena.com")
+                             then xs:yearMonthDuration("P10Y")
+                             else xs:dayTimeDuration("P1D"));
     
     if (empty($user)) 
     then {

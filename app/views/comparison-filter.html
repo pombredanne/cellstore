@@ -7,17 +7,17 @@
                 <a class="close" ng-click="selection.tag.splice($index, 1)">&times;</a>
                 {{t}}
             </div>
-            <div class="alert alert-info" ng-repeat="e in selection.entity">
-                <a class="close" ng-click="selection.entity.splice($index, 1)">&times;</a>
-                {{e.name}}
+            <div class="alert alert-info" ng-repeat="c in selection.cik">
+                <a class="close" ng-click="selection.cik.splice($index, 1)">&times;</a>
+                {{getEntity(c).name}}
             </div>
         </div>
     </div>
     <div>
         <div>
             <h6>FISCAL YEARS</h6>
-            <div class="alert alert-danger" ng-repeat="y in selection.year">
-                <a class="close" ng-click="selection.year.splice($index, 1)">&times;</a>
+            <div class="alert alert-danger" ng-repeat="y in selection.fiscalYear">
+                <a class="close" ng-click="selection.fiscalYear.splice($index, 1)">&times;</a>
                 {{y}}
             </div>
         </div>
@@ -25,8 +25,8 @@
     <div>
         <div>
             <h6>FISCAL PERIODS</h6>
-            <div class="alert alert-warning" ng-repeat="p in selection.period">
-                <a class="close" ng-click="selection.period.splice($index, 1)">&times;</a>
+            <div class="alert alert-warning" ng-repeat="p in selection.fiscalPeriod">
+                <a class="close" ng-click="selection.fiscalPeriod.splice($index, 1)">&times;</a>
                 {{p}}
             </div>
         </div>  
@@ -40,7 +40,7 @@
                 <input class="form-control" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
                        placeholder="Search for an entity..."
                        typeahead-template-url="typeaheadmulti.html"
-                       typeahead="entity for entity in entities | filter:$viewValue | limitTo:8">
+                       typeahead="entity.name for entity in entities | filter:$viewValue | limitTo:8">
                 <script type="text/ng-template" id="typeaheadmulti.html">
                     <a tabindex="-1" class="multicol">
                        <div ng-bind-html='match.model.name | typeaheadHighlight:query'></div>
@@ -57,13 +57,13 @@
             <div class="col-xs-6">
                 <h6 class="nowrap">ADD FISCAL YEARS</h6>
                 <ul class="selector" style="height: 97px">
-                    <li ng-repeat="y in years" ng-class="{ selected: (selection.year.indexOf(y) >= 0) }" ng-click="(selection.year.indexOf(y) >= 0 ? selection.year.splice(selection.year.indexOf(y), 1) : selection.year.push(y))">{{y}}</li>
+                    <li ng-repeat="y in years" ng-class="{ selected: (selection.fiscalYear.indexOf(y) >= 0) }" ng-click="(selection.fiscalYear.indexOf(y) >= 0 ? selection.fiscalYear.splice(selection.fiscalYear.indexOf(y), 1) : selection.fiscalYear.push(y))">{{y}}</li>
                 </ul>
             </div>
             <div class="col-xs-6">
                 <h6 class="nowrap">ADD FISCAL PERIODS</h6>
                 <ul class="selector" style="height: 97px">
-                    <li ng-repeat="p in periods" ng-class="{ selected: (selection.period.indexOf(p) >= 0) }" ng-click="(selection.period.indexOf(p) >= 0 ? selection.period.splice(selection.period.indexOf(p), 1) : selection.period.push(p))">{{p}}</li>
+                    <li ng-repeat="p in periods" ng-class="{ selected: (selection.fiscalPeriod.indexOf(p) >= 0) }" ng-click="(selection.fiscalPeriod.indexOf(p) >= 0 ? selection.fiscalPeriod.splice(selection.fiscalPeriod.indexOf(p), 1) : selection.fiscalPeriod.push(p))">{{p}}</li>
                 </ul>
             </div>
         </div>
