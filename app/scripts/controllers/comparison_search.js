@@ -190,7 +190,7 @@ angular.module('main')
             $scope.params[dimension.name] = dimension.value; 
             if (dimension.defaultValue)
             {
-                $scope.params[dimension.name + ':default'] = dimension.defaultValue;
+                $scope.params[dimension.name + '::default'] = dimension.defaultValue;
             }
         });
 
