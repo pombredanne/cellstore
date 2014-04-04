@@ -35,14 +35,14 @@
                 
                 <div>
                     <div ng-repeat="key in selection.concept">
-                        <a ng-click="selection.concept.splice(selection.concept.indexOf(key), 1)"><i class="fa fa-times"></i></a>
+                        <a ng-click="deleteConceptKey(key)"><i class="fa fa-times"></i></a>
                         <a popover="{{key}}" popover-position="top" popover-trigger="click">{{substring(key, 50)}}</a>
                     </div>
                 </div>
 
                 <h4>Dimensions <a ng-click="addDimension()"><i class="fa fa-plus-square-o"></i></a></h4>
                 <div ng-repeat="key in dimensions track by $index">
-                    <a ng-click="dimensions.splice(dimensions.indexOf(key), 1)"><i class="fa fa-times"></i></a>
+                    <a ng-click="deleteDimension(key)"><i class="fa fa-times"></i></a>
                     <a popover="Dimension {{ key.name }} with value {{ key.value }}, considering {{ key.defaultValue }} if missing" popover-position="top" popover-trigger="click">{{ key.name }} = {{ key.value }}</a>
                 </div>
                 <div ng-hide="dimensions.length">

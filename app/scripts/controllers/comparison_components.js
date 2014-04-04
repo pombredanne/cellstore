@@ -72,12 +72,14 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         $scope.getValues();
     };
     
-    $scope.selectDisclosure = function(d) {
-        $scope.selection.disclosure = d.name;
+    $scope.selectDisclosure = function() {
+        $scope.selection.disclosure = $scope.searchDisclosure;
+        $scope.selection.reportElement = $scope.searchReportElement;
     };
     
     $scope.selectReportElement = function(r) {
-        $scope.selection.reportElement = r;
+        $scope.selection.disclosure = $scope.searchDisclosure;
+        $scope.selection.reportElement = $scope.searchReportElement;
     };
 
     $scope.getValues = function () {

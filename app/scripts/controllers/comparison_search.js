@@ -102,6 +102,10 @@ angular.module('main')
         $scope.conceptMapKey = '';
     };
 
+    $scope.deleteConceptKey = function(item) {
+        $scope.selection.concept.splice($scope.selection.concept.indexOf(item), 1);
+    };
+
     $scope.addDimension = function () {
         var modalInstance = $modal.open({
             templateUrl: 'dimension.html',
@@ -146,6 +150,17 @@ angular.module('main')
                 }
             }
         });
+    };
+
+    $scope.deleteDimension = function(item) {
+        var name = item.name;
+        var def = item.defaultValue;
+        $scope.dimensions.splice($scope.dimensions.indexOf(item), 1);
+        delete $scope.selection[name];
+        if (def)
+        {
+            delete $scope.selection[name + '::default'];
+        }
     };
 
     $scope.getValues = function() {
