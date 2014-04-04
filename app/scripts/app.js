@@ -372,6 +372,26 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
             }
         })
+        //Blog
+        .when('/blog/', {
+            templateUrl: '/views/blog.html',
+            controller: 'BlogCtrl',
+            resolve: {
+                blogIndex: ['BlogAPI', function(BlogAPI) {
+                    return BlogAPI.getIndex();
+                }]
+            }
+        })
+        .when('/blog/:id/:slug', {
+            templateUrl: '/views/blog.html',
+            controller: 'BlogCtrl',
+            reloadOnSearch: false,
+            resolve: {
+                blogIndex: ['BlogAPI', function(BlogAPI) {
+                    return BlogAPI.getIndex();
+                }]
+            }
+        })
         //404
         .otherwise({
             templateUrl:'/views/404.html'
