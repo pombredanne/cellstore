@@ -268,6 +268,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "cik",
+                            "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "fiscalYear",
                             "description": "The fiscal year of the fact to retrieve (default: ALL)",
                             "required": false,
