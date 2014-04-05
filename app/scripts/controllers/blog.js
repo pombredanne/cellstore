@@ -1,6 +1,29 @@
 'use strict';
 
 angular.module('main')
+.directive('disqus', function($location){
+    return function($scope, elm) {
+      // http://docs.disqus.com/help/2/
+        window.disqus_shortname = 'secxbrl';
+        var disqusIdentifier = elm[0].getAttribute('disqus-identifier');
+        window.disqus_identifier = disqusIdentifier ? disqusIdentifier : $location.path();
+        window.disqus_url = 'http://secxbrl.info' + window.disqus_identifier;
+
+//            window.disqus_developer = 1;
+
+    // http://docs.disqus.com/developers/universal/
+    
+        if(!document.getElementById('disqusScript')) {
+            var dsq = document.createElement('script');
+            dsq.disqusScript = true;
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = 'http://secxbrl.disqus.com/embed.js';
+            document.getElementsByTagName('body')[0].appendChild(dsq);
+        }   
+        angular.element(document.getElementById('disqus_thread')).html('');
+    };  
+})
 .directive('entry', function(){
     
     var loadContent = function($scope, elm) {
