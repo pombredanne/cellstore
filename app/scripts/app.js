@@ -164,6 +164,22 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
     };
 })
 .config(function ($routeProvider, $locationProvider, $httpProvider) {
+    
+    //Because angularjs default transformResponse is not based on ContentType
+    $httpProvider.defaults.transformResponse = function(response, headers){
+        var contentType = headers('Content-Type');
+        if(/^application\/(.*\+)?json/.test(contentType)) {
+            try {
+                return JSON.parse(response);
+            } catch(e) {
+                console.error('Couldn\'t parse the following response:');
+                console.error(response);
+                return response;
+            }
+        } else {
+            return response;
+        }
+    };
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
@@ -267,7 +283,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                         params : {
                             '_method' : 'POST',
                             'cik' : cik,
-                            'fiscalPeriod': 'ALL'
+                            'fiscalPeriod': 'ALL',
+                            'fiscalYear': 'ALL'
                         }
                     })
                     .success(function(data) {
@@ -401,15 +418,21 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 
 	$rootScope.DEBUG = $backend.DEBUG;
 
+	$angularCacheFactory('secxbrl-http', {
+        maxAge: 60 * 60 * 1000,
+        recycleFreq: 60 * 1000,
+        deleteOnExpire: 'aggressive'
+    });
+	$http.defaults.cache = $angularCacheFactory.get('secxbrl-http');
+
 	$angularCacheFactory('secxbrl', {
-        maxAge: 6000000, // Items added to this cache expire after 15 minutes.
-        cacheFlushInterval: 6000000, // This cache will clear itself every hour.
-        deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
+        maxAge: 60 * 60 * 1000,
+        recycleFreq: 60 * 1000,
+        deleteOnExpire: 'aggressive',
         storageMode: 'localStorage'
     });
 
 	var cache = $angularCacheFactory.get('secxbrl');
-	$http.defaults.cache = cache;
 	if (cache)
 	{
 		$rootScope.token = cache.get('token');
@@ -503,7 +526,13 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 	};
 
 	$rootScope.goto = function(url) {
-		$location.url(url, true);
+        if (url === '/') {
+            $location.url(url, true);
+        }
+        else {
+            // keep the query string, if any
+		    $location.path(url);
+        }
 	};
 
 	$rootScope.gotoId = function(id) {
@@ -530,4 +559,26 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             event.stopPropagation();
         }
 	};
+
+    $rootScope.wwwFormUrlencoded = function (params) {
+        if (params)
+        {
+            var p = [];
+            Object.keys(params).forEach(function (param) {
+                if (params.hasOwnProperty(param) && params[param]) {
+                    if (param === '$method') {
+                        p.push('_method=' + encodeURIComponent(params[param].toString()));
+                    } else {
+                        if (Object.prototype.toString.call(params[param]) === '[object Array]') {
+                            params[param].forEach(function (item) { p.push(param + '=' + encodeURIComponent(item)); });
+                        } else {
+                            p.push(param + '=' + encodeURIComponent(params[param].toString()));
+                        }
+                    }
+                }
+            });
+            if (p.length > 0) return p.join('&');
+        }
+        return "";
+    };
 });

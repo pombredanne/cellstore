@@ -36,6 +36,7 @@ angular.module('main')
          * @param {string} tag - A tag to filter,
          * @param {string} cik - A CIK number,
          * @param {string} ticker - A ticker symbols,
+         * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
          * 
          */
         this.listEntities = function(parameters){
@@ -48,6 +49,7 @@ angular.module('main')
             params['tag'] = parameters['tag'];
             params['cik'] = parameters['cik'];
             params['ticker'] = parameters['ticker'];
+            params['token'] = parameters['token'];
             var body = null;
             var method = 'POST'.toUpperCase();
             if (parameters.$method)
@@ -140,12 +142,14 @@ angular.module('main')
          * @param {string} ticker - The ticker of the entity,
          * @param {string} tag - The tag to filter entities,
          * @param {string} sic - The industry group,
+         * @param {string} cik - The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.,
          * @param {string} fiscalYear - The fiscal year of the fact to retrieve (default: ALL),
          * @param {string} fiscalPeriod - The fiscal period of the fact to retrieve (default: ALL),
          * @param {string} aid - The id of the filing,
          * @param {string} cid - The id of a particular component,
          * @param {string} disclosure - The disclosure to search for (e.g. BalanceSheet),
-         * @param {string} concept - The disclosure to search for (e.g. us-gaap:Goodwill),
+         * @param {string} reportElement - The name of the report element to search for (e.g. us-gaap:Goodwill),
+         * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
          * 
          */
         this.listComponents = function(parameters){
@@ -158,12 +162,14 @@ angular.module('main')
             params['ticker'] = parameters['ticker'];
             params['tag'] = parameters['tag'];
             params['sic'] = parameters['sic'];
+            params['cik'] = parameters['cik'];
             params['fiscalYear'] = parameters['fiscalYear'];
             params['fiscalPeriod'] = parameters['fiscalPeriod'];
             params['aid'] = parameters['aid'];
             params['cid'] = parameters['cid'];
             params['disclosure'] = parameters['disclosure'];
-            params['concept'] = parameters['concept'];
+            params['reportElement'] = parameters['reportElement'];
+            params['token'] = parameters['token'];
             var body = null;
             var method = 'POST'.toUpperCase();
             if (parameters.$method)
@@ -204,6 +210,7 @@ angular.module('main')
          * @param {string} fiscalYear - The fiscal year of the filing,
          * @param {string} fiscalPeriod - The fiscal period of the filing,
          * @param {string} disclosure - The disclosure of the component (e.g. BalanceSheet),
+         * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
          * 
          */
         this.listFactTable = function(parameters){
@@ -219,6 +226,7 @@ angular.module('main')
             params['fiscalYear'] = parameters['fiscalYear'];
             params['fiscalPeriod'] = parameters['fiscalPeriod'];
             params['disclosure'] = parameters['disclosure'];
+            params['token'] = parameters['token'];
             var body = null;
             var method = 'POST'.toUpperCase();
             if (parameters.$method)
@@ -259,6 +267,7 @@ angular.module('main')
          * @param {string} fiscalYear - The fiscal year of the filing,
          * @param {string} fiscalPeriod - The fiscal period of the filing,
          * @param {string} disclosure - The disclosure of the component (e.g. BalanceSheet),
+         * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
          * 
          */
         this.listModelStructure = function(parameters){
@@ -274,6 +283,7 @@ angular.module('main')
             params['fiscalYear'] = parameters['fiscalYear'];
             params['fiscalPeriod'] = parameters['fiscalPeriod'];
             params['disclosure'] = parameters['disclosure'];
+            params['token'] = parameters['token'];
             var body = null;
             var method = 'POST'.toUpperCase();
             if (parameters.$method)
@@ -408,6 +418,67 @@ angular.module('main')
                 if (parameters.hasOwnProperty(prop))
                     if(/^[^:]+:[^:]+::default$/ig.test(prop))
                         params[prop]=parameters[prop];
+            params['token'] = parameters['token'];
+            var body = null;
+            var method = 'POST'.toUpperCase();
+            if (parameters.$method)
+            {
+                params['_method'] = parameters.$method;
+                method = 'GET';
+            }
+            var cached = parameters.$cache && parameters.$cache.get(url);
+            if(method === 'GET' && cached !== undefined && parameters.$refresh !== true) {
+                deferred.resolve(cached);
+            } else {
+            $http({
+                method: method,
+                url: url,
+                params: params
+            })
+            .success(function(data, status, headers, config){
+                deferred.resolve(data);
+                //cache.removeAll();
+            })
+            .error(function(data, status, headers, config){
+                deferred.reject({data: data, status: status, headers: headers, config: config});
+                //cache.removeAll();
+            })
+            ;
+            }
+            return deferred.promise;
+        };
+
+        /**
+         * 
+         * @method
+         * @name QueriesService#listReportElements
+         * @param {string} format - The result format,
+         * @param {string} tag - A tag to filter,
+         * @param {string} cik - A CIK number,
+         * @param {string} ticker - A ticker symbols,
+         * @param {string} sic - The industry group,
+         * @param {string} fiscalYear - The fiscal year of the fact to retrieve (default: ALL),
+         * @param {string} fiscalPeriod - The fiscal period of the fact to retrieve (default: FY),
+         * @param {string} aid - The id of the filing,
+         * @param {string} onlyNames - Whether only the names of the report elements should be returned. If so, the values don't contain duplicates. (default: false),
+         * @param {string} token - The token of the current session (if accessing entities beyond DOW30),
+         * 
+         */
+        this.listReportElements = function(parameters){
+            var deferred = $q.defer();
+            var that = this;
+            var path = '/report-elements.jq'
+            var url = domain + path;
+            var params = {};
+            params['format'] = parameters['format'];
+            params['tag'] = parameters['tag'];
+            params['cik'] = parameters['cik'];
+            params['ticker'] = parameters['ticker'];
+            params['sic'] = parameters['sic'];
+            params['fiscalYear'] = parameters['fiscalYear'];
+            params['fiscalPeriod'] = parameters['fiscalPeriod'];
+            params['aid'] = parameters['aid'];
+            params['onlyNames'] = parameters['onlyNames'];
             params['token'] = parameters['token'];
             var body = null;
             var method = 'POST'.toUpperCase();

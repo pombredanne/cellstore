@@ -1,48 +1,108 @@
 'use strict';
 
-angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, $http, $modal, $backend, QueriesService) {
+angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, $http, $modal, $location, $backend, QueriesService) {
 
-    $scope.choice = 'disclosure';
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.results = [];
-    $scope.selection = {};
+    $scope.reportElementNames = [];
+    $scope.disclosureNames = [];
+    $scope.errornoresults = false;
 
-    $scope.$on('filterChanged', function (event, selection) {
-        $scope.selection = selection;
-    }
+    $scope.$on('filterChanged', 
+        function (event, selection) {
+            $scope.selection = angular.copy(selection);
+
+            var src = $location.search();
+            
+            if (src.disclosure) {
+                $scope.searchDisclosure = src.disclosure;
+                $scope.selection.disclosure = $scope.searchDisclosure;
+            }
+            
+            if (src.reportElement) {
+                $scope.searchReportElement = src.reportElement;
+                $scope.selection.reportElement = $scope.searchReportElement;
+            }
+
+            if ($scope.selection && ($scope.selection.disclosure || $scope.selection.reportElement)) {
+                $scope.getValues();
+            }
+
+            //refresh the typeaheads
+            $scope.reportElementNames = [];
+            $scope.disclosureNames = [];
+            $scope.service.listReportElements({
+                $method : 'POST',
+                onlyNames : true,
+                cik: selection.cik,
+                tag: selection.tag,
+                fiscalYear: selection.fiscalYear,
+                fiscalPeriod: selection.fiscalPeriod,
+                token: $scope.token
+            }).then(function(data) {
+                $scope.reportElementNames = data.ReportElements || [];
+            },
+            function(response) {
+                $scope.$emit('error', response.status, response.data);
+            });
+
+            $http({
+                url: $backend.API_URL + '/_queries/public/Disclosures.jq',
+                method: 'GET'
+            })
+            .success(function(data) {
+                $scope.disclosureNames = data;
+            })
+            .error(function(data, status) {
+                $scope.$emit('error', status, data);
+            });
+        }
     );
 
+    $scope.$watch(
+        function() { 
+            return angular.toJson($scope.selection)
+        },
+        function(newValue) {
+            if ($scope.selection) {
+                $location.search($scope.selection);            
+            }
+        }
+    );
+
+    $scope.submit = function() {
+        if (!$scope.searchDisclosure && !$scope.searchReportElement) {
+            $scope.$emit('alert', 'Fields required for search', 'The disclosure or the report element are required for the search.');
+            return false;
+        }
+        $scope.selection.disclosure = $scope.searchDisclosure;
+        $scope.selection.reportElement = $scope.searchReportElement;
+    };
+    
+    $scope.selectDisclosure = function() {
+        $scope.selection.disclosure = $scope.searchDisclosure;
+        $scope.selection.reportElement = $scope.searchReportElement;
+    };
+    
+    $scope.selectReportElement = function(r) {
+        $scope.selection.disclosure = $scope.searchDisclosure;
+        $scope.selection.reportElement = $scope.searchReportElement;
+    };
+
     $scope.getValues = function () {
+        $scope.errornoresults = false;
         $scope.results = [];
-
-        if ($scope.choice === 'disclosure' && !$scope.searchDisclosure) {
-            $scope.$emit('alert', 'Required field', 'The disclosure is required for the search.');
-            return false;
-        }
-
-        if ($scope.choice === 'concept' && !$scope.searchConcept) {
-            $scope.$emit('alert', 'Required field', 'The concept is required for the search.');
-            return false;
-        }
 
         $scope.params = {
             $method: 'POST',
             tag: $scope.selection.tag,
-            cik: [],
-            fiscalYear: $scope.selection.year,
-            fiscalPeriod: $scope.selection.period,
+            cik: $scope.selection.cik,
+            fiscalYear: $scope.selection.fiscalYear,
+            fiscalPeriod: $scope.selection.fiscalPeriod,
+            disclosure: $scope.selection.disclosure,
+            reportElement: $scope.selection.reportElement,
             token: $scope.token
         };
-
-        if ($scope.choice === 'disclosure') {
-            $scope.params.disclosure = $scope.searchDisclosure;
-        } else {
-            $scope.params.concept = $scope.searchConcept;
-        }
-
-        $scope.selection.entity.forEach(function (entity) {
-            $scope.params.cik.push(entity.cik);
-        });
 
         $scope.service.listComponents($scope.params)
             .then(function (data) {
@@ -55,11 +115,13 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
                             'EntityRegistrantName': archive.EntityRegistrantName,
                             'FormType': archive.FormType,
                             'FiscalYear': archive.FiscalYear,
-                            'FiscalPeriod': archive.FiscalPeriod
+                            'FiscalPeriod': archive.FiscalPeriod,
+                            'token': $scope.token
                         });
                         $scope.results[$scope.results.length] = item;
                     });
                 });
+                $scope.errornoresults = ($scope.results.length == 0);
             },
             function (response) {
                 $scope.$emit('error', response.status, response.data);
@@ -82,33 +144,13 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
 
     $scope.getUrl = function (format) {
         var str = $backend.API_URL + '/_queries/public/api/components.jq';
-        var p = [];
-        var index = -1;
-        Object.keys($scope.params).forEach(function (param) {
-            if ($scope.params.hasOwnProperty(param) && $scope.params[param]) {
-                if (param === '$method') {
-                    p.push('_method=' + encodeURIComponent($scope.params[param].toString()));
-                } else {
-                    if (param === 'format') {
-                        if (format) {
-                            index = p.length;
-                            p.push(param + '=' + encodeURIComponent(format));
-                        }
-                    } else {
-                        if (Object.prototype.toString.call($scope.params[param]) === '[object Array]') {
-                            $scope.params[param].forEach(function (item) { p.push(param + '=' + encodeURIComponent(item)); });
-                        } else {
-                            p.push(param + '=' + encodeURIComponent($scope.params[param].toString()));
-                        }
-                    }
-                }
-            }
-        });
-        if (index < 0 && format) {
-            p.push('format=' + encodeURIComponent(format));
+        var params = angular.copy($scope.params);
+        if (format) {
+            params['format'] = format;
         }
-        if (p.length > 0) {
-            str += '?' + p.join('&');
+        var qs = $scope.wwwFormUrlencoded(params);
+        if (qs) {
+            str += '?' + qs;
         }
         return str;
     };

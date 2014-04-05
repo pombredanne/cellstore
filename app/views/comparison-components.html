@@ -1,49 +1,53 @@
 <div id="comparison-components">
     <div class="menu">
         <div class="btn-group">
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison">
-                <i class="fa fa-home"></i>
-            </a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information">
-                <i class="fa fa-th-large"></i>
-                Basic Financial Information
-            </a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search">
-                <i class="fa fa-search"></i>
-                Search Facts
-            </a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components">
-                <i class="fa fa-quote-left"></i>
-                Search Components
-            </a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-home"></i></a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-th-large"></i> Basic Financial Information</a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-search"></i> Search Facts</a>
+            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-quote-left"></i> Search Components</a>
         </div>
     </div>
 
     <div class="cols row">
         <div class="col-left col-md-3 col-sm-4 col-xs-12 selection" ng-include="'/views/comparison-filter.html'"></div>
         <div class="col-right col-md-9 col-sm-8 col-xs-12">
-            <h2>Search components by disclosures or concepts</h2>
-            <div class="row" id="comparison-components-searchbar">
-                <div class="col-lg-5">
-                    <div class="input-group">
-                        <label class="input-group-addon">
-                            <input type="radio" name="choice" ng-model="choice" value="disclosure" tabindex="-1"> Disclosure
-                        </label>
-                        <input type="text" class="form-control" ng-model="searchDisclosure" ng-focus="choice='disclosure'">
+            <h2>Search components by disclosures or report elements</h2>
+            <form class="form-horizontal" id="comparison-components-searchbar" ng-submit="submit()">
+                <div class="form-group">
+                    <label class="col-lg-2 col-md-3 col-sm-4 control-label">Disclosure</label>
+                    <div class="col-lg-5 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" ng-model="searchDisclosure"
+                          typeahead="key.name for key in disclosureNames | filter:$viewValue | limitTo: 10" typeahead-template-url='typeaheaddisclosures.html'
+                           typeahead-on-select="selectDisclosure($item)">
+                        <script type="text/ng-template" id="typeaheaddisclosures.html">
+                            <a tabindex="-1" class="multicol">
+                               <div ng-bind-html='match.model.label | typeaheadHighlight:query'></div>
+                               <small ng-bind-html='"TOPIC: " + match.model.topic | typeaheadHighlight:query'></small><br>
+                               <small ng-bind-html='"Name: " + match.model.name | typeaheadHighlight:query'></small>
+                            </a>
+                        </script>
+                    </div>
+                    <div class="col-lg-5 col-lg-offset-0 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
+                        <small>Find components by disclosure.</small>
                     </div>
                 </div>
-                <div class="col-lg-5">
-                    <div class="input-group">
-                        <label class="input-group-addon">
-                            <input type="radio" name="choice" ng-model="choice" value="concept" tabindex="-1"> Concept
-                        </label>
-                        <input type="text" class="form-control" ng-model="searchConcept" ng-focus="choice='concept'">
+                <div class="form-group">
+                    <label class="col-lg-2 col-md-3 col-sm-4 control-label">Report Element</label>
+                    <div class="col-lg-5 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" ng-model="searchReportElement"
+                          typeahead="key for key in reportElementNames | filter:$viewValue | limitTo: 15"
+                           typeahead-on-select="selectReportElement($item)">
+                    </div>
+                    <div class="col-lg-5 col-lg-offset-0 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
+                        <small>Find components by report element.</small>
                     </div>
                 </div>
-                <div class="col-lg-2">
-    	           <button class="btn btn-primary" ng-click="getValues()">GO</button>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
+                        <button class="btn btn-primary" type="submit">GO</button>
+                    </div>
                 </div>
-            </div>
+            </form>
             <div ng-if="results.length">
                 <p>
                     <input type="text" class="form-control" ng-model="search" placeholder="Search components...">
@@ -89,6 +93,12 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="alert alert-info" ng-if="errornoresults">
+                <h4>No results found</h4>
+                Here are some working examples: 
+                <a href="/comparison/components?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY&disclosure=BalanceSheet">Balance Sheets for DOW30 in 2013</a> or 
+                <a href="/comparison/components?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1&reportElement=us-gaap:Assets">Components containing us-gaap:Assets of Coca Cola and Walmart throughout 2012</a>
             </div>
         </div>
         <div class="text-right" ng-if="results.length">
