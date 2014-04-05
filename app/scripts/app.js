@@ -196,10 +196,12 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         })
         .when('/about', {
             templateUrl: '/views/about.html',
+            title: 'secxbrl.info - About'
         })
         .when('/api', {
             templateUrl: '/views/api.html',
-            controller: 'ApiCtrl'
+            controller: 'ApiCtrl',
+            title: 'secxbrl.info - API Information'
         })
         .when('/analytics', {
             templateUrl: '/views/analytics.html',
@@ -207,7 +209,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             resolve: {
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            }
+            },
+            title: 'secxbrl.info - Analytics'
         })
         .when('/analytics/:year/:period/:group', {
             templateUrl: '/views/analytics.html',
@@ -215,14 +218,16 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             resolve: {
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            }
+            },
+            title: 'secxbrl.info - Analytics Breakdown'
         })
         .when('/dashboard/:cik', {
             templateUrl: '/views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            }
+            },
+            title: 'secxbrl.info - Basic Analysis'
         })
         .when('/information/:cik', {
             templateUrl: '/views/information.html',
@@ -231,7 +236,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            }
+            },
+            title: 'secxbrl.info - Basic Financial Information'
         })
         .when('/information/:cik/:year', {
             templateUrl: '/views/information.html',
@@ -240,7 +246,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            }
+            },
+            title: 'secxbrl.info - Basic Financial Information'
         })
         .when('/information/:cik/:year/:period', {
             templateUrl: '/views/information.html',
@@ -249,11 +256,13 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            }
+            },
+            title: 'secxbrl.info - Basic Financial Information'
         })
         .when('/entities', {
             templateUrl: '/views/entities.html',
-            controller: 'EntitiesCtrl'
+            controller: 'EntitiesCtrl',
+            title: 'secxbrl.info - Entities'
         })
 
         .when('/entity', {
@@ -261,14 +270,16 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             controller: 'EntityCtrl',
             resolve: {
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            }
+            },
+            title: 'secxbrl.info - Search for an Entity'
         })
         .when('/entity/:cik', {
             templateUrl: '/views/entity.html',
             controller: 'EntityCtrl',
             resolve: {
                 entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            }
+            },
+            title: 'secxbrl.info - Entity Information'
         })
         .when('/filings/:cik', {
             templateUrl: '/views/filings.html',
@@ -292,58 +303,72 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                     });
                     return deferred.promise;
                 }]
-            }
+            },
+            title: 'secxbrl.info - Entity Filings'
         })
         .when('/filing/:aid', {
             templateUrl: '/views/filing.html',
-            controller: 'FilingCtrl'
+            controller: 'FilingCtrl',
+            title: 'secxbrl.info - Filing Information'
         })
         .when('/components/:accession', {
             templateUrl: '/views/components.html',
-            controller: 'ComponentsCtrl'
+            controller: 'ComponentsCtrl',
+            title: 'secxbrl.info - Filing Components'
         })
         .when('/component/:cid', {
             templateUrl: '/views/component.html',
-            controller: 'ComponentCtrl'
+            controller: 'ComponentCtrl',
+            title: 'secxbrl.info - Component Information'
         })
         .when('/facttable/:cid', {
             templateUrl: '/views/facttable.html',
-            controller: 'FactTableCtrl'
+            controller: 'FactTableCtrl',
+            title: 'secxbrl.info - Component Fact Table'
         })
         .when('/modelstructure/:cid', {
             templateUrl: '/views/modelstructure.html',
-            controller: 'ModelStructureCtrl'
+            controller: 'ModelStructureCtrl',
+            title: 'secxbrl.info - Component Model Structure'
         })
         .when('/auth', {
             templateUrl: '/views/auth.html',
-            controller: 'AuthCtrl'
+            controller: 'AuthCtrl',
+            title: 'secxbrl.info - Authenticate'
         })
         .when('/auth:returnPage*', {
             templateUrl: '/views/auth.html',
-            controller: 'AuthCtrl'
+            controller: 'AuthCtrl',
+            title: 'secxbrl.info - Authenticate'
         })
         .when('/account', {
             templateUrl: '/views/account.html',
-            controller: 'AccountCtrl'
+            controller: 'AccountCtrl',
+            title: 'secxbrl.info - Account'
         })
         .when('/account/:section', {
             templateUrl: '/views/account.html',
-            controller: 'AccountCtrl'
+            controller: 'AccountCtrl',
+            title: 'secxbrl.info - Account'
         })
         .when('/concept-map/:name', {
             templateUrl: '/views/concept-map.html',
-            controller: 'ConceptMapCtrl'
+            controller: 'ConceptMapCtrl',
+            title: 'secxbrl.info - Concept Map'
         })
         .when('/example/:example', {
             templateUrl: '/views/example.html',
-            controller: 'ExampleCtrl'
+            controller: 'ExampleCtrl',
+            title: 'secxbrl.info - Example'
         })
         .when('/examples', {
             templateUrl: '/views/example.html',
-            controller: 'ExampleCtrl'
+            controller: 'ExampleCtrl',
+            title: 'secxbrl.info - Examples'
         })
         .when('/pricing', {
-            templateUrl: '/views/pricing.html'
+            templateUrl: '/views/pricing.html',
+            title: 'secxbrl.info - Pricing'
         })
         .when('/disclosures', {
             templateUrl: '/views/disclosures.html',
@@ -351,7 +376,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             resolve: {
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            }
+            },
+            title: 'secxbrl.info - Disclosures'
         })
         .when('/disclosure/:disclosure/:year/:period', {
             templateUrl: '/views/disclosure.html',
@@ -359,15 +385,18 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             resolve: {
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            }
+            },
+            title: 'secxbrl.info - Disclosure Information'
         })
         .when('/comparison', {
             templateUrl: '/views/comparison.html',
-            controller: 'ComparisonCtrl'
+            controller: 'ComparisonCtrl',
+            title: 'secxbrl.info - Comparison'
         })
         .when('/comparison/information', {
             templateUrl: '/views/comparison-information.html',
-            controller: 'ComparisonInformationCtrl'
+            controller: 'ComparisonInformationCtrl',
+            title: 'secxbrl.info - Basic Financial Information'
         })
         .when('/comparison/search', {
             templateUrl: '/views/comparison-search.html',
@@ -377,7 +406,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
                 conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-            }
+            },
+            title: 'secxbrl.info - Search Facts'
         })
         .when('/comparison/components', {
             templateUrl: '/views/comparison-components.html',
@@ -387,11 +417,13 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                 years: ['$backend', function($backend) { return $backend.getYears(); }],
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
                 conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-            }
+            },
+            title: 'secxbrl.info - Search Components'
         })
         //404
         .otherwise({
-            templateUrl:'/views/404.html'
+            templateUrl:'/views/404.html',
+            title: 'secxbrl.info - Page not found'
         });
 })
 .run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {
