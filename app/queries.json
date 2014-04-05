@@ -157,7 +157,7 @@
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the fact to retrieve (default: ALL)",
+                            "description": "The fiscal year of the fact to retrieve (default: LATEST)",
                             "required": false,
                             "type": "string",
                             "paramType": "query",

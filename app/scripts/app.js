@@ -283,7 +283,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                         params : {
                             '_method' : 'POST',
                             'cik' : cik,
-                            'fiscalPeriod': 'ALL'
+                            'fiscalPeriod': 'ALL',
+                            'fiscalYear': 'ALL'
                         }
                     })
                     .success(function(data) {
