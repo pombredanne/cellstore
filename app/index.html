@@ -1,15 +1,15 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
-
-<head>
+<html class="no-js" prefix="og: http://ogp.me/ns#" ng-app="main">
+<head ng-controller="HeadCtrl">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>secxbrl.info - US Public Company Financial Information Repository</title>
+    <title></title>
+    
+    <meta og-title property="og:title" content="secxbrl.info - US Public Company Financial Information Repository" />
+    <meta og-type property="og:type" content="website" />
+    <meta og-url property="og:url" content="http://secxbrl.info" />
+    <meta og-image property="og:image" content="/favico.png" />
+
     <meta name="description" content="Complete database of U.S. public company financial information.">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -22,7 +22,7 @@
     <!-- endbuild -->
 </head>
 
-<body ng-app="main" class="ng-cloak">
+<body class="ng-cloak">
     <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -57,11 +57,14 @@
                     <li ng-class="{ active: (page == '/views/analytics.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' ) }">
                         <a href="/entity">Browse</a>
                     </li>
-                    <li ng-if="DEBUG" ng-class="{ active: (page == '/views/comparison.html' || page == '/views/comparison-information.html' || page == '/views/comparison-search.html' || page == '/views/comparison-components.html') }">
+                    <li ng-class="{ active: (page == '/views/comparison.html' || page == '/views/comparison-information.html' || page == '/views/comparison-search.html' || page == '/views/comparison-components.html') }">
                         <a href="/comparison">Compare &amp; Search</a>
                     </li>
                     <li ng-class="{ active: (page == '/views/api.html') }">
                         <a href="/api">API</a>
+                    </li>
+                    <li>
+                        <a href="/blog">Blog</a>
                     </li>
                      <li><a href="https://secxbrl.zendesk.com/" target="_blank">Support</a></li>
                      <li class="visible-sm visible-xs">
@@ -110,14 +113,18 @@
     <script src="/scripts/autocomplete.js"></script>
     <script src="/scripts/constants.js"></script>
     <script src="/scripts/app.js"></script>
-    <script src="/scripts/SessionService.js"></script>
-    <script src="/scripts/QueriesService.js"></script>
-    <script src="/scripts/UsersService.js"></script>
+
+    <!-- Swagger generated APIs -->
+    <script src="/scripts/swagger/SessionService.js"></script>
+    <script src="/scripts/swagger/QueriesService.js"></script>
+    <script src="/scripts/swagger/UsersService.js"></script>
     
     <!-- Controllers -->
+    <script src="/scripts/controllers/head.js"></script>
     <script src="/scripts/controllers/api.js"></script>
     <script src="/scripts/controllers/auth.js"></script>
     <script src="/scripts/controllers/account.js"></script>
+    <script src="/scripts/controllers/blog.js"></script>
     <script src="/scripts/controllers/entities.js"></script>
     <script src="/scripts/controllers/entity.js"></script>
     <script src="/scripts/controllers/entity_details.js"></script>

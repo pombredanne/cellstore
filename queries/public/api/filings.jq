@@ -102,7 +102,7 @@ let $ciks := ($ciks,
     companies:companies-for-tickers($tickers),
     companies:companies-for-SIC($sics))
 let $fiscalYears := distinct-values(
-                    for $y in request:param-values("fiscalYear", "ALL")
+                    for $y in request:param-values("fiscalYear", "LATEST")
                     return
                         if ($y eq "ALL")
                         then $fiscal:ALL_FISCAL_YEARS 
