@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(grunt) {
-    grunt.registerMultiTask('generateSource', 'Generate Source from Swagger files', function(){
+    grunt.registerMultiTask('swagger', 'Generate Source from Swagger files', function(){
         var fs = require('fs');
         var request = require('request');
        
@@ -18,8 +18,11 @@ module.exports = function(grunt) {
                 headers: { 'Content-Type': 'text/json; utf-8' },
                 body: swagger
             }, function(error, response, body){
-                fs.writeFileSync(dest + api.service + '.js', body);
-                grunt.log.writeln(api.service);
+                if(response.statusCode !== 200) {
+                    grunt.fail.fatal("Sever replied with: " + resposne.statusCode);  
+                } 
+                fs.writeFileSync(dest + '/' + api.service + '.js', body);
+                grunt.log.writeln(dest + '/' + api.service + '.js written (' + api.module + '.' + api.service + ')');
                 count--;
                 if(count === 0) {
                     done();
