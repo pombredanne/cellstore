@@ -19,7 +19,7 @@ module.exports = function(grunt) {
                 body: swagger
             }, function(error, response, body){
                 if(response.statusCode !== 200) {
-                    grunt.fail.fatal("Sever replied with: " + resposne.statusCode);  
+                    grunt.fail.fatal("Sever replied with: " + response.statusCode);  
                 } 
                 fs.writeFileSync(dest + '/' + api.service + '.js', body);
                 grunt.log.writeln(dest + '/' + api.service + '.js written (' + api.module + '.' + api.service + ')');
