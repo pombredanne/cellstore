@@ -25,7 +25,7 @@ angular.module('main')
     return {
         restrict: 'A',
         link: function($scope, element){
-            $rootScope.$on('$routeChangeStart', function(event, url){
+            $rootScope.$on('$routeChangeStart', function(){
                 element.attr('content', 'http://28.io' + $location.path());
             });
         }

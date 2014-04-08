@@ -197,7 +197,7 @@ angular.module('main')
                             $scope.columns.splice(insertIndex, 0, index);
                             insertIndex++;
                             break;
-                        default: 
+                        default:
                             $scope.columns.splice(insertIndex, 0, index);
                     }
                 });
@@ -238,7 +238,7 @@ angular.module('main')
         var str = $backend.API_URL + '/_queries/public/' + $scope.example.file;
         var params = angular.copy($scope.params);
         if (format) {
-            params['format'] = format;
+            params.format = format;
         }
         var qs = $scope.wwwFormUrlencoded(params);
         if (qs) {

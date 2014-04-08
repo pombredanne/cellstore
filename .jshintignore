@@ -1,4 +1,3 @@
-app/scripts/munchkinhelper.js
-app/scripts/UsersService.js
-app/scripts/SessionService.js
-app/scripts/QueriesService.js
+app/scripts/swagger/UsersService.js
+app/scripts/swagger/SessionService.js
+app/scripts/swagger/QueriesService.js
