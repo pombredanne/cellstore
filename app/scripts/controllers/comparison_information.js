@@ -125,7 +125,7 @@ angular.module('main')
         var str = $backend.API_URL + '/_queries/public/api/facts.jq';
         var params = angular.copy($scope.params);
         if (format) {
-            params['format'] = format;
+            params.format = format;
         }
         var qs = $scope.wwwFormUrlencoded(params);
         if (qs) {
