@@ -315,6 +315,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "networkIdentifier",
+                            "description": "The network identifier of a particular component",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "disclosure",
                             "description": "The disclosure to search for (e.g. BalanceSheet)",
                             "required": false,
@@ -410,6 +417,13 @@
                         {
                             "name": "cik",
                             "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "networkIdentifier",
+                            "description": "The network identifier of a particular component",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -518,6 +532,13 @@
                         {
                             "name": "cik",
                             "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "networkIdentifier",
+                            "description": "The network identifier of a particular component",
                             "required": false,
                             "type": "string",
                             "paramType": "query"

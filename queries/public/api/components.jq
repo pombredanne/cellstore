@@ -109,6 +109,24 @@ declare function local:components-by-disclosures($disclosures, $aids)
         })
 };
 
+declare function local:components-by-roles($roles, $aids)
+{
+    let $conn :=   
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    return
+        mongo:find($conn, "components", 
+        {
+            $components:ARCHIVE: { "$in" : [ $aids ] },
+            "Role": { "$in" : [ $roles ] }
+        })
+};
+
 declare function local:components-by-reportElements($reportElements, $aids)
 {
     let $conn :=   
@@ -181,6 +199,7 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
                         then $fiscal:ALL_FISCAL_PERIODS
                         else $fp)
 let $aids        := archives:aid(request:param-values("aid"))
+let $roles       := request:param-values("networkIdentifier")
 let $archives    := (
                         local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
                         archives:archives($aids)
@@ -188,11 +207,16 @@ let $archives    := (
 let $cid         := request:param-values("cid")
 let $reportElements    := distinct-values(request:param-values("reportElement"))
 let $disclosures := request:param-values("disclosure")
-let $components  := if (exists($cid))
+let $components  := (if (exists($cid))
                     then components:components($cid)
-                    else if (exists($reportElements) or exists($disclosures))
-                    then (local:components-by-reportElements($reportElements, $archives._id), local:components-by-disclosures($disclosures, $archives._id))
-                    else components:components-for-archives($archives) 
+                    else (),
+                    if (exists($reportElements) or exists($disclosures) or exists($roles))
+                    then (
+                            local:components-by-reportElements($reportElements, $archives._id), 
+                            local:components-by-disclosures($disclosures, $archives._id),
+                            local:components-by-roles($roles, $archives._id)
+                        )
+                    else components:components-for-archives($archives._id))
 let $entities    := entities:entities($archives.Entity)
 return 
     if (session:only-dow30($entities) or session:valid())

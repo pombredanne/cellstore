@@ -4,9 +4,9 @@ angular.module('main')
 .controller('ComponentCtrl', function($scope, $route, $http, $backend) {
     $scope.result = [];
     $scope.API_URL = $backend.API_URL;
-    $scope.AccessionNumber = $route.current.params.cid;
+    $scope.AccessionNumber = $route.current.params.accession;
+    $scope.NetworkIdentifier = $route.current.params.networkIdentifier;
     $scope.cik = '';
-    $scope.cid = $route.current.params.cid;
     $scope.EntityRegistrantName = '';
     $scope.component = '';
     $scope.FiscalYear = '';
@@ -17,12 +17,13 @@ angular.module('main')
             url: $backend.API_URL + '/_queries/public/api/components.jq',
             params : {
                 '_method' : 'POST',
-                'cid' : $scope.cid,
+                'aid' : $scope.AccessionNumber,
+                'networkIdentifier' : $scope.NetworkIdentifier,
                 'token' : $scope.token
             }
         })
         .success(function(data) {
-            var a = data.Archives[0]; // must be only one because we query for only one accession number
+            var a = data.Archives[0];
             $scope.result = a.Components[0];
             $scope.cik = a.CIK.substring(23);
             $scope.EntityRegistrantName = a.EntityRegistrantName;

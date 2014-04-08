@@ -189,8 +189,8 @@
                     that this will be added in the future.</para>
                 <para>This is how the fact table of Coca Cola’s 10-K balance sheet of 2013 looks
                     like in the SECXBRL.info website (see <link
-                        xlink:href="http://www.secxbrl.info/facttable/bf334638-7cc2-4ef0-b514-65bee4bef510"
-                        >http://www.secxbrl.info/facttable/bf334638-7cc2-4ef0-b514-65bee4bef510</link>): </para>
+                      xlink:href="http://www.secxbrl.info/facttable/0000093410-14-000011/http://www.chevron.com/role/ConsolidatedBalanceSheet"
+                      >http://www.secxbrl.info/facttable/0000093410-14-000011/http://www.chevron.com/role/ConsolidatedBalanceSheet</link>): </para>
                 <para><inlinemediaobject>
                         <imageobject>
                             <imagedata fileref="images/image10.jpg" scale="50"/>
@@ -217,8 +217,8 @@
                 <title>Example #3 - Model Structure for Balance Sheet</title>
                 <para>Similarly, this is how the model structure of Coca Cola’s 10-K balance sheet
                     of 2013 looks like in the SECXBRL.info website (see <link
-                        xlink:href="http://www.secxbrl.info/modelstructure/bf334638-7cc2-4ef0-b514-65bee4bef510"
-                        >http://www.secxbrl.info/modelstructure/bf334638-7cc2-4ef0-b514-65bee4bef510</link>).</para>
+                      xlink:href="http://www.secxbrl.info/modelstructure/0000093410-14-000011/http://www.chevron.com/role/ConsolidatedBalanceSheet"
+                      >http://www.secxbrl.info/modelstructure/0000093410-14-000011/http://www.chevron.com/role/ConsolidatedBalanceSheet</link>).</para>
                 <para><inlinemediaobject>
                         <imageobject>
                             <imagedata fileref="images/image11.jpg" scale="50"/>

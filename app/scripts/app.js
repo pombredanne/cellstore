@@ -316,17 +316,17 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             controller: 'ComponentsCtrl',
             title: 'secxbrl.info - Filing Components'
         })
-        .when('/component/:cid', {
+        .when('/component/:accession/:networkIdentifier*', {
             templateUrl: '/views/component.html',
             controller: 'ComponentCtrl',
             title: 'secxbrl.info - Component Information'
         })
-        .when('/facttable/:cid', {
+        .when('/facttable/:accession/:networkIdentifier*', {
             templateUrl: '/views/facttable.html',
             controller: 'FactTableCtrl',
             title: 'secxbrl.info - Component Fact Table'
         })
-        .when('/modelstructure/:cid', {
+        .when('/modelstructure/:accession/:networkIdentifier*', {
             templateUrl: '/views/modelstructure.html',
             controller: 'ModelStructureCtrl',
             title: 'secxbrl.info - Component Model Structure'

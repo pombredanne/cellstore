@@ -81,6 +81,24 @@ declare function local:components-by-disclosures($disclosures, $aids)
         })
 };
 
+declare function local:components-by-roles($roles, $aids)
+{
+    let $conn :=   
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    return
+        mongo:find($conn, "components", 
+        {
+            $components:ARCHIVE: { "$in" : [ $aids ] },
+            "Role": { "$in" : [ $roles ] }
+        })
+};
+
 declare function local:components-by-concepts($concepts, $aids)
 {
     let $conn :=   
@@ -153,6 +171,7 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
                         then $fiscal:ALL_FISCAL_PERIODS
                         else $fp)
 let $aids        := archives:aid(request:param-values("aid"))
+let $roles       := request:param-values("networkIdentifier")
 let $archives    := (
                         local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
                         archives:archives($aids)
@@ -160,11 +179,16 @@ let $archives    := (
 let $cid         := request:param-values("cid")
 let $concepts    := distinct-values(request:param-values("concept"))
 let $disclosures := request:param-values("disclosure")
-let $components  := if (exists($cid))
+let $components  := (if (exists($cid))
                     then components:components($cid)
-                    else if (exists($concepts) or exists($disclosures))
-                    then (local:components-by-concepts($concepts, $archives._id), local:components-by-disclosures($disclosures, $archives._id))
-                    else components:components-for-archives($archives) 
+                    else (),
+                    if (exists($concepts) or exists($disclosures) or exists($roles))
+                    then (
+                            local:components-by-concepts($concepts, $archives._id), 
+                            local:components-by-disclosures($disclosures, $archives._id),
+                            local:components-by-roles($roles, $archives._id)
+                        )
+                    else components:components-for-archives($archives._id))
 let $component := $components[1] (: only one for know :)
 let $archive   := archives:archives($component.Archive)
 let $entity    := entities:entities($archive.Entity)

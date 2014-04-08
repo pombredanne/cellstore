@@ -33,9 +33,8 @@
     <li class="dropdown">
         <a class="dropdown-toggle">{{component}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/component/{{cid}}">Component Details</a></li>
-            <li><a href="/facttable/{{cid}}">Fact Table</a></li>
-            <li><a href="/modelstructure/{{cid}}">Model Structure</a></li>
+          <li><a href="/facttable/{{AccessionNumber}}/{{result.NetworkIdentifier}}">Fact Table</a></li>
+          <li><a href="/modelstructure/{{AccessionNumber}}/{{result.NetworkIdentifier}}">Model Structure</a></li>
         </ul>
     </li>
     <li></li>
@@ -48,7 +47,7 @@
           <table class="table">
             <tbody>
               <tr>
-                <td style="width: 40%">Component ID</td><td>{{cid}}</td>
+                <td style="width: 40%">Component ID</td><td>{{result.ComponentId}}</td>
               </tr>
               <tr>
                 <td>CIK</td><td>{{cik}}</td>
@@ -99,15 +98,15 @@
           </table>
 		  </div>
           <div class="white-box-footer" style="padding: 15px;">
-            <a href="/facttable/{{cid}}">Fact Table</a> |
-            <a href="/modelstructure/{{cid}}">Model Structure</a>
+            <a href="/facttable/{{AccessionNumber}}/{{result.NetworkIdentifier}}">Fact Table</a> |
+            <a href="/modelstructure/{{AccessionNumber}}/{{result.NetworkIdentifier}}">Model Structure</a>
           </div>
         </div>
           <div class="col-md-12 text-right" ng-show="result">
-            Data as: <a href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="{{cid}}.json">JSON</a>,
-            <a href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" downlaod="{{cid}}.xml">XML</a>,
-            <a href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="{{cid}}.csv">CSV</a>,
-            <a href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="{{cid}}.csv">Excel</a>
+            Data as: <a href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&aid={{AccessionNumber}}&networkIdentifier={{result.NetworkIdentifier}}{{(token?'&token=' + token : '')}}" download="{{result.ComponentId}}.json" target="_blank">JSON</a>,
+            <a href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&aid={{AccessionNumber}}&networkIdentifier={{result.NetworkIdentifier}}{{(token?'&token=' + token : '')}}" downlaod="{{result.ComponentId}}.xml" target="_blank">XML</a>,
+            <a href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&aid={{AccessionNumber}}&networkIdentifier={{result.NetworkIdentifier}}{{(token?'&token=' + token : '')}}" download="{{result.ComponentId}}.csv" target="_blank">CSV</a>,
+            <a href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&aid={{AccessionNumber}}&networkIdentifier={{result.NetworkIdentifier}}{{(token?'&token=' + token : '')}}" download="{{result.ComponentId}}.csv" target="_blank">Excel</a>
           </div>
 	</div>
 </div>

@@ -33,9 +33,8 @@
     <li class="dropdown">
         <a class="dropdown-toggle">{{component}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/component/{{cid}}">Component Details</a></li>
-            <li><a href="/facttable/{{cid}}">Fact Table</a></li>
-            <li><a href="/modelstructure/{{cid}}">Model Structure</a></li>
+          <li><a href="/component/{{AccessionNumber}}/{{NetworkIdentifier}}">Component Details</a></li>
+          <li><a href="/modelstructure/{{AccessionNumber}}/{{NetworkIdentifier}}">Model Structure</a></li>
         </ul>
     </li>
     <li></li>
@@ -84,10 +83,10 @@
       </div>
       <div class="text-right" ng-if="data.length">
         All data as:
-          <a href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=json&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.json" target="_blank">JSON</a>,
-          <a href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=xml&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.xml" target="_blank">XML</a>,
-          <a href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=csv&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.csv" target="_blank">CSV</a>,
-          <a href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=excel&_method=POST&cid={{cid}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.csv" target="_blank">Excel</a>
+        <a href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=json&_method=POST&aid={{AccessionNumber}}&networkIdentifier={{NetworkIdentifier}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.json" target="_blank">JSON</a>,
+        <a href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=xml&_method=POST&aid={{AccessionNumber}}&networkIdentifier={{NetworkIdentifier}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.xml" target="_blank">XML</a>,
+        <a href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=csv&_method=POST&aid={{AccessionNumber}}&networkIdentifier={{NetworkIdentifier}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.csv" target="_blank">CSV</a>,
+        <a href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=excel&_method=POST&aid={{AccessionNumber}}&networkIdentifier={{NetworkIdentifier}}{{(token?'&token=' + token : '')}}" download="facttable-{{cid}}.csv" target="_blank">Excel</a>
         </div>
 	</div>
 </div>

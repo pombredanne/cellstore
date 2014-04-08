@@ -7,10 +7,9 @@ angular.module('main')
     $scope.EntityRegistrantName = '';
     $scope.cik = '';
     $scope.Label = '';
-    $scope.NetworkIdentifier = '';
-    $scope.AccessionNumber = '';
+    $scope.AccessionNumber = $route.current.params.accession;
+    $scope.NetworkIdentifier = $route.current.params.networkIdentifier;
     $scope.Table = '';
-    $scope.cid = $route.current.params.cid;
     $scope.FiscalYear = '';
     $scope.FiscalPeriod = '';
     $scope.AcceptanceDatetime = '';
@@ -23,7 +22,8 @@ angular.module('main')
             url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
             params : {
                 '_method' : 'POST',
-                'cid' : $scope.cid,
+                'aid' : $scope.AccessionNumber,
+                'networkIdentifier' : $scope.NetworkIdentifier,
                 'token' : $scope.token
             }
         })
