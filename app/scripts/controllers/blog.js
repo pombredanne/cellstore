@@ -3,6 +3,7 @@
 angular.module('main')
 .directive('disqus', function($location){
     return function($scope, elm) {
+        /*jshint camelcase: false */
       // http://docs.disqus.com/help/2/
         window.disqus_shortname = 'secxbrl';
         var disqusIdentifier = elm[0].getAttribute('disqus-identifier');
@@ -20,21 +21,21 @@ angular.module('main')
             dsq.async = true;
             dsq.src = 'http://secxbrl.disqus.com/embed.js';
             document.getElementsByTagName('body')[0].appendChild(dsq);
-        }   
+        }
         angular.element(document.getElementById('disqus_thread')).html('');
-    };  
+    };
 })
 .directive('entry', function(){
     
     var loadContent = function($scope, elm) {
         if($scope.entries.length !== 1) {
             return;
-        }   
-        var Sha1 = Sha1 || {}; 
-        Array.prototype.forEach.call(elm, function(e, k){ 
+        }
+        var Sha1 = Sha1 || {};
+        Array.prototype.forEach.call(elm, function(e, k) {
             if($scope.entries.length === 0) {
                 return;
-            }   
+            }
             var content = $scope.entries[k].content;
             e.innerHTML = content;
             Array.prototype.forEach.call(e.getElementsByClassName('wistia_embed'), function(embedE){
@@ -45,17 +46,16 @@ angular.module('main')
                 s.type = 'text/javascript';
                 s.src = 'http://fast.wistia.com/embed/medias/' + id + '/metadata.js';
                 document.getElementsByTagName('body')[0].appendChild(s);
-                var embed = window.Wistia.embed(id);
-            }); 
-        }); 
-    
-    };  
-    
+                window.Wistia.embed(id);
+            });
+        });
+    };
+
     return function($scope, elm){
         $scope.$watch('entries', function(){
             loadContent($scope, elm);
-        }); 
-    };  
+        });
+    };
 })
 .factory('BlogAPI', function($http, $angularCacheFactory){
     var blogCache = $angularCacheFactory('BlogCache', {
@@ -65,7 +65,7 @@ angular.module('main')
     });
 
     return {
-        getIndex: function(){ 
+        getIndex: function() {
             return $http({
                 method: 'GET',
                 url: '/blog/index.json',
@@ -145,7 +145,7 @@ angular.module('main')
         $scope.entries = entries;
         if($scope.entries.length === 1) {
             $rootScope.$broadcast('$setOgImage', '/blog/images/thumbnails/' + $routeParams.id + '.png');
-            $rootScope.$broadcast('$setTitle', '28.io  Blog - ' + $scope.entries[0].title);   
+            $rootScope.$broadcast('$setTitle', '28.io  Blog - ' + $scope.entries[0].title);
         }
     };
     load();

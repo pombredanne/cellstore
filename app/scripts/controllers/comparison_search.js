@@ -62,12 +62,12 @@ angular.module('main')
     );
 
     $scope.$watch(
-        function() { 
-            return angular.toJson($scope.selection)
+        function() {
+            return angular.toJson($scope.selection);
         },
-        function(newValue) {
+        function() {
             if ($scope.selection) {
-                $location.search($scope.selection);            
+                $location.search($scope.selection);
             }
         }
     );
@@ -118,10 +118,10 @@ angular.module('main')
             controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
                 $scope.dimension = {};
                 $scope.links = [
-                  { "Name" : "Legal entity", "Dimension" : "dei:LegalEntityAxis", "Filter" : "ALL", "Default" : "sec:DefaultLegalEntity" },
-                  { "Name" : "Business segment", "Dimension" : "us-gaap:StatementBusinessSegmentsAxis", "Filter" : "ALL", "Default" : "us-gaap:SegmentDomain" },
-                  { "Name" : "Geographic area", "Dimension" : "us-gaap:StatementGeographicalAxis", "Filter" : "ALL", "Default" : "us-gaap:SegmentGeographicalDomain" },
-                  { "Name" : "Scenario", "Dimension" : "us-gaap:StatementScenarioAxis", "Filter" : "ALL", "Default" : "us-gaap:ScenarioUnspecifiedDomain" }
+                    { 'Name' : 'Legal entity', 'Dimension' : 'dei:LegalEntityAxis', 'Filter' : 'ALL', 'Default' : 'sec:DefaultLegalEntity' },
+                    { 'Name' : 'Business segment', 'Dimension' : 'us-gaap:StatementBusinessSegmentsAxis', 'Filter' : 'ALL', 'Default' : 'us-gaap:SegmentDomain' },
+                    { 'Name' : 'Geographic area', 'Dimension' : 'us-gaap:StatementGeographicalAxis', 'Filter' : 'ALL', 'Default' : 'us-gaap:SegmentGeographicalDomain' },
+                    { 'Name' : 'Scenario', 'Dimension' : 'us-gaap:StatementScenarioAxis', 'Filter' : 'ALL', 'Default' : 'us-gaap:ScenarioUnspecifiedDomain' }
                 ];
                 $scope.ok = function () {
                     $scope.dimension.attempted = true;
@@ -135,9 +135,9 @@ angular.module('main')
                 };
 
                 $scope.applyLink = function(l) {
-                  $scope.dimension.name = l.Dimension;
-                  $scope.dimension.value = l.Filter;
-                  $scope.dimension.defaultValue = l.Default;
+                    $scope.dimension.name = l.Dimension;
+                    $scope.dimension.value = l.Filter;
+                    $scope.dimension.defaultValue = l.Default;
                 };
 
                 $scope.cancel = function () {
@@ -195,8 +195,8 @@ angular.module('main')
             map: ($scope.selection.map !== $scope.none ? $scope.selection.map : null),
             token: $scope.token
         };
-        $scope.dimensions.forEach(function(dimension) { 
-            $scope.params[dimension.name] = dimension.value; 
+        $scope.dimensions.forEach(function(dimension) {
+            $scope.params[dimension.name] = dimension.value;
             if (dimension.defaultValue)
             {
                 $scope.params[dimension.name + '::default'] = dimension.defaultValue;
@@ -229,7 +229,7 @@ angular.module('main')
                                 $scope.columns.splice(insertIndex, 0, index);
                                 insertIndex++;
                                 break;
-                            default: 
+                            default:
                                 $scope.columns.splice(insertIndex, 0, index);
                         }
                     });
@@ -281,7 +281,7 @@ angular.module('main')
         var str = $backend.API_URL + '/_queries/public/api/facts.jq';
         var params = angular.copy($scope.params);
         if (format) {
-            params['format'] = format;
+            params.format = format;
         }
         var qs = $scope.wwwFormUrlencoded(params);
         if (qs) {
