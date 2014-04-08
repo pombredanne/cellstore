@@ -64,7 +64,7 @@ angular.module('main')
                                 $scope.columns.splice(insertIndex, 0, index);
                                 insertIndex++;
                                 break;
-                            default: 
+                            default:
                                 $scope.columns.splice(insertIndex, 0, index);
                         }
                     });

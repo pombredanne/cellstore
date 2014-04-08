@@ -609,8 +609,8 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
                     }
                 }
             });
-            if (p.length > 0) return p.join('&');
+            if (p.length > 0){ return p.join('&'); }
         }
-        return "";
+        return '';
     };
 });

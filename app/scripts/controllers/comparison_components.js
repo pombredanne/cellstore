@@ -8,7 +8,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     $scope.disclosureNames = [];
     $scope.errornoresults = false;
 
-    $scope.$on('filterChanged', 
+    $scope.$on('filterChanged',
         function (event, selection) {
             $scope.selection = angular.copy(selection);
 
