@@ -60,12 +60,12 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     );
 
     $scope.$watch(
-        function() { 
-            return angular.toJson($scope.selection)
+        function() {
+            return angular.toJson($scope.selection);
         },
-        function(newValue) {
+        function() {
             if ($scope.selection) {
-                $location.search($scope.selection);            
+                $location.search($scope.selection);
             }
         }
     );
@@ -84,7 +84,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         $scope.selection.reportElement = $scope.searchReportElement;
     };
     
-    $scope.selectReportElement = function(r) {
+    $scope.selectReportElement = function() {
         $scope.selection.disclosure = $scope.searchDisclosure;
         $scope.selection.reportElement = $scope.searchReportElement;
     };
@@ -121,7 +121,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
                         $scope.results[$scope.results.length] = item;
                     });
                 });
-                $scope.errornoresults = ($scope.results.length == 0);
+                $scope.errornoresults = ($scope.results.length === 0);
             },
             function (response) {
                 $scope.$emit('error', response.status, response.data);
@@ -146,7 +146,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         var str = $backend.API_URL + '/_queries/public/api/components.jq';
         var params = angular.copy($scope.params);
         if (format) {
-            params['format'] = format;
+            params.format = format;
         }
         var qs = $scope.wwwFormUrlencoded(params);
         if (qs) {
