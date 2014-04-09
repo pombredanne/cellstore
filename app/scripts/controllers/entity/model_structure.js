@@ -2,7 +2,6 @@
 
 angular.module('main')
 .controller('ModelStructureCtrl', function($scope, $stateParams, modelStructure) {
-    $scope.data = {};
     $scope.cik = $stateParams.cik;
     $scope.AccessionNumber = $stateParams.aid;
     $scope.NetworkIdentifier = $stateParams.networkIdentifier;
