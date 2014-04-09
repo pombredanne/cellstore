@@ -229,6 +229,24 @@ angular.module('main', [
             }]
         }
     })
+    .state('root.entity.components', {
+        url: '/components/:aid',
+        templateUrl: '/views/entity/components.html',
+        controller: 'ComponentsCtrl',
+        resolve: {
+            components: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/components.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'aid' : $stateParams.aid,
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        }
+    })
     
     //Filing
     .state('root.filing', {
@@ -250,6 +268,29 @@ angular.module('main', [
             filing = filing.data;
             var cik = filing.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
             $state.go('root.entity.filing', { cik: cik, aid: $stateParams.aid });
+        }
+    })
+    
+    //Components
+    .state('root.components', {
+        url: '/components/:aid',
+        resolve: {
+            components: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/components.jq',
+                    params : {
+                        '_method': 'POST',
+                        'aid': $stateParams.aid,
+                        'token': $rootScope.token
+                    }
+                });
+            }]
+        },
+        controller: function($state, $stateParams, components){
+            components = components.data;
+            var cik = components.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            $state.go('root.entity.components', { cik: cik, aid: $stateParams.aid });
         }
     })
     
@@ -280,11 +321,6 @@ angular.module('main', [
             title: 'secxbrl.info - Analytics Breakdown'
         })
 
-        .when('/filing/:aid', {
-            templateUrl: '/views/filing.html',
-            controller: 'FilingCtrl',
-            title: 'secxbrl.info - Filing Information'
-        })
         .when('/components/:accession', {
             templateUrl: '/views/components.html',
             controller: 'ComponentsCtrl',

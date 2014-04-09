@@ -3,15 +3,15 @@
     <li class="dropdown">
         <a class="dropdown-toggle">{{EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/entity/{{cik}}">Entity Information</a></li>
-            <li><a href="/filings/{{cik}}">Filings</a></li>
+            <li><a ui-sref="root.entity.summary({ cik: cik })">Entity Information</a></li>
+            <li><a ui-sref="root.entity.filings({ cik: cik })">Filings</a></li>
         </ul>
     </li>
     <li class="dropdown">
         <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/filing/{{AccessionNumber}}">Filing Details</a></li>
-            <li><a href="/components/{{AccessionNumber}}">Components</a></li>
+            <li><a href="/filing/{{aid}}">Filing Details</a></li>
+            <li><a href="/components/{{aid}}">Components</a></li>
         </ul>
     </li>
     <li></li>
