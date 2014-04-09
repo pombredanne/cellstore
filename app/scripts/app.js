@@ -247,6 +247,25 @@ angular.module('main', [
             }]
         }
     })
+    .state('root.entity.component', {
+        url: '/components/:aid/{networkIdentifier:.*}',
+        templateUrl: '/views/entity/component.html',
+        controller: 'ComponentCtrl',
+        resolve: {
+            component: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
+                return $http({
+                    method: 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/components.jq',
+                    params: {
+                        '_method' : 'POST',
+                        'aid' : $stateParams.aid,
+                        'networkIdentifier' : $stateParams.networkIdentifier,
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        }
+    })
     
     //Filing
     .state('root.filing', {
@@ -305,17 +324,17 @@ angular.module('main', [
                     params : {
                         '_method' : 'POST',
                         'aid' : $stateParams.aid,
-                        'networkIdentifier' : $stateParams.networkIdentifier,
+                        'networkIdentifier': $stateParams.networkIdentifier,
                         'token' : $rootScope.token
                     }
                 });
             }]
         },
-        controller: function($state, $stateParams, component){
-            component = component.data;
-            console.log(component);
-            //var cik = components.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
-            //$state.go('root.entity.components.component', { cik: cik, aid: $stateParams.aid });
+        controller: function($state, $stateParams, component) {
+            var cik = component.data.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            var aid = $stateParams.aid;
+            var networkIdentifier = component.data.Archives[0].Components[0].NetworkIdentifier;
+            $state.go('root.entity.component', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
         }
     })
 
