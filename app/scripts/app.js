@@ -266,6 +266,22 @@ angular.module('main', [
             }]
         }
     })
+    .state('root.entity.facttable', {
+        url: '/facttable/:aid/{networkIdentifier:.*}',
+        templateUrl: '/views/entity/facttable.html',
+        controller: 'FactTableCtrl',
+        resolve: {
+            facttable: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService){
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listFactTable({
+                    $method : 'POST',
+                    aid : $stateParams.aid,
+                    networkIdentifier : $stateParams.networkIdentifier,
+                    token : $rootScope.token
+                });
+            }]
+        }
+    })
     
     //Filing
     .state('root.filing', {
@@ -333,8 +349,30 @@ angular.module('main', [
         controller: function($state, $stateParams, component) {
             var cik = component.data.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
             var aid = $stateParams.aid;
-            var networkIdentifier = component.data.Archives[0].Components[0].NetworkIdentifier;
+            var networkIdentifier = $stateParams.networkIdentifier;
             $state.go('root.entity.component', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
+        }
+    })
+
+    //Facttable
+    .state('root.facttable', {
+        url: '/facttable/:aid/{networkIdentifier:.*}',
+        resolve: {
+            facttable: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService){
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listFactTable({
+                    $method : 'POST',
+                    aid : $stateParams.aid,
+                    networkIdentifier : $stateParams.networkIdentifier,
+                    token : $rootScope.token
+                });
+            }]
+        },
+        controller: function($state, $stateParams, facttable){
+            var cik = facttable.CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            var aid = $stateParams.aid;
+            var networkIdentifier = $stateParams.networkIdentifier;
+            $state.go('root.entity.facttable', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
         }
     })
 
@@ -365,11 +403,6 @@ angular.module('main', [
             title: 'secxbrl.info - Analytics Breakdown'
         })
 
-        .when('/component/:accession/:networkIdentifier*', {
-            templateUrl: '/views/component.html',
-            controller: 'ComponentCtrl',
-            title: 'secxbrl.info - Component Information'
-        })
         .when('/facttable/:accession/:networkIdentifier*', {
             templateUrl: '/views/facttable.html',
             controller: 'FactTableCtrl',
