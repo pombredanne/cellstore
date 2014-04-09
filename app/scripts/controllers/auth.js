@@ -42,6 +42,19 @@ angular.module('main')
 					function(data) {
 						if (data && data.success) {
 							//MunchkinHelper.associateLead({ Email: $scope.email, FirstName: $scope.firstname, LastName: $scope.lastname, Company: $scope.companyname, accountsecxbrlinfo: true });
+                            //update act-on
+                            $http({
+                                url: '//pages.28.io/acton/eform/9568/0001/d-ext-0001',
+                                method: 'POST',
+                                params: {
+                                    'First Name': $scope.firstname,
+                                    'Last Name': $scope.lastname,
+                                    'Company': $scope.companyname,
+                                    'Email': $scope.email,
+                                    'Has secxbrl account': true,
+                                    'submit': 'submit'
+                                }
+                            });
 							(new SessionService($backend.API_URL + '/_queries/public'))
 								.login({ email: $scope.email, password: $scope.password })
 								.then(function(data) {
