@@ -442,6 +442,29 @@ angular.module('main', [
         controller: 'AccountCtrl',
         title: 'Account'
     })
+    
+    .state('root.conceptMap', {
+        url: '/concept-map/:name',
+        controller: 'ConceptMapCtrl',
+        templateUrl: '/views/concept-map.html',
+        title: 'Concept Map'
+    })
+    
+    .state('root.examples', {
+        url: '/examples',
+        templateUrl: '/views/example.html',
+        controller: 'ExampleCtrl',
+        title: 'Example'
+    })
+    
+    .state('root.example', {
+        url: '/example/:example',
+        templateUrl: '/views/example.html',
+        controller: 'ExampleCtrl',
+        title: 'Example'
+    })
+    
+
 
     //404
     .state('404', {
@@ -451,16 +474,6 @@ angular.module('main', [
     })
     ;
     /*
-        .when('/concept-map/:name', {
-            templateUrl: '/views/concept-map.html',
-            controller: 'ConceptMapCtrl',
-            title: 'secxbrl.info - Concept Map'
-        })
-        .when('/example/:example', {
-            templateUrl: '/views/example.html',
-            controller: 'ExampleCtrl',
-            title: 'secxbrl.info - Example'
-        })
         .when('/examples', {
             templateUrl: '/views/example.html',
             controller: 'ExampleCtrl',
