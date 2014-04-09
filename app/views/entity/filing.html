@@ -1,0 +1,94 @@
+<div id="filing">
+<ul class="breadcrumb">
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
+        <ul class='dropdown-menu text-left'>
+            <li><a href="/entity/{{cik}}">Entity Information</a></li>
+            <li><a href="/filings/{{cik}}">Filings</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}} <span class="fa fa-caret-down"></span></a>
+        <ul class='dropdown-menu text-left'>
+            <li><a href="/filing/{{AccessionNumber}}">Filing Details</a></li>
+            <li><a href="/components/{{AccessionNumber}}">Components</a></li>
+        </ul>
+    </li>
+    <li></li>
+</ul>
+<div class="container">
+	<div class="col-md-12 spaced">
+        <div class="white-box">
+        <h3 class="highlight3">{{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
+        <div class="scrolling">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td style="width: 40%">Accession Number</td><td>{{AccessionNumber}}</td>
+              </tr>
+              <tr>
+                <td >CIK</td><td>{{cik}}</td>
+              </tr>
+              <tr>
+                <td >Entity Registrant Name</td><td>{{filing.EntityRegistrantName}}</td>
+              </tr>
+              <tr>
+                <td >Form Type</td><td>{{filing.FormType}}</td>
+              </tr>
+              <tr>
+                <td >Accepted</td><td>{{filing.Accepted}}</td>
+              </tr>
+              <tr>
+                <td >Generator</td><td>{{filing.Generator}}</td>
+              </tr>
+              <tr>
+                <td >Networks</td><td>{{filing.Networks}}</td>
+              </tr>
+              <tr>
+                <td >Report Elements</td><td>{{filing.ReportElements}}</td>
+              </tr>
+              <tr>
+                <td >Tables</td><td>{{filing.Tables}}</td>
+              </tr>
+              <tr>
+                <td >Axis</td><td>{{filing.Axis}}</td>
+              </tr>
+              <tr>
+                <td >Members</td><td>{{filing.Members}}</td>
+              </tr>
+              <tr>
+                <td >Line Items</td><td>{{filing.LineItems}}</td>
+              </tr>
+              <tr>
+                <td >Concepts</td><td>{{filing.Concepts}}</td>
+              </tr>
+              <tr>
+                <td >Abstracts</td><td>{{filing.Abstracts}}</td>
+              </tr>
+              <tr>
+                <td >Footnotes</td><td>{{filing.Footnotes}}</td>
+              </tr>
+              <tr>
+                <td >Facts</td><td>{{filing.Facts}}</td>
+              </tr>
+              <tr>
+                <td >Extension Facts</td><td>{{filing.ExtensionFacts}}</td>
+              </tr>
+              <tr>
+                <td >Extension Concepts</td><td>{{filing.ExtensionConcepts}}</td>
+              </tr>
+              <tr>
+                <td >Extension Abstracts</td><td>{{filing.ExtensionAbstracts}}</td>
+              </tr>
+            </tbody>
+          </table>
+		  </div>
+          <div class="white-box-footer" style="padding: 15px;">
+            <a ng-href="/components/{{AccessionNumber}}">Components</a> | 
+            <a ng-href="{{result.SECFilingPage}}" target="_blank">SEC Filing Page</a> | 
+            <a ng-href="{{result.XBRLInstanceURL}}" target="_blank">XBRL Instance</a>
+          </div>
+        </div>
+	</div>
+</div>
+</div>

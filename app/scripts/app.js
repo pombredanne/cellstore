@@ -156,7 +156,7 @@ angular.module('main', [
         },
         title: 'Entity Summary'
     })
-    .state('root.entity.fillings', {
+    .state('root.entity.filings', {
         url: '/filings',
         templateUrl: '/views/entity/filings.html',
         controller: 'FilingsCtrl',
@@ -206,7 +206,51 @@ angular.module('main', [
         resolve: {
             entities: ['$backend', function($backend) { return $backend.getEntities(); }]
         },
-        title: 'Dashboard'
+        title: 'Dashboard',
+        data: {
+            subActive: 'dashboard'
+        }
+    })
+    .state('root.entity.filing', {
+        url: '/filing/:aid',
+        templateUrl: '/views/entity/filing.html',
+        controller: 'FilingCtrl',
+        resolve: {
+            filing: ['$q', '$rootScope', '$stateParams', '$http', '$backend', function($q, $rootScope, $stateParams, $http, $backend){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
+                    params : {
+                        '_method': 'POST',
+                        'aid': $stateParams.aid,
+                        'token': $rootScope.token
+                    }
+                });
+            }]
+        }
+    })
+    
+    //Filing
+    .state('root.filing', {
+        url: '/filing/:aid',
+        resolve: {
+            filing: ['$q', '$rootScope', '$stateParams', '$http', '$backend', function($q, $rootScope, $stateParams, $http, $backend){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
+                    params : {
+                        '_method': 'POST',
+                        'aid': $stateParams.aid,
+                        'token': $rootScope.token
+                    }
+                });
+            }]
+        },
+        controller: function($state, $stateParams, filing){
+            filing = filing.data;
+            var cik = filing.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            $state.go('root.entity.filing', { cik: cik, aid: $stateParams.aid });
+        }
     })
     
     //404
@@ -234,50 +278,6 @@ angular.module('main', [
                 periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
             },
             title: 'secxbrl.info - Analytics Breakdown'
-        })
-        .when('/dashboard/:cik', {
-            templateUrl: '/views/dashboard.html',
-            controller: 'DashboardCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Basic Analysis'
-        })
-        .when('/information/:cik', {
-            templateUrl: '/views/information.html',
-            controller: 'InformationCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Basic Financial Information'
-        })
-        .when('/information/:cik/:year', {
-            templateUrl: '/views/information.html',
-            controller: 'InformationCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Basic Financial Information'
-        })
-        .when('/information/:cik/:year/:period', {
-            templateUrl: '/views/information.html',
-            controller: 'InformationCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Basic Financial Information'
-        })
-        
-        .when('/entities', {
-            templateUrl: '/views/entities.html',
-            controller: 'EntitiesCtrl',
-            title: 'secxbrl.info - Entities'
         })
 
         .when('/filing/:aid', {
