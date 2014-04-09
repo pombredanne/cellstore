@@ -135,6 +135,18 @@ angular.module('main', [
             active: 'browse'
         }
     })
+    
+    .state('root.entity.analytics', {
+        url: '/analytics/:year/:period/:group',
+        templateUrl: '/views/entity/analytics.html',
+        controller: 'AnalyticsCtrl',
+        resolve: {
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+        },
+        title: 'Analytical Breakdown'
+    })
+
     //TODO: better title with the entity name
     .state('root.entity.summary', {
         url: '/summary',
@@ -174,34 +186,6 @@ angular.module('main', [
         title: 'Entity Filings'
     })
     .state('root.entity.information', {
-        url: '/information',
-        templateUrl: '/views/entity/information.html',
-        controller: 'InformationCtrl',
-        resolve: {
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-        },
-        title: 'Basic Financial Information',
-        data: {
-            subActive: 'information'
-        },
-    })
-    .state('root.entity.informationByYear', {
-        url: '/information/:year',
-        templateUrl: '/views/entity/information.html',
-        controller: 'InformationCtrl',
-        resolve: {
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-        },
-        title: 'Basic Financial Information',
-        data: {
-            subActive: 'information'
-        },
-    })
-    .state('root.entity.informationByYearAndPeriod', {
         url: '/information/:year/:period',
         templateUrl: '/views/entity/information.html',
         controller: 'InformationCtrl',
@@ -215,13 +199,22 @@ angular.module('main', [
             subActive: 'information'
         },
     })
+    .state('root.entity.dashboard', {
+        url: '/dashboard',
+        templateUrl: '/views/entity/dashboard.html',
+        controller: 'DashboardCtrl',
+        resolve: {
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+        },
+        title: 'Dashboard'
+    })
     
     //404
     .state('404', {
         url: '{path:.*}',
         templateUrl:'/views/404.html',
         title: 'Page not found'
-    });
+    })
     ;
     /*
         .when('/analytics', {
@@ -280,37 +273,13 @@ angular.module('main', [
             },
             title: 'secxbrl.info - Basic Financial Information'
         })
+        
         .when('/entities', {
             templateUrl: '/views/entities.html',
             controller: 'EntitiesCtrl',
             title: 'secxbrl.info - Entities'
         })
 
-        .when('/filings/:cik', {
-            templateUrl: '/views/filings.html',
-            controller: 'FilingsCtrl',
-            resolve: {
-                results: ['$q', '$http', '$route', '$backend', function($q, $http, $route, $backend){
-                    var deferred = $q.defer();
-                    var cik = $route.current.params.cik;
-                    $http({
-                        method : 'GET',
-                        url: $backend.API_URL + '/_queries/public/api/filings.jq',
-                        params : {
-                            '_method' : 'POST',
-                            'cik' : cik,
-                            'fiscalPeriod': 'ALL',
-                            'fiscalYear': 'ALL'
-                        }
-                    })
-                    .success(function(data) {
-                        deferred.resolve(data.Archives);
-                    });
-                    return deferred.promise;
-                }]
-            },
-            title: 'secxbrl.info - Entity Filings'
-        })
         .when('/filing/:aid', {
             templateUrl: '/views/filing.html',
             controller: 'FilingCtrl',
@@ -371,10 +340,6 @@ angular.module('main', [
             controller: 'ExampleCtrl',
             title: 'secxbrl.info - Examples'
         })
-        .when('/pricing', {
-            templateUrl: '/views/pricing.html',
-            title: 'secxbrl.info - Pricing'
-        })
         .when('/disclosures', {
             templateUrl: '/views/disclosures.html',
             controller: 'DisclosuresCtrl',
@@ -425,31 +390,6 @@ angular.module('main', [
             },
             title: 'secxbrl.info - Search Components'
         })
-        //Blog
-        .when('/blog/', {
-            templateUrl: '/views/blog.html',
-            controller: 'BlogCtrl',
-            resolve: {
-                blogIndex: ['BlogAPI', function(BlogAPI) {
-                    return BlogAPI.getIndex();
-                }]
-            }
-        })
-        .when('/blog/:id/:slug', {
-            templateUrl: '/views/blog.html',
-            controller: 'BlogCtrl',
-            reloadOnSearch: false,
-            resolve: {
-                blogIndex: ['BlogAPI', function(BlogAPI) {
-                    return BlogAPI.getIndex();
-                }]
-            }
-        })
-        //404
-        .otherwise({
-            templateUrl:'/views/404.html',
-            title: 'secxbrl.info - Page not found'
-        });
         */
 })
 .run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {

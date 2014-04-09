@@ -1,0 +1,39 @@
+<div id="dashboard">
+<div class="cols row">
+	<div class="col-md-3 col-sm-4 col-xs-12">
+		<div>
+            <span class="pull-right" ng-show="cik"><a ng-click="openEntityDetails()">Details</a> | <a href="/entity" class="highlight3">Switch Entity</a></span>
+		    <h6 class="nowrap">ENTITY</h6>
+			<input class="form-control" type="text" ng-model="name" readonly>
+		</div>
+		<section class="row">
+			<div class="col-md-2 col-sm-4 col-xs-2">
+				CIK
+			</div>
+			<div class="col-md-4 col-sm-8 col-xs-4">
+				<b>{{cik}}</b>
+			</div>
+			<div class="col-md-3 col-sm-4 col-xs-3" ng-show="ticker">
+				Symbol
+			</div>
+			<div class="col-md-3 col-sm-8 col-xs-3" ng-show="ticker">
+				<b>{{ticker}}</b>
+			</div>
+		</section>
+	</div>
+	<div class="col-md-9 col-sm-8 col-xs-12">
+		<div>
+			<h2>Net Income vs. Revenue</h2>
+			<div scroll-id="chart1">
+				<div google-chart chart="chart1"></div>
+			</div>
+		</div>
+		<div>
+			<h2>Liabilities vs. Equity</h2>
+			<div scroll-id="chart2">
+				<div google-chart chart="chart2"></div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
