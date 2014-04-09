@@ -99,7 +99,7 @@ angular.module('main')
 
     $scope.change = function () {
 		if ($scope.year && $scope.period) {
-		    $state.go('root.entity.information', { cik: $scope.cik, year: $scope.year, period: $scope });
+		    $state.go('root.entity.informationByYearAndPeriod', { cik: $scope.cik, year: $scope.year, period: $scope.period });
         } else {
             $state.go('root.entity.information', { cik: $scope.cik });
 			$http({
@@ -112,7 +112,7 @@ angular.module('main')
                 if (data && data.latestFYPeriod) {
                     $scope.year = data.latestFYPeriod.fiscalYear;
 				    $scope.period = data.latestFYPeriod.fiscalPeriod;
-		            $state.go('root.entity.information', { cik: $scope.cik, year: $scope.year, period: $scope });
+		            $state.go('root.entity.informationByYearAndPeriod', { cik: $scope.cik, year: $scope.year, period: $scope.period });
 				} else {
 				    $scope.$emit('error', status, data);
                 }
@@ -128,7 +128,7 @@ angular.module('main')
         if (!$scope.filings || $scope.filings.length === 0) {
             return;
         }
-        
+
         $http({
             method: 'GET',
             url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',

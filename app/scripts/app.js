@@ -187,6 +187,34 @@ angular.module('main', [
             subActive: 'information'
         },
     })
+    .state('root.entity.informationByYear', {
+        url: '/information/:year',
+        templateUrl: '/views/entity/information.html',
+        controller: 'InformationCtrl',
+        resolve: {
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+        },
+        title: 'Basic Financial Information',
+        data: {
+            subActive: 'information'
+        },
+    })
+    .state('root.entity.informationByYearAndPeriod', {
+        url: '/information/:year/:period',
+        templateUrl: '/views/entity/information.html',
+        controller: 'InformationCtrl',
+        resolve: {
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+        },
+        title: 'Basic Financial Information',
+        data: {
+            subActive: 'information'
+        },
+    })
     
     //404
     .state('404', {
