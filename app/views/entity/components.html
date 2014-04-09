@@ -3,15 +3,15 @@
     <li class="dropdown">
         <a class="dropdown-toggle">{{EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/entity/{{cik}}">Entity Information</a></li>
-            <li><a href="/filings/{{cik}}">Filings</a></li>
+            <li><a ui-sref="root.entity.summary({ cik: cik })">Entity Summary</a></li>
+            <li><a ui-sref="root.entity.filings({ cik: cik })">Filings</a></li>
         </ul>
     </li>
     <li class="dropdown">
         <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/filing/{{AccessionNumber}}">Filing Details</a></li>
-            <li><a href="/components/{{AccessionNumber}}">Components</a></li>
+            <li><a ui-sref="root.filing({ aid: aid })">Filing Details</a></li>
+            <li><a ui-sref="root.components({ aid: aid })">Components</a></li>
         </ul>
     </li>
     <li></li>
@@ -25,7 +25,7 @@
             <tbody>
               <tr><td>Form Type:</td><td>{{FormType}}</td></tr>
               <tr><td>Accepted:</td><td>{{AcceptanceDatetime}}</td></tr>
-              <tr><td>Accession Number:</td><td><a href="/filing/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
+              <tr><td>Accession Number:</td><td><a href="/filing/{{aid}}">{{aid}}</a></td></tr>
             </tbody>
           </table>
           </div>
@@ -53,9 +53,9 @@
                     <span class="dropdown">
                       <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
                       <ul class="dropdown-menu text-left pull-right">
-                        <li><a href="/component/{{AccessionNumber}}/{{item.NetworkIdentifier}}">Component Details</a></li>
-                        <li><a href="/facttable/{{AccessionNumber}}/{{item.NetworkIdentifier}}">Fact Table</a></li>
-                        <li><a href="/modelstructure/{{AccessionNumber}}/{{item.NetworkIdentifier}}">Model Structure</a></li>
+                        <li><a ng-href="/component/{{aid}}/{{item.NetworkIdentifier}}">Component Details</a></li>
+                        <li><a ng-href="/facttable/{{aid}}/{{item.NetworkIdentifier}}">Fact Table</a></li>
+                        <li><a ng-href="/modelstructure/{{aid}}/{{item.NetworkIdentifier}}">Model Structure</a></li>
                         <li><a class="disabled">BizPivot Rendering</a></li>
                         <li><a class="disabled">SEC Preview</a></li>
                       </ul>

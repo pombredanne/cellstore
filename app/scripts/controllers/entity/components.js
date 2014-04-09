@@ -6,11 +6,7 @@ angular.module('main')
     $scope.API_URL = $backend.API_URL;
     $scope.AccessionNumber = $stateParams.accession;
     $scope.cik = $stateParams.cik;
-    $scope.EntityRegistrantName = '';
-    $scope.FiscalYear = '';
-    $scope.FiscalPeriod = '';
-    $scope.AcceptanceDatetime = '';
-    $scope.FormType = '';
+    $scope.aid = $stateParams.aid;
     
     var a = components.data.Archives[0]; // must be only one because we query for only one accession number
     $scope.components = a.Components;

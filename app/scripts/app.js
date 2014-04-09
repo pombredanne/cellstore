@@ -294,6 +294,31 @@ angular.module('main', [
         }
     })
     
+    //Component
+    .state('root.component', {
+        url: '/component/:aid/{networkIdentifier:.*}',
+        resolve: {
+            component: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/components.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'aid' : $stateParams.aid,
+                        'networkIdentifier' : $stateParams.networkIdentifier,
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        },
+        controller: function($state, $stateParams, component){
+            component = component.data;
+            console.log(component);
+            //var cik = components.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            //$state.go('root.entity.components.component', { cik: cik, aid: $stateParams.aid });
+        }
+    })
+
     //404
     .state('404', {
         url: '{path:.*}',
@@ -321,11 +346,6 @@ angular.module('main', [
             title: 'secxbrl.info - Analytics Breakdown'
         })
 
-        .when('/components/:accession', {
-            templateUrl: '/views/components.html',
-            controller: 'ComponentsCtrl',
-            title: 'secxbrl.info - Filing Components'
-        })
         .when('/component/:accession/:networkIdentifier*', {
             templateUrl: '/views/component.html',
             controller: 'ComponentCtrl',
