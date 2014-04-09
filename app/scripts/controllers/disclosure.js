@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('main')
-.controller('DisclosureCtrl', function($scope, $route, $http, $backend) {
+.controller('DisclosureCtrl', function($scope, $stateParams, $http, $backend) {
     $scope.results = [];
     $scope.API_URL = $backend.API_URL;
-    $scope.disclosure = $route.current.params.disclosure;
-    $scope.year = $route.current.params.year;
-    $scope.period = $route.current.params.period;
+    $scope.disclosure = $stateParams.disclosure;
+    $scope.year = $stateParams.year;
+    $scope.period = $stateParams.period;
     $scope.AccessionNumber = '';
     $scope.CIK = '';
     $scope.EntityRegistrantName = '';

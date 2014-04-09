@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('main')
-.controller('ConceptMapCtrl', function($scope, $route, $http, $backend) {
+.controller('ConceptMapCtrl', function($scope, $stateParams, $http, $backend) {
     $scope.result = [];
     $scope.API_URL = $backend.API_URL;
-    $scope.name = $route.current.params.name;
+    $scope.name = $stateParams.name;
     $scope.getdata = function() {
         $scope.result = [];
         $http({

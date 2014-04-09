@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('DisclosuresCtrl', function($scope, $route, $backend, QueriesService, years, periods) {
+.controller('DisclosuresCtrl', function($scope, $backend, QueriesService, years, periods) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.years = years;
 	$scope.periods = periods;

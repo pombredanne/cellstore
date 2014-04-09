@@ -25,7 +25,7 @@ angular.module('main')
     return {
         restrict: 'A',
         link: function($scope, element){
-            $rootScope.$on('$routeChangeStart', function(){
+            $rootScope.$on('$stateChangeStart', function(){
                 element.attr('content', 'http://28.io' + $location.path());
             });
         }
@@ -53,7 +53,7 @@ angular.module('main')
 })
 .controller('HeadCtrl', function($scope) {
 
-    $scope.$on('$routeChangeStart', function(event, next) {
+    $scope.$on('$stateChangeStart', function(event, next) {
         var title = (next.$$route && next.$$route.title) ? next.$$route.title : 'secxbrl.info - US Public Company Financial Information Repository';
         $scope.$broadcast('$setTitle', title);
     });

@@ -464,7 +464,64 @@ angular.module('main', [
         title: 'Example'
     })
     
-
+    .state('root.disclosures', {
+        url: '/disclosures',
+        templateUrl: '/views/disclosures.html',
+        controller: 'DisclosuresCtrl',
+        resolve: {
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+        },
+        title: 'Disclosures'
+    })
+    
+    .state('root.disclosure', {
+        url: '/disclosure/:disclosure/:year/:period',
+        templateUrl: '/views/disclosure.html',
+        controller: 'DisclosureCtrl',
+        resolve: {
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+        },
+        title: 'Disclosure Information'
+    })
+    
+    .state('root.comparison', {
+        url: '/comparison',
+        templateUrl: '/views/comparison.html',
+        controller: 'ComparisonCtrl',
+        title: 'Comparison'
+    })
+    .state('root.comparisonInformation', {
+        url: '/comparison/information',
+        templateUrl: '/views/comparison-information.html',
+        controller: 'ComparisonInformationCtrl',
+        title: 'Basic Financial Information'
+    })
+    .state('root.comparisonSearch', {
+        url: '/comparison/search',
+        templateUrl: '/views/comparison-search.html',
+        controller: 'ComparisonSearchCtrl',
+        resolve: {
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+        },
+        title: 'Search Facts'
+    })
+    .state('root.comparisonComponent', {
+        url: '/comparison/components',
+        templateUrl: '/views/comparison-components.html',
+        controller: 'ComparisonComponentsCtrl',
+        resolve: {
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+        },
+        title: 'Search Components'
+    })
 
     //404
     .state('404', {
@@ -473,63 +530,6 @@ angular.module('main', [
         title: 'Page not found'
     })
     ;
-    /*
-        .when('/examples', {
-            templateUrl: '/views/example.html',
-            controller: 'ExampleCtrl',
-            title: 'secxbrl.info - Examples'
-        })
-        .when('/disclosures', {
-            templateUrl: '/views/disclosures.html',
-            controller: 'DisclosuresCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            },
-            title: 'secxbrl.info - Disclosures'
-        })
-        .when('/disclosure/:disclosure/:year/:period', {
-            templateUrl: '/views/disclosure.html',
-            controller: 'DisclosureCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            },
-            title: 'secxbrl.info - Disclosure Information'
-        })
-        .when('/comparison', {
-            templateUrl: '/views/comparison.html',
-            controller: 'ComparisonCtrl',
-            title: 'secxbrl.info - Comparison'
-        })
-        .when('/comparison/information', {
-            templateUrl: '/views/comparison-information.html',
-            controller: 'ComparisonInformationCtrl',
-            title: 'secxbrl.info - Basic Financial Information'
-        })
-        .when('/comparison/search', {
-            templateUrl: '/views/comparison-search.html',
-            controller: 'ComparisonSearchCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-            },
-            title: 'secxbrl.info - Search Facts'
-        })
-        .when('/comparison/components', {
-            templateUrl: '/views/comparison-components.html',
-            controller: 'ComparisonComponentsCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-            },
-            title: 'secxbrl.info - Search Components'
-        })
-        */
 })
 .run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {
 
@@ -556,10 +556,6 @@ angular.module('main', [
 		$rootScope.user = cache.get('user');
 	}
 
-	$rootScope.$on('$routeChangeSuccess', function(event, current) {
-		$rootScope.page = current.loadedTemplateUrl;
-	});
-		
 	$rootScope.$on('error', function(event, status, error){
 		if (status === 401) {
             var p = $location.path();
