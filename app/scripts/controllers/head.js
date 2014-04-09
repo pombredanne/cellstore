@@ -6,7 +6,7 @@ angular.module('main')
         restrict: 'A',
         link: function($scope, element){
             $scope.$on('$setTitle', function(event, title){
-                element.attr('content', title);
+                element.attr('content', 'secxbrl.info -' + title);
             });
         }
     };
@@ -46,7 +46,7 @@ angular.module('main')
         restrict: 'E',
         link: function($scope, element){
             $scope.$on('$setTitle', function(event, title){
-                element.text(title);
+                element.text('secxbrl.info' + title);
             });
         }
     };

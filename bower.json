@@ -13,7 +13,8 @@
     "bootstrap": "~3.0.0",
     "ngprogress-lite": "~1.0.4",
     "angulartics": "~0.14.15",
-    "angular-google-chart": "~0.0.8"
+    "angular-google-chart": "~0.0.8",
+    "angular-ui-router": "~0.2.10"
   },
   "devDependencies": {}
 }

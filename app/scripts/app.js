@@ -1,135 +1,22 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite', 'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'navbar-toggle'])
+angular.module('main', [
+    'ui.router', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle',
+    'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite',
+    'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'navbar-toggle'
+])
 .run(function($rootScope, ngProgressLite) {
-        
-    $rootScope.$on('$routeChangeStart', function() {
+    $rootScope.$on('$stateChangeStart', function() {
         ngProgressLite.start();
     });
 
-    $rootScope.$on('$routeChangeSuccess', function() {
+    $rootScope.$on('$stateChangeSuccess', function() {
         ngProgressLite.done();
     });
-})
-.factory('$backend', function($q, $http, API_URL, DEBUG) {
-    return {
-        API_URL: API_URL,
-		DEBUG: DEBUG,
 
-        data: [],
-
-        getYears : function() {
-            var that = this;
-            var deferred = $q.defer();
-            if (!that.data.year || that.data.year.length === 0) {
-                that.data.year = [];
-                var year = (new Date()).getFullYear();
-                while (year >= 2009) { that.data.year.push(year); year -= 1; }
-            }
-            deferred.resolve(that.data.year);
-            return deferred.promise;
-        },
-
-		getPeriods : function() {
-            var that = this;
-            var deferred = $q.defer();
-            if (!that.data.period || that.data.period.length === 0) {
-                that.data.period = [ 'FY', 'Q3', 'Q2', 'Q1' ];
-            }
-            deferred.resolve(that.data.period);
-            return deferred.promise;
-		},
-
-        getDomainMembers: function(domain) {
-            var that = this;
-            var deferred = $q.defer();
-            if (that.data[domain] && that.data[domain].length > 0) {
-                deferred.resolve(that.data[domain]);
-                return deferred.promise;
-            }
-
-            var url;
-            switch (domain) {
-            case 'sector' :
-                url = API_URL + '/_queries/public/FilerSectorList.jq';
-                break;
-            
-            case 'generator' :
-                url = API_URL + '/_queries/public/GeneratorList.jq';
-                break;
-            
-            case 'entityType' :
-                url = API_URL + '/_queries/public/EntityTypeList.jq';
-                break;
-            
-            case 'stockIndex' :
-                url = API_URL + '/_queries/public/StockIndexList.jq';
-                break;
-            }
-            if (url) {
-                $http({ method: 'GET', url: url, params: { _method: 'POST' }, cache: true })
-                .success(function(data) {
-                    that.data[domain] =  [];
-                    if (data && data.members) {
-                        data.members.forEach(function(item) {
-                            that.data[domain].push(item[domain]);
-                        });
-                    }
-                    deferred.resolve(that.data[domain]);
-                });
-            }
-            return deferred.promise;
-        },
-
-        getTags: function() {
-            var that = this;
-            var deferred = $q.defer();
-            if (!that.data.tag || that.data.tag.length === 0) {
-                that.data.tag = ['DOW30', 'SP500', 'FORTUNE100', 'PJI'];
-            }
-            deferred.resolve(that.data.tag);
-            return deferred.promise;
-        },
-
-        getEntities: function() {
-            var that = this;
-            var deferred = $q.defer();
-            if (that.data.entities && that.data.entities.length > 0) {
-                deferred.resolve(that.data.entities);
-                return deferred.promise;
-            }
-
-            $http({ method: 'GET', url: API_URL + '/_queries/public/EntityNameTickerCIKTuples.jq', params: { _method: 'POST' }, cache: true })
-            .success(function(data) {
-                that.data.entities =  [];
-                if (data) { that.data.entities = data.entityNameTickerSymbolCikTuples; }
-                deferred.resolve(that.data.entities);
-            });
-
-            return deferred.promise;
-        },
-
-        getConceptMaps: function() {
-            var that = this;
-            var deferred = $q.defer();
-            if (that.data.conceptMaps && that.data.conceptMaps.length > 0)
-            {
-                deferred.resolve(that.data.conceptMaps);
-                return deferred.promise;
-            }
-
-            $http({ method: 'GET', url: API_URL + '/_queries/public/ConceptMaps.jq', params: { _method: 'POST' }, cache: true })
-                .success(function(data) {
-                    that.data.conceptMaps =  [];
-                    if (data) {
-                        that.data.conceptMaps = data.availableMaps;
-                    }
-                    deferred.resolve(that.data.conceptMaps);
-                });
-
-            return deferred.promise;
-        }
-    };
+    $rootScope.$on('$stateChangeError', function() {
+        ngProgressLite.done();
+    });
 })
 // Intercept http calls.
 .factory('RootScopeSpinnerInterceptor', function ($q, $rootScope, ngProgressLite) {
@@ -163,7 +50,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
         }
     };
 })
-.config(function ($routeProvider, $locationProvider, $httpProvider) {
+.config(function ($stateProvider, $locationProvider, $httpProvider) {
     
     //Because angularjs default transformResponse is not based on ContentType
     $httpProvider.defaults.transformResponse = function(response, headers){
@@ -184,10 +71,58 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 
-    $routeProvider
-        .when('/', {
-            templateUrl: '/views/home.html'
-        })
+    $stateProvider
+    .state('root', {
+        templateUrl: '/views/root.html'
+    })
+    .state('root.home', {
+        templateUrl: '/views/home.html',
+        url: '/',
+    })
+    .state('root.pricing', {
+        templateUrl: '/views/pricing.html',
+        url: '/pricing',
+        title: 'Pricing'
+    })
+
+    //Blog
+    .state('root.blog', {
+        url: '/blog',
+        templateUrl: '/views/blog.html',
+        controller: 'BlogCtrl',
+        resolve: {
+            blogIndex: ['BlogAPI', function(BlogAPI) {
+                return BlogAPI.getIndex();
+            }]
+        }
+    })
+    .state('root.blog.entry', {
+        url: '/blog/:id/:slug',
+        templateUrl: '/views/blog.html',
+        controller: 'BlogCtrl',
+        resolve: {
+            blogIndex: ['BlogAPI', function(BlogAPI) {
+                return BlogAPI.getIndex();
+            }]
+        }
+    })
+    
+    //API
+    .state('root.api', {
+        url: '/api',
+        templateUrl: '/views/api.html',
+        controller: 'ApiCtrl',
+        title: 'API Information'
+    })
+    
+    //404
+    .state('404', {
+        url: '{path:.*}',
+        templateUrl:'/views/404.html',
+        title: 'Page not found'
+    });
+    ;
+    /*
         .when('/clear', {
             templateUrl: '/views/home.html',
             resolve: {
@@ -445,6 +380,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
             templateUrl:'/views/404.html',
             title: 'secxbrl.info - Page not found'
         });
+        */
 })
 .run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {
 
