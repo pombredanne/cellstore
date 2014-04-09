@@ -8,6 +8,7 @@ module.exports = function(grunt) {
         var done = this.async();
         var options = this.options();
         var dest = options.dest;
+        grunt.file.mkdir(dest);
      
         var count = options.apis.length;
         options.apis.forEach(function(api, index){
