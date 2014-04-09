@@ -282,6 +282,26 @@ angular.module('main', [
             }]
         }
     })
+    .state('root.entity.modelstructure', {
+        url: '/modelstructure/:aid/{networkIdentifier:.*}',
+        templateUrl: '/views/entity/modelstructure.html',
+        controller: 'ModelStructureCtrl',
+        resolve: {
+            modelStructure: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'aid' : $stateParams.aid,
+                        'networkIdentifier' : $stateParams.networkIdentifier,
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        },
+        title: 'Component Model Structure'
+    })
     
     //Filing
     .state('root.filing', {
@@ -375,6 +395,31 @@ angular.module('main', [
             $state.go('root.entity.facttable', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
         }
     })
+    
+    //Model Structure
+    .state('root.modelstructure', {
+        url: '/modelstructure/:aid/{networkIdentifier:.*}',
+        resolve: {
+            modelStructure: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'aid' : $stateParams.aid,
+                        'networkIdentifier' : $stateParams.networkIdentifier,
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        },
+        controller: function($state, $stateParams, modelStructure){
+            var cik = modelStructure.data.CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            var aid = $stateParams.aid;
+            var networkIdentifier = $stateParams.networkIdentifier;
+            $state.go('root.entity.modelstructure', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
+        }
+    })
 
     //404
     .state('404', {
@@ -403,16 +448,6 @@ angular.module('main', [
             title: 'secxbrl.info - Analytics Breakdown'
         })
 
-        .when('/facttable/:accession/:networkIdentifier*', {
-            templateUrl: '/views/facttable.html',
-            controller: 'FactTableCtrl',
-            title: 'secxbrl.info - Component Fact Table'
-        })
-        .when('/modelstructure/:accession/:networkIdentifier*', {
-            templateUrl: '/views/modelstructure.html',
-            controller: 'ModelStructureCtrl',
-            title: 'secxbrl.info - Component Model Structure'
-        })
         .when('/auth', {
             templateUrl: '/views/auth.html',
             controller: 'AuthCtrl',
