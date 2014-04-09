@@ -14,43 +14,13 @@ angular.module('main', [
         ngProgressLite.done();
     });
 
-    $rootScope.$on('$stateChangeError', function() {
+    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+        //TODO: fix hardcoded 500
+        $rootScope.$emit('error', 500, error);
         ngProgressLite.done();
     });
 })
-// Intercept http calls.
-.factory('RootScopeSpinnerInterceptor', function ($q, $rootScope, ngProgressLite) {
-    return {
-        // On request success
-        request: function (config) {
-            ngProgressLite.start();
-            // Return the config or wrap it in a promise if blank.
-            return config || $q.when(config);
-        },
-
-        // On request failure
-        requestError: function (rejection) {
-            ngProgressLite.start();
-            // Return the promise rejection.
-            return $q.reject(rejection);
-        },
-
-        // On response success
-        response: function (response) {
-            ngProgressLite.done();
-            // Return the response or promise.
-            return response || $q.when(response);
-        },
-
-        // On response failture
-        responseError: function (rejection) {
-            ngProgressLite.done();
-            // Return the promise rejection.
-            return $q.reject(rejection);
-        }
-    };
-})
-.config(function ($stateProvider, $locationProvider, $httpProvider) {
+.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider) {
     
     //Because angularjs default transformResponse is not based on ContentType
     $httpProvider.defaults.transformResponse = function(response, headers){
@@ -69,8 +39,8 @@ angular.module('main', [
     };
 
     $locationProvider.html5Mode(true);
-    $httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 
+    //TODO: refactor title property to go in data property
     $stateProvider
     //Root Controller
     .state('root', {
@@ -137,25 +107,85 @@ angular.module('main', [
             active: 'api'
         }
     })
-    
+
     //Entity
-    .state('root.browse', {
+    .state('root.entities', {
         url: '/entity',
-        templateUrl: '/views/entity.html',
-        controller: 'EntityCtrl',
+        templateUrl: '/views/entities.html',
+        controller: 'EntitiesCtrl',
         resolve: {
             entities: ['$backend', function($backend) { return $backend.getEntities(); }]
         },
-        title: 'Search for an Entity'
+        title: 'Search for an Entity',
+        data: {
+            active: 'browse'
+        }
     })
     .state('root.entity', {
         url: '/entity/:cik',
         templateUrl: '/views/entity.html',
         controller: 'EntityCtrl',
         resolve: {
+            entity: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listEntities({ $method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
+            }]
+        },
+        data: {
+            active: 'browse'
+        }
+    })
+    //TODO: better title with the entity name
+    .state('root.entity.summary', {
+        url: '/summary',
+        templateUrl: '/views/entity/summary.html',
+        data: {
+            subActive: 'summary'
+        },
+        title: 'Entity Summary'
+    })
+    .state('root.entity.fillings', {
+        url: '/filings',
+        templateUrl: '/views/entity/filings.html',
+        controller: 'FilingsCtrl',
+        resolve: {
+            filings: ['$q', '$http', '$stateParams', '$backend', function($q, $http, $stateParams, $backend){
+                var deferred = $q.defer();
+                var cik = $stateParams.cik;
+                $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'cik' : cik,
+                        'fiscalPeriod': 'ALL',
+                        'fiscalYear': 'ALL'
+                    }
+                })
+                .success(function(data) {
+                    deferred.resolve(data.Archives);
+                });
+                return deferred.promise;
+            }]
+        },
+        data: {
+            subActive: 'filings'
+        },
+        title: 'Entity Filings'
+    })
+    .state('root.entity.information', {
+        url: '/information',
+        templateUrl: '/views/entity/information.html',
+        controller: 'InformationCtrl',
+        resolve: {
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
             entities: ['$backend', function($backend) { return $backend.getEntities(); }]
         },
-        title: 'Entity Information'
+        title: 'Basic Financial Information',
+        data: {
+            subActive: 'information'
+        },
     })
     
     //404
@@ -166,21 +196,6 @@ angular.module('main', [
     });
     ;
     /*
-        .when('/clear', {
-            templateUrl: '/views/home.html',
-            resolve: {
-                cache: ['$angularCacheFactory', function($angularCacheFactory) { $angularCacheFactory.get('secxbrl').removeAll(); }]
-            }
-        })
-        .when('/about', {
-            templateUrl: '/views/about.html',
-            title: 'secxbrl.info - About'
-        })
-        .when('/api', {
-            templateUrl: '/views/api.html',
-            controller: 'ApiCtrl',
-            title: 'secxbrl.info - API Information'
-        })
         .when('/analytics', {
             templateUrl: '/views/analytics.html',
             controller: 'AnalyticsCtrl',
@@ -518,16 +533,6 @@ angular.module('main', [
 	$rootScope.clearCache = function() {
 		$angularCacheFactory.clearAll();
 		$rootScope.goto('/');
-	};
-
-	$rootScope.goto = function(url) {
-        if (url === '/') {
-            $location.url(url, true);
-        }
-        else {
-            // keep the query string, if any
-		    $location.path(url);
-        }
 	};
 
 	$rootScope.gotoId = function(id) {

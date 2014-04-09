@@ -1,77 +1,25 @@
 <div id="entity">
-    
-<div class="menu" ng-show="cik">
-    <div class="btn-group">
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/entity.html'" ng-href="/entity{{(cik?'/' + cik : '')}}">
-            <i class="fa fa-home"></i> Home
-        </a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/filings.html'" ng-href="/filings{{(cik?'/' + cik : '')}}">
-            <i class="fa fa-briefcase"></i> Filings
-        </a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/information.html'" ng-href="/information{{(cik?'/' + cik : '')}}">
-            <i class="fa fa-sitemap"></i> Basic Financial Information
-        </a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/dashboard.html'" ng-href="/dashboard{{(cik?'/' + cik : '')}}">
-            <i class="fa fa-bar-chart-o"></i> Basic Analysis
-        </a>
-    </div>
-</div>
-
-<div class="container">
-	<div>
-		<div>
-            <h2 class="text-center">Search Entity</h2>
-			<input class="form-control input-block input-lg" ng-class="{ 'fade-control': !cik }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
-				   placeholder="Search entities by name, CIK, or ticker..." ng-click="focused=true;"
-                   typeahead-template-url="typeaheadmulti.html"
-				   typeahead="entity for entity in entities | filter:$viewValue | limitTo:8">
-            <script type="text/ng-template" id="typeaheadmulti.html">
-            <a tabindex="-1" class="multicol">
-               <div ng-bind-html='match.model.name | typeaheadHighlight:query'></div>
-               <small ng-bind-html='"CIK: " + match.model.cik + (match.model.tickers[0] ? ", Ticker: " + match.model.tickers[0] : "") | typeaheadHighlight:query'></small>
-            </a>
-            </script>
-		</div>
-
-        <div ng-show="result" class="result">
-          <h3>{{result.Profiles.SEC.CompanyName}}</h3>
-		  <div>
-            <table class="table" cellpadding="5">
-              <tr>
-                <td style="width: 40%">CIK</td><td>{{cik}}</td>
-              </tr>
-              <tr>
-                <td>Ticker Symbol</td><td>{{ticker}}</td>
-              </tr>
-              <tr>
-                <td>Entity Type</td><td>{{result.Profiles.SEC.CompanyType}}</td>
-              </tr>
-              <tr>
-                <td>SIC Code</td><td>{{result.Profiles.SEC.SIC}}</td>
-              </tr>
-              <tr>
-                <td>SIC Description</td><td>{{result.Profiles.SEC.SICDescription}}</td>
-              </tr>
-              <tr>
-                <td>Industry Sector</td><td>{{result.Profiles.SEC.Sector}}</td>
-              </tr>
-              <tr>
-                <td>Is a Trust</td><td>{{result.Profiles.SEC.IsTrust?"Yes":"No"}}</td>
-              </tr>
-            </table>
-          </div>
-          <div>
-            <a href="/filings/{{cik}}">Filings</a> | 
-            <a href="/information/{{cik}}">Basic Financial Information</a> | 
-            <a href="/dashboard/{{cik}}">Basic Analysis</a>
-          </div>
+    <div class="menu">
+        <div class="container">
+            <h4>
+                {{entity.Profiles.SEC.CompanyName}}
+                <small><a href="/entity">(switch entity)</a></small>
+            </h4>
+            <div class="btn-group">
+                <a class="btn btn-default" ng-class="{ active: subActive === 'summary' }" ui-sref="root.entity.summary({ cik: cik })">
+                    <i class="fa fa-home"></i> Summary
+                </a>
+                <a class="btn btn-default" ng-class="{ active: subActive === 'filings' }" ui-sref="root.entity.fillings({ cik: cik })">
+                    <i class="fa fa-briefcase"></i> Filings
+                </a>
+                <a class="btn btn-default"  ng-class="{ active: subActive === 'information' }" ui-sref="root.entity.information({ cik: cik })">
+                    <i class="fa fa-sitemap"></i> Basic Financial Information
+                </a>
+                <a class="btn btn-default"  ng-class="{ active: subActive === 'dashboard' }" ui-sref="root.entity.dashboard({ cik: cik })">
+                    <i class="fa fa-bar-chart-o"></i> Basic Analysis
+                </a>
+            </div>
         </div>
-          <div class="col-md-12 text-right" ng-show="result">
-            Data as: <a href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.json">JSON</a>,
-            <a href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" downlaod="{{cik}}.xml">XML</a>,
-            <a href="{{API_URL}}/_queries/public/api/entities.jq.text?format=csv&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.csv">CSV</a>,
-            <a href="{{API_URL}}/_queries/public/api/entities.jq.text?format=excel&_method=POST&cik={{cik}}{{(token?'&token=' + token : '')}}" download="{{cik}}.csv">Excel</a>
-          </div>
-	</div>
-</div>
+    </div>
+    <div ui-view></div>
 </div>

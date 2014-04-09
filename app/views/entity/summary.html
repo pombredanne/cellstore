@@ -1,0 +1,27 @@
+<div class="container" id="entity-summary">
+    <!--h3>{{entity.Profiles.SEC.CompanyName}}</h3-->
+    <table class="table" cellpadding="5">
+              <tr>
+                <td style="width: 40%">CIK</td><td>{{cik}}</td>
+              </tr>
+              <tr>
+                <td>Ticker Symbol</td><td>{{ticker}}</td>
+              </tr>
+              <tr>
+                <td>Entity Type</td><td>{{entity.Profiles.SEC.CompanyType}}</td>
+              </tr>
+              <tr>
+                <td>SIC Code</td><td>{{entity.Profiles.SEC.SIC}}</td>
+              </tr>
+              <tr>
+                <td>SIC Description</td><td>{{entity.Profiles.SEC.SICDescription}}</td>
+              </tr>
+              <tr>
+                <td>Industry Sector</td><td>{{entity.Profiles.SEC.Sector}}</td>
+              </tr>
+              <tr>
+                <td>Is a Trust</td><td>{{entity.Profiles.SEC.IsTrust?"Yes":"No"}}</td>
+              </tr>
+        </table>    
+    </div>
+</div>

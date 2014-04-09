@@ -1,0 +1,54 @@
+<div class="topbar"></div>
+<div class="row fade-container">
+	<div class="fade-content" ng-hide="search || focused"></div>
+	<div class="fade-panel-entities" ng-hide="search || focused">
+		<div class="arrow"></div>
+		Search entities by business name, CIK or ticker simbol<br>
+		to see information about filings.
+	</div>
+	<div class="col-md-12">
+        <div class="text-center" style="padding-bottom: 5px">
+          <h3>Entities</h3>
+        </div>
+        <div>
+          <input type="text" class="form-control" ng-model="search" ng-class="{ 'fade-control': !search }" placeholder="Type here to search..." ng-click="focused=true;"/>
+		  <div class="table-responsive">
+          <table class="table table-condensed table-striped small">
+              <thead>
+              <th>#</th>
+              <th>CIK</th>
+              <th>Ticker Symbol</th>
+              <th>Entity Registrant Name</th>
+              <th>Entity Type</th>
+              <th>SIC Code</th>
+              <th>SIC Description</th>
+              <th>Industry Sector</th>
+              <th>Trust</th>
+              <th>SEC Filings</th>
+              </thead>
+              <tbody ng-show="search">
+                <tr ng-repeat="item in results | filter : search | limitTo : 20">
+                  <td>{{$index + 1}}</td>
+                  <td><a href="/entity/{{item._id.substr(23)}}">{{item._id.substr(23)}}</a></td>
+                  <td>{{item.Profiles.SEC.Tickers[0]}}</td>
+                  <td>{{item.Profiles.SEC.CompanyName}}</td>
+                  <td>{{item.Profiles.SEC.CompanyType}}</td>
+                  <td>{{item.Profiles.SEC.SIC}}</td>
+                  <td>{{item.Profiles.SEC.SICDescription}}</td>
+                  <td>{{item.Profiles.SEC.Sector}}</td>
+                  <td>{{item.Profiles.SEC.IsTrust?"Y":"-"}}</td>
+                  <td><a href="/filings/{{item._id.substr(23)}}">Filings</a></td>
+                </tr>
+              </tbody>
+          </table>
+		  </div>
+      <div class="col-md-12 text-right">
+        All data as:
+          <a href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.json">JSON</a>,
+          <a href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.xml">XML</a>,
+          <a href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.csv">CSV</a>,
+          <a href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST{{(token?'&token=' + token : '')}}" target="_blank" download="entities.csv">Excel</a>
+      </div>
+    </div>
+	</div>
+</div>
