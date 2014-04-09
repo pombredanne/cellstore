@@ -72,17 +72,33 @@ angular.module('main', [
     $httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 
     $stateProvider
+    //Root Controller
     .state('root', {
-        templateUrl: '/views/root.html'
+        templateUrl: '/views/root.html',
+        controller: function($scope, $state){
+            $scope.$on('$stateChangeSuccess', function(event, toState) {
+                $scope.active = toState.data && toState.data.active;
+            });
+        }
     })
+    
+    //Home
     .state('root.home', {
         templateUrl: '/views/home.html',
         url: '/',
+        data: {
+            active: 'home'
+        }
     })
+    
+    //Pricing
     .state('root.pricing', {
         templateUrl: '/views/pricing.html',
         url: '/pricing',
-        title: 'Pricing'
+        title: 'Pricing',
+        data: {
+            active: 'pricing'
+        }
     })
 
     //Blog
@@ -90,6 +106,9 @@ angular.module('main', [
         url: '/blog',
         templateUrl: '/views/blog.html',
         controller: 'BlogCtrl',
+        data: {
+            active: 'blog'
+        },
         resolve: {
             blogIndex: ['BlogAPI', function(BlogAPI) {
                 return BlogAPI.getIndex();
@@ -108,11 +127,35 @@ angular.module('main', [
     })
     
     //API
+    //TODO: API is not stateless (aka url-able)
     .state('root.api', {
         url: '/api',
         templateUrl: '/views/api.html',
         controller: 'ApiCtrl',
-        title: 'API Information'
+        title: 'API Information',
+        data: {
+            active: 'api'
+        }
+    })
+    
+    //Entity
+    .state('root.browse', {
+        url: '/entity',
+        templateUrl: '/views/entity.html',
+        controller: 'EntityCtrl',
+        resolve: {
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+        },
+        title: 'Search for an Entity'
+    })
+    .state('root.entity', {
+        url: '/entity/:cik',
+        templateUrl: '/views/entity.html',
+        controller: 'EntityCtrl',
+        resolve: {
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+        },
+        title: 'Entity Information'
     })
     
     //404
@@ -200,22 +243,6 @@ angular.module('main', [
             title: 'secxbrl.info - Entities'
         })
 
-        .when('/entity', {
-            templateUrl: '/views/entity.html',
-            controller: 'EntityCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Search for an Entity'
-        })
-        .when('/entity/:cik', {
-            templateUrl: '/views/entity.html',
-            controller: 'EntityCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Entity Information'
-        })
         .when('/filings/:cik', {
             templateUrl: '/views/filings.html',
             controller: 'FilingsCtrl',

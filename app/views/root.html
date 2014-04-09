@@ -20,10 +20,10 @@
                     <a class="btn btn-default" ng-click="logout()"><i class="fa fa-sign-out"></i></a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li ng-class="{ active: (page == '/views/home.html') }">
+                    <li ng-class="{ active: active === 'home' }">
                         <a href="/">Home</a>
                     </li>
-                    <li ng-class="{ active: (page == '/views/pricing.html') }">
+                    <li ng-class="{ active: active === 'pricing' }">
                         <a href="/pricing">Pricing</a>
                     </li>
                     <li ng-class="{ active: (page == '/views/analytics.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' ) }">
@@ -32,10 +32,10 @@
                     <li ng-class="{ active: (page == '/views/comparison.html' || page == '/views/comparison-information.html' || page == '/views/comparison-search.html' || page == '/views/comparison-components.html') }">
                         <a href="/comparison">Compare &amp; Search</a>
                     </li>
-                    <li ng-class="{ active: (page == '/views/api.html') }">
+                    <li ng-class="{ active: active === 'api' }">
                         <a href="/api">API</a>
                     </li>
-                    <li>
+                    <li ng-class="{ active: active === 'blog' }">
                         <a href="/blog">Blog</a>
                     </li>
                      <li><a href="https://secxbrl.zendesk.com/" target="_blank">Support</a></li>

@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('main')
 .factory('$backend', function($q, $http, API_URL, DEBUG) {
     return {
