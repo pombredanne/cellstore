@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('main')
-.controller('AuthCtrl', function($scope, $route, $http, $window, $backend, SessionService, UsersService) {
-    $scope.returnPage = $route.current.params.returnPage;
+.controller('AuthCtrl', function($scope, $stateParams, $http, $window, $backend, SessionService, UsersService) {
+    $scope.returnPage = $stateParams.returnPage;
     $scope.registerAttempted = false;
     $scope.loginAttempted = false;
     $scope.forgotAttempted = false;

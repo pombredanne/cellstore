@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('main')
-.controller('AccountCtrl', function($scope, $route, $http, $location, $backend, SessionService, UsersService) {
-    $scope.section = $route.current.params.section;
+.controller('AccountCtrl', function($scope, $stateParams, $location, $http, $backend, SessionService, UsersService) {
+    $scope.section = $stateParams.section;
     $scope.resetAttempted = false;
     $scope.infoAttempted = false;
 
@@ -20,7 +20,7 @@ angular.module('main')
                 function(data) {
                     if(data && data.success) {
                         $scope.$emit('alert', 'Success', 'Your password has been changed.');
-                        $scope.goto('/account');
+                        $location.path('/account').replace();
                     } else {
                         $scope.$emit('error', 500, data);
                     }

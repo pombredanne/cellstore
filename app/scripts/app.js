@@ -420,6 +420,28 @@ angular.module('main', [
             $state.go('root.entity.modelstructure', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
         }
     })
+    
+    //Auth
+    .state('root.auth', {
+        url: '/auth{returnPage:.*}',
+        templateUrl: '/views/auth.html',
+        controller: 'AuthCtrl',
+        title: 'Authenticate'
+    })
+    
+    //Account
+    .state('root.account', {
+        url: '/account',
+        templateUrl: '/views/account.html',
+        controller: 'AccountCtrl',
+        title: 'Account'
+    })
+    .state('root.accountSection', {
+        url: '/account/:section',
+        templateUrl: '/views/account.html',
+        controller: 'AccountCtrl',
+        title: 'Account'
+    })
 
     //404
     .state('404', {
@@ -429,45 +451,6 @@ angular.module('main', [
     })
     ;
     /*
-        .when('/analytics', {
-            templateUrl: '/views/analytics.html',
-            controller: 'AnalyticsCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            },
-            title: 'secxbrl.info - Analytics'
-        })
-        .when('/analytics/:year/:period/:group', {
-            templateUrl: '/views/analytics.html',
-            controller: 'AnalyticsCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            },
-            title: 'secxbrl.info - Analytics Breakdown'
-        })
-
-        .when('/auth', {
-            templateUrl: '/views/auth.html',
-            controller: 'AuthCtrl',
-            title: 'secxbrl.info - Authenticate'
-        })
-        .when('/auth:returnPage*', {
-            templateUrl: '/views/auth.html',
-            controller: 'AuthCtrl',
-            title: 'secxbrl.info - Authenticate'
-        })
-        .when('/account', {
-            templateUrl: '/views/account.html',
-            controller: 'AccountCtrl',
-            title: 'secxbrl.info - Account'
-        })
-        .when('/account/:section', {
-            templateUrl: '/views/account.html',
-            controller: 'AccountCtrl',
-            title: 'secxbrl.info - Account'
-        })
         .when('/concept-map/:name', {
             templateUrl: '/views/concept-map.html',
             controller: 'ConceptMapCtrl',
@@ -570,7 +553,7 @@ angular.module('main', [
             if (p === '/account' || p === '/account/password' || p === '/account/info') {
                 p = '';
             }
-			$rootScope.goto('/auth' + p);
+		    $location.path('/auth' + p).replace();
 			return;
 		}
 		$modal.open( {
@@ -615,7 +598,7 @@ angular.module('main', [
 		if (!url) {
             url='/';
         }
-		$rootScope.goto(url);
+		$location.path(url).replace();
 	});
 
 	$rootScope.$on('logout', function(){
@@ -634,7 +617,7 @@ angular.module('main', [
 			cache.remove('token');
 			cache.remove('user');
 		}
-		$rootScope.goto('/');
+		$location.path('/').replace();
 	};
 
 	$rootScope.$on('clearCache', function(){//event
@@ -643,7 +626,7 @@ angular.module('main', [
 
 	$rootScope.clearCache = function() {
 		$angularCacheFactory.clearAll();
-		$rootScope.goto('/');
+		$location.path('/').replace();
 	};
 
 	$rootScope.gotoId = function(id) {
