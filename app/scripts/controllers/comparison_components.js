@@ -24,10 +24,6 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
                 $scope.selection.reportElement = $scope.searchReportElement;
             }
 
-            if ($scope.selection && ($scope.selection.disclosure || $scope.selection.reportElement)) {
-                $scope.getValues();
-            }
-
             //refresh the typeaheads
             $scope.reportElementNames = [];
             $scope.disclosureNames = [];
@@ -66,6 +62,9 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         function() {
             if ($scope.selection) {
                 $location.search($scope.selection);
+                if ($scope.selection && ($scope.selection.disclosure || $scope.selection.reportElement)) {
+                    $scope.getValues();
+                }
             }
         }
     );
@@ -75,18 +74,60 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
             $scope.$emit('alert', 'Fields required for search', 'The disclosure or the report element are required for the search.');
             return false;
         }
-        $scope.selection.disclosure = $scope.searchDisclosure;
-        $scope.selection.reportElement = $scope.searchReportElement;
+        if ($scope.searchDisclosure)
+        {
+            $scope.selection.disclosure = $scope.searchDisclosure;
+        }
+        else 
+        {
+            delete $scope.selection.disclosure;
+        }
+        if ($scope.searchReportElement)
+        {
+            $scope.selection.reportElement = $scope.searchReportElement;
+        }
+        else 
+        {
+            delete $scope.selection.reportElement;
+        }
     };
     
     $scope.selectDisclosure = function() {
-        $scope.selection.disclosure = $scope.searchDisclosure;
-        $scope.selection.reportElement = $scope.searchReportElement;
+        if ($scope.searchDisclosure)
+        {
+            $scope.selection.disclosure = $scope.searchDisclosure;
+        }
+        else 
+        {
+            delete $scope.selection.disclosure;
+        }
+        if ($scope.searchReportElement)
+        {
+            $scope.selection.reportElement = $scope.searchReportElement;
+        }
+        else 
+        {
+            delete $scope.selection.reportElement;
+        }
     };
     
     $scope.selectReportElement = function() {
-        $scope.selection.disclosure = $scope.searchDisclosure;
-        $scope.selection.reportElement = $scope.searchReportElement;
+        if ($scope.searchDisclosure)
+        {
+            $scope.selection.disclosure = $scope.searchDisclosure;
+        }
+        else 
+        {
+            delete $scope.selection.disclosure;
+        }
+        if ($scope.searchReportElement)
+        {
+            $scope.selection.reportElement = $scope.searchReportElement;
+        }
+        else 
+        {
+            delete $scope.selection.reportElement;
+        }
     };
 
     $scope.getValues = function () {

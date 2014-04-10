@@ -53,11 +53,6 @@ angular.module('main')
                     $scope.selection[param] = src[param];
                 }
             });
-
-            if ($scope.selection.concept.length > 0)
-            {
-                $scope.getValues();
-            }
         }
     );
 
@@ -68,6 +63,10 @@ angular.module('main')
         function() {
             if ($scope.selection) {
                 $location.search($scope.selection);
+                if ($scope.selection.concept.length > 0)
+                {
+                    $scope.getValues();
+                }
             }
         }
     );
