@@ -4,7 +4,6 @@
   "dependencies": {
     "jquery": "1.10.2",
     "angular": "1.2.10",
-    "angular-route": "1.2.10",
     "angular-sanitize": "1.2.10",
     "angular-ui-bootstrap-bower": "0.10.0",
     "angular-cache": "2.3.0",
