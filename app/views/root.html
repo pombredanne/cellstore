@@ -1,0 +1,62 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" navbar-toggle>
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">secxbrl.info<sub>beta</sub></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <a ng-if="!user" class="btn btn-default pull-right menu-btn hidden-sm hidden-xs" href="/auth">Login / Sign-Up</a>
+                <div ng-if="user" class="pull-right btn-group user">
+                    <a class="btn btn-default" href="/account">{{user.firstname}} {{user.lastname}}</a>
+                    <a class="btn btn-default" ng-click="logout()"><i class="fa fa-sign-out"></i></a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li ng-class="{ active: active === 'home' }">
+                        <a href="/">Home</a>
+                    </li>
+                    <li ng-class="{ active: active === 'pricing' }">
+                        <a href="/pricing">Pricing</a>
+                    </li>
+                    <li ng-class="{ active: active === 'browse' }">
+                        <a href="/entity">Browse</a>
+                    </li>
+                    <li ng-class="{ active: active === 'compare' }">
+                        <a href="/comparison">Compare &amp; Search</a>
+                    </li>
+                    <li ng-class="{ active: active === 'api' }">
+                        <a href="/api">API</a>
+                    </li>
+                    <li ng-class="{ active: active === 'blog' }">
+                        <a href="/blog">Blog</a>
+                    </li>
+                     <li><a href="https://secxbrl.zendesk.com/" target="_blank">Support</a></li>
+                     <li class="visible-sm visible-xs">
+                         <a href="/auth">Login / Sign-Up</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="wrapper">
+        <div ui-view></div>
+    </div>
+    <footer sticky-footer>
+        <div class="container">
+            <p class="text-center copyright">
+                <small>
+                    ©&nbsp;2013 secxbrl.info. All rights reserved.
+                    <!--a href="http://28.io/terms-of-use">Terms of Use</a> - <a href="http://28.io/privacy-policy">Privacy Policy</a-->
+                </small>
+            </p>
+        </div>
+    </footer>

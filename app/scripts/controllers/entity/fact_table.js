@@ -1,49 +1,28 @@
 'use strict';
 
 angular.module('main')
-.controller('FactTableCtrl', function($scope, $route, $http, $backend, QueriesService) {
-    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
+.controller('FactTableCtrl', function($scope, $stateParams, facttable) {
     
-    $scope.data = [];
     $scope.columns = [];
-    $scope.API_URL = $backend.API_URL;
-    $scope.EntityRegistrantName = '';
-    $scope.Label = '';
-    $scope.AccessionNumber = $route.current.params.accession;
-    $scope.NetworkIdentifier = $route.current.params.networkIdentifier;
-    $scope.Table = '';
-    $scope.FiscalYear = '';
-    $scope.FiscalPeriod = '';
-    $scope.AcceptanceDatetime = '';
-    $scope.FormType = '';
-
-    $scope.getdata = function() {
-        $scope.data = [];
-        $scope.columns = [];
-        $scope.service.listFactTable({
-                $method : 'POST',
-                aid : $scope.AccessionNumber,
-                networkIdentifier : $scope.NetworkIdentifier,
-                token : $scope.token
-            })
-            .then(function(data) {
-                $scope.data = data.FactTable;
-                $scope.Label = data.Label;
-                $scope.cik = (data.CIK || '').substring(23);
-                $scope.EntityRegistrantName = data.EntityRegistrantName;
-                $scope.NetworkIdentifier = data.NetworkIdentifier;
-                var p = data.Label.lastIndexOf(' - ');
-                if (p > 0) {
-                    $scope.component = data.Label.substring(p+3);
-                } else {
-                    $scope.component = data.Label;
-                }
-                $scope.AccessionNumber = data.AccessionNumber;
-                $scope.Table = data.TableName;
-                $scope.FiscalYear = data.FiscalYear;
-                $scope.FiscalPeriod = data.FiscalPeriod;
-                $scope.AcceptanceDatetime = data.AcceptanceDatetime;
-                $scope.FormType = data.FormType;
+    $scope.AccessionNumber = $stateParams.aid;
+    $scope.NetworkIdentifier = $stateParams.networkIdentifier;
+    $scope.data = facttable.FactTable;
+    $scope.Label = facttable.Label;
+    $scope.cik = (facttable.CIK || '').substring(23);
+    $scope.EntityRegistrantName = facttable.EntityRegistrantName;
+    $scope.NetworkIdentifier = facttable.NetworkIdentifier;
+    var p = facttable.Label.lastIndexOf(' - ');
+    if (p > 0) {
+        $scope.component = facttable.Label.substring(p+3);
+    } else {
+        $scope.component = facttable.Label;
+    }
+    $scope.AccessionNumber = facttable.AccessionNumber;
+    $scope.Table = facttable.TableName;
+    $scope.FiscalYear = facttable.FiscalYear;
+    $scope.FiscalPeriod = facttable.FiscalPeriod;
+    $scope.AcceptanceDatetime = facttable.AcceptanceDatetime;
+    $scope.FormType = facttable.FormType;
 
                 if ($scope.data && $scope.data.length > 0)
                 {
@@ -69,13 +48,6 @@ angular.module('main')
                         }
                     });
                 }
-            },
-            function(response) {
-                $scope.$emit('error', response.status, response.data);
-            });
-    };
-
-    $scope.getdata();
 
     $scope.trimURL = function(url) {
         if (url.length < 40) {

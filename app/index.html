@@ -26,75 +26,13 @@
     <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" navbar-toggle>
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">secxbrl.info<sub>beta</sub></a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <a ng-if="!user" class="btn btn-default pull-right menu-btn hidden-sm hidden-xs" href="/auth">Login / Sign-Up</a>
-                <div ng-if="user" class="pull-right btn-group user">
-                    <a class="btn btn-default" href="/account">{{user.firstname}} {{user.lastname}}</a>
-                    <a class="btn btn-default" ng-click="logout()"><i class="fa fa-sign-out"></i></a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li ng-class="{ active: (page == '/views/home.html') }">
-                        <a href="/">Home</a>
-                    </li>
-                    <li ng-class="{ active: (page == '/views/pricing.html') }">
-                        <a href="/pricing">Pricing</a>
-                    </li>
-                    <li ng-class="{ active: (page == '/views/analytics.html' || page == '/views/dashboard.html' || page == '/views/information.html') || (page == '/views/entities.html' || page == '/views/entity.html' || page == '/views/facttable.html' || page == '/views/modelstructure.html' || page == '/views/filings.html' || page == '/views/filing.html' || page == '/views/components.html' ) }">
-                        <a href="/entity">Browse</a>
-                    </li>
-                    <li ng-class="{ active: (page == '/views/comparison.html' || page == '/views/comparison-information.html' || page == '/views/comparison-search.html' || page == '/views/comparison-components.html') }">
-                        <a href="/comparison">Compare &amp; Search</a>
-                    </li>
-                    <li ng-class="{ active: (page == '/views/api.html') }">
-                        <a href="/api">API</a>
-                    </li>
-                    <li>
-                        <a href="/blog">Blog</a>
-                    </li>
-                     <li><a href="https://secxbrl.zendesk.com/" target="_blank">Support</a></li>
-                     <li class="visible-sm visible-xs">
-                         <a href="/auth">Login / Sign-Up</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-    <div class="wrapper">
-        <div class="ng-view"></div>
-    </div>
-    <footer sticky-footer>
-        <div class="container">
-            <p class="text-center copyright">
-                <small>
-                    ©&nbsp;2013 secxbrl.info. All rights reserved.
-                    <a href="http://28.io/terms-of-use">Terms of Use</a> - <a href="http://28.io/privacy-policy">Privacy Policy</a>
-                </small>
-            </p>
-        </div>
-    </footer>
+    <div ui-view></div>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="/bower_components/jquery/jquery.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/ngprogress-lite/ngprogress-lite.js"></script>
-    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js"></script>
     <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
@@ -113,6 +51,9 @@
     <script src="/scripts/autocomplete.js"></script>
     <script src="/scripts/constants.js"></script>
     <script src="/scripts/app.js"></script>
+    
+    <!-- TODO: Shouldn't this module be decoupled with the main module? -->
+    <script src="/scripts/modules/backend.js"></script>
 
     <!-- Swagger generated APIs -->
     <script src="/scripts/swagger/SessionService.js"></script>
@@ -125,23 +66,25 @@
     <script src="/scripts/controllers/auth.js"></script>
     <script src="/scripts/controllers/account.js"></script>
     <script src="/scripts/controllers/blog.js"></script>
-    <script src="/scripts/controllers/entities.js"></script>
-    <script src="/scripts/controllers/entity.js"></script>
+    
+    <!-- Browse Controllers -->
+    <script src="/scripts/controllers/entity/entities.js"></script>
+    <script src="/scripts/controllers/entity/entity.js"></script>
+    <script src="/scripts/controllers/entity/filings.js"></script>
+    <script src="/scripts/controllers/entity/information.js"></script>
+    <script src="/scripts/controllers/entity/dashboard.js"></script>
+    <script src="/scripts/controllers/entity/filing.js"></script>
+    <script src="/scripts/controllers/entity/components.js"></script>
+    <script src="/scripts/controllers/entity/component.js"></script>
+    <script src="/scripts/controllers/entity/fact_table.js"></script>
+    <script src="/scripts/controllers/entity/model_structure.js"></script>
+    
     <script src="/scripts/controllers/entity_details.js"></script>
-    <script src="/scripts/controllers/filings.js"></script>
-    <script src="/scripts/controllers/filing.js"></script>
-    <script src="/scripts/controllers/components.js"></script>
-    <script src="/scripts/controllers/component.js"></script>
-    <script src="/scripts/controllers/fact_table.js"></script>
-    <script src="/scripts/controllers/model_structure.js"></script>
-    <script src="/scripts/controllers/analytics.js"></script>
-    <script src="/scripts/controllers/information.js"></script>
-    <script src="/scripts/controllers/dashboard.js"></script>
     <script src="/scripts/controllers/concept_map.js"></script>
-    <script src="/scripts/controllers/company.js"></script>
     <script src="/scripts/controllers/example.js"></script>
     <script src="/scripts/controllers/disclosures.js"></script>
     <script src="/scripts/controllers/disclosure.js"></script>
+    
     <script src="/scripts/controllers/comparison_filter.js"></script>
     <script src="/scripts/controllers/comparison.js"></script>
     <script src="/scripts/controllers/comparison_information.js"></script>

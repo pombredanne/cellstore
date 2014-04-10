@@ -1,0 +1,71 @@
+<div id="components">
+<ul class="breadcrumb">
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
+        <ul class='dropdown-menu text-left'>
+            <li><a ui-sref="root.entity.summary({ cik: cik })">Entity Summary</a></li>
+            <li><a ui-sref="root.entity.filings({ cik: cik })">Filings</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}} <span class="fa fa-caret-down"></span></a>
+        <ul class='dropdown-menu text-left'>
+            <li><a ui-sref="root.filing({ aid: aid })">Filing Details</a></li>
+            <li><a ui-sref="root.components({ aid: aid })">Components</a></li>
+        </ul>
+    </li>
+    <li></li>
+</ul>
+<div class="std-container">
+	<div>
+        <div>
+          <div class="container">
+          <h2 class="highlight3">Components for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h2>
+          <table class="table table-condensed small">
+            <tbody>
+              <tr><td>Form Type:</td><td>{{FormType}}</td></tr>
+              <tr><td>Accepted:</td><td>{{AcceptanceDatetime}}</td></tr>
+              <tr><td>Accession Number:</td><td><a href="/filing/{{aid}}">{{aid}}</a></td></tr>
+            </tbody>
+          </table>
+          </div>
+          <input type="text" class="form-control" ng-model="search" placeholder="Search components...">
+          <div>
+          <table class="table table-condensed table-striped small">
+              <thead>
+              <th>#</th>
+              <th>Network Label / Name</th>
+              <th>Category</th>
+              <th>Subcategory (Level)</th>
+              <th>Table</th>
+              <th>Disclosure Name</th>
+              <th>Go to</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in components | filter : search">
+                  <td>{{$index + 1}}</td>
+                  <td>{{item.NetworkLabel}}<br/><small><span title="{{item.NetworkIdentifier}}">{{trimNetworkURL(item.NetworkIdentifier)}}</span></small></td>
+                  <td>{{item.Category}}</td>
+                  <td>{{item.SubCategory}}</td>
+                  <td><span title="{{item.Table}}">{{trimTableURL(item.Table)}}</span></td>
+                  <td>{{item.Disclosure}}</td>
+                  <td class="text-center">
+                    <span class="dropdown">
+                      <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
+                      <ul class="dropdown-menu text-left pull-right">
+                        <li><a ng-href="/component/{{aid}}/{{item.NetworkIdentifier}}">Component Details</a></li>
+                        <li><a ng-href="/facttable/{{aid}}/{{item.NetworkIdentifier}}">Fact Table</a></li>
+                        <li><a ng-href="/modelstructure/{{aid}}/{{item.NetworkIdentifier}}">Model Structure</a></li>
+                        <li><a class="disabled">BizPivot Rendering</a></li>
+                        <li><a class="disabled">SEC Preview</a></li>
+                      </ul>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+		  </div>
+        </div>
+	</div>
+</div>
+</div>

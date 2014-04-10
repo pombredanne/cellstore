@@ -1,18 +1,18 @@
 'use strict';
 
 angular.module('main')
-.controller('DashboardCtrl', function ($scope, $rootScope, $anchorScroll, $location, $route, $http, $modal, $backend, QueriesService, entities) {
+.controller('DashboardCtrl', function ($scope, $rootScope, $anchorScroll, $location, $state, $stateParams, $http, $modal, $backend, QueriesService, entities) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.table1 = null;
     $scope.table2 = null;
-    $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
+    $scope.cik = ($stateParams.cik ? $stateParams.cik : null);
     $scope.entities = entities;
 
     $scope.selectEntity = function (item) {
         $scope.cik = item.cik;
         $scope.name = item.name;
         $scope.ticker = item.tickers[0];
-        $scope.goto('/dashboard/' + $scope.cik);
+        $state.go('root.entity.dashboard', { cik: $scope.cik });
         $scope.getdata();
     };
 
@@ -268,9 +268,9 @@ angular.module('main')
         return str;
     };
 
-    if ($route.current.params.cik) {
+    if ($stateParams.cik) {
         $scope.entities.forEach(function (entity) {
-            if (entity.cik === $route.current.params.cik) {
+            if (entity.cik === $stateParams.cik) {
                 $scope.selectEntity(entity);
             }
         });

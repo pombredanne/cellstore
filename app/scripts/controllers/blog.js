@@ -74,7 +74,7 @@ angular.module('main')
         }
     };
 })
-.controller('BlogCtrl', function($rootScope, $scope, $routeParams, $location, blogIndex) {
+.controller('BlogCtrl', function($rootScope, $scope, $stateParams, $location, blogIndex) {
 
     $rootScope.$broadcast('$setTitle', '28.io - Blog');
 
@@ -126,8 +126,8 @@ angular.module('main')
     
     var load = function(){
         var entries = [];
-        if($routeParams.id !== undefined) {
-            var id = '/' + $routeParams.id + '/' + $routeParams.slug;
+        if($stateParams.id !== undefined) {
+            var id = '/' + $stateParams.id + '/' + $stateParams.slug;
             $scope.idFilter = id;
             $scope.index.entries.forEach(function(entry){
                 if(entry.id === id) {
@@ -144,8 +144,8 @@ angular.module('main')
         
         $scope.entries = entries;
         if($scope.entries.length === 1) {
-            $rootScope.$broadcast('$setOgImage', '/blog/images/thumbnails/' + $routeParams.id + '.png');
-            $rootScope.$broadcast('$setTitle', '28.io  Blog - ' + $scope.entries[0].title);
+            $rootScope.$broadcast('$setOgImage', '/blog/images/thumbnails/' + $stateParams.id + '.png');
+            $rootScope.$broadcast('$setTitle', $scope.entries[0].title);
         }
     };
     load();

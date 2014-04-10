@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('ExampleCtrl', function($scope, $route, $http, $location, $backend) {
+.controller('ExampleCtrl', function($scope, $stateParams, $http, $location, $backend) {
     $scope.examples = [{
         name: 'TotalAssets',
         description: 'Total Assets of all 10-Ks grouped by fiscal period and fiscal year.',
@@ -264,9 +264,9 @@ angular.module('main')
         return categories;
     };
 
-    if ($route.current.params.example) {
+    if ($stateParams.example) {
         $scope.examples.forEach(function(ex) {
-            if (ex.name === $route.current.params.example) {
+            if (ex.name === $stateParams.example) {
                 $scope.category = ex.category;
                 $scope.getExample(ex);
             }

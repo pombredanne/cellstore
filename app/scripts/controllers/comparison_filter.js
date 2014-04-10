@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('ComparisonFilterCtrl', function($scope, $route, $location, $backend, QueriesService) {
+.controller('ComparisonFilterCtrl', function($scope, $location, $backend, QueriesService) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.tags = [];
     $scope.entities = [];

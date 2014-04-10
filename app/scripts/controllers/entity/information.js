@@ -2,13 +2,13 @@
 
 angular.module('main')
 .controller('InformationCtrl', function(
-    $scope, $rootScope, $anchorScroll, $location, $route, $http, $modal,
+    $scope, $rootScope, $anchorScroll, $state, $stateParams, $http, $modal,
     $backend, QueriesService, years, periods, entities
 ) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
-    $scope.year = ($route.current.params.year ? parseInt($route.current.params.year, 10) : null);
-    $scope.period = ($route.current.params.period ? $route.current.params.period : null);
-    $scope.cik = ($route.current.params.cik ? $route.current.params.cik : null);
+    $scope.year = $stateParams.year ? parseInt($stateParams.year, 10) : null;
+    $scope.period = $stateParams.period ? $stateParams.period : null;
+    $scope.cik = $stateParams.cik ? $stateParams.cik : null;
     $scope.reports = [];
     $scope.showtab = [];
     $scope.years = years;
@@ -99,9 +99,9 @@ angular.module('main')
 
     $scope.change = function () {
 		if ($scope.year && $scope.period) {
-			$scope.goto('/information/' + $scope.cik + '/' + $scope.year + '/' + $scope.period);
+		    $state.go('root.entity.information', { cik: $scope.cik, year: $scope.year, period: $scope.period });
         } else {
-			$scope.goto('/information/' + $scope.cik);
+            $state.go('root.entity.information', { cik: $scope.cik });
 			$http({
                 method: 'GET',
 				url: $backend.API_URL + '/_queries/public/LatestFYandFPByCIK.jq',
@@ -112,7 +112,7 @@ angular.module('main')
                 if (data && data.latestFYPeriod) {
                     $scope.year = data.latestFYPeriod.fiscalYear;
 				    $scope.period = data.latestFYPeriod.fiscalPeriod;
-				    $scope.goto('/information/' + $scope.cik + '/' + $scope.year + '/' + $scope.period);
+		            $state.go('root.entity.information', { cik: $scope.cik, year: $scope.year, period: $scope.period });
 				} else {
 				    $scope.$emit('error', status, data);
                 }
@@ -128,7 +128,7 @@ angular.module('main')
         if (!$scope.filings || $scope.filings.length === 0) {
             return;
         }
-        
+
         $http({
             method: 'GET',
             url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
@@ -208,9 +208,8 @@ angular.module('main')
     };
 
 
-    if ($route.current.params.cik) {
         $scope.entities.forEach(function(entity) {
-            if (entity.cik === $route.current.params.cik) {
+            if (entity.cik === $stateParams.cik) {
 				if ($scope.year && $scope.period) {
 					$scope.cik = entity.cik;
 					$scope.name = entity.name;
@@ -223,7 +222,6 @@ angular.module('main')
 				}
 			}
         });
-    }
 
     if ($scope.cik && $scope.year && $scope.period)
     {

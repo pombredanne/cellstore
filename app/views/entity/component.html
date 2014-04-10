@@ -1,0 +1,91 @@
+<div class="component">
+<ul class="breadcrumb">
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{archive.EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
+        <ul class='dropdown-menu text-left'>
+            <li><a href="/entity/{{cik}}">Entity Information</a></li>
+            <li><a href="/filings/{{cik}}">Filings</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{archive.FiscalPeriod}} / {{archive.FiscalYear}} <span class="fa fa-caret-down"></span></a>
+        <ul class='dropdown-menu text-left'>
+            <li><a href="/filing/{{aid}}">Filing Details</a></li>
+            <li><a href="/components/{{aid}}">Components</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{NetworkLabel}} <span class="fa fa-caret-down"></span></a>
+        <ul class='dropdown-menu text-left'>
+          <li><a href="/facttable/{{aid}}/{{component.NetworkIdentifier}}">Fact Table</a></li>
+          <li><a href="/modelstructure/{{aid}}/{{component.NetworkIdentifier}}">Model Structure</a></li>
+        </ul>
+    </li>
+    <li></li>
+</ul>
+<div class="container">
+	<div class="col-md-12 spaced">
+        <div class="white-box">
+          <h3 class="highlight3">{{archive.EntityRegistrantName}} ({{archive.FiscalPeriod}} / {{archive.FiscalYear}})</h3>
+        <div class="scrolling">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td style="width: 40%">Component ID</td><td>{{component.ComponentId}}</td>
+              </tr>
+              <tr>
+                <td>CIK</td><td>{{cik}}</td>
+              </tr>
+              <tr>
+                <td>Accession Number</td><td>{{aid}}</td>
+              </tr>
+              <tr>
+                <td>Network Identifier</td><td>{{component.NetworkIdentifier}}</td>
+              </tr>
+              <tr>
+                <td>Network Description</td><td>{{NetworkLabel}}</td>
+              </tr>
+              <tr>
+                <td>Table Name</td><td>{{component.Table}}</td>
+              </tr>
+              <tr>
+                <td>Disclosure Name</td><td>{{component.Disclosure}}</td>
+              </tr>
+              <tr>
+                <td>Category</td><td>{{component.Category}}</td>
+              </tr>
+              <tr>
+                <td>SubCategory</td><td>{{component.SubCategory}}</td>
+              </tr>
+              <tr>
+                <td>Report Elements</td><td>{{component.ReportElements}}</td>
+              </tr>
+              <tr>
+                <td>Tables</td><td>{{component.Tables}}</td>
+              </tr>
+              <tr>
+                <td>Axis</td><td>{{component.Axis}}</td>
+              </tr>
+              <tr>
+                <td>Members</td><td>{{component.Members}}</td>
+              </tr>
+              <tr>
+                <td>LineItems</td><td>{{component.LineItems}}</td>
+              </tr>
+              <tr>
+                <td>Concepts</td><td>{{component.Concepts}}</td>
+              </tr>
+              <tr>
+                <td>Abstracts</td><td>{{component.Abstracts}}</td>
+              </tr>
+            </tbody>
+          </table>
+		  </div>
+          <div class="white-box-footer" style="padding: 15px;">
+            <a href="/facttable/{{aid}}/{{component.networkIdentifier}}">Fact Table</a> |
+            <a href="/modelstructure/{{aid}}/{{component.networkIdentifier}}">Model Structure</a>
+          </div>
+        </div>
+	</div>
+</div>
+</div>

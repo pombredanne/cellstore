@@ -1,56 +1,31 @@
 'use strict';
 
 angular.module('main')
-.controller('ModelStructureCtrl', function($scope, $route, $http, $backend) {
-    $scope.data = {};
-    $scope.API_URL = $backend.API_URL;
-    $scope.EntityRegistrantName = '';
-    $scope.cik = '';
-    $scope.Label = '';
-    $scope.AccessionNumber = $route.current.params.accession;
-    $scope.NetworkIdentifier = $route.current.params.networkIdentifier;
-    $scope.Table = '';
-    $scope.FiscalYear = '';
-    $scope.FiscalPeriod = '';
-    $scope.AcceptanceDatetime = '';
-    $scope.FormType = '';
-    $scope.Disclosure = '';
+.controller('ModelStructureCtrl', function($scope, $stateParams, modelStructure) {
+    $scope.cik = $stateParams.cik;
+    $scope.AccessionNumber = $stateParams.aid;
+    $scope.NetworkIdentifier = $stateParams.networkIdentifier;
 
-    $scope.getdata = function() {
-        $http({
-            method : 'GET',
-            url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
-            params : {
-                '_method' : 'POST',
-                'aid' : $scope.AccessionNumber,
-                'networkIdentifier' : $scope.NetworkIdentifier,
-                'token' : $scope.token
-            }
-        })
-        .success(function(data) {
-            $scope.data = data.ModelStructure;
-            $scope.Label = data.Label;
-            $scope.cik = (data.CIK || '').substring(23);
-            $scope.EntityRegistrantName = data.EntityRegistrantName;
-            $scope.NetworkIdentifier = data.NetworkIdentifier;
-            var p = data.Label.lastIndexOf(' - ');
-            if (p > 0) {
-                $scope.component = data.Label.substring(p+3);
-            } else {
-                $scope.component = data.Label;
-            }
-            $scope.AccessionNumber = data.AccessionNumber;
-            $scope.Table = data.TableName;
-            $scope.FiscalYear = data.FiscalYear;
-            $scope.FiscalPeriod = data.FiscalPeriod;
-            $scope.AcceptanceDatetime = data.AcceptanceDatetime;
-            $scope.FormType = data.FormType;
-            $scope.Disclosure = data.Disclosure;
-        })
-        .error(function(data, status) {
-            $scope.$emit('error', status, data);
-        });
-    };
+    modelStructure = modelStructure.data;
+    $scope.data = modelStructure.ModelStructure;
+    $scope.Label = modelStructure.Label;
+    $scope.cik = (modelStructure.CIK || '').substring(23);
+    $scope.EntityRegistrantName = modelStructure.EntityRegistrantName;
+    $scope.NetworkIdentifier = modelStructure.NetworkIdentifier;
+    var p = modelStructure.Label.lastIndexOf(' - ');
+    if (p > 0) {
+        $scope.component = modelStructure.Label.substring(p+3);
+    } else {
+        $scope.component = modelStructure.Label;
+    }
+    $scope.AccessionNumber = modelStructure.AccessionNumber;
+    $scope.Table = modelStructure.TableName;
+    $scope.FiscalYear = modelStructure.FiscalYear;
+    $scope.FiscalPeriod = modelStructure.FiscalPeriod;
+    $scope.AcceptanceDatetime = modelStructure.AcceptanceDatetime;
+    $scope.FormType = modelStructure.FormType;
+    $scope.Disclosure = modelStructure.Disclosure;
+
 
     $scope.rowReset = function() { $scope.row = 0; };
     $scope.rowIncrement = function() { $scope.row += 1; };
@@ -142,6 +117,5 @@ angular.module('main')
             return datatype;
         }
     };
-    $scope.getdata();
 });
 

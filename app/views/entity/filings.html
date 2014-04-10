@@ -1,0 +1,62 @@
+<div id="filings">
+    <ul class="breadcrumb">
+        <li class="dropdown">
+            <a class="dropdown-toggle">{{filings[0].EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
+            <ul class='dropdown-menu text-left'>
+                <li><a ui-sref="root.entity.summary({ cik: cik })">Summary</a></li>
+                <li><a ui-sref="root.entity.filings({ cik: cik })">Filings</a></li>
+            </ul>
+        </li>
+        <li></li>
+    </ul>
+<div class="std-container">
+	<div>
+        <div class="text-center">
+          <h2>Filings for {{filings[0].EntityRegistrantName}} ({{filings[0].CIK.substr(23)}})</h2>
+        </div>
+        <div>
+            <p>
+                <input type="text" class="form-control" ng-model="search" placeholder="Type here to search for filings">
+            </p>
+		  <div class="scrolling">
+           <table class="table table-striped table-condensed table-bordered">
+             <thead>
+             <th>#</th>
+             <th>Entity Registrant Name</th>
+             <th>Form</th>
+             <th>Fiscal Year</th>
+             <th>Fiscal Period</th>
+             <th>Accepted by SEC</th>
+             <th>Generator</th>
+             <th>Accession Number</th>
+             <th>Go to</th>
+             </thead>
+             <tbody>
+               <tr ng-repeat="item in filings | filter : search">
+                 <td>{{$index + 1}}</td>
+                 <td>{{item.EntityRegistrantName}}</td>
+                 <td>{{item.FormType}}</td>
+                 <td>{{item.FiscalYear}}</td>
+                 <td>{{item.FiscalPeriod}}</td>
+                 <td>{{item.Accepted}}</td>
+                 <td>{{item.Generator}}</td>
+                 <td><a href="/filing/{{item.AccessionNumber}}">{{item.AccessionNumber}}</a></td>
+                 <td class="text-center">
+                   <span class="dropdown">
+                     <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
+                     <ul class="dropdown-menu text-left pull-right">
+                       <li><a href="/filing/{{item.AccessionNumber}}">Filing Details</a></li>
+                       <li><a href="{{item.SECFilingPage}}">SEC Filing Page</a></li>
+                       <li><a href="{{item.XBRLInstanceURL}}">XBRL Instance</a></li>
+                       <li><a href="/components/{{item.AccessionNumber}}">Filing Components</a></li>
+                     </ul>
+                   </span>
+                 </td>
+               </tr>
+             </tbody>
+          </table>
+		  </div>
+        </div>
+	</div>
+</div>
+</div>

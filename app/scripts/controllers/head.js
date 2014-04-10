@@ -6,7 +6,7 @@ angular.module('main')
         restrict: 'A',
         link: function($scope, element){
             $scope.$on('$setTitle', function(event, title){
-                element.attr('content', title);
+                element.attr('content', 'secxbrl.info -' + title);
             });
         }
     };
@@ -25,7 +25,7 @@ angular.module('main')
     return {
         restrict: 'A',
         link: function($scope, element){
-            $rootScope.$on('$routeChangeStart', function(){
+            $rootScope.$on('$stateChangeStart', function(){
                 element.attr('content', 'http://28.io' + $location.path());
             });
         }
@@ -46,14 +46,14 @@ angular.module('main')
         restrict: 'E',
         link: function($scope, element){
             $scope.$on('$setTitle', function(event, title){
-                element.text(title);
+                element.text('secxbrl.info' + title);
             });
         }
     };
 })
 .controller('HeadCtrl', function($scope) {
 
-    $scope.$on('$routeChangeStart', function(event, next) {
+    $scope.$on('$stateChangeStart', function(event, next) {
         var title = (next.$$route && next.$$route.title) ? next.$$route.title : 'secxbrl.info - US Public Company Financial Information Repository';
         $scope.$broadcast('$setTitle', title);
     });

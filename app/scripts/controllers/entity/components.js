@@ -1,0 +1,32 @@
+'use strict';
+
+angular.module('main')
+.controller('ComponentsCtrl', function($scope, $stateParams, $http, $backend, components) {
+    $scope.results = [];
+    $scope.API_URL = $backend.API_URL;
+    $scope.AccessionNumber = $stateParams.accession;
+    $scope.cik = $stateParams.cik;
+    $scope.aid = $stateParams.aid;
+    
+    var a = components.data.Archives[0]; // must be only one because we query for only one accession number
+    $scope.components = a.Components;
+    $scope.EntityRegistrantName = a.EntityRegistrantName;
+    $scope.FiscalYear = a.FiscalYear;
+    $scope.FiscalPeriod = a.FiscalPeriod;
+    $scope.AcceptanceDatetime = a.AcceptanceDatetime;
+    $scope.FormType = a.FormType;
+    
+    $scope.trimTableURL = function(url) {
+        if (url.length < 30) {
+            return url;
+        }
+        return url.substr(0, 10) + '...' + url.substr(url.length - 20);
+    };
+    
+    $scope.trimNetworkURL = function(url) {
+        if (url.length < 50) {
+            return url;
+        }
+        return url.substr(0, 20) + '...' + url.substr(url.length - 30);
+    };
+});

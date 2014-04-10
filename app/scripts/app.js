@@ -1,169 +1,26 @@
 'use strict';
 
-angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle', 'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite', 'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'navbar-toggle'])
+angular.module('main', [
+    'ui.router', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle',
+    'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite',
+    'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'navbar-toggle'
+])
 .run(function($rootScope, ngProgressLite) {
-        
-    $rootScope.$on('$routeChangeStart', function() {
+    $rootScope.$on('$stateChangeStart', function() {
         ngProgressLite.start();
     });
 
-    $rootScope.$on('$routeChangeSuccess', function() {
+    $rootScope.$on('$stateChangeSuccess', function() {
+        ngProgressLite.done();
+    });
+
+    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+        //TODO: fix hardcoded 500
+        $rootScope.$emit('error', 500, error);
         ngProgressLite.done();
     });
 })
-.factory('$backend', function($q, $http, API_URL, DEBUG) {
-    return {
-        API_URL: API_URL,
-		DEBUG: DEBUG,
-
-        data: [],
-
-        getYears : function() {
-            var that = this;
-            var deferred = $q.defer();
-            if (!that.data.year || that.data.year.length === 0) {
-                that.data.year = [];
-                var year = (new Date()).getFullYear();
-                while (year >= 2009) { that.data.year.push(year); year -= 1; }
-            }
-            deferred.resolve(that.data.year);
-            return deferred.promise;
-        },
-
-		getPeriods : function() {
-            var that = this;
-            var deferred = $q.defer();
-            if (!that.data.period || that.data.period.length === 0) {
-                that.data.period = [ 'FY', 'Q3', 'Q2', 'Q1' ];
-            }
-            deferred.resolve(that.data.period);
-            return deferred.promise;
-		},
-
-        getDomainMembers: function(domain) {
-            var that = this;
-            var deferred = $q.defer();
-            if (that.data[domain] && that.data[domain].length > 0) {
-                deferred.resolve(that.data[domain]);
-                return deferred.promise;
-            }
-
-            var url;
-            switch (domain) {
-            case 'sector' :
-                url = API_URL + '/_queries/public/FilerSectorList.jq';
-                break;
-            
-            case 'generator' :
-                url = API_URL + '/_queries/public/GeneratorList.jq';
-                break;
-            
-            case 'entityType' :
-                url = API_URL + '/_queries/public/EntityTypeList.jq';
-                break;
-            
-            case 'stockIndex' :
-                url = API_URL + '/_queries/public/StockIndexList.jq';
-                break;
-            }
-            if (url) {
-                $http({ method: 'GET', url: url, params: { _method: 'POST' }, cache: true })
-                .success(function(data) {
-                    that.data[domain] =  [];
-                    if (data && data.members) {
-                        data.members.forEach(function(item) {
-                            that.data[domain].push(item[domain]);
-                        });
-                    }
-                    deferred.resolve(that.data[domain]);
-                });
-            }
-            return deferred.promise;
-        },
-
-        getTags: function() {
-            var that = this;
-            var deferred = $q.defer();
-            if (!that.data.tag || that.data.tag.length === 0) {
-                that.data.tag = ['DOW30', 'SP500', 'FORTUNE100', 'PJI'];
-            }
-            deferred.resolve(that.data.tag);
-            return deferred.promise;
-        },
-
-        getEntities: function() {
-            var that = this;
-            var deferred = $q.defer();
-            if (that.data.entities && that.data.entities.length > 0) {
-                deferred.resolve(that.data.entities);
-                return deferred.promise;
-            }
-
-            $http({ method: 'GET', url: API_URL + '/_queries/public/EntityNameTickerCIKTuples.jq', params: { _method: 'POST' }, cache: true })
-            .success(function(data) {
-                that.data.entities =  [];
-                if (data) { that.data.entities = data.entityNameTickerSymbolCikTuples; }
-                deferred.resolve(that.data.entities);
-            });
-
-            return deferred.promise;
-        },
-
-        getConceptMaps: function() {
-            var that = this;
-            var deferred = $q.defer();
-            if (that.data.conceptMaps && that.data.conceptMaps.length > 0)
-            {
-                deferred.resolve(that.data.conceptMaps);
-                return deferred.promise;
-            }
-
-            $http({ method: 'GET', url: API_URL + '/_queries/public/ConceptMaps.jq', params: { _method: 'POST' }, cache: true })
-                .success(function(data) {
-                    that.data.conceptMaps =  [];
-                    if (data) {
-                        that.data.conceptMaps = data.availableMaps;
-                    }
-                    deferred.resolve(that.data.conceptMaps);
-                });
-
-            return deferred.promise;
-        }
-    };
-})
-// Intercept http calls.
-.factory('RootScopeSpinnerInterceptor', function ($q, $rootScope, ngProgressLite) {
-    return {
-        // On request success
-        request: function (config) {
-            ngProgressLite.start();
-            // Return the config or wrap it in a promise if blank.
-            return config || $q.when(config);
-        },
-
-        // On request failure
-        requestError: function (rejection) {
-            ngProgressLite.start();
-            // Return the promise rejection.
-            return $q.reject(rejection);
-        },
-
-        // On response success
-        response: function (response) {
-            ngProgressLite.done();
-            // Return the response or promise.
-            return response || $q.when(response);
-        },
-
-        // On response failture
-        responseError: function (rejection) {
-            ngProgressLite.done();
-            // Return the promise rejection.
-            return $q.reject(rejection);
-        }
-    };
-})
-.config(function ($routeProvider, $locationProvider, $httpProvider) {
+.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider) {
     
     //Because angularjs default transformResponse is not based on ContentType
     $httpProvider.defaults.transformResponse = function(response, headers){
@@ -182,269 +39,507 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
     };
 
     $locationProvider.html5Mode(true);
-    $httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 
-    $routeProvider
-        .when('/', {
-            templateUrl: '/views/home.html'
-        })
-        .when('/clear', {
-            templateUrl: '/views/home.html',
-            resolve: {
-                cache: ['$angularCacheFactory', function($angularCacheFactory) { $angularCacheFactory.get('secxbrl').removeAll(); }]
-            }
-        })
-        .when('/about', {
-            templateUrl: '/views/about.html',
-            title: 'secxbrl.info - About'
-        })
-        .when('/api', {
-            templateUrl: '/views/api.html',
-            controller: 'ApiCtrl',
-            title: 'secxbrl.info - API Information'
-        })
-        .when('/analytics', {
-            templateUrl: '/views/analytics.html',
-            controller: 'AnalyticsCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            },
-            title: 'secxbrl.info - Analytics'
-        })
-        .when('/analytics/:year/:period/:group', {
-            templateUrl: '/views/analytics.html',
-            controller: 'AnalyticsCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            },
-            title: 'secxbrl.info - Analytics Breakdown'
-        })
-        .when('/dashboard/:cik', {
-            templateUrl: '/views/dashboard.html',
-            controller: 'DashboardCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Basic Analysis'
-        })
-        .when('/information/:cik', {
-            templateUrl: '/views/information.html',
-            controller: 'InformationCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Basic Financial Information'
-        })
-        .when('/information/:cik/:year', {
-            templateUrl: '/views/information.html',
-            controller: 'InformationCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Basic Financial Information'
-        })
-        .when('/information/:cik/:year/:period', {
-            templateUrl: '/views/information.html',
-            controller: 'InformationCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Basic Financial Information'
-        })
-        .when('/entities', {
-            templateUrl: '/views/entities.html',
-            controller: 'EntitiesCtrl',
-            title: 'secxbrl.info - Entities'
-        })
+    //TODO: refactor title property to go in data property
+    $stateProvider
+    //Root Controller
+    .state('root', {
+        templateUrl: '/views/root.html',
+        controller: function($scope){
+            $scope.$on('$stateChangeSuccess', function(event, toState) {
+                $scope.active = toState.data && toState.data.active;
+            });
+        }
+    })
+    
+    //Home
+    .state('root.home', {
+        templateUrl: '/views/home.html',
+        url: '/',
+        data: {
+            active: 'home'
+        }
+    })
+    
+    //Pricing
+    .state('root.pricing', {
+        templateUrl: '/views/pricing.html',
+        url: '/pricing',
+        title: 'Pricing',
+        data: {
+            active: 'pricing'
+        }
+    })
 
-        .when('/entity', {
-            templateUrl: '/views/entity.html',
-            controller: 'EntityCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Search for an Entity'
-        })
-        .when('/entity/:cik', {
-            templateUrl: '/views/entity.html',
-            controller: 'EntityCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-            },
-            title: 'secxbrl.info - Entity Information'
-        })
-        .when('/filings/:cik', {
-            templateUrl: '/views/filings.html',
-            controller: 'FilingsCtrl',
-            resolve: {
-                results: ['$q', '$http', '$route', '$backend', function($q, $http, $route, $backend){
-                    var deferred = $q.defer();
-                    var cik = $route.current.params.cik;
-                    $http({
-                        method : 'GET',
-                        url: $backend.API_URL + '/_queries/public/api/filings.jq',
-                        params : {
-                            '_method' : 'POST',
-                            'cik' : cik,
-                            'fiscalPeriod': 'ALL',
-                            'fiscalYear': 'ALL'
-                        }
-                    })
-                    .success(function(data) {
-                        deferred.resolve(data.Archives);
-                    });
-                    return deferred.promise;
-                }]
-            },
-            title: 'secxbrl.info - Entity Filings'
-        })
-        .when('/filing/:aid', {
-            templateUrl: '/views/filing.html',
-            controller: 'FilingCtrl',
-            title: 'secxbrl.info - Filing Information'
-        })
-        .when('/components/:accession', {
-            templateUrl: '/views/components.html',
-            controller: 'ComponentsCtrl',
-            title: 'secxbrl.info - Filing Components'
-        })
-        .when('/component/:accession/:networkIdentifier*', {
-            templateUrl: '/views/component.html',
-            controller: 'ComponentCtrl',
-            title: 'secxbrl.info - Component Information'
-        })
-        .when('/facttable/:accession/:networkIdentifier*', {
-            templateUrl: '/views/facttable.html',
-            controller: 'FactTableCtrl',
-            title: 'secxbrl.info - Component Fact Table'
-        })
-        .when('/modelstructure/:accession/:networkIdentifier*', {
-            templateUrl: '/views/modelstructure.html',
-            controller: 'ModelStructureCtrl',
-            title: 'secxbrl.info - Component Model Structure'
-        })
-        .when('/auth', {
-            templateUrl: '/views/auth.html',
-            controller: 'AuthCtrl',
-            title: 'secxbrl.info - Authenticate'
-        })
-        .when('/auth:returnPage*', {
-            templateUrl: '/views/auth.html',
-            controller: 'AuthCtrl',
-            title: 'secxbrl.info - Authenticate'
-        })
-        .when('/account', {
-            templateUrl: '/views/account.html',
-            controller: 'AccountCtrl',
-            title: 'secxbrl.info - Account'
-        })
-        .when('/account/:section', {
-            templateUrl: '/views/account.html',
-            controller: 'AccountCtrl',
-            title: 'secxbrl.info - Account'
-        })
-        .when('/concept-map/:name', {
-            templateUrl: '/views/concept-map.html',
-            controller: 'ConceptMapCtrl',
-            title: 'secxbrl.info - Concept Map'
-        })
-        .when('/example/:example', {
-            templateUrl: '/views/example.html',
-            controller: 'ExampleCtrl',
-            title: 'secxbrl.info - Example'
-        })
-        .when('/examples', {
-            templateUrl: '/views/example.html',
-            controller: 'ExampleCtrl',
-            title: 'secxbrl.info - Examples'
-        })
-        .when('/pricing', {
-            templateUrl: '/views/pricing.html',
-            title: 'secxbrl.info - Pricing'
-        })
-        .when('/disclosures', {
-            templateUrl: '/views/disclosures.html',
-            controller: 'DisclosuresCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            },
-            title: 'secxbrl.info - Disclosures'
-        })
-        .when('/disclosure/:disclosure/:year/:period', {
-            templateUrl: '/views/disclosure.html',
-            controller: 'DisclosureCtrl',
-            resolve: {
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-            },
-            title: 'secxbrl.info - Disclosure Information'
-        })
-        .when('/comparison', {
-            templateUrl: '/views/comparison.html',
-            controller: 'ComparisonCtrl',
-            title: 'secxbrl.info - Comparison'
-        })
-        .when('/comparison/information', {
-            templateUrl: '/views/comparison-information.html',
-            controller: 'ComparisonInformationCtrl',
-            title: 'secxbrl.info - Basic Financial Information'
-        })
-        .when('/comparison/search', {
-            templateUrl: '/views/comparison-search.html',
-            controller: 'ComparisonSearchCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-            },
-            title: 'secxbrl.info - Search Facts'
-        })
-        .when('/comparison/components', {
-            templateUrl: '/views/comparison-components.html',
-            controller: 'ComparisonComponentsCtrl',
-            resolve: {
-                entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-                years: ['$backend', function($backend) { return $backend.getYears(); }],
-                periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-                conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-            },
-            title: 'secxbrl.info - Search Components'
-        })
-        //Blog
-        .when('/blog/', {
-            templateUrl: '/views/blog.html',
-            controller: 'BlogCtrl',
-            resolve: {
-                blogIndex: ['BlogAPI', function(BlogAPI) {
-                    return BlogAPI.getIndex();
-                }]
-            }
-        })
-        .when('/blog/:id/:slug', {
-            templateUrl: '/views/blog.html',
-            controller: 'BlogCtrl',
-            reloadOnSearch: false,
-            resolve: {
-                blogIndex: ['BlogAPI', function(BlogAPI) {
-                    return BlogAPI.getIndex();
-                }]
-            }
-        })
-        //404
-        .otherwise({
-            templateUrl:'/views/404.html',
-            title: 'secxbrl.info - Page not found'
-        });
+    //Blog
+    .state('root.blog', {
+        url: '/blog',
+        templateUrl: '/views/blog.html',
+        controller: 'BlogCtrl',
+        data: {
+            active: 'blog'
+        },
+        resolve: {
+            blogIndex: ['BlogAPI', function(BlogAPI) {
+                return BlogAPI.getIndex();
+            }]
+        }
+    })
+    .state('root.blog.entry', {
+        url: '/blog/:id/:slug',
+        templateUrl: '/views/blog.html',
+        controller: 'BlogCtrl',
+        resolve: {
+            blogIndex: ['BlogAPI', function(BlogAPI) {
+                return BlogAPI.getIndex();
+            }]
+        }
+    })
+    
+    //API
+    //TODO: API is not stateless (aka url-able)
+    .state('root.api', {
+        url: '/api',
+        templateUrl: '/views/api.html',
+        controller: 'ApiCtrl',
+        title: 'API Information',
+        data: {
+            active: 'api'
+        }
+    })
+
+    //Entity
+    .state('root.entities', {
+        url: '/entity',
+        templateUrl: '/views/entities.html',
+        controller: 'EntitiesCtrl',
+        resolve: {
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+        },
+        title: 'Search for an Entity',
+        data: {
+            active: 'browse'
+        }
+    })
+    .state('root.entity', {
+        url: '/entity/:cik',
+        templateUrl: '/views/entity.html',
+        controller: 'EntityCtrl',
+        resolve: {
+            entity: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listEntities({ $method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
+            }]
+        },
+        data: {
+            active: 'browse'
+        }
+    })
+    
+    .state('root.entity.analytics', {
+        url: '/analytics/:year/:period/:group',
+        templateUrl: '/views/entity/analytics.html',
+        controller: 'AnalyticsCtrl',
+        resolve: {
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+        },
+        title: 'Analytical Breakdown'
+    })
+
+    //TODO: better title with the entity name
+    .state('root.entity.summary', {
+        url: '/summary',
+        templateUrl: '/views/entity/summary.html',
+        data: {
+            subActive: 'summary'
+        },
+        title: 'Entity Summary'
+    })
+    .state('root.entity.filings', {
+        url: '/filings',
+        templateUrl: '/views/entity/filings.html',
+        controller: 'FilingsCtrl',
+        resolve: {
+            filings: ['$q', '$http', '$stateParams', '$backend', function($q, $http, $stateParams, $backend){
+                var deferred = $q.defer();
+                var cik = $stateParams.cik;
+                $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'cik' : cik,
+                        'fiscalPeriod': 'ALL',
+                        'fiscalYear': 'ALL'
+                    }
+                })
+                .success(function(data) {
+                    deferred.resolve(data.Archives);
+                });
+                return deferred.promise;
+            }]
+        },
+        data: {
+            subActive: 'filings'
+        },
+        title: 'Entity Filings'
+    })
+    .state('root.entity.information', {
+        url: '/information/:year/:period',
+        templateUrl: '/views/entity/information.html',
+        controller: 'InformationCtrl',
+        resolve: {
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+        },
+        title: 'Basic Financial Information',
+        data: {
+            subActive: 'information'
+        },
+    })
+    .state('root.entity.dashboard', {
+        url: '/dashboard',
+        templateUrl: '/views/entity/dashboard.html',
+        controller: 'DashboardCtrl',
+        resolve: {
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+        },
+        title: 'Dashboard',
+        data: {
+            subActive: 'dashboard'
+        }
+    })
+    .state('root.entity.filing', {
+        url: '/filing/:aid',
+        templateUrl: '/views/entity/filing.html',
+        controller: 'FilingCtrl',
+        resolve: {
+            filing: ['$q', '$rootScope', '$stateParams', '$http', '$backend', function($q, $rootScope, $stateParams, $http, $backend){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
+                    params : {
+                        '_method': 'POST',
+                        'aid': $stateParams.aid,
+                        'token': $rootScope.token
+                    }
+                });
+            }]
+        }
+    })
+    .state('root.entity.components', {
+        url: '/components/:aid',
+        templateUrl: '/views/entity/components.html',
+        controller: 'ComponentsCtrl',
+        resolve: {
+            components: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/components.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'aid' : $stateParams.aid,
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        }
+    })
+    .state('root.entity.component', {
+        url: '/components/:aid/{networkIdentifier:.*}',
+        templateUrl: '/views/entity/component.html',
+        controller: 'ComponentCtrl',
+        resolve: {
+            component: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
+                return $http({
+                    method: 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/components.jq',
+                    params: {
+                        '_method' : 'POST',
+                        'aid' : $stateParams.aid,
+                        'networkIdentifier' : $stateParams.networkIdentifier,
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        }
+    })
+    .state('root.entity.facttable', {
+        url: '/facttable/:aid/{networkIdentifier:.*}',
+        templateUrl: '/views/entity/facttable.html',
+        controller: 'FactTableCtrl',
+        resolve: {
+            facttable: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService){
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listFactTable({
+                    $method : 'POST',
+                    aid : $stateParams.aid,
+                    networkIdentifier : $stateParams.networkIdentifier,
+                    token : $rootScope.token
+                });
+            }]
+        }
+    })
+    .state('root.entity.modelstructure', {
+        url: '/modelstructure/:aid/{networkIdentifier:.*}',
+        templateUrl: '/views/entity/modelstructure.html',
+        controller: 'ModelStructureCtrl',
+        resolve: {
+            modelStructure: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'aid' : $stateParams.aid,
+                        'networkIdentifier' : $stateParams.networkIdentifier,
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        },
+        title: 'Component Model Structure'
+    })
+    
+    //Filing
+    .state('root.filing', {
+        url: '/filing/:aid',
+        resolve: {
+            filing: ['$q', '$rootScope', '$stateParams', '$http', '$backend', function($q, $rootScope, $stateParams, $http, $backend){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
+                    params : {
+                        '_method': 'POST',
+                        'aid': $stateParams.aid,
+                        'token': $rootScope.token
+                    }
+                });
+            }]
+        },
+        controller: function($state, $stateParams, $location, filing){
+            filing = filing.data;
+            var cik = filing.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            //This state is a redirect
+            $state.go('root.entity.filing', { cik: cik, aid: $stateParams.aid });
+            $location.replace();
+        }
+    })
+    
+    //Components
+    .state('root.components', {
+        url: '/components/:aid',
+        resolve: {
+            components: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/components.jq',
+                    params : {
+                        '_method': 'POST',
+                        'aid': $stateParams.aid,
+                        'token': $rootScope.token
+                    }
+                });
+            }]
+        },
+        controller: function($state, $stateParams, $location, components){
+            components = components.data;
+            var cik = components.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            //This state is a redirect
+            $state.go('root.entity.components', { cik: cik, aid: $stateParams.aid });
+            $location.replace();
+        }
+    })
+    
+    //Component
+    .state('root.component', {
+        url: '/component/:aid/{networkIdentifier:.*}',
+        resolve: {
+            component: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/components.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'aid' : $stateParams.aid,
+                        'networkIdentifier': $stateParams.networkIdentifier,
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        },
+        controller: function($state, $stateParams, $location, component) {
+            var cik = component.data.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            var aid = $stateParams.aid;
+            var networkIdentifier = $stateParams.networkIdentifier;
+            //This state is a redirect
+            $state.go('root.entity.component', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
+            $location.replace();
+        }
+    })
+
+    //Facttable
+    .state('root.facttable', {
+        url: '/facttable/:aid/{networkIdentifier:.*}',
+        resolve: {
+            facttable: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService){
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listFactTable({
+                    $method : 'POST',
+                    aid : $stateParams.aid,
+                    networkIdentifier : $stateParams.networkIdentifier,
+                    token : $rootScope.token
+                });
+            }]
+        },
+        controller: function($state, $stateParams, $location, facttable){
+            var cik = facttable.CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            var aid = $stateParams.aid;
+            var networkIdentifier = $stateParams.networkIdentifier;
+            //This state is a redirect
+            $state.go('root.entity.facttable', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
+            $location.replace();
+        }
+    })
+    
+    //Model Structure
+    .state('root.modelstructure', {
+        url: '/modelstructure/:aid/{networkIdentifier:.*}',
+        resolve: {
+            modelStructure: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'aid' : $stateParams.aid,
+                        'networkIdentifier' : $stateParams.networkIdentifier,
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        },
+        controller: function($state, $stateParams, $location, modelStructure){
+            var cik = modelStructure.data.CIK.substring('http://www.sec.gov/CIK'.length + 1);
+            var aid = $stateParams.aid;
+            var networkIdentifier = $stateParams.networkIdentifier;
+            //This state is a redirect
+            $state.go('root.entity.modelstructure', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
+            $location.replace();
+        }
+    })
+    
+    //Auth
+    .state('root.auth', {
+        url: '/auth{returnPage:.*}',
+        templateUrl: '/views/auth.html',
+        controller: 'AuthCtrl',
+        title: 'Authenticate'
+    })
+    
+    //Account
+    .state('root.account', {
+        url: '/account',
+        templateUrl: '/views/account.html',
+        controller: 'AccountCtrl',
+        title: 'Account'
+    })
+    .state('root.accountSection', {
+        url: '/account/:section',
+        templateUrl: '/views/account.html',
+        controller: 'AccountCtrl',
+        title: 'Account'
+    })
+    
+    .state('root.conceptMap', {
+        url: '/concept-map/:name',
+        controller: 'ConceptMapCtrl',
+        templateUrl: '/views/concept-map.html',
+        title: 'Concept Map'
+    })
+    
+    .state('root.examples', {
+        url: '/examples',
+        templateUrl: '/views/example.html',
+        controller: 'ExampleCtrl',
+        title: 'Example'
+    })
+    
+    .state('root.example', {
+        url: '/example/:example',
+        templateUrl: '/views/example.html',
+        controller: 'ExampleCtrl',
+        title: 'Example'
+    })
+    
+    .state('root.disclosures', {
+        url: '/disclosures',
+        templateUrl: '/views/disclosures.html',
+        controller: 'DisclosuresCtrl',
+        resolve: {
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+        },
+        title: 'Disclosures'
+    })
+    
+    .state('root.disclosure', {
+        url: '/disclosure/:disclosure/:year/:period',
+        templateUrl: '/views/disclosure.html',
+        controller: 'DisclosureCtrl',
+        resolve: {
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+        },
+        title: 'Disclosure Information'
+    })
+    
+    .state('root.comparison', {
+        url: '/comparison',
+        templateUrl: '/views/comparison.html',
+        controller: 'ComparisonCtrl',
+        title: 'Comparison'
+    })
+    .state('root.comparisonInformation', {
+        url: '/comparison/information',
+        templateUrl: '/views/comparison-information.html',
+        controller: 'ComparisonInformationCtrl',
+        title: 'Basic Financial Information'
+    })
+    .state('root.comparisonSearch', {
+        url: '/comparison/search',
+        templateUrl: '/views/comparison-search.html',
+        controller: 'ComparisonSearchCtrl',
+        resolve: {
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+        },
+        title: 'Search Facts'
+    })
+    .state('root.comparisonComponent', {
+        url: '/comparison/components',
+        templateUrl: '/views/comparison-components.html',
+        controller: 'ComparisonComponentsCtrl',
+        resolve: {
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+        },
+        title: 'Search Components'
+    })
+
+    //404
+    .state('404', {
+        url: '{path:.*}',
+        templateUrl:'/views/404.html',
+        title: 'Page not found'
+    })
+    ;
 })
 .run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {
 
@@ -471,17 +566,13 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		$rootScope.user = cache.get('user');
 	}
 
-	$rootScope.$on('$routeChangeSuccess', function(event, current) {
-		$rootScope.page = current.loadedTemplateUrl;
-	});
-		
 	$rootScope.$on('error', function(event, status, error){
 		if (status === 401) {
             var p = $location.path();
             if (p === '/account' || p === '/account/password' || p === '/account/info') {
                 p = '';
             }
-			$rootScope.goto('/auth' + p);
+		    $location.path('/auth' + p).replace();
 			return;
 		}
 		$modal.open( {
@@ -526,7 +617,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 		if (!url) {
             url='/';
         }
-		$rootScope.goto(url);
+		$location.path(url).replace();
 	});
 
 	$rootScope.$on('logout', function(){
@@ -545,7 +636,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 			cache.remove('token');
 			cache.remove('user');
 		}
-		$rootScope.goto('/');
+		$location.path('/').replace();
 	};
 
 	$rootScope.$on('clearCache', function(){//event
@@ -554,17 +645,7 @@ angular.module('main', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angula
 
 	$rootScope.clearCache = function() {
 		$angularCacheFactory.clearAll();
-		$rootScope.goto('/');
-	};
-
-	$rootScope.goto = function(url) {
-        if (url === '/') {
-            $location.url(url, true);
-        }
-        else {
-            // keep the query string, if any
-		    $location.path(url);
-        }
+		$location.path('/').replace();
 	};
 
 	$rootScope.gotoId = function(id) {
