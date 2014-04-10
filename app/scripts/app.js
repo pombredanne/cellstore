@@ -45,7 +45,7 @@ angular.module('main', [
     //Root Controller
     .state('root', {
         templateUrl: '/views/root.html',
-        controller: function($scope, $state){
+        controller: function($scope){
             $scope.$on('$stateChangeSuccess', function(event, toState) {
                 $scope.active = toState.data && toState.data.active;
             });
