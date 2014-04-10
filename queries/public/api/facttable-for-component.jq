@@ -4,11 +4,14 @@ import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
 import module namespace fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-
+import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
+import module namespace networks = "http://xbrl.io/modules/bizql/networks";
+import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
@@ -178,6 +181,8 @@ let $archives    := (
                     )
 let $cid         := request:param-values("cid")
 let $concepts    := distinct-values(request:param-values("concept"))
+let $drilldown   := distinct-values(request:param-values("drilldown"))
+let $map         := request:param-values("map")
 let $disclosures := request:param-values("disclosure")
 let $components  := (if (exists($cid))
                     then components:components($cid)
@@ -196,7 +201,24 @@ let $entity    := entities:entities($archive.Entity)
 return
      if (session:only-dow30($entity) or session:valid())
      then {
-        let $fact-table :=  for $f in sec-networks:facts($component, {||})
+        let $facts := if (exists($drilldown))
+                     then 
+                         let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
+                         let $hc := hypercubes:hypercubes-for-components($component, sec-networks:tables($component).Name)
+                         let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive)
+                         let $map := concept-maps:concept-maps($map)
+                         let $concepts := 
+                            if (exists($map))
+                            then
+                                for $d in $drilldown
+                                return
+                                    keys(descendant-objects($p)[$$.Name = keys($map.Trees($d).To)][1].To)
+                            else
+                                for $d in $drilldown
+                                return keys(descendant-objects($p)[$$.Name eq $d].To)
+                         return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
+                     else sec-networks:facts($component, {||})
+        let $fact-table :=  for $f in $facts
                             let $a := $f.Aspects
                             return {|
                                 { "Aspects" : {|

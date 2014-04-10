@@ -450,6 +450,23 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "drilldown",
+                            "description": "Name of the concept that should be used to drill-down (e.g. us-gaap:Assets or fac:Assets).",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "map",
+                            "description": "The concept map that should be used to resolve the concept to drilldown on (default: none)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "FundamentalAccountingConcepts  <a href=\"/concept-map/FundamentalAccountingConcepts\"><i class=\"fa fa-question\"></i>"
+                              ],
+                            "paramType": "query"
+                        },
+                        {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
                             "required": false,
