@@ -262,15 +262,24 @@ a.disabled {
     padding-top: 15px;
     padding-bottom: 15px;
     
-    .hit {
-        border: 1px solid @brand-primary !important;
-        color: @brand-primary !important;
-        cursor: default !important;
-        
-        &:hover {
-            background-color: white !important;
-        }
+    .tag {
+        display: inline-block;
+        padding: 6px 12px;
+        border: 1px solid @silver;
+        border-radius: 4px;
     }
+
+    .tag.tag-primary {
+        border: 1px solid @brand-primary;
+        color: @brand-primary;
+    }
+}
+
+.export.row {
+    h2 {
+        margin: 0;
+    }
+    padding-top: 0;
 }
 
 //Olark

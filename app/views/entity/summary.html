@@ -1,7 +1,7 @@
 <div class="export">
     <div class="container">
-        <span class="btn btn-default hit"><span ng-bind="stats.NumEntities"></span> Entity</span>
-        <a class="btn btn-default" href="/entity"><span ng-bind="stats.TotalNumEntities"></span> Entities</a>
+        <span class="tag tag-primary"><span ng-bind="stats.NumEntities | number"></span> Entity</span>
+        <span class="tag"><span ng-bind="stats.TotalNumEntities | number"></span> Entities</span>
         <span class="dropdown pull-right">
         <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
         <ul class="dropdown-menu">

@@ -175,7 +175,7 @@ angular.module('main', [
                     }
                 })
                 .success(function(data) {
-                    deferred.resolve(data.Archives);
+                    deferred.resolve(data);
                 });
                 return deferred.promise;
             }]
