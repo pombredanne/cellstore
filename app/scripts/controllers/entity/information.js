@@ -207,21 +207,20 @@ angular.module('main')
         });
     };
 
-
-        $scope.entities.forEach(function(entity) {
-            if (entity.cik === $stateParams.cik) {
-				if ($scope.year && $scope.period) {
-					$scope.cik = entity.cik;
-					$scope.name = entity.name;
-					$scope.ticker = entity.tickers[0];
-					$scope.computeUsage();
-				} else {
-					$scope.year = null;
-					$scope.period = null;
-					$scope.change();
-				}
-			}
-        });
+    $scope.entities.forEach(function(entity) {
+        if (entity.cik === $stateParams.cik) {
+            if ($scope.year && $scope.period) {
+                $scope.cik = entity.cik;
+                $scope.name = entity.name;
+                $scope.ticker = entity.tickers[0];
+                $scope.computeUsage();
+            } else {
+                $scope.year = null;
+                $scope.period = null;
+                $scope.change();
+            }
+        }
+    });
 
     if ($scope.cik && $scope.year && $scope.period)
     {
