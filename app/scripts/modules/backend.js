@@ -30,47 +30,6 @@ angular.module('main')
             return deferred.promise;
 		},
 
-        getDomainMembers: function(domain) {
-            var that = this;
-            var deferred = $q.defer();
-            if (that.data[domain] && that.data[domain].length > 0) {
-                deferred.resolve(that.data[domain]);
-                return deferred.promise;
-            }
-
-            var url;
-            switch (domain) {
-            case 'sector' :
-                url = API_URL + '/_queries/public/FilerSectorList.jq';
-                break;
-            
-            case 'generator' :
-                url = API_URL + '/_queries/public/GeneratorList.jq';
-                break;
-            
-            case 'entityType' :
-                url = API_URL + '/_queries/public/EntityTypeList.jq';
-                break;
-            
-            case 'stockIndex' :
-                url = API_URL + '/_queries/public/StockIndexList.jq';
-                break;
-            }
-            if (url) {
-                $http({ method: 'GET', url: url, params: { _method: 'POST' }, cache: true })
-                .success(function(data) {
-                    that.data[domain] =  [];
-                    if (data && data.members) {
-                        data.members.forEach(function(item) {
-                            that.data[domain].push(item[domain]);
-                        });
-                    }
-                    deferred.resolve(that.data[domain]);
-                });
-            }
-            return deferred.promise;
-        },
-
         getTags: function() {
             var that = this;
             var deferred = $q.defer();
