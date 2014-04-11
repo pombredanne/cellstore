@@ -1,3 +1,18 @@
+<div class="export">
+    <div class="container">
+        <span class="btn btn-default hit"><span ng-bind="stats.NumEntities"></span> Entity</span>
+        <a class="btn btn-default" href="/entity"><span ng-bind="stats.TotalNumEntities"></span> Entities</a>
+        <span class="dropdown pull-right">
+        <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+        <ul class="dropdown-menu">
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}" target="_blank" download="{{cik.json}}">JSON</a></li>
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}" target="_blank" download="{{cik.xml}}">XML</a></li>
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">CSV</a></li>
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">Excel</a></li>
+        </ul>
+        </span>
+    </div>
+</div>
 <div class="container" id="entity-summary">
     <!--h3>{{entity.Profiles.SEC.CompanyName}}</h3-->
     <table class="table" cellpadding="5">

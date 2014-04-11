@@ -543,6 +543,7 @@ angular.module('main', [
 })
 .run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {
 
+    $rootScope.API_URL = $backend.API_URL;
 	$rootScope.DEBUG = $backend.DEBUG;
 
 	$angularCacheFactory('secxbrl-http', {

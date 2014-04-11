@@ -4,6 +4,7 @@ angular.module('main')
 .controller('EntityCtrl', function($scope, $state, $location, $stateParams, entity) {
     $scope.cik = $stateParams.cik;
     
+    $scope.stats = entity.Statistics;
     $scope.entity = entity.Entities[0];
     
     $scope.$on('$stateChangeSuccess', function(event, toState) {
