@@ -23,12 +23,32 @@
     </li>
     <li></li>
 </ul>
-
+    <div class="container">
+        <div class="row export">
+            <div class="col-lg-3">
+                <span class="tag tag-primary"><span ng-bind="Statistics.NumFacts | number"></span> Hits</span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumFacts | number"></span> Facts</span>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center">{{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h2>
+            </div>
+            <div class="col-lg-3">
+                <span class="dropdown pull-right">
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=json&_method=POST&cik={{cik}}" target="_blank" download="{{cik.json}}">JSON</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=xml&_method=POST&cik={{cik}}" target="_blank" download="{{cik.xml}}">XML</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=csv&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">CSV</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=excel&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">Excel</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
 <div class="std-container">
 	<div>
         <div ng-if="data.length">
           <div class="container">
-              <h2>Fact Table for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h2>
               <table class="table table-condensed small">
                 <tbody>
                   <tr><td>Network:</td><td>{{Label}}<br/>({{NetworkIdentifier}})</td></tr>

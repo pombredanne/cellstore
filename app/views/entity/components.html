@@ -16,11 +16,32 @@
     </li>
     <li></li>
 </ul>
+    <div class="std-container">
+        <div class="row export">
+            <div class="col-lg-3">
+                <span class="tag tag-primary"><span ng-bind="Statistics.NumComponents | number"></span> Hits</span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumComponents | number"></span> Components</span>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center">Components for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h2>
+            </div>
+            <div class="col-lg-3">
+                <!--span class="dropdown pull-right">
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}" target="_blank" download="{{cik.json}}">JSON</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}" target="_blank" download="{{cik.xml}}">XML</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">CSV</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">Excel</a></li>
+                    </ul>
+                </span-->
+            </div>
+        </div>
+    </div>
 <div class="std-container">
 	<div>
         <div>
           <div class="container">
-          <h2 class="highlight3">Components for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h2>
           <table class="table table-condensed small">
             <tbody>
               <tr><td>Form Type:</td><td>{{FormType}}</td></tr>

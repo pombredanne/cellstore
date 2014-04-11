@@ -16,10 +16,33 @@
     </li>
     <li></li>
 </ul>
+<div>
+    <div class="container">
+        <div class="export row">
+            <div class="col-lg-3">
+                <span class="tag tag-primary">1 Archive</span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+            </div>
+            <div class="col-lg-6">
+                <h2>{{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h2>
+            </div>
+            <div class="col-lg-3">
+                <span class="dropdown pull-right">
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=json&_method=POST&aid={{aid}}" target="_blank" download="{{aid.json}}">JSON</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=xml&_method=POST&aid={{aid}}" target="_blank" download="{{aid.xml}}">XML</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=csv&_method=POST&aid={{aid}}" target="_blank" download="{{aid.csv}}">CSV</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=excel&_method=POST&aid={{aid}}" target="_blank" download="{{aid.csv}}">Excel</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
 	<div class="col-md-12 spaced">
         <div class="white-box">
-        <h3 class="highlight3">{{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h3>
         <div class="scrolling">
           <table class="table">
             <tbody>

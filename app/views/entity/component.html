@@ -23,10 +23,32 @@
     </li>
     <li></li>
 </ul>
+    <div class="container">
+        <div class="row export">
+            <div class="col-lg-3">
+                <span class="tag tag-primary">1 Hit</span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumComponents | number"></span> Archives</span>
+                <!--span class="tag"><span ng-bind="Statistics.TotalNumEntities | number"></span> Entities</span-->
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center">{{archive.EntityRegistrantName}} ({{archive.FiscalPeriod}} / {{archive.FiscalYear}})</h2>
+            </div>
+            <div class="col-lg-3">
+                <!--span class="dropdown pull-right">
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}" target="_blank" download="{{cik.json}}">JSON</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}" target="_blank" download="{{cik.xml}}">XML</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">CSV</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">Excel</a></li>
+                    </ul>
+                </span-->
+            </div>
+        </div>
+    </div>
 <div class="container">
 	<div class="col-md-12 spaced">
         <div class="white-box">
-          <h3 class="highlight3">{{archive.EntityRegistrantName}} ({{archive.FiscalPeriod}} / {{archive.FiscalYear}})</h3>
         <div class="scrolling">
           <table class="table">
             <tbody>

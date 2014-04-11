@@ -12,9 +12,9 @@
     <div class="std-container">
         <div class="row export">
             <div class="col-lg-3">
-                <span class="tag tag-primary"><span ng-bind="stats.NumArchives | number"></span> Archives</span>
-                <span class="tag"><span ng-bind="stats.TotalNumArchives | number"></span> Archives</span>
-                <span class="tag"><span ng-bind="stats.TotalNumEntities | number"></span> Entities</span>
+                <span class="tag tag-primary"><span ng-bind="Statistics.NumArchives | number"></span> Hits</span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+                <!--span class="tag"><span ng-bind="Statistics.TotalNumEntities | number"></span> Entities</span-->
             </div>
             <div class="col-lg-6">
                 <h2 class="text-center">Filings for {{filings[0].EntityRegistrantName}} ({{filings[0].CIK.substr(23)}})</h2>

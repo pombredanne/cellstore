@@ -6,6 +6,7 @@ angular.module('main', [
     'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'navbar-toggle'
 ])
 .run(function($rootScope, ngProgressLite) {
+  
     $rootScope.$on('$stateChangeStart', function() {
         ngProgressLite.start();
     });
@@ -19,6 +20,18 @@ angular.module('main', [
         $rootScope.$emit('error', 500, error);
         ngProgressLite.done();
     });
+})
+.factory('StatsInterceptor', function($q, $rootScope){
+    return {
+        'response': function(response) {
+            if(response.data.Statistics){
+                console.log(response.data.Statistics);
+                $rootScope.Statistics = response.data.Statistics;
+            }
+            // do something on success
+            return response || $q.when(response);
+        }
+    };
 })
 .config(function ($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider) {
     
@@ -37,7 +50,7 @@ angular.module('main', [
             return response;
         }
     };
-
+    $httpProvider.interceptors.push('StatsInterceptor');
     $locationProvider.html5Mode(true);
 
     //TODO: refactor title property to go in data property
@@ -151,6 +164,12 @@ angular.module('main', [
     .state('root.entity.summary', {
         url: '/summary',
         templateUrl: '/views/entity/summary.html',
+        resolve: {
+            entity: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listEntities({ $method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
+            }]
+        },
         data: {
             subActive: 'summary'
         },
