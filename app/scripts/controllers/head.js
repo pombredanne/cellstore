@@ -54,7 +54,6 @@ angular.module('main')
 .controller('HeadCtrl', function($scope) {
 
     $scope.$on('$stateChangeStart', function(event, next) {
-        console.log(next);
         var title = (next.data && next.data.title) ? next.data.title : 'US Public Company Financial Information Repository';
         $scope.$broadcast('$setTitle', title);
     });
