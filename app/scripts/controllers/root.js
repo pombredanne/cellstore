@@ -1,4 +1,4 @@
-'root strict';
+'use strict';
 
 angular.module('main')
 .controller('RootCtrl', function($scope){

@@ -1,1 +1,0 @@
-truncate("filingStatsCache2");

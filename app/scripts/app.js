@@ -151,19 +151,6 @@ angular.module('main', [
         }
     })
     
-    .state('root.entity.analytics', {
-        url: '/analytics/:year/:period/:group',
-        templateUrl: '/views/entity/analytics.html',
-        controller: 'AnalyticsCtrl',
-        resolve: {
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-        },
-        data: {
-            title: 'Analytical Breakdown'
-        }
-    })
-
     //TODO: better title with the entity name
     .state('root.entity.summary', {
         url: '/summary',
