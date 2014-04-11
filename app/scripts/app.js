@@ -78,9 +78,9 @@ angular.module('main', [
     .state('root.pricing', {
         templateUrl: '/views/pricing.html',
         url: '/pricing',
-        title: 'Pricing',
         data: {
-            active: 'pricing'
+            active: 'pricing',
+            title: 'Pricing'
         }
     })
 
@@ -90,7 +90,8 @@ angular.module('main', [
         templateUrl: '/views/blog.html',
         controller: 'BlogCtrl',
         data: {
-            active: 'blog'
+            active: 'blog',
+            title: 'Blog'
         },
         resolve: {
             blogIndex: ['BlogAPI', function(BlogAPI) {
@@ -102,6 +103,9 @@ angular.module('main', [
         url: '/blog/:id/:slug',
         templateUrl: '/views/blog.html',
         controller: 'BlogCtrl',
+        data: {
+            title: 'Blog'
+        },
         resolve: {
             blogIndex: ['BlogAPI', function(BlogAPI) {
                 return BlogAPI.getIndex();
@@ -117,7 +121,8 @@ angular.module('main', [
         controller: 'ApiCtrl',
         title: 'API Information',
         data: {
-            active: 'api'
+            active: 'api',
+            title: 'API'
         }
     })
 
@@ -129,9 +134,9 @@ angular.module('main', [
         resolve: {
             entities: ['$backend', function($backend) { return $backend.getEntities(); }]
         },
-        title: 'Search for an Entity',
         data: {
-            active: 'browse'
+            active: 'browse',
+            title: 'Search for an Entity'
         }
     })
     .state('root.entity', {
@@ -145,7 +150,8 @@ angular.module('main', [
             }]
         },
         data: {
-            active: 'browse'
+            active: 'browse',
+            title: 'Entity'
         }
     })
     
@@ -157,7 +163,9 @@ angular.module('main', [
             years: ['$backend', function($backend) { return $backend.getYears(); }],
             periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
         },
-        title: 'Analytical Breakdown'
+        data: {
+            title: 'Analytical Breakdown'
+        }
     })
 
     //TODO: better title with the entity name
@@ -171,9 +179,9 @@ angular.module('main', [
             }]
         },
         data: {
-            subActive: 'summary'
-        },
-        title: 'Entity Summary'
+            subActive: 'summary',
+            title: 'Entity Summary'
+        }
     })
     .state('root.entity.filings', {
         url: '/filings',
@@ -200,9 +208,9 @@ angular.module('main', [
             }]
         },
         data: {
-            subActive: 'filings'
-        },
-        title: 'Entity Filings'
+            subActive: 'filings',
+            title: 'Entity Filings'
+        }
     })
     .state('root.entity.information', {
         url: '/information/:year/:period',
@@ -213,9 +221,9 @@ angular.module('main', [
             periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
             entities: ['$backend', function($backend) { return $backend.getEntities(); }]
         },
-        title: 'Basic Financial Information',
         data: {
-            subActive: 'information'
+            subActive: 'information',
+            title: 'Basic Financial Information'
         },
     })
     .state('root.entity.dashboard', {
@@ -227,7 +235,8 @@ angular.module('main', [
         },
         title: 'Dashboard',
         data: {
-            subActive: 'dashboard'
+            subActive: 'dashboard',
+            title: 'Dashboard'
         }
     })
     .state('root.entity.filing', {
@@ -246,6 +255,9 @@ angular.module('main', [
                     }
                 });
             }]
+        },
+        data: {
+            title: 'Filing'
         }
     })
     .state('root.entity.components', {
@@ -264,6 +276,9 @@ angular.module('main', [
                     }
                 });
             }]
+        },
+        data: {
+            title: 'Components'
         }
     })
     .state('root.entity.component', {
@@ -283,6 +298,9 @@ angular.module('main', [
                     }
                 });
             }]
+        },
+        data: {
+            title: 'Component'
         }
     })
     .state('root.entity.facttable', {
@@ -299,6 +317,9 @@ angular.module('main', [
                     token : $rootScope.token
                 });
             }]
+        },
+        data: {
+            title: 'Fact Table'
         }
     })
     .state('root.entity.modelstructure', {
@@ -319,7 +340,9 @@ angular.module('main', [
                 });
             }]
         },
-        title: 'Component Model Structure'
+        data: {
+            title: 'Component Model Structure'
+        }
     })
     
     //Filing
@@ -455,7 +478,9 @@ angular.module('main', [
         url: '/auth{returnPage:.*}',
         templateUrl: '/views/auth.html',
         controller: 'AuthCtrl',
-        title: 'Authenticate'
+        data: {
+            title: 'Login'
+        }
     })
     
     //Account
@@ -463,34 +488,44 @@ angular.module('main', [
         url: '/account',
         templateUrl: '/views/account.html',
         controller: 'AccountCtrl',
-        title: 'Account'
+        data: {
+            title: 'Account'
+        }
     })
     .state('root.accountSection', {
         url: '/account/:section',
         templateUrl: '/views/account.html',
         controller: 'AccountCtrl',
-        title: 'Account'
+        data: {
+            title: 'Account'
+        }
     })
     
     .state('root.conceptMap', {
         url: '/concept-map/:name',
         controller: 'ConceptMapCtrl',
         templateUrl: '/views/concept-map.html',
-        title: 'Concept Map'
+        data: {
+            title: 'Concept Map'
+        }
     })
     
     .state('root.examples', {
         url: '/examples',
         templateUrl: '/views/example.html',
         controller: 'ExampleCtrl',
-        title: 'Example'
+        data: {
+            title: 'Example'
+        }
     })
     
     .state('root.example', {
         url: '/example/:example',
         templateUrl: '/views/example.html',
         controller: 'ExampleCtrl',
-        title: 'Example'
+        data: {
+            title: 'Example'
+        }
     })
     
     .state('root.disclosures', {
@@ -501,7 +536,9 @@ angular.module('main', [
             years: ['$backend', function($backend) { return $backend.getYears(); }],
             periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
         },
-        title: 'Disclosures'
+        data: {
+            title: 'Disclosures'
+        }
     })
     
     .state('root.disclosure', {
@@ -512,20 +549,26 @@ angular.module('main', [
             years: ['$backend', function($backend) { return $backend.getYears(); }],
             periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
         },
-        title: 'Disclosure Information'
+        data: {
+            title: 'Disclosure Information'
+        }
     })
     
     .state('root.comparison', {
         url: '/comparison',
         templateUrl: '/views/comparison.html',
         controller: 'ComparisonCtrl',
-        title: 'Comparison'
+        data: {
+            title: 'Comparison'
+        }
     })
     .state('root.comparisonInformation', {
         url: '/comparison/information',
         templateUrl: '/views/comparison-information.html',
         controller: 'ComparisonInformationCtrl',
-        title: 'Basic Financial Information'
+        data: {
+            title: 'Basic Financial Information'
+        }
     })
     .state('root.comparisonSearch', {
         url: '/comparison/search',
@@ -537,7 +580,9 @@ angular.module('main', [
             periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
             conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
         },
-        title: 'Search Facts'
+        data: {
+            title: 'Search Facts'
+        }
     })
     .state('root.comparisonComponent', {
         url: '/comparison/components',
@@ -549,14 +594,18 @@ angular.module('main', [
             periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
             conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
         },
-        title: 'Search Components'
+        data: {
+            title: 'Search Components'
+        }
     })
 
     //404
     .state('404', {
         url: '{path:.*}',
         templateUrl:'/views/404.html',
-        title: 'Page not found'
+        data: {
+            title: 'Page not found'
+        }
     })
     ;
 })
