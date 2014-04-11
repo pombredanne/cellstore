@@ -56,14 +56,12 @@
                 
                 <div class="alert alert-danger" ng-if="error">
                     <h4>You are accessing filings for entities that are not part of DOW30.</h4>
-                    To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form.
+                    To view that information you have to login with your credentials. If you do not have an account, you can create one using the <a href="/auth">registration form</a>.
                 </div>
 
                 <div class="alert alert-info" ng-if="errormany">
-                    <h4>You are trying to compare information from {{filings.length}} filings.</h4>
-                    Although our system can display the information, the volume of data will make it very hard to compare visually.<br />
-                    We suggest you refine the filter for more accurate information.<br/><br/>
-                    <button class="btn btn-primary" ng-click="forceShow()">I understand, show the information anyway</button>
+                    <h4>You are trying to compare information across {{filings.length}} filings.</h4>
+                    Your account is restricted to compare 30 filings at a time. Please <a href="mailto:hello@28.io">contact us</a> to talk about your use case.
                 </div>
             </div>
         </div>

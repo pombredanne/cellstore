@@ -38,11 +38,7 @@ angular.module('main')
             }
         },
         function(response) {
-            if (response.status === '401') {
-                $scope.error = true;
-            } else {
-                $scope.$emit('error', response.status, response.data);
-            }
+            $scope.$emit('error', response.status, response.data);
         });
     });
 
@@ -112,7 +108,11 @@ angular.module('main')
             $scope.errormany = false;
         })
         .error(function (data, status) {
-            $scope.$emit('error', status, data);
+            if (status === 401) {
+                $scope.error = true;
+            } else {
+                $scope.$emit('error', status, data);
+            }
         });
     };
 
