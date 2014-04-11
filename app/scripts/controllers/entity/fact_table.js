@@ -24,30 +24,30 @@ angular.module('main')
     $scope.AcceptanceDatetime = facttable.AcceptanceDatetime;
     $scope.FormType = facttable.FormType;
 
-                if ($scope.data && $scope.data.length > 0)
-                {
-                    $scope.columns.push('xbrl:Entity');
-                    $scope.columns.push('xbrl:Period');
-                    $scope.columns.push('xbrl:Concept');
-                    var insertIndex = 3;
-                    $.map($scope.data[0].Aspects, function (el, index) {
-                        switch (index)
-                        {
-                            case 'xbrl:Entity':
-                                $scope.entityIndex = 0;
-                                break;
-                            case 'xbrl:Concept':
-                            case 'xbrl:Period':
-                                break;
-                            case 'dei:LegalEntityAxis':
-                                $scope.columns.splice(insertIndex, 0, index);
-                                insertIndex++;
-                                break;
-                            default:
-                                $scope.columns.splice(insertIndex, 0, index);
-                        }
-                    });
-                }
+    if ($scope.data && $scope.data.length > 0)
+    {
+        $scope.columns.push('xbrl:Entity');
+        $scope.columns.push('xbrl:Period');
+        $scope.columns.push('xbrl:Concept');
+        var insertIndex = 3;
+        $.map($scope.data[0].Aspects, function (el, index) {
+            switch (index)
+            {
+                case 'xbrl:Entity':
+                    $scope.entityIndex = 0;
+                    break;
+                case 'xbrl:Concept':
+                case 'xbrl:Period':
+                    break;
+                case 'dei:LegalEntityAxis':
+                    $scope.columns.splice(insertIndex, 0, index);
+                    insertIndex++;
+                    break;
+                default:
+                    $scope.columns.splice(insertIndex, 0, index);
+            }
+        });
+    }
 
     $scope.trimURL = function(url) {
         if (url.length < 40) {

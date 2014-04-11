@@ -837,48 +837,6 @@ ul.selector li.disabled:after
 	}
 }
 
-.fade-panel-analytics {
-    position: absolute;
-	bottom: 5px;
-	padding: 15px;
-	font-size: 20px;
-	left: 15px;
-	right: 15px;
-    text-align: center;
-    z-index: 101;
-    background: #64b783;
-    color: #ffffff;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
-
-.fade-panel-analytics .arrow{
-    position: absolute;
-    background: url('../images/arrow_right.png') no-repeat 0 0;
-	background-size: 46px 42px;
-    bottom: -35px;
-    right: 45%;
-    width: 50px;
-    height: 42px;
-}
-
-@media (min-width: 768px) {
-	.fade-panel-analytics {
-		top: 142px;
-		right: 15px;
-		bottom: auto;
-	}
-
-	.fade-panel-analytics .arrow {
-		background-size: 87px 84px;
-		bottom: -60px;
-		right: -89px;
-		width: 87px;
-		height: 84px;
-	}
-}
-
 .fade-control { 
 	position: relative;
     z-index: 101;
