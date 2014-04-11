@@ -137,7 +137,7 @@ angular.module('main')
         })
         .success(function (data) {
             var root = data[0].Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To;
-            var prepareReport = function(list, array) {
+            var prepareReport = function(list, array, zeroed) {
                 for (var key in list) {
                     if (list.hasOwnProperty(key)) {
                         var item = {};
@@ -157,7 +157,7 @@ angular.module('main')
                             item.auditValue = '';
                             if (list[key].Facts[0].AuditTrails && list[key].Facts[0].AuditTrails.length > 0) {
                                 switch(list[key].Facts[0].AuditTrails[0].Type) {
-                                case 'bizql:concept-maps':
+                                case 'xbrl28:concept-maps':
                                     item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
                                     item.auditValue = list[key].Facts[0].AuditTrails[0].Data.OriginalConcept;
                                     break;
@@ -165,13 +165,26 @@ angular.module('main')
                                     item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
                                     item.auditValue = list[key].Facts[0].AuditTrails[0].Data.Dimension;
                                     break;
+                                case 'xbrl28:formula':
+                                    item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
+                                    item.auditValue = list[key].Facts[0].AuditTrails[0].Message;
+                                    break;
+                                case 'xbrl28:validation':
+                                    item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
+                                    item.auditValue = list[key].Facts[0].AuditTrails[0].Message;
+                                    break;
                                 }
                             }
                         } else {
-                            item.value = '';
+                            item.value = null;
                             item.type = '';
-                            item.auditLabel = '';
-                            item.auditValue = '';
+                            if (zeroed) {
+                              item.auditLabel = item.label;
+                              item.auditValue = list[key].Name + '[0] := 0';
+                            } else {
+                              item.auditLabel = '';
+                              item.auditValue = '';
+                            }
                         }
                         array.push(item);
                     }
@@ -179,9 +192,13 @@ angular.module('main')
             };
                 
             for (var report in root) {
-                if (root.hasOwnProperty(report) && report !== 'fac:KeyRatiosHierarchy') {
-                    var obj = { name: root[report].Label.toString().replace(' [Hierarchy]', ''), items: [] };
-                    prepareReport(root[report].To, obj.items);
+                if (root.hasOwnProperty(report)) {
+                    var obj = {
+                      name: root[report].Label.toString().replace(' [Hierarchy]', ''),
+                      items: [],
+                      zeroed: (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy') 
+                    };
+                    prepareReport(root[report].To, obj.items, obj.zeroed);
                     $scope.reports.push(obj);
                     $scope.showtab.push(true);
                 }

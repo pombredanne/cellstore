@@ -80,12 +80,11 @@
                                     <tbody>
                                         <tr ng-repeat="item in report.items">
                                             <td style="min-width: 250px">{{item.label}}</td>
-                                            <td class="nowrap" ng-class="{ 'text-right' : (item.type == 'NumericValue') }">{{item.value}}</td>
+                                            <td class="nowrap" ng-class="{ 'text-right' : (item.type == 'NumericValue' || report.zeroed) }">{{item.value || (report.zeroed?'0':'')}}</td>
                                             <td>
                                                 <a popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="click" ng-if="item.auditValue">
 									           {{substring(item.auditValue, 30)}}
 								                </a>
-                                                <span ng-if="!item.auditValue">Not Reported (Imputation of Business Rules Coming Soon)</span>
                                             </td>
                                         </tr>
                                     </tbody>
