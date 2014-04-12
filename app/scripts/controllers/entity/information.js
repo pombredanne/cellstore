@@ -137,7 +137,7 @@ angular.module('main')
         })
         .success(function (data) {
             var root = data[0].Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To;
-            var prepareReport = function(list, array, zeroed) {
+            var prepareReport = function(list, array, isNumeric, decimals) {
                 for (var key in list) {
                     if (list.hasOwnProperty(key)) {
                         var item = {};
@@ -149,7 +149,7 @@ angular.module('main')
                                 if (!num) {
                                     num = '0';
                                 }
-                                item.value = parseFloat(num).toLocaleString();
+                                item.value = accounting.formatNumber(num, decimals);
                             } else {
                                 item.value = list[key].Facts[0].Value;
                             }
@@ -176,14 +176,16 @@ angular.module('main')
                                 }
                             }
                         } else {
-                            item.value = null;
-                            item.type = '';
-                            if (zeroed) {
-                              item.auditLabel = item.label;
-                              item.auditValue = list[key].Name + '[0] := 0';
+                            if (isNumeric) {
+                                item.value = null;
+                                item.type = 'NumericValue';
+                                item.auditLabel = item.label;
+                                item.auditValue = list[key].Name + '[0] := 0';
                             } else {
-                              item.auditLabel = '';
-                              item.auditValue = '';
+                                item.value = null;
+                                item.type = '';
+                                item.auditLabel = '';
+                                item.auditValue = '';
                             }
                         }
                         array.push(item);
@@ -196,9 +198,26 @@ angular.module('main')
                     var obj = {
                       name: root[report].Label.toString().replace(' [Hierarchy]', ''),
                       items: [],
-                      zeroed: (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy') 
+                      isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report == 'fac:KeyRatiosHierarchy'),
+                      isBoolean : (report === 'fac:Validations')
                     };
-                    prepareReport(root[report].To, obj.items, obj.zeroed);
+                    if (report === 'fac:BalanceSheetHierarchy' &&
+                      root['fac:GeneralInformationHierarchy'] && 
+                      root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'] && 
+                      root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts &&
+                      root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts.length > 0)
+                    {
+                      obj.specifier = root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts[0].Value;
+                    }
+                    if (report === 'fac:IncomeStatementHierarchy' &&
+                      root['fac:GeneralInformationHierarchy'] && 
+                      root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'] && 
+                      root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts &&
+                      root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts.length > 0)
+                    {
+                      obj.specifier = root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts[0].Value;
+                    }
+                    prepareReport(root[report].To, obj.items, obj.isNumeric, (report == 'fac:KeyRatiosHierarchy' ? 3 : 0));
                     $scope.reports.push(obj);
                     $scope.showtab.push(true);
                 }
@@ -208,7 +227,18 @@ angular.module('main')
             $scope.$emit('error', status, data);
         });
     };
-        
+
+    $scope.isBlock = function(string) {
+        if (!string) {
+            return false;
+        }
+        return string.length > 60;
+    };
+
+    $scope.showText = function(html) {
+        $scope.$emit('alert', 'Text Details', html);
+    };
+
     $scope.openEntityDetails = function(){
         $modal.open({
             templateUrl: '/views/entity_details.html',

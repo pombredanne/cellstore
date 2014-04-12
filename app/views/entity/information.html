@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div class="col-md-9 col-sm-8 col-xs-12">
+        <div class="col-md-9 col-sm-8 col-xs-12" id="divInformation">
             <div>
                 <h2>Compute analytics based on information extracted from the SEC filings</h2>
                 <div>
@@ -63,28 +63,25 @@
                                     <i class="fa fa-caret-right" ng-hide="showtab[$index]"></i>
                                     {{report.name}}
                                 </a>
+                                <small>{{report.specifier}}</small>
                             </h3>
 
-                            <div ng-show="showtab[$index]">
-                                <table class="table">
+                            <div ng-show="showtab[$index]" class="table-responsive">
+                                <table class="table table-condensed" ng-class="{ 'info-numeric': report.isNumeric, 'info-boolean': report.isBoolean }">
                                     <thead>
                                         <th>Label</th>
                                         <th>Value</th>
                                         <th>Audit Trail</th>
                                     </thead>
-                                    <cols>
-                                        <col width="45%"></col>
-                                        <col width="20%"></col>
-                                        <col width="35%"></col>
-                                    </cols>
                                     <tbody>
                                         <tr ng-repeat="item in report.items">
-                                            <td style="min-width: 250px">{{item.label}}</td>
-                                            <td class="nowrap" ng-class="{ 'text-right' : (item.type == 'NumericValue' || report.zeroed) }">{{item.value || (report.zeroed?'0':'')}}</td>
+                                            <td>{{item.label}}</td>
+                                            <td class="nowrap text-right" ng-if="(item.type == 'NumericValue')">{{item.value || 0}}</td>
+                                            <td class="nowrap text-center" ng-if="(report.isBoolean)"><i class="fa" ng-class="{ 'fa-check-circle': item.value, 'success': item.value, 'fa-exclamation-circle': !item.value }"></i></td>
+                                            <td class="nowrap" ng-if="(!report.isBoolean && item.type != 'NumericValue' && !isBlock(item.value))">{{item.value || ' '}}</td>
+                                            <td class="nowrap" ng-if="(!report.isBoolean && item.type != 'NumericValue' && isBlock(item.value))"><a ng-click="showText(item.value)">Show Text</a></td>
                                             <td>
-                                                <a popover="{{item.auditValue}}" popover-title="{{item.auditLabel}}" popover-placement="left" popover-trigger="click" ng-if="item.auditValue">
-									           {{substring(item.auditValue, 30)}}
-								                </a>
+                                                <small>{{item.auditValue}}</small>
                                             </td>
                                         </tr>
                                     </tbody>
