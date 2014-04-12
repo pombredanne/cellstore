@@ -105,15 +105,19 @@ let $fiscalYears := distinct-values(
                     for $y in request:param-values("fiscalYear", "LATEST")
                     return
                         if ($y eq "ALL")
-                        then $fiscal:ALL_FISCAL_YEARS 
+                        then $fiscal:ALL_FISCAL_YEARS
                         else if ($y eq "LATEST")
-                        then for $cik in $ciks
-                             for $fp in $fiscalPeriods
-                             return
-                                (fiscal:latest-reported-fiscal-period($cik, $fp).year) ! ($$ cast as integer)
+                          then for $cik in $ciks
+                               for $fp in $fiscalPeriods
+                               return
+                                   if ($fiscal:ALL_FISCAL_PERIODS eq $fp)
+                                   then
+                                       (fiscal:latest-reported-fiscal-period($cik).year) ! ($$ cast as integer) 
+                                   else 
+                                       (fiscal:latest-reported-fiscal-period($cik, $fp).year) ! ($$ cast as integer) 
                         else if ($y castable as integer)
                         then $y cast as integer
-                        else () 
+                        else ()
                 )
 let $archives := (archives:archives($aids),
                     for $fp in $fiscalPeriods, $fy in $fiscalYears
