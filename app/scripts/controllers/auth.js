@@ -44,7 +44,7 @@ angular.module('main')
 							//MunchkinHelper.associateLead({ Email: $scope.email, FirstName: $scope.firstname, LastName: $scope.lastname, Company: $scope.companyname, accountsecxbrlinfo: true });
                             //update act-on
                             $http({
-                                url: '//pages.28.io/acton/eform/9568/0001/d-ext-0001',
+                                url: '//ci56.actonsoftware.com/acton/eform/9568/0001/d-ext-0001',
                                 method: 'POST',
                                 params: {
                                     'First Name': $scope.firstname,
