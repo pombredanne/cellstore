@@ -209,8 +209,7 @@ angular.module('main', [
         controller: 'InformationCtrl',
         resolve: {
             years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
         },
         title: 'Basic Financial Information',
         data: {
