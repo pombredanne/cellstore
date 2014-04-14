@@ -20,6 +20,38 @@ angular.module('main', [
         ngProgressLite.done();
     });
 })
+// Intercept http calls.
+.factory('RootScopeSpinnerInterceptor', function ($q, $rootScope, ngProgressLite) {
+    return {
+        // On request success
+        request: function (config) {
+            ngProgressLite.start();
+            // Return the config or wrap it in a promise if blank.
+            return config || $q.when(config);
+        },
+
+        // On request failure
+        requestError: function (rejection) {
+            ngProgressLite.start();
+            // Return the promise rejection.
+            return $q.reject(rejection);
+        },
+
+        // On response success
+        response: function (response) {
+            ngProgressLite.done();
+            // Return the response or promise.
+            return response || $q.when(response);
+        },
+
+        // On response failture
+        responseError: function (rejection) {
+            ngProgressLite.done();
+            // Return the promise rejection.
+            return $q.reject(rejection);
+        }
+    };
+})
 .config(function ($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider) {
     
     //Because angularjs default transformResponse is not based on ContentType
@@ -188,9 +220,6 @@ angular.module('main', [
         url: '/dashboard',
         templateUrl: '/views/entity/dashboard.html',
         controller: 'DashboardCtrl',
-        resolve: {
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-        },
         title: 'Dashboard',
         data: {
             subActive: 'dashboard'
