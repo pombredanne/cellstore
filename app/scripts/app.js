@@ -71,6 +71,7 @@ angular.module('main', [
     };
 
     $locationProvider.html5Mode(true);
+    $httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 
     //TODO: refactor title property to go in data property
     $stateProvider
