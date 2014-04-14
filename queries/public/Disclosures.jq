@@ -1,3 +1,37 @@
+import module namespace req = "http://www.28msec.com/modules/http/request";
+
+declare function local:list($file)
+{
+    for $el in $file//node()
+    where $el/@dataType/string() eq "dis:Disclosure"
+    return {
+        label: $el/@label/string(),
+        name:
+            let $name := $el/@name/string()
+            let $prefix := $el/@prefix/string() || ":"
+            return if (starts-with($name, $prefix)) then substring-after($name, $prefix) else $name,
+        topic: $el/parent::Concept/@label/string()
+    }
+};
+
+declare function local:tree($file, $level)
+{
+    for $el in $file/node()
+    return {
+        level: $level,
+        label: $el/@label/string(),
+        name:
+            let $name := $el/@name/string()
+            let $prefix := $el/@prefix/string() || ":"
+            return if (starts-with($name, $prefix)) then substring-after($name, $prefix) else $name,
+        type:
+            let $type := $el/@dataType/string()
+            let $prefix := $el/@prefix/string() || ":"
+            return if (starts-with($type, $prefix)) then substring-after($type, $prefix) else $type,
+        children: [ local:tree($el, $level + 1) ]
+    }
+};
+
 let $file := 
 <Component>
 <Network label='US GAAP' identifier='http://www.xbrlsite.com/us-gaap/US-GAAP'>
@@ -1060,15 +1094,8 @@ let $file :=
 </Network>
 </Component>
 
-return [
-for $el in $file//node()
-where $el/@dataType/string() eq "dis:Disclosure"
-return {
-    label: $el/@label/string(),
-    name:
-        let $name := $el/@name/string()
-        let $prefix := $el/@prefix/string() || ":"
-        return if (starts-with($name, $prefix)) then substring-after($name, $prefix) else $name,
-    topic: $el/parent::Concept/@label/string()
-}
-]
+return 
+if (req:parameter-values("output", "list") eq "tree") then
+    [ local:tree($file, 0) ]
+else
+    [ local:list($file) ]

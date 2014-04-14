@@ -48,7 +48,7 @@
           </div>
           <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
           <div class="scrolling">
-              <div class="divtable small modelstructure">
+              <div class="divtable small" id="table-model-structure">
                 {{rowReset()}}
                 <div class="line head"><span>#</span><span>Label</span><span>Object Class</span><span>Data Type</span><span>Period</span><span>Balance</span><span>Report Element</span></div>
                 <script type="text/ng-template" id="item_line.html">{{rowIncrement()}}
