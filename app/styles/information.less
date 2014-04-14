@@ -1,28 +1,40 @@
 #divInformation {
-    table.table > tbody > tr > td:nth-child(1) {
-        width: 30%;
-        min-width: 250px;
+    table.table 
+    {
+        > tbody > tr > td:nth-child(1) {
+            width: 30%;
+            min-width: 250px;
+        }
+        > tbody > tr > td:nth-child(2) {
+            width: 25%;
+        }
+        > tbody > tr > td:nth-child(2) {
+            width: 45%;
+        }
     }
-    table.table > tbody > tr > td:nth-child(2) {
-        width: 25%;
+    table.table.info-numeric
+    {
+        > thead > tr > th:nth-child(2) {
+            text-align: right;
+        }
+        > tbody > tr > td:nth-child(2) {
+            width: 150px;
+        }
     }
-    table.table > tbody > tr > td:nth-child(2) {
-        width: 45%;
-    }
-    table.table.info-numeric > thead > tr > th:nth-child(2) {
-        text-align: right;
-    }
-    table.table.info-numeric > tbody > tr > td:nth-child(2) {
-        width: 150px;
-    }
-    table.table.info-boolean > thead > tr > th:nth-child(2) {
-        text-align: center;
-    }
-    table.table.info-boolean > tbody > tr > td:nth-child(2) {
-        width: 150px;
-        color: @pomegranate;
-    }
-    table.table.info-boolean > tbody > tr > td:nth-child(2) .success {
-        color: @nephritis;
+    table.table.info-boolean
+    {
+        > thead > tr > th:nth-child(2) {
+            text-align: center;
+        }
+        > tbody > tr > td:nth-child(2) {
+            width: 150px;
+        }
+        .semaphore {
+            color: @pomegranate;
+            font-size: 1.4em;
+        }
+        .semaphore.success {
+            color: @nephritis;
+        }
     }
 }

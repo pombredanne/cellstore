@@ -57,7 +57,7 @@ angular.module('main')
             cache: false
         })
         .success(function (data) {
-            var prepareReport = function(list, array, index) {
+            var prepareReport = function(list, array, index, isNumeric, decimals) {
                 var j = 0, item;
                 for (var key in list) {
                     if (list.hasOwnProperty(key)) {
@@ -75,13 +75,21 @@ angular.module('main')
                             if (list[key].Facts[0].Type === 'NumericValue') {
                                 var num = list[key].Facts[0].Value;
                                 if (!num) { num = '0'; }
-                                item.value[index] = parseFloat(num).toLocaleString();
+                                item.value[index] = accounting.formatNumber(num, decimals);
                             } else {
                                 item.value[index] = list[key].Facts[0].Value;
                             }
                         } else {
-                            item.value[index] = '';
-                            item.type[index] = '';
+                            if (isNumeric)
+                            {
+                                item.value[index] = 0;
+                                item.type[index] = 'NumericValue';
+                            }
+                            else 
+                            {
+                                item.value[index] = '';
+                                item.type[index] = '';
+                            }
                         }
                         j++;
                     }
@@ -95,10 +103,19 @@ angular.module('main')
                 for (var report in root) {
                     if (root.hasOwnProperty(report) && report !== 'fac:KeyRatiosHierarchy') {
                         if (i === 0) {
-                            var obj = { name: root[report].Label.toString().replace(' [Hierarchy]', ''), items: [] };
+                            var obj = { 
+                                name: root[report].Label.toString().replace(' [Hierarchy]', ''), 
+                                items: [],
+                                isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report == 'fac:KeyRatiosHierarchy'),
+                                isBoolean : (report === 'fac:Validations')
+                            };
+                            if (report === 'fac:KeyRatiosHierarchy')
+                            {
+                              obj.decimals = 3;
+                            }
                             $scope.reports[k] = obj;
                         }
-                        prepareReport(root[report].To, $scope.reports[k].items, i);
+                        prepareReport(root[report].To, $scope.reports[k].items, i, $scope.reports[k].isNumeric, $scope.reports[k].decimals || 0);
                         $scope.showtab.push(true);
                         k++;
                     }

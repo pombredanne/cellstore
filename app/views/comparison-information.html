@@ -37,8 +37,11 @@
                                 </tr>
                                 <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
                                     <td>{{item.label}}</td>
-                                    <td class="nowrap" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
+                                    <td class="nowrap" ng-if="!report.isBoolean" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
                                         {{v}}
+                                    </td>
+                                    <td class="nowrap text-center" ng-if="report.isBoolean" ng-repeat="v in item.value track by $index">
+                                        <i class="fa semaphore" ng-class="{ 'fa-check-circle': item.value, 'success': v, 'fa-exclamation-circle': !v }"></i>
                                     </td>
                                 </tr>
                             </tbody>

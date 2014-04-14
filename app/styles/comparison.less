@@ -21,6 +21,15 @@
     }
 }
 
-#comparison-information-table > tbody > tr > td:first-child {
-    min-width: 240px;
+#comparison-information-table {
+    > tbody > tr > td:first-child {
+        min-width: 240px;
+    }
+    .semaphore {
+        color: @pomegranate;
+        font-size: 1.4em;
+    }
+    .semaphore.success {
+        color: @nephritis;
+    }
 }
