@@ -20,15 +20,15 @@
                 <h2 class="text-center">Filings for {{filings[0].EntityRegistrantName}} ({{filings[0].CIK.substr(23)}})</h2>
             </div>
             <div class="col-lg-3">
-                <!--span class="dropdown pull-right">
+                <span class="dropdown pull-right">
                     <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
                     <ul class="dropdown-menu">
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}" target="_blank" download="{{cik.json}}">JSON</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}" target="_blank" download="{{cik.xml}}">XML</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">CSV</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">Excel</a></li>
+                        <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="{{cik}}_filings.json">JSON</a></li>
+                        <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="{{cik}}_filings.xml">XML</a></li>
+                        <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="{{cik}}_filings.csv">CSV</a></li>
+                        <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="{{cik}}_filings.csv">Excel</a></li>
                     </ul>
-                </span-->
+                </span>
             </div>
         </div>
     </div>

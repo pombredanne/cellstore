@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('FactTableCtrl', function($scope, $stateParams, facttable) {
+.controller('FactTableCtrl', function($rootScope, $scope, $stateParams, $backend, facttable) {
     
     $scope.columns = [];
     $scope.AccessionNumber = $stateParams.aid;
@@ -81,5 +81,9 @@ angular.module('main')
             return false;
         }
         return string.length > 60;
+    };
+    
+    $scope.getExportURL = function(format){        
+        return $backend.API_URL + '/_queries/public/api/facttable-for-component.jq?_method=POST&format=' + format +'&aid=' + $stateParams.aid + '&networkIdentifier=' + encodeURIComponent($stateParams.networkIdentifier) + '&token=' + $rootScope.token;
     };
 });

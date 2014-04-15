@@ -36,11 +36,10 @@
                 <span class="dropdown pull-right">
                     <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
                     <ul class="dropdown-menu">
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=json&_method=POST&cid={{AccessionNumber}}" target="_blank" download="{{AccessionNumber.json}}">JSON</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=xml&_method=POST&cid={{AccessionNumber}}" target="_blank" download="{{AccessionNumber.xml}}">XML</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=csv&_method=POST&cid={{AccessionNumber}}" target="_blank" download="{{AccessionNumber.csv}}">CSV</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=excel&_method=POST&cid={{AccessionNumber}}" target="_blank" download="{{AccessionNumber.csv}}">Excel</a></li>
-                    </ul>
+                        <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="{{AccessionNumber}}_facttable.json">JSON</a></li>
+                        <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="{{AccessionNumber}}_facttable.xml">XML</a></li>
+                        <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="{{AccessionNumber}}_facttable.csv">CSV</a></li>
+                        <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="{{AccessionNumber}}_facttable.csv">Excel</a></li></ul>
                 </span>
             </div>
         </div>

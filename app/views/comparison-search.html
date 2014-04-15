@@ -1,12 +1,11 @@
-<div class="menu">
-    <div class="btn-group">
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-home"></i></a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-th-large"></i> Basic Financial Information</a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-search"></i> Search Facts</a>
-        <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-quote-left"></i> Search Components</a>
+    <div class="menu">
+        <div class="btn-group">
+            <a class="btn btn-default" ng-class="{ active: subActive === 'compare' }" ng-href="/comparison?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-home"></i></a>
+            <a class="btn btn-default" ng-class="{ active: subActive === 'information' }" ng-href="/comparison/information?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-th-large"></i> Basic Financial Information</a>
+            <a class="btn btn-default" ng-class="{ active: subActive === 'search' }" ng-href="/comparison/search?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-search"></i> Search Facts</a>
+            <a class="btn btn-default" ng-class="{ active: subActive === 'components' }" ng-href="/comparison/components?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-quote-left"></i> Search Components</a>
+        </div>
     </div>
-</div>
-
 <div class="cols row">
 	<div class="col-left col-md-3 col-sm-4 col-xs-12 selection" ng-include="'/views/comparison-filter.html'"></div>
 	<div class="col-right col-md-9 col-sm-8 col-xs-12">
@@ -18,7 +17,7 @@
                 <span class="tag" ng-if="data"><span ng-bind="Statistics.TotalNumFacts | number"></span> Facts</span>
             </div>
             <div class="col-lg-6">
-                <h2 class="text-center">Retrieve facts and concepts values from the SEC filings</h2>
+                <h2 class="text-center">Retrieve facts from all filings</h2>
             </div>
             <div class="col-lg-3">
                 <span class="dropdown pull-right" ng-if="data">

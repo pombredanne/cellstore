@@ -539,7 +539,9 @@ angular.module('main', [
         templateUrl: '/views/comparison.html',
         controller: 'ComparisonCtrl',
         data: {
-            title: 'Comparison'
+            title: 'Comparison',
+            active: 'compare',
+            subActive: 'compare'
         }
     })
     .state('root.comparisonInformation', {
@@ -547,7 +549,9 @@ angular.module('main', [
         templateUrl: '/views/comparison-information.html',
         controller: 'ComparisonInformationCtrl',
         data: {
-            title: 'Basic Financial Information'
+            title: 'Basic Financial Information',
+            active: 'compare',
+            subActive: 'information'
         }
     })
     .state('root.comparisonSearch', {
@@ -561,7 +565,9 @@ angular.module('main', [
             conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
         },
         data: {
-            title: 'Search Facts'
+            title: 'Search Facts',
+            active: 'compare',
+            subActive: 'search'
         }
     })
     .state('root.comparisonComponent', {
@@ -575,7 +581,9 @@ angular.module('main', [
             conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
         },
         data: {
-            title: 'Search Components'
+            title: 'Search Components',
+            active: 'compare',
+            subActive: 'components'
         }
     })
 
