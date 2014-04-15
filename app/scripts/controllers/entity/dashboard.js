@@ -1,33 +1,18 @@
 'use strict';
 
 angular.module('main')
-.controller('DashboardCtrl', function ($scope, $rootScope, $anchorScroll, $location, $state, $stateParams, $http, $modal, $backend, QueriesService, entity) {
-    entity = entity.Entities[0];
-
+.controller('DashboardCtrl', function ($scope, $rootScope, $anchorScroll, $location, $state, $stateParams, $http, $modal, $backend, QueriesService) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.table1 = null;
     $scope.table2 = null;
     $scope.cik = ($stateParams.cik ? $stateParams.cik : null);
-
-    $scope.openEntityDetails = function () {
-        $modal.open({
-            templateUrl: '/views/entity_details.html',
-            controller: 'EntityDetailsCtrl',
-            resolve: {
-                name: function () { return $scope.name; },
-                cik: function () { return $scope.cik; },
-                ticker: function () { return $scope.ticker; },
-                result: function () { return entity; }
-            }
-        });
-    };
 
     var makeTooltip = function (key, item1, title1, item2, title2) {
         if (!item1 && !item2) {
             return ' ';
         }
         var ret = '<dl class="chart-tip"><dt>' + key + '</dt><dd>';
-        if (item1) { 
+        if (item1) {
             ret += '<i class="fa fa-square" style="color:#428BCA"></i> ' + title1 + ': ' + item1.toLocaleString();
         }
         if (item2) {
@@ -74,7 +59,7 @@ angular.module('main')
             colors: ['#428BCA', '#ff9900'],
             width: '80%',
             height: 500,
-           chartArea: { left: 120, top: 40, width: '85%', height: '80%' },
+            chartArea: { left: 120, top: 40, width: '85%', height: '80%' },
             tooltip: { isHtml: true },
             focusTarget: 'category',
             bar: { groupWidth: '30%' },
@@ -190,7 +175,7 @@ angular.module('main')
                 if (q3) {
                     sum = sum - (parseFloat(q3[2].v) || 0);
                 }
-                    q4[2].v = sum;
+                q4[2].v = sum;
             }
             if (!q4[3].v && fy[3].v) {
                 q4[3].v = fy[3].v;
