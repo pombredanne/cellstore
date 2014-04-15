@@ -73,7 +73,7 @@ let $periods := let $period := upper-case(request:param-values("fiscalPeriod", "
 let $years   := let $years := request:param-values("fiscalYear", "ALL")
                 return
                     if ($years = "ALL")
-                    then ()
+                    then $sec-fiscal:ALL_FISCAL_YEARS
                     else $years ! $$ cast as integer
 let $concept := request:param-values("concept", "us-gaap:Assets")[1]
 let $map     := request:param-values("map")[1]
