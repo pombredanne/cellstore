@@ -11,7 +11,20 @@
     <div class="row cols">
         <div class="col-md-3 col-sm-4 col-xs-12" ng-include="'/views/comparison-filter.html'"></div>
         <div class="col-md-9 col-sm-8 col-xs-12">
-            <h2>Filings included in the filter</h2>
+            
+    <div class="export">
+        <div class="row">
+            <div class="col-lg-3">
+                <span class="tag tag-primary" ng-if="filings.length"><span ng-bind="Statistics.NumArchives | number"></span> Hits</span>
+                <span class="tag" ng-if="filings.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center">Filings included in the filter</h2>
+            </div>
+            <div class="col-lg-3">
+            </div>
+        </div>
+    </div>
             <div ng-show="filings">
                 <p>
                     <input type="text" class="form-control" ng-model="search" placeholder="Type here to search for filings">

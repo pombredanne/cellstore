@@ -10,8 +10,30 @@
 <div class="cols row">
 	<div class="col-left col-md-3 col-sm-4 col-xs-12 selection" ng-include="'/views/comparison-filter.html'"></div>
 	<div class="col-right col-md-9 col-sm-8 col-xs-12">
+	
+    <div class="export">
+        <div class="row">
+            <div class="col-lg-3">
+                <span class="tag tag-primary" ng-if="data"><span ng-bind="Statistics.NumFacts | number"></span> Hits</span>
+                <span class="tag" ng-if="data"><span ng-bind="Statistics.TotalNumFacts | number"></span> Facts</span>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center">Retrieve facts and concepts values from the SEC filings</h2>
+            </div>
+            <div class="col-lg-3">
+                <span class="dropdown pull-right" ng-if="data">
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-href="{{getUrl('json')}}" download="comparison-search.json" target="_blank">JSON</a></li>
+                        <li><a ng-href="{{getUrl('xml')}}" download="comparison-search.xml" target="_blank">XML</a></li>
+                        <li><a ng-href="{{getUrl('csv')}}" download="comparison-search.csv" target="_blank">CSV</a></li>
+                        <li><a ng-href="{{getUrl('excel')}}" download="comparison-search.csv" target="_blank">Excel</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
 		<div>
-			<h2>Retrieve facts and concepts values from the SEC filings</h2>
             <form ng-submit="submit()">
 				<div>
                    <label>
@@ -124,14 +146,6 @@
             Here are some working examples: 
             <a href="/comparison/search?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY&map=FundamentalAccountingConcepts&concept=fac:Revenues">Revenues for DOW30 in 2013</a> or 
             <a href="/comparison/search?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1&concept=us-gaap:Assets">Assets for Coca Cola and Walmart throughout 2012</a>
-        </div>
-        <div class="text-right" ng-if="data">
-            All data as:
-              <a href="{{getUrl('json')}}" download="comparison-search.json" target="_blank">JSON</a>,
-              <a href="{{getUrl('xml')}}" download="comparison-search.xml" target="_blank">XML</a>,
-              <a href="{{getUrl('csv')}}" download="comparison-search.csv" target="_blank">CSV</a>,
-              <a href="{{getUrl('excel')}}" download="comparison-search.csv" target="_blank">Excel</a>
-            </div>
         </div>
 
 	</div>
