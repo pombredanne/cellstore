@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('ComponentsCtrl', function($scope, $stateParams, $http, $backend, components) {
+.controller('ComponentsCtrl', function($rootScope, $scope, $stateParams, $http, $backend, components) {
     $scope.results = [];
     $scope.API_URL = $backend.API_URL;
     $scope.AccessionNumber = $stateParams.accession;
@@ -28,5 +28,9 @@ angular.module('main')
             return url;
         }
         return url.substr(0, 20) + '...' + url.substr(url.length - 30);
+    };
+    
+    $scope.getExportURL = function(format){
+        return $backend.API_URL + '/_queries/public/api/components.jq?_method=POST&aid=' + $stateParams.aid + '&token=' + $rootScope.token;
     };
 });

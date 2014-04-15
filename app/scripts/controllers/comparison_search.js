@@ -288,5 +288,9 @@ angular.module('main')
         }
         return str;
     };
+    
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+        $scope.subActive = toState.data && toState.data.subActive;
+    });
 
 });

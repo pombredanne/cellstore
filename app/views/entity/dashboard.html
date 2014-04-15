@@ -1,3 +1,25 @@
+    <div class="container export">
+        <div class="row ">
+            <div class="col-lg-3">
+                <span class="tag tag-primary">1 Hit</span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+            </div>
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-3">
+                <span class="dropdown pull-right">
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{getUrl('json')}}" download="dashboard-{{cik}}.json" target="_blank">JSON</a></li>
+                        <li><a href="{{getUrl('xml')}}" download="dashboard-{{cik}}.xml" target="_blank">XML</a></li>
+                        <li><a href="{{getUrl('csv')}}" download="dashboard-{{cik}}.csv" target="_blank">CSV</a></li>
+                        <li><a href="{{getUrl('excel')}}" download="dashboard-{{cik}}.csv" target="_blank">Excel</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+
 <div id="dashboard" class="std-container">
     <div class="text-center">
         <h2>Net Income vs. Revenue</h2>

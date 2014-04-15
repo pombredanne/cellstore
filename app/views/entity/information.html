@@ -34,6 +34,10 @@
         <div class="col-md-9 col-sm-8 col-xs-12">
             <div>
                 <h2>Compute analytics based on information extracted from the SEC filings</h2>
+                <!--div class="export">
+                    <span class="tag tag-primary"><span ng-bind="Statistics.NumArchives | number"></span> Archives</span>
+                    <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+                </div-->
                 <div>
                     <div ng-repeat="report in reports" scroll-id="report{{$index}}">
                         <div>

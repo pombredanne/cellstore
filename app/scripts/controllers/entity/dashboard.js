@@ -221,4 +221,17 @@ angular.module('main')
         .catch(function (response) {
             $scope.$emit('error', response.status, response.data);
         });
+        
+    $scope.getUrl = function (format) {
+        var str = $backend.API_URL + '/_queries/public/api/facts.jq';
+        var params = angular.copy($scope.params);
+        if (format) {
+            params['format'] = format;
+        }
+        var qs = $scope.wwwFormUrlencoded(params);
+        if (qs) {
+            str += '?' + qs;
+        }
+        return str;
+    };
 });
