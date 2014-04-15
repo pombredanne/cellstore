@@ -34,15 +34,15 @@
                 <h2 class="text-center">{{archive.EntityRegistrantName}} ({{archive.FiscalPeriod}} / {{archive.FiscalYear}})</h2>
             </div>
             <div class="col-lg-3">
-                <!--span class="dropdown pull-right">
+                <span class="dropdown pull-right">
                     <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
                     <ul class="dropdown-menu">
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}" target="_blank" download="{{cik.json}}">JSON</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}" target="_blank" download="{{cik.xml}}">XML</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">CSV</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">Excel</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&cid={{aid}}" target="_blank" download="{{aid.json}}">JSON</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&cid={{aid}}" target="_blank" download="{{aid.xml}}">XML</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&cid={{aid}}" target="_blank" download="{{aid.csv}}">CSV</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=excel&_method=POST&cid={{aid}}" target="_blank" download="{{aid.csv}}">Excel</a></li>
                     </ul>
-                </span-->
+                </span>
             </div>
         </div>
     </div>
