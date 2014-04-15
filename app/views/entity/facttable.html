@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row export">
             <div class="col-lg-3">
-                <span class="tag tag-primary"><span ng-bind="Statistics.NumFacts | number"></span> Hits</span>
+                <span class="tag tag-primary">1 Hit</span>
                 <span class="tag"><span ng-bind="Statistics.TotalNumFacts | number"></span> Facts</span>
             </div>
             <div class="col-lg-6">
@@ -36,10 +36,10 @@
                 <span class="dropdown pull-right">
                     <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
                     <ul class="dropdown-menu">
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=json&_method=POST&cik={{cik}}" target="_blank" download="{{cik.json}}">JSON</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=xml&_method=POST&cik={{cik}}" target="_blank" download="{{cik.xml}}">XML</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=csv&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">CSV</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=excel&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">Excel</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=json&_method=POST&cid={{AccessionNumber}}" target="_blank" download="{{AccessionNumber.json}}">JSON</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=xml&_method=POST&cid={{AccessionNumber}}" target="_blank" download="{{AccessionNumber.xml}}">XML</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=csv&_method=POST&cid={{AccessionNumber}}" target="_blank" download="{{AccessionNumber.csv}}">CSV</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/facttable-for-component.jq?format=excel&_method=POST&cid={{AccessionNumber}}" target="_blank" download="{{AccessionNumber.csv}}">Excel</a></li>
                     </ul>
                 </span>
             </div>
