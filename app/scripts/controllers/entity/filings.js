@@ -5,6 +5,6 @@ angular.module('main')
     $scope.filings = filings.Archives;
     
     $scope.getExportURL = function(format){
-        return $backend.API_URL + '/_queries/public/api/filings.jq?cik=' + $scope.cik + '&format=' + format + '&_method=POST&token=' + $rootScope.token;
+        return $backend.API_URL + '/_queries/public/api/filings.jq?cik=' + $scope.cik + '&format=' + format + '&_method=POST&token=' + $rootScope.token + '&fiscalYear=ALL&fiscalPeriod=ALL';
     };
 });
