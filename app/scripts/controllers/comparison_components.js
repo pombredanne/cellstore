@@ -195,5 +195,9 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         }
         return str;
     };
+
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+        $scope.subActive = toState.data && toState.data.subActive;
+    });
 }
 );

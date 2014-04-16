@@ -1,18 +1,41 @@
 <div>
     <div class="menu">
         <div class="btn-group">
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison.html'" href="/comparison?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-home"></i></a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-information.html'" href="/comparison/information?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-th-large"></i> Basic Financial Information</a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-search.html'" href="/comparison/search?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-search"></i> Search Facts</a>
-            <a class="btn btn-default" ng-model="page" btn-radio="'/views/comparison-components.html'" href="/comparison/components?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-quote-left"></i> Search Components</a>
+            <a class="btn btn-default" ng-class="{ active: subActive === 'compare' }" ng-href="/comparison?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-home"></i></a>
+            <a class="btn btn-default" ng-class="{ active: subActive === 'information' }" ng-href="/comparison/information?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-th-large"></i> Basic Financial Information</a>
+            <a class="btn btn-default" ng-class="{ active: subActive === 'search' }" ng-href="/comparison/search?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-search"></i> Search Facts</a>
+            <a class="btn btn-default" ng-class="{ active: subActive === 'components' }" ng-href="/comparison/components?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-quote-left"></i> Search Components</a>
         </div>
     </div>
 
     <div class="cols row">	
         <div class="col-md-3 col-sm-4 col-xs-12" ng-include="'/views/comparison-filter.html'"></div>
         <div class="col-md-9 col-sm-8 col-xs-12">
+        
+        
+    <div class="export">
+        <div class="row">
+            <div class="col-lg-3">
+                <span class="tag tag-primary" ng-if="reports.length"><span ng-bind="Statistics.NumArchives | number"></span> Hits</span>
+                <span class="tag" ng-if="reports.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center">Compare Basic Financial Information Across Selected Filings</h2>
+            </div>
+            <div class="col-lg-3">
+                <span class="dropdown pull-right" ng-if="reports.length">
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-href="{{getUrl('json')}}" download="comparison-information.json" target="_blank">JSON</a></li>
+                        <li><a href="{{getUrl('xml')}}" download="comparison-information.xml" target="_blank">XML</a></li>
+                        <li><a href="{{getUrl('csv')}}" download="comparison-information.csv" target="_blank">CSV</a></li>
+                        <li><a href="{{getUrl('excel')}}" download="comparison-information.csv" target="_blank">Excel</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
             <div>
-                <h2>Compare Basic Financial Information Across Selected Filings</h2>
 
                 <div ng-if="reports.length">
                     <div class="table-responsive">
@@ -44,14 +67,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-
-                <div class="text-right" ng-if="reports.length">
-                    All data as:
-                    <a href="{{getUrl('json')}}" download="comparison-information.json" target="_blank">JSON</a>,
-                    <a href="{{getUrl('xml')}}" download="comparison-information.xml" target="_blank">XML</a>,
-                    <a href="{{getUrl('csv')}}" download="comparison-information.csv" target="_blank">CSV</a>,
-                    <a href="{{getUrl('excel')}}" download="comparison-information.csv" target="_blank">Excel</a>
                 </div>
                 
                 <div class="alert alert-danger" ng-if="error">
