@@ -511,26 +511,22 @@ angular.module('main', [
     .state('root.disclosures', {
         url: '/disclosures',
         templateUrl: '/views/disclosures.html',
-        controller: 'DisclosuresCtrl',
         resolve: {
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+            disclosures: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/Disclosures.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'output': 'tree',
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
         },
+        controller: 'DisclosuresCtrl',
         data: {
             title: 'Disclosures'
-        }
-    })
-    
-    .state('root.disclosure', {
-        url: '/disclosure/:disclosure/:year/:period',
-        templateUrl: '/views/disclosure.html',
-        controller: 'DisclosureCtrl',
-        resolve: {
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-        },
-        data: {
-            title: 'Disclosure Information'
         }
     })
     

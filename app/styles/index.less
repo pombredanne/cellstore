@@ -11,6 +11,7 @@
 @import "chart.less";
 @import "pricing.less";
 @import "blog.less";
+@import "disclosures.less";
 
 .breadcrumb {
     border-bottom: 1px solid @clouds;
@@ -131,67 +132,13 @@ ul.selector {
             vertical-align: top;
             word-wrap: break-word;            
         }
-        
-        > span:nth-child(1) {
-            width: 3%;
-        }
-
-        > span:nth-child(2) {
-            width: 35%;
-        }
-
-        > span:nth-child(3) {
-            width: 8%;
-        }
-
-        > span:nth-child(4) {
-            width: 8%;
-        }
-
-        > span:nth-child(5) {
-            width: 8%;
-        }
-
-        > span:nth-child(6) {
-            width: 8%;
-        }
-
-        > span:nth-child(7) {
-            width: 30%;
-        }
-
-        .head {
-            border-bottom: 2px solid gainsboro;
-            > span {
-                font-weight: bold;
-                padding: 8px 5px;
-            }
-        }
     }
-}
-
-.modelstructure {
-    span.Table {
-        color: #cc0099;
-        font-weight: bold;
-    }
-    
-    span.Axis {
-        color: #9922c6;
-        font-weight: bold;
-    }
-
-    span.Member {
-        color: #db58ed;
-    }
-
-    span.LineItems {
-        color: #009933;
-        font-weight: bold;
-    }
-    
-    .line > span:nth-child(6) {
-        text-transform: capitalize;
+    .head {
+        border-bottom: 2px solid gainsboro;
+        > span {
+            font-weight: bold;
+            padding: 8px 5px;
+        }
     }
 }
 
