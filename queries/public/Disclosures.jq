@@ -1095,7 +1095,7 @@ let $file :=
 </Component>
 
 return 
-if (req:parameter-values("output", "list") eq "tree") then
+if (lower-case(req:parameter-values("output", "list")[1]) eq "tree") then
     [ local:tree($file, 0) ]
 else
     [ local:list($file) ]
