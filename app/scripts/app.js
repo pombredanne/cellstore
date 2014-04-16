@@ -433,7 +433,7 @@ angular.module('main', [
             disclosures: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
                 return $http({
                     method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/Disclosures2.jq',
+                    url: $backend.API_URL + '/_queries/public/Disclosures.jq',
                     params : {
                         '_method' : 'POST',
                         'output': 'tree',
