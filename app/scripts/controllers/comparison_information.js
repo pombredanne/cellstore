@@ -43,6 +43,7 @@ angular.module('main')
     });
 
     $scope.getInfo = function() {
+        
         $scope.reports = [];
         $scope.params = {
                 _method: 'POST',
@@ -85,8 +86,7 @@ angular.module('main')
                                 item.value[index] = 0;
                                 item.type[index] = 'NumericValue';
                             }
-                            else 
-                            {
+                            else {
                                 item.value[index] = '';
                                 item.type[index] = '';
                             }
@@ -103,15 +103,15 @@ angular.module('main')
                 for (var report in root) {
                     if (root.hasOwnProperty(report) && report !== 'fac:KeyRatiosHierarchy') {
                         if (i === 0) {
-                            var obj = { 
-                                name: root[report].Label.toString().replace(' [Hierarchy]', ''), 
+                            var obj = {
+                                name: root[report].Label.toString().replace(' [Hierarchy]', ''),
                                 items: [],
-                                isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report == 'fac:KeyRatiosHierarchy'),
+                                isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report === 'fac:KeyRatiosHierarchy'),
                                 isBoolean : (report === 'fac:Validations')
                             };
                             if (report === 'fac:KeyRatiosHierarchy')
                             {
-                              obj.decimals = 3;
+                                obj.decimals = 3;
                             }
                             $scope.reports[k] = obj;
                         }

@@ -235,7 +235,7 @@ angular.module('main')
     };
 
     $scope.getUrl = function(format) {
-        var str = $backend.API_URL + '/_queries/public/' + $scope.example.file;
+        var str = ($backend.API_URL.indexOf('//') === 0 ? $location.protocol() + ':' + $backend.API_URL : $backend.API_URL) + '/_queries/public/' + $scope.example.file;
         var params = angular.copy($scope.params);
         if (format) {
             params.format = format;
