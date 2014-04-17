@@ -21,6 +21,10 @@ if (is-available-collection($user:rights))
 then truncate($user:rights);
 else create($user:rights);
 
+if (is-available-collection("reportcache"))
+then truncate("reportcache");
+else create("reportcache");
+
 flush();
 
 user:new-right("rights", "Rights", (), 1);
