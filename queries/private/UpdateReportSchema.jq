@@ -1,4 +1,7 @@
-db:truncate("reportcache");
+if (is-available-collection("reportcache"))
+then truncate("reportcache");
+else create("reportcache");
+
 db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"], 
 {
   "_id" : "FundamentalAccountingConcepts", 

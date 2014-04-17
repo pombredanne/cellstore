@@ -137,11 +137,13 @@ let $archives    := (
 let $entities    := entities:entities($archives.Entity)
 let $report := request:param-values("report")
 let $facts :=
-    for $archive in $archives
+    for $fact in core:facts-for-schema($report, $archives)
+    group by $archive := $fact.Archive
+    let $archive := archives:archives($archive)
     let $entity    := entities:entities($archive.Entity)
     let $fp := $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus 
     let $fy := $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus
-    for $fact in core:facts-for-schema($report, $archive)
+    for $fact in $fact
     return
     {|
         { Aspects : {|
