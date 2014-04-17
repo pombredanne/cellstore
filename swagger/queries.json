@@ -450,15 +450,15 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "drilldown",
-                            "description": "Name of the concept that should be used to drill-down (e.g. us-gaap:Assets or fac:Assets).",
+                            "name": "rollup",
+                            "description": "Name of the concept that should be used to roll up on (e.g. us-gaap:Assets or fac:Assets). The root of the roll up will be included in the result.",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "map",
-                            "description": "The concept map that should be used to resolve the concept to drilldown on (default: none)",
+                            "description": "The concept map that should be used to resolve the concept to rollup on (default: none)",
                             "required": false,
                             "type": "string",
                             "enum": [

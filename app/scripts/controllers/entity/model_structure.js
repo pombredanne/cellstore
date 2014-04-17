@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('ModelStructureCtrl', function($scope, $stateParams, modelStructure) {
+.controller('ModelStructureCtrl', function($rootScope, $scope, $stateParams, $backend, modelStructure) {
     $scope.cik = $stateParams.cik;
     $scope.AccessionNumber = $stateParams.aid;
     $scope.NetworkIdentifier = $stateParams.networkIdentifier;
@@ -116,6 +116,11 @@ angular.module('main')
         default:
             return datatype;
         }
+    };
+    
+    
+    $scope.getExportURL = function(format){
+        return $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq?_method=POST&aid=' + $stateParams.aid + '&token=' + $rootScope.token;
     };
 });
 

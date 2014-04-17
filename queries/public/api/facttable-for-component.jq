@@ -181,7 +181,7 @@ let $archives    := (
                     )
 let $cid         := request:param-values("cid")
 let $concepts    := distinct-values(request:param-values("concept"))
-let $drilldown   := distinct-values(request:param-values("drilldown"))
+let $rollup      := distinct-values(request:param-values("rollup"))
 let $map         := request:param-values("map")
 let $disclosures := request:param-values("disclosure")
 let $components  := (if (exists($cid))
@@ -201,21 +201,21 @@ let $entity    := entities:entities($archive.Entity)
 return
      if (session:only-dow30($entity) or session:valid())
      then {
-        let $facts := if (exists($drilldown))
+        let $facts := if (exists($rollup))
                      then 
                          let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
-                         let $hc := hypercubes:hypercubes-for-components($component, sec-networks:tables($component).Name)
+                         let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube") (: sec-networks:tables($component).Name) :)
                          let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive)
                          let $map := concept-maps:concept-maps($map)
                          let $concepts := 
                             if (exists($map))
                             then
-                                for $d in $drilldown
+                                for $d in $rollup
                                 return
                                     keys(descendant-objects($p)[$$.Name = keys($map.Trees($d).To)][1].To)
                             else
-                                for $d in $drilldown
-                                return keys(descendant-objects($p)[$$.Name eq $d].To)
+                                for $d in $rollup
+                                return ($d, keys(descendant-objects($p)[$$.Name eq $d].To))
                          return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
                      else sec-networks:facts($component, {||})
         let $fact-table :=  for $f in $facts

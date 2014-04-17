@@ -33,4 +33,12 @@ angular.module('main')
             }
         });
     });
+    
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+        $scope.subActive = toState.data && toState.data.subActive;
+    });
+    
+    $scope.getExportURL = function(format){        
+        return $backend.API_URL + '/_queries/public/api/filings.jq?_method=POST&fiscalPeriod=' + $scope.selection.fiscalPeriod + '&fiscalYear=' + $scope.selection.fiscalYear + '&tag=' + $scope.selection.tag + '&format=' + format + '&token=' + $scope.token;
+    };
 });

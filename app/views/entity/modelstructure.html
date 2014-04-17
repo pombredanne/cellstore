@@ -24,11 +24,32 @@
     <li></li>
 </ul>
 
+    <div class="container">
+        <div class="row export">
+            <div class="col-lg-3">
+                <span class="tag tag-primary">1 Hit</span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center">Model Structure for {{EntityRegistrantName}}<br>({{FiscalPeriod}} / {{FiscalYear}})</h2>
+            </div>
+            <div class="col-lg-3">
+                <span class="dropdown pull-right">
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="{{AccessionNumber}}_modelstructure.json">JSON</a></li>
+                        <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="{{AccessionNumber}}_modelstructure.xml">XML</a></li>
+                        <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="{{AccessionNumber}}_modelstructure.csv">CSV</a></li>
+                        <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="{{AccessionNumber}}_modelstructure.csv">Excel</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
 <div class="std-container">
 	<div>
         <div ng-show="data.length">
           <div class="container">
-              <h2>Model Structure for {{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h2>
             <table class="table table-condensed small">
               <thead><th colspan="2">Filing</th></thead>
               <tbody>
@@ -48,7 +69,7 @@
           </div>
           <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
           <div class="scrolling">
-              <div class="divtable small modelstructure">
+              <div class="divtable small" id="table-model-structure">
                 {{rowReset()}}
                 <div class="line head"><span>#</span><span>Label</span><span>Object Class</span><span>Data Type</span><span>Period</span><span>Balance</span><span>Report Element</span></div>
                 <script type="text/ng-template" id="item_line.html">{{rowIncrement()}}

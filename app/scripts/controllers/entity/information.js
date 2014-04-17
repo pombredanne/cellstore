@@ -3,7 +3,7 @@
 angular.module('main')
 .controller('InformationCtrl', function(
     $scope, $rootScope, $anchorScroll, $state, $stateParams, $http, $modal,
-    $backend, QueriesService, years, periods, entities
+    $backend, QueriesService, years, periods
 ) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.year = $stateParams.year ? parseInt($stateParams.year, 10) : null;
@@ -13,7 +13,6 @@ angular.module('main')
     $scope.showtab = [];
     $scope.years = years;
 	$scope.periods = periods;
-    $scope.entities = entities;
 
 	$scope.computeUsage = function() {
 		$scope.usage = [];
@@ -71,15 +70,6 @@ angular.module('main')
             }
 		}
 	};
-
-    $scope.selectEntity = function(item) {
-        $scope.cik = item.cik;
-        $scope.name = item.name;
-        $scope.ticker = item.tickers[0];
-		$scope.year = null;
-		$scope.period = null;
-        $scope.change();
-    };
 
 	$scope.setYear = function(year, used) {
 		if (used) {
@@ -271,6 +261,7 @@ angular.module('main')
 
     if ($scope.cik && $scope.year && $scope.period)
     {
+        $scope.computeUsage();
         $scope.service.listFilings({
             $method: 'POST',
             cik: $scope.cik,
@@ -285,5 +276,9 @@ angular.module('main')
         function(response) {
             $scope.$emit('error', response.status, response.data);
         });
+    } else {
+        $scope.year = null;
+        $scope.period = null;
+        $scope.change();
     }
 });

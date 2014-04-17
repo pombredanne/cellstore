@@ -1,3 +1,18 @@
+<div class="export">
+    <div class="container">
+        <span class="tag tag-primary">1 Hit</span>
+        <span class="tag"><span ng-bind="Statistics.TotalNumEntities | number"></span> Entities</span>
+        <span class="dropdown pull-right">
+        <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+        <ul class="dropdown-menu">
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}" target="_blank" download="{{cik.json}}">JSON</a></li>
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}" target="_blank" download="{{cik.xml}}">XML</a></li>
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">CSV</a></li>
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">Excel</a></li>
+        </ul>
+        </span>
+    </div>
+</div>
 <div class="container" id="entity-summary">
     <!--h3>{{entity.Profiles.SEC.CompanyName}}</h3-->
     <table class="table" cellpadding="5">
@@ -5,7 +20,7 @@
                 <td style="width: 40%">CIK</td><td>{{cik}}</td>
               </tr>
               <tr>
-                <td>Ticker Symbol</td><td>{{entity.ticker}}</td>
+                <td>Ticker Symbol</td><td>{{entity.Profiles.SEC.Tickers[0]}}</td>
               </tr>
               <tr>
                 <td>Entity Type</td><td>{{entity.Profiles.SEC.CompanyType}}</td>

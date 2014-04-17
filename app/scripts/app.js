@@ -6,6 +6,7 @@ angular.module('main', [
     'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'navbar-toggle'
 ])
 .run(function($rootScope, ngProgressLite) {
+  
     $rootScope.$on('$stateChangeStart', function() {
         ngProgressLite.start();
     });
@@ -19,6 +20,51 @@ angular.module('main', [
         $rootScope.$emit('error', 500, error);
         ngProgressLite.done();
     });
+})
+.factory('StatsInterceptor', function($q, $rootScope){
+    return {
+        'response': function(response) {
+            if(response.data.Statistics){
+                console.log(response.data.Statistics);
+                $rootScope.Statistics = response.data.Statistics;
+                console.log($rootScope.Statistics);
+            }
+            // do something on success
+            return response || $q.when(response);
+        }
+    };
+})
+// Intercept http calls.
+.factory('RootScopeSpinnerInterceptor', function ($q, $rootScope, ngProgressLite) {
+    return {
+        // On request success
+        request: function (config) {
+            ngProgressLite.start();
+            // Return the config or wrap it in a promise if blank.
+            return config || $q.when(config);
+        },
+
+        // On request failure
+        requestError: function (rejection) {
+            ngProgressLite.start();
+            // Return the promise rejection.
+            return $q.reject(rejection);
+        },
+
+        // On response success
+        response: function (response) {
+            ngProgressLite.done();
+            // Return the response or promise.
+            return response || $q.when(response);
+        },
+
+        // On response failture
+        responseError: function (rejection) {
+            ngProgressLite.done();
+            // Return the promise rejection.
+            return $q.reject(rejection);
+        }
+    };
 })
 .config(function ($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider) {
     
@@ -37,8 +83,9 @@ angular.module('main', [
             return response;
         }
     };
-
+    $httpProvider.interceptors.push('StatsInterceptor');
     $locationProvider.html5Mode(true);
+    $httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 
     //TODO: refactor title property to go in data property
     $stateProvider
@@ -61,9 +108,9 @@ angular.module('main', [
     .state('root.pricing', {
         templateUrl: '/views/pricing.html',
         url: '/pricing',
-        title: 'Pricing',
         data: {
-            active: 'pricing'
+            active: 'pricing',
+            title: 'Pricing'
         }
     })
 
@@ -73,7 +120,8 @@ angular.module('main', [
         templateUrl: '/views/blog.html',
         controller: 'BlogCtrl',
         data: {
-            active: 'blog'
+            active: 'blog',
+            title: 'Blog'
         },
         resolve: {
             blogIndex: ['BlogAPI', function(BlogAPI) {
@@ -85,6 +133,9 @@ angular.module('main', [
         url: '/blog/:id/:slug',
         templateUrl: '/views/blog.html',
         controller: 'BlogCtrl',
+        data: {
+            title: 'Blog'
+        },
         resolve: {
             blogIndex: ['BlogAPI', function(BlogAPI) {
                 return BlogAPI.getIndex();
@@ -100,7 +151,8 @@ angular.module('main', [
         controller: 'ApiCtrl',
         title: 'API Information',
         data: {
-            active: 'api'
+            active: 'api',
+            title: 'API'
         }
     })
 
@@ -112,9 +164,9 @@ angular.module('main', [
         resolve: {
             entities: ['$backend', function($backend) { return $backend.getEntities(); }]
         },
-        title: 'Search for an Entity',
         data: {
-            active: 'browse'
+            active: 'browse',
+            title: 'Search for an Entity'
         }
     })
     .state('root.entity', {
@@ -128,7 +180,8 @@ angular.module('main', [
             }]
         },
         data: {
-            active: 'browse'
+            active: 'browse',
+            title: 'Entity'
         }
     })
     
@@ -136,10 +189,16 @@ angular.module('main', [
     .state('root.entity.summary', {
         url: '/summary',
         templateUrl: '/views/entity/summary.html',
-        data: {
-            subActive: 'summary'
+        resolve: {
+            entity: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listEntities({ $method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
+            }]
         },
-        title: 'Entity Summary'
+        data: {
+            subActive: 'summary',
+            title: 'Entity Summary'
+        }
     })
     .state('root.entity.filings', {
         url: '/filings',
@@ -160,15 +219,15 @@ angular.module('main', [
                     }
                 })
                 .success(function(data) {
-                    deferred.resolve(data.Archives);
+                    deferred.resolve(data);
                 });
                 return deferred.promise;
             }]
         },
         data: {
-            subActive: 'filings'
-        },
-        title: 'Entity Filings'
+            subActive: 'filings',
+            title: 'Entity Filings'
+        }
     })
     .state('root.entity.information', {
         url: '/information/:year/:period',
@@ -176,24 +235,21 @@ angular.module('main', [
         controller: 'InformationCtrl',
         resolve: {
             years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
         },
-        title: 'Basic Financial Information',
         data: {
-            subActive: 'information'
+            subActive: 'information',
+            title: 'Basic Financial Information'
         },
     })
     .state('root.entity.dashboard', {
         url: '/dashboard',
         templateUrl: '/views/entity/dashboard.html',
         controller: 'DashboardCtrl',
-        resolve: {
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }]
-        },
         title: 'Dashboard',
         data: {
-            subActive: 'dashboard'
+            subActive: 'dashboard',
+            title: 'Dashboard'
         }
     })
     .state('root.entity.filing', {
@@ -212,6 +268,9 @@ angular.module('main', [
                     }
                 });
             }]
+        },
+        data: {
+            title: 'Filing'
         }
     })
     .state('root.entity.components', {
@@ -230,6 +289,9 @@ angular.module('main', [
                     }
                 });
             }]
+        },
+        data: {
+            title: 'Components'
         }
     })
     .state('root.entity.component', {
@@ -249,6 +311,9 @@ angular.module('main', [
                     }
                 });
             }]
+        },
+        data: {
+            title: 'Component'
         }
     })
     .state('root.entity.facttable', {
@@ -265,6 +330,9 @@ angular.module('main', [
                     token : $rootScope.token
                 });
             }]
+        },
+        data: {
+            title: 'Fact Table'
         }
     })
     .state('root.entity.modelstructure', {
@@ -285,7 +353,9 @@ angular.module('main', [
                 });
             }]
         },
-        title: 'Component Model Structure'
+        data: {
+            title: 'Component Model Structure'
+        }
     })
     
     //Filing
@@ -388,7 +458,9 @@ angular.module('main', [
         url: '/auth{returnPage:.*}',
         templateUrl: '/views/auth.html',
         controller: 'AuthCtrl',
-        title: 'Authenticate'
+        data: {
+            title: 'Login'
+        }
     })
     
     //Account
@@ -396,69 +468,87 @@ angular.module('main', [
         url: '/account',
         templateUrl: '/views/account.html',
         controller: 'AccountCtrl',
-        title: 'Account'
+        data: {
+            title: 'Account'
+        }
     })
     .state('root.accountSection', {
         url: '/account/:section',
         templateUrl: '/views/account.html',
         controller: 'AccountCtrl',
-        title: 'Account'
+        data: {
+            title: 'Account'
+        }
     })
     
     .state('root.conceptMap', {
         url: '/concept-map/:name',
         controller: 'ConceptMapCtrl',
         templateUrl: '/views/concept-map.html',
-        title: 'Concept Map'
+        data: {
+            title: 'Concept Map'
+        }
     })
     
     .state('root.examples', {
         url: '/examples',
         templateUrl: '/views/example.html',
         controller: 'ExampleCtrl',
-        title: 'Example'
+        data: {
+            title: 'Example'
+        }
     })
     
     .state('root.example', {
         url: '/example/:example',
         templateUrl: '/views/example.html',
         controller: 'ExampleCtrl',
-        title: 'Example'
+        data: {
+            title: 'Example'
+        }
     })
     
     .state('root.disclosures', {
         url: '/disclosures',
         templateUrl: '/views/disclosures.html',
+        resolve: {
+            disclosures: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/Disclosures.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'output': 'tree',
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        },
         controller: 'DisclosuresCtrl',
-        resolve: {
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-        },
-        title: 'Disclosures'
-    })
-    
-    .state('root.disclosure', {
-        url: '/disclosure/:disclosure/:year/:period',
-        templateUrl: '/views/disclosure.html',
-        controller: 'DisclosureCtrl',
-        resolve: {
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
-        },
-        title: 'Disclosure Information'
+        data: {
+            title: 'Disclosures'
+        }
     })
     
     .state('root.comparison', {
         url: '/comparison',
         templateUrl: '/views/comparison.html',
         controller: 'ComparisonCtrl',
-        title: 'Comparison'
+        data: {
+            title: 'Comparison',
+            active: 'compare',
+            subActive: 'compare'
+        }
     })
     .state('root.comparisonInformation', {
         url: '/comparison/information',
         templateUrl: '/views/comparison-information.html',
         controller: 'ComparisonInformationCtrl',
-        title: 'Basic Financial Information'
+        data: {
+            title: 'Basic Financial Information',
+            active: 'compare',
+            subActive: 'information'
+        }
     })
     .state('root.comparisonSearch', {
         url: '/comparison/search',
@@ -470,7 +560,11 @@ angular.module('main', [
             periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
             conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
         },
-        title: 'Search Facts'
+        data: {
+            title: 'Search Facts',
+            active: 'compare',
+            subActive: 'search'
+        }
     })
     .state('root.comparisonComponent', {
         url: '/comparison/components',
@@ -482,19 +576,26 @@ angular.module('main', [
             periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
             conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
         },
-        title: 'Search Components'
+        data: {
+            title: 'Search Components',
+            active: 'compare',
+            subActive: 'components'
+        }
     })
 
     //404
     .state('404', {
         url: '{path:.*}',
         templateUrl:'/views/404.html',
-        title: 'Page not found'
+        data: {
+            title: 'Page not found'
+        }
     })
     ;
 })
 .run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {
 
+    $rootScope.API_URL = $backend.API_URL;
 	$rootScope.DEBUG = $backend.DEBUG;
 
 	$angularCacheFactory('secxbrl-http', {

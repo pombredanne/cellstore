@@ -31,7 +31,7 @@
     "grunt-ng-constant": "~0.4.8",
     "grunt-recess": "~0.3.3",
     "grunt-prettify": "~0.3.4",
-    "grunt-xqlint": "0.0.4",
+    "grunt-xqlint": "0.0.6",
     "netdna": "~0.0.6",
     "request": "~2.33.0"
   },

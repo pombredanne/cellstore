@@ -139,7 +139,7 @@ angular.module('main')
     };
 
     $scope.getUrl = function(format) {
-        var str = $backend.API_URL + '/_queries/public/api/facts.jq';
+        var str = $backend.API_URL + '/_queries/public/api/facttable-for-report.jq';
         var params = angular.copy($scope.params);
         if (format) {
             params.format = format;
@@ -150,4 +150,9 @@ angular.module('main')
         }
         return str;
     };
+    
+    
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+        $scope.subActive = toState.data && toState.data.subActive;
+    });
 });
