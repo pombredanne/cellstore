@@ -229,36 +229,6 @@ angular.module('main')
         $scope.$emit('alert', 'Text Details', html);
     };
 
-    $scope.openEntityDetails = function(){
-        $modal.open({
-            templateUrl: '/views/entity_details.html',
-            controller: 'EntityDetailsCtrl',
-            resolve: {
-                name: function(){ return $scope.name; },
-                cik: function(){ return $scope.cik; },
-                ticker: function(){ return $scope.ticker; },
-                result: function () {
-                    return $scope.service.listEntities({ $method: 'POST', cik: $scope.cik, token: $scope.token });
-                }
-            }
-        });
-    };
-
-    $scope.entities.forEach(function(entity) {
-        if (entity.cik === $stateParams.cik) {
-            if ($scope.year && $scope.period) {
-                $scope.cik = entity.cik;
-                $scope.name = entity.name;
-                $scope.ticker = entity.tickers[0];
-                $scope.computeUsage();
-            } else {
-                $scope.year = null;
-                $scope.period = null;
-                $scope.change();
-            }
-        }
-    });
-
     if ($scope.cik && $scope.year && $scope.period)
     {
         $scope.computeUsage();
