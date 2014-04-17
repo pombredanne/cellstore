@@ -188,7 +188,7 @@ angular.module('main')
                     var obj = {
                       name: root[report].Label.toString().replace(' [Hierarchy]', ''),
                       items: [],
-                      isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report == 'fac:KeyRatiosHierarchy'),
+                      isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report === 'fac:KeyRatiosHierarchy'),
                       isBoolean : (report === 'fac:Validations')
                     };
                     if (report === 'fac:BalanceSheetHierarchy' &&
