@@ -138,6 +138,17 @@ angular.module('main')
         $scope.getInfo();
     };
 
+    $scope.isBlock = function(string) {
+        if (!string) {
+            return false;
+        }
+        return string.length > 60;
+    };
+
+    $scope.showText = function(html) {
+        $scope.$emit('alert', 'Text Details', html);
+    };
+
     $scope.getUrl = function(format) {
         var str = $backend.API_URL + '/_queries/public/api/facttable-for-report.jq';
         var params = angular.copy($scope.params);
