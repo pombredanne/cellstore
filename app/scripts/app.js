@@ -25,9 +25,7 @@ angular.module('main', [
     return {
         'response': function(response) {
             if(response.data.Statistics){
-                console.log(response.data.Statistics);
                 $rootScope.Statistics = response.data.Statistics;
-                console.log($rootScope.Statistics);
             }
             // do something on success
             return response || $q.when(response);

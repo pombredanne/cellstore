@@ -1,5 +1,7 @@
 'use strict';
 
+/*globals accounting*/
+
 angular.module('main')
 .controller('FactTableCtrl', function($rootScope, $scope, $stateParams, $backend, facttable) {
     
@@ -69,11 +71,7 @@ angular.module('main')
     };
 
     $scope.showNumber = function(value) {
-        var n = parseFloat(value);
-        if (isNaN(n)) {
-            return value;
-        }
-        return n.toLocaleString();
+        return accounting.formatNumber(value);
     };
 
     $scope.isBlock = function(string) {
@@ -83,7 +81,7 @@ angular.module('main')
         return string.length > 60;
     };
     
-    $scope.getExportURL = function(format){        
+    $scope.getExportURL = function(format) {
         return $backend.API_URL + '/_queries/public/api/facttable-for-component.jq?_method=POST&format=' + format +'&aid=' + $stateParams.aid + '&networkIdentifier=' + encodeURIComponent($stateParams.networkIdentifier) + '&token=' + $rootScope.token;
     };
 });

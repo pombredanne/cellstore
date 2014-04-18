@@ -78,7 +78,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             $scope.selection.disclosure = $scope.searchDisclosure;
         }
-        else 
+        else
         {
             delete $scope.selection.disclosure;
         }
@@ -86,7 +86,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             $scope.selection.reportElement = $scope.searchReportElement;
         }
-        else 
+        else
         {
             delete $scope.selection.reportElement;
         }
@@ -97,7 +97,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             $scope.selection.disclosure = $scope.searchDisclosure;
         }
-        else 
+        else
         {
             delete $scope.selection.disclosure;
         }
@@ -105,7 +105,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             $scope.selection.reportElement = $scope.searchReportElement;
         }
-        else 
+        else
         {
             delete $scope.selection.reportElement;
         }
@@ -116,7 +116,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             $scope.selection.disclosure = $scope.searchDisclosure;
         }
-        else 
+        else
         {
             delete $scope.selection.disclosure;
         }
@@ -124,7 +124,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             $scope.selection.reportElement = $scope.searchReportElement;
         }
-        else 
+        else
         {
             delete $scope.selection.reportElement;
         }
