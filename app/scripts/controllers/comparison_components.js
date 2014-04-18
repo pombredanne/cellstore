@@ -62,7 +62,10 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         function() {
             if ($scope.selection) {
                 $location.search($scope.selection);
-                if ($scope.selection && ($scope.selection.disclosure || $scope.selection.reportElement)) {
+                if ($scope.selection && (
+                      $scope.selection.disclosure ||
+                      $scope.selection.reportElement ||
+                      $scope.selection.label)) {
                     $scope.getValues();
                 }
             }
@@ -70,8 +73,8 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     );
 
     $scope.submit = function() {
-        if (!$scope.searchDisclosure && !$scope.searchReportElement) {
-            $scope.$emit('alert', 'Fields required for search', 'The disclosure or the report element are required for the search.');
+        if (!$scope.searchDisclosure && !$scope.searchReportElement && !$scope.label) {
+            $scope.$emit('alert', 'Fields required for search', 'The disclosure, report element, or label are required for the search.');
             return false;
         }
         if ($scope.searchDisclosure)
@@ -89,6 +92,14 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         else 
         {
             delete $scope.selection.reportElement;
+        }
+        if ($scope.label)
+        {
+            $scope.selection.label = $scope.label;
+        }
+        else 
+        {
+            delete $scope.selection.label;
         }
     };
     
@@ -108,6 +119,14 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         else 
         {
             delete $scope.selection.reportElement;
+        }
+        if ($scope.label)
+        {
+            $scope.selection.label = $scope.label;
+        }
+        else 
+        {
+            delete $scope.selection.label;
         }
     };
     
@@ -142,6 +161,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
             fiscalPeriod: $scope.selection.fiscalPeriod,
             disclosure: $scope.selection.disclosure,
             reportElement: $scope.selection.reportElement,
+            label: $scope.selection.label,
             token: $scope.token
         };
 
