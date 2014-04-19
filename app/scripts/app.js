@@ -582,6 +582,22 @@ angular.module('main', [
             subActive: 'components'
         }
     })
+    .state('root.comparisonReportElements', {
+        url: '/comparison/reportElementss',
+        templateUrl: '/views/comparison-reportelems.html',
+        controller: 'ComparisonReportElemsCtrl',
+        resolve: {
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+        },
+        data: {
+            title: 'Search Report Elements',
+            active: 'compare',
+            subActive: 'reportElements'
+        }
+    })
 
     //404
     .state('404', {
