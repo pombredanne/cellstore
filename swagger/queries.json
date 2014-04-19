@@ -1003,7 +1003,7 @@
                             "name": "name",
                             "description": "The name of the report element to return (e.g. us-gaap:Assets).",
                             "required": false,
-                            "type": "string"
+                            "type": "string",
                             "paramType": "query"
                         },
                         {
