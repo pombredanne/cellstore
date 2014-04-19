@@ -1000,6 +1000,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "name",
+                            "description": "The name of the report element to return (e.g. us-gaap:Assets).",
+                            "required": false,
+                            "type": "string"
+                            "paramType": "query"
+                        },
+                        {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
                             "required": false,
