@@ -23,6 +23,11 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
                 $scope.searchReportElement = src.reportElement;
                 $scope.selection.reportElement = $scope.searchReportElement;
             }
+            
+            if (src.label) {
+                $scope.searchLabel = src.label;
+                $scope.selection.label = $scope.searchLabel;
+            }
 
             //refresh the typeaheads
             $scope.reportElementNames = [];
@@ -73,7 +78,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     );
 
     $scope.submit = function() {
-        if (!$scope.searchDisclosure && !$scope.searchReportElement && !$scope.label) {
+        if (!$scope.searchDisclosure && !$scope.searchReportElement && !$scope.searchLabel) {
             $scope.$emit('alert', 'Fields required for search', 'The disclosure, report element, or label are required for the search.');
             return false;
         }
@@ -93,9 +98,9 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             delete $scope.selection.reportElement;
         }
-        if ($scope.label)
+        if ($scope.searchLabel)
         {
-            $scope.selection.label = $scope.label;
+            $scope.selection.label = $scope.searchLabel;
         }
         else 
         {
@@ -120,9 +125,9 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             delete $scope.selection.reportElement;
         }
-        if ($scope.label)
+        if ($scope.searchLabel)
         {
-            $scope.selection.label = $scope.label;
+            $scope.selection.label = $scope.searchLabel;
         }
         else 
         {
@@ -146,6 +151,14 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         else 
         {
             delete $scope.selection.reportElement;
+        }
+        if ($scope.searchLabel)
+        {
+            $scope.selection.label = $scope.searchLabel;
+        }
+        else 
+        {
+            delete $scope.selection.label;
         }
     };
 
