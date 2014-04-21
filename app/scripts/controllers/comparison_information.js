@@ -1,7 +1,9 @@
 'use strict';
 
+/*globals accounting*/
+
 angular.module('main')
-.controller('ComparisonInformationCtrl', function($scope, $http, $location, $backend, QueriesService) {
+.controller('ComparisonInformationCtrl', function($scope, $http, $location, $state, $backend, QueriesService) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.selection = {};
     $scope.showtab = [];
@@ -136,6 +138,10 @@ angular.module('main')
     $scope.forceShow = function() {
         $scope.nomany=true;
         $scope.getInfo();
+    };
+
+    $scope.drill = function(cik, year, period) {
+        $state.go('root.entity.information', { cik: cik, year: year, period: period });
     };
 
     $scope.isBlock = function(string) {
