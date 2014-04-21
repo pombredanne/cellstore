@@ -147,7 +147,7 @@ declare function local:components-by-reportElements($reportElements as string*, 
     return components:components($ids)
 };
 
-declare function local:components-by-label($search-term, $aids)
+declare function local:components-by-label($search-term as string, $aids as string*) as object*
 {
     let $conn :=
       let $credentials := credentials:credentials("MongoDB", "xbrl")
