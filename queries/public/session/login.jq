@@ -1,18 +1,17 @@
 jsoniq version "1.0";
 
 import module namespace user = "http://apps.28.io/user";
-import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
-declare function local:to-csv($o as object*)
+declare function local:to-csv($o as object*) as string
 {
     string-join(csv:serialize($o))
 };
 
-declare function local:to-xml($o as object*)
+declare function local:to-xml($o as object*) as element
 {
     <result success="{$o.success}">{
         if (exists($o.description))

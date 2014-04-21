@@ -39,7 +39,7 @@ declare function local:to-csv($o as object*) as string?
     else ()
 };
 
-declare function local:to-xml($o as object*)
+declare function local:to-xml($o as object*) as node()*
 {
     (session:comment("xml", {
                             NumFacts : count($o),
@@ -78,12 +78,12 @@ declare function local:to-xml($o as object*)
 };
 
 declare function local:filings(
-    $ciks,
-    $tags,
-    $tickers,
-    $sics,
-    $fp,
-    $fy)
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as string*) as object*
 {
     let $entities := (
         companies:companies($ciks),

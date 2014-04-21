@@ -7,12 +7,12 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 
-declare function local:to-csv($o as object*)
+declare function local:to-csv($o as object*) as string
 {
     string-join(csv:serialize($o))
 };
 
-declare function local:to-xml($o as object*)
+declare function local:to-xml($o as object*) as element
 {
     <result success="{$o.success}">{
         if (exists($o.description))

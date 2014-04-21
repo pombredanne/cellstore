@@ -18,7 +18,7 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace session = "http://apps.28.io/session";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
-declare function local:to-xml-rec($o, $level as integer)
+declare function local:to-xml-rec($o as object, $level as integer) as element()
 {
     for $o in $o
     return
@@ -35,7 +35,7 @@ declare function local:to-xml-rec($o, $level as integer)
         }
 };
 
-declare function local:to-xml($model)
+declare function local:to-xml($model as object) as element()
 {
     ((session:comment("xml", {
                             TotalNumArchives: session:num-archives(),
@@ -60,7 +60,7 @@ declare function local:to-xml($model)
     
 };
 
-declare function local:to-csv-rec($objects, $level as integer)
+declare function local:to-csv-rec($objects as object*, $level as integer) as object*
 {
     for $o in $objects
     let $object := {
@@ -81,7 +81,7 @@ declare function local:to-csv-rec($objects, $level as integer)
 };
 
 
-declare function local:to-csv($model)
+declare function local:to-csv($model as object) as string
 {
     let $lines := local:to-csv-rec($model.ModelStructure, 0) 
     return
@@ -91,7 +91,7 @@ declare function local:to-csv($model)
 };
 
 
-declare function local:enrich-json-rec($objects, $level as integer)
+declare function local:enrich-json-rec($objects as object*, $level as integer) as object*
 {
     for $object in $objects
     return
@@ -109,7 +109,7 @@ declare function local:enrich-json-rec($objects, $level as integer)
 };
 
 
-declare function local:enrich-json($component)
+declare function local:enrich-json($component as object) as object
 {
     {
         ModelStructure : [ local:enrich-json-rec($component.ModelStructure, 0) ] ,
@@ -126,7 +126,7 @@ declare function local:enrich-json($component)
         Disclosure : $component.Disclosure
     }
 };
-declare function local:components-by-disclosures($disclosures, $aids)
+declare function local:components-by-disclosures($disclosures as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -145,7 +145,7 @@ declare function local:components-by-disclosures($disclosures, $aids)
         })
 };
 
-declare function local:components-by-roles($roles, $aids)
+declare function local:components-by-roles($roles as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -163,7 +163,7 @@ declare function local:components-by-roles($roles, $aids)
         })
 };
 
-declare function local:components-by-concepts($concepts, $aids)
+declare function local:components-by-concepts($concepts as object*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -184,12 +184,12 @@ declare function local:components-by-concepts($concepts, $aids)
 };
 
 declare function local:filings(
-    $ciks,
-    $tags,
-    $tickers,
-    $sics,
-    $fp,
-    $fy)
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as string*) as object*
 {
     let $entities := (
         companies:companies($ciks),
@@ -209,10 +209,10 @@ declare function local:filings(
                             then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
                         case "ALL" return $fiscal:ALL_FISCAL_YEARS
-                    default return $fy
+                    default return $fy cast as integer
                 )
     for $fp in $fp 
-    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
+    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy)
 };
 
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
@@ -226,7 +226,7 @@ let $fiscalYears := distinct-values(
                             if ($y eq "LATEST" or $y eq "ALL")
                             then $y
                             else if ($y castable as integer)
-                            then $y cast as integer
+                            then $y
                             else ()
                     )
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
@@ -246,12 +246,12 @@ let $disclosures := request:param-values("disclosure")
 let $components  := (if (exists($cid))
                     then components:components($cid)
                     else (),
-                    if (exists($concepts) or exists($disclosures) or exists($roles))
-                    then (
-                            local:components-by-concepts($concepts, $archives._id), 
-                            local:components-by-disclosures($disclosures, $archives._id),
-                            local:components-by-roles($roles, $archives._id)
-                        )
+                    if (exists($concepts))
+                    then local:components-by-concepts($concepts, $archives._id)
+                    else if (exists($disclosures))
+                    then local:components-by-disclosures($disclosures, $archives._id)
+                    else if (exists($roles))
+                    then local:components-by-roles($roles, $archives._id)
                     else components:components-for-archives($archives._id))
 let $component := $components[1] (: only one for know :)
 let $archive   := archives:archives($component.Archive)

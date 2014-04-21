@@ -40,7 +40,7 @@ declare function local:to-csv($o as object*) as string
     )
 };
 
-declare function local:to-xml($o as object*)
+declare function local:to-xml($o as object*) as element()*
 {
     for $o in $o
     let $a := $o.Aspects
@@ -65,7 +65,7 @@ declare function local:to-xml($o as object*)
         }</Fact>
 };
 
-declare function local:components-by-disclosures($disclosures, $aids)
+declare function local:components-by-disclosures($disclosures as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -84,7 +84,7 @@ declare function local:components-by-disclosures($disclosures, $aids)
         })
 };
 
-declare function local:components-by-roles($roles, $aids)
+declare function local:components-by-roles($roles as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -102,7 +102,7 @@ declare function local:components-by-roles($roles, $aids)
         })
 };
 
-declare function local:components-by-concepts($concepts, $aids)
+declare function local:components-by-concepts($concepts as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -123,12 +123,12 @@ declare function local:components-by-concepts($concepts, $aids)
 };
 
 declare function local:filings(
-    $ciks,
-    $tags,
-    $tickers,
-    $sics,
-    $fp,
-    $fy)
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as string*) as object*
 {
     let $entities := (
         companies:companies($ciks),
@@ -148,10 +148,10 @@ declare function local:filings(
                             then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
                         case "ALL" return  $fiscal:ALL_FISCAL_YEARS
-                    default return $fy
+                    default return $fy cast as integer
                 )
     for $fp in $fp 
-    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
+    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy)
 };
 
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
@@ -165,7 +165,7 @@ let $fiscalYears := distinct-values(
                             if ($y eq "LATEST" or $y eq "ALL")
                             then $y
                             else if ($y castable as integer)
-                            then $y cast as integer
+                            then $y
                             else ()
                     )
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")

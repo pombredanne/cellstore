@@ -54,7 +54,7 @@ declare function local:to-csv($filings as object*) as string*
     csv:serialize($filings, { serialize-null-as : "" })
 };
 
-declare function local:summary($a)
+declare function local:summary($a as object) as object
 {
     {
         CIK : $a.Entity,
