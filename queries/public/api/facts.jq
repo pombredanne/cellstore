@@ -37,7 +37,7 @@ declare function local:to-csv($o as object*) as string?
     else ()
 };
 
-declare function local:to-xml($o as object*)
+declare function local:to-xml($o as object*) as node()*
 {
     (session:comment("xml", {
         NumFacts: count($o),
@@ -76,13 +76,13 @@ declare function local:to-xml($o as object*)
 };
 
 declare function local:facts(
-    $entities, 
-    $archives,
-    $fiscalPeriods, 
-    $fiscalYears, 
-    $concepts, 
-    $dimensions, 
-    $map)
+    $entities as object*, 
+    $archives as object*,
+    $fiscalPeriods  as string*, 
+    $fiscalYears as integer*, 
+    $concepts as string*, 
+    $dimensions as object* , 
+    $map as string) as object*
 {
     for $entity in $entities
     (: compute latest reported fiscalYear if none is specified :)

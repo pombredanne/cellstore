@@ -40,7 +40,7 @@ declare function local:to-csv($o as object*) as string
     )
 };
 
-declare function local:to-xml($o as object*)
+declare function local:to-xml($o as object*) as element()*
 {
     for $o in $o
     let $a := $o.Aspects
@@ -65,7 +65,7 @@ declare function local:to-xml($o as object*)
         }</Fact>
 };
 
-declare function local:components-by-disclosures($disclosures, $aids)
+declare function local:components-by-disclosures($disclosures as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -84,7 +84,7 @@ declare function local:components-by-disclosures($disclosures, $aids)
         })
 };
 
-declare function local:components-by-roles($roles, $aids)
+declare function local:components-by-roles($roles as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -102,7 +102,7 @@ declare function local:components-by-roles($roles, $aids)
         })
 };
 
-declare function local:components-by-concepts($concepts, $aids)
+declare function local:components-by-concepts($concepts as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -123,12 +123,12 @@ declare function local:components-by-concepts($concepts, $aids)
 };
 
 declare function local:filings(
-    $ciks,
-    $tags,
-    $tickers,
-    $sics,
-    $fp,
-    $fy)
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as integer*) as object*
 {
     let $entities := (
         companies:companies($ciks),

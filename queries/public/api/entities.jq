@@ -4,7 +4,7 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace csv = "http://zorba.io/modules/json-csv";
 import module namespace session = "http://apps.28.io/session";
 
-declare function local:to-xml($entities as object*)
+declare function local:to-xml($entities as object*) as node()*
 { 
   (session:comment("xml", {
         NumEntities: count($entities),

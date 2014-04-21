@@ -1,4 +1,4 @@
-mport module namespace user = "http://apps.28.io/user";
+import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 

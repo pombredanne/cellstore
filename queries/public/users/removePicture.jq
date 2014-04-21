@@ -10,7 +10,7 @@ session:validate(
      else "users_remove_picture"
 );
 
-variable $user := user:get-existing-by-id($userid);
+user:get-existing-by-id($userid);
 
 user:remove-picture($userid);
 

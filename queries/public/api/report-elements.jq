@@ -1,6 +1,5 @@
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace core = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
@@ -14,7 +13,7 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare namespace concepts = "http://www.28msec.com/modules/bizql/concepts";
 
-declare function local:to-csv($concepts, $onlyNames)
+declare function local:to-csv($concepts as object*, $onlyNames as boolean) as string
 {
     if ($onlyNames)
     then
@@ -24,7 +23,7 @@ declare function local:to-csv($concepts, $onlyNames)
         string-join(csv:serialize($concepts, { serialize-null-as : "" }))
 };
 
-declare function local:to-xml($concepts, $onlyNames)
+declare function local:to-xml($concepts as object*, $onlyNames as boolean) as element()*
 {
     for $c in $concepts
     return
@@ -41,12 +40,12 @@ declare function local:to-xml($concepts, $onlyNames)
 };
 
 declare function local:filings(
-    $ciks,
-    $tags,
-    $tickers,
-    $sics,
-    $fp,
-    $fy)
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as integer*) as object*
 {
     let $entities := (
         companies:companies($ciks),
@@ -72,7 +71,7 @@ declare function local:filings(
     return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy ! ($$ cast as integer))
 };
 
-declare function local:concepts-for-archives($aids)
+declare function local:concepts-for-archives($aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")

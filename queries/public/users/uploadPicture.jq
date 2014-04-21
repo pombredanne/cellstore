@@ -11,7 +11,7 @@ session:validate(
      else "users_upload_picture"
 );
 
-variable $user := user:get-existing-by-id($userid);
+user:get-existing-by-id($userid);
 
 variable $mime-type :=
    let $part := req:parts().parts[][$$.name eq "image"]

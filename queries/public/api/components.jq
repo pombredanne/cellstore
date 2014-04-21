@@ -70,7 +70,7 @@ declare function local:to-csv($components as object*) as string*
     { serialize-null-as : "" })
 };
 
-declare function local:component-summary($component)
+declare function local:component-summary($component as object) as object
 {
     {
         ComponentId : $component._id,
@@ -90,7 +90,7 @@ declare function local:component-summary($component)
     }
 };
 
-declare function local:components-by-disclosures($disclosures, $aids)
+declare function local:components-by-disclosures($disclosures as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -109,7 +109,7 @@ declare function local:components-by-disclosures($disclosures, $aids)
         })
 };
 
-declare function local:components-by-roles($roles, $aids)
+declare function local:components-by-roles($roles as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -127,7 +127,7 @@ declare function local:components-by-roles($roles, $aids)
         })
 };
 
-declare function local:components-by-reportElements($reportElements, $aids)
+declare function local:components-by-reportElements($reportElements as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -148,12 +148,12 @@ declare function local:components-by-reportElements($reportElements, $aids)
 };
 
 declare function local:filings(
-    $ciks,
-    $tags,
-    $tickers,
-    $sics,
-    $fp,
-    $fy)
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as integer*) as object*
 {
     let $entities := (
         companies:companies($ciks),
