@@ -66,7 +66,7 @@
                                 <span ng-if="$index==entityIndex">{{item.Aspects[key]}} <span ng-if="item.EntityRegistrantName">({{item.EntityRegistrantName}})</span></span>
                                 <span ng-if="$index!=entityIndex">{{item.Aspects[key]}}</span>
                               </td>
-                              <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{item.Value}}</td>
+                              <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
                               <td ng-if="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
                               <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
                               <td>{{item.Unit=='xbrl:NonNumeric'?"":item.Unit}}</td>

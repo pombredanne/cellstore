@@ -120,7 +120,7 @@ angular.module('main')
     
     
     $scope.getExportURL = function(format){
-        return $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq?_method=POST&aid=' + $stateParams.aid + '&token=' + $rootScope.token;
+        return $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq?_method=POST&format=' + format + '&aid=' + $stateParams.aid + '&token=' + $rootScope.token;
     };
 });
 

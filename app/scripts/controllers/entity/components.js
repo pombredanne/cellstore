@@ -31,6 +31,6 @@ angular.module('main')
     };
     
     $scope.getExportURL = function(format){
-        return $backend.API_URL + '/_queries/public/api/components.jq?_method=POST&aid=' + $stateParams.aid + '&token=' + $rootScope.token;
+        return $backend.API_URL + '/_queries/public/api/components.jq?_method=POST&format=' + format + '&aid=' + $stateParams.aid + '&token=' + $rootScope.token;
     };
 });

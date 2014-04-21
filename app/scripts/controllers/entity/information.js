@@ -1,5 +1,7 @@
 'use strict';
 
+/*globals accounting*/
+
 angular.module('main')
 .controller('InformationCtrl', function(
     $scope, $rootScope, $anchorScroll, $state, $stateParams, $http, $modal,
@@ -186,28 +188,28 @@ angular.module('main')
             for (var report in root) {
                 if (root.hasOwnProperty(report)) {
                     var obj = {
-                      name: root[report].Label.toString().replace(' [Hierarchy]', ''),
-                      items: [],
-                      isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report === 'fac:KeyRatiosHierarchy'),
-                      isBoolean : (report === 'fac:Validations')
+                        name: root[report].Label.toString().replace(' [Hierarchy]', ''),
+                        items: [],
+                        isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report === 'fac:KeyRatiosHierarchy'),
+                        isBoolean : (report === 'fac:Validations')
                     };
                     if (report === 'fac:BalanceSheetHierarchy' &&
-                      root['fac:GeneralInformationHierarchy'] && 
-                      root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'] && 
-                      root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts &&
-                      root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts.length > 0)
+                        root['fac:GeneralInformationHierarchy'] &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'] &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts.length > 0)
                     {
-                      obj.specifier = root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts[0].Value;
+                        obj.specifier = root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts[0].Value;
                     }
                     if (report === 'fac:IncomeStatementHierarchy' &&
-                      root['fac:GeneralInformationHierarchy'] && 
-                      root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'] && 
-                      root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts &&
-                      root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts.length > 0)
+                        root['fac:GeneralInformationHierarchy'] &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'] &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts.length > 0)
                     {
-                      obj.specifier = root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts[0].Value;
+                        obj.specifier = root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts[0].Value;
                     }
-                    prepareReport(root[report].To, obj.items, obj.isNumeric, (report == 'fac:KeyRatiosHierarchy' ? 3 : 0));
+                    prepareReport(root[report].To, obj.items, obj.isNumeric, (report === 'fac:KeyRatiosHierarchy' ? 3 : 0));
                     $scope.reports.push(obj);
                     $scope.showtab.push(true);
                 }

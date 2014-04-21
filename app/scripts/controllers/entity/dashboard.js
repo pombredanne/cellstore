@@ -1,5 +1,7 @@
 'use strict';
 
+/*globals accounting*/
+
 angular.module('main')
 .controller('DashboardCtrl', function ($scope, $rootScope, $anchorScroll, $location, $state, $stateParams, $http, $modal, $backend, QueriesService) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
@@ -13,13 +15,13 @@ angular.module('main')
         }
         var ret = '<dl class="chart-tip"><dt>' + key + '</dt><dd>';
         if (item1) {
-            ret += '<i class="fa fa-square" style="color:#428BCA"></i> ' + title1 + ': ' + item1.toLocaleString();
+            ret += '<i class="fa fa-square" style="color:#428BCA"></i> ' + title1 + ': ' + accounting.formatNumber(item1);
         }
         if (item2) {
             if (item1) {
                 ret += '<br>';
             }
-            ret += '<i class="fa fa-square" style="color:orange"></i> ' + title2 + ': ' + item2.toLocaleString();
+            ret += '<i class="fa fa-square" style="color:orange"></i> ' + title2 + ': ' + accounting.formatNumber(item2);
         }
         ret += '</dd></dl>';
         return ret;
@@ -217,16 +219,16 @@ angular.module('main')
         });
         $scope.chart1.data = $scope.table1;
         $scope.chart2.data = $scope.table2;
-        })
-        .catch(function (response) {
-            $scope.$emit('error', response.status, response.data);
-        });
+    })
+    .catch(function (response) {
+        $scope.$emit('error', response.status, response.data);
+    });
         
     $scope.getUrl = function (format) {
         var str = $backend.API_URL + '/_queries/public/api/facts.jq';
         var params = angular.copy($scope.params);
         if (format) {
-            params['format'] = format;
+            params.format = format;
         }
         var qs = $scope.wwwFormUrlencoded(params);
         if (qs) {

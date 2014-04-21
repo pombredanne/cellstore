@@ -42,12 +42,8 @@
                         <table class="table table-condensed small" id="comparison-information-table">
                             <thead>
                                 <th>&nbsp;</th>
-                                <th class="text-center nowrap" ng-repeat="n in reports[0].items[0].value track by $index">{{n}}</th>
+                                <th class="text-center nowrap" ng-repeat="n in reports[0].items[0].value track by $index"><a ng-click='drill(reports[0].items[1].value[$index], reports[0].items[5].value[$index], reports[0].items[6].value[$index])'>{{n}}</a></th>
                             </thead>
-                            <colgroup>
-                                <col></col>
-                                <col ng-repeat="n in reports[0].items[0].value track by $index"></col>
-                            </colgroup>
                             <tbody ng-repeat="report in reports">
                                 <tr>
                                     <td colspan="{{report.items[0].value.length}}">

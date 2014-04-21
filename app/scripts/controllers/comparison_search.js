@@ -1,5 +1,7 @@
 'use strict';
 
+/*globals accounting*/
+
 angular.module('main')
 .controller('ComparisonSearchCtrl', function($scope, $http, $modal, $location, $backend, QueriesService, conceptMaps) {
     $scope.none = 'US-GAAP Taxonomy Concepts';
@@ -262,11 +264,7 @@ angular.module('main')
     };
 
     $scope.showNumber = function(value) {
-        var n = parseFloat(value);
-        if (isNaN(n)) {
-            return value;
-        }
-        return n.toLocaleString();
+        return accounting.formatNumber(value);
     };
 
     $scope.isBlock = function(string) {

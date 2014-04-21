@@ -1,5 +1,7 @@
 'use strict';
 
+/*globals accounting*/
+
 angular.module('main')
 .controller('ExampleCtrl', function($scope, $stateParams, $http, $location, $backend) {
     $scope.examples = [{
@@ -222,9 +224,13 @@ angular.module('main')
     $scope.clear = function(item) {
         return item.replace('iso4217:', '').replace('xbrli:', '');
     };
-  
+
     $scope.showText = function(html) {
         $scope.$emit('alert', 'Text Details', html);
+    };
+
+    $scope.showNumber = function(value) {
+        return accounting.formatNumber(value);
     };
 
     $scope.isBlock = function(string) {
