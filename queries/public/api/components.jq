@@ -147,6 +147,28 @@ declare function local:components-by-reportElements($reportElements as string*, 
     return components:components($ids)
 };
 
+declare function local:components-by-label($search-term, $aids)
+{
+    let $conn :=
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    return mongo:run-cmd-deterministic(
+           $conn,
+           {
+             "text" : "components",
+             "filter" : { "Archive" : { "$in" : [ $aids ] } },
+             "search" : $search-term,
+             "limit" : 100,
+             "score" : { "$meta" : "textScore" },
+             "sort" : { score: { "$meta" : "textScore" } }
+           }).results[].obj
+};
+
 declare function local:filings(
     $ciks as string*,
     $tags as string*,
@@ -207,14 +229,16 @@ let $archives    := (
 let $cid         := request:param-values("cid")
 let $reportElements    := distinct-values(request:param-values("reportElement"))
 let $disclosures := request:param-values("disclosure")
+let $search := request:param-values("label")
 let $components  := (if (exists($cid))
                     then components:components($cid)
                     else (),
-                    if (exists($reportElements) or exists($disclosures) or exists($roles))
+                    if (exists($reportElements) or exists($disclosures) or exists($roles) or exists($search))
                     then (
                             local:components-by-reportElements($reportElements, $archives._id), 
                             local:components-by-disclosures($disclosures, $archives._id),
-                            local:components-by-roles($roles, $archives._id)
+                            local:components-by-roles($roles, $archives._id),
+                            local:components-by-label($search, $archives._id)
                         )
                     else components:components-for-archives($archives._id))
 let $entities    := entities:entities($archives.Entity)
