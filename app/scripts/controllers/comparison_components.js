@@ -102,7 +102,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             $scope.selection.label = $scope.searchLabel;
         }
-        else 
+        else
         {
             delete $scope.selection.label;
         }
@@ -129,7 +129,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             $scope.selection.label = $scope.searchLabel;
         }
-        else 
+        else
         {
             delete $scope.selection.label;
         }
@@ -156,7 +156,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             $scope.selection.label = $scope.searchLabel;
         }
-        else 
+        else
         {
             delete $scope.selection.label;
         }

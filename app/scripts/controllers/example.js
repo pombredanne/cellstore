@@ -1,5 +1,7 @@
 'use strict';
 
+/*globals accounting*/
+
 angular.module('main')
 .controller('ExampleCtrl', function($scope, $stateParams, $http, $location, $backend) {
     $scope.examples = [{
