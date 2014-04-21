@@ -336,6 +336,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "label",
+                            "description": "A search term to search in the labels of components (e.g. stock)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
                             "required": false,
