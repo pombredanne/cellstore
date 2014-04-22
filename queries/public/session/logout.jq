@@ -12,7 +12,7 @@ declare function local:to-csv($o as object*) as string
     string-join(csv:serialize($o))
 };
 
-declare function local:to-xml($o as object*) as element
+declare function local:to-xml($o as object*) as element()
 {
     <result success="{$o.success}">{
         if (exists($o.description))
