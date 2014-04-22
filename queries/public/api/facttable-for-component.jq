@@ -154,6 +154,36 @@ declare function local:filings(
     return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy)
 };
 
+(:
+ : This function needs to go into the core. It returns all facts for a network
+ : - not only the ones for the specific FY/FP
+ :)
+declare function local:facts($networks-or-ids as item*, $options as object?)
+as object*
+{
+  for $component as object in components:components($networks-or-ids)
+  for $table as string? allowing empty in sec-networks:tables($component).Name
+  let $hypercube as object? := hypercubes:hypercubes-for-components($component, $table)
+  let $hypercube as object := if (exists($hypercube))
+                              then $hypercube
+                              else sec:dimensionless-hypercube({
+                                  Concepts: [ sec-networks:line-items($component).Name ]
+                              })
+  let $facts := hypercubes:facts-for-hypercube(
+    $hypercube,
+    $component.Archive,
+    $options
+  )
+  let $hide-amended-facts as boolean := 
+    if (exists($options.HideAmendedFacts))
+    then $options.HideAmendedFacts
+    else true (: default :)
+  return
+    if ($hide-amended-facts)
+    then sec:hide-amended-facts($facts)
+    else $facts
+};
+
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
 let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
@@ -217,7 +247,7 @@ return
                                 for $d in $rollup
                                 return ($d, keys(descendant-objects($p)[$$.Name eq $d].To))
                          return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
-                     else sec-networks:facts($component, {||})
+                     else local:facts($component, {| |}) 
         let $fact-table :=  for $f in $facts
                             let $a := $f.Aspects
                             return {|
