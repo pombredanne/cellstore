@@ -12,7 +12,6 @@ import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
