@@ -90,7 +90,7 @@ declare function local:component-summary($component as object) as object
     }
 };
 
-declare function local:components-by-disclosures($disclosures as string*, $aids as string*) as object*
+declare function local:components-by-disclosures($disclosures as string, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -109,7 +109,7 @@ declare function local:components-by-disclosures($disclosures as string*, $aids 
         })
 };
 
-declare function local:components-by-roles($roles as string*, $aids as string*) as object*
+declare function local:components-by-roles($roles as string, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -127,7 +127,7 @@ declare function local:components-by-roles($roles as string*, $aids as string*) 
         })
 };
 
-declare function local:components-by-reportElements($reportElements as string*, $aids as string*) as object*
+declare function local:components-by-reportElements($reportElements as string, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -233,13 +233,14 @@ let $search := request:param-values("label")
 let $components  := (if (exists($cid))
                     then components:components($cid)
                     else (),
-                    if (exists($reportElements) or exists($disclosures) or exists($roles) or exists($search))
-                    then (
-                            local:components-by-reportElements($reportElements, $archives._id), 
-                            local:components-by-disclosures($disclosures, $archives._id),
-                            local:components-by-roles($roles, $archives._id),
-                            local:components-by-label($search, $archives._id)
-                        )
+                    if (exists($reportElements))
+                    then local:components-by-reportElements($reportElements, $archives._id)
+                    else if (exists($disclosures))
+                    then local:components-by-disclosures($disclosures, $archives._id)
+                    else if (exists($roles))
+                    then local:components-by-roles($roles, $archives._id)
+                    else if (exists($search))
+                    then local:components-by-label($search, $archives._id)
                     else components:components-for-archives($archives._id))
 let $entities    := entities:entities($archives.Entity)
 return 
