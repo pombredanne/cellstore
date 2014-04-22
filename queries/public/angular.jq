@@ -19,7 +19,7 @@ $keyword-map($name) else $name
     return string-join($tokens, "")
 };
 
-declare function local:signature($parameters as string*) as string {
+declare function local:signature($parameters as object*) as string {
     string-join(
         for $parameter in $parameters
         where not($parameter.paramType eq "header" and
@@ -28,13 +28,13 @@ jn:size($parameter.enum) eq 1)
     , ", ")
 };
 
-declare function local:queries($parameters as string*) as string* {
+declare function local:queries($parameters as object*) as object* {
     for $param in $parameters
     where $param.paramType eq "query"
     return $param
 };
 
-declare function local:singletons($parameters as string*) as object*{
+declare function local:singletons($parameters as object*) as object*{
     for $parameter in $parameters
     where jn:size($parameter.enum) eq 1
     return {
@@ -43,7 +43,7 @@ declare function local:singletons($parameters as string*) as object*{
     }
 };
 
-declare function local:path($path as string, $parameters as string*) as string {
+declare function local:path($path as string, $parameters as object*) as string {
     let $segments :=
         for $segment in $parameters
         where $segment.paramType eq "path"
@@ -65,7 +65,7 @@ declare function local:compute-path($path as string, $segments as string*) as st
         )
 };
 
-declare function local:has-body($parameters as string*) as boolean {
+declare function local:has-body($parameters as object*) as boolean {
     exists(
         for $param in $parameters
         where $param.paramType eq "body"
@@ -73,7 +73,7 @@ declare function local:has-body($parameters as string*) as boolean {
     )
 };
 
-declare function local:has-headers($parameters as string*) as boolean {
+declare function local:has-headers($parameters as object*) as boolean {
     exists(
         for $param in $parameters
         where $param.paramType eq "header"
