@@ -185,10 +185,11 @@ as integer
 declare %private function session:only-dow30($entities)
 as boolean
 {
+    true(:
     count(
         for $e in $entities
-        where count($e.Profiles.SEC.Tags[]) gt 0 and $e.Profiles.SEC.Tags[] = "DOW30"
-        return $e) eq count($entities)
+        where count($e.Profiles.SVS.Tags[]) gt 0 and $e.Profiles.SVS.Tags[] = "INTER10"
+        return $e) eq count($entities):)
 };
 
 declare function session:error($msg as string, $format as string?)
