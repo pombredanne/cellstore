@@ -466,19 +466,53 @@ angular.module('main', [
         url: '/account',
         templateUrl: '/views/account.html',
         controller: 'AccountCtrl',
+        resolve: {
+            user: ['$rootScope', '$backend', 'UsersService', function($rootScope, $backend, UsersService) {
+                var service = new UsersService($backend.API_URL + '/_queries/public');
+                return service.getUser({ $method: 'POST', token: $rootScope.token });
+            }]
+        },
         data: {
             title: 'Account'
         }
     })
-    .state('root.accountSection', {
-        url: '/account/:section',
-        templateUrl: '/views/account.html',
-        controller: 'AccountCtrl',
+
+    .state('root.account.info', {
+        url: '/info',
+        templateUrl: '/views/account/info.html',
+        controller: 'AccountInfoCtrl',
         data: {
-            title: 'Account'
+            subActive: 'info',
+            title: 'Account Information'
         }
     })
-    
+
+    .state('root.account.password', {
+        url: '/password',
+        templateUrl: '/views/account/password.html',
+        controller: 'AccountPasswordCtrl',
+        data: {
+            subActive: 'password',
+            title: 'Change Password'
+        }
+    })
+
+    .state('root.account.tokens', {
+        url: '/tokens',
+        templateUrl: '/views/account/tokens.html',
+        controller: 'AccountTokensCtrl',
+        resolve: {
+            tokens: ['$rootScope', '$backend', 'SessionService', function($rootScope, $backend, SessionService) {
+                var service = new SessionService($backend.API_URL + '/_queries/public');
+                return service.listTokens({ $method: 'POST', token: $rootScope.token });
+            }]
+        },
+        data: {
+            subActive: 'tokens',
+            title: 'API Tokens'
+        }
+    })
+
     .state('root.conceptMap', {
         url: '/concept-map/:name',
         controller: 'ConceptMapCtrl',

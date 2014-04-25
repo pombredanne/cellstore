@@ -1,0 +1,26 @@
+<div class="container export">
+    <h2 class="text-center">API Tokens</h2>
+    <div class="table-responsive">
+        <table class="table">
+        <thead>
+            <th>Token</th>
+            <th>Expiring on</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="t in tokens track by $index">
+                <td>
+                    {{t.token}}
+                </td>
+                <td>
+                    {{t.expiration | date : 'dd-MMM-yyyy hh:mm:ss a'}}
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-sm">Revoke</a>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+        <button class="btn btn-primary">Create new token</a>
+    </div>
+</div>
