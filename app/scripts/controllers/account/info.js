@@ -28,7 +28,7 @@ angular.module('main')
                     $scope.loading = false;
                 },
                 function(response) {
-                    $scope.$emit('error', response.status, response.data); 
+                    $scope.$emit('error', response.status, response.data);
                     $scope.loading = false;
                 });
         }

@@ -2,7 +2,7 @@
 
 angular.module('main')
 .controller('AccountCtrl', function($scope, $state, user) {
-    $scope.entity = user;
+    $scope.user = user;
 
     $scope.$on('$stateChangeSuccess', function(event, toState) {
         $scope.subActive = toState.data && toState.data.subActive;

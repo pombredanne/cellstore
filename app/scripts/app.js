@@ -16,8 +16,9 @@ angular.module('main', [
     });
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-        //TODO: fix hardcoded 500
-        $rootScope.$emit('error', 500, error);
+        var status = error.status || 500;
+        var content = error.data || error;
+        $rootScope.$emit('error', status, content);
         ngProgressLite.done();
     });
 })
@@ -203,23 +204,17 @@ angular.module('main', [
         templateUrl: '/views/entity/filings.html',
         controller: 'FilingsCtrl',
         resolve: {
-            filings: ['$q', '$http', '$stateParams', '$backend', function($q, $http, $stateParams, $backend){
-                var deferred = $q.defer();
-                var cik = $stateParams.cik;
-                $http({
+            filings: ['$http', '$stateParams', '$backend', function($http, $stateParams, $backend){
+                return $http({
                     method : 'GET',
                     url: $backend.API_URL + '/_queries/public/api/filings.jq',
                     params : {
                         '_method' : 'POST',
-                        'cik' : cik,
+                        'cik' : $stateParams.cik,
                         'fiscalPeriod': 'ALL',
                         'fiscalYear': 'ALL'
                     }
-                })
-                .success(function(data) {
-                    deferred.resolve(data);
                 });
-                return deferred.promise;
             }]
         },
         data: {
@@ -467,9 +462,31 @@ angular.module('main', [
         templateUrl: '/views/account.html',
         controller: 'AccountCtrl',
         resolve: {
-            user: ['$rootScope', '$backend', 'UsersService', function($rootScope, $backend, UsersService) {
-                var service = new UsersService($backend.API_URL + '/_queries/public');
-                return service.getUser({ $method: 'POST', token: $rootScope.token });
+            user: ['$rootScope', '$q', '$location', '$backend', 'UsersService', function($rootScope, $q, $location, $backend, UsersService) {
+                var service = (new UsersService($backend.API_URL + '/_queries/public'));
+                var deferred = $q.defer();  
+                
+                //force auth if the token comes as query string
+                var qs = $location.search();
+                if (qs && qs.token) {
+                    service.getUser({ token: qs.token })
+                        .then(function(data) {
+                            if (data && data.success && data.user) {
+                                $rootScope.login(qs.token, data.user._id, data.user.email, data.user.firstname, data.user.lastname);
+                                deferred.resolve($rootScope.user);
+                            } else {
+                                deferred.reject({ status: 401, data: data });
+                            }
+                        },
+                        function(response) {
+                            deferred.reject(response);
+                        });
+                } else if (!$rootScope.token) {
+                    deferred.reject({ status: 401, data: { description: "Unauthorized!" } });
+                } else {
+                    deferred.resolve($rootScope.user);
+                }
+                return deferred.promise;
             }]
         },
         data: {
@@ -653,25 +670,23 @@ angular.module('main', [
 
 	$rootScope.$on('error', function(event, status, error){
 		if (status === 401) {
-            var p = $location.path();
-            if (p === '/account' || p === '/account/password' || p === '/account/info') {
-                p = '';
-            }
-		    $location.path('/auth' + p).replace();
-			return;
+            $rootScope.$emit('auth');
 		}
-		$modal.open( {
-			template: '<div class="modal-header h3"> Error {{object.status}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body"> {{object.error.description }} <br><a ng-click="details=true" ng-hide="details" class="dotted">Show details</a><pre ng-show="details" class="small">{{object.error | json }}</pre></div>',
-			controller: ['$scope', '$modalInstance', 'object', function ($scope, $modalInstance, object) {
-                $scope.object = object;
-				$scope.cancel = function () {
-				    $modalInstance.dismiss('cancel');
-				};
-            }],
-			resolve: {
-				object: function() { return { status: status, error: error }; }
-			}
-		});
+        else 
+        {
+            $modal.open( {
+                template: '<div class="modal-header h3"> Error {{object.status}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body"> {{object.error.description }} <br><a ng-click="details=true" ng-hide="details" class="dotted">Show details</a><pre ng-show="details" class="small">{{object.error | json }}</pre></div>',
+                controller: ['$scope', '$modalInstance', 'object', function ($scope, $modalInstance, object) {
+                    $scope.object = object;
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }],
+                resolve: {
+                    object: function() { return { status: status, error: error }; }
+                }
+            });
+        }
 	});
 
 	$rootScope.$on('alert', function(event, title, message){
@@ -689,8 +704,24 @@ angular.module('main', [
 		});
 	});
 
+    $rootScope.$on('auth', function() {
+        var p = $location.path();
+        if (p === '/account' || p === '/account/password' || p === '/account/info') {
+            p = '';
+        }
+        window.location.pathname = '/auth' + p;
+    });
+
 	$rootScope.$on('login', function(event, token, id, email, firstname, lastname, url){
-		$rootScope.token = token;
+		$rootScope.login(token, id, email, firstname, lastname);
+		if (!url) {
+            url='/';
+        }
+		window.location.pathname = url;
+	});
+
+    $rootScope.login = function(token, id, email, firstname, lastname) {
+        $rootScope.token = token;
 		$rootScope.user = { id: id, email: email, firstname: firstname, lastname: lastname };
 		var cache = $angularCacheFactory.get('secxbrl');
 		if (cache)
@@ -699,14 +730,11 @@ angular.module('main', [
 			cache.put('user', angular.copy($rootScope.user));
 		}
 		//MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'login' });
-		if (!url) {
-            url='/';
-        }
-		$location.path(url).replace();
-	});
+    };
 
 	$rootScope.$on('logout', function(){
 		$rootScope.logout();
+		window.location.pathname = '/';
 	});
 
 	$rootScope.logout = function() {
@@ -721,26 +749,19 @@ angular.module('main', [
 			cache.remove('token');
 			cache.remove('user');
 		}
-		$location.path('/').replace();
 	};
 
 	$rootScope.$on('clearCache', function(){//event
         $rootScope.clearCache();
+		window.location.pathname = '/';
 	});
 
 	$rootScope.clearCache = function() {
 		$angularCacheFactory.clearAll();
-		$location.path('/').replace();
 	};
 
 	$rootScope.gotoId = function(id) {
 		$rootScope.$broadcast('scroll-id', id);
-	};
-
-	$rootScope.gotologin = function() {
-		var p = $location.path();
-		if (p.length > 5 && p.substring(0, 5) === '/auth') { return; }
-		$location.url('/auth' + p, true);
 	};
 
 	$rootScope.substring = function(string, len) {
@@ -779,4 +800,23 @@ angular.module('main', [
         }
         return '';
     };
+
+	$rootScope.confirmPassword = function(title, message){
+		return $modal.open( {
+			template: '<div class="modal-header h3"> {{object.title}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body"><div ng-bind-html="object.message"></div><input type="password" class="form-control" ng-model="object.password" name="password" placeholder="Input password"></div><div class="text-right modal-footer"><button class="btn btn-primary" ng-click="ok()">OK</button> <button class="btn btn-default" ng-click="cancel()">Cancel</button></div>',
+			controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
+                $scope.object = object;
+                $scope.object.password = '';
+				$scope.cancel = function () {
+				    $modalInstance.dismiss('cancel');
+                };
+				$scope.ok = function () {
+				    $modalInstance.close({ password: $scope.object.password });
+                };
+			}],
+			resolve: {
+				object: function() { return { title: title, message: message }; }
+			}
+		}).result;
+	};
 });

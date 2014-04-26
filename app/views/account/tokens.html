@@ -16,11 +16,11 @@
                     {{t.expiration | date : 'dd-MMM-yyyy hh:mm:ss a'}}
                 </td>
                 <td>
-                    <button class="btn btn-danger btn-sm">Revoke</a>
+                    <button class="btn btn-danger btn-sm" ng-click="revoke(t)">Revoke</a>
                 </td>
             </tr>
         </tbody>
         </table>
-        <button class="btn btn-primary">Create new token</a>
+        <button class="btn btn-primary" ng-click="create()">Create new token</a>
     </div>
 </div>

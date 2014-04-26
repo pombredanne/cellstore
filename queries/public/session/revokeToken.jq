@@ -1,5 +1,6 @@
 jsoniq version "1.0";
 
+import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace request = "http://www.28msec.com/modules/http-request";
@@ -29,25 +30,33 @@ variable $password := request:param-values("password");
 variable $token := request:param-values("token");
 variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
 
-if (empty($email) or empty($password) or empty($token))
+variable $user := try { user:login($email, $password) } catch * { () };
+
+if (empty($user)) 
 then {
-    $status := 400;
+    $status := 403;
     $res :=
-        { 
-            success : false, 
-            description : (if (empty($email)) 
-                          then "email"
-                          else 
-                            if (empty($password)) 
-                            then "password"
-                            else "token")
-                          || ": parameter missing"
+        {
+            success : false,
+            description : "invalid email or password"
         };
 } else {
-    $status := 200;
-    session:terminate($token);
-    $res := api:success();
+    if (empty($token))
+    then {
+        $status := 400;
+        $res :=
+            { 
+                success : false, 
+                description : "Token: parameter missing"
+            };
+    } else {
+        $status := 200;
+        session:terminate($token);
+        $res := api:success();
+    }
 }
+
+response:status-code($status);
 
 switch ($format)
     case "xml" return {
