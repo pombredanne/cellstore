@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('RootCtrl', function($scope, $rootScope){
+.controller('RootCtrl', function($scope){
     $scope.$on('$stateChangeSuccess', function(event, toState) {
         $scope.active = toState.data && toState.data.active;
     });

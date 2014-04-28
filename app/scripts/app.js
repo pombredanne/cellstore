@@ -464,7 +464,7 @@ angular.module('main', [
         resolve: {
             user: ['$rootScope', '$q', '$location', '$backend', 'UsersService', function($rootScope, $q, $location, $backend, UsersService) {
                 var service = (new UsersService($backend.API_URL + '/_queries/public'));
-                var deferred = $q.defer();  
+                var deferred = $q.defer();
                 
                 //force auth if the token comes as query string
                 var qs = $location.search();
@@ -482,7 +482,7 @@ angular.module('main', [
                             deferred.reject(response);
                         });
                 } else if (!$rootScope.token) {
-                    deferred.reject({ status: 401, data: { description: "Unauthorized!" } });
+                    deferred.reject({ status: 401, data: { description: 'Unauthorized access!' } });
                 } else {
                     deferred.resolve($rootScope.user);
                 }
@@ -666,7 +666,7 @@ angular.module('main', [
 		if (status === 401) {
             $rootScope.$emit('auth');
 		}
-        else 
+        else
         {
             $modal.open( {
                 template: '<div class="modal-header h3"> Error {{object.status}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body"> {{object.error.description }} <br><a ng-click="details=true" ng-hide="details" class="dotted">Show details</a><pre ng-show="details" class="small">{{object.error | json }}</pre></div>',
