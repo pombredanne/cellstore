@@ -61,8 +61,10 @@
                                         <span ng-if="item.type[$index] != 'NumericValue' && !isBlock(v)">{{v || ' '}}</span>
                                         <a ng-if="item.type[$index] != 'NumericValue' && isBlock(v)" ng-click="showText(v)">Show Text</a>
                                     </td>
-                                    <td class="nowrap text-center" ng-if="report.isBoolean" ng-repeat="v in item.value track by $index">
-                                        <i class="fa semaphore" ng-class="{ 'fa-check-circle': item.value, 'success': v, 'fa-exclamation-circle': !v }"></i>
+                                    <td class="nowrap text-center" ng-if="(report.isBoolean)" ng-repeat="v in item.value track by $index">
+                                      <i class="fa semaphore fa-check-circle success" ng-if="v === true" tooltip="Rule passed"></i>
+                                      <i class="fa semaphore fa-exclamation-circle" ng-if="v === false" tooltip="Rule failed"></i>
+                                      <i class="fa semaphore fa-step-forward" ng-if="v === ''" tooltip="Rule has been skipped because a precondition was not met" style="color: #888888;"></i>
                                     </td>
                                 </tr>
                             </tbody>
