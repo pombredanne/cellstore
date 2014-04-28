@@ -62,7 +62,14 @@
                                         <tr ng-repeat="item in report.items">
                                             <td>{{item.label}}</td>
                                             <td class="nowrap text-right" ng-if="(item.type == 'NumericValue')">{{item.value || 0}}</td>
-                                            <td class="nowrap text-center" ng-if="(report.isBoolean)"><i class="fa semaphore" ng-class="{ 'fa-check-circle': item.value, 'success': item.value, 'fa-exclamation-circle': !item.value }"></i></td>
+                                            <td class="nowrap text-center" ng-if="(report.isBoolean)">
+                                              <i class="fa semaphore fa-check-circle success" ng-if="item.value === true" tooltip="Rule passed"></i>
+                                              <i class="fa semaphore fa-exclamation-circle" ng-if="item.value === false" tooltip="Rule failed"></i>
+                                              <span class="fa fa-stack semaphore disabled" ng-if="item.value === null" tooltip="Rule has been skipped because a precondition was not met">
+                                                  <i class="fa fa-circle fa-stack-2x"></i>
+                                                  <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>
+                                              </span>
+                                            </td>
                                             <td class="nowrap" ng-if="(!report.isBoolean && item.type != 'NumericValue' && !isBlock(item.value))">{{item.value || ' '}}</td>
                                             <td class="nowrap" ng-if="(!report.isBoolean && item.type != 'NumericValue' && isBlock(item.value))"><a ng-click="showText(item.value)">Show Text</a></td>
                                             <td>
