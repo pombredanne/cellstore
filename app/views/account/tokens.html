@@ -1,5 +1,37 @@
 <div class="container export">
     <h2 class="text-center">API Tokens</h2>
+
+    <script type="text/ng-template" id="tokens_revoke.html">
+        <div class="modal-header h3">Warning<a class="close" ng-click="cancel()">&times;</a></div>
+        <div class="modal-body">
+            <div>
+                You are about to revoke the token <b>{{object.token}}</b>.<br>
+                This operation is irreversible!<br><br>
+                Please input your password to confirm the operation.
+            </div>
+            <input type="password" class="form-control" ng-model="object.password" name="password" placeholder="Input password">
+        </div>
+        <div class="text-right modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="tokens_create.html">
+        <div class="modal-header h3">Create token<a class="close" ng-click="cancel()">&times;</a></div>
+        <div class="modal-body">
+            <div>
+                <label for="expiration">Expiration date</label>
+                <input type="text" class="form-control" ng-model="object.expiration" ng-required="true" /><br>
+                Please input your password to confirm the operation.
+            </div>
+            <input type="password" class="form-control" ng-model="object.password" name="password" placeholder="Input password">
+        </div>
+        <div class="text-right modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
     <div class="table-responsive">
         <table class="table">
         <thead>

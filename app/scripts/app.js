@@ -518,12 +518,6 @@ angular.module('main', [
         url: '/tokens',
         templateUrl: '/views/account/tokens.html',
         controller: 'AccountTokensCtrl',
-        resolve: {
-            tokens: ['$rootScope', '$backend', 'SessionService', function($rootScope, $backend, SessionService) {
-                var service = new SessionService($backend.API_URL + '/_queries/public');
-                return service.listTokens({ $method: 'POST', token: $rootScope.token });
-            }]
-        },
         data: {
             subActive: 'tokens',
             title: 'API Tokens'
@@ -800,23 +794,4 @@ angular.module('main', [
         }
         return '';
     };
-
-	$rootScope.confirmPassword = function(title, message){
-		return $modal.open( {
-			template: '<div class="modal-header h3"> {{object.title}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body"><div ng-bind-html="object.message"></div><input type="password" class="form-control" ng-model="object.password" name="password" placeholder="Input password"></div><div class="text-right modal-footer"><button class="btn btn-primary" ng-click="ok()">OK</button> <button class="btn btn-default" ng-click="cancel()">Cancel</button></div>',
-			controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
-                $scope.object = object;
-                $scope.object.password = '';
-				$scope.cancel = function () {
-				    $modalInstance.dismiss('cancel');
-                };
-				$scope.ok = function () {
-				    $modalInstance.close({ password: $scope.object.password });
-                };
-			}],
-			resolve: {
-				object: function() { return { title: title, message: message }; }
-			}
-		}).result;
-	};
 });

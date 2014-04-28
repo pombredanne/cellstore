@@ -171,7 +171,8 @@ declare function local:javascript($d as object, $new-module as boolean) as strin
                 url: url,
                 params: params" || (if($operation.hasBody) then ",
 data: body" else "")  || (if($operation.hasHeaders) then ", headers: "
-|| $operation.headers else "") || "
+|| $operation.headers else "") || ",
+                cache: (parameters.$refresh !== true)
             })
             .success(function(data, status, headers, config){
                 deferred.resolve(data);
