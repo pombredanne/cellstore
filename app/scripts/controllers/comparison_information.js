@@ -89,7 +89,7 @@ angular.module('main')
                                 item.type[index] = 'NumericValue';
                             }
                             else {
-                                item.value[index] = '';
+                                item.value[index] = null;
                                 item.type[index] = '';
                             }
                         }
