@@ -65,7 +65,10 @@
                                             <td class="nowrap text-center" ng-if="(report.isBoolean)">
                                               <i class="fa semaphore fa-check-circle success" ng-if="item.value === true" tooltip="Rule passed"></i>
                                               <i class="fa semaphore fa-exclamation-circle" ng-if="item.value === false" tooltip="Rule failed"></i>
-                                              <i class="fa semaphore fa-step-forward" ng-if="item.value === null" tooltip="Rule has been skipped because a precondition was not met" style="color: #888888;"></i>
+                                              <span class="fa fa-stack semaphore disabled" ng-if="item.value === null" tooltip="Rule has been skipped because a precondition was not met">
+                                                  <i class="fa fa-circle fa-stack-2x"></i>
+                                                  <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>
+                                              </span>
                                             </td>
                                             <td class="nowrap" ng-if="(!report.isBoolean && item.type != 'NumericValue' && !isBlock(item.value))">{{item.value || ' '}}</td>
                                             <td class="nowrap" ng-if="(!report.isBoolean && item.type != 'NumericValue' && isBlock(item.value))"><a ng-click="showText(item.value)">Show Text</a></td>
