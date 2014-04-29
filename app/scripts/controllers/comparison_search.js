@@ -3,7 +3,7 @@
 /*globals accounting*/
 
 angular.module('main')
-.controller('ComparisonSearchCtrl', function($scope, $http, $modal, $location, $backend, QueriesService, conceptMaps) {
+.controller('ComparisonSearchCtrl', function($scope, $http, $modal, $location, $backend, QueriesService, conceptMaps, allRules) {
     $scope.none = 'US-GAAP Taxonomy Concepts';
 
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
@@ -11,6 +11,7 @@ angular.module('main')
         conceptMaps.push($scope.none);
     }
     $scope.conceptMaps = conceptMaps;
+    $scope.allRules = allRules;
     $scope.conceptMapKeys = [];
     $scope.entityIndex = -1;
     $scope.API_URL = $backend.API_URL;

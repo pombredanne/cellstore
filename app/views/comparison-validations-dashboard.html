@@ -3,7 +3,7 @@
         <div class="btn-group">
             <a class="btn btn-default" ng-class="{ active: subActive === 'compare' }" ng-href="/comparison?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-home"></i></a>
             <a class="btn btn-default" ng-class="{ active: subActive === 'information' }" ng-href="/comparison/information?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-th-large"></i> Basic Financial Information</a>
-            <a class="btn btn-default" ng-class="{ active: subActive === 'validations-dashboard' }" ng-href="/comparison/validations-dashboard?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-th-large"></i> Validations Dashboard</a>
+            <a class="btn btn-default" ng-class="{ active: subActive === 'validations-dashboard' }" ng-href="/comparison/validations-dashboard?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-th-large"></i> Validation Dashboard</a>
             <a class="btn btn-default" ng-class="{ active: subActive === 'search' }" ng-href="/comparison/search?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-search"></i> Search Facts</a>
             <a class="btn btn-default" ng-class="{ active: subActive === 'components' }" ng-href="/comparison/components?{{wwwFormUrlencoded(selection)}}"><i class="fa fa-quote-left"></i> Search Components</a>
         </div>
@@ -21,7 +21,7 @@
                 <span class="tag" ng-if="reports.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
             </div>
             <div class="col-lg-6">
-                <h2 class="text-center">Compare Basic Financial Information Across Selected Filings</h2>
+                <h2 class="text-center">Compare Validation Statistics Across Selected Filings</h2>
             </div>
             <div class="col-lg-3">
                 <span class="dropdown pull-right" ng-if="reports.length">
@@ -43,54 +43,52 @@
                         <table class="table table-condensed table-striped small" id="comparison-information-table">
                             <thead>
                                 <th>Entity</th>
-                                <th>Industry</th>
                                 <th>Period</th>
                                 <th>Year</th>
                                 <th>Passed</th>
                                 <th>Failed</th>
                                 <th>Rules Not Applicable</th>
                             </thead>
-                            <tbody ng-repeat="report in reports">
+                            <tbody ng-repeat="report in reports | orderBy:['passed','skipped']:true">
                                 <tr>
                                     <td>
-                                        <a ng-click="showtab[$index]=!showtab[$index]">
-                                            <i class="fa fa-caret-down" ng-show="showtab[$index]"></i>
-                                            <i class="fa fa-caret-right" ng-hide="showtab[$index]"></i>
-                                            {{report.Entity}}
+                                        <a ng-click="showtab[reports.indexOf(report)]=!showtab[reports.indexOf(report)]">
+                                            <i class="fa fa-caret-down" ng-show="showtab[reports.indexOf(report)]"></i>
+                                            <i class="fa fa-caret-right" ng-hide="showtab[reports.indexOf(report)]"></i>
+                                            {{report.entity}}
                                         </a>
                                     </td>
                                     <td>
-                                      {{report.SICDescription}}
+                                      {{report.period}}
                                     </td>
                                     <td>
-                                      {{report.FiscalPeriod}}
+                                      {{report.year}}
                                     </td>
                                     <td>
-                                      {{report.FiscalYear}}
+                                      <b>
+                                        {{report.passed}}
+                                      </b>
                                     </td>
                                     <td>
-                                      {{report.PassedValidations}}
+                                      <b>
+                                        {{report.failed}}
+                                      </b>
                                     </td>
                                     <td>
-                                      {{report.FailedValidations}}
-                                    </td>
-                                    <td>
-                                      {{report.NotApplicableValidations}}
+                                      {{report.notApplicable}}
                                     </td>
                                 </tr>
-                                <tr ng-repeat="item in report.ValidationDetails" ng-if="showtab[reports.indexOf(report)]">
-                                  <td colspan="6">
-                                      {{item.AuditTrails[0].Message}}
+                                <tr ng-repeat="detail in report.details" ng-if="showtab[reports.indexOf(report)]">
+                                  <td colspan="5" ng-if="detail.message">
+                                      {{detail.message}}
+                                  </td>
+                                  <td colspan="5" ng-if="!detail.message">
+                                      {{detail.label}}
                                   </td>
                                   <td>
-                                      <i class="fa semaphore fa-check-circle success" ng-if="item.AuditTrails[0].Data.ValidationPassed === true" tooltip="Rule passed"></i>
-                                      <i class="fa semaphore fa-exclamation-circle" ng-if="item.AuditTrails[0].Data.ValidationPassed === false" tooltip="Rule failed"></i>
-                                  </td>
-                                </tr>
-                                <tr ng-repeat="value in report.NotApplicableDetails" ng-if="showtab[reports.indexOf(report)]">
-                                  <td colspan="6">{{value}}</td>
-                                  <td>
-                                      <span class="fa-stack semaphore disabled" tooltip="Rule has been skipped because a precondition was not met">
+                                      <i class="fa semaphore fa-check-circle success" ng-if="detail.passed === true" tooltip="Rule passed"></i>
+                                      <i class="fa semaphore fa-exclamation-circle" ng-if="detail.passed === false" tooltip="Rule failed"></i>
+                                      <span class="fa-stack semaphore disabled" tooltip="Rule has been skipped because a precondition was not met" ng-if="detail.skipped === true">
                                           <i class="fa fa-circle fa-stack-2x"></i>
                                           <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>
                                       </span>
