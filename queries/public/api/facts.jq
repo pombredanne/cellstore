@@ -30,15 +30,6 @@ declare function local:to-csv($o as object*) as string?
                 { "EntityRegistrantName" : $o.EntityRegistrantName },
                 if (exists($o.ReportedConcept))
                 then { "ReportedConcept" : $o.ReportedConcept }
-                else (),
-                if (exists($o.CalculatedRule))
-                then { "CalculatedRule" : $o.CalculatedRule }
-                else (),
-                if (exists($o.ValidationRule))
-                then { "ValidationRule" : $o.ValidationRule }
-                else (),
-                if (exists($o.AuditTrail))
-                then { "AuditTrail" : $o.AuditTrail }
                 else ()
             |},
             { serialize-null-as : "" }
@@ -80,74 +71,9 @@ declare function local:to-xml($o as object*) as node()*
                 <EntityRegistrantName>{$o.EntityRegistrantName}</EntityRegistrantName>,
                 if (exists($o.ReportedConcept))
                 then <ReportedConcept>{$o."ReportedConcept"}</ReportedConcept>
-                else (),
-                if (exists($o.CalculatedRule))
-                then <CalculatedRule>{$o."CalculatedRule"}</CalculatedRule>
-                else (),
-                if (exists($o.ValidationRule))
-                then <ValidationRule>{$o."ValidationRule"}</ValidationRule>
-                else (),
-                if (exists($o.AuditTrail))
-                then <AuditTrail>{$o."AuditTrail"}</AuditTrail>
                 else ()
             }</Fact>
     }</FactTable>)
-};
-
-declare function local:serialize-audit-trails(
-    $fact as object,
-    $audit-trail as string?) as string?
-{
-    let $trails := $fact.AuditTrails[]
-    return
-        switch(true)
-        
-        case $audit-trail eq "simple"
-        return 
-            string-join((
-                for $trail in $trails
-                let $type := $trail.Type
-                return 
-                    switch($type)
-                    
-                    case "xbrl28:concept-maps"
-                    return "Mapped: " || $trail.Message
-                    
-                    case "xbrl28:formula"
-                    return "'" || $trail.Label || "': " || $trail.Message
-                    
-                    case "xbrl28:validation"
-                    return $trail.Message
-
-                    case "xbrl28:dimension-default"
-                    return "Autocorrected default dimension: " || $trail.Message
-                    
-                    default return ()
-            ), "\n")
-        case $audit-trail eq "simple-html"
-        return 
-            string-join((
-                for $trail in $trails
-                let $type := $trail.Type
-                return 
-                    switch($type)
-                    
-                    case "xbrl28:concept-maps"
-                    return "<p><b>Mapped</b>: " || $trail.Message || "</p>"
-                    
-                    case "xbrl28:formula"
-                    return "<p><b>" || $trail.Label || "</b>: " || $trail.Message || "</p>"
-                    
-                    case "xbrl28:validation"
-                    return "<p><b>Validated</b>: " || $trail.Message || "</p>"
-                    
-                    case "xbrl28:dimension-default"
-                    return "<p><b>Autocorrected default dimension</b>: " || $trail.Message || "</p>"
-                        
-                    default return ()
-            ), "<br/>")
-        
-        default return ()
 };
 
 declare function local:facts(
@@ -155,8 +81,7 @@ declare function local:facts(
     $concepts as string*, 
     $dimensions as object* , 
     $map as string?,
-    $rules as string?, 
-    $audit-trail as string?) as object*
+    $rules as string?) as object*
 {
     let $aspects :=
         {|
@@ -231,22 +156,7 @@ declare function local:facts(
         { "EntityRegistrantName" : companies:companies($fact.Aspects."xbrl:Entity").Profiles.SEC.CompanyName},
         if (exists($map) and ($fact."xbrl28:Type" eq "xbrl28:concept-maps"))
         then { "ReportedConcept" : $fact.AuditTrails[][$$.Type eq "xbrl28:concept-maps"].Data.OriginalConcept[1] }
-        else (),
-        if (exists($rules) and ($fact."xbrl28:Type" eq "xbrl28:formula"))
-        then { "CalculatedRule" : 
-               let $audit-trail := $fact.AuditTrails[][$$.Type eq "xbrl28:formula"][1]
-               return "'" || $audit-trail.Label || "': " || $audit-trail.Message }
-        else (),
-        if (exists($rules) and ($fact."xbrl28:Type" eq "xbrl28:validation"))
-        then { "ValidationRule" : 
-               let $audit-trail := $fact.AuditTrails[][$$.Type eq "xbrl28:validation"][1]
-               return $audit-trail.Message }
-        else (),
-        let $trail := local:serialize-audit-trails($fact, $audit-trail)
-        return
-            if(exists($trail))
-            then { "AuditTrail" : $trail }
-            else ()
+        else ()
     |}
 };
 
@@ -344,7 +254,6 @@ let $dimensions :=  for $p in request:param-names()
 let $concepts := request:param-values("concept")
 let $map      := request:param-values("map")[1]
 let $rules      := request:param-values("rules")[1]
-let $audit-trail      := request:param-values("audittrail")[1]
 return 
   if (empty($concepts))
   then {
@@ -366,7 +275,7 @@ return
         session:error("accessing facts of an entity that is not in the DOW30", $format)
       }
       default return
-        let $facts := local:facts($archives, $concepts, $dimensions, $map, $rules, $audit-trail)
+        let $facts := local:facts($archives, $concepts, $dimensions, $map, $rules)
         return
             switch ($format)
             case "xml" return {
