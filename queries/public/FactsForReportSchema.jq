@@ -16,7 +16,7 @@ let $format  := lower-case(request:param-values("format")[1])
 let $aids     := request:param-values("aid")
 let $report   := request:param-values("report")[1]
 let $schema   := report-schemas:report-schemas($report)
- 
+
 let $archives := archives:archives(distinct-values($aids))
 let $entities := entities:entities($archives.Entity)
 return switch(true)
