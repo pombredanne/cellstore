@@ -7,7 +7,7 @@ angular.module('main')
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     $scope.selection = {};
     $scope.showtab = [];
-    $scope.report = [];
+    $scope.reports = [];
     $scope.reportname = 'FundamentalAccountingConcepts';
     $scope.filings = null;
     $scope.error = false;
@@ -34,7 +34,7 @@ angular.module('main')
             $scope.filings = [];
             data.Archives.forEach(function(a) { $scope.filings.push(a.AccessionNumber); });
             if ($scope.filings.length > 30 && !$scope.nomany) {
-                $scope.report = [];
+                $scope.reports = [];
                 $scope.errormany = true;
             } else {
                 $scope.getInfo();
@@ -154,6 +154,8 @@ angular.module('main')
         if (params) {
           params.cik = $scope.selection.cik;
           params.tag = $scope.selection.tag;
+          fiscalYear: $scope.selection.fiscalYear,
+          fiscalPeriod: $scope.selection.fiscalPeriod,
           params.concept = ["fac:PassedValidations", "fac:FailedValidations", "fac:NotApplicableValidations"];
           params.map = $scope.reportname;
           params.rules = $scope.reportname;
