@@ -52,6 +52,8 @@ angular.module('main')
                 _method: 'POST',
                 aid: $scope.filings,
                 report: $scope.reportname,
+                fiscalYear : $scope.selection.fiscalYear,
+                fiscalPeriod : $scope.selection.fiscalPeriod,
                 'token' : $scope.token,
             };
         $http({
@@ -67,7 +69,7 @@ angular.module('main')
             }
             for (var i = 0; i < data.length; i++)
             {
-              $scope.showtab.push(true);
+              $scope.showtab.push(false);
             }
             $scope.error = false;
             $scope.errormany = false;
@@ -107,8 +109,6 @@ angular.module('main')
         if (params) {
           params.cik = $scope.selection.cik;
           params.tag = $scope.selection.tag;
-          params.fiscalYear = $scope.selection.fiscalYear;
-          params.fiscalPeriod = $scope.selection.fiscalPeriod;
           params.concept = ["fac:PassedValidations", "fac:FailedValidations", "fac:NotApplicableValidations"];
           params.map = $scope.reportname;
           params.rules = $scope.reportname;

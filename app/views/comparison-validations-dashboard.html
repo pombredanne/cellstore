@@ -40,7 +40,7 @@
 
                 <div ng-if="reports.length">
                     <div class="table-responsive">
-                        <table class="table table-condensed small" id="comparison-information-table">
+                        <table class="table table-condensed table-striped small" id="comparison-information-table">
                             <thead>
                                 <th>Entity</th>
                                 <th>Industry</th>
@@ -48,7 +48,7 @@
                                 <th>Year</th>
                                 <th>Passed</th>
                                 <th>Failed</th>
-                                <th>Not Applicable</th>
+                                <th>Rules Not Applicable</th>
                             </thead>
                             <tbody ng-repeat="report in reports">
                                 <tr>
@@ -78,16 +78,23 @@
                                       {{report.NotApplicableValidations}}
                                     </td>
                                 </tr>
-                                <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
-                                    <td>{{item.label}}</td>
-                                    <td class="nowrap" ng-if="!report.isBoolean" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
-                                        <span ng-if="item.type[$index] == 'NumericValue'">{{v || 0}}</span>
-                                        <span ng-if="item.type[$index] != 'NumericValue' && !isBlock(v)">{{v || ' '}}</span>
-                                        <a ng-if="item.type[$index] != 'NumericValue' && isBlock(v)" ng-click="showText(v)">Show Text</a>
-                                    </td>
-                                    <td class="nowrap text-center" ng-if="report.isBoolean" ng-repeat="v in item.value track by $index">
-                                        <i class="fa semaphore" ng-class="{ 'fa-check-circle': item.value, 'success': v, 'fa-exclamation-circle': !v }"></i>
-                                    </td>
+                                <tr ng-repeat="item in report.ValidationDetails" ng-if="showtab[reports.indexOf(report)]">
+                                  <td colspan="6">
+                                      {{item.AuditTrails[0].Message}}
+                                  </td>
+                                  <td>
+                                      <i class="fa semaphore fa-check-circle success" ng-if="item.AuditTrails[0].Data.ValidationPassed === true" tooltip="Rule passed"></i>
+                                      <i class="fa semaphore fa-exclamation-circle" ng-if="item.AuditTrails[0].Data.ValidationPassed === false" tooltip="Rule failed"></i>
+                                  </td>
+                                </tr>
+                                <tr ng-repeat="value in report.NotApplicableDetails" ng-if="showtab[reports.indexOf(report)]">
+                                  <td colspan="6">{{value}}</td>
+                                  <td>
+                                      <span class="fa-stack semaphore disabled" tooltip="Rule has been skipped because a precondition was not met">
+                                          <i class="fa fa-circle fa-stack-2x"></i>
+                                          <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>
+                                      </span>
+                                  </td>
                                 </tr>
                             </tbody>
                         </table>

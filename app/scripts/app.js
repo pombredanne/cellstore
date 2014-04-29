@@ -538,6 +538,16 @@ angular.module('main', [
             subActive: 'compare'
         }
     })
+    .state('root.comparisonValidationsDashboard', {
+        url: '/comparison/validations-dashboard',
+        templateUrl: '/views/comparison-validations-dashboard.html',
+        controller: 'ComparisonValidationsDashboardCtrl',
+        data: {
+            title: 'Basic Semantic Validations',
+            active: 'compare',
+            subActive: 'validations-dashboard'
+        }
+    })
     .state('root.comparisonInformation', {
         url: '/comparison/information',
         templateUrl: '/views/comparison-information.html',
