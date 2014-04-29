@@ -51,6 +51,8 @@ angular.module('main')
         $scope.params = {
                 _method: 'POST',
                 aid: $scope.filings,
+                fiscalYear : $scope.selection.fiscalYear,
+                fiscalPeriod : $scope.selection.fiscalPeriod,
                 report: 'FundamentalAccountingConcepts',
                 'token' : $scope.token
             };
@@ -120,8 +122,6 @@ angular.module('main')
         $scope.reports.push(report);
         // tab should be closed
         $scope.showtab.push(false);
-        $scope.$apply()
-
       }//for
 
       $scope.error = false;
@@ -154,8 +154,6 @@ angular.module('main')
         if (params) {
           params.cik = $scope.selection.cik;
           params.tag = $scope.selection.tag;
-          fiscalYear: $scope.selection.fiscalYear,
-          fiscalPeriod: $scope.selection.fiscalPeriod,
           params.concept = ["fac:PassedValidations", "fac:FailedValidations", "fac:NotApplicableValidations"];
           params.map = $scope.reportname;
           params.rules = $scope.reportname;
