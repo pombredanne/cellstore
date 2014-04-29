@@ -38,7 +38,14 @@ angular.module('main')
                 .then(
                     function(data) {
                         if(data && data.success) {
-                            $scope.getData();
+                            if (token.token === $scope.token)
+                            {
+                                $scope.$emit('logout');
+                            }
+                            else
+                            {
+                                $scope.getData();
+                            }
                         } else {
                             $scope.$emit('error', 500, data);
                         }
@@ -57,13 +64,26 @@ angular.module('main')
             controller: ['$scope', '$modalInstance',  function ($scope, $modalInstance) {
                 var d = new Date();
                 d.setFullYear(d.getFullYear() + 1);
-                $scope.object = { date: d, password: '' };
+                $scope.object = { date: d, password: '', opened: false };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
                 $scope.ok = function () {
                     var d = new Date($scope.object.date);
-                    $modalInstance.close({ password: $scope.object.password, expiration: d.toISOString() });
+                    if (Object.prototype.toString.call(d) === '[object Date]' && isFinite(d))
+                    {
+                        $modalInstance.close({ password: $scope.object.password, expiration: d.toISOString() });
+                    }
+                    else
+                    {
+                        $scope.$emit('error', '', { description: 'Invalid date!' });
+                    }
+                };
+                $scope.open = function($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+
+                    $scope.object.opened = true;
                 };
             }]
         }).result.then(function(item) {
@@ -82,6 +102,6 @@ angular.module('main')
                 );
         });
     };
-    
+
 	$scope.getData();
 });
