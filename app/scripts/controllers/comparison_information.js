@@ -58,9 +58,9 @@ angular.module('main')
             $scope.prepareReportForUI,
             function (data, status) {
                 if (status === 401) {
-                  $scope.error = true;
+                    $scope.error = true;
                 } else {
-                  $scope.$emit('error', status, data);
+                    $scope.$emit('error', status, data);
                 }
             }
         );
@@ -69,7 +69,7 @@ angular.module('main')
     $scope.prepareReportForUI = function(data) {
         var reports = [];
 
-        var prepareReport = 
+        var prepareReport =
             function(cik, list, array, index, isNumeric, decimals) {
                 var j = 0, item;
                 for (var key in list) {
@@ -112,24 +112,25 @@ angular.module('main')
 
         for (var i = 0; i < data.length; i++)
         {
-            var root = data[i].Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To;
-            var cik = root["fac:GeneralInformationHierarchy"].To["fac:EntityCentralIndexKey"].Facts[0].Value;
+            var root = data[i].Trees['fac:FundamentalAccountingConceptsLineItems']
+                .To['fac:FundamentalAccountingConceptsHierarchy'].To;
+            var cik = root['fac:GeneralInformationHierarchy']
+                .To['fac:EntityCentralIndexKey'].Facts[0].Value;
             var k = 0;
             for (var report in root) {
-                if (root.hasOwnProperty(report) 
-                    && report !== 'fac:KeyRatiosHierarchy') {
+                if (root.hasOwnProperty(report) && report !== 'fac:KeyRatiosHierarchy') {
                     if (i === 0) {
                         var obj = {
                             name: root[report].Label.toString().replace(' [Hierarchy]', ''),
                             section: report,
                             items: [],
                             isNumeric : (
-                                report === 'fac:BalanceSheetHierarchy' 
-                                || report === 'fac:CashFlowStatementHierarchy' 
-                                || report === 'fac:IncomeStatementHierarchy' 
-                                || report === 'fac:StatementComprehensiveIncomeHierarchy' 
-                                || report === 'fac:KeyRatiosHierarchy' 
-                                || report === 'fac:ValidationStatistics'),
+                                report === 'fac:BalanceSheetHierarchy' ||
+                                report === 'fac:CashFlowStatementHierarchy' ||
+                                report === 'fac:IncomeStatementHierarchy' ||
+                                report === 'fac:StatementComprehensiveIncomeHierarchy' ||
+                                report === 'fac:KeyRatiosHierarchy' ||
+                                report === 'fac:ValidationStatistics'),
                             isBoolean : (report === 'fac:Validations')
                         };
                         if (report === 'fac:KeyRatiosHierarchy')
@@ -140,10 +141,10 @@ angular.module('main')
                     }
                     prepareReport(
                         cik,
-                        root[report].To, 
-                        reports[k].items, 
-                        i, 
-                        reports[k].isNumeric, 
+                        root[report].To,
+                        reports[k].items,
+                        i,
+                        reports[k].isNumeric,
                         reports[k].decimals || 0);
                     k++;
                 }
@@ -152,7 +153,7 @@ angular.module('main')
         $scope.error = false;
         $scope.errormany = false;
         $scope.reports = reports;
-        for (var i = 0; i < reports.length; i++)
+        for (var j = 0; j < reports.length; j++)
         {
             $scope.showtab.push(true);
         }
