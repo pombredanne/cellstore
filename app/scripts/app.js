@@ -204,17 +204,9 @@ angular.module('main', [
         templateUrl: '/views/entity/filings.html',
         controller: 'FilingsCtrl',
         resolve: {
-            filings: ['$http', '$stateParams', '$backend', function($http, $stateParams, $backend){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
-                    params : {
-                        '_method' : 'POST',
-                        'cik' : $stateParams.cik,
-                        'fiscalPeriod': 'ALL',
-                        'fiscalYear': 'ALL'
-                    }
-                });
+            filings: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listFilings({ $method: 'POST', cik: $stateParams.cik, fiscalPeriod: 'ALL', fiscalYear: 'ALL', token: $rootScope.token });
             }]
         },
         data: {
@@ -250,16 +242,9 @@ angular.module('main', [
         templateUrl: '/views/entity/filing.html',
         controller: 'FilingCtrl',
         resolve: {
-            filing: ['$q', '$rootScope', '$stateParams', '$http', '$backend', function($q, $rootScope, $stateParams, $http, $backend){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
-                    params : {
-                        '_method': 'POST',
-                        'aid': $stateParams.aid,
-                        'token': $rootScope.token
-                    }
-                });
+            filing: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listFilings({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         data: {
@@ -271,16 +256,9 @@ angular.module('main', [
         templateUrl: '/views/entity/components.html',
         controller: 'ComponentsCtrl',
         resolve: {
-            components: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/components.jq',
-                    params : {
-                        '_method' : 'POST',
-                        'aid' : $stateParams.aid,
-                        'token' : $rootScope.token
-                    }
-                });
+            components: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         data: {
@@ -292,17 +270,9 @@ angular.module('main', [
         templateUrl: '/views/entity/component.html',
         controller: 'ComponentCtrl',
         resolve: {
-            component: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
-                return $http({
-                    method: 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/components.jq',
-                    params: {
-                        '_method' : 'POST',
-                        'aid' : $stateParams.aid,
-                        'networkIdentifier' : $stateParams.networkIdentifier,
-                        'token' : $rootScope.token
-                    }
-                });
+            component: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         data: {
@@ -333,17 +303,9 @@ angular.module('main', [
         templateUrl: '/views/entity/modelstructure.html',
         controller: 'ModelStructureCtrl',
         resolve: {
-            modelStructure: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
-                    params : {
-                        '_method' : 'POST',
-                        'aid' : $stateParams.aid,
-                        'networkIdentifier' : $stateParams.networkIdentifier,
-                        'token' : $rootScope.token
-                    }
-                });
+            modelStructure: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listModelStructure({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         data: {
@@ -355,16 +317,9 @@ angular.module('main', [
     .state('root.filing', {
         url: '/filing/:aid',
         resolve: {
-            filing: ['$q', '$rootScope', '$stateParams', '$http', '$backend', function($q, $rootScope, $stateParams, $http, $backend){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
-                    params : {
-                        '_method': 'POST',
-                        'aid': $stateParams.aid,
-                        'token': $rootScope.token
-                    }
-                });
+            filing: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listFilings({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         controller: 'RootFilingCtrl'
@@ -374,16 +329,9 @@ angular.module('main', [
     .state('root.components', {
         url: '/components/:aid',
         resolve: {
-            components: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/components.jq',
-                    params : {
-                        '_method': 'POST',
-                        'aid': $stateParams.aid,
-                        'token': $rootScope.token
-                    }
-                });
+            components: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         controller: 'RootComponentsCtrl'
@@ -393,17 +341,9 @@ angular.module('main', [
     .state('root.component', {
         url: '/component/:aid/{networkIdentifier:.*}',
         resolve: {
-            component: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/components.jq',
-                    params : {
-                        '_method' : 'POST',
-                        'aid' : $stateParams.aid,
-                        'networkIdentifier': $stateParams.networkIdentifier,
-                        'token' : $rootScope.token
-                    }
-                });
+            component: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         controller: 'RootComponentCtrl'
@@ -430,17 +370,9 @@ angular.module('main', [
     .state('root.modelstructure', {
         url: '/modelstructure/:aid/{networkIdentifier:.*}',
         resolve: {
-            modelStructure: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
-                    params : {
-                        '_method' : 'POST',
-                        'aid' : $stateParams.aid,
-                        'networkIdentifier' : $stateParams.networkIdentifier,
-                        'token' : $rootScope.token
-                    }
-                });
+            modelStructure: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listModelStructure({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         controller: 'RootModelStructureCtrl'
@@ -636,36 +568,36 @@ angular.module('main', [
     })
     ;
 })
-.run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {
+.run(function($rootScope, $location, $state, $http, $modal, $backend, $angularCacheFactory) {
 
     $rootScope.API_URL = $backend.API_URL;
-	$rootScope.DEBUG = $backend.DEBUG;
+    $rootScope.DEBUG = $backend.DEBUG;
 
-	$angularCacheFactory('secxbrl-http', {
+    $angularCacheFactory('secxbrl-http', {
         maxAge: 60 * 60 * 1000,
         recycleFreq: 60 * 1000,
         deleteOnExpire: 'aggressive'
     });
-	$http.defaults.cache = $angularCacheFactory.get('secxbrl-http');
+    $http.defaults.cache = $angularCacheFactory.get('secxbrl-http');
 
-	$angularCacheFactory('secxbrl', {
+    $angularCacheFactory('secxbrl', {
         maxAge: 60 * 60 * 1000,
         recycleFreq: 60 * 1000,
         deleteOnExpire: 'aggressive',
         storageMode: 'localStorage'
     });
 
-	var cache = $angularCacheFactory.get('secxbrl');
-	if (cache)
-	{
-		$rootScope.token = cache.get('token');
-		$rootScope.user = cache.get('user');
-	}
+    var cache = $angularCacheFactory.get('secxbrl');
+    if (cache)
+    {
+        $rootScope.token = cache.get('token');
+        $rootScope.user = cache.get('user');
+    }
 
-	$rootScope.$on('error', function(event, status, error){
-		if (status === 401) {
+    $rootScope.$on('error', function(event, status, error){
+        if (status === 401) {
             $rootScope.$emit('auth');
-		}
+        }
         else
         {
             $modal.open( {
@@ -681,97 +613,94 @@ angular.module('main', [
                 }
             });
         }
-	});
+    });
 
-	$rootScope.$on('alert', function(event, title, message){
-		$modal.open( {
-			template: '<div class="modal-header h3"> {{object.title}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
-			controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
+    $rootScope.$on('alert', function(event, title, message){
+        $modal.open( {
+            template: '<div class="modal-header h3"> {{object.title}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
+            controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
                 $scope.object = object;
-				$scope.cancel = function () {
-				    $modalInstance.dismiss('cancel');
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
                 };
-			}],
-			resolve: {
-				object: function() { return { title: title, message: message }; }
-			}
-		});
-	});
+            }],
+            resolve: {
+                object: function() { return { title: title, message: message }; }
+            }
+        });
+    });
 
     $rootScope.$on('auth', function() {
         var p = $location.path();
         if (p === '/account' || p === '/account/password' || p === '/account/info') {
             p = '';
         }
-        window.location.pathname = '/auth' + p;
+        $state.go('root.auth', { returnPage: p }, { reload: true });
     });
 
-	$rootScope.$on('login', function(event, token, id, email, firstname, lastname, url){
-		$rootScope.login(token, id, email, firstname, lastname);
-		if (!url) {
-            url='/';
-        }
-		window.location.pathname = url;
-	});
+    $rootScope.$on('login', function(event, token, id, email, firstname, lastname, url){
+        $rootScope.login(token, id, email, firstname, lastname);
+        $location.path(url).replace();
+    });
 
     $rootScope.login = function(token, id, email, firstname, lastname) {
         $rootScope.token = token;
-		$rootScope.user = { id: id, email: email, firstname: firstname, lastname: lastname };
-		var cache = $angularCacheFactory.get('secxbrl');
-		if (cache)
-		{
-			cache.put('token', angular.copy($rootScope.token));
-			cache.put('user', angular.copy($rootScope.user));
-		}
-		//MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'login' });
+        $rootScope.user = { id: id, email: email, firstname: firstname, lastname: lastname };
+        var cache = $angularCacheFactory.get('secxbrl');
+        if (cache)
+        {
+            cache.put('token', angular.copy($rootScope.token));
+            cache.put('user', angular.copy($rootScope.user));
+        }
+        //MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'login' });
     };
 
-	$rootScope.$on('logout', function(){
-		$rootScope.logout();
-		window.location.pathname = '/';
-	});
+    $rootScope.$on('logout', function(){
+        $rootScope.logout();
+        $location.path('/').replace();
+    });
 
-	$rootScope.logout = function() {
-		if ($rootScope.user) {
-			//MunchkinHelper.associateLead({ Email: $rootScope.user.email, lastsecxbrlinfoop: 'logout' });
+    $rootScope.logout = function() {
+        if ($rootScope.user) {
+            //MunchkinHelper.associateLead({ Email: $rootScope.user.email, lastsecxbrlinfoop: 'logout' });
         }
 
-		$rootScope.token = null;
-		$rootScope.user = null;
-		var cache = $angularCacheFactory.get('secxbrl');
-		if (cache) {
-			cache.remove('token');
-			cache.remove('user');
-		}
-	};
+        $rootScope.token = null;
+        $rootScope.user = null;
+        var cache = $angularCacheFactory.get('secxbrl');
+        if (cache) {
+            cache.remove('token');
+            cache.remove('user');
+        }
+    };
 
-	$rootScope.$on('clearCache', function(){//event
+    $rootScope.$on('clearCache', function(){//event
         $rootScope.clearCache();
-		window.location.pathname = '/';
-	});
+        $location.path('/').replace();
+    });
 
-	$rootScope.clearCache = function() {
-		$angularCacheFactory.clearAll();
-	};
+    $rootScope.clearCache = function() {
+        $angularCacheFactory.clearAll();
+    };
 
-	$rootScope.gotoId = function(id) {
-		$rootScope.$broadcast('scroll-id', id);
-	};
+    $rootScope.gotoId = function(id) {
+        $rootScope.$broadcast('scroll-id', id);
+    };
 
-	$rootScope.substring = function(string, len) {
-		if (string && string.length > len) {
-			return string.substring(0, len) + '...';
+    $rootScope.substring = function(string, len) {
+        if (string && string.length > len) {
+            return string.substring(0, len) + '...';
         } else {
             return string;
         }
-	};
+    };
 
-	$rootScope.toggleMenu = function(event, visible) {
-		$rootScope.visibleMenu = visible;
-		if (event && visible) {
+    $rootScope.toggleMenu = function(event, visible) {
+        $rootScope.visibleMenu = visible;
+        if (event && visible) {
             event.stopPropagation();
         }
-	};
+    };
 
     $rootScope.wwwFormUrlencoded = function (params) {
         if (params)
