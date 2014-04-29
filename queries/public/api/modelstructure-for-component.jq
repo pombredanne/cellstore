@@ -35,7 +35,7 @@ declare function local:to-xml-rec($o as object, $level as integer) as element()
         }
 };
 
-declare function local:to-xml($model as object) as element()
+declare function local:to-xml($model as object) as node()*
 {
     ((session:comment("xml", {
                             TotalNumArchives: session:num-archives(),
