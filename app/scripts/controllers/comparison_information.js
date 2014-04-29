@@ -57,109 +57,105 @@ angular.module('main')
         promiseResponse.then(
             $scope.prepareReportForUI,
             function (data, status) {
-              if (status === 401) {
-                $scope.error = true;
-              } else {
-                $scope.$emit('error', status, data);
-              }
+                if (status === 401) {
+                  $scope.error = true;
+                } else {
+                  $scope.$emit('error', status, data);
+                }
             }
-          );
+        );
     };
 
     $scope.prepareReportForUI = function(data) {
-      var reports = [];
+        var reports = [];
 
-      var prepareReport = 
-        function(cik, list, array, index, isNumeric, decimals) {
-          var j = 0, item;
-          for (var key in list) {
-            if (list.hasOwnProperty(key)) {
-              if (index === 0) {
-                item = {};
-                item.cik = cik;
-                item.name = key;
-                item.label = list[key].Label ? list[key].Label : '';
-                item.value = [];
-                item.type = [];
-                array[j] = item;
-              } else {
-                item = array[j];
-              }
-              if (list[key].Facts && list[key].Facts.length > 0) {
-                item.type[index] = list[key].Facts[0].Type;
-                if (list[key].Facts[0].Type === 'NumericValue') {
-                  var num = list[key].Facts[0].Value;
-                  if (!num) { num = '0'; }
-                    item.value[index] = accounting.formatNumber(num, decimals);
-                  } else {
-                    item.value[index] = list[key].Facts[0].Value;
-                  }
-                } else {
-                  if (isNumeric)
-                  {
-                    item.value[index] = 0;
-                    item.type[index] = 'NumericValue';
-                  }
-                  else {
-                    item.value[index] = null;
-                    item.type[index] = '';
-                  }
+        var prepareReport = 
+            function(cik, list, array, index, isNumeric, decimals) {
+                var j = 0, item;
+                for (var key in list) {
+                    if (list.hasOwnProperty(key)) {
+                        if (index === 0) {
+                            item = {};
+                            item.cik = cik;
+                            item.name = key;
+                            item.label = list[key].Label ? list[key].Label : '';
+                            item.value = [];
+                            item.type = [];
+                            array[j] = item;
+                        } else {
+                            item = array[j];
+                        }
+                        if (list[key].Facts && list[key].Facts.length > 0) {
+                            item.type[index] = list[key].Facts[0].Type;
+                            if (list[key].Facts[0].Type === 'NumericValue') {
+                                var num = list[key].Facts[0].Value;
+                                if (!num) { num = '0'; }
+                                item.value[index] = accounting.formatNumber(num, decimals);
+                            } else {
+                                item.value[index] = list[key].Facts[0].Value;
+                            }
+                        } else {
+                            if (isNumeric)
+                            {
+                                item.value[index] = 0;
+                                item.type[index] = 'NumericValue';
+                            }
+                            else {
+                                item.value[index] = null;
+                                item.type[index] = '';
+                            }
+                        }
+                        j++;
+                    } // if
+                } // for
+            };
+
+        for (var i = 0; i < data.length; i++)
+        {
+            var root = data[i].Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To;
+            var cik = root["fac:GeneralInformationHierarchy"].To["fac:EntityCentralIndexKey"].Facts[0].Value;
+            var k = 0;
+            for (var report in root) {
+                if (root.hasOwnProperty(report) 
+                    && report !== 'fac:KeyRatiosHierarchy') {
+                    if (i === 0) {
+                        var obj = {
+                            name: root[report].Label.toString().replace(' [Hierarchy]', ''),
+                            section: report,
+                            items: [],
+                            isNumeric : (
+                                report === 'fac:BalanceSheetHierarchy' 
+                                || report === 'fac:CashFlowStatementHierarchy' 
+                                || report === 'fac:IncomeStatementHierarchy' 
+                                || report === 'fac:StatementComprehensiveIncomeHierarchy' 
+                                || report === 'fac:KeyRatiosHierarchy' 
+                                || report === 'fac:ValidationStatistics'),
+                            isBoolean : (report === 'fac:Validations')
+                        };
+                        if (report === 'fac:KeyRatiosHierarchy')
+                        {
+                            obj.decimals = 3;
+                        }
+                        reports[k] = obj;
+                    }
+                    prepareReport(
+                        cik,
+                        root[report].To, 
+                        reports[k].items, 
+                        i, 
+                        reports[k].isNumeric, 
+                        reports[k].decimals || 0);
+                    k++;
                 }
-                j++;
-              } // if
-          } // for
-        };
-
-      for (var i = 0; i < data.length; i++)
-      {
-        var root = 
-          data[i].Trees['fac:FundamentalAccountingConceptsLineItems']
-          .To['fac:FundamentalAccountingConceptsHierarchy'].To;
-        var cik = root["fac:GeneralInformationHierarchy"]
-                  .To["fac:EntityCentralIndexKey"]
-                  .Facts[0].Value;
-        var k = 0;
-        for (var report in root) {
-          if (root.hasOwnProperty(report) 
-            && report !== 'fac:KeyRatiosHierarchy') {
-            if (i === 0) {
-              var obj = {
-                name: root[report].Label.toString().replace(' [Hierarchy]', ''),
-                section: report,
-                items: [],
-                isNumeric : (
-                    report === 'fac:BalanceSheetHierarchy' 
-                    || report === 'fac:CashFlowStatementHierarchy' 
-                    || report === 'fac:IncomeStatementHierarchy' 
-                    || report === 'fac:StatementComprehensiveIncomeHierarchy' 
-                    || report === 'fac:KeyRatiosHierarchy' 
-                    || report === 'fac:ValidationStatistics'),
-                isBoolean : (report === 'fac:Validations')
-              };
-              if (report === 'fac:KeyRatiosHierarchy')
-              {
-                obj.decimals = 3;
-              }
-              reports[k] = obj;
-            }
-            prepareReport(
-              cik,
-              root[report].To, 
-              reports[k].items, 
-              i, 
-              reports[k].isNumeric, 
-              reports[k].decimals || 0);
-            k++;
-          }
+            }//for
         }//for
-      }//for
-      $scope.error = false;
-      $scope.errormany = false;
-      $scope.reports = reports;
-      for (var i = 0; i < reports.length; i++)
-      {
-        $scope.showtab.push(true);
-      }
+        $scope.error = false;
+        $scope.errormany = false;
+        $scope.reports = reports;
+        for (var i = 0; i < reports.length; i++)
+        {
+            $scope.showtab.push(true);
+        }
     };
 
     $scope.forceShow = function() {
