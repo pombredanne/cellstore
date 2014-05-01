@@ -14,7 +14,7 @@ angular.module('main')
             if (!that.data.year || that.data.year.length === 0) {
                 that.data.year = [];
                 var year = (new Date()).getFullYear();
-                while (year >= 2009) { that.data.year.push(year); year -= 1; }
+                while (year >= 2009) { that.data.year.push('' + year); year -= 1; }
             }
             deferred.resolve(that.data.year);
             return deferred.promise;

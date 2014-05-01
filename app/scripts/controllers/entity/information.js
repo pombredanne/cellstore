@@ -8,7 +8,7 @@ angular.module('main')
     $backend, QueriesService, years, periods
 ) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
-    $scope.year = $stateParams.year ? parseInt($stateParams.year, 10) : null;
+    $scope.year = $stateParams.year ? $stateParams.year : null;
     $scope.period = $stateParams.period ? $stateParams.period : null;
     $scope.cik = $stateParams.cik ? $stateParams.cik : null;
     $scope.reports = [];
@@ -31,8 +31,8 @@ angular.module('main')
 		.success(function (data) {
 			if (data && data.filings) {
 				data.filings.forEach(function(filing) {
-					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].used = true;
-					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod === 'Q4' ? 'FY' : filing.fiscalPeriod)].used = true;
+					$scope.usage[$scope.years.indexOf('' + filing.fiscalYear)].used = true;
+					$scope.usage[$scope.years.indexOf('' + filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod === 'Q4' ? 'FY' : filing.fiscalPeriod)].used = true;
 				});
 				$scope.adjustYearPeriod();
 			} else {
@@ -102,7 +102,7 @@ angular.module('main')
             })
             .success(function (data, status) {
                 if (data && data.latestFYPeriod) {
-                    $scope.year = data.latestFYPeriod.fiscalYear;
+                    $scope.year = '' + data.latestFYPeriod.fiscalYear;
 				    $scope.period = data.latestFYPeriod.fiscalPeriod;
 		            $state.go('root.entity.information', { cik: $scope.cik, year: $scope.year, period: $scope.period });
 				} else {
