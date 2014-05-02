@@ -11,6 +11,7 @@ angular.module('main')
         tag: $scope.selection.tag,
         fiscalYear: $scope.selection.fiscalYear,
         fiscalPeriod: $scope.selection.fiscalPeriod,
+        sic: $scope.selection.sic,
         token: $scope.token
     })
         .then(function(data) {

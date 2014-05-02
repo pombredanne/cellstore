@@ -3,7 +3,7 @@
 /*globals accounting*/
 
 angular.module('main')
-.controller('ComparisonSearchCtrl', function($scope, $state, $location, $http, $modal, $backend, conceptMaps) {
+.controller('ComparisonSearchCtrl', function($scope, $stateParams, $location, $http, $modal, $backend, conceptMaps) {
     $scope.none = 'US-GAAP Taxonomy Concepts';
 
     if (conceptMaps.indexOf($scope.none) < 0) {
@@ -14,6 +14,9 @@ angular.module('main')
     $scope.entityIndex = -1;
     $scope.API_URL = $backend.API_URL;
     $scope.errornoresults = false;
+
+    $scope.selection.map = $stateParams.map || conceptMaps[0];
+    $scope.selection.concept = ($stateParams.concept ? $stateParams.concept.split(',') : []);
 
     $scope.getConceptMapKeys = function(map) {
         $scope.conceptMapKeys = [];
@@ -34,51 +37,31 @@ angular.module('main')
                     $scope.$emit('error', status, data);
                 });
         }
+        else
+        {
+            $scope.service.listReportElements({
+                $method : 'POST',
+                onlyNames : true,
+                cik: $scope.selection.cik,
+                tag: $scope.selection.tag,
+                fiscalYear: $scope.selection.fiscalYear,
+                fiscalPeriod: $scope.selection.fiscalPeriod,
+                sic: $scope.selection.sic,
+                token: $scope.token
+            }).then(function(data) {
+                $scope.conceptMapKeys = data.ReportElements || [];
+            },
+            function(response) {
+                $scope.$emit('error', response.status, response.data);
+            });
+        }
     };
 
-    //CRD: can't use the stateParams because the parameters have custom names (not mapped)
-    var src = $location.search();
-
-    if (src.map) {
-        $scope.map = src.map;
-    }
-    else {
-        $scope.map = conceptMaps[0];
-    }
-    $scope.selection.map = $scope.map;
-    $scope.getConceptMapKeys($scope.map);
-    
-    if (src.concept) {
-        $scope.selection.concept = [].concat(src.concept);
-    }
-    else {
-        $scope.selection.concept = [];
-    }
-
-    $scope.dimensions = [];
-    Object.keys(src).forEach(function (param) {
-        if (param.indexOf(':') !== -1) {
-            if (param.substring(param.length - 9, param.length) === '::default') {
-                var name = param.substring(0, param.length - 9);
-                $scope.dimensions.forEach(function(d) {
-                    if (d.name === name)
-                    {
-                        d.defaultValue = src[param];
-                    }
-                });
-            }
-            else {
-                $scope.dimensions.push({ name: param, value: src[param] });
-            }
-            $scope.selection[param] = src[param];
-        }
-    });
-    
-    $scope.$on('FilterChanged', function() {
+    $scope.getData = function() {
+        $scope.data = [];
+        $scope.columns = [];
         if ($scope.selection && $scope.selection.concept.length > 0)
         {
-            $scope.data = [];
-            $scope.columns = [];
             $scope.errornoresults = false;
             $scope.params = {
                 $method: 'POST',
@@ -86,6 +69,7 @@ angular.module('main')
                 tag: $scope.selection.tag,
                 fiscalYear: $scope.selection.fiscalYear,
                 fiscalPeriod: $scope.selection.fiscalPeriod,
+                sic: $scope.selection.sic,
                 concept: $scope.selection.concept,
                 map: ($scope.selection.map !== $scope.none ? $scope.selection.map : null),
                 token: $scope.token
@@ -138,10 +122,9 @@ angular.module('main')
                     $scope.$emit('error', response.status, response.data);
                 });
         }
-    });
+    };
 
     $scope.selectMap = function(map) {
-        $scope.selection.map = map;
         $scope.selection.concept = [];
         $scope.getConceptMapKeys(map);
     };
@@ -224,8 +207,6 @@ angular.module('main')
             $scope.$emit('alert', 'Warning', 'Please choose concepts to compare.');
             return false;
         }
-
-        $scope.selection.stamp = (new Date()).getTime();
     };
     
     $scope.trimURL = function(url) {
@@ -270,9 +251,34 @@ angular.module('main')
         }
         return str;
     };
-    
-    $scope.$on('$stateChangeSuccess', function(event, toState) {
-        $scope.subActive = toState.data && toState.data.subActive;
+
+    $scope.getConceptMapKeys($scope.selection.map);
+
+    //CRD: can't use the stateParams because the parameters have custom names (not mapped)
+    var src = $location.search();
+
+    $scope.dimensions = [];
+    Object.keys(src).forEach(function (param) {
+        if (param.indexOf(':') !== -1) {
+            if (param.substring(param.length - 9, param.length) === '::default') {
+                var name = param.substring(0, param.length - 9);
+                $scope.dimensions.forEach(function(d) {
+                    if (d.name === name)
+                    {
+                        d.defaultValue = src[param];
+                    }
+                });
+            }
+            else {
+                $scope.dimensions.push({ name: param, value: src[param] });
+            }
+            $scope.selection[param] = src[param];
+        }
     });
 
+    //we monitor the dimensions, and when they change we reload.
+    //filter changes will trigger a reload, therefore a dimensions change.
+    $scope.$watchCollection('dimensions', function() {
+        $scope.getData();
+    });
 });

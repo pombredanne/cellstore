@@ -77,6 +77,27 @@ angular.module('main')
                 });
 
             return deferred.promise;
+        },
+
+        getSics: function() {
+            var that = this;
+            var deferred = $q.defer();
+            if (that.data.sics && that.data.sics.length > 0)
+            {
+                deferred.resolve(that.data.sics);
+                return deferred.promise;
+            }
+
+            $http({ method: 'GET', url: API_URL + '/_queries/public/Sics.jq', params: { _method: 'POST' }, cache: true })
+                .success(function(data) {
+                    that.data.sics =  [];
+                    if (data) {
+                        that.data.sics = data;
+                    }
+                    deferred.resolve(that.data.sics);
+                });
+
+            return deferred.promise;
         }
     };
 })

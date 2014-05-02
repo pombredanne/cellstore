@@ -536,7 +536,8 @@ angular.module('main', [
             tags: ['$backend', function($backend) { return $backend.getTags(); }],
             entities: ['$backend', function($backend) { return $backend.getEntities(); }],
             years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }]
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            sics: ['$backend', function($backend) { return $backend.getSics(); }]
         },
         data: {
             title: 'Comparison',

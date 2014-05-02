@@ -21,80 +21,81 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         $scope.selection.label = $scope.searchLabel;
     }
 
-    $scope.$on('FilterChanged', function() {
-        //refresh the typeaheads
-        $scope.reportElementNames = [];
-        $scope.disclosureNames = [];
-        $scope.service.listReportElements({
-            $method : 'POST',
-            onlyNames : true,
-            cik: $scope.selection.cik,
+    //refresh the typeaheads
+    $scope.reportElementNames = [];
+    $scope.disclosureNames = [];
+    $scope.service.listReportElements({
+        $method : 'POST',
+        onlyNames : true,
+        cik: $scope.selection.cik,
+        tag: $scope.selection.tag,
+        fiscalYear: $scope.selection.fiscalYear,
+        fiscalPeriod: $scope.selection.fiscalPeriod,
+        sic: $scope.selection.sic,
+        token: $scope.token
+    }).then(function(data) {
+        $scope.reportElementNames = data.ReportElements || [];
+    },
+    function(response) {
+        $scope.$emit('error', response.status, response.data);
+    });
+
+    $http({
+        url: $backend.API_URL + '/_queries/public/Disclosures.jq',
+        method: 'GET'
+    })
+    .success(function(data) {
+        $scope.disclosureNames = data;
+    })
+    .error(function(data, status) {
+        $scope.$emit('error', status, data);
+    });
+
+    //load the data
+    if ($scope.selection && (
+        $scope.selection.disclosure ||
+        $scope.selection.reportElement ||
+        $scope.selection.label)) 
+    {
+        $scope.errornoresults = false;
+        $scope.results = [];
+
+        $scope.params = {
+            $method: 'POST',
             tag: $scope.selection.tag,
+            cik: $scope.selection.cik,
             fiscalYear: $scope.selection.fiscalYear,
             fiscalPeriod: $scope.selection.fiscalPeriod,
+            sic: $scope.selection.sic,
+            disclosure: $scope.selection.disclosure,
+            reportElement: $scope.selection.reportElement,
+            label: $scope.selection.label,
             token: $scope.token
-        }).then(function(data) {
-            $scope.reportElementNames = data.ReportElements || [];
-        },
-        function(response) {
-            $scope.$emit('error', response.status, response.data);
-        });
+        };
 
-        $http({
-            url: $backend.API_URL + '/_queries/public/Disclosures.jq',
-            method: 'GET'
-        })
-        .success(function(data) {
-            $scope.disclosureNames = data;
-        })
-        .error(function(data, status) {
-            $scope.$emit('error', status, data);
-        });
-
-        if ($scope.selection && (
-            $scope.selection.disclosure ||
-            $scope.selection.reportElement ||
-            $scope.selection.label)) 
-        {
-            $scope.errornoresults = false;
-            $scope.results = [];
-
-            $scope.params = {
-                $method: 'POST',
-                tag: $scope.selection.tag,
-                cik: $scope.selection.cik,
-                fiscalYear: $scope.selection.fiscalYear,
-                fiscalPeriod: $scope.selection.fiscalPeriod,
-                disclosure: $scope.selection.disclosure,
-                reportElement: $scope.selection.reportElement,
-                label: $scope.selection.label,
-                token: $scope.token
-            };
-
-            $scope.service.listComponents($scope.params)
-                .then(function (data) {
-                    data.Archives.forEach(function (archive) {
-                        archive.Components.forEach(function (component) {
-                            var item = angular.copy(component);
-                            angular.extend(item, {
-                                'AccessionNumber': archive.AccessionNumber,
-                                'CIK': (archive.CIK || '').substring(23),
-                                'EntityRegistrantName': archive.EntityRegistrantName,
-                                'FormType': archive.FormType,
-                                'FiscalYear': archive.FiscalYear,
-                                'FiscalPeriod': archive.FiscalPeriod,
-                                'token': $scope.token
-                            });
-                            $scope.results[$scope.results.length] = item;
+        $scope.service.listComponents($scope.params)
+            .then(function (data) {
+                data.Archives.forEach(function (archive) {
+                    archive.Components.forEach(function (component) {
+                        var item = angular.copy(component);
+                        angular.extend(item, {
+                            'AccessionNumber': archive.AccessionNumber,
+                            'CIK': (archive.CIK || '').substring(23),
+                            'EntityRegistrantName': archive.EntityRegistrantName,
+                            'FormType': archive.FormType,
+                            'FiscalYear': archive.FiscalYear,
+                            'FiscalPeriod': archive.FiscalPeriod,
+                            'token': $scope.token
                         });
+                        $scope.results[$scope.results.length] = item;
                     });
-                    $scope.errornoresults = ($scope.results.length === 0);
-                },
-                function (response) {
-                    $scope.$emit('error', response.status, response.data);
                 });
-        }
-    });
+                $scope.errornoresults = ($scope.results.length === 0);
+            },
+            function (response) {
+                $scope.$emit('error', response.status, response.data);
+            });
+    };
 
     $scope.submit = function() {
         if (!$scope.searchDisclosure && !$scope.searchReportElement && !$scope.searchLabel) {
@@ -125,8 +126,6 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             delete $scope.selection.label;
         }
-
-        $scope.selection.stamp = (new Date()).getTime();
     };
     
     $scope.selectDisclosure = function() {
@@ -209,9 +208,5 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         }
         return str;
     };
-
-    $scope.$on('$stateChangeSuccess', function(event, toState) {
-        $scope.subActive = toState.data && toState.data.subActive;
-    });
 }
 );

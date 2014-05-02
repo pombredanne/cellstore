@@ -28,9 +28,9 @@
           Concept map
        </label> &nbsp;<br class="visible-sm visible-xs"> 
        <span style="display: inline-block;">
-          <select ng-model="map" ng-change="selectMap(map)" ng-options="map for map in conceptMaps" class="form-control"></select>
+          <select ng-model="selection.map" ng-change="selectMap(map)" ng-options="map for map in conceptMaps" class="form-control"></select>
        </span>
-       <a href="/concept-map/{{map}}" ng-if="map!=none"><i class="fa fa-question"></i></a>
+       <a href="/concept-map/{{selection.map}}" ng-if="selection.map!=none"><i class="fa fa-question"></i></a>
     </div>
 
     <h4>Concepts</h4>
