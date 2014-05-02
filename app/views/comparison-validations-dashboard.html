@@ -50,6 +50,7 @@
                                 <th>Failed</th>
                                 <th>Rules Not Applicable</th>
                                 <th>Success Rate</th>
+                                <th>&nbsp;</th>
                             </thead>
                             <tbody ng-repeat="report in reports | orderBy:['percentage','passed']:true">
                                 <tr>
@@ -83,13 +84,15 @@
                                          {{report.successRate}} %
                                       </b>
                                     </td>
+                                    <td>
+                                        <a ng-click="drill(report.cik, report.year, report.period)">
+                                            <i class="fa fa-external-link fa-lg"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr ng-repeat="detail in report.details" ng-if="showtab[reports.indexOf(report)]">
-                                  <td colspan="7" ng-if="detail.message">
-                                      {{detail.message}}
-                                  </td>
-                                  <td colspan="7" ng-if="!detail.message">
-                                      {{detail.label}}
+                                  <td colspan="8">
+                                      {{detail.message || detail.label}}
                                   </td>
                                   <td>
                                       <i class="fa semaphore fa-check-circle success" ng-if="detail.passed === true" tooltip="Rule passed"></i>

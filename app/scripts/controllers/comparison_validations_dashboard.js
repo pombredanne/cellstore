@@ -84,6 +84,9 @@ angular.module('main')
             report.entity =
                 root['fac:GeneralInformationHierarchy']
                 .To['fac:EntityRegistrantName'].Facts[0].Value;
+            report.cik =
+                root['fac:GeneralInformationHierarchy']
+                .To['fac:EntityCentralIndexKey'].Facts[0].Value;
             report.period =
                 root['fac:GeneralInformationHierarchy']
                 .To['fac:FiscalPeriod'].Facts[0].Value;
