@@ -80,7 +80,7 @@ angular.module('main')
                 .To['fac:FundamentalAccountingConceptsHierarchy'].To;
 
             var report = {};
-            report.generator = data[i]['Generator'];
+            report.generator = data[i].Generator;
             report.entity =
                 root['fac:GeneralInformationHierarchy']
                 .To['fac:EntityRegistrantName'].Facts[0].Value;
