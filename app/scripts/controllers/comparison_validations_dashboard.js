@@ -1,5 +1,7 @@
 'use strict';
 
+/*globals accounting*/
+
 angular.module('main')
 .controller('ComparisonValidationsDashboardCtrl', function($scope, $http, $location, $state, $backend, QueriesService) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
@@ -90,12 +92,22 @@ angular.module('main')
             report.passed =
                 root['fac:ValidationStatistics']
                 .To['fac:PassedValidations'].Facts[0].Value;
+            report.passed = report.passed ? parseInt(report.passed) : 0;
             report.failed =
                 root['fac:ValidationStatistics']
                 .To['fac:FailedValidations'].Facts[0].Value;
+            report.failed = report.failed ? parseInt(report.failed) : 0;
             report.notApplicable =
                 root['fac:ValidationStatistics']
                 .To['fac:NotApplicableValidations'].Facts[0].Value;
+            report.notApplicable = report.notApplicable ? parseInt(report.notApplicable) : 0;
+            
+            var valCount = report.passed + report.failed;
+            report.percentage = null;
+            if (valCount > 0){
+                report.percentage = report.passed / valCount * 100;
+                report.successRate = accounting.formatNumber(report.percentage, 2);
+            }
 
             var validations =
                 root['fac:Validations'].To;

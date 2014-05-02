@@ -48,8 +48,9 @@
                                 <th>Passed</th>
                                 <th>Failed</th>
                                 <th>Rules Not Applicable</th>
+                                <th>Success Rate</th>
                             </thead>
-                            <tbody ng-repeat="report in reports | orderBy:['passed','skipped']:true">
+                            <tbody ng-repeat="report in reports | orderBy:['percentage','passed']:true">
                                 <tr>
                                     <td>
                                         <a ng-click="showtab[reports.indexOf(report)]=!showtab[reports.indexOf(report)]">
@@ -65,24 +66,25 @@
                                       {{report.year}}
                                     </td>
                                     <td>
-                                      <b>
-                                        {{report.passed}}
-                                      </b>
+                                      {{report.passed}}
                                     </td>
                                     <td>
-                                      <b>
-                                        {{report.failed}}
-                                      </b>
+                                      {{report.failed}}
                                     </td>
                                     <td>
                                       {{report.notApplicable}}
                                     </td>
+                                    <td>
+                                      <b>
+                                         {{report.successRate}} %
+                                      </b>
+                                    </td>
                                 </tr>
                                 <tr ng-repeat="detail in report.details" ng-if="showtab[reports.indexOf(report)]">
-                                  <td colspan="5" ng-if="detail.message">
+                                  <td colspan="6" ng-if="detail.message">
                                       {{detail.message}}
                                   </td>
-                                  <td colspan="5" ng-if="!detail.message">
+                                  <td colspan="6" ng-if="!detail.message">
                                       {{detail.label}}
                                   </td>
                                   <td>

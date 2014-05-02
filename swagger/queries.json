@@ -841,7 +841,7 @@
                             "required": false,
                             "type": "string",
                             "enum": [
-                                "FundamentalAccountingConcepts  <a href=\"/concept-map/FundamentalAccountingConcepts\"><i class=\"fa fa-question\"></i>"
+                                "FundamentalAccountingConcepts"
                               ],
                             "paramType": "query"
                         },
