@@ -9,6 +9,7 @@ angular.module('main')
     $scope.reportname = 'FundamentalAccountingConcepts';
     $scope.filings = null;
     $scope.error = false;
+    $scope.errornoresults = false;
     $scope.errormany = false;
     
     $scope.service.listFilings({
@@ -22,11 +23,17 @@ angular.module('main')
     }).then(function(data) {
         $scope.filings = [];
         data.Archives.forEach(function(a) { $scope.filings.push(a.AccessionNumber); });
-        if ($scope.filings.length > 30 && !$scope.nomany) {
+        if ($scope.filings.length === 0) {
             $scope.reports = [];
-            $scope.errormany = true;
-        } else {
-            $scope.getInfo();
+            $scope.errornoresults = true;
+        }
+        else {
+            if ($scope.filings.length > 30 && !$scope.nomany) {
+                $scope.reports = [];
+                $scope.errormany = true;
+            } else {
+                $scope.getInfo();
+            }
         }
     },
     function(response) {
@@ -126,6 +133,7 @@ angular.module('main')
 
         $scope.error = false;
         $scope.errormany = false;
+        $scope.errornoresults = ($scope.reports.length === 0);
     };
 
     $scope.forceShow = function() {
