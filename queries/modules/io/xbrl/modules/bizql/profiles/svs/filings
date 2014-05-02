@@ -1,0 +1,268 @@
+jsoniq version "1.0";
+
+(:
+ : Copyright 2012-2013 28msec Inc.
+ :)
+
+(:~
+ : <p>This module provides functionality for querying financial reports (filings)
+ : submitted to the SEC.</p>
+ : <p>SEC Filings are nothing else than XBRL archives. For XBRL-generic requests on archives,
+ : use the generic archives module.</p>
+ :
+ : <p>With this module, you can access a number of properties of an SEC filing, such as
+ : its document type. You can also retrieve an SEC filing given an SEC company (or its CIK).</p>
+ : <p>You can also access SEC filings statistics (the number of SEC Networks, of SEC Axes, etc).</p>
+ : @author Charles Hoffman
+ : @author Matthias Brantner
+ : @author Dennis Knochenwefel
+ : @author Ghislain Fourny
+ :)
+module namespace filings = "http://xbrl.io/modules/bizql/profiles/svs/filings";
+
+import module namespace datetime = "http://zorba.io/modules/datetime";
+
+import module namespace mongo = "http://www.28msec.com/modules/mongodb";
+import module namespace credentials = "http://www.28msec.com/modules/credentials";
+
+import module namespace archives = "http://xbrl.io/modules/bizql/archives";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/svs/companies";
+
+declare namespace ver = "http://zorba.io/options/versioning";
+declare option ver:module-version "1.0";
+
+(:~
+ : <p>Return all filings submitted by the supplied companies.</p>
+ : 
+ : @param $companies-or-ciks arbitrary number of company objects or CIKs.
+ :
+ : @return all filings submitted by these companies.
+ :) 
+declare function filings:filings-for-companies($companies-or-ciks as item*) as object*
+{
+  let $companies := companies:companies($companies-or-ciks)
+  return archives:archives-for-entities($companies)
+};
+
+(:~
+ : <p>Retrieves the document type of the filings.</p>
+ : 
+ : @param $filings-or-ids a sequence of filings or their ids.
+ :
+ : @return the document types (10-K, 10-Q).
+ :) 
+declare function filings:document-types(
+    $filings-or-ids as item*) as string?
+{
+  archives:archives($filings-or-ids).Profiles.SVS.FormType
+};
+
+(:~
+ :
+ : <p>Retrieves the acceptance date of filings.</p>
+ :
+ : @param $filings-or-ids a sequence of filings or their IDs.
+ : @return the acceptance dateTimes.
+ :)
+declare function filings:acceptance-dateTimes($filings-or-ids as item*) as dateTime*
+{
+  archives:archives($filings-or-ids) !
+    datetime:parse-dateTime($$.Profiles.SVS.AcceptanceDatetime, "%Y%m%d%H%M%S")
+};
+
+(:~
+ :
+ : <p>Retrieves the submission date of filings.</p>
+ :
+ : @param $filings-or-ids a sequence of filings or their IDs.
+ : @return the submission dates.
+ :)
+declare function filings:filing-dates($filings-or-ids as item*) as date*
+{
+  archives:archives($filings-or-ids) !
+  date(string-join(tokenize($$.Profiles.SVS.FilingDate, ("/")), "-"))
+};
+
+(:~
+ :
+ : <p>Retrieves the generators of filings.</p>
+ :
+ : @param $filings-or-ids a sequence of filings or their IDs.
+ : @return the generators used.
+ :)
+declare function filings:generators($filings-or-ids as item*) as string*
+{
+  archives:archives($filings-or-ids).Profiles.SVS.Generator
+};
+
+(:~
+ : Return the number of tables in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of tables
+ :)
+declare function filings:num-tables($filings-or-ids) as integer*
+{
+  archives:num-hypercubes($filings-or-ids)
+};
+
+(:~
+ : Return the number of networks in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of networks
+ :)
+declare function filings:num-networks($filings-or-ids) as integer*
+{
+  archives:num-components($filings-or-ids)
+};
+
+(:~
+ : Return the number of (distinct) report elements in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of report elements
+ :)
+declare function filings:num-report-elements($filings-or-ids) as integer*
+{
+  for $a in archives:archives($filings-or-ids)
+  return sum(
+    (
+      archives:num-concrete-primary-items-in-hypercubes($a),
+      archives:num-abstract-primary-items-in-hypercubes($a),
+      archives:num-concrete-primary-items-not-in-hypercubes($a),
+      archives:num-distinct-abstract-primary-items-not-in-hypercubes($a)
+    )
+  )
+};
+
+(:~
+ : Return the number of (distinct) axes in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of axes
+ :)
+declare function filings:num-axes($filings-or-ids) as integer*
+{
+  archives:num-explicit-dimensions($filings-or-ids)
+};
+
+(:~
+ : Return the number of (distinct) members in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of members
+ :)
+declare function filings:num-members($filings-or-ids) as integer*
+{
+  for $a in archives:archives($filings-or-ids)
+  return $a.Statistics.NumDistinctMembers -  $a.Statistics.NumDistinctDomains
+};
+
+(:~
+ : Return the number of (distinct) line items in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of line items
+ :)
+declare function filings:num-line-items($filings-or-ids) as integer*
+{
+  archives:archives($filings-or-ids) ! $$.Statistics.NumDistinctReportElementNamesEndingWithLineItems
+};
+
+(:~
+ : Return the number of (distinct) abstracts in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of abstracts
+ :)
+declare function filings:num-abstracts($filings-or-ids) as integer*
+{
+  for $a in archives:archives($filings-or-ids)
+  let $s := $a.Statistics
+  return  $s.NumDistinctAbstractPrimaryItemsInHypercubes
+          + $s.NumDistinctAbstractPrimaryItemsNotInHypercubes
+          - $s.Profiles.SEC.NumDistinctReportElementNamesEndingWithLineItems
+};
+
+(:~
+ : Return the number of (distinct) concepts in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of concepts
+ :)
+declare function filings:num-concepts($filings-or-ids) as integer*
+{
+  for $a in archives:archives($filings-or-ids)
+  let $s := $a.Statistics
+  return  $s.NumDistinctConcretePrimaryItemsInHypercubes
+          + $s.NumDistinctConcretePrimaryItemsNotInHypercubes
+};
+
+(:~
+ : Return the number of facts in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of facts
+ :)
+declare function filings:num-facts($filings-or-ids) as integer*
+{
+  archives:archives($filings-or-ids) ! $$.Statistics.NumFacts
+};
+
+(:~
+ : Return the number of extension facts in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of facts
+ :)
+declare function filings:num-extension-facts($filings-or-ids) as integer*
+{
+  archives:archives($filings-or-ids) ! $$.Statistics.Profiles.SVS.NumExtensionFacts
+};
+
+(:~
+ : Return the number of footnotes in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of facts
+ :)
+declare function filings:num-footnotes($filings-or-ids) as integer*
+{
+  archives:num-footnotes($filings-or-ids)
+};
+
+(:~
+ : Return the number of extension concepts in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of concepts
+ :)
+declare function filings:num-extension-concepts($filings-or-ids) as integer*
+{
+  archives:archives($filings-or-ids) ! $$.Statistics.Profiles.SVS.NumExtensionConcepts
+};
+
+(:~
+ : Return the number of extension abstracts in each of the given filings.
+ :
+ : @param $filings-or-ids list of filings or IDs
+ :
+ : @return the said number of abstracts
+ :)
+declare function filings:num-extension-abstracts($filings-or-ids) as integer*
+{
+  archives:archives($filings-or-ids) ! $$.Statistics.Profiles.SVS.NumExtensionAbstracts
+};
