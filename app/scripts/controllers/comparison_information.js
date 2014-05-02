@@ -118,7 +118,9 @@ angular.module('main')
                 .To['fac:EntityCentralIndexKey'].Facts[0].Value;
             var k = 0;
             for (var report in root) {
-                if (root.hasOwnProperty(report) && report !== 'fac:KeyRatiosHierarchy') {
+                if (root.hasOwnProperty(report) && 
+                    report !== 'fac:KeyRatiosHierarchy' &&
+                    report !== 'fac:ValidationStatistics') {
                     if (i === 0) {
                         var obj = {
                             name: root[report].Label.toString().replace(' [Hierarchy]', ''),

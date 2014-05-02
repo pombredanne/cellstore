@@ -43,6 +43,7 @@
                         <table class="table table-condensed table-striped small" id="comparison-information-table">
                             <thead>
                                 <th>Entity</th>
+                                <th>Generator</th>
                                 <th>Period</th>
                                 <th>Year</th>
                                 <th>Passed</th>
@@ -58,6 +59,9 @@
                                             <i class="fa fa-caret-right" ng-hide="showtab[reports.indexOf(report)]"></i>
                                             {{report.entity}}
                                         </a>
+                                    </td>
+                                    <td>
+                                      {{report.generator}}
                                     </td>
                                     <td>
                                       {{report.period}}
@@ -81,10 +85,10 @@
                                     </td>
                                 </tr>
                                 <tr ng-repeat="detail in report.details" ng-if="showtab[reports.indexOf(report)]">
-                                  <td colspan="6" ng-if="detail.message">
+                                  <td colspan="7" ng-if="detail.message">
                                       {{detail.message}}
                                   </td>
-                                  <td colspan="6" ng-if="!detail.message">
+                                  <td colspan="7" ng-if="!detail.message">
                                       {{detail.label}}
                                   </td>
                                   <td>
