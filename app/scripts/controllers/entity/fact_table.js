@@ -32,8 +32,8 @@ angular.module('main')
         $scope.columns.push('xbrl:Period');
         $scope.columns.push('xbrl:Concept');
         var insertIndex = 3;
-        $.map($scope.data[0].Aspects, function (el, index) {
-            switch (index)
+        Object.keys($scope.data[0].Aspects).forEach(function (key) {
+            switch (key)
             {
                 case 'xbrl:Entity':
                     $scope.entityIndex = 0;
@@ -42,11 +42,11 @@ angular.module('main')
                 case 'xbrl:Period':
                     break;
                 case 'dei:LegalEntityAxis':
-                    $scope.columns.splice(insertIndex, 0, index);
+                    $scope.columns.splice(insertIndex, 0, key);
                     insertIndex++;
                     break;
                 default:
-                    $scope.columns.splice(insertIndex, 0, index);
+                    $scope.columns.splice(insertIndex, 0, key);
             }
         });
     }
