@@ -565,6 +565,16 @@ angular.module('main', [
             subActive: 'information'
         }
     })
+    .state('root.comparison.validationsDashboard', {
+        url: '/validations-dashboard',
+        templateUrl: '/views/comparison/validations-dashboard.html',
+        controller: 'ComparisonValidationsDashboardCtrl',
+        data: {
+            title: 'Basic Semantic Validations',
+            active: 'compare',
+            subActive: 'validations-dashboard'
+        }
+    })
     .state('root.comparison.search', {
         url: '/search?concept&map',
         templateUrl: '/views/comparison/search.html',
@@ -573,7 +583,8 @@ angular.module('main', [
             entities: ['$backend', function($backend) { return $backend.getEntities(); }],
             years: ['$backend', function($backend) { return $backend.getYears(); }],
             periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }],
+            allRules: ['$backend', function($backend) { return $backend.getRules(); }]
         },
         data: {
             title: 'Search Facts',

@@ -100,7 +100,7 @@ let $fiscalYears := distinct-values(
                             if ($y eq "LATEST" or $y eq "ALL")
                             then $y
                             else if ($y castable as integer)
-                            then $y cast as integer
+                            then $y
                             else ()
                     )
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")

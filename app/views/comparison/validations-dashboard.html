@@ -1,0 +1,101 @@
+<div class="export">
+    <div class="row">
+        <div class="col-lg-3">
+            <span class="tag tag-primary" ng-if="reports.length"><span ng-bind="Statistics.NumArchives | number"></span> Hits</span>
+            <span class="tag" ng-if="reports.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+        </div>
+        <div class="col-lg-6">
+            <h2 class="text-center">Compare Validation Statistics Across Selected Filings</h2>
+        </div>
+        <div class="col-lg-3">
+            <span class="dropdown pull-right" ng-if="reports.length">
+                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                <ul class="dropdown-menu">
+                    <li><a ng-href="{{getUrl('json')}}" download="comparison-validation-statistics.json" target="_blank">JSON</a></li>
+                    <li><a href="{{getUrl('xml')}}" download="comparison-validation-statistics.xml" target="_blank">XML</a></li>
+                    <li><a href="{{getUrl('csv')}}" download="comparison-validation-statistics.csv" target="_blank">CSV</a></li>
+                    <li><a href="{{getUrl('excel')}}" download="comparison-validation-statistics.csv" target="_blank">Excel</a></li>
+                </ul>
+            </span>
+        </div>
+    </div>
+</div>
+<div ng-if="reports.length">
+    <div class="table-responsive">
+        <table class="table table-condensed table-striped small" id="comparison-information-table">
+            <thead>
+                <th>Entity</th>
+                <th>Generator</th>
+                <th>Period</th>
+                <th>Year</th>
+                <th>Passed</th>
+                <th>Failed</th>
+                <th>Rules Not Applicable</th>
+                <th>Success Rate</th>
+                <th>&nbsp;</th>
+            </thead>
+            <tbody ng-repeat="report in reports | orderBy:['percentage','passed']:true">
+                <tr>
+                    <td>
+                        <a ng-click="showtab[reports.indexOf(report)]=!showtab[reports.indexOf(report)]">
+                            <i class="fa fa-caret-down" ng-show="showtab[reports.indexOf(report)]"></i>
+                            <i class="fa fa-caret-right" ng-hide="showtab[reports.indexOf(report)]"></i>
+                            {{report.entity}}
+                        </a>
+                    </td>
+                    <td>
+                      {{report.generator}}
+                    </td>
+                    <td>
+                      {{report.period}}
+                    </td>
+                    <td>
+                      {{report.year}}
+                    </td>
+                    <td>
+                      {{report.passed}}
+                    </td>
+                    <td>
+                      {{report.failed}}
+                    </td>
+                    <td>
+                      {{report.notApplicable}}
+                    </td>
+                    <td>
+                      <b>
+                         {{report.successRate}} %
+                      </b>
+                    </td>
+                    <td>
+                        <a ng-click="drill(report.cik, report.year, report.period)">
+                            <i class="fa fa-external-link fa-lg"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr ng-repeat="detail in report.details" ng-if="showtab[reports.indexOf(report)]">
+                  <td colspan="8">
+                      {{detail.message || detail.label}}
+                  </td>
+                  <td>
+                      <i class="fa semaphore fa-check-circle success" ng-if="detail.passed === true" tooltip="Rule passed"></i>
+                      <i class="fa semaphore fa-exclamation-circle" ng-if="detail.passed === false" tooltip="Rule failed"></i>
+                      <span class="fa-stack semaphore disabled" tooltip="Rule has been skipped because a precondition was not met" ng-if="detail.skipped === true">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="alert alert-danger" ng-if="error">
+    <h4>You are accessing filings for entities that are not part of DOW30.</h4>
+    To view that information you have to login with your credentials. If you do not have an account, you can create one using the <a href="/auth">registration form</a>.
+</div>
+
+<div class="alert alert-info" ng-if="errormany">
+    <h4>You are trying to compare information across {{filings.length}} filings.</h4>
+    Your account is restricted to compare 30 filings at a time. Please <a href="mailto:hello@28.io">contact us</a> to talk about your use case.
+</div>

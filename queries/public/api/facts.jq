@@ -80,7 +80,8 @@ declare function local:facts(
     $archives as object*,
     $concepts as string*, 
     $dimensions as object* , 
-    $map as string?) as object*
+    $map as string?,
+    $rules as string?) as object*
 {
     let $aspects :=
         {|
@@ -120,9 +121,12 @@ declare function local:facts(
                 if (exists($map))
                 then { "concept-maps" : $map }
                 else (),
+                if (exists($rules))
+                then { "Rules" : $rules }
+                else (),
                 { Hypercube : $hypercube }
             |}
-    return
+    return 
     for $fact in
         for $f in facts:facts-for-archives-and-aspects($archives, $aspects, $options)
         where exists($f.Profiles.SEC.Fiscal.Year)
@@ -150,9 +154,9 @@ declare function local:facts(
         else (), 
         { Value: $fact.Value },
         { "EntityRegistrantName" : companies:companies($fact.Aspects."xbrl:Entity").Profiles.SEC.CompanyName},
-        if (exists($map))
-        then { "ReportedConcept" : $fact.AuditTrails[].Data.OriginalConcept[1] }
-        else () 
+        if (exists($map) and ($fact."xbrl28:Type" eq "xbrl28:concept-maps"))
+        then { "ReportedConcept" : $fact.AuditTrails[][$$.Type eq "xbrl28:concept-maps"].Data.OriginalConcept[1] }
+        else ()
     |}
 };
 
@@ -249,6 +253,7 @@ let $dimensions :=  for $p in request:param-names()
                     }
 let $concepts := request:param-values("concept")
 let $map      := request:param-values("map")[1]
+let $rules      := request:param-values("rules")[1]
 return 
   if (empty($concepts))
   then {
@@ -270,7 +275,7 @@ return
         session:error("accessing facts of an entity that is not in the DOW30", $format)
       }
       default return
-        let $facts := local:facts($archives, $concepts, $dimensions, $map)
+        let $facts := local:facts($archives, $concepts, $dimensions, $map, $rules)
         return
             switch ($format)
             case "xml" return {
