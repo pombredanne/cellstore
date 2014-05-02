@@ -125,6 +125,8 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             delete $scope.selection.label;
         }
+
+        $scope.selection.stamp = (new Date()).getTime();
     };
     
     $scope.selectDisclosure = function() {

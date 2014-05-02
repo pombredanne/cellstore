@@ -224,6 +224,8 @@ angular.module('main')
             $scope.$emit('alert', 'Warning', 'Please choose concepts to compare.');
             return false;
         }
+
+        $scope.selection.stamp = (new Date()).getTime();
     };
     
     $scope.trimURL = function(url) {
