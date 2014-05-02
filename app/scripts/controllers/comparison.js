@@ -79,7 +79,7 @@ angular.module('main')
     $scope.getSic = function(sic) {
         var ret = null;
         $scope.sics.forEach(function(s) {
-            if ('' + s.ID == '' + sic)
+            if ('' + s.ID === '' + sic)
             {
                 ret = s;
             }
@@ -87,11 +87,14 @@ angular.module('main')
         return ret;
     };
 
-    $scope.applySelection = function() {
-        $location.search($scope.selection);
-    };
-
-    $scope.$watch(function() { return angular.toJson($scope.selection) }, $scope.applySelection);
+    $scope.$watch(
+        function() {
+            return angular.toJson($scope.selection);
+        },
+        function() {
+            $location.search($scope.selection);
+        }
+    );
 
     $scope.$on('$stateChangeSuccess', function(event, toState) {
         $scope.subActive = toState.data && toState.data.subActive;

@@ -55,7 +55,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     if ($scope.selection && (
         $scope.selection.disclosure ||
         $scope.selection.reportElement ||
-        $scope.selection.label)) 
+        $scope.selection.label))
     {
         $scope.errornoresults = false;
         $scope.results = [];
@@ -95,7 +95,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
             function (response) {
                 $scope.$emit('error', response.status, response.data);
             });
-    };
+    }
 
     $scope.submit = function() {
         if (!$scope.searchDisclosure && !$scope.searchReportElement && !$scope.searchLabel) {
