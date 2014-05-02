@@ -53,19 +53,31 @@ angular.module('main')
                 report: 'FundamentalAccountingConcepts',
                 'token' : $scope.token
             };
-        $http({
-            method: 'GET',
-            url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-            params: $scope.params,
-            cache: false
-        })
-        .success(function (data) {
-            var prepareReport = function(list, array, index, isNumeric, decimals) {
+        var promiseResponse = $backend.getFactsForReport($scope.params);
+        promiseResponse.then(
+            $scope.prepareReportForUI,
+            function (data, status) {
+                if (status === 401) {
+                    $scope.error = true;
+                } else {
+                    $scope.$emit('error', status, data);
+                }
+            }
+        );
+    };
+
+    $scope.prepareReportForUI = function(data) {
+        var reports = [];
+
+        var prepareReport =
+            function(cik, list, array, index, isNumeric, decimals) {
                 var j = 0, item;
                 for (var key in list) {
                     if (list.hasOwnProperty(key)) {
                         if (index === 0) {
                             item = {};
+                            item.cik = cik;
+                            item.name = key;
                             item.label = list[key].Label ? list[key].Label : '';
                             item.value = [];
                             item.type = [];
@@ -94,45 +106,59 @@ angular.module('main')
                             }
                         }
                         j++;
-                    }
-                }
+                    } // if
+                } // for
             };
 
-            for (var i = 0; i < data.length; i++)
-            {
-                var root = data[i].Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To;
-                var k = 0;
-                for (var report in root) {
-                    if (root.hasOwnProperty(report) && report !== 'fac:KeyRatiosHierarchy') {
-                        if (i === 0) {
-                            var obj = {
-                                name: root[report].Label.toString().replace(' [Hierarchy]', ''),
-                                items: [],
-                                isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report === 'fac:KeyRatiosHierarchy'),
-                                isBoolean : (report === 'fac:Validations')
-                            };
-                            if (report === 'fac:KeyRatiosHierarchy')
-                            {
-                                obj.decimals = 3;
-                            }
-                            $scope.reports[k] = obj;
+        for (var i = 0; i < data.length; i++)
+        {
+            var root = data[i].Trees['fac:FundamentalAccountingConceptsLineItems']
+                .To['fac:FundamentalAccountingConceptsHierarchy'].To;
+            var cik = root['fac:GeneralInformationHierarchy']
+                .To['fac:EntityCentralIndexKey'].Facts[0].Value;
+            var k = 0;
+            for (var report in root) {
+                if (root.hasOwnProperty(report) &&
+                    report !== 'fac:KeyRatiosHierarchy' &&
+                    report !== 'fac:ValidationStatistics') {
+                    if (i === 0) {
+                        var obj = {
+                            name: root[report].Label.toString().replace(' [Hierarchy]', ''),
+                            section: report,
+                            items: [],
+                            isNumeric : (
+                                report === 'fac:BalanceSheetHierarchy' ||
+                                report === 'fac:CashFlowStatementHierarchy' ||
+                                report === 'fac:IncomeStatementHierarchy' ||
+                                report === 'fac:StatementComprehensiveIncomeHierarchy' ||
+                                report === 'fac:KeyRatiosHierarchy' ||
+                                report === 'fac:ValidationStatistics'),
+                            isBoolean : (report === 'fac:Validations')
+                        };
+                        if (report === 'fac:KeyRatiosHierarchy')
+                        {
+                            obj.decimals = 3;
                         }
-                        prepareReport(root[report].To, $scope.reports[k].items, i, $scope.reports[k].isNumeric, $scope.reports[k].decimals || 0);
-                        $scope.showtab.push(true);
-                        k++;
+                        reports[k] = obj;
                     }
+                    prepareReport(
+                        cik,
+                        root[report].To,
+                        reports[k].items,
+                        i,
+                        reports[k].isNumeric,
+                        reports[k].decimals || 0);
+                    k++;
                 }
-            }
-            $scope.error = false;
-            $scope.errormany = false;
-        })
-        .error(function (data, status) {
-            if (status === 401) {
-                $scope.error = true;
-            } else {
-                $scope.$emit('error', status, data);
-            }
-        });
+            }//for
+        }//for
+        $scope.error = false;
+        $scope.errormany = false;
+        $scope.reports = reports;
+        for (var j = 0; j < reports.length; j++)
+        {
+            $scope.showtab.push(true);
+        }
     };
 
     $scope.forceShow = function() {

@@ -77,7 +77,47 @@ angular.module('main')
                 });
 
             return deferred.promise;
+        },
+
+        getRules: function() {
+            var that = this;
+            var deferred = $q.defer();
+            if (that.data.allRules && that.data.allRules.length > 0)
+            {
+                deferred.resolve(that.data.allRules);
+                return deferred.promise;
+            }
+
+            $http({ method: 'GET', url: API_URL + '/_queries/public/Rules.jq', params: { _method: 'POST' }, cache: true })
+                .success(function(data) {
+                    that.data.allRules =  [];
+                    if (data) {
+                        that.data.allRules = data.availableRules;
+                    }
+                    deferred.resolve(that.data.allRules);
+                });
+
+            return deferred.promise;
+        },
+
+        getFactsForReport: function(params) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: API_URL + '/_queries/public/FactsForReportSchema.jq',
+                params: params,
+                cache: false
+            }).success(function(data) {
+                deferred.resolve(data);
+            })
+            .error(function (data, status) {
+                deferred.reject(data, status);
+            });
+
+            return deferred.promise;
         }
+
     };
 })
 ;

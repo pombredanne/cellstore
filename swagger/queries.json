@@ -836,6 +836,16 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "rules",
+                            "description": "The rules that should be used to resolve the concept (default: none)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "FundamentalAccountingConcepts"
+                              ],
+                            "paramType": "query"
+                        },
+                        {
                             "name": "prefix:dimension",
                             "pattern": "[^:]+:[^:]+",
                             "description": "The name of a dimension used for filtering. Accepted format: prefix:dimension. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved",

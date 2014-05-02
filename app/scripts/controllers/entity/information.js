@@ -131,7 +131,8 @@ angular.module('main')
             var root = data[0].Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To;
             var prepareReport = function(list, array, isNumeric, decimals) {
                 for (var key in list) {
-                    if (list.hasOwnProperty(key)) {
+                    if (list.hasOwnProperty(key) &&
+                        report !== 'fac:ValidationStatistics') {
                         var item = {};
                         item.label = list[key].Label ? list[key].Label : '';
                         if (list[key].Facts && list[key].Facts.length > 0) {
@@ -186,7 +187,8 @@ angular.module('main')
             };
                 
             for (var report in root) {
-                if (root.hasOwnProperty(report)) {
+                if (root.hasOwnProperty(report) &&
+                    report !== 'fac:ValidationStatistics') {
                     var obj = {
                         name: root[report].Label.toString().replace(' [Hierarchy]', ''),
                         items: [],
