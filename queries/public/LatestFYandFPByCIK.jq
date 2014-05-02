@@ -6,23 +6,29 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 
-variable $cik := let $cik := request:param-values("cik", "0000104169")
-                 return if (empty($cik))
-                        then error(QName("local:INVALID-REQUEST"), "cik: mandatory parameter not found")
-                        else if (empty(entities:entities(companies:eid($cik))))
-                             then error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
-                             else $cik;
+variable $rut := let $rut := request:param-values("rut", "0000104169")
+                 return if (empty($rut))
+                        then error(QName("local:INVALID-REQUEST"), "rut: mandatory parameter not found")
+                        else if (empty(entities:entities(companies:eid($rut))))
+                             then error(QName("local:INVALID-REQUEST"), "Given RUT:"||$rut|| " not found")
+                             else $rut;
                              
 let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)                              
-let $entity := entities:entities(companies:eid($cik))
+let $entity := entities:entities(companies:eid($rut))
 let $latestFYFiling := sec-fiscal:latest-reported-fiscal-period($entity,"10-K")
 let $latestFQFiling := sec-fiscal:latest-reported-fiscal-period($entity,"10-Q")
 let $latestFYArchives := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity,$latestFYFiling.period,$latestFYFiling.year)
 let $latestFQArchives := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity,$latestFQFiling.period,$latestFQFiling.year)
+<<<<<<< HEAD
 return  
     switch(session:check-access($entity, "data_sec"))
     case $session:ACCESS-ALLOWED return {
           cik: $cik,
+=======
+return  if (session:only-dow30($entity) or session:valid())
+        then {
+          rut: $rut,
+>>>>>>> cik/CIK -> rut/RUT
           companyName: $entity.Profiles.SEC.CompanyName,
           latestFYPeriod: if($latestFYArchives)
                           then {fiscalYear: $latestFYFiling.year, fiscalPeriod: $latestFYFiling.period, endDate: sec:end-date($latestFYArchives[last()])}

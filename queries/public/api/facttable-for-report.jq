@@ -81,6 +81,35 @@ let $facts as object* :=
                 |}
             )
 
+<<<<<<< HEAD
+=======
+let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
+let $ciks        := distinct-values(companies:eid(request:param-values("rut")))
+let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
+let $tickers     := distinct-values(request:param-values("ticker"))
+let $sics        := distinct-values(request:param-values("sic"))
+let $fiscalYears := distinct-values(
+                        for $y in request:param-values("fiscalYear", "LATEST")
+                        return
+                            if ($y eq "LATEST" or $y eq "ALL")
+                            then $y
+                            else if ($y castable as integer)
+                            then $y cast as integer
+                            else ()
+                    )
+let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (($fp ! lower-case($$)) = "all")
+                        then $sec-fiscal:ALL_FISCAL_PERIODS
+                        else $fp)
+let $aids        := archives:aid(request:param-values("aid"))
+let $archives    := (
+                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
+                        archives:archives($aids)
+                    )
+let $entities    := entities:entities($archives.Entity)
+let $report := request:param-values("report")
+>>>>>>> cik/CIK -> rut/RUT
 let $facts :=
     for $fact in $facts
     group by $archive := $fact.Archive

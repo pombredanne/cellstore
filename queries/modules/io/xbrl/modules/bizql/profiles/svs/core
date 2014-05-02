@@ -50,9 +50,9 @@ declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
 
 (:~
- : Scheme for the SEC entity identifiers (i.e. http://www.sec.gov/CIK)
+ : Scheme for the SEC entity identifiers (i.e. http://www.sec.gov/RUT)
  :)
-declare variable $sec:CIK as xs:string := "http://www.sec.gov/CIK";
+declare variable $sec:RUT as xs:string := "http://www.sec.gov/RUT";
 
 (:~
  : Joker value for all archives or all concepts.
@@ -492,10 +492,10 @@ declare function sec:end-date(
       return
         switch(true)
         (: 
-          "The first ten digits are the CIK of the entity that logged 
+          "The first ten digits are the RUT of the entity that logged 
            in to submit the filing. The next two digits define the 
            current year. The final digits are assigned sequentially by 
-           CIK starting with one on the first business day of each year."
+           RUT starting with one on the first business day of each year."
 
         http://www.sec.gov/info/edgar/edgarfm-vol2-v25.pdf :)
       case matches($id, "\\d{10}-\\d{2}-\\d{6}")

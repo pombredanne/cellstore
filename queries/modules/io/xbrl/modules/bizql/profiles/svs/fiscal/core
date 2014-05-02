@@ -96,10 +96,10 @@ declare function fiscal-core:fiscal-period(
       return
         switch(true)
         (: 
-          "The first ten digits are the CIK of the entity that logged 
+          "The first ten digits are the RUT of the entity that logged 
            in to submit the filing. The next two digits define the 
            current year. The final digits are assigned sequentially by 
-           CIK starting with one on the first business day of each year."
+           RUT starting with one on the first business day of each year."
 
         http://www.sec.gov/info/edgar/edgarfm-vol2-v25.pdf :)
         case matches($id, "\\d{10}-\\d{2}-\\d{6}")
@@ -163,10 +163,10 @@ declare function fiscal-core:fiscal-year(
       return
         switch(true)
         (: 
-          "The first ten digits are the CIK of the entity that logged 
+          "The first ten digits are the RUT of the entity that logged 
            in to submit the filing. The next two digits define the 
            current year. The final digits are assigned sequentially by 
-           CIK starting with one on the first business day of each year."
+           RUT starting with one on the first business day of each year."
 
           http://www.sec.gov/info/edgar/edgarfm-vol2-v25.pdf :)
         case matches($id, "\\d{10}-\\d{2}-\\d{6}")
@@ -198,8 +198,8 @@ fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
     case $fiscal-period-focus eq "YTD3" return "Q3"
     default return $fiscal-period-focus
   let $conn := fiscal-core:connection()
-  for $cik-or-entity in $entities-or-ids
-  let $entity-id as xs:string := companies:eid($cik-or-entity)
+  for $rut-or-entity in $entities-or-ids
+  let $entity-id as xs:string := companies:eid($rut-or-entity)
   let $query := {|
       { "Entity" : $entity-id },
       switch (true)
@@ -240,7 +240,7 @@ fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
  : @param $fiscal-period-focus the periods (YTD1, YTD2, YTD3, Q1, Q2, Q3 or FY) or $fiscal-core:ALL_FISCAL_PERIODS to accept all.
  : @param $fiscal-year-focus the years (2012) or $fiscal-core:ALL_FISCAL_YEARS to accept all.
  :
- : @error entities:INVALID_PARAMETER if the CIK or entity is not valid.
+ : @error entities:INVALID_PARAMETER if the RUT or entity is not valid.
  :
  : @return the balance sheet at that date and for that formType.
  :) 
@@ -346,7 +346,7 @@ declare function
  : @param $fiscal-period-focus the periods (YTD1, YTD2, YTD3, Q1, Q2, Q3 or FY) or $fiscal-core:ALL_FISCAL_PERIODS to accept all.
  : @param $fiscal-year-focus the years (2012) or $fiscal-core:ALL_FISCAL_YEARS to accept all.
  :
- : @error entities:INVALID_PARAMETER if the CIK or entity is not valid.
+ : @error entities:INVALID_PARAMETER if the RUT or entity is not valid.
  : @return all facts matching entities, concepts, fiscal periods and years
  :) 
 declare function 
@@ -373,7 +373,7 @@ declare function
  : @param $fiscal-year-focus the years (2012) or $fiscal-core:ALL_FISCAL_YEARS to accept all.
  : @param $options <a href="../core#standard_options">standard SEC BizQL options</a>.
  :
- : @error entities:INVALID_PARAMETER if the CIK or entity is not valid.
+ : @error entities:INVALID_PARAMETER if the RUT or entity is not valid.
  : @return all facts matching entities, concepts, fiscal periods and years
  :) 
 declare function 

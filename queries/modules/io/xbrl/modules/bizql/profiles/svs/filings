@@ -11,7 +11,7 @@ jsoniq version "1.0";
  : use the generic archives module.</p>
  :
  : <p>With this module, you can access a number of properties of an SEC filing, such as
- : its document type. You can also retrieve an SEC filing given an SEC company (or its CIK).</p>
+ : its document type. You can also retrieve an SEC filing given an SEC company (or its RUT).</p>
  : <p>You can also access SEC filings statistics (the number of SEC Networks, of SEC Axes, etc).</p>
  : @author Charles Hoffman
  : @author Matthias Brantner

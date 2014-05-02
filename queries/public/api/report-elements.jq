@@ -92,6 +92,7 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
     
     let $all-concepts-computable-by-maps as string* := keys($map.Trees)
 
+<<<<<<< HEAD
     let $concepts-computable-by-maps as object* := 
         for $c in $names[$$ = $all-concepts-computable-by-maps] 
         return $map.Trees.$c
@@ -191,6 +192,32 @@ let $archives as object* := fiscal-core2:filings(
     $fiscalPeriods,
     $fiscalYears,
     $aids)
+=======
+let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
+let $ciks        := distinct-values(companies:eid(request:param-values("rut")))
+let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
+let $tickers     := distinct-values(request:param-values("ticker"))
+let $sics        := distinct-values(request:param-values("sic"))
+let $fiscalYears := distinct-values(
+                        for $y in request:param-values("fiscalYear", "LATEST")
+                        return
+                            if ($y eq "LATEST" or $y eq "ALL")
+                            then $y
+                            else if ($y castable as integer)
+                            then $y cast as integer
+                            else ()
+                    )
+let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (($fp ! lower-case($$)) = "all")
+                        then ("Q1", "Q2", "Q3", "Q4", "FY")
+                        else $fp)
+let $aids        := archives:aid(request:param-values("aid"))
+let $archives    := (
+                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
+                        archives:archives($aids)
+                    )
+>>>>>>> cik/CIK -> rut/RUT
 let $entities    := entities:entities($archives.Entity)
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
 let $concepts := if (exists($names))

@@ -44,7 +44,7 @@
                 <script type="text/ng-template" id="typeaheadmulti.html">
                     <a tabindex="-1" class="multicol">
                        <div ng-bind-html='match.model.name | typeaheadHighlight:query'></div>
-                       <small ng-bind-html='"CIK: " + match.model.rut + (match.model.tickers[0] ? ", Ticker: " + match.model.tickers[0] : "") | typeaheadHighlight:query'></small>
+                       <small ng-bind-html='"RUT: " + match.model.rut + (match.model.tickers[0] ? ", Ticker: " + match.model.tickers[0] : "") | typeaheadHighlight:query'></small>
                     </a>
                 </script>
                 <h6 class="nowrap">OR ADD AN ENTITY GROUP</h6>

@@ -169,14 +169,14 @@ let $fiscalYears := distinct-values(
                         if ($y eq "ALL")
                         then $fiscal:ALL_FISCAL_YEARS
                         else if ($y eq "LATEST")
-                          then for $cik in $ruts
+                          then for $rut in $ruts
                                for $fp in $fiscalPeriods
                                return
                                    if ($fiscal:ALL_FISCAL_PERIODS eq $fp)
                                    then
-                                       (fiscal:latest-reported-fiscal-period($cik).year) ! ($$ cast as integer) 
+                                       (fiscal:latest-reported-fiscal-period($rut).year) ! ($$ cast as integer) 
                                    else 
-                                       (fiscal:latest-reported-fiscal-period($cik, $fp).year) ! ($$ cast as integer) 
+                                       (fiscal:latest-reported-fiscal-period($rut, $fp).year) ! ($$ cast as integer) 
                         else if ($y castable as integer)
                         then $y cast as integer
                         else ()

@@ -5,7 +5,7 @@ angular.module('main')
     $scope.results = [];
     $scope.API_URL = $backend.API_URL;
     $scope.AccessionNumber = $stateParams.accession;
-    $scope.cik = $stateParams.cik;
+    $scope.rut = $stateParams.rut;
     $scope.aid = $stateParams.aid;
     
     var a = components.Archives[0]; // must be only one because we query for only one accession number

@@ -60,10 +60,10 @@ angular.module('main')
     },
     {
         name: 'FilteringAssetsForCIK',
-        description: 'The request returns the fact for the concept us-gasp:Assets of the entity identified by the CIK 21344 (COCA COLA CO) for the fiscal period FY and the latest fiscal year in the database.',
+        description: 'The request returns the fact for the concept us-gasp:Assets of the entity identified by the RUT 21344 (COCA COLA CO) for the fiscal period FY and the latest fiscal year in the database.',
         file: 'api/facts.jq',
         category : 'FactsTutorial',
-        params: { cik : '21344', concept: 'us-gaap:Assets', fiscalYear : '2013', fiscalPeriod : 'FY'  }
+        params: { rut : '21344', concept: 'us-gaap:Assets', fiscalYear : '2013', fiscalPeriod : 'FY'  }
     },
     {
         name: 'FilteringAssetsForSIC',

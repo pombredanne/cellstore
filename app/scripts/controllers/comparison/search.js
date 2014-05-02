@@ -176,7 +176,72 @@ angular.module('main')
             $scope.$emit('alert', 'Warning', 'Please choose concepts to compare.');
             return false;
         }
+<<<<<<< HEAD:app/scripts/controllers/comparison/search.js
         $scope.selection.stamp=(new Date()).getTime();
+=======
+    };
+
+    $scope.getValues = function() {
+        $scope.data = [];
+        $scope.columns = [];
+        $scope.errornoresults = false;
+        $scope.params = {
+            $method: 'POST',
+            rut: $scope.selection.rut,
+            tag: $scope.selection.tag,
+            fiscalYear: $scope.selection.fiscalYear,
+            fiscalPeriod: $scope.selection.fiscalPeriod,
+            concept: $scope.selection.concept,
+            map: ($scope.selection.map !== $scope.none ? $scope.selection.map : null),
+            token: $scope.token
+        };
+        $scope.dimensions.forEach(function(dimension) {
+            $scope.params[dimension.name] = dimension.value;
+            if (dimension.defaultValue)
+            {
+                $scope.params[dimension.name + '::default'] = dimension.defaultValue;
+            }
+        });
+
+        $scope.service.listFacts($scope.params)
+            .then(function(data) {
+                $scope.data = data.FactTable;
+                if ($scope.data && $scope.data.length > 0)
+                {
+                    $scope.columns.push('xbrl:Concept');
+                    $scope.columns.push('xbrl:Entity');
+                    $scope.columns.push('xbrl:Period');
+                    $scope.columns.push('bizql:FiscalPeriod');
+                    $scope.columns.push('bizql:FiscalYear');
+                    var insertIndex = 3;
+                    $.map($scope.data[0].Aspects, function (el, index) {
+                        switch (index)
+                        {
+                            case 'xbrl:Entity':
+                                $scope.entityIndex = 1;
+                                break;
+                            case 'xbrl:Concept':
+                            case 'xbrl:Period':
+                            case 'bizql:FiscalPeriod':
+                            case 'bizql:FiscalYear':
+                                break;
+                            case 'dei:LegalEntityAxis':
+                                $scope.columns.splice(insertIndex, 0, index);
+                                insertIndex++;
+                                break;
+                            default:
+                                $scope.columns.splice(insertIndex, 0, index);
+                        }
+                    });
+                }
+                else {
+                    $scope.errornoresults = true;
+                }
+            },
+            function(response) {
+                $scope.$emit('error', response.status, response.data);
+            });
+>>>>>>> cik/CIK -> rut/RUT:app/scripts/controllers/comparison_search.js
     };
     
     $scope.trimURL = function(url) {

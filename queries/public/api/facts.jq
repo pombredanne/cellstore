@@ -194,6 +194,7 @@ let $serializers := {
     }
 }
 
+<<<<<<< HEAD
 return 
     if(empty($archives))
     then {
@@ -202,3 +203,116 @@ return
     }
     else let $results := util:serialize($result, $comment, $serializers, $format, "facts")
          return util:check-and-return-results($entities, $results, $format)
+=======
+(: choose 
+    1. entities (using ciks, tags, tickers, sics), FY, and FP ) or
+    2. accession numbers
+:)
+let $ciks        := distinct-values(companies:eid(request:param-values("rut")))
+let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
+let $tickers     := distinct-values(request:param-values("ticker"))
+let $sics        := distinct-values(request:param-values("sic"))
+let $fiscalYears := distinct-values(
+                        for $y in request:param-values("fiscalYear", "LATEST")
+                        return
+                            if ($y eq "LATEST" or $y eq "ALL")
+                            then $y
+                            else if ($y castable as integer)
+                            then $y
+                            else ()
+                    )
+let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (($fp ! lower-case($$)) = "all")
+                        then $sec-fiscal:ALL_FISCAL_PERIODS
+                        else $fp)
+let $aids := request:param-values("aid")
+let $dimensions :=  for $p in request:param-names()
+                    where contains($p, ":")
+                    group by $dimension-name := if (ends-with(lower-case($p), ":default"))
+                                                then 
+                                                    if (ends-with(lower-case($p), "::default"))
+                                                    then substring-before($p, "::default")
+                                                    else substring-before($p, ":default")
+                                                else $p
+                    let $default := ($p = $dimension-name || "::default") or ($p = $dimension-name || ":default")
+                    let $all := (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
+                    return
+                    {
+                       $dimension-name : {| 
+                            { Name : $dimension-name }, 
+                            if ($default)
+                            then { Default : 
+                                (request:param-values($dimension-name || "::default"),
+                                 request:param-values($dimension-name || ":default"))[1] }
+                            else (),
+                            if ($all)
+                            then ()
+                            else {
+                                Domains : {
+                                    "sec:ImplicitDomain" : {
+                                        Name: "sec:ImplicitDomain",
+                                        Members: {|
+                                            (request:param-values($dimension-name)) ! { $$ : { Name: $$ } }
+                                        |}
+                                    }
+                                }
+                            }
+                        |}
+                    }
+let $concepts := request:param-values("concept")
+let $map      := request:param-values("map")[1]
+return 
+  if (empty($concepts))
+  then {
+    response:status-code(400);
+    session:error("concept: missing parameter", $format)
+  } else
+    let $archives := (
+                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
+                        archives:archives($aids)
+                     )
+    let $entities     := companies:companies($archives.Entity)
+    return switch(true)
+      case empty($archives) return {
+        response:status-code(404);
+        session:error("entities or archives not found (valid parameters: rut, ticker, tag, sic, aid)", $format)
+      }
+      case not (session:only-dow30($entities) or session:valid()) return {
+        response:status-code(401);
+        session:error("accessing facts of an entity that is not in the DOW30", $format)
+      }
+      default return
+        let $facts := local:facts($archives, $concepts, $dimensions, $map)
+        return
+            switch ($format)
+            case "xml" return {
+                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+                local:to-xml($facts)
+            }
+            case "text" case "csv" return {
+                response:content-type("text/csv");
+                response:header("Content-Disposition", "attachment; filename=facts.csv");
+                local:to-csv($facts)
+            }
+            case "excel" return {
+                response:content-type("application/vnd.ms-excel");
+                response:header("Content-Disposition", "attachment; filename=fact.csv");
+                local:to-csv($facts)
+            }
+            default return {
+                response:content-type("application/json");
+                response:serialization-parameters({"indent" : true});
+                {|
+                    { NetworkIdentifier : "http://bizql.io/facts" },
+                    { TableName : "xbrl:Facts" },
+                    { FactTable : [ $facts ] },
+                    session:comment("json", {
+                            NumFacts: count($facts),
+                            TotalNumFacts: session:num-facts(),
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        })
+                |}
+            }
+>>>>>>> cik/CIK -> rut/RUT

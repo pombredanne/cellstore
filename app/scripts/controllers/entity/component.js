@@ -3,7 +3,7 @@
 angular.module('main')
 .controller('ComponentCtrl', function($scope, $stateParams, component) {
     
-    $scope.cik = $stateParams.cik;
+    $scope.rut = $stateParams.rut;
     $scope.aid = $stateParams.aid;
     $scope.networkIdentifier = $stateParams.networkIdentifier;
     

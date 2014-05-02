@@ -63,6 +63,7 @@ let $fiscalPeriods as string* :=
 let $reportElements := ($reportElements, $concepts)
 let $validate as boolean := $validate = "true"
 
+<<<<<<< HEAD
 (: Object resolution :)
 let $entities as object* := 
     companies2:companies(
@@ -75,6 +76,50 @@ let $archive as object? := fiscal-core2:filings(
     $fiscalPeriods,
     $fiscalYears,
     $aids)
+=======
+let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
+let $ciks        := distinct-values(companies:eid(request:param-values("rut")))
+let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
+let $tickers     := distinct-values(request:param-values("ticker"))
+let $sics        := distinct-values(request:param-values("sic"))
+let $fiscalYears := distinct-values(
+                        for $y in request:param-values("fiscalYear", "LATEST")
+                        return
+                            if ($y eq "LATEST" or $y eq "ALL")
+                            then $y
+                            else if ($y castable as integer)
+                            then $y
+                            else ()
+                    )
+let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (($fp ! lower-case($$)) = "all")
+                        then $fiscal:ALL_FISCAL_PERIODS
+                        else $fp)
+let $aids        := archives:aid(request:param-values("aid"))
+let $roles       := request:param-values("networkIdentifier")
+let $archives    := (
+                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
+                        archives:archives($aids)
+                    )
+let $cid         := request:param-values("cid")
+let $concepts    := distinct-values(request:param-values("concept"))
+let $rollup      := distinct-values(request:param-values("rollup"))
+let $map         := request:param-values("map")
+let $disclosures := request:param-values("disclosure")
+let $components  := (if (exists($cid))
+                    then components:components($cid)
+                    else (),
+                    if (exists($concepts) or exists($disclosures) or exists($roles))
+                    then (
+                            local:components-by-concepts($concepts, $archives._id), 
+                            local:components-by-disclosures($disclosures, $archives._id),
+                            local:components-by-roles($roles, $archives._id)
+                        )
+                    else components:components-for-archives($archives._id))
+let $component := $components[1] (: only one for know :)
+let $archive   := archives:archives($component.Archive)
+>>>>>>> cik/CIK -> rut/RUT
 let $entity    := entities:entities($archive.Entity)
 let $components  := sec-networks2:components(
     $archive,
@@ -86,6 +131,7 @@ let $components  := sec-networks2:components(
 let $component as object? := $components[1] (: only one for know :)
 let $cid as string? := components:cid($component)
 
+<<<<<<< HEAD
 (: Fact resolution :)
 let $facts :=
     if (exists($rollups))
@@ -186,3 +232,110 @@ let $results :=
         |}
     }
 return util:check-and-return-results($entity, $results, $format)
+=======
+return
+     if (session:only-dow30($entity) or session:valid())
+     then {
+        let $facts := if (exists($rollup))
+                     then 
+                         let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
+                         let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube") (: sec-networks:tables($component).Name) :)
+                         let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive)
+                         let $map := concept-maps:concept-maps($map)
+                         let $concepts := 
+                            if (exists($map))
+                            then
+                                for $d in $rollup
+                                return
+                                    keys(descendant-objects($p)[$$.Name = keys($map.Trees($d).To)][1].To)
+                            else
+                                for $d in $rollup
+                                return ($d, keys(descendant-objects($p)[$$.Name eq $d].To))
+                         return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
+                     else sec-networks:facts($component, {||})
+        let $fact-table :=  for $f in $facts
+                            let $a := $f.Aspects
+                            return {|
+                                { "Aspects" : {|
+                                    { "xbrl:Entity": $a."xbrl:Entity" },
+                                    if (exists($a."dei:LegalEntityAxis")) then { "dei:LegalEntityAxis": $a."dei:LegalEntityAxis" } else (),
+                                    { "xbrl:Period" : $a."xbrl:Period" },
+                                    { "xbrl:Concept" : $a."xbrl:Concept" },
+                                    for $k in keys($f.Aspects)
+                                    where $k ne "xbrl:Unit" and $k ne "xbrl:Entity" and $k ne "dei:LegalEntityAxis" and 
+                                          $k ne "xbrl:Period" and $k ne "xbrl:Concept"
+                                    return { $k : $f.Aspects.$k }
+                                |} },
+                                { "Type" : $f.Type },
+                                { "Value" : $f.Value },
+                                if (exists($f.Decimals))
+                                then { "Decimals" : $f.Decimals }
+                                else (),
+                                if (exists($f."Aspects"."xbrl:Unit"))
+                                then { "Unit" : $f."Aspects"."xbrl:Unit" }
+                                else ()
+                            |}
+        return 
+            switch ($format)
+            case "xml" return {
+                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+                (session:comment("xml", {
+                            NumFacts : count($fact-table),
+                            TotalNumFacts: session:num-facts(),
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        }),
+                <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
+                    rut="{$entity.RUT}"
+                    tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
+                    label="{$component.Label}"
+                    accessionNumber="{$component.Archive}"
+                    networkIdentifier="{$component.Role}"
+                    formType="{$archive.Profiles.SEC.FormType}"
+                    fiscalPeriod="{$archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus}"
+                    fiscalYear="{$archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus}" 
+                    acceptanceDatetime="{filings:acceptance-dateTimes($archive)}"
+                    disclosure="{$component.Profiles.SEC.Disclosure}"
+                    >{
+                    local:to-xml($fact-table)
+                }</FactTable>)
+            }
+            case "text" case "csv" return {
+                response:content-type("text/csv");
+                response:header("Content-Disposition", "attachment; filename=facttable-" || $cid || ".csv");
+                local:to-csv($fact-table)
+            }
+            case "excel" return {
+                response:content-type("application/vnd.ms-excel");
+                response:header("Content-Disposition", "attachment; filename=facttable-" || $cid || ".csv");
+                local:to-csv($fact-table)
+            }
+            default return {
+                response:content-type("application/json");
+                response:serialization-parameters({"indent" : true});
+                {|
+                    { RUT : $entity._id },
+                    { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
+                    { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
+                    { Label : $component.Label },
+                    { AccessionNumber : $component.Archive },
+                    { FormType : $archive.Profiles.SEC.FormType },
+                    { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
+                    { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
+                    (:{ AcceptanceDatetime : filings:acceptance-dateTimes($archive) },:)
+                    { NetworkIdentifier: $component.Role },  
+                    { Disclosure : $component.Profiles.SEC.Disclosure },
+                    { FactTable : [ $fact-table ] },
+                    session:comment("json", {
+                            NumFacts : count($fact-table),
+                            TotalNumFacts: session:num-facts(),
+                            TotalNumArchives: session:num-archives(),
+                            TotalNumEntities: session:num-entities()
+                        })
+                |}
+            }
+     } else {
+        response:status-code(401);
+        session:error("accessing fact table for an entity that is not in the DOW30", $format)
+     }
+>>>>>>> cik/CIK -> rut/RUT

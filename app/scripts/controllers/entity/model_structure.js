@@ -2,13 +2,13 @@
 
 angular.module('main')
 .controller('ModelStructureCtrl', function($rootScope, $scope, $stateParams, $backend, modelStructure) {
-    $scope.cik = $stateParams.cik;
+    $scope.rut = $stateParams.rut;
     $scope.AccessionNumber = $stateParams.aid;
     $scope.NetworkIdentifier = $stateParams.networkIdentifier;
 
     $scope.data = modelStructure.ModelStructure;
     $scope.Label = modelStructure.Label;
-    $scope.cik = (modelStructure.CIK || '').substring(23);
+    $scope.rut = (modelStructure.RUT || '').substring(23);
     $scope.EntityRegistrantName = modelStructure.EntityRegistrantName;
     var p = modelStructure.Label.lastIndexOf(' - ');
     if (p > 0) {
@@ -44,7 +44,7 @@ angular.module('main')
     $scope.getDataType = function(datatype) {
         switch (datatype) {
         case 'dei:centralIndexKeyItemType':
-            return 'CIK Number';
+            return 'RUT Number';
         case 'dei:countryItemType':
             return 'Country';
         case 'dei:currencyItemType':

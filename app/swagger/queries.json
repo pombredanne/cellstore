@@ -242,7 +242,7 @@
                         {
                             "title": "Retrieve the filings of a specific entity",
                             "description": "Retrieve information about the filings of an entity identified by its RUT. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/filings.jq?_method=POST&cik=66740&format=xml",
+                            "request": "[API_URL]/_queries/public/api/filings.jq?_method=POST&rut=66740&format=xml",
                             "response": ""
                         }
                     ]
@@ -300,7 +300,7 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "cik",
+                            "name": "rut",
                             "description": "The RUT of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
                             "required": false,
                             "type": "string",
@@ -427,7 +427,7 @@
             "operations": [
                 {
                     "method": "POST",
-                    "summary": "Retrieve the fact table for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by RUT, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).",
+                    "summary": "Retrieve the fact table for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by RUT, fiscal year, fiscal period, and disclosure (rut, fiscalYear, fiscalPeriod, and disclosure).",
                     "nickname": "listFactTable",
                     "parameters": [
                         {
@@ -458,7 +458,7 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "cik",
+                            "name": "rut",
                             "description": "The RUT of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
                             "required": false,
                             "type": "string",
@@ -760,7 +760,7 @@
             "operations": [
                 {
                     "method": "POST",
-                    "summary": "Retrieve the model structure for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by RUT, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).",
+                    "summary": "Retrieve the model structure for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by RUT, fiscal year, fiscal period, and disclosure (rut, fiscalYear, fiscalPeriod, and disclosure).",
                     "nickname": "listModelStructure",
                     "parameters": [
                         {
@@ -791,7 +791,7 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "cik",
+                            "name": "rut",
                             "description": "The RUT of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
                             "required": false,
                             "type": "string",
@@ -923,7 +923,7 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "cik",
+                            "name": "rut",
                             "description": "The RUT of the entity",
                             "required": false,
                             "type": "string",
@@ -1207,7 +1207,7 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "cik",
+                            "name": "rut",
                             "description": "The RUT of the entity",
                             "required": false,
                             "type": "string",
@@ -1415,7 +1415,7 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "cik",
+                            "name": "rut",
                             "description": "A RUT number",
                             "required": false,
                             "type": "string",

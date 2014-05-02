@@ -10,7 +10,7 @@ jsoniq version "1.0";
  : <p>SVS Companies are nothing else than XBRL entities. For XBRL-generic requests on
  : entities, use the generic entities module.</p>
  :
- : <p>With this module, you can retrieve a company with its CIK (without converting
+ : <p>With this module, you can retrieve a company with its RUT (without converting
  : it to an EID). You can also retrieve companies by sector, by SIC code, by types,
  : by tags, by tickers.</p>
  :
@@ -249,16 +249,16 @@ declare function companies:types-for-names($company-names as string*) as string*
 
 (:~
  :
- : <p>Converts the input to a normalized CIK. The input
- : can be either a pure CIK without scheme, or an already
- : normalized CIK, or an entity object which contains a CIK
+ : <p>Converts the input to a normalized RUT. The input
+ : can be either a pure RUT without scheme, or an already
+ : normalized RUT, or an entity object which contains a RUT
  : in its id field.</p>
  :
- : @param $cik_or_entity a CIK or an entity.
+ : @param $cik_or_entity a RUT or an entity.
  :
- : @error sec:INVALID_PARAMETER if the CIK or entity is not valid
+ : @error sec:INVALID_PARAMETER if the RUT or entity is not valid
  :
- : @return the normalized CIK.
+ : @return the normalized RUT.
  :)
 declare function companies:eid($companies-or-eids-or-ciks as item*) as string*
 {
@@ -270,22 +270,22 @@ declare function companies:eid($companies-or-eids-or-ciks as item*) as string*
   let $eids := entities:eid($preprocessed)
   for $eid in $eids
   return typeswitch ($eid)
-         case $cik as string return
+         case $rut as string return
            switch(true)
-           case starts-with($cik, $sec:CIK) return $cik
-           case contains($cik, " ") return
-               (: cik seems to contain a scheme, but not a CIK scheme, i.e. it's invalid :)
-               error(QName("sec:INVALID_PARAMETER"), $cik || ": not a valid CIK")
-           case not $cik castable as integer return
-               (: cik seems to not be an integer :)
-               error(QName("sec:INVALID_PARAMETER"), $cik || ": not a valid integer")
-           default return let $cik := normalize-space($cik)
+           case starts-with($rut, $sec:RUT) return $rut
+           case contains($rut, " ") return
+               (: rut seems to contain a scheme, but not a RUT scheme, i.e. it's invalid :)
+               error(QName("sec:INVALID_PARAMETER"), $rut || ": not a valid RUT")
+           case not $rut castable as integer return
+               (: rut seems to not be an integer :)
+               error(QName("sec:INVALID_PARAMETER"), $rut || ": not a valid integer")
+           default return let $rut := normalize-space($rut)
                           return
-                          $sec:CIK || " " ||
-                          format-integer($cik cast as integer, "0000000000") cast as string
+                          $sec:RUT || " " ||
+                          format-integer($rut cast as integer, "0000000000") cast as string
          default return error(
              QName("sec:INVALID_PARAMETER"),
-             "Invalid entity or CIK (must be an object or a string): "
+             "Invalid entity or RUT (must be an object or a string): "
              || serialize($companies-or-eids-or-ciks))
 };
 

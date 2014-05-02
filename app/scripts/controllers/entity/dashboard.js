@@ -4,7 +4,7 @@ angular.module('main')
 .controller('DashboardCtrl', function ($scope, $rootScope, $anchorScroll, $location, $state, $stateParams, $http, $modal, $filter, $backend) {
     $scope.table1 = null;
     $scope.table2 = null;
-    $scope.cik = ($stateParams.cik ? $stateParams.cik : null);
+    $scope.rut = ($stateParams.rut ? $stateParams.rut : null);
 
     var makeTooltip = function (key, item1, title1, item2, title2) {
         if (!item1 && !item2) {
@@ -123,7 +123,7 @@ angular.module('main')
         map: 'FundamentalAccountingConcepts',
         fiscalYear: fiscalYears,
         fiscalPeriod: 'ALL',
-        cik: $scope.cik,
+        rut: $scope.rut,
         token: $scope.token
     };
     $backend.Queries.listFacts($scope.params)

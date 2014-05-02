@@ -4,7 +4,7 @@ angular.module('main')
 .controller('InformationCtrl', function($scope, $rootScope, $anchorScroll, $state, $stateParams, $http, $modal, $filter, $backend, years, periods) {
     $scope.year = $stateParams.year ? $stateParams.year : null;
     $scope.period = $stateParams.period ? $stateParams.period : null;
-    $scope.cik = $stateParams.cik ? $stateParams.cik : null;
+    $scope.rut = $stateParams.rut ? $stateParams.rut : null;
     $scope.reports = [];
     $scope.showtab = [];
     $scope.years = years;
@@ -19,7 +19,7 @@ angular.module('main')
 		$http({
 			method: 'GET',
 			url: $backend.API_URL + '/_queries/public/FYandFPByCIK.jq',
-			params: { _method: 'POST', cik: $scope.cik, 'token' : $scope.token },
+			params: { _method: 'POST', rut: $scope.rut, 'token' : $scope.token },
 			cache: true
 		})
 		.success(function (data) {
@@ -85,20 +85,20 @@ angular.module('main')
 
     $scope.change = function () {
 		if ($scope.year && $scope.period) {
-		    $state.go('root.entity.information', { cik: $scope.cik, year: $scope.year, period: $scope.period });
+		    $state.go('root.entity.information', { rut: $scope.rut, year: $scope.year, period: $scope.period });
         } else {
-            $state.go('root.entity.information', { cik: $scope.cik });
+            $state.go('root.entity.information', { rut: $scope.rut });
 			$http({
                 method: 'GET',
 				url: $backend.API_URL + '/_queries/public/LatestFYandFPByCIK.jq',
-				params: { _method: 'POST', cik: $scope.cik, 'token' : $scope.token },
+				params: { _method: 'POST', rut: $scope.rut, 'token' : $scope.token },
 				cache: true
             })
             .success(function (data, status) {
                 if (data && data.latestFYPeriod) {
                     $scope.year = '' + data.latestFYPeriod.fiscalYear;
 				    $scope.period = data.latestFYPeriod.fiscalPeriod;
-		            $state.go('root.entity.information', { cik: $scope.cik, year: $scope.year, period: $scope.period });
+		            $state.go('root.entity.information', { rut: $scope.rut, year: $scope.year, period: $scope.period });
 				} else {
 				    $scope.$emit('error', status, data);
                 }
@@ -249,12 +249,18 @@ angular.module('main')
         $scope.$emit('alert', 'Text Details', html);
     };
 
-    if ($scope.cik && $scope.year && $scope.period)
+    if ($scope.rut && $scope.year && $scope.period)
     {
         $scope.computeUsage();
+<<<<<<< HEAD
         $backend.Queries.listFilings({
             _method: 'POST',
             cik: $scope.cik,
+=======
+        $scope.service.listFilings({
+            $method: 'POST',
+            rut: $scope.rut,
+>>>>>>> cik/CIK -> rut/RUT
             fiscalYear: $scope.year,
             fiscalPeriod: $scope.period,
             token: $scope.token
