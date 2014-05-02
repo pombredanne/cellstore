@@ -486,7 +486,7 @@
                         {
                             "title": "Fact Table as CSV",
                             "description": "Retrieve the fact table for a particular component. Return the result as CSV.",
-                            "request": "[API_URL]/_queries/public/api/facttable-for-component.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=csv",
+                            "request": "[API_URL]/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets&format=csv",
                             "response": ""
                         },
                         {
@@ -601,7 +601,7 @@
                         {
                             "title": "Model Structure as XML",
                             "description": "Retrieve the model structure for a particular component. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/modelstructure-for-component.jq?_method=POST&cid=9d3fb56e-831a-4759-84b8-54550f8aee01&format=xml",
+                            "request": "[API_URL]/_queries/public/api/modelstructure-for-component.jq?_method=POST&aid=0000021344-14-000008&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets&format=xml",
                             "response": ""
                         },
                         {

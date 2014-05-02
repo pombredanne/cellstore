@@ -18,7 +18,7 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace session = "http://apps.28.io/session";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
-declare function local:to-xml-rec($o as object, $level as integer) as element()
+declare function local:to-xml-rec($o as object*, $level as integer) as element()*
 {
     for $o in $o
     return
@@ -35,7 +35,7 @@ declare function local:to-xml-rec($o as object, $level as integer) as element()
         }
 };
 
-declare function local:to-xml($model as object) as element()
+declare function local:to-xml($model as object) as node()*
 {
     ((session:comment("xml", {
                             TotalNumArchives: session:num-archives(),
