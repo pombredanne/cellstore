@@ -213,7 +213,8 @@ angular.module('main')
             delete $scope.httpDates[(lastYear - 4 + i) + 'YTD3'];
             delete $scope.httpDates[(lastYear - 4 + i) + 'FY'];
         }
-        $.map($scope.httpDates, function (el) {
+        Object.keys($scope.httpDates).forEach(function (key) {
+            var el = $scope.httpDates[key];
             $scope.table1.rows.push({ c: [el[0], el[5], el[1], el[2]] });
             $scope.table2.rows.push({ c: [el[0], el[6], el[3], el[4]] });
         });

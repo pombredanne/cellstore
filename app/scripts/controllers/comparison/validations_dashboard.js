@@ -3,50 +3,44 @@
 /*globals accounting*/
 
 angular.module('main')
-.controller('ComparisonValidationsDashboardCtrl', function($scope, $http, $location, $state, $backend, QueriesService) {
-    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
-    $scope.selection = {};
+.controller('ComparisonValidationsDashboardCtrl', function($scope, $http, $location, $state, $backend) {
     $scope.showtab = [];
     $scope.reports = [];
     $scope.reportname = 'FundamentalAccountingConcepts';
     $scope.filings = null;
     $scope.error = false;
+    $scope.errornoresults = false;
     $scope.errormany = false;
     
-    $scope.$on('filterChanged', function(event, selection) {
-        $scope.selection = angular.copy(selection);
-        if (!selection) { return; }
-        
-        $location.search($scope.selection);
-        
-        $scope.filings = null;
-        $scope.error = false;
-        $scope.errormany = false;
-
-        $scope.service.listFilings({
-            $method: 'POST',
-            cik: selection.cik,
-            tag: selection.tag,
-            fiscalYear: selection.fiscalYear,
-            fiscalPeriod: selection.fiscalPeriod,
-            token: $scope.token
-        }).then(function(data) {
-            $scope.filings = [];
-            data.Archives.forEach(function(a) { $scope.filings.push(a.AccessionNumber); });
+    $scope.service.listFilings({
+        $method: 'POST',
+        cik: $scope.selection.cik,
+        tag: $scope.selection.tag,
+        fiscalYear: $scope.selection.fiscalYear,
+        fiscalPeriod: $scope.selection.fiscalPeriod,
+        sic: $scope.selection.sic,
+        token: $scope.token
+    }).then(function(data) {
+        $scope.filings = [];
+        data.Archives.forEach(function(a) { $scope.filings.push(a.AccessionNumber); });
+        if ($scope.filings.length === 0) {
+            $scope.reports = [];
+            $scope.errornoresults = true;
+        }
+        else {
             if ($scope.filings.length > 30 && !$scope.nomany) {
                 $scope.reports = [];
                 $scope.errormany = true;
             } else {
                 $scope.getInfo();
             }
-        },
-        function(response) {
-            $scope.$emit('error', response.status, response.data);
-        });
+        }
+    },
+    function(response) {
+        $scope.$emit('error', response.status, response.data);
     });
 
     $scope.getInfo = function() {
-        
         $scope.reports = [];
         $scope.params = {
                 _method: 'POST',
@@ -139,6 +133,7 @@ angular.module('main')
 
         $scope.error = false;
         $scope.errormany = false;
+        $scope.errornoresults = ($scope.reports.length === 0);
     };
 
     $scope.forceShow = function() {
@@ -167,6 +162,7 @@ angular.module('main')
         if (params) {
             params.cik = $scope.selection.cik;
             params.tag = $scope.selection.tag;
+            params.sic = $scope.selection.sic;
             params.concept = ['fac:PassedValidations', 'fac:FailedValidations', 'fac:NotApplicableValidations'];
             params.map = $scope.reportname;
             params.rules = $scope.reportname;
@@ -180,8 +176,4 @@ angular.module('main')
         }
         return str;
     };
-    
-    $scope.$on('$stateChangeSuccess', function(event, toState) {
-        $scope.subActive = toState.data && toState.data.subActive;
-    });
 });

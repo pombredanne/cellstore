@@ -3,93 +3,29 @@
 /*globals accounting*/
 
 angular.module('main')
-.controller('ComparisonSearchCtrl', function($scope, $http, $modal, $location, $backend, QueriesService, conceptMaps, allRules) {
+.controller('ComparisonSearchCtrl', function($scope, $stateParams, $location, $http, $modal, $backend, conceptMaps) {
     $scope.none = 'US-GAAP Taxonomy Concepts';
 
-    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
     if (conceptMaps.indexOf($scope.none) < 0) {
         conceptMaps.push($scope.none);
     }
     $scope.conceptMaps = conceptMaps;
-    $scope.allRules = allRules;
     $scope.conceptMapKeys = [];
     $scope.entityIndex = -1;
     $scope.API_URL = $backend.API_URL;
     $scope.errornoresults = false;
-    
-    $scope.$on('filterChanged',
-        function(event, selection) {
-            $scope.selection = angular.copy(selection);
 
-            var src = $location.search();
-            
-            if (src.map) {
-                $scope.map = src.map;
-            }
-            else {
-                $scope.map = conceptMaps[0];
-            }
-            $scope.selectMap();
-            
-            if (src.concept) {
-                $scope.selection.concept = [].concat(src.concept);
-            }
-            else {
-                $scope.selection.concept = [];
-            }
+    $scope.selection.map = $stateParams.map || conceptMaps[0];
+    $scope.selection.concept = ($stateParams.concept ? $stateParams.concept.split(',') : []);
 
-            $scope.dimensions = [];
-            Object.keys(src).forEach(function (param) {
-                if (param.indexOf(':') !== -1) {
-                    if (param.substring(param.length - 9, param.length) === '::default') {
-                        var name = param.substring(0, param.length - 9);
-                        $scope.dimensions.forEach(function(d) {
-                            if (d.name === name)
-                            {
-                                d.defaultValue = src[param];
-                            }
-                        });
-                    }
-                    else {
-                        $scope.dimensions.push({ name: param, value: src[param] });
-                    }
-                    $scope.selection[param] = src[param];
-                }
-            });
-        }
-    );
-
-    $scope.$watch(
-        function() {
-            return angular.toJson($scope.selection);
-        },
-        function() {
-            if ($scope.selection) {
-                $location.search($scope.selection);
-                if ($scope.selection.concept.length > 0)
-                {
-                    $scope.getValues();
-                }
-            }
-        }
-    );
-
-    $scope.selectMap = function() {
-        if ($scope.selection.map === $scope.map)
-        {
-            return;
-        }
-
+    $scope.getConceptMapKeys = function(map) {
         $scope.conceptMapKeys = [];
-        $scope.selection.concept = [];
-        $scope.selection.map = $scope.map;
-
-        if ($scope.selection.map && $scope.selection.map !== $scope.none)
+        if (map && map !== $scope.none)
         {
             $http({
                     method: 'GET',
                     url: $backend.API_URL + '/_queries/public/ConceptMapKeys.jq',
-                    params: { _method: 'POST', mapName: $scope.selection.map, 'token' : $scope.token },
+                    params: { _method: 'POST', mapName: map, 'token' : $scope.token },
                     cache: true
                 })
                 .success(function (data) {
@@ -101,6 +37,96 @@ angular.module('main')
                     $scope.$emit('error', status, data);
                 });
         }
+        else
+        {
+            $scope.service.listReportElements({
+                $method : 'POST',
+                onlyNames : true,
+                cik: $scope.selection.cik,
+                tag: $scope.selection.tag,
+                fiscalYear: $scope.selection.fiscalYear,
+                fiscalPeriod: $scope.selection.fiscalPeriod,
+                sic: $scope.selection.sic,
+                token: $scope.token
+            }).then(function(data) {
+                $scope.conceptMapKeys = data.ReportElements || [];
+            },
+            function(response) {
+                $scope.$emit('error', response.status, response.data);
+            });
+        }
+    };
+
+    $scope.getData = function() {
+        $scope.data = [];
+        $scope.columns = [];
+        if ($scope.selection && $scope.selection.concept.length > 0)
+        {
+            $scope.errornoresults = false;
+            $scope.params = {
+                $method: 'POST',
+                cik: $scope.selection.cik,
+                tag: $scope.selection.tag,
+                fiscalYear: $scope.selection.fiscalYear,
+                fiscalPeriod: $scope.selection.fiscalPeriod,
+                sic: $scope.selection.sic,
+                concept: $scope.selection.concept,
+                map: ($scope.selection.map !== $scope.none ? $scope.selection.map : null),
+                token: $scope.token
+            };
+            $scope.dimensions.forEach(function(dimension) {
+                $scope.params[dimension.name] = dimension.value;
+                if (dimension.defaultValue)
+                {
+                    $scope.params[dimension.name + '::default'] = dimension.defaultValue;
+                }
+            });
+
+            $scope.service.listFacts($scope.params)
+                .then(function(data) {
+                    $scope.data = data.FactTable;
+                    if ($scope.data && $scope.data.length > 0)
+                    {
+                        $scope.columns.push('xbrl:Concept');
+                        $scope.columns.push('xbrl:Entity');
+                        $scope.columns.push('xbrl:Period');
+                        $scope.columns.push('bizql:FiscalPeriod');
+                        $scope.columns.push('bizql:FiscalYear');
+                        var insertIndex = 3;
+
+                        Object.keys($scope.data[0].Aspects).forEach(function (el) {
+                            switch (el)
+                            {
+                                case 'xbrl:Entity':
+                                    $scope.entityIndex = 1;
+                                    break;
+                                case 'xbrl:Concept':
+                                case 'xbrl:Period':
+                                case 'bizql:FiscalPeriod':
+                                case 'bizql:FiscalYear':
+                                    break;
+                                case 'dei:LegalEntityAxis':
+                                    $scope.columns.splice(insertIndex, 0, el);
+                                    insertIndex++;
+                                    break;
+                                default:
+                                    $scope.columns.splice(insertIndex, 0, el);
+                            }
+                        });
+                    }
+                    else {
+                        $scope.errornoresults = true;
+                    }
+                },
+                function(response) {
+                    $scope.$emit('error', response.status, response.data);
+                });
+        }
+    };
+
+    $scope.selectMap = function(map) {
+        $scope.selection.concept = [];
+        $scope.getConceptMapKeys(map);
     };
 
     $scope.addConceptKey = function(item) {
@@ -182,68 +208,6 @@ angular.module('main')
             return false;
         }
     };
-
-    $scope.getValues = function() {
-        $scope.data = [];
-        $scope.columns = [];
-        $scope.errornoresults = false;
-        $scope.params = {
-            $method: 'POST',
-            cik: $scope.selection.cik,
-            tag: $scope.selection.tag,
-            fiscalYear: $scope.selection.fiscalYear,
-            fiscalPeriod: $scope.selection.fiscalPeriod,
-            concept: $scope.selection.concept,
-            map: ($scope.selection.map !== $scope.none ? $scope.selection.map : null),
-            token: $scope.token
-        };
-        $scope.dimensions.forEach(function(dimension) {
-            $scope.params[dimension.name] = dimension.value;
-            if (dimension.defaultValue)
-            {
-                $scope.params[dimension.name + '::default'] = dimension.defaultValue;
-            }
-        });
-
-        $scope.service.listFacts($scope.params)
-            .then(function(data) {
-                $scope.data = data.FactTable;
-                if ($scope.data && $scope.data.length > 0)
-                {
-                    $scope.columns.push('xbrl:Concept');
-                    $scope.columns.push('xbrl:Entity');
-                    $scope.columns.push('xbrl:Period');
-                    $scope.columns.push('bizql:FiscalPeriod');
-                    $scope.columns.push('bizql:FiscalYear');
-                    var insertIndex = 3;
-                    $.map($scope.data[0].Aspects, function (el, index) {
-                        switch (index)
-                        {
-                            case 'xbrl:Entity':
-                                $scope.entityIndex = 1;
-                                break;
-                            case 'xbrl:Concept':
-                            case 'xbrl:Period':
-                            case 'bizql:FiscalPeriod':
-                            case 'bizql:FiscalYear':
-                                break;
-                            case 'dei:LegalEntityAxis':
-                                $scope.columns.splice(insertIndex, 0, index);
-                                insertIndex++;
-                                break;
-                            default:
-                                $scope.columns.splice(insertIndex, 0, index);
-                        }
-                    });
-                }
-                else {
-                    $scope.errornoresults = true;
-                }
-            },
-            function(response) {
-                $scope.$emit('error', response.status, response.data);
-            });
-    };
     
     $scope.trimURL = function(url) {
         if (url.length < 40) {
@@ -287,9 +251,34 @@ angular.module('main')
         }
         return str;
     };
-    
-    $scope.$on('$stateChangeSuccess', function(event, toState) {
-        $scope.subActive = toState.data && toState.data.subActive;
+
+    $scope.getConceptMapKeys($scope.selection.map);
+
+    //CRD: can't use the stateParams because the parameters have custom names (not mapped)
+    var src = $location.search();
+
+    $scope.dimensions = [];
+    Object.keys(src).forEach(function (param) {
+        if (param.indexOf(':') !== -1) {
+            if (param.substring(param.length - 9, param.length) === '::default') {
+                var name = param.substring(0, param.length - 9);
+                $scope.dimensions.forEach(function(d) {
+                    if (d.name === name)
+                    {
+                        d.defaultValue = src[param];
+                    }
+                });
+            }
+            else {
+                $scope.dimensions.push({ name: param, value: src[param] });
+            }
+            $scope.selection[param] = src[param];
+        }
     });
 
+    //we monitor the dimensions, and when they change we reload.
+    //filter changes will trigger a reload, therefore a dimensions change.
+    $scope.$watchCollection('dimensions', function() {
+        $scope.getData();
+    });
 });

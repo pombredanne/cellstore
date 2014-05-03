@@ -3,46 +3,43 @@
 /*globals accounting*/
 
 angular.module('main')
-.controller('ComparisonInformationCtrl', function($scope, $http, $location, $state, $backend, QueriesService) {
-    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
-    $scope.selection = {};
+.controller('ComparisonInformationCtrl', function($scope, $state, $http, $backend) {
     $scope.showtab = [];
     $scope.reports = [];
+    
     $scope.filings = null;
     $scope.error = false;
+    $scope.errornoresults = false;
     $scope.errormany = false;
-    
-    $scope.$on('filterChanged', function(event, selection) {
-        $scope.selection = angular.copy(selection);
-        if (!selection) { return; }
-        
-        $location.search($scope.selection);
-        
-        $scope.filings = null;
-        $scope.error = false;
-        $scope.errormany = false;
 
-        $scope.service.listFilings({
-            $method: 'POST',
-            cik: selection.cik,
-            tag: selection.tag,
-            fiscalYear: selection.fiscalYear,
-            fiscalPeriod: selection.fiscalPeriod,
-            token: $scope.token
-        }).then(function(data) {
+    $scope.service.listFilings({
+        $method: 'POST',
+        cik: $scope.selection.cik,
+        tag: $scope.selection.tag,
+        fiscalYear: $scope.selection.fiscalYear,
+        fiscalPeriod: $scope.selection.fiscalPeriod,
+        sic: $scope.selection.sic,
+        token: $scope.token
+    })
+        .then(function(data) {
             $scope.filings = [];
             data.Archives.forEach(function(a) { $scope.filings.push(a.AccessionNumber); });
-            if ($scope.filings.length > 30 && !$scope.nomany) {
+            if ($scope.filings.length === 0) {
                 $scope.reports = [];
-                $scope.errormany = true;
-            } else {
-                $scope.getInfo();
+                $scope.errornoresults = true;
+            }
+            else {
+                if ($scope.filings.length > 30 && !$scope.nomany) {
+                    $scope.reports = [];
+                    $scope.errormany = true;
+                } else {
+                    $scope.getInfo();
+                }
             }
         },
         function(response) {
             $scope.$emit('error', response.status, response.data);
         });
-    });
 
     $scope.getInfo = function() {
         
@@ -154,6 +151,7 @@ angular.module('main')
         }//for
         $scope.error = false;
         $scope.errormany = false;
+        $scope.errornoresults = (reports.length === 0);
         $scope.reports = reports;
         for (var j = 0; j < reports.length; j++)
         {
@@ -193,9 +191,4 @@ angular.module('main')
         }
         return str;
     };
-    
-    
-    $scope.$on('$stateChangeSuccess', function(event, toState) {
-        $scope.subActive = toState.data && toState.data.subActive;
-    });
 });
