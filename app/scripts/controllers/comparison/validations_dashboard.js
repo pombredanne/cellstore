@@ -57,11 +57,11 @@ angular.module('main')
             cache: false
         })
         .success($scope.prepareReportForUI)
-        .error(function (response) {
-                if (response.status === 401) {
+        .error(function (data, status) {
+                if (status === 401) {
                     $scope.error = true;
                 } else {
-                    $scope.$emit('error', response.status, response.data);
+                    $scope.$emit('error', status, data);
                 }
             }
         );
