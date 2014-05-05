@@ -66,14 +66,43 @@ angular.module('main')
     $scope.prepareReportForUI = function(data) {
         var reports = [];
 
+        data.sort(function(a, b){
+            var ai = a.Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To['fac:GeneralInformationHierarchy'].To;
+            var bi = b.Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To['fac:GeneralInformationHierarchy'].To;
+            if (ai['fac:EntityCentralIndexKey'].Facts[0].Value < bi['fac:EntityCentralIndexKey'].Facts[0].Value)
+            {
+                return -1;
+            }
+            if (ai['fac:EntityCentralIndexKey'].Facts[0].Value > bi['fac:EntityCentralIndexKey'].Facts[0].Value)
+            {
+                return 1;
+            }
+            if (ai['fac:FiscalYear'].Facts[0].Value < bi['fac:FiscalYear'].Facts[0].Value)
+            {
+                return 1;
+            }
+            if (ai['fac:FiscalYear'].Facts[0].Value > bi['fac:FiscalYear'].Facts[0].Value)
+            {
+                return -1;
+            }
+            if ((ai['fac:FiscalPeriod'].Facts[0].Value === 'FY' ? 'Q4' : ai['fac:FiscalPeriod'].Facts[0].Value) < (bi['fac:FiscalPeriod'].Facts[0].Value === 'FY' ? 'Q4' : bi['fac:FiscalPeriod'].Facts[0].Value))
+            {
+                return 1;
+            }
+            if ((ai['fac:FiscalPeriod'].Facts[0].Value === 'FY' ? 'Q4' : ai['fac:FiscalPeriod'].Facts[0].Value) > (bi['fac:FiscalPeriod'].Facts[0].Value === 'FY' ? 'Q4' : bi['fac:FiscalPeriod'].Facts[0].Value))
+            {
+                return -1;
+            }
+            return 0;
+        });
+
         var prepareReport =
-            function(cik, list, array, index, isNumeric, decimals) {
+            function(list, array, index, isNumeric, decimals) {
                 var j = 0, item;
                 for (var key in list) {
                     if (list.hasOwnProperty(key)) {
                         if (index === 0) {
                             item = {};
-                            item.cik = cik;
                             item.name = key;
                             item.label = list[key].Label ? list[key].Label : '';
                             item.value = [];
@@ -111,8 +140,6 @@ angular.module('main')
         {
             var root = data[i].Trees['fac:FundamentalAccountingConceptsLineItems']
                 .To['fac:FundamentalAccountingConceptsHierarchy'].To;
-            var cik = root['fac:GeneralInformationHierarchy']
-                .To['fac:EntityCentralIndexKey'].Facts[0].Value;
             var k = 0;
             for (var report in root) {
                 if (root.hasOwnProperty(report) &&
@@ -139,7 +166,6 @@ angular.module('main')
                         reports[k] = obj;
                     }
                     prepareReport(
-                        cik,
                         root[report].To,
                         reports[k].items,
                         i,

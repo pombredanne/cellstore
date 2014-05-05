@@ -97,6 +97,7 @@ angular.module('main')
                     deferred.resolve(that.data.sics);
                 });
 
+            return deferred.promise;
         },
 
         getRules: function() {
