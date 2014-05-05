@@ -156,6 +156,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "sic",
+                            "description": "The industry group",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "fiscalYear",
                             "description": "The fiscal year of the fact to retrieve (default: LATEST)",
                             "required": false,

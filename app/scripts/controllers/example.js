@@ -184,8 +184,8 @@ angular.module('main')
                 $scope.columns.push('bizql:FiscalPeriod');
                 $scope.columns.push('bizql:FiscalYear');
                 var insertIndex = 3;
-                $.map($scope.data.FactTable[0].Aspects, function (el, index) {
-                    switch (index)
+                Object.keys($scope.data.FactTable[0].Aspects).forEach(function (key) {
+                    switch (key)
                     {
                         case 'xbrl:Entity':
                             $scope.entityIndex = 1;
@@ -196,11 +196,11 @@ angular.module('main')
                         case 'bizql:FiscalYear':
                             break;
                         case 'dei:LegalEntityAxis':
-                            $scope.columns.splice(insertIndex, 0, index);
+                            $scope.columns.splice(insertIndex, 0, key);
                             insertIndex++;
                             break;
                         default:
-                            $scope.columns.splice(insertIndex, 0, index);
+                            $scope.columns.splice(insertIndex, 0, key);
                     }
                 });
             }
