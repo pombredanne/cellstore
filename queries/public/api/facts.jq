@@ -267,7 +267,7 @@ return
     let $entities     := companies:companies($archives.Entity)
     return switch(true)
       case empty($archives) return {
-        response:status-code(404);
+        response:status-code(400);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
       }
       case not (session:only-dow30($entities) or session:valid()) return {
