@@ -1,9 +1,21 @@
+<<<<<<< HEAD
 jsoniq version "1.0";
 
 import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
+=======
+(: SVS PARTIAL, RUT format:)
+jsoniq version "1.0";
+
+import module namespace components = "http://xbrl.io/modules/bizql/components";
+import module namespace archives = "http://xbrl.io/modules/bizql/archives";
+import module namespace filings = "http://xbrl.io/modules/bizql/profiles/svs/filings";
+import module namespace fiscal = "http://xbrl.io/modules/bizql/profiles/svs/fiscal/core";
+import module namespace svs = "http://xbrl.io/modules/bizql/profiles/svs/core";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/svs/companies";
+>>>>>>> Updated query name in information.js and backend.js
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
@@ -44,6 +56,7 @@ let $rollups as string*       := distinct-values(request:param-values("rollup"))
 let $map as string?           := request:param-values("map")
 let $validate as string       := request:param-values("validate", "false")
 
+<<<<<<< HEAD
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
     lower-case(($format, substring-after(request:path(), ".jq."))[1])
@@ -62,6 +75,96 @@ let $fiscalPeriods as string* :=
            default return $fp
 let $reportElements := ($reportElements, $concepts)
 let $validate as boolean := $validate = "true"
+=======
+declare function local:components-by-disclosures($disclosures as string*, $aids as string*) as object*
+{
+    let $conn :=   
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    for $aid in $aids
+    return
+        mongo:find($conn, "components", 
+        {
+            $components:ARCHIVE: $aid,
+            "Profiles.SVS.Disclosure": { "$in" : [ $disclosures ] }
+        })
+};
+
+declare function local:components-by-roles($roles as string*, $aids as string*) as object*
+{
+    let $conn :=   
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    return
+        mongo:find($conn, "components", 
+        {
+            $components:ARCHIVE: { "$in" : [ $aids ] },
+            "Role": { "$in" : [ $roles ] }
+        })
+};
+
+declare function local:components-by-concepts($concepts as string*, $aids as string*) as object*
+{
+    let $conn :=   
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    let $ids := mongo:find($conn, "concepts", 
+        {| 
+            (
+                { "Name" : { "$in" : [ $concepts ] } },
+                { "Archive" : { "$in" : [ $aids ] } }
+            )
+        |}).Component
+    return components:components($ids)
+};
+
+declare function local:filings(
+    $ruts as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as string*) as object*
+{
+    let $entities := (
+        companies:companies($ruts),
+        companies:companies-for-tags($tags),
+        companies:companies-for-tickers($tickers),
+        companies:companies-for-SIC($sics)
+    ) 
+    for $entity in $entities
+    for $fy in distinct-values(
+                for $fy in $fy
+                return
+                    switch ($fy)
+                    case "LATEST" return
+                        for $p in $fp
+                        return
+                            if ($p eq "FY")
+                            then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
+                            else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
+                        case "ALL" return  $fiscal:ALL_FISCAL_YEARS
+                    default return $fy cast as integer
+                )
+    for $fp in $fp 
+    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy)
+};
+>>>>>>> Updated query name in information.js and backend.js
 
 <<<<<<< HEAD
 (: Object resolution :)
@@ -78,7 +181,11 @@ let $archive as object? := fiscal-core2:filings(
     $aids)
 =======
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
+<<<<<<< HEAD
 let $ciks        := distinct-values(companies:eid(request:param-values("rut")))
+=======
+let $ruts        := distinct-values(companies:eid(request:param-values("rut")))
+>>>>>>> Updated query name in information.js and backend.js
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
 let $tickers     := distinct-values(request:param-values("ticker"))
 let $sics        := distinct-values(request:param-values("sic"))
@@ -99,7 +206,7 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
 let $aids        := archives:aid(request:param-values("aid"))
 let $roles       := request:param-values("networkIdentifier")
 let $archives    := (
-                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
+                        local:filings($ruts, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
                         archives:archives($aids)
                     )
 let $cid         := request:param-values("cid")
@@ -251,8 +358,13 @@ return
                             else
                                 for $d in $rollup
                                 return ($d, keys(descendant-objects($p)[$$.Name eq $d].To))
+<<<<<<< HEAD
                          return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
                      else sec-networks:facts($component, {||})
+=======
+                         return svs:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
+                     else svs-networks:facts($component, {||})
+>>>>>>> Updated query name in information.js and backend.js
         let $fact-table :=  for $f in $facts
                             let $a := $f.Aspects
                             return {|

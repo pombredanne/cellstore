@@ -1,3 +1,4 @@
+(: SVS OK :)
 (: import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps"; :)
 
 { availableMaps: ["FundamentalAccountingConcepts"] }

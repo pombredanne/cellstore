@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import module namespace fetch = "http://zorba.io/modules/fetch";
 import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
 
@@ -31,6 +32,9 @@ if(empty($record))
 then insert("reports", $schema);
 else edit($record, $schema);
 
+=======
+(: SVS KO, missing info :)
+>>>>>>> Updated query name in information.js and backend.js
 if (is-available-collection("reportcache"))
 then db:delete(find("reportcache", { "_id" : { "$regex" : mongos:regex("^" || $schema."_id" || ".*" ) }}));
 else create("reportcache");

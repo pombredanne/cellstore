@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
+=======
+(: SVS OK :)
+>>>>>>> Updated query name in information.js and backend.js
 import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";

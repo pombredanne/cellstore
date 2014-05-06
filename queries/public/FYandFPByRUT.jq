@@ -1,9 +1,9 @@
-
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
+(: SVS OK :)
+import module namespace svs = "http://xbrl.io/modules/bizql/profiles/svs/core";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
+import module namespace svs-fiscal = "http://xbrl.io/modules/bizql/profiles/svs/fiscal/core";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/svs/companies";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
@@ -11,13 +11,13 @@ import module namespace session = "http://apps.28.io/session";
 declare %an:sequential function local:filingPeriodInfo($archives as object*) as object*{
     for $archive in $archives
     return {
-        fiscalPeriod: sec-fiscal:fiscal-period($archive),
-        fiscalYear: sec-fiscal:fiscal-year($archive),
-        endDate:  sec:end-date($archive)
+        fiscalPeriod: svs-fiscal:fiscal-period($archive),
+        fiscalYear: svs-fiscal:fiscal-year($archive),
+        endDate:  svs:end-date($archive)
     }
 };
 
-variable $rut := let $rut := request:param-values("rut","0000354950")
+variable $rut := let $rut := request:param-values("rut", "93.628.000-5")
                  return if (empty($rut))
                         then error(QName("local:INVALID-REQUEST"), "rut: mandatory parameter not found")
                         else if (empty(entities:entities(companies:eid($rut))))
@@ -55,5 +55,9 @@ return  if(session:only-dow30($entity) or session:valid())
             session:error("accessing filings of an entity that is not in the DOW30", $format) 
         }
 
+<<<<<<< HEAD
 (: entities:entities(seccore:normalize-rut($rut)) can be simplified to secprofilefilings:filings($rut) :)
 >>>>>>> cik/CIK -> rut/RUT
+=======
+(: entities:entities(seccore:normalize-cik($cik)) can be simplified to secprofilefilings:filings($cik) :)
+>>>>>>> Updated query name in information.js and backend.js

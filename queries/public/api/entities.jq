@@ -53,11 +53,17 @@ declare function local:to-xml($entities as object*)
         <Profile name="{$e.Profiles.SVS.Name}">
             <EntityRegistrantName>{$e.Profiles.SVS.CompanyName}</EntityRegistrantName>
             <CompanyType>{$e.Profiles.SVS.CompanyType}</CompanyType>
+            <SIC>{$e.Profiles.SVS.SIC}</SIC>
+            <SICDescription>{$e.Profiles.SVS.SICDescription}</SICDescription>
+            <SICGroup>{$e.Profiles.SVS.SICGroup}</SICGroup>
+            <Sector>{$e.Profiles.SVS.Sector}</Sector>
+            <IsTrust>{$e.Profiles.SVS.IsTrust}</IsTrust>    
             <Tickers>{
                 for $t in $e.Profiles.SVS.Tickers[]
                 return <Ticker>{$t}</Ticker>
             }</Tickers>
-            <Tags>{
+            <Tags>
+            {
                 for $t in $e.Profiles.SVS.Tags[]
                 return <Tag>{$t}</Tag>
             }
@@ -76,6 +82,11 @@ declare function local:to-csv($entities as object*) as string*
             Profile : "SVS",
             EntityName : $e.Profiles.SVS.CompanyName,
             CompanyType : $e.Profiles.SVS.CompanyType,
+            SIC : $e.Profiles.SVS.SIC,
+            SICDescription : $e.Profiles.SVS.SICDescription,
+            SICGroup :$e.Profiles.SVS.SICGroup,
+            Sector : $e.Profiles.SVS.Sector,
+            IsTrust : $e.Profiles.SVS.IsTrust,
             Tickers : string-join($e.Profiles.SVS.Tickers[], " "),
             Tags : string-join($e.Profiles.SVS.Tags[], " ")
         },
@@ -84,18 +95,20 @@ declare function local:to-csv($entities as object*) as string*
 };
 
 let $format  := lower-case(request:param-values("format")[1])
-let $ruts    := request:param-values("rut") ! ("http://www.svs.cl/rut " || $$) 
+let $ruts    := request:param-values("rut")
 let $tags    := request:param-values("tag") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)
 let $tickers := request:param-values("ticker")
 let $entities := 
     for $entity in 
         if (exists(($ruts, $tags, $tickers)))
         then
-            for $entity in (entities:entities($ruts))
-            group by $entity._id (: duplicate elimination :)
+            for $entity in (companies:companies($ruts),
+                       companies:companies-for-tags($tags),
+                       companies:companies-for-tickers($tickers))
+            group by companies:eid($entity) (: duplicate elimination :)
             return $entity[1]
         else
-            entities:entities()
+            companies:companies()
     order by $entity.Profiles.SVS.CompanyName (: companies:name() ? :)
 >>>>>>> svsxbrl.info bootstrap
     return $entity

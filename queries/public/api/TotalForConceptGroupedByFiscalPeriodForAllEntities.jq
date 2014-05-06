@@ -1,8 +1,9 @@
+(: SVS PARTIAL, fix constants :)
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/svs/companies";
+import module namespace svs-fiscal = "http://xbrl.io/modules/bizql/profiles/svs/fiscal/core";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
@@ -75,20 +76,20 @@ let $periods := let $period := upper-case(request:param-values("fiscalPeriod", "
 let $years   := let $years := request:param-values("fiscalYear", "ALL")
                 return
                     if ($years = "ALL")
-                    then $sec-fiscal:ALL_FISCAL_YEARS
+                    then $svs-fiscal:ALL_FISCAL_YEARS
                     else $years ! $$ cast as integer
-let $concept := request:param-values("concept", "us-gaap:Assets")[1]
+let $concept := request:param-values("concept", "us-gaap:Assets")[1] (: SVS FIXME :)
 let $map     := request:param-values("map")[1]
 let $tags    := request:param-values("tag")
 let $debug   := request:param-values("debug")
                 
 let $json-result := 
     let $facts :=
-        for $fact in sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years(
+        for $fact in svs-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years(
             (if (exists($tags))
                 then companies:companies-for-tags(upper-case($tags))
                 else entities:entities()
-            )[$$.Profiles.SEC.IsTrust eq false],
+            )[$$.Profiles.SEC.IsTrust eq false], (: SVS FIXME :)
             $concept,
             if ($periods = "ALL") then ("Q1", "Q2", "Q3", "FY") else $periods,
             $years,
@@ -98,13 +99,13 @@ let $json-result :=
                 else ()
             |}
         )
-        group by $fyf := sec-fiscal:fiscal-year($fact),
-                 $fpf := sec-fiscal:fiscal-period($fact),
+        group by $fyf := svs-fiscal:fiscal-year($fact),
+                 $fpf := svs-fiscal:fiscal-period($fact),
                  $entity:= facts:entity-for-fact($fact)
         return ($fact[$$.Aspects."xbrl:Unit" eq "iso4217:USD"], $fact)[1]
     for $fact in $facts
-    group by $fyf := sec-fiscal:fiscal-year($fact),
-             $fpf := sec-fiscal:fiscal-period($fact),
+    group by $fyf := svs-fiscal:fiscal-year($fact),
+             $fpf := svs-fiscal:fiscal-period($fact),
              $unit := $fact.Aspects."xbrl:Unit"
     order by $fyf
     return {|

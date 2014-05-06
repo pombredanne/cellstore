@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
+=======
+(: SVS PARTIAL, FIX constants :)
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/svs/companies";
+import module namespace archives = "http://xbrl.io/modules/bizql/archives";
+import module namespace svs-fiscal = "http://xbrl.io/modules/bizql/profiles/svs/fiscal/core";
+import module namespace facts = "http://xbrl.io/modules/bizql/facts";
+>>>>>>> Updated query name in information.js and backend.js
 
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
@@ -35,6 +43,7 @@ declare function local:hypercube(
     $fiscalYears as integer*,
     $aids as string*) as object
 {
+<<<<<<< HEAD
     let $shortcut-hypercube-spec :=
     {|
         let $concepts := request:param-values("concept")
@@ -96,10 +105,84 @@ declare function local:hypercube(
                 { "Default" : $typed-default-value }[$has-default]
             |}
         }
+=======
+    let $aspects :=
+        {|
+            { "xbrl:Concept" : $concepts },
+            (: This is because of a bug that will be fixed later (hypercube members do not get considered) :)
+            for $d in values($dimensions)
+            let $members := descendant-objects(values($d)).Name
+            where exists($members)
+            return { $d.Name: [ $members ] }
+        |}
+    let $hypercube := copy $h := hypercubes:dimensionless-hypercube()
+                      modify (
+                          insert json (
+                            if (values($dimensions).Name = "dei:LegalEntityAxis")
+                            then { "dei:LegalEntityAxis" : values($dimensions)[$$.Name eq "dei:LegalEntityAxis"] }
+                            else
+                            {|
+                                "dei:LegalEntityAxis" ! {
+                                $$ : {
+                                        Name : $$,
+                                        Default : "svs:DefaultLegalEntity", (: SVS FIX ME :)
+                                        Domains: {
+                                            "svs:DefaultLegalEntity" : { (: SVS FIX ME :)
+                                                Name: "svs:DefaultLegalEntity" (: SVS FIX ME :)
+                                            }
+                                        }
+                                    }
+                                }
+                            |})
+                          into $h.Aspects,
+                          for $d in $dimensions[not values($$).Name = "dei:LegalEntityAxis"]
+                          return insert json $d into $h.Aspects 
+                      )
+                      return $h
+    let $options :=
+            {|
+                if (exists($map))
+                then { "concept-maps" : $map }
+                else (),
+                { Hypercube : $hypercube }
+            |}
+    return
+    for $fact in
+        for $f in facts:facts-for-archives-and-aspects($archives, $aspects, $options)
+        where exists($f.Profiles.SVS.Fiscal.Year)
+        group by $f.Profiles.SVS.Fiscal.Year,
+                 $f.Profiles.SVS.Fiscal.Period,
+                 $f.Aspects."xbrl:Concept"
+        let $latest-accepted := max(distinct-values($f.Profiles.SVS.Fiscal.Acceptance))
+        return if (empty($latest-accepted))
+               then $f
+               else $f[$$.Profiles.SVS.Fiscal.Acceptance eq $latest-accepted]
+    return {|
+        { Aspects : {|
+            for $a in keys($fact.Aspects)
+            where $a ne "xbrl:Unit"
+            return { $a : $fact.Aspects.$a },
+            { "bizql:FiscalPeriod" : $fact.Profiles.SVS.Fiscal.Period },
+            { "bizql:FiscalYear" : $fact.Profiles.SVS.Fiscal.Year }
+        |} },
+        { Type: $fact.Type },
+        if (exists($fact.Aspects."xbrl:Unit"))
+        then { Unit: $fact.Aspects."xbrl:Unit" }
+        else  (),
+        if (exists($fact.Decimals))
+        then { Decimals: $fact.Decimals }
+        else (), 
+        { Value: $fact.Value },
+        { "EntityRegistrantName" : companies:companies($fact.Aspects."xbrl:Entity").Profiles.SVS.CompanyName},
+        if (exists($map))
+        then { "ReportedConcept" : $fact.AuditTrails[].Data.OriginalConcept[1] }
+        else () 
+>>>>>>> Updated query name in information.js and backend.js
     |}
     return hypercubes:user-defined-hypercube($main-hypercube-spec)
 };
 
+<<<<<<< HEAD
 session:audit-call();
 
 (: Query parameters :)
@@ -148,6 +231,39 @@ let $archives as object* := fiscal-core2:filings(
 let $entities := entities:entities($archives.Entity)
 
 let $hypercube := local:hypercube($entities, $fiscalPeriods, $fiscalYears, $aids)
+=======
+declare function local:filings(
+    $ruts as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as string*) as object*
+{
+    let $entities := (
+        companies:companies($ruts),
+        companies:companies-for-tags($tags),
+        companies:companies-for-tickers($tickers),
+        companies:companies-for-SIC($sics)
+    )
+    for $entity in $entities
+    for $fy in distinct-values(
+                for $fy in $fy
+                return
+                    switch ($fy)
+                    case "LATEST" return
+                        for $p in $fp
+                        return
+                            if ($p eq "FY")
+                            then svs-fiscal:latest-reported-fiscal-period($entity, "10-K").year
+                            else svs-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
+                        case "ALL" return  $svs-fiscal:ALL_FISCAL_YEARS
+                    default return $fy
+                )
+    for $fp in $fp
+    return svs-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
+};
+>>>>>>> Updated query name in information.js and backend.js
 
 let $facts :=
     if(empty($archives))
@@ -205,10 +321,10 @@ return
          return util:check-and-return-results($entities, $results, $format)
 =======
 (: choose 
-    1. entities (using ciks, tags, tickers, sics), FY, and FP ) or
+    1. entities (using ruts, tags, tickers, sics), FY, and FP ) or
     2. accession numbers
 :)
-let $ciks        := distinct-values(companies:eid(request:param-values("rut")))
+let $ruts        := distinct-values(companies:eid(request:param-values("rut")))
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
 let $tickers     := distinct-values(request:param-values("ticker"))
 let $sics        := distinct-values(request:param-values("sic"))
@@ -224,7 +340,11 @@ let $fiscalYears := distinct-values(
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
+<<<<<<< HEAD
                         then $sec-fiscal:ALL_FISCAL_PERIODS
+=======
+                        then $svs-fiscal:ALL_FISCAL_PERIODS
+>>>>>>> Updated query name in information.js and backend.js
                         else $fp)
 let $aids := request:param-values("aid")
 let $dimensions :=  for $p in request:param-names()
@@ -250,8 +370,8 @@ let $dimensions :=  for $p in request:param-names()
                             then ()
                             else {
                                 Domains : {
-                                    "sec:ImplicitDomain" : {
-                                        Name: "sec:ImplicitDomain",
+                                    "svs:ImplicitDomain" : { (: SVS FIX ME :)
+                                        Name: "svs:ImplicitDomain", (: SVS FIX ME :)
                                         Members: {|
                                             (request:param-values($dimension-name)) ! { $$ : { Name: $$ } }
                                         |}
@@ -269,7 +389,7 @@ return
     session:error("concept: missing parameter", $format)
   } else
     let $archives := (
-                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
+                        local:filings($ruts, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
                         archives:archives($aids)
                      )
     let $entities     := companies:companies($archives.Entity)

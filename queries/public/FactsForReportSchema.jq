@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+(: SVS OK :)
+import module namespace report-schemas = "http://xbrl.io/modules/bizql/report-schemas";
+>>>>>>> Updated query name in information.js and backend.js
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";

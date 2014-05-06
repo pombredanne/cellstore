@@ -18,7 +18,7 @@ angular.module('main')
 
 		$http({
 			method: 'GET',
-			url: $backend.API_URL + '/_queries/public/FYandFPByCIK.jq',
+			url: $backend.API_URL + '/_queries/public/FYandFPByRUT.jq',
 			params: { _method: 'POST', rut: $scope.rut, 'token' : $scope.token },
 			cache: true
 		})

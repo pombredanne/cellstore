@@ -54,7 +54,7 @@ angular.module('main')
                 return deferred.promise;
             }
 
-            $http({ method: 'GET', url: API_URL + '/_queries/public/EntityNameTickerCIKTuples.jq', params: { _method: 'POST' }, cache: true })
+            $http({ method: 'GET', url: API_URL + '/_queries/public/EntityNameTickerRUTTuples.jq', params: { _method: 'POST' }, cache: true })
             .success(function(data) {
                 that.data.entities =  [];
                 if (data) { that.data.entities = data.entityNameTickerSymbolCikTuples; }

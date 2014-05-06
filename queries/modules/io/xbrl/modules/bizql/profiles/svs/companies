@@ -78,13 +78,12 @@ declare function companies:companies($companies-or-ids as item*) as object*
  :
  : @return all company types.
  :) 
-(: DISABLED DUE TO MISSING DATA
+(: SVS FIX ME :)
 declare function companies:types($companies-or-ruts as item*) as string*
 {
   let $companies := companies:companies($companies-or-ruts)
-  return $companies.Profiles.SEC.CompanyType 
+  return $companies.Profiles.SVS.CompanyType 
 };
-:)
 
 (:~
  : <p>Retrieves all companies in the given sectors.</p>
@@ -94,12 +93,11 @@ declare function companies:types($companies-or-ruts as item*) as string*
  :
  : @return all companies in these sectors.
  :) 
-(: DISABLED DUE TO MISSING DATA
+(: SVS FIX ME :)
 declare function companies:companies-for-sector($sectors as string*) as object*
 {
   companies:companies-for-sectors($sectors)
 };
-:)
 
 (:~
  : <p>Retrieves all companies in the given sectors.</p>
@@ -108,14 +106,13 @@ declare function companies:companies-for-sector($sectors as string*) as object*
  :
  : @return all companies in these sectors.
  :)
- (: DISABLED DUE TO MISSING DATA
+(: SVS FIX ME :)
 declare function companies:companies-for-sectors($sectors as string*) as object*
 {
   let $conn := companies:connection()
   for $s in $sectors
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Sector" : $s })
+  return mongo:find($conn, $entities:col, { "Profiles.SVS.Sector" : $s })
 };
-:)
 
 (:~
  : <p>Retrieves all companies whose type of business
@@ -125,14 +122,13 @@ declare function companies:companies-for-sectors($sectors as string*) as object*
  :
  : @return all companies with one of these SIC codes.
  :) 
-(: DISABLED DUE TO MISSING DATA
+(: SVS FIX ME :)
 declare function companies:companies-for-SIC($sic-codes as string*) as object*
 {
   let $conn := companies:connection()
   for $s in $sic-codes
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.SIC" : $s })
+  return mongo:find($conn, $entities:col, { "Profiles.SVS.SIC" : $s })
 };
-:)
 
 (:~
  : <p>Retrieves all companies whose company type matches the passed string(s).</p>
@@ -142,12 +138,11 @@ declare function companies:companies-for-SIC($sic-codes as string*) as object*
  :
  : @return all companies with matching company type.
  :) 
-(: DISABLED DUE TO MISSING DATA
+(: SVS FIX ME :)
 declare function companies:companies-by-types($company-types as string*) as object*
 {
   companies:companies-for-types($company-types)
 };
-:)
 
 (:~
  : <p>Retrieves all companies whose company type matches the passed string(s).</p>
@@ -156,7 +151,7 @@ declare function companies:companies-by-types($company-types as string*) as obje
  :
  : @return all companies with matching company type.
  :) 
-(: DISABLED DUE TO MISSING DATA
+(: SVS FIX ME :)
 declare function companies:companies-for-types($company-types as string*) as object*
 {
   for $t in $company-types
@@ -167,9 +162,8 @@ declare function companies:companies-for-types($company-types as string*) as obj
     
   let $conn := companies:connection()
   for $t in $company-types
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.CompanyType" : $t })
+  return mongo:find($conn, $entities:col, { "Profiles.SVS.CompanyType" : $t })
 };
-:)
 
 (:~
  : <p>Return all companies with any of the given tags.</p>
@@ -177,14 +171,13 @@ declare function companies:companies-for-types($company-types as string*) as obj
  : @param $tags the tags to filter.
  : @return all companies with the given tags.
  :) 
-(: DISABLED DUE TO MISSING DATA
+(: SVS FIX ME :)
 declare function companies:companies-for-tags($tags as string*) as object*
 {
   let $conn := companies:connection()
   for $tag in $tags
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Tags" : $tag })
+  return mongo:find($conn, $entities:col, { "Profiles.SVS.Tags" : $tag })
 };
-:)
 
 (:~
  : <p>Return all companies with any of the given ticker symbols.</p>
@@ -217,12 +210,12 @@ declare function companies:companies-for-tickers(
  :
  : @return the company type string or "unknown" if the type can not be inferred
  :) 
-(: DISABLED DUE TO MISSING TRANSLATION
+(: SVS FIX ME :)
 declare function companies:company-type($company-name as string) as string
 {
   companies:types-for-names($company-name)
 };
-:)
+
 
 (:~
  : <p>Return company types for a given sequence of company names. Company type can be one of:</p>
@@ -238,7 +231,7 @@ declare function companies:company-type($company-name as string) as string
  :
  : @return the company type string or "unknown" if the type can not be inferred
  :) 
-(: DISABLED DUE TO MISSING TRANSLATION
+(: SVS FIX ME :)
 declare function companies:types-for-names($company-names as string*) as string*
 {
   for $company-name in $company-names
@@ -263,7 +256,6 @@ declare function companies:types-for-names($company-names as string*) as string*
       return "Partnership"
     default return "unknown" 
 };
-:)
 
 (:~
  :
@@ -278,6 +270,7 @@ declare function companies:types-for-names($company-names as string*) as string*
  :
  : @return the normalized RUT.
  :)
+(: FIX ME, uncomment formttatting code when rut format is consistent :)
 declare function companies:eid($companies-or-eids-or-ruts as item*) as string*
 {
   let $preprocessed := for $c in $companies-or-eids-or-ruts
@@ -295,6 +288,7 @@ declare function companies:eid($companies-or-eids-or-ruts as item*) as string*
                (: rut seems to contain a scheme, but not a RUT scheme, i.e. it's invalid :)
                error(QName("svs:INVALID_PARAMETER"), $rut || ": not a valid RUT")
            default return 
+               (: FIX ME, uncomment me when rut format fixed in db 
                let $rut-clean := replace($rut, "[\\.\\-]", "")
                let $rut-length := if (string-length($rut-clean) gt 9) 
                    then error(QName("svs:INVALID_PARAMETER"), $rut || ": not a valid RUT") 
@@ -304,8 +298,14 @@ declare function companies:eid($companies-or-eids-or-ruts as item*) as string*
                let $digits-integer := if ($digits castable as integer)
                        then $digits cast as integer
                        else error(QName("svs:INVALID_PARAMETER"), $rut || ": not a valid RUT")
-               return format-integer($digits-integer, "000000000") || "-" || $control-code
-               (:SVS TODO put dots :)
+               let $formatted-rut-digits := format-integer($digits-integer, "00000000") 
+               return $svs:RUT || " " ||
+                      substring($formatted-rut-digits, 1, 2) || "." ||
+                      substring($formatted-rut-digits, 3, 3) || "." ||
+                      substring($formatted-rut-digits, 6, 3) || "-" ||
+                      $control-code
+               :)
+               $svs:RUT || " " || $rut
          default return error(
              QName("svs:INVALID_PARAMETER"),
              "Invalid entity or RUT (must be an object or a string): "

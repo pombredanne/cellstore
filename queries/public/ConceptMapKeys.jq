@@ -1,4 +1,4 @@
-
+(: SVS OK :)
 import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 import module namespace req = "http://www.28msec.com/modules/http-request";
 

@@ -1,3 +1,4 @@
+(: SVS OK :)
 import module namespace entities ="http://xbrl.io/modules/bizql/entities";
 
 declare function local:compute() as object* {

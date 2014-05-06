@@ -1,3 +1,4 @@
+(: SVS KO, MISSING INFO :)
 import module namespace req = "http://www.28msec.com/modules/http/request";
 
 declare function local:list($file as element()) as object*
