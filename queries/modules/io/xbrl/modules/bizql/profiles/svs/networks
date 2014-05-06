@@ -5,10 +5,10 @@ jsoniq version "1.0";
  :)
 
 (:~
- : <p>This module provides functionality for querying SEC networks in SEC filings.</p>
- : <p>SEC Networks are actually XBRL Components. In the SEC profiles, all XBRL networks
+ : <p>This module provides functionality for querying SVS networks in SVS filings.</p>
+ : <p>SVS Networks are actually XBRL Components. In the SVS profiles, all XBRL networks
  : in an XBRL component must be consistent to each other. A way to look at it is that
- : the SEC Network can be identified with the XBRL presentation network it contains.</p>
+ : the SVS Network can be identified with the XBRL presentation network it contains.</p>
  : 
  : <p>For XBRL-generic operations on XBRL components, use the
  : generic components module.</p>
@@ -17,8 +17,9 @@ jsoniq version "1.0";
  : @author Matthias Brantner
  : @author Dennis Knochenwefel
  : @author Ghislain Fourny
+ : @author Federico Cavalieri
  :)
-module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/svs/networks";
+module namespace svs-networks = "http://xbrl.io/modules/bizql/profiles/svs/networks";
 
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
@@ -29,7 +30,7 @@ import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/svs/core";
+import module namespace core = "http://xbrl.io/modules/bizql/profiles/svs/core";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -37,75 +38,75 @@ declare option ver:module-version "1.0";
 (:~
  : Disclosure for the balance sheet.
  :)
-declare variable $sec-networks:BALANCE_SHEET as xs:string := "BalanceSheet";
+declare variable $svs-networks:BALANCE_SHEET as xs:string := "BalanceSheet";
 
 (:~
  : Disclosure for the parenthetical balance sheet.
  :)
-declare variable $sec-networks:BALANCE_SHEET_PARENTHETICAL as xs:string := "BalanceSheetParenthetical";
+declare variable $svs-networks:BALANCE_SHEET_PARENTHETICAL as xs:string := "BalanceSheetParenthetical";
 
 (:~
  : Disclosure for the income statement.
  :)
-declare variable $sec-networks:INCOME_STATEMENT as xs:string := "IncomeStatement";
+declare variable $svs-networks:INCOME_STATEMENT as xs:string := "IncomeStatement";
 
 (:~
  : Disclosure for the parenthetical income statement.
  :)
-declare variable $sec-networks:INCOME_STATEMENT_PARENTHETICAL as xs:string := "IncomeStatementParenthetical";
+declare variable $svs-networks:INCOME_STATEMENT_PARENTHETICAL as xs:string := "IncomeStatementParenthetical";
 
 (:~
  : Disclosure for the statement of comprehensive income.
  :)
-declare variable $sec-networks:STATEMENT_OF_COMPREHENSIVE_INCOME as xs:string := "StatementOfComprehensiveIncome";
+declare variable $svs-networks:STATEMENT_OF_COMPREHENSIVE_INCOME as xs:string := "StatementOfComprehensiveIncome";
 
 (:~
  : Disclosure for the cash flow statement.
  :)
-declare variable $sec-networks:CASH_FLOW_STATEMENT as xs:string := "CashFlowStatement";
+declare variable $svs-networks:CASH_FLOW_STATEMENT as xs:string := "CashFlowStatement";
 
 (:~
  : Disclosure for the parenthetical cash flow statement.
  :)
-declare variable $sec-networks:CASH_FLOW_STATEMENT_PARENTHETICAL as xs:string := "CashFlowStatementParenthetical";
+declare variable $svs-networks:CASH_FLOW_STATEMENT_PARENTHETICAL as xs:string := "CashFlowStatementParenthetical";
 
 (:~
  : Disclosure for the default component.
  :)
-declare variable $sec-networks:DEFAULT_COMPONENT as xs:string := "DefaultComponent";
+declare variable $svs-networks:DEFAULT_COMPONENT as xs:string := "DefaultComponent";
 
 (:~
  : Disclosure for the document and entity information
  :)
-declare variable $sec-networks:DOCUMENT_AND_ENTITY_INFO as xs:string := "DocumentAndEntityInformation";
+declare variable $svs-networks:DOCUMENT_AND_ENTITY_INFO as xs:string := "DocumentAndEntityInformation";
 
 (:~
- : <p>Retrieves all SEC Networks in a given filing.</p>
+ : <p>Retrieves all SVS Networks in a given filing.</p>
  : 
  : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs) 
  :                          or archive objects. 
  :
  : @return all networks in the supplied filings.
  :) 
-declare function sec-networks:networks-for-filings(
+declare function svs-networks:networks-for-filings(
     $archives-or-ids as item*) as object*
 {
   components:components-for-archives($archives-or-ids)
 };
 
 (:~
- : <p>Retrieves all SEC Networks that bear the supplied disclosures.</p>
+ : <p>Retrieves all SVS Networks that bear the supplied disclosures.</p>
  : 
  : @param $disclosure a list of disclosures.
  :
  : @return all models that match one of the disclosures.
  :) 
-declare function sec-networks:networks-for-disclosures(
+declare function svs-networks:networks-for-disclosures(
     $disclosures as string*) as object*
 {
-  let $conn := sec-networks:connection()
+  let $conn := svs-networks:connection()
   for $disclosure in $disclosures
-  return mongo:find($conn, $components:col, { "Profiles.SEC.Disclosure": $disclosure })
+  return mongo:find($conn, $components:col, { "Profiles.SVS.Disclosure": $disclosure })
 };
 
 (:~
@@ -118,18 +119,18 @@ declare function sec-networks:networks-for-disclosures(
  :
  : @return all models in the archives and that match one of the disclosures.
  :) 
-declare function sec-networks:networks-for-filings-and-disclosures(
+declare function svs-networks:networks-for-filings-and-disclosures(
     $archive-or-ids as item*,
     $disclosures as string*) as object*
 {
 (: TODO optimize to a single query :)
-  let $conn := sec-networks:connection()
+  let $conn := svs-networks:connection()
   for $aid_or_archive in $archive-or-ids
   let $aid as atomic := archives:aid($aid_or_archive)
   for $disclosure in $disclosures
   return mongo:find($conn, $components:col, {
     $components:ARCHIVE: $aid,
-    "Profiles.SEC.Disclosure": $disclosure
+    "Profiles.SVS.Disclosure": $disclosure
   })
 };
 
@@ -146,23 +147,23 @@ declare function sec-networks:networks-for-filings-and-disclosures(
  :
  : @return all said models
  :) 
-declare function sec-networks:networks-for-filings-and-categories(
+declare function svs-networks:networks-for-filings-and-categories(
     $archive-or-ids as item*,
     $categories as string*) as object*
 {
-  let $conn := sec-networks:connection()
+  let $conn := svs-networks:connection()
   for $aid_or_archive in $archive-or-ids
   let $aid as atomic := archives:aid($aid_or_archive)
   for $category in $categories
   return mongo:find($conn, $components:col, {
     $components:ARCHIVE: $aid,
-    "Profiles.SEC.Category": $category
+    "Profiles.SVS.Category": $category
   })
 };
 
 (:~
 :)
-declare %private function sec-networks:model-structures-recursive(
+declare %private function svs-networks:model-structures-recursive(
     $component as object,
     $xbrl-concepts as object*,
     $ancestor as string,
@@ -195,7 +196,7 @@ declare %private function sec-networks:model-structures-recursive(
     if ($kind eq "Concept")
     then trim($main-object, ("Name", "Label"))
     else (),
-    let $children := sec-networks:model-structures-recursive(
+    let $children := svs-networks:model-structures-recursive(
                          $component,
                          values($xbrl-concept.To),
                          $kind,
@@ -206,44 +207,44 @@ declare %private function sec-networks:model-structures-recursive(
 };
 
 (:~
- : <p>Computes the model structure of the supplied SEC Network, which is a hierarchy
- : of SEC Report Elements (Tables, Axes, Members, LineItems, Abstracts, Concepts).</p>
+ : <p>Computes the model structure of the supplied SVS Network, which is a hierarchy
+ : of SVS Report Elements (Tables, Axes, Members, LineItems, Abstracts, Concepts).</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
- : @return the model structures of these SEC Networks.
+ : @return the model structures of these SVS Networks.
  :
  :)
-declare function sec-networks:model-structures($networks-or-ids as item*) as object*
+declare function svs-networks:model-structures($networks-or-ids as item*) as object*
 {
-  for $sec-network in components:components($networks-or-ids)
+  for $svs-network in components:components($networks-or-ids)
   let $presentation-network := networks:networks-for-components-and-short-names(
-      $sec-network,
+      $svs-network,
       $networks:PRESENTATION_NETWORK)
-  return sec-networks:model-structures-recursive(
-      $sec-network,
+  return svs-networks:model-structures-recursive(
+      $svs-network,
       values($presentation-network.Trees),
       "None",
       1)
 };
 
 (:~
- : <p>Returns all SEC Tables contained in the supplied SEC Networks.</p>
+ : <p>Returns all SVS Tables contained in the supplied SVS Networks.</p>
  :
- : <p>SEC Tables are XBRL hypercubes.</p>
+ : <p>SVS Tables are XBRL hypercubes.</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
- : @param $options <a href="core#standard_options">standard SEC BizQL options</a>.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
+ : @param $options <a href="core#standard_options">standard SVS BizQL options</a>.
  :
- : @return the SEC Tables.
+ : @return the SVS Tables.
  :
  :)
-declare function sec-networks:tables($networks-or-ids as item*, $options as object?) as object*
+declare function svs-networks:tables($networks-or-ids as item*, $options as object?) as object*
 {
   let $include-implied-table as boolean := if(exists($options("IncludeImpliedTable")))
                                            then $options("IncludeImpliedTable")
                                            else false
-  for $model-structure in sec-networks:model-structures($networks-or-ids)
+  for $model-structure in svs-networks:model-structures($networks-or-ids)
   let $explicit-tables :=
     for $object in
       ($model-structure, descendant-objects($model-structure))[$$.Kind eq "Table"]
@@ -253,38 +254,38 @@ declare function sec-networks:tables($networks-or-ids as item*, $options as obje
          then $explicit-tables
          else {
            Name: "xbrl28:ImpliedTable",
-           Label: "BizQL SEC Implied Table"
+           Label: "BizQL SVS Implied Table"
          }
 };
 
 (:~
- : <p>Returns all SEC Tables contained in the supplied SEC Networks.</p>
+ : <p>Returns all SVS Tables contained in the supplied SVS Networks.</p>
  :
- : <p>SEC Tables are XBRL hypercubes.</p>
+ : <p>SVS Tables are XBRL hypercubes.</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
- : @return the SEC Tables.
+ : @return the SVS Tables.
  :
  :)
-declare function sec-networks:tables($networks-or-ids as item*) as object*
+declare function svs-networks:tables($networks-or-ids as item*) as object*
 {
-  sec-networks:tables($networks-or-ids, ())
+  svs-networks:tables($networks-or-ids, ())
 };
 
 (:~
- : <p>Returns all SEC Axes contained in the supplied SEC Networks.</p>
+ : <p>Returns all SVS Axes contained in the supplied SVS Networks.</p>
  :
- : <p>SEC Axes are XBRL dimensions.</p>
+ : <p>SVS Axes are XBRL dimensions.</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
- : @return the SEC Axes.
+ : @return the SVS Axes.
  :
  :)
-declare function sec-networks:axes($networks-or-ids as item*) as object*
+declare function svs-networks:axes($networks-or-ids as item*) as object*
 {
-  let $model-structure := sec-networks:model-structures($networks-or-ids)
+  let $model-structure := svs-networks:model-structures($networks-or-ids)
   for $object in
     ($model-structure, descendant-objects($model-structure))[$$.Kind eq "Axis"]
   group by $name := $object.Name
@@ -292,19 +293,19 @@ declare function sec-networks:axes($networks-or-ids as item*) as object*
 };
 
 (:~
- : <p>Returns all SEC Members contained in the supplied SEC Networks.</p>
+ : <p>Returns all SVS Members contained in the supplied SVS Networks.</p>
  :
- : <p>SEC Members are XBRL members that are in the transitive closure of SEC Axes
+ : <p>SVS Members are XBRL members that are in the transitive closure of SVS Axes
  : via the dimension-domain and domain-member relations.</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
- : @return the SEC Members.
+ : @return the SVS Members.
  :
  :)
-declare function sec-networks:members($networks-or-ids as item*) as object*
+declare function svs-networks:members($networks-or-ids as item*) as object*
 {
-  let $model-structure := sec-networks:model-structures($networks-or-ids)
+  let $model-structure := svs-networks:model-structures($networks-or-ids)
   for $object in
     ($model-structure, descendant-objects($model-structure))[$$.Kind eq "Member"]
   group by $name := $object.Name
@@ -312,21 +313,21 @@ declare function sec-networks:members($networks-or-ids as item*) as object*
 };
 
 (:~
- : <p>Returns all SEC LineItems report elements contained in the supplied SEC Networks.</p>
+ : <p>Returns all SVS LineItems report elements contained in the supplied SVS Networks.</p>
  : <p>This is not to be confused with the "line items" terminology, which includes all
- : SEC Abstracts and SEC Concepts.</p>
+ : SVS Abstracts and SVS Concepts.</p>
  :
- : <p>SEC LineItems report elements are XBRL abstract primary items that are top-level in their
+ : <p>SVS LineItems report elements are XBRL abstract primary items that are top-level in their
  : association with an XBRL hypercube (source of an all relation).</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
- : @return the SEC LineItems report elements.
+ : @return the SVS LineItems report elements.
  :
  :)
-declare function sec-networks:line-items-report-elements($networks-or-ids as item*) as object*
+declare function svs-networks:line-items-report-elements($networks-or-ids as item*) as object*
 {
-  let $model-structure := sec-networks:model-structures($networks-or-ids)
+  let $model-structure := svs-networks:model-structures($networks-or-ids)
   for $object in
     ($model-structure, descendant-objects($model-structure))[$$.Kind eq "LineItems"]
   group by $name := $object.Name
@@ -334,19 +335,19 @@ declare function sec-networks:line-items-report-elements($networks-or-ids as ite
 };
 
 (:~
- : <p>Returns all SEC Abstracts contained in the supplied SEC Networks.</p>
+ : <p>Returns all SVS Abstracts contained in the supplied SVS Networks.</p>
  :
- : <p>SEC Abstracts are XBRL abstract primary items that may or may not be associated
- : with a hypercube -- except those that are SEC LineItems (i.e., source of an all relation).</p>
+ : <p>SVS Abstracts are XBRL abstract primary items that may or may not be associated
+ : with a hypercube -- except those that are SVS LineItems (i.e., source of an all relation).</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
- : @return the SEC Abstracts.
+ : @return the SVS Abstracts.
  :
  :)
-declare function sec-networks:abstracts($networks-or-ids as item*) as object*
+declare function svs-networks:abstracts($networks-or-ids as item*) as object*
 {
-  let $model-structure := sec-networks:model-structures($networks-or-ids)
+  let $model-structure := svs-networks:model-structures($networks-or-ids)
   for $object in
     ($model-structure, descendant-objects($model-structure))[$$.Kind eq "Abstract"]
   group by $name := $object.Name
@@ -354,19 +355,19 @@ declare function sec-networks:abstracts($networks-or-ids as item*) as object*
 };
 
 (:~
- : <p>Returns all SEC Concepts contained in the supplied SEC Networks.</p>
+ : <p>Returns all SVS Concepts contained in the supplied SVS Networks.</p>
  :
- : <p>SEC Concepts are XBRL concrete primary items that may or may not be associated
+ : <p>SVS Concepts are XBRL concrete primary items that may or may not be associated
  : with a hypercube.</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
- : @return the SEC Concepts.
+ : @return the SVS Concepts.
  :
  :)
-declare function sec-networks:concepts($networks-or-ids as item*) as object*
+declare function svs-networks:concepts($networks-or-ids as item*) as object*
 {
-  let $model-structure := sec-networks:model-structures($networks-or-ids)
+  let $model-structure := svs-networks:model-structures($networks-or-ids)
   for $object in
     ($model-structure, descendant-objects($model-structure))[$$.Kind eq "Concept"]
   group by $name := $object.Name
@@ -374,17 +375,17 @@ declare function sec-networks:concepts($networks-or-ids as item*) as object*
 };
 
 (:~
- : <p>Returns all SEC Line Items (Concepts and Abstracts) contained in the
- : supplied SEC Networks. Not to be confused with the LineItems report element.</p>
+ : <p>Returns all SVS Line Items (Concepts and Abstracts) contained in the
+ : supplied SVS Networks. Not to be confused with the LineItems report element.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
- : @return the SEC Line Items.
+ : @return the SVS Line Items.
  :
  :)
-declare function sec-networks:line-items($networks-or-ids as item*) as object*
+declare function svs-networks:line-items($networks-or-ids as item*) as object*
 {
-  let $model-structure := sec-networks:model-structures($networks-or-ids)
+  let $model-structure := svs-networks:model-structures($networks-or-ids)
   for $object in
     ($model-structure, descendant-objects($model-structure))[$$.Kind = ("Concept", "Abstract")]
   group by $name := $object.Name
@@ -392,25 +393,25 @@ declare function sec-networks:line-items($networks-or-ids as item*) as object*
 };
 
 (:~
- : Return the number of SEC Tables in each of the given components.
+ : Return the number of SVS Tables in each of the given components.
  :
  : @param $networks-or-ids list of components or IDs
  :
  : @return the said number of tables
  :)
-declare function sec-networks:num-tables($networks-or-ids as item*) as integer*
+declare function svs-networks:num-tables($networks-or-ids as item*) as integer*
 {
   components:num-hypercubes($networks-or-ids)
 };
 
 (:~
- : Return the number of (distinct) SEC report elements in each of the given components.
+ : Return the number of (distinct) SVS report elements in each of the given components.
  :
  : @param $networks-or-ids list of components or IDs
  :
  : @return the said number of report elements
  :)
-declare function sec-networks:num-report-elements($networks-or-ids as item*) as integer*
+declare function svs-networks:num-report-elements($networks-or-ids as item*) as integer*
 {
   for $c in components:components($networks-or-ids)
   return sum(
@@ -424,66 +425,66 @@ declare function sec-networks:num-report-elements($networks-or-ids as item*) as 
 };
 
 (:~
- : Return the number of (distinct) SEC Axes in each of the given components.
+ : Return the number of (distinct) SVS Axes in each of the given components.
  :
  : @param $networks-or-ids list of components or IDs
  :
  : @return the said number of axes
  :)
-declare function sec-networks:num-axes($networks-or-ids as item*) as integer*
+declare function svs-networks:num-axes($networks-or-ids as item*) as integer*
 {
   components:num-explicit-dimensions($networks-or-ids)
 };
 
 (:~
- : Return the number of (distinct) SEC Members in each of the given components.
+ : Return the number of (distinct) SVS Members in each of the given components.
  :
  : @param $networks-or-ids list of components or IDs
  :
  : @return the said number of members
  :)
-declare function sec-networks:num-members($networks-or-ids as item*) as integer*
+declare function svs-networks:num-members($networks-or-ids as item*) as integer*
 {
   for $c in components:components($networks-or-ids)
   return $c.Statistics.NumDistinctMembers
 };
 
 (:~
- : Return the number of (distinct) SEC LineItems report elements in each of the given components.
+ : Return the number of (distinct) SVS LineItems report elements in each of the given components.
  :
  : @param $networks-or-ids list of components or IDs
  :
  : @return the said number of line items
  :)
-declare function sec-networks:num-line-items($networks-or-ids as item*) as integer*
+declare function svs-networks:num-line-items($networks-or-ids as item*) as integer*
 {
-  components:components($networks-or-ids) ! $$.Statistics.Profiles.SEC.NumDistinctReportElementNamesEndingWithLineItems
+  components:components($networks-or-ids) ! $$.Statistics.Profiles.SVS.NumDistinctReportElementNamesEndingWithLineItems
 };
 
 (:~
- : Return the number of (distinct) SEC Abstracts in each of the given components.
+ : Return the number of (distinct) SVS Abstracts in each of the given components.
  :
  : @param $networks-or-ids list of components or IDs
  :
  : @return the said number of abstracts
  :)
-declare function sec-networks:num-abstracts($networks-or-ids as item*) as integer*
+declare function svs-networks:num-abstracts($networks-or-ids as item*) as integer*
 {
   for $c in components:components($networks-or-ids)
   let $s := $c.Statistics
   return  $s.NumDistinctAbstractPrimaryItemsInHypercubes
           + $s.NumDistinctAbstractPrimaryItemsNotInHypercubes
-          - $s.Profiles.SEC.NumDistinctReportElementNamesEndingWithLineItems
+          - $s.Profiles.SVS.NumDistinctReportElementNamesEndingWithLineItems
 };
 
 (:~
- : Return the number of (distinct) SEC Concepts in each of the given components.
+ : Return the number of (distinct) SVS Concepts in each of the given components.
  :
  : @param $networks-or-ids list of components or IDs
  :
  : @return the said number of concepts
  :)
-declare function sec-networks:num-concepts($networks-or-ids as item*) as integer*
+declare function svs-networks:num-concepts($networks-or-ids as item*) as integer*
 {
   for $c in components:components($networks-or-ids)
   let $s := $c.Statistics
@@ -493,80 +494,80 @@ declare function sec-networks:num-concepts($networks-or-ids as item*) as integer
 
 (:~
  :
- : <p>Retrieves all facts belonging to the SEC Network.</p>
+ : <p>Retrieves all facts belonging to the SVS Network.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  : @return a sequence of facts.
  :)
-declare function sec-networks:facts(
+declare function svs-networks:facts(
     $networks-or-ids as item*
 )
 as object*
 {
-  sec-networks:facts($networks-or-ids, ())
+  svs-networks:facts($networks-or-ids, ())
 };
 
 (:~
  :
- : <p>Retrieves all facts belonging to the SEC Network.</p>
+ : <p>Retrieves all facts belonging to the SVS Network.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  : @return a array populated with fact values.
  :)
-declare function sec-networks:fact-tables(
+declare function svs-networks:fact-tables(
     $networks-or-ids as item*
 )
 as array
 {
-  sec-networks:fact-tables($networks-or-ids, ())
+  svs-networks:fact-tables($networks-or-ids, ())
 };
 
 (:~
  :
- : <p>Retrieves all facts belonging to the SEC Networks and populates the model structures.</p>
+ : <p>Retrieves all facts belonging to the SVS Networks and populates the model structures.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
  : @return the populated model structures (Facts array fields).
  :)
-declare function sec-networks:populated-model-structures(
+declare function svs-networks:populated-model-structures(
     $networks-or-ids as item*
 )
 as object*
 {
-  sec-networks:populated-model-structures($networks-or-ids, ())
+  svs-networks:populated-model-structures($networks-or-ids, ())
 };
 
 (:~
  :
- : <p>Retrieves all facts belonging to the SEC Network.</p>
+ : <p>Retrieves all facts belonging to the SVS Network.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
- : @param $options <a href="core#standard_options">standard SEC BizQL options</a>.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
+ : @param $options <a href="core#standard_options">standard SVS BizQL options</a>.
  :
  : @return a sequence of facts.
  :)
-declare function sec-networks:facts(
+declare function svs-networks:facts(
     $networks-or-ids as item*,
     $options as object?
 )
 as object*
 {
   for $component as object in components:components($networks-or-ids)
-  for $table as string? allowing empty in sec-networks:tables($component).Name
+  for $table as string? allowing empty in svs-networks:tables($component).Name
   let $hypercube as object? := hypercubes:hypercubes-for-components($component, $table)
   let $hypercube as object := if (exists($hypercube))
                               then $hypercube
-                              else sec:dimensionless-hypercube({
-                                  Concepts: [ sec-networks:line-items($component).Name ]
+                              else core:dimensionless-hypercube({
+                                  Concepts: [ svs-networks:line-items($component).Name ]
                               })
   let $facts := hypercubes:facts-for-hypercube(
     $hypercube,
     $component.Archive,
-    if (exists($options.Filter.Profiles.SEC.Fiscal))
+    if (exists($options.Filter.Profiles.SVS.Fiscal))
     then $options
     else facts:merge-objects(
-        { Filter: { "Profiles.SEC.Fiscal" : { "$exists" : true } } },
+        { Filter: { "Profiles.SVS.Fiscal" : { "$exists" : true } } },
         $options,
         true
     )
@@ -577,65 +578,65 @@ as object*
     else true (: default :)
   return
     if ($hide-amended-facts)
-    then sec:hide-amended-facts($facts)
+    then core:hide-amended-facts($facts)
     else $facts
 };
 
 (:~
  :
- : <p>Retrieves all facts belonging to the SEC Network.</p>
+ : <p>Retrieves all facts belonging to the SVS Network.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
- : @param $options <a href="core#standard_options">standard SEC BizQL options</a>.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
+ : @param $options <a href="core#standard_options">standard SVS BizQL options</a>.
  :
  : @return a array of arrays filled with fact values.
  :)
-declare function sec-networks:fact-tables(
+declare function svs-networks:fact-tables(
     $networks-or-ids as item*,
     $options as object?
 )
 as array
 {
   for $component as object in components:components($networks-or-ids)
-  for $table as string? allowing empty in sec-networks:tables($component).Name
+  for $table as string? allowing empty in svs-networks:tables($component).Name
   let $hypercube as object? := hypercubes:hypercubes-for-components($component, $table)
   let $hypercube as object := if (exists($hypercube))
                               then $hypercube
-                              else sec:dimensionless-hypercube({
-                                  Concepts: [ sec-networks:line-items($component).Name ]
+                              else core:dimensionless-hypercube({
+                                  Concepts: [ svs-networks:line-items($component).Name ]
                               })
   return hypercubes:fact-table-for-hypercube(
       $hypercube,
       $component.Archive,
       {|
         $options,
-        { "facts-for-archives-and-concepts": sec:facts-for-archives-and-concepts#3 }
+        { "facts-for-archives-and-concepts": core:facts-for-archives-and-concepts#3 }
       |}
   )
 };
 
 (:~
  :
- : <p>Retrieves all facts belonging to the SEC Networks and populates the model structures.</p>
+ : <p>Retrieves all facts belonging to the SVS Networks and populates the model structures.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
- : @param $options <a href="core#standard_options">standard SEC BizQL options</a>.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
+ : @param $options <a href="core#standard_options">standard SVS BizQL options</a>.
  :
  : @return the populated model structures (Facts array fields).
  :)
-declare function sec-networks:populated-model-structures(
+declare function svs-networks:populated-model-structures(
     $networks-or-ids as item*,
     $options as object?
 )
 as object*
 {
   let $fact-table-by-concepts := {|
-    for $f in sec-networks:facts($networks-or-ids, $options)
+    for $f in svs-networks:facts($networks-or-ids, $options)
     group by $concept := $f.Aspects."xbrl:Concept"
     return { $concept : [ $f ] }
   |}
   return
-    copy $result := sec-networks:model-structures($networks-or-ids)
+    copy $result := svs-networks:model-structures($networks-or-ids)
     modify
       for $concept in ($result, descendant-objects(values($result)))[$$.Kind eq "Concept"]
       let $name := $concept.Name
@@ -647,28 +648,28 @@ as object*
  : 
  : <p>Returns the disclosures of the suplied networks.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  : @return the disclosure names, or "UncategorizedInformation" if none.
  : 
  :)
-declare function sec-networks:disclosures($networks-or-ids as item*) as string+
+declare function svs-networks:disclosures($networks-or-ids as item*) as string+
 {
   for $component in components:components($networks-or-ids)
-  let $disclosure := $component.Profiles.SEC.Disclosure
-  return if (exists($disclosure))
+  let $disclosure := $component.Profiles.SVS.Disclosure
+  return if (exists($disclosure)) 
          then $disclosure
          else "UncategorizedInformation"
 };
 
 (:~
  :
- : <p>Return the categories of the supplied SEC networks (Statement, Disclosure, Document or Schedule).</p>
+ : <p>Return the categories of the supplied SVS networks (Statement, Disclosure, Document or Schedule).</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
  : @return the category of each network.
  :)
-declare function sec-networks:categories($networks-or-ids) as string*
+declare function svs-networks:categories($networks-or-ids as item*) as string*
 {
   let $component := components:components($networks-or-ids)
   return normalize-space(tokenize($component.Label, "-")[2])
@@ -676,17 +677,17 @@ declare function sec-networks:categories($networks-or-ids) as string*
 
 (:~
  :
- : <p>Return the sub-categories of the supplied SEC networks (Detail, TextBlockLevel4, TextBLockLevel1to3).</p>
+ : <p>Return the sub-categories of the supplied SVS networks (Detail, TextBlockLevel4, TextBLockLevel1to3).</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
  : @return the sub-category of each network.
  :)
-declare function sec-networks:sub-categories($networks-or-ids) as string*
+declare function svs-networks:sub-categories($networks-or-ids as item*) as string*
 {
   for $network in $networks-or-ids
   let $numbers :=
-    for $concept in sec-networks:concepts($network)
+    for $concept in svs-networks:concepts($network)
     group by $is-text-block := $concept.IsTextBlock
     return {
       if($is-text-block) then "TextBlocks" else "NonTextBlocks": count($concept)
@@ -700,13 +701,13 @@ declare function sec-networks:sub-categories($networks-or-ids) as string*
 
 (:~
  :
- : <p>Return summary information for the supplied SEC networks.</p>
+ : <p>Return summary information for the supplied SVS networks.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks-or-ids a sequence of SVS Network objects, or their XBRL Component IDs.
  :
  : @return one object per network, containing a summary.
  :)
-declare function sec-networks:summaries($networks-or-ids) as object*
+declare function svs-networks:summaries($networks-or-ids as item*) as object*
 {
   for $component in components:components($networks-or-ids)
   return {
@@ -714,26 +715,26 @@ declare function sec-networks:summaries($networks-or-ids) as object*
     AccessionNumber : $component.Archive,
     NetworkLabel : $component.Label,
     NetworkIdentifier : $component.Role,
-    Category : sec-networks:categories($component),
-    SubCategory : sec-networks:sub-categories($component),
-    Table : [ sec-networks:tables($component, { IncludeImplifiedTable: true }).Name ],
-    Disclosure : sec-networks:disclosures($component)
+    Category : svs-networks:categories($component),
+    SubCategory : svs-networks:sub-categories($component),
+    Table : [ svs-networks:tables($component, { IncludeImplifiedTable: true }).Name ],
+    Disclosure : svs-networks:disclosures($component)
   }
 };
 
 (:~
  :)
-declare %private function sec-networks:connection() as anyURI
+declare %private function svs-networks:connection() as anyURI
 {
   let $credentials :=
       let $credentials := credentials:credentials("MongoDB", "xbrl")
       return if (empty($credentials))
-             then error(QName("sec-networks:CONNECTION-FAILED"), "no xbrl MongoDB configured")
+             then error(QName("svs-networks:CONNECTION-FAILED"), "no xbrl MongoDB configured")
              else $credentials
   return
     try {
       mongo:connect($credentials)
     } catch mongo:* {
-      error(QName("sec-networks:CONNECTION-FAILED"), $err:description)
+      error(QName("svs-networks:CONNECTION-FAILED"), $err:description)
     }
 };

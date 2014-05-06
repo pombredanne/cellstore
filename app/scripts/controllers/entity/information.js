@@ -90,7 +90,7 @@ angular.module('main')
             $state.go('root.entity.information', { rut: $scope.rut });
 			$http({
                 method: 'GET',
-				url: $backend.API_URL + '/_queries/public/LatestFYandFPByCIK.jq',
+				url: $backend.API_URL + '/_queries/public/LatestFYandFPByRUT.jq',
 				params: { _method: 'POST', rut: $scope.rut, 'token' : $scope.token },
 				cache: true
             })

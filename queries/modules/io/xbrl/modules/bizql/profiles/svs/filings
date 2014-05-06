@@ -6,17 +6,18 @@ jsoniq version "1.0";
 
 (:~
  : <p>This module provides functionality for querying financial reports (filings)
- : submitted to the SEC.</p>
- : <p>SEC Filings are nothing else than XBRL archives. For XBRL-generic requests on archives,
+ : submitted to the SVS.</p>
+ : <p>SVS Filings are nothing else than XBRL archives. For XBRL-generic requests on archives,
  : use the generic archives module.</p>
  :
- : <p>With this module, you can access a number of properties of an SEC filing, such as
- : its document type. You can also retrieve an SEC filing given an SEC company (or its RUT).</p>
- : <p>You can also access SEC filings statistics (the number of SEC Networks, of SEC Axes, etc).</p>
+ : <p>With this module, you can access a number of properties of an SVS filing, such as
+ : its document type. You can also retrieve an SVS filing given an SVS company (or its RUT).</p>
+ : <p>You can also access SVS filings statistics (the number of SVS Networks, of SVS Axes, etc).</p>
  : @author Charles Hoffman
  : @author Matthias Brantner
  : @author Dennis Knochenwefel
  : @author Ghislain Fourny
+ : @author Federico Cavalieri
  :)
 module namespace filings = "http://xbrl.io/modules/bizql/profiles/svs/filings";
 
@@ -34,13 +35,13 @@ declare option ver:module-version "1.0";
 (:~
  : <p>Return all filings submitted by the supplied companies.</p>
  : 
- : @param $companies-or-ciks arbitrary number of company objects or CIKs.
+ : @param $companies-or-ruts arbitrary number of company objects or RUTs.
  :
  : @return all filings submitted by these companies.
  :) 
-declare function filings:filings-for-companies($companies-or-ciks as item*) as object*
+declare function filings:filings-for-companies($companies-or-ruts as item*) as object*
 {
-  let $companies := companies:companies($companies-or-ciks)
+  let $companies := companies:companies($companies-or-ruts)
   return archives:archives-for-entities($companies)
 };
 
@@ -102,7 +103,7 @@ declare function filings:generators($filings-or-ids as item*) as string*
  :
  : @return the said number of tables
  :)
-declare function filings:num-tables($filings-or-ids) as integer*
+declare function filings:num-tables($filings-or-ids as item*) as integer*
 {
   archives:num-hypercubes($filings-or-ids)
 };
@@ -114,7 +115,7 @@ declare function filings:num-tables($filings-or-ids) as integer*
  :
  : @return the said number of networks
  :)
-declare function filings:num-networks($filings-or-ids) as integer*
+declare function filings:num-networks($filings-or-ids as item*) as integer*
 {
   archives:num-components($filings-or-ids)
 };
@@ -126,7 +127,7 @@ declare function filings:num-networks($filings-or-ids) as integer*
  :
  : @return the said number of report elements
  :)
-declare function filings:num-report-elements($filings-or-ids) as integer*
+declare function filings:num-report-elements($filings-or-ids as item*) as integer*
 {
   for $a in archives:archives($filings-or-ids)
   return sum(
@@ -146,7 +147,7 @@ declare function filings:num-report-elements($filings-or-ids) as integer*
  :
  : @return the said number of axes
  :)
-declare function filings:num-axes($filings-or-ids) as integer*
+declare function filings:num-axes($filings-or-ids as item*) as integer*
 {
   archives:num-explicit-dimensions($filings-or-ids)
 };
@@ -158,7 +159,7 @@ declare function filings:num-axes($filings-or-ids) as integer*
  :
  : @return the said number of members
  :)
-declare function filings:num-members($filings-or-ids) as integer*
+declare function filings:num-members($filings-or-ids as item*) as integer*
 {
   for $a in archives:archives($filings-or-ids)
   return $a.Statistics.NumDistinctMembers -  $a.Statistics.NumDistinctDomains
@@ -171,7 +172,7 @@ declare function filings:num-members($filings-or-ids) as integer*
  :
  : @return the said number of line items
  :)
-declare function filings:num-line-items($filings-or-ids) as integer*
+declare function filings:num-line-items($filings-or-ids as item*) as integer*
 {
   archives:archives($filings-or-ids) ! $$.Statistics.NumDistinctReportElementNamesEndingWithLineItems
 };
@@ -183,13 +184,13 @@ declare function filings:num-line-items($filings-or-ids) as integer*
  :
  : @return the said number of abstracts
  :)
-declare function filings:num-abstracts($filings-or-ids) as integer*
+declare function filings:num-abstracts($filings-or-ids as item*) as integer*
 {
   for $a in archives:archives($filings-or-ids)
   let $s := $a.Statistics
   return  $s.NumDistinctAbstractPrimaryItemsInHypercubes
           + $s.NumDistinctAbstractPrimaryItemsNotInHypercubes
-          - $s.Profiles.SEC.NumDistinctReportElementNamesEndingWithLineItems
+          - $s.Profiles.SVS.NumDistinctReportElementNamesEndingWithLineItems
 };
 
 (:~
@@ -199,7 +200,7 @@ declare function filings:num-abstracts($filings-or-ids) as integer*
  :
  : @return the said number of concepts
  :)
-declare function filings:num-concepts($filings-or-ids) as integer*
+declare function filings:num-concepts($filings-or-ids as item*) as integer*
 {
   for $a in archives:archives($filings-or-ids)
   let $s := $a.Statistics
@@ -214,7 +215,7 @@ declare function filings:num-concepts($filings-or-ids) as integer*
  :
  : @return the said number of facts
  :)
-declare function filings:num-facts($filings-or-ids) as integer*
+declare function filings:num-facts($filings-or-ids as item*) as integer*
 {
   archives:archives($filings-or-ids) ! $$.Statistics.NumFacts
 };
@@ -226,7 +227,7 @@ declare function filings:num-facts($filings-or-ids) as integer*
  :
  : @return the said number of facts
  :)
-declare function filings:num-extension-facts($filings-or-ids) as integer*
+declare function filings:num-extension-facts($filings-or-ids as item*) as integer*
 {
   archives:archives($filings-or-ids) ! $$.Statistics.Profiles.SVS.NumExtensionFacts
 };
@@ -238,7 +239,7 @@ declare function filings:num-extension-facts($filings-or-ids) as integer*
  :
  : @return the said number of facts
  :)
-declare function filings:num-footnotes($filings-or-ids) as integer*
+declare function filings:num-footnotes($filings-or-ids as item*) as integer*
 {
   archives:num-footnotes($filings-or-ids)
 };
@@ -250,7 +251,7 @@ declare function filings:num-footnotes($filings-or-ids) as integer*
  :
  : @return the said number of concepts
  :)
-declare function filings:num-extension-concepts($filings-or-ids) as integer*
+declare function filings:num-extension-concepts($filings-or-ids as item*) as integer*
 {
   archives:archives($filings-or-ids) ! $$.Statistics.Profiles.SVS.NumExtensionConcepts
 };
@@ -262,7 +263,7 @@ declare function filings:num-extension-concepts($filings-or-ids) as integer*
  :
  : @return the said number of abstracts
  :)
-declare function filings:num-extension-abstracts($filings-or-ids) as integer*
+declare function filings:num-extension-abstracts($filings-or-ids as item*) as integer*
 {
   archives:archives($filings-or-ids) ! $$.Statistics.Profiles.SVS.NumExtensionAbstracts
 };

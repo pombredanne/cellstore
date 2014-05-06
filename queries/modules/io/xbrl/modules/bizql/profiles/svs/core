@@ -16,7 +16,7 @@ jsoniq version "1.0";
  :
  : <p>In addition to the option fields defined in the 
  :    <a href="../../facts#standard_options">facts module</a> the following 
- :    fields can be used in the options of a function in the SEC profile:</p>
+ :    fields can be used in the options of a function in the SVS profile:</p>
  : 
  : <ul>
  : <li><b>HideAmendedFacts</b>: if set to true (default behavior) all facts that have been
@@ -31,7 +31,7 @@ jsoniq version "1.0";
  : @author Ghislain Fourny
  : @author Federico Cavalieri
  :)
-module namespace sec = "http://xbrl.io/modules/bizql/profiles/svs/core";
+module namespace svs = "http://xbrl.io/modules/bizql/profiles/svs/core";
 
 import module namespace string = "http://zorba.io/modules/string";
 
@@ -50,19 +50,19 @@ declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
 
 (:~
- : Scheme for the SEC entity identifiers (i.e. http://www.sec.gov/RUT)
+ : Scheme for the SEC entity identifiers (i.e. http://www.svs.cl/rut)
  :)
-declare variable $sec:RUT as xs:string := "http://www.sec.gov/RUT";
+declare variable $svs:RUT as xs:string := "http://www.svs.cl/rut";
 
 (:~
  : Joker value for all archives or all concepts.
  :)
-declare variable $sec:ALL_OF_THEM as boolean := true;
+declare variable $svs:ALL_OF_THEM as boolean := true;
 
 (:~
  : All prefixes pre-declared in SEC's EDGAR.
  :)
-declare variable $sec:EDGAR_PREFIXES :=
+declare variable $svs:EDGAR_PREFIXES :=
   ( "xbrli", "link", "xl", "xlink", "xbrldt", "xbrldi", "nonnum", 
     "num", "ref", "us-gaap", "dei", "us-types", "invest", "country", 
     "currency", "exch", "naics", "sic", "stpr", "rr", "rr-ent", 
@@ -83,7 +83,7 @@ declare variable $sec:EDGAR_PREFIXES :=
  :        Aspects.xbrl:Entity.
  : @return all facts satisfying the filter and options.
  :) 
-declare function sec:facts-for(
+declare function svs:facts-for(
   $options as object?) as object*
 {
   let $facts := facts:facts-for(
@@ -101,7 +101,7 @@ declare function sec:facts-for(
     else true
   return
     if ($hide-amended-facts)
-    then sec:hide-amended-facts($facts)
+    then svs:hide-amended-facts($facts)
     else $facts
 };
 
@@ -117,12 +117,12 @@ declare function sec:facts-for(
  :
  : @return a sequence of facts with populated dimension values.
  :)
-declare function sec:facts-for-hypercube(
+declare function svs:facts-for-hypercube(
     $hypercube as object
 )
 as object*
 {
-  sec:facts-for({ Hypercube: $hypercube })
+  svs:facts-for({ Hypercube: $hypercube })
 };
 
 (:~
@@ -138,7 +138,7 @@ as object*
  :
  : @return a sequence of facts with populated dimension values.
  :)
-declare function sec:facts-for-hypercube(
+declare function svs:facts-for-hypercube(
     $hypercube as object,
     $options as object?
 )
@@ -149,36 +149,36 @@ as object*
     $options,
     true
   )
-  return sec:facts-for($options)
+  return svs:facts-for($options)
 };
 
 (:~
  : <p>Retrieves the facts associated with the supplied concepts
  : from the supplied archive, that match the fiscal focus of the archive.</p>
  : 
- : @param $archive_or_ids a sequence of archives or their ids or $sec:ALL_OF_THEM for no filtering.
- : @param $concepts the concepts or $sec:ALL_OF_THEM for no filtering.
+ : @param $archive_or_ids a sequence of archives or their ids or $svs:ALL_OF_THEM for no filtering.
+ : @param $concepts the concepts or $svs:ALL_OF_THEM for no filtering.
  :
  : @return the latest facts associated with the supplied concept.
  :) 
-declare function sec:facts-for-archives-and-concepts(
+declare function svs:facts-for-archives-and-concepts(
     $archive_or_ids as item*,
     $concepts as item*) as object*
 {
-  sec:facts-for-archives-and-concepts($archive_or_ids, $concepts, ())
+  svs:facts-for-archives-and-concepts($archive_or_ids, $concepts, ())
 };
 
 (:~
  : <p>Retrieves the facts associated with the supplied concepts
  : from the supplied archive, that match the fiscal focus of the archive.</p>
  : 
- : @param $archive_or_ids a sequence of archives or their ids or $sec:ALL_OF_THEM for no filtering.
- : @param $concepts the concepts or $sec:ALL_OF_THEM for no filtering.
+ : @param $archive_or_ids a sequence of archives or their ids or $svs:ALL_OF_THEM for no filtering.
+ : @param $concepts the concepts or $svs:ALL_OF_THEM for no filtering.
  : @param $options <a href="#standard_options">standard SEC BizQL options</a>.
  :
  : @return the latest facts associated with the supplied concept.
  :) 
-declare function sec:facts-for-archives-and-concepts(
+declare function svs:facts-for-archives-and-concepts(
     $archive_or_ids as item*,
     $concepts as item*,
     $options as object?) as object*
@@ -186,7 +186,7 @@ declare function sec:facts-for-archives-and-concepts(
   let $options := if(empty($options.Hypercube))
                   then facts:merge-objects(
                       {
-                          "Hypercube" : sec:dimensionless-hypercube(())
+                          "Hypercube" : svs:dimensionless-hypercube(())
                       },
                       $options,
                       true)
@@ -204,7 +204,7 @@ declare function sec:facts-for-archives-and-concepts(
     ]
   return 
     if ($hide-amended-facts)
-    then sec:hide-amended-facts($facts)
+    then svs:hide-amended-facts($facts)
     else $facts
 };
 
@@ -217,7 +217,7 @@ declare function sec:facts-for-archives-and-concepts(
  :
  : @return a sequence of facts without amended facts.
  :)
-declare function sec:hide-amended-facts(
+declare function svs:hide-amended-facts(
     $facts as object*
 )
 as object*
@@ -264,17 +264,17 @@ as object*
  : 
  :
  : @param $schema a schema.
- : @param $archives a sequence of archives or their AIDs or $sec:ALL_OF_THEM for no filtering.
+ : @param $archives a sequence of archives or their AIDs or $svs:ALL_OF_THEM for no filtering.
  :
  : @return a sequence of facts with populated dimension values.
  :)
-declare function sec:facts-for-schema(
+declare function svs:facts-for-schema(
     $schema as item,
     $archives as item*
 )
 as object*
 {
-  sec:facts-for-schema($schema, $archives, ())
+  svs:facts-for-schema($schema, $archives, ())
 };
 
 
@@ -286,12 +286,12 @@ as object*
  : 
  :
  : @param $schema a schema.
- : @param $archives a sequence of archives or their AIDs or $sec:ALL_OF_THEM for no filtering.
+ : @param $archives a sequence of archives or their AIDs or $svs:ALL_OF_THEM for no filtering.
  : @param $options <a href="#standard_options">standard SEC BizQL options</a>.
  :
  : @return a sequence of facts with populated dimension values.
  :)
-declare function sec:facts-for-schema(
+declare function svs:facts-for-schema(
     $schema as item,
     $archives as item*,
     $options as object?
@@ -313,7 +313,7 @@ as object*
     else true (: default :)
   return
     if ($hide-amended-facts)
-    then sec:hide-amended-facts($facts)
+    then svs:hide-amended-facts($facts)
     else $facts
 };
 
@@ -326,11 +326,11 @@ as object*
  : 
  :
  : @param $schema a report schema or its RID.
- : @param $archives a sequence of archives or their AIDs or $sec:ALL_OF_THEM for no filtering.
+ : @param $archives a sequence of archives or their AIDs or $svs:ALL_OF_THEM for no filtering.
  :
  : @return a sequence of facts with populated dimension values.
  :)
-declare function sec:fact-table-for-schema(
+declare function svs:fact-table-for-schema(
   $schema as item,
   $archives as item*) as array
 {
@@ -339,7 +339,7 @@ declare function sec:fact-table-for-schema(
       "xbrl:DefaultHypercube")
    return hypercubes:fact-table-for-hypercube-and-facts(
      $hypercube,
-     sec:facts-for-schema($schema, $archives)
+     svs:facts-for-schema($schema, $archives)
    )
 };
 
@@ -354,11 +354,11 @@ declare function sec:fact-table-for-schema(
  :
  : @return a sequence of facts with populated dimension values.
  :)
-declare function sec:populate-schema-with-facts(
+declare function svs:populate-schema-with-facts(
   $schema as item,
   $archives as item*) as object*
 {
-  sec:populate-schema-with-facts($schema, $archives,())
+  svs:populate-schema-with-facts($schema, $archives,())
 };
 
 (:~
@@ -368,12 +368,12 @@ declare function sec:populate-schema-with-facts(
  : when missing.</p>
  : 
  : @param $schema a report schema or its RID.
- : @param $archives a sequence of archives or their AIDs or $sec:ALL_OF_THEM for no filtering.
+ : @param $archives a sequence of archives or their AIDs or $svs:ALL_OF_THEM for no filtering.
  : @param $options <a href="#standard_options">standard SEC BizQL options</a>.
  :
  : @return a sequence of facts with populated dimension values.
  :)
-declare function sec:populate-schema-with-facts(
+declare function svs:populate-schema-with-facts(
   $schema as item,
   $archives as item*,
   $options as object?) as object*
@@ -382,7 +382,7 @@ declare function sec:populate-schema-with-facts(
       networks:networks-for-components-and-short-names($schema, "Presentation")
   return hypercubes:populate-networks-with-retrieved-facts(
     $networks,
-    sec:facts-for-schema($schema, $archives, $options)
+    svs:facts-for-schema($schema, $archives, $options)
   )
 };
 
@@ -421,16 +421,16 @@ declare function sec:populate-schema-with-facts(
  : @param $archive_or_ids a sequence of archive or archive IDs to filter.
  : @return all facts having one of the above prefixes.
  :) 
-declare function sec:edgar-facts-for-archives(
+declare function svs:edgar-facts-for-archives(
   $archive_or_ids as item*) as object* 
 {
-  sec:facts-for-archives-and-concepts(
+  svs:facts-for-archives-and-concepts(
     $archive_or_ids,
-    $sec:ALL_OF_THEM,
+    $svs:ALL_OF_THEM,
     {
       Filter: {
         Profiles: {
-          SEC: {
+          svs: {
             IsExtension: false
           }
         }
@@ -442,21 +442,21 @@ declare function sec:edgar-facts-for-archives(
  : <p>Return all facts for concepts that are NOT defined by one of the common
  : edgar taxonomies. In particular, this function returns facts for concepts
  : having none of the prefixes listed under function 
- : sec:edgar-facts-for-archives.</p>
+ : svs:edgar-facts-for-archives.</p>
  :
  : @param $archive_or_ids a sequence of archive or archive IDs to filter.
  : @return all facts having none of the common edgar prefixes.
  :) 
-declare function sec:extension-facts-for-archives(
+declare function svs:extension-facts-for-archives(
   $archive_or_ids as item*) as object* 
 {
-  sec:facts-for-archives-and-concepts(
+  svs:facts-for-archives-and-concepts(
     $archive_or_ids,
-    $sec:ALL_OF_THEM,
+    $svs:ALL_OF_THEM,
     {
       Filter: {
         Profiles: {
-          SEC: {
+          svs: {
             IsExtension: true
           }
         }
@@ -471,7 +471,7 @@ declare function sec:extension-facts-for-archives(
  :
  : @return the document end date (e.g., xs:date("2011-04-30")).
  :) 
-declare function sec:end-date(
+declare function svs:end-date(
     $filing-fact-or-id as item?) as xs:date?
 {
   if (empty($filing-fact-or-id))
@@ -510,7 +510,7 @@ declare function sec:end-date(
  :    you can restrict it using the options. If you need more
  :    XBRL dimensions, use the user-defined-hypercube function instead.</p>
  : <p>In the SEC profile, there is an additional axis that is always here:
- : dei:LegalEntityAxis, with a default value sec:DefaultLegalEntity and a filtering
+ : dei:LegalEntityAxis, with a default value svs:DefaultLegalEntity and a filtering
  : only accepting this default value.</p>
  :
  : @return dimensionless hypercube instantiation.
@@ -521,9 +521,9 @@ declare function sec:end-date(
  : - Units: an array of units to include in the hypercube.
  : - LegalEntities: an array of legal entities to include in the hypercube.
  :)
-declare function sec:dimensionless-hypercube($options as object?) as object
+declare function svs:dimensionless-hypercube($options as object?) as object
 {
-  sec:user-defined-hypercube(
+  svs:user-defined-hypercube(
     {|
       if(exists($options.Concepts))
       then { "xbrl:Concept" : { Domain: $options.Concepts } }
@@ -550,15 +550,15 @@ declare function sec:dimensionless-hypercube($options as object?) as object
  :    are always added, but can be overriden. For each of those included aspects the value space is,
  :    by default, not limited, and only xbrl:Unit has a default value.</p>
  :    <p>The characteristic dei:LegalEntityAxis is also here. It has
- :    a default value of sec:DefaultLegalEntity and restricts the value
+ :    a default value of svs:DefaultLegalEntity and restricts the value
  :    space to this default value.</p>
  :    
  :
  : @return the hypercube instantiation.
  :)
-declare function sec:user-defined-hypercube() as object
+declare function svs:user-defined-hypercube() as object
 {
-  sec:user-defined-hypercube(())
+  svs:user-defined-hypercube(())
 };
 
 (:~
@@ -567,7 +567,7 @@ declare function sec:user-defined-hypercube() as object
  :    are always added, but can be overriden. For each of those included aspects the value space is,
  :    by default, not limited, and only xbrl:Unit has a default value.</p>
  :    <p>The characteristic dei:LegalEntityAxis is always here, and can be overriden. It has,
- :    by default, a default value of sec:DefaultLegalEntity (which can be overriden or set to null
+ :    by default, a default value of svs:DefaultLegalEntity (which can be overriden or set to null
  :    for no default), and by default restricts the value
  :    space to this default value (which can be overriden or set to null for no filtering).</p>
  :    
@@ -577,7 +577,7 @@ declare function sec:user-defined-hypercube() as object
  : dimension information subobjects
  : may have two (optional) fields: Default (a string) and Domain (an array of strings).
  :)
-declare function sec:user-defined-hypercube($dimensions as object?) as object
+declare function svs:user-defined-hypercube($dimensions as object?) as object
 {
   let $extended-dimensions := {|
     for $d in distinct-values((
@@ -588,8 +588,8 @@ declare function sec:user-defined-hypercube($dimensions as object?) as object
 
     let $dimension-default as string? :=
         if ($d eq "dei:LegalEntityAxis" and empty($dimension-spec.Default))
-        (: if no default is provided for the legal entity axis, we assume sec:DefaultLegalEntity. :)
-        then "sec:DefaultLegalEntity"
+        (: if no default is provided for the legal entity axis, we assume svs:DefaultLegalEntity. :)
+        then "svs:DefaultLegalEntity"
         (: if it's provided, we use it, but it it's null there is no default. :)
         else $dimension-spec.Default[$$ ne null]
 
