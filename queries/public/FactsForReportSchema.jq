@@ -4,22 +4,19 @@ import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 
-import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace store = "http://www.28msec.com/modules/store";
 import module namespace seq = "http://zorba.io/modules/sequence";
 
 let $format  := lower-case(request:param-values("format")[1])
 let $aids     := request:param-values("aid")
 let $report   := request:param-values("report")[1]
 let $schema   := report-schemas:report-schemas($report)
- 
+
 let $archives := archives:archives(distinct-values($aids))
 let $entities := entities:entities($archives.Entity)
 return switch(true)
@@ -44,10 +41,12 @@ return switch(true)
             let $facts := sec:facts-for-schema($schema, $noncached-archives)
             let $computed-archives :=
                     for $facts-by-archive in $facts
-                    group by $archive := $facts-by-archive.Archive
+                    let $archive := $archives[$$._id eq $facts-by-archive.Archive]
+                    group by $archive._id
                     return
                         copy $result := $network
                         modify (
+                            insert json { Generator: $archive[1].Profiles.SEC.Generator } into $result,
                             for $concept in descendant-objects(values($result.Trees))[exists($$.Name)]
                             let $name := $concept.Name
                             return (
@@ -55,9 +54,9 @@ return switch(true)
                                     "Facts" : [ $facts-by-archive[$$.$facts:ASPECTS.$facts:CONCEPT eq $name] ]
                                 } into $concept
                             ),
-                            insert json { "_id" : $report || $archive } into $result)
+                            insert json { "_id" : $report || $archive[1]._id } into $result)
                         return
-                            $result 
+                            $result
             return  {
                 if (exists($computed-archives))
                 then db:insert("reportcache", $computed-archives);

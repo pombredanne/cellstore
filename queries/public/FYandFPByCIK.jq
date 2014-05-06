@@ -8,7 +8,7 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 
-declare %an:sequential function local:filingPeriodInfo($archives) {
+declare %an:sequential function local:filingPeriodInfo($archives as object*) as object*{
     for $archive in $archives
     return {
         fiscalPeriod: sec-fiscal:fiscal-period($archive),

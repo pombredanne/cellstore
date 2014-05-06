@@ -39,7 +39,7 @@ declare function local:to-csv($o as object*) as string?
     else ()
 };
 
-declare function local:to-xml($o as object*)
+declare function local:to-xml($o as object*) as node()*
 {
     (session:comment("xml", {
                             NumFacts : count($o),
@@ -78,12 +78,12 @@ declare function local:to-xml($o as object*)
 };
 
 declare function local:filings(
-    $ciks,
-    $tags,
-    $tickers,
-    $sics,
-    $fp,
-    $fy)
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as string*) as object*
 {
     let $entities := (
         companies:companies($ciks),
@@ -121,14 +121,14 @@ let $fiscalYears := distinct-values(
                             if ($y eq "LATEST" or $y eq "ALL")
                             then $y
                             else if ($y castable as integer)
-                            then $y cast as integer
+                            then $y
                             else ()
                     )
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
                         then $sec-fiscal:ALL_FISCAL_PERIODS
-                        else $fp)
+                        else $fp) 
 let $aids        := archives:aid(request:param-values("aid"))
 let $archives    := (
                         local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),

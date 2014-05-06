@@ -1,5 +1,4 @@
 import module namespace user = "http://apps.28.io/user";
-import module namespace org = "http://nevada.org/organizations";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
@@ -8,7 +7,6 @@ variable $userid := session:validate();
 variable $firstname := api:required-parameter("firstname", $user:VALID_NAME);
 variable $lastname := api:required-parameter("lastname", $user:VALID_NAME);
 variable $email := api:required-parameter("email", $user:VALID_EMAIL);
-variable $org := org:get-existing-by-id(api:required-parameter("organization-id", $org:VALID_ID));
 
 variable $user := user:get-existing-by-id($userid);
 variable $other-same-mail := user:get-by-email($email);
@@ -20,6 +18,5 @@ else fn:error(xs:QName("user:already-existing"), "A different user with same ema
 replace value of json $user.firstname with $firstname;
 replace value of json $user.lastname with $lastname;
 replace value of json $user.email with $email;
-replace value of json $user.organization with $org._id;
 
 api:success()

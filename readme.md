@@ -1,3 +1,5 @@
+[![Build Status](https://buildstatus.28.io/v1/_queries/public/status.jq?_method=POST&repo=secxbrl.info&branch=master)](http://ppa.28.io:8888)
+
 secxbrl.info website
 --------------------------------
 

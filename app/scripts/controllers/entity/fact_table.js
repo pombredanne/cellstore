@@ -1,5 +1,7 @@
 'use strict';
 
+/*globals accounting*/
+
 angular.module('main')
 .controller('FactTableCtrl', function($rootScope, $scope, $stateParams, $backend, facttable) {
     
@@ -30,8 +32,8 @@ angular.module('main')
         $scope.columns.push('xbrl:Period');
         $scope.columns.push('xbrl:Concept');
         var insertIndex = 3;
-        $.map($scope.data[0].Aspects, function (el, index) {
-            switch (index)
+        Object.keys($scope.data[0].Aspects).forEach(function (key) {
+            switch (key)
             {
                 case 'xbrl:Entity':
                     $scope.entityIndex = 0;
@@ -40,11 +42,11 @@ angular.module('main')
                 case 'xbrl:Period':
                     break;
                 case 'dei:LegalEntityAxis':
-                    $scope.columns.splice(insertIndex, 0, index);
+                    $scope.columns.splice(insertIndex, 0, key);
                     insertIndex++;
                     break;
                 default:
-                    $scope.columns.splice(insertIndex, 0, index);
+                    $scope.columns.splice(insertIndex, 0, key);
             }
         });
     }
@@ -69,11 +71,7 @@ angular.module('main')
     };
 
     $scope.showNumber = function(value) {
-        var n = parseFloat(value);
-        if (isNaN(n)) {
-            return value;
-        }
-        return n.toLocaleString();
+        return accounting.formatNumber(value);
     };
 
     $scope.isBlock = function(string) {
@@ -83,7 +81,7 @@ angular.module('main')
         return string.length > 60;
     };
     
-    $scope.getExportURL = function(format){        
+    $scope.getExportURL = function(format) {
         return $backend.API_URL + '/_queries/public/api/facttable-for-component.jq?_method=POST&format=' + format +'&aid=' + $stateParams.aid + '&networkIdentifier=' + encodeURIComponent($stateParams.networkIdentifier) + '&token=' + $rootScope.token;
     };
 });

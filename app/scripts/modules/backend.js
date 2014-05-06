@@ -14,7 +14,7 @@ angular.module('main')
             if (!that.data.year || that.data.year.length === 0) {
                 that.data.year = [];
                 var year = (new Date()).getFullYear();
-                while (year >= 2009) { that.data.year.push(year); year -= 1; }
+                while (year >= 2009) { that.data.year.push('' + year); year -= 1; }
             }
             deferred.resolve(that.data.year);
             return deferred.promise;
@@ -74,6 +74,48 @@ angular.module('main')
                         that.data.conceptMaps = data.availableMaps;
                     }
                     deferred.resolve(that.data.conceptMaps);
+                });
+
+            return deferred.promise;
+        },
+
+        getSics: function() {
+            var that = this;
+            var deferred = $q.defer();
+            if (that.data.sics && that.data.sics.length > 0)
+            {
+                deferred.resolve(that.data.sics);
+                return deferred.promise;
+            }
+
+            $http({ method: 'GET', url: API_URL + '/_queries/public/Sics.jq', params: { _method: 'POST' }, cache: true })
+                .success(function(data) {
+                    that.data.sics =  [];
+                    if (data) {
+                        that.data.sics = data;
+                    }
+                    deferred.resolve(that.data.sics);
+                });
+
+            return deferred.promise;
+        },
+
+        getRules: function() {
+            var that = this;
+            var deferred = $q.defer();
+            if (that.data.allRules && that.data.allRules.length > 0)
+            {
+                deferred.resolve(that.data.allRules);
+                return deferred.promise;
+            }
+
+            $http({ method: 'GET', url: API_URL + '/_queries/public/Rules.jq', params: { _method: 'POST' }, cache: true })
+                .success(function(data) {
+                    that.data.allRules =  [];
+                    if (data) {
+                        that.data.allRules = data.availableRules;
+                    }
+                    deferred.resolve(that.data.allRules);
                 });
 
             return deferred.promise;

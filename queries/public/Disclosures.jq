@@ -1,6 +1,6 @@
 import module namespace req = "http://www.28msec.com/modules/http/request";
 
-declare function local:list($file)
+declare function local:list($file as element()) as object*
 {
     for $el in $file//node()
     where $el/@dataType/string() eq "dis:Disclosure"
@@ -14,7 +14,7 @@ declare function local:list($file)
     }
 };
 
-declare function local:tree($file, $level)
+declare function local:tree($file as element(), $level as integer) as object*
 {
     for $el in $file/node()
     return {

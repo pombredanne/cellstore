@@ -27,7 +27,7 @@ declare function local:to-csv($o as object*) as string
     )
 };
 
-declare function local:to-xml($o as object*)
+declare function local:to-xml($o as object*) as node()*
 {
     (
     session:comment("xml"),

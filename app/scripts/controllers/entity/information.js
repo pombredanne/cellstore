@@ -1,12 +1,14 @@
 'use strict';
 
+/*globals accounting*/
+
 angular.module('main')
 .controller('InformationCtrl', function(
     $scope, $rootScope, $anchorScroll, $state, $stateParams, $http, $modal,
     $backend, QueriesService, years, periods
 ) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
-    $scope.year = $stateParams.year ? parseInt($stateParams.year, 10) : null;
+    $scope.year = $stateParams.year ? $stateParams.year : null;
     $scope.period = $stateParams.period ? $stateParams.period : null;
     $scope.cik = $stateParams.cik ? $stateParams.cik : null;
     $scope.reports = [];
@@ -29,8 +31,8 @@ angular.module('main')
 		.success(function (data) {
 			if (data && data.filings) {
 				data.filings.forEach(function(filing) {
-					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].used = true;
-					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod === 'Q4' ? 'FY' : filing.fiscalPeriod)].used = true;
+					$scope.usage[$scope.years.indexOf('' + filing.fiscalYear)].used = true;
+					$scope.usage[$scope.years.indexOf('' + filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod === 'Q4' ? 'FY' : filing.fiscalPeriod)].used = true;
 				});
 				$scope.adjustYearPeriod();
 			} else {
@@ -100,7 +102,7 @@ angular.module('main')
             })
             .success(function (data, status) {
                 if (data && data.latestFYPeriod) {
-                    $scope.year = data.latestFYPeriod.fiscalYear;
+                    $scope.year = '' + data.latestFYPeriod.fiscalYear;
 				    $scope.period = data.latestFYPeriod.fiscalPeriod;
 		            $state.go('root.entity.information', { cik: $scope.cik, year: $scope.year, period: $scope.period });
 				} else {
@@ -129,7 +131,8 @@ angular.module('main')
             var root = data[0].Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To;
             var prepareReport = function(list, array, isNumeric, decimals) {
                 for (var key in list) {
-                    if (list.hasOwnProperty(key)) {
+                    if (list.hasOwnProperty(key) &&
+                        report !== 'fac:ValidationStatistics') {
                         var item = {};
                         item.label = list[key].Label ? list[key].Label : '';
                         if (list[key].Facts && list[key].Facts.length > 0) {
@@ -184,30 +187,31 @@ angular.module('main')
             };
                 
             for (var report in root) {
-                if (root.hasOwnProperty(report)) {
+                if (root.hasOwnProperty(report) &&
+                    report !== 'fac:ValidationStatistics') {
                     var obj = {
-                      name: root[report].Label.toString().replace(' [Hierarchy]', ''),
-                      items: [],
-                      isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report === 'fac:KeyRatiosHierarchy'),
-                      isBoolean : (report === 'fac:Validations')
+                        name: root[report].Label.toString().replace(' [Hierarchy]', ''),
+                        items: [],
+                        isNumeric : (report === 'fac:BalanceSheetHierarchy' || report === 'fac:CashFlowStatementHierarchy' || report === 'fac:IncomeStatementHierarchy' || report === 'fac:StatementComprehensiveIncomeHierarchy' || report === 'fac:KeyRatiosHierarchy'),
+                        isBoolean : (report === 'fac:Validations')
                     };
                     if (report === 'fac:BalanceSheetHierarchy' &&
-                      root['fac:GeneralInformationHierarchy'] && 
-                      root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'] && 
-                      root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts &&
-                      root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts.length > 0)
+                        root['fac:GeneralInformationHierarchy'] &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'] &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts.length > 0)
                     {
-                      obj.specifier = root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts[0].Value;
+                        obj.specifier = root['fac:GeneralInformationHierarchy'].To['fac:BalanceSheetFormat'].Facts[0].Value;
                     }
                     if (report === 'fac:IncomeStatementHierarchy' &&
-                      root['fac:GeneralInformationHierarchy'] && 
-                      root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'] && 
-                      root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts &&
-                      root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts.length > 0)
+                        root['fac:GeneralInformationHierarchy'] &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'] &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts &&
+                        root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts.length > 0)
                     {
-                      obj.specifier = root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts[0].Value;
+                        obj.specifier = root['fac:GeneralInformationHierarchy'].To['fac:IncomeStatementFormat'].Facts[0].Value;
                     }
-                    prepareReport(root[report].To, obj.items, obj.isNumeric, (report == 'fac:KeyRatiosHierarchy' ? 3 : 0));
+                    prepareReport(root[report].To, obj.items, obj.isNumeric, (report === 'fac:KeyRatiosHierarchy' ? 3 : 0));
                     $scope.reports.push(obj);
                     $scope.showtab.push(true);
                 }

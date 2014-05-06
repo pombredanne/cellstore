@@ -54,7 +54,7 @@ declare function local:to-csv($filings as object*) as string*
     csv:serialize($filings, { serialize-null-as : "" })
 };
 
-declare function local:summary($a)
+declare function local:summary($a as object) as object
 {
     {
         CIK : $a.Entity,
@@ -94,7 +94,7 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
                         if (($fp ! lower-case($$)) = "all")
                         then $fiscal:ALL_FISCAL_PERIODS
                         else if (($fp ! lower-case($$)) = "fy")
-                        then ("FY", "Q4")
+                        then distinct-values(("FY", "Q4", $fp))
                         else $fp)
 let $aids     := request:param-values("aid")
 let $ciks := ($ciks, 

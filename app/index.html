@@ -29,7 +29,6 @@
     <div ui-view></div>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="/bower_components/jquery/jquery.js"></script>
     <script src="/bower_components/accounting/accounting.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/ngprogress-lite/ngprogress-lite.js"></script>
@@ -66,9 +65,14 @@
     <script src="/scripts/controllers/head.js"></script>
     <script src="/scripts/controllers/api.js"></script>
     <script src="/scripts/controllers/auth.js"></script>
-    <script src="/scripts/controllers/account.js"></script>
     <script src="/scripts/controllers/blog.js"></script>
     
+    <!-- Account Controllers -->
+    <script src="/scripts/controllers/account/account.js"></script>
+    <script src="/scripts/controllers/account/info.js"></script>
+    <script src="/scripts/controllers/account/password.js"></script>
+    <script src="/scripts/controllers/account/tokens.js"></script>
+
     <!-- Browse Controllers -->
     <script src="/scripts/controllers/entity/entities.js"></script>
     <script src="/scripts/controllers/entity/entity.js"></script>
@@ -85,13 +89,13 @@
     <script src="/scripts/controllers/concept_map.js"></script>
     <script src="/scripts/controllers/example.js"></script>
     <script src="/scripts/controllers/disclosures.js"></script>
-    <script src="/scripts/controllers/disclosure.js"></script>
     
-    <script src="/scripts/controllers/comparison_filter.js"></script>
     <script src="/scripts/controllers/comparison.js"></script>
-    <script src="/scripts/controllers/comparison_information.js"></script>
-    <script src="/scripts/controllers/comparison_search.js"></script>
-    <script src="/scripts/controllers/comparison_components.js"></script>
+    <script src="/scripts/controllers/comparison/filings.js"></script>
+    <script src="/scripts/controllers/comparison/information.js"></script>
+    <script src="/scripts/controllers/comparison/search.js"></script>
+    <script src="/scripts/controllers/comparison/components.js"></script>
+    <script src="/scripts/controllers/comparison/validations_dashboard.js"></script>
     <!-- endbuild -->
     
     <!-- begin olark code -->

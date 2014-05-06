@@ -25,6 +25,10 @@ if (is-available-collection("reportcache"))
 then truncate("reportcache");
 else create("reportcache");
 
+if (is-available-collection("reportschemas"))
+then ();
+else create("reportschemas");
+
 flush();
 
 user:new-right("rights", "Rights", (), 1);
