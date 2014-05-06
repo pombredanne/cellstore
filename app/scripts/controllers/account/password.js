@@ -15,7 +15,7 @@ angular.module('main')
             var us = (new UsersService($backend.API_URL + '/_queries/public'));
             us.resetPassword({ userid: $scope.user.id, password: $scope.password, token: $scope.token })
               .then(
-                function(data) {
+                function() {
                     $scope.$emit('alert', 'Success', 'Your password has been changed.');
                     $scope.password = '';
                     $scope.passwordRepeat = '';

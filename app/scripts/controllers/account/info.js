@@ -16,7 +16,7 @@ angular.module('main')
             var us = (new UsersService($backend.API_URL + '/_queries/public'));
             us.editUser({ userid: $scope.user.id, email: $scope.user.email, firstname: $scope.firstname, lastname: $scope.lastname, token: $scope.token })
               .then(
-                function(data) {
+                function() {
                     $scope.$emit('alert', 'Success', 'Your profile information has been updated.');
                     $scope.user.firstname = $scope.firstname;
                     $scope.user.lastname = $scope.lastname;

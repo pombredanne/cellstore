@@ -36,7 +36,7 @@ angular.module('main')
         }).result.then(function(item) {
             $scope.service.revoke({ $method: 'POST', email: $scope.user.email, password: item.password, token: token.token, $refresh: true })
                 .then(
-                    function(data) {
+                    function() {
                         if (token.token === $scope.token)
                         {
                             $scope.$emit('logout');
@@ -85,7 +85,7 @@ angular.module('main')
         }).result.then(function(item) {
             $scope.service.token({ $method: 'POST', email: $scope.user.email, password: item.password, expiration: item.expiration, $refresh: true })
                 .then(
-                    function(data) {
+                    function() {
                         $scope.getData();
                     },
                     function(response) {

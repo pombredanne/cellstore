@@ -37,7 +37,7 @@ angular.module('main')
             (new UsersService($backend.API_URL + '/_queries/public'))
                 .newUser({ firstname: $scope.firstname, lastname: $scope.lastname, email: $scope.email, password: $scope.password })
                 .then(
-                    function(data) {
+                    function() {
                         //MunchkinHelper.associateLead({ Email: $scope.email, FirstName: $scope.firstname, LastName: $scope.lastname, Company: $scope.companyname, accountsecxbrlinfo: true });
                         //update act-on
                         $http({
@@ -72,7 +72,7 @@ angular.module('main')
         if(!$scope.forgotForm.$invalid) {
             (new UsersService($backend.API_URL + '/_queries/public'))
                 .forgotPassword({ email: $scope.forgotEmail })
-                .then(function(data) {
+                .then(function() {
                     $scope.$emit('alert', 'Help on the way!', 'Please check your email, if you are registered on or system we sent you a link that allows you to change your password.<br><br>The link is valid for 24 hours.');
                     $scope.showForgot = false;
                 },
