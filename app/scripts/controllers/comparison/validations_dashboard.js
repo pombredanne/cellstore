@@ -50,10 +50,14 @@ angular.module('main')
                 report: 'FundamentalAccountingConcepts',
                 'token' : $scope.token
             };
-        var promiseResponse = $backend.getFactsForReport($scope.params);
-        promiseResponse.then(
-            $scope.prepareReportForUI,
-            function (data, status) {
+        $http({
+            method: 'GET',
+            url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
+            params: $scope.params,
+            cache: false
+        })
+        .success($scope.prepareReportForUI)
+        .error(function (data, status) {
                 if (status === 401) {
                     $scope.error = true;
                 } else {

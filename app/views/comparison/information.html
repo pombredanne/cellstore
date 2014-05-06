@@ -47,7 +47,7 @@
                     </td>
                     <td class="nowrap text-center" ng-if="(report.isBoolean)" ng-repeat="v in item.value track by $index">
                       <i class="fa semaphore fa-check-circle success" ng-if="v === true" tooltip="Rule passed"></i>
-                      <i class="fa semaphore fa-exclamation-circle" ng-if="v === false" tooltip="Rule failed"></i>
+                      <i class="fa semaphore fa-exclamation-triangle" ng-if="v === false" tooltip="Rule failed"></i>
                       <span class="fa-stack semaphore disabled" ng-if="v === null" tooltip="Rule has been skipped because a precondition was not met">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>

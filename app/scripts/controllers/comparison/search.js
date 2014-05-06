@@ -114,12 +114,17 @@ angular.module('main')
                             }
                         });
                     }
-                    else {
-                        $scope.errornoresults = true;
-                    }
+                    $scope.errornoresults = ($scope.data.length === 0);
                 },
                 function(response) {
-                    $scope.$emit('error', response.status, response.data);
+                    if (response.status === 400)
+                    {
+                        $scope.errornoresults = true;
+                    }
+                    else
+                    {
+                        $scope.$emit('error', response.status, response.data);
+                    }
                 });
         }
     };

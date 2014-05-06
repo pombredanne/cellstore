@@ -580,9 +580,6 @@ angular.module('main', [
         templateUrl: '/views/comparison/search.html',
         controller: 'ComparisonSearchCtrl',
         resolve: {
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
             conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }],
             allRules: ['$backend', function($backend) { return $backend.getRules(); }]
         },
@@ -596,12 +593,6 @@ angular.module('main', [
         url: '/components?reportElement&disclosure&label',
         templateUrl: '/views/comparison/components.html',
         controller: 'ComparisonComponentsCtrl',
-        resolve: {
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-        },
         data: {
             title: 'Search Components',
             active: 'compare',

@@ -78,7 +78,7 @@
                   </td>
                   <td>
                       <i class="fa semaphore fa-check-circle success" ng-if="detail.passed === true" tooltip="Rule passed"></i>
-                      <i class="fa semaphore fa-exclamation-circle" ng-if="detail.passed === false" tooltip="Rule failed"></i>
+                      <i class="fa semaphore fa-exclamation-triangle" ng-if="detail.passed === false" tooltip="Rule failed"></i>
                       <span class="fa-stack semaphore disabled" tooltip="Rule has been skipped because a precondition was not met" ng-if="detail.skipped === true">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>

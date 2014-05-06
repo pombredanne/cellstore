@@ -97,6 +97,7 @@ angular.module('main')
                     deferred.resolve(that.data.sics);
                 });
 
+            return deferred.promise;
         },
 
         getRules: function() {
@@ -118,26 +119,7 @@ angular.module('main')
                 });
 
             return deferred.promise;
-        },
-
-        getFactsForReport: function(params) {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'GET',
-                url: API_URL + '/_queries/public/FactsForReportSchema.jq',
-                params: params,
-                cache: false
-            }).success(function(data) {
-                deferred.resolve(data);
-            })
-            .error(function (data, status) {
-                deferred.reject(data, status);
-            });
-
-            return deferred.promise;
         }
-
     };
 })
 ;
