@@ -8,7 +8,7 @@ angular.module('main')
     $scope.cik = $stateParams.cik;
     $scope.aid = $stateParams.aid;
     
-    var a = components.data.Archives[0]; // must be only one because we query for only one accession number
+    var a = components.Archives[0]; // must be only one because we query for only one accession number
     $scope.components = a.Components;
     $scope.EntityRegistrantName = a.EntityRegistrantName;
     $scope.FiscalYear = a.FiscalYear;

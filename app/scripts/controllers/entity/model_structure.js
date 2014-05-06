@@ -6,7 +6,6 @@ angular.module('main')
     $scope.AccessionNumber = $stateParams.aid;
     $scope.NetworkIdentifier = $stateParams.networkIdentifier;
 
-    modelStructure = modelStructure.data;
     $scope.data = modelStructure.ModelStructure;
     $scope.Label = modelStructure.Label;
     $scope.cik = (modelStructure.CIK || '').substring(23);
