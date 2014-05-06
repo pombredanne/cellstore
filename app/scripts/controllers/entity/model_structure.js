@@ -10,7 +10,6 @@ angular.module('main')
     $scope.Label = modelStructure.Label;
     $scope.cik = (modelStructure.CIK || '').substring(23);
     $scope.EntityRegistrantName = modelStructure.EntityRegistrantName;
-    $scope.NetworkIdentifier = modelStructure.NetworkIdentifier;
     var p = modelStructure.Label.lastIndexOf(' - ');
     if (p > 0) {
         $scope.component = modelStructure.Label.substring(p+3);
@@ -119,7 +118,7 @@ angular.module('main')
     
     
     $scope.getExportURL = function(format){
-        return $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq?_method=POST&format=' + format + '&aid=' + $stateParams.aid + '&token=' + $rootScope.token;
+        return $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq?_method=POST&format=' + format + '&aid=' + $stateParams.aid + '&networkIdentifier=' + encodeURIComponent($stateParams.networkIdentifier) + '&token=' + $rootScope.token;
     };
 });
 

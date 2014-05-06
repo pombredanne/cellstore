@@ -248,6 +248,7 @@ angular.module('main', [
             }]
         },
         data: {
+            subActive: 'filings',
             title: 'Filing'
         }
     })
@@ -262,6 +263,7 @@ angular.module('main', [
             }]
         },
         data: {
+            subActive: 'filings',
             title: 'Components'
         }
     })
@@ -276,6 +278,7 @@ angular.module('main', [
             }]
         },
         data: {
+            subActive: 'filings',
             title: 'Component'
         }
     })
@@ -295,6 +298,7 @@ angular.module('main', [
             }]
         },
         data: {
+            subActive: 'filings',
             title: 'Fact Table'
         }
     })
@@ -309,6 +313,7 @@ angular.module('main', [
             }]
         },
         data: {
+            subActive: 'filings',
             title: 'Component Model Structure'
         }
     })
