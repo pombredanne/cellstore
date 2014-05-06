@@ -8,7 +8,7 @@ angular.module('main')
     $backend, QueriesService, years, periods
 ) {
     $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
-    $scope.year = $stateParams.year ? parseInt($stateParams.year, 10) : null;
+    $scope.year = $stateParams.year ? $stateParams.year : null;
     $scope.period = $stateParams.period ? $stateParams.period : null;
     $scope.cik = $stateParams.cik ? $stateParams.cik : null;
     $scope.reports = [];
@@ -31,8 +31,8 @@ angular.module('main')
 		.success(function (data) {
 			if (data && data.filings) {
 				data.filings.forEach(function(filing) {
-					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].used = true;
-					$scope.usage[$scope.years.indexOf(filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod === 'Q4' ? 'FY' : filing.fiscalPeriod)].used = true;
+					$scope.usage[$scope.years.indexOf('' + filing.fiscalYear)].used = true;
+					$scope.usage[$scope.years.indexOf('' + filing.fiscalYear)].periods[$scope.periods.indexOf(filing.fiscalPeriod === 'Q4' ? 'FY' : filing.fiscalPeriod)].used = true;
 				});
 				$scope.adjustYearPeriod();
 			} else {
@@ -102,7 +102,7 @@ angular.module('main')
             })
             .success(function (data, status) {
                 if (data && data.latestFYPeriod) {
-                    $scope.year = data.latestFYPeriod.fiscalYear;
+                    $scope.year = '' + data.latestFYPeriod.fiscalYear;
 				    $scope.period = data.latestFYPeriod.fiscalPeriod;
 		            $state.go('root.entity.information', { cik: $scope.cik, year: $scope.year, period: $scope.period });
 				} else {
@@ -131,7 +131,8 @@ angular.module('main')
             var root = data[0].Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To;
             var prepareReport = function(list, array, isNumeric, decimals) {
                 for (var key in list) {
-                    if (list.hasOwnProperty(key)) {
+                    if (list.hasOwnProperty(key) &&
+                        report !== 'fac:ValidationStatistics') {
                         var item = {};
                         item.label = list[key].Label ? list[key].Label : '';
                         if (list[key].Facts && list[key].Facts.length > 0) {
@@ -186,7 +187,8 @@ angular.module('main')
             };
                 
             for (var report in root) {
-                if (root.hasOwnProperty(report)) {
+                if (root.hasOwnProperty(report) &&
+                    report !== 'fac:ValidationStatistics') {
                     var obj = {
                         name: root[report].Label.toString().replace(' [Hierarchy]', ''),
                         items: [],

@@ -13,7 +13,7 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare namespace concepts = "http://www.28msec.com/modules/bizql/concepts";
 
-declare function local:to-csv($concepts as object*, $onlyNames as boolean) as string
+declare function local:to-csv($concepts as item*, $onlyNames as boolean) as string
 {
     if ($onlyNames)
     then
@@ -23,7 +23,7 @@ declare function local:to-csv($concepts as object*, $onlyNames as boolean) as st
         string-join(csv:serialize($concepts, { serialize-null-as : "" }))
 };
 
-declare function local:to-xml($concepts as object*, $onlyNames as boolean) as element()*
+declare function local:to-xml($concepts as item*, $onlyNames as boolean) as element()*
 {
     for $c in $concepts
     return
@@ -45,7 +45,7 @@ declare function local:filings(
     $tickers as string*,
     $sics as string*,
     $fp as string*,
-    $fy as integer*) as object*
+    $fy as string*) as object*
 {
     let $entities := (
         companies:companies($ciks),
@@ -100,7 +100,7 @@ let $fiscalYears := distinct-values(
                             if ($y eq "LATEST" or $y eq "ALL")
                             then $y
                             else if ($y castable as integer)
-                            then $y cast as integer
+                            then $y
                             else ()
                     )
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")

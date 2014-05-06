@@ -1,0 +1,77 @@
+<div class="export">
+    <div class="row">
+        <div class="col-lg-3">
+            <span class="tag tag-primary" ng-if="reports.length"><span ng-bind="Statistics.NumArchives | number"></span> Hits</span>
+            <span class="tag" ng-if="reports.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+        </div>
+        <div class="col-lg-6">
+            <h2 class="text-center">Compare Basic Financial Information Across Selected Filings</h2>
+        </div>
+        <div class="col-lg-3">
+            <span class="dropdown pull-right" ng-if="reports.length">
+                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                <ul class="dropdown-menu">
+                    <li><a ng-href="{{getUrl('json')}}" download="comparison-information.json" target="_blank">JSON</a></li>
+                    <li><a href="{{getUrl('xml')}}" download="comparison-information.xml" target="_blank">XML</a></li>
+                    <li><a href="{{getUrl('csv')}}" download="comparison-information.csv" target="_blank">CSV</a></li>
+                    <li><a href="{{getUrl('excel')}}" download="comparison-information.csv" target="_blank">Excel</a></li>
+                </ul>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div ng-if="reports.length">
+    <div class="table-responsive">
+        <table class="table table-condensed small" id="comparison-information-table">
+            <thead>
+                <th>&nbsp;</th>
+                <th class="text-center nowrap" ng-repeat="n in reports[0].items[0].value track by $index"><a ng-click='drill(reports[0].items[1].value[$index], reports[0].items[5].value[$index], reports[0].items[6].value[$index])'>{{n}}<div class='small'>({{ reports[0].items[6].value[$index] }}/{{ reports[0].items[5].value[$index] }})</div></a></th>
+            </thead>
+            <tbody ng-repeat="report in reports">
+                <tr>
+                    <td colspan="{{report.items[0].value.length}}">
+                        <a ng-click="showtab[$index]=!showtab[$index]">
+                            <i class="fa fa-caret-down" ng-show="showtab[$index]"></i>
+                            <i class="fa fa-caret-right" ng-hide="showtab[$index]"></i>
+                            {{report.name}}
+                        </a>
+                    </td>
+                </tr>
+                <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
+                    <td>{{item.label}}</td>
+                    <td class="nowrap" ng-if="!report.isBoolean" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
+                        <span ng-if="item.type[$index] == 'NumericValue'">{{v || 0}}</span>
+                        <span ng-if="item.type[$index] != 'NumericValue' && !isBlock(v)">{{v || ' '}}</span>
+                        <a ng-if="item.type[$index] != 'NumericValue' && isBlock(v)" ng-click="showText(v)">Show Text</a>
+                    </td>
+                    <td class="nowrap text-center" ng-if="(report.isBoolean)" ng-repeat="v in item.value track by $index">
+                      <i class="fa semaphore fa-check-circle success" ng-if="v === true" tooltip="Rule passed"></i>
+                      <i class="fa semaphore fa-exclamation-triangle" ng-if="v === false" tooltip="Rule failed"></i>
+                      <span class="fa-stack semaphore disabled" ng-if="v === null" tooltip="Rule has been skipped because a precondition was not met">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="alert alert-info" ng-if="errornoresults">
+    <h4>No results found.</h4>
+    Here are some working examples: 
+    <a href="/comparison/information?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY">Basic financial information for DOW30 in 2013</a> or 
+    <a href="/comparison/information?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1">Basic financial information for Coca Cola and Walmart throughout 2012</a>
+</div>
+
+<div class="alert alert-danger" ng-if="error">
+    <h4>You are accessing filings for entities that are not part of DOW30.</h4>
+    To view that information you have to login with your credentials. If you do not have an account, you can create one using the <a href="/auth">registration form</a>.
+</div>
+
+<div class="alert alert-info" ng-if="errormany">
+    <h4>You are trying to compare information across {{filings.length}} filings.</h4>
+    Your account is restricted to compare 30 filings at a time. Please <a href="mailto:hello@28.io">contact us</a> to talk about your use case.
+</div>

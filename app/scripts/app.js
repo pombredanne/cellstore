@@ -506,18 +506,35 @@ angular.module('main', [
     })
     
     .state('root.comparison', {
-        url: '/comparison',
+        url: '/comparison?fiscalYear&fiscalPeriod&cik&tag&sic',
         templateUrl: '/views/comparison.html',
         controller: 'ComparisonCtrl',
+        resolve: {
+            tags: ['$backend', function($backend) { return $backend.getTags(); }],
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            sics: ['$backend', function($backend) { return $backend.getSics(); }]
+        },
         data: {
             title: 'Comparison',
             active: 'compare',
             subActive: 'compare'
         }
     })
-    .state('root.comparisonInformation', {
-        url: '/comparison/information',
-        templateUrl: '/views/comparison-information.html',
+    .state('root.comparison.filings', {
+        url: '/filings',
+        templateUrl: '/views/comparison/filings.html',
+        controller: 'ComparisonFilingsCtrl',
+        data: {
+            title: 'Filings',
+            active: 'compare',
+            subActive: 'filings'
+        }
+    })
+    .state('root.comparison.information', {
+        url: '/information',
+        templateUrl: '/views/comparison/information.html',
         controller: 'ComparisonInformationCtrl',
         data: {
             title: 'Basic Financial Information',
@@ -525,15 +542,23 @@ angular.module('main', [
             subActive: 'information'
         }
     })
-    .state('root.comparisonSearch', {
-        url: '/comparison/search',
-        templateUrl: '/views/comparison-search.html',
+    .state('root.comparison.validationsDashboard', {
+        url: '/validations-dashboard',
+        templateUrl: '/views/comparison/validations-dashboard.html',
+        controller: 'ComparisonValidationsDashboardCtrl',
+        data: {
+            title: 'Basic Semantic Validations',
+            active: 'compare',
+            subActive: 'validations-dashboard'
+        }
+    })
+    .state('root.comparison.search', {
+        url: '/search?concept&map',
+        templateUrl: '/views/comparison/search.html',
         controller: 'ComparisonSearchCtrl',
         resolve: {
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }],
+            allRules: ['$backend', function($backend) { return $backend.getRules(); }]
         },
         data: {
             title: 'Search Facts',
@@ -541,16 +566,10 @@ angular.module('main', [
             subActive: 'search'
         }
     })
-    .state('root.comparisonComponent', {
-        url: '/comparison/components',
-        templateUrl: '/views/comparison-components.html',
+    .state('root.comparison.component', {
+        url: '/components?reportElement&disclosure&label',
+        templateUrl: '/views/comparison/components.html',
         controller: 'ComparisonComponentsCtrl',
-        resolve: {
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-        },
         data: {
             title: 'Search Components',
             active: 'compare',
