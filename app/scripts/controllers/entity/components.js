@@ -15,6 +15,7 @@ angular.module('main')
     $scope.FiscalPeriod = a.FiscalPeriod;
     $scope.AcceptanceDatetime = a.AcceptanceDatetime;
     $scope.FormType = a.FormType;
+    $scope.Statistics = components.Statistics;
     
     $scope.trimTableURL = function(url) {
         if (url.length < 30) {
