@@ -5,6 +5,14 @@ angular.module('main')
     $scope.$on('$stateChangeSuccess', function(event, toState) {
         $scope.active = toState.data && toState.data.active;
     });
+
+    $scope.doLogout = function() {
+        $scope.$emit('logout');
+    };
+
+    $scope.doAuth = function() {
+        $scope.$emit('auth');
+    };
 })
 .controller('RootFilingCtrl', function($state, $stateParams, $location, filing){
     filing = filing.data;
