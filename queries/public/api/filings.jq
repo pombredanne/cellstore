@@ -130,7 +130,8 @@ return
         let $archives :=
                 for $a in $archives
                 order by filings:acceptance-dateTimes($a) descending
-                return local:summary($a)
+                group by $a._id
+                return local:summary($a[1])
         return
             switch ($format)
             case "xml"  return {
