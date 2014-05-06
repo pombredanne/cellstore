@@ -41,23 +41,23 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-lg-2 col-md-3 col-sm-4 control-label">Report Element</label>
+        <label class="col-lg-2 col-md-3 col-sm-4 control-label">Report element name</label>
         <div class="col-lg-5 col-md-9 col-sm-8">
             <input type="text" class="form-control" ng-model="searchReportElement"
               typeahead="key for key in reportElementNames | filter:$viewValue | limitTo: 15"
                typeahead-on-select="selectReportElement($item)">
         </div>
         <div class="col-lg-5 col-lg-offset-0 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
-            <small>Find components by report element.</small>
+            <small>Find components by a name of a contained report element.</small>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-lg-2 col-md-3 col-sm-4 control-label">Label</label>
+        <label class="col-lg-2 col-md-3 col-sm-4 control-label">Network title</label>
         <div class="col-lg-5 col-md-9 col-sm-8">
           <input type="text" class="form-control" ng-model="searchLabel">
         </div>
         <div class="col-lg-5 col-lg-offset-0 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
-            <small>Find components by text contained in labels.</small>
+            <small>Find components by text contained in network titles.</small>
         </div>
     </div>
     <div class="form-group">
