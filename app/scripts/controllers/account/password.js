@@ -16,14 +16,10 @@ angular.module('main')
             us.resetPassword({ userid: $scope.user.id, password: $scope.password, token: $scope.token })
               .then(
                 function(data) {
-                    if(data && data.success) {
-                        $scope.$emit('alert', 'Success', 'Your password has been changed.');
-                        $scope.password = '';
-                        $scope.passwordRepeat = '';
-                        $scope.attempted = false;
-                    } else {
-                        $scope.$emit('error', 500, data);
-                    }
+                    $scope.$emit('alert', 'Success', 'Your password has been changed.');
+                    $scope.password = '';
+                    $scope.passwordRepeat = '';
+                    $scope.attempted = false;
                     $scope.loading = false;
                 },
                 function(response) {

@@ -17,14 +17,10 @@ angular.module('main')
             us.editUser({ userid: $scope.user.id, email: $scope.user.email, firstname: $scope.firstname, lastname: $scope.lastname, token: $scope.token })
               .then(
                 function(data) {
-                    if(data && data.success) {
-                        $scope.$emit('alert', 'Success', 'Your profile information has been updated.');
-                        $scope.user.firstname = $scope.firstname;
-                        $scope.user.lastname = $scope.lastname;
-                        $scope.attempted = false;
-                    } else {
-                        $scope.$emit('error', 500, data);
-                    }
+                    $scope.$emit('alert', 'Success', 'Your profile information has been updated.');
+                    $scope.user.firstname = $scope.firstname;
+                    $scope.user.lastname = $scope.lastname;
+                    $scope.attempted = false;
                     $scope.loading = false;
                 },
                 function(response) {

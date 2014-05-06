@@ -403,7 +403,7 @@ angular.module('main', [
                 if (qs && qs.token) {
                     service.getUser({ token: qs.token })
                         .then(function(data) {
-                            if (data && data.success && data.user) {
+                            if (data && data.user) {
                                 $rootScope.login(qs.token, data.user._id, data.user.email, data.user.firstname, data.user.lastname);
                                 deferred.resolve($rootScope.user);
                             } else {
