@@ -17,8 +17,8 @@
     <li class="dropdown">
         <a class="dropdown-toggle">{{NetworkLabel}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-          <li><a href="/facttable/{{aid}}/{{component.NetworkIdentifier}}">Fact Table</a></li>
-          <li><a href="/modelstructure/{{aid}}/{{component.NetworkIdentifier}}">Model Structure</a></li>
+          <li><a href="/facttable/{{aid}}/{{networkIdentifier}}">Fact Table</a></li>
+          <li><a href="/modelstructure/{{aid}}/{{networkIdentifier}}">Model Structure</a></li>
         </ul>
     </li>
     <li></li>
@@ -36,10 +36,10 @@
                 <span class="dropdown pull-right">
                     <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
                     <ul class="dropdown-menu">
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&cid={{aid}}" target="_blank" download="{{aid.json}}">JSON</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&cid={{aid}}" target="_blank" download="{{aid.xml}}">XML</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&cid={{aid}}" target="_blank" download="{{aid.csv}}">CSV</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=excel&_method=POST&cid={{aid}}" target="_blank" download="{{aid.csv}}">Excel</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.json}}">JSON</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.xml}}">XML</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.csv}}">CSV</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=excel&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.csv}}">Excel</a></li>
                     </ul>
                 </span>
             </div>
@@ -61,7 +61,7 @@
                 <td>Accession Number</td><td>{{aid}}</td>
               </tr>
               <tr>
-                <td>Network Identifier</td><td>{{component.NetworkIdentifier}}</td>
+                <td>Network Identifier</td><td>{{networkIdentifier}}</td>
               </tr>
               <tr>
                 <td>Network Description</td><td>{{NetworkLabel}}</td>
@@ -103,8 +103,8 @@
           </table>
 		  </div>
           <div class="white-box-footer" style="padding: 15px;">
-            <a href="/facttable/{{aid}}/{{component.networkIdentifier}}">Fact Table</a> |
-            <a href="/modelstructure/{{aid}}/{{component.networkIdentifier}}">Model Structure</a>
+            <a href="/facttable/{{aid}}/{{networkIdentifier}}">Fact Table</a> |
+            <a href="/modelstructure/{{aid}}/{{networkIdentifier}}">Model Structure</a>
           </div>
         </div>
 	</div>
