@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('AccountPasswordCtrl', function($scope, $state, $backend, UsersService) {
+.controller('AccountPasswordCtrl', function($scope, $state, $backend) {
     $scope.attempted = false;
 
     $scope.change = function() {
@@ -12,8 +12,7 @@ angular.module('main')
 
         if(!$scope.resetForm.$invalid) {
             $scope.loading = true;
-            var us = (new UsersService($backend.API_URL + '/_queries/public'));
-            us.resetPassword({ userid: $scope.user.id, password: $scope.password, token: $scope.token })
+            $backend.Users.resetPassword({ userid: $scope.user.id, password: $scope.password, token: $scope.token })
               .then(
                 function() {
                     $scope.$emit('alert', 'Success', 'Your password has been changed.');

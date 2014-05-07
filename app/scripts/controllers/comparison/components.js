@@ -24,7 +24,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     //refresh the typeaheads
     $scope.reportElementNames = [];
     $scope.disclosureNames = [];
-    $scope.service.listReportElements({
+    $backend.Queries.listReportElements({
         $method : 'POST',
         onlyNames : true,
         cik: $scope.selection.cik,
@@ -73,7 +73,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
             token: $scope.token
         };
 
-        $scope.service.listComponents($scope.params)
+        $backend.Queries.listComponents($scope.params)
             .then(function (data) {
                 data.Archives.forEach(function (archive) {
                     archive.Components.forEach(function (component) {

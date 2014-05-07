@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('AccountInfoCtrl', function($scope, $state, $backend, UsersService) {
+.controller('AccountInfoCtrl', function($scope, $state, $backend) {
     $scope.attempted = false;
     $scope.firstname = $scope.user.firstname;
     $scope.lastname = $scope.user.lastname;
@@ -13,8 +13,7 @@ angular.module('main')
 
         if(!$scope.updateProfileForm.$invalid) {
             $scope.loading = true;
-            var us = (new UsersService($backend.API_URL + '/_queries/public'));
-            us.editUser({ userid: $scope.user.id, email: $scope.user.email, firstname: $scope.firstname, lastname: $scope.lastname, token: $scope.token })
+            $backend.Users.editUser({ userid: $scope.user.id, email: $scope.user.email, firstname: $scope.firstname, lastname: $scope.lastname, token: $scope.token })
               .then(
                 function() {
                     $scope.$emit('alert', 'Success', 'Your profile information has been updated.');

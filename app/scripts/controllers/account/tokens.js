@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('main')
-.controller('AccountTokensCtrl', function($scope, $modal, $backend, SessionService) {
+.controller('AccountTokensCtrl', function($scope, $modal, $backend) {
     $scope.tokens = [];
-    $scope.service = new SessionService($backend.API_URL + '/_queries/public');
     
     $scope.getData = function() {
-        $scope.service.tokens({ $method: 'POST', token: $scope.token, $refresh: true })
+        $backend.Session.tokens({ $method: 'POST', token: $scope.token, $refresh: true })
             .then(
                 function(data) {
                     $scope.tokens = data.results;
@@ -34,7 +33,7 @@ angular.module('main')
                 token: function() { return token.token; }
             }
         }).result.then(function(item) {
-            $scope.service.revoke({ $method: 'POST', email: $scope.user.email, password: item.password, token: token.token, $refresh: true })
+            $backend.Session.revoke({ $method: 'POST', email: $scope.user.email, password: item.password, token: token.token, $refresh: true })
                 .then(
                     function() {
                         if (token.token === $scope.token)
@@ -83,7 +82,7 @@ angular.module('main')
                 };
             }]
         }).result.then(function(item) {
-            $scope.service.token({ $method: 'POST', email: $scope.user.email, password: item.password, expiration: item.expiration, $refresh: true })
+            $backend.Session.token({ $method: 'POST', email: $scope.user.email, password: item.password, expiration: item.expiration, $refresh: true })
                 .then(
                     function() {
                         $scope.getData();
