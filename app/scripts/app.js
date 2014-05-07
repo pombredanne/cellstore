@@ -16,8 +16,9 @@ angular.module('main', [
     });
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-        //TODO: fix hardcoded 500
-        $rootScope.$emit('error', 500, error);
+        var status = error.status || 500;
+        var content = error.data || error;
+        $rootScope.$emit('error', status, content);
         ngProgressLite.done();
     });
 })
@@ -25,9 +26,7 @@ angular.module('main', [
     return {
         'response': function(response) {
             if(response.data.Statistics){
-                console.log(response.data.Statistics);
                 $rootScope.Statistics = response.data.Statistics;
-                console.log($rootScope.Statistics);
             }
             // do something on success
             return response || $q.when(response);
@@ -205,23 +204,9 @@ angular.module('main', [
         templateUrl: '/views/entity/filings.html',
         controller: 'FilingsCtrl',
         resolve: {
-            filings: ['$q', '$http', '$stateParams', '$backend', function($q, $http, $stateParams, $backend){
-                var deferred = $q.defer();
-                var cik = $stateParams.cik;
-                $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
-                    params : {
-                        '_method' : 'POST',
-                        'cik' : cik,
-                        'fiscalPeriod': 'ALL',
-                        'fiscalYear': 'ALL'
-                    }
-                })
-                .success(function(data) {
-                    deferred.resolve(data);
-                });
-                return deferred.promise;
+            filings: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listFilings({ $method: 'POST', cik: $stateParams.cik, fiscalPeriod: 'ALL', fiscalYear: 'ALL', token: $rootScope.token });
             }]
         },
         data: {
@@ -257,19 +242,13 @@ angular.module('main', [
         templateUrl: '/views/entity/filing.html',
         controller: 'FilingCtrl',
         resolve: {
-            filing: ['$q', '$rootScope', '$stateParams', '$http', '$backend', function($q, $rootScope, $stateParams, $http, $backend){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
-                    params : {
-                        '_method': 'POST',
-                        'aid': $stateParams.aid,
-                        'token': $rootScope.token
-                    }
-                });
+            filing: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listFilings({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         data: {
+            subActive: 'filings',
             title: 'Filing'
         }
     })
@@ -278,19 +257,13 @@ angular.module('main', [
         templateUrl: '/views/entity/components.html',
         controller: 'ComponentsCtrl',
         resolve: {
-            components: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/components.jq',
-                    params : {
-                        '_method' : 'POST',
-                        'aid' : $stateParams.aid,
-                        'token' : $rootScope.token
-                    }
-                });
+            components: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         data: {
+            subActive: 'filings',
             title: 'Components'
         }
     })
@@ -299,20 +272,13 @@ angular.module('main', [
         templateUrl: '/views/entity/component.html',
         controller: 'ComponentCtrl',
         resolve: {
-            component: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
-                return $http({
-                    method: 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/components.jq',
-                    params: {
-                        '_method' : 'POST',
-                        'aid' : $stateParams.aid,
-                        'networkIdentifier' : $stateParams.networkIdentifier,
-                        'token' : $rootScope.token
-                    }
-                });
+            component: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         data: {
+            subActive: 'filings',
             title: 'Component'
         }
     })
@@ -332,6 +298,7 @@ angular.module('main', [
             }]
         },
         data: {
+            subActive: 'filings',
             title: 'Fact Table'
         }
     })
@@ -340,20 +307,13 @@ angular.module('main', [
         templateUrl: '/views/entity/modelstructure.html',
         controller: 'ModelStructureCtrl',
         resolve: {
-            modelStructure: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
-                    params : {
-                        '_method' : 'POST',
-                        'aid' : $stateParams.aid,
-                        'networkIdentifier' : $stateParams.networkIdentifier,
-                        'token' : $rootScope.token
-                    }
-                });
+            modelStructure: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listModelStructure({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         data: {
+            subActive: 'filings',
             title: 'Component Model Structure'
         }
     })
@@ -362,16 +322,9 @@ angular.module('main', [
     .state('root.filing', {
         url: '/filing/:aid',
         resolve: {
-            filing: ['$q', '$rootScope', '$stateParams', '$http', '$backend', function($q, $rootScope, $stateParams, $http, $backend){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/filings.jq',
-                    params : {
-                        '_method': 'POST',
-                        'aid': $stateParams.aid,
-                        'token': $rootScope.token
-                    }
-                });
+            filing: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listFilings({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         controller: 'RootFilingCtrl'
@@ -381,16 +334,9 @@ angular.module('main', [
     .state('root.components', {
         url: '/components/:aid',
         resolve: {
-            components: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/components.jq',
-                    params : {
-                        '_method': 'POST',
-                        'aid': $stateParams.aid,
-                        'token': $rootScope.token
-                    }
-                });
+            components: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         controller: 'RootComponentsCtrl'
@@ -400,17 +346,9 @@ angular.module('main', [
     .state('root.component', {
         url: '/component/:aid/{networkIdentifier:.*}',
         resolve: {
-            component: ['$rootScope', '$http', '$backend', '$stateParams', function($rootScope, $http, $backend, $stateParams){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/components.jq',
-                    params : {
-                        '_method' : 'POST',
-                        'aid' : $stateParams.aid,
-                        'networkIdentifier': $stateParams.networkIdentifier,
-                        'token' : $rootScope.token
-                    }
-                });
+            component: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         controller: 'RootComponentCtrl'
@@ -437,17 +375,9 @@ angular.module('main', [
     .state('root.modelstructure', {
         url: '/modelstructure/:aid/{networkIdentifier:.*}',
         resolve: {
-            modelStructure: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend){
-                return $http({
-                    method : 'GET',
-                    url: $backend.API_URL + '/_queries/public/api/modelstructure-for-component.jq',
-                    params : {
-                        '_method' : 'POST',
-                        'aid' : $stateParams.aid,
-                        'networkIdentifier' : $stateParams.networkIdentifier,
-                        'token' : $rootScope.token
-                    }
-                });
+            modelStructure: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
+                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
+                return service.listModelStructure({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         controller: 'RootModelStructureCtrl'
@@ -468,19 +398,69 @@ angular.module('main', [
         url: '/account',
         templateUrl: '/views/account.html',
         controller: 'AccountCtrl',
+        resolve: {
+            user: ['$rootScope', '$q', '$location', '$backend', 'UsersService', function($rootScope, $q, $location, $backend, UsersService) {
+                var service = (new UsersService($backend.API_URL + '/_queries/public'));
+                var deferred = $q.defer();
+                
+                //force auth if the token comes as query string
+                var qs = $location.search();
+                if (qs && qs.token) {
+                    service.getUser({ token: qs.token })
+                        .then(function(data) {
+                            if (data && data.user) {
+                                $rootScope.login(qs.token, data.user._id, data.user.email, data.user.firstname, data.user.lastname);
+                                deferred.resolve($rootScope.user);
+                            } else {
+                                deferred.reject({ status: 401, data: data });
+                            }
+                        },
+                        function(response) {
+                            deferred.reject(response);
+                        });
+                } else if (!$rootScope.token) {
+                    deferred.reject({ status: 401, data: { description: 'Unauthorized access!' } });
+                } else {
+                    deferred.resolve($rootScope.user);
+                }
+                return deferred.promise;
+            }]
+        },
         data: {
             title: 'Account'
         }
     })
-    .state('root.accountSection', {
-        url: '/account/:section',
-        templateUrl: '/views/account.html',
-        controller: 'AccountCtrl',
+
+    .state('root.account.info', {
+        url: '/info',
+        templateUrl: '/views/account/info.html',
+        controller: 'AccountInfoCtrl',
         data: {
-            title: 'Account'
+            subActive: 'info',
+            title: 'Account Information'
         }
     })
-    
+
+    .state('root.account.password', {
+        url: '/password',
+        templateUrl: '/views/account/password.html',
+        controller: 'AccountPasswordCtrl',
+        data: {
+            subActive: 'password',
+            title: 'Change Password'
+        }
+    })
+
+    .state('root.account.tokens', {
+        url: '/tokens',
+        templateUrl: '/views/account/tokens.html',
+        controller: 'AccountTokensCtrl',
+        data: {
+            subActive: 'tokens',
+            title: 'API Tokens'
+        }
+    })
+
     .state('root.conceptMap', {
         url: '/concept-map/:name',
         controller: 'ConceptMapCtrl',
@@ -531,18 +511,35 @@ angular.module('main', [
     })
     
     .state('root.comparison', {
-        url: '/comparison',
+        url: '/comparison?fiscalYear&fiscalPeriod&cik&tag&sic',
         templateUrl: '/views/comparison.html',
         controller: 'ComparisonCtrl',
+        resolve: {
+            tags: ['$backend', function($backend) { return $backend.getTags(); }],
+            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
+            years: ['$backend', function($backend) { return $backend.getYears(); }],
+            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
+            sics: ['$backend', function($backend) { return $backend.getSics(); }]
+        },
         data: {
             title: 'Comparison',
             active: 'compare',
             subActive: 'compare'
         }
     })
-    .state('root.comparisonInformation', {
-        url: '/comparison/information',
-        templateUrl: '/views/comparison-information.html',
+    .state('root.comparison.filings', {
+        url: '/filings',
+        templateUrl: '/views/comparison/filings.html',
+        controller: 'ComparisonFilingsCtrl',
+        data: {
+            title: 'Filings',
+            active: 'compare',
+            subActive: 'filings'
+        }
+    })
+    .state('root.comparison.information', {
+        url: '/information',
+        templateUrl: '/views/comparison/information.html',
         controller: 'ComparisonInformationCtrl',
         data: {
             title: 'Basic Financial Information',
@@ -550,15 +547,23 @@ angular.module('main', [
             subActive: 'information'
         }
     })
-    .state('root.comparisonSearch', {
-        url: '/comparison/search',
-        templateUrl: '/views/comparison-search.html',
+    .state('root.comparison.validationsDashboard', {
+        url: '/validations-dashboard',
+        templateUrl: '/views/comparison/validations-dashboard.html',
+        controller: 'ComparisonValidationsDashboardCtrl',
+        data: {
+            title: 'Basic Semantic Validations',
+            active: 'compare',
+            subActive: 'validations-dashboard'
+        }
+    })
+    .state('root.comparison.search', {
+        url: '/search?concept&map',
+        templateUrl: '/views/comparison/search.html',
         controller: 'ComparisonSearchCtrl',
         resolve: {
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
+            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }],
+            allRules: ['$backend', function($backend) { return $backend.getRules(); }]
         },
         data: {
             title: 'Search Facts',
@@ -566,16 +571,10 @@ angular.module('main', [
             subActive: 'search'
         }
     })
-    .state('root.comparisonComponent', {
-        url: '/comparison/components',
-        templateUrl: '/views/comparison-components.html',
+    .state('root.comparison.component', {
+        url: '/components?reportElement&disclosure&label',
+        templateUrl: '/views/comparison/components.html',
         controller: 'ComparisonComponentsCtrl',
-        resolve: {
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-        },
         data: {
             title: 'Search Components',
             active: 'compare',
@@ -609,138 +608,139 @@ angular.module('main', [
     })
     ;
 })
-.run(function($rootScope, $location, $http, $modal, $backend, $angularCacheFactory) {
+.run(function($rootScope, $location, $state, $http, $modal, $backend, $angularCacheFactory) {
 
     $rootScope.API_URL = $backend.API_URL;
-	$rootScope.DEBUG = $backend.DEBUG;
+    $rootScope.DEBUG = $backend.DEBUG;
 
-	$angularCacheFactory('secxbrl-http', {
+    $angularCacheFactory('secxbrl-http', {
         maxAge: 60 * 60 * 1000,
         recycleFreq: 60 * 1000,
         deleteOnExpire: 'aggressive'
     });
-	$http.defaults.cache = $angularCacheFactory.get('secxbrl-http');
+    $http.defaults.cache = $angularCacheFactory.get('secxbrl-http');
 
-	$angularCacheFactory('secxbrl', {
+    $angularCacheFactory('secxbrl', {
         maxAge: 60 * 60 * 1000,
         recycleFreq: 60 * 1000,
         deleteOnExpire: 'aggressive',
         storageMode: 'localStorage'
     });
 
-	var cache = $angularCacheFactory.get('secxbrl');
-	if (cache)
-	{
-		$rootScope.token = cache.get('token');
-		$rootScope.user = cache.get('user');
-	}
+    var cache = $angularCacheFactory.get('secxbrl');
+    if (cache)
+    {
+        $rootScope.token = cache.get('token');
+        $rootScope.user = cache.get('user');
+    }
 
-	$rootScope.$on('error', function(event, status, error){
-		if (status === 401) {
-            var p = $location.path();
-            if (p === '/account' || p === '/account/password' || p === '/account/info') {
-                p = '';
-            }
-		    $location.path('/auth' + p).replace();
-			return;
-		}
-		$modal.open( {
-			template: '<div class="modal-header h3"> Error {{object.status}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body"> {{object.error.description }} <br><a ng-click="details=true" ng-hide="details" class="dotted">Show details</a><pre ng-show="details" class="small">{{object.error | json }}</pre></div>',
-			controller: ['$scope', '$modalInstance', 'object', function ($scope, $modalInstance, object) {
-                $scope.object = object;
-				$scope.cancel = function () {
-				    $modalInstance.dismiss('cancel');
-				};
-            }],
-			resolve: {
-				object: function() { return { status: status, error: error }; }
-			}
-		});
-	});
+    $rootScope.$on('error', function(event, status, error){
+        if (status === 401) {
+            $rootScope.$emit('auth');
+        }
+        else
+        {
+            $modal.open( {
+                template: '<div class="modal-header h3"> Error {{object.status}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body"> {{object.error.description }} <br><a ng-click="details=true" ng-hide="details" class="dotted">Show details</a><pre ng-show="details" class="small">{{object.error | json }}</pre></div>',
+                controller: ['$scope', '$modalInstance', 'object', function ($scope, $modalInstance, object) {
+                    $scope.object = object;
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }],
+                resolve: {
+                    object: function() { return { status: status, error: error }; }
+                }
+            });
+        }
+    });
 
-	$rootScope.$on('alert', function(event, title, message){
-		$modal.open( {
-			template: '<div class="modal-header h3"> {{object.title}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
-			controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
+    $rootScope.$on('alert', function(event, title, message){
+        $modal.open( {
+            template: '<div class="modal-header h3"> {{object.title}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
+            controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
                 $scope.object = object;
-				$scope.cancel = function () {
-				    $modalInstance.dismiss('cancel');
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
                 };
-			}],
-			resolve: {
-				object: function() { return { title: title, message: message }; }
-			}
-		});
-	});
+            }],
+            resolve: {
+                object: function() { return { title: title, message: message }; }
+            }
+        });
+    });
 
-	$rootScope.$on('login', function(event, token, id, email, firstname, lastname, url){
-		$rootScope.token = token;
-		$rootScope.user = { id: id, email: email, firstname: firstname, lastname: lastname };
-		var cache = $angularCacheFactory.get('secxbrl');
-		if (cache)
-		{
-			cache.put('token', angular.copy($rootScope.token));
-			cache.put('user', angular.copy($rootScope.user));
-		}
-		//MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'login' });
-		if (!url) {
-            url='/';
+    $rootScope.$on('auth', function() {
+        var p = $location.path();
+        if (p === '/account' || p === '/account/password' || p === '/account/info') {
+            p = '';
         }
-		$location.path(url).replace();
-	});
+        $state.go('root.auth', { returnPage: p }, { reload: true });
+    });
 
-	$rootScope.$on('logout', function(){
-		$rootScope.logout();
-	});
+    $rootScope.$on('login', function(event, token, id, email, firstname, lastname, url){
+        $rootScope.login(token, id, email, firstname, lastname);
+        $location.path(url).replace();
+    });
 
-	$rootScope.logout = function() {
-		if ($rootScope.user) {
-			//MunchkinHelper.associateLead({ Email: $rootScope.user.email, lastsecxbrlinfoop: 'logout' });
+    $rootScope.login = function(token, id, email, firstname, lastname) {
+        $rootScope.token = token;
+        $rootScope.user = { id: id, email: email, firstname: firstname, lastname: lastname };
+        var cache = $angularCacheFactory.get('secxbrl');
+        if (cache)
+        {
+            cache.put('token', angular.copy($rootScope.token));
+            cache.put('user', angular.copy($rootScope.user));
+        }
+        //MunchkinHelper.associateLead({ Email: email, lastsecxbrlinfoop: 'login' });
+    };
+
+    $rootScope.$on('logout', function(){
+        $rootScope.logout();
+        $location.path('/').replace();
+    });
+
+    $rootScope.logout = function() {
+        if ($rootScope.user) {
+            //MunchkinHelper.associateLead({ Email: $rootScope.user.email, lastsecxbrlinfoop: 'logout' });
         }
 
-		$rootScope.token = null;
-		$rootScope.user = null;
-		var cache = $angularCacheFactory.get('secxbrl');
-		if (cache) {
-			cache.remove('token');
-			cache.remove('user');
-		}
-		$location.path('/').replace();
-	};
+        $rootScope.token = null;
+        $rootScope.user = null;
+        var cache = $angularCacheFactory.get('secxbrl');
+        if (cache) {
+            cache.remove('token');
+            cache.remove('user');
+        }
+    };
 
-	$rootScope.$on('clearCache', function(){//event
+    $rootScope.$on('clearCache', function(){//event
         $rootScope.clearCache();
-	});
+        $location.path('/').replace();
+    });
 
-	$rootScope.clearCache = function() {
-		$angularCacheFactory.clearAll();
-		$location.path('/').replace();
-	};
+    $rootScope.clearCache = function() {
+        $angularCacheFactory.clearAll();
+    };
 
-	$rootScope.gotoId = function(id) {
-		$rootScope.$broadcast('scroll-id', id);
-	};
+    $rootScope.gotoId = function(id) {
+        $rootScope.$broadcast('scroll-id', id);
+    };
 
-	$rootScope.gotologin = function() {
-		var p = $location.path();
-		if (p.length > 5 && p.substring(0, 5) === '/auth') { return; }
-		$location.url('/auth' + p, true);
-	};
-
-	$rootScope.substring = function(string, len) {
-		if (string && string.length > len) {
-			return string.substring(0, len) + '...';
+    $rootScope.substring = function(string, len) {
+        if (string && string.length > len) {
+            return string.substring(0, len) + '...';
         } else {
             return string;
         }
-	};
+    };
 
-	$rootScope.toggleMenu = function(event, visible) {
-		$rootScope.visibleMenu = visible;
-		if (event && visible) {
+    $rootScope.toggleMenu = function(event, visible) {
+        $rootScope.visibleMenu = visible;
+        if (event && visible) {
             event.stopPropagation();
         }
-	};
+    };
 
     $rootScope.wwwFormUrlencoded = function (params) {
         if (params)

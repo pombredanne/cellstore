@@ -8,13 +8,14 @@ angular.module('main')
     $scope.cik = $stateParams.cik;
     $scope.aid = $stateParams.aid;
     
-    var a = components.data.Archives[0]; // must be only one because we query for only one accession number
+    var a = components.Archives[0]; // must be only one because we query for only one accession number
     $scope.components = a.Components;
     $scope.EntityRegistrantName = a.EntityRegistrantName;
     $scope.FiscalYear = a.FiscalYear;
     $scope.FiscalPeriod = a.FiscalPeriod;
     $scope.AcceptanceDatetime = a.AcceptanceDatetime;
     $scope.FormType = a.FormType;
+    $scope.Statistics = components.Statistics;
     
     $scope.trimTableURL = function(url) {
         if (url.length < 30) {
@@ -31,6 +32,6 @@ angular.module('main')
     };
     
     $scope.getExportURL = function(format){
-        return $backend.API_URL + '/_queries/public/api/components.jq?_method=POST&aid=' + $stateParams.aid + '&token=' + $rootScope.token;
+        return $backend.API_URL + '/_queries/public/api/components.jq?_method=POST&format=' + format + '&aid=' + $stateParams.aid + '&token=' + $rootScope.token;
     };
 });

@@ -24,17 +24,22 @@
     table.table.info-boolean
     {
         > thead > tr > th:nth-child(2) {
-            text-align: center;
+            text-align: right;
         }
         > tbody > tr > td:nth-child(2) {
+            text-align: right;
             width: 150px;
         }
         .semaphore {
-            color: @pomegranate;
+            color: @orange;
             font-size: 1.4em;
         }
         .semaphore.success {
             color: @nephritis;
+        }
+        .semaphore.disabled {
+            color: @asbestos;
+            font-size: 0.7em;
         }
     }
 }

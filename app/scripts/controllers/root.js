@@ -5,23 +5,29 @@ angular.module('main')
     $scope.$on('$stateChangeSuccess', function(event, toState) {
         $scope.active = toState.data && toState.data.active;
     });
+
+    $scope.doLogout = function() {
+        $scope.$emit('logout');
+    };
+
+    $scope.doAuth = function() {
+        $scope.$emit('auth');
+    };
 })
 .controller('RootFilingCtrl', function($state, $stateParams, $location, filing){
-    filing = filing.data;
     var cik = filing.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
     //This state is a redirect
     $state.go('root.entity.filing', { cik: cik, aid: $stateParams.aid });
     $location.replace();
 })
 .controller('RootComponentsCtrl', function($state, $stateParams, $location, components){
-    components = components.data;
     var cik = components.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
     //This state is a redirect
     $state.go('root.entity.components', { cik: cik, aid: $stateParams.aid });
     $location.replace();
 })
 .controller('RootComponentCtrl', function($state, $stateParams, $location, component) {
-    var cik = component.data.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
+    var cik = component.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
     var aid = $stateParams.aid;
     var networkIdentifier = $stateParams.networkIdentifier;
     //This state is a redirect
@@ -37,7 +43,7 @@ angular.module('main')
     $location.replace();
 })
 .controller('RootModelStructureCtrl', function($state, $stateParams, $location, modelStructure){
-    var cik = modelStructure.data.CIK.substring('http://www.sec.gov/CIK'.length + 1);
+    var cik = modelStructure.CIK.substring('http://www.sec.gov/CIK'.length + 1);
     var aid = $stateParams.aid;
     var networkIdentifier = $stateParams.networkIdentifier;
     //This state is a redirect

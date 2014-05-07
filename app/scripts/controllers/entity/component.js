@@ -7,7 +7,7 @@ angular.module('main')
     $scope.aid = $stateParams.aid;
     $scope.networkIdentifier = $stateParams.networkIdentifier;
     
-    $scope.archive = component.data.Archives[0];
+    $scope.archive = component.Archives[0];
     $scope.component = $scope.archive.Components[0];
 
     var p = $scope.component.NetworkLabel.lastIndexOf(' - ');

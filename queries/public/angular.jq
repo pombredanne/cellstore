@@ -5,7 +5,7 @@ declare variable $keyword-map := {
 (:    default: "difault" :)
 };
 
-declare function local:camel-case($name) {
+declare function local:camel-case($name as string) as string {
     let $name := if(exists($keyword-map($name))) then
 $keyword-map($name) else $name
     let $tokens :=
@@ -19,7 +19,7 @@ $keyword-map($name) else $name
     return string-join($tokens, "")
 };
 
-declare function local:signature($parameters){
+declare function local:signature($parameters as object*) as string {
     string-join(
         for $parameter in $parameters
         where not($parameter.paramType eq "header" and
@@ -28,13 +28,13 @@ jn:size($parameter.enum) eq 1)
     , ", ")
 };
 
-declare function local:queries($parameters) {
+declare function local:queries($parameters as object*) as object* {
     for $param in $parameters
     where $param.paramType eq "query"
     return $param
 };
 
-declare function local:singletons($parameters) {
+declare function local:singletons($parameters as object*) as object*{
     for $parameter in $parameters
     where jn:size($parameter.enum) eq 1
     return {
@@ -43,7 +43,7 @@ declare function local:singletons($parameters) {
     }
 };
 
-declare function local:path($path, $parameters) {
+declare function local:path($path as string, $parameters as object*) as string {
     let $segments :=
         for $segment in $parameters
         where $segment.paramType eq "path"
@@ -51,7 +51,7 @@ declare function local:path($path, $parameters) {
     return
         local:compute-path($path, $segments) };
 
-declare function local:compute-path($path, $segments){
+declare function local:compute-path($path as string, $segments as string*) as string {
     if(empty($segments)) then
         "'" || $path || "'"
     else
@@ -65,7 +65,7 @@ declare function local:compute-path($path, $segments){
         )
 };
 
-declare function local:has-body($parameters) {
+declare function local:has-body($parameters as object*) as boolean {
     exists(
         for $param in $parameters
         where $param.paramType eq "body"
@@ -73,7 +73,7 @@ declare function local:has-body($parameters) {
     )
 };
 
-declare function local:has-headers($parameters) {
+declare function local:has-headers($parameters as object*) as boolean {
     exists(
         for $param in $parameters
         where $param.paramType eq "header"
@@ -81,7 +81,8 @@ declare function local:has-headers($parameters) {
     )
 };
 
-declare function local:javascript($d, $new-module) { "angular.module('" || $d.module || "'" || (if($new-module) then ", []" else "") || ")
+declare function local:javascript($d as object, $new-module as boolean) as string {
+"angular.module('" || $d.module || "'" || (if($new-module) then ", []" else "") || ")
 /**
  * " || (if($d.doc.description) then $d.doc.description else "Description Missing") || "
  */
@@ -170,7 +171,8 @@ declare function local:javascript($d, $new-module) { "angular.module('" || $d.mo
                 url: url,
                 params: params" || (if($operation.hasBody) then ",
 data: body" else "")  || (if($operation.hasHeaders) then ", headers: "
-|| $operation.headers else "") || "
+|| $operation.headers else "") || ",
+                cache: (parameters.$refresh !== true)
             })
             .success(function(data, status, headers, config){
                 deferred.resolve(data);

@@ -40,7 +40,7 @@ declare function local:to-csv($o as object*) as string
     )
 };
 
-declare function local:to-xml($o as object*)
+declare function local:to-xml($o as object*) as element()*
 {
     for $o in $o
     let $a := $o.Aspects
@@ -65,7 +65,7 @@ declare function local:to-xml($o as object*)
         }</Fact>
 };
 
-declare function local:components-by-disclosures($disclosures, $aids)
+declare function local:components-by-disclosures($disclosures as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -84,7 +84,7 @@ declare function local:components-by-disclosures($disclosures, $aids)
         })
 };
 
-declare function local:components-by-roles($roles, $aids)
+declare function local:components-by-roles($roles as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -102,7 +102,7 @@ declare function local:components-by-roles($roles, $aids)
         })
 };
 
-declare function local:components-by-concepts($concepts, $aids)
+declare function local:components-by-concepts($concepts as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -123,12 +123,12 @@ declare function local:components-by-concepts($concepts, $aids)
 };
 
 declare function local:filings(
-    $ciks,
-    $tags,
-    $tickers,
-    $sics,
-    $fp,
-    $fy)
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as string*) as object*
 {
     let $entities := (
         companies:companies($ciks),
@@ -148,10 +148,40 @@ declare function local:filings(
                             then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
                         case "ALL" return  $fiscal:ALL_FISCAL_YEARS
-                    default return $fy
+                    default return $fy cast as integer
                 )
     for $fp in $fp 
-    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
+    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy)
+};
+
+(:
+ : This function needs to go into the core. It returns all facts for a network
+ : - not only the ones for the specific FY/FP
+ :)
+declare function local:facts($networks-or-ids as item*, $options as object?)
+as object*
+{
+  for $component as object in components:components($networks-or-ids)
+  for $table as string? allowing empty in sec-networks:tables($component).Name
+  let $hypercube as object? := hypercubes:hypercubes-for-components($component, $table)
+  let $hypercube as object := if (exists($hypercube))
+                              then $hypercube
+                              else sec:dimensionless-hypercube({
+                                  Concepts: [ sec-networks:line-items($component).Name ]
+                              })
+  let $facts := hypercubes:facts-for-hypercube(
+    $hypercube,
+    $component.Archive,
+    $options
+  )
+  let $hide-amended-facts as boolean := 
+    if (exists($options.HideAmendedFacts))
+    then $options.HideAmendedFacts
+    else true (: default :)
+  return
+    if ($hide-amended-facts)
+    then sec:hide-amended-facts($facts)
+    else $facts
 };
 
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
@@ -165,7 +195,7 @@ let $fiscalYears := distinct-values(
                             if ($y eq "LATEST" or $y eq "ALL")
                             then $y
                             else if ($y castable as integer)
-                            then $y cast as integer
+                            then $y
                             else ()
                     )
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
@@ -217,7 +247,7 @@ return
                                 for $d in $rollup
                                 return ($d, keys(descendant-objects($p)[$$.Name eq $d].To))
                          return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
-                     else sec-networks:facts($component, {||})
+                     else local:facts($component, {| |}) 
         let $fact-table :=  for $f in $facts
                             let $a := $f.Aspects
                             return {|

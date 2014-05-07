@@ -7,7 +7,7 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 
-declare function local:to-xml($c)
+declare function local:to-xml($c as object) as node()*
 {
     (
         session:comment("xml"),
@@ -27,7 +27,7 @@ declare function local:to-xml($c)
     )
 };
 
-declare function local:to-csv($c)
+declare function local:to-csv($c as object) as string
 {
     string-join(
         csv:serialize(

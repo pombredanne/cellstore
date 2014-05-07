@@ -70,7 +70,7 @@ declare function local:to-csv($components as object*) as string*
     { serialize-null-as : "" })
 };
 
-declare function local:component-summary($component)
+declare function local:component-summary($component as object) as object
 {
     {
         ComponentId : $component._id,
@@ -90,7 +90,7 @@ declare function local:component-summary($component)
     }
 };
 
-declare function local:components-by-disclosures($disclosures, $aids)
+declare function local:components-by-disclosures($disclosures as string, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -109,7 +109,7 @@ declare function local:components-by-disclosures($disclosures, $aids)
         })
 };
 
-declare function local:components-by-roles($roles, $aids)
+declare function local:components-by-roles($roles as string, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -127,7 +127,7 @@ declare function local:components-by-roles($roles, $aids)
         })
 };
 
-declare function local:components-by-reportElements($reportElements, $aids)
+declare function local:components-by-reportElements($reportElements as string, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -147,13 +147,35 @@ declare function local:components-by-reportElements($reportElements, $aids)
     return components:components($ids)
 };
 
+declare function local:components-by-label($search-term as string, $aids as string*) as object*
+{
+    let $conn :=
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    return mongo:run-cmd-deterministic(
+           $conn,
+           {
+             "text" : "components",
+             "filter" : { "Archive" : { "$in" : [ $aids ] } },
+             "search" : $search-term,
+             "limit" : 100,
+             "score" : { "$meta" : "textScore" },
+             "sort" : { score: { "$meta" : "textScore" } }
+           }).results[].obj
+};
+
 declare function local:filings(
-    $ciks,
-    $tags,
-    $tickers,
-    $sics,
-    $fp,
-    $fy)
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as string*) as object*
 {
     let $entities := (
         companies:companies($ciks),
@@ -173,10 +195,10 @@ declare function local:filings(
                             then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
                     case "ALL" return  $fiscal:ALL_FISCAL_YEARS
-                    default return $fy
+                    default return $fy cast as integer
                 )
     for $fp in $fp 
-    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
+    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy)
 };
 
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
@@ -190,7 +212,7 @@ let $fiscalYears := distinct-values(
                             if ($y eq "LATEST" or $y eq "ALL")
                             then $y
                             else if ($y castable as integer)
-                            then $y cast as integer
+                            then $y
                             else  ()
                     )
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
@@ -207,15 +229,18 @@ let $archives    := (
 let $cid         := request:param-values("cid")
 let $reportElements    := distinct-values(request:param-values("reportElement"))
 let $disclosures := request:param-values("disclosure")
+let $search := request:param-values("label")
 let $components  := (if (exists($cid))
                     then components:components($cid)
                     else (),
-                    if (exists($reportElements) or exists($disclosures) or exists($roles))
-                    then (
-                            local:components-by-reportElements($reportElements, $archives._id), 
-                            local:components-by-disclosures($disclosures, $archives._id),
-                            local:components-by-roles($roles, $archives._id)
-                        )
+                    if (exists($reportElements))
+                    then local:components-by-reportElements($reportElements, $archives._id)
+                    else if (exists($disclosures))
+                    then local:components-by-disclosures($disclosures, $archives._id)
+                    else if (exists($roles))
+                    then local:components-by-roles($roles, $archives._id)
+                    else if (exists($search))
+                    then local:components-by-label($search, $archives._id)
                     else components:components-for-archives($archives._id))
 let $entities    := entities:entities($archives.Entity)
 return 
