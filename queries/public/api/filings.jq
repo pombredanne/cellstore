@@ -129,8 +129,8 @@ return
     then {
         let $archives :=
                 for $a in $archives
-                order by filings:acceptance-dateTimes($a) descending
-                group by $a._id
+                group by $a._id (: duplicate elimination :)
+                order by filings:acceptance-dateTimes($a[1]) descending
                 return local:summary($a[1])
         return
             switch ($format)
