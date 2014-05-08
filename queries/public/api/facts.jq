@@ -93,28 +93,18 @@ declare function local:facts(
             return { $d.Name: [ $members ] }
         |}
     let $hypercube := copy $h := hypercubes:dimensionless-hypercube()
-                      modify (
-                          insert json (
-                            if (values($dimensions).Name = "dei:LegalEntityAxis")
-                            then { "dei:LegalEntityAxis" : values($dimensions)[$$.Name eq "dei:LegalEntityAxis"] }
-                            else
-                            {|
-                                "dei:LegalEntityAxis" ! {
-                                $$ : {
-                                        Name : $$,
-                                        Default : "sec:DefaultLegalEntity",
-                                        Domains: {
-                                            "sec:DefaultLegalEntity" : {
-                                                Name: "sec:DefaultLegalEntity"
-                                            }
-                                        }
-                                    }
-                                }
-                            |})
-                          into $h.Aspects,
-                          for $d in $dimensions[not values($$).Name = "dei:LegalEntityAxis"]
-                          return insert json $d into $h.Aspects 
-                      )
+                      modify
+                          for $n in keys($dimensions)
+                          let $default := collection("defaultaxis")[$$.axis eq $n]
+                          let $d :=
+                              if (empty($dimensions.$n.Default) and exists($default))
+                              then copy $new-d := $dimensions.$n
+                                   modify (insert json { "Default" : $default.default } into $new-d)
+                                   return $new-d
+                              else $dimensions.$n
+                      return
+                              insert json { $n : $d } into $h.Aspects
+                       
                       return $h
     let $options :=
             {|
