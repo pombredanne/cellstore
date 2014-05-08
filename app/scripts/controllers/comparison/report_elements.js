@@ -39,7 +39,7 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
     
     //refresh the typeaheads
     $scope.reportElementNames = [];
-    $scope.service.listReportElements({
+    $backend.Queries.listReportElements({
         $method : 'POST',
         onlyNames : true,
         cik: $scope.selection.cik,
@@ -74,7 +74,7 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
             token: $scope.token
         };
 
-        $scope.service.listReportElements($scope.params)
+        $backend.Queries.listReportElements($scope.params)
             .then(function (data) {
                 $scope.results = data.ReportElements;
                 $scope.errornoresults = ($scope.results.length === 0);
