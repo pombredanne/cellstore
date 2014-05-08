@@ -12,7 +12,7 @@ angular.module('main')
     $scope.errornoresults = false;
     $scope.errormany = false;
 
-    $scope.service.listFilings({
+    $backend.Queries.listFilings({
         $method: 'POST',
         cik: $scope.selection.cik,
         tag: $scope.selection.tag,

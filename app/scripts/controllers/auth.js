@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('AuthCtrl', function($scope, $stateParams, $http, $window, $backend, SessionService, UsersService) {
+.controller('AuthCtrl', function($scope, $stateParams, $http, $window, $backend) {
     $scope.returnPage = $stateParams.returnPage;
     $scope.registerAttempted = false;
     $scope.loginAttempted = false;
@@ -15,7 +15,7 @@ angular.module('main')
         $scope.$broadcast('autocomplete:update');
         $scope.loginForm.loginPassword.$setValidity('unauthorized', true);
         if(!$scope.loginForm.$invalid) {
-            (new SessionService($backend.API_URL + '/_queries/public'))
+            $backend.Session
                 .login({ email: $scope.loginEmail, password: $scope.loginPassword })
                 .then(function(data) {
                     $scope.$emit('login', data.token, data._id, $scope.loginEmail, data.firstname, data.lastname, $scope.returnPage);
@@ -34,7 +34,7 @@ angular.module('main')
         $scope.registerForm.passwordRepeat.$setValidity('equals', $scope.password === $scope.passwordRepeat);
 
         if(!$scope.registerForm.$invalid) {
-            (new UsersService($backend.API_URL + '/_queries/public'))
+            $backend.Users
                 .newUser({ firstname: $scope.firstname, lastname: $scope.lastname, email: $scope.email, password: $scope.password })
                 .then(
                     function() {
@@ -52,7 +52,7 @@ angular.module('main')
                                 'submit': 'submit'
                             }
                         });
-                        (new SessionService($backend.API_URL + '/_queries/public'))
+                        $backend.Session
                             .login({ email: $scope.email, password: $scope.password })
                             .then(function(data) {
                                 $scope.$emit('login', data.token, data._id, $scope.email, data.firstname, data.lastname, $scope.returnPage);
@@ -70,7 +70,7 @@ angular.module('main')
 
         $scope.$broadcast('autocomplete:update');
         if(!$scope.forgotForm.$invalid) {
-            (new UsersService($backend.API_URL + '/_queries/public'))
+            $backend.Users
                 .forgotPassword({ email: $scope.forgotEmail })
                 .then(function() {
                     $scope.$emit('alert', 'Help on the way!', 'Please check your email, if you are registered on or system we sent you a link that allows you to change your password.<br><br>The link is valid for 24 hours.');

@@ -39,7 +39,7 @@ angular.module('main')
         }
         else
         {
-            $scope.service.listReportElements({
+            $backend.Queries.listReportElements({
                 $method : 'POST',
                 onlyNames : true,
                 cik: $scope.selection.cik,
@@ -82,7 +82,7 @@ angular.module('main')
                 }
             });
 
-            $scope.service.listFacts($scope.params)
+            $backend.Queries.listFacts($scope.params)
                 .then(function(data) {
                     $scope.data = data.FactTable;
                     if ($scope.data && $scope.data.length > 0)

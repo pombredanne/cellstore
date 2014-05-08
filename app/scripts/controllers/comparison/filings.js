@@ -5,7 +5,7 @@ angular.module('main')
     $scope.filings = null;
     $scope.error = false;
 
-    $scope.service.listFilings({
+    $backend.Queries.listFilings({
         $method: 'POST',
         cik: $scope.selection.cik,
         tag: $scope.selection.tag,

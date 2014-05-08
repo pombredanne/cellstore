@@ -1,12 +1,16 @@
 'use strict';
 
 angular.module('main')
-.factory('$backend', function($q, $http, API_URL, DEBUG) {
+.factory('$backend', function($q, $http, API_URL, DEBUG, QueriesService, SessionService, UsersService) {
     return {
         API_URL: API_URL,
 		DEBUG: DEBUG,
 
-        data: [],
+        Queries: new QueriesService(API_URL + '/_queries/public/api'),
+        Session: new SessionService(API_URL + '/_queries/public'),
+        Users: new UsersService(API_URL + '/_queries/public'),
+
+        data: {},
 
         getYears : function() {
             var that = this;
