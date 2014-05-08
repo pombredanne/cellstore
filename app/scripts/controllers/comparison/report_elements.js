@@ -82,7 +82,7 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
             function (response) {
                 $scope.$emit('error', response.status, response.data);
             });
-    };
+    }
 
     $scope.trimTableURL = function (url) {
         if (url.length < 30) {

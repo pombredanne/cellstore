@@ -105,7 +105,7 @@ declare function local:concepts-for-archives($aids as string*) as object*
         })
 };
 
-declare function local:concepts-for-archives($aids, $names)
+declare function local:concepts-for-archives($aids as string*, $names as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -123,7 +123,7 @@ declare function local:concepts-for-archives($aids, $names)
         })
 };
 
-declare function local:concepts-for-archives-and-labels($aids, $labels)
+declare function local:concepts-for-archives-and-labels($aids as string*, $labels as string*) as object*
 {
     let $conn :=
         let $credentials := credentials:credentials("MongoDB", "xbrl")
