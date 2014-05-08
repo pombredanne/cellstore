@@ -123,7 +123,7 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
         })
 };
 
-declare function local:concepts-for-archives-and-labels($aids as string*, $labels as string*) as object*
+declare function local:concepts-for-archives-and-labels($aids as string*, $labels as string) as object*
 {
     let $conn :=
         let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -179,7 +179,7 @@ return
             let $concepts := let $concepts := if (exists($names))
                                               then local:concepts-for-archives($archives._id, $names)
                                               else if (exists($labels))
-                                              then local:concepts-for-archives-and-labels($archives._id, $labels)
+                                              then local:concepts-for-archives-and-labels($archives._id, $labels[1])
                                               else local:concepts-for-archives($archives._id)
                              return if ($onlyNames) 
                                     then distinct-values($concepts.Name)
@@ -227,8 +227,11 @@ return
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
                 {|
-                    session:comment("json"),
-                    { ReportElements : [ $concepts ] }
+                    { ReportElements : [ $concepts ] },
+                    session:comment("json", {
+                        NumConcepts: count($concepts),
+                        TotalNumConcepts: session:num-concepts()
+                    })
                 |}
             }
         }

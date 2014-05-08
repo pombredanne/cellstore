@@ -62,6 +62,7 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
     {
         $scope.errornoresults = false;
         $scope.results = [];
+        $scope.Statistics = {};
 
         $scope.params = {
             $method: 'POST',
@@ -77,6 +78,7 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
         $backend.Queries.listReportElements($scope.params)
             .then(function (data) {
                 $scope.results = data.ReportElements;
+                $scope.Statistics = data.Statistics;
                 $scope.errornoresults = ($scope.results.length === 0);
             },
             function (response) {
