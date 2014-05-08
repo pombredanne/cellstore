@@ -4,6 +4,7 @@ angular.module('main')
 .controller('ComparisonFilingsCtrl', function($scope, $backend) {
     $scope.filings = null;
     $scope.error = false;
+    $scope.errornoresults = false;
 
     $backend.Queries.listFilings({
         $method: 'POST',
@@ -16,6 +17,7 @@ angular.module('main')
     })
         .then(function(data) {
             $scope.filings = data.Archives;
+            $scope.errornoresults = ($scope.filings.length === 0);
         },
         function(response) {
             if (response.status === '401') {
