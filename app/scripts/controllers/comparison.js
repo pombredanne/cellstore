@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('ComparisonCtrl', function($scope, $state, $stateParams, $location, $backend, QueriesService, tags, entities, years, periods, sics) {
-    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
+.controller('ComparisonCtrl', function($scope, $state, $stateParams, $location, $backend, tags, entities, years, periods, sics) {
     $scope.tags = tags;
     $scope.entities = entities;
     $scope.years = years;

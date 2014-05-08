@@ -127,7 +127,7 @@ declare function local:components-by-roles($roles as string, $aids as string*) a
         })
 };
 
-declare function local:components-by-reportElements($reportElements as string, $aids as string*) as object*
+declare function local:components-by-reportElements($reportElements as string*, $aids as string*) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")

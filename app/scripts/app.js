@@ -173,9 +173,8 @@ angular.module('main', [
         templateUrl: '/views/entity.html',
         controller: 'EntityCtrl',
         resolve: {
-            entity: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listEntities({ $method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
+            entity: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listEntities({ $method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
             }]
         },
         data: {
@@ -189,9 +188,8 @@ angular.module('main', [
         url: '/summary',
         templateUrl: '/views/entity/summary.html',
         resolve: {
-            entity: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listEntities({ $method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
+            entity: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listEntities({ $method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
             }]
         },
         data: {
@@ -204,9 +202,8 @@ angular.module('main', [
         templateUrl: '/views/entity/filings.html',
         controller: 'FilingsCtrl',
         resolve: {
-            filings: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listFilings({ $method: 'POST', cik: $stateParams.cik, fiscalPeriod: 'ALL', fiscalYear: 'ALL', token: $rootScope.token });
+            filings: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listFilings({ $method: 'POST', cik: $stateParams.cik, fiscalPeriod: 'ALL', fiscalYear: 'ALL', token: $rootScope.token });
             }]
         },
         data: {
@@ -242,9 +239,8 @@ angular.module('main', [
         templateUrl: '/views/entity/filing.html',
         controller: 'FilingCtrl',
         resolve: {
-            filing: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listFilings({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
+            filing: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listFilings({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         data: {
@@ -257,9 +253,8 @@ angular.module('main', [
         templateUrl: '/views/entity/components.html',
         controller: 'ComponentsCtrl',
         resolve: {
-            components: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
+            components: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listComponents({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         data: {
@@ -272,9 +267,8 @@ angular.module('main', [
         templateUrl: '/views/entity/component.html',
         controller: 'ComponentCtrl',
         resolve: {
-            component: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+            component: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listComponents({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         data: {
@@ -287,9 +281,8 @@ angular.module('main', [
         templateUrl: '/views/entity/facttable.html',
         controller: 'FactTableCtrl',
         resolve: {
-            facttable: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService){
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listFactTable({
+            facttable: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend){
+                return $backend.Queries.listFactTable({
                     $method : 'POST',
                     aid : $stateParams.aid,
                     networkIdentifier : $stateParams.networkIdentifier,
@@ -307,9 +300,8 @@ angular.module('main', [
         templateUrl: '/views/entity/modelstructure.html',
         controller: 'ModelStructureCtrl',
         resolve: {
-            modelStructure: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listModelStructure({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+            modelStructure: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listModelStructure({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         data: {
@@ -322,9 +314,8 @@ angular.module('main', [
     .state('root.filing', {
         url: '/filing/:aid',
         resolve: {
-            filing: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listFilings({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
+            filing: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listFilings({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         controller: 'RootFilingCtrl'
@@ -334,9 +325,8 @@ angular.module('main', [
     .state('root.components', {
         url: '/components/:aid',
         resolve: {
-            components: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
+            components: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listComponents({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         controller: 'RootComponentsCtrl'
@@ -346,9 +336,8 @@ angular.module('main', [
     .state('root.component', {
         url: '/component/:aid/{networkIdentifier:.*}',
         resolve: {
-            component: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listComponents({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+            component: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listComponents({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         controller: 'RootComponentCtrl'
@@ -358,9 +347,8 @@ angular.module('main', [
     .state('root.facttable', {
         url: '/facttable/:aid/{networkIdentifier:.*}',
         resolve: {
-            facttable: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService){
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listFactTable({
+            facttable: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend){
+                return $backend.Queries.listFactTable({
                     $method : 'POST',
                     aid : $stateParams.aid,
                     networkIdentifier : $stateParams.networkIdentifier,
@@ -375,9 +363,8 @@ angular.module('main', [
     .state('root.modelstructure', {
         url: '/modelstructure/:aid/{networkIdentifier:.*}',
         resolve: {
-            modelStructure: ['$rootScope', '$stateParams', '$backend', 'QueriesService', function($rootScope, $stateParams, $backend, QueriesService) {
-                var service = new QueriesService($backend.API_URL + '/_queries/public/api');
-                return service.listModelStructure({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+            modelStructure: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listModelStructure({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         controller: 'RootModelStructureCtrl'
@@ -399,14 +386,13 @@ angular.module('main', [
         templateUrl: '/views/account.html',
         controller: 'AccountCtrl',
         resolve: {
-            user: ['$rootScope', '$q', '$location', '$backend', 'UsersService', function($rootScope, $q, $location, $backend, UsersService) {
-                var service = (new UsersService($backend.API_URL + '/_queries/public'));
+            user: ['$rootScope', '$q', '$location', '$backend', function($rootScope, $q, $location, $backend) {
                 var deferred = $q.defer();
                 
                 //force auth if the token comes as query string
                 var qs = $location.search();
                 if (qs && qs.token) {
-                    service.getUser({ token: qs.token })
+                    $backend.Users.getUser({ token: qs.token })
                         .then(function(data) {
                             if (data && data.user) {
                                 $rootScope.login(qs.token, data.user._id, data.user.email, data.user.firstname, data.user.lastname);

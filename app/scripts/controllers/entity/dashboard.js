@@ -3,8 +3,7 @@
 /*globals accounting*/
 
 angular.module('main')
-.controller('DashboardCtrl', function ($scope, $rootScope, $anchorScroll, $location, $state, $stateParams, $http, $modal, $backend, QueriesService) {
-    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
+.controller('DashboardCtrl', function ($scope, $rootScope, $anchorScroll, $location, $state, $stateParams, $http, $modal, $backend) {
     $scope.table1 = null;
     $scope.table2 = null;
     $scope.cik = ($stateParams.cik ? $stateParams.cik : null);
@@ -129,7 +128,7 @@ angular.module('main')
         cik: $scope.cik,
         token: $scope.token
     };
-    $scope.service.listFacts($scope.params)
+    $backend.Queries.listFacts($scope.params)
     .then(function (data) {
         if (data && data.FactTable) {
             data.FactTable.forEach(function (item) {

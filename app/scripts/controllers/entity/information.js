@@ -3,11 +3,7 @@
 /*globals accounting*/
 
 angular.module('main')
-.controller('InformationCtrl', function(
-    $scope, $rootScope, $anchorScroll, $state, $stateParams, $http, $modal,
-    $backend, QueriesService, years, periods
-) {
-    $scope.service = (new QueriesService($backend.API_URL + '/_queries/public/api'));
+.controller('InformationCtrl', function($scope, $rootScope, $anchorScroll, $state, $stateParams, $http, $modal, $backend, years, periods) {
     $scope.year = $stateParams.year ? $stateParams.year : null;
     $scope.period = $stateParams.period ? $stateParams.period : null;
     $scope.cik = $stateParams.cik ? $stateParams.cik : null;
@@ -236,7 +232,7 @@ angular.module('main')
     if ($scope.cik && $scope.year && $scope.period)
     {
         $scope.computeUsage();
-        $scope.service.listFilings({
+        $backend.Queries.listFilings({
             $method: 'POST',
             cik: $scope.cik,
             fiscalYear: $scope.year,
