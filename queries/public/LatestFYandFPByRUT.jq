@@ -67,7 +67,8 @@ return  if (session:only-dow30($entity) or session:valid())
     default return error()
 =======
                           then {fiscalYear: $latestFQFiling.year, fiscalPeriod: $latestFQFiling.period, endDate: svs:end-date($latestFQArchives[last()])}
-                          else ()(:,
+                          else (),
+                          raw: $latestFQArchives(:,
         raw1: serialize($latestFYFiling), 
         raw2: serialize($latestFQArchives.Profiles.SEC.FilingDate):)
     } else {

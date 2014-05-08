@@ -1,4 +1,5 @@
 jsoniq version "1.0";
+(: SVS, fix when RUT are properly formatted :)
 
 (:
  : Copyright 2012-2013 28msec Inc.
@@ -50,7 +51,7 @@ declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
 
 (:~
- : Scheme for the SEC entity identifiers (i.e. http://www.svs.cl/rut)
+ : Scheme for the SVS entity identifiers (i.e. http://www.svs.cl/rut)
  :)
 declare variable $svs:RUT as xs:string := "http://www.svs.cl/rut";
 
@@ -60,7 +61,7 @@ declare variable $svs:RUT as xs:string := "http://www.svs.cl/rut";
 declare variable $svs:ALL_OF_THEM as boolean := true;
 
 (:~
- : All prefixes pre-declared in SEC's EDGAR.
+ : All prefixes pre-declared in SVS's EDGAR.
  :)
 declare variable $svs:EDGAR_PREFIXES :=
   ( "xbrli", "link", "xl", "xlink", "xbrldt", "xbrldi", "nonnum", 
@@ -87,10 +88,10 @@ declare function svs:facts-for(
   $options as object?) as object*
 {
   let $facts := facts:facts-for(
-    if (exists($options.Filter.Profiles.SEC.Fiscal))
+    if (exists($options.Filter.Profiles.SVS.Fiscal))
     then $options
     else facts:merge-objects(
-        { Filter: { "Profiles.SEC.Fiscal" : { "$exists" : true } } },
+        { Filter: { "Profiles.SVS.Fiscal" : { "$exists" : true } } },
         $options,
         true
     )
@@ -174,7 +175,7 @@ declare function svs:facts-for-archives-and-concepts(
  : 
  : @param $archive_or_ids a sequence of archives or their ids or $svs:ALL_OF_THEM for no filtering.
  : @param $concepts the concepts or $svs:ALL_OF_THEM for no filtering.
- : @param $options <a href="#standard_options">standard SEC BizQL options</a>.
+ : @param $options <a href="#standard_options">standard SVS BizQL options</a>.
  :
  : @return the latest facts associated with the supplied concept.
  :) 
@@ -200,7 +201,7 @@ declare function svs:facts-for-archives-and-concepts(
       $archive_or_ids, 
       $concepts, 
       $options)[
-        exists($$.Profiles.SEC.Fiscal)
+        exists($$.Profiles.SVS.Fiscal)
     ]
   return 
     if ($hide-amended-facts)
@@ -224,8 +225,8 @@ as object*
 {
   for $grouped-facts in $facts
   let $entity as string := $grouped-facts.Aspects."xbrl:Entity"
-  let $fiscal-period as string? := $grouped-facts.Profiles.SEC.Fiscal.Period
-  let $fiscal-year as integer? := $grouped-facts.Profiles.SEC.Fiscal.Year
+  let $fiscal-period as string? := $grouped-facts.Profiles.SVS.Fiscal.Period
+  let $fiscal-year as integer? := $grouped-facts.Profiles.SVS.Fiscal.Year
   group by $entity, $fiscal-period, $fiscal-year
   return
     if (empty($fiscal-period) or empty($fiscal-year))
@@ -237,23 +238,23 @@ as object*
       group by $period
       return
         let $latest-accepted :=
-          max(distinct-values($regrouped-facts.Profiles.SEC.Accepted))
+          max(distinct-values($regrouped-facts.Profiles.SVS.Accepted))
         return 
           if (empty($latest-accepted))
           then $regrouped-facts
           else 
             (: hide amended facts :)
-            $regrouped-facts[$$.Profiles.SEC.Accepted eq $latest-accepted]
+            $regrouped-facts[$$.Profiles.SVS.Accepted eq $latest-accepted]
 
     else
       let $latest-accepted :=
-        max(distinct-values($grouped-facts.Profiles.SEC.Accepted))
+        max(distinct-values($grouped-facts.Profiles.SVS.Accepted))
       return 
         if (empty($latest-accepted))
         then $grouped-facts
         else 
           (: hide amended facts :)
-          $grouped-facts[$$.Profiles.SEC.Accepted eq $latest-accepted]
+          $grouped-facts[$$.Profiles.SVS.Accepted eq $latest-accepted]
 };
 
 (:~
@@ -287,7 +288,7 @@ as object*
  :
  : @param $schema a schema.
  : @param $archives a sequence of archives or their AIDs or $svs:ALL_OF_THEM for no filtering.
- : @param $options <a href="#standard_options">standard SEC BizQL options</a>.
+ : @param $options <a href="#standard_options">standard SVS BizQL options</a>.
  :
  : @return a sequence of facts with populated dimension values.
  :)
@@ -299,10 +300,10 @@ declare function svs:facts-for-schema(
 as object*
 {
   let $facts := report-schemas:facts($schema, $archives,
-    if (exists($options.Filter.Profiles.SEC.Fiscal))
+    if (exists($options.Filter.Profiles.SVS.Fiscal))
     then $options
     else facts:merge-objects(
-        { Filter: { "Profiles.SEC.Fiscal" : { "$exists" : true } } },
+        { Filter: { "Profiles.SVS.Fiscal" : { "$exists" : true } } },
         $options,
         true
     )
@@ -369,7 +370,7 @@ declare function svs:populate-schema-with-facts(
  : 
  : @param $schema a report schema or its RID.
  : @param $archives a sequence of archives or their AIDs or $svs:ALL_OF_THEM for no filtering.
- : @param $options <a href="#standard_options">standard SEC BizQL options</a>.
+ : @param $options <a href="#standard_options">standard SVS BizQL options</a>.
  :
  : @return a sequence of facts with populated dimension values.
  :)
@@ -481,26 +482,16 @@ declare function svs:end-date(
     case object return 
       switch (true)
       (: archive :)
-      case exists($filing-fact-or-id.Profiles.SEC.DocumentPeriodEndDate)
-        return xs:date($filing-fact-or-id.Profiles.SEC.DocumentPeriodEndDate)
+      case exists($filing-fact-or-id.Profiles.SVS.Fiscal.DocumentPeriodEndDate)
+        return xs:date($filing-fact-or-id.Profiles.SVS.Fiscal.DocumentPeriodEndDate)
       (: fact :)
-      case exists($filing-fact-or-id.Profiles.SEC.DocEndDate)
-        return xs:date($filing-fact-or-id.Profiles.SEC.DocEndDate)
+      case exists($filing-fact-or-id.Profiles.SVS.Fiscal.DocEndDate)
+        return xs:date($filing-fact-or-id.Profiles.SVS.Fiscal.DocEndDate)
       default return ()
     default return 
       let $id as xs:string := string($filing-fact-or-id)
-      return
-        switch(true)
-        (: 
-          "The first ten digits are the RUT of the entity that logged 
-           in to submit the filing. The next two digits define the 
-           current year. The final digits are assigned sequentially by 
-           RUT starting with one on the first business day of each year."
-
-        http://www.sec.gov/info/edgar/edgarfm-vol2-v25.pdf :)
-      case matches($id, "\\d{10}-\\d{2}-\\d{6}")
-        return xs:date(archives:archives($id).Profiles.SEC.DocumentPeriodEndDate)
-      default return xs:date(facts:facts($id).Profiles.SEC.DocEndDate)
+	  (:SVS fixme, this can be more robust when RUT are properly formatted :)
+      return (xs:date(archives:archives($id).Profiles.SVS.Fiscal.DocumentPeriodEndDate), xs:date(facts:facts($id).Profiles.SVS.Fiscal.DocEndDate))[1]
 };
 
 (:~
@@ -509,7 +500,7 @@ declare function svs:end-date(
  :    For each of those included aspects the value space is not limited, however
  :    you can restrict it using the options. If you need more
  :    XBRL dimensions, use the user-defined-hypercube function instead.</p>
- : <p>In the SEC profile, there is an additional axis that is always here:
+ : <p>In the SVS profile, there is an additional axis that is always here:
  : dei:LegalEntityAxis, with a default value svs:DefaultLegalEntity and a filtering
  : only accepting this default value.</p>
  :

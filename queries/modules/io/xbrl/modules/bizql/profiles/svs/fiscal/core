@@ -1,4 +1,5 @@
 jsoniq version "1.0";
+(: SVS, fix once rut are formatted :)
 
 (:
  : Copyright 2012-2013 28msec Inc.
@@ -25,8 +26,8 @@ import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/svs/companies";
-import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/svs/networks";
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/svs/core";
+import module namespace svs-networks = "http://xbrl.io/modules/bizql/profiles/svs/networks";
+import module namespace svs = "http://xbrl.io/modules/bizql/profiles/svs/core";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -50,7 +51,7 @@ declare variable $fiscal-core:ALL_FISCAL_YEARS as integer := 0;
 declare function fiscal-core:fiscal-period-for-filing(
     $filing-or-id as item?) as string?
 {
-  archives:archives($filing-or-id).Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
+  archives:archives($filing-or-id).Profiles.SVS.Fiscal.DocumentFiscalPeriodFocus
 };
 
 (:~
@@ -63,7 +64,7 @@ declare function fiscal-core:fiscal-period-for-filing(
 declare function fiscal-core:fiscal-period-for-fact(
     $fact as object?) as string?
 {
-  $fact.Profiles.SEC.Fiscal.Period
+  $fact.Profiles.SVS.Fiscal.Period
 };
 
 (:~
@@ -85,26 +86,16 @@ declare function fiscal-core:fiscal-period(
     case object return 
       switch (true)
       (: archive :)
-      case exists($filing-fact-or-id.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus)
-        return $filing-fact-or-id.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
+      case exists($filing-fact-or-id.Profiles.SVS.Fiscal.DocumentFiscalPeriodFocus)
+        return $filing-fact-or-id.Profiles.SVS.Fiscal.DocumentFiscalPeriodFocus
       (: fact :)
-      case exists($filing-fact-or-id.Profiles.SEC.Fiscal.Period)
-        return $filing-fact-or-id.Profiles.SEC.Fiscal.Period
+      case exists($filing-fact-or-id.Profiles.SVS.Fiscal.Period)
+        return $filing-fact-or-id.Profiles.SVS.Fiscal.Period
       default return ()
     default return 
       let $id as xs:string := string($filing-fact-or-id)
-      return
-        switch(true)
-        (: 
-          "The first ten digits are the RUT of the entity that logged 
-           in to submit the filing. The next two digits define the 
-           current year. The final digits are assigned sequentially by 
-           RUT starting with one on the first business day of each year."
-
-        http://www.sec.gov/info/edgar/edgarfm-vol2-v25.pdf :)
-        case matches($id, "\\d{10}-\\d{2}-\\d{6}")
-          return archives:archives($id).Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
-        default return facts:facts($id).Profiles.SEC.Fiscal.Period
+	  (: SVS fixme: this can be more robust when the RUT are properly formatted :)
+	  return (archives:archives($id).Profiles.SVS.Fiscal.DocumentFiscalPeriodFocus, facts:facts($id).Profiles.SVS.Fiscal.Period)[1]
 };
 
 (:~
@@ -117,7 +108,7 @@ declare function fiscal-core:fiscal-period(
 declare function fiscal-core:fiscal-year-for-filing(
     $filing-or-id as item?) as integer?
 {
-  archives:archives($filing-or-id).Profiles.SEC.Fiscal.DocumentFiscalYearFocus
+  archives:archives($filing-or-id).Profiles.SVS.Fiscal.DocumentFiscalYearFocus
 };
 
 (:~
@@ -130,7 +121,7 @@ declare function fiscal-core:fiscal-year-for-filing(
 declare function fiscal-core:fiscal-year-for-fact(
     $fact as object?) as integer?
 {
-  $fact.Profiles.SEC.Fiscal.Year
+  $fact.Profiles.SVS.Fiscal.Year
 };
 
 (:~
@@ -152,26 +143,16 @@ declare function fiscal-core:fiscal-year(
     case object return 
       switch (true)
       (: archive :)
-      case exists($filing-fact-or-id.Profiles.SEC.Fiscal.DocumentFiscalYearFocus)
-        return $filing-fact-or-id.Profiles.SEC.Fiscal.DocumentFiscalYearFocus
+      case exists($filing-fact-or-id.Profiles.SVS.Fiscal.DocumentFiscalYearFocus)
+        return $filing-fact-or-id.Profiles.SVS.Fiscal.DocumentFiscalYearFocus
       (: fact :)
-      case exists($filing-fact-or-id.Profiles.SEC.Fiscal.Year)
-        return $filing-fact-or-id.Profiles.SEC.Fiscal.Year
+      case exists($filing-fact-or-id.Profiles.SVS.Fiscal.Year)
+        return $filing-fact-or-id.Profiles.SVS.Fiscal.Year
       default return ()
     default return 
       let $id as xs:string := string($filing-fact-or-id)
-      return
-        switch(true)
-        (: 
-          "The first ten digits are the RUT of the entity that logged 
-           in to submit the filing. The next two digits define the 
-           current year. The final digits are assigned sequentially by 
-           RUT starting with one on the first business day of each year."
-
-          http://www.sec.gov/info/edgar/edgarfm-vol2-v25.pdf :)
-        case matches($id, "\\d{10}-\\d{2}-\\d{6}")
-          return archives:archives($id).Profiles.SEC.Fiscal.DocumentFiscalYearFocus
-        default return facts:facts($id).Profiles.SEC.Fiscal.Year
+	  (: SVS fixme: this can be more robust when the RUT are properly formatted :)
+	  return (archives:archives($id).Profiles.SVS.Fiscal.DocumentFiscalYearFocus, facts:facts($id).Profiles.SVS.Fiscal.Year)[1]
 };
 
 (:~
@@ -208,11 +189,11 @@ fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
       case count($fiscal-period-focus) eq 1
         return 
         { 
-          "Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus": $fiscal-period-focus 
+          "Profiles.SVS.Fiscal.DocumentFiscalPeriodFocus": $fiscal-period-focus 
         }
       default return
         { 
-          "Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus":
+          "Profiles.SVS.Fiscal.DocumentFiscalPeriodFocus":
             { "$in" : [ $fiscal-period-focus ] }
         },
       switch (true)
@@ -221,12 +202,12 @@ fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
       case count($fiscal-year-focus) eq 1
         return 
         { 
-          "Profiles.SEC.Fiscal.DocumentFiscalYearFocus": $fiscal-year-focus 
+          "Profiles.SVS.Fiscal.DocumentFiscalYearFocus": $fiscal-year-focus 
         }
       default
         return
         { 
-          "Profiles.SEC.Fiscal.DocumentFiscalYearFocus":
+          "Profiles.SVS.Fiscal.DocumentFiscalYearFocus":
             { "$in" : [ $fiscal-year-focus ] }
         }
     |}
@@ -253,9 +234,9 @@ declare function fiscal-core:balance-sheets-for-fiscal-periods-and-years(
     fiscal-core:filings-for-entities-and-fiscal-periods-and-years($entity-or-ids, 
                                                                   $fiscal-period-focus, 
                                                                   $fiscal-year-focus)
-  return sec-networks:networks-for-filings-and-disclosures(
+  return svs-networks:networks-for-filings-and-disclosures(
       $archive,
-      $sec-networks:BALANCE_SHEET)
+      $svs-networks:BALANCE_SHEET)
 };
 
 (:~
@@ -288,7 +269,7 @@ declare function
  :                 xbrl:Concept, xbrl:Entity and xbrl:Period (all optional).
  : @param $fiscal-period-focus the periods (YTD1, YTD2, YTD3, Q1, Q2, Q3 or FY) or $fiscal-core:ALL_FISCAL_PERIODS to accept all.
  : @param $fiscal-year-focus the years (2012) or $fiscal-core:ALL_FISCAL_YEARS to accept all.
- : @param $options <a href="../core#standard_options">standard SEC BizQL options</a>.
+ : @param $options <a href="../core#standard_options">standard SVS BizQL options</a>.
  :
  : @return all facts matching the given aspects, fiscal period and year.
  :) 
@@ -311,8 +292,8 @@ declare function
           then { $facts:ASPECTS : $aspects }
           else (),
           if( deep-equal($fiscal-period-focus, $fiscal-core:ALL_FISCAL_PERIODS) and deep-equal($fiscal-year-focus, $fiscal-core:ALL_FISCAL_YEARS))
-          then { "Profiles.SEC.Fiscal" : { "$exists" : true } }
-          else { "Profiles": { "SEC": { "Fiscal": 
+          then { "Profiles.SVS.Fiscal" : { "$exists" : true } }
+          else { "Profiles": { "SVS": { "Fiscal": 
                  {|
                    if(deep-equal($fiscal-period-focus, $fiscal-core:ALL_FISCAL_PERIODS) )
                    then ()
@@ -325,7 +306,7 @@ declare function
         |}
     },
     if (empty($options.Hypercube))
-    then { Hypercube: sec:dimensionless-hypercube(()) }
+    then { Hypercube: svs:dimensionless-hypercube(()) }
     else ()
   |}
   let $facts := 
@@ -334,7 +315,7 @@ declare function
     )
   return 
     if ($hide-amended-facts)
-    then sec:hide-amended-facts($facts)
+    then svs:hide-amended-facts($facts)
     else $facts
 };
 
