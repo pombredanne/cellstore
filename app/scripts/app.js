@@ -567,7 +567,7 @@ angular.module('main', [
         },
         data: {
             title: 'Search Facts',
-            active: 'compare',
+            active: 'search',
             subActive: 'search'
         }
     })
@@ -577,24 +577,18 @@ angular.module('main', [
         controller: 'ComparisonComponentsCtrl',
         data: {
             title: 'Search Components',
-            active: 'compare',
+            active: 'search',
             subActive: 'components'
         }
     })
-    .state('root.comparisonReportElements', {
-        url: '/comparison/reportElementss',
-        templateUrl: '/views/comparison-reportelems.html',
-        controller: 'ComparisonReportElemsCtrl',
-        resolve: {
-            entities: ['$backend', function($backend) { return $backend.getEntities(); }],
-            years: ['$backend', function($backend) { return $backend.getYears(); }],
-            periods: ['$backend', function($backend) { return $backend.getPeriods(); }],
-            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }]
-        },
+    .state('root.comparison.reportElements', {
+        url: '/reportElements?name&label',
+        templateUrl: '/views/comparison/report-elements.html',
+        controller: 'ComparisonReportElementsCtrl',
         data: {
             title: 'Search Report Elements',
-            active: 'compare',
-            subActive: 'reportElements'
+            active: 'search',
+            subActive: 'report-elements'
         }
     })
 

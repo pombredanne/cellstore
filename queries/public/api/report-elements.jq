@@ -47,7 +47,11 @@ declare function local:to-xml($concepts as item*, $onlyNames as boolean) as elem
                 <IsTextBlock>{$c.IsTextBlock}</IsTextBlock>,
                 <ComponentRole>{$c.ComponentRole}</ComponentRole>,  
                 <ComponentLabel>{$c.ComponentLabel}</ComponentLabel>,
-                <Archive>{$c.Archive}</Archive>
+                <AccessionNumber>{$c.AccessionNumber}</AccessionNumber>,
+                <CIK>{$c.CIK}</CIK>,
+                <EntityRegistrantName>{$c.EntityRegistrantName}</EntityRegistrantName>,
+                <FiscalYear>{$c.FiscalYear}</FiscalYear>,
+                <FiscalPeriod>{$c.FiscalPeriod}</FiscalPeriod>
              )
         }</ReportElement>
 };
@@ -184,6 +188,8 @@ return
                                          let $component := components:components($component)
                                          let $default-hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
                                          let $members := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+                                         let $archive := archives:archives($c[1].Archive)
+                                         let $entity := entities:entities($archive.Entity)
                                          return
                                              for $name in $c.Name
                                              return
@@ -191,7 +197,11 @@ return
                                                  modify (
                                                     insert json { ComponentRole : $component.Role } into $res,
                                                     insert json { ComponentLabel : $component.Label } into $res,
-                                                    insert json { Archive : $c[1].Archive } into $res
+                                                    insert json { AccessionNumber : $archive._id } into $res,
+                                                    insert json { CIK : $entity._id } into $res,
+                                                    insert json { EntityRegistrantName : $entity.Profiles.SEC.CompanyName } into $res,
+                                                    insert json { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus } into $res,
+                                                    insert json { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus } into $res
                                                  )
                                                  return $res
             return
