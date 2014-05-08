@@ -130,7 +130,8 @@ declare function local:facts(
     for $fact in
         for $f in facts:facts-for-archives-and-aspects($archives, $aspects, $options)
         where exists($f.Profiles.SEC.Fiscal.Year)
-        group by $f.Profiles.SEC.Fiscal.Year,
+        group by $f.Aspects."xbrl:Entity",
+                 $f.Profiles.SEC.Fiscal.Year,
                  $f.Profiles.SEC.Fiscal.Period,
                  $f.Aspects."xbrl:Concept"
         let $latest-accepted := max(distinct-values($f.Profiles.SEC.Accepted))
