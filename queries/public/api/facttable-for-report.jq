@@ -42,7 +42,7 @@ declare function local:to-csv($o as object*) as string?
 declare function local:audittrail-to-xml($audit as item) as element()
 {
     <AuditTrails>{
-        for $a in if ($audit instance of array) then $audit[] else $audit
+        for $a in flatten($audit)
         return (
             <Type>{$a.Type}</Type>,
             <Label>{$a.Label}</Label>,
