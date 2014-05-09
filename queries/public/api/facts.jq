@@ -83,29 +83,30 @@ declare function local:facts(
     $map as string?,
     $rules as string?) as object*
 {
-    let $aspects :=
-        {|
-            { "xbrl:Concept" : $concepts },
-            (: This is because of a bug that will be fixed later (hypercube members do not get considered) :)
-            for $d in values($dimensions)
-            let $members := descendant-objects(values($d)).Name
-            where exists($members)
-            return { $d.Name: [ $members ] }
-        |}
-    let $hypercube := copy $h := hypercubes:dimensionless-hypercube()
-                      modify
-                          for $n in keys($dimensions)
-                          let $default := collection("defaultaxis")[$$.axis eq $n]
-                          let $d :=
-                              if (empty($dimensions.$n.Default) and exists($default))
-                              then copy $new-d := $dimensions.$n
-                                   modify (insert json { "Default" : $default.default } into $new-d)
-                                   return $new-d
-                              else $dimensions.$n
-                      return
-                              insert json { $n : $d } into $h.Aspects
-                       
-                      return $h
+    let $hypercube := hypercubes:user-defined-hypercube({|
+        { "xbrl:Concept" : { Domain : [ $concepts ] } },
+        
+        if (not(keys($dimensions) = "dei:LegalEntityAxis"))
+        then { "dei:LegalEntityAxis" : { 
+            "Domain" : [ "sec:DefaultLegalEntity" ],
+            "Default" : "sec:DefaultLegalEntity"
+        } }
+        else (),
+        
+        for $k in keys($dimensions)
+        let $v := $dimensions.$k
+        let $members := descendant-objects(values($v)).Name
+        let $default := collection("defaultaxis")[$$.axis eq $k]
+        return { $v.Name : {|
+                if (exists($members)) then { Domain : [ $members ] } else (), 
+                if (exists($default) and empty($v.Default))
+                then { "Default" : $default.default }
+                else if (exists($v.Default))
+                then { "Default" : $v.Default }
+                else ()
+            |}
+        }
+    |})
     let $options :=
             {|
                 if (exists($map))
@@ -113,12 +114,11 @@ declare function local:facts(
                 else (),
                 if (exists($rules))
                 then { "Rules" : $rules }
-                else (),
-                { Hypercube : $hypercube }
+                else ()
             |}
     return 
     for $fact in
-        for $f in facts:facts-for-archives-and-aspects($archives, $aspects, $options)
+        for $f in hypercubes:facts-for-hypercube($hypercube, $archives, $options)
         where exists($f.Profiles.SEC.Fiscal.Year)
         group by $f.Aspects."xbrl:Entity",
                  $f.Profiles.SEC.Fiscal.Year,
@@ -148,7 +148,7 @@ declare function local:facts(
         if (exists($map) and ($fact."xbrl28:Type" eq "xbrl28:concept-maps"))
         then { "ReportedConcept" : $fact.AuditTrails[][$$.Type eq "xbrl28:concept-maps"].Data.OriginalConcept[1] }
         else ()
-    |}
+    |} 
 };
 
 declare function local:filings(
@@ -267,7 +267,7 @@ return
       }
       default return
         let $facts := local:facts($archives, $concepts, $dimensions, $map, $rules)
-        return 
+        return
             switch ($format)
             case "xml" return {
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
