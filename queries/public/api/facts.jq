@@ -1,7 +1,6 @@
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace response = "http://www.28msec.com/modules/http-response";
@@ -107,18 +106,13 @@ declare function local:facts(
             |}
         }
     |})
-    let $options :=
-            {|
-                if (exists($map))
-                then { "concept-maps" : $map }
-                else (),
-                if (exists($rules))
-                then { "Rules" : $rules }
-                else ()
-            |}
-    return 
     for $fact in
-        for $f in hypercubes:facts-for-hypercube($hypercube, $archives, $options)
+        for $f in hypercubes:facts-for-hypercube($hypercube, $archives,
+            {|
+                if (exists($map)) then { "concept-maps" : $map } else (),
+                if (exists($rules)) then { "Rules" : $rules } else ()
+            |}
+        )
         where exists($f.Profiles.SEC.Fiscal.Year)
         group by $f.Aspects."xbrl:Entity",
                  $f.Profiles.SEC.Fiscal.Year,
