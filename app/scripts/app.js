@@ -523,6 +523,17 @@ angular.module('main', [
             subActive: 'filings'
         }
     })
+    //intentional copy
+    .state('root.comparison.filingss', {
+        url: '/filingss',
+        templateUrl: '/views/comparison/filings.html',
+        controller: 'ComparisonFilingsCtrl',
+        data: {
+            title: 'Filings',
+            active: 'search',
+            subActive: 'filings'
+        }
+    })
     .state('root.comparison.information', {
         url: '/information',
         templateUrl: '/views/comparison/information.html',
