@@ -1,6 +1,5 @@
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
-import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
@@ -12,6 +11,9 @@ let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
 let $tickers     := distinct-values(request:param-values("ticker"))
 let $sics        := distinct-values(request:param-values("sic"))
+let $aids        := distinct-values(request:param-values("aid"))
+let $companies   := companies:companies($ciks, $tags, $tickers, $sics)
+
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
@@ -19,8 +21,6 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
                         else if (($fp ! lower-case($$)) = "fy")
                         then distinct-values(("FY", "Q4", $fp))
                         else $fp)
-let $aids     := request:param-values("aid")
-let $companies := companies:companies($ciks, $tags, $tickers, $sics)
 let $fiscalYears := distinct-values(
                     for $y in request:param-values("fiscalYear", "LATEST")
                     return
@@ -39,10 +39,11 @@ let $fiscalYears := distinct-values(
                         then $y cast as integer
                         else ()
                 )
-let $archives := (archives:archives($aids),
+let $archives := (filings:filings($aids),
                     for $fp in $fiscalPeriods, $fy in $fiscalYears
                     return
                       fiscal:filings-for-entities-and-fiscal-periods-and-years($companies, $fp, $fy)) 
+let $companies   := companies:companies($archives.Entity)
 return
     if (session:only-dow30($companies) or session:valid())
     then {
