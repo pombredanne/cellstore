@@ -228,40 +228,7 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
                         if (($fp ! lower-case($$)) = "all")
                         then $sec-fiscal:ALL_FISCAL_PERIODS
                         else $fp)
-let $aids := request:param-values("aid")
-let $dimensions :=  for $p in request:param-names()
-                    where contains($p, ":")
-                    group by $dimension-name := if (ends-with(lower-case($p), ":default"))
-                                                then 
-                                                    if (ends-with(lower-case($p), "::default"))
-                                                    then substring-before($p, "::default")
-                                                    else substring-before($p, ":default")
-                                                else $p
-                    let $default := ($p = $dimension-name || "::default") or ($p = $dimension-name || ":default")
-                    let $all := (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
-                    return
-                    {
-                       $dimension-name : {| 
-                            { Name : $dimension-name }, 
-                            if ($default)
-                            then { Default : 
-                                (request:param-values($dimension-name || "::default"),
-                                 request:param-values($dimension-name || ":default"))[1] }
-                            else (),
-                            if ($all)
-                            then ()
-                            else {
-                                Domains : {
-                                    "sec:ImplicitDomain" : {
-                                        Name: "sec:ImplicitDomain",
-                                        Members: {|
-                                            (request:param-values($dimension-name)) ! { $$ : { Name: $$ } }
-                                        |}
-                                    }
-                                }
-                            }
-                        |}
-                    }
+let $aids     := request:param-values("aid")
 let $map      := request:param-values("map")[1]
 let $rules    := request:param-values("rules")[1]
 let $archives := (
