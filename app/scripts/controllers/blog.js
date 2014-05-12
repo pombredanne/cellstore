@@ -76,8 +76,6 @@ angular.module('main')
 })
 .controller('BlogCtrl', function($rootScope, $scope, $stateParams, $location, blogIndex) {
 
-    $rootScope.$broadcast('$setTitle', '28.io - Blog');
-
     $scope.wemail = $location.search().wemail;
     $location.search({});
     $scope.index = blogIndex ? blogIndex.data : { entries: [] };
@@ -143,10 +141,6 @@ angular.module('main')
         }
         
         $scope.entries = entries;
-        if($scope.entries.length === 1) {
-            $rootScope.$broadcast('$setOgImage', '/blog/images/thumbnails/' + $stateParams.id + '.png');
-            $rootScope.$broadcast('$setTitle', $scope.entries[0].title);
-        }
     };
     load();
 });
