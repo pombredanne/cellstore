@@ -26,7 +26,7 @@
     </div>
     
     <div ng-show="!loading && entries.length > 1">
-        <div ng-repeat="entry in entries">
+        <div ng-repeat="entry in entries" style="margin-top: 30px;">
             <div class="row">
                 <div class="col-lg-4">
                     <h3><a ng-href="/blog{{entry.id}}" ng-bind="entry.title"></a></h3>
