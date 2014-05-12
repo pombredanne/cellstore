@@ -3,6 +3,7 @@ import module namespace fs = "http://expath.org/ns/file";
 (: Generate Index :)
 
 let $summaries := {
+  "85528073805": "Did you ever wonder how secxbr.info is able to handle the huge amount of highly-dimensional data? Here is why.",
   "85127528110": "In this blog entry, we are addressing the following characteristics: Consistency, accuracy, and comparability. Specifically, we show how the custom report feature of secxbrl.info can be used as a framework for building functionality to verify those characteristics.",
   "81678006917": "We are excited to announce a new way you to explore financial and business information: secxbrl.info."
 }
