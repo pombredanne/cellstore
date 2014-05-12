@@ -75,39 +75,65 @@ declare function local:to-xml($o as object*) as node()*
     }</FactTable>)
 };
 
-declare function local:facts(
-    $archives as object*,
-    $concepts as string*, 
-    $dimensions as object* , 
-    $map as string?,
-    $rules as string?) as object*
+declare function local:hypercube() as object
 {
-    let $hypercube := hypercubes:user-defined-hypercube({|
-        { "xbrl:Concept" : { Domain : [ $concepts ] } },
+    hypercubes:user-defined-hypercube({|
+        let $concepts := (request:param-values("concept"), request:param-values("xbrl:Concept"))
+        return
+            if (exists($concepts))
+            then { "xbrl:Concept" : { Domain : [ $concepts ] } }
+            else (),
         
-        if (not(keys($dimensions) = "dei:LegalEntityAxis"))
-        then { "dei:LegalEntityAxis" : { 
-            "Domain" : [ "sec:DefaultLegalEntity" ],
-            "Default" : "sec:DefaultLegalEntity"
-        } }
-        else (),
+        if (not(keys(request:param-names()) = "dei:LegalEntityAxis"))
+        then { 
+                "dei:LegalEntityAxis" : { 
+                    "Domain" : [ "sec:DefaultLegalEntity" ],
+                    "Default" : "sec:DefaultLegalEntity"
+                }
+        } else (),
         
-        for $k in keys($dimensions)
-        let $v := $dimensions.$k
-        let $members := descendant-objects(values($v)).Name
-        let $default := collection("defaultaxis")[$$.axis eq $k]
-        return { $v.Name : {|
-                if (exists($members)) then { Domain : [ $members ] } else (), 
-                if (exists($default) and empty($v.Default))
-                then { "Default" : $default.default }
-                else if (exists($v.Default))
-                then { "Default" : $v.Default }
+        for $p in request:param-names()
+        where contains($p, ":") and not(starts-with($p, "xbrl:Concept"))
+        group by $dimension-name := if (ends-with(lower-case($p), "::default"))
+                                    then substring-before($p, "::default")
+                                    else if (ends-with(lower-case($p), ":default"))
+                                    then substring-before($p, ":default")
+                                    else $p
+        let $all := (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
+        return
+        { 
+            $dimension-name : {|
+                let $v := request:param-values($dimension-name)
+                return
+                    if (exists($v) and not($all))
+                    then { "Domain" : [ $v ] }
+                    else (),
+            
+            let $predefined-default := collection("defaultaxis")[$$.axis eq $dimension-name]
+            let $is-default := ($p = $dimension-name || "::default") or ($p = $dimension-name || ":default")
+            return 
+                if (exists($predefined-default) and not($is-default))
+                then { "Default" : $predefined-default.default }
+                else if ($is-default)
+                then { 
+                        "Default" : (
+                                request:param-values($dimension-name || "::default"),
+                                request:param-values($dimension-name || ":default")
+                            )[1]
+                    }
                 else ()
             |}
         }
     |})
+};
+
+declare function local:facts(
+    $archives as object*,
+    $map as string?,
+    $rules as string?) as object*
+{
     for $fact in
-        for $f in hypercubes:facts-for-hypercube($hypercube, $archives,
+        for $f in hypercubes:facts-for-hypercube(local:hypercube(), $archives,
             {|
                 if (exists($map)) then { "concept-maps" : $map } else (),
                 if (exists($rules)) then { "Rules" : $rules } else ()
@@ -236,31 +262,25 @@ let $dimensions :=  for $p in request:param-names()
                             }
                         |}
                     }
-let $concepts := request:param-values("concept")
 let $map      := request:param-values("map")[1]
-let $rules      := request:param-values("rules")[1]
+let $rules    := request:param-values("rules")[1]
+let $archives := (
+                    local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
+                    archives:archives($aids)
+                 )
+let $entities := companies:companies($archives.Entity)
 return 
-  if (empty($concepts))
-  then {
-    response:status-code(400);
-    session:error("concept: missing parameter", $format)
-  } else
-    let $archives := (
-                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
-                        archives:archives($aids)
-                     )
-    let $entities     := companies:companies($archives.Entity)
-    return switch(true)
-      case empty($archives) return {
+    switch(true)
+    case empty($archives) return {
         response:status-code(400);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
-      }
-      case not (session:only-dow30($entities) or session:valid()) return {
+    }
+    case not (session:only-dow30($entities) or session:valid()) return {
         response:status-code(401);
         session:error("accessing facts of an entity that is not in the DOW30", $format)
-      }
-      default return
-        let $facts := local:facts($archives, $concepts, $dimensions, $map, $rules)
+    }
+    default return
+        let $facts := local:facts($archives, $map, $rules)
         return
             switch ($format)
             case "xml" return {
