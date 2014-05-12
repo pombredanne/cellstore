@@ -8,7 +8,7 @@ angular.module('main')
         window.disqus_shortname = 'secxbrl';
         var disqusIdentifier = elm[0].getAttribute('disqus-identifier');
         window.disqus_identifier = disqusIdentifier ? disqusIdentifier : $location.path();
-        window.disqus_url = 'http://secxbrl.info' + window.disqus_identifier;
+        window.disqus_url = 'https://app.secxbrl.info' + window.disqus_identifier;
 
 //            window.disqus_developer = 1;
 
@@ -19,7 +19,7 @@ angular.module('main')
             dsq.disqusScript = true;
             dsq.type = 'text/javascript';
             dsq.async = true;
-            dsq.src = 'http://secxbrl.disqus.com/embed.js';
+            dsq.src = 'https://secxbrl.disqus.com/embed.js';
             document.getElementsByTagName('body')[0].appendChild(dsq);
         }
         angular.element(document.getElementById('disqus_thread')).html('');
