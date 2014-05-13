@@ -3,6 +3,7 @@ then truncate("reportcache");
 else create("reportcache");
 
 db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"], 
+
 {
   "_id" : "FundamentalAccountingConcepts", 
   "Archive" : null, 
@@ -430,9 +431,33 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
                 "Name" : "fac:Validations", 
                 "Label" : "Fact Validation Rule Results [Hierarchy]", 
                 "To" : {
+                  "fac:EquityValidation" : {
+                    "Name" : "fac:EquityValidation", 
+                    "Label" : "Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest"
+                  }, 
+                  "fac:Assets2Validation" : {
+                    "Name" : "fac:Assets2Validation", 
+                    "Label" : "Assets = LiabilitiesAndEquity"
+                  }, 
+                  "fac:AssetsValidation" : {
+                    "Name" : "fac:AssetsValidation", 
+                    "Label" : "Assets = CurrentAssets + NoncurrentAssets"
+                  }, 
+                  "fac:LiabilitiesValidation" : {
+                    "Name" : "fac:LiabilitiesValidation", 
+                    "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities"
+                  }, 
+                  "fac:LiabilitiesAndEquityValidation" : {
+                    "Name" : "fac:LiabilitiesAndEquityValidation", 
+                    "Label" : "LiabilitiesAndEquity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest"
+                  }, 
                   "fac:GrossProfitValidation" : {
                     "Name" : "fac:GrossProfitValidation", 
                     "Label" : "GrossProfit = Revenues - CostOfRevenue"
+                  }, 
+                  "fac:OperatingIncomeLossValidation" : {
+                    "Name" : "fac:OperatingIncomeLossValidation", 
+                    "Label" : "OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses"
                   }, 
                   "fac:IncomeBeforeEquityMethodInvestmentsValidation" : {
                     "Name" : "fac:IncomeBeforeEquityMethodInvestmentsValidation", 
@@ -466,41 +491,13 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
                     "Name" : "fac:ComprehensiveIncomeLoss2Validation", 
                     "Label" : "ComprehensiveIncome = NetIncomeLoss + OtherComprehensiveIncome"
                   }, 
-                  "fac:OperatingIncomeLossValidation" : {
-                    "Name" : "fac:OperatingIncomeLossValidation", 
-                    "Label" : "OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses"
-                  }, 
                   "fac:OperatingIncomeLoss2Validation" : {
                     "Name" : "fac:OperatingIncomeLoss2Validation", 
                     "Label" : "OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses"
                   }, 
-                  "fac:LiabilitiesAndEquityValidation" : {
-                    "Name" : "fac:LiabilitiesAndEquityValidation", 
-                    "Label" : "LiabilitiesAndEquity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest"
-                  }, 
-                  "fac:LiabilitiesValidation" : {
-                    "Name" : "fac:LiabilitiesValidation", 
-                    "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities"
-                  }, 
-                  "fac:AssetsValidation" : {
-                    "Name" : "fac:AssetsValidation", 
-                    "Label" : "Assets = CurrentAssets + NoncurrentAssets"
-                  }, 
-                  "fac:Assets2Validation" : {
-                    "Name" : "fac:Assets2Validation", 
-                    "Label" : "Assets = LiabilitiesAndEquity"
-                  }, 
-                  "fac:EquityValidation" : {
-                    "Name" : "fac:EquityValidation", 
-                    "Label" : "Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest"
-                  }, 
                   "fac:NetCashFlowsValidation" : {
                     "Name" : "fac:NetCashFlowsValidation", 
-                    "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities + ExchangeGainsLosses"
-                  }, 
-                  "fac:NetCashFlows2Validation" : {
-                    "Name" : "fac:NetCashFlows2Validation", 
-                    "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities"
+                    "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses]"
                   }, 
                   "fac:NetCashFlowsContinuingValidation" : {
                     "Name" : "fac:NetCashFlowsContinuingValidation", 
@@ -1413,7 +1410,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
               "Members" : {
                 "fac:ValidationStatistics" : {
                   "Name" : "fac:ValidationStatistics", 
-                  "Label" : "Statistics about the Validation Rules [Hierarchy]"
+                  "Label" : "Validation Rule Statistics [Hierarchy]"
                 }, 
                 "fac:PassedValidations" : {
                   "Name" : "fac:PassedValidations", 
@@ -1497,11 +1494,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
                 }, 
                 "fac:NetCashFlowsValidation" : {
                   "Name" : "fac:NetCashFlowsValidation", 
-                  "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities + ExchangeGainsLosses"
-                }, 
-                "fac:NetCashFlows2Validation" : {
-                  "Name" : "fac:NetCashFlows2Validation", 
-                  "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities"
+                  "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses]"
                 }, 
                 "fac:NetCashFlowsContinuingValidation" : {
                   "Name" : "fac:NetCashFlowsContinuingValidation", 
@@ -1859,6 +1852,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     }
   }, 
   "Rules" : [ {
+    "Id" : "gi_IncomeStatementStartPeriod", 
     "Type" : "xbrl28:formula", 
     "Label" : "Income Statement Start Period imputation", 
     "IsBizQL" : true, 
@@ -1866,13 +1860,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:IncomeStatementStartPeriod" ], 
     "DependsOn" : [ "fac:GrossProfit", "fac:Revenues", "fac:CostsAndExpenses", "fac:OperatingIncomeLoss", "fac:OtherOperatingIncomeExpenses", "fac:OperatingExpenses" ]
   }, {
-    "Type" : "xbrl28:formula", 
-    "Label" : "TradingSymbol imputation", 
-    "IsBizQL" : true, 
-    "Formula" : "import module namespace entities = \"http://xbrl.io/modules/bizql/entities\"; for $facts in facts:facts-for-internal(( \"fac:TradingSymbol\", \"fac:Assets\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $TradingSymbol as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TradingSymbol\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch (true) case (exists($TradingSymbol)) return $TradingSymbol case (exists($Assets)) return let $computed-value := entities:entities($Assets.Aspects.\"xbrl:Entity\").Profiles.SEC.Tickers[[1]] let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:TradingSymbol\" }, Value: $computed-value }) || \" = external source\" return copy $newfact := rules:create-computed-fact( $Assets, \"fac:TradingSymbol\", if (exists($computed-value)) then $computed-value else \"N/A\", $rule, $audit-trail-message, $Assets, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return {}", 
-    "ComputableConcepts" : [ "fac:TradingSymbol" ], 
-    "DependsOn" : [ "fac:TradingSymbol", "fac:Assets" ]
-  }, {
+    "Id" : "bs_BalanceSheetFormat", 
     "Type" : "xbrl28:formula", 
     "Label" : "Balance Sheet Format imputation", 
     "IsBizQL" : true, 
@@ -1880,6 +1868,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:BalanceSheetFormat" ], 
     "DependsOn" : [ "fac:DocumentType", "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:NoncurrentLiabilities", "fac:CurrentLiabilities" ]
   }, {
+    "Id" : "bs_Assets", 
     "Type" : "xbrl28:formula", 
     "Label" : "Assets imputation", 
     "IsBizQL" : true, 
@@ -1887,6 +1876,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:Assets" ], 
     "DependsOn" : [ "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:Liabilities", "fac:LiabilitiesAndEquity", "fac:Equity" ]
   }, {
+    "Id" : "bs_CurrentAssets", 
     "Type" : "xbrl28:formula", 
     "Label" : "CurrentAssets imputation", 
     "IsBizQL" : true, 
@@ -1894,6 +1884,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:CurrentAssets" ], 
     "DependsOn" : [ "fac:Assets", "fac:NoncurrentAssets" ]
   }, {
+    "Id" : "bs_Equity", 
     "Type" : "xbrl28:formula", 
     "Label" : "Equity imputation", 
     "IsBizQL" : true, 
@@ -1901,6 +1892,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:Equity" ], 
     "DependsOn" : [ "fac:EquityAttributableToNoncontrollingInterest", "fac:EquityAttributableToParent" ]
   }, {
+    "Id" : "bs_EquityAttributableToParent", 
     "Type" : "xbrl28:formula", 
     "Label" : "Equity Attributable ToParent imputation", 
     "IsBizQL" : true, 
@@ -1908,6 +1900,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:EquityAttributableToParent" ], 
     "DependsOn" : [ "fac:Equity", "fac:EquityAttributableToNoncontrollingInterest" ]
   }, {
+    "Id" : "bs_LiabilitiesAndEquity", 
     "Type" : "xbrl28:formula", 
     "Label" : "Liabilities And Equity imputation", 
     "IsBizQL" : true, 
@@ -1915,6 +1908,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:LiabilitiesAndEquity" ], 
     "DependsOn" : [ "fac:Assets" ]
   }, {
+    "Id" : "bs_Liabilities", 
     "Type" : "xbrl28:formula", 
     "Label" : "Liabilities imputation", 
     "IsBizQL" : true, 
@@ -1922,6 +1916,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:Liabilities" ], 
     "DependsOn" : [ "fac:Equity", "fac:LiabilitiesAndEquity", "fac:CommitmentsAndContingencies", "fac:TemporaryEquity", "fac:CurrentLiabilities", "fac:NoncurrentLiabilities" ]
   }, {
+    "Id" : "bs_NoncurrentLiabilities", 
     "Type" : "xbrl28:formula", 
     "Label" : "Noncurrent Liabilities imputation", 
     "IsBizQL" : true, 
@@ -1929,6 +1924,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NoncurrentLiabilities" ], 
     "DependsOn" : [ "fac:Liabilities", "fac:CurrentLiabilities" ]
   }, {
+    "Id" : "bs_NoncurrentAssets", 
     "Type" : "xbrl28:formula", 
     "Label" : "NoncurrentAssets imputation", 
     "IsBizQL" : true, 
@@ -1936,6 +1932,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NoncurrentAssets" ], 
     "DependsOn" : [ "fac:Assets", "fac:CurrentAssets" ]
   }, {
+    "Id" : "bs_TemporaryEquity", 
     "Type" : "xbrl28:formula", 
     "Label" : "Temporary Equity imputation", 
     "IsBizQL" : true, 
@@ -1943,6 +1940,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:TemporaryEquity" ], 
     "DependsOn" : [ "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" ]
   }, {
+    "Id" : "is_IncomeStatementFormat", 
     "Type" : "xbrl28:formula", 
     "Label" : "Income Statement Format imputation", 
     "IsBizQL" : true, 
@@ -1950,6 +1948,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:IncomeStatementFormat" ], 
     "DependsOn" : [ "fac:GrossProfit", "fac:CostOfRevenue" ]
   }, {
+    "Id" : "is_CostOfRevenue", 
     "Type" : "xbrl28:formula", 
     "Label" : "Cost Of Revenue imputation", 
     "IsBizQL" : true, 
@@ -1957,6 +1956,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:CostOfRevenue" ], 
     "DependsOn" : [ "fac:GrossProfit", "fac:Revenues", "fac:CostsAndExpenses", "fac:OperatingIncomeLoss", "fac:OtherOperatingIncomeExpenses", "fac:OperatingExpenses" ]
   }, {
+    "Id" : "is_CostsAndExpenses", 
     "Type" : "xbrl28:formula", 
     "Label" : "Costs And Expenses imputation", 
     "IsBizQL" : true, 
@@ -1964,6 +1964,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:CostsAndExpenses" ], 
     "DependsOn" : [ "fac:OperatingExpenses", "fac:CostOfRevenue", "fac:GrossProfit", "fac:Revenues", "fac:OperatingIncomeLoss", "fac:OtherOperatingIncomeExpenses" ]
   }, {
+    "Id" : "is_GrossProfit", 
     "Type" : "xbrl28:formula", 
     "Label" : "Gross Profit imputation", 
     "IsBizQL" : true, 
@@ -1971,6 +1972,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:GrossProfit" ], 
     "DependsOn" : [ "fac:Revenues", "fac:CostOfRevenue" ]
   }, {
+    "Id" : "is_IncomeLossFromContinuingOperationsAfterTax", 
     "Type" : "xbrl28:formula", 
     "Label" : "Income Loss From Continuing Operations After Tax imputation", 
     "IsBizQL" : true, 
@@ -1978,6 +1980,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsAfterTax" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:IncomeLossFromDiscontinuedOperationsNetTax", "fac:ExtraordinaryItemsIncomeExpenseNetTax", "fac:IncomeTaxExpenseBenefit" ]
   }, {
+    "Id" : "is_IncomeLossFromContinuingOperationsBeforeTax", 
     "Type" : "xbrl28:formula", 
     "Label" : "Income Loss From Continuing Operations Before Tax imputation", 
     "IsBizQL" : true, 
@@ -1985,6 +1988,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax" ], 
     "DependsOn" : [ "fac:IncomeLossFromEquityMethodInvestments", "fac:IncomeBeforeEquityMethodInvestments", "fac:IncomeLossFromContinuingOperationsAfterTax", "fac:IncomeTaxExpenseBenefit" ]
   }, {
+    "Id" : "is_NetIncomeAttributableToParent", 
     "Type" : "xbrl28:formula", 
     "Label" : "Net Income Attributable To Parent imputation", 
     "IsBizQL" : true, 
@@ -1992,6 +1996,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetIncomeAttributableToParent" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:NetIncomeAttributableToNoncontrollingInterest" ]
   }, {
+    "Id" : "is_NetIncomeLossAvailableToCommonStockholdersBasic", 
     "Type" : "xbrl28:formula", 
     "Label" : "Net Income Loss Available To Common Stockholders Basic imputation", 
     "IsBizQL" : true, 
@@ -1999,6 +2004,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ], 
     "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:PreferredStockDividendsAndOtherAdjustments" ]
   }, {
+    "Id" : "is_OperatingExpenses", 
     "Type" : "xbrl28:formula", 
     "Label" : "Operating Expenses imputation", 
     "IsBizQL" : true, 
@@ -2006,6 +2012,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:OperatingExpenses" ], 
     "DependsOn" : [ "fac:CostsAndExpenses", "fac:CostOfRevenue" ]
   }, {
+    "Id" : "is_PreferredStockDividendsAndOtherAdjustments", 
     "Type" : "xbrl28:formula", 
     "Label" : "Preferred Stock Dividends And Other Adjustments imputation", 
     "IsBizQL" : true, 
@@ -2013,6 +2020,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:PreferredStockDividendsAndOtherAdjustments" ], 
     "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ]
   }, {
+    "Id" : "is_Revenues", 
     "Type" : "xbrl28:formula", 
     "Label" : "Revenues imputation", 
     "IsBizQL" : true, 
@@ -2020,6 +2028,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:Revenues" ], 
     "DependsOn" : [ "fac:GrossProfit", "fac:CostOfRevenue" ]
   }, {
+    "Id" : "is_IncomeBeforeEquityMethodInvestments", 
     "Type" : "xbrl28:formula", 
     "Label" : "Income Before Equity Method Investments imputation", 
     "IsBizQL" : true, 
@@ -2027,6 +2036,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:IncomeBeforeEquityMethodInvestments" ], 
     "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:IncomeLossFromEquityMethodInvestments" ]
   }, {
+    "Id" : "is_InterestAndDebtExpense", 
     "Type" : "xbrl28:formula", 
     "Label" : "Interest And Debt Expense imputation", 
     "IsBizQL" : true, 
@@ -2034,6 +2044,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:InterestAndDebtExpense" ], 
     "DependsOn" : [ "fac:OperatingIncomeLoss", "fac:NonoperatingIncomeLoss", "fac:IncomeBeforeEquityMethodInvestments" ]
   }, {
+    "Id" : "is_OtherOperatingIncomeExpenses", 
     "Type" : "xbrl28:formula", 
     "Label" : "Other Operating Income Expenses imputation", 
     "IsBizQL" : true, 
@@ -2041,6 +2052,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:OtherOperatingIncomeExpenses" ], 
     "DependsOn" : [ "fac:OperatingIncomeLoss", "fac:GrossProfit", "fac:OperatingExpenses" ]
   }, {
+    "Id" : "is_OperatingIncomeLoss", 
     "Type" : "xbrl28:formula", 
     "Label" : "Operating Income Loss imputation", 
     "IsBizQL" : true, 
@@ -2048,6 +2060,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:OperatingIncomeLoss" ], 
     "DependsOn" : [ "fac:IncomeBeforeEquityMethodInvestments", "fac:NonoperatingIncomeLoss", "fac:InterestAndDebtExpense" ]
   }, {
+    "Id" : "is_NonoperatingIncomeLossPlusInterestAndDebtExpense", 
     "Type" : "xbrl28:formula", 
     "Label" : "Nonoperating Income Loss Plus Interest And Debt Expense imputation", 
     "IsBizQL" : true, 
@@ -2055,6 +2068,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense" ], 
     "DependsOn" : [ "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments", "fac:IncomeLossFromEquityMethodInvestments" ]
   }, {
+    "Id" : "is_NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments", 
     "Type" : "xbrl28:formula", 
     "Label" : "Nonoperating Income Loss + Interest And Debt Expense + Income From Equity Method Investments imputation", 
     "IsBizQL" : true, 
@@ -2062,6 +2076,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments" ], 
     "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:OperatingIncomeLoss" ]
   }, {
+    "Id" : "cf_NetCashFlowsFromOperatingActivitiesContinuing", 
     "Type" : "xbrl28:formula", 
     "Label" : "Cash Flow From Continuing Operating Activities imputation", 
     "IsBizQL" : true, 
@@ -2069,6 +2084,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ]
   }, {
+    "Id" : "cf_NetCashFlowsFromOperatingActivitiesDiscontinued", 
     "Type" : "xbrl28:formula", 
     "Label" : "Cash Flow From Discontinued Operating Activities imputation", 
     "IsBizQL" : true, 
@@ -2076,6 +2092,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromOperatingActivitiesContinuing" ]
   }, {
+    "Id" : "cf_NetCashFlowsFromOperatingActivities", 
     "Type" : "xbrl28:formula", 
     "Label" : "Cash Flow From Operating Activities imputation", 
     "IsBizQL" : true, 
@@ -2083,6 +2100,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivities" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ]
   }, {
+    "Id" : "cf_NetCashFlowsFromInvestingActivitiesContinuing", 
     "Type" : "xbrl28:formula", 
     "Label" : "Cash Flow From Continuing Investing Activities imputation", 
     "IsBizQL" : true, 
@@ -2090,6 +2108,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivitiesContinuing" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ]
   }, {
+    "Id" : "cf_NetCashFlowsFromInvestingActivitiesDiscontinued", 
     "Type" : "xbrl28:formula", 
     "Label" : "Cash Flow From Discontinued Investing Activities imputation", 
     "IsBizQL" : true, 
@@ -2097,6 +2116,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromInvestingActivitiesContinuing" ]
   }, {
+    "Id" : "cf_NetCashFlowsFromInvestingActivities", 
     "Type" : "xbrl28:formula", 
     "Label" : "Cash Flow From Investing Activities imputation", 
     "IsBizQL" : true, 
@@ -2104,6 +2124,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivities" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ]
   }, {
+    "Id" : "cf_NetCashFlowsFromFinancingActivitiesContinuing", 
     "Type" : "xbrl28:formula", 
     "Label" : "Cash Flow From Continuing Financing Activities imputation", 
     "IsBizQL" : true, 
@@ -2111,6 +2132,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivitiesContinuing" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivities", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
   }, {
+    "Id" : "cf_NetCashFlowsFromFinancingActivitiesDiscontinued", 
     "Type" : "xbrl28:formula", 
     "Label" : "Cash Flow From Discontinued Financing Activities imputation", 
     "IsBizQL" : true, 
@@ -2118,6 +2140,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivities", "fac:NetCashFlowsFromFinancingActivitiesContinuing" ]
   }, {
+    "Id" : "cf_NetCashFlowsFromFinancingActivities", 
     "Type" : "xbrl28:formula", 
     "Label" : "Cash Flow From Financing Activities", 
     "IsBizQL" : true, 
@@ -2125,6 +2148,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivities" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
   }, {
+    "Id" : "cf_NetCashFlowsDiscontinued", 
     "Type" : "xbrl28:formula", 
     "Label" : "Net Cash Flow From Discontinued Operating Activities imputation", 
     "IsBizQL" : true, 
@@ -2132,6 +2156,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsDiscontinued" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
   }, {
+    "Id" : "cf_NetCashFlowsContinuing", 
     "Type" : "xbrl28:formula", 
     "Label" : "Net Cash Flow From Continuing Operating Activities imputation", 
     "IsBizQL" : true, 
@@ -2139,6 +2164,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlowsContinuing" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesContinuing" ]
   }, {
+    "Id" : "cf_NetCashFlows", 
     "Type" : "xbrl28:formula", 
     "Label" : "Net Cash Flow From Discontinued Operating Activities imputation", 
     "IsBizQL" : true, 
@@ -2146,6 +2172,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:NetCashFlows" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromFinancingActivities", "fac:ExchangeGainsLosses" ]
   }, {
+    "Id" : "ci_ComprehensiveIncomeLoss", 
     "Type" : "xbrl28:formula", 
     "Label" : "Comprehensive Income (Loss) imputation", 
     "IsBizQL" : true, 
@@ -2153,6 +2180,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:ComprehensiveIncomeLossAttributableToParent", "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest", "fac:OtherComprehensiveIncomeLoss" ]
   }, {
+    "Id" : "ci_ComprehensiveIncomeLossAttributableToParent", 
     "Type" : "xbrl28:formula", 
     "Label" : "Comprehensive Income (Loss) Attributable to Parent imputation", 
     "IsBizQL" : true, 
@@ -2160,6 +2188,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:ComprehensiveIncomeLossAttributableToParent" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:ComprehensiveIncomeLoss", "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest", "fac:OtherComprehensiveIncomeLoss" ]
   }, {
+    "Id" : "ci_OtherComprehensiveIncomeLoss", 
     "Type" : "xbrl28:formula", 
     "Label" : "Other Comprehensive Income (Loss) imputation", 
     "IsBizQL" : true, 
@@ -2167,6 +2196,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:OtherComprehensiveIncomeLoss" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:ComprehensiveIncomeLoss" ]
   }, {
+    "Id" : "kfr_ReturnOnAssets", 
     "Type" : "xbrl28:formula", 
     "Label" : "Return on Assets (ROA) computation", 
     "IsBizQL" : true, 
@@ -2174,6 +2204,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:ReturnOnAssets" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:Assets" ]
   }, {
+    "Id" : "kfr_ReturnOnEquity", 
     "Type" : "xbrl28:formula", 
     "Label" : "Return on Equity (ROE) computation", 
     "IsBizQL" : true, 
@@ -2181,6 +2212,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:ReturnOnEquity" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:Equity" ]
   }, {
+    "Id" : "kfr_ReturnOnSalesROS", 
     "Type" : "xbrl28:formula", 
     "Label" : "Return on Sales (ROS) computation", 
     "IsBizQL" : true, 
@@ -2188,6 +2220,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:ReturnOnSalesROS" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:Revenues" ]
   }, {
+    "Id" : "kfr_SustainableGrowthRate", 
     "Type" : "xbrl28:formula", 
     "Label" : "Sustainable Growth Rate (SGR) computation", 
     "IsBizQL" : true, 
@@ -2195,6 +2228,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ComputableConcepts" : [ "fac:SustainableGrowthRate" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:Equity", "fac:Assets", "fac:Revenues" ]
   }, {
+    "Id" : "BS1", 
     "Type" : "xbrl28:validation", 
     "Label" : "Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
     "IsBizQL" : true, 
@@ -2203,6 +2237,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:Equity" ], 
     "DependsOn" : [ "fac:EquityAttributableToParent", "fac:EquityAttributableToNoncontrollingInterest" ]
   }, {
+    "Id" : "BS3", 
     "Type" : "xbrl28:validation", 
     "Label" : "Assets = CurrentAssets + NoncurrentAssets", 
     "IsBizQL" : true, 
@@ -2211,6 +2246,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:Assets" ], 
     "DependsOn" : [ "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:CurrentLiabilities", "fac:NoncurrentLiabilities" ]
   }, {
+    "Id" : "BS2", 
     "Type" : "xbrl28:validation", 
     "Label" : "Assets = LiabilitiesAndEquity", 
     "IsBizQL" : true, 
@@ -2219,6 +2255,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:Assets" ], 
     "DependsOn" : [ "fac:LiabilitiesAndEquity" ]
   }, {
+    "Id" : "BS4", 
     "Type" : "xbrl28:validation", 
     "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
     "IsBizQL" : true, 
@@ -2227,6 +2264,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:Liabilities" ], 
     "DependsOn" : [ "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:CurrentLiabilities", "fac:NoncurrentLiabilities" ]
   }, {
+    "Id" : "BS5", 
     "Type" : "xbrl28:validation", 
     "Label" : "LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity", 
     "IsBizQL" : true, 
@@ -2235,22 +2273,16 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:LiabilitiesAndEquity" ], 
     "DependsOn" : [ "fac:Liabilities", "fac:CommitmentsAndContingencies", "fac:TemporaryEquity", "fac:Equity" ]
   }, {
+    "Id" : "CF1", 
     "Type" : "xbrl28:validation", 
-    "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities + ExchangeGainsLosses", 
+    "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses]", 
     "IsBizQL" : true, 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlows\", \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromFinancingActivities\", \"fac:ExchangeGainsLosses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlows as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlows\"] let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $ExchangeGainsLosses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExchangeGainsLosses\"] where exists($NetCashFlows) and rules:decimal-value($NetCashFlows) ne (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities)) return let $test := rules:decimal-value($NetCashFlows) eq (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities) + rules:decimal-value($ExchangeGainsLosses)) let $audit-trail-message := rules:fact-trail($NetCashFlows) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivities,\"NetCashFlowsFromOperatingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivities,\"NetCashFlowsFromInvestingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivities,\"NetCashFlowsFromFinancingActivities\") || \" + \" || rules:fact-trail($ExchangeGainsLosses,\"ExchangeGainsLosses\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses) return rules:create-computed-fact( $NetCashFlows, \"fac:NetCashFlowsValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlows, $test)", 
+    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlows\", \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromFinancingActivities\", \"fac:ExchangeGainsLosses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlows as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlows\"] let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $ExchangeGainsLosses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExchangeGainsLosses\"] return switch (true) case (exists($NetCashFlows) and rules:decimal-value($NetCashFlows) ne (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities))) return let $test := rules:decimal-value($NetCashFlows) eq (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities) + rules:decimal-value($ExchangeGainsLosses)) let $audit-trail-message := rules:fact-trail($NetCashFlows) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivities,\"NetCashFlowsFromOperatingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivities,\"NetCashFlowsFromInvestingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivities,\"NetCashFlowsFromFinancingActivities\") || \" + \" || rules:fact-trail($ExchangeGainsLosses,\"ExchangeGainsLosses\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses) return rules:create-computed-fact( $NetCashFlows, \"fac:NetCashFlowsValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlows, $test) case (exists($NetCashFlows) and rules:decimal-value($NetCashFlows) ne (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities) + rules:decimal-value($ExchangeGainsLosses))) return let $test := rules:decimal-value($NetCashFlows) eq (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities)) let $audit-trail-message := rules:fact-trail($NetCashFlows) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivities,\"NetCashFlowsFromOperatingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivities,\"NetCashFlowsFromInvestingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivities,\"NetCashFlowsFromFinancingActivities\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses) return rules:create-computed-fact( $NetCashFlows, \"fac:NetCashFlowsValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlows, $test) default return ()", 
     "ComputableConcepts" : [ "fac:NetCashFlowsValidation" ], 
     "ValidatedConcepts" : [ "fac:NetCashFlows" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromFinancingActivities", "fac:ExchangeGainsLosses" ]
   }, {
-    "Type" : "xbrl28:validation", 
-    "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities", 
-    "IsBizQL" : true, 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlows\", \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromFinancingActivities\", \"fac:ExchangeGainsLosses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlows as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlows\"] let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $ExchangeGainsLosses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExchangeGainsLosses\"] where exists($NetCashFlows) and rules:decimal-value($NetCashFlows) ne (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities) + rules:decimal-value($ExchangeGainsLosses)) return let $test := rules:decimal-value($NetCashFlows) eq (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities)) let $audit-trail-message := rules:fact-trail($NetCashFlows) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivities,\"NetCashFlowsFromOperatingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivities,\"NetCashFlowsFromInvestingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivities,\"NetCashFlowsFromFinancingActivities\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses) return rules:create-computed-fact( $NetCashFlows, \"fac:NetCashFlows2Validation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlows, $test)", 
-    "ComputableConcepts" : [ "fac:NetCashFlows2Validation" ], 
-    "ValidatedConcepts" : [ "fac:NetCashFlows" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromFinancingActivities", "fac:ExchangeGainsLosses" ]
-  }, {
+    "Id" : "CF2", 
     "Type" : "xbrl28:validation", 
     "Label" : "NetCashFlowsContinuing = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesContinuing", 
     "IsBizQL" : true, 
@@ -2259,6 +2291,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:NetCashFlowsContinuing" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesContinuing" ]
   }, {
+    "Id" : "CF3", 
     "Type" : "xbrl28:validation", 
     "Label" : "NetCashFlowsDiscontinued = NetCashFlowsFromOperatingActivitiesDiscontinued + NetCashFlowsFromInvestingActivitiesDiscontinued + NetCashFlowsFromFinancingActivitiesDiscontinued", 
     "IsBizQL" : true, 
@@ -2267,6 +2300,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:NetCashFlowsDiscontinued" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
   }, {
+    "Id" : "CF4", 
     "Type" : "xbrl28:validation", 
     "Label" : "NetCashFlowsFromOperatingActivities = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromOperatingActivitiesDiscontinued", 
     "IsBizQL" : true, 
@@ -2275,6 +2309,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:NetCashFlowsFromOperatingActivities" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ]
   }, {
+    "Id" : "CF5", 
     "Type" : "xbrl28:validation", 
     "Label" : "NetCashFlowsFromInvestingActivities = NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesDiscontinued", 
     "IsBizQL" : true, 
@@ -2283,6 +2318,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:NetCashFlowsFromInvestingActivities" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ]
   }, {
+    "Id" : "CF6", 
     "Type" : "xbrl28:validation", 
     "Label" : "NetCashFlowsFromFinancingActivities = NetCashFlowsFromFinancingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesDiscontinued", 
     "IsBizQL" : true, 
@@ -2291,6 +2327,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:NetCashFlowsFromFinancingActivities" ], 
     "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
   }, {
+    "Id" : "IS1", 
     "Type" : "xbrl28:validation", 
     "Label" : "GrossProfit = Revenues - CostOfRevenue", 
     "IsBizQL" : true, 
@@ -2299,6 +2336,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:GrossProfit" ], 
     "DependsOn" : [ "fac:Revenues", "fac:CostOfRevenue" ]
   }, {
+    "Id" : "IS2", 
     "Type" : "xbrl28:validation", 
     "Label" : "OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
     "IsBizQL" : true, 
@@ -2307,6 +2345,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:OperatingIncomeLoss" ], 
     "DependsOn" : [ "fac:GrossProfit", "fac:OperatingExpenses", "fac:OtherOperatingIncomeExpenses" ]
   }, {
+    "Id" : "IS11", 
     "Type" : "xbrl28:validation", 
     "Label" : "OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
     "IsBizQL" : true, 
@@ -2315,6 +2354,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:OperatingIncomeLoss" ], 
     "DependsOn" : [ "fac:Revenues", "fac:CostsAndExpenses", "fac:OtherOperatingIncomeExpenses" ]
   }, {
+    "Id" : "IS3", 
     "Type" : "xbrl28:validation", 
     "Label" : "IncomeBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
     "IsBizQL" : true, 
@@ -2323,6 +2363,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:IncomeBeforeEquityMethodInvestments" ], 
     "DependsOn" : [ "fac:OperatingIncomeLoss", "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense" ]
   }, {
+    "Id" : "IS4", 
     "Type" : "xbrl28:validation", 
     "Label" : "IncomeLossFromContinuingOperationsBeforeTax = IncomeBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
     "IsBizQL" : true, 
@@ -2331,6 +2372,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax" ], 
     "DependsOn" : [ "fac:IncomeBeforeEquityMethodInvestments", "fac:IncomeLossFromEquityMethodInvestments" ]
   }, {
+    "Id" : "IS5", 
     "Type" : "xbrl28:validation", 
     "Label" : "IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
     "IsBizQL" : true, 
@@ -2339,6 +2381,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:IncomeLossFromContinuingOperationsAfterTax" ], 
     "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:IncomeTaxExpenseBenefit" ]
   }, {
+    "Id" : "IS6", 
     "Type" : "xbrl28:validation", 
     "Label" : "NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetTax + ExtraordinaryItemsIncomeExpenseNetTax", 
     "IsBizQL" : true, 
@@ -2347,6 +2390,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:NetIncomeLoss" ], 
     "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsAfterTax", "fac:IncomeLossFromDiscontinuedOperationsNetTax", "fac:ExtraordinaryItemsIncomeExpenseNetTax" ]
   }, {
+    "Id" : "IS7", 
     "Type" : "xbrl28:validation", 
     "Label" : "NetIncomeLoss = NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest", 
     "IsBizQL" : true, 
@@ -2355,6 +2399,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:NetIncomeLoss" ], 
     "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:NetIncomeAttributableToNoncontrollingInterest" ]
   }, {
+    "Id" : "IS8", 
     "Type" : "xbrl28:validation", 
     "Label" : "NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
     "IsBizQL" : true, 
@@ -2363,6 +2408,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ], 
     "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:PreferredStockDividendsAndOtherAdjustments" ]
   }, {
+    "Id" : "IS9", 
     "Type" : "xbrl28:validation", 
     "Label" : "ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
     "IsBizQL" : true, 
@@ -2371,6 +2417,7 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
     "DependsOn" : [ "fac:ComprehensiveIncomeLossAttributableToParent", "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest" ]
   }, {
+    "Id" : "IS10", 
     "Type" : "xbrl28:validation", 
     "Label" : "ComprehensiveIncomeLoss = NetIncomeLoss + OtherComprehensiveIncomeLoss", 
     "IsBizQL" : true, 
@@ -2379,12 +2426,13 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
     "ValidatedConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:OtherComprehensiveIncomeLoss" ]
   }, {
+    "Id" : "VAL1", 
     "Type" : "xbrl28:formula", 
     "Label" : "Validation Statistics", 
     "IsBizQL" : true, 
-    "Formula" : "import module namespace report-schemas = \"http://xbrl.io/modules/bizql/report-schemas\"; let $validations := (\"fac:EquityValidation\", \"fac:AssetsValidation\", \"fac:Assets2Validation\", \"fac:LiabilitiesValidation\", \"fac:LiabilitiesAndEquityValidation\", \"fac:NetCashFlowsValidation\", \"fac:NetCashFlows2Validation\", \"fac:NetCashFlowsContinuingValidation\", \"fac:NetCashFlowsDiscontinuedValidation\", \"fac:NetCashFlowsFromOperatingActivitiesValidation\", \"fac:NetCashFlowsFromInvestingActivitiesValidation\", \"fac:NetCashFlowsFromFinancingActivitiesValidation\", \"fac:GrossProfitValidation\", \"fac:OperatingIncomeLossValidation\", \"fac:OperatingIncomeLoss2Validation\", \"fac:IncomeBeforeEquityMethodInvestmentsValidation\", \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\", \"fac:IncomeLossFromContinuingOperationsAfterTaxValidation\", \"fac:NetIncomeLossValidation\", \"fac:NetIncomeLoss2Validation\", \"fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation\", \"fac:ComprehensiveIncomeLossValidation\", \"fac:ComprehensiveIncomeLoss2Validation\") for $facts in facts:facts-for-internal($validations, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, \"Balance\")), $aligned-period return let $passed as object* := $facts[$$.Value eq true] let $failed as object* := $facts[$$.Value eq false] let $not-applied as string* := distinct-values($validations)[not($$ = $facts.$facts:ASPECTS.$facts:CONCEPT)] for $concept in flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT) return switch ($concept) case \"fac:PassedValidations\" return let $computed-value := count($passed) let $audit-trail-message := \"count(\" || string-join($passed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($passed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:PassedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:FailedValidations\" return let $computed-value := count($failed) let $audit-trail-message := \"count(\" || string-join($failed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($failed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:FailedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:NotApplicableValidations\" return let $computed-value := count($not-applied) let $audit-trail-message := \"count(\" || string-join($not-applied, \", \") || \")\" let $source-facts := () return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:NotApplicableValidations\", $computed-value, {Label: $rule.Label || \": Validations that couldn't be applied\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new default return ()", 
+    "Formula" : "let $validations := (\"fac:EquityValidation\", \"fac:AssetsValidation\", \"fac:Assets2Validation\", \"fac:LiabilitiesValidation\", \"fac:LiabilitiesAndEquityValidation\", \"fac:NetCashFlowsValidation\", \"fac:NetCashFlowsContinuingValidation\", \"fac:NetCashFlowsDiscontinuedValidation\", \"fac:NetCashFlowsFromOperatingActivitiesValidation\", \"fac:NetCashFlowsFromInvestingActivitiesValidation\", \"fac:NetCashFlowsFromFinancingActivitiesValidation\", \"fac:GrossProfitValidation\", \"fac:OperatingIncomeLossValidation\", \"fac:OperatingIncomeLoss2Validation\", \"fac:IncomeBeforeEquityMethodInvestmentsValidation\", \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\", \"fac:IncomeLossFromContinuingOperationsAfterTaxValidation\", \"fac:NetIncomeLossValidation\", \"fac:NetIncomeLoss2Validation\", \"fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation\", \"fac:ComprehensiveIncomeLossValidation\", \"fac:ComprehensiveIncomeLoss2Validation\") for $facts in facts:facts-for-internal($validations, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, \"Balance\")), $aligned-period return let $passed as object* := $facts[$$.Value eq true] let $failed as object* := $facts[$$.Value eq false] let $not-applied as string* := distinct-values($validations)[not($$ = $facts.$facts:ASPECTS.$facts:CONCEPT)] for $concept in flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT) return switch ($concept) case \"fac:PassedValidations\" return let $computed-value := count($passed) let $audit-trail-message := \"count(\" || string-join($passed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($passed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:PassedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:FailedValidations\" return let $computed-value := count($failed) let $audit-trail-message := \"count(\" || string-join($failed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($failed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:FailedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:NotApplicableValidations\" return let $computed-value := count($not-applied) let $audit-trail-message := \"count(\" || string-join($not-applied, \", \") || \")\" let $source-facts := () return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:NotApplicableValidations\", $computed-value, {Label: $rule.Label || \": Validations that couldn't be applied\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new default return ()", 
     "ComputableConcepts" : [ "fac:PassedValidations", "fac:FailedValidations", "fac:NotApplicableValidations" ], 
-    "DependsOn" : [ "fac:EquityValidation", "fac:AssetsValidation", "fac:Assets2Validation", "fac:LiabilitiesValidation", "fac:LiabilitiesAndEquityValidation", "fac:NetCashFlowsValidation", "fac:NetCashFlows2Validation", "fac:NetCashFlowsContinuingValidation", "fac:NetCashFlowsDiscontinuedValidation", "fac:NetCashFlowsFromOperatingActivitiesValidation", "fac:NetCashFlowsFromInvestingActivitiesValidation", "fac:NetCashFlowsFromFinancingActivitiesValidation", "fac:GrossProfitValidation", "fac:OperatingIncomeLossValidation", "fac:OperatingIncomeLoss2Validation", "fac:IncomeBeforeEquityMethodInvestmentsValidation", "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", "fac:NetIncomeLossValidation", "fac:NetIncomeLoss2Validation", "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", "fac:ComprehensiveIncomeLossValidation", "fac:ComprehensiveIncomeLoss2Validation" ]
+    "DependsOn" : [ "fac:EquityValidation", "fac:AssetsValidation", "fac:Assets2Validation", "fac:LiabilitiesValidation", "fac:LiabilitiesAndEquityValidation", "fac:NetCashFlowsValidation", "fac:NetCashFlowsContinuingValidation", "fac:NetCashFlowsDiscontinuedValidation", "fac:NetCashFlowsFromOperatingActivitiesValidation", "fac:NetCashFlowsFromInvestingActivitiesValidation", "fac:NetCashFlowsFromFinancingActivitiesValidation", "fac:GrossProfitValidation", "fac:OperatingIncomeLossValidation", "fac:OperatingIncomeLoss2Validation", "fac:IncomeBeforeEquityMethodInvestmentsValidation", "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", "fac:NetIncomeLossValidation", "fac:NetIncomeLoss2Validation", "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", "fac:ComprehensiveIncomeLossValidation", "fac:ComprehensiveIncomeLoss2Validation" ]
   } ]
 }
 );
