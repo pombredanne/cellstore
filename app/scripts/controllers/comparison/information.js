@@ -111,10 +111,16 @@ angular.module('main')
                             item.label = list[key].Label ? list[key].Label : '';
                             item.value = [];
                             item.type = [];
+                            item.audit = [];
                             array[j] = item;
                         } else {
                             item = array[j];
                         }
+                        
+                        item.value[index] = null;
+                        item.type[index] = '';
+                        item.audit[index] = null;
+                        
                         if (list[key].Facts && list[key].Facts.length > 0) {
                             item.type[index] = list[key].Facts[0].Type;
                             if (list[key].Facts[0].Type === 'NumericValue') {
@@ -124,15 +130,28 @@ angular.module('main')
                             } else {
                                 item.value[index] = list[key].Facts[0].Value;
                             }
+                            if (list[key].Facts[0].AuditTrails && 
+                                list[key].Facts[0].AuditTrails.length > 0) {
+                                switch(list[key].Facts[0].AuditTrails[0].Type) {
+                                case 'xbrl28:concept-maps':
+                                    item.audit[index] = list[key].Facts[0].AuditTrails[0].Data.OriginalConcept;
+                                    break;
+                                case 'hypercubes:dimension-default':
+                                    item.audit[index] = list[key].Facts[0].AuditTrails[0].Data.Dimension;
+                                    break;
+                                case 'xbrl28:formula':
+                                    item.audit[index] = list[key].Facts[0].AuditTrails[0].Message;
+                                    break;
+                                case 'xbrl28:validation':
+                                    item.audit[index] = list[key].Facts[0].AuditTrails[0].Message;
+                                    break;
+                                }
+                            }
                         } else {
                             if (isNumeric)
                             {
                                 item.value[index] = 0;
                                 item.type[index] = 'NumericValue';
-                            }
-                            else {
-                                item.value[index] = null;
-                                item.type[index] = '';
                             }
                         }
                         j++;
@@ -207,6 +226,10 @@ angular.module('main')
 
     $scope.showText = function(html) {
         $scope.$emit('alert', 'Text Details', html);
+    };
+
+    $scope.showAudit = function(passed, message) {
+        $scope.$emit('alert', '<small><i class="fa semaphore ' + (passed ? 'fa-check-circle success' : 'fa-exclamation-triangle') + '"></i></small> ' + (passed ? 'Rule passed' : 'Rule failed'), message);
     };
 
     $scope.getUrl = function(format) {
