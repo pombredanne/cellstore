@@ -130,8 +130,7 @@ angular.module('main')
                             } else {
                                 item.value[index] = list[key].Facts[0].Value;
                             }
-                            if (list[key].Facts[0].AuditTrails && 
-                                list[key].Facts[0].AuditTrails.length > 0) {
+                            if (list[key].Facts[0].AuditTrails && list[key].Facts[0].AuditTrails.length > 0) {
                                 switch(list[key].Facts[0].AuditTrails[0].Type) {
                                 case 'xbrl28:concept-maps':
                                     item.audit[index] = list[key].Facts[0].AuditTrails[0].Data.OriginalConcept;
