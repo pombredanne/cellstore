@@ -11,7 +11,7 @@ let $summaries := {
 
 let $channel := doc("http://28-io.tumblr.com/rss")/rss/channel
 let $index :=  {
-  "title": $channel/title/text(),
+  "title": "secxbrl.info - US Public Company Financial Information Repository",
   "tags": {|
     for $tag in distinct-values($channel/item/category/string())
     return { $tag: count($channel/category/[string() eq $tag]) }
@@ -40,7 +40,7 @@ let $index :=  {
 let $rss := http:send-request(<http:request href="http://28-io.tumblr.com/rss" method="GET" />)[2]
 :)
 let $feed := <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>28.io - Blog</title>
+  <title>secxbrl.info - US Public Company Financial Information Repository</title>
   <link href="https://app.secxbrl.info/blog/atom.xml"/>
   <updated>{current-dateTime()}</updated>
   <author>
