@@ -11,7 +11,7 @@ let $summaries := {
 
 let $channel := doc("http://28-io.tumblr.com/rss")/rss/channel
 let $index :=  {
-  "title": "secxbrl - US Public Company Financial Information Repository",
+  "title": "secxbrl.info - US Public Company Financial Information Repository",
   "tags": {|
     for $tag in distinct-values($channel/item/category/string())
     return { $tag: count($channel/category/[string() eq $tag]) }
