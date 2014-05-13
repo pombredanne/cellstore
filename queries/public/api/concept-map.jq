@@ -42,6 +42,8 @@ declare function local:to-csv($c as object) as string
     )
 };
 
+session:audit-call();
+
 let $format  := lower-case(request:param-values("format"))[1]
 let $map-name := request:param-values("name")
 let $map := concept-maps:concept-maps($map-name)

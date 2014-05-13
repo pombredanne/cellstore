@@ -59,6 +59,8 @@ declare function local:to-csv($entities as object*) as string*
     )
 };
 
+session:audit-call();
+
 let $format  := lower-case(request:param-values("format")[1])
 let $ciks    := request:param-values("cik")
 let $tags    := request:param-values("tag") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)

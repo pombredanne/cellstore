@@ -88,6 +88,7 @@ declare function local:concepts-for-archives($aids as string*) as object*
         })
 };
 
+session:audit-call();
 
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
 let $ciks        := distinct-values(companies:eid(request:param-values("cik")))

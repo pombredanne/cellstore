@@ -193,6 +193,7 @@ declare function local:filings(
     return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
 };
 
+session:audit-call();
 
 let $format      := lower-case(request:param-values("format")[1])
 

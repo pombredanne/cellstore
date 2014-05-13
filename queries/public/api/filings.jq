@@ -84,6 +84,8 @@ declare function local:summary($a as object) as object
     }
 };
 
+session:audit-call();
+
 let $format      := lower-case(request:param-values("format")[1])
 let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))

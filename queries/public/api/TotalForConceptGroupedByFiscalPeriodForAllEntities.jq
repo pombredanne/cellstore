@@ -63,6 +63,8 @@ declare function local:to-xml($o as object*) as node()*
     }</FactTable>)
 };
  
+session:audit-call(); 
+ 
 let $format  := lower-case(request:param-values("format")[1])
 let $periods := let $period := upper-case(request:param-values("fiscalPeriod", "FY"))
                 return 

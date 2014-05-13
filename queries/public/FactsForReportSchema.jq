@@ -12,6 +12,8 @@ import module namespace session = "http://apps.28.io/session";
 
 import module namespace seq = "http://zorba.io/modules/sequence";
 
+session:audit-call();
+
 let $format  := lower-case(request:param-values("format")[1])
 let $aids     := request:param-values("aid")
 let $report   := request:param-values("report")[1]
