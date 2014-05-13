@@ -28,6 +28,6 @@ angular.module('main')
         });
     
     $scope.getExportURL = function(format) {
-        return $backend.API_URL + '/_queries/public/api/filings.jq?_method=POST&fiscalPeriod=' + $scope.selection.fiscalPeriod + '&fiscalYear=' + $scope.selection.fiscalYear + '&tag=' + $scope.selection.tag + '&format=' + format + '&token=' + $scope.token;
+        return $backend.API_URL + '/_queries/public/api/filings.jq?_method=POST&fiscalPeriod=' + $scope.selection.fiscalPeriod + '&fiscalYear=' + $scope.selection.fiscalYear + '&tag=' + $scope.selection.tag + '&sic=' + $scope.selection.sic + '&format=' + format + '&token=' + $scope.token;
     };
 });

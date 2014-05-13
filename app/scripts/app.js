@@ -128,7 +128,7 @@ angular.module('main', [
             }]
         }
     })
-    .state('root.blog.entry', {
+    .state('root.entry', {
         url: '/blog/:id/:slug',
         templateUrl: '/views/blog.html',
         controller: 'BlogCtrl',
