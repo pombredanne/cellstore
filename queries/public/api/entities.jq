@@ -11,14 +11,12 @@ let $sics    := request:param-values("sic")
 let $entities := 
     for $entity in 
         if (exists(($ciks, $tags, $tickers, $sics)))
-        then
-            for $entity in (
-                companies:companies($ciks),
-                companies:companies-for-tags($tags),
-                companies:companies-for-tickers($tickers),
-                companies:companies-for-SIC($sics))
-            group by companies:eid($entity) (: duplicate elimination :)
-            return $entity[1]
+        then companies:companies-for({
+                ciks : [ $ciks ],
+                tags : [ $tags ],
+                tickers : [ $tickers ],
+                sics : [ $sics ]
+            })
         else
             companies:companies()
     order by $entity.Profiles.SEC.CompanyName (: companies:name() ? :)
