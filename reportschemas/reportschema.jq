@@ -27,54 +27,14 @@
                   "fac:EntityRegistrantName" : {
                     "Name" : "fac:EntityRegistrantName", 
                     "Label" : "Entity Registrant Name"
-                  }, 
+                  },
                   "fac:EntityCentralIndexKey" : {
                     "Name" : "fac:EntityCentralIndexKey", 
                     "Label" : "Central Index Key (CIK)"
                   }, 
-                  "fac:EntityFilerCategory" : {
-                    "Name" : "fac:EntityFilerCategory", 
-                    "Label" : "Entity Filer Category"
-                  }, 
-                  "fac:TradingSymbol" : {
-                    "Name" : "fac:TradingSymbol", 
-                    "Label" : "Trading Symbol"
-                  }, 
-                  "fac:FiscalYearEnd" : {
-                    "Name" : "fac:FiscalYearEnd", 
-                    "Label" : "Fiscal Year End"
-                  }, 
-                  "fac:FiscalYear" : {
-                    "Name" : "fac:FiscalYear", 
-                    "Label" : "Fiscal Year"
-                  }, 
-                  "fac:FiscalPeriod" : {
-                    "Name" : "fac:FiscalPeriod", 
-                    "Label" : "Fiscal Period"
-                  }, 
-                  "fac:DocumentType" : {
-                    "Name" : "fac:DocumentType", 
-                    "Label" : "Document Type"
-                  }, 
                   "fac:BalanceSheetDate" : {
                     "Name" : "fac:BalanceSheetDate", 
                     "Label" : "Balance Sheet Date"
-                  }, 
-                  "fac:IncomeStatementStartPeriod" : {
-                    "Name" : "fac:IncomeStatementStartPeriod", 
-                    "Label" : "Income Statement Start of Period"
-                  }, 
-                  "fac:BalanceSheetFormat" : {
-                    "Name" : "fac:BalanceSheetFormat", 
-                    "Label" : "Balance Sheet Format"
-                  }, 
-                  "fac:IncomeStatementFormat" : {
-                    "Name" : "fac:IncomeStatementFormat", 
-                    "Label" : "Income Statement Format"
-                  }, 
-                  "fac:NatureOfOperations" : {
-                    "Name" : "fac:NatureOfOperations", 
-                    "Label" : "Nature of Operations"
                   }
                 }
               }, 
@@ -112,40 +72,25 @@
                     "Label" : "Liabilities", 
                     "Order" : 6
                   }, 
-                  "fac:CommitmentsAndContingencies" : {
-                    "Name" : "fac:CommitmentsAndContingencies", 
-                    "Label" : "Commitments and Contingencies", 
-                    "Order" : 7
-                  }, 
-                  "fac:TemporaryEquity" : {
-                    "Name" : "fac:TemporaryEquity", 
-                    "Label" : "Temporary Equity", 
-                    "Order" : 8
-                  }, 
                   "fac:EquityAttributableToParent" : {
                     "Name" : "fac:EquityAttributableToParent", 
                     "Label" : "Equity Attributable to Parent", 
-                    "Order" : 9
-                  }, 
-                  "fac:EquityAttributableToNoncontrollingInterest" : {
-                    "Name" : "fac:EquityAttributableToNoncontrollingInterest", 
-                    "Label" : "Equity Attributable to Noncontrolling Interest", 
-                    "Order" : 10
+                    "Order" : 7
                   }, 
                   "fac:RedeemableNoncontrollingInterest" : {
                     "Name" : "fac:RedeemableNoncontrollingInterest", 
                     "Label" : "Redeemable Noncontrolling Interest", 
-                    "Order" : 11
+                    "Order" : 8
                   }, 
                   "fac:Equity" : {
                     "Name" : "fac:Equity", 
                     "Label" : "Equity", 
-                    "Order" : 12
+                    "Order" : 9
                   }, 
                   "fac:LiabilitiesAndEquity" : {
                     "Name" : "fac:LiabilitiesAndEquity", 
                     "Label" : "Liabilities and Equity", 
-                    "Order" : 13
+                    "Order" : 10
                   }
                 }
               }, 
@@ -402,101 +347,7 @@
                     "Order" : 4
                   }
                 }
-              }, 
-              "fac:Validations" : {
-                "Name" : "fac:Validations", 
-                "Label" : "Fact Validation Rule Results [Hierarchy]", 
-                "To" : {
-                  "fac:GrossProfitValidation" : {
-                    "Name" : "fac:GrossProfitValidation", 
-                    "Label" : "GrossProfit = Revenues - CostOfRevenue"
-                  }, 
-                  "fac:IncomeBeforeEquityMethodInvestmentsValidation" : {
-                    "Name" : "fac:IncomeBeforeEquityMethodInvestmentsValidation", 
-                    "Label" : "IncomeBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense"
-                  }, 
-                  "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation" : {
-                    "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", 
-                    "Label" : "IncomeLossFromContinuingOperationsBeforeTax = IncomeBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments"
-                  }, 
-                  "fac:IncomeLossFromContinuingOperationsAfterTaxValidation" : {
-                    "Name" : "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", 
-                    "Label" : "IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit"
-                  }, 
-                  "fac:NetIncomeLossValidation" : {
-                    "Name" : "fac:NetIncomeLossValidation", 
-                    "Label" : "NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetTax + ExtraordinaryItemsIncomeExpenseNetTax"
-                  }, 
-                  "fac:NetIncomeLoss2Validation" : {
-                    "Name" : "fac:NetIncomeLoss2Validation", 
-                    "Label" : "NetIncomeLoss = NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest"
-                  }, 
-                  "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation" : {
-                    "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
-                    "Label" : "NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeAttributableToParent - PreferredStockDividendsAndOtherAdjustments"
-                  }, 
-                  "fac:ComprehensiveIncomeLossValidation" : {
-                    "Name" : "fac:ComprehensiveIncomeLossValidation", 
-                    "Label" : "ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest"
-                  }, 
-                  "fac:OperatingIncomeLossValidation" : {
-                    "Name" : "fac:OperatingIncomeLossValidation", 
-                    "Label" : "OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses"
-                  }, 
-                  "fac:OperatingIncomeLoss2Validation" : {
-                    "Name" : "fac:OperatingIncomeLoss2Validation", 
-                    "Label" : "OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses"
-                  }, 
-                  "fac:LiabilitiesAndEquityValidation" : {
-                    "Name" : "fac:LiabilitiesAndEquityValidation", 
-                    "Label" : "LiabilitiesAndEquity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest"
-                  }, 
-                  "fac:LiabilitiesValidation" : {
-                    "Name" : "fac:LiabilitiesValidation", 
-                    "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities"
-                  }, 
-                  "fac:AssetsValidation" : {
-                    "Name" : "fac:AssetsValidation", 
-                    "Label" : "Assets = CurrentAssets + NoncurrentAssets"
-                  }, 
-                  "fac:Assets2Validation" : {
-                    "Name" : "fac:Assets2Validation", 
-                    "Label" : "Assets = LiabilitiesAndEquity"
-                  }, 
-                  "fac:EquityValidation" : {
-                    "Name" : "fac:EquityValidation", 
-                    "Label" : "Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest"
-                  }, 
-                  "fac:NetCashFlowsValidation" : {
-                    "Name" : "fac:NetCashFlowsValidation", 
-                    "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities + ExchangeGainsLosses"
-                  }, 
-                  "fac:NetCashFlows2Validation" : {
-                    "Name" : "fac:NetCashFlows2Validation", 
-                    "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities"
-                  }, 
-                  "fac:NetCashFlowsContinuingValidation" : {
-                    "Name" : "fac:NetCashFlowsContinuingValidation", 
-                    "Label" : "NetCashFlowsContinuing = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesContinuing"
-                  }, 
-                  "fac:NetCashFlowsDiscontinuedValidation" : {
-                    "Name" : "fac:NetCashFlowsDiscontinuedValidation", 
-                    "Label" : "NetCashFlowsDiscontinued = NetCashFlowsFromOperatingActivitiesDiscontinued + NetCashFlowsFromInvestingActivitiesDiscontinued + NetCashFlowsFromFinancingActivitiesDiscontinued"
-                  }, 
-                  "fac:NetCashFlowsFromOperatingActivitiesValidation" : {
-                    "Name" : "fac:NetCashFlowsFromOperatingActivitiesValidation", 
-                    "Label" : "NetCashFlowsFromOperatingActivities = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromOperatingActivitiesDiscontinued"
-                  }, 
-                  "fac:NetCashFlowsFromInvestingActivitiesValidation" : {
-                    "Name" : "fac:NetCashFlowsFromInvestingActivitiesValidation", 
-                    "Label" : "NetCashFlowsFromInvestingActivities = NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesDiscontinued"
-                  }, 
-                  "fac:NetCashFlowsFromFinancingActivitiesValidation" : {
-                    "Name" : "fac:NetCashFlowsFromFinancingActivitiesValidation", 
-                    "Label" : "NetCashFlowsFromFinancingActivities = NetCashFlowsFromFinancingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesDiscontinued"
-                  }
-                }
-              }
+              }              
             }
           }
         }
@@ -524,8 +375,8 @@
         "Name" : "fac:NoncurrentLiabilities", 
         "Label" : "Noncurrent Liabilities", 
         "To" : {
-          "us-gaap:LiabilitiesNoncurrent" : {
-            "Name" : "us-gaap:LiabilitiesNoncurrent"
+          "ifrs:NoncurrentLiabilities" : {
+            "Name" : "ifrs:NoncurrentLiabilities"
           }
         }
       }, 
@@ -533,8 +384,8 @@
         "Name" : "fac:EntityRegistrantName", 
         "Label" : "Entity Registrant Name", 
         "To" : {
-          "dei:EntityRegistrantName" : {
-            "Name" : "dei:EntityRegistrantName"
+          "ifrs:NameOfReportingEntityOrOtherMeansOfIdentification" : {
+            "Name" : "ifrs:NameOfReportingEntityOrOtherMeansOfIdentification"
           }
         }
       }, 
@@ -692,11 +543,8 @@
         "Name" : "fac:Assets", 
         "Label" : "Assets", 
         "To" : {
-          "us-gaap:Assets" : {
-            "Name" : "us-gaap:Assets"
-          }, 
-          "us-gaap:AssetsCurrent" : {
-            "Name" : "us-gaap:AssetsCurrent"
+          "ifrs:Assets" : {
+            "Name" : "ifrs:Assets"
           }
         }
       }, 
@@ -704,14 +552,8 @@
         "Name" : "fac:EquityAttributableToParent", 
         "Label" : "Equity Attributable to Parent", 
         "To" : {
-          "us-gaap:StockholdersEquity" : {
-            "Name" : "us-gaap:StockholdersEquity"
-          }, 
-          "us-gaap:PartnersCapital" : {
-            "Name" : "us-gaap:PartnersCapital"
-          }, 
-          "us-gaap:MemberEquity" : {
-            "Name" : "us-gaap:MemberEquity"
+          "ifrs:EquityAttributableToOwnersOfParent" : {
+            "Name" : "ifrs:EquityAttributableToOwnersOfParent"
           }
         }
       }, 
@@ -743,29 +585,11 @@
         "Name" : "fac:EntityCentralIndexKey", 
         "Label" : "Central Index Key (CIK)", 
         "To" : {
-          "dei:EntityCentralIndexKey" : {
-            "Name" : "dei:EntityCentralIndexKey"
+          "cl-ci:RUTEntidadInforma" : {
+            "Name" : "cl-ci:RUTEntidadInforma"
           }
         }
-      }, 
-      "fac:NatureOfOperations" : {
-        "Name" : "fac:NatureOfOperations", 
-        "Label" : "Nature of Operations", 
-        "To" : {
-          "us-gaap:NatureOfOperations" : {
-            "Name" : "us-gaap:NatureOfOperations"
-          }, 
-          "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock" : {
-            "Name" : "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock"
-          }, 
-          "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock" : {
-            "Name" : "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock"
-          }, 
-          "us-gaap:OrganizationConsolidationBasisOfPresentationBusinessDescriptionAndAccountingPoliciesTextBlock" : {
-            "Name" : "us-gaap:OrganizationConsolidationBasisOfPresentationBusinessDescriptionAndAccountingPoliciesTextBlock"
-          }
-        }
-      }, 
+      },
       "fac:ResearchAndDevelopment" : {
         "Name" : "fac:ResearchAndDevelopment", 
         "Label" : "Research and Development", 
@@ -814,15 +638,6 @@
           }
         }
       }, 
-      "fac:TradingSymbol" : {
-        "Name" : "fac:TradingSymbol", 
-        "Label" : "Trading Symbol", 
-        "To" : {
-          "dei:TradingSymbol" : {
-            "Name" : "dei:TradingSymbol"
-          }
-        }
-      }, 
       "fac:NetIncomeLossAvailableToCommonStockholdersBasic" : {
         "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic", 
         "Label" : "Net Income (Loss) Available to Common Stockholders, Basic", 
@@ -831,16 +646,7 @@
             "Name" : "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic"
           }
         }
-      }, 
-      "fac:EntityFilerCategory" : {
-        "Name" : "fac:EntityFilerCategory", 
-        "Label" : "Entity Filer Category", 
-        "To" : {
-          "dei:EntityFilerCategory" : {
-            "Name" : "dei:EntityFilerCategory"
-          }
-        }
-      }, 
+      },       
       "fac:IncomeLossFromContinuingOperationsBeforeTax" : {
         "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTax", 
         "Label" : "Income (Loss) from Continuing Operations Before Tax", 
@@ -878,8 +684,8 @@
         "Name" : "fac:Liabilities", 
         "Label" : "Liabilities", 
         "To" : {
-          "us-gaap:Liabilities" : {
-            "Name" : "us-gaap:Liabilities"
+          "ifrs:Liabilities" : {
+            "Name" : "ifrs:Liabilities"
           }
         }
       }, 
@@ -967,15 +773,6 @@
           }
         }
       }, 
-      "fac:CommitmentsAndContingencies" : {
-        "Name" : "fac:CommitmentsAndContingencies", 
-        "Label" : "Commitments and Contingencies", 
-        "To" : {
-          "us-gaap:CommitmentsAndContingencies" : {
-            "Name" : "us-gaap:CommitmentsAndContingencies"
-          }
-        }
-      }, 
       "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" : {
         "Name" : "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", 
         "Label" : "Net Cash Flows from Investing Activities, Discontinued", 
@@ -1003,42 +800,15 @@
           }
         }
       }, 
-      "fac:FiscalYearEnd" : {
-        "Name" : "fac:FiscalYearEnd", 
-        "Label" : "Fiscal Year End", 
-        "To" : {
-          "dei:CurrentFiscalYearEndDate" : {
-            "Name" : "dei:CurrentFiscalYearEndDate"
-          }
-        }
-      }, 
       "fac:NoncurrentAssets" : {
         "Name" : "fac:NoncurrentAssets", 
         "Label" : "Noncurrent Assets", 
         "To" : {
-          "us-gaap:AssetsNoncurrent" : {
-            "Name" : "us-gaap:AssetsNoncurrent"
+          "ifrs:NoncurrentAssets" : {
+            "Name" : "ifrs:NoncurrentAssets"
           }
         }
-      }, 
-      "fac:FiscalPeriod" : {
-        "Name" : "fac:FiscalPeriod", 
-        "Label" : "Fiscal Period", 
-        "To" : {
-          "dei:DocumentFiscalPeriodFocus" : {
-            "Name" : "dei:DocumentFiscalPeriodFocus"
-          }
-        }
-      }, 
-      "fac:FiscalYear" : {
-        "Name" : "fac:FiscalYear", 
-        "Label" : "Fiscal Year", 
-        "To" : {
-          "dei:DocumentFiscalYearFocus" : {
-            "Name" : "dei:DocumentFiscalYearFocus"
-          }
-        }
-      }, 
+      },             
       "fac:NetIncomeLoss" : {
         "Name" : "fac:NetIncomeLoss", 
         "Label" : "Net Income (Loss)", 
@@ -1087,39 +857,6 @@
           }
         }
       }, 
-      "fac:EquityAttributableToNoncontrollingInterest" : {
-        "Name" : "fac:EquityAttributableToNoncontrollingInterest", 
-        "Label" : "Equity Attributable to Noncontrolling Interest", 
-        "To" : {
-          "us-gaap:MinorityInterest" : {
-            "Name" : "us-gaap:MinorityInterest"
-          }, 
-          "us-gaap:PartnersCapitalAttributableToNoncontrollingInterest" : {
-            "Name" : "us-gaap:PartnersCapitalAttributableToNoncontrollingInterest"
-          }, 
-          "us-gaap:MinorityInterestInLimitedPartnerships" : {
-            "Name" : "us-gaap:MinorityInterestInLimitedPartnerships"
-          }, 
-          "us-gaap:MinorityInterestInOperatingPartnerships" : {
-            "Name" : "us-gaap:MinorityInterestInOperatingPartnerships"
-          }, 
-          "us-gaap:MinorityInterestInPreferredUnitHolders" : {
-            "Name" : "us-gaap:MinorityInterestInPreferredUnitHolders"
-          }, 
-          "us-gaap:MinorityInterestInJointVentures" : {
-            "Name" : "us-gaap:MinorityInterestInJointVentures"
-          }, 
-          "us-gaap:OtherMinorityInterests" : {
-            "Name" : "us-gaap:OtherMinorityInterests"
-          }, 
-          "us-gaap:NonredeemableNoncontrollingInterest" : {
-            "Name" : "us-gaap:NonredeemableNoncontrollingInterest"
-          }, 
-          "us-gaap:NoncontrollingInterestInVariableInterestEntity" : {
-            "Name" : "us-gaap:NoncontrollingInterestInVariableInterestEntity"
-          }
-        }
-      }, 
       "fac:CostsAndExpenses" : {
         "Name" : "fac:CostsAndExpenses", 
         "Label" : "Costs and Expenses", 
@@ -1136,8 +873,8 @@
         "Name" : "fac:CurrentLiabilities", 
         "Label" : "Current Liabilities", 
         "To" : {
-          "us-gaap:LiabilitiesCurrent" : {
-            "Name" : "us-gaap:LiabilitiesCurrent"
+          "ifrs:CurrentLiabilities" : {
+            "Name" : "ifrs:CurrentLiabilities"
           }
         }
       }, 
@@ -1214,8 +951,8 @@
         "Name" : "fac:BalanceSheetDate", 
         "Label" : "Balance Sheet Date", 
         "To" : {
-          "dei:DocumentPeriodEndDate" : {
-            "Name" : "dei:DocumentPeriodEndDate"
+          "ifrs:DateOfEndOfReportingPeriod" : {
+            "Name" : "ifrs:DateOfEndOfReportingPeriod"
           }
         }
       }, 
@@ -1223,11 +960,8 @@
         "Name" : "fac:LiabilitiesAndEquity", 
         "Label" : "Liabilities and Equity", 
         "To" : {
-          "us-gaap:LiabilitiesAndStockholdersEquity" : {
-            "Name" : "us-gaap:LiabilitiesAndStockholdersEquity"
-          }, 
-          "us-gaap:LiabilitiesAndPartnersCapital" : {
-            "Name" : "us-gaap:LiabilitiesAndPartnersCapital"
+          "ifrs:EquityAndLiabilities" : {
+            "Name" : "ifrs:EquityAndLiabilities"
           }
         }
       }, 
@@ -1235,35 +969,8 @@
         "Name" : "fac:Equity", 
         "Label" : "Equity", 
         "To" : {
-          "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest" : {
-            "Name" : "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
-          }, 
-          "us-gaap:StockholdersEquity" : {
-            "Name" : "us-gaap:StockholdersEquity"
-          }, 
-          "us-gaap:PartnersCapitalIncludingPortionAttributableToNoncontrollingInterest" : {
-            "Name" : "us-gaap:PartnersCapitalIncludingPortionAttributableToNoncontrollingInterest"
-          }, 
-          "us-gaap:PartnersCapital" : {
-            "Name" : "us-gaap:PartnersCapital"
-          }, 
-          "us-gaap:CommonStockholdersEquity" : {
-            "Name" : "us-gaap:CommonStockholdersEquity"
-          }, 
-          "us-gaap:MembersEquity" : {
-            "Name" : "us-gaap:MembersEquity"
-          }, 
-          "us-gaap:AssetsNet" : {
-            "Name" : "us-gaap:AssetsNet"
-          }
-        }
-      }, 
-      "fac:DocumentType" : {
-        "Name" : "fac:DocumentType", 
-        "Label" : "Document Type", 
-        "To" : {
-          "dei:DocumentType" : {
-            "Name" : "dei:DocumentType"
+          "ifrs:Equity" : {
+            "Name" : "ifrs:Equity"
           }
         }
       }, 
@@ -1301,8 +1008,8 @@
         "Name" : "fac:CurrentAssets", 
         "Label" : "Current Assets", 
         "To" : {
-          "us-gaap:AssetsCurrent" : {
-            "Name" : "us-gaap:AssetsCurrent"
+          "ifrs:CurrentAssets" : {
+            "Name" : "ifrs:CurrentAssets"
           }
         }
       }, 
@@ -1328,44 +1035,8 @@
         "Name" : "fac:RedeemableNoncontrollingInterest", 
         "Label" : "Redeemable Noncontrolling Interest", 
         "To" : {
-          "us-gaap:RedeemableNoncontrollingInterestEquityCarryingAmount" : {
-            "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCarryingAmount"
-          }, 
-          "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" : {
-            "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount"
-          }, 
-          "us-gaap:RedeemableNoncontrollingInterestEquityPreferredCarryingAmount" : {
-            "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityPreferredCarryingAmount"
-          }, 
-          "us-gaap:RedeemableNoncontrollingInterestEquityOtherCarryingAmount" : {
-            "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityOtherCarryingAmount"
-          }
-        }
-      }, 
-      "fac:TemporaryEquity" : {
-        "Name" : "fac:TemporaryEquity", 
-        "Label" : "Temporary Equity", 
-        "To" : {
-          "us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests" : {
-            "Name" : "us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests"
-          }, 
-          "us-gaap:TemporaryEquityRedemptionValue" : {
-            "Name" : "us-gaap:TemporaryEquityRedemptionValue"
-          }, 
-          "us-gaap:RedeemablePreferredStockCarryingAmount" : {
-            "Name" : "us-gaap:RedeemablePreferredStockCarryingAmount"
-          }, 
-          "us-gaap:TemporaryEquityCarryingAmount" : {
-            "Name" : "us-gaap:TemporaryEquityCarryingAmount"
-          }, 
-          "us-gaap:TemporaryEquityValueExcludingAdditionalPaidInCapital" : {
-            "Name" : "us-gaap:TemporaryEquityValueExcludingAdditionalPaidInCapital"
-          }, 
-          "us-gaap:RedeemableNoncontrollingInterestEquityFairValue" : {
-            "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityFairValue"
-          }, 
-          "us-gaap:TemporaryEquityCarryingAmountAttributableToParent" : {
-            "Name" : "us-gaap:TemporaryEquityCarryingAmountAttributableToParent"
+          "ifrs:NoncontrollingInterests" : {
+            "Name" : "ifrs:NoncontrollingInterests"
           }
         }
       }
@@ -1507,51 +1178,11 @@
                 "fac:EntityCentralIndexKey" : {
                   "Name" : "fac:EntityCentralIndexKey", 
                   "Label" : "Central Index Key (CIK)"
-                }, 
-                "fac:EntityFilerCategory" : {
-                  "Name" : "fac:EntityFilerCategory", 
-                  "Label" : "Entity Filer Category"
-                }, 
-                "fac:TradingSymbol" : {
-                  "Name" : "fac:TradingSymbol", 
-                  "Label" : "Trading Symbol"
-                }, 
-                "fac:FiscalYearEnd" : {
-                  "Name" : "fac:FiscalYearEnd", 
-                  "Label" : "Fiscal Year End"
-                }, 
-                "fac:FiscalYear" : {
-                  "Name" : "fac:FiscalYear", 
-                  "Label" : "Fiscal Year"
-                }, 
-                "fac:FiscalPeriod" : {
-                  "Name" : "fac:FiscalPeriod", 
-                  "Label" : "Fiscal Period"
-                }, 
-                "fac:DocumentType" : {
-                  "Name" : "fac:DocumentType", 
-                  "Label" : "Document Type"
-                }, 
+                },                
                 "fac:BalanceSheetDate" : {
                   "Name" : "fac:BalanceSheetDate", 
                   "Label" : "Balance Sheet Date"
-                }, 
-                "fac:IncomeStatementStartPeriod" : {
-                  "Name" : "fac:IncomeStatementStartPeriod", 
-                  "Label" : "Income Statement Start of Period"
-                }, 
-                "fac:BalanceSheetFormat" : {
-                  "Name" : "fac:BalanceSheetFormat", 
-                  "Label" : "Balance Sheet Format"
-                }, 
-                "fac:IncomeStatementFormat" : {
-                  "Name" : "fac:IncomeStatementFormat", 
-                  "Label" : "Income Statement Format"
-                }, 
-                "fac:NatureOfOperations" : {
-                  "Name" : "fac:NatureOfOperations", 
-                  "Label" : "Nature of Operations"
-                }, 
+                },
                 "fac:BalanceSheetHierarchy" : {
                   "Name" : "fac:BalanceSheetHierarchy", 
                   "Label" : "Balance Sheet [Hierarchy]"
@@ -1579,14 +1210,6 @@
                 "fac:Liabilities" : {
                   "Name" : "fac:Liabilities", 
                   "Label" : "Liabilities"
-                }, 
-                "fac:CommitmentsAndContingencies" : {
-                  "Name" : "fac:CommitmentsAndContingencies", 
-                  "Label" : "Commitments and Contingencies"
-                }, 
-                "fac:TemporaryEquity" : {
-                  "Name" : "fac:TemporaryEquity", 
-                  "Label" : "Temporary Equity"
                 }, 
                 "fac:EquityAttributableToParent" : {
                   "Name" : "fac:EquityAttributableToParent", 
@@ -1825,20 +1448,6 @@
   }, 
   "Rules" : [ {
     "Type" : "xbrl28:formula", 
-    "Label" : "Income Statement Start Period imputation", 
-    "IsBizQL" : true, 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:CostOfRevenue\", \"fac:GrossProfit\", \"fac:Revenues\", \"fac:CostsAndExpenses\", \"fac:OperatingIncomeLoss\", \"fac:OtherOperatingIncomeExpenses\", \"fac:OperatingExpenses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"] let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"] let $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"] return switch(true) case (exists($facts)) return let $source-fact := $facts[1] let $computed-value := facts:duration-for-fact($source-fact).Start let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:IncomeStatementStartPeriod\" }, Value: $computed-value, Type: \"NonNumericValue\" }) || \" = \" || \"facts:duration-for-fact(\" || rules:fact-trail($source-fact) || \").Start\" return copy $newfact := rules:create-computed-fact( $source-fact, \"fac:IncomeStatementStartPeriod\", $computed-value, $rule, $audit-trail-message, $source-fact, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return ()", 
-    "ComputableConcepts" : [ "fac:IncomeStatementStartPeriod" ], 
-    "DependsOn" : [ "fac:GrossProfit", "fac:Revenues", "fac:CostsAndExpenses", "fac:OperatingIncomeLoss", "fac:OtherOperatingIncomeExpenses", "fac:OperatingExpenses" ]
-  }, {
-    "Type" : "xbrl28:formula", 
-    "Label" : "Balance Sheet Format imputation", 
-    "IsBizQL" : true, 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:BalanceSheetFormat\", \"fac:DocumentType\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:NoncurrentLiabilities\", \"fac:CurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, $facts:UNIT, \"Balance\")), $aligned-period let $BalanceSheetFormat as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:BalanceSheetFormat\"] let $DocumentType as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:DocumentType\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] return switch (true) case exists($BalanceSheetFormat) return $BalanceSheetFormat case(exists($DocumentType)) return let $computed-value := if (rules:decimal-value($CurrentAssets) eq 0 and rules:decimal-value($NoncurrentAssets) eq 0 and rules:decimal-value($NoncurrentLiabilities) eq 0 and rules:decimal-value($CurrentLiabilities) eq 0) then \"Unclassified\" else \"Classified\" let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:BalanceSheetFormat\" }, Value: $computed-value , Type: \"NonNumericValue\" }) || \" = \" || $computed-value || \" (because \" || rules:fact-trail($CurrentAssets, \"fac:CurrentAssets\") || \", \" || rules:fact-trail($NoncurrentAssets, \"fac:NoncurrentAssets\") || \", \" || rules:fact-trail($NoncurrentLiabilities, \"fac:NoncurrentLiabilities\") || \", \" || rules:fact-trail($CurrentLiabilities, \"fac:CurrentLiabilities\") || \")\" let $source-facts := ( $CurrentAssets, $NoncurrentAssets, $NoncurrentLiabilities, $CurrentLiabilities) return copy $newfact := rules:create-computed-fact( ($DocumentType, $source-facts)[1], \"fac:BalanceSheetFormat\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return ()", 
-    "ComputableConcepts" : [ "fac:BalanceSheetFormat" ], 
-    "DependsOn" : [ "fac:DocumentType", "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:NoncurrentLiabilities", "fac:CurrentLiabilities" ]
-  }, {
-    "Type" : "xbrl28:formula", 
     "Label" : "Assets imputation", 
     "IsBizQL" : true, 
     "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Assets\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:Liabilities\", \"fac:LiabilitiesAndEquity\", \"fac:Equity\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch (true) case exists($Assets) return $Assets case (exists($LiabilitiesAndEquity)) and (rules:decimal-value ($CurrentAssets) eq rules:decimal-value($LiabilitiesAndEquity)) return let $computed-value := rules:decimal-value($CurrentAssets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Assets\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\") let $source-facts := $CurrentAssets return rules:create-computed-fact( $CurrentAssets, \"fac:Assets\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) case (empty($NoncurrentAssets)) and (exists($LiabilitiesAndEquity)) and (rules:decimal-value($LiabilitiesAndEquity) eq (rules:decimal-value($Equity) + rules:decimal-value($Liabilities))) return let $computed-value := rules:decimal-value($CurrentAssets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Assets\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\") let $source-facts := $CurrentAssets return rules:create-computed-fact( $CurrentAssets, \"fac:Assets\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
@@ -1853,32 +1462,11 @@
     "DependsOn" : [ "fac:Assets", "fac:NoncurrentAssets" ]
   }, {
     "Type" : "xbrl28:formula", 
-    "Label" : "Equity imputation", 
-    "IsBizQL" : true, 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Equity\", \"fac:EquityAttributableToNoncontrollingInterest\", \"fac:EquityAttributableToParent\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $EquityAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToNoncontrollingInterest\"] let $EquityAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToParent\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($Equity)) return $Equity case (exists($EquityAttributableToNoncontrollingInterest) or exists($EquityAttributableToParent)) return let $computed-value := rules:decimal-value($EquityAttributableToNoncontrollingInterest) + rules:decimal-value($EquityAttributableToParent) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Equity\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($EquityAttributableToNoncontrollingInterest, \"EquityAttributableToNoncontrollingInterest\") || \" + \" || rules:fact-trail($EquityAttributableToParent, \"EquityAttributableToParent\") let $source-facts := ($EquityAttributableToNoncontrollingInterest, $EquityAttributableToParent) return rules:create-computed-fact( $source-facts[1], \"fac:Equity\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:Equity" ], 
-    "DependsOn" : [ "fac:EquityAttributableToNoncontrollingInterest", "fac:EquityAttributableToParent" ]
-  }, {
-    "Type" : "xbrl28:formula", 
-    "Label" : "Equity Attributable ToParent imputation", 
-    "IsBizQL" : true, 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:EquityAttributableToParent\", \"fac:Equity\", \"fac:EquityAttributableToNoncontrollingInterest\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $EquityAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToParent\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $EquityAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToNoncontrollingInterest\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($EquityAttributableToParent)) return $EquityAttributableToParent case (exists($Equity)) return let $computed-value := rules:decimal-value($Equity) - rules:decimal-value($EquityAttributableToNoncontrollingInterest) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:EquityAttributableToParent\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Equity, \"Equity\") || \" - \" || rules:fact-trail($EquityAttributableToNoncontrollingInterest, \"EquityAttributableToNoncontrollingInterest\") let $source-facts := ($Equity, $EquityAttributableToNoncontrollingInterest) return rules:create-computed-fact( $Equity, \"fac:EquityAttributableToParent\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return()", 
-    "ComputableConcepts" : [ "fac:EquityAttributableToParent" ], 
-    "DependsOn" : [ "fac:Equity", "fac:EquityAttributableToNoncontrollingInterest" ]
-  }, {
-    "Type" : "xbrl28:formula", 
     "Label" : "Liabilities And Equity imputation", 
     "IsBizQL" : true, 
     "Formula" : "for $facts in facts:facts-for-internal(( \"fac:LiabilitiesAndEquity\", \"fac:Assets\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($LiabilitiesAndEquity)) return $LiabilitiesAndEquity case(exists($Assets)) return let $computed-value := rules:decimal-value($Assets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:LiabilitiesAndEquity\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Assets, \"Assets\") let $source-facts := $Assets return rules:create-computed-fact( $Assets, \"fac:LiabilitiesAndEquity\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
     "ComputableConcepts" : [ "fac:LiabilitiesAndEquity" ], 
     "DependsOn" : [ "fac:Assets" ]
-  }, {
-    "Type" : "xbrl28:formula", 
-    "Label" : "Liabilities imputation", 
-    "IsBizQL" : true, 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Liabilities\", \"fac:Equity\", \"fac:LiabilitiesAndEquity\", \"fac:CommitmentsAndContingencies\", \"fac:TemporaryEquity\", \"fac:CurrentLiabilities\", \"fac:NoncurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $CommitmentsAndContingencies as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommitmentsAndContingencies\"] let $TemporaryEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TemporaryEquity\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($Liabilities)) return $Liabilities case(exists($Equity)) return let $computed-value := rules:decimal-value($LiabilitiesAndEquity) - ( rules:decimal-value($CommitmentsAndContingencies) + rules:decimal-value($TemporaryEquity) + rules:decimal-value($Equity) ) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Liabilities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($LiabilitiesAndEquity, \"LiabilitiesAndEquity\") || \" - (\" || rules:fact-trail($CommitmentsAndContingencies, \"CommitmentsAndContingencies\") || \" + \" || rules:fact-trail($TemporaryEquity, \"TemporaryEquity\") || \" + \" || rules:fact-trail($Equity) || \")\" let $source-facts := ($LiabilitiesAndEquity, $CommitmentsAndContingencies, $TemporaryEquity, $Equity) return rules:create-computed-fact( $Equity, \"fac:Liabilities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) case(exists($CurrentLiabilities) and exists($NoncurrentLiabilities)) return let $computed-value := rules:decimal-value($CurrentLiabilities) + rules:decimal-value($NoncurrentLiabilities) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Liabilities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($CurrentLiabilities) || \" + \" || rules:fact-trail($NoncurrentLiabilities) let $source-facts := ($CurrentLiabilities, $NoncurrentLiabilities) return rules:create-computed-fact( $CurrentLiabilities, \"fac:Liabilities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:Liabilities" ], 
-    "DependsOn" : [ "fac:Equity", "fac:LiabilitiesAndEquity", "fac:CommitmentsAndContingencies", "fac:TemporaryEquity", "fac:CurrentLiabilities", "fac:NoncurrentLiabilities" ]
   }, {
     "Type" : "xbrl28:formula", 
     "Label" : "Noncurrent Liabilities imputation", 
@@ -1893,20 +1481,6 @@
     "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NoncurrentAssets\", \"fac:Assets\", \"fac:CurrentAssets\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($NoncurrentAssets) return $NoncurrentAssets case exists($Assets) and exists($CurrentAssets) return let $computed-value := rules:decimal-value($Assets) - rules:decimal-value($CurrentAssets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NoncurrentAssets\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Assets, \"Assets\") || \" - \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\") let $source-facts := ($Assets, $CurrentAssets) return rules:create-computed-fact( $Assets, \"fac:NoncurrentAssets\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
     "ComputableConcepts" : [ "fac:NoncurrentAssets" ], 
     "DependsOn" : [ "fac:Assets", "fac:CurrentAssets" ]
-  }, {
-    "Type" : "xbrl28:formula", 
-    "Label" : "Temporary Equity imputation", 
-    "IsBizQL" : true, 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:TemporaryEquity\", \"us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $TemporaryEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TemporaryEquity\"] let $RedeemableNoncontrollingInterestEquityCommonCarryingAmount as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (not(exists($RedeemableNoncontrollingInterestEquityCommonCarryingAmount))) return $TemporaryEquity case (exists($RedeemableNoncontrollingInterestEquityCommonCarryingAmount)) return let $computed-value := rules:decimal-value($TemporaryEquity) + rules:decimal-value($RedeemableNoncontrollingInterestEquityCommonCarryingAmount) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:TemporaryEquity\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($TemporaryEquity, \"TemporaryEquity\") || \" + \" || rules:fact-trail($RedeemableNoncontrollingInterestEquityCommonCarryingAmount, \"RedeemableNoncontrollingInterestEquityCommonCarryingAmount\") let $source-facts := ($TemporaryEquity, $RedeemableNoncontrollingInterestEquityCommonCarryingAmount) return rules:create-computed-fact( $RedeemableNoncontrollingInterestEquityCommonCarryingAmount, \"fac:TemporaryEquity\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:TemporaryEquity" ], 
-    "DependsOn" : [ "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" ]
-  }, {
-    "Type" : "xbrl28:formula", 
-    "Label" : "Income Statement Format imputation", 
-    "IsBizQL" : true, 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeStatementFormat\", \"fac:GrossProfit\", \"fac:CostOfRevenue\", \"fac:Revenues\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := if(empty($facts)) then \"\" else facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeStatementFormat as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeStatementFormat\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] return switch(true) case exists($IncomeStatementFormat) return $IncomeStatementFormat case exists($Revenues) return let $computed-value := if (rules:decimal-value($GrossProfit) eq 0 and rules:decimal-value($CostOfRevenue) eq 0) then \"Single-step\" else \"Multi-step\" let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:IncomeStatementFormat\" }, Value: $computed-value , Type: \"NonNumericValue\"}) || \" = \" || $computed-value || \" (because \" || rules:fact-trail($GrossProfit, \"GrossProfit\") || \", \" || rules:fact-trail($CostOfRevenue, \"CostOfRevenue\") || \")\" let $source-facts := ( $GrossProfit, $CostOfRevenue) return copy $newfact := rules:create-computed-fact( ($source-facts, $Revenues)[1], \"fac:IncomeStatementFormat\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return ()", 
-    "ComputableConcepts" : [ "fac:IncomeStatementFormat" ], 
-    "DependsOn" : [ "fac:GrossProfit", "fac:CostOfRevenue" ]
   }, {
     "Type" : "xbrl28:formula", 
     "Label" : "Cost Of Revenue imputation", 
@@ -2184,14 +1758,6 @@
     "ComputableConcepts" : [ "fac:LiabilitiesValidation" ], 
     "ValidatedConcepts" : [ "fac:Liabilities" ], 
     "DependsOn" : [ "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:CurrentLiabilities", "fac:NoncurrentLiabilities" ]
-  }, {
-    "Type" : "xbrl28:validation", 
-    "Label" : "LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity", 
-    "IsBizQL" : true, 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:LiabilitiesAndEquity\", \"fac:Liabilities\", \"fac:CommitmentsAndContingencies\", \"fac:TemporaryEquity\", \"fac:Equity\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $CommitmentsAndContingencies as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommitmentsAndContingencies\"] let $TemporaryEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TemporaryEquity\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] where exists($LiabilitiesAndEquity) return let $test := rules:decimal-value($LiabilitiesAndEquity) eq (rules:decimal-value($Liabilities) + rules:decimal-value($CommitmentsAndContingencies) + rules:decimal-value($TemporaryEquity) + rules:decimal-value($Equity)) let $audit-trail-message := rules:fact-trail($LiabilitiesAndEquity) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($Liabilities,\"Liabilities\") || \" + \" || rules:fact-trail($CommitmentsAndContingencies,\"CommitmentsAndContingencies\") || \" + \" || rules:fact-trail($TemporaryEquity,\"TemporaryEquity\") || \" + \" || rules:fact-trail($Equity,\"Equity\") || \")\" let $source-facts := ( $Liabilities, $CommitmentsAndContingencies, $TemporaryEquity, $Equity) return rules:create-computed-fact( $LiabilitiesAndEquity, \"fac:LiabilitiesAndEquityValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $LiabilitiesAndEquity, $test)", 
-    "ComputableConcepts" : [ "fac:LiabilitiesAndEquityValidation" ], 
-    "ValidatedConcepts" : [ "fac:LiabilitiesAndEquity" ], 
-    "DependsOn" : [ "fac:Liabilities", "fac:CommitmentsAndContingencies", "fac:TemporaryEquity", "fac:Equity" ]
   }, {
     "Type" : "xbrl28:validation", 
     "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities + ExchangeGainsLosses", 
