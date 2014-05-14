@@ -3,135 +3,94 @@
 /*globals accounting*/
 
 angular.module('main')
-.controller('ComparisonSearchCtrl', function($scope, $stateParams, $location, $http, $modal, $backend, conceptMaps) {
+.controller('ComparisonSearchCtrl', function($scope, $state, $stateParams, $location, $modal, $backend, conceptMaps, conceptMapKeys, results) {
     $scope.none = 'US-GAAP Taxonomy Concepts';
 
-    if (conceptMaps.indexOf($scope.none) < 0) {
-        conceptMaps.push($scope.none);
-    }
-    $scope.conceptMaps = conceptMaps;
-    $scope.conceptMapKeys = [];
     $scope.entityIndex = -1;
     $scope.API_URL = $backend.API_URL;
+
+    $scope.conceptMaps = conceptMaps;
+    $scope.conceptMapKeys = conceptMapKeys;
+    $scope.dimensions = [];
+    $scope.data = [];
+    $scope.columns = [];
     $scope.errornoresults = false;
 
-    $scope.selection.map = $stateParams.map || conceptMaps[0];
+    $scope.selection.map = $stateParams.map || $scope.none;
     $scope.selection.concept = ($stateParams.concept ? $stateParams.concept.split(',') : []);
+    var src = $location.search();
 
-    $scope.getConceptMapKeys = function(map) {
-        $scope.conceptMapKeys = [];
-        if (map && map !== $scope.none)
-        {
-            $http({
-                    method: 'GET',
-                    url: $backend.API_URL + '/_queries/public/ConceptMapKeys.jq',
-                    params: { _method: 'POST', mapName: map, 'token' : $scope.token },
-                    cache: true
-                })
-                .success(function (data) {
-                    if (data) {
-                        $scope.conceptMapKeys = data.mapKeys;
-                    }
-                })
-                .error(function(data, status) {
-                    $scope.$emit('error', status, data);
-                });
-        }
-        else
-        {
-            $backend.Queries.listReportElements({
-                $method : 'POST',
-                onlyNames : true,
-                cik: $scope.selection.cik,
-                tag: $scope.selection.tag,
-                fiscalYear: $scope.selection.fiscalYear,
-                fiscalPeriod: $scope.selection.fiscalPeriod,
-                sic: $scope.selection.sic,
-                token: $scope.token
-            }).then(function(data) {
-                $scope.conceptMapKeys = data.ReportElements || [];
-            },
-            function(response) {
-                $scope.$emit('error', response.status, response.data);
-            });
-        }
-    };
-
-    $scope.getData = function() {
-        $scope.data = [];
-        $scope.columns = [];
-        if ($scope.selection && $scope.selection.concept.length > 0)
-        {
-            $scope.errornoresults = false;
-            $scope.params = {
-                $method: 'POST',
-                cik: $scope.selection.cik,
-                tag: $scope.selection.tag,
-                fiscalYear: $scope.selection.fiscalYear,
-                fiscalPeriod: $scope.selection.fiscalPeriod,
-                sic: $scope.selection.sic,
-                concept: $scope.selection.concept,
-                map: ($scope.selection.map !== $scope.none ? $scope.selection.map : null),
-                token: $scope.token
-            };
-            $scope.dimensions.forEach(function(dimension) {
-                $scope.params[dimension.name] = dimension.value;
-                if (dimension.defaultValue)
-                {
-                    $scope.params[dimension.name + '::default'] = dimension.defaultValue;
-                }
-            });
-
-            $backend.Queries.listFacts($scope.params)
-                .then(function(data) {
-                    $scope.data = data.FactTable;
-                    if ($scope.data && $scope.data.length > 0)
+    Object.keys(src).forEach(function (param) {
+        if (param.indexOf(':') !== -1) {
+            if (param.substring(param.length - 9, param.length) === '::default') {
+                var name = param.substring(0, param.length - 9);
+                $scope.dimensions.forEach(function(d) {
+                    if (d.name === name)
                     {
-                        $scope.columns.push('xbrl:Concept');
-                        $scope.columns.push('xbrl:Entity');
-                        $scope.columns.push('xbrl:Period');
-                        $scope.columns.push('bizql:FiscalPeriod');
-                        $scope.columns.push('bizql:FiscalYear');
-                        var insertIndex = 3;
-
-                        Object.keys($scope.data[0].Aspects).forEach(function (el) {
-                            switch (el)
-                            {
-                                case 'xbrl:Entity':
-                                    $scope.entityIndex = 1;
-                                    break;
-                                case 'xbrl:Concept':
-                                case 'xbrl:Period':
-                                case 'bizql:FiscalPeriod':
-                                case 'bizql:FiscalYear':
-                                    break;
-                                case 'dei:LegalEntityAxis':
-                                    $scope.columns.splice(insertIndex, 0, el);
-                                    insertIndex++;
-                                    break;
-                                default:
-                                    $scope.columns.splice(insertIndex, 0, el);
-                            }
-                        });
-                    }
-                    $scope.errornoresults = ($scope.data.length === 0);
-                },
-                function(response) {
-                    if (response.status === 400)
-                    {
-                        $scope.errornoresults = true;
-                    }
-                    else
-                    {
-                        $scope.$emit('error', response.status, response.data);
+                        d.defaultValue = src[param];
                     }
                 });
+            }
+            else {
+                $scope.dimensions.push({ name: param, value: src[param] });
+            }
+            $scope.selection[param] = src[param];
         }
-    };
+    });
 
-    $scope.selectMap = function(map) {
+    if (results.FactTable && results.FactTable.length > 0)
+    {
+        $scope.params = {
+            $method: 'POST',
+            tag: $scope.selection.tag,
+            cik: $scope.selection.cik,
+            fiscalYear: $scope.selection.fiscalYear,
+            fiscalPeriod: $scope.selection.fiscalPeriod,
+            sic: $scope.selection.sic,
+            concept: $scope.selection.concept,
+            map: ($scope.selection.map !== 'US-GAAP Taxonomy Concepts' ? $scope.selection.map : null),
+            token: $scope.token
+        };
+        $scope.dimensions.forEach(function(dimension) {
+            $scope.params[dimension.name] = dimension.value;
+            if (dimension.defaultValue)
+            {
+                $scope.params[dimension.name + '::default'] = dimension.defaultValue;
+            }
+        });
+        $scope.data = results.FactTable;
+
+        $scope.columns.push('xbrl:Concept');
+        $scope.columns.push('xbrl:Entity');
+        $scope.columns.push('xbrl:Period');
+        $scope.columns.push('bizql:FiscalPeriod');
+        $scope.columns.push('bizql:FiscalYear');
+        var insertIndex = 3;
+
+        Object.keys($scope.data[0].Aspects).forEach(function (el) {
+            switch (el)
+            {
+                case 'xbrl:Entity':
+                    $scope.entityIndex = 1;
+                    break;
+                case 'xbrl:Concept':
+                case 'xbrl:Period':
+                case 'bizql:FiscalPeriod':
+                case 'bizql:FiscalYear':
+                    break;
+                case 'dei:LegalEntityAxis':
+                    $scope.columns.splice(insertIndex, 0, el);
+                    insertIndex++;
+                    break;
+                default:
+                    $scope.columns.splice(insertIndex, 0, el);
+            }
+        });
+    }
+    $scope.errornoresults = ($scope.data.length === 0);
+
+    $scope.selectMap = function() {
         $scope.selection.concept = [];
-        $scope.getConceptMapKeys(map);
     };
 
     $scope.addConceptKey = function(item) {
@@ -187,6 +146,7 @@ angular.module('main')
                 {
                     $scope.selection[item.name + '::default'] = item.defaultValue;
                 }
+                $scope.selection.stamp=(new Date()).getTime();
             }
         });
     };
@@ -200,6 +160,7 @@ angular.module('main')
         {
             delete $scope.selection[name + '::default'];
         }
+        $scope.selection.stamp=(new Date()).getTime();
     };
 
     $scope.submit = function() {
@@ -212,6 +173,7 @@ angular.module('main')
             $scope.$emit('alert', 'Warning', 'Please choose concepts to compare.');
             return false;
         }
+        $scope.selection.stamp=(new Date()).getTime();
     };
     
     $scope.trimURL = function(url) {
@@ -256,34 +218,4 @@ angular.module('main')
         }
         return str;
     };
-
-    $scope.getConceptMapKeys($scope.selection.map);
-
-    //CRD: can't use the stateParams because the parameters have custom names (not mapped)
-    var src = $location.search();
-
-    $scope.dimensions = [];
-    Object.keys(src).forEach(function (param) {
-        if (param.indexOf(':') !== -1) {
-            if (param.substring(param.length - 9, param.length) === '::default') {
-                var name = param.substring(0, param.length - 9);
-                $scope.dimensions.forEach(function(d) {
-                    if (d.name === name)
-                    {
-                        d.defaultValue = src[param];
-                    }
-                });
-            }
-            else {
-                $scope.dimensions.push({ name: param, value: src[param] });
-            }
-            $scope.selection[param] = src[param];
-        }
-    });
-
-    //we monitor the dimensions, and when they change we reload.
-    //filter changes will trigger a reload, therefore a dimensions change.
-    $scope.$watchCollection('dimensions', function() {
-        $scope.getData();
-    });
 });

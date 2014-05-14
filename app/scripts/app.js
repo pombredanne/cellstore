@@ -84,7 +84,8 @@ angular.module('main', [
     };
     $httpProvider.interceptors.push('StatsInterceptor');
     $locationProvider.html5Mode(true);
-    $httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
+    //CRD: taken out
+    //$httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 
     //TODO: refactor title property to go in data property
     $stateProvider
@@ -517,6 +518,19 @@ angular.module('main', [
         url: '/filings',
         templateUrl: '/views/comparison/filings.html',
         controller: 'ComparisonFilingsCtrl',
+        resolve: {
+            filings: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listFilings({
+                    $method: 'POST',
+                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
+                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    token: $rootScope.token
+                });
+            }]
+        },
         data: {
             title: 'Filings',
             active: 'compare',
@@ -528,6 +542,19 @@ angular.module('main', [
         url: '/filingss',
         templateUrl: '/views/comparison/filings.html',
         controller: 'ComparisonFilingsCtrl',
+        resolve: {
+            filings: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listFilings({
+                    $method: 'POST',
+                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
+                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    token: $rootScope.token
+                });
+            }]
+        },
         data: {
             title: 'Filings',
             active: 'search',
@@ -538,6 +565,41 @@ angular.module('main', [
         url: '/information',
         templateUrl: '/views/comparison/information.html',
         controller: 'ComparisonInformationCtrl',
+        resolve: {
+            informations: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend) {
+                return $backend.Queries.listFilings({
+                    $method: 'POST',
+                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
+                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    token: $rootScope.token
+                })
+                .then(function(filings) {
+                    var aid = [];
+                    filings.Archives.forEach(function(a) { aid.push(a.AccessionNumber); });
+                    if (aid.length === 0 || aid.length > 30) {
+                        return { data: [], filings: aid };
+                    } else {
+                        return $http({
+                            method: 'GET',
+                            url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
+                            params:  {
+                                _method: 'POST',
+                                aid: aid,
+                                report: 'FundamentalAccountingConcepts',
+                                'token' : $rootScope.token
+                            },
+                            cache: false
+                        })
+                        .then(function(response) {
+                            return { data: response.data, filings: aid };
+                        });
+                    }
+                });
+            }]
+        },
         data: {
             title: 'Basic Financial Information',
             active: 'compare',
@@ -548,6 +610,41 @@ angular.module('main', [
         url: '/validations-dashboard',
         templateUrl: '/views/comparison/validations-dashboard.html',
         controller: 'ComparisonValidationsDashboardCtrl',
+        resolve: {
+            informations: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend) {
+                return $backend.Queries.listFilings({
+                    $method: 'POST',
+                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
+                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    token: $rootScope.token
+                })
+                .then(function(filings) {
+                    var aid = [];
+                    filings.Archives.forEach(function(a) { aid.push(a.AccessionNumber); });
+                    if (aid.length === 0 || aid.length > 30) {
+                        return { data: [], filings: aid };
+                    } else {
+                        return $http({
+                            method: 'GET',
+                            url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
+                            params:  {
+                                _method: 'POST',
+                                aid: aid,
+                                report: 'FundamentalAccountingConcepts',
+                                'token' : $rootScope.token
+                            },
+                            cache: false
+                        })
+                        .then(function(response) {
+                            return { data: response.data, filings: aid };
+                        });
+                    }
+                });
+            }]
+        },
         data: {
             title: 'Basic Semantic Validations',
             active: 'compare',
@@ -555,12 +652,101 @@ angular.module('main', [
         }
     })
     .state('root.comparison.search', {
-        url: '/search?concept&map',
+        url: '/search?concept&map&stamp',
         templateUrl: '/views/comparison/search.html',
         controller: 'ComparisonSearchCtrl',
         resolve: {
-            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }],
-            allRules: ['$backend', function($backend) { return $backend.getRules(); }]
+            conceptMaps: ['$backend', function($backend) {
+                return $backend.getConceptMaps()
+                    .then(function(conceptMaps) {
+                        var c = angular.copy(conceptMaps);
+                        c.push('US-GAAP Taxonomy Concepts');
+                        return c;
+                    });
+            }],
+            conceptMapKeys: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend) {
+                var map = $stateParams.map || 'US-GAAP Taxonomy Concepts';
+                if (map !== 'US-GAAP Taxonomy Concepts')
+                {
+                    return $http({
+                            method: 'GET',
+                            url: $backend.API_URL + '/_queries/public/ConceptMapKeys.jq',
+                            params: {
+                                '_method': 'POST',
+                                'mapName': map,
+                                'token' : $rootScope.token
+                            },
+                            cache: true
+                        })
+                        .then(function (response) {
+                            return response.data.mapKeys;
+                        });
+                }
+                else
+                {
+                    return $backend.Queries.listReportElements({
+                            $method : 'POST',
+                            onlyNames : true,
+                            cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
+                            tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
+                            fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
+                            fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                            sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                            token: $rootScope.token
+                        })
+                        .then(function(data) {
+                            return data.ReportElements;
+                        });
+                }
+            }],
+            results: ['$rootScope', '$stateParams', '$location', '$backend', function($rootScope, $stateParams, $location, $backend) {
+                var concept = ($stateParams.concept ? $stateParams.concept.split(',') : []);
+                if (concept.length !== 0) {
+                    var dimensions = [];
+                    var src = $location.search();
+
+                    Object.keys(src).forEach(function (param) {
+                        if (param.indexOf(':') !== -1) {
+                            if (param.substring(param.length - 9, param.length) === '::default') {
+                                var name = param.substring(0, param.length - 9);
+                                dimensions.forEach(function(d) {
+                                    if (d.name === name)
+                                    {
+                                        d.defaultValue = src[param];
+                                    }
+                                });
+                            }
+                            else {
+                                dimensions.push({ name: param, value: src[param] });
+                            }
+                        }
+                    });
+
+                    var params = {
+                        $method: 'POST',
+                        cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
+                        tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
+                        fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
+                        fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                        sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                        concept: concept,
+                        map: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
+                        token: $rootScope.token
+                    };
+                    dimensions.forEach(function(dimension) {
+                        params[dimension.name] = dimension.value;
+                        if (dimension.defaultValue)
+                        {
+                            params[dimension.name + '::default'] = dimension.defaultValue;
+                        }
+                    });
+
+                    return $backend.Queries.listFacts(params);
+                }
+                else {
+                    return { FactTable: [] };
+                }
+            }]
         },
         data: {
             title: 'Search Facts',
@@ -572,6 +758,45 @@ angular.module('main', [
         url: '/components?reportElement&disclosure&label',
         templateUrl: '/views/comparison/components.html',
         controller: 'ComparisonComponentsCtrl',
+        resolve: {
+            reportElements: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listReportElements({
+                    $method : 'POST',
+                    onlyNames : true,
+                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
+                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    token: $rootScope.token
+                });
+            }],
+            disclosures: ['$http', '$backend', function($http, $backend) {
+                return $http({
+                        url: $backend.API_URL + '/_queries/public/Disclosures.jq',
+                        method: 'GET'
+                    });
+            }],
+            components: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                if ($stateParams.disclosure || $stateParams.reportElement || $stateParams.label) {
+                    return $backend.Queries.listComponents({
+                        $method: 'POST',
+                        cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
+                        tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
+                        fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
+                        fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                        sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                        disclosure: $stateParams.disclosure,
+                        reportElement: $stateParams.reportElement,
+                        label: $stateParams.label,
+                        token: $rootScope.token
+                    });
+                }
+                else {
+                    return { Archives: [] };
+                }
+            }]
+        },
         data: {
             title: 'Search Components',
             active: 'search',
@@ -582,6 +807,38 @@ angular.module('main', [
         url: '/reportElements?name&label',
         templateUrl: '/views/comparison/report-elements.html',
         controller: 'ComparisonReportElementsCtrl',
+        resolve: {
+            reportElements: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listReportElements({
+                    $method : 'POST',
+                    onlyNames : true,
+                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
+                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    token: $rootScope.token
+                });
+            }],
+            results: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                if ($stateParams.name || $stateParams.label) {
+                    return $backend.Queries.listReportElements({
+                        $method: 'POST',
+                        cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
+                        tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
+                        fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
+                        fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                        sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                        name: $stateParams.name,
+                        label: $stateParams.label,
+                        token: $rootScope.token
+                    });
+                }
+                else {
+                    return { ReportElements: [] };
+                }
+            }]
+        },
         data: {
             title: 'Search Report Elements',
             active: 'search',

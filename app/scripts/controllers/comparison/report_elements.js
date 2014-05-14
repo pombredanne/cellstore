@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('main').controller('ComparisonReportElementsCtrl', function ($scope, $http, $modal, $stateParams, $backend) {
+angular.module('main').controller('ComparisonReportElementsCtrl', function ($scope, $modal, $stateParams, $backend, reportElements, results) {
     $scope.results = [];
     $scope.errornoresults = false;
+    $scope.Statistics = {};
 
     if ($stateParams.name) {
         $scope.searchName = $stateParams.name;
@@ -12,6 +13,29 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
     if ($stateParams.label) {
         $scope.searchLabel = $stateParams.label;
         $scope.selection.label = $scope.searchLabel;
+    }
+    
+    $scope.reportElementNames = reportElements.ReportElements || [];
+
+    //load the data
+    if ($scope.selection &&(
+        $scope.selection.name ||
+        $scope.selection.label))
+    {
+        $scope.params = {
+            $method: 'POST',
+            tag: $scope.selection.tag,
+            cik: $scope.selection.cik,
+            fiscalYear: $scope.selection.fiscalYear,
+            fiscalPeriod: $scope.selection.fiscalPeriod,
+            sic: $scope.selection.sic,
+            name: $scope.selection.name,
+            label: $scope.selection.label,
+            token: $scope.token
+        };
+        $scope.results = results.ReportElements;
+        $scope.Statistics = results.Statistics;
+        $scope.errornoresults = ($scope.results.length === 0);
     }
 
     $scope.submit = function() {
@@ -36,55 +60,25 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
             delete $scope.selection.label;
         }
     };
-    
-    //refresh the typeaheads
-    $scope.reportElementNames = [];
-    $backend.Queries.listReportElements({
-        $method : 'POST',
-        onlyNames : true,
-        cik: $scope.selection.cik,
-        tag: $scope.selection.tag,
-        fiscalYear: $scope.selection.fiscalYear,
-        fiscalPeriod: $scope.selection.fiscalPeriod,
-        sic: $scope.selection.sic,
-        token: $scope.token
-    }).then(function(data) {
-        $scope.reportElementNames = data.ReportElements || [];
-    },
-    function(response) {
-        $scope.$emit('error', response.status, response.data);
-    });
 
-    //load the data
-    if ($scope.selection &&(
-        $scope.selection.name ||
-        $scope.selection.label))
-    {
-        $scope.errornoresults = false;
-        $scope.results = [];
-        $scope.Statistics = {};
-
-        $scope.params = {
-            $method: 'POST',
-            tag: $scope.selection.tag,
-            cik: $scope.selection.cik,
-            fiscalYear: $scope.selection.fiscalYear,
-            fiscalPeriod: $scope.selection.fiscalPeriod,
-            name: $scope.selection.name,
-            label: $scope.selection.label,
-            token: $scope.token
-        };
-
-        $backend.Queries.listReportElements($scope.params)
-            .then(function (data) {
-                $scope.results = data.ReportElements;
-                $scope.Statistics = data.Statistics;
-                $scope.errornoresults = ($scope.results.length === 0);
-            },
-            function (response) {
-                $scope.$emit('error', response.status, response.data);
-            });
-    }
+    $scope.selectName = function() {
+        if ($scope.searchName)
+        {
+            $scope.selection.name = $scope.searchName;
+        }
+        else
+        {
+            delete $scope.selection.name;
+        }
+        if ($scope.searchLabel)
+        {
+            $scope.selection.label = $scope.searchLabel;
+        }
+        else
+        {
+            delete $scope.selection.label;
+        }
+    };
 
     $scope.trimTableURL = function (url) {
         if (url.length < 30) {

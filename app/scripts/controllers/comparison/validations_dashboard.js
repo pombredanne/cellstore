@@ -3,142 +3,101 @@
 /*globals accounting*/
 
 angular.module('main')
-.controller('ComparisonValidationsDashboardCtrl', function($scope, $http, $location, $state, $backend) {
+.controller('ComparisonValidationsDashboardCtrl', function($scope, $location, $state, $backend, informations) {
     $scope.showtab = [];
     $scope.reports = [];
     $scope.reportname = 'FundamentalAccountingConcepts';
     $scope.filings = null;
-    $scope.error = false;
     $scope.errornoresults = false;
     $scope.errormany = false;
     
-    $backend.Queries.listFilings({
-        $method: 'POST',
-        cik: $scope.selection.cik,
-        tag: $scope.selection.tag,
-        fiscalYear: $scope.selection.fiscalYear,
-        fiscalPeriod: $scope.selection.fiscalPeriod,
-        sic: $scope.selection.sic,
-        token: $scope.token
-    }).then(function(data) {
-        $scope.filings = [];
-        data.Archives.forEach(function(a) { $scope.filings.push(a.AccessionNumber); });
-        if ($scope.filings.length === 0) {
-            $scope.reports = [];
+    if (informations.data)
+    {
+        if (informations.data.length === 0)
+        {
             $scope.errornoresults = true;
         }
-        else {
-            if ($scope.filings.length > 30 && !$scope.nomany) {
-                $scope.reports = [];
-                $scope.errormany = true;
-            } else {
-                $scope.getInfo();
-            }
-        }
-    },
-    function(response) {
-        $scope.$emit('error', response.status, response.data);
-    });
-
-    $scope.getInfo = function() {
-        $scope.reports = [];
-        $scope.params = {
+        else
+        {
+            $scope.filings = informations.filings;
+            $scope.params = {
                 _method: 'POST',
                 aid: $scope.filings,
-                fiscalYear : $scope.selection.fiscalYear,
-                fiscalPeriod : $scope.selection.fiscalPeriod,
                 report: 'FundamentalAccountingConcepts',
                 'token' : $scope.token
             };
-        $http({
-            method: 'GET',
-            url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-            params: $scope.params,
-            cache: false
-        })
-        .success($scope.prepareReportForUI)
-        .error(function (data, status) {
-                if (status === 401) {
-                    $scope.error = true;
-                } else {
-                    $scope.$emit('error', status, data);
-                }
+            if ($scope.filings.length > 30)
+            {
+                $scope.errormany = true;
             }
-        );
-    };
-
-    $scope.prepareReportForUI = function(data) {
-        $scope.reports = [];
-        $scope.showtab = [];
-
-        for (var i = 0; i < data.length; i++)
-        {
-            var root =
-                data[i].Trees['fac:FundamentalAccountingConceptsLineItems']
-                .To['fac:FundamentalAccountingConceptsHierarchy'].To;
-
-            var report = {};
-            report.generator = data[i].Generator;
-            report.entity =
-                root['fac:GeneralInformationHierarchy']
-                .To['fac:EntityRegistrantName'].Facts[0].Value;
-            report.cik =
-                root['fac:GeneralInformationHierarchy']
-                .To['fac:EntityCentralIndexKey'].Facts[0].Value;
-            report.period =
-                root['fac:GeneralInformationHierarchy']
-                .To['fac:FiscalPeriod'].Facts[0].Value;
-            report.year =
-                root['fac:GeneralInformationHierarchy']
-                .To['fac:FiscalYear'].Facts[0].Value;
-            report.passed =
-                root['fac:ValidationStatistics']
-                .To['fac:PassedValidations'].Facts[0].Value;
-            report.passed = report.passed ? parseInt(report.passed) : 0;
-            report.failed =
-                root['fac:ValidationStatistics']
-                .To['fac:FailedValidations'].Facts[0].Value;
-            report.failed = report.failed ? parseInt(report.failed) : 0;
-            report.notApplicable =
-                root['fac:ValidationStatistics']
-                .To['fac:NotApplicableValidations'].Facts[0].Value;
-            report.notApplicable = report.notApplicable ? parseInt(report.notApplicable) : 0;
-            
-            var valCount = report.passed + report.failed;
-            report.percentage = null;
-            if (valCount > 0){
-                report.percentage = report.passed / valCount * 100;
-                report.successRate = accounting.formatNumber(report.percentage, 2);
-            }
-
-            var validations =
-                root['fac:Validations'].To;
-            var details = [];
-            for (var key in validations) {
-                var detail = {};
-                detail.name = validations[key].Name;
-                detail.label = validations[key].Label;
-                if(validations[key].Facts.length === 0)
+            else
+            {
+                for (var i = 0; i < informations.data.length; i++)
                 {
-                    detail.skipped = true;
-                }else{
-                    var fact = validations[key].Facts[0];
-                    detail.passed = fact.Value;
-                    detail.message = fact.AuditTrails[0].Message;
-                }
-                details.push(detail);
-            }//for
-            report.details = details;
+                    var root =
+                        informations.data[i].Trees['fac:FundamentalAccountingConceptsLineItems']
+                        .To['fac:FundamentalAccountingConceptsHierarchy'].To;
 
-            $scope.reports.push(report);
-            // tab should be closed
-            $scope.showtab.push(false);
-        }//for
+                    var report = {};
+                    report.generator = informations.data[i].Generator;
+                    report.entity =
+                        root['fac:GeneralInformationHierarchy']
+                        .To['fac:EntityRegistrantName'].Facts[0].Value;
+                    report.cik =
+                        root['fac:GeneralInformationHierarchy']
+                        .To['fac:EntityCentralIndexKey'].Facts[0].Value;
+                    report.period =
+                        root['fac:GeneralInformationHierarchy']
+                        .To['fac:FiscalPeriod'].Facts[0].Value;
+                    report.year =
+                        root['fac:GeneralInformationHierarchy']
+                        .To['fac:FiscalYear'].Facts[0].Value;
+                    report.passed =
+                        root['fac:ValidationStatistics']
+                        .To['fac:PassedValidations'].Facts[0].Value;
+                    report.passed = report.passed ? parseInt(report.passed) : 0;
+                    report.failed =
+                        root['fac:ValidationStatistics']
+                        .To['fac:FailedValidations'].Facts[0].Value;
+                    report.failed = report.failed ? parseInt(report.failed) : 0;
+                    report.notApplicable =
+                        root['fac:ValidationStatistics']
+                        .To['fac:NotApplicableValidations'].Facts[0].Value;
+                    report.notApplicable = report.notApplicable ? parseInt(report.notApplicable) : 0;
+                    
+                    var valCount = report.passed + report.failed;
+                    report.percentage = null;
+                    if (valCount > 0){
+                        report.percentage = report.passed / valCount * 100;
+                        report.successRate = accounting.formatNumber(report.percentage, 2);
+                    }
 
-        $scope.error = false;
-        $scope.errormany = false;
-        $scope.errornoresults = ($scope.reports.length === 0);
-    };
+                    var validations =
+                        root['fac:Validations'].To;
+                    var details = [];
+                    for (var key in validations) {
+                        var detail = {};
+                        detail.name = validations[key].Name;
+                        detail.label = validations[key].Label;
+                        if(validations[key].Facts.length === 0)
+                        {
+                            detail.skipped = true;
+                        }else{
+                            var fact = validations[key].Facts[0];
+                            detail.passed = fact.Value;
+                            detail.message = fact.AuditTrails[0].Message;
+                        }
+                        details.push(detail);
+                    }//for
+                    report.details = details;
+
+                    $scope.reports.push(report);
+                    // tab should be closed
+                    $scope.showtab.push(false);
+                }//for
+            }
+        }
+    }
 
     $scope.forceShow = function() {
         $scope.nomany=true;
