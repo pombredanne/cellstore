@@ -919,7 +919,7 @@ angular.module('main', [
     });
 
     $rootScope.$on('auth', function() {
-        var p = $location.path();
+        var p = $location.url();
         if (p === '/account' || p === '/account/password' || p === '/account/info') {
             p = '';
         }
@@ -928,7 +928,7 @@ angular.module('main', [
 
     $rootScope.$on('login', function(event, token, id, email, firstname, lastname, url){
         $rootScope.login(token, id, email, firstname, lastname);
-        $location.path(url).replace();
+        $location.url(url).replace();
     });
 
     $rootScope.login = function(token, id, email, firstname, lastname) {
@@ -945,7 +945,7 @@ angular.module('main', [
 
     $rootScope.$on('logout', function(){
         $rootScope.logout();
-        $location.path('/').replace();
+        $location.url('/').replace();
     });
 
     $rootScope.logout = function() {
@@ -964,7 +964,7 @@ angular.module('main', [
 
     $rootScope.$on('clearCache', function(){//event
         $rootScope.clearCache();
-        $location.path('/').replace();
+        $location.url('/').replace();
     });
 
     $rootScope.clearCache = function() {
