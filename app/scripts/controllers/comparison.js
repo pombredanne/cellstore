@@ -92,6 +92,7 @@ angular.module('main')
         },
         function() {
             $location.search($scope.selection);
+            $scope.$emit('SelectionChanged', $scope.selection);
         }
     );
 

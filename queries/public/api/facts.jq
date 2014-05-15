@@ -1,7 +1,6 @@
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace response = "http://www.28msec.com/modules/http-response";
@@ -76,59 +75,70 @@ declare function local:to-xml($o as object*) as node()*
     }</FactTable>)
 };
 
+declare function local:hypercube() as object
+{
+    hypercubes:user-defined-hypercube({|
+        let $concepts := (request:param-values("concept"), request:param-values("xbrl:Concept"))
+        return
+            if (exists($concepts))
+            then { "xbrl:Concept" : { Domain : [ $concepts ] } }
+            else (),
+        
+        if (not(request:param-names() = "dei:LegalEntityAxis"))
+        then { 
+                "dei:LegalEntityAxis" : { 
+                    "Domain" : [ "sec:DefaultLegalEntity" ],
+                    "Default" : "sec:DefaultLegalEntity"
+                }
+        } else (),
+        
+        for $p in request:param-names()
+        where contains($p, ":") and not(starts-with($p, "xbrl:Concept"))
+        group by $dimension-name := if (ends-with(lower-case($p), "::default"))
+                                    then substring-before($p, "::default")
+                                    else if (ends-with(lower-case($p), ":default"))
+                                    then substring-before($p, ":default")
+                                    else $p
+        let $all := (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
+        return
+        { 
+            $dimension-name : {|
+                let $v := request:param-values($dimension-name)
+                return
+                    if (exists($v) and not($all))
+                    then { "Domain" : [ $v ] }
+                    else (),
+            
+            let $predefined-default := collection("defaultaxis")[$$.axis eq $dimension-name]
+            let $is-default := ($p = $dimension-name || "::default") or ($p = $dimension-name || ":default")
+            return 
+                if (exists($predefined-default) and not($is-default))
+                then { "Default" : $predefined-default.default }
+                else if ($is-default)
+                then { 
+                        "Default" : (
+                                request:param-values($dimension-name || "::default"),
+                                request:param-values($dimension-name || ":default")
+                            )[1]
+                    }
+                else ()
+            |}
+        }
+    |})
+};
+
 declare function local:facts(
     $archives as object*,
-    $concepts as string*, 
-    $dimensions as object* , 
     $map as string?,
     $rules as string?) as object*
 {
-    let $aspects :=
-        {|
-            { "xbrl:Concept" : $concepts },
-            (: This is because of a bug that will be fixed later (hypercube members do not get considered) :)
-            for $d in values($dimensions)
-            let $members := descendant-objects(values($d)).Name
-            where exists($members)
-            return { $d.Name: [ $members ] }
-        |}
-    let $hypercube := copy $h := hypercubes:dimensionless-hypercube()
-                      modify (
-                          insert json (
-                            if (values($dimensions).Name = "dei:LegalEntityAxis")
-                            then { "dei:LegalEntityAxis" : values($dimensions)[$$.Name eq "dei:LegalEntityAxis"] }
-                            else
-                            {|
-                                "dei:LegalEntityAxis" ! {
-                                $$ : {
-                                        Name : $$,
-                                        Default : "sec:DefaultLegalEntity",
-                                        Domains: {
-                                            "sec:DefaultLegalEntity" : {
-                                                Name: "sec:DefaultLegalEntity"
-                                            }
-                                        }
-                                    }
-                                }
-                            |})
-                          into $h.Aspects,
-                          for $d in $dimensions[not values($$).Name = "dei:LegalEntityAxis"]
-                          return insert json $d into $h.Aspects 
-                      )
-                      return $h
-    let $options :=
-            {|
-                if (exists($map))
-                then { "concept-maps" : $map }
-                else (),
-                if (exists($rules))
-                then { "Rules" : $rules }
-                else (),
-                { Hypercube : $hypercube }
-            |}
-    return 
     for $fact in
-        for $f in facts:facts-for-archives-and-aspects($archives, $aspects, $options)
+        for $f in hypercubes:facts-for-hypercube(local:hypercube(), $archives,
+            {|
+                if (exists($map)) then { "concept-maps" : $map } else (),
+                if (exists($rules)) then { "Rules" : $rules } else ()
+            |}
+        )
         where exists($f.Profiles.SEC.Fiscal.Year)
         group by $f.Aspects."xbrl:Entity",
                  $f.Profiles.SEC.Fiscal.Year,
@@ -158,7 +168,7 @@ declare function local:facts(
         if (exists($map) and ($fact."xbrl28:Type" eq "xbrl28:concept-maps"))
         then { "ReportedConcept" : $fact.AuditTrails[][$$.Type eq "xbrl28:concept-maps"].Data.OriginalConcept[1] }
         else ()
-    |}
+    |} 
 };
 
 declare function local:filings(
@@ -218,66 +228,27 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
                         if (($fp ! lower-case($$)) = "all")
                         then $sec-fiscal:ALL_FISCAL_PERIODS
                         else $fp)
-let $aids := request:param-values("aid")
-let $dimensions :=  for $p in request:param-names()
-                    where contains($p, ":")
-                    group by $dimension-name := if (ends-with(lower-case($p), ":default"))
-                                                then 
-                                                    if (ends-with(lower-case($p), "::default"))
-                                                    then substring-before($p, "::default")
-                                                    else substring-before($p, ":default")
-                                                else $p
-                    let $default := ($p = $dimension-name || "::default") or ($p = $dimension-name || ":default")
-                    let $all := (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
-                    return
-                    {
-                       $dimension-name : {| 
-                            { Name : $dimension-name }, 
-                            if ($default)
-                            then { Default : 
-                                (request:param-values($dimension-name || "::default"),
-                                 request:param-values($dimension-name || ":default"))[1] }
-                            else (),
-                            if ($all)
-                            then ()
-                            else {
-                                Domains : {
-                                    "sec:ImplicitDomain" : {
-                                        Name: "sec:ImplicitDomain",
-                                        Members: {|
-                                            (request:param-values($dimension-name)) ! { $$ : { Name: $$ } }
-                                        |}
-                                    }
-                                }
-                            }
-                        |}
-                    }
-let $concepts := request:param-values("concept")
+let $aids     := request:param-values("aid")
 let $map      := request:param-values("map")[1]
-let $rules      := request:param-values("rules")[1]
+let $rules    := request:param-values("rules")[1]
+let $archives := (
+                    local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
+                    archives:archives($aids)
+                 )
+let $entities := companies:companies($archives.Entity)
 return 
-  if (empty($concepts))
-  then {
-    response:status-code(400);
-    session:error("concept: missing parameter", $format)
-  } else
-    let $archives := (
-                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
-                        archives:archives($aids)
-                     )
-    let $entities     := companies:companies($archives.Entity)
-    return switch(true)
-      case empty($archives) return {
+    switch(true)
+    case empty($archives) return {
         response:status-code(400);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
-      }
-      case not (session:only-dow30($entities) or session:valid()) return {
+    }
+    case not (session:only-dow30($entities) or session:valid()) return {
         response:status-code(401);
         session:error("accessing facts of an entity that is not in the DOW30", $format)
-      }
-      default return
-        let $facts := local:facts($archives, $concepts, $dimensions, $map, $rules)
-        return 
+    }
+    default return 
+        let $facts := local:facts($archives, $map, $rules)
+        return
             switch ($format)
             case "xml" return {
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });

@@ -29,7 +29,10 @@
                         <a href="/entity">Browse</a>
                     </li>
                     <li ng-class="{ active: active === 'compare' }">
-                        <a href="/comparison">Compare &amp; Search</a>
+                        <a href="/comparison/filings?{{wwwFormUrlencoded(selection)}}">Compare</a>
+                    </li>
+                    <li ng-class="{ active: active === 'search' }">
+                        <a href="/comparison/filingss?{{wwwFormUrlencoded(selection)}}">Search</a>
                     </li>
                     <li ng-class="{ active: active === 'api' }">
                         <a href="/api">API</a>
