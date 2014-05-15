@@ -135,11 +135,14 @@ declare function local:facts(
     for $fact in
         for $f in hypercubes:facts-for-hypercube(local:hypercube(), $archives,
             {|
+                { Filter : {
+                        "Profiles.SEC.Fiscal": { "$exists" : true }
+                    }
+                },
                 if (exists($map)) then { "concept-maps" : $map } else (),
                 if (exists($rules)) then { "Rules" : $rules } else ()
             |}
         )
-        where exists($f.Profiles.SEC.Fiscal.Year)
         group by $f.Aspects."xbrl:Entity",
                  $f.Profiles.SEC.Fiscal.Year,
                  $f.Profiles.SEC.Fiscal.Period,
