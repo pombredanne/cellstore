@@ -48,7 +48,7 @@ return
 return  if(session:only-dow30($entity) or session:valid()) 
         then {
             rut: $rut,
-            companyName: $entity.Profiles.SEC.CompanyName,
+            companyName: $entity.Profiles.SVS.CompanyName,
             filings: [local:filingPeriodInfo($archives)]
         } else {
             response:status-code(401);

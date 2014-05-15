@@ -483,15 +483,42 @@ declare function svs:end-date(
       switch (true)
       (: archive :)
       case exists($filing-fact-or-id.Profiles.SVS.Fiscal.DocumentPeriodEndDate)
-        return xs:date($filing-fact-or-id.Profiles.SVS.Fiscal.DocumentPeriodEndDate)
+        return svs:date($filing-fact-or-id.Profiles.SVS.Fiscal.DocumentPeriodEndDate)
       (: fact :)
       case exists($filing-fact-or-id.Profiles.SVS.Fiscal.DocEndDate)
-        return xs:date($filing-fact-or-id.Profiles.SVS.Fiscal.DocEndDate)
+        return svs:date($filing-fact-or-id.Profiles.SVS.Fiscal.DocEndDate)
       default return ()
     default return 
       let $id as xs:string := string($filing-fact-or-id)
 	  (:SVS fixme, this can be more robust when RUT are properly formatted :)
-      return (xs:date(archives:archives($id).Profiles.SVS.Fiscal.DocumentPeriodEndDate), xs:date(facts:facts($id).Profiles.SVS.Fiscal.DocEndDate))[1]
+      return (svs:date(archives:archives($id).Profiles.SVS.Fiscal.DocumentPeriodEndDate), svs:date(facts:facts($id).Profiles.SVS.Fiscal.DocEndDate))[1]
+};
+
+declare function svs:date($date as xs:string) as xs:date
+{ 
+  if (matches($date, "\\w\\w\\w \\w\\w\\w \\d\\d \\d\\d:\\d\\d:\\d\\d UTC \\d\\d\\d\\d"))
+  then
+    xs:date(
+      substring($date, 25, 4) || "-" ||
+      (
+        switch (substring($date, 5, 3))
+          case "Jan" return "01"
+          case "Feb" return "02"
+          case "Mar" return "03"
+          case "Apr" return "04"
+          case "May" return "05"
+          case "Jun" return "06"
+          case "Jul" return "07"
+          case "Aug" return "08"
+          case "Sep" return "09"
+          case "Oct" return "10"
+          case "Nov" return "11"
+          case "Dec" return "12"
+          default return error(xs:QName("err:FORG0001"), "Cannot parse date")
+      ) || "-" ||
+      substring($date, 9, 2)
+    )
+  else xs:date($date)
 };
 
 (:~

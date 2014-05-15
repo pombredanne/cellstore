@@ -284,9 +284,9 @@ declare function companies:eid($companies-or-eids-or-ruts as item*) as string*
          case $rut as string return
            switch(true)
            case starts-with($rut, $svs:RUT) return $rut
-           case contains($rut, " ") return
+           (:case contains($rut, " ") return
                (: rut seems to contain a scheme, but not a RUT scheme, i.e. it's invalid :)
-               error(QName("svs:INVALID_PARAMETER"), $rut || ": not a valid RUT")
+               error(QName("svs:INVALID_PARAMETER"), $rut || ": not a valid RUT"):)
            default return 
                (: FIX ME, uncomment me when rut format fixed in db 
                let $rut-clean := replace($rut, "[\\.\\-]", "")

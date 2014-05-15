@@ -99,6 +99,10 @@ angular.module('main')
                     $scope.year = '' + data.latestFYPeriod.fiscalYear;
 				    $scope.period = data.latestFYPeriod.fiscalPeriod;
 		            $state.go('root.entity.information', { rut: $scope.rut, year: $scope.year, period: $scope.period });
+				} else if (data && data.latestFQPeriod) {
+				    $scope.year = data.latestFQPeriod.fiscalYear;
+				    $scope.period = data.latestFQPeriod.fiscalPeriod;
+		            $state.go('root.entity.information', { rut: $scope.rut, year: $scope.year, period: $scope.period });
 				} else {
 				    $scope.$emit('error', status, data);
                 }
