@@ -9,7 +9,8 @@ angular.module('main')
     $scope.entityIndex = -1;
     $scope.API_URL = $backend.API_URL;
 
-    $scope.conceptMaps = conceptMaps;
+    $scope.conceptMaps = angular.copy(conceptMaps);
+    $scope.conceptMaps.push($scope.none);
     $scope.conceptMapKeys = conceptMapKeys;
     $scope.dimensions = [];
     $scope.data = [];

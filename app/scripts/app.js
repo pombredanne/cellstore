@@ -656,14 +656,7 @@ angular.module('main', [
         templateUrl: '/views/comparison/search.html',
         controller: 'ComparisonSearchCtrl',
         resolve: {
-            conceptMaps: ['$backend', function($backend) {
-                return $backend.getConceptMaps()
-                    .then(function(conceptMaps) {
-                        var c = angular.copy(conceptMaps);
-                        c.push('US-GAAP Taxonomy Concepts');
-                        return c;
-                    });
-            }],
+            conceptMaps: ['$backend', function($backend) { return $backend.getConceptMaps(); }],
             conceptMapKeys: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend) {
                 var map = $stateParams.map || 'US-GAAP Taxonomy Concepts';
                 if (map !== 'US-GAAP Taxonomy Concepts')
