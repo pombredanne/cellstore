@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, $stateParams, $http, $modal, $backend) {
+angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, $stateParams, $modal, $backend, reportElements, disclosures, components) {
     $scope.results = [];
     $scope.reportElementNames = [];
     $scope.disclosureNames = [];
     $scope.errornoresults = false;
+    $scope.Statistics = {};
 
     if ($stateParams.disclosure) {
         $scope.searchDisclosure = $stateParams.disclosure;
@@ -22,34 +23,8 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     }
 
     //refresh the typeaheads
-    $scope.reportElementNames = [];
-    $scope.disclosureNames = [];
-    $backend.Queries.listReportElements({
-        $method : 'POST',
-        onlyNames : true,
-        cik: $scope.selection.cik,
-        tag: $scope.selection.tag,
-        fiscalYear: $scope.selection.fiscalYear,
-        fiscalPeriod: $scope.selection.fiscalPeriod,
-        sic: $scope.selection.sic,
-        token: $scope.token
-    }).then(function(data) {
-        $scope.reportElementNames = data.ReportElements || [];
-    },
-    function(response) {
-        $scope.$emit('error', response.status, response.data);
-    });
-
-    $http({
-        url: $backend.API_URL + '/_queries/public/Disclosures.jq',
-        method: 'GET'
-    })
-    .success(function(data) {
-        $scope.disclosureNames = data;
-    })
-    .error(function(data, status) {
-        $scope.$emit('error', status, data);
-    });
+    $scope.reportElementNames = reportElements.ReportElements || [];
+    $scope.disclosureNames = disclosures.data || [];
 
     //load the data
     if ($scope.selection && (
@@ -57,9 +32,6 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         $scope.selection.reportElement ||
         $scope.selection.label))
     {
-        $scope.errornoresults = false;
-        $scope.results = [];
-
         $scope.params = {
             $method: 'POST',
             tag: $scope.selection.tag,
@@ -73,28 +45,23 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
             token: $scope.token
         };
 
-        $backend.Queries.listComponents($scope.params)
-            .then(function (data) {
-                data.Archives.forEach(function (archive) {
-                    archive.Components.forEach(function (component) {
-                        var item = angular.copy(component);
-                        angular.extend(item, {
-                            'AccessionNumber': archive.AccessionNumber,
-                            'CIK': (archive.CIK || '').substring(23),
-                            'EntityRegistrantName': archive.EntityRegistrantName,
-                            'FormType': archive.FormType,
-                            'FiscalYear': archive.FiscalYear,
-                            'FiscalPeriod': archive.FiscalPeriod,
-                            'token': $scope.token
-                        });
-                        $scope.results[$scope.results.length] = item;
-                    });
+        components.Archives.forEach(function (archive) {
+            archive.Components.forEach(function (component) {
+                var item = angular.copy(component);
+                angular.extend(item, {
+                    'AccessionNumber': archive.AccessionNumber,
+                    'CIK': (archive.CIK || '').substring(23),
+                    'EntityRegistrantName': archive.EntityRegistrantName,
+                    'FormType': archive.FormType,
+                    'FiscalYear': archive.FiscalYear,
+                    'FiscalPeriod': archive.FiscalPeriod,
+                    'token': $scope.token
                 });
-                $scope.errornoresults = ($scope.results.length === 0);
-            },
-            function (response) {
-                $scope.$emit('error', response.status, response.data);
+                $scope.results[$scope.results.length] = item;
             });
+        });
+        $scope.Statistics = components.Statistics;
+        $scope.errornoresults = ($scope.results.length === 0);
     }
 
     $scope.submit = function() {
