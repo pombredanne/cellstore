@@ -7,7 +7,6 @@ app/bower_components
 app/scripts/swagger/*.js
 app/scripts/constants.js
 app/styles/*.css
-app/swagger
 .DS_Store
 *~
 *.swp

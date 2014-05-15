@@ -84,7 +84,7 @@ declare function local:hypercube() as object
             then { "xbrl:Concept" : { Domain : [ $concepts ] } }
             else (),
         
-        if (not(keys(request:param-names()) = "dei:LegalEntityAxis"))
+        if (not(request:param-names() = "dei:LegalEntityAxis"))
         then { 
                 "dei:LegalEntityAxis" : { 
                     "Domain" : [ "sec:DefaultLegalEntity" ],
@@ -246,7 +246,7 @@ return
         response:status-code(401);
         session:error("accessing facts of an entity that is not in the DOW30", $format)
     }
-    default return
+    default return 
         let $facts := local:facts($archives, $map, $rules)
         return
             switch ($format)
