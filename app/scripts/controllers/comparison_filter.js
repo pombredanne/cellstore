@@ -74,7 +74,7 @@ angular.module('main')
     };
 
     $scope.reset = function() {
-        $scope.selection = { rut: [], tag: [ 'DOW30' ], fiscalYear: [ $scope.years[1] ], fiscalPeriod: [ $scope.periods[0] ] };
+        $scope.selection = { rut: [], tag: [ 'INTER10' ], fiscalYear: [ $scope.years[1] ], fiscalPeriod: [ $scope.periods[1] ] };
     };
 
     $scope.$watch(

@@ -2,7 +2,11 @@
     <h4>Selected Filters</h4>
     <div>
         <div>
-            <h6>ENTITIES</h6>            
+           <h6>ENTITIES OR ENTITY GROUPS</h6>
+            <div class="alert alert-success" ng-repeat="t in selection.tag">
+                <a class="close" ng-click="selection.tag.splice($index, 1)">&times;</a>
+                {{t}}
+            </div>            
             <div class="alert alert-info" ng-repeat="c in selection.rut">
                 <a class="close" ng-click="selection.rut.splice($index, 1)">&times;</a>
                 {{getEntity(c).name}}
