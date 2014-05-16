@@ -756,7 +756,7 @@
             "operations": [
                 {
                     "method": "POST",
-                    "summary": "Retrieve one or more facts for a combination filings.",
+                    "summary": "Retrieve one or more facts for a combination of filings.",
                     "nickname": "listFacts",
                     "parameters": [
                         {
