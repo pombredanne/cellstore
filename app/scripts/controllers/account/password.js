@@ -8,18 +8,24 @@ angular.module('main')
         $scope.attempted = true;
 
         $scope.$broadcast('autocomplete:update');
-        $scope.resetForm.passwordRepeat.$setValidity('equals', $scope.password === $scope.passwordRepeat);
+        $scope.resetForm.passwordRepeat.$setValidity('equals', $scope.passwordNew === $scope.passwordRepeat);
 
         if(!$scope.resetForm.$invalid) {
             $scope.loading = true;
-            $backend.Users.resetPassword({ userid: $scope.user.id, password: $scope.password, token: $scope.token })
+            $backend.Session.validate({ email: $scope.user.email, password: $scope.password, token: $scope.token, $refresh: true })
               .then(
                 function() {
-                    $scope.$emit('alert', 'Success', 'Your password has been changed.');
-                    $scope.password = '';
-                    $scope.passwordRepeat = '';
-                    $scope.attempted = false;
-                    $scope.loading = false;
+                    $backend.Users.resetPassword({ userid: $scope.user.id, password: $scope.passwordNew, token: $scope.token, $refresh: true })
+                      .then(
+                        function() {
+                            $scope.$emit('alert', 'Success', 'Your password has been changed.');
+                            $scope.reset();
+                            $scope.loading = false;
+                        },
+                        function(response) {
+                            $scope.$emit('error', response.status, response.data);
+                            $scope.loading = false;
+                        });
                 },
                 function(response) {
                     $scope.$emit('error', response.status, response.data);
@@ -30,6 +36,7 @@ angular.module('main')
 
     $scope.reset = function() {
         $scope.password = '';
+        $scope.passwordNew = '';
         $scope.passwordRepeat = '';
         $scope.attempted = false;
     };
