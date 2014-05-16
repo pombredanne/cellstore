@@ -129,16 +129,6 @@ angular.module('main', [
             }]
         }
     })
-    // Terms of Use
-    .when('/terms-of-use', {
-        templateUrl: '/views/terms-of-use.html',
-        title: 'secinfo.info - Terms of Use'
-    })
-    // Privacy Policy
-    .when('/privacy-policy', {
-        templateUrl: '/views/privacy-policy.html',
-        title: 'sexbrl.info - Privacy Policy'
-    })
     .state('root.entry', {
         url: '/blog/:id/:slug',
         templateUrl: '/views/blog.html',
@@ -164,6 +154,19 @@ angular.module('main', [
             active: 'api',
             title: 'API'
         }
+    })
+
+    // Terms of Use
+    .state('root.terms', {
+        url: '/terms-of-use',
+        templateUrl: '/views/terms-of-use.html',
+        title: 'secinfo.info - Terms of Use'
+    })
+    // Privacy Policy
+    .state('root.privacy', {
+        url: '/privacy-policy',
+        templateUrl: '/views/privacy-policy.html',
+        title: 'sexbrl.info - Privacy Policy'
     })
 
     //Entity
