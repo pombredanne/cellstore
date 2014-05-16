@@ -6,7 +6,7 @@ angular.module('main')
         restrict: 'A',
         link: function($scope, element){
             $scope.$on('$setTitle', function(event, title){
-                element.attr('content', 'secxbrl.info - ' + title);
+                element.attr('content', 'svsxbrl.info - ' + title);
             });
         }
     };
@@ -46,7 +46,7 @@ angular.module('main')
         restrict: 'E',
         link: function($scope, element){
             $scope.$on('$setTitle', function(event, title){
-                element.text('secxbrl.info - ' + title);
+                element.text('svsxbrl.info - ' + title);
             });
         }
     };
@@ -54,7 +54,7 @@ angular.module('main')
 .controller('HeadCtrl', function($scope) {
 
     $scope.$on('$stateChangeStart', function(event, next) {
-        var title = (next.data && next.data.title) ? next.data.title : 'US Public Company Financial Information Repository';
+        var title = (next.data && next.data.title) ? next.data.title : 'Chile Public Company Financial Information Repository';
         $scope.$broadcast('$setTitle', title);
     });
 });
