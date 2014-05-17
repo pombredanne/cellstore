@@ -12,20 +12,12 @@ angular.module('main')
 
         if(!$scope.resetForm.$invalid) {
             $scope.loading = true;
-            $backend.Session.validate({ email: $scope.user.email, password: $scope.password, token: $scope.token, $refresh: true })
+            $backend.Users.resetPassword({ userid: $scope.user.id, newpassword: $scope.passwordNew, email: $scope.user.email, password: $scope.password, token: $scope.token, $refresh: true })
               .then(
                 function() {
-                    $backend.Users.resetPassword({ userid: $scope.user.id, password: $scope.passwordNew, token: $scope.token, $refresh: true })
-                      .then(
-                        function() {
-                            $scope.$emit('alert', 'Success', 'Your password has been changed.');
-                            $scope.reset();
-                            $scope.loading = false;
-                        },
-                        function(response) {
-                            $scope.$emit('error', response.status, response.data);
-                            $scope.loading = false;
-                        });
+                    $scope.$emit('alert', 'Success', 'Your password has been changed.');
+                    $scope.reset();
+                    $scope.loading = false;
                 },
                 function(response) {
                     $scope.$emit('error', response.status, response.data);

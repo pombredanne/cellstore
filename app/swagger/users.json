@@ -127,9 +127,23 @@
                             "paramType":"query"
                         },
                         {
-                            "name":"email",
+                            "name":"newemail",
                             "description":"",
-                            "required":true,
+                            "required":false,
+                            "type":"string",
+                            "paramType":"query"
+                        },
+                        {
+                            "name":"email",
+                            "description":"Email of the authorized user (needed if changing the email)",
+                            "required":false,
+                            "type":"string",
+                            "paramType":"query"
+                        },
+                        {
+                            "name":"password",
+                            "description":"Password of the authorized user (needed if changing the email)",
+                            "required":false,
                             "type":"string",
                             "paramType":"query"
                         },
@@ -143,8 +157,21 @@
                     ],
                     "responseMessages":[
                         {
-                            "code":500,
-                            "message":"Not done yet"
+                            "code": 400,
+                            "message": "if a mandatory parameter is missing",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code" : 403,
+                            "message": "if the user doesn't exist or could not be authenticated",
+                            "responseModel": "Error"
+                        }
+                    ],
+                    "successMessages" : [
+                        {
+                            "code": 200,
+                            "message": "if the user's infos were updated successfully",
+                            "responseModel": "Success"
                         }
                     ]
                 }
@@ -157,19 +184,33 @@
                     "method":"POST",
                     "summary":"Change user password",
                     "notes":"",
-                    "type":"Success",
+                    "type":"User",
                     "nickname":"resetPassword",
                     "parameters":[
                         {
                             "name":"userid",
-                            "description":"",
+                            "description":"Id of the user",
+                            "required":true,
+                            "type":"string",
+                            "paramType":"query"
+                        },
+                        {
+                            "name":"newpassword",
+                            "description":"New password",
+                            "required":true,
+                            "type":"string",
+                            "paramType":"query"
+                        },
+                        {
+                            "name":"email",
+                            "description":"Email of the authorized user",
                             "required":true,
                             "type":"string",
                             "paramType":"query"
                         },
                         {
                             "name":"password",
-                            "description":"",
+                            "description":"Password of the authorized user",
                             "required":true,
                             "type":"string",
                             "paramType":"query"
@@ -184,8 +225,21 @@
                     ],
                     "responseMessages":[
                         {
-                            "code":500,
-                            "message":"Not done yet"
+                            "code": 400,
+                            "message": "if a mandatory parameter is missing",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code" : 403,
+                            "message": "if the user doesn't exist or could not be authenticated",
+                            "responseModel": "Error"
+                        }
+                    ],
+                    "successMessages" : [
+                        {
+                            "code": 200,
+                            "message": "if the user's password was updated successfully",
+                            "responseModel": "Success"
                         }
                     ]
                 }
