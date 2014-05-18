@@ -160,13 +160,13 @@ angular.module('main', [
     .state('root.terms', {
         url: '/terms-of-use',
         templateUrl: '/views/terms-of-use.html',
-        title: 'secinfo.info - Terms of Use'
+        title: 'secxbrl.info - Terms of Use'
     })
     // Privacy Policy
     .state('root.privacy', {
         url: '/privacy-policy',
         templateUrl: '/views/privacy-policy.html',
-        title: 'sexbrl.info - Privacy Policy'
+        title: 'secxbrl.info - Privacy Policy'
     })
 
     //Entity
