@@ -156,6 +156,19 @@ angular.module('main', [
         }
     })
 
+    // Terms of Use
+    .state('root.terms', {
+        url: '/terms-of-use',
+        templateUrl: '/views/terms-of-use.html',
+        title: 'secxbrl.info - Terms of Use'
+    })
+    // Privacy Policy
+    .state('root.privacy', {
+        url: '/privacy-policy',
+        templateUrl: '/views/privacy-policy.html',
+        title: 'secxbrl.info - Privacy Policy'
+    })
+
     //Entity
     .state('root.entities', {
         url: '/entity',
