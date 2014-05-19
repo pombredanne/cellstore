@@ -5,7 +5,7 @@
             <span class="tag" ng-if="results.length"><span ng-bind="Statistics.TotalNumComponents | number"></span> Components</span>
         </div>
         <div class="col-lg-6">
-            <h2 class="text-center">Search components by Disclosures</h2>
+            <h2 class="text-center">Search Components</h2>
         </div>
         <div class="col-lg-3">
             <span class="dropdown pull-right" ng-if="results.length">
@@ -22,8 +22,26 @@
 </div>
 <form class="form-horizontal" id="comparison-components-searchbar" ng-submit="submit()">
     <div class="form-group">
-        <label class="col-lg-2 col-md-3 col-sm-4 control-label">Disclosure</label>
-        <div class="col-lg-5 col-md-9 col-sm-8">
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Find components</label>
+        <div class="col-lg-6 col-md-9 col-sm-8">
+            <label class="radio" ng-click="selectType()">
+                <input type="radio" id="searchType" ng-model="searchType" value="disclosure">
+                By disclosure
+                <a href="/disclosures"><i class="fa fa-question"></i></a>
+            </label>
+            <label class="radio" ng-click="selectType()">
+                <input type="radio" id="searchType" ng-model="searchType" value="reportElement">
+                By the name of a contained report element
+            </label>
+            <label class="radio" ng-click="selectType()">
+                <input type="radio" id="searchType" ng-model="searchType" value="label">
+                By the text contained in network titles
+            </label>
+        </div>
+    </div>
+    <div class="form-group" ng-show="searchType==='disclosure'">
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Disclosure</label>
+        <div class="col-lg-6 col-md-9 col-sm-8">
             <input type="text" class="form-control" ng-model="searchDisclosure"
               typeahead="key.name for key in disclosureNames | filter:$viewValue | limitTo: 10" typeahead-template-url='typeaheaddisclosures.html'
                typeahead-on-select="selectDisclosure($item)">
@@ -35,33 +53,23 @@
                 </a>
             </script>
         </div>
-        <div class="col-lg-5 col-lg-offset-0 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
-            <small>Find components by disclosure.</small>
-            <a href="/disclosures"><i class="fa fa-question"></i></a>
-        </div>
     </div>
-    <div class="form-group">
-        <label class="col-lg-2 col-md-3 col-sm-4 control-label">Report element name</label>
-        <div class="col-lg-5 col-md-9 col-sm-8">
+    <div class="form-group" ng-show="searchType==='reportElement'">
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Report element name</label>
+        <div class="col-lg-6 col-md-9 col-sm-8">
             <input type="text" class="form-control" ng-model="searchReportElement"
               typeahead="key for key in reportElementNames | filter:$viewValue | limitTo: 15"
                typeahead-on-select="selectReportElement($item)">
         </div>
-        <div class="col-lg-5 col-lg-offset-0 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
-            <small>Find components by a name of a contained report element.</small>
-        </div>
     </div>
-    <div class="form-group">
-        <label class="col-lg-2 col-md-3 col-sm-4 control-label">Network title</label>
-        <div class="col-lg-5 col-md-9 col-sm-8">
+    <div class="form-group" ng-show="searchType==='label'">
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Network title</label>
+        <div class="col-lg-6 col-md-9 col-sm-8">
           <input type="text" class="form-control" ng-model="searchLabel">
         </div>
-        <div class="col-lg-5 col-lg-offset-0 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
-            <small>Find components by text contained in network titles.</small>
-        </div>
     </div>
     <div class="form-group">
-        <div class="col-lg-10 col-lg-offset-2 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
+        <div class="col-lg-9 col-lg-offset-3 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
             <button class="btn btn-primary" type="submit">GO</button>
         </div>
     </div>
