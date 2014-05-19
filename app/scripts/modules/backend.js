@@ -40,7 +40,7 @@ angular.module('main')
             var that = this;
             var deferred = $q.defer();
             if (!that.data.tag || that.data.tag.length === 0) {
-                that.data.tag = ['INTER10', 'SP500', 'FORTUNE100', 'PJI'];
+                that.data.tag = ['INTER10'];
             }
             deferred.resolve(that.data.tag);
             return deferred.promise;
