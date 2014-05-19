@@ -36,7 +36,7 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     $scope.disclosureNames = disclosures.data || [];
 
     //load the data
-    if ($scope.selection && 
+    if ($scope.selection &&
         (($scope.selection.type === 'disclosure' && $scope.selection.disclosure) ||
          ($scope.selection.type === 'reportElement' && $scope.selection.reportElement) ||
          ($scope.selection.type === 'label' && $scope.selection.label)))
