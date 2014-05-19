@@ -13,7 +13,7 @@ module.exports = function(grunt) {
      
         var count = options.apis.length;
         grunt.log.writeln('Using api: ' + url);
-        options.apis.forEach(function(api, index){
+        options.apis.forEach(function(api){
             var swagger = fs.readFileSync(api.swagger);
             request({
                 uri: url + '/angular.jq',
@@ -21,8 +21,11 @@ module.exports = function(grunt) {
                 headers: { 'Content-Type': 'text/json; utf-8' },
                 body: swagger
             }, function(error, response, body){
+                if(response === undefined) {
+                    grunt.fail.fatal('Couldn\'t connect to server');
+                }
                 if(response.statusCode !== 200) {
-                    grunt.fail.fatal("Server replied: " + response.statusCode);
+                    grunt.fail.fatal('Server replied: ' + response.statusCode);
                 }
                 fs.writeFileSync(dest + '/' + api.service + '.js', body);
                 grunt.log.writeln(dest + '/' + api.service + '.js written (' + api.module + '.' + api.service + ')');
