@@ -108,6 +108,15 @@ angular.module('main', [
         }
     })
     
+    //Report editor
+    .state('reportEditor', {
+        url: '/report-editor',
+        templateUrl: '/views/report-editor/index.html',
+        data: {
+            title: 'Report Editor'
+        }
+    })
+    
     //Pricing
     .state('root.pricing', {
         templateUrl: '/views/pricing.html',
