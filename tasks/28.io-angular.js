@@ -9,6 +9,7 @@ module.exports = function(grunt) {
         var options = this.options();
         var url = this.data.url;
         var dest = options.dest;
+        var failIfOffline = options.failIfOffline;
         grunt.file.mkdir(dest);
      
         var count = options.apis.length;
@@ -22,7 +23,16 @@ module.exports = function(grunt) {
                 body: swagger
             }, function(error, response, body){
                 if(response === undefined) {
-                    grunt.fail.fatal('Couldn\'t connect to server');
+                    if(failIfOffline) {
+                        grunt.fail.fatal('Couldn\'t connect to server');
+                    } else {
+                        grunt.log.writeln('Skipped ' + dest + '/' + api.service + '.js');
+                        count--;
+                        if(count === 0) {
+                            done();
+                        }
+                        return;
+                    }
                 }
                 if(response.statusCode !== 200) {
                     grunt.fail.fatal('Server replied: ' + response.statusCode);
