@@ -4,6 +4,7 @@ dist
 .sass-cache
 app/bower_components
 .idea
+.project
 app/scripts/swagger/*.js
 app/scripts/constants.js
 app/scripts/modules/translations.js
