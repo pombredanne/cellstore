@@ -29,7 +29,10 @@
                         <a href="/entity">Browse</a>
                     </li>
                     <li ng-class="{ active: active === 'compare' }">
-                        <a href="/comparison">Compare &amp; Search</a>
+                        <a href="/comparison/filings?{{wwwFormUrlencoded(selection)}}">Compare</a>
+                    </li>
+                    <li ng-class="{ active: active === 'search' }">
+                        <a href="/comparison/filingss?{{wwwFormUrlencoded(selection)}}">Search</a>
                     </li>
                     <li ng-class="{ active: active === 'api' }">
                         <a href="/api">API</a>
@@ -55,7 +58,7 @@
             <p class="text-center copyright">
                 <small>
                     ©&nbsp;2013 28msec Inc. All rights reserved.
-                    <!--a href="http://28.io/terms-of-use">Terms of Use</a> - <a href="http://28.io/privacy-policy">Privacy Policy</a-->
+                    <a href="/terms-of-use">Terms of Use</a> - <a href="/privacy-policy">Privacy Policy</a>
                 </small>
             </p>
         </div>

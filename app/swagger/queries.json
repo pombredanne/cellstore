@@ -756,7 +756,7 @@
             "operations": [
                 {
                     "method": "POST",
-                    "summary": "Retrieve one or more facts for a combination of entity and concept.",
+                    "summary": "Retrieve one or more facts for a combination of filings.",
                     "nickname": "listFacts",
                     "parameters": [
                         {
@@ -820,8 +820,8 @@
                         },
                         {
                             "name": "concept",
-                            "description": "The name of the concept to retrieve the fact for",
-                            "required": true,
+                            "description": "The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used).",
+                            "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
@@ -1028,6 +1028,20 @@
                                 "true",
                                 "false"
                             ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "name",
+                            "description": "The name of the report element to return (e.g. us-gaap:Assets).",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "label",
+                            "description": "A search term to search in the labels of report elements (e.g. stock)",
+                            "required": false,
+                            "type": "string",
                             "paramType": "query"
                         },
                         {
