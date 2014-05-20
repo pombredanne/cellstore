@@ -761,7 +761,7 @@ angular.module('main', [
         }
     })
     .state('root.comparison.component', {
-        url: '/components?reportElement&disclosure&label',
+        url: '/components?type&disclosure&reportElement&label',
         templateUrl: '/views/comparison/components.html',
         controller: 'ComparisonComponentsCtrl',
         resolve: {
@@ -810,7 +810,7 @@ angular.module('main', [
         }
     })
     .state('root.comparison.reportElements', {
-        url: '/reportElements?name&label',
+        url: '/reportElements?type&name&label',
         templateUrl: '/views/comparison/report-elements.html',
         controller: 'ComparisonReportElementsCtrl',
         resolve: {
