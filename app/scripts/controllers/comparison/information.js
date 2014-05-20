@@ -10,7 +10,7 @@ angular.module('main')
     $scope.errornoresults = false;
     $scope.errormany = false;
 
-    if (informations.data && information.filings)
+    if (informations.data && informations.filings)
     {
         if (informations.filings.length > 30)
         {
