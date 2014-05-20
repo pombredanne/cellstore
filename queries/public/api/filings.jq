@@ -1,48 +1,70 @@
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
+import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace session = "http://apps.28.io/session";
 
-let $format      := lower-case(request:param-values("format")[1])
+
+declare function local:filings(
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as string*) as object*
+{
+    let $entities := if ($tags = "ALL") then companies:companies()
+                                        else (
+                                            companies:companies($ciks),
+                                            companies:companies-for-tags($tags),
+                                            companies:companies-for-tickers($tickers),
+                                            companies:companies-for-SIC($sics)
+                                        )
+    for $entity in $entities
+    for $fy in distinct-values(
+                for $fy in $fy
+                return
+                    switch ($fy)
+                    case "LATEST" return
+                        for $p in $fp
+                        return
+                            if ($p eq "FY")
+                            then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
+                            else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
+                        case "ALL" return  $fiscal:ALL_FISCAL_YEARS
+                    default return $fy cast as integer
+                )
+    for $fp in $fp 
+    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy)
+};
+
+let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
 let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
 let $tickers     := distinct-values(request:param-values("ticker"))
 let $sics        := distinct-values(request:param-values("sic"))
-let $aids        := distinct-values(request:param-values("aid"))
-let $companies   := companies:companies($ciks, $tags, $tickers, $sics)
-
+let $fiscalYears := distinct-values(
+                        for $y in request:param-values("fiscalYear", "LATEST")
+                        return
+                            if ($y eq "LATEST" or $y eq "ALL")
+                            then $y
+                            else if ($y castable as integer)
+                            then $y
+                            else  ()
+                    )
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
                         then $fiscal:ALL_FISCAL_PERIODS
-                        else if (($fp ! lower-case($$)) = "fy")
-                        then distinct-values(("FY", "Q4", $fp))
                         else $fp)
-let $fiscalYears := distinct-values(
-                    for $y in request:param-values("fiscalYear", "LATEST")
-                    return
-                        if ($y eq "ALL")
-                        then $fiscal:ALL_FISCAL_YEARS
-                        else if ($y eq "LATEST")
-                          then for $cik in $companies 
-                               for $fp in $fiscalPeriods
-                               return
-                                   if ($fiscal:ALL_FISCAL_PERIODS eq $fp)
-                                   then
-                                       (fiscal:latest-reported-fiscal-period($cik).year) ! ($$ cast as integer) 
-                                   else 
-                                       (fiscal:latest-reported-fiscal-period($cik, $fp).year) ! ($$ cast as integer) 
-                        else if ($y castable as integer)
-                        then $y cast as integer
-                        else ()
-                )
-let $archives := (filings:filings($aids),
-                    for $fp in $fiscalPeriods, $fy in $fiscalYears
-                    return
-                      fiscal:filings-for-entities-and-fiscal-periods-and-years($companies, $fp, $fy)) 
+let $aids        := archives:aid(request:param-values("aid"))
+let $archives    := (
+                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
+                        archives:archives($aids)
+                    )
 let $companies   := companies:companies($archives.Entity)
 return
     if (session:only-dow30($companies) or session:valid())
