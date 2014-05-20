@@ -30,7 +30,7 @@
             </thead>
             <tbody ng-repeat="report in reports">
                 <tr>
-                    <td colspan="{{report.items[0].value.length}}">
+                    <td colspan="{{report.items[0].value.length + 1}}">
                         <a ng-click="showtab[$index]=!showtab[$index]">
                             <i class="fa fa-caret-down" ng-show="showtab[$index]"></i>
                             <i class="fa fa-caret-right" ng-hide="showtab[$index]"></i>
