@@ -66,6 +66,12 @@ declare function session:num-components()
     return mongo:count($conn, "components")
 };
 
+declare function session:num-concepts()
+{
+    let $conn := session:connect()
+    return mongo:count($conn, "concepts")
+};
+
 declare function session:num-entities()
 {
     let $conn := session:connect()

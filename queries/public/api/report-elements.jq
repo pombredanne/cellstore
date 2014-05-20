@@ -5,6 +5,8 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
+import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
+import module namespace components = "http://xbrl.io/modules/bizql/components";
 
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
@@ -33,8 +35,23 @@ declare function local:to-xml($concepts as item*, $onlyNames as boolean) as elem
                 <Name>{$c}</Name>
              else (
                 <Name>{$c.Name}</Name>,
-                <Component>{$c.Component}</Component>,
-                <Archive>{$c.Archive}</Archive>
+                <Label>{$c.Label}</Label>,
+                <IsNillable>{$c.IsNillable}</IsNillable>,
+                <IsAbstract>{$c.IsAbstract}</IsAbstract>,
+                <PeriodType>{$c.PeriodType}</PeriodType>,
+                <Balance>{$c.Balance}</Balance>,
+                <SubstitutionGroup>{$c.SubstitutionGroup}</SubstitutionGroup>,
+                <DataType>{$c.DataType}</DataType>,
+                <BaseType>{$c.BaseType}</BaseType>,
+                <ClosestSchemaBuiltinType>{$c.ClosestSchemaBuiltinType}</ClosestSchemaBuiltinType>,
+                <IsTextBlock>{$c.IsTextBlock}</IsTextBlock>,
+                <ComponentRole>{$c.ComponentRole}</ComponentRole>,  
+                <ComponentLabel>{$c.ComponentLabel}</ComponentLabel>,
+                <AccessionNumber>{$c.AccessionNumber}</AccessionNumber>,
+                <CIK>{$c.CIK}</CIK>,
+                <EntityRegistrantName>{$c.EntityRegistrantName}</EntityRegistrantName>,
+                <FiscalYear>{$c.FiscalYear}</FiscalYear>,
+                <FiscalPeriod>{$c.FiscalPeriod}</FiscalPeriod>
              )
         }</ReportElement>
 };
@@ -88,6 +105,46 @@ declare function local:concepts-for-archives($aids as string*) as object*
         })
 };
 
+declare function local:concepts-for-archives($aids as string*, $names as string*) as object*
+{
+    let $conn :=   
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("concepts:CONNECTION-FAILED"), $err:description)
+        }
+    return
+        mongo:find($conn, "concepts", 
+        {
+            "Name" : { "$in" : [ $names ] },
+            "Archive": { "$in" : [ $aids ] }
+        })
+};
+
+declare function local:concepts-for-archives-and-labels($aids as string*, $labels as string) as object*
+{
+    let $conn :=
+        let $credentials := credentials:credentials("MongoDB", "xbrl")
+        return
+            try {
+                mongo:connect($credentials)
+            } catch mongo:* {
+                error(QName("components:CONNECTION-FAILED"), $err:description)
+            }
+    return mongo:run-cmd-deterministic(
+        $conn,
+        {
+            "text" : "concepts",
+            "filter" : { "Archive" : { "$in" : [ $aids ] } },
+            "search" : $labels,
+            "limit" : 100,
+            "score" : { "$meta" : "textScore" },
+            "sort" : { score: { "$meta" : "textScore" } }
+        }).results[].obj
+}; 
+
 session:audit-call();
 
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
@@ -115,12 +172,40 @@ let $archives    := (
                         archives:archives($aids)
                     )
 let $entities    := entities:entities($archives.Entity)
+let $names       := distinct-values(request:param-values("name"))
+let $labels      := distinct-values(request:param-values("label"))
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
 return
     if (session:only-dow30($entities) or session:valid()) 
         then {
-            let $concepts := let $concepts := local:concepts-for-archives($archives._id)
-                             return if ($onlyNames) then distinct-values($concepts.Name) else $concepts
+            let $concepts := let $concepts := if (exists($names))
+                                              then local:concepts-for-archives($archives._id, $names)
+                                              else if (exists($labels))
+                                              then local:concepts-for-archives-and-labels($archives._id, $labels[1])
+                                              else local:concepts-for-archives($archives._id)
+                             return if ($onlyNames) 
+                                    then distinct-values($concepts.Name)
+                                    else for $c in $concepts
+                                         group by $component := $c.Component
+                                         let $component := components:components($component)
+                                         let $default-hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+                                         let $members := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+                                         let $archive := archives:archives($c[1].Archive)
+                                         let $entity := entities:entities($archive.Entity)
+                                         return
+                                             for $name in $c.Name
+                                             return
+                                                 copy $res := $members.$name
+                                                 modify (
+                                                    insert json { ComponentRole : $component.Role } into $res,
+                                                    insert json { ComponentLabel : $component.Label } into $res,
+                                                    insert json { AccessionNumber : $archive._id } into $res,
+                                                    insert json { CIK : $entity._id } into $res,
+                                                    insert json { EntityRegistrantName : $entity.Profiles.SEC.CompanyName } into $res,
+                                                    insert json { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus } into $res,
+                                                    insert json { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus } into $res
+                                                 )
+                                                 return $res
             return
             switch ($format)
             case "xml" return {
@@ -144,8 +229,11 @@ return
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
                 {|
-                    session:comment("json"),
-                    { ReportElements : [ $concepts ] }
+                    { ReportElements : [ $concepts ] },
+                    session:comment("json", {
+                        NumConcepts: count($concepts),
+                        TotalNumConcepts: session:num-concepts()
+                    })
                 |}
             }
         }

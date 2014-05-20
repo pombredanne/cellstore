@@ -18,7 +18,7 @@ angular.module('main')
             $backend.Session
                 .login({ email: $scope.loginEmail, password: $scope.loginPassword })
                 .then(function(data) {
-                    $scope.$emit('login', data.token, data._id, $scope.loginEmail, data.firstname, data.lastname, $scope.returnPage);
+                    $scope.$emit('login', data.token, data._id, $scope.loginEmail, data.firstname, data.lastname, decodeURIComponent($scope.returnPage));
                 }, function() {
                     $scope.loginForm.loginPassword.$setValidity('unauthorized', false);
                 });
@@ -55,7 +55,7 @@ angular.module('main')
                         $backend.Session
                             .login({ email: $scope.email, password: $scope.password })
                             .then(function(data) {
-                                $scope.$emit('login', data.token, data._id, $scope.email, data.firstname, data.lastname, $scope.returnPage);
+                                $scope.$emit('login', data.token, data._id, $scope.email, data.firstname, data.lastname, decodeURIComponent($scope.returnPage));
                             },
                             function(response) { $scope.$emit('error', response.status, response.data); });
                     },
