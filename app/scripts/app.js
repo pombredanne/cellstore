@@ -810,7 +810,7 @@ angular.module('main', [
         }
     })
     .state('root.comparison.reportElements', {
-        url: '/reportElements?name&label',
+        url: '/reportElements?type&name&label',
         templateUrl: '/views/comparison/report-elements.html',
         controller: 'ComparisonReportElementsCtrl',
         resolve: {

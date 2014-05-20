@@ -22,20 +22,20 @@
 </div>
 <form class="form-horizontal" id="comparison-components-searchbar" ng-submit="submit()">
     <div class="form-group">
-        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Find components</label>
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Find components by</label>
         <div class="col-lg-6 col-md-9 col-sm-8">
             <label class="radio" ng-click="selectType()">
                 <input type="radio" id="searchType" ng-model="searchType" value="disclosure">
-                By disclosure
+                Disclosure
                 <a href="/disclosures"><i class="fa fa-question"></i></a>
             </label>
             <label class="radio" ng-click="selectType()">
                 <input type="radio" id="searchType" ng-model="searchType" value="reportElement">
-                By the name of a contained report element
+                Name of a contained report element
             </label>
             <label class="radio" ng-click="selectType()">
                 <input type="radio" id="searchType" ng-model="searchType" value="label">
-                By the text contained in network titles
+                Text contained in network titles
             </label>
         </div>
     </div>
