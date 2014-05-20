@@ -185,7 +185,7 @@ declare %an:sequential function session:audit-call() as empty-sequence()
             "xbrl:Concept" : "secxbrl:ClientIP",
             "xbrl:Entity" : if (session:valid()) then session:validate() else "Anonymous",
             "xbrl:Period" : string(fn:current-dateTime()),
-            "xbrl:Unit" : "pure",
+            "xbrl:Unit" : "xbrl:NonNumeric",
             "secxbrl:Query" : req:path()
         },
         Type : "NonNumericValue",
