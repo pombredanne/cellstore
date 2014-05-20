@@ -156,6 +156,19 @@ angular.module('main', [
         }
     })
 
+    // Terms of Use
+    .state('root.terms', {
+        url: '/terms-of-use',
+        templateUrl: '/views/terms-of-use.html',
+        title: 'secxbrl.info - Terms of Use'
+    })
+    // Privacy Policy
+    .state('root.privacy', {
+        url: '/privacy-policy',
+        templateUrl: '/views/privacy-policy.html',
+        title: 'secxbrl.info - Privacy Policy'
+    })
+
     //Entity
     .state('root.entities', {
         url: '/entity',
@@ -748,7 +761,7 @@ angular.module('main', [
         }
     })
     .state('root.comparison.component', {
-        url: '/components?reportElement&disclosure&label',
+        url: '/components?type&disclosure&reportElement&label',
         templateUrl: '/views/comparison/components.html',
         controller: 'ComparisonComponentsCtrl',
         resolve: {
@@ -797,7 +810,7 @@ angular.module('main', [
         }
     })
     .state('root.comparison.reportElements', {
-        url: '/reportElements?name&label',
+        url: '/reportElements?type&name&label',
         templateUrl: '/views/comparison/report-elements.html',
         controller: 'ComparisonReportElementsCtrl',
         resolve: {

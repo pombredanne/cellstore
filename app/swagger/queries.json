@@ -39,7 +39,8 @@
                                 "DOW30",
                                 "SP500",
                                 "FORTUNE100",
-                                "PJI"
+                                "PJI",
+                                "ALL"
                             ],
                             "paramType": "query"
                         },
@@ -137,7 +138,8 @@
                                 "DOW30",
                                 "SP500",
                                 "FORTUNE100",
-                                "PJI"
+                                "PJI",
+                                "ALL"
                             ],
                             "paramType": "query"
                         },
@@ -270,7 +272,8 @@
                                 "DOW30",
                                 "SP500",
                                 "FORTUNE100",
-                                "PJI"
+                                "PJI",
+                                "ALL"
                             ],
                             "paramType": "query"
                         },
@@ -443,6 +446,34 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "ticker",
+                            "description": "The ticker of the entity",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "tag",
+                            "description": "A tag to filter",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "DOW30",
+                                "SP500",
+                                "FORTUNE100",
+                                "PJI",
+                                "ALL"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "sic",
+                            "description": "The industry group",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "networkIdentifier",
                             "description": "The network identifier of a particular component",
                             "required": false,
@@ -553,6 +584,34 @@
                         {
                             "name": "cik",
                             "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "ticker",
+                            "description": "The ticker of the entity",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "tag",
+                            "description": "The tag to filter entities",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "DOW30",
+                                "SP500",
+                                "FORTUNE100",
+                                "PJI",
+                                "ALL"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "sic",
+                            "description": "The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -673,7 +732,8 @@
                                 "DOW30",
                                 "SP500",
                                 "FORTUNE100",
-                                "PJI"
+                                "PJI",
+                                "ALL"
                             ],
                             "paramType": "query"
                         },
@@ -795,7 +855,8 @@
                                 "DOW30",
                                 "SP500",
                                 "FORTUNE100",
-                                "PJI"
+                                "PJI",
+                                "ALL"
                             ],
                             "paramType": "query"
                         },
@@ -961,7 +1022,8 @@
                                 "DOW30",
                                 "SP500",
                                 "FORTUNE100",
-                                "PJI"
+                                "PJI",
+                                "ALL"
                             ],
                             "paramType": "query"
                         },
