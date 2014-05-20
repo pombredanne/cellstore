@@ -10,27 +10,27 @@ angular.module('main')
     $scope.errornoresults = false;
     $scope.errormany = false;
 
-    if (informations.data)
+    if (informations.data && information.filings)
     {
-        if (informations.data.length === 0)
+        if (informations.filings.length > 30)
         {
-            $scope.errornoresults = true;
+            $scope.errormany = true;
         }
         else
         {
-            $scope.filings = informations.filings;
-            $scope.params = {
-                _method: 'POST',
-                aid: $scope.filings,
-                report: 'FundamentalAccountingConcepts',
-                'token' : $scope.token
-            };
-            if ($scope.filings.length > 30)
+            if (informations.data.length === 0)
             {
-                $scope.errormany = true;
+                $scope.errornoresults = true;
             }
             else
             {
+                $scope.filings = informations.filings;
+                $scope.params = {
+                    _method: 'POST',
+                    aid: $scope.filings,
+                    report: 'FundamentalAccountingConcepts',
+                    'token' : $scope.token
+                };
                 informations.data.sort(function(a, b){
                     var ai = a.Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To['fac:GeneralInformationHierarchy'].To;
                     var bi = b.Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To['fac:GeneralInformationHierarchy'].To;
