@@ -109,9 +109,18 @@ angular.module('main', [
     })
     
     //Report editor
-    .state('reportEditor', {
-        url: '/report-editor',
-        templateUrl: '/views/report-editor/index.html',
+    .state('reports', {
+        url: '/reports',
+        templateUrl: '/views/report-editor/reports.html',
+        controller: 'Reports',
+        data: {
+            title: 'Report Editor'
+        }
+    })
+    .state('reports.report', {
+        url: '/:id',
+        templateUrl: '/views/report-editor/report.html',
+        controller: 'Report',
         data: {
             title: 'Report Editor'
         }
