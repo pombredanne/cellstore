@@ -8,19 +8,27 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
     if ($stateParams.name) {
         $scope.searchName = $stateParams.name;
         $scope.selection.name = $scope.searchName;
+        $scope.searchType = 'name';
     }
 
     if ($stateParams.label) {
         $scope.searchLabel = $stateParams.label;
         $scope.selection.label = $scope.searchLabel;
+        $scope.searchType = 'label';
     }
+
+    if (!$scope.searchType)
+    {
+        $scope.searchType = $stateParams.type || 'name';
+    }
+    $scope.selection.type = $scope.searchType;
     
     $scope.reportElementNames = reportElements.ReportElements || [];
 
     //load the data
-    if ($scope.selection &&(
-        $scope.selection.name ||
-        $scope.selection.label))
+    if ($scope.selection &&
+        (($scope.selection.type === 'name' && $scope.selection.name) ||
+         ($scope.selection.type === 'label' && $scope.selection.label)))
     {
         $scope.params = {
             $method: 'POST',
@@ -29,20 +37,30 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
             fiscalYear: $scope.selection.fiscalYear,
             fiscalPeriod: $scope.selection.fiscalPeriod,
             sic: $scope.selection.sic,
-            name: $scope.selection.name,
-            label: $scope.selection.label,
             token: $scope.token
         };
+        if ($scope.selection.type === 'name') {
+            $scope.params.name = $scope.selection.name;
+        }
+        if ($scope.selection.type === 'label') {
+            $scope.params.label = $scope.selection.label;
+        }
         $scope.results = results.ReportElements;
         $scope.Statistics = results.Statistics;
         $scope.errornoresults = ($scope.results.length === 0);
     }
 
     $scope.submit = function() {
-        if (!$scope.searchName && !$scope.searchLabel) {
-            $scope.$emit('alert', 'Fields required for search', 'The report element name or label are required for the search.');
+        if ($scope.searchType === 'name' && !$scope.searchName) {
+            $scope.$emit('alert', 'Mandatory field', 'The name of the report element is required for the search.');
             return false;
         }
+        if ($scope.searchType === 'label' && !$scope.searchLabel) {
+            $scope.$emit('alert', 'Mandatory field', 'The label of the report element is required for the search.');
+            return false;
+        }
+
+        $scope.selection.type = $scope.searchType;
         if ($scope.searchName)
         {
             $scope.selection.name = $scope.searchName;
@@ -60,6 +78,19 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
             delete $scope.selection.label;
         }
     };
+    
+    $scope.selectType = function() {
+        $scope.selection.type = $scope.searchType;
+        switch ($scope.selection.type)
+        {
+            case 'name':
+                delete $scope.selection.label;
+                break;
+            case 'label':
+                delete $scope.selection.name;
+                break;
+        }
+    };
 
     $scope.selectName = function() {
         if ($scope.searchName)
@@ -69,14 +100,6 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
         else
         {
             delete $scope.selection.name;
-        }
-        if ($scope.searchLabel)
-        {
-            $scope.selection.label = $scope.searchLabel;
-        }
-        else
-        {
-            delete $scope.selection.label;
         }
     };
 

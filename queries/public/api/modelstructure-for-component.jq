@@ -191,12 +191,13 @@ declare function local:filings(
     $fp as string*,
     $fy as string*) as object*
 {
-    let $entities := (
-        companies:companies($ciks),
-        companies:companies-for-tags($tags),
-        companies:companies-for-tickers($tickers),
-        companies:companies-for-SIC($sics)
-    ) 
+    let $entities := if ($tags = "ALL") then companies:companies()
+                                        else (
+                                            companies:companies($ciks),
+                                            companies:companies-for-tags($tags),
+                                            companies:companies-for-tickers($tickers),
+                                            companies:companies-for-SIC($sics)
+                                        )
     for $entity in $entities
     for $fy in distinct-values(
                 for $fy in $fy

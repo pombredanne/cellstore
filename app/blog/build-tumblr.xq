@@ -3,6 +3,7 @@ import module namespace fs = "http://expath.org/ns/file";
 (: Generate Index :)
 
 let $summaries := {
+  "86397995485": 'Ethan Rouen, a Ph.D. candidate in accounting at Columbia Business School, has published an article called "One step backward for corporate accountability". In his article, he talks about the potential of XBRL to revolutionize the way to access and analyze company financial results the instant they became public. However, he claims that the 10-K and 10-Q documents filed by US public companies using XBRL are of embarrassingly poor quality.',
   "85623075060": "Charles Hoffman posted a great article on secxbrl.info.",
   "85528073805": "Did you ever wonder how secxbrl.info is able to handle the huge amount of highly-dimensional data? Here is why.",
   "85127528110": "In this blog entry, we are addressing the following characteristics: Consistency, accuracy, and comparability. Specifically, we show how the custom report feature of secxbrl.info can be used as a framework for building functionality to verify those characteristics.",

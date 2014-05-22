@@ -6,31 +6,40 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     $scope.disclosureNames = [];
     $scope.errornoresults = false;
     $scope.Statistics = {};
-
+    
     if ($stateParams.disclosure) {
         $scope.searchDisclosure = $stateParams.disclosure;
         $scope.selection.disclosure = $scope.searchDisclosure;
+        $scope.searchType = 'disclosure';
     }
             
     if ($stateParams.reportElement) {
         $scope.searchReportElement = $stateParams.reportElement;
         $scope.selection.reportElement = $scope.searchReportElement;
+        $scope.searchType = 'reportElement';
     }
     
     if ($stateParams.label) {
         $scope.searchLabel = $stateParams.label;
         $scope.selection.label = $scope.searchLabel;
+        $scope.searchType = 'label';
     }
+
+    if (!$scope.searchType)
+    {
+        $scope.searchType = $stateParams.type || 'disclosure';
+    }
+    $scope.selection.type = $scope.searchType;
 
     //refresh the typeaheads
     $scope.reportElementNames = reportElements.ReportElements || [];
     $scope.disclosureNames = disclosures.data || [];
 
     //load the data
-    if ($scope.selection && (
-        $scope.selection.disclosure ||
-        $scope.selection.reportElement ||
-        $scope.selection.label))
+    if ($scope.selection &&
+        (($scope.selection.type === 'disclosure' && $scope.selection.disclosure) ||
+         ($scope.selection.type === 'reportElement' && $scope.selection.reportElement) ||
+         ($scope.selection.type === 'label' && $scope.selection.label)))
     {
         $scope.params = {
             $method: 'POST',
@@ -39,11 +48,17 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
             fiscalYear: $scope.selection.fiscalYear,
             fiscalPeriod: $scope.selection.fiscalPeriod,
             sic: $scope.selection.sic,
-            disclosure: $scope.selection.disclosure,
-            reportElement: $scope.selection.reportElement,
-            label: $scope.selection.label,
             token: $scope.token
         };
+        if ($scope.selection.type === 'disclosure') {
+            $scope.params.disclosure = $scope.selection.disclosure;
+        }
+        if ($scope.selection.type === 'reportElement') {
+            $scope.params.reportElement = $scope.selection.reportElement;
+        }
+        if ($scope.selection.type === 'label') {
+            $scope.params.label = $scope.selection.label;
+        }
 
         components.Archives.forEach(function (archive) {
             archive.Components.forEach(function (component) {
@@ -65,10 +80,20 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
     }
 
     $scope.submit = function() {
-        if (!$scope.searchDisclosure && !$scope.searchReportElement && !$scope.searchLabel) {
-            $scope.$emit('alert', 'Fields required for search', 'The disclosure, report element, or label are required for the search.');
+        if ($scope.searchType === 'disclosure' && !$scope.searchDisclosure) {
+            $scope.$emit('alert', 'Mandatory field', 'The disclosure is required for the search.');
             return false;
         }
+        if ($scope.searchType === 'reportElement' && !$scope.searchReportElement) {
+            $scope.$emit('alert', 'Mandatory field', 'The report element is required for the search.');
+            return false;
+        }
+        if ($scope.searchType === 'label' && !$scope.searchLabel) {
+            $scope.$emit('alert', 'Mandatory field', 'The label is required for the search.');
+            return false;
+        }
+
+        $scope.selection.type = $scope.searchType;
         if ($scope.searchDisclosure)
         {
             $scope.selection.disclosure = $scope.searchDisclosure;
@@ -95,6 +120,25 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         }
     };
     
+    $scope.selectType = function() {
+        $scope.selection.type = $scope.searchType;
+        switch ($scope.selection.type)
+        {
+            case 'disclosure':
+                delete $scope.selection.reportElement;
+                delete $scope.selection.label;
+                break;
+            case 'reportElement':
+                delete $scope.selection.disclosure;
+                delete $scope.selection.label;
+                break;
+            case 'label':
+                delete $scope.selection.disclosure;
+                delete $scope.selection.reportElement;
+                break;
+        }
+    };
+
     $scope.selectDisclosure = function() {
         if ($scope.searchDisclosure)
         {
@@ -104,33 +148,9 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         {
             delete $scope.selection.disclosure;
         }
-        if ($scope.searchReportElement)
-        {
-            $scope.selection.reportElement = $scope.searchReportElement;
-        }
-        else
-        {
-            delete $scope.selection.reportElement;
-        }
-        if ($scope.searchLabel)
-        {
-            $scope.selection.label = $scope.searchLabel;
-        }
-        else
-        {
-            delete $scope.selection.label;
-        }
     };
     
     $scope.selectReportElement = function() {
-        if ($scope.searchDisclosure)
-        {
-            $scope.selection.disclosure = $scope.searchDisclosure;
-        }
-        else
-        {
-            delete $scope.selection.disclosure;
-        }
         if ($scope.searchReportElement)
         {
             $scope.selection.reportElement = $scope.searchReportElement;
@@ -138,14 +158,6 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
         else
         {
             delete $scope.selection.reportElement;
-        }
-        if ($scope.searchLabel)
-        {
-            $scope.selection.label = $scope.searchLabel;
-        }
-        else
-        {
-            delete $scope.selection.label;
         }
     };
 
