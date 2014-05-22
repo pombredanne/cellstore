@@ -181,3 +181,21 @@ as empty-sequence()
    session:terminate(api:required-parameter("token", $session:VALID-TOKEN))
 };
 
+
+declare %an:sequential function session:audit-call() as empty-sequence()
+{
+    let $dist-aspects := [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period" ]
+    let $facts := {
+        KeyAspects : $dist-aspects,
+        Aspects : {
+            "xbrl:Concept" : "secxbrl:ClientIP",
+            "xbrl:Entity" : if (session:valid()) then session:validate() else "Anonymous",
+            "xbrl:Period" : string(fn:current-dateTime()),
+            "xbrl:Unit" : "xbrl:NonNumeric",
+            "secxbrl:Query" : req:path()
+        },
+        Type : "NonNumericValue",
+        Value : req:remote-addr()
+    }
+    return db:insert("audit", $facts);
+};

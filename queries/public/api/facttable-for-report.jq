@@ -133,6 +133,8 @@ declare function local:filings(
     return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy ! ($$ cast as integer))
 };
 
+session:audit-call();
+
 
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
 let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
