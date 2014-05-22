@@ -1,3 +1,6 @@
-<div class="list-group" report-api="api" report-token="token" reports>
-    <a ng-repeat="report in reports" ng-href="/report-editor/{{report.id}}" ng-bind="report.name"></a>
+<div class="container">
+    <h1 class="text-center">Report Schemas</h1>
+    <reports class="list-group" report-api="{{api}}" report-api-token="{{token}}">
+        <a ng-repeat="report in reports" ng-href="/reports/{{report._id}}" ng-bind="report.Label" class="list-group-item"></a>
+    </reports>
 </div>
