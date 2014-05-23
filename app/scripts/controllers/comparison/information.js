@@ -77,6 +77,7 @@ angular.module('main')
                                     item = array[j];
                                 }
                                 if (list[key].Facts && list[key].Facts.length > 0) {
+                                    item.auditId = list[key].Facts[0].AuditTrails[0].Id;
                                     item.type[index] = list[key].Facts[0].Type;
                                     if (list[key].Facts[0].Type === 'NumericValue') {
                                         var num = list[key].Facts[0].Value;

@@ -60,7 +60,7 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="item in report.items">
-                                            <td>{{item.label}}</td>
+                                            <td>{{item.label}} <span ng-if="report.isBoolean && item.auditId">({{item.auditId}})</span></td>
                                             <td class="nowrap text-right" ng-if="(item.type == 'NumericValue')">{{item.value || 0}}</td>
                                             <td class="nowrap text-center" ng-if="(report.isBoolean)">
                                               <i class="fa semaphore fa-check-circle success" ng-if="item.value === true" tooltip="Rule passed"></i>

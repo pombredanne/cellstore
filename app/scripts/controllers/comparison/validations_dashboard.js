@@ -86,6 +86,7 @@ angular.module('main')
                             var fact = validations[key].Facts[0];
                             detail.passed = fact.Value;
                             detail.message = fact.AuditTrails[0].Message;
+                            detail.Id = fact.AuditTrails[0].Id;
                         }
                         details.push(detail);
                     }//for

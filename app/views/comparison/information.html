@@ -39,7 +39,7 @@
                     </td>
                 </tr>
                 <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
-                    <td>{{item.label}}</td>
+                    <td>{{item.label}} <span ng-if="report.isBoolean && item.auditId">({{item.auditId}})</span></td>
                     <td class="nowrap" ng-if="!report.isBoolean" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
                         <span ng-if="item.type[$index] == 'NumericValue'">{{v || 0}}</span>
                         <span ng-if="item.type[$index] != 'NumericValue' && !isBlock(v)">{{v || ' '}}</span>
