@@ -1,3 +1,16 @@
 <report report-api="{{api}}" report-api-token="{{token}}" report-id="{{id}}">
+    <div class="text-center" ng-if="!report">
+        <h1>Loading Report <i class="fa fa-spinner fa-spin"></i></h1>
+    </div>
+    <div ng-if="report">
+        <flexy-layout orientation="vertical">
+            <block-container init="400" id="sidebar">
 
+            </block-container>
+            <block-splitter></block-splitter>
+            <block-container>
+
+            </block-container>
+        </flexy-layout>
+    </div>
 </report>
