@@ -2,7 +2,19 @@
     <div class="text-center" ng-if="!report">
         <h1>Loading Report <i class="fa fa-spinner fa-spin"></i></h1>
     </div>
-    <div ng-if="report">
+    <tabset id="report" ng-if="report">
+        <tab heading="Presentation">
+            <flexy-layout orientation="horizontal">
+                <block-container init="400" id="sidebar">
+                    <h1>Hello</h1>
+                </block-container>
+                <block-splitter></block-splitter>
+                <block-container>
+                    <h1>World</h1>
+                </block-container>
+            </flexy-layout>
+        </tab>
+        <tab heading="Concept Maps">
         <flexy-layout orientation="vertical">
             <block-container init="400" id="sidebar">
 
@@ -12,5 +24,19 @@
 
             </block-container>
         </flexy-layout>
-    </div>
+            
+        </tab>
+        <tab heading="Business Rules">
+        <flexy-layout orientation="vertical">
+            <block-container init="400" id="sidebar">
+
+            </block-container>
+            <block-splitter></block-splitter>
+            <block-container>
+
+            </block-container>
+        </flexy-layout>
+            
+        </tab>
+    </tabset>
 </report>
