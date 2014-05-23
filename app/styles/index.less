@@ -119,6 +119,8 @@ ul.selector {
 
 //Div Table
 .divtable {
+    border: 1px solid @clouds;
+
     .line {
         border-bottom: 1px solid @clouds;
 
@@ -207,6 +209,20 @@ a.disabled {
 .modal-small {
     > .modal-dialog {
         width: 420px;
+    }
+}
+
+.table-justcolumns 
+{
+    .table-striped;
+    .table-bordered;
+    > tbody > tr > td {
+        border-top: 0px;
+        border-bottom: 0px;
+    }
+    > thead > tr > th {
+        border-left: 0px;
+        border-right: 0px;
     }
 }
 
