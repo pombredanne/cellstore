@@ -119,6 +119,10 @@ angular.module('main')
         $scope.$emit('alert', 'Text Details', html);
     };
 
+    $scope.showAudit = function(passed, message) {
+        $scope.$emit('alert', '<small><i class="fa semaphore ' + (passed ? 'fa-check-circle success' : 'fa-exclamation-triangle') + '"></i></small> ' + (passed ? 'Rule passed' : 'Rule failed'), message);
+    };
+
     $scope.getUrl = function(format) {
         var str = $backend.API_URL + '/_queries/public/api/facts.jq';
         var params = angular.copy($scope.params);
