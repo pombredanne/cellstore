@@ -1,8 +1,53 @@
-report {
-    padding-top: 15px;
+.scrollable {
+    height: 100% !important;
+    overflow-y: auto !important;
+}
+
+.viewport(){
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.fullscreen {
+    .viewport();
+
+    body {
+        .viewport();
+    
+        div[ui-view] {
+            .viewport();
+        }
+    }
+}
+
+#report {
+    height: 100%;
     display: block;
 
-    flexy-layout > block-container:first-child {
-        background-color: yellow;
+    .sidebar {
+        background-color: @midnight-blue;
+        
+        .tooltip-inner {
+            max-width: 100% !important;
+        }
+
+        .list-group {
+            border: none;
+            background-color: transparent;
+            border-radius: 0;
+        }
+        
+        .list-group-item {
+            border: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background-color: transparent;
+            color: @clouds;
+        }        
+    }
+
+    .flexy-layout.flexy-layout-column > .splitter {
+        background: @clouds !important;
     }
 }

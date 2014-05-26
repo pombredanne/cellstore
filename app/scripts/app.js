@@ -117,8 +117,20 @@ angular.module('main', [
             title: 'Report Editor'
         }
     })
-    .state('report', {
+    .state('reportId', {
         url: '/reports/:id',
+        controller: ['$state', '$stateParams', function($state, $stateParams){
+            $state.go('report', { id: $stateParams.id, network: 'presentation', concept: undefined });
+        }]
+    })
+    .state('reportPresentation', {
+        url: '/reports/:id/:network',
+        controller: ['$state', '$stateParams', function($state, $stateParams){
+            $state.go('report', { id: $stateParams.id, network: $stateParams.network, concept: undefined });
+        }]
+    })
+    .state('report', {
+        url: '/reports/:id/:network/:concept',
         templateUrl: '/views/report-editor/report.html',
         controller: 'Report',
         data: {
