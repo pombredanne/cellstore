@@ -119,6 +119,8 @@ ul.selector {
 
 //Div Table
 .divtable {
+    border: 1px solid @clouds;
+
     .line {
         border-bottom: 1px solid @clouds;
 
@@ -210,6 +212,20 @@ a.disabled {
     }
 }
 
+.table-justcolumns 
+{
+    .table-striped;
+    .table-bordered;
+    > tbody > tr > td {
+        border-top: 0px;
+        border-bottom: 0px;
+    }
+    > thead > tr > th {
+        border-left: 0px;
+        border-right: 0px;
+    }
+}
+
 //Export
 .export {
     padding-top: 15px;
@@ -233,6 +249,19 @@ a.disabled {
         margin: 0;
     }
     padding-top: 0;
+}
+
+.semaphore {
+    color: @brand-warning;
+    font-size: 1.4em;
+    cursor: pointer;
+}
+.semaphore.success {
+    color: @brand-success;
+}
+.semaphore.disabled {
+    color: @btn-link-disabled-color;
+    font-size: 0.7em;
 }
 
 //Olark

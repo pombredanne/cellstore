@@ -55,7 +55,7 @@
               <tbody>
                   <tr><td width="30%">Accession Number</td><td><a href="/filing/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
                   <tr><td>Form Type</td><td>{{FormType}}</td></tr>
-                  <tr><td>Accepted</td><td>{{AcceptanceDatetime}}</td></tr>
+                  <tr><td>Accepted</td><td>{{AcceptanceDatetime | date: 'medium'}}</td></tr>
               </tbody>
             </table>
             <table class="table table-condensed small">
@@ -67,7 +67,9 @@
               </tbody>
             </table>
           </div>
-          <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
+          <p>
+            <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
+          </p>
           <div class="scrolling">
               <div class="divtable small" id="table-model-structure">
                 {{rowReset()}}
@@ -79,7 +81,8 @@
                 <div ng-repeat="item in data | filter:search" ng-include="'item_line.html'"></div>
               </div>
            </div>
-      </div>
-  </div>
-</div>
+          </div>
+          <br>
+       </div>
+    </div>
 </div>

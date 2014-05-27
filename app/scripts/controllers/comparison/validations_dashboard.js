@@ -11,27 +11,27 @@ angular.module('main')
     $scope.errornoresults = false;
     $scope.errormany = false;
     
-    if (informations.data)
+    if (informations.data && informations.filings)
     {
-        if (informations.data.length === 0)
+        if (informations.filings.length > 30)
         {
-            $scope.errornoresults = true;
+            $scope.errormany = true;
         }
         else
         {
-            $scope.filings = informations.filings;
-            $scope.params = {
-                _method: 'POST',
-                aid: $scope.filings,
-                report: 'FundamentalAccountingConcepts',
-                'token' : $scope.token
-            };
-            if ($scope.filings.length > 30)
+            if (informations.data.length === 0)
             {
-                $scope.errormany = true;
+                $scope.errornoresults = true;
             }
             else
             {
+                $scope.filings = informations.filings;
+                $scope.params = {
+                    _method: 'POST',
+                    aid: $scope.filings,
+                    report: 'FundamentalAccountingConcepts',
+                    'token' : $scope.token
+                };
                 for (var i = 0; i < informations.data.length; i++)
                 {
                     var root =
@@ -118,6 +118,10 @@ angular.module('main')
 
     $scope.showText = function(html) {
         $scope.$emit('alert', 'Text Details', html);
+    };
+
+    $scope.showAudit = function(passed, message) {
+        $scope.$emit('alert', '<small><i class="fa semaphore ' + (passed ? 'fa-check-circle success' : 'fa-exclamation-triangle') + '"></i></small> ' + (passed ? 'Rule passed' : 'Rule failed'), message);
     };
 
     $scope.getUrl = function(format) {

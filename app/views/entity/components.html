@@ -45,14 +45,16 @@
           <table class="table table-condensed small">
             <tbody>
               <tr><td>Form Type:</td><td>{{FormType}}</td></tr>
-              <tr><td>Accepted:</td><td>{{AcceptanceDatetime}}</td></tr>
+              <tr><td>Accepted:</td><td>{{AcceptanceDatetime | date: 'medium'}}</td></tr>
               <tr><td>Accession Number:</td><td><a href="/filing/{{aid}}">{{aid}}</a></td></tr>
             </tbody>
           </table>
           </div>
-          <input type="text" class="form-control" ng-model="search" placeholder="Search components...">
-          <div>
-          <table class="table table-condensed table-striped small">
+          <p>
+            <input type="text" class="form-control" ng-model="search" placeholder="Search components...">
+          </p>
+          <div class="table-responsive">
+          <table class="table table-condensed table-justcolumns small">
               <thead>
               <th>#</th>
               <th>Network Label / Name</th>

@@ -54,7 +54,7 @@
                   <tr><td>Table:</td><td>{{Table}}</td></tr>
                   <tr><td>Accession Number:</td><td><a href="/filing/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
                   <tr><td>Form Type:</td><td>{{FormType}}</td></tr>
-                  <tr><td>Accepted:</td><td>{{AcceptanceDatetime}}</td></tr>
+                  <tr><td>Accepted:</td><td>{{AcceptanceDatetime | date: 'medium'}}</td></tr>
                 </tbody>
               </table>
           </div>
@@ -62,7 +62,7 @@
                 <input type="text" class="form-control" ng-model="search" placeholder="Type here to search...">
             </p>
           <div class="table-responsive">
-          <table class="table table-striped table-condensed small">
+          <table class="table table-condensed table-justcolumns small">
               <thead>
                 <th>#</th>
                 <th ng-repeat="key in columns">{{key}}</th>
