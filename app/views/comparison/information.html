@@ -23,7 +23,7 @@
 
 <div ng-if="reports.length">
     <div class="table-responsive">
-        <table class="table table-condensed small" id="comparison-information-table">
+        <table class="table table-condensed table-justcolumns small" id="comparison-information-table">
             <thead>
                 <th>&nbsp;</th>
                 <th class="text-center nowrap" ng-repeat="n in reports[0].items[0].value track by $index"><a ng-click='drill(reports[0].items[1].value[$index], reports[0].items[5].value[$index], reports[0].items[6].value[$index])'>{{n}}<div class='small'>({{ reports[0].items[6].value[$index] }}/{{ reports[0].items[5].value[$index] }})</div></a></th>
