@@ -60,7 +60,13 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="item in report.items">
-                                            <td>{{item.label}} <span ng-if="report.isBoolean && item.auditId">({{item.auditId}})</span></td>
+                                            <td ng-if="!report.isBoolean">
+                                                {{item.label}}
+                                            </td>
+                                            <td ng-if="report.isBoolean">
+                                                <div ng-if="item.auditId">{{item.auditId}}</div>
+                                                <samp class="small">{{item.label}}</samp>
+                                            </td>
                                             <td class="nowrap text-right" ng-if="(item.type == 'NumericValue')">{{item.value || 0}}</td>
                                             <td class="nowrap text-center" ng-if="(report.isBoolean)">
                                               <i class="fa semaphore fa-check-circle success" ng-if="item.value === true" tooltip="Rule passed"></i>
@@ -73,7 +79,7 @@
                                             <td class="nowrap" ng-if="(!report.isBoolean && item.type != 'NumericValue' && !isBlock(item.value))">{{item.value || ' '}}</td>
                                             <td class="nowrap" ng-if="(!report.isBoolean && item.type != 'NumericValue' && isBlock(item.value))"><a ng-click="showText(item.value)">Show Text</a></td>
                                             <td>
-                                                <small>{{item.auditValue}}</small>
+                                                <samp class="small">{{item.auditValue}}</samp>
                                             </td>
                                         </tr>
                                     </tbody>
