@@ -86,6 +86,7 @@ angular.module('main')
                             var fact = validations[key].Facts[0];
                             detail.passed = fact.Value;
                             detail.message = fact.AuditTrails[0].Message;
+                            detail.Id = fact.AuditTrails[0].Id;
                         }
                         details.push(detail);
                     }//for
@@ -120,7 +121,7 @@ angular.module('main')
     };
 
     $scope.showAudit = function(passed, message) {
-        $scope.$emit('alert', '<small><i class="fa semaphore ' + (passed ? 'fa-check-circle success' : 'fa-exclamation-triangle') + '"></i></small> ' + (passed ? 'Rule passed' : 'Rule failed'), message);
+        $scope.$emit('alert', '<small><i class="fa semaphore ' + (passed ? 'fa-check-circle success' : 'fa-exclamation-triangle') + '"></i></small> ' + (passed ? 'Rule passed' : 'Rule failed'), '<samp class="small">' + message + '</samp>');
     };
 
     $scope.getUrl = function(format) {

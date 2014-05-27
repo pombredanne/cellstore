@@ -39,11 +39,17 @@
                     </td>
                 </tr>
                 <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
-                    <td>{{item.label}}</td>
+                    <td ng-if="!report.isBoolean">
+                        {{item.label}}
+                    </td>
                     <td class="nowrap" ng-if="!report.isBoolean" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
                         <span ng-if="item.type[$index] == 'NumericValue'">{{v || 0}}</span>
                         <span ng-if="item.type[$index] != 'NumericValue' && !isBlock(v)">{{v || ' '}}</span>
                         <a ng-if="item.type[$index] != 'NumericValue' && isBlock(v)" ng-click="showText(v)">Show Text</a>
+                    </td>
+                    <td ng-if="report.isBoolean">
+                        <div ng-if="item.auditId">{{item.auditId}}</div>
+                        <samp class="small">{{item.label}}</samp>
                     </td>
                     <td class="nowrap text-center" ng-if="(report.isBoolean)" ng-repeat="v in item.value track by $index">
                       <i class="fa semaphore fa-check-circle success" ng-if="v === true" tooltip="Rule passed" ng-click="showAudit(true, item.audit[$index])"></i>

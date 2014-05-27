@@ -83,6 +83,7 @@ angular.module('main')
                                 item.audit[index] = null;
                         
                                 if (list[key].Facts && list[key].Facts.length > 0) {
+                                    item.auditId = list[key].Facts[0].AuditTrails[0].Id;
                                     item.type[index] = list[key].Facts[0].Type;
                                     if (list[key].Facts[0].Type === 'NumericValue') {
                                         var num = list[key].Facts[0].Value;
@@ -187,7 +188,7 @@ angular.module('main')
     };
 
     $scope.showAudit = function(passed, message) {
-        $scope.$emit('alert', '<small><i class="fa semaphore ' + (passed ? 'fa-check-circle success' : 'fa-exclamation-triangle') + '"></i></small> ' + (passed ? 'Rule passed' : 'Rule failed'), message);
+        $scope.$emit('alert', '<small><i class="fa semaphore ' + (passed ? 'fa-check-circle success' : 'fa-exclamation-triangle') + '"></i></small> ' + (passed ? 'Rule passed' : 'Rule failed'), '<samp class="small">' + message + '</samp>');
     };
 
     $scope.getUrl = function(format) {

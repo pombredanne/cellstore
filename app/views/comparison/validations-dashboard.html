@@ -74,7 +74,8 @@
                 </tr>
                 <tr ng-repeat="detail in report.details" ng-if="showtab[reports.indexOf(report)]">
                   <td colspan="8">
-                      {{detail.message || detail.label}}
+                      <samp class="small">{{detail.label}}</samp>
+                      <span ng-if="detail.Id">({{detail.Id}})</span>
                   </td>
                   <td>
                       <i class="fa semaphore fa-check-circle success" ng-if="detail.passed === true" tooltip="Rule passed" ng-click="showAudit(true, detail.message)"></i>
