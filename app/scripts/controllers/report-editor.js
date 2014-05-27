@@ -1,11 +1,6 @@
 'use strict';
 
-
 angular.module('main')
-.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider) {
-
-    
-})
 //The report editor runs in a app container (unless the remaining of secxbrl.info) 
 .directive('fullScreen', function($window){
     return {
@@ -28,11 +23,17 @@ angular.module('main')
     $scope.token = ReportEditorAPI.token;
     $scope.api = ReportEditorAPI.api;
 })
-.controller('Report', function($scope, $stateParams, ReportEditorAPI){
+.controller('Report', function($scope, $state, $stateParams, ReportEditorAPI){
     $scope.id = $stateParams.id;
     $scope.network = $stateParams.network;
     $scope.concept = $stateParams.concept;
 
     $scope.token = ReportEditorAPI.token;
     $scope.api = ReportEditorAPI.api;
+    
+    //TODO: throw appropriate 404 errors
+    $scope.tab = function(network){
+        console.log(network);
+        $state.go('report', { id: $scope.id, network: network, concept: $scope.concept });
+    };
 });

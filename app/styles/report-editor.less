@@ -3,20 +3,20 @@
     overflow-y: auto !important;
 }
 
-.viewport(){
+.viewport{
     height: 100%;
     width: 100%;
     overflow: hidden;
 }
 
 .fullscreen {
-    .viewport();
+    .viewport;
 
     body {
         .viewport();
     
         div[ui-view] {
-            .viewport();
+            .viewport;
         }
     }
 }
@@ -26,7 +26,7 @@
     display: block;
 
     .sidebar {
-        background-color: @midnight-blue;
+        background-color: @wet-asphalt;
         
         .tooltip-inner {
             max-width: 100% !important;
@@ -43,11 +43,95 @@
             overflow: hidden;
             text-overflow: ellipsis;
             background-color: transparent;
-            color: @clouds;
+            color: @silver;
         }        
     }
 
     .flexy-layout.flexy-layout-column > .splitter {
         background: @clouds !important;
     }
+}
+
+presentation-tree {
+    a.arow {
+    cursor: default;
+    .tree-icon, .query {
+        cursor: pointer;
+    }
+}
+
+ul.abn-tree a {
+    color: @text-color !important;
+}
+
+ul.abn-tree li.abn-tree-row {  
+    padding: 0;
+    margin: 0;
+}
+
+ul.abn-tree li.abn-tree-row a {
+    padding: 3px 10px;
+    padding-left: 15px;
+    border-radius: 0 !important;
+    border: none !important;
+}
+
+ul.abn-tree li.abn-tree-row a:hover {
+    background-color: transparent !important;
+}
+
+ul.abn-tree li.abn-tree-row.active a {
+    //background-color: @wet-asphalt !important;
+    //color: @text-color !important;
+}
+
+ul.abn-tree li.abn-tree-row.active a:hover {
+    background-color:  @brand-primary !important;
+    color: @text-color !important;
+}
+
+ul.abn-tree i.indented {
+  padding: 2px;
+}
+
+.abn-tree {
+    cursor: pointer;
+}
+ul.nav.abn-tree .level-1 .indented {
+  position: relative;
+  left: 0px;
+}
+ul.nav.abn-tree .level-2 .indented {
+  position: relative;
+  left: 20px;
+}
+ul.nav.abn-tree .level-3 .indented {
+  position: relative;
+  left: 40px;
+}
+ul.nav.abn-tree .level-4 .indented {
+  position: relative;
+  left: 60px;
+}
+ul.nav.abn-tree .level-5 .indented {
+  position: relative;
+  left: 80px;
+}
+ul.nav.abn-tree .level-6 .indented {
+  position: relative;
+  left: 80px;
+}
+ul.nav.nav-list.abn-tree .level-7 .indented {
+  position: relative;
+  left: 100px;
+}
+ul.nav.nav-list.abn-tree .level-8 .indented {
+  position: relative;
+  left: 120px;
+}
+ul.nav.nav-list.abn-tree .level-9 .indented {
+  position: relative;
+  left: 140px;
+}
+
 }

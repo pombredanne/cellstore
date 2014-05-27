@@ -10,17 +10,30 @@
         </block-container>
         <block-splitter></block-splitter>
         <block-container>
-            <tabset>
-                <tab heading="Presentation" ng-class="{ active: network === 'presentation' }">
+            <ul class="nav nav-tabs">
+                <li ui-sref-active="active">
+                    <a href ui-sref="report({ id: id, network: 'presentation', concept: concept })">Presentation</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a href ui-sref="report({ id: id, network: 'concept-maps', concept: concept })">Concept Maps</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a href ui-sref="report({ id: id, network: 'business-rules', concept: concept })">Business Rules</a>
+                </li>
+            </ul>
+            <div ng-switch on="network" class="scrollable">
+                <div ng-switch-when="presentation">
+                    <presentation-tree></presentation-tree>
+                </div>
+                <div ng-switch-when="concept-maps">
+                    <h2>Concept Maps</h2>
                     
-                </tab>
-                <tab heading="Concept Maps" ng-class="{ active: network === 'concept-maps' }">
+                </div>
+                <div ng-switch-when="business-rules">
+                    <h2>Business Rules</h2>
                     
-                </tab>
-                <tab heading="Business Rules" ng-class="{ active: network === 'business-rules' }">
-                    
-                </tab>
-            </tabset>
+                </div>
+            </div>
         </block-container>
     </flexy-layout>
 </report>
