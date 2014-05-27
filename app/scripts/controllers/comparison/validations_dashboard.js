@@ -121,7 +121,7 @@ angular.module('main')
     };
 
     $scope.showAudit = function(passed, message) {
-        $scope.$emit('alert', '<small><i class="fa semaphore ' + (passed ? 'fa-check-circle success' : 'fa-exclamation-triangle') + '"></i></small> ' + (passed ? 'Rule passed' : 'Rule failed'), "<samp class='small'>" + message + "</samp>");
+        $scope.$emit('alert', '<small><i class="fa semaphore ' + (passed ? 'fa-check-circle success' : 'fa-exclamation-triangle') + '"></i></small> ' + (passed ? 'Rule passed' : 'Rule failed'), '<samp class="small">' + message + '</samp>');
     };
 
     $scope.getUrl = function(format) {
