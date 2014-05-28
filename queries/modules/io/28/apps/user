@@ -117,8 +117,12 @@ as empty-sequence()
     replace value of json $user.hash with $hash;
     replace value of json $user.salt with $salt;
 
-    delete $user("resetToken");
-    delete $user("resetDate");
+    if (exists($user.resetToken))
+    then delete json $user("resetToken");
+    else ();
+    if (exists($user.resetDate))
+    then delete json $user("resetDate");
+    else ();
 };
 
 
