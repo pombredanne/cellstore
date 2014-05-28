@@ -16,6 +16,7 @@ angular.module('main')
     $scope.data = [];
     $scope.columns = [];
     $scope.errornoresults = false;
+    $scope.Statistics = {};
 
     $scope.selection.map = $stateParams.map || $scope.none;
     $scope.selection.concept = ($stateParams.concept ? $stateParams.concept.split(',') : []);
@@ -89,6 +90,7 @@ angular.module('main')
         });
     }
     $scope.errornoresults = ($scope.data.length === 0);
+    $scope.Statistics = results.Statistics;
 
     $scope.selectMap = function() {
         $scope.selection.concept = [];
