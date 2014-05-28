@@ -3,11 +3,11 @@
 angular.module('main')
 .controller('AccountPasswordCtrl', function($scope, $state, $backend) {
     $scope.attempted = false;
-
     $scope.change = function() {
         $scope.attempted = true;
 
         $scope.$broadcast('autocomplete:update');
+        $scope.resetForm.password.$setValidity('equals', true);
         $scope.resetForm.passwordRepeat.$setValidity('equals', $scope.passwordNew === $scope.passwordRepeat);
 
         if(!$scope.resetForm.$invalid) {
@@ -20,7 +20,12 @@ angular.module('main')
                     $scope.loading = false;
                 },
                 function(response) {
-                    $scope.$emit('error', response.status, response.data);
+                    if (response.status === 403)
+                    {
+                        $scope.resetForm.password.$setValidity('equals', false);
+                    } else {
+                        $scope.$emit('error', response.status, response.data);
+                    }
                     $scope.loading = false;
                 });
         }

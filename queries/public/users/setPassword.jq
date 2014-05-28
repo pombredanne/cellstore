@@ -2,10 +2,9 @@ jsoniq version "1.0";
 
 import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
-import module namespace sendmail = "http://apps.28.io/sendmail";
+import module namespace session = "http://apps.28.io/session";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
-import module namespace random = "http://zorba.io/modules/random";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($o as object*) as string
@@ -15,40 +14,42 @@ declare function local:to-csv($o as object*) as string
 
 declare function local:to-xml($o as object*) as element()
 {
-    <result success="{$o.success}"></result>
+    <result success="{$o.success}">{
+        if (exists($o.description))
+        then <description>{$o.description}</description>
+        else ()
+    }</result>
 };
 
 variable $email := api:required-parameter("email", $user:VALID_EMAIL);
+variable $password := api:required-parameter("password", $user:VALID_PASSWORD);
+variable $reset-token := api:required-parameter("resetToken", $session:VALID-TOKEN);
 variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
 
-variable $user := user:get-by-email($email);
+variable $res := ();
+variable $status := ();
+
+variable $user := user:get-by-reset-token($email, $reset-token);
 
 if (empty($user)) 
-then ();
-else
-{
-    let $resetToken := random:uuid()
-    return
+then {
+    $status := 403;
+    $res :=
     {
-        if (exists($user.resetToken)) then
-            replace value of json $user.resetToken with $resetToken;
-        else
-            insert json { resetToken : $resetToken } into $user;
+        success : false,
+        description : "invalid email or password"
+    };
+} else {
+    user:set-password($user._id, $password);
 
-        if (exists($user.resetDate)) then
-            replace value of json $user.resetDate with current-dateTime();
-        else
-            insert json { resetDate : current-dateTime() } into $user;
-
-        sendmail:send($email, "Reset your password", 
-                "To reset your password, please click this link:\nhttp://www.secxbrl.info/reset?email=" || $email || "&resetToken=" || $resetToken || 
-                "\n\nThe link is valid for one day.\nIf you did not ask for this, please ignore the message.\n\nSecXBRL.info");
-    }
+    $status := 200;
+    $res :=
+    {
+      success : true
+    };
 }
 
-response:status-code(200);
-
-variable $res := api:success();
+response:status-code($status);
 
 switch ($format)
     case "xml" return {
@@ -58,7 +59,7 @@ switch ($format)
     }
     case "text" case "csv" case "excel" return {
         response:content-type("text/csv");
-        response:header("Content-Disposition", "attachment; filename=forgotPassword.csv");
+        response:header("Content-Disposition", "attachment; filename=resetPassword.csv");
         local:to-csv($res)
     }
     default return {

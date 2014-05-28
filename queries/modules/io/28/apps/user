@@ -116,6 +116,9 @@ as empty-sequence()
     
     replace value of json $user.hash with $hash;
     replace value of json $user.salt with $salt;
+
+    delete $user("resetToken");
+    delete $user("resetDate");
 };
 
 
@@ -315,4 +318,20 @@ as string
         if (empty($user))
         then "Missing user " || $user-id
         else $user.firstname || " " || $user.lastname
+};
+
+declare function user:get-by-reset-token($email as string, $reset-token as string)
+as object()?
+{
+  let $user := user:get-by-email($email)
+  return 
+      if (empty($user))
+      then fn:error(xs:QName("user:not-existing"),"User with email " || $email || " does not exist.")
+      else if ($reset-token ne $user.resetToken)
+      then fn:error(xs:QName("user:invalid-token"),"Token " || $reset-token || " is invalid.")
+      else if (typeswitch($user.resetDate)
+               case xs:dateTime return $user.resetDate le current-dateTime() - dayTimeDuration("P1D")
+               default return true)
+      then fn:error(xs:QName("user:expired-token"),"Token " || $reset-token || " has expired.")
+      else $user
 };

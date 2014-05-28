@@ -393,6 +393,14 @@ angular.module('main', [
             title: 'Login'
         }
     })
+    .state('root.reset', {
+        url: '/reset?email&resetToken',
+        templateUrl: '/views/reset.html',
+        controller: 'ResetCtrl',
+        data: {
+            title: 'Change Password'
+        }
+    })
     
     //Account
     .state('root.account', {
@@ -926,8 +934,12 @@ angular.module('main', [
 
     $rootScope.$on('auth', function() {
         var p = $location.url();
-        if (p === '/account' || p === '/account/password' || p === '/account/info') {
+        if (p === '/' || p === '/account' || p === '/account/password' || p === '/account/info') {
             p = '';
+        }
+        if (p.substring(0, 5) === '/auth')
+        {
+            p = p.substring(5);
         }
         $state.go('root.auth', { returnPage: p }, { reload: true });
     });

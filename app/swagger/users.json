@@ -263,10 +263,65 @@
                             "paramType":"query"
                         }
                     ],
+                    "successMessages" : [
+                        {
+                            "code": 200,
+                            "message": "if the user's reset password token was sent via email",
+                            "responseModel": "Success"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path":"/users/setPassword.jq",
+            "operations":[
+                {
+                    "method":"POST",
+                    "summary":"Set the password for a user based on email and the reset password token",
+                    "notes":"",
+                    "type":"Success",
+                    "nickname":"setPassword",
+                    "parameters":[
+                        {
+                            "name":"email",
+                            "description":"The email of the user to set the password",
+                            "required":true,
+                            "type":"string",
+                            "paramType":"query"
+                        },
+                        {
+                            "name":"password",
+                            "description":"The new password",
+                            "required":true,
+                            "type":"string",
+                            "paramType":"query"
+                        },
+                        {
+                            "name":"resetToken",
+                            "description":"The reset password token",
+                            "required":true,
+                            "type":"string",
+                            "paramType":"query"
+                        }
+                    ],
                     "responseMessages":[
                         {
-                            "code":500,
-                            "message":"Not done yet"
+                            "code": 400,
+                            "message": "if a mandatory parameter is missing",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code" : 403,
+                            "message": "if the user doesn't exist or the token is invalid",
+                            "responseModel": "Error"
+                        }
+                    ],
+                    "successMessages" : [
+                        {
+                            "code": 200,
+                            "message": "if the user's password was updated successfully",
+                            "responseModel": "Success"
                         }
                     ]
                 }

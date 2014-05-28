@@ -15,7 +15,7 @@
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <a ng-if="!user" class="btn btn-default pull-right menu-btn hidden-sm hidden-xs" ng-click="doAuth()">Login / Sign-Up</a>
                 <div ng-if="user" class="pull-right btn-group user">
-                    <a class="btn btn-default" href="/account">{{user.firstname}} {{user.lastname}}</a>
+                    <a class="btn btn-default" href="/account/info">{{user.firstname}} {{user.lastname}}</a>
                     <a class="btn btn-default" ng-click="doLogout()"><i class="fa fa-sign-out"></i></a>
                 </div>
                 <ul class="nav navbar-nav">
@@ -42,7 +42,7 @@
                     </li>
                      <li><a href="https://secxbrl.zendesk.com/" target="_blank">Support</a></li>
                      <li class="visible-sm visible-xs">
-                         <a href="/auth">Login / Sign-Up</a>
+                         <a ng-click="doAuth()">Login / Sign-Up</a>
                     </li>
                 </ul>
             </div>
