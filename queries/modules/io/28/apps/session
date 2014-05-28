@@ -189,13 +189,13 @@ declare %an:sequential function session:audit-call() as empty-sequence()
         KeyAspects : $dist-aspects,
         Aspects : {
             "xbrl:Concept" : "secxbrl:ClientIP",
-            "xbrl:Entity" : if (session:valid()) then session:validate() else "Anonymous",
+            "xbrl:Entity" : if (session:valid()) then user:get-by-id(session:validate()) else "Anonymous",
             "xbrl:Period" : string(fn:current-dateTime()),
             "xbrl:Unit" : "xbrl:NonNumeric",
             "secxbrl:Query" : req:path()
         },
         Type : "NonNumericValue",
-        Value : req:remote-addr()
+        Value : (req:header-value("X-FORWARDED-FOR"), req:remote-addr())[1]
     }
     return db:insert("audit", $facts);
 };
