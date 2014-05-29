@@ -51,6 +51,7 @@ angular.module('main')
             sic: $scope.selection.sic,
             concept: $scope.selection.concept,
             map: ($scope.selection.map !== 'US-GAAP Taxonomy Concepts' ? $scope.selection.map : null),
+            rules: ($scope.selection.map !== 'US-GAAP Taxonomy Concepts' ? $scope.selection.map : null),
             token: $scope.token
         };
         $scope.dimensions.forEach(function(dimension) {

@@ -37,6 +37,30 @@ declare function local:to-csv($o as object*) as string?
     else ()
 };
 
+declare function local:audittrail-to-xml($audit as item) as element()
+{
+    <AuditTrails>{
+        for $a in flatten($audit)
+        return (
+            <Type>{$a.Type}</Type>,
+            <Label>{$a.Label}</Label>,
+            <Message>{$a.Message}</Message>,
+            <Data>{
+                if (exists($a.Data.OriginalConcept))
+                then <OriginalConcept>{$a.Data.OriginalConcept}</OriginalConcept>
+                else (),
+                if (exists($a.Data.OutputConcept))
+                then <OutputConcept>{$a.Data.OutputConcept}</OutputConcept>
+                else (),
+                if (exists($a.Data.AuditTrails))
+                then local:audittrail-to-xml($a.Data.AuditTrails)
+                else ()
+            }</Data>
+        )
+    }</AuditTrails>
+};
+
+
 declare function local:to-xml($o as object*) as node()*
 {
     (session:comment("xml", {
@@ -68,8 +92,8 @@ declare function local:to-xml($o as object*) as node()*
                 then <Decimals>{$o.Decimals}</Decimals>
                 else (),
                 <EntityRegistrantName>{$o.EntityRegistrantName}</EntityRegistrantName>,
-                if (exists($o.ReportedConcept))
-                then <ReportedConcept>{$o."ReportedConcept"}</ReportedConcept>
+                if (exists($o.AuditTrails))
+                then local:audittrail-to-xml($o."AuditTrails")
                 else ()
             }</Fact>
     }</FactTable>)
@@ -168,8 +192,8 @@ declare function local:facts(
         else (), 
         { Value: $fact.Value },
         { "EntityRegistrantName" : companies:companies($fact.Aspects."xbrl:Entity").Profiles.SEC.CompanyName},
-        if (exists($map) and ($fact."xbrl28:Type" eq "xbrl28:concept-maps"))
-        then { "ReportedConcept" : $fact.AuditTrails[][$$.Type eq "xbrl28:concept-maps"].Data.OriginalConcept[1] }
+        if (exists(flatten($fact.AuditTrails[])))
+        then { "AuditTrails" : $fact.AuditTrails }
         else ()
     |} 
 };

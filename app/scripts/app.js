@@ -745,6 +745,7 @@ angular.module('main', [
                         sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
                         concept: concept,
                         map: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
+                        rules: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
                         token: $rootScope.token
                     };
                     dimensions.forEach(function(dimension) {
