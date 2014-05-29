@@ -46,7 +46,7 @@ declare function local:audittrail-to-xml($audit as item) as element()
         return (
             <Type>{$a.Type}</Type>,
             <Label>{$a.Label}</Label>,
-            <Message>{$a.Label}</Message>,
+            <Message>{$a.Message}</Message>,
             <Data>{
                 if (exists($a.Data.OriginalConcept))
                 then <OriginalConcept>{$a.Data.OriginalConcept}</OriginalConcept>
