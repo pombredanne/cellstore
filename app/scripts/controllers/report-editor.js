@@ -23,7 +23,8 @@ angular.module('main')
     $scope.token = ReportEditorAPI.token;
     $scope.api = ReportEditorAPI.api;
 })
-.controller('Report', function($scope, $state, $stateParams, ReportEditorAPI){
+.controller('Report', function($scope, $state, $stateParams, $modal, ReportEditorAPI){
+
     $scope.id = $stateParams.id;
     $scope.network = $stateParams.network;
     $scope.concept = $stateParams.concept;
@@ -32,8 +33,34 @@ angular.module('main')
     $scope.api = ReportEditorAPI.api;
     
     //TODO: throw appropriate 404 errors
-    $scope.tab = function(network){
-        console.log(network);
-        $state.go('report', { id: $scope.id, network: network, concept: $scope.concept });
+    
+    $scope.newConcept = function(){
+        $modal.open({
+            templateUrl: '/views/report-editor/new-concept.html',
+            controller: 'NewConceptCtrl',
+            resolve: {
+                report: function(){
+                    return $scope.report; 
+                }
+            }
+        }); 
     };
-});
+})
+.controller('NewConceptCtrl', function($scope, report, $modalInstance){
+
+    $scope.concept = {
+        name: '',
+        concept: '',
+        abstract: false
+    };
+
+    $scope.ok = function(){
+        report.addConcept($scope.concept.name, $scope.concept.label, $scope.concept.abstract);
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function(){
+        $modalInstance.close();
+    };
+})
+;

@@ -4,6 +4,9 @@
     </div>
     <flexy-layout orientation="horizontal" ng-if="report">
         <block-container init="400" class="sidebar">
+            <div>
+                <button ng-click="newConcept()" class="btn btn-primary fa fa-plus"></button>
+            </div>
             <div class="list-group scrollable">
                 <a class="list-group-item" ng-repeat="concept in concepts" ng-bind="concept.Name" tooltip-placement="right" tooltip="{{concept.Name}}" tooltip-popup-delay='1000'></a>
             </div>

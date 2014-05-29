@@ -36,6 +36,7 @@
             border: none;
             background-color: transparent;
             border-radius: 0;
+            padding-bottom: 50px;
         }
         
         .list-group-item {
@@ -54,27 +55,31 @@
 
 presentation-tree {
     a.arow {
-    cursor: default;
-    .tree-icon, .query {
-        cursor: pointer;
+        cursor: default;
+        .tree-icon, .query {
+            cursor: pointer;
+        }
     }
-}
-
-ul.abn-tree a {
-    color: @text-color !important;
-}
-
-ul.abn-tree li.abn-tree-row {  
-    padding: 0;
-    margin: 0;
-}
-
-ul.abn-tree li.abn-tree-row a {
-    padding: 3px 10px;
-    padding-left: 15px;
-    border-radius: 0 !important;
-    border: none !important;
-}
+    
+    ul.abn-tree {
+        padding-bottom: 50px;
+        
+        a {
+            color: @text-color !important;
+        }
+        
+        li.abn-tree-row  {
+            padding: 0;
+            margin: 0;
+            
+            a {
+                padding: 3px 10px;
+                padding-left: 15px;
+                border-radius: 0 !important;
+                border: none !important;
+            }
+        }
+    }
 
 ul.abn-tree li.abn-tree-row a:hover {
     background-color: transparent !important;
