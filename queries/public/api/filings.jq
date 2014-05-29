@@ -71,7 +71,9 @@ let $companies   := companies:companies($archives.Entity)
 return
     if (session:only-dow30($companies) or session:valid())
     then {
-        let $summaries := filings:summaries($archives) 
+        let $summaries := for $f in filings:summaries($archives) 
+                          order by $f.Accepted descending
+                          return $f
         return
             switch ($format)
             case "xml"  return {
