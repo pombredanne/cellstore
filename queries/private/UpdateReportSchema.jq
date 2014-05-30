@@ -1847,6 +1847,10 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
         "xbrl:Entity" : {
           "Name" : "xbrl:Entity", 
           "Label" : "Implicit XBRL Entity Dimension"
+        }, 
+        "sec:Accepted" : {
+          "Name" : "sec:Accepted", 
+          "Label" : "Implicit SEC Accepted Dimension"
         }
       }
     }

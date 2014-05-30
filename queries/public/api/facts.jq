@@ -116,6 +116,12 @@ declare function local:hypercube() as object
                 }
         } else (),
         
+        if (not(request:param-names() = "sec:Accepted"))
+        then { 
+                "sec:Accepted" : { 
+                }
+        } else (),
+        
         for $p in request:param-names()
         where contains($p, ":") and not(starts-with($p, "xbrl:Concept"))
         group by $dimension-name := if (ends-with(lower-case($p), "::default"))
@@ -160,7 +166,7 @@ declare function local:facts(
         for $f in hypercubes:facts-for-hypercube(local:hypercube(), $archives,
             {|
                 { Filter : {
-                        "Profiles.SEC.Fiscal": { "$exists" : true }
+                        "Aspects.sec:FiscalYear": { "$exists" : true }
                     }
                 },
                 if (exists($map)) then { "concept-maps" : $map } else (),
@@ -171,17 +177,15 @@ declare function local:facts(
                  $f.Profiles.SEC.Fiscal.Year,
                  $f.Profiles.SEC.Fiscal.Period,
                  $f.Aspects."xbrl:Concept"
-        let $latest-accepted := max(distinct-values($f.Profiles.SEC.Accepted))
+        let $latest-accepted := max(distinct-values($f.Aspects."sec:Accepted"))
         return if (empty($latest-accepted))
                then $f
-               else $f[$$.Profiles.SEC.Accepted eq $latest-accepted]
+               else $f[$$.Aspects."sec:Accepted" eq $latest-accepted]
     return {|
         { Aspects : {|
             for $a in keys($fact.Aspects)
             where $a ne "xbrl:Unit"
-            return { $a : $fact.Aspects.$a },
-            { "bizql:FiscalPeriod" : $fact.Profiles.SEC.Fiscal.Period },
-            { "bizql:FiscalYear" : $fact.Profiles.SEC.Fiscal.Year }
+            return { $a : $fact.Aspects.$a }
         |} },
         { Type: $fact.Type },
         if (exists($fact.Aspects."xbrl:Unit"))
