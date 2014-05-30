@@ -297,7 +297,7 @@ return
                             TotalNumEntities: session:num-entities()
                         }),
                 <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
-                    cik="{$entity.CIK}"
+                    cik="{$entity._id}"
                     tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
                     label="{$component.Label}"
                     accessionNumber="{$component.Archive}"
