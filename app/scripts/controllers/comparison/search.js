@@ -78,10 +78,7 @@ angular.module('main')
                     break;
                 case 'xbrl:Concept':
                 case 'xbrl:Period':
-                case 'sec:IsExtension':
                 case 'sec:Accepted':
-                case 'sec:DocEndDate':
-                case 'sec:Archive':
                 case 'sec:FiscalPeriod':
                 case 'sec:FiscalYear':
                     break;

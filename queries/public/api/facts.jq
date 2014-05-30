@@ -7,7 +7,7 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace csv = "http://zorba.io/modules/json-csv";
-
+ 
 declare function local:to-csv($o as object*) as string?
 {
     if (exists($o)) (: bug in csv:serialize :)
@@ -117,10 +117,13 @@ declare function local:hypercube() as object
         } else (),
         
         if (not(request:param-names() = "sec:Accepted"))
-        then { 
-                "sec:Accepted" : { 
-                }
-        } else (),
+        then { "sec:Accepted" : {  } } else (),
+        
+        if (not(request:param-names() = "sec:FiscalYear"))
+        then { "sec:FiscalYear" : {  } } else (),
+        
+        if (not(request:param-names() = "sec:FiscalPeriod"))
+        then { "sec:FiscalPeriod" : {  } } else (),
         
         for $p in request:param-names()
         where contains($p, ":") and not(starts-with($p, "xbrl:Concept"))
@@ -163,19 +166,15 @@ declare function local:facts(
     $rules as string?) as object*
 {
     for $fact in
-        for $f in hypercubes:facts-for-hypercube(local:hypercube(), $archives,
+        for $f in hypercubes:facts-for-hypercube(local:hypercube(), $archives, 
             {|
-                { Filter : {
-                        "Aspects.sec:FiscalYear": { "$exists" : true }
-                    }
-                },
-                if (exists($map)) then { "concept-maps" : $map } else (),
+                if (exists($map)) then { "ConceptMaps" : $map } else (),
                 if (exists($rules)) then { "Rules" : $rules } else ()
             |}
         )
         group by $f.Aspects."xbrl:Entity",
-                 $f.Profiles.SEC.Fiscal.Year,
-                 $f.Profiles.SEC.Fiscal.Period,
+                 $f.Aspects."sec:FiscalYear",
+                 $f.Aspects."sec:FiscalPeriod",
                  $f.Aspects."xbrl:Concept"
         let $latest-accepted := max(distinct-values($f.Aspects."sec:Accepted"))
         return if (empty($latest-accepted))
