@@ -23,7 +23,7 @@ angular.module('main')
     $scope.token = ReportEditorAPI.token;
     $scope.api = ReportEditorAPI.api;
 })
-.controller('Report', function($scope, $state, $stateParams, $modal, ReportEditorAPI){
+.controller('Report', function($rootScope, $scope, $state, $stateParams, $modal, ReportEditorAPI){
 
     $scope.id = $stateParams.id;
     $scope.network = $stateParams.network;
@@ -45,6 +45,21 @@ angular.module('main')
             }
         }); 
     };
+    
+    $rootScope.$on('removeConceptFromPresentationTree', function(e, id){
+        $modal.open({
+            templateUrl: '/views/report-editor/remove-concept-from-presentation-tree.html',
+            controller: 'RemoveConceptFromPresentationTreeCtrl',
+            resolve: {
+                conceptId: function(){
+                    return id;
+                },
+                report: function(){
+                    return $scope.report; 
+                }
+            }
+        });
+    });
 })
 .controller('NewConceptCtrl', function($scope, report, $modalInstance){
 
@@ -56,6 +71,16 @@ angular.module('main')
 
     $scope.ok = function(){
         report.addConcept($scope.concept.name, $scope.concept.label, $scope.concept.abstract);
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function(){
+        $modalInstance.close();
+    };
+})
+.controller('RemoveConceptFromPresentationTreeCtrl', function($scope, $modalInstance, report, conceptId){
+    $scope.ok = function(){
+        report.removeTreeBranch('Presentation', conceptId);
         $modalInstance.close();
     };
 

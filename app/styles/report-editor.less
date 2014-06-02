@@ -72,18 +72,29 @@ presentation-tree {
             padding: 0;
             margin: 0;
             
-            a {
+            >a {
                 padding: 3px 10px;
                 padding-left: 15px;
                 border-radius: 0 !important;
                 border: none !important;
+                .remove-concept {
+                    display: none;
+                    color: @brand-danger;
+                    margin-left: 30px;
+                    &:hover {
+                        cursor: pointer !important;
+                    }
+                }
+                
+                &:hover {
+                    cursor: move !important;
+                    .remove-concept {
+                        display: inline;
+                    }
+                }
             }
         }
     }
-
-ul.abn-tree li.abn-tree-row a:hover {
-    background-color: transparent !important;
-}
 
 ul.abn-tree li.abn-tree-row.active a {
     //background-color: @wet-asphalt !important;
