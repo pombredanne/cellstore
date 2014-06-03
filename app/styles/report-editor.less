@@ -40,8 +40,23 @@
     .sidebar {
         background-color: @wet-asphalt;
         
-        .tooltip-inner {
-            max-width: 100% !important;
+        .group-item {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: -1px;
+
+            .search {
+                width: 100%;
+                height: 2em;
+                padding-right: 8px;
+                padding-left: 8px;
+                border: 0;
+                outline: 0!important;
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+            }
         }
 
         .list-group {
@@ -64,7 +79,6 @@
         background: @clouds !important;
     }
 }
-
 presentation-tree {
     a.arow {
         cursor: default;
@@ -83,12 +97,13 @@ presentation-tree {
         li.abn-tree-row  {
             padding: 0;
             margin: 0;
-            
+
             >a {
                 padding: 3px 10px;
                 padding-left: 15px;
                 border-radius: 0 !important;
                 border: none !important;
+                border-bottom: 1px solid @clouds;
                 .remove-concept {
                     display: none;
                     color: @brand-danger;

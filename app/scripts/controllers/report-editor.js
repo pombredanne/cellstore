@@ -35,8 +35,8 @@ angular.module('main')
     //TODO: throw appropriate 404 errors
     
     $scope.sortableOptions = {
-        //placeholder: "sortable",
-        //connectWith: ".sortable-container"
+        placeholder: "sortable",
+        connectWith: ".sortable-container"
     };
     
     $scope.newConcept = function(){
@@ -49,6 +49,21 @@ angular.module('main')
                 }
             }
         }); 
+    };
+    
+    $scope.editConcept = function(concept){
+        $modal.open({
+            templateUrl: '/views/report-editor/edit-concept.html',
+            controller: 'EditConceptCtrl',
+            resolve: {
+                report: function(){
+                    return $scope.report;
+                },
+                concept: function(){
+                    return concept;
+                }
+            }
+        });  
     };
     
     $rootScope.$on('removeConceptFromPresentationTree', function(e, id){
@@ -71,10 +86,11 @@ angular.module('main')
     });
 
     $rootScope.$on('saved', function(){
-        $scope.status = 'saved';
-        $timeout(function(){
-            $scope.status = undefined;
-        }, 2000);
+        $scope.status = undefined;
+        //$scope.status = 'saved';
+        //$timeout(function(){
+        //    $scope.status = undefined;
+        //}, 2000);
     });
 
     $rootScope.$on('savingError', function() {
@@ -84,6 +100,29 @@ angular.module('main')
             $scope.status = undefined;
         }, 2000);
     });
+})
+.controller('EditConceptCtrl', function($rootScope, $scope, report, concept, $modalInstance){
+
+    $scope.concept = angular.copy(concept);
+
+    $scope.remove = function(){
+        try {
+        report.removeConcept($scope.concept.Name);
+        } catch(e) {
+            console.log(e);
+            $rootScope.$emit('error', 500, e.message);
+        }
+        $modalInstance.close();
+    };
+
+    $scope.edit = function(){
+        report.updateConcept($scope.concept.Name, $scope.concept.Label, $scope.concept.IsAbstract);
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function(){
+        $modalInstance.close();
+    };
 })
 .controller('NewConceptCtrl', function($scope, report, $modalInstance){
 
