@@ -1,3 +1,8 @@
+<div class="alert" ng-class="{ 'alert-success': status === 'saved', 'alert-warning': status === 'saving', 'alert-danger': status === 'savingError' }" id="saveStatus" ng-show="status" ng-switch on="status">
+    <small ng-switch-when="saving">Saving...</small>
+    <small ng-switch-when="saved">Saved</small>
+    <small ng-switch-when="savingError">Error while saving</small>
+</div>
 <report report-api="{{api}}" report-api-token="{{token}}" report-id="{{id}}" id="report" full-screen>
     <div class="text-center" ng-if="!report">
         <h1>Loading Report <i class="fa fa-spinner fa-spin"></i></h1>
@@ -7,8 +12,8 @@
             <div>
                 <button ng-click="newConcept()" class="btn btn-primary fa fa-plus"></button>
             </div>
-            <div class="list-group scrollable">
-                <a class="list-group-item" ng-repeat="concept in concepts" ng-bind="concept.Name" tooltip-placement="right" tooltip="{{concept.Name}}" tooltip-popup-delay='1000'></a>
+            <div class="list-group scrollable sortable-container" ui-sortable="sortableOptions" ng-model="concepts">
+                <a class="list-group-item sortable" ng-repeat="concept in concepts" ng-bind="concept.Name" tooltip-trigger="click" tooltip-placement="right" tooltip="{{concept.Name}}" id="{{concept.Name}}"></a>
             </div>
         </block-container>
         <block-splitter></block-splitter>

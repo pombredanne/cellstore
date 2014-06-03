@@ -17,13 +17,13 @@ angular.module('main')
     return {
         api: 'http://secxbrld.xbrl.io/v1/_queries/public/reports',
         token: '0ed3b9a9-2795-412d-9863-6186d1cb64bc'
-    }
+    };
 })
 .controller('Reports', function($rootScope, $scope, ReportEditorAPI){
     $scope.token = ReportEditorAPI.token;
     $scope.api = ReportEditorAPI.api;
 })
-.controller('Report', function($rootScope, $scope, $state, $stateParams, $modal, ReportEditorAPI){
+.controller('Report', function($timeout, $rootScope, $scope, $state, $stateParams, $modal, ReportEditorAPI){
 
     $scope.id = $stateParams.id;
     $scope.network = $stateParams.network;
@@ -33,6 +33,11 @@ angular.module('main')
     $scope.api = ReportEditorAPI.api;
     
     //TODO: throw appropriate 404 errors
+    
+    $scope.sortableOptions = {
+        //placeholder: "sortable",
+        //connectWith: ".sortable-container"
+    };
     
     $scope.newConcept = function(){
         $modal.open({
@@ -59,6 +64,25 @@ angular.module('main')
                 }
             }
         });
+    });
+
+    $rootScope.$on('saving', function(){
+        $scope.status = 'saving';
+    });
+
+    $rootScope.$on('saved', function(){
+        $scope.status = 'saved';
+        $timeout(function(){
+            $scope.status = undefined;
+        }, 2000);
+    });
+
+    $rootScope.$on('savingError', function() {
+        $scope.status = 'savingError';
+        $rootScope.$emit('error', 500, $scope.error);
+        $timeout(function(){
+            $scope.status = undefined;
+        }, 2000);
     });
 })
 .controller('NewConceptCtrl', function($scope, report, $modalInstance){
