@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h3 class="modal-title">New Report</h3>
+</div>
+<form name="newReportForm" ng-submit="ok()" role="form" spellcheck="false" novalidate>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" ng-model="report.name" placeholder="Report Name" required>
+        </div>
+        <div class="form-group">
+            <label for="label">Label</label>
+            <input type="text" class="form-control" id="label" ng-model="report.label" placeholder="Label" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" ng-model="report.description" placeholder="Description" required>
+        </div>
+        <div class="form-group">
+            <label for="role">Role</label>
+            <input type="text" class="form-control" id="role" ng-model="report.role" placeholder="Role" required>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-class="{ disabled: !newReportForm.$valid || loading }">
+            <i class="icon-spin icon-spinner" ng-show="loading"></i>
+            Create
+        </button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

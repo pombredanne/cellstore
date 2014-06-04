@@ -9,31 +9,33 @@
     </div>
     <flexy-layout orientation="horizontal" ng-if="report">
         <block-container init="400" class="sidebar">
+            <div class="group-item report-name">
+                <h4>
+                    <a href="/reports">reports</a> / <span ng-bind="report.model._id"></span>
+                </h4>
+            </div>
             <div class="group-item">
                 <input type="text" ng-model="search" class="search">
             </div>
             <div class="group-item">
                 <button ng-click="newConcept()" class="btn btn-primary"><i class="fa fa-plus"></i> Concept</button>
-                <!--div class="btn-group" dropdown>
-                    <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
-                        <i class="fa fa-filter"></i> Filter <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><input type="checkbox"> Abstract Concepts</li>
-                        <li><input type="checkbox"> Concepts in Presentation Network</li>
-                        <li><input type="checkbox"> Concepts in Concept Maps Network</li>
-                        <li><input type="checkbox"> Concepts in Business Rules Network</li>
-                    </ul>
-                </div-->
+                    <span class="label label-info">presentation</span>
+                    <span class="label label-success">concept map</span>
+                    <span class="label label-warning">business rule</span>
             </div>
             <div class="list-group scrollable">
-                <a class="list-group-item" ng-repeat="concept in concepts | filter:search" id="{{concept.Name}}" ui-sref-active="active" ui-sref="report({ id: id, network: network, concept: concept.Name })">
-                {{concept.Label}}
+                <a class="list-group-item" ng-class="{ italic: concept.IsAbstract === true }" ng-repeat="concept in concepts | filter:search" id="{{concept.Name}}" ui-sref-active="active" ui-sref="report({ id: id, network: network, concept: concept.Name })">
+                    <span>
+                        {{concept.Name}}
+                        <span ng-show="isInPresentation(concept)" class="label label-info">&nbsp;</span>
+                        <span ng-show="isInConceptMap(concept)" class="label label-success">&nbsp;</span>
+                        <span ng-show="isInBusinessRule(concept)"class="label label-warning">&nbsp;</span>
+                    </span>
                 </a>
             </div>
         </block-container>
         <block-splitter></block-splitter>
-        <block-container>
+        <block-container class="mainbar">
             <ul class="nav nav-tabs">
                 <li ui-sref-active="active" ng-if="concept">
                     <a ui-sref="report({ id: id, network: 'concept', concept: concept })">Concept</a>

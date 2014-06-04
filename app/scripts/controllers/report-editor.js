@@ -19,9 +19,42 @@ angular.module('main')
         token: '0ed3b9a9-2795-412d-9863-6186d1cb64bc'
     };
 })
-.controller('Reports', function($rootScope, $scope, ReportEditorAPI){
+.controller('Reports', function($rootScope, $scope, $modal, ReportEditorAPI){
     $scope.token = ReportEditorAPI.token;
     $scope.api = ReportEditorAPI.api;
+    
+    $scope.newReport = function(){
+        $modal.open({
+            templateUrl: '/views/report-editor/new-report.html',
+            controller: 'NewReportCtrl'
+        });
+    };
+})
+.controller('NewReportCtrl', function($scope, $modalInstance, Report, ReportAPI, ReportEditorAPI){
+    var api = new ReportAPI(ReportEditorAPI.api);
+    $scope.report = {};
+    $scope.loading = false;
+    $scope.ok = function(){
+        $scope.loading = true;
+        var report = new Report($scope.report.name, $scope.report.label, $scope.report.description, $scope.report.role);
+        api.addOrReplaceOrValidateReport({
+            report: report.model,
+            $method: 'POST',
+            token: ReportEditorAPI.token
+        })
+        .then(function(){
+            $scope.loading = false;
+            $modalInstance.close(); 
+        })
+        .catch(function(error){
+            $scope.loading = false;
+            console.error(error);
+        });
+    };
+    
+    $scope.cancel = function(){
+        $modalInstance.close();
+    };
 })
 .controller('Report', function($timeout, $rootScope, $scope, $state, $stateParams, $modal, ReportEditorAPI){
 

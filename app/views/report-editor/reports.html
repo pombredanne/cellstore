@@ -1,5 +1,8 @@
 <div class="container">
     <h1 class="text-center">Report Schemas</h1>
+    <p>
+        <button ng-click="newReport()" class="btn btn-primary">Create New Report</button>
+    </p>
     <div class="list-group" report-api="{{api}}" report-api-token="{{token}}" reports>
         <a ng-if="!reports" class="list-group-item text-center"><i class="fa fa-spinner fa-spin"></i></a>
         <a ng-repeat="report in reports" ng-href="/reports/{{report._id}}" ng-bind="report.Label" class="list-group-item"></a>
