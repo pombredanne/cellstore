@@ -83,21 +83,27 @@
     .flexy-layout.flexy-layout-column > .splitter {
         background: @clouds !important;
     }
+    
+    .tab-content {
+        padding: 15px;
+    }
 }
 
     concept-map {
-        display: block;
-        padding: 15px;
+        //display: block;
+        //padding: 15px;
     }
 
 presentation-tree {
-    a.arow {
-        cursor: default;
-        .tree-icon, .query {
-            cursor: pointer;
-        }
+    
+    .sortable:hover {
+        cursor: move !important;
     }
     
+    .tree-icon:hover {
+        cursor: pointer !important;
+    }
+        
     ul.abn-tree {
         padding-bottom: 50px;
         
@@ -125,7 +131,6 @@ presentation-tree {
                 }
                 
                 &:hover {
-                    cursor: move !important;
                     .remove-concept {
                         display: inline;
                     }
