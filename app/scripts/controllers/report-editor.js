@@ -34,11 +34,6 @@ angular.module('main')
     
     //TODO: throw appropriate 404 errors
     
-    $scope.sortableOptions = {
-        placeholder: "sortable",
-        connectWith: ".sortable-container"
-    };
-    
     $scope.newConcept = function(){
         $modal.open({
             templateUrl: '/views/report-editor/new-concept.html',

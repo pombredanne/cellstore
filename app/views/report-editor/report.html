@@ -14,7 +14,6 @@
             </div>
             <div class="group-item">
                 <button ng-click="newConcept()" class="btn btn-primary"><i class="fa fa-plus"></i> Concept</button>
-
                 <!--div class="btn-group" dropdown>
                     <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
                         <i class="fa fa-filter"></i> Filter <span class="caret"></span>
@@ -27,8 +26,8 @@
                     </ul>
                 </div-->
             </div>
-            <div class="list-group scrollable sortable-container" ui-sortable="sortableOptions" ng-model="concepts">
-                <a class="list-group-item sortable" ng-repeat="concept in concepts" id="{{concept.Name}}" ng-click="editConcept(concept)">
+            <div class="list-group scrollable">
+                <a class="list-group-item" ng-repeat="concept in concepts | filter:search" id="{{concept.Name}}" ui-sref-active="active" ui-sref="report({ id: id, network: network, concept: concept.Name })">
                 {{concept.Label}}
                 </a>
             </div>
@@ -36,26 +35,31 @@
         <block-splitter></block-splitter>
         <block-container>
             <ul class="nav nav-tabs">
-                <li ui-sref-active="active">
-                    <a href ui-sref="report({ id: id, network: 'presentation', concept: concept })">Presentation</a>
+                <li ui-sref-active="active" ng-if="concept">
+                    <a ui-sref="report({ id: id, network: 'concept', concept: concept })">Concept</a>
                 </li>
                 <li ui-sref-active="active">
-                    <a href ui-sref="report({ id: id, network: 'concept-maps', concept: concept })">Concept Maps</a>
+                    <a ui-sref="report({ id: id, network: 'presentation', concept: concept })">Presentation</a>
                 </li>
                 <li ui-sref-active="active">
-                    <a href ui-sref="report({ id: id, network: 'business-rules', concept: concept })">Business Rules</a>
+                    <a ui-sref="report({ id: id, network: 'concept-maps', concept: concept })">Concept Maps</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="report({ id: id, network: 'business-rules', concept: concept })">Business Rules</a>
                 </li>
             </ul>
             <div ng-switch on="network" class="scrollable">
+                <div ng-switch-when="concept">
+                    <concept concept-name="{{concept}}"></concept>
+                </div>
                 <div ng-switch-when="presentation">
-                    <presentation-tree></presentation-tree>
+                    <presentation-tree concept-name="{{concept}}"></presentation-tree>
                 </div>
                 <div ng-switch-when="concept-maps">
-                    <concept-map></concept-map>
+                    <concept-map class="std-container" concept-name="{{concept}}"></concept-map>
                 </div>
                 <div ng-switch-when="business-rules">
                     <h2>Business Rules</h2>
-                    
                 </div>
             </div>
         </block-container>
