@@ -15,21 +15,39 @@
                 </h4>
             </div>
             <div class="group-item">
-                <input type="text" ng-model="search" class="search">
+                <input type="text" ng-model="search" class="search" placeholder="Search...">
             </div>
-            <div class="group-item">
-                <button ng-click="newConcept()" class="btn btn-primary"><i class="fa fa-plus"></i> Concept</button>
-                    <span class="label label-info">presentation</span>
-                    <span class="label label-success">concept map</span>
-                    <span class="label label-warning">business rule</span>
+            <div class="group-item clearfix">
+                <div class="pull-left">
+                    <button ng-click="newConcept()" class="btn btn-primary"><i class="fa fa-plus"></i> Concept</button>
+                </div>
+                <div class="pull-left filters" ng-init="isCollapsed = true">
+                    <a ng-click="isCollapsed = !isCollapsed"><i class="fa" ng-class="{ 'fa-caret-right': isCollapsed, 'fa-caret-down': !isCollapsed }"></i> Filters</a>
+                    <div collapse="isCollapsed">
+                        <span class="label label-default"><input type="checkbox" ng-model='filter.abstract' ng-change='onChange(filter.abstract)' indeterminate /> Abstract</span>
+                        <br>
+                        <span class="label label-info"><input type="checkbox" ng-model='filter.presentation' ng-change='onChange(filter.presentation)' indeterminate /> Presentation</span>
+                        <br>
+                        <span class="label label-success"><input type="checkbox" ng-model='filter.conceptMap' ng-change='onChange(filter.conceptMap)' indeterminate /> Concept Map</span>
+                        <br>
+                        <span class="label label-warning"><input type="checkbox" ng-model='filter.businessRule' ng-change='onChange(filter.businessRule)' indeterminate /> Business Rule</span>
+                    </div>
+                </div>
             </div>
             <div class="list-group scrollable">
-                <a class="list-group-item" ng-class="{ italic: concept.IsAbstract === true }" ng-repeat="concept in concepts | filter:search" id="{{concept.Name}}" ui-sref-active="active" ui-sref="report({ id: id, network: network, concept: concept.Name })">
+                <a class="list-group-item" ng-class="{ italic: concept.IsAbstract === true }" ng-repeat="concept in concepts | filter:search | ConceptFilter:filter:report" id="{{concept.Name}}" ui-sref-active="active" ui-sref="report({ id: id, network: network, concept: concept.Name })">
                     <span>
                         {{concept.Name}}
-                        <span ng-show="isInPresentation(concept)" class="label label-info">&nbsp;</span>
-                        <span ng-show="isInConceptMap(concept)" class="label label-success">&nbsp;</span>
-                        <span ng-show="isInBusinessRule(concept)"class="label label-warning">&nbsp;</span>
+                        <span ng-if="concept.IsAbstract" class="label label-default">&nbsp;</span>
+                        <span ng-init="pLength = isInPresentation(concept).length">
+                            <span ng-if="pLength > 0" ng-bind="pLength" class="label label-info">&nbsp;</span>
+                        </span>
+                        <span ng-init="cLength = isInConceptMap(concept).length">
+                            <span ng-if="cLength > 0" class="label label-success">&nbsp;</span>
+                        </span>
+                        <span ng-init="bLength = isInBusinessRule(concept).length">
+                            <span ng-if="bLength > 0" ng-bind="bLength" class="label label-warning">&nbsp;</span>
+                        </span>
                     </span>
                 </a>
             </div>

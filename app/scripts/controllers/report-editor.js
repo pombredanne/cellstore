@@ -56,6 +56,31 @@ angular.module('main')
         $modalInstance.close();
     };
 })
+.filter('ConceptFilter', function(){
+    return function(concepts, filter, report){
+        var result = [];
+        concepts.forEach(function(concept){
+            var isAbstract = concept.IsAbstract === true;
+            var isInPresentation = report.findInTree('Presentation', concept.Name).length > 0;
+            var isInConceptMap = report.findInConceptMap(concept.Name).length > 0;
+            var isInBusinessRule = report.findInRules(concept.Name).length > 0;
+            if((filter.abstract === null && isAbstract === true) || (filter.abstract === true && isAbstract === false)) {
+                return;
+            }
+            if((filter.presentation === null && isInPresentation === true) || (filter.presentation === true && isInPresentation === false)) {
+                return;
+            }
+            if((filter.conceptMap === null && isInConceptMap === true) || (filter.conceptMap === true && isInConceptMap === false)) {
+                return;
+            }
+            if((filter.businessRule === null && isInBusinessRule === true) || (filter.businessRule === true && isInBusinessRule === false)) {
+                return;
+            }
+            result.push(concept);
+        });
+        return result;
+    };
+})
 .controller('Report', function($timeout, $rootScope, $scope, $state, $stateParams, $modal, ReportEditorAPI){
 
     $scope.id = $stateParams.id;
@@ -66,6 +91,13 @@ angular.module('main')
     $scope.api = ReportEditorAPI.api;
     
     //TODO: throw appropriate 404 errors
+    
+    $scope.filter = {
+        abstract: false,
+        presentation: false,
+        conceptMap: false,
+        businessRule: false
+    };
     
     $scope.newConcept = function(){
         $modal.open({
@@ -179,4 +211,47 @@ angular.module('main')
         $modalInstance.close();
     };
 })
+.directive('indeterminate', [function() {
+    return {
+      require: '?ngModel',
+      link: function(scope, el, attrs, ctrl) {
+        var truthy = true;
+        var falsy = false;
+        var nully = null;
+        ctrl.$formatters = [];
+        ctrl.$parsers = [];
+        ctrl.$render = function() {
+          var d = ctrl.$viewValue;
+          el.data('checked', d);
+          switch(d){
+          case truthy:
+            el.prop('indeterminate', false);
+            el.prop('checked', true);
+            break;
+          case falsy:
+            el.prop('indeterminate', false);
+            el.prop('checked', false);
+            break;
+          default:
+            el.prop('indeterminate', true);
+          }
+        };
+        el.bind('click', function() {
+          var d;
+          switch(el.data('checked')){
+          case falsy:
+            d = truthy;
+            break;
+          case truthy:
+            d = nully;
+            break;
+          default:
+            d = falsy;
+          }
+          ctrl.$setViewValue(d);
+          scope.$apply(ctrl.$render);
+        });
+      }
+    };
+  }])
 ;

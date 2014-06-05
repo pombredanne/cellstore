@@ -5,6 +5,6 @@
     </p>
     <div class="list-group" report-api="{{api}}" report-api-token="{{token}}" reports>
         <a ng-if="!reports" class="list-group-item text-center"><i class="fa fa-spinner fa-spin"></i></a>
-        <a ng-repeat="report in reports" ng-href="/reports/{{report._id}}" ng-bind="report.Label" class="list-group-item"></a>
+        <a ng-repeat="report in reports" ng-href="/reports/{{report._id}}" ng-bind="report.Label ? report.Label : report._id" class="list-group-item"></a>
     </div>
 </div>
