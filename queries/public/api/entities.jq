@@ -3,6 +3,8 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace session = "http://apps.28.io/session";
 
+session:audit-call();
+
 let $format  := lower-case(request:param-values("format")[1])
 let $ciks    := request:param-values("cik")
 let $tags    := request:param-values("tag") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)

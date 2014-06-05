@@ -23,14 +23,14 @@
 
 <div ng-if="reports.length">
     <div class="table-responsive">
-        <table class="table table-condensed small" id="comparison-information-table">
+        <table class="table table-condensed table-justcolumns small" id="comparison-information-table">
             <thead>
                 <th>&nbsp;</th>
                 <th class="text-center nowrap" ng-repeat="n in reports[0].items[0].value track by $index"><a ng-click='drill(reports[0].items[1].value[$index], reports[0].items[5].value[$index], reports[0].items[6].value[$index])'>{{n}}<div class='small'>({{ reports[0].items[6].value[$index] }}/{{ reports[0].items[5].value[$index] }})</div></a></th>
             </thead>
             <tbody ng-repeat="report in reports">
                 <tr>
-                    <td colspan="{{report.items[0].value.length}}">
+                    <td colspan="{{report.items[0].value.length + 1}}">
                         <a ng-click="showtab[$index]=!showtab[$index]">
                             <i class="fa fa-caret-down" ng-show="showtab[$index]"></i>
                             <i class="fa fa-caret-right" ng-hide="showtab[$index]"></i>
@@ -39,15 +39,21 @@
                     </td>
                 </tr>
                 <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
-                    <td>{{item.label}}</td>
+                    <td ng-if="!report.isBoolean">
+                        {{item.label}}
+                    </td>
                     <td class="nowrap" ng-if="!report.isBoolean" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
                         <span ng-if="item.type[$index] == 'NumericValue'">{{v || 0}}</span>
                         <span ng-if="item.type[$index] != 'NumericValue' && !isBlock(v)">{{v || ' '}}</span>
                         <a ng-if="item.type[$index] != 'NumericValue' && isBlock(v)" ng-click="showText(v)">Show Text</a>
                     </td>
+                    <td ng-if="report.isBoolean">
+                        <div ng-if="item.auditId">{{item.auditId}}</div>
+                        <samp class="small">{{item.label}}</samp>
+                    </td>
                     <td class="nowrap text-center" ng-if="(report.isBoolean)" ng-repeat="v in item.value track by $index">
-                      <i class="fa semaphore fa-check-circle success" ng-if="v === true" tooltip="Rule passed"></i>
-                      <i class="fa semaphore fa-exclamation-triangle" ng-if="v === false" tooltip="Rule failed"></i>
+                      <i class="fa semaphore fa-check-circle success" ng-if="v === true" tooltip="Rule passed" ng-click="showAudit(true, item.audit[$index])"></i>
+                      <i class="fa semaphore fa-exclamation-triangle" ng-if="v === false" tooltip="Rule failed" ng-click="showAudit(false, item.audit[$index])"></i>
                       <span class="fa-stack semaphore disabled" ng-if="v === null" tooltip="Rule has been skipped because a precondition was not met">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>

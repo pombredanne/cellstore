@@ -10,27 +10,27 @@ angular.module('main')
     $scope.errornoresults = false;
     $scope.errormany = false;
 
-    if (informations.data)
+    if (informations.data && informations.filings)
     {
-        if (informations.data.length === 0)
+        if (informations.filings.length > 30)
         {
-            $scope.errornoresults = true;
+            $scope.errormany = true;
         }
         else
         {
-            $scope.filings = informations.filings;
-            $scope.params = {
-                _method: 'POST',
-                aid: $scope.filings,
-                report: 'FundamentalAccountingConcepts',
-                'token' : $scope.token
-            };
-            if ($scope.filings.length > 30)
+            if (informations.data.length === 0)
             {
-                $scope.errormany = true;
+                $scope.errornoresults = true;
             }
             else
             {
+                $scope.filings = informations.filings;
+                $scope.params = {
+                    _method: 'POST',
+                    aid: $scope.filings,
+                    report: 'FundamentalAccountingConcepts',
+                    'token' : $scope.token
+                };
                 informations.data.sort(function(a, b){
                     var ai = a.Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To['fac:GeneralInformationHierarchy'].To;
                     var bi = b.Trees['fac:FundamentalAccountingConceptsLineItems'].To['fac:FundamentalAccountingConceptsHierarchy'].To['fac:GeneralInformationHierarchy'].To;
@@ -72,11 +72,18 @@ angular.module('main')
                                     item.label = list[key].Label ? list[key].Label : '';
                                     item.value = [];
                                     item.type = [];
+                                    item.audit = [];
                                     array[j] = item;
                                 } else {
                                     item = array[j];
                                 }
+                        
+                                item.value[index] = null;
+                                item.type[index] = '';
+                                item.audit[index] = null;
+                        
                                 if (list[key].Facts && list[key].Facts.length > 0) {
+                                    item.auditId = list[key].Facts[0].AuditTrails[0].Id;
                                     item.type[index] = list[key].Facts[0].Type;
                                     if (list[key].Facts[0].Type === 'NumericValue') {
                                         var num = list[key].Facts[0].Value;
@@ -85,15 +92,27 @@ angular.module('main')
                                     } else {
                                         item.value[index] = list[key].Facts[0].Value;
                                     }
+                                    if (list[key].Facts[0].AuditTrails && list[key].Facts[0].AuditTrails.length > 0) {
+                                        switch(list[key].Facts[0].AuditTrails[0].Type) {
+                                            case 'xbrl28:concept-maps':
+                                                item.audit[index] = list[key].Facts[0].AuditTrails[0].Data.OriginalConcept;
+                                                break;
+                                            case 'hypercubes:dimension-default':
+                                                item.audit[index] = list[key].Facts[0].AuditTrails[0].Data.Dimension;
+                                                break;
+                                            case 'xbrl28:formula':
+                                                item.audit[index] = list[key].Facts[0].AuditTrails[0].Message;
+                                                break;
+                                            case 'xbrl28:validation':
+                                                item.audit[index] = list[key].Facts[0].AuditTrails[0].Message;
+                                                break;
+                                        }
+                                    }
                                 } else {
                                     if (isNumeric)
                                     {
                                         item.value[index] = 0;
                                         item.type[index] = 'NumericValue';
-                                    }
-                                    else {
-                                        item.value[index] = null;
-                                        item.type[index] = '';
                                     }
                                 }
                                 j++;
@@ -166,6 +185,10 @@ angular.module('main')
 
     $scope.showText = function(html) {
         $scope.$emit('alert', 'Text Details', html);
+    };
+
+    $scope.showAudit = function(passed, message) {
+        $scope.$emit('alert', '<small><i class="fa semaphore ' + (passed ? 'fa-check-circle success' : 'fa-exclamation-triangle') + '"></i></small> ' + (passed ? 'Rule passed' : 'Rule failed'), '<samp class="small">' + message + '</samp>');
     };
 
     $scope.getUrl = function(format) {

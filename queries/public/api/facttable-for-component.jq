@@ -166,7 +166,20 @@ as object*
   for $table as string? allowing empty in sec-networks:tables($component).Name
   let $hypercube as object? := hypercubes:hypercubes-for-components($component, $table)
   let $hypercube as object := if (exists($hypercube))
-                              then $hypercube
+                              then 
+                                if(exists($hypercube.Aspects."dei:LegalEntityAxis"))
+                                then $hypercube
+                                else
+                                  copy $h := $hypercube
+                                  modify (
+                                    insert json { "dei:LegalEntityAxis" : 
+                                      { 
+                                        "Name": "dei:LegalEntityAxis",
+                                        "Label": "Legal Entity Dimension",
+                                        "Default" : "sec:DefaultLegalEntity"
+                                      }} into $h.Aspects
+                                    )
+                                  return $h
                               else sec:dimensionless-hypercube({
                                   Concepts: [ sec-networks:line-items($component).Name ]
                               })
@@ -184,6 +197,8 @@ as object*
     then sec:hide-amended-facts($facts)
     else $facts
 };
+
+session:audit-call();
 
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
 let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
@@ -282,7 +297,7 @@ return
                             TotalNumEntities: session:num-entities()
                         }),
                 <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
-                    cik="{$entity.CIK}"
+                    cik="{$entity._id}"
                     tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
                     label="{$component.Label}"
                     accessionNumber="{$component.Archive}"

@@ -41,6 +41,8 @@ declare function local:filings(
     return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy)
 };
 
+session:audit-call();
+
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
 let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
@@ -69,7 +71,9 @@ let $companies   := companies:companies($archives.Entity)
 return
     if (session:only-dow30($companies) or session:valid())
     then {
-        let $summaries := filings:summaries($archives) 
+        let $summaries := for $f in filings:summaries($archives) 
+                          order by $f.Accepted descending
+                          return $f
         return
             switch ($format)
             case "xml"  return {

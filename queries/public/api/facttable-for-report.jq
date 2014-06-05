@@ -46,7 +46,7 @@ declare function local:audittrail-to-xml($audit as item) as element()
         return (
             <Type>{$a.Type}</Type>,
             <Label>{$a.Label}</Label>,
-            <Message>{$a.Label}</Message>,
+            <Message>{$a.Message}</Message>,
             <Data>{
                 if (exists($a.Data.OriginalConcept))
                 then <OriginalConcept>{$a.Data.OriginalConcept}</OriginalConcept>
@@ -132,6 +132,8 @@ declare function local:filings(
     for $fp in $fp 
     return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy ! ($$ cast as integer))
 };
+
+session:audit-call();
 
 
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])

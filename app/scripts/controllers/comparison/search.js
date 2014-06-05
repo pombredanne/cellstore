@@ -16,6 +16,7 @@ angular.module('main')
     $scope.data = [];
     $scope.columns = [];
     $scope.errornoresults = false;
+    $scope.Statistics = {};
 
     $scope.selection.map = $stateParams.map || $scope.none;
     $scope.selection.concept = ($stateParams.concept ? $stateParams.concept.split(',') : []);
@@ -50,6 +51,7 @@ angular.module('main')
             sic: $scope.selection.sic,
             concept: $scope.selection.concept,
             map: ($scope.selection.map !== 'US-GAAP Taxonomy Concepts' ? $scope.selection.map : null),
+            rules: ($scope.selection.map !== 'US-GAAP Taxonomy Concepts' ? $scope.selection.map : null),
             token: $scope.token
         };
         $scope.dimensions.forEach(function(dimension) {
@@ -89,6 +91,7 @@ angular.module('main')
         });
     }
     $scope.errornoresults = ($scope.data.length === 0);
+    $scope.Statistics = results.Statistics;
 
     $scope.selectMap = function() {
         $scope.selection.concept = [];

@@ -145,6 +145,7 @@ angular.module('main')
                             item.auditLabel = '';
                             item.auditValue = '';
                             if (list[key].Facts[0].AuditTrails && list[key].Facts[0].AuditTrails.length > 0) {
+                                item.auditId = list[key].Facts[0].AuditTrails[0].Id;
                                 switch(list[key].Facts[0].AuditTrails[0].Type) {
                                 case 'xbrl28:concept-maps':
                                     item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;

@@ -393,6 +393,14 @@ angular.module('main', [
             title: 'Login'
         }
     })
+    .state('root.reset', {
+        url: '/reset?email&resetToken',
+        templateUrl: '/views/reset.html',
+        controller: 'ResetCtrl',
+        data: {
+            title: 'Change Password'
+        }
+    })
     
     //Account
     .state('root.account', {
@@ -737,6 +745,7 @@ angular.module('main', [
                         sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
                         concept: concept,
                         map: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
+                        rules: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
                         token: $rootScope.token
                     };
                     dimensions.forEach(function(dimension) {
@@ -911,7 +920,7 @@ angular.module('main', [
 
     $rootScope.$on('alert', function(event, title, message){
         $modal.open( {
-            template: '<div class="modal-header h3"> {{object.title}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
+            template: '<div class="modal-header h3"><span ng-bind-html="object.title"></span><a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
             controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
                 $scope.object = object;
                 $scope.cancel = function () {
@@ -926,8 +935,12 @@ angular.module('main', [
 
     $rootScope.$on('auth', function() {
         var p = $location.url();
-        if (p === '/account' || p === '/account/password' || p === '/account/info') {
+        if (p === '/' || p === '/account' || p === '/account/password' || p === '/account/info') {
             p = '';
+        }
+        if (p.substring(0, 5) === '/auth')
+        {
+            p = p.substring(5);
         }
         $state.go('root.auth', { returnPage: p }, { reload: true });
     });
