@@ -9,11 +9,6 @@
     </div>
     <flexy-layout orientation="horizontal" ng-if="report">
         <block-container init="400" class="sidebar">
-            <div class="group-item report-name">
-                <h4>
-                    <a href="/reports">reports</a> / <span ng-bind="report.model._id"></span>
-                </h4>
-            </div>
             <div class="group-item">
                 <input type="text" ng-model="search" class="search" placeholder="Search...">
             </div>
@@ -34,8 +29,8 @@
                     </div>
                 </div>
             </div>
-            <div class="list-group scrollable">
-                <a class="list-group-item" ng-class="{ italic: concept.IsAbstract === true }" ng-repeat="concept in concepts | filter:search | ConceptFilter:filter:report" id="{{concept.Name}}" ui-sref-active="active" ui-sref="report({ id: id, network: network, concept: concept.Name })">
+            <div class="list-group scrollable" ng-init="selectedConcept = concept">
+                <a class="list-group-item" ng-class="{ italic: concept.IsAbstract === true }" ng-repeat="concept in concepts | filter:search | ConceptFilter:filter:report:selectedConcept" id="{{concept.Name}}" ui-sref-active="active" ui-sref="report({ id: id, network: network, concept: concept.Name })">
                     <span>
                         {{concept.Name}}
                         <span ng-if="concept.IsAbstract" class="label label-default" tooltip="This concept is abstract" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
@@ -54,6 +49,9 @@
         </block-container>
         <block-splitter></block-splitter>
         <block-container class="mainbar">
+            <h4 style="margin-top: 0;">
+                <a href="/reports">reports</a> / <span ng-bind="report.model._id"></span> <span ng-if="concept"> / <span ng-bind="concept"></span></span>
+            </h4>
             <ul class="nav nav-tabs">
                 <li ui-sref-active="active" ng-if="concept">
                     <a ui-sref="report({ id: id, network: 'concept', concept: concept })">Concept</a>

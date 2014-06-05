@@ -57,9 +57,13 @@ angular.module('main')
     };
 })
 .filter('ConceptFilter', function(){
-    return function(concepts, filter, report){
+    return function(concepts, filter, report, selectedConcept){
+        var selection = undefined;
         var result = [];
         concepts.forEach(function(concept){
+            if(concept.Name === selectedConcept) {
+                selection = concept;
+            }
             var isAbstract = concept.IsAbstract === true;
             var isInPresentation = report.findInTree('Presentation', concept.Name).length > 0;
             var isInConceptMap = report.findInConceptMap(concept.Name).length > 0;
@@ -76,9 +80,11 @@ angular.module('main')
             if((filter.businessRule === null && isInBusinessRule === true) || (filter.businessRule === true && isInBusinessRule === false)) {
                 return;
             }
-            result.push(concept);
+            if(concept.Name !== selectedConcept) {
+                result.push(concept);
+            }
         });
-        return result;
+        return [selection].concat(result);
     };
 })
 .controller('Report', function($timeout, $rootScope, $scope, $state, $stateParams, $modal, ReportEditorAPI){

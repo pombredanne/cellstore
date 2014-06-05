@@ -39,14 +39,9 @@
 
     .sidebar {
         background-color: @wet-asphalt;
-        
+
         .filters {
             margin-left: 15px;
-            
-        }
-
-        .report-name {
-            color: @silver;
         }
         
         .italic {
@@ -86,10 +81,11 @@
             text-overflow: ellipsis;
             background-color: transparent;
             color: @silver;
+            border-radius: 0 !important;
             
             &.active {
                 color: #ffffff !important;
-                background-color: #428bca !important;
+                background-color: @midnight-blue !important;
             }
         }        
     }
@@ -98,7 +94,7 @@
         background: @clouds !important;
     }
     
-    .tab-content {
+    .mainbar {
         padding: 15px;
     }
 }
