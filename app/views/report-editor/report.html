@@ -36,10 +36,10 @@
                         <span ng-init="pLength = isInPresentation(report.getConcept(concept)).length">
                             <span ng-if="pLength > 0" ng-bind="pLength" class="label label-info" tooltip="This concept is present in the presentation tree" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
                         </span>
-                        <span ng-init="cLength = isInConceptMap(report.getConcept(concept))).length">
+                        <span ng-init="cLength = isInConceptMap(report.getConcept(concept)).length">
                             <span ng-if="cLength > 0" class="label label-success" tooltip="This concept has a concept map" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
                         </span>
-                        <span ng-init="bLength = isInBusinessRule(report.getConcept(concept))).length">
+                        <span ng-init="bLength = isInBusinessRule(report.getConcept(concept)).length">
                             <span ng-if="bLength > 0" ng-bind="bLength" class="label label-warning" tooltip="This concept has business rules" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
                         </span>
                     </span>
