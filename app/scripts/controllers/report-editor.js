@@ -19,7 +19,8 @@ angular.module('main')
         token: '0ed3b9a9-2795-412d-9863-6186d1cb64bc'
     };
 })
-.controller('Reports', function($rootScope, $scope, $modal, ReportEditorAPI){
+.controller('Reports', function($rootScope, $scope, $modal, ReportEditorAPI) {
+
     $scope.token = ReportEditorAPI.token;
     $scope.api = ReportEditorAPI.api;
     
@@ -131,6 +132,18 @@ angular.module('main')
             }
         });  
     };
+
+    $scope.removeReport = function(report) {
+        $modal.open({
+            templateUrl: '/views/report-editor/remove-report.html',
+            controller: 'RemoveReportCtrl',
+            resolve: {
+                report: function(){
+                    return $scope.report;
+                }
+            }
+        });
+    };
     
     $rootScope.$on('removeConceptFromPresentationTree', function(e, id){
         $modal.open({
@@ -166,6 +179,31 @@ angular.module('main')
             $scope.status = undefined;
         }, 2000);
     });
+})
+.controller('RemoveReportCtrl', function($state, $rootScope, $scope, $modalInstance, report, ReportAPI, ReportEditorAPI){
+
+    var api = new ReportAPI(ReportEditorAPI.api);
+    $scope.report = report.model;
+    $scope.ok = function(){
+        api.removeReport({
+            _id: report.model._id,
+            $method: 'POST',
+            token: ReportEditorAPI.token
+        })
+        .then(function(){
+            $state.go('reports');
+            $modalInstance.close();
+        })
+        .catch(function(error){
+            $scope.loading = false;
+            console.error(error);
+            $rootScope.$emit('error', 500, error);
+        });
+    };
+
+    $scope.cancel = function(){
+        $modalInstance.close();
+    };
 })
 .controller('EditConceptCtrl', function($rootScope, $scope, report, concept, $modalInstance){
 

@@ -66,6 +66,14 @@
         <block-container class="mainbar">
             <h4 style="margin-top: 0;">
                 <a href="/reports">reports</a> / <span ng-bind="report.model._id"></span> <span ng-if="concept"> / <span ng-bind="concept"></span></span>
+                <span class="dropdown">
+                    <a class="btn btn-default dropdown-toggle fa fa-gear"></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ng-click="removeReport(report)">Delete Report</a>
+                        </li>
+                    </ul>
+                </span>
             </h4>
             <ul class="nav nav-tabs">
                 <li ui-sref-active="active" ng-if="concept">
