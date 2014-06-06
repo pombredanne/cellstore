@@ -718,7 +718,7 @@ angular.module('main', [
         }
     })
     .state('root.comparison.information', {
-        url: '/information',
+        url: '/information?report&reportPrefix',
         templateUrl: '/views/comparison/information.html',
         controller: 'ComparisonInformationCtrl',
         resolve: {
@@ -744,7 +744,7 @@ angular.module('main', [
                             params:  {
                                 _method: 'POST',
                                 aid: aid,
-                                report: 'FundamentalAccountingConcepts',
+                                report: $stateParams.report || 'FundamentalAccountingConcepts',
                                 'token' : $rootScope.token
                             },
                             cache: false

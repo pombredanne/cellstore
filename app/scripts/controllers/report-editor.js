@@ -15,8 +15,8 @@ angular.module('main')
 })
 .factory('ReportEditorAPI', function(){
     return {
-        api: 'http://secxbrld.xbrl.io/v1/_queries/public/reports',
-        token: '0ed3b9a9-2795-412d-9863-6186d1cb64bc'
+        api: 'http://xbrl-msb.28.io/v1/_queries/public/reports',
+        token: '58f7acd8-419d-43fc-b742-1a57340f247e'
     };
 })
 .controller('Reports', function($rootScope, $scope, $modal, reports) {
