@@ -17,8 +17,7 @@
                     <button ng-click="newConcept()" class="btn btn-primary"><i class="fa fa-plus"></i> Concept</button>
                 </div>
                 <div class="pull-left filters" ng-init="isCollapsed = true">
-                    <a ng-click="isCollapsed = !isCollapsed"><i class="fa" ng-class="{ 'fa-caret-right': isCollapsed, 'fa-caret-down': !isCollapsed }"></i> Filters</a>
-                    <div collapse="isCollapsed">
+                    <div>
                         <span class="label label-default"><input type="checkbox" ng-model='filter.abstract' ng-change='onChange(filter.abstract)' indeterminate /> Abstract</span>
                         <br>
                         <span class="label label-info"><input type="checkbox" ng-model='filter.presentation' ng-change='onChange(filter.presentation)' indeterminate /> Presentation</span>
@@ -33,15 +32,10 @@
                 <span class="selected-concept">
                         {{concept}}
                         <span ng-if="concept.IsAbstract" class="label label-default" tooltip="This concept is abstract" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        <span ng-init="pLength = isInPresentation(report.getConcept(concept)).length">
-                            <span ng-if="pLength > 0" ng-bind="pLength" class="label label-info" tooltip="This concept is present in the presentation tree" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        </span>
-                        <span ng-init="cLength = isInConceptMap(report.getConcept(concept)).length">
-                            <span ng-if="cLength > 0" class="label label-success" tooltip="This concept has a concept map" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        </span>
-                        <span ng-init="bLength = isInBusinessRule(report.getConcept(concept)).length">
-                            <span ng-if="bLength > 0" ng-bind="bLength" class="label label-warning" tooltip="This concept has business rules" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        </span>
+                        <span ng-if="report.getConcept(concept).IsAbstract" class="label label-default" tooltip="This concept is abstract" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
+                        <span ng-if="isInPresentation(report.getConcept(concept))" class="label label-info" tooltip="This concept is present in the presentation tree" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
+                        <span ng-if="isInConceptMap(report.getConcept(concept))" class="label label-success" tooltip="This concept has a concept map" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
+                        <span ng-if="isInBusinessRule(report.getConcept(concept))" class="label label-warning" tooltip="This concept has business rules" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
                     </span>
             </div>
             <div class="list-group scrollable" ng-init="selectedConcept = concept">
@@ -49,15 +43,9 @@
                     <span>
                         {{concept.Name}}
                         <span ng-if="concept.IsAbstract" class="label label-default" tooltip="This concept is abstract" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        <span ng-init="pLength = isInPresentation(concept).length">
-                            <span ng-if="pLength > 0" ng-bind="pLength" class="label label-info" tooltip="This concept is present in the presentation tree" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        </span>
-                        <span ng-init="cLength = isInConceptMap(concept).length">
-                            <span ng-if="cLength > 0" class="label label-success" tooltip="This concept has a concept map" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        </span>
-                        <span ng-init="bLength = isInBusinessRule(concept).length">
-                            <span ng-if="bLength > 0" ng-bind="bLength" class="label label-warning" tooltip="This concept has business rules" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        </span>
+                        <span ng-if="isInPresentation(concept)" class="label label-info" tooltip="This concept is present in the presentation tree" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
+                        <span ng-if="isInConceptMap(concept)" class="label label-success" tooltip="This concept has a concept map" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
+                        <span ng-if="isInBusinessRule(concept)" class="label label-warning" tooltip="This concept has business rules" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
                     </span>
                 </a>
             </div>
