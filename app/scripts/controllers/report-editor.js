@@ -59,12 +59,8 @@ angular.module('main')
 })
 .filter('ConceptFilter', function(){
     return function(concepts, filter, report, selectedConcept){
-        //var selection = undefined;
         var result = [];
         concepts.forEach(function(concept){
-            //if(concept.Name === selectedConcept) {
-            //    selection = concept;
-            //}
             var isAbstract = concept.IsAbstract === true;
             var isInPresentation = report.findInTree('Presentation', concept.Name).length > 0;
             var isInConceptMap = report.findInConceptMap(concept.Name).length > 0;
@@ -85,14 +81,21 @@ angular.module('main')
                 result.push(concept);
             }
         });
-        return result;//return [selection].concat(result);
+        return result;
     };
 })
 .controller('Report', function($timeout, $rootScope, $scope, $state, $stateParams, $modal, ReportEditorAPI){
 
+    console.log('Report');
+    
     $scope.id = $stateParams.id;
     $scope.network = $stateParams.network;
     $scope.concept = $stateParams.concept;
+    $scope.$watch('report', function(report){
+        if(report){
+            $scope.selectedConcept = $scope.report.getConcept($scope.concept);
+        }
+    });
 
     $scope.token = ReportEditorAPI.token;
     $scope.api = ReportEditorAPI.api;
@@ -116,12 +119,31 @@ angular.module('main')
             controller: 'NewConceptCtrl',
             resolve: {
                 report: function(){
-                    return $scope.report; 
+                    return $scope.report;
+                },
+                currentState: function(){
+                    return {
+                        id: $scope.id,
+                        network: $scope.network
+                    };
                 }
             }
         }); 
     };
     
+    $scope.removeConcept = function(){
+        try {
+            $scope.report.removeConcept($scope.selectedConcept.Name);
+            $rootScope.$on('saved', function(){
+                $state.go('report', { id: $scope.id, network: 'presentation', concept: undefined });
+            });
+        } catch(e) {
+            console.log(e);
+            $rootScope.$emit('error', 500, e.message);
+        }
+    };
+    
+    /*
     $scope.editConcept = function(concept){
         $modal.open({
             templateUrl: '/views/report-editor/edit-concept.html',
@@ -136,6 +158,7 @@ angular.module('main')
             }
         });  
     };
+    */
 
     $scope.removeReport = function(report) {
         $modal.open({
@@ -209,6 +232,7 @@ angular.module('main')
         $modalInstance.close();
     };
 })
+/*
 .controller('EditConceptCtrl', function($rootScope, $scope, report, concept, $modalInstance){
 
     $scope.concept = angular.copy(concept);
@@ -232,7 +256,8 @@ angular.module('main')
         $modalInstance.close();
     };
 })
-.controller('NewConceptCtrl', function($scope, report, $modalInstance){
+*/
+.controller('NewConceptCtrl', function($rootScope, $state, $scope, $modalInstance, report, currentState){
 
     $scope.concept = {
         name: '',
@@ -241,8 +266,18 @@ angular.module('main')
     };
 
     $scope.ok = function(){
-        report.addConcept($scope.concept.name, $scope.concept.label, $scope.concept.abstract);
-        $modalInstance.close();
+        try {
+            report.addConcept($scope.concept.name, $scope.concept.label, $scope.concept.abstract);
+        } catch(e) {
+            console.log(e);
+            $rootScope.$emit('error', 500, e.message);
+            return;
+        }
+        $scope.loading = true;
+        $rootScope.$on('saved', function(){
+            $state.go('report', { id: currentState.id, network: currentState.network, concept: $scope.concept.name });
+            $modalInstance.close();
+        });
     };
 
     $scope.cancel = function(){

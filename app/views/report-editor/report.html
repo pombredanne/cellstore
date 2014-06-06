@@ -39,7 +39,8 @@
                     </span>
             </div>
             <div class="list-group scrollable" ng-init="selectedConcept = concept">
-                <a class="list-group-item" ng-class="{ italic: concept.IsAbstract === true }" ng-repeat="concept in concepts | filter:search | ConceptFilter:filter:report:selectedConcept" id="{{concept.Name}}" ui-sref-active="active" ui-sref="report({ id: id, network: network, concept: concept.Name })">
+                <!--  -->
+                <a class="list-group-item" ng-class="{ italic: concept.IsAbstract === true }" ng-repeat="concept in report.listConcepts() | filter:search | ConceptFilter:filter:report:selectedConcept" id="{{concept.Name}}" ui-sref="report({ id: id, network: network, concept: concept.Name })">
                     <span>
                         {{concept.Name}}
                         <span ng-if="concept.IsAbstract" class="label label-default" tooltip="This concept is abstract" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
@@ -80,7 +81,23 @@
             <div ng-switch on="network" class="scrollable tab-content">
                 <div ng-switch-when="concept">
                     <div ng-if="concept">
-                        <concept concept-name="{{concept}}"></concept>
+<form name="editConceptForm" role="form" spellcheck="false" novalidate>
+    <div class="modal-header">
+    <button class="pull-right btn btn-default"><i class="fa fa-times" ng-click="removeConcept()"></i></button>
+        <h3 class="modal-title" ng-bind="selectedConcept.Name"></h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="label">Label</label>
+           <input type="text" class="form-control" id="label" ng-model="selectedConcept.Label" placeholder="Label" required>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="selectedConcept.IsAbstract"> Abstract
+            </label>
+        </div>
+    </div>
+</form>
                     </div>
                     <div ng-if="!concept">
                         <h4>Please Select a Concept</h4>
