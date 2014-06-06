@@ -113,6 +113,15 @@ angular.module('main', [
         url: '/reports',
         templateUrl: '/views/report-editor/reports.html',
         controller: 'Reports',
+        resolve: {
+            reports: ['ReportEditorAPI', 'ReportAPI', function(ReportEditorAPI, ReportAPI){
+                var api = new ReportAPI(ReportEditorAPI.api);
+                return api.listReports({
+                    token: ReportEditorAPI.token,
+                    $method: 'POST'
+                });
+            }]    
+        },
         data: {
             title: 'Report Editor'
         }

@@ -19,15 +19,17 @@ angular.module('main')
         token: '0ed3b9a9-2795-412d-9863-6186d1cb64bc'
     };
 })
-.controller('Reports', function($rootScope, $scope, $modal, ReportEditorAPI) {
+.controller('Reports', function($rootScope, $scope, $modal, reports) {
 
-    $scope.token = ReportEditorAPI.token;
-    $scope.api = ReportEditorAPI.api;
+    $scope.reports = reports;
     
     $scope.newReport = function(){
-        $modal.open({
+        var modal = $modal.open({
             templateUrl: '/views/report-editor/new-report.html',
             controller: 'NewReportCtrl'
+        });
+        modal.result.then(function(report){
+            $scope.reports.push(report);
         });
     };
 })
@@ -45,7 +47,7 @@ angular.module('main')
         })
         .then(function(){
             $scope.loading = false;
-            $modalInstance.close(); 
+            $modalInstance.close(report.model); 
         })
         .catch(function(error){
             $scope.loading = false;
