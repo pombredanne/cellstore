@@ -83,20 +83,32 @@
                         <concept concept-name="{{concept}}"></concept>
                     </div>
                     <div ng-if="!concept">
-                        <p>No concept is selected. You can pick one on the left end side or create a new concept.</p>
-                        <button ng-click="newConcept()" class="btn btn-primary"><i class="fa fa-plus"></i> Concept</button>
+                        <h4>Please Select a Concept</h4>
+                        <input type="text" class="form-control" id="conceptValue" ng-model="conceptToSelect" placeholder="Concept Name" typeahead-editable="false" typeahead-on-select="selectConcept($item, $model, $label)" typeahead="concept.Name for concept in concepts | filter:$viewValue | limitTo:8">
+                        <h4>Or</h4>
+                        <button ng-click="newConcept()" class="btn btn-primary">Create New Concept</button>
                     </div>
                 </div>
                 <div ng-switch-when="presentation">
-                    <presentation-tree concept-name="{{concept}}"></presentation-tree>
+                    <div ng-if="concept">
+                        <presentation-tree concept-name="{{concept}}"></presentation-tree>
+                    </div>
+                    <div ng-if="!concept">
+                        <h4>Please Select a Concept</h4>
+                        <input type="text" class="form-control" id="conceptValue" ng-model="conceptToSelect" placeholder="Concept Name" typeahead-editable="false" typeahead-on-select="selectConcept($item, $model, $label)" typeahead="concept.Name for concept in concepts | filter:$viewValue | limitTo:8">
+                        <h4>Or</h4>
+                        <button ng-click="newConcept()" class="btn btn-primary">Create New Concept</button>
+                    </div>
                 </div>
                 <div ng-switch-when="concept-maps">
                     <div ng-if="concept">
                         <concept-map concept-name="{{concept}}"></concept-map>
                     </div>
                     <div ng-if="!concept">
-                        <p>No concept is selected. You can pick one on the left end side or create a new concept.</p>
-                        <button ng-click="newConcept()" class="btn btn-primary"><i class="fa fa-plus"></i> Concept</button>
+                        <h4>Please Select a Concept</h4>
+                        <input type="text" class="form-control" id="conceptValue" ng-model="conceptToSelect" placeholder="Concept Name" typeahead-editable="false" typeahead-on-select="selectConcept($item, $model, $label)" typeahead="concept.Name for concept in concepts | filter:$viewValue | limitTo:8">
+                        <h4>Or</h4>
+                        <button ng-click="newConcept()" class="btn btn-primary">Create New Concept</button>
                     </div>
                 </div>
                 <div ng-switch-when="business-rules">

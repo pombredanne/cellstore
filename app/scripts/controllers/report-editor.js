@@ -106,6 +106,10 @@ angular.module('main')
         businessRule: false
     };
     
+    $scope.selectConcept = function($item, $model, $label) {
+        $state.go('report', { id: $scope.id, network: $scope.network, concept: $item.Name });
+    };
+    
     $scope.newConcept = function(){
         $modal.open({
             templateUrl: '/views/report-editor/new-concept.html',
