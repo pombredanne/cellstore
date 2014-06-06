@@ -860,6 +860,37 @@ angular.module('main', [
             subActive: 'report-elements'
         }
     })
+    
+    .state('root.admin', {
+        url: '/admin',
+        templateUrl: '/views/admin.html',
+        controller: 'AdminCtrl',
+        data: {
+            title: 'Admin'
+        }
+    })
+    
+    .state('root.admin.usage', {
+        url: '/usage',
+        templateUrl: '/views/admin/usage.html',
+        controller: 'AdminUsageCtrl',
+        resolve: {
+            apiStatistics: ['$rootScope', '$http', '$backend', function($rootScope, $http, $backend) {
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/UsageStats.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        },
+        data: {
+            title: 'API Usage',
+            subActive: 'usage'
+        }
+    })
 
     //404
     .state('404', {
