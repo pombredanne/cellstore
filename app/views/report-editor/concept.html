@@ -25,7 +25,7 @@
 <div ng-switch on="network" class="scrollable tab-content">
     <div ng-switch-when="presentation" id="presentation-tree">
         <div>
-            <button class="btn" ng-class="{ 'btn-default': hasNoChild === false, 'btn-primary': hasNoChild === true, disabled: concept.IsAbstract === false }" ng-click="makeConceptRootInPresentation()">Make Root</button>
+            <button class="btn" ng-class="{ 'btn-default': hasNoChild === false, 'btn-primary': hasNoChild === true, disabled: !(concept.IsAbstract === true) }" ng-click="makeConceptRootInPresentation()">Make Root</button>
             <span class="sortable-container" ui-sortable="sortableOptions" ng-model="dropConcept">
                 <span class="sortable btn" ng-repeat="concept in dropConcept" ng-class="{ 'btn-primary': hasNoChild === false, 'btn-default': hasNoChild === true, 'disabled': hasNoChild === true }" id="{{concept.Name}}"><i class="fa fa-share"></i> Drop into Presentation Tree</span>
             </span>
