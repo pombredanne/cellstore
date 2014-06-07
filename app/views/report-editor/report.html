@@ -3,11 +3,18 @@
     <small ng-switch-when="saved">Saved</small>
     <small ng-switch-when="savingError">Error while saving</small>
 </div>
-<report report-api="{{api}}" report-api-token="{{token}}" report-id="{{id}}" id="report" full-screen>
-    <div class="text-center" ng-if="!report">
-        <h1>Loading Report <i class="fa fa-spinner fa-spin"></i></h1>
-    </div>
-    <flexy-layout orientation="horizontal" ng-if="report">
+<div id="report" full-screen>
+    <h4>
+        <div class="btn-group dropdown">
+            <a class="btn btn-default fa fa-reply" ui-sref="reports"></a>
+            <span class="btn btn-default fa fa-gear dropdown-toggle"></span>
+            <ul class="dropdown-menu" role="menu">
+                <li><a ng-click="deleteReport()"><i class="fa fa-times"></i> Delete</a></li>
+            </ul>
+        </div>
+        <span ng-bind="report.model._id"></span>
+    </h4>
+    <flexy-layout orientation="horizontal">
         <block-container init="400" class="sidebar">
             <div class="group-item">
                 <input type="text" ng-model="search" class="search" placeholder="Search...">
@@ -28,19 +35,8 @@
                     </div>
                 </div>
             </div>
-            <div class="group-item" ng-if="concept">
-                <span class="selected-concept">
-                        {{concept}}
-                        <span ng-if="concept.IsAbstract" class="label label-default" tooltip="This concept is abstract" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        <span ng-if="report.getConcept(concept).IsAbstract" class="label label-default" tooltip="This concept is abstract" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        <span ng-if="isInPresentation(report.getConcept(concept))" class="label label-info" tooltip="This concept is present in the presentation tree" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        <span ng-if="isInConceptMap(report.getConcept(concept))" class="label label-success" tooltip="This concept has a concept map" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                        <span ng-if="isInBusinessRule(report.getConcept(concept))" class="label label-warning" tooltip="This concept has business rules" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
-                    </span>
-            </div>
-            <div class="list-group scrollable" ng-init="selectedConcept = concept">
-                <!--  -->
-                <a class="list-group-item" ng-class="{ italic: concept.IsAbstract === true }" ng-repeat="concept in report.listConcepts() | filter:search | ConceptFilter:filter:report:selectedConcept" id="{{concept.Name}}" ui-sref="report({ id: id, network: network, concept: concept.Name })">
+            <div class="list-group scrollable">
+                <a class="list-group-item" ng-class="{ italic: concept.IsAbstract === true }" ng-repeat="concept in report.listConcepts() | filter:search | ConceptFilter:filter:report:selectedConcept" id="{{concept.Name}}" ui-sref="report.concept({ id: id, network: 'presentation', concept: concept.Name })">
                     <span>
                         {{concept.Name}}
                         <span ng-if="concept.IsAbstract" class="label label-default" tooltip="This concept is abstract" tooltip-placement="right" tooltip-popup-delay="750" tooltip-append-to-body="true">&nbsp;</span>
@@ -53,85 +49,12 @@
         </block-container>
         <block-splitter></block-splitter>
         <block-container class="mainbar">
-            <h4 style="margin-top: 0;">
-                <a href="/reports">reports</a> / <span ng-bind="report.model._id"></span> <span ng-if="concept"> / <span ng-bind="concept"></span></span>
-                <span class="dropdown">
-                    <a class="btn btn-default dropdown-toggle fa fa-gear"></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a ng-click="removeReport(report)">Delete Report</a>
-                        </li>
-                    </ul>
-                </span>
-            </h4>
-            <ul class="nav nav-tabs">
-                <li ui-sref-active="active" ng-if="concept">
-                    <a ui-sref="report({ id: id, network: 'concept', concept: concept })">Concept</a>
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="report({ id: id, network: 'presentation', concept: concept })">Presentation</a>
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="report({ id: id, network: 'concept-maps', concept: concept })">Concept Maps</a>
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="report({ id: id, network: 'business-rules', concept: concept })">Business Rules</a>
-                </li>
-            </ul>
-            <div ng-switch on="network" class="scrollable tab-content">
-                <div ng-switch-when="concept">
-                    <div ng-if="concept">
-<form name="editConceptForm" role="form" spellcheck="false" novalidate>
-    <div class="modal-header">
-    <button class="pull-right btn btn-default"><i class="fa fa-times" ng-click="removeConcept()"></i></button>
-        <h3 class="modal-title" ng-bind="selectedConcept.Name"></h3>
-    </div>
-    <div class="modal-body">
-        <div class="form-group">
-            <label for="label">Label</label>
-           <input type="text" class="form-control" id="label" ng-model="selectedConcept.Label" placeholder="Label" required>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="selectedConcept.IsAbstract"> Abstract
-            </label>
-        </div>
-    </div>
-</form>
-                    </div>
-                    <div ng-if="!concept">
-                        <h4>Please Select a Concept</h4>
-                        <input type="text" class="form-control" id="conceptValue" ng-model="conceptToSelect" placeholder="Concept Name" typeahead-editable="false" typeahead-on-select="selectConcept($item, $model, $label)" typeahead="concept.Name for concept in concepts | filter:$viewValue | limitTo:8">
-                        <h4>Or</h4>
-                        <button ng-click="newConcept()" class="btn btn-primary">Create New Concept</button>
-                    </div>
-                </div>
-                <div ng-switch-when="presentation">
-                    <div ng-if="concept">
-                        <presentation-tree concept-name="{{concept}}"></presentation-tree>
-                    </div>
-                    <div ng-if="!concept">
-                        <h4>Please Select a Concept</h4>
-                        <input type="text" class="form-control" id="conceptValue" ng-model="conceptToSelect" placeholder="Concept Name" typeahead-editable="false" typeahead-on-select="selectConcept($item, $model, $label)" typeahead="concept.Name for concept in concepts | filter:$viewValue | limitTo:8">
-                        <h4>Or</h4>
-                        <button ng-click="newConcept()" class="btn btn-primary">Create New Concept</button>
-                    </div>
-                </div>
-                <div ng-switch-when="concept-maps">
-                    <div ng-if="concept">
-                        <concept-map concept-name="{{concept}}"></concept-map>
-                    </div>
-                    <div ng-if="!concept">
-                        <h4>Please Select a Concept</h4>
-                        <input type="text" class="form-control" id="conceptValue" ng-model="conceptToSelect" placeholder="Concept Name" typeahead-editable="false" typeahead-on-select="selectConcept($item, $model, $label)" typeahead="concept.Name for concept in concepts | filter:$viewValue | limitTo:8">
-                        <h4>Or</h4>
-                        <button ng-click="newConcept()" class="btn btn-primary">Create New Concept</button>
-                    </div>
-                </div>
-                <div ng-switch-when="business-rules">
-                    <h2>Business Rules</h2>
-                </div>
+            <div ui-view>
+                <h4>Select a Concept</h4>
+                <input type="text" class="form-control" id="conceptValue" ng-model="conceptToSelect" placeholder="Concept Name" typeahead-editable="false" typeahead-on-select="selectConcept($item, $model, $label)" typeahead="concept.Name for concept in report.listConcepts() | filter:$viewValue | limitTo:8">
+                <h4>Or</h4>
+                <button ng-click="newConcept()" class="btn btn-primary">Create New Concept</button>
             </div>
         </block-container>
     </flexy-layout>
-</report>
+</div>

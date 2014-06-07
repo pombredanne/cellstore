@@ -110,7 +110,7 @@ angular.module('main', [
     
     //Report editor
     .state('reports', {
-        url: '/reports',
+        url: '/report-list',
         templateUrl: '/views/report-editor/reports.html',
         controller: 'Reports',
         resolve: {
@@ -126,25 +126,25 @@ angular.module('main', [
             title: 'Report Editor'
         }
     })
-    .state('reportId', {
-        url: '/reports/:id',
-        controller: ['$state', '$stateParams', function($state, $stateParams){
-            $state.go('report', { id: $stateParams.id, network: 'presentation', concept: undefined });
-        }]
-    })
-    .state('reportPresentation', {
-        url: '/reports/:id/:network',
-        controller: ['$state', '$stateParams', function($state, $stateParams){
-            $state.go('report', { id: $stateParams.id, network: $stateParams.network, concept: undefined });
-        }]
-    })
     .state('report', {
-        url: '/reports/:id/:network/:concept',
+        url: '/reports/:id',
         templateUrl: '/views/report-editor/report.html',
         controller: 'Report',
-        data: {
-            title: 'Report Editor'
+        resolve: {
+            report: ['$stateParams', 'ReportEditorAPI', 'ReportAPI', function($stateParams, ReportEditorAPI, ReportAPI){
+                var api = new ReportAPI(ReportEditorAPI.api);
+                return api.listReports({
+                    _id: $stateParams.id,
+                    token: ReportEditorAPI.token,
+                    $method: 'POST'
+                });
+            }]
         }
+    })
+    .state('report.concept', {
+        url: '/:concept/:network',
+        templateUrl: '/views/report-editor/concept.html',
+        controller: 'Concept'
     })
     
     //Pricing
