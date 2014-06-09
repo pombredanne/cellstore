@@ -1,0 +1,21 @@
+    <div class="modal-header">
+        <h3 class="modal-title">Edit <span ng-bind="concept.Name"></span></h3>
+    </div>
+    <form name="newConceptForm" ng-submit="ok" role="form" spellcheck="false" novalidate>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="label">Label</label>
+           <input type="text" class="form-control" id="label" ng-model="concept.Label" placeholder="Label" required>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="concept.Abstract"> Abstract
+            </label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Update</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </div>
+</form>
+
