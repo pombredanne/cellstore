@@ -26,9 +26,7 @@
     <div ng-switch-when="presentation" id="presentation-tree">
         <div>
             <button class="btn" ng-class="{ 'btn-default': hasNoChild === false, 'btn-primary': hasNoChild === true, disabled: !(concept.IsAbstract === true) }" ng-click="makeConceptRootInPresentation()">Make Root</button>
-            <span class="sortable-container" ui-sortable="sortableOptions" ng-model="dropConcept">
-                <span class="sortable btn" ng-repeat="concept in dropConcept" ng-class="{ 'btn-primary': hasNoChild === false, 'btn-default': hasNoChild === true, 'disabled': hasNoChild === true }" id="{{concept.Name}}"><i class="fa fa-share"></i> Drop into Presentation Tree</span>
-            </span>
+            <span ng-click="dropInPresentationTree()" class="btn" ng-class="{ 'btn-primary': hasNoChild === false, 'btn-default': hasNoChild === true, 'disabled': hasNoChild === true }" id="{{concept.Name}}"><i class="fa fa-share"></i> Add into Presentation Tree</span>
         </div>
         <ul class="nav nav-list nav-pills nav-stacked abn-tree sortable-container" ui-sortable="sortableOptions" ng-model="rows">
             <li ng-repeat="row in rows"  ng-class="'level-' + {{ row.level }} + (selected.Id === row.branch.Id ? ' active':'')" class="abn-tree-row sortable" id="{{row.branch.Id}}">
@@ -64,12 +62,12 @@
                     </div>
                 </li>
             </ul>
-            <form class="form-inline" role="form" ng-submit="addValueToConceptMap(newConceptValue)" ui-keypress="{ 13:'addValueToConceptMap(newConceptValue)' }">
+            <form class="form-inline" role="form" ng-submit="addValueToConceptMap(form.newConceptValue)" ui-keypress="{ 13:'addValueToConceptMap(form.newConceptValue)' }">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="conceptValue" placeholder="Concept Name" ng-model="newConceptValue">
+                                <input type="text" class="form-control" id="conceptValue" placeholder="Concept Name" ng-model="form.newConceptValue">
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary">Add</button>
                                 </span>

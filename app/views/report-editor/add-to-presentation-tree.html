@@ -1,0 +1,17 @@
+    <div class="modal-header">
+        <h3 class="modal-title">Add <span ng-bind="concept.Name"></span> to Presentation Tree</h3>
+    </div>
+    <form name="addToPresentationTreeForm" ng-submit="ok" role="form" spellcheck="false" novalidate>
+    <div class="modal-body">
+        <div class="form-group">
+            <p><b>Add to parent</b></p>
+            <select class="form-control" ng-model="selection.parent" ng-options="parent.Label for parent in parents">
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Ok</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </div>
+</form>
+
