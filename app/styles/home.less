@@ -98,9 +98,13 @@
             
             &:hover {
                 text-decoration: none !important;
-                -webkit-filter: none;
-                -moz-filter: none;
+                -webkit-filter: grayscale(0);
+                -moz-filter: grayscale(0);
+                filter: grayscale(0);
                 filter: none;
+                -webkit-transition: 300ms;
+                -moz-transition: 300ms;
+                transition: 300ms;
             }
 
             .helper {
