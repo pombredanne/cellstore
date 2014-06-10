@@ -15,8 +15,8 @@ angular.module('main')
 })
 .factory('ReportEditorAPI', function(){
     return {
-        api: 'http://secxbrl-beta.xbrl.io/v1/_queries/public/reports',
-        token: '62ffda01-5160-4215-9b66-e26a7c5bc23f'
+        api: 'http://secxbrld.xbrl.io/v1/_queries/public/reports',
+        token: '0ed3b9a9-2795-412d-9863-6186d1cb64bc'
     };
 })
 .controller('Reports', function($rootScope, $scope, $modal, reports) {
@@ -33,7 +33,7 @@ angular.module('main')
         });
     };
 })
-.controller('NewReportCtrl', function($scope, $modalInstance, Report, ReportAPI, ReportEditorAPI){
+.controller('NewReportCtrl', function($rootScope, $scope, $modalInstance, Report, ReportAPI, ReportEditorAPI){
     var api = new ReportAPI(ReportEditorAPI.api);
     $scope.report = {};
     $scope.loading = false;
