@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="title"></h3>
+</div>
+<div class="modal-body">
+    <rules-editor formula="formula" action="action"></rules-editor>
+    <div class="bs-callout bs-callout-danger" ng-if="error">
+        <h4>Submission Error</h4>
+        <p ng-bind="error"></p>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()" ng-bind="action"></button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>
