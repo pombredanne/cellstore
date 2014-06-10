@@ -54,4 +54,85 @@
             color: @text-color;
         }
     }
+    
+    blockquote {
+        margin: 1.5em 10px;
+        padding: 0.5em 10px;
+        quotes: "\201C""\201D""\2018""\2019";
+    }
+
+    blockquote:before {
+        color: #ccc;
+        content: open-quote;
+        font-size: 4em;
+        line-height: 0.1em;
+        margin-right: 0.25em;
+        vertical-align: -0.4em;
+    }
+
+    blockquote:after {
+        color: #ccc;
+        content: close-quote;
+        font-size: 4em;
+        line-height: 0.1em;
+        margin-left: 0.25em;
+        vertical-align: -0.4em;
+    }
+
+    blockquote p {
+        display: inline;
+    }
+    
+    .users {
+        a {
+            height: 100px;      /* equals max image height */
+            width: 260px;
+            text-align: center;
+            display: block;
+                -webkit-filter: grayscale(1);
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                filter: gray;
+                filter: grayscale(100%);
+                filter: url(/images/desaturate.svg#greyscale);
+            
+            &:hover {
+                text-decoration: none !important;
+                -webkit-filter: none;
+                -moz-filter: none;
+                filter: none;
+            }
+
+            .helper {
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+            }
+            
+            img {
+                vertical-align: middle;
+                max-height: 100px;      /* equals max image height */
+                max-width: 260px;
+            }
+        }
+    }
+}
+
+#hoffman {
+    background-image: url(/images/advisors/hoffman.png);
+    display: block;
+    width: 100px;
+    height: 100px;
+    padding: 2px;
+    margin-right: auto;
+    margin-left: auto;
+    background: #fcfcfc;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+    border: 4px solid #ecf0f1;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 1px 3px #666;
+    -moz-box-shadow: 0 1px 3px #666;
+    box-shadow: 0 1px 3px #666;
 }
