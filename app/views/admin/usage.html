@@ -8,15 +8,18 @@
     <div class="row">
         <div class="col-md-4 widget">
             <legend>User Calls</legend>
+            <p>Activity between {{data.fromDate | date}} and {{data.toDate | date }}.</p>
+            <p>
+                <input type="text" class="form-control small" ng-model="search" placeholder="Search by email ...">
+            </p>
             <ul class="list-unstyled widget-body">
-                <li ng-repeat="s in data.userStatistics | orderBy: s.calls">
+                <li ng-repeat="s in data.userStatistics | filter: search | orderBy: s.calls | limitTo: 100">
                     <span class="pull-right">{{s.calls}}</span>
                     {{s.email}}
                 </li>
             </ul>
             <small>
-                User activity for {{data.fromDate | date}} - {{data.toDate | date }}.<br>
-                Most active users are displayed first.
+                100 most active users are displayed.
             </small>
         </div>
         <div class="col-md-8">
