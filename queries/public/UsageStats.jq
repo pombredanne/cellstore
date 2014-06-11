@@ -5,7 +5,6 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace functx = "http://www.functx.com";
 
 declare function local:json-to-xml-elements($json as json-item()) as element()*
