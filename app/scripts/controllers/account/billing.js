@@ -242,7 +242,6 @@ angular.module('main')
             .coupon($scope.model.data.coupon)
             .catch(function() { $scope.model.form.coupon.$setValidity('invalid', false); })
             .done(function (data) {
-                $scope.model.data.price = plan.price[$scope.model.data.currency].amount;
                 $scope.model.data.now = data.now;
                 $scope.$apply();
             });
