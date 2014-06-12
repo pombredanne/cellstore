@@ -26,15 +26,13 @@ return switch(true)
         response:status-code(404);
         session:error("entities or archives not found (valid parameters: aid)", $format)
     }
-    case not (session:only-dow30($entities) or session:valid()) return {
-        response:status-code(401);
-        session:error("accessing facts of an entity that is not in the DOW30", $format)
-    }
     case empty($report) return {
         response:status-code(404);
         session:error("report does not exist", $report)
     }
     default return
+      switch(session:check-access($entities, "data_sec"))
+      case $session:ACCESS-ALLOWED return {
         let $cached-archives := store:find("reportcache", { _id : { "$in" : [ $archives._id ! ($report || $$)]}})
         let $noncached-archives := seq:value-except($archives._id, $cached-archives._id ! substring-after($$, $report))
         return {
@@ -66,3 +64,13 @@ return switch(true)
                 [ $cached-archives, $computed-archives ] 
             }
         }
+      }
+    case $session:ACCESS-DENIED return {
+          response:status-code(403);
+          session:error("accessing filings of an entity that is not in the DOW30", $format)
+       }
+    case $session:ACCESS-AUTH-REQUIRED return {
+          response:status-code(401);
+          session:error("authentication required or session expired", $format)
+       }
+    default return error()

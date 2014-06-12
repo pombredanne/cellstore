@@ -260,8 +260,8 @@ let $component := $components[1] (: only one for know :)
 let $archive   := archives:archives($component.Archive)
 let $entity    := entities:entities($archive.Entity)
 return
-     if (session:only-dow30($entity) or session:valid())
-     then {
+    switch(session:check-access($entity, "data_sec"))
+    case $session:ACCESS-ALLOWED return {
         let $model := {|
                     { CIK : $entity._id },
                     { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
@@ -303,7 +303,13 @@ return
                         })
                 |}
             }
-     } else {
-        response:status-code(401);
-        session:error("accessing fact table for an entity that is not in the DOW30", $format)
-     }
+       }
+    case $session:ACCESS-DENIED return {
+          response:status-code(403);
+          session:error("accessing filings of an entity that is not in the DOW30", $format)
+       }
+    case $session:ACCESS-AUTH-REQUIRED return {
+          response:status-code(401);
+          session:error("authentication required or session expired", $format)
+       }
+    default return error()
