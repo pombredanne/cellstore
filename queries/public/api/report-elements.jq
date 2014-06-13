@@ -177,8 +177,8 @@ let $names       := distinct-values(request:param-values("name"))
 let $labels      := distinct-values(request:param-values("label"))
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
 return
-    if (session:only-dow30($entities) or session:valid()) 
-        then {
+    switch(session:check-access($entities, "data_sec"))
+    case $session:ACCESS-ALLOWED return {
             let $concepts := let $concepts := if (exists($names))
                                               then local:concepts-for-archives($archives._id, $names)
                                               else if (exists($labels))
@@ -237,8 +237,13 @@ return
                     })
                 |}
             }
-        }
-        else {
-            response:status-code(401);
-            session:error("accessing filings of an entity that is not in the DOW30", $format)
-        }
+       }
+    case $session:ACCESS-DENIED return {
+          response:status-code(403);
+          session:error("accessing filings of an entity that is not in the DOW30", $format)
+       }
+    case $session:ACCESS-AUTH-REQUIRED return {
+          response:status-code(401);
+          session:error("authentication required or session expired", $format)
+       }
+    default return error()

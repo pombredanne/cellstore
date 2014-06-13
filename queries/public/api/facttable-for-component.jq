@@ -245,8 +245,8 @@ let $archive   := archives:archives($component.Archive)
 let $entity    := entities:entities($archive.Entity)
 
 return
-     if (session:only-dow30($entity) or session:valid())
-     then {
+    switch(session:check-access($entity, "data_sec"))
+    case $session:ACCESS-ALLOWED return {
         let $facts := if (exists($rollup))
                      then 
                          let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
@@ -297,7 +297,7 @@ return
                             TotalNumEntities: session:num-entities()
                         }),
                 <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
-                    cik="{$entity.CIK}"
+                    cik="{$entity._id}"
                     tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
                     label="{$component.Label}"
                     accessionNumber="{$component.Archive}"
@@ -345,7 +345,13 @@ return
                         })
                 |}
             }
-     } else {
-        response:status-code(401);
-        session:error("accessing fact table for an entity that is not in the DOW30", $format)
-     }
+       }
+    case $session:ACCESS-DENIED return {
+          response:status-code(403);
+          session:error("accessing filings of an entity that is not in the DOW30", $format)
+       }
+    case $session:ACCESS-AUTH-REQUIRED return {
+          response:status-code(401);
+          session:error("authentication required or session expired", $format)
+       }
+    default return error()

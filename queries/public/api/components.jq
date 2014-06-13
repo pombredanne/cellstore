@@ -143,8 +143,8 @@ let $res         :=  { "Archives" : [
                         }
                     ]}
 return 
-    if (session:only-dow30($entities) or session:valid())
-    then {
+    switch(session:check-access($entities, "data_sec"))
+    case $session:ACCESS-ALLOWED return {
         switch ($format)
         case "xml" return {
             response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
@@ -190,30 +190,13 @@ return
                     }), $res
                 |}
             }
-    } else {
-        response:status-code(401);
-        let $res := session:error("accessing components of an entity that is not in the DOW30", $format)
-        return
-            switch ($format)
-            case "xml" return {
-                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-                (session:comment("xml"), $res)
-            }
-            case "text" case "csv" return {
-                response:content-type("text/plain");
-                $res
-            }
-            case "excel" return {
-                response:content-type("application/vnd.ms-excel");
-                response:header("Content-Disposition", "attachment; filename=components.csv");
-                $res
-            }
-            default return {
-                response:content-type("application/json");
-                response:serialization-parameters({"indent" : true});
-                {|
-                    session:comment("json"),
-                    $res
-                |}
-            }
-    }
+       }
+    case $session:ACCESS-DENIED return {
+          response:status-code(403);
+          session:error("accessing filings of an entity that is not in the DOW30", $format)
+       }
+    case $session:ACCESS-AUTH-REQUIRED return {
+          response:status-code(401);
+          session:error("authentication required or session expired", $format)
+       }
+    default return error()
