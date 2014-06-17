@@ -1847,11 +1847,28 @@ db:edit(collection("reportschemas")[$$._id eq "FundamentalAccountingConcepts"],
         "xbrl:Entity" : {
           "Name" : "xbrl:Entity", 
           "Label" : "Implicit XBRL Entity Dimension"
-        }, 
-        "sec:Accepted" : {
-          "Name" : "sec:Accepted", 
-          "Label" : "Implicit SEC Accepted Dimension"
-        }
+        },
+        "xbrl:Unit": {
+           "Name":"xbrl:Unit",
+           "Label":"Unit",
+           "Default":"xbrl:NonNumeric"
+         },
+         "sec:Accepted": {
+           "Name": "sec:Accepted",
+           "Label": "Acceptance Date"
+         },
+         "sec:Archive": {
+           "Name": "sec:Archive",
+           "Label": "Archive ID"
+         },
+         "sec:FiscalYear": {
+           "Name": "sec:FiscalYear",
+           "Label": "Fiscal Year"
+         },
+         "sec:FiscalPeriod": {
+           "Name": "sec:FiscalPeriod",
+           "Label": "Fiscal Period"
+         }
       }
     }
   }, 
