@@ -1,0 +1,158 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+
+#: app/views/root.html
+msgid "Login / Sign-Up"
+msgstr "Autentificare / Înregistrare"
+
+#: app/views/root.html
+msgid "{{user.firstname}} {{user.lastname}}"
+msgstr "{{user.firstname}} {{user.lastname}}"
+
+#: app/views/root.html
+#: dist/views/root.html
+msgid "beta"
+msgstr "beta"
+
+#: app/views/root.html
+msgid "All rights reserved."
+msgstr "Toate drepturile rezervate."
+
+#: app/views/root.html
+msgid "API"
+msgstr "API"
+
+#: app/views/root.html
+msgid "Blog"
+msgstr "Blog"
+
+#: app/views/root.html
+msgid "Browse"
+msgstr "Navighează"
+
+#: app/views/root.html
+msgid "Compare"
+msgstr "Compară"
+
+#: app/views/root.html
+msgid "Home"
+msgstr "Acasă"
+
+#: app/views/root.html
+msgid "Pricing"
+msgstr "Prețuri"
+
+#: app/views/root.html
+msgid "Privacy Policy"
+msgstr "Politica de confidențialitate"
+
+#: app/views/root.html
+msgid "Search"
+msgstr "Caută"
+
+#: app/views/root.html
+msgid "Support"
+msgstr "Ajutor"
+
+#: app/views/root.html
+msgid "Terms of Use"
+msgstr "Termeni de utilizare"
+
+#: app/views/root.html
+msgid "Toggle navigation"
+msgstr "Afişeaza/ascunde meniul"
+
+#: app/views/home.html
+msgid "US Public Company<br>Financial Information<br>Repository"
+msgstr "Informații Financiare<br>Despre Companii<br>Publice Americane"
+
+#: app/views/home.html
+msgid "Breakdown General Electric’s 2013 Assets by Business Segments."
+msgstr "Distributia pe sectoare de business a Activelor General Electric in 2013"
+
+#: app/views/home.html
+msgid "Browse DOW30"
+msgstr "Vezi DOW30"
+
+#: app/views/home.html
+msgid "Compare or aggregate facts across filings, entities, periods, or sectors. Filter by any combination of explicit dimensions. Easily deal with amendments or duplicated information. Apply custom mappings of synonymous concepts. Use business rules to compute unreported facts or key ratios."
+msgstr "Compară si agregă valori din declaratii, entitati, perioade fiscale sau sectoare. Aplică filtre multiple pe dimensiuni explicite. Rezolvă cu usurintă amendamentele sau informatia duplicată. Aplică mapări personalizate pentru concepte sinonime. Foloseste reguli de business pentru calculul unor valori nedeclarate sau indicatori cheie."
+
+#: app/views/home.html
+msgid "Compare the DOW30's latest filings using fundamental accounting concepts."
+msgstr "Compară ultimele declaratii ale companiilor din DOW30 utilizand concepte similare"
+
+#: app/views/home.html
+msgid "Compute - in real time - the sum of all values reported against the concept us-gaap:Assets, on all 10-K SEC XBRL financial filings, aggregated by fiscal period."
+msgstr "Calculează - in timp real - suma tuturor valorilor raportate pentru conceptul us-gaap:Assets, de pe toate declaratiile financiare SEC 10-K, grupat dupa perioada fiscala."
+
+#: app/views/home.html
+msgid "Create Your Own Business Information Repository"
+msgstr "Crează-ti Propria Sursa de Informații Financiare"
+
+#: app/views/home.html
+msgid "Create reports the way you need them. Add aggregates, ratios, or external information. Create your own validation or verification rules. Compare across competitors or sectors."
+msgstr "Crează rapoartele de care ai nevoie. Adaugă formule, indicatori sau informatii din surse externe. Crează reguli de validare si verificare. Compară valorile intre competitori si sectoare."
+
+#: app/views/home.html
+msgid "Custom Reports"
+msgstr "Rapoarte Personalizate"
+
+#: app/views/home.html
+msgid "Example"
+msgstr "Exemplu"
+
+#: app/views/home.html
+msgid "Featured Users"
+msgstr "Clientii Nostri"
+
+#: app/views/home.html
+msgid "Learn More."
+msgstr "Afla mai multe."
+
+#: app/views/home.html
+msgid "NoLAP extends the OLAP paradigm by removing hypercube rigidity and letting users generate their own hypercubes on the fly on the same pool of (fact) values."
+msgstr "NoLAP extinde paradigma OLAP eliminand rigiditatea cuburilor si lasand userii sa-si genereze propriile hyper-cuburi in timp real, pe aceeasi sursa de date."
+
+#: app/views/home.html
+msgid "NoLAP: NoSQL Analytical Processing"
+msgstr "NoLAP: NoSQL Analytical Processing"
+
+#: app/views/home.html
+msgid "Perform truly interactive data analysis. Get answers to even the most sophisticated queries in seconds. Slice and dice, drill down, everything in real-time."
+msgstr "Efectuați analiza datelor cu adevarat in mod interactiv. Primeste raspuns la cele mai sofisticate query-uri in secunde."
+
+#: app/views/home.html
+msgid "Powered by <a href=\"http://28.io/xbrl\">28.io</a>"
+msgstr "Realizat de <a href=\"http://28.io/xbrl\">28.io</a>"
+
+#: app/views/home.html
+msgid "Powered with <i class=\"fa fa-heart-o\"></i> by <a href=\"http://28.io/xbrl\">28.io</a>"
+msgstr "Realizat cu <i class=\"fa fa-heart-o\"></i> de <a href=\"http://28.io/xbrl\">28.io</a>"
+
+#: app/views/home.html
+msgid "Real-Time"
+msgstr "In Timp Real"
+
+#: app/views/home.html
+msgid "Sophisticated Semantic Analysis"
+msgstr "Analiza Semantica Sofisticata"
+
+#: app/views/home.html
+msgid "SECXBRL.info is a prototype repository built on top of <a href=\"http://28.io/xbrl\">28.io</a>."
+msgstr "SECXBRL.info este un prototip construit pe platforma <a href=\"http://28.io/xbrl\">28.io</a>."
+
+#: app/views/home.html
+msgid "You can create your own XBRL-based information repository using the same approach, no programming required, just configure settings. You build your own XBRL taxonomy, submit XBRL instances, and you are in business in just a couple of hours. Or, if you need more flexibility, you can even modify existing application profiles to fit your needs or even create your own application profile."
+msgstr "Poti sa iti creezi propriile analize bazate pe XBRL, nefolosind cunostinte de programare, doar customizand setarile. Poti sa iti creezi propria taxonomie XBRL, sa submitezi propriile instante XBRL, si in cateva ore poti crea analize detaliate. Sau, daca ai nevoie de flexibilitate mai mare, poti modifica profilele existente pentru a acomoda necesitatile."
+
+#: app/views/home.html
+msgid "a regulator can specify that the IFRS taxonomy be used to submit information, specify a few configuration settings, and specify XBRL-based business rules. Your repository can be up and running in hours."
+msgstr "o organizatie de reglementare poate folosi taxonomia IFRS, personaliza cateva setari, si sa foloseasca reguli de business bazate pe XBRL pentru a crea o sursa de date coerenta in cateva ore."
+
+#: app/views/home.html
+msgid "Using the <a href=\"http://28.io/xbrl\">28.io</a> information processing platform, XBRL can be stored in a way that is optimized for querying"
+msgstr "Folosind platforma de procesare a informatiilor <a href=\"http://28.io/xbrl\">28.io</a>, XBRL este stocat intr-un format proprietar, care permite optimizarea query-urilor"

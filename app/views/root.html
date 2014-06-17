@@ -3,46 +3,49 @@
         <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only" translate>Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">secxbrl.info<sub>beta</sub></a>
+                <a class="navbar-brand" href="/">secxbrl.info<sub translate>beta</sub></a>
             </div>
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse">
-                <a ng-if="!user" class="btn btn-default pull-right menu-btn hidden-sm hidden-xs" ng-click="doAuth()">Login / Sign-Up</a>
+                <div ng-if="!user" class="pull-right hidden-sm hidden-xs">
+                    <a class="btn btn-default menu-btn" ng-click="doAuth()" translate>Login / Sign-Up</a>
+                </div>
                 <div ng-if="user" class="pull-right btn-group user">
-                    <a class="btn btn-default" href="/account/info">{{user.firstname}} {{user.lastname}}</a>
+                    <a class="btn btn-default" href="/account/info" translate>{{user.firstname}} {{user.lastname}}</a>
                     <a class="btn btn-default" ng-click="doLogout()"><i class="fa fa-sign-out"></i></a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li ng-class="{ active: active === 'home' }">
-                        <a href="/">Home</a>
+                        <a href="/" translate>Home</a>
                     </li>
                     <li ng-class="{ active: active === 'pricing' }">
-                        <a href="/pricing">Pricing</a>
+                        <a href="/pricing" translate>Pricing</a>
                     </li>
                     <li ng-class="{ active: active === 'browse' }">
-                        <a href="/entity">Browse</a>
+                        <a href="/entity" translate>Browse</a>
                     </li>
                     <li ng-class="{ active: active === 'compare' }">
-                        <a href="/comparison/filings?{{wwwFormUrlencoded(selection)}}">Compare</a>
+                        <a href="/comparison/filings?{{wwwFormUrlencoded(selection)}}" translate>Compare</a>
                     </li>
                     <li ng-class="{ active: active === 'search' }">
-                        <a href="/comparison/filingss?{{wwwFormUrlencoded(selection)}}">Search</a>
+                        <a href="/comparison/filingss?{{wwwFormUrlencoded(selection)}}" translate>Search</a>
                     </li>
                     <li ng-class="{ active: active === 'api' }">
-                        <a href="/api">API</a>
+                        <a href="/api" translate>API</a>
                     </li>
                     <li ng-class="{ active: active === 'blog' }">
-                        <a href="/blog">Blog</a>
+                        <a href="/blog" translate>Blog</a>
                     </li>
-                     <li><a href="https://secxbrl.zendesk.com/" target="_blank">Support</a></li>
-                     <li class="visible-sm visible-xs">
-                         <a ng-click="doAuth()">Login / Sign-Up</a>
+                    <li>
+                        <a href="https://secxbrl.zendesk.com/" target="_blank" translate>Support</a>
+                    </li>
+                    <li class="visible-sm visible-xs">
+                        <a ng-click="doAuth()" translate>Login / Sign-Up</a>
                     </li>
                 </ul>
             </div>
@@ -55,11 +58,10 @@
     </div>
     <footer sticky-footer>
         <div class="container">
-            <p class="text-center copyright">
-                <small>
-                    ©&nbsp;2013 28msec Inc. All rights reserved.
-                    <a href="/terms-of-use">Terms of Use</a> - <a href="/privacy-policy">Privacy Policy</a>
-                </small>
+            <p class="text-center copyright small">
+                &copy; 2013 28msec Inc.
+                <span translate>All rights reserved.</span>
+                <a href="/terms-of-use" translate>Terms of Use</a> - <a href="/privacy-policy" translate>Privacy Policy</a>
             </p>
         </div>
     </footer>
