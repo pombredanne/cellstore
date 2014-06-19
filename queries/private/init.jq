@@ -61,18 +61,27 @@ user:new-right("roles_list","List All Roles and Rights","roles", 1);
 user:new-right("roles_new","Create New Role","roles", 2);
 user:new-right("roles_change_permissions","Change Permissions for Roles","roles", 3);
 
+user:new-right("data", "Data Access", (), 1);
+user:new-right("data_sec", "SEC data access", "data", 1);
+user:new-right("data_sec_dow30", "SEC data access to DOW30", "data_sec", 2);
 
 user:new-role("admin", "Administrator");
 user:new-role("anybody", "All Users");
+user:new-role("sec_pro", "Paid users (SEC Pro)");
+user:new-role("sec_enterprise", "Paid users (SEC Enterprise)");
 
 flush();
 
 user:allow("admin", "rights");
+user:allow("admin", "data");
 user:allow("anybody", "users_get_self");
 user:allow("anybody", "users_reset_password_self");
 user:allow("anybody", "users_upload_picture_self");
 user:allow("anybody", "users_edit_self");
 user:allow("anybody", "users_remove_picture_self");
+user:allow("sec_pro", "data_sec");
+user:allow("sec_enterprise", "data_sec");
+user:allow("anybody", "data_sec_dow30");
 variable $admin := user:new("admin@28.io", "System", "Administrator", "12345", {| |});
 
 user:assign-role($admin, "admin", (), (), $admin);

@@ -1,14 +1,16 @@
 'use strict';
 
 angular.module('main')
-.factory('$backend', function($q, $http, API_URL, DEBUG, QueriesService, SessionService, UsersService) {
+.factory('$backend', function($q, $http, API_URL, DEBUG, QueriesService, SessionService, UsersService, BillingService, RECURLY_KEY) {
     return {
         API_URL: API_URL,
 		DEBUG: DEBUG,
+		RECURLY_KEY: RECURLY_KEY,
 
         Queries: new QueriesService(API_URL + '/_queries/public/api'),
         Session: new SessionService(API_URL + '/_queries/public'),
         Users: new UsersService(API_URL + '/_queries/public'),
+        Billing: new BillingService(API_URL + '/_queries/public'),
 
         data: {},
 

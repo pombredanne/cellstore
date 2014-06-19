@@ -19,8 +19,9 @@ let $latestFYFiling := sec-fiscal:latest-reported-fiscal-period($entity,"10-K")
 let $latestFQFiling := sec-fiscal:latest-reported-fiscal-period($entity,"10-Q")
 let $latestFYArchives := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity,$latestFYFiling.period,$latestFYFiling.year)
 let $latestFQArchives := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity,$latestFQFiling.period,$latestFQFiling.year)
-return  if (session:only-dow30($entity) or session:valid())
-        then {
+return  
+    switch(session:check-access($entity, "data_sec"))
+    case $session:ACCESS-ALLOWED return {
           cik: $cik,
           companyName: $entity.Profiles.SEC.CompanyName,
           latestFYPeriod: if($latestFYArchives)
@@ -28,10 +29,14 @@ return  if (session:only-dow30($entity) or session:valid())
                           else (),
           latestFQPeriod: if($latestFQArchives)
                           then {fiscalYear: $latestFQFiling.year, fiscalPeriod: $latestFQFiling.period, endDate: sec:end-date($latestFQArchives[last()])}
-                          else ()(:,
-        raw1: serialize($latestFYFiling), 
-        raw2: serialize($latestFQArchives.Profiles.SEC.FilingDate):) 
-    } else {
-        response:status-code(401);
-        session:error("accessing filings of an entity that is not in the DOW30", $format)
-    }
+                          else ()
+       }
+    case $session:ACCESS-DENIED return {
+          response:status-code(403);
+          session:error("accessing filings of an entity that is not in the DOW30", $format)
+       }
+    case $session:ACCESS-AUTH-REQUIRED return {
+          response:status-code(401);
+          session:error("authentication required or session expired", $format)
+       }
+    default return error()

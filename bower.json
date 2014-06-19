@@ -13,7 +13,8 @@
     "angulartics": "~0.14.15",
     "angular-google-chart": "~0.0.8",
     "angular-ui-router": "~0.2.10",
-    "accounting": "~0.3.2"
+    "accounting": "~0.3.2",
+    "angular-round-progress-directive": "git://github.com/angular-directives/angular-round-progress-directive.git"
   },
   "devDependencies": {}
 }

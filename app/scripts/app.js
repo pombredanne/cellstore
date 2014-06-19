@@ -3,7 +3,7 @@
 angular.module('main', [
     'ui.router', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle',
     'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite',
-    'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'navbar-toggle'
+    'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'angular.directives-round-progress'
 ])
 .run(function($rootScope, ngProgressLite) {
   
@@ -445,7 +445,26 @@ angular.module('main', [
         controller: 'AccountInfoCtrl',
         data: {
             subActive: 'info',
-            title: 'Account Information'
+            title: 'Profile Information'
+        }
+    })
+
+    .state('root.account.billing', {
+        url: '/billing',
+        templateUrl: '/views/account/billing.html',
+        controller: 'AccountBillingCtrl',
+        resolve: {
+            apiStatistics: ['$rootScope', '$http', '$backend', function($rootScope, $http, $backend) {
+                    return $backend.Billing.usage({
+                        $method : 'POST',
+                        token : $rootScope.token,
+                        $refresh : true
+                    });
+                }]
+        },
+        data: {
+            subActive: 'billing',
+            title: 'Billing Information'
         }
     })
 
@@ -898,11 +917,22 @@ angular.module('main', [
     }
 
     $rootScope.$on('error', function(event, status, error){
-        if (status === 401) {
-            $rootScope.$emit('auth');
-        }
-        else
+        switch (status)
         {
+        case 401:
+            $rootScope.$emit('auth');
+            break;
+        case 403:
+            $modal.open( {
+                template: '<div class="modal-header h3"> Subscription required<a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body"><h4>The page you are trying to access displays information about an entity not included in the DOW30.</h4>To view that information you need to subscribe to Pro.<br><br><a href="/account/billing" ng-click="cancel()" class="dotted">Go to Billing</a></div>',
+                controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }]
+            });
+            break;
+        default:
             $modal.open( {
                 template: '<div class="modal-header h3"> Error {{object.status}} <a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body"> {{object.error.description }} <br><a ng-click="details=true" ng-hide="details" class="dotted">Show details</a><pre ng-show="details" class="small">{{object.error | json }}</pre></div>',
                 controller: ['$scope', '$modalInstance', 'object', function ($scope, $modalInstance, object) {

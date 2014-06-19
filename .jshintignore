@@ -1,3 +1,4 @@
 app/scripts/swagger/UsersService.js
 app/scripts/swagger/SessionService.js
 app/scripts/swagger/QueriesService.js
+app/scripts/swagger/BillingService.js
