@@ -99,6 +99,19 @@ declare function local:to-xml($o as object*) as node()*
     }</FactTable>)
 };
 
+declare function local:contains-aspect($name as string) as boolean
+{
+  some $x in (request:param-names() ! starts-with($$, $name))
+  satisfies $x
+};
+
+declare function local:cast($value as string, $type as string) as atomic
+{
+  switch ($type)
+  case "integer" return $value cast as integer
+  default return error(xs:QName("local:unsupported-type"), $type || ": unsupported type")
+};
+
 declare function local:hypercube() as object
 {
     hypercubes:user-defined-hypercube({|
@@ -107,54 +120,54 @@ declare function local:hypercube() as object
             if (exists($concepts))
             then { "xbrl:Concept" : { Domain : [ $concepts ] } }
             else (),
-        
+
         if (not(request:param-names() = "dei:LegalEntityAxis"))
-        then { 
-                "dei:LegalEntityAxis" : { 
+        then {
+                "dei:LegalEntityAxis" : {
                     "Domain" : [ "sec:DefaultLegalEntity" ],
                     "Default" : "sec:DefaultLegalEntity"
                 }
         } else (),
-        
-        if (not(request:param-names() = "sec:Accepted"))
+
+        if (not(local:contains-aspect("sec:Accepted")))
         then { "sec:Accepted" : {  } } else (),
-        
-        if (not(request:param-names() = "sec:FiscalYear"))
+
+        if (not(local:contains-aspect("sec:FiscalYear")))
         then { "sec:FiscalYear" : {  } } else (),
-        
-        if (not(request:param-names() = "sec:FiscalPeriod"))
+
+        if (not(local:contains-aspect("sec:FiscalPeriod")))
         then { "sec:FiscalPeriod" : {  } } else (),
-        
+
         for $p in request:param-names()
         where contains($p, ":") and not(starts-with($p, "xbrl:Concept"))
         group by $dimension-name := if (ends-with(lower-case($p), "::default"))
                                     then substring-before($p, "::default")
                                     else if (ends-with(lower-case($p), ":default"))
                                     then substring-before($p, ":default")
+                                    else if (ends-with(lower-case($p), "::type"))
+                                    then substring-before($p, "::type")
                                     else $p
         let $all := (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
+        let $type := (request:param-values($dimension-name || "::type"), request:param-values($dimension-name || ":type"))[1]
         return
-        { 
+        {
             $dimension-name : {|
                 let $v := request:param-values($dimension-name)
                 return
                     if (exists($v) and not($all))
-                    then { "Domain" : [ $v ] }
+                    then { "Domain" : [ if (exists($type)) then local:cast($v, $type) else $v ] }
                     else (),
-            
-            let $predefined-default := collection("defaultaxis")[$$.axis eq $dimension-name]
+
             let $is-default := ($p = $dimension-name || "::default") or ($p = $dimension-name || ":default")
-            return 
-                if (exists($predefined-default) and not($is-default))
-                then { "Default" : $predefined-default.default }
-                else if ($is-default)
-                then { 
-                        "Default" : (
-                                request:param-values($dimension-name || "::default"),
-                                request:param-values($dimension-name || ":default")
-                            )[1]
-                    }
-                else ()
+            let $default := (request:param-values($dimension-name || "::default"), request:param-values($dimension-name || ":default"))[1]
+            return
+                (if ($is-default)
+                then {
+                    "Default" : if (exists($type)) then local:cast($default, $type) else $default
+                  } else (),
+                if (exists($type))
+                then { "Type" : $type }
+                else ())
             |}
         }
     |})
