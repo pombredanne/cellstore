@@ -16,6 +16,10 @@
                 <input type="checkbox" ng-model="concept.abstract"> Abstract
             </label>
         </div>
+        <div class="alert alert-danger" ng-if="error">
+            <h4>Creation Error</h4>
+            <p ng-bind="error"></p>
+        </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">Create</button>
