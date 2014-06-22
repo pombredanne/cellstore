@@ -1,13 +1,13 @@
 <div class="std-container">
     <div class="text-center">
-      <h2>Disclosures</h2>
+      <h2 translate>Disclosures</h2>
     </div>
-    <div ng-if="data.length">
+    <div ng-show="data.length">
       <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..." />
       <div class="scrolling">
           <div class="divtable small" id="table-disclosures">
             {{rowReset()}}
-            <div class="line head"><span>#</span><span>Label</span><span>Object Class</span><span>Name</span></div>
+            <div class="line head"><span>#</span><span translate>Label</span><span translate>Object Class</span><span translate>Name</span></div>
             <script type="text/ng-template" id="item_line.html">{{rowIncrement()}}
               <div class="line" ng-class="{ even: (row % 2 == 0) }"><span>{{row}}</span><span class="{{ item.type || 'ReportSchema' }}" ng-style="{ 'padding-left': getIndent(item.level) + 'px'}">{{item.label}}</span><span>{{item.type}}</span><span>{{item.name}}</span></div>
               <div ng-repeat="item in item.children | filter:search" ng-include="'item_line.html'"></div>

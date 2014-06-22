@@ -3,22 +3,22 @@
     <li class="dropdown">
         <a class="dropdown-toggle">{{archive.EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/entity/{{cik}}">Entity Information</a></li>
-            <li><a href="/filings/{{cik}}">Filings</a></li>
+            <li><a href="/entity/{{cik}}" translate>Entity Information</a></li>
+            <li><a href="/filings/{{cik}}" translate>Filings</a></li>
         </ul>
     </li>
     <li class="dropdown">
         <a class="dropdown-toggle">{{archive.FiscalPeriod}} / {{archive.FiscalYear}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/filing/{{aid}}">Filing Details</a></li>
-            <li><a href="/components/{{aid}}">Components</a></li>
+            <li><a href="/filing/{{aid}}" translate>Filing Details</a></li>
+            <li><a href="/components/{{aid}}" translate>Components</a></li>
         </ul>
     </li>
     <li class="dropdown">
         <a class="dropdown-toggle">{{NetworkLabel}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-          <li><a href="/facttable/{{aid}}/{{networkIdentifier}}">Fact Table</a></li>
-          <li><a href="/modelstructure/{{aid}}/{{networkIdentifier}}">Model Structure</a></li>
+          <li><a href="/facttable/{{aid}}/{{networkIdentifier}}" translate>Fact Table</a></li>
+          <li><a href="/modelstructure/{{aid}}/{{networkIdentifier}}" translate>Model Structure</a></li>
         </ul>
     </li>
     <li></li>
@@ -26,20 +26,20 @@
     <div class="container">
         <div class="row export">
             <div class="col-lg-3">
-                <span class="tag tag-primary">1 Hit</span>
-                <span class="tag"><span ng-bind="Statistics.TotalNumComponents | number"></span> Archives</span>
+                <span class="tag tag-primary">1 <span translate>Hit</span></span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumComponents | number"></span> <span translate>Archives</span></span>
             </div>
             <div class="col-lg-6">
                 <h2 class="text-center">{{archive.EntityRegistrantName}} ({{archive.FiscalPeriod}} / {{archive.FiscalYear}})</h2>
             </div>
             <div class="col-lg-3">
                 <span class="dropdown pull-right">
-                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                     <ul class="dropdown-menu">
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.json}}">JSON</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.xml}}">XML</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.csv}}">CSV</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=excel&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.csv}}">Excel</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=json&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.json}}" translate>JSON</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=xml&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.xml}}" translate>XML</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=csv&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.csv}}" translate>CSV</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/components.jq?format=excel&_method=POST&aid={{aid}}&networkIdentifier={{networkIdentifier}}" target="_blank" download="{{aid.csv}}" translate>Excel</a></li>
                     </ul>
                 </span>
             </div>
@@ -52,59 +52,59 @@
           <table class="table">
             <tbody>
               <tr>
-                <td style="width: 40%">Component ID</td><td>{{component.ComponentId}}</td>
+                <td style="width: 40%" translate>Component ID</td><td>{{component.ComponentId}}</td>
               </tr>
               <tr>
                 <td>CIK</td><td>{{cik}}</td>
               </tr>
               <tr>
-                <td>Accession Number</td><td>{{aid}}</td>
+                <td translate>Accession Number</td><td>{{aid}}</td>
               </tr>
               <tr>
-                <td>Network Identifier</td><td>{{networkIdentifier}}</td>
+                <td translate>Network Identifier</td><td>{{networkIdentifier}}</td>
               </tr>
               <tr>
-                <td>Network Description</td><td>{{NetworkLabel}}</td>
+                <td translate>Network Description</td><td>{{NetworkLabel}}</td>
               </tr>
               <tr>
-                <td>Table Name</td><td>{{component.Table}}</td>
+                <td translate>Table Name</td><td>{{component.Table}}</td>
               </tr>
               <tr>
-                <td>Disclosure Name</td><td>{{component.Disclosure}}</td>
+                <td translate>Disclosure Name</td><td>{{component.Disclosure}}</td>
               </tr>
               <tr>
-                <td>Category</td><td>{{component.Category}}</td>
+                <td translate>Category</td><td>{{component.Category}}</td>
               </tr>
               <tr>
-                <td>SubCategory</td><td>{{component.SubCategory}}</td>
+                <td translate>SubCategory</td><td>{{component.SubCategory}}</td>
               </tr>
               <tr>
-                <td>Report Elements</td><td>{{component.ReportElements}}</td>
+                <td translate>Report Elements</td><td>{{component.ReportElements}}</td>
               </tr>
               <tr>
-                <td>Tables</td><td>{{component.Tables}}</td>
+                <td translate>Tables</td><td>{{component.Tables}}</td>
               </tr>
               <tr>
-                <td>Axis</td><td>{{component.Axis}}</td>
+                <td translate>Axis</td><td>{{component.Axis}}</td>
               </tr>
               <tr>
-                <td>Members</td><td>{{component.Members}}</td>
+                <td translate>Members</td><td>{{component.Members}}</td>
               </tr>
               <tr>
-                <td>LineItems</td><td>{{component.LineItems}}</td>
+                <td translate>LineItems</td><td>{{component.LineItems}}</td>
               </tr>
               <tr>
-                <td>Concepts</td><td>{{component.Concepts}}</td>
+                <td translate>Concepts</td><td>{{component.Concepts}}</td>
               </tr>
               <tr>
-                <td>Abstracts</td><td>{{component.Abstracts}}</td>
+                <td translate>Abstracts</td><td>{{component.Abstracts}}</td>
               </tr>
             </tbody>
           </table>
 		  </div>
           <div class="white-box-footer" style="padding: 15px;">
-            <a href="/facttable/{{aid}}/{{networkIdentifier}}">Fact Table</a> |
-            <a href="/modelstructure/{{aid}}/{{networkIdentifier}}">Model Structure</a>
+            <a href="/facttable/{{aid}}/{{networkIdentifier}}" translate>Fact Table</a> |
+            <a href="/modelstructure/{{aid}}/{{networkIdentifier}}" translate>Model Structure</a>
           </div>
         </div>
 	</div>

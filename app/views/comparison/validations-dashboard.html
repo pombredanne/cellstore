@@ -1,37 +1,37 @@
 <div class="export">
     <div class="row">
         <div class="col-lg-3">
-            <span class="tag tag-primary" ng-if="reports.length"><span ng-bind="Statistics.NumArchives | number"></span> Hits</span>
-            <span class="tag" ng-if="reports.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+            <span class="tag tag-primary" ng-show="reports.length"><span ng-bind="Statistics.NumArchives | number"></span> <span translate>Hits</span></span>
+            <span class="tag" ng-show="reports.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> <span translate>Archives</span>
         </div>
         <div class="col-lg-6">
-            <h2 class="text-center">Compare Accuracy Measurements of Basic Financial Information Across Selected Filings</h2>
+            <h2 class="text-center" translate>Compare Accuracy Measurements of Basic Financial Information Across Selected Filings</h2>
         </div>
         <div class="col-lg-3">
-            <span class="dropdown pull-right" ng-if="reports.length">
-                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+            <span class="dropdown pull-right" ng-show="reports.length">
+                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                 <ul class="dropdown-menu">
-                    <li><a ng-href="{{getUrl('json')}}" download="comparison-validation-statistics.json" target="_blank">JSON</a></li>
-                    <li><a href="{{getUrl('xml')}}" download="comparison-validation-statistics.xml" target="_blank">XML</a></li>
-                    <li><a href="{{getUrl('csv')}}" download="comparison-validation-statistics.csv" target="_blank">CSV</a></li>
-                    <li><a href="{{getUrl('excel')}}" download="comparison-validation-statistics.csv" target="_blank">Excel</a></li>
+                    <li><a ng-href="{{getUrl('json')}}" download="comparison-validation-statistics.json" target="_blank" translate>JSON</a></li>
+                    <li><a href="{{getUrl('xml')}}" download="comparison-validation-statistics.xml" target="_blank" translate>XML</a></li>
+                    <li><a href="{{getUrl('csv')}}" download="comparison-validation-statistics.csv" target="_blank" translate>CSV</a></li>
+                    <li><a href="{{getUrl('excel')}}" download="comparison-validation-statistics.csv" target="_blank" translate>Excel</a></li>
                 </ul>
             </span>
         </div>
     </div>
 </div>
-<div ng-if="reports.length">
+<div ng-show="reports.length">
     <div class="table-responsive">
         <table class="table table-condensed table-justcolumns small" id="comparison-information-table">
             <thead>
-                <th>Entity</th>
-                <th>Generator</th>
-                <th>Period</th>
-                <th>Year</th>
-                <th>Passed</th>
-                <th>Failed</th>
-                <th>Rules Not Applicable</th>
-                <th>Success Rate</th>
+                <th translate>Entity</th>
+                <th translate>Generator</th>
+                <th translate>Period</th>
+                <th translate>Year</th>
+                <th translate>Passed</th>
+                <th translate>Failed</th>
+                <th translate>Rules Not Applicable</th>
+                <th translate>Success Rate</th>
                 <th>&nbsp;</th>
             </thead>
             <tbody ng-repeat="report in reports | orderBy:['percentage','passed']:true">
@@ -72,15 +72,15 @@
                         </a>
                     </td>
                 </tr>
-                <tr ng-repeat="detail in report.details" ng-if="showtab[reports.indexOf(report)]">
+                <tr ng-repeat="detail in report.details" ng-show="showtab[reports.indexOf(report)]">
                   <td colspan="8">
                       <samp class="small">{{detail.label}}</samp>
-                      <span ng-if="detail.Id">({{detail.Id}})</span>
+                      <span ng-show="detail.Id">({{detail.Id}})</span>
                   </td>
                   <td>
-                      <i class="fa semaphore fa-check-circle success" ng-if="detail.passed === true" tooltip="Rule passed" ng-click="showAudit(true, detail.message)"></i>
-                      <i class="fa semaphore fa-exclamation-triangle" ng-if="detail.passed === false" tooltip="Rule failed" ng-click="showAudit(false, detail.message)"></i>
-                      <span class="fa-stack semaphore disabled" tooltip="Rule has been skipped because a precondition was not met" ng-if="detail.skipped === true">
+                      <i class="fa semaphore fa-check-circle success" ng-show="detail.passed === true" tooltip="Rule passed" ng-click="showAudit(true, detail.message)"></i>
+                      <i class="fa semaphore fa-exclamation-triangle" ng-show="detail.passed === false" tooltip="Rule failed" ng-click="showAudit(false, detail.message)"></i>
+                      <span class="fa-stack semaphore disabled" tooltip="Rule has been skipped because a precondition was not met" ng-show="detail.skipped === true">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>
                       </span>
@@ -91,19 +91,17 @@
     </div>
 </div>
 
-<div class="alert alert-info" ng-if="errornoresults">
-    <h4>No results found.</h4>
-    Here are some working examples: 
-    <a href="/comparison/validations-dashboard?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY">Basic semantic validations for DOW30 in 2013</a> or 
-    <a href="/comparison/validations-dashboard?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1">Basic semantic validations for Coca Cola and Walmart throughout 2012</a>
+<div class="alert alert-info" ng-show="errornoresults">
+    <h4 translate>No results found.</h4>
+    <span translate>Here are some working examples: <a href="/comparison/validations-dashboard?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY">Basic semantic validations for DOW30 in 2013</a> or <a href="/comparison/validations-dashboard?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1">Basic semantic validations for Coca Cola and Walmart throughout 2012</a></span>
 </div>
 
-<div class="alert alert-danger" ng-if="error">
-    <h4>You are accessing filings for entities that are not part of DOW30.</h4>
-    To view that information you have to login with your credentials. If you do not have an account, you can create one using the <a href="/auth">registration form</a>.
+<div class="alert alert-danger" ng-show="error">
+    <h4 translate>You are accessing filings for entities that are not part of DOW30.</h4>
+    <span translate>To view that information you have to login with your credentials. If you do not have an account, you can create one using the <a href="/auth">registration form</a>.</span>
 </div>
 
-<div class="alert alert-info" ng-if="errormany">
-    <h4>You are trying to compare information across {{filings.length}} filings.</h4>
-    Your account is restricted to compare 30 filings at a time. Please <a href="mailto:hello@28.io">contact us</a> to talk about your use case.
+<div class="alert alert-info" ng-show="errormany">
+    <h4 translate>You are trying to compare information across {{filings.length}} filings.</h4>
+    <span translate>Your account is restricted to compare 30 filings at a time. Please <a href="mailto:hello@28.io">contact us</a> to talk about your use case.</span>
 </div>

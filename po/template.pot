@@ -3,12 +3,44 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: app/views/account/billing.html
+msgid "1000 API calls per month"
+msgstr ""
+
 #: app/views/root.html
 msgid "API"
 msgstr ""
 
+#: app/views/account/tokens.html
+msgid "API Tokens"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "API access"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Access to all SEC filings"
+msgstr ""
+
+#: app/views/account/tokens.html
+msgid "Action"
+msgstr ""
+
 #: app/views/root.html
 msgid "All rights reserved."
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Amount"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Api calls in billing cycle"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Billing information"
 msgstr ""
 
 #: app/views/root.html
@@ -25,6 +57,22 @@ msgstr ""
 
 #: app/views/home.html
 msgid "Browse DOW30"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Cancel subscription"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Canceled on {{sub.canceledAt | date }}."
+msgstr ""
+
+#: app/views/account/password.html
+msgid "Change Password"
+msgstr ""
+
+#: app/views/account/password.html
+msgid "Changing Password..."
 msgstr ""
 
 #: app/views/root.html
@@ -47,6 +95,10 @@ msgstr ""
 msgid "Create Your Own Business Information Repository"
 msgstr ""
 
+#: app/views/account/tokens.html
+msgid "Create new token"
+msgstr ""
+
 #: app/views/home.html
 msgid "Create reports the way you need them. Add aggregates, ratios, or external information. Create your own validation or verification rules. Compare across competitors or sectors."
 msgstr ""
@@ -55,24 +107,100 @@ msgstr ""
 msgid "Custom Reports"
 msgstr ""
 
+#: app/views/account/billing.html
+msgid "Date"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Enter Billing Information"
+msgstr ""
+
 #: app/views/home.html
 msgid "Example"
+msgstr ""
+
+#: app/views/account/tokens.html
+msgid "Expires on"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Expires on {{sub.expiresAt | date }}."
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Expiring"
 msgstr ""
 
 #: app/views/home.html
 msgid "Featured Users"
 msgstr ""
 
+#: app/views/account/info.html
+msgid "First Name"
+msgstr ""
+
+#: app/views/account/info.html
+msgid "First Name is required."
+msgstr ""
+
 #: app/views/root.html
 msgid "Home"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Invoice ID"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Invoices"
+msgstr ""
+
+#: app/views/account/info.html
+msgid "Last Name"
+msgstr ""
+
+#: app/views/account/info.html
+msgid "Last Name is required."
 msgstr ""
 
 #: app/views/home.html
 msgid "Learn More."
 msgstr ""
 
+#: app/views/account/billing.html
+msgid "Load more..."
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Loading billing information..."
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Loading invoices..."
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Loading subscriptions..."
+msgstr ""
+
 #: app/views/root.html
 msgid "Login / Sign-Up"
+msgstr ""
+
+#: app/views/account/password.html
+msgid "New password"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "No billing information present"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "No invoices."
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "No subscriptions."
 msgstr ""
 
 #: app/views/home.html
@@ -83,8 +211,48 @@ msgstr ""
 msgid "NoLAP: NoSQL Analytical Processing"
 msgstr ""
 
+#: app/views/account/password.html
+msgid "Old password"
+msgstr ""
+
+#: app/views/account/password.html
+msgid "Old password doesn't match our records."
+msgstr ""
+
+#: app/views/account/password.html
+msgid "Old password is required."
+msgstr ""
+
+#: app/views/account/password.html
+msgid "Password confirmation doesn't match."
+msgstr ""
+
+#: app/views/account/password.html
+msgid "Password confirmation is required."
+msgstr ""
+
+#: app/views/account/password.html
+msgid "Password confirmation must exceed 5 characters."
+msgstr ""
+
+#: app/views/account/password.html
+msgid "Password is required."
+msgstr ""
+
+#: app/views/account/password.html
+msgid "Password must exceed 5 characters."
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Payment method"
+msgstr ""
+
 #: app/views/home.html
 msgid "Perform truly interactive data analysis. Get answers to even the most sophisticated queries in seconds. Slice and dice, drill down, everything in real-time."
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Please <a ng-click=\"updateBillingInfo()\">enter your billing information</a> before you sign up."
 msgstr ""
 
 #: app/views/home.html
@@ -103,8 +271,29 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
+#: app/views/account/billing.html
+msgid "Pro Includes"
+msgstr ""
+
+#: app/views/account/info.html
+msgid "Profile Information"
+msgstr ""
+
 #: app/views/home.html
 msgid "Real-Time"
+msgstr ""
+
+#: app/views/account/info.html
+#: app/views/account/password.html
+msgid "Reset"
+msgstr ""
+
+#: app/views/account/password.html
+msgid "Retype new password"
+msgstr ""
+
+#: app/views/account/tokens.html
+msgid "Revoke"
 msgstr ""
 
 #: app/views/home.html
@@ -115,8 +304,24 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+#: app/views/account/billing.html
+msgid "Sign Up for Pro"
+msgstr ""
+
 #: app/views/home.html
 msgid "Sophisticated Semantic Analysis"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Status"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Subscribed to <b>{{sub.plan.name}}</b> since {{sub.activatedAt | date }}"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Subscription"
 msgstr ""
 
 #: app/views/root.html
@@ -131,8 +336,28 @@ msgstr ""
 msgid "Toggle navigation"
 msgstr ""
 
+#: app/views/account/tokens.html
+msgid "Token"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "UI access"
+msgstr ""
+
 #: app/views/home.html
 msgid "US Public Company<br>Financial Information<br>Repository"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "Update Billing Information"
+msgstr ""
+
+#: app/views/account/info.html
+msgid "Update Profile"
+msgstr ""
+
+#: app/views/account/info.html
+msgid "Updating Profile..."
 msgstr ""
 
 #: app/views/home.html
@@ -149,6 +374,10 @@ msgstr ""
 
 #: app/views/root.html
 msgid "beta"
+msgstr ""
+
+#: app/views/account/billing.html
+msgid "{{more}} older."
 msgstr ""
 
 #: app/views/root.html

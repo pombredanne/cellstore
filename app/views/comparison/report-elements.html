@@ -1,20 +1,20 @@
 <div class="export">
     <div class="row">
         <div class="col-lg-3">
-            <span class="tag tag-primary" ng-if="results.length"><span ng-bind="Statistics.NumConcepts | number"></span> Hits</span>
-            <span class="tag" ng-if="results.length"><span ng-bind="Statistics.TotalNumConcepts | number"></span> Concepts</span>
+            <span class="tag tag-primary" ng-show="results.length"><span ng-bind="Statistics.NumConcepts | number"></span> <span translate>Hits</span></span>
+            <span class="tag" ng-show="results.length"><span ng-bind="Statistics.TotalNumConcepts | number"></span> <span translate>Concepts</span></span>
         </div>
         <div class="col-lg-6">
-            <h2 class="text-center">Search Report Elements</h2>
+            <h2 class="text-center" translate>Search Report Elements</h2>
         </div>
         <div class="col-lg-3">
-            <span class="dropdown pull-right" ng-if="results.length">
-                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+            <span class="dropdown pull-right" ng-show="results.length">
+                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                 <ul class="dropdown-menu">
-                    <li><a ng-href="{{getUrl('json')}}" download="comparison-reportElems.json" target="_blank">JSON</a></li>
-                    <li><a ng-href="{{getUrl('xml')}}" download="comparison-reportElems.xml" target="_blank">XML</a></li>
-                    <li><a ng-href="{{getUrl('csv')}}" download="comparison-reportElems.csv" target="_blank">CSV</a></li>
-                    <li><a ng-href="{{getUrl('excel')}}" download="comparison-reportElems.csv" target="_blank">Excel</a></li>
+                    <li><a ng-href="{{getUrl('json')}}" download="comparison-reportElems.json" target="_blank" translate>JSON</a></li>
+                    <li><a ng-href="{{getUrl('xml')}}" download="comparison-reportElems.xml" target="_blank" translate>XML</a></li>
+                    <li><a ng-href="{{getUrl('csv')}}" download="comparison-reportElems.csv" target="_blank" translate>CSV</a></li>
+                    <li><a ng-href="{{getUrl('excel')}}" download="comparison-reportElems.csv" target="_blank" translate>Excel</a></li>
                 </ul>
             </span>
         </div>
@@ -22,20 +22,20 @@
 </div>
 <form class="form-horizontal" id="comparison-reportElements-searchbar" ng-submit="submit()">
     <div class="form-group">
-        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Find report elements by</label>
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label" translate>Find report elements by</label>
         <div class="col-lg-6 col-md-9 col-sm-8">
             <label class="radio" ng-click="selectType()">
                 <input type="radio" id="searchType" ng-model="searchType" value="name">
-                Name of the report element
+                <span translate>Name of the report element</span>
             </label>
             <label class="radio" ng-click="selectType()">
                 <input type="radio" id="searchType" ng-model="searchType" value="label">
-                Text contained in label of the report element
+                <span translate>Text contained in label of the report element</span>
             </label>
         </div>
     </div>
     <div class="form-group" ng-show="searchType==='name'">
-        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Name</label>
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label" translate>Name</label>
         <div class="col-lg-6 col-md-9 col-sm-8">
             <input type="text" class="form-control" ng-model="searchName"
               typeahead="key for key in reportElementNames | filter:$viewValue | limitTo: 15"
@@ -43,18 +43,18 @@
         </div>
     </div>
     <div class="form-group" ng-show="searchType==='label'">
-        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Label</label>
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label" translate>Label</label>
         <div class="col-lg-6 col-md-9 col-sm-8">
           <input type="text" class="form-control" ng-model="searchLabel">
         </div>
     </div>
     <div class="form-group">
         <div class="col-lg-9 col-lg-offset-3 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
-            <button class="btn btn-primary" type="submit">GO</button>
+            <button class="btn btn-primary" type="submit" translate>GO</button>
         </div>
     </div>
 </form>
-<div ng-if="results.length">
+<div ng-show="results.length">
     <p>
         <input type="text" class="form-control" ng-model="search" placeholder="Search report elements...">
     </p>
@@ -62,21 +62,21 @@
         <table class="table table-condensed table-justcolumns small">
             <thead>
                 <th>#</th>
-                <th>Name / Label</th>
-                <th>Entity</th>
-                <th>Fiscal Period / Year</th>
-                <th>Component Label / Name</th>
-                <th>Nillable</th>
-                <th>Abstract</th>
-                <th>Period Type</th>
-                <th>Balance</th>
-                <th>Substitution Group</th>
-                <th>Data Type</th>
-                <th>Base Type</th>
-                <th>Closest Schema Builtin Type</th>
-                <th>Text Block</th>
-                <th>Accession Number</th>
-                <th>Go to</th>
+                <th translate>Name / Label</th>
+                <th translate>Entity</th>
+                <th translate>Fiscal Period / Year</th>
+                <th translate>Component Label / Name</th>
+                <th translate>Nillable</th>
+                <th translate>Abstract</th>
+                <th translate>Period Type</th>
+                <th translate>Balance</th>
+                <th translate>Substitution Group</th>
+                <th translate>Data Type</th>
+                <th translate>Base Type</th>
+                <th translate>Closest Schema Builtin Type</th>
+                <th translate>Text Block</th>
+                <th translate>Accession Number</th>
+                <th translate>Go to</th>
             </thead>
             <tbody>
                 <tr ng-repeat="item in results | filter : search">
@@ -99,10 +99,10 @@
                         <span class="dropdown">
                             <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
                             <ul class="dropdown-menu text-left pull-right">
-                              <li><a href="/filing/{{item.AccessionNumber}}">Filing Details</a></li>
-                              <li><a href="/component/{{item.AccessionNumber}}/{{item.ComponentRole}}">Component Details</a></li>
-                              <li><a href="/facttable/{{item.AccessionNumber}}/{{item.ComponentRole}}">Fact Table</a></li>
-                              <li><a href="/modelstructure/{{item.AccessionNumber}}/{{item.ComponentRole}}">Model Structure</a></li>
+                              <li><a href="/filing/{{item.AccessionNumber}}" translate>Filing Details</a></li>
+                              <li><a href="/component/{{item.AccessionNumber}}/{{item.ComponentRole}}" translate>Component Details</a></li>
+                              <li><a href="/facttable/{{item.AccessionNumber}}/{{item.ComponentRole}}" translate>Fact Table</a></li>
+                              <li><a href="/modelstructure/{{item.AccessionNumber}}/{{item.ComponentRole}}" translate>Model Structure</a></li>
                             </ul>
                         </span>
                     </td>
@@ -111,9 +111,7 @@
         </table>
     </div>
 </div>
-<div class="alert alert-info" ng-if="errornoresults">
-    <h4>No results found</h4>
-    Here are some working examples: 
-    <a href="/comparison/reportElements?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY&label=Assets">Assets for DOW30 in 2013</a> or 
-    <a href="/comparison/reportElements?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1&name=us-gaap:Assets">Report Element us-gaap:Assets of Coca Cola and Walmart throughout 2012</a>
+<div class="alert alert-info" ng-show="errornoresults">
+    <h4 translate>No results found</h4>
+    <span translate>Here are some working examples: <a href="/comparison/reportElements?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY&label=Assets">Assets for DOW30 in 2013</a> or <a href="/comparison/reportElements?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1&name=us-gaap:Assets">Report Element us-gaap:Assets of Coca Cola and Walmart throughout 2012</a></span>
 </div>

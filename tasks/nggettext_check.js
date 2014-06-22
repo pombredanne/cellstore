@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         
         grunt.log.writeln('Processing template: ' + template);
         var contentTemplate = grunt.file.read(template);
-        var reg = /\n(#: (.*)\n)+msgid "(.*)"\nmsgstr "(.*)"\n/gi;
+        var reg = /(?:\r\n|\r|\n)(#: (.*)(?:\r\n|\r|\n))+msgid "(.*)"(?:\r\n|\r|\n)msgstr "(.*)"(?:\r\n|\r|\n)/gi;
         var matches = [];
         var match = reg.exec(contentTemplate);
         while (match !== null) {
@@ -23,7 +23,8 @@ module.exports = function(grunt) {
             var contentFile = grunt.file.read(filepath + file);
             var message = '';
             matches.forEach(function(match) {
-                if (contentFile.indexOf('msgid "' + match.key.replace(/"/g, '\"') + '"\n') < 0)
+                var r = new RegExp('(\r\n|\r|\n)msgid "' + match.key.replace(/"/g, '\\"').replace(/\(/g, '\\(').replace(/\)/g, '\\)') + '"(\r\n|\r|\n)');
+                if (!r.test(contentFile))
                 {
                     message += match.value;
                 }
