@@ -188,14 +188,7 @@ as object*
     $component.Archive,
     $options
   )
-  let $hide-amended-facts as boolean := 
-    if (exists($options.HideAmendedFacts))
-    then $options.HideAmendedFacts
-    else true (: default :)
-  return
-    if ($hide-amended-facts)
-    then sec:hide-amended-facts($facts)
-    else $facts
+  return sec:hide-amended-facts($facts, $options)
 };
 
 session:audit-call();
