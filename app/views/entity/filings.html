@@ -3,8 +3,8 @@
         <li class="dropdown">
             <a class="dropdown-toggle">{{filings[0].EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
             <ul class='dropdown-menu text-left'>
-                <li><a ui-sref="root.entity.summary({ cik: cik })">Summary</a></li>
-                <li><a ui-sref="root.entity.filings({ cik: cik })">Filings</a></li>
+                <li><a ui-sref="root.entity.summary({ cik: cik })" translate>Summary</a></li>
+                <li><a ui-sref="root.entity.filings({ cik: cik })" translate>Filings</a></li>
             </ul>
         </li>
         <li></li>
@@ -12,21 +12,21 @@
     <div class="std-container">
         <div class="row export">
             <div class="col-lg-3">
-                <span class="tag tag-primary"><span ng-bind="Statistics.NumArchives | number"></span> Hits</span>
-                <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
-                <!--span class="tag"><span ng-bind="Statistics.TotalNumEntities | number"></span> Entities</span-->
+                <span class="tag tag-primary"><span ng-bind="Statistics.NumArchives | number"></span> <span translate>Hits</span></span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> <span translate>Archives</span></span>
+                <!--span class="tag"><span ng-bind="Statistics.TotalNumEntities | number"></span> <span translate>Entities</span></span-->
             </div>
             <div class="col-lg-6">
-                <h2 class="text-center">Filings for {{filings[0].EntityRegistrantName}} ({{filings[0].CIK.substr(23)}})</h2>
+                <h2 class="text-center" translate>Filings for {{filings[0].EntityRegistrantName}} ({{filings[0].CIK.substr(23)}})</h2>
             </div>
             <div class="col-lg-3">
                 <span class="dropdown pull-right">
-                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                     <ul class="dropdown-menu">
-                        <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="{{cik}}_filings.json">JSON</a></li>
-                        <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="{{cik}}_filings.xml">XML</a></li>
-                        <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="{{cik}}_filings.csv">CSV</a></li>
-                        <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="{{cik}}_filings.csv">Excel</a></li>
+                        <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="{{cik}}_filings.json" translate>JSON</a></li>
+                        <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="{{cik}}_filings.xml" translate>XML</a></li>
+                        <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="{{cik}}_filings.csv" translate>CSV</a></li>
+                        <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="{{cik}}_filings.csv" translate>Excel</a></li>
                     </ul>
                 </span>
             </div>
@@ -43,14 +43,14 @@
            <table class="table table-condensed table-justcolumns">
              <thead>
              <th>#</th>
-             <th>Entity Registrant Name</th>
-             <th>Form</th>
-             <th>Fiscal Year</th>
-             <th>Fiscal Period</th>
-             <th>Accepted by SEC</th>
-             <th>Generator</th>
-             <th>Accession Number</th>
-             <th>Go to</th>
+             <th translate>Entity Registrant Name</th>
+             <th translate>Form</th>
+             <th translate>Fiscal Year</th>
+             <th translate>Fiscal Period</th>
+             <th translate>Accepted by SEC</th>
+             <th translate>Generator</th>
+             <th translate>Accession Number</th>
+             <th translate>Go to</th>
              </thead>
              <tbody>
                <tr ng-repeat="item in filings | filter : search">
@@ -66,10 +66,10 @@
                    <span class="dropdown">
                      <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
                      <ul class="dropdown-menu text-left pull-right">
-                       <li><a href="/filing/{{item.AccessionNumber}}">Filing Details</a></li>
-                       <li><a href="{{item.SECFilingPage}}">SEC Filing Page</a></li>
-                       <li><a href="{{item.XBRLInstanceURL}}">XBRL Instance</a></li>
-                       <li><a href="/components/{{item.AccessionNumber}}">Filing Components</a></li>
+                       <li><a href="/filing/{{item.AccessionNumber}}" translate>Filing Details</a></li>
+                       <li><a href="{{item.SECFilingPage}}" translate>SEC Filing Page</a></li>
+                       <li><a href="{{item.XBRLInstanceURL}}" translate>XBRL Instance</a></li>
+                       <li><a href="/components/{{item.AccessionNumber}}" translate>Filing Components</a></li>
                      </ul>
                    </span>
                  </td>

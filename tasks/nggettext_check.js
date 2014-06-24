@@ -23,7 +23,10 @@ module.exports = function(grunt) {
             var contentFile = grunt.file.read(filepath + file);
             var message = '';
             matches.forEach(function(match) {
-                var r = new RegExp('(\r\n|\r|\n)msgid "' + match.key.replace(/"/g, '\\"').replace(/\(/g, '\\(').replace(/\)/g, '\\)') + '"(\r\n|\r|\n)');
+                var r = new RegExp('(\r\n|\r|\n)msgid "' + match.key
+                                .replace(/"/g, '\\"').replace(/\(/g, '\\(').replace(/\)/g, '\\)')
+                                .replace(/\[/g, '\\[').replace(/\]/g, '\\]').replace(/\?/g, '\\?')
+                                .replace(/\$/g, '\\$').replace(/\^/g, '\\^') + '"(\r\n|\r|\n)');
                 if (!r.test(contentFile))
                 {
                     message += match.value;
