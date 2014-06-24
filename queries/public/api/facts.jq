@@ -1,12 +1,40 @@
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+import module namespace core = "http://xbrl.io/modules/bizql/profiles/sec/core";
 
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace csv = "http://zorba.io/modules/json-csv";
+ 
+declare function local:modify-hypercube(
+    $hypercube as object,
+    $options as object?) as object
+{
+    let $options :=
+    {|
+        for $dimension in keys(($hypercube.Aspects, $options))
+        let $hypercube-metadata := $hypercube.Aspects.$dimension
+        let $new-metadata := $options.$dimension
+        return {
+            $dimension : if(exists($new-metadata))
+            then
+                $new-metadata
+            else {|
+                { Type : $hypercube.Aspects.$dimension.Type }[$hypercube-metadata.Kind eq "TypedDimension"],
+                let $hypercube-domain := descendant-objects(values($hypercube-metadata.Domains)).Name
+                where exists($hypercube-domain)
+                return { Domain : [ $hypercube-domain ] },
+                let $hypercube-default := $hypercube-metadata.Default
+                where exists($hypercube-default)
+                return { Default : $hypercube-default }
+            |}
+        }
+    |}
+    return hypercubes:user-defined-hypercube($options)
+};
 
 declare function local:to-csv($o as object*) as string?
 {
@@ -116,6 +144,15 @@ declare function local:hypercube() as object
                 }
         } else (),
         
+        if (not(request:param-names() = "sec:Accepted"))
+        then { "sec:Accepted" : {  } } else (),
+
+        if (not(request:param-names() = "sec:FiscalYear"))
+        then { "sec:FiscalYear" : {  } } else (),
+
+        if (not(request:param-names() = "sec:FiscalPeriod"))
+        then { "sec:FiscalPeriod" : {  } } else (),
+
         for $p in request:param-names()
         where contains($p, ":") and not(starts-with($p, "xbrl:Concept"))
         group by $dimension-name := if (ends-with(lower-case($p), "::default"))
@@ -156,32 +193,27 @@ declare function local:facts(
     $map as string?,
     $rules as string?) as object*
 {
-    for $fact in
-        for $f in hypercubes:facts-for-hypercube(local:hypercube(), $archives,
-            {|
-                { Filter : {
-                        "Profiles.SEC.Fiscal": { "$exists" : true }
-                    }
-                },
-                if (exists($map)) then { "concept-maps" : $map } else (),
-                if (exists($rules)) then { "Rules" : $rules } else ()
-            |}
-        )
-        group by $f.Aspects."xbrl:Entity",
-                 $f.Profiles.SEC.Fiscal.Year,
-                 $f.Profiles.SEC.Fiscal.Period,
-                 $f.Aspects."xbrl:Concept"
-        let $latest-accepted := max(distinct-values($f.Profiles.SEC.Accepted))
-        return if (empty($latest-accepted))
-               then $f
-               else $f[$$.Profiles.SEC.Accepted eq $latest-accepted]
+    let $hypercube := local:modify-hypercube(
+        local:hypercube(),
+        {
+            "sec:Archive" : {
+                Type: "string",
+                Domain : [archives:aid($archives)]
+            }
+        }
+    )
+    for $fact in core:facts-for(
+        {|
+            { Hypercube : $hypercube },
+            if (exists($map)) then { "ConceptMaps" : $map } else (),
+            if (exists($rules)) then { "Rules" : $rules } else ()
+        |}
+    )
     return {|
         { Aspects : {|
             for $a in keys($fact.Aspects)
             where $a ne "xbrl:Unit"
-            return { $a : $fact.Aspects.$a },
-            { "bizql:FiscalPeriod" : $fact.Profiles.SEC.Fiscal.Period },
-            { "bizql:FiscalYear" : $fact.Profiles.SEC.Fiscal.Year }
+            return { $a : $fact.Aspects.$a }
         |} },
         { Type: $fact.Type },
         if (exists($fact.Aspects."xbrl:Unit"))

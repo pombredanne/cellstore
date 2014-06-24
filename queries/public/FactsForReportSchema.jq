@@ -19,7 +19,7 @@ declare function local:modify-hypercube(
 {
     let $options :=
     {|
-        for $dimension in keys($hypercube.Aspects)
+        for $dimension in keys(($hypercube.Aspects, $options))
         let $hypercube-metadata := $hypercube.Aspects.$dimension
         let $new-metadata := $options.$dimension
         return {

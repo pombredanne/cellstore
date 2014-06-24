@@ -9,7 +9,6 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 import module namespace report-schemas = "http://xbrl.io/modules/bizql/report-schemas";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
@@ -20,7 +19,7 @@ declare function local:modify-hypercube(
 {
     let $options :=
     {|
-        for $dimension in keys($hypercube.Aspects)
+        for $dimension in keys(($hypercube.Aspects, $options))
         let $hypercube-metadata := $hypercube.Aspects.$dimension
         let $new-metadata := $options.$dimension
         return {
