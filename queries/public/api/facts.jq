@@ -271,11 +271,9 @@ return
         response:status-code(400);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
     }
-    case not (session:only-dow30($entities) or session:valid()) return {
-        response:status-code(401);
-        session:error("accessing facts of an entity that is not in the DOW30", $format)
-    }
     default return 
+      switch(session:check-access($entities, "data_sec"))
+      case $session:ACCESS-ALLOWED return {
         let $facts := local:facts($archives, $map, $rules)
         return
             switch ($format)
@@ -308,3 +306,13 @@ return
                         })
                 |}
             }
+       }
+    case $session:ACCESS-DENIED return {
+          response:status-code(403);
+          session:error("accessing filings of an entity that is not in the DOW30", $format)
+       }
+    case $session:ACCESS-AUTH-REQUIRED return {
+          response:status-code(401);
+          session:error("authentication required or session expired", $format)
+       }
+    default return error()

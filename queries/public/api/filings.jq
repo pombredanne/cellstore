@@ -69,8 +69,8 @@ let $archives    := (
                     )
 let $companies   := companies:companies($archives.Entity)
 return
-    if (session:only-dow30($companies) or session:valid())
-    then {
+    switch(session:check-access($companies, "data_sec"))
+    case $session:ACCESS-ALLOWED return {
         let $summaries := for $f in filings:summaries($archives) 
                           order by $f.Accepted descending
                           return $f
@@ -109,7 +109,13 @@ return
                     })
                 |}
             }
-    } else {
-        response:status-code(401);
-        session:error("accessing filings of an entity that is not in the DOW30", $format)
-    }
+       }
+    case $session:ACCESS-DENIED return {
+          response:status-code(403);
+          session:error("accessing filings of an entity that is not in the DOW30", $format)
+       }
+    case $session:ACCESS-AUTH-REQUIRED return {
+          response:status-code(401);
+          session:error("authentication required or session expired", $format)
+       }
+    default return error()

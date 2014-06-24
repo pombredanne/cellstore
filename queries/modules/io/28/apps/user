@@ -251,18 +251,20 @@ as empty-sequence()
     else ();
     
     variable $user := user:get-existing-by-id($user-id);
-    
+    variable $assignments := flatten($user.assignments);
+
     if (empty($fromDateTime))
     then 
-        for $assignment at $idx in $user.assignments
+        (for $assignment at $idx in $assignments
         where $assignment.role eq $role-id
-        return delete json $user.assignments($idx);
+        return delete json $user.assignments($idx));
     else 
     {
-        for $assignment at $idx in $user.assignments
-        where $assignment.role = $role-id and $assignment.from-dateTime ge $fromDateTime
-        return delete json $user.assignments($idx);        
-        for $assignment in $user.assigments
+        (for $assignment at $idx in $assignments
+        where $assignment.role eq $role-id and $assignment.from-dateTime ge $fromDateTime
+        return delete json $assignments($idx));
+        
+        for $assignment in $assignments
         where $assignment.role eq $role-id
         return replace value of json $assignment.to-dateTime with $fromDateTime;
     }

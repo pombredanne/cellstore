@@ -200,7 +200,7 @@ ul.selector {
     }
 }
 
-a.disabled {
+.disabled {
     opacity: 0.5 !important;
     pointer-events: none !important;
     cursor: default !important;
@@ -262,6 +262,20 @@ a.disabled {
 .semaphore.disabled {
     color: @btn-link-disabled-color;
     font-size: 0.7em;
+}
+
+.form-tight {
+    .form-group {
+        margin: 8px 0px;
+
+        *[class*='col-'] {
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+    }
+    .text-danger {
+        font-size: smaller;
+    }
 }
 
 .widget {
