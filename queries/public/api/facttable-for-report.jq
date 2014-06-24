@@ -5,10 +5,41 @@ import module namespace core = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
+
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
- 
+import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
+import module namespace networks = "http://xbrl.io/modules/bizql/networks";
+import module namespace report-schemas = "http://xbrl.io/modules/bizql/report-schemas";
+
 import module namespace csv = "http://zorba.io/modules/json-csv";
+
+declare function local:modify-hypercube(
+    $hypercube as object,
+    $options as object?) as object
+{
+    let $options :=
+    {|
+        for $dimension in keys($hypercube.Aspects)
+        let $hypercube-metadata := $hypercube.Aspects.$dimension
+        let $new-metadata := $options.$dimension
+        return {
+            $dimension : if(exists($new-metadata))
+            then
+                $new-metadata
+            else {|
+                { Type : $hypercube.Aspects.$dimension.Type }[$hypercube-metadata.Kind eq "TypedDimension"],
+                let $hypercube-domain := descendant-objects(values($hypercube-metadata.Domains)).Name
+                where exists($hypercube-domain)
+                return { Domain : [ $hypercube-domain ] },
+                let $hypercube-default := $hypercube-metadata.Default
+                where exists($hypercube-default)
+                return { Default : $hypercube-default }
+            |}
+        }
+    |}
+    return hypercubes:user-defined-hypercube($options)
+};
 
 declare function local:to-csv($o as object*) as string? 
 {
@@ -162,33 +193,34 @@ let $archives    := (
                     )
 let $entities    := entities:entities($archives.Entity)
 let $report := request:param-values("report")
+let $schema := report-schemas:report-schemas($report)
+let $hypercube := local:modify-hypercube(
+    hypercubes:hypercubes-for-components($schema, "xbrl:DefaultHypercube"),
+    {
+        "sec:Archive" : {
+            Type: "string",
+            Domain : [archives:aid($archives)]
+        }
+    }
+)
 let $facts :=
-    for $fact in core:facts-for-schema($report, $archives)
+    for $fact in core:facts-for({
+        Hypercube: $hypercube,
+        ConceptMaps: $report,
+        Rules: $report
+    })
     group by $archive := $fact.Archive
     let $archive := archives:archives($archive)
-    let $entity    := entities:entities($archive.Entity)
-    let $fp := $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus 
-    let $fy := $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus
+    let $entity := entities:entities($archive.Entity)
     for $fact in $fact
     return
     {|
-        { Aspects : {|
-            for $a in keys($fact.Aspects)
-            return { $a : $fact.Aspects.$a },
-            { "secxbrl:FiscalPeriod" : $fp },
-            { "secxbrl:FiscalYear" : $fy }
-        |} },
+        project($fact, "Aspects"),
         { Type: $fact.Type },
-        if (exists($fact.Aspects."xbrl:Unit"))
-        then { Unit: $fact.Aspects."xbrl:Unit" }
-        else  (),
-        if (exists($fact.Decimals))
-        then { Decimals: $fact.Decimals }
-        else (), 
-        { Value: $fact.Value },
+        { Unit: $fact.Aspects."xbrl:Unit" }[exists($fact.Aspects."xbrl:Unit")],
+        project($fact, ("Decimals", "Value")),
         { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
-        { "AuditTrails" : $fact.AuditTrails[] }
-        
+        project($fact, "AuditTrails")
     |}
 return 
     switch(session:check-access($entities, "data_sec"))
