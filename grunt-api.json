@@ -1,6 +1,5 @@
 {
-    "server": "secxbrl-dev.xbrl.io",
-    "test": "secxbrl-test.beta.28.io",
-    "beta": "secxbrl-beta.xbrl.io",
+    "server": "secxbrl.local.xbrl.io:8080",
+    "test": "secxbrl-beta.xbrl.io",
     "prod": "secxbrl.xbrl.io"
 }

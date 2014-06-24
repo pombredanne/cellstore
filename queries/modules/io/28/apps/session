@@ -47,7 +47,7 @@ declare function session:comment($format, $stats)
 
 declare function session:connect()
 {
-    let $cred := cred:credentials("MongoDB", "xbrl")
+    let $cred := trace(cred:credentials("MongoDB", "xbrl"), "session:connect")
     return mongo:connect($cred)
 };
 

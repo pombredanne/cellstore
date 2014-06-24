@@ -64,7 +64,7 @@ declare function local:to-xml($concepts as item*, $onlyNames as boolean) as elem
 declare function local:concepts-for-archives($aids as string*) as object*
 {
     let $conn :=   
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      let $credentials := trace(credentials:credentials("MongoDB", "xbrl"), "concept-for-archives")
       return
         try {
             mongo:connect($credentials)
@@ -81,7 +81,7 @@ declare function local:concepts-for-archives($aids as string*) as object*
 declare function local:concepts-for-archives($aids as string*, $names as string*, $map as string?) as object*
 {
     let $conn :=   
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      let $credentials := trace(credentials:credentials("MongoDB", "xbrl"), "concept-for-archives#2")
       return
         try {
             mongo:connect($credentials)
@@ -127,7 +127,7 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
 declare function local:concepts-for-archives-and-labels($aids as string*, $labels as string) as object*
 {
     let $conn :=
-        let $credentials := credentials:credentials("MongoDB", "xbrl")
+        let $credentials := trace(credentials:credentials("MongoDB", "xbrl"), "concept-for-archives-and-labels#2")
         return
             try {
                 mongo:connect($credentials)
