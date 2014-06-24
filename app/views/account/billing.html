@@ -95,8 +95,8 @@
                         <a ng-click="showCoupon=true" ng-show="!showCoupon" class="pull-left" translate>I have a coupon!</a>
                         <input type="hidden" name="recurly-token" data-recurly="token">
                         <button class="btn btn-primary" id="recurly-submit" type="submit" ng-class="{ disabled: loading }">
-                            <span ng-if="loading"><i class="fa fa-spinner fa-spin"></i> <span translate>Subscribing...</span></span>
-                            <span ng-if="!loading" translate>Subscribe</span>
+                            <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span translate>Subscribing...</span></span>
+                            <span ng-show="!loading" translate>Subscribe</span>
                         </button>
                         <button class="btn btn-default" id="recurly-cancel" type="button" ng-click="dismiss()" translate>Cancel</button>
                     </div>
@@ -114,8 +114,8 @@
                     <div class="modal-footer">
                         <input type="hidden" name="recurly-token" data-recurly="token">
                         <button class="btn btn-danger" id="recurly-submit" type="submit" ng-class="{ disabled: loading }">
-                            <span ng-if="loading"><i class="fa fa-spinner fa-spin"></i> <span translate>Unsubscribing...</span></span>
-                            <span ng-if="!loading" translate>Yes</span>
+                            <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span translate>Unsubscribing...</span></span>
+                            <span ng-show="!loading" translate>Yes</span>
                         </button>
                         <button class="btn btn-default" id="recurly-cancel" type="button" ng-click="dismiss()" translate>No</button>
                     </div>

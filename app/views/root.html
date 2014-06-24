@@ -12,15 +12,15 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse">
-                <div ng-show="!user" class="pull-right hidden-sm hidden-xs">
-                    <a class="btn btn-default menu-btn" ng-click="doAuth()" translate>Login / Sign-Up</a>
-                </div>
-                <div ng-show="user" class="pull-right btn-group user">
-                    <a class="btn btn-default" href="/account/info" translate>{{user.firstname}} {{user.lastname}}</a>
-                    <a class="btn btn-default" ng-click="doLogout()"><i class="fa fa-sign-out"></i></a>
+                <div class="pull-right hidden-sm hidden-xs">
+                    <a class="btn btn-default menu-btn" ng-click="doAuth( $event )" ng-hide="user" translate>Login / Sign-Up</a>
+                    <div ng-show="user" class="btn-group user">
+                        <a class="btn btn-default" href="/account/info" translate>{{user.firstname}} {{user.lastname}}</a>
+                        <a class="btn btn-default" ng-click="doLogout( $event )"><i class="fa fa-sign-out"></i></a>
+                    </div>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li ng-class="{ active: active === 'home' }">
+                    <li ng-class="{ active: active === 'home' }" class="hidden-sm hidden-xs">
                         <a href="/" translate>Home</a>
                     </li>
                     <li ng-class="{ active: active === 'pricing' }">
@@ -45,7 +45,9 @@
                         <a href="https://secxbrl.zendesk.com/" target="_blank" translate>Support</a>
                     </li>
                     <li class="visible-sm visible-xs">
-                        <a ng-click="doAuth()" translate>Login / Sign-Up</a>
+                        <a ng-click="doAuth( $event )" ng-show="!user" translate>Login / Sign-Up</a>
+                        <a href="/account/info" ng-show="user" class="pull-left" translate>{{user.firstname}} {{user.lastname}}</a>
+                        <a class="pull-left" ng-click="doLogout( $event )" ng-show="user"><i class="fa fa-sign-out"></i></a>
                     </li>
                 </ul>
             </div>
