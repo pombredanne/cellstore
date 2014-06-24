@@ -432,6 +432,22 @@ angular.module('main', [
                     deferred.resolve($rootScope.user);
                 }
                 return deferred.promise;
+            }],
+            isAuthorizedStatisticsUsage: ['$rootScope', '$q', '$backend', function($rootScope, $q, $backend) {
+                var deferred = $q.defer();
+
+                $backend.Users.isAuthorized({
+                    $method: 'POST',
+                    right: 'statistics_usage',
+                    token: $rootScope.token
+                })
+                .then(function(data) {
+                        deferred.resolve((data && data.success));
+                    },
+                    function() {
+                        deferred.resolve(false);
+                    });
+                return deferred.promise;
             }]
         },
         data: {
@@ -485,6 +501,28 @@ angular.module('main', [
         data: {
             subActive: 'tokens',
             title: 'API Tokens'
+        }
+    })
+    
+    .state('root.account.statistics_usage', {
+        url: '/statistics_usage',
+        templateUrl: '/views/admin/usage.html',
+        controller: 'AdminUsageCtrl',
+        resolve: {
+            apiStatistics: ['$rootScope', '$http', '$backend', function($rootScope, $http, $backend) {
+                return $http({
+                    method : 'GET',
+                    url: $backend.API_URL + '/_queries/public/UsageStats.jq',
+                    params : {
+                        '_method' : 'POST',
+                        'token' : $rootScope.token
+                    }
+                });
+            }]
+        },
+        data: {
+            title: 'API Usage',
+            subActive: 'statistics_usage'
         }
     })
 

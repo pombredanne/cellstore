@@ -4,6 +4,11 @@ angular.module('main')
 .controller('AdminUsageCtrl', function($scope, apiStatistics) {
     $scope.data = apiStatistics.data;
 
+    if ($scope.data.toDate)
+    {
+        $scope.data.toDate = new Date($scope.data.toDate) - 1;
+    }
+
     $scope.table = { 'cols': [
             { id: 'query', label: 'Query', type: 'string' },
             { id: 'calls', label: 'Calls', type: 'number' }
