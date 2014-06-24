@@ -9,6 +9,7 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace csv = "http://zorba.io/modules/json-csv";
  
+<<<<<<< HEAD
 declare function local:modify-hypercube(
     $hypercube as object,
     $options as object?) as object
@@ -36,6 +37,8 @@ declare function local:modify-hypercube(
     return hypercubes:user-defined-hypercube($options)
 };
 
+=======
+>>>>>>> dddcc19f2602e84eb1f886af820f8952fc4a5fdf
 declare function local:to-csv($o as object*) as string?
 {
     if (exists($o)) (: bug in csv:serialize :)
@@ -127,6 +130,19 @@ declare function local:to-xml($o as object*) as node()*
     }</FactTable>)
 };
 
+declare function local:contains-aspect($name as string) as boolean
+{
+  some $x in (request:param-names() ! starts-with($$, $name))
+  satisfies $x
+};
+
+declare function local:cast($value as string, $type as string) as atomic
+{
+  switch ($type)
+  case "integer" return $value cast as integer
+  default return error(xs:QName("local:unsupported-type"), $type || ": unsupported type")
+};
+
 declare function local:hypercube() as object
 {
     hypercubes:user-defined-hypercube({|
@@ -135,14 +151,15 @@ declare function local:hypercube() as object
             if (exists($concepts))
             then { "xbrl:Concept" : { Domain : [ $concepts ] } }
             else (),
-        
+
         if (not(request:param-names() = "dei:LegalEntityAxis"))
-        then { 
-                "dei:LegalEntityAxis" : { 
+        then {
+                "dei:LegalEntityAxis" : {
                     "Domain" : [ "sec:DefaultLegalEntity" ],
                     "Default" : "sec:DefaultLegalEntity"
                 }
         } else (),
+<<<<<<< HEAD
         
         if (not(request:param-names() = "sec:Accepted"))
         then { "sec:Accepted" : {  } } else (),
@@ -151,6 +168,16 @@ declare function local:hypercube() as object
         then { "sec:FiscalYear" : {  } } else (),
 
         if (not(request:param-names() = "sec:FiscalPeriod"))
+=======
+
+        if (not(local:contains-aspect("sec:Accepted")))
+        then { "sec:Accepted" : {  } } else (),
+
+        if (not(local:contains-aspect("sec:FiscalYear")))
+        then { "sec:FiscalYear" : {  } } else (),
+
+        if (not(local:contains-aspect("sec:FiscalPeriod")))
+>>>>>>> dddcc19f2602e84eb1f886af820f8952fc4a5fdf
         then { "sec:FiscalPeriod" : {  } } else (),
 
         for $p in request:param-names()
@@ -159,30 +186,30 @@ declare function local:hypercube() as object
                                     then substring-before($p, "::default")
                                     else if (ends-with(lower-case($p), ":default"))
                                     then substring-before($p, ":default")
+                                    else if (ends-with(lower-case($p), "::type"))
+                                    then substring-before($p, "::type")
                                     else $p
         let $all := (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
+        let $type := (request:param-values($dimension-name || "::type"), request:param-values($dimension-name || ":type"))[1]
         return
-        { 
+        {
             $dimension-name : {|
                 let $v := request:param-values($dimension-name)
                 return
                     if (exists($v) and not($all))
-                    then { "Domain" : [ $v ] }
+                    then { "Domain" : [ if (exists($type)) then local:cast($v, $type) else $v ] }
                     else (),
-            
-            let $predefined-default := collection("defaultaxis")[$$.axis eq $dimension-name]
+
             let $is-default := ($p = $dimension-name || "::default") or ($p = $dimension-name || ":default")
-            return 
-                if (exists($predefined-default) and not($is-default))
-                then { "Default" : $predefined-default.default }
-                else if ($is-default)
-                then { 
-                        "Default" : (
-                                request:param-values($dimension-name || "::default"),
-                                request:param-values($dimension-name || ":default")
-                            )[1]
-                    }
-                else ()
+            let $default := (request:param-values($dimension-name || "::default"), request:param-values($dimension-name || ":default"))[1]
+            return
+                (if ($is-default)
+                then {
+                    "Default" : if (exists($type)) then local:cast($default, $type) else $default
+                  } else (),
+                if (exists($type))
+                then { "Type" : $type }
+                else ())
             |}
         }
     |})
@@ -193,6 +220,7 @@ declare function local:facts(
     $map as string?,
     $rules as string?) as object*
 {
+<<<<<<< HEAD
     let $hypercube := local:modify-hypercube(
         local:hypercube(),
         {
@@ -209,6 +237,23 @@ declare function local:facts(
             if (exists($rules)) then { "Rules" : $rules } else ()
         |}
     )
+=======
+    for $fact in
+        for $f in hypercubes:facts-for-hypercube(local:hypercube(), $archives, 
+            {|
+                if (exists($map)) then { "ConceptMaps" : $map } else (),
+                if (exists($rules)) then { "Rules" : $rules } else ()
+            |}
+        )
+        group by $f.Aspects."xbrl:Entity",
+                 $f.Aspects."sec:FiscalYear",
+                 $f.Aspects."sec:FiscalPeriod",
+                 $f.Aspects."xbrl:Concept"
+        let $latest-accepted := max(distinct-values($f.Aspects."sec:Accepted"))
+        return if (empty($latest-accepted))
+               then $f
+               else $f[$$.Aspects."sec:Accepted" eq $latest-accepted]
+>>>>>>> dddcc19f2602e84eb1f886af820f8952fc4a5fdf
     return {|
         { Aspects : {|
             for $a in keys($fact.Aspects)

@@ -66,8 +66,8 @@ angular.module('main')
         $scope.columns.push('xbrl:Concept');
         $scope.columns.push('xbrl:Entity');
         $scope.columns.push('xbrl:Period');
-        $scope.columns.push('bizql:FiscalPeriod');
-        $scope.columns.push('bizql:FiscalYear');
+        $scope.columns.push('sec:FiscalPeriod');
+        $scope.columns.push('sec:FiscalYear');
         var insertIndex = 3;
 
         Object.keys($scope.data[0].Aspects).forEach(function (el) {
@@ -78,8 +78,9 @@ angular.module('main')
                     break;
                 case 'xbrl:Concept':
                 case 'xbrl:Period':
-                case 'bizql:FiscalPeriod':
-                case 'bizql:FiscalYear':
+                case 'sec:Accepted':
+                case 'sec:FiscalPeriod':
+                case 'sec:FiscalYear':
                     break;
                 case 'dei:LegalEntityAxis':
                     $scope.columns.splice(insertIndex, 0, el);
