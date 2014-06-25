@@ -40,6 +40,7 @@ angular.module('main')
                     break;
                 case 'xbrl:Concept':
                 case 'xbrl:Period':
+                case 'sec:Accepted':
                     break;
                 case 'dei:LegalEntityAxis':
                     $scope.columns.splice(insertIndex, 0, key);

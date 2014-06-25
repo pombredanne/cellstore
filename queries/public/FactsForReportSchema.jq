@@ -3,6 +3,7 @@ import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
+import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 
@@ -12,6 +13,32 @@ import module namespace session = "http://apps.28.io/session";
 
 import module namespace seq = "http://zorba.io/modules/sequence";
 
+declare function local:modify-hypercube(
+    $hypercube as object,
+    $options as object?) as object
+{
+    let $options :=
+    {|
+        for $dimension in keys(($hypercube.Aspects, $options))
+        let $hypercube-metadata := $hypercube.Aspects.$dimension
+        let $new-metadata := $options.$dimension
+        return {
+            $dimension : if(exists($new-metadata))
+            then
+                $new-metadata
+            else {|
+                { Type : $hypercube.Aspects.$dimension.Type }[$hypercube-metadata.Kind eq "TypedDimension"],
+                let $hypercube-domain := descendant-objects(values($hypercube-metadata.Domains)).Name
+                where exists($hypercube-domain)
+                return { Domain : [ $hypercube-domain ] },
+                let $hypercube-default := $hypercube-metadata.Default
+                where exists($hypercube-default)
+                return { Default : $hypercube-default }
+            |}
+        }
+    |}
+    return hypercubes:user-defined-hypercube($options)
+};
 session:audit-call();
 
 let $format  := lower-case(request:param-values("format")[1])
@@ -38,7 +65,20 @@ return switch(true)
         return {
             let $network as object :=
                 networks:networks-for-components-and-short-names($schema, "Presentation")
-            let $facts := sec:facts-for-schema($schema, $noncached-archives)
+            let $hypercube := local:modify-hypercube(
+                hypercubes:hypercubes-for-components($schema, "xbrl:DefaultHypercube"),
+                {
+                    "sec:Archive" : {
+                        Type: "string",
+                        Domain : [archives:aid($noncached-archives)]
+                    }
+                }
+            )
+            let $facts := sec:facts-for({
+                Hypercube: $hypercube,
+                ConceptMaps: $report,
+                Rules: $report
+            })
             let $computed-archives :=
                     for $facts-by-archive in $facts
                     let $archive := $archives[$$._id eq $facts-by-archive.Archive]
