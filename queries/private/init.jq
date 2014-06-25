@@ -29,6 +29,10 @@ if (is-available-collection("reportschemas"))
 then ();
 else create("reportschemas");
 
+if (is-available-collection("reports"))
+then ();
+else create("reports");
+
 if (is-available-collection("audit"))
 then ();
 else create("audit");

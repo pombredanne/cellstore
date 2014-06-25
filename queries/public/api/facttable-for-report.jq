@@ -1,44 +1,18 @@
-
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace core = "http://xbrl.io/modules/bizql/profiles/sec/core";
-import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
-import module namespace session = "http://apps.28.io/session";
-
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace report-schemas = "http://xbrl.io/modules/bizql/report-schemas";
+import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
+import module namespace reports = "http://xbrl.io/modules/bizql/reports";
 
+import module namespace sec-core = "http://xbrl.io/modules/bizql/profiles/sec/core";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
+import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+
+import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
-declare function local:modify-hypercube(
-    $hypercube as object,
-    $options as object?) as object
-{
-    let $options :=
-    {|
-        for $dimension in keys(($hypercube.Aspects, $options))
-        let $hypercube-metadata := $hypercube.Aspects.$dimension
-        let $new-metadata := $options.$dimension
-        return {
-            $dimension : if(exists($new-metadata))
-            then
-                $new-metadata
-            else {|
-                { Type : $hypercube.Aspects.$dimension.Type }[$hypercube-metadata.Kind eq "TypedDimension"],
-                let $hypercube-domain := descendant-objects(values($hypercube-metadata.Domains)).Name
-                where exists($hypercube-domain)
-                return { Domain : [ $hypercube-domain ] },
-                let $hypercube-default := $hypercube-metadata.Default
-                where exists($hypercube-default)
-                return { Default : $hypercube-default }
-            |}
-        }
-    |}
-    return hypercubes:user-defined-hypercube($options)
-};
+import module namespace session = "http://apps.28.io/session";
 
 declare function local:to-csv($o as object*) as string? 
 {
@@ -156,11 +130,49 @@ declare function local:filings(
                             if ($p eq "FY")
                             then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year 
                             else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                    case "ALL" return  $sec-fiscal:ALL_FISCAL_YEARS
-                    default return $fy
+                    case "ALL" return  ()
+                    default return ()
                 )
     for $fp in $fp 
     return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy ! ($$ cast as integer))
+};
+declare function local:filter-override(
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $fp as string*,
+    $fy as string*) as object?
+{
+    let $entities as object* := if ($tags = "ALL") then ()
+                                        else (
+                                            companies:companies($ciks),
+                                            companies:companies-for-tags($tags),
+                                            companies:companies-for-tickers($tickers),
+                                            companies:companies-for-SIC($sics)
+                                        )
+    where not deep-equal($fy, "LATEST")
+    let $fiscal-years as integer* := switch(true)
+                         case $fy = "ALL" return ()
+                         default return distinct-values($fy[$$ ne "LATEST"]!integer($fy))
+    let $fiscal-periods as string* := switch(true)
+                         case $fp = "ALL" return ()
+                         default return distinct-values($fp)
+    let $filter as object := {
+        "xbrl:Entity" : {|
+            { Type: "string" },
+            { Domain: [ $entities._id ] }[exists($entities)]
+        |},
+        "sec:FiscalYear" : {|
+            { Type: "integer" },
+            { Domain: [ $fiscal-years ] }[exists($fiscal-years)]
+        |},
+        "sec:FiscalPeriod" : {|
+            { Type: "string" },
+            { Domain: [ $fiscal-periods ] }[exists($fiscal-periods)]
+        |}
+    }
+    return $filter
 };
 
 session:audit-call();
@@ -192,22 +204,29 @@ let $archives    := (
                     )
 let $entities    := entities:entities($archives.Entity)
 let $report := request:param-values("report")
-let $schema := report-schemas:report-schemas($report)
-let $hypercube := local:modify-hypercube(
-    hypercubes:hypercubes-for-components($schema, "xbrl:DefaultHypercube"),
+let $filter-override-latest as object? :=
     {
         "sec:Archive" : {
             Type: "string",
             Domain : [archives:aid($archives)]
         }
-    }
-)
+    }[exists($archives)]
+let $filter-override-non-latest as object? := local:filter-override($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears)
 let $facts :=
-    for $fact in core:facts-for({
-        Hypercube: $hypercube,
-        ConceptMaps: $report,
-        Rules: $report
-    })
+    for $fact in (
+        reports:facts(
+            $report,
+            {
+                FilterOverride: $filter-override-latest
+            }
+        )[exists($filter-override-latest)],
+        reports:facts(
+            $report,
+            {
+                FilterOverride: $filter-override-non-latest
+            }
+        )[exists($filter-override-non-latest)]
+    )
     group by $archive := $fact.Archive
     let $archive := archives:archives($archive)
     let $entity := entities:entities($archive.Entity)
