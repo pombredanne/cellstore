@@ -67,7 +67,7 @@
                                 <span ng-show="$index==entityIndex">{{item.Aspects[key]}} <span ng-show="item.EntityRegistrantName">({{item.EntityRegistrantName}})</span></span>
                                 <span ng-show="$index!=entityIndex">{{item.Aspects[key]}}</span>
                               </td>
-                              <td ng-show="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
+                              <td ng-show="(item.Type == 'NumericValue')" style="text-align: right">{{item.Value | number}}</td>
                               <td ng-show="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
                               <td ng-show="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
                               <td>{{item.Unit=='xbrl:NonNumeric'?"":item.Unit}}</td>

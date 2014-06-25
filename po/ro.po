@@ -1950,3 +1950,63 @@ msgstr ""
 #: app/views/account/billing.html
 msgid "{{more}} older."
 msgstr ""
+
+#: app/views/pricing.html
+msgid "$49 / month (1 month trial)"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Access to DOW30 filings"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Adapt API for your sophisticated queries"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Affordable Access to Financial Information"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Bring your own filings"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Complete database of U.S. public company financial information. User-friendly and affordable access."
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Contact Us"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "No account or credit card required"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "One user"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Scalable processing power"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Sign Up"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Tailored to your needs"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Unlimited API calls"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Unlimited Users"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Your domain & your SSL certificate"
+msgstr ""

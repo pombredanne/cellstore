@@ -73,8 +73,8 @@
               <tbody>
                 <tr ng-repeat="item in data | filter : search">
                   <td>{{$index + 1}}</td>
-                  <td ng-repeat="key in columns" class="nowrap"><span ng-show="$index==entityIndex">{{item.Aspects[key].substring(23)}} ({{item.EntityRegistrantName}})</span><span ng-show="$index!=entityIndex">{{item.Aspects[key]}}</span></td>
-                  <td ng-show="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
+                  <td ng-repeat="key in columns" class="nowrap"><span ng-show="$index==entityIndex">{{item.Aspects[key].substring(23)}} ({{EntityRegistrantName}})</span><span ng-show="$index!=entityIndex">{{item.Aspects[key]}}</span></td>
+                  <td ng-show="(item.Type == 'NumericValue')" style="text-align: right">{{item.Value | number}}</td>
                   <td ng-show="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
                   <td ng-show="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)" translate>Show Text</a></td>
                   <td>{{item.Unit=='xbrl:NonNumeric'?"":item.Unit}}</td>

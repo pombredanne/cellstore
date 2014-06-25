@@ -9,15 +9,27 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/">secxbrl.info<sub translate>beta</sub></a>
+                <div class="pull-right btn-menu btn-language visible-sm visible-xs dropdown">
+                    <button class="btn btn-default dropdown-toggle" ng-show="langs.length > 1">{{lang.code}}</button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="l in langs"><a ng-click="setLanguage(l)">{{l.name}}</a></li>
+                    </ul>
+                </div>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <div class="pull-right hidden-sm hidden-xs">
-                    <a class="btn btn-default menu-btn" ng-click="doAuth( $event )" ng-hide="user" translate>Login / Sign-Up</a>
-                    <div ng-show="user" class="btn-group user">
+                    <a class="btn btn-default btn-menu" ng-click="doAuth( $event )" ng-hide="user" translate>Login / Sign-Up</a>
+                    <div ng-show="user" class="btn-group btn-menu">
                         <a class="btn btn-default" href="/account/info" translate>{{user.firstname}} {{user.lastname}}</a>
                         <a class="btn btn-default" ng-click="doLogout( $event )"><i class="fa fa-sign-out"></i></a>
                     </div>
+                </div>
+                <div class="pull-right btn-menu btn-language dropdown hidden-sm hidden-xs">
+                    <button class="btn btn-default dropdown-toggle" ng-show="langs.length > 1">{{lang.code}}</button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="l in langs"><a ng-click="setLanguage(l)">{{l.name}}</a></li>
+                    </ul>
                 </div>
                 <ul class="nav navbar-nav">
                     <li ng-class="{ active: active === 'home' }" class="hidden-sm hidden-xs">

@@ -3,7 +3,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: app/views/pricing.html
+msgid "$49 / month (1 month trial)"
+msgstr ""
+
 #: app/views/account/billing.html
+#: app/views/pricing.html
 msgid "1000 API calls per month"
 msgstr ""
 
@@ -204,6 +209,7 @@ msgid "API Tokens"
 msgstr ""
 
 #: app/views/account/billing.html
+#: app/views/pricing.html
 msgid "API access"
 msgstr ""
 
@@ -235,7 +241,12 @@ msgstr ""
 msgid "Accepted:"
 msgstr ""
 
+#: app/views/pricing.html
+msgid "Access to DOW30 filings"
+msgstr ""
+
 #: app/views/account/billing.html
+#: app/views/pricing.html
 msgid "Access to all SEC filings"
 msgstr ""
 
@@ -262,12 +273,20 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
+#: app/views/pricing.html
+msgid "Adapt API for your sophisticated queries"
+msgstr ""
+
 #: app/views/comparison/search.html
 msgid "Add"
 msgstr ""
 
 #: app/views/terms-of-use.html
 msgid "Address:"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Affordable Access to Financial Information"
 msgstr ""
 
 #: app/views/example.html
@@ -358,11 +377,16 @@ msgstr ""
 msgid "Breakdown General Electric’s 2013 Assets by Business Segments."
 msgstr ""
 
+#: app/views/pricing.html
+msgid "Bring your own filings"
+msgstr ""
+
 #: app/views/root.html
 msgid "Browse"
 msgstr ""
 
 #: app/views/home.html
+#: app/views/pricing.html
 msgid "Browse DOW30"
 msgstr ""
 
@@ -468,6 +492,10 @@ msgstr ""
 msgid "Compare the DOW30's latest filings using fundamental accounting concepts."
 msgstr ""
 
+#: app/views/pricing.html
+msgid "Complete database of U.S. public company financial information. User-friendly and affordable access."
+msgstr ""
+
 #: app/views/entity/modelstructure.html
 msgid "Component"
 msgstr ""
@@ -524,6 +552,10 @@ msgstr ""
 msgid "Connectors"
 msgstr ""
 
+#: app/views/pricing.html
+msgid "Contact Us"
+msgstr ""
+
 #: app/views/terms-of-use.html
 msgid "Contributor"
 msgstr ""
@@ -541,6 +573,7 @@ msgid "Create reports the way you need them. Add aggregates, ratios, or external
 msgstr ""
 
 #: app/views/home.html
+#: app/views/pricing.html
 msgid "Custom Reports"
 msgstr ""
 
@@ -1245,6 +1278,10 @@ msgstr ""
 msgid "No Warranty"
 msgstr ""
 
+#: app/views/pricing.html
+msgid "No account or credit card required"
+msgstr ""
+
 #: app/views/account/billing.html
 msgid "No billing information present"
 msgstr ""
@@ -1300,6 +1337,10 @@ msgstr ""
 
 #: app/views/account/password.html
 msgid "Old password is required."
+msgstr ""
+
+#: app/views/pricing.html
+msgid "One user"
 msgstr ""
 
 #: app/views/entity/information.html
@@ -1535,6 +1576,10 @@ msgstr ""
 msgid "SOME STATES DO NOT ALLOW THE EXCLUSION OR LIMITATION OF INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE ABOVE LIMITATIONS OR EXCLUSIONS MAY NOT APPLY TO YOU.  THIS AGREEMENT GIVES YOU SPECIFIC LEGAL RIGHTS, AND YOU MAY ALSO HAVE OTHER RIGHTS WHICH VARY FROM STATE TO STATE.  THE EXCLUSIONS AND LIMITATIONS OF LIABILITY UNDER THIS AGREEMENT WILL NOT APPLY TO THE EXTENT PROHIBITED BY APPLICABLE LAW."
 msgstr ""
 
+#: app/views/pricing.html
+msgid "Scalable processing power"
+msgstr ""
+
 #: app/views/root.html
 msgid "Search"
 msgstr ""
@@ -1580,6 +1625,10 @@ msgstr ""
 #: app/views/entity/facttable.html
 #: app/views/entity/information.html
 msgid "Show Text"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Sign Up"
 msgstr ""
 
 #: app/views/account/billing.html
@@ -1640,6 +1689,7 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
+#: app/views/pricing.html
 #: app/views/root.html
 msgid "Support"
 msgstr ""
@@ -1677,6 +1727,10 @@ msgstr ""
 #: app/views/entity/component.html
 #: app/views/entity/filing.html
 msgid "Tables"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Tailored to your needs"
 msgstr ""
 
 #: app/views/concept-map.html
@@ -1775,6 +1829,7 @@ msgid "Type"
 msgstr ""
 
 #: app/views/account/billing.html
+#: app/views/pricing.html
 msgid "UI access"
 msgstr ""
 
@@ -1790,6 +1845,14 @@ msgstr ""
 #: app/views/entity/facttable.html
 #: app/views/example.html
 msgid "Unit"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Unlimited API calls"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Unlimited Users"
 msgstr ""
 
 #: app/views/account/billing.html
@@ -1942,6 +2005,10 @@ msgstr ""
 #: app/views/comparison/information.html
 #: app/views/comparison/validations-dashboard.html
 msgid "Your account is restricted to compare 30 filings at a time. Please <a href=\"mailto:hello@28.io\">contact us</a> to talk about your use case."
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Your domain & your SSL certificate"
 msgstr ""
 
 #: app/views/404.html

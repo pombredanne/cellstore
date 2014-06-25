@@ -1,9 +1,7 @@
 'use strict';
 
-/*globals accounting*/
-
 angular.module('main')
-.controller('ComparisonValidationsDashboardCtrl', function($scope, $location, $state, $backend, informations) {
+.controller('ComparisonValidationsDashboardCtrl', function($scope, $location, $state, $filter, $backend, informations) {
     $scope.showtab = [];
     $scope.reports = [];
     $scope.reportname = 'FundamentalAccountingConcepts';
@@ -69,7 +67,7 @@ angular.module('main')
                     report.percentage = null;
                     if (valCount > 0){
                         report.percentage = report.passed / valCount * 100;
-                        report.successRate = accounting.formatNumber(report.percentage, 2);
+                        report.successRate = $filter('number')(report.percentage, 2);
                     }
 
                     var validations =

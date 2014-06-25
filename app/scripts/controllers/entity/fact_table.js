@@ -1,7 +1,5 @@
 'use strict';
 
-/*globals accounting*/
-
 angular.module('main')
 .controller('FactTableCtrl', function($rootScope, $scope, $stateParams, $backend, facttable) {
     
@@ -68,10 +66,6 @@ angular.module('main')
 
     $scope.showText = function(html) {
         $scope.$emit('alert', 'Text Details', html);
-    };
-
-    $scope.showNumber = function(value) {
-        return accounting.formatNumber(value);
     };
 
     $scope.isBlock = function(string) {
