@@ -10,9 +10,24 @@ import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 - Options for relationship networks (formulaAxis, depth)
 :)
 
-(:
-    Converts a definition breakdown to a structural breakdown
-:)
+(:~
+ : Converts a definition breakdown to a structural breakdown
+ :
+ : @param $breakdown a breandowk
+ : @param $components a sequence of components
+ : @param $parent-child-order "parentFirst" or "childrenFirst"
+ :
+ : @error resolution:unknown-definition-node-kind if a definition node kind
+ : is unrecognized.
+ : @error resolution:unresolved-concept-relationship if a root concept
+ : cannot be resolved.
+ : @error resolution:unresolved-dimension-relationship if a root member
+ : cannot be resolved.
+ : @error resolution:non-abstract-merge-node if a rule node is merge,
+ : but non-abstract.
+ :
+ : @return the converted, structural breakdown.
+ :)
 declare %private function resolution:convert-breakdown(
     $breakdown as object,
     $components as object*,
@@ -35,9 +50,24 @@ declare %private function resolution:convert-breakdown(
     }
 };
 
-(:
-    Converts a definition node to one or more structural nodes
-:)
+(:~
+ : Converts each definition node to one or more structural nodes
+ :
+ : @param $definition-nodes some definition nodes.
+ : @param $components a sequence of components
+ : @param $parent-child-order "parentFirst" or "childrenFirst"
+ :
+ : @error resolution:unknown-definition-node-kind if a definition node kind
+ : is unrecognized.
+ : @error resolution:unresolved-concept-relationship if a root concept
+ : cannot be resolved.
+ : @error resolution:unresolved-dimension-relationship if a root member
+ : cannot be resolved.
+ : @error resolution:non-abstract-merge-node if a rule node is merge,
+ : but non-abstract.
+ :
+ : @return the converted structural nodes.
+ :)
 declare %private function resolution:convert-definition-nodes(
     $definition-nodes as object*,
     $components as object*,
@@ -74,10 +104,19 @@ declare %private function resolution:convert-definition-nodes(
            else $converted-node
 };
 
-(:
-    Converts a rule definition node to one or more structural nodes.
-    A rule node restricts a dimension to a value.
-:)
+(:~
+ : Converts a rule definition node to one or more structural nodes.
+ : A rule node restricts a dimension to a value.
+ :
+ : @param $definition-node a definition node.
+ : @param $components a sequence of components
+ : @param $parent-child-order "parentFirst" or "childrenFirst"
+ :
+ : @error resolution:non-abstract-merge-node if a rule node is merge,
+ : but non-abstract.
+ :
+ : @return the converted structural nodes.
+ :)
 declare %private function resolution:convert-rule-node(
     $definition-node as object,
     $components as object*,
@@ -120,7 +159,8 @@ declare %private function resolution:convert-rule-node(
                     true)
         return $c
     return switch(true)
-           case not $definition-node.Abstract and $definition-node.Merge return error()
+           case not $definition-node.Abstract and $definition-node.Merge
+                return error(QName("resolution:non-abstract-merge-node"), "A definition rule node cannot be non-abstract and merged.")
            case $definition-node.Merge return $merged-children
            case $definition-node.Abstract return {|
                 {
@@ -160,11 +200,17 @@ declare %private function resolution:convert-rule-node(
             |}
 };
 
-(:
-    Convert an aspect definition node to one or more structural nodes.
-    An aspect nodes will expand to all values found in the fact pool during
-    the layouting stage.
-:)
+(:~
+ : Convert an aspect definition node to one or more structural nodes.
+ : An aspect nodes will expand to all values found in the fact pool during
+ : the layouting stage.
+ :
+ : @param $definition-node a definition node.
+ : @param $components a sequence of components
+ : @param $parent-child-order "parentFirst" or "childrenFirst"
+ :
+ : @return the converted structural node.
+ :)
 declare %private function resolution:convert-aspect-node(
     $definition-node as object,
     $components as object*,
@@ -186,11 +232,20 @@ declare %private function resolution:convert-aspect-node(
     |}
 };
 
-(:
-    Convert a concept relationship definition node to one or more structural nodes.
-    A concept relationship node will automatically expand a network to a hierarchy
-    of structural nodes.
-:)
+(:~
+ : Convert a concept relationship definition node to one or more structural nodes.
+ : A concept relationship node will automatically expand a network to a hierarchy
+ : of structural nodes.
+ :
+ : @param $definition-node a definition node.
+ : @param $components a sequence of components
+ : @param $parent-child-order "parentFirst" or "childrenFirst"
+ :
+ : @error resolution:unresolved-concept-relationship if the root concept
+ : cannot be resolved.
+ :
+ : @return the converted structural node.
+ :)
 declare %private function resolution:convert-concept-relationship-node(
     $definition-node as object,
     $components as object*,
@@ -210,12 +265,18 @@ declare %private function resolution:convert-concept-relationship-node(
     let $subnetwork := descendant-objects($network.Trees)[$$.Name eq $root]
     return if(exists($subnetwork))
     then resolution:expand-concept-network($subnetwork, $components, $parent-child-order)
-    else error()
+    else error(QName("resolution:unresolved-concept-relationship"), $root || ": The concept root could not be resolved.")
 };
 
-(:
-    Helper, recursive function for resolution:convert-concept-relationship-node#3
-:)
+(:~
+ : Helper, recursive function for resolution:convert-concept-relationship-node#3
+ :
+ : @param $network a network to expand.
+ : @param $components a sequence of components.
+ : @param $parent-child-order "parentFirst" or "childrenFirst"
+ :
+ : @return the converted structural nodes.
+ :)
 declare %private function resolution:expand-concept-network(
     $network as object,
     $components as object*,
@@ -279,11 +340,19 @@ declare %private function resolution:expand-concept-network(
     |}
 };
 
-(:
-    Convert a dimension relationship definition node to one or more structural nodes.
-    A dimension relationship node will automatically expand a network to a hierarchy
-    of structural nodes.
-:)
+(:~
+ : Convert a dimension relationship definition node to one or more structural nodes.
+ : A dimension relationship node will automatically expand a network to a hierarchy
+ : of structural nodes.
+ : @param $definition-node a definition node.
+ : @param $components a sequence of components
+ : @param $parent-child-order "parentFirst" or "childrenFirst"
+ :
+ : @error resolution:unresolved-concept-relationship if the root member
+ : cannot be resolved.
+ :
+ : @return the converted structural node.
+ :)
 declare %private function resolution:convert-dimension-relationship-node(
     $definition-node as object,
     $components as object*,
@@ -296,7 +365,7 @@ declare %private function resolution:convert-dimension-relationship-node(
     let $subnetwork as object := descendant-objects($hypercubes.Aspects.$dimension)[$$.Name eq $root][1]
     return if(exists($subnetwork))
     then resolution:expand-dimension-network($dimension, $subnetwork, $components, $parent-child-order)
-    else error()
+    else error(QName("resolution:unresolved-dimension-relationship"), $root || ": The dimension member root could not be resolved.")
 };
 
 (:
@@ -346,19 +415,28 @@ declare function resolution:depth($axis-breakdown-trees as object*) as integer
     default return max($axis-breakdown-trees.Children[] ! (1 + resolution:depth($$)))
 };
 
-(:
-    Helper function that height-balances a breakdown trees set,
-    by adding roll-up nodes to get a uniform depth.
-:)
+(:~
+ : Helper function that height-balances a breakdown trees set,
+ : by adding roll-up nodes to get a uniform depth.
+ :
+ : @param $axis-breakdown-trees the breakdown trees for an axis
+ :
+ : @return the balanced breakdown trees.
+ :)
 declare function resolution:height-balance($axis-breakdown-trees as object*) as object*
 {
     let $depth := resolution:depth($axis-breakdown-trees)
     return resolution:height-balance($axis-breakdown-trees, $depth)
 };
 
-(:
-    Helper, recursive function for resolution:height-balance#1.
-:)
+(:~
+ : Helper, recursive function for resolution:height-balance#1.
+ :
+ : @param $axis-breakdown-trees the breakdown trees for an axis
+ : @parem the depth at which these trees should get balanced.
+ :
+ : @return the balanced breakdown trees.
+ :)
 declare function resolution:height-balance($axis-breakdown-trees as object*, $desired-depth as integer) as object*
 {
   let $roll-up-cell := {
@@ -389,6 +467,14 @@ declare function resolution:height-balance($axis-breakdown-trees as object*, $de
                   return error(QName("resolution:unforeseen-error"), "An error occurred while height-balancing")
 };
 
+(:~
+ : Retrieves the metadata for some members from a component.
+ :
+ : @param $components a sequence of components.
+ : @param $member-names the names of the members for which to retrieve the metadata.
+ :
+ : @return the metadata for the supplied members.
+ :)
 declare %private function resolution:metadata(
     $components as object*,
     $member-names as string*) as object*
@@ -423,19 +509,21 @@ declare function resolution:resolve(
  : @param $component A component, in 28msec's proprietary JSON format.
  : @param $options Optional parameters among which 
  :  <ul>
- :    <li>DimensionDefaults: an object with two fields:
- :      <ul>
- :        <li>HasDefault: a boolean to set to false to not have a default even if the components
- :        specify one.</li>
- :        <li>Default: an atomic that specifies the default value to use instead of whatever
- :        the components specify.</li>
+ :    <li>Hypercube: override the components' hypercubes with the provided hypercube
+ :      (this will only affect the default values used later in the layout pipeline).</li>
  :      </ul>
  :    </li>
  :  </ul>
  :
  : @error resolution:unforeseen-error Something went wrong, contact us.
  : @error resolution:unknown-definition-node-kind A definition node was not recognized.
- : 
+ : @error resolution:unresolved-concept-relationship if the root concept
+ : cannot be resolved.
+ : @error resolution:unresolved-dimension-relationship if the root member
+ : cannot be resolved.
+ : @error resolution:non-abstract-merge-node if a rule node is merge,
+ : but non-abstract.
+ :
  : @return a structural model
  :)
 declare function resolution:resolve(
@@ -443,8 +531,7 @@ declare function resolution:resolve(
     $components as object*,
     $options as object?) as object
 {
-    let $dimension-defaults := $options.DimensionDefaults
-    return {
+    {
         ModelKind: "StructuralModel",
         TableSetLabels: $definition-model.Labels,
         TableSet : [
@@ -471,18 +558,15 @@ declare function resolution:resolve(
             }
         |},
         DimensionDefaults: {|
-            let $hypercubes as object* := values($components.Hypercubes)
+            let $hypercubes as object* :=
+                if(exists($options.Hypercube))
+                then $options.Hypercube
+                else values($components.Hypercubes)
             for $dimension as string in keys($hypercubes.Aspects)
             let $hypercube-default as atomic? := $hypercubes.Aspects.$dimension.Default[1]
-            let $has-default as boolean := let $option-default as object?:= $dimension-defaults.$dimension
-                                           return switch(true)
-                                             case exists($option-default.HasDefault) return $option-default.HasDefault
-                                             case exists($option-default.Default) return true
-                                             case exists($hypercube-default) return true
-                                             default return false
-            where $has-default
+            where exists($hypercube-default)
             return {
-                $dimension: ($dimension-defaults.$dimension.Default, $hypercube-default)[1]
+                $dimension: $hypercube-default
             } 
         |}
     }

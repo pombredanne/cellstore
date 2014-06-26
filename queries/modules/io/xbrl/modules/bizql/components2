@@ -11,6 +11,36 @@ import module namespace layout = "http://xbrl.io/modules/bizql/layout";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 
+
+(:~
+ : <p>Retrieves all definition models in a component.</p>
+ :
+ : @param $component a component object.
+ : 
+ : @return all definition models
+ :)
+declare function components2:definition-models-for-component(
+    $component as object) as object*
+{
+    $component.DefinitionModels[]
+};
+
+(:~
+ : <p>Retrieves definition models in a component
+ : that have the supplied names.</p>
+ :
+ : @param $component a component object.
+ : @param $names a sequence of names.
+ :
+ : @return the definition models.
+ :)
+declare function components2:definition-models-for-component(
+    $component as object,
+    $names as string*) as object
+{
+    $component.DefinitionModels[][$$.Name = $names]
+};
+
 (:~
  : <p>Builds a standard definition model out of the specified component.</p>
  : <p>The concepts will be put on the y axis according to the presentation network.</p>
@@ -25,9 +55,9 @@ import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/se
  :
  : @return a definition model
  :)
-declare function components2:definition-model-for-component($component as object) as object
+declare function components2:automated-definition-model-for-component($component as object) as object
 {
-    components2:definition-model-for-component($component, ())
+    components2:automated-definition-model-for-component($component, ())
 };
 
 
@@ -52,7 +82,7 @@ declare function components2:definition-model-for-component($component as object
  : @error components2:hypercube-does-not-exist if the specified hypercube is not found.
  : @return a definition model
  :)
-declare function components2:definition-model-for-component($component as object, $options as object?) as object
+declare function components2:automated-definition-model-for-component($component as object, $options as object?) as object
 {
     let $user-chosen-table as object? := hypercubes:hypercubes-for-components($component, $options.HypercubeName)
     let $non-implicit-table as object? := hypercubes:hypercubes-for-components($component)[$$.Name ne "xbrl:DefaultHypercube"][1]
@@ -221,9 +251,9 @@ declare function components2:definition-model-for-component($component as object
  :
  : @return a layout model
  :)
-declare function components2:layout-model-for-component($component as item) as object
+declare function components2:automated-layout-model-for-component($component as item) as object
 {
-    components2:layout-model-for-component($component, ())
+    components2:automated-layout-model-for-component($component, ())
 };
 
 
@@ -249,9 +279,9 @@ declare function components2:layout-model-for-component($component as item) as o
  : @error components2:hypercube-does-not-exist if the specified hypercube is not found.
  : @return a layout model
  :)
-declare function components2:layout-model-for-component($component as item, $options as object?) as object
+declare function components2:automated-layout-model-for-component($component as item, $options as object?) as object
 {
-    let $definition-model as object := components2:definition-model-for-component($component, $options)
+    let $definition-model as object := components2:automated-definition-model-for-component($component, $options)
     let $structural-model as object := resolution:resolve($definition-model, $component, $options)
     let $layout-model as object := layout:layout($structural-model, $options)
     return $layout-model

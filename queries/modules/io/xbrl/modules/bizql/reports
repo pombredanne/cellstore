@@ -33,13 +33,17 @@ module namespace reports = "http://xbrl.io/modules/bizql/reports";
 
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
+import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 import module namespace networks = "http://xbrl.io/modules/bizql/networks";
+import module namespace resolution = "http://xbrl.io/modules/bizql/resolution";
+import module namespace layout = "http://xbrl.io/modules/bizql/layout";
+import module namespace charles = "http://xbrl.io/modules/bizql/profiles/accountant/converter";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
 
 (:~
- : Name of the collection the report schemas are stored in.
+ : Name of the collection the reports are stored in.
  :)
 declare variable $reports:col as string := "reports";
 
@@ -54,9 +58,9 @@ declare function reports:reports() as object*
 };
 
 (:~
- : <p>Return the reports with the given names (RIDs).</p>
+ : <p>Return the reports with the given RIDs.</p>
  :
- : @param $reports-or-ids the ids of the reports (RIDs) or the
+ : @param $reports-or-ids the report ids (RIDs) or the
  : reports themselves.
  : 
  : @return the reports with the given RIDs or the 
@@ -98,10 +102,10 @@ declare %an:sequential function reports:add($report as object) as ()
 {
   if (empty($report._id))
   then error(QName("reports:INVALID-REPORT"),
-    "schema object does not contain an _id field");
+    "report does not contain mandatory _id field.");
   else if (exists(reports:reports($report._id)))
        then fn:error(QName("reports:EXISTS"),
-                     $report._id || ": report schema already exists");
+                     $report._id || ": report already exists");
        else insert($reports:col, $report);
 };
 
@@ -125,7 +129,7 @@ as ()
   let $existing := reports:reports($report._id)
   return if (empty($existing))
          then error(QName("reports:DOES-NOT-EXIST"),
-             $report._id || ": report with given id does not exist");
+             $report._id || ": report does not exist");
          else edit($existing, $report);
 };
 
@@ -145,7 +149,7 @@ as ()
   let $id := reports:rid($report-or-id)
   return if (empty($report))
   then error(QName("reports:DOES-NOT-EXIST"),
-    $id || ": report with given _id does not exist");
+    $id || ": report does not exist");
   else delete($report);
 };
 
@@ -168,17 +172,17 @@ declare function reports:rid($report-or-id as item) as atomic
     return if(exists($rid))
            then $rid
            else error(QName("reports:INVALID_PARAMETER"), 
-                      "Invalid report provided (no _id field)")
+                      "report does not contain mandatory _id field.")
   case $rid as atomic return $rid
   default return error(
       QName("reports:INVALID_PARAMETER"),
-      "Invalid report or RID (must be an object or an atomic): "
-      || serialize($report-or-id))
+      serialize($report-or-id) || ": Invalid report or RID (must be an object or an atomic): "
+  )
 };
 
 (:~
  :
- : <p>Retrieves all facts from the supplied archives, that are relevant to the
+ : <p>Retrieves all facts that are relevant to the
  : supplied reports, and populates them with the default dimension values
  : when missing.</p>
  : <p>The default hypercube will be taken, and the concept maps and rules will
@@ -198,7 +202,7 @@ as object*
 
 (:~
  :
- : <p>Retrieves all facts from the supplied archives, that are relevant to the
+ : <p>Retrieves all facts that are relevant to the
  : supplied reports, and populates them with the default dimension values
  : when missing.</p>
  : 
@@ -241,12 +245,95 @@ as object*
     )
     else $hypercube
   return hypercubes:facts(
-      $hypercube,
-      {|
-        $options,
-        { "ConceptMaps": $concept-map }[exists($concept-map)],
-        { "Rules": $rules }[exists($rules)]
-      |}
-  )
+          $hypercube,
+          {|
+            $options,
+            { "ConceptMaps": $concept-map }[exists($concept-map)],
+            { "Rules": $rules }[exists($rules)]
+          |}
+         )
 };
+
+(:~
+ :
+ : <p>Retrieves the spreadsheet-like rendering for the report.</p>
+ : <p>The default definition model will be taken.</p>
+ : <p>The default hypercube will be taken, and the concept maps and rules will
+ : be used if any.</p>
+ :
+ : @param $report-or-id a report or its RID,
+ :
+ : @return a sequence of facts with populated dimension values.
+ :)
+declare function reports:spreadsheet(
+    $report-or-id as item
+)
+as object*
+{
+  reports:spreadsheet($report-or-id, {})
+};
+
+(:~
+ :
+ : <p>Retrieves the spreadsheet-like rendering for the report.</p>
+ :
+ : @param $report-or-id a report or its RID,
+ : @param $options <a href="facts#standard_options">standard fact retrieving options</a> as well as
+ : <ul>
+ :   <li>FilterOverride: hypercube dimension specs (as defined as hypercubes:user-defined-hypercube)
+ :   to override filters in the report's hypercube.</li>
+ :   <li>HypercubeName: picks a different hypercube than the default one (xbrl:DefaultHypercube).</li>
+ : </ul>
+ :
+ : 
+ : @error err:XPTY0004 if zero, or more than one definition models are found.
+ :
+ : @return a sequence of facts with populated dimension values.
+ :)
+declare function reports:spreadsheet(
+    $report-or-id as item,
+    $options as object?
+)
+as object*
+{
+    let $report as object := reports:reports($report-or-id)
+    let $definition-model as object :=
+        if(exists($options.DefinitionModelName))
+        then components2:definition-models-for-component($report, $options.DefinitionModelName)
+        else components2:definition-models-for-component($report)
+    let $overriden-hypercube as object? :=
+        if(exists($options.Hypercube))
+        then $options.Hypercube
+        else hypercubes:hypercubes-for-components(
+             $report,
+             if (exists($options.HypercubeName))
+             then $options.HypercubeName
+             else "xbrl:DefaultHypercube"
+    )
+  let $concept-map := networks:networks-for-components-and-short-names(
+      $report,
+      "ConceptMap")
+  let $rules := $report.Rules
+    let $new-options :=
+        {|
+            $options,
+            { "ConceptMaps": $concept-map }[exists($concept-map)],
+            { "Rules": $rules }[exists($rules)],
+            if(exists($options.FilterOverride))
+            then {
+                Hypercube: hypercubes2:modify-hypercube(
+                    $overriden-hypercube,
+                    $options.FilterOverride
+                )
+            } else ()
+        |}
+    let $structural-model as object := resolution:resolve($definition-model, $report, $new-options)
+    let $layout-model as object := layout:layout($structural-model, $new-options)
+    let $accountant-model as object := charles:charlify($layout-model)
+    return
+        if($options.FlattenRows)
+        then $accountant-model
+        else $layout-model
+};
+
 

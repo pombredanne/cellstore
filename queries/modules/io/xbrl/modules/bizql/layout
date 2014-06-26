@@ -147,26 +147,40 @@ declare function layout:build-hypercube(
     return hypercubes:user-defined-hypercube(
             {|
                 for $dimension in distinct-values((keys(($hypercube.Aspects, $table-domain)), $open-dimensions))
-                let $hypercube-members := descendant-objects($hypercube.Aspects.$dimension.Domains).Name
+                let $dimension-type as string? := $dimension.Type
+                let $hypercube-members as atomic* := (
+                    descendant-objects($hypercube.Aspects.$dimension.Domains).Name,
+                    $hypercube.Aspects.$dimension.DomainRestriction.Enumeration[])
                 let $hypercube-default := ($hypercube.Aspects.$dimension.Default,
                                            $structural-model.DimensionDefaults.$dimension)[1]
 
                 let $table-domain-members := $table-domain.$dimension[]
 
-                let $actual-members := if (exists($hypercube-members))
-                                       then $hypercube-members[$$ = $table-domain-members]
-                                       else $table-domain-members
+                let $actual-members :=
+                    switch(true)
+                    case exists($hypercube-members) and exists($table-domain-members)
+                        return $hypercube-members[$$ = $table-domain-members]
+                    case exists($hypercube-members)
+                        return $hypercube-members
+                    case exists($table-domain-members)
+                        return $table-domain-members
+                    default return () 
+                    
+                let $inferred-type as string? :=
+                    typeswitch($actual-members[not ($$ instance of null)])
+                    case string* return
+                            if(contains(($actual-members)[not ($$ instance of null)][1], ":"))
+                            then ()
+                            else "string"
+                    case int* return "int"
+                    case integer* return "integer"
+                    case boolean* return "boolean"
+                    default return "atomic"
+                let $actual-type as string? := ($dimension-type, $inferred-type)[1]
+
                 return {
                     $dimension : {|
-                        typeswitch($actual-members[not ($$ instance of null)])
-                        case string* return
-                                if(contains(($actual-members)[not ($$ instance of null)][1], ":"))
-                                then ()
-                                else { Type: "string" }
-                        case int* return { Type: "int" }
-                        case integer* return { Type: "integer" }
-                        case boolean* return { Type: "boolean" }
-                        default return { Type: "atomic" },
+                        { Type : $actual-type }[exists($actual-type) and exists($actual-members)],
 
                         if(exists($actual-members))
                         then {

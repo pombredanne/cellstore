@@ -77,23 +77,34 @@ declare function local:filter-override(
     where not deep-equal($fy, "LATEST")
     let $fiscal-years as integer* := switch(true)
                          case $fy = "ALL" return ()
-                         default return distinct-values($fy[$$ ne "LATEST"]!integer($fy))
+                         default return distinct-values(
+                             for $fy in $fy
+                             where $fy ne "LATEST"
+                             return integer($fy)
+                         )
     let $fiscal-periods as string* := switch(true)
                          case $fp = "ALL" return ()
                          default return distinct-values($fp)
     let $filter as object := {
         "xbrl:Entity" : {|
-            { Type: "string" },
-            { Domain: [ $entities._id ] }[exists($entities)]
+            {
+                Type: "string",
+                Domain: [ $entities._id ]
+            }[exists($entities)]
         |},
         "sec:FiscalYear" : {|
-            { Type: "integer" },
-            { Domain: [ $fiscal-years ] }[exists($fiscal-years)]
+            {
+                Type: "integer",
+                Domain: [ $fiscal-years ]
+            }[exists($fiscal-years)]
         |},
         "sec:FiscalPeriod" : {|
-            { Type: "string" },
-            { Domain: [ $fiscal-periods ] }[exists($fiscal-periods)]
-        |}
+            {
+                Type: "string",
+                Domain: [ $fiscal-periods ]
+            }[exists($fiscal-periods)]
+        |},
+        "sec:Archive" : {}
     }
     return $filter
 };
@@ -144,37 +155,26 @@ let $filtered-aspects :=
     let $report := reports:reports($report)
     let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
     return values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
-let $facts :=
-    for $fact in (
-        reports:facts(
+let $spreadsheet :=
+    (
+        reports:spreadsheet(
             $report,
             {
-                FilterOverride: $filter-override-latest
+                FilterOverride: $filter-override-latest,
+                FlattenRows: true
             }
         )[exists($filter-override-latest)],
-        reports:facts(
+        reports:spreadsheet(
             $report,
             {
-                FilterOverride: $filter-override-non-latest
+                FilterOverride: $filter-override-non-latest,
+                FlattenRows: true
             }
         )[exists($filter-override-non-latest)],
         if(count($filtered-aspects) ge 2 and not exists(($filter-override-latest, $filter-override-non-latest)))
         then reports:facts($report)
         else ()
     )
-    group by $archive := $fact.Archive
-    let $archive := archives:archives($archive)
-    let $entity := entities:entities($archive.Entity)
-    for $fact in $fact
-    return
-    {|
-        project($fact, "Aspects"),
-        { Type: $fact.Type },
-        { Unit: $fact.Aspects."xbrl:Unit" }[exists($fact.Aspects."xbrl:Unit")],
-        project($fact, ("Decimals", "Value")),
-        { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
-        project($fact, "AuditTrails")
-    |}
 return
     switch(session:check-access($entities, "data_sec"))
     case $session:ACCESS-ALLOWED return
@@ -185,34 +185,24 @@ return
         }
         else {
             switch ($format)
-            case "xml" return {
+            case "xml" return {} (:)
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-                local:to-xml($facts)
+                local:to-xml($spreadsheet)
             }
             case "text" case "csv" return {
                 response:content-type("text/csv");
                 response:header("Content-Disposition", "attachment; filename=facts.csv");
-                conversion:facts-to-csv($facts, { Caller: "Report"})
+                conversion:facts-to-csv($spreadsheet, { Caller: "Report"})
             }
             case "excel" return {
                 response:content-type("application/vnd.ms-excel");
                 response:header("Content-Disposition", "attachment; filename=fact.csv");
-                conversion:facts-to-csv($facts, { Caller: "Report"})
-            }
+                conversion:facts-to-csv($spreadsheet, { Caller: "Report"})
+            }:)
             default return {
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
-                {|
-                    { NetworkIdentifier : "http://secxbrl.info/facts" },
-                    { TableName : "xbrl:Facts" },
-                    { FactTable : [ $facts ] },
-                    session:comment("json", {
-                            NumFacts : count($facts),
-                            TotalNumFacts: session:num-facts(),
-                            TotalNumArchives: session:num-archives(),
-                            TotalNumEntities: session:num-entities()
-                        })
-                |}
+                $spreadsheet
             }
         }
     case $session:ACCESS-DENIED return {
