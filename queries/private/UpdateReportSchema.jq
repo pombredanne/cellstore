@@ -2,7 +2,7 @@ import module namespace http-client =
     "http://zorba.io/modules/http-client";
 
 let $schema := parse-json(http-client:get-text(
-    "http://facs.28.io/process-report-schema.jq"
+    "http://facs.beta.28.io/process-report-schema.jq"
 )("body")("content"))
 return
 if(is-available-collection("reportschemas"))

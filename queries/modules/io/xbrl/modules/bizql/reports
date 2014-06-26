@@ -39,7 +39,7 @@ declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
 
 (:~
- : Name of the collection the report schemas are stored in.
+ : Name of the collection the reports are stored in.
  :)
 declare variable $reports:col as string := "reports";
 
@@ -54,9 +54,9 @@ declare function reports:reports() as object*
 };
 
 (:~
- : <p>Return the reports with the given names (RIDs).</p>
+ : <p>Return the reports with the given RIDs.</p>
  :
- : @param $reports-or-ids the ids of the reports (RIDs) or the
+ : @param $reports-or-ids the report ids (RIDs) or the
  : reports themselves.
  : 
  : @return the reports with the given RIDs or the 
@@ -98,10 +98,10 @@ declare %an:sequential function reports:add($report as object) as ()
 {
   if (empty($report._id))
   then error(QName("reports:INVALID-REPORT"),
-    "schema object does not contain an _id field");
+    "report does not contain mandatory _id field.");
   else if (exists(reports:reports($report._id)))
        then fn:error(QName("reports:EXISTS"),
-                     $report._id || ": report schema already exists");
+                     $report._id || ": report already exists");
        else insert($reports:col, $report);
 };
 
@@ -125,7 +125,7 @@ as ()
   let $existing := reports:reports($report._id)
   return if (empty($existing))
          then error(QName("reports:DOES-NOT-EXIST"),
-             $report._id || ": report with given id does not exist");
+             $report._id || ": report does not exist");
          else edit($existing, $report);
 };
 
@@ -145,7 +145,7 @@ as ()
   let $id := reports:rid($report-or-id)
   return if (empty($report))
   then error(QName("reports:DOES-NOT-EXIST"),
-    $id || ": report with given _id does not exist");
+    $id || ": report does not exist");
   else delete($report);
 };
 
@@ -168,17 +168,17 @@ declare function reports:rid($report-or-id as item) as atomic
     return if(exists($rid))
            then $rid
            else error(QName("reports:INVALID_PARAMETER"), 
-                      "Invalid report provided (no _id field)")
+                      "report does not contain mandatory _id field.")
   case $rid as atomic return $rid
   default return error(
       QName("reports:INVALID_PARAMETER"),
-      "Invalid report or RID (must be an object or an atomic): "
-      || serialize($report-or-id))
+      serialize($report-or-id) || ": Invalid report or RID (must be an object or an atomic): "
+  )
 };
 
 (:~
  :
- : <p>Retrieves all facts from the supplied archives, that are relevant to the
+ : <p>Retrieves all facts that are relevant to the
  : supplied reports, and populates them with the default dimension values
  : when missing.</p>
  : <p>The default hypercube will be taken, and the concept maps and rules will
@@ -198,7 +198,7 @@ as object*
 
 (:~
  :
- : <p>Retrieves all facts from the supplied archives, that are relevant to the
+ : <p>Retrieves all facts that are relevant to the
  : supplied reports, and populates them with the default dimension values
  : when missing.</p>
  : 
@@ -241,12 +241,12 @@ as object*
     )
     else $hypercube
   return hypercubes:facts(
-      $hypercube,
-      {|
-        $options,
-        { "ConceptMaps": $concept-map }[exists($concept-map)],
-        { "Rules": $rules }[exists($rules)]
-      |}
-  )
+          $hypercube,
+          {|
+            $options,
+            { "ConceptMaps": $concept-map }[exists($concept-map)],
+            { "Rules": $rules }[exists($rules)]
+          |}
+         )
 };
 

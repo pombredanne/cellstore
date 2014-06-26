@@ -212,6 +212,10 @@ let $filter-override-latest as object? :=
         }
     }[exists($archives)]
 let $filter-override-non-latest as object? := local:filter-override($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears)
+let $filtered-aspects := 
+    let $report := reports:reports($report)
+    let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
+    return values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
 let $facts :=
     for $fact in (
         reports:facts(
@@ -225,7 +229,10 @@ let $facts :=
             {
                 FilterOverride: $filter-override-non-latest
             }
-        )[exists($filter-override-non-latest)]
+        )[exists($filter-override-non-latest)],
+        if(count($filtered-aspects) ge 2 and not exists(($filter-override-latest, $filter-override-non-latest)))
+        then reports:facts($report)
+        else ()
     )
     group by $archive := $fact.Archive
     let $archive := archives:archives($archive)
@@ -240,9 +247,15 @@ let $facts :=
         { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
         project($fact, "AuditTrails")
     |}
-return 
+return
     switch(session:check-access($entities, "data_sec"))
-    case $session:ACCESS-ALLOWED return {
+    case $session:ACCESS-ALLOWED return
+        if(count($filtered-aspects) lt 2 and not exists(($filter-override-latest, $filter-override-non-latest)))
+        then {
+              response:status-code(403);
+              session:error("The report filters are too weak, which leads to too big an output.", $format)
+        }
+        else {
             switch ($format)
             case "xml" return {
                 response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
