@@ -347,7 +347,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         }
@@ -389,7 +389,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         }
@@ -423,7 +423,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         }
@@ -432,6 +432,58 @@
                         {
                             "code":500,
                             "message":"Not done yet"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path":"/users/isAuthorized.jq",
+            "operations":[
+                {
+                    "method":"POST",
+                    "summary":"Checks to see if the current logged in user has a particular right",
+                    "notes":"",
+                    "type":"User",
+                    "nickname":"isAuthorized",
+                    "parameters":[
+                        {
+                            "name":"right",
+                            "description":"The right id",
+                            "required":true,
+                            "type":"string",
+                            "paramType":"query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "query"
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "if a mandatory parameter is missing",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code" : 403,
+                            "message": "if the user doesn't exist or the token is invalid",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code" : 500,
+                            "message": "if the user doesn't have the right",
+                            "responseModel": "Error"
+                        }
+                    ],
+                    "successMessages" : [
+                        {
+                            "code": 200,
+                            "message": "if the user has the right",
+                            "responseModel": "Success"
                         }
                     ]
                 }
