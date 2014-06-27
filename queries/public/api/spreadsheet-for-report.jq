@@ -52,7 +52,7 @@ let $spreadsheet :=
             {
                 FilterOverride: $filter-override,
                 FlattenRows: true,
-                Eliminate: $eliminate eq "true"
+                Eliminate: boolean($eliminate eq "true")
             }
         )
     
