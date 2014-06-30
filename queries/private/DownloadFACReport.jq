@@ -3,18 +3,25 @@ jsoniq version "1.0";
 import module namespace http-client =
     "http://zorba.io/modules/http-client";
 
-let $schema := parse-json(
+declare variable $schema := parse-json(
     http-client:get-text(
         "http://facs.beta.28.io/process-report-schema.jq"
     ).body.content
-)
-return
-if(is-available-collection("reports"))
-then {
-    truncate("reports");
-    insert("reports", $schema);
-}
-else
-    create("reports", $schema);
+);
 
-"Report successfully added."
+if(is-available-collection("reports"))
+then ();
+else create("reports", $schema);
+
+let $record := find("reports", { "_id" : $schema."_id" })
+return
+if(empty($record))
+then {
+    insert("reports", $schema);
+    "Report " || $schema."_id" || " successfully added."
+}
+else {
+    edit($record, $schema);
+    "Report " || $schema."_id" || " successfully edited."
+}
+
