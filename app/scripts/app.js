@@ -4,7 +4,7 @@ angular.module('main', [
     'ui.router', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle',
     'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite',
     'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'angular.directives-round-progress',
-    'gettext', 'tmh.dynamicLocale'
+    'translator'
 ])
 .run(function($rootScope, ngProgressLite) {
   
@@ -893,7 +893,7 @@ angular.module('main', [
     })
     ;
 })
-.run(function($rootScope, $location, $state, $http, $modal, $backend, $angularCacheFactory, gettextCatalog, tmhDynamicLocale) {
+.run(function($rootScope, $location, $state, $http, $modal, $backend, $angularCacheFactory) {
 
     $rootScope.API_URL = $backend.API_URL;
     $rootScope.DEBUG = $backend.DEBUG;
@@ -917,57 +917,7 @@ angular.module('main', [
     {
         $rootScope.token = cache.get('token');
         $rootScope.user = cache.get('user');
-        $rootScope.lang = cache.get('lang');
     }
-
-    //languages
-    $rootScope.setLanguage = function(l) {
-        cache.put('lang', l);
-        $rootScope.lang = l;
-        tmhDynamicLocale.set(l.lang);
-        gettextCatalog.currentLanguage = l.lang;
-        gettextCatalog.debug = $rootScope.DEBUG;
-    };
-
-    var getLocale = function () {
-        var nav = window.navigator;
-        return ((nav.language || nav.browserLanguage || nav.systemLanguage || nav.userLanguage) || '');
-    };
-
-    if ($rootScope.DEBUG)
-    {
-        $rootScope.langs = [
-            { code: 'EN', lang: 'en-US', name: 'English (US)' },
-            { code: 'RO', lang: 'ro', name: 'Romanian' },
-            { code: 'ES', lang: 'es-CL', name: 'Spanish (Chile)' }
-        ];
-    }
-    else
-    {
-        $rootScope.langs = [
-            { code: 'EN', lang: 'en-US', name: 'English (US)' }
-        ];
-    }
-
-    if (!$rootScope.lang)
-    {
-        var locale = getLocale();
-        $rootScope.langs.forEach(function(l) {
-            if (l.lang === locale)
-            {
-                $rootScope.setLanguage(l);
-            }
-        });
-        if (!$rootScope.lang)
-        {
-            //fallback to en-US
-            $rootScope.setLanguage($rootScope.langs[0]);
-        }
-    }
-    else {
-        $rootScope.setLanguage($rootScope.lang);
-    }
-    //end languages
 
     $rootScope.$on('error', function(event, status, error){
         switch (status)

@@ -4,8 +4,8 @@ module.exports = function(grunt) {
     grunt.registerMultiTask('nggettext_check', 'Check the translation files', function(){
 
         var done = this.async();
-        var filepath = this.data.filepath;
         var template = this.data.template;
+        var langfiles = this.data.langfiles;
         
         grunt.log.writeln('Processing template: ' + template);
         var contentTemplate = grunt.file.read(template);
@@ -17,10 +17,10 @@ module.exports = function(grunt) {
             match = reg.exec(contentTemplate);
         }
         var incomplete = false;
-        grunt.file.expand({cwd: filepath}, '*.po').forEach(function(file) {
+        grunt.file.expand(langfiles).forEach(function(file) {
             grunt.log.writeln('--------------------------------');
-            grunt.log.writeln('Processing file: ' + filepath + file);
-            var contentFile = grunt.file.read(filepath + file);
+            grunt.log.writeln('Processing file: ' + file);
+            var contentFile = grunt.file.read(file);
             var message = '';
             matches.forEach(function(match) {
                 var r = new RegExp('(\r\n|\r|\n)msgid "' + match.key
@@ -51,8 +51,37 @@ module.exports = function(grunt) {
         });
         if (incomplete)
         {
-            grunt.fail.warn(filepath + ' contains incomplete language files!');
+            grunt.fail.warn('Incomplete language files!');
         }
+        done();
+    });
+
+    grunt.registerMultiTask('nggettext_default', 'Create a default translation file', function(){
+
+        var done = this.async();
+        var template = this.data.template;
+        var langfiles = this.data.langfiles;
+        
+        grunt.log.writeln('Processing template: ' + template);
+        var contentTemplate = grunt.file.read(template);
+        var reg = /(?:\r\n|\r|\n)(#: (.*)(?:\r\n|\r|\n))+msgid "(.*)"(?:\r\n|\r|\n)msgstr "(.*)"(?:\r\n|\r|\n)/gi;
+        var matches = [];
+        var match = reg.exec(contentTemplate);
+        while (match !== null) {
+            matches.push({ key: match[3], value: match[0] });
+            match = reg.exec(contentTemplate);
+        }
+        grunt.file.expand(langfiles).forEach(function(file) {
+            grunt.log.writeln('--------------------------------');
+            grunt.log.writeln('Processing file: ' + file);
+
+            var contentFile = 'msgid ""\nmsgstr ""\n"Content-Type: text/plain; charset=UTF-8\\n"\n"Content-Transfer-Encoding: 8bit\\n"\n"Language: ' + 
+                    file.substring(file.lastIndexOf('/') + 1, file.length - 3) + '\\n"\n';
+            matches.forEach(function(match) {
+                contentFile += match.value.replace('msgstr ""', 'msgstr "' + match.key + '"');
+            });
+            grunt.file.write(file, contentFile);
+        });
         done();
     });
 };

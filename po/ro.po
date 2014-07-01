@@ -18,8 +18,8 @@ msgid "beta"
 msgstr "beta"
 
 #: app/views/root.html
-msgid "All rights reserved."
-msgstr "Toate drepturile rezervate."
+msgid "2013 28msec Inc. All rights reserved."
+msgstr "2013 28msec Inc. Toate drepturile rezervate."
 
 #: app/views/root.html
 msgid "API"
@@ -45,6 +45,11 @@ msgstr "Acasă"
 msgid "Pricing"
 msgstr "Prețuri"
 
+#: app/views/pricing.html
+#: app/views/root.html
+msgid "Support"
+msgstr "Ajutor"
+
 #: app/views/root.html
 msgid "Privacy Policy"
 msgstr "Politica de confidențialitate"
@@ -52,10 +57,6 @@ msgstr "Politica de confidențialitate"
 #: app/views/root.html
 msgid "Search"
 msgstr "Caută"
-
-#: app/views/root.html
-msgid "Support"
-msgstr "Ajutor"
 
 #: app/views/root.html
 msgid "Terms of Use"
@@ -2008,5 +2009,29 @@ msgid "Unlimited Users"
 msgstr ""
 
 #: app/views/pricing.html
-msgid "Your domain & your SSL certificate"
+msgid "Your domain &amp; your SSL certificate"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Enterprise"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Free"
+msgstr ""
+
+#: app/views/pricing.html
+msgid "Pro"
+msgstr ""
+
+#: app/views/terms-of-use.html
+msgid "<b>Arbitration</b>.  READ THIS SECTION CAREFULLY BECAUSE IT REQUIRES THE PARTIES TO ARBITRATE THEIR DISPUTES AND LIMITS THE MANNER IN WHICH YOU CAN SEEK RELIEF FROM 28MSEC.<p>In the unlikely event that 28msec has not been able to resolve a dispute it has with you after 60 days, we each agree to resolve any claim, dispute, or controversy (excluding any 28msec claims for injunctive or other equitable relief) arising out of or in connection with or relating to these Terms of Service, or the breach or alleged breach thereof (collectively, \"Claims\"), by binding arbitration by the Judicial Mediation and Arbitration Services (\"JAMS\") under the Optional Expedited Arbitration Procedures then in effect for JAMS, except as provided herein.  The arbitration will be conducted in Santa Clara County, California, unless you and 28msec agree otherwise. Each party will be responsible for paying any JAMS filing, administrative and arbitrator fees in accordance with JAMS rules. The award rendered by the arbitrator shall include costs of arbitration, reasonable attorneys' fees and reasonable costs for expert and other witnesses, and any judgment on the award rendered by the arbitrator may be entered in any court of competent jurisdiction.  Nothing in this Section shall be deemed as preventing 28msec from seeking injunctive or other equitable relief from the courts as necessary to protect any of 28msec's proprietary interests.</p><p>ALL CLAIMS MUST BE BROUGHT IN THE PARTIES' INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS ACTION, COLLECTIVE ACTION, PRIVATE ATTORNEY GENERAL ACTION OR OTHER REPRESENTATIVE PROCEEDING.  THIS WAIVER APPLIES TO CLASS ARBITRATION, AND, UNLESS WE AGREE OTHERWISE, THE ARBITRATOR MAY NOT CONSOLIDATE MORE THAN ONE PERSON'S CLAIMS. YOU AGREE THAT, BY ENTERING INTO THIS TERMS OF SERVICE, YOU AND 28MSEC ARE EACH WAIVING THE RIGHT TO A TRIAL BY JURY OR TO PARTICIPATE IN A CLASS ACTION, .COLLECTIVE ACTION, PRIVATE ATTORNEY GENERAL ACTION, OR OTHER REPRESENTATIVE PROCEEDING OF ANY KIND.</p>"
+msgstr ""
+
+#: app/views/terms-of-use.html
+msgid "Certain components of the software included in this website are subject to separate license terms, including \"free\" or \"open source\" software (\"Separately Licensed Code\"). As required by the terms of the relevant Separately Licensed Code licenses, 28msec presents the list of such products and the modifications we made to it."
+msgstr ""
+
+#: app/views/terms-of-use.html
+msgid "The components of software referenced on this page have been provided under one or more open source licenses, and the list is complete to the best of our knowledge. If you believe any additional products should be provided under the applicable open source license, please contact us at <a href=\"mailto:contact@28msec.com\">contact@28msec.com</a> and provide in detail the product or code module in question. 28msec is committed to meeting the requirements of the open source licenses including the GNU General Public License (GPL)."
 msgstr ""
