@@ -1,6 +1,7 @@
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace reports = "http://xbrl.io/modules/bizql/reports";
+import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
@@ -34,6 +35,7 @@ let $report         := request:param-values("report")
 
 (: Object resolution :)
 let $entities := util:entities($ciks, $tags, $tickers, $sics, $aids)
+let $report := reports:reports($report)
 
 (: Fact resolution :)
 let $filter-override as object? :=
@@ -47,7 +49,7 @@ let $spreadsheet :=
 
     case exists($filter-override)
     return
-        reports:spreadsheet(
+        components2:spreadsheet(
             $report,
             {
                 FilterOverride: $filter-override,
@@ -57,7 +59,7 @@ let $spreadsheet :=
         )
     
     case count($filtered-aspects) ge 2
-    return reports:facts($report)
+    return components2:facts($report)
     
     default return ()
 let $results :=
