@@ -32,6 +32,7 @@ let $fiscalPeriods  := distinct-values(let $fp := request:param-values("fiscalPe
 let $aids           := archives:aid(request:param-values("aid"))
 let $eliminate      := request:param-values("eliminate")
 let $report         := request:param-values("report")
+let $validate       := request:param-values("validate", "false")
 
 (: Object resolution :)
 let $entities := util:entities($ciks, $tags, $tickers, $sics, $aids)
@@ -44,7 +45,7 @@ let $filtered-aspects :=
     let $report := reports:reports($report)
     let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
     return values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
-let $spreadsheet :=
+let $spreadsheet as object? :=
     switch(true)
 
     case exists($filter-override)
@@ -54,12 +55,19 @@ let $spreadsheet :=
             {
                 FilterOverride: $filter-override,
                 FlattenRows: true,
-                Eliminate: boolean($eliminate eq "true")
+                Eliminate: boolean($eliminate eq "true"),
+                Validate: boolean($validate eq "true")
             }
         )
     
     case count($filtered-aspects) ge 2
-    return components2:facts($report)
+    return components2:spreadsheet(
+        $report,
+        {
+            FlattenRows: true,
+            Eliminate: boolean($eliminate eq "true"),
+            Validate: boolean($validate eq "true")
+        })
     
     default return ()
 let $results :=

@@ -47,6 +47,7 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
                         then $sec-fiscal:ALL_FISCAL_PERIODS
                         else $fp) 
 let $aids        := archives:aid(request:param-values("aid"))
+let $validate    := request:param-values("validate", "false")
 
 (: Object resolution :)
 let $entities := util:entities($ciks, $tags, $tickers, $sics, $aids)
@@ -65,11 +66,17 @@ let $facts :=
         components2:facts(
             $report,
             {
-                FilterOverride: $filter-override
+                FilterOverride: $filter-override,
+                Validate: boolean($validate eq "true")
             }
         )[exists($filter-override)],
         if(count($filtered-aspects) ge 2 and not exists($filter-override))
-        then components2:facts($report)
+        then components2:facts(
+            $report,
+            {
+                Validate: boolean($validate eq "true")
+            }
+        )
         else ()
     )
     group by $archive := $fact.Archive

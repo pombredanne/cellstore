@@ -476,11 +476,11 @@ as object*
              then $options.HypercubeName
              else "xbrl:DefaultHypercube"
     )
-  let $concept-map := networks:networks-for-components-and-short-names(
+    let $concept-map as object?:= networks:networks-for-components-and-short-names(
       $component,
       "ConceptMap")
-  let $rules := $component.Rules
-    let $new-options :=
+    let $rules as array? := $component.Rules
+    let $new-options as object :=
         {|
             $options,
             { "ConceptMaps": $concept-map }[exists($concept-map)],
@@ -493,7 +493,10 @@ as object*
                 )
             } else ()
         |}
-    let $structural-model as object := resolution:resolve($definition-model, $component, $new-options)
+    let $structural-model as object := resolution:resolve(
+        $definition-model,
+        $component,
+        $new-options)
     let $layout-model as object := layout:layout($structural-model, $new-options)
     let $accountant-model as object := accountant:flatten-row-headers($layout-model)
     return
