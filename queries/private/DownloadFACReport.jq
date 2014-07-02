@@ -11,10 +11,10 @@ let $schema := parse-json(
 return
 if(is-available-collection("reports"))
 then {
-    truncate("reports");
-    insert("reports", $schema);
+    db:truncate("reports");
+    db:insert("reports", $schema);
 }
 else
-    create("reports", $schema);
+    db:create("reports", $schema);
 
 "Report successfully added."
