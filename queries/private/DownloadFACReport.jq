@@ -21,7 +21,7 @@ then {
     "Report " || $schema."_id" || " successfully added."
 }
 else {
-    edit($record, $schema);
+    db:edit($record, $schema);
     "Report " || $schema."_id" || " successfully edited."
 }
 
