@@ -2,7 +2,14 @@ jsoniq version "1.0";
 
 module namespace accountant-converter = "http://xbrl.io/modules/bizql/profiles/accountant/converter";
 
-declare function accountant-converter:charlify($layout-model as object) as object
+(:~
+ : <p>Flattens the row headers of the layout, leading to a rendering more familiar to
+ : accountants.</p>
+ :
+ : @param the original layout model.
+ : @return the layout model with row headers flattened.
+ :)
+declare function accountant-converter:flatten-row-headers($layout-model as object) as object
 {
   copy $l := $layout-model
   modify
