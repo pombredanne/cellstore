@@ -5,6 +5,8 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace user = "http://apps.28.io/user";
 
+declare namespace api = "http://apps.28.io/api";
+
 declare function local:isAllowed($report as object, $authenticated-user-email as string, $rights as string*) as boolean
 {
     if($report.Owner eq $authenticated-user-email) 
@@ -206,5 +208,17 @@ try {
     {
         response:status-code(401);
         session:error("Unauthorized: Login required", "json")
+    }
+} catch api:missing-parameter {
+    if(exists($err:value) and $err:value.parameter eq "token")
+    then
+    {
+        response:status-code(401);
+        session:error("Unauthorized: Login required", "json")
+    }
+    else 
+    {
+        response:status-code(400);
+        session:error($err:description, "json")
     }
 }

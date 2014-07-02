@@ -3043,7 +3043,7 @@ let $schema := {
   "Prefix" : "fac"
 }
 
-let $record := find("reports", { "_id" : "FundamentalAccountingConcepts" })
+let $record := find("reports", { "_id" : $schema."_id" })
 return
 if(empty($record))
 then insert("reports", $schema);

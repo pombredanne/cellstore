@@ -9,7 +9,10 @@ import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 import module namespace resolution = "http://xbrl.io/modules/bizql/resolution";
 import module namespace layout = "http://xbrl.io/modules/bizql/layout";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
+import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
+
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
+import module namespace accountant = "http://xbrl.io/modules/bizql/profiles/accountant/converter";
 
 
 (:~
@@ -19,10 +22,10 @@ import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/se
  : 
  : @return all definition models
  :)
-declare function components2:definition-models-for-component(
-    $component as object) as object*
+declare function components2:definition-models-for-components(
+    $components as object*) as object*
 {
-    $component.DefinitionModels[]
+    $components.DefinitionModels[]
 };
 
 (:~
@@ -34,11 +37,11 @@ declare function components2:definition-models-for-component(
  :
  : @return the definition models.
  :)
-declare function components2:definition-models-for-component(
-    $component as object,
+declare function components2:definition-models-for-components(
+    $components as object*,
     $names as string*) as object
 {
-    $component.DefinitionModels[][$$.Name = $names]
+    $components.DefinitionModels[][$$.Name = $names]
 };
 
 (:~
@@ -55,9 +58,9 @@ declare function components2:definition-models-for-component(
  :
  : @return a definition model
  :)
-declare function components2:automated-definition-model-for-component($component as object) as object
+declare function components2:standard-definition-model-for-components($components as object*) as object
 {
-    components2:automated-definition-model-for-component($component, ())
+    components2:standard-definition-model-for-components($components, ())
 };
 
 
@@ -82,21 +85,12 @@ declare function components2:automated-definition-model-for-component($component
  : @error components2:hypercube-does-not-exist if the specified hypercube is not found.
  : @return a definition model
  :)
-declare function components2:automated-definition-model-for-component($component as object, $options as object?) as object
+declare function components2:standard-definition-model-for-components($components as object*, $options as object?) as object
 {
-    let $user-chosen-table as object? := hypercubes:hypercubes-for-components($component, $options.HypercubeName)
-    let $non-implicit-table as object? := hypercubes:hypercubes-for-components($component)[$$.Name ne "xbrl:DefaultHypercube"][1]
+    for $component in $components
     let $implicit-table as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-    let $table as object :=
-        switch(true)
-        case exists($options.HypercubeName) and empty($user-chosen-table)
-            return error(QName("components2:hypercube-does-not-exist"), $options.HypercubeName || " : Hypercube does not exist.")
-        case exists($user-chosen-table)
-            return $user-chosen-table
-        case exists($non-implicit-table)
-            return $non-implicit-table
-        default return $implicit-table
-        
+    let $table as object := components2:select-table($component, $options)
+
     let $auto-slice as boolean := empty($options.AutoSlice) or $options.AutoSlice
     let $facts as object*:=
         if($auto-slice)
@@ -114,107 +108,30 @@ declare function components2:automated-definition-model-for-component($component
 
     let $column-dimensions as string* := keys($values-by-dimension)[not $$ =
         ("xbrl:Concept", "xbrl:Period", "xbrl:Unit", "xbrl:Entity", "sec:Archive", $auto-slice-dimensions, $user-slice-dimensions)]
-    let $presentation-network as object? := networks:networks-for-components-and-short-names($component, "Presentation")
     
     let $x-breakdowns as object* := (
-        if(not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period"))
-        then
-        {
-            BreakdownLabels: [ "Period breakdown" ],
-            BreakdownTrees: [
-                {
-                    Kind: "Rule",
-                    Abstract: true,
-                    Labels: [ "Period [Axis]" ],
-                    Children: [ {
-                        Kind: "Aspect",
-                        Aspect: "xbrl:Period"
-                    } ]
-                }
-            ]
-        }
-        else (),
+        components2:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
         for $d as string in $column-dimensions
-        return if($d = ("sec:Accepted", "sec:FiscalYear", "sec:FiscalPeriod"))
-        then {
-            BreakdownLabels: [ $d || " breakdown" ],
-            BreakdownTrees: [
-                {
-                    Kind: "Rule",
-                    Labels: [ $d || " [Axis]" ],
-                    Children: [
-                        for $value in $values-by-dimension.$d[]
-                        return {
-                            Kind: "Rule",
-                            Labels: [ $value ],
-                            AspectRulesSet: { "" : { $d : $value } }
-                        }
-                    ]
-                }
-            ]
-        }
-        else
         let $metadata as object? := descendant-objects($implicit-table)[$$.Name eq $d]
-        return {
-            BreakdownLabels: [ "Dimension Breakdown" ],
-            BreakdownTrees: [
-                {
-                    Kind: "Rule",
-                    Abstract: true,
-                    Labels: [ $metadata.Label ],
-                    Children: [
-                        for $domain as string in keys($table.Aspects.$d.Domains)
-                        return {
-                            Kind: "DimensionRelationship",
-                            LinkRole: $component.Role,
-                            Dimension: $d,
-                            RelationshipSource: $domain,
-                            FormulaAxis: "descendant",
-                            Generations: 0
-                        }
-                    ]
-                }
-            ]
-        },
-        if(not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity"))
-        then
-        {
-            BreakdownLabels: [ "Entity breakdown" ],
-            BreakdownTrees: [
-                {
-                    Kind: "Rule",
-                    Abstract: true,
-                    Labels: [ "Reporting Entity [Axis]" ],
-                    ConstraintSets: { "" : {} },
-                    Children: [ {
-                        Kind: "Aspect",
-                        Aspect: "xbrl:Entity"
-                    } ]
-                }
-            ]
-        }
-        else ()
+        return
+            if($d = ("sec:Accepted", "sec:FiscalYear", "sec:FiscalPeriod"))
+            then components2:standard-typed-dimension-breakdown(
+                $d,
+                $values-by-dimension.$d[])
+            else components2:standard-explicit-dimension-breakdown(
+                $d,
+                $metadata.Label,
+                keys($table.Aspects.$d.Domains),
+                $component.Role),
+        components2:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
     )
-    let $y-breakdowns as object :=
-    {
-        BreakdownLabels: [ "Breakdown on concepts" ],
-        BreakdownTrees: [
-            let $lineitems as string* := sec-networks:line-items-report-elements($component).Name
-            let $roots as string* := keys($presentation-network.Trees)
-            for $lineitems as string in if(exists($lineitems)) then $lineitems else $roots
-            return {
-                Kind: "ConceptRelationship",
-                LinkName: "link:presentationLink",
-                LinkRole: $component.Role,
-                ArcName: "link:presentationArc", 
-                ArcRole: "http://www.xbrl.org/2003/arcrole/parent-child",
-                RelationshipSource: $lineitems,
-                FormulaAxis: "descendant",
-                Generations: 0,
-                RollUpAgainstCalculationNetwork: false
-            }
-        ]
-    }
+
+    let $lineitems as string* := sec-networks:line-items-report-elements($component).Name
+    let $presentation-network as object? := networks:networks-for-components-and-short-names($component, "Presentation")
+    let $roots as string* := keys($presentation-network.Trees)
+    let $lineitems as string* := if(exists($lineitems)) then $lineitems else $roots
+    let $y-breakdowns as object := components2:standard-concept-breakdown($lineitems, $component.Role)
+
     return {
         ModelKind: "DefinitionModel",
         Labels: [$component.Label],
@@ -251,9 +168,9 @@ declare function components2:automated-definition-model-for-component($component
  :
  : @return a layout model
  :)
-declare function components2:automated-layout-model-for-component($component as item) as object
+declare function components2:standard-layout-model-for-components($components as object*) as object
 {
-    components2:automated-layout-model-for-component($component, ())
+    components2:standard-layout-model-for-components($components, ())
 };
 
 
@@ -279,11 +196,313 @@ declare function components2:automated-layout-model-for-component($component as 
  : @error components2:hypercube-does-not-exist if the specified hypercube is not found.
  : @return a layout model
  :)
-declare function components2:automated-layout-model-for-component($component as item, $options as object?) as object
+declare function components2:standard-layout-model-for-components($components as object*, $options as object?) as object
 {
-    let $definition-model as object := components2:automated-definition-model-for-component($component, $options)
-    let $structural-model as object := resolution:resolve($definition-model, $component, $options)
+    for $definition-model as object in components2:standard-definition-model-for-components($components, $options)
+    let $structural-model as object := resolution:resolve($definition-model, $components, $options)
     let $layout-model as object := layout:layout($structural-model, $options)
     return $layout-model
 };
+
+(:~
+ : <p>Selects a table from the component.</p>
+ :
+ : @param $component a component object.
+ : @param $options <p>some optional parameters, including:</p>
+ : <ul>
+ :  <li>HypercubeName: a string specifying which hypercube to use. By default, one of the non-default hypercubes will be arbitrarily chosen. If none
+ :  is available, the default hypercube will be picked.</li>
+ : </ul>
+ :
+ : @error components2:hypercube-does-not-exist if the specified hypercube is not found.
+ : @return a definition model
+ :)
+declare %private function components2:select-table($component as object, $options as object?) as object
+{
+    let $user-chosen-table as object? := hypercubes:hypercubes-for-components($component, $options.HypercubeName)
+    let $non-implicit-table as object? := hypercubes:hypercubes-for-components($component)[$$.Name ne "xbrl:DefaultHypercube"][1]
+    let $implicit-table as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+    return
+        switch(true)
+        case exists($options.HypercubeName) and empty($user-chosen-table)
+            return error(QName("components2:hypercube-does-not-exist"), $options.HypercubeName || " : Hypercube does not exist.")
+        case exists($user-chosen-table)
+            return $user-chosen-table
+        case exists($non-implicit-table)
+            return $non-implicit-table
+        default return $implicit-table
+};
+
+(:~
+ : <p>Returns the standard period breakdown.</p>
+ :
+ : @return the period breakdown.
+ :)
+declare %private function components2:standard-period-breakdown() as object
+{
+    {
+        BreakdownLabels: [ "Period breakdown" ],
+        BreakdownTrees: [
+            {
+                Kind: "Rule",
+                Abstract: true,
+                Labels: [ "Period [Axis]" ],
+                Children: [ {
+                    Kind: "Aspect",
+                    Aspect: "xbrl:Period"
+                } ]
+            }
+        ]
+    }
+};
+
+declare %private function components2:standard-typed-dimension-breakdown($dimension-name as string, $dimension-values as atomic*) as object
+{
+    {
+        BreakdownLabels: [ $dimension-name || " breakdown" ],
+        BreakdownTrees: [
+            {
+                Kind: "Rule",
+                Labels: [ $dimension-name || " [Axis]" ],
+                Children: [
+                    for $value in $dimension-values
+                    return {
+                        Kind: "Rule",
+                        Labels: [ $value ],
+                        AspectRulesSet: { "" : { $dimension-name : $value } }
+                    }
+                ]
+            }
+        ]
+    }
+};
+
+declare %private function components2:standard-explicit-dimension-breakdown(
+    $dimension-name as string,
+    $dimension-label as string,
+    $domain-names as string*,
+    $role as string)
+{
+    {
+        BreakdownLabels: [ "Dimension Breakdown" ],
+        BreakdownTrees: [
+            {
+                Kind: "Rule",
+                Abstract: true,
+                Labels: [ $dimension-label ],
+                Children: [
+                    for $domain as string in $domain-names
+                    return {
+                        Kind: "DimensionRelationship",
+                        LinkRole: $role,
+                        Dimension: $dimension-name,
+                        RelationshipSource: $domain,
+                        FormulaAxis: "descendant",
+                        Generations: 0
+                    }
+                ]
+            }
+        ]
+    }
+};
+
+declare %private function components2:standard-entity-breakdown()
+{
+    {
+        BreakdownLabels: [ "Entity breakdown" ],
+        BreakdownTrees: [
+            {
+                Kind: "Rule",
+                Abstract: true,
+                Labels: [ "Reporting Entity [Axis]" ],
+                ConstraintSets: { "" : {} },
+                Children: [ {
+                    Kind: "Aspect",
+                    Aspect: "xbrl:Entity"
+                } ]
+            }
+        ]
+    }
+};
+
+declare %private function components2:standard-concept-breakdown(
+    $line-items-elements as string*,
+    $role as string)
+{
+    {
+        BreakdownLabels: [ "Breakdown on concepts" ],
+        BreakdownTrees: [
+            for $lineitems as string in $line-items-elements
+            return {
+                Kind: "ConceptRelationship",
+                LinkName: "link:presentationLink",
+                LinkRole: $role,
+                ArcName: "link:presentationArc", 
+                ArcRole: "http://www.xbrl.org/2003/arcrole/parent-child",
+                RelationshipSource: $lineitems,
+                FormulaAxis: "descendant",
+                Generations: 0,
+                RollUpAgainstCalculationNetwork: false
+            }
+        ]
+    }
+};
+
+(:~
+ :
+ : <p>Retrieves all facts that are relevant to the
+ : supplied component, and populates them with the default dimension values
+ : when missing.</p>
+ : <p>The default hypercube will be taken, and the concept maps and rules will
+ : be used if any.</p>
+ :
+ : @param $component a component object.
+ :
+ : @return a sequence of facts with populated dimension values.
+ :)
+declare function components2:facts(
+    $component as object
+)
+as object*
+{
+  components2:facts($component, {})
+};
+
+(:~
+ :
+ : <p>Retrieves all facts that are relevant to the
+ : supplied component, and populates them with the default dimension values
+ : when missing.</p>
+ : 
+ :
+ : @param $report-or-id a report or its RID,
+ : @param $options <a href="facts#standard_options">standard fact retrieving options</a> as well as
+ : <ul>
+ :   <li>FilterOverride: hypercube dimension specs (as defined as hypercubes:user-defined-hypercube)
+ :   to override filters in the report's hypercube.</li>
+ :   <li>HypercubeName: picks a different hypercube than the default one (xbrl:DefaultHypercube).</li>
+ : </ul>
+ :
+ : @return a sequence of facts with populated dimension values.
+ :)
+declare function components2:facts(
+    $component as object,
+    $options as object?
+)
+as object*
+{
+  let $concept-map := networks:networks-for-components-and-short-names(
+      $component,
+      "ConceptMap")
+  let $rules := $component.Rules
+  let $hypercube :=
+    if(exists($options.Hypercube))
+    then $options.Hypercube
+    else hypercubes:hypercubes-for-components(
+             $component,
+             if (exists($options.HypercubeName))
+             then $options.HypercubeName
+             else "xbrl:DefaultHypercube"
+    )
+  let $hypercube :=
+    if(exists($options.FilterOverride))
+    then hypercubes2:modify-hypercube(
+      $hypercube,
+      $options.FilterOverride
+    )
+    else $hypercube
+  return hypercubes:facts(
+          $hypercube,
+          {|
+            $options,
+            { "ConceptMaps": $concept-map }[exists($concept-map)],
+            { "Rules": $rules }[exists($rules)]
+          |}
+         )
+};
+
+(:~
+ :
+ : <p>Retrieves the spreadsheet-like rendering for the component.</p>
+ : <p>The default definition model will be taken.</p>
+ : <p>The default hypercube will be taken, and the concept maps and rules will
+ : be used if any.</p>
+ :
+ : @param $component a component object.
+ :
+ : @return a sequence of facts with populated dimension values.
+ :)
+declare function components2:spreadsheet(
+    $component as object
+)
+as object*
+{
+  components2:spreadsheet($component, {})
+};
+
+(:~
+ :
+ : <p>Retrieves the spreadsheet-like rendering for the component.</p>
+ :
+ : @param $report-or-id a report or its RID,
+ : @param $options <a href="facts#standard_options">standard fact retrieving options</a> as well as
+ : <ul>
+ :   <li>FilterOverride: hypercube dimension specs (as defined as hypercubes:user-defined-hypercube)
+ :   to override filters in the report's hypercube.</li>
+ :   <li>HypercubeName: picks a different hypercube than the default one (xbrl:DefaultHypercube).</li>
+ : </ul>
+ :
+ : 
+ : @error err:XPTY0004 if zero, or more than one definition models are found.
+ :
+ : @return a sequence of facts with populated dimension values.
+ :)
+declare function components2:spreadsheet(
+    $component as object,
+    $options as object?
+)
+as object*
+{
+    let $definition-model as object :=
+        if(exists($options.DefinitionModelName))
+        then components2:definition-models-for-components($component, $options.DefinitionModelName)
+        else components2:definition-models-for-components($component)
+    let $overriden-hypercube as object? :=
+        if(exists($options.Hypercube))
+        then $options.Hypercube
+        else hypercubes:hypercubes-for-components(
+             $component,
+             if (exists($options.HypercubeName))
+             then $options.HypercubeName
+             else "xbrl:DefaultHypercube"
+    )
+    let $concept-map as object?:= networks:networks-for-components-and-short-names(
+      $component,
+      "ConceptMap")
+    let $rules as array? := $component.Rules
+    let $new-options as object :=
+        {|
+            $options,
+            { "ConceptMaps": $concept-map }[exists($concept-map)],
+            { "Rules": $rules }[exists($rules)],
+            if(exists($options.FilterOverride))
+            then {
+                Hypercube: hypercubes2:modify-hypercube(
+                    $overriden-hypercube,
+                    $options.FilterOverride
+                )
+            } else ()
+        |}
+    let $structural-model as object := resolution:resolve(
+        $definition-model,
+        $component,
+        $new-options)
+    let $layout-model as object := layout:layout($structural-model, $new-options)
+    let $accountant-model as object := accountant:flatten-row-headers($layout-model)
+    return
+        if($options.FlattenRows)
+        then $accountant-model
+        else $layout-model
+};
+
 

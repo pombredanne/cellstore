@@ -3,6 +3,7 @@ import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
 import module namespace reports = "http://xbrl.io/modules/bizql/reports";
+import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
@@ -46,10 +47,12 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
                         then $sec-fiscal:ALL_FISCAL_PERIODS
                         else $fp) 
 let $aids        := archives:aid(request:param-values("aid"))
+let $validate    := request:param-values("validate", "false")
 
 (: Object resolution :)
 let $entities := util:entities($ciks, $tags, $tickers, $sics, $aids)
 let $report := request:param-values("report")
+let $report := reports:reports($report)
 
 (: Fact resolution :)
 let $filter-override as object? :=
@@ -60,14 +63,20 @@ let $filtered-aspects :=
     return values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
 let $facts :=
     for $fact in (
-        reports:facts(
+        components2:facts(
             $report,
             {
-                FilterOverride: $filter-override
+                FilterOverride: $filter-override,
+                Validate: boolean($validate eq "true")
             }
         )[exists($filter-override)],
         if(count($filtered-aspects) ge 2 and not exists($filter-override))
-        then reports:facts($report)
+        then components2:facts(
+            $report,
+            {
+                Validate: boolean($validate eq "true")
+            }
+        )
         else ()
     )
     group by $archive := $fact.Archive
