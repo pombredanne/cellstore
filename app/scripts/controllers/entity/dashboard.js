@@ -130,8 +130,8 @@ angular.module('main')
     .then(function (data) {
         if (data && data.FactTable) {
             data.FactTable.forEach(function (item) {
-                var p = item.Aspects['bizql:FiscalPeriod'];
-                var date = $scope.httpDates[item.Aspects['bizql:FiscalYear'] + p];
+                var p = item.Aspects['sec:FiscalPeriod'];
+                var date = $scope.httpDates[item.Aspects['sec:FiscalYear'] + p];
                 if (date) {
                     var index = concepts.indexOf(item.Aspects['xbrl:Concept']);
                     if (index >= 0) {
