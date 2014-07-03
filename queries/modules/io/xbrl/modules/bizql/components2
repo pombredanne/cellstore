@@ -82,7 +82,7 @@ declare function components2:standard-definition-model-for-components($component
  :  <li>Slicers: an object with forced slicers.</li>
  : </ul>
  :
- : @error components2:hypercube-does-not-exist if the specified hypercube is not found.
+ : @error components2:HYPERCUBE-DOES-NOT-EXIST if the specified hypercube is not found.
  : @return a definition model
  :)
 declare function components2:standard-definition-model-for-components($components as object*, $options as object?) as object
@@ -193,7 +193,7 @@ declare function components2:standard-layout-model-for-components($components as
  :  <li>Slicers: an object with forced slicers.</li>
  : </ul>
  :
- : @error components2:hypercube-does-not-exist if the specified hypercube is not found.
+ : @error components2:HYPERCUBE-DOES-NOT-EXIST if the specified hypercube is not found.
  : @return a layout model
  :)
 declare function components2:standard-layout-model-for-components($components as object*, $options as object?) as object
@@ -214,7 +214,7 @@ declare function components2:standard-layout-model-for-components($components as
  :  is available, the default hypercube will be picked.</li>
  : </ul>
  :
- : @error components2:hypercube-does-not-exist if the specified hypercube is not found.
+ : @error components2:HYPERCUBE-DOES-NOT-EXIST if the specified hypercube is not found.
  : @return a definition model
  :)
 declare %private function components2:select-table($component as object, $options as object?) as object
@@ -225,7 +225,7 @@ declare %private function components2:select-table($component as object, $option
     return
         switch(true)
         case exists($options.HypercubeName) and empty($user-chosen-table)
-            return error(QName("components2:hypercube-does-not-exist"), $options.HypercubeName || " : Hypercube does not exist.")
+            return error(QName("components2:HYPERCUBE-DOES-NOT-EXIST"), $options.HypercubeName || " : Hypercube does not exist.")
         case exists($user-chosen-table)
             return $user-chosen-table
         case exists($non-implicit-table)
