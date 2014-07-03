@@ -17,181 +17,13 @@ msgstr "1000 API calls per month"
 msgid "2013 28msec Inc. All rights reserved."
 msgstr "2013 28msec Inc. All rights reserved."
 
-#: app/views/privacy-policy.html
-msgid "28msec does not knowingly collect or solicit any information from anyone under the age of 13 or knowingly allow such persons to register as Users.  The Service and its content are not directed at children under the age of 13. In the event that we learn that we have collected personal information from a child under age 13, we will delete that information as quickly as possible.  If you believe that we might have any information from a child under 13, please contact us at <a href=\"mailto:support@28msec.com\">support@28msec.com</a>."
-msgstr "28msec does not knowingly collect or solicit any information from anyone under the age of 13 or knowingly allow such persons to register as Users.  The Service and its content are not directed at children under the age of 13. In the event that we learn that we have collected personal information from a child under age 13, we will delete that information as quickly as possible.  If you believe that we might have any information from a child under 13, please contact us at <a href=\"mailto:support@28msec.com\">support@28msec.com</a>."
-
-#: app/views/privacy-policy.html
-msgid "28msec may modify or update this Privacy Policy from time to time to reflect the changes in our business and practices, and so you should review this page periodically.  When we change the policy in a material manner we will let you know and update the 'last modified' date at the bottom of this page."
-msgstr "28msec may modify or update this Privacy Policy from time to time to reflect the changes in our business and practices, and so you should review this page periodically.  When we change the policy in a material manner we will let you know and update the 'last modified' date at the bottom of this page."
-
-#: app/views/terms-of-use.html
-msgid "28msec takes no responsibility and assumes no liability for any User Content that you or any other User or third party posts or sends over the Service.  You shall be solely responsible for your User Content and the consequences of posting or publishing it, and you agree that we are only acting as a passive conduit for your online distribution and publication of your User Content.  You understand and agree that you may be exposed to User Content that is inaccurate, objectionable, inappropriate for children, or otherwise unsuited to your purpose, and you agree that 28msec shall not be liable for any damages you allege to incur as a result of User Content."
-msgstr "28msec takes no responsibility and assumes no liability for any User Content that you or any other User or third party posts or sends over the Service.  You shall be solely responsible for your User Content and the consequences of posting or publishing it, and you agree that we are only acting as a passive conduit for your online distribution and publication of your User Content.  You understand and agree that you may be exposed to User Content that is inaccurate, objectionable, inappropriate for children, or otherwise unsuited to your purpose, and you agree that 28msec shall not be liable for any damages you allege to incur as a result of User Content."
-
-#: app/views/terms-of-use.html
-msgid "28msec uses commercially reasonable physical, managerial, and technical safeguards to preserve the integrity and security of your personal information and implement your privacy settings.  However, we cannot guarantee that unauthorized third parties will never be able to defeat our security measures or use your personal information for improper purposes.  You acknowledge that you provide your personal information at your own risk."
-msgstr "28msec uses commercially reasonable physical, managerial, and technical safeguards to preserve the integrity and security of your personal information and implement your privacy settings.  However, we cannot guarantee that unauthorized third parties will never be able to defeat our security measures or use your personal information for improper purposes.  You acknowledge that you provide your personal information at your own risk."
-
-#: app/views/privacy-policy.html
-msgid "<b>Analytics information</b>:  We may directly collect analytics data, or use third-party analytics tools, to help us measure traffic and usage trends for the Service.  These tools collect information sent by your browser or mobile device, including the pages you visit and other information that assists us in improving the Service.  We collect and use this analytics information in aggregate form such that it cannot reasonably be manipulated to identify any particular individual user."
-msgstr "<b>Analytics information</b>:  We may directly collect analytics data, or use third-party analytics tools, to help us measure traffic and usage trends for the Service.  These tools collect information sent by your browser or mobile device, including the pages you visit and other information that assists us in improving the Service.  We collect and use this analytics information in aggregate form such that it cannot reasonably be manipulated to identify any particular individual user."
-
-#: app/views/terms-of-use.html
-msgid "<b>Arbitration</b>.  READ THIS SECTION CAREFULLY BECAUSE IT REQUIRES THE PARTIES TO ARBITRATE THEIR DISPUTES AND LIMITS THE MANNER IN WHICH YOU CAN SEEK RELIEF FROM 28MSEC.<p>In the unlikely event that 28msec has not been able to resolve a dispute it has with you after 60 days, we each agree to resolve any claim, dispute, or controversy (excluding any 28msec claims for injunctive or other equitable relief) arising out of or in connection with or relating to these Terms of Service, or the breach or alleged breach thereof (collectively, \"Claims\"), by binding arbitration by the Judicial Mediation and Arbitration Services (\"JAMS\") under the Optional Expedited Arbitration Procedures then in effect for JAMS, except as provided herein.  The arbitration will be conducted in Santa Clara County, California, unless you and 28msec agree otherwise. Each party will be responsible for paying any JAMS filing, administrative and arbitrator fees in accordance with JAMS rules. The award rendered by the arbitrator shall include costs of arbitration, reasonable attorneys' fees and reasonable costs for expert and other witnesses, and any judgment on the award rendered by the arbitrator may be entered in any court of competent jurisdiction.  Nothing in this Section shall be deemed as preventing 28msec from seeking injunctive or other equitable relief from the courts as necessary to protect any of 28msec's proprietary interests.</p><p>ALL CLAIMS MUST BE BROUGHT IN THE PARTIES' INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS ACTION, COLLECTIVE ACTION, PRIVATE ATTORNEY GENERAL ACTION OR OTHER REPRESENTATIVE PROCEEDING.  THIS WAIVER APPLIES TO CLASS ARBITRATION, AND, UNLESS WE AGREE OTHERWISE, THE ARBITRATOR MAY NOT CONSOLIDATE MORE THAN ONE PERSON'S CLAIMS. YOU AGREE THAT, BY ENTERING INTO THIS TERMS OF SERVICE, YOU AND 28MSEC ARE EACH WAIVING THE RIGHT TO A TRIAL BY JURY OR TO PARTICIPATE IN A CLASS ACTION, .COLLECTIVE ACTION, PRIVATE ATTORNEY GENERAL ACTION, OR OTHER REPRESENTATIVE PROCEEDING OF ANY KIND.</p>"
-msgstr "<b>Arbitration</b>.  READ THIS SECTION CAREFULLY BECAUSE IT REQUIRES THE PARTIES TO ARBITRATE THEIR DISPUTES AND LIMITS THE MANNER IN WHICH YOU CAN SEEK RELIEF FROM 28MSEC.<p>In the unlikely event that 28msec has not been able to resolve a dispute it has with you after 60 days, we each agree to resolve any claim, dispute, or controversy (excluding any 28msec claims for injunctive or other equitable relief) arising out of or in connection with or relating to these Terms of Service, or the breach or alleged breach thereof (collectively, \"Claims\"), by binding arbitration by the Judicial Mediation and Arbitration Services (\"JAMS\") under the Optional Expedited Arbitration Procedures then in effect for JAMS, except as provided herein.  The arbitration will be conducted in Santa Clara County, California, unless you and 28msec agree otherwise. Each party will be responsible for paying any JAMS filing, administrative and arbitrator fees in accordance with JAMS rules. The award rendered by the arbitrator shall include costs of arbitration, reasonable attorneys' fees and reasonable costs for expert and other witnesses, and any judgment on the award rendered by the arbitrator may be entered in any court of competent jurisdiction.  Nothing in this Section shall be deemed as preventing 28msec from seeking injunctive or other equitable relief from the courts as necessary to protect any of 28msec's proprietary interests.</p><p>ALL CLAIMS MUST BE BROUGHT IN THE PARTIES' INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS ACTION, COLLECTIVE ACTION, PRIVATE ATTORNEY GENERAL ACTION OR OTHER REPRESENTATIVE PROCEEDING.  THIS WAIVER APPLIES TO CLASS ARBITRATION, AND, UNLESS WE AGREE OTHERWISE, THE ARBITRATOR MAY NOT CONSOLIDATE MORE THAN ONE PERSON'S CLAIMS. YOU AGREE THAT, BY ENTERING INTO THIS TERMS OF SERVICE, YOU AND 28MSEC ARE EACH WAIVING THE RIGHT TO A TRIAL BY JURY OR TO PARTICIPATE IN A CLASS ACTION, .COLLECTIVE ACTION, PRIVATE ATTORNEY GENERAL ACTION, OR OTHER REPRESENTATIVE PROCEEDING OF ANY KIND.</p>"
-
-#: app/views/terms-of-use.html
-msgid "<b>Assignment</b>.  This Agreement, and any rights and licenses granted hereunder, may not be transferred or assigned by you, but may be assigned by 28msec without restriction.  Any attempted transfer or assignment in violation hereof shall be null and void."
-msgstr "<b>Assignment</b>.  This Agreement, and any rights and licenses granted hereunder, may not be transferred or assigned by you, but may be assigned by 28msec without restriction.  Any attempted transfer or assignment in violation hereof shall be null and void."
-
-#: app/views/terms-of-use.html
-msgid "<b>Billing Policies</b>.  Certain aspects of the Service may be provided for a fee or other charge.  If you elect to use paid aspects of the Service, you agree to the pricing and payment terms, as we may update them from time to time.  28msec may add new services for additional fees and charges, or amend fees and charges for existing services, at any time in its sole discretion.  Any change to our pricing or payment terms shall become effective in the billing cycle following notice of such change to you as provided in this Agreement."
-msgstr "<b>Billing Policies</b>.  Certain aspects of the Service may be provided for a fee or other charge.  If you elect to use paid aspects of the Service, you agree to the pricing and payment terms, as we may update them from time to time.  28msec may add new services for additional fees and charges, or amend fees and charges for existing services, at any time in its sole discretion.  Any change to our pricing or payment terms shall become effective in the billing cycle following notice of such change to you as provided in this Agreement."
-
-#: app/views/privacy-policy.html
-msgid "<b>Clear gifs/web beacons information</b>:  When you use the Service, we may employ clear gifs (also known as web beacons) which are used to anonymously track the online usage patterns of our Users.  In addition, we may also use clear gifs in HTML-based emails sent to our users to track which emails are opened and which links are clicked by recipients.  The information is allows for more accurate reporting and improvement of the Service."
-msgstr "<b>Clear gifs/web beacons information</b>:  When you use the Service, we may employ clear gifs (also known as web beacons) which are used to anonymously track the online usage patterns of our Users.  In addition, we may also use clear gifs in HTML-based emails sent to our users to track which emails are opened and which links are clicked by recipients.  The information is allows for more accurate reporting and improvement of the Service."
-
-#: app/views/privacy-policy.html
-msgid "<b>Commercial and marketing communications</b>: We use the information we collect or receive to communicate directly with you.  We may send you emails containing newsletters, promotions and special offers.  If you do not want to receive such email messages, you will be given the option to opt out or change your preferences.  We also use your information to send you Service-related emails (e.g., account verification, purchase and billing confirmations and reminders, changes/updates to features of the Service, technical and security notices).  You may not opt out of Service-related e-mails."
-msgstr "<b>Commercial and marketing communications</b>: We use the information we collect or receive to communicate directly with you.  We may send you emails containing newsletters, promotions and special offers.  If you do not want to receive such email messages, you will be given the option to opt out or change your preferences.  We also use your information to send you Service-related emails (e.g., account verification, purchase and billing confirmations and reminders, changes/updates to features of the Service, technical and security notices).  You may not opt out of Service-related e-mails."
-
-#: app/views/privacy-policy.html
-msgid "<b>Compromise of information</b>:  In the event that any information under our control is compromised as a result of a breach of security, 28msec will take reasonable steps to investigate the situation and where appropriate, notify those individuals whose information may have been compromised and take other steps, in accordance with any applicable laws and regulations."
-msgstr "<b>Compromise of information</b>:  In the event that any information under our control is compromised as a result of a breach of security, 28msec will take reasonable steps to investigate the situation and where appropriate, notify those individuals whose information may have been compromised and take other steps, in accordance with any applicable laws and regulations."
-
-#: app/views/terms-of-use.html
-msgid "<b>Contact</b>.  Please contact us at <a href=\"mailto:support@28msec.com\">support@28msec.com</a> with any questions regarding this Agreement."
-msgstr "<b>Contact</b>.  Please contact us at <a href=\"mailto:support@28msec.com\">support@28msec.com</a> with any questions regarding this Agreement."
-
-#: app/views/privacy-policy.html
-msgid "<b>Cookies information</b>:  When you visit the Service, we may send one or more cookies - a small text file containing a string of alphanumeric characters - to your computer that uniquely identifies your browser and lets 28msec help you log in faster and enhance your navigation through the site.  A cookie may also convey information to us about how you use the Service (e.g., the pages you view, the links you click and other actions you take on the Service), and allow us or our business partners to track your usage of the Service over time. A persistent cookie remains on your hard drive after you close your browser.  Persistent cookies may be used by your browser on subsequent visits to the site.  Persistent cookies can be removed by following your web browser's directions.  A session cookie is temporary and disappears after you close your browser.  You can reset your web browser to refuse all cookies or to indicate when a cookie is being sent.  However, some features of the Service may not function properly if the ability to accept cookies is disabled."
-msgstr "<b>Cookies information</b>:  When you visit the Service, we may send one or more cookies - a small text file containing a string of alphanumeric characters - to your computer that uniquely identifies your browser and lets 28msec help you log in faster and enhance your navigation through the site.  A cookie may also convey information to us about how you use the Service (e.g., the pages you view, the links you click and other actions you take on the Service), and allow us or our business partners to track your usage of the Service over time. A persistent cookie remains on your hard drive after you close your browser.  Persistent cookies may be used by your browser on subsequent visits to the site.  Persistent cookies can be removed by following your web browser's directions.  A session cookie is temporary and disappears after you close your browser.  You can reset your web browser to refuse all cookies or to indicate when a cookie is being sent.  However, some features of the Service may not function properly if the ability to accept cookies is disabled."
-
-#: app/views/terms-of-use.html
-msgid "<b>Eligibility</b>. You may use the Service only if you can form a binding contract with 28msec, and only in compliance with this Agreement and all applicable local, state, national, and international laws, rules and regulations.  Any use or access to the Service by anyone under 13 is strictly prohibited and in violation of this Agreement. The Service is not available to any Users previously removed from the Service by 28msec."
-msgstr "<b>Eligibility</b>. You may use the Service only if you can form a binding contract with 28msec, and only in compliance with this Agreement and all applicable local, state, national, and international laws, rules and regulations.  Any use or access to the Service by anyone under 13 is strictly prohibited and in violation of this Agreement. The Service is not available to any Users previously removed from the Service by 28msec."
-
-#: app/views/terms-of-use.html
-msgid "<b>Entire Agreement/Severability</b>.  This Agreement, together with any amendments and any additional agreements you may enter into with 28msec in connection with the Service, shall constitute the entire agreement between you and 28msec concerning the Service.  If any provision of this Agreement is deemed invalid by a court of competent jurisdiction, the invalidity of such provision shall not affect the validity of the remaining provisions of this Agreement, which shall remain in full force and effect, except that in the event of unenforceability of the universal Class Action/Jury Trial Waiver, the entire arbitration agreement shall be unenforceable."
-msgstr "<b>Entire Agreement/Severability</b>.  This Agreement, together with any amendments and any additional agreements you may enter into with 28msec in connection with the Service, shall constitute the entire agreement between you and 28msec concerning the Service.  If any provision of this Agreement is deemed invalid by a court of competent jurisdiction, the invalidity of such provision shall not affect the validity of the remaining provisions of this Agreement, which shall remain in full force and effect, except that in the event of unenforceability of the universal Class Action/Jury Trial Waiver, the entire arbitration agreement shall be unenforceable."
-
-#: app/views/terms-of-use.html
-msgid "<b>Governing Law</b>.  You agree that: (i) the Service shall be deemed solely based in California; and (ii) the Service shall be deemed a passive one that does not give rise to personal jurisdiction over 28msec, either specific or general, in jurisdictions other than California.  This Agreement shall be governed by the internal substantive laws of the State of California, without respect to its conflict of laws principles.  The parties acknowledge that this Agreement evidences a transaction involving interstate commerce.  Notwithstanding the preceding sentences with respect to the substantive law, any arbitration conducted pursuant to the terms of this Agreement shall be governed by the Federal Arbitration Act (9 U.S.C. §§ 1-16).  The application of the United Nations Convention on Contracts for the International Sale of Goods is expressly excluded.  You agree to submit to the personal jurisdiction of the federal and state courts located in Santa Clara County, California for any actions for which we retain the right to seek injunctive or other equitable relief in a court of competent jurisdiction to prevent the actual or threatened infringement, misappropriation or violation of a our copyrights, trademarks, trade secrets, patents, or other intellectual property or proprietary rights, as set forth in the Arbitration provision below."
-msgstr "<b>Governing Law</b>.  You agree that: (i) the Service shall be deemed solely based in California; and (ii) the Service shall be deemed a passive one that does not give rise to personal jurisdiction over 28msec, either specific or general, in jurisdictions other than California.  This Agreement shall be governed by the internal substantive laws of the State of California, without respect to its conflict of laws principles.  The parties acknowledge that this Agreement evidences a transaction involving interstate commerce.  Notwithstanding the preceding sentences with respect to the substantive law, any arbitration conducted pursuant to the terms of this Agreement shall be governed by the Federal Arbitration Act (9 U.S.C. §§ 1-16).  The application of the United Nations Convention on Contracts for the International Sale of Goods is expressly excluded.  You agree to submit to the personal jurisdiction of the federal and state courts located in Santa Clara County, California for any actions for which we retain the right to seek injunctive or other equitable relief in a court of competent jurisdiction to prevent the actual or threatened infringement, misappropriation or violation of a our copyrights, trademarks, trade secrets, patents, or other intellectual property or proprietary rights, as set forth in the Arbitration provision below."
-
-#: app/views/terms-of-use.html
-msgid "<b>Government Use Rights</b>.  If the Service is licensed to the United States government or any agency thereof, then the Service will be deemed to be \"commercial computer software\" and \"commercial computer software documentation,\" respectively, pursuant to DFAR Section 227.7202 and FAR Section 12.212, as applicable.  Any use, reproduction, release, performance, display or disclosure of the Service and any accompanying documentation by the U.S. Government will be governed solely by these Terms of Service and is prohibited except to the extent expressly permitted by these Terms of Service."
-msgstr "<b>Government Use Rights</b>.  If the Service is licensed to the United States government or any agency thereof, then the Service will be deemed to be \"commercial computer software\" and \"commercial computer software documentation,\" respectively, pursuant to DFAR Section 227.7202 and FAR Section 12.212, as applicable.  Any use, reproduction, release, performance, display or disclosure of the Service and any accompanying documentation by the U.S. Government will be governed solely by these Terms of Service and is prohibited except to the extent expressly permitted by these Terms of Service."
-
-#: app/views/privacy-policy.html
-msgid "<b>How long we keep your User Content</b>:  Following termination or deactivation of your User account, 28msec may retain your profile information and User Content for a commercially reasonable time for backup, archival, or audit purposes."
-msgstr "<b>How long we keep your User Content</b>:  Following termination or deactivation of your User account, 28msec may retain your profile information and User Content for a commercially reasonable time for backup, archival, or audit purposes."
-
-#: app/views/privacy-policy.html
-msgid "<b>Information you provide us directly</b>: We ask for certain information such as your username, first and last name and e-mail address when you register for a secxbrl.info account, or if you correspond with us.  We also ask for your log-in credentials to third-party providers.  We may retain any messages you send through the Service, and may collect information you provide in User Content you post to the Service.  We use this information to operate, maintain, and provide to you the features and functionality of the Service."
-msgstr "<b>Information you provide us directly</b>: We ask for certain information such as your username, first and last name and e-mail address when you register for a secxbrl.info account, or if you correspond with us.  We also ask for your log-in credentials to third-party providers.  We may retain any messages you send through the Service, and may collect information you provide in User Content you post to the Service.  We use this information to operate, maintain, and provide to you the features and functionality of the Service."
-
-#: app/views/privacy-policy.html
-msgid "<b>Instances where we are required to share your information</b>: 28msec will disclose your information where required to do so by law or subpoena or if we reasonably believe that such action is necessary to (a) comply with the law and the reasonable requests of law enforcement; (b) to enforce our <a href=\"/terms-of-use\">Terms of Service</a> or to protect the security or integrity of our Service; and/or (c) to exercise or protect the rights, property, or personal safety of 28msec, our Users or others."
-msgstr "<b>Instances where we are required to share your information</b>: 28msec will disclose your information where required to do so by law or subpoena or if we reasonably believe that such action is necessary to (a) comply with the law and the reasonable requests of law enforcement; (b) to enforce our <a href=\"/terms-of-use\">Terms of Service</a> or to protect the security or integrity of our Service; and/or (c) to exercise or protect the rights, property, or personal safety of 28msec, our Users or others."
-
-#: app/views/privacy-policy.html
-msgid "<b>Keeping your information safe</b>:  28msec cares about the security of your information, and uses commercially reasonable safeguards to preserve the integrity and security of all information collected through the Service.  To protect your privacy and security, we take reasonable steps (such as requesting a unique password) to verify your identity before granting you access to your account.  You are responsible for maintaining the secrecy of your unique password and account information, and for controlling access to your email communications from 28msec, at all times.  However, 28msec cannot ensure or warrant the security of any information you transmit to 28msec or guarantee that information on the Service may not be accessed, disclosed, altered, or destroyed.  Your privacy settings may also be affected by changes to the functionality of third party sites and services that you add to the 28msec Service, such as social networks.  28msec is not responsible for the functionality or security measures of any third party."
-msgstr "<b>Keeping your information safe</b>:  28msec cares about the security of your information, and uses commercially reasonable safeguards to preserve the integrity and security of all information collected through the Service.  To protect your privacy and security, we take reasonable steps (such as requesting a unique password) to verify your identity before granting you access to your account.  You are responsible for maintaining the secrecy of your unique password and account information, and for controlling access to your email communications from 28msec, at all times.  However, 28msec cannot ensure or warrant the security of any information you transmit to 28msec or guarantee that information on the Service may not be accessed, disclosed, altered, or destroyed.  Your privacy settings may also be affected by changes to the functionality of third party sites and services that you add to the 28msec Service, such as social networks.  28msec is not responsible for the functionality or security measures of any third party."
-
-#: app/views/privacy-policy.html
-msgid "<b>Log file information</b>:  Log file information is automatically reported by your browser or mobile device each time you access the Service.  When you use our Service, our servers automatically record certain log file information.  These server logs may include anonymous information such as your web request, Internet Protocol (\"IP\") address, browser type, referring / exit pages and URLs, number of clicks and how you interact with links on the Service, domain names, landing pages, pages viewed, and other such information."
-msgstr "<b>Log file information</b>:  Log file information is automatically reported by your browser or mobile device each time you access the Service.  When you use our Service, our servers automatically record certain log file information.  These server logs may include anonymous information such as your web request, Internet Protocol (\"IP\") address, browser type, referring / exit pages and URLs, number of clicks and how you interact with links on the Service, domain names, landing pages, pages viewed, and other such information."
-
-#: app/views/terms-of-use.html
-msgid "<b>No Refunds</b>.  You may cancel your secxbrl.info account at any time; however, there are no refunds for cancellation.  In the event that 28msec suspends or terminates your account or this Agreement for your breach of this Agreement, you understand and agree that you shall receive no refund or exchange for any unused time on a subscription, any license or subscription fees for any portion of the Service, any content or data associated with your account, or for anything else."
-msgstr "<b>No Refunds</b>.  You may cancel your secxbrl.info account at any time; however, there are no refunds for cancellation.  In the event that 28msec suspends or terminates your account or this Agreement for your breach of this Agreement, you understand and agree that you shall receive no refund or exchange for any unused time on a subscription, any license or subscription fees for any portion of the Service, any content or data associated with your account, or for anything else."
-
-#: app/views/terms-of-use.html
-msgid "<b>No Waiver</b>.  No waiver of any term of this Agreement shall be deemed a further or continuing waiver of such term or any other term, and 28msec's failure to assert any right or provision under this Agreement shall not constitute a waiver of such right or provision."
-msgstr "<b>No Waiver</b>.  No waiver of any term of this Agreement shall be deemed a further or continuing waiver of such term or any other term, and 28msec's failure to assert any right or provision under this Agreement shall not constitute a waiver of such right or provision."
-
-#: app/views/terms-of-use.html
-msgid "<b>Notification Procedures and Changes to the Agreement</b>.  28msec may provide notifications, whether such notifications are required by law or are for marketing or other business related purposes, to you via email notice, written or hard copy notice, or through posting of such notice on our website, as determined by 28msec in our sole discretion.  28msec reserves the right to determine the form and means of providing notifications to our Users, provided that you may opt out of certain means of notification as described in this Agreement.  28msec is not responsible for any automatic filtering you or your network provider may apply to email notifications we send to the email address you provide us.  28msec may, in its sole discretion, modify or update this Agreement from time to time, and so you should review this page periodically.  When we change the Agreement in a material manner, we will update the 'last modified' date at the bottom of this page.  Your continued use of the Service after any such change constitutes your acceptance of the new Terms of Service.  If you do not agree to any of these terms or any future Terms of Service, do not use or access (or continue to access) the Service."
-msgstr "<b>Notification Procedures and Changes to the Agreement</b>.  28msec may provide notifications, whether such notifications are required by law or are for marketing or other business related purposes, to you via email notice, written or hard copy notice, or through posting of such notice on our website, as determined by 28msec in our sole discretion.  28msec reserves the right to determine the form and means of providing notifications to our Users, provided that you may opt out of certain means of notification as described in this Agreement.  28msec is not responsible for any automatic filtering you or your network provider may apply to email notifications we send to the email address you provide us.  28msec may, in its sole discretion, modify or update this Agreement from time to time, and so you should review this page periodically.  When we change the Agreement in a material manner, we will update the 'last modified' date at the bottom of this page.  Your continued use of the Service after any such change constitutes your acceptance of the new Terms of Service.  If you do not agree to any of these terms or any future Terms of Service, do not use or access (or continue to access) the Service."
-
-#: app/views/privacy-policy.html
-msgid "<b>Opting out of collection of your information for Tracking / Advertising</b>:  Please refer to your mobile device or browser's technical information for instructions on how to delete and disable cookies, and other tracking/recording tools.  Depending on your type of device, it may not be possible to delete or disable tracking mechanisms on your mobile device. Note that disabling cookies and/or other tracking tools prevents 28msec or its business partners from tracking your browser's activities in relation to the Service, and for use in targeted advertising activities by third parties.  However, doing so may disable many of the features available through the Service.  If you have any questions about opting out of the collection of cookies and other tracking/recording tools, you can contact us directly at <a href=\"mailto:support@28msec.com\">support@28msec.com</a>."
-msgstr "<b>Opting out of collection of your information for Tracking / Advertising</b>:  Please refer to your mobile device or browser's technical information for instructions on how to delete and disable cookies, and other tracking/recording tools.  Depending on your type of device, it may not be possible to delete or disable tracking mechanisms on your mobile device. Note that disabling cookies and/or other tracking tools prevents 28msec or its business partners from tracking your browser's activities in relation to the Service, and for use in targeted advertising activities by third parties.  However, doing so may disable many of the features available through the Service.  If you have any questions about opting out of the collection of cookies and other tracking/recording tools, you can contact us directly at <a href=\"mailto:support@28msec.com\">support@28msec.com</a>."
-
-#: app/views/terms-of-use.html
-msgid "<b>Payment Information; Taxes</b>.  All information that you provide in connection with a purchase or transaction or other monetary transaction interaction with the Service must be accurate, complete, and current.  You agree to pay all charges incurred by users of your credit card, debit card, or other payment method used in connection with a purchase or transaction or other monetary transaction interaction with the Service at the prices in effect when such charges are incurred.  You will pay any applicable taxes, if any, relating to any such purchases, transactions or other monetary transaction interactions."
-msgstr "<b>Payment Information; Taxes</b>.  All information that you provide in connection with a purchase or transaction or other monetary transaction interaction with the Service must be accurate, complete, and current.  You agree to pay all charges incurred by users of your credit card, debit card, or other payment method used in connection with a purchase or transaction or other monetary transaction interaction with the Service at the prices in effect when such charges are incurred.  You will pay any applicable taxes, if any, relating to any such purchases, transactions or other monetary transaction interactions."
-
-#: app/views/terms-of-use.html
-msgid "<b>Please note that this procedure is exclusively for notifying 28msec and its affiliates that your copyrighted material has been infringed.  The preceding requirements are intended to comply with 28msec's rights and obligations under the DMCA, including 17 U.S.C. §512(c), but do not constitute legal advice.  It may be advisable to contact an attorney regarding your rights and obligations under the DMCA and other applicable laws.</b>"
-msgstr "<b>Please note that this procedure is exclusively for notifying 28msec and its affiliates that your copyrighted material has been infringed.  The preceding requirements are intended to comply with 28msec's rights and obligations under the DMCA, including 17 U.S.C. §512(c), but do not constitute legal advice.  It may be advisable to contact an attorney regarding your rights and obligations under the DMCA and other applicable laws.</b>"
-
-#: app/views/privacy-policy.html
-msgid "<b>Safe harbor</b>:  We comply with the EU Safe Harbor framework administered by the Department of Commerce.  As part of our participation in the Safe Harbor, we agree to resolve all disputes you have with us relating to our privacy practices through TRUSTe.  To view our certification, visit the U.S. Department of Commerce's Safe Harbor website at: <a href=\"https://safeharbor.export.gov/list.aspx\">https://safeharbor.export.gov/list.aspx</a>."
-msgstr "<b>Safe harbor</b>:  We comply with the EU Safe Harbor framework administered by the Department of Commerce.  As part of our participation in the Safe Harbor, we agree to resolve all disputes you have with us relating to our privacy practices through TRUSTe.  To view our certification, visit the U.S. Department of Commerce's Safe Harbor website at: <a href=\"https://safeharbor.export.gov/list.aspx\">https://safeharbor.export.gov/list.aspx</a>."
-
-#: app/views/terms-of-use.html
-msgid "<b>Service Rules</b>. You agree not to engage in any of the following prohibited activities: (i) copying, distributing, or disclosing any part of the Service in any medium, including without limitation by any automated or non-automated \"scraping\"; (ii) using any automated system, including without limitation \"robots,\" \"spiders,\" \"offline readers,\" etc., to access the Service in a manner that sends more request messages to the 28msec servers than a human can reasonably produce in the same period of time by using a conventional on-line web browser; (iii) transmitting spam, chain letters, or other unsolicited email; (iv) attempting to interfere with, compromise the system integrity or security or decipher any transmissions to or from the servers running the Service; (v) taking any action that imposes, or may impose at our sole discretion an unreasonable or disproportionately large load on our infrastructure; (vi) uploading invalid data, viruses, worms, or other software agents through the Service; (vii) collecting or harvesting any personally identifiable information, including account names, from the Service; (viii) using the Service for any commercial solicitation purposes; (ix) impersonating another person or otherwise misrepresenting your affiliation with a person or entity, conducting fraud, hiding or attempting to hide your identity; (x) interfering with the proper working of the Service; (xi) accessing any content on the Service through any technology or means other than those provided or authorized by the Service; or (xii) bypassing the measures we may use to prevent or restrict access to the Service, including without limitation features that prevent or restrict use or copying of any content or enforce limitations on use of the Service or the content therein."
-msgstr "<b>Service Rules</b>. You agree not to engage in any of the following prohibited activities: (i) copying, distributing, or disclosing any part of the Service in any medium, including without limitation by any automated or non-automated \"scraping\"; (ii) using any automated system, including without limitation \"robots,\" \"spiders,\" \"offline readers,\" etc., to access the Service in a manner that sends more request messages to the 28msec servers than a human can reasonably produce in the same period of time by using a conventional on-line web browser; (iii) transmitting spam, chain letters, or other unsolicited email; (iv) attempting to interfere with, compromise the system integrity or security or decipher any transmissions to or from the servers running the Service; (v) taking any action that imposes, or may impose at our sole discretion an unreasonable or disproportionately large load on our infrastructure; (vi) uploading invalid data, viruses, worms, or other software agents through the Service; (vii) collecting or harvesting any personally identifiable information, including account names, from the Service; (viii) using the Service for any commercial solicitation purposes; (ix) impersonating another person or otherwise misrepresenting your affiliation with a person or entity, conducting fraud, hiding or attempting to hide your identity; (x) interfering with the proper working of the Service; (xi) accessing any content on the Service through any technology or means other than those provided or authorized by the Service; or (xii) bypassing the measures we may use to prevent or restrict access to the Service, including without limitation features that prevent or restrict use or copying of any content or enforce limitations on use of the Service or the content therein."
-
-#: app/views/privacy-policy.html
-msgid "<b>Sharing certain service type information we collect about you</b>:  We may share certain service type information, including information obtained through tools such as cookies, log files and clear gifs (such as anonymous usage data, referring/exit pages and URLs, platform types, number of clicks, etc.): (i) with our third-party business partners for the purposes described in the section above on <b>\"How We Collect and Use Information\"</b>.  We may also aggregate or otherwise strip data of all personally identifying characteristics and may share that aggregated, anonymized data with third parties."
-msgstr "<b>Sharing certain service type information we collect about you</b>:  We may share certain service type information, including information obtained through tools such as cookies, log files and clear gifs (such as anonymous usage data, referring/exit pages and URLs, platform types, number of clicks, etc.): (i) with our third-party business partners for the purposes described in the section above on <b>\"How We Collect and Use Information\"</b>.  We may also aggregate or otherwise strip data of all personally identifying characteristics and may share that aggregated, anonymized data with third parties."
-
-#: app/views/privacy-policy.html
-msgid "<b>Storage and Processing</b>:  Your information collected through the Service may be stored and processed in the United States or any other country in which 28msec or its subsidiaries, affiliates or service providers maintain facilities. 28msec may transfer information that we collect about you, including personal information, to affiliated entities, or to other third parties across borders and from your country or jurisdiction to other countries or jurisdictions around the world.  If you are located in the European Union or other regions with laws governing data collection and use that may differ from U.S. law, please note that we may transfer information, including personal information, to a country and jurisdiction that does not have the same data protection laws as your jurisdiction, and you consent to the transfer of information to the U.S. or any other country in which 28msec or its parent, subsidiaries, affiliates or service providers maintain facilities and the use and disclosure of information about you as described in this Privacy Policy."
-msgstr "<b>Storage and Processing</b>:  Your information collected through the Service may be stored and processed in the United States or any other country in which 28msec or its subsidiaries, affiliates or service providers maintain facilities. 28msec may transfer information that we collect about you, including personal information, to affiliated entities, or to other third parties across borders and from your country or jurisdiction to other countries or jurisdictions around the world.  If you are located in the European Union or other regions with laws governing data collection and use that may differ from U.S. law, please note that we may transfer information, including personal information, to a country and jurisdiction that does not have the same data protection laws as your jurisdiction, and you consent to the transfer of information to the U.S. or any other country in which 28msec or its parent, subsidiaries, affiliates or service providers maintain facilities and the use and disclosure of information about you as described in this Privacy Policy."
-
-#: app/views/privacy-policy.html
-msgid "<b>Use of  certain service type information we collect about you</b>: We use or may use cookies, log file, device identifiers, location data and clear gifs information to:  (a) remember information so that you will not have to re-enter it during your visit or the next time you visit the site; (b) provide custom, personalized content and information; (c) to provide and monitor the effectiveness of our Service; (d) monitor aggregate metrics such as total number of visitors, traffic, and demographic patterns; (e) diagnose or fix technology problems; (f) help you efficiently access your information after you sign in; (g) to provide advertising  to your browser or device, and (h) automatically update the secxbrl.info application on your mobile devices."
-msgstr "<b>Use of  certain service type information we collect about you</b>: We use or may use cookies, log file, device identifiers, location data and clear gifs information to:  (a) remember information so that you will not have to re-enter it during your visit or the next time you visit the site; (b) provide custom, personalized content and information; (c) to provide and monitor the effectiveness of our Service; (d) monitor aggregate metrics such as total number of visitors, traffic, and demographic patterns; (e) diagnose or fix technology problems; (f) help you efficiently access your information after you sign in; (g) to provide advertising  to your browser or device, and (h) automatically update the secxbrl.info application on your mobile devices."
-
-#: app/views/privacy-policy.html
-msgid "<b>What happens in the event of a change of control</b>: We may buy or sell/divest/transfer the 28msec (including any shares in the 28msec), or any combination of its products, services, assets and/or businesses.  Your information such as customer names and email addresses, User Content and other user information related to the Service may be among the items sold or otherwise transferred in these types of transactions.  We may also sell, assign or otherwise transfer such information in the course of corporate divestitures, mergers, acquisitions, bankruptcies, dissolutions, reorganizations, liquidations, similar transactions or proceedings involving all or a portion of the 28msec."
-msgstr "<b>What happens in the event of a change of control</b>: We may buy or sell/divest/transfer the 28msec (including any shares in the 28msec), or any combination of its products, services, assets and/or businesses.  Your information such as customer names and email addresses, User Content and other user information related to the Service may be among the items sold or otherwise transferred in these types of transactions.  We may also sell, assign or otherwise transfer such information in the course of corporate divestitures, mergers, acquisitions, bankruptcies, dissolutions, reorganizations, liquidations, similar transactions or proceedings involving all or a portion of the 28msec."
-
-#: app/views/privacy-policy.html
-msgid "<b>Who we may share your information with</b>: We may share your information with third-party business partners for the purpose of providing the Service to you.  Those business partners will be given limited access to your information as is reasonably necessary to deliver the Service, and we will require that such third parties comply with this Privacy Policy."
-msgstr "<b>Who we may share your information with</b>: We may share your information with third-party business partners for the purpose of providing the Service to you.  Those business partners will be given limited access to your information as is reasonably necessary to deliver the Service, and we will require that such third parties comply with this Privacy Policy."
-
-#: app/views/privacy-policy.html
-msgid "<b>Who you may choose to share your User Content with</b>: Any information or content that you voluntarily disclose for posting to the Service, such as User Content, becomes available to the public, as controlled by any applicable privacy settings.  To change your privacy settings on the Service, please do so in your Profile page.  Subject to your profile and privacy settings, any User Content that you make public is searchable by other Users.  If you remove information that you posted to the Service, copies may remain viewable in cached and archived pages of the Service, or if other Users have copied or saved that information."
-msgstr "<b>Who you may choose to share your User Content with</b>: Any information or content that you voluntarily disclose for posting to the Service, such as User Content, becomes available to the public, as controlled by any applicable privacy settings.  To change your privacy settings on the Service, please do so in your Profile page.  Subject to your profile and privacy settings, any User Content that you make public is searchable by other Users.  If you remove information that you posted to the Service, copies may remain viewable in cached and archived pages of the Service, or if other Users have copied or saved that information."
-
-#: app/views/privacy-policy.html
-msgid "<b>You control your account information and settings</b>:  You may update your account information and email-communication preferences at any time by logging into your account and changing your profile settings.  You can also stop receiving promotional email communications from us by clicking on the \"unsubscribe link\" provided in such communications.  We make every effort to promptly process all unsubscribe requests.  As noted above, you may not opt out of Service-related communications (e.g., account verification, purchase and billing confirmations and reminders, changes/updates to features of the Service, technical and security notices).  If you have any questions about reviewing or modifying your account information, you can contact us directly at <a href=\"mailto:support@28msec.com\">support@28msec.com</a>."
-msgstr "<b>You control your account information and settings</b>:  You may update your account information and email-communication preferences at any time by logging into your account and changing your profile settings.  You can also stop receiving promotional email communications from us by clicking on the \"unsubscribe link\" provided in such communications.  We make every effort to promptly process all unsubscribe requests.  As noted above, you may not opt out of Service-related communications (e.g., account verification, purchase and billing confirmations and reminders, changes/updates to features of the Service, technical and security notices).  If you have any questions about reviewing or modifying your account information, you can contact us directly at <a href=\"mailto:support@28msec.com\">support@28msec.com</a>."
-
-#: app/views/terms-of-use.html
-msgid "<b>secxbrl.info Accounts</b>. Your secxbrl.info account gives you access to the services and functionality that we may establish and maintain from time to time and in our sole discretion.  We may maintain different types of accounts for different types of Users.  If you open a secxbrl.info account on behalf of a company, organization, or other entity, then (a) \"you\" includes you and that entity, and (b) you represent and warrant that you are an authorized representative of the entity with the authority to bind the entity to this Agreement, and that you agree to this Agreement on the entity's behalf.  By connecting to secxbrl.info with a third-party service, you give us permission to access and use your information from that service as permitted by that service, and to store your log-in credentials for that service."
-msgstr "<b>secxbrl.info Accounts</b>. Your secxbrl.info account gives you access to the services and functionality that we may establish and maintain from time to time and in our sole discretion.  We may maintain different types of accounts for different types of Users.  If you open a secxbrl.info account on behalf of a company, organization, or other entity, then (a) \"you\" includes you and that entity, and (b) you represent and warrant that you are an authorized representative of the entity with the authority to bind the entity to this Agreement, and that you agree to this Agreement on the entity's behalf.  By connecting to secxbrl.info with a third-party service, you give us permission to access and use your information from that service as permitted by that service, and to store your log-in credentials for that service."
-
-#: app/views/terms-of-use.html
-msgid "<b>secxbrl.info Service</b>. Subject to the terms and conditions of this Agreement, you are hereby granted a non-exclusive, limited, non-transferable, freely revocable license to use the Service as permitted by the features of the Service.  28msec reserves all rights not expressly granted herein in the Service and the 28msec Content (as defined below).  28msec may terminate this license at any time for any reason or no reason."
-msgstr "<b>secxbrl.info Service</b>. Subject to the terms and conditions of this Agreement, you are hereby granted a non-exclusive, limited, non-transferable, freely revocable license to use the Service as permitted by the features of the Service.  28msec reserves all rights not expressly granted herein in the Service and the 28msec Content (as defined below).  28msec may terminate this license at any time for any reason or no reason."
-
-#: app/views/terms-of-use.html
-msgid "A statement that you have a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or law; and"
-msgstr "A statement that you have a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or law; and"
-
-#: app/views/terms-of-use.html
-msgid "A statement, made under penalty of perjury, that the above information is accurate, and that you are the copyright owner or are authorized to act on behalf of the owner."
-msgstr "A statement, made under penalty of perjury, that the above information is accurate, and that you are the copyright owner or are authorized to act on behalf of the owner."
-
-#: app/views/comparison.html
-msgid "ADD A INDUSTRY GROUP"
-msgstr "ADD A INDUSTRY GROUP"
-
-#: app/views/comparison.html
-msgid "ADD AN ENTITY GROUP"
-msgstr "ADD AN ENTITY GROUP"
-
 #: app/views/comparison.html
 msgid "ADD ENTITY"
 msgstr "ADD ENTITY"
+
+#: app/views/comparison.html
+msgid "ADD ENTITY GROUP"
+msgstr "ADD ENTITY GROUP"
 
 #: app/views/comparison.html
 msgid "ADD FISCAL PERIODS"
@@ -200,6 +32,10 @@ msgstr "ADD FISCAL PERIODS"
 #: app/views/comparison.html
 msgid "ADD FISCAL YEARS"
 msgstr "ADD FISCAL YEARS"
+
+#: app/views/comparison.html
+msgid "ADD INDUSTRY GROUP"
+msgstr "ADD INDUSTRY GROUP"
 
 #: app/views/root.html
 msgid "API"
@@ -215,6 +51,10 @@ msgstr "API Tokens"
 msgid "API access"
 msgstr "API access"
 
+#: app/views/account/billing.html
+msgid "API calls in billing cycle"
+msgstr "API calls in billing cycle"
+
 #: app/views/about.html
 msgid "About secxbrl.info"
 msgstr "About secxbrl.info"
@@ -228,6 +68,8 @@ msgstr "Abstract"
 msgid "Abstracts"
 msgstr "Abstracts"
 
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
 #: app/views/entity/filing.html
 #: app/views/entity/modelstructure.html
 msgid "Accepted"
@@ -237,11 +79,6 @@ msgstr "Accepted"
 #: app/views/entity/filings.html
 msgid "Accepted by SEC"
 msgstr "Accepted by SEC"
-
-#: app/views/entity/components.html
-#: app/views/entity/facttable.html
-msgid "Accepted:"
-msgstr "Accepted:"
 
 #: app/views/pricing.html
 msgid "Access to DOW30 filings"
@@ -256,16 +93,13 @@ msgstr "Access to all SEC filings"
 #: app/views/comparison/filings.html
 #: app/views/comparison/report-elements.html
 #: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
 msgid "Accession Number"
 msgstr "Accession Number"
-
-#: app/views/entity/components.html
-#: app/views/entity/facttable.html
-msgid "Accession Number:"
-msgstr "Accession Number:"
 
 #: app/views/account.html
 msgid "Account Management"
@@ -283,10 +117,6 @@ msgstr "Adapt API for your sophisticated queries"
 msgid "Add"
 msgstr "Add"
 
-#: app/views/terms-of-use.html
-msgid "Address:"
-msgstr "Address:"
-
 #: app/views/pricing.html
 msgid "Affordable Access to Financial Information"
 msgstr "Affordable Access to Financial Information"
@@ -303,14 +133,6 @@ msgstr "All data as:"
 msgid "Amount"
 msgstr "Amount"
 
-#: app/views/terms-of-use.html
-msgid "An electronic or physical signature of a person authorized to act on behalf of the copyright owner;"
-msgstr "An electronic or physical signature of a person authorized to act on behalf of the copyright owner;"
-
-#: app/views/account/billing.html
-msgid "Api calls in billing cycle"
-msgstr "Api calls in billing cycle"
-
 #: app/views/comparison/filings.html
 #: app/views/comparison/information.html
 #: app/views/comparison/validations-dashboard.html
@@ -321,10 +143,6 @@ msgstr "Api calls in billing cycle"
 #: app/views/entity/modelstructure.html
 msgid "Archives"
 msgstr "Archives"
-
-#: app/views/terms-of-use.html
-msgid "Attn:"
-msgstr "Attn:"
 
 #: app/views/entity/component.html
 #: app/views/entity/filing.html
@@ -388,18 +206,6 @@ msgstr "Browse"
 msgid "Browse DOW30"
 msgstr "Browse DOW30"
 
-#: app/views/terms-of-use.html
-msgid "By posting any User Content on the Service, you expressly grant, and you represent and warrant that you have all rights necessary to grant, to 28msec a royalty-free, sublicensable, transferable, perpetual, irrevocable, non-exclusive, worldwide license to use, reproduce, modify, publish, list information regarding, edit, translate, distribute, syndicate, publicly perform, publicly display, and make derivative works of all such User Content and your name, voice, and/or likeness as contained in your User Content, in whole or in part, and in any form, media or technology, whether now known or hereafter developed, for use in connection with the Service.  You also hereby grant each User of the Service a non-exclusive license to access your User Content through the Service, and to use, reproduce, distribute, display and perform such User Content as permitted through the functionality of the Service and under this Agreement."
-msgstr "By posting any User Content on the Service, you expressly grant, and you represent and warrant that you have all rights necessary to grant, to 28msec a royalty-free, sublicensable, transferable, perpetual, irrevocable, non-exclusive, worldwide license to use, reproduce, modify, publish, list information regarding, edit, translate, distribute, syndicate, publicly perform, publicly display, and make derivative works of all such User Content and your name, voice, and/or likeness as contained in your User Content, in whole or in part, and in any form, media or technology, whether now known or hereafter developed, for use in connection with the Service.  You also hereby grant each User of the Service a non-exclusive license to access your User Content through the Service, and to use, reproduce, distribute, display and perform such User Content as permitted through the functionality of the Service and under this Agreement."
-
-#: app/views/privacy-policy.html
-msgid "CHANGES TO OUR PRIVACY POLICY"
-msgstr "CHANGES TO OUR PRIVACY POLICY"
-
-#: app/views/privacy-policy.html
-msgid "CHILDREN'S PRIVACY"
-msgstr "CHILDREN'S PRIVACY"
-
 #: app/views/entity/filing.html
 #: app/views/entity/summary.html
 #: app/views/entity_details.html
@@ -432,19 +238,11 @@ msgstr "Cancel subscription"
 msgid "Canceled on {{sub.canceledAt | date }}."
 msgstr "Canceled on {{sub.canceledAt | date }}."
 
-#: app/views/privacy-policy.html
-msgid "Capitalized terms that are not defined in this Privacy Policy have the meaning given them in our <a href=\"/terms-of-use\">Terms of Service</a>."
-msgstr "Capitalized terms that are not defined in this Privacy Policy have the meaning given them in our <a href=\"/terms-of-use\">Terms of Service</a>."
-
 #: app/views/comparison/components.html
 #: app/views/entity/component.html
 #: app/views/entity/components.html
 msgid "Category"
 msgstr "Category"
-
-#: app/views/terms-of-use.html
-msgid "Certain components of the software included in this website are subject to separate license terms, including \"free\" or \"open source\" software (\"Separately Licensed Code\"). As required by the terms of the relevant Separately Licensed Code licenses, 28msec presents the list of such products and the modifications we made to it."
-msgstr "Certain components of the software included in this website are subject to separate license terms, including \"free\" or \"open source\" software (\"Separately Licensed Code\"). As required by the terms of the relevant Separately Licensed Code licenses, 28msec presents the list of such products and the modifications we made to it."
 
 #: app/views/account/password.html
 #: app/views/reset.html
@@ -544,17 +342,9 @@ msgstr "Concept map"
 msgid "Concepts"
 msgstr "Concepts"
 
-#: app/views/terms-of-use.html
-msgid "Connectors"
-msgstr "Connectors"
-
 #: app/views/pricing.html
 msgid "Contact Us"
 msgstr "Contact Us"
-
-#: app/views/terms-of-use.html
-msgid "Contributor"
-msgstr "Contributor"
 
 #: app/views/home.html
 msgid "Create Your Own Business Information Repository"
@@ -576,14 +366,6 @@ msgstr "Custom Reports"
 #: app/views/about.html
 msgid "DISCLAIMER: All information provided is as reported by the reporting entity and has not been adjusted to correct for errors. This repository is a working prototype created using 28.io and is intended to be a demonstration of 28.io. This information repository should not be relied upon for financial analysis or for making investment decisions."
 msgstr "DISCLAIMER: All information provided is as reported by the reporting entity and has not been adjusted to correct for errors. This repository is a working prototype created using 28.io and is intended to be a demonstration of 28.io. This information repository should not be relied upon for financial analysis or for making investment decisions."
-
-#: app/views/terms-of-use.html
-msgid "DMCA Notice"
-msgstr "DMCA Notice"
-
-#: app/views/terms-of-use.html
-msgid "DMCA Notice<br>28msec, Inc."
-msgstr "DMCA Notice<br>28msec, Inc."
 
 #: app/views/comparison/report-elements.html
 #: app/views/entity/modelstructure.html
@@ -642,10 +424,6 @@ msgstr "Email is invalid."
 #: app/views/auth.html
 msgid "Email is required."
 msgstr "Email is required."
-
-#: app/views/terms-of-use.html
-msgid "Email:"
-msgstr "Email:"
 
 #: app/views/account/billing.html
 msgid "Enter Billing Information"
@@ -715,10 +493,6 @@ msgstr "Example"
 #: app/views/example.html
 msgid "Excel"
 msgstr "Excel"
-
-#: app/views/terms-of-use.html
-msgid "Except for your User Content, the Service and all materials therein or transferred thereby, including, without limitation, software, images, text, graphics, illustrations, logos, patents, trademarks, service marks, copyrights, photographs, audio, videos, music, and User Content belonging to other Users (the \"secxbrl.info Content\"), and all Intellectual Property Rights related thereto, are the exclusive property of 28msec and its licensors (including other Users who post User Content to the Service).  Except as explicitly provided herein, nothing in this Agreement shall be deemed to create a license in or under any such Intellectual Property Rights, and you agree not to sell, license, rent, modify, distribute, copy, reproduce, transmit, publicly display, publicly perform, publish, adapt, edit or create derivative works from any secxbrl.info Content.  Use of the secxbrl.info Content for any purpose not expressly permitted by this Agreement is strictly prohibited."
-msgstr "Except for your User Content, the Service and all materials therein or transferred thereby, including, without limitation, software, images, text, graphics, illustrations, logos, patents, trademarks, service marks, copyrights, photographs, audio, videos, music, and User Content belonging to other Users (the \"secxbrl.info Content\"), and all Intellectual Property Rights related thereto, are the exclusive property of 28msec and its licensors (including other Users who post User Content to the Service).  Except as explicitly provided herein, nothing in this Agreement shall be deemed to create a license in or under any such Intellectual Property Rights, and you agree not to sell, license, rent, modify, distribute, copy, reproduce, transmit, publicly display, publicly perform, publish, adapt, edit or create derivative works from any secxbrl.info Content.  Use of the secxbrl.info Content for any purpose not expressly permitted by this Agreement is strictly prohibited."
 
 #: app/views/account/tokens.html
 msgid "Expires on"
@@ -799,10 +573,6 @@ msgstr "Facts"
 msgid "Failed"
 msgstr "Failed"
 
-#: app/views/terms-of-use.html
-msgid "Fax:"
-msgstr "Fax:"
-
 #: app/views/home.html
 msgid "Featured Users"
 msgstr "Featured Users"
@@ -865,19 +635,18 @@ msgid "First Name is required."
 msgstr "First Name is required."
 
 #: app/views/comparison/filings.html
+#: app/views/comparison/validations-dashboard.html
 #: app/views/entity/filings.html
 msgid "Fiscal Period"
 msgstr "Fiscal Period"
 
+#: app/views/comparison/components.html
 #: app/views/comparison/report-elements.html
 msgid "Fiscal Period / Year"
 msgstr "Fiscal Period / Year"
 
-#: app/views/comparison/components.html
-msgid "Fiscal Period/Year"
-msgstr "Fiscal Period/Year"
-
 #: app/views/comparison/filings.html
+#: app/views/comparison/validations-dashboard.html
 #: app/views/entity/filings.html
 msgid "Fiscal Year"
 msgstr "Fiscal Year"
@@ -885,14 +654,6 @@ msgstr "Fiscal Year"
 #: app/views/entity/filing.html
 msgid "Footnotes"
 msgstr "Footnotes"
-
-#: app/views/terms-of-use.html
-msgid "For the purposes of this Agreement, \"Intellectual Property Rights\" means all patent rights, copyright rights, mask work rights, moral rights, rights of publicity, trademark, trade dress and service mark rights, goodwill, trade secret rights and other intellectual property rights as may now exist or hereafter come into existence, and all applications therefore and registrations, renewals and extensions thereof, under the laws of any state, country, territory or other jurisdiction."
-msgstr "For the purposes of this Agreement, \"Intellectual Property Rights\" means all patent rights, copyright rights, mask work rights, moral rights, rights of publicity, trademark, trade dress and service mark rights, goodwill, trade secret rights and other intellectual property rights as may now exist or hereafter come into existence, and all applications therefore and registrations, renewals and extensions thereof, under the laws of any state, country, territory or other jurisdiction."
-
-#: app/views/terms-of-use.html
-msgid "For your complaint to be valid under the DMCA, you must provide the following information in writing:"
-msgstr "For your complaint to be valid under the DMCA, you must provide the following information in writing:"
 
 #: app/views/auth.html
 msgid "Forgot Password"
@@ -908,33 +669,22 @@ msgid "Form"
 msgstr "Form"
 
 #: app/views/comparison/components.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
 #: app/views/entity/filing.html
 #: app/views/entity/modelstructure.html
 msgid "Form Type"
 msgstr "Form Type"
 
-#: app/views/entity/components.html
-#: app/views/entity/facttable.html
-msgid "Form Type:"
-msgstr "Form Type:"
-
 #: app/views/pricing.html
 msgid "Free"
 msgstr "Free"
-
-#: app/views/terms-of-use.html
-msgid "Frontend Libraries"
-msgstr "Frontend Libraries"
 
 #: app/views/comparison/components.html
 #: app/views/comparison/report-elements.html
 #: app/views/comparison/search.html
 msgid "GO"
 msgstr "GO"
-
-#: app/views/terms-of-use.html
-msgid "General"
-msgstr "General"
 
 #: app/views/comparison/filings.html
 #: app/views/comparison/validations-dashboard.html
@@ -950,22 +700,6 @@ msgstr "Generator"
 #: app/views/entity/filings.html
 msgid "Go to"
 msgstr "Go to"
-
-#: app/views/terms-of-use.html
-msgid "Governing Law and Arbitration"
-msgstr "Governing Law and Arbitration"
-
-#: app/views/privacy-policy.html
-msgid "HOW TO CONTACT US"
-msgstr "HOW TO CONTACT US"
-
-#: app/views/privacy-policy.html
-msgid "HOW WE COLLECT AND USE INFORMATION"
-msgstr "HOW WE COLLECT AND USE INFORMATION"
-
-#: app/views/privacy-policy.html
-msgid "HOW WE STORE AND PROTECT YOUR INFORMATION"
-msgstr "HOW WE STORE AND PROTECT YOUR INFORMATION"
 
 #: app/views/reset.html
 msgid "Hello {{email}}"
@@ -1023,46 +757,14 @@ msgstr "Home"
 msgid "INDUSTRY GROUP"
 msgstr "INDUSTRY GROUP"
 
-#: app/views/terms-of-use.html
-msgid "Identification of the copyrighted work that you claim has been infringed;"
-msgstr "Identification of the copyrighted work that you claim has been infringed;"
-
-#: app/views/terms-of-use.html
-msgid "Identification of the material that is claimed to be infringing and where it is located on the Service;"
-msgstr "Identification of the material that is claimed to be infringing and where it is located on the Service;"
-
-#: app/views/terms-of-use.html
-msgid "If you believe that your copyrighted work has been copied in a way that constitutes copyright infringement and is accessible via the Service, please notify 28msec's copyright agent as set forth in the DMCA."
-msgstr "If you believe that your copyrighted work has been copied in a way that constitutes copyright infringement and is accessible via the Service, please notify 28msec's copyright agent as set forth in the DMCA."
-
-#: app/views/privacy-policy.html
-msgid "If you have any questions about this Privacy Policy or the Service, please contact us at <a href=\"mailto:support@28msec.com\">support@28msec.com</a>."
-msgstr "If you have any questions about this Privacy Policy or the Service, please contact us at <a href=\"mailto:support@28msec.com\">support@28msec.com</a>."
-
-#: app/views/terms-of-use.html
-msgid "In accordance with the DMCA and other applicable law, 28msec has adopted a policy of terminating, in appropriate circumstances, Users who are deemed to be repeat infringers.  28msec may also at its sole discretion limit access to the Service and/or terminate the accounts of any Users who infringe any intellectual property rights of others, whether or not there is any repeat infringement."
-msgstr "In accordance with the DMCA and other applicable law, 28msec has adopted a policy of terminating, in appropriate circumstances, Users who are deemed to be repeat infringers.  28msec may also at its sole discretion limit access to the Service and/or terminate the accounts of any Users who infringe any intellectual property rights of others, whether or not there is any repeat infringement."
-
 #: app/views/about.html
 msgid "In addition to the GUI (graphical user interface) an <a href=\"/api\">API</a> (application programming interface) is also provided. Using the API information can be retrieved about entities, the filings made by those entities, the components contained within those filings, the model structure of a component, or the facts reported within a component. All information is provided in the following formats: JSON (the default), XML, CSV, and Excel."
 msgstr "In addition to the GUI (graphical user interface) an <a href=\"/api\">API</a> (application programming interface) is also provided. Using the API information can be retrieved about entities, the filings made by those entities, the components contained within those filings, the model structure of a component, or the facts reported within a component. All information is provided in the following formats: JSON (the default), XML, CSV, and Excel."
-
-#: app/views/terms-of-use.html
-msgid "In connection with your User Content, you affirm, represent and warrant the following: (i) your User Content and 28msec's use thereof as contemplated by this Agreement and the Service will not violate any law or infringe any rights of any third party, including but not limited to any Intellectual Property Rights and privacy rights; 28msec may exercise the rights to your User Content granted under this Agreement without liability for payment of any guild fees, residuals, payments, fees, or royalties payable under any collective bargaining agreement or otherwise; to the best of your knowledge, all your User Content and other information that you provide to us is truthful and accurate."
-msgstr "In connection with your User Content, you affirm, represent and warrant the following: (i) your User Content and 28msec's use thereof as contemplated by this Agreement and the Service will not violate any law or infringe any rights of any third party, including but not limited to any Intellectual Property Rights and privacy rights; 28msec may exercise the rights to your User Content granted under this Agreement without liability for payment of any guild fees, residuals, payments, fees, or royalties payable under any collective bargaining agreement or otherwise; to the best of your knowledge, all your User Content and other information that you provide to us is truthful and accurate."
-
-#: app/views/terms-of-use.html
-msgid "Indemnity"
-msgstr "Indemnity"
 
 #: app/views/entity/summary.html
 #: app/views/entity_details.html
 msgid "Industry Sector"
 msgstr "Industry Sector"
-
-#: app/views/terms-of-use.html
-msgid "Information reasonably sufficient to permit 28msec to contact you, such as your address, telephone number, and, e-mail address;"
-msgstr "Information reasonably sufficient to permit 28msec to contact you, such as your address, telephone number, and, e-mail address;"
 
 #: app/views/about.html
 msgid "Information relating to the entities which make up the DOW 30 is provided without login.  Please note that information outside of the DOW30 can only be accessed using a valid token that can be retrieved by creating an account on http://www.secxbrl.info and login is done using the Session API."
@@ -1105,10 +807,6 @@ msgstr "It looks like this was the result of either:"
 msgid "JSON"
 msgstr "JSON"
 
-#: app/views/privacy-policy.html
-msgid "LINKS TO OTHER WEB SITES AND SERVICES"
-msgstr "LINKS TO OTHER WEB SITES AND SERVICES"
-
 #: app/views/comparison/report-elements.html
 #: app/views/concept-map.html
 #: app/views/disclosures.html
@@ -1134,29 +832,10 @@ msgstr "Learn More."
 msgid "Liabilities vs. Equity"
 msgstr "Liabilities vs. Equity"
 
-#: app/views/terms-of-use.html
-msgid "Library"
-msgstr "Library"
-
-#: app/views/terms-of-use.html
-msgid "License type"
-msgstr "License type"
-
-#: app/views/terms-of-use.html
-msgid "Licenses"
-msgstr "Licenses"
-
-#: app/views/terms-of-use.html
-msgid "Limitation of Liability"
-msgstr "Limitation of Liability"
-
+#: app/views/entity/component.html
 #: app/views/entity/filing.html
 msgid "Line Items"
 msgstr "Line Items"
-
-#: app/views/entity/component.html
-msgid "LineItems"
-msgstr "LineItems"
 
 #: app/views/account/billing.html
 msgid "Load more..."
@@ -1225,14 +904,11 @@ msgstr "Name of a contained report element"
 msgid "Name of the report element"
 msgstr "Name of the report element"
 
-#: app/views/terms-of-use.html
-msgid "Neither 28msec nor its partners can guarantee the accuracy, completeness, timeliness, or correct sequencing of any of the information in the databases it offers, including, but not limited to information originated or gathered by 28msec from sources like SEC, USPTO or other publicly available sources. There may be delays, omissions, or inaccuracies in the information. You acknowledge and understand that, because of the possibility of human and mechanical error, mistakes or omissions in the data or information provided, delays or interruptions of the data or information stream from whatever cause, as well as other factors, 28msec and its partners are not responsible for errors in or omissions from the information contained or accessed through the Licensed Software. ALL SUCH INFORMATION, SOFTWARE, PRODUCTS AND SERVICES ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESSED OR IMPLIED."
-msgstr "Neither 28msec nor its partners can guarantee the accuracy, completeness, timeliness, or correct sequencing of any of the information in the databases it offers, including, but not limited to information originated or gathered by 28msec from sources like SEC, USPTO or other publicly available sources. There may be delays, omissions, or inaccuracies in the information. You acknowledge and understand that, because of the possibility of human and mechanical error, mistakes or omissions in the data or information provided, delays or interruptions of the data or information stream from whatever cause, as well as other factors, 28msec and its partners are not responsible for errors in or omissions from the information contained or accessed through the Licensed Software. ALL SUCH INFORMATION, SOFTWARE, PRODUCTS AND SERVICES ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESSED OR IMPLIED."
-
 #: app/views/entity/dashboard.html
 msgid "Net Income vs. Revenue"
 msgstr "Net Income vs. Revenue"
 
+#: app/views/entity/facttable.html
 #: app/views/entity/modelstructure.html
 msgid "Network"
 msgstr "Network"
@@ -1254,10 +930,6 @@ msgstr "Network Label / Name"
 msgid "Network title"
 msgstr "Network title"
 
-#: app/views/entity/facttable.html
-msgid "Network:"
-msgstr "Network:"
-
 #: app/views/entity/filing.html
 msgid "Networks"
 msgstr "Networks"
@@ -1278,10 +950,6 @@ msgstr "Nillable"
 msgid "No"
 msgstr "No"
 
-#: app/views/terms-of-use.html
-msgid "No Warranty"
-msgstr "No Warranty"
-
 #: app/views/pricing.html
 msgid "No account or credit card required"
 msgstr "No account or credit card required"
@@ -1299,13 +967,10 @@ msgid "No invoices."
 msgstr "No invoices."
 
 #: app/views/comparison/components.html
-#: app/views/comparison/report-elements.html
-#: app/views/comparison/search.html
-msgid "No results found"
-msgstr "No results found"
-
 #: app/views/comparison/filings.html
 #: app/views/comparison/information.html
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/search.html
 #: app/views/comparison/validations-dashboard.html
 msgid "No results found."
 msgstr "No results found."
@@ -1351,18 +1016,6 @@ msgstr "One user"
 msgid "Origin"
 msgstr "Origin"
 
-#: app/views/terms-of-use.html
-msgid "Our Proprietary Rights"
-msgstr "Our Proprietary Rights"
-
-#: app/views/terms-of-use.html
-msgid "PLEASE READ THIS AGREEMENT CAREFULLY TO ENSURE THAT YOU UNDERSTAND EACH PROVISION.  THIS AGREEMENT CONTAINS A MANDATORY ARBITRATION OF DISPUTES PROVISION THAT REQUIRES THE USE OF ARBITRATION ON AN INDIVIDUAL BASIS TO RESOLVE DISPUTES, RATHER THAN JURY TRIALS OR CLASS ACTIONS."
-msgstr "PLEASE READ THIS AGREEMENT CAREFULLY TO ENSURE THAT YOU UNDERSTAND EACH PROVISION.  THIS AGREEMENT CONTAINS A MANDATORY ARBITRATION OF DISPUTES PROVISION THAT REQUIRES THE USE OF ARBITRATION ON AN INDIVIDUAL BASIS TO RESOLVE DISPUTES, RATHER THAN JURY TRIALS OR CLASS ACTIONS."
-
-#: app/views/terms-of-use.html
-msgid "Paid Services"
-msgstr "Paid Services"
-
 #: app/views/comparison/validations-dashboard.html
 msgid "Passed"
 msgstr "Passed"
@@ -1407,7 +1060,6 @@ msgstr "Payment method"
 msgid "Perform truly interactive data analysis. Get answers to even the most sophisticated queries in seconds. Slice and dice, drill down, everything in real-time."
 msgstr "Perform truly interactive data analysis. Get answers to even the most sophisticated queries in seconds. Slice and dice, drill down, everything in real-time."
 
-#: app/views/comparison/validations-dashboard.html
 #: app/views/entity/modelstructure.html
 msgid "Period"
 msgstr "Period"
@@ -1419,10 +1071,6 @@ msgstr "Period Type"
 #: app/views/account/billing.html
 msgid "Please <a ng-click=\"updateBillingInfo()\">enter your billing information</a> before you sign up."
 msgstr "Please <a ng-click=\"updateBillingInfo()\">enter your billing information</a> before you sign up."
-
-#: app/views/blog.html
-msgid "Posted {{formatDate(entries[0].updated)}} ago"
-msgstr "Posted {{formatDate(entries[0].updated)}} ago"
 
 #: app/views/blog.html
 msgid "Posted {{formatDate(entry.updated)}} ago"
@@ -1440,11 +1088,6 @@ msgstr "Powered with <i class=\"fa fa-heart-o\"></i> by <a href=\"http://28.io/x
 msgid "Pricing"
 msgstr "Pricing"
 
-#: app/views/terms-of-use.html
-msgid "Privacy"
-msgstr "Privacy"
-
-#: app/views/privacy-policy.html
 #: app/views/root.html
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
@@ -1468,10 +1111,6 @@ msgstr "Profile Information"
 #: app/views/api.html
 msgid "Queries API"
 msgstr "Queries API"
-
-#: app/views/terms-of-use.html
-msgid "Query Processing"
-msgstr "Query Processing"
 
 #: app/views/comparison.html
 msgid "RESET"
@@ -1566,10 +1205,6 @@ msgstr "SEC XBRL API"
 msgid "SECXBRL.info is a prototype repository built on top of <a href=\"http://28.io/xbrl\">28.io</a>."
 msgstr "SECXBRL.info is a prototype repository built on top of <a href=\"http://28.io/xbrl\">28.io</a>."
 
-#: app/views/privacy-policy.html
-msgid "SHARING OF YOUR INFORMATION"
-msgstr "SHARING OF YOUR INFORMATION"
-
 #: app/views/entity/summary.html
 #: app/views/entity_details.html
 msgid "SIC Code"
@@ -1579,10 +1214,6 @@ msgstr "SIC Code"
 #: app/views/entity_details.html
 msgid "SIC Description"
 msgstr "SIC Description"
-
-#: app/views/terms-of-use.html
-msgid "SOME STATES DO NOT ALLOW THE EXCLUSION OR LIMITATION OF INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE ABOVE LIMITATIONS OR EXCLUSIONS MAY NOT APPLY TO YOU.  THIS AGREEMENT GIVES YOU SPECIFIC LEGAL RIGHTS, AND YOU MAY ALSO HAVE OTHER RIGHTS WHICH VARY FROM STATE TO STATE.  THE EXCLUSIONS AND LIMITATIONS OF LIABILITY UNDER THIS AGREEMENT WILL NOT APPLY TO THE EXTENT PROHIBITED BY APPLICABLE LAW."
-msgstr "SOME STATES DO NOT ALLOW THE EXCLUSION OR LIMITATION OF INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE ABOVE LIMITATIONS OR EXCLUSIONS MAY NOT APPLY TO YOU.  THIS AGREEMENT GIVES YOU SPECIFIC LEGAL RIGHTS, AND YOU MAY ALSO HAVE OTHER RIGHTS WHICH VARY FROM STATE TO STATE.  THE EXCLUSIONS AND LIMITATIONS OF LIABILITY UNDER THIS AGREEMENT WILL NOT APPLY TO THE EXTENT PROHIBITED BY APPLICABLE LAW."
 
 #: app/views/pricing.html
 msgid "Scalable processing power"
@@ -1608,10 +1239,6 @@ msgstr "Search Facts"
 #: app/views/comparison/report-elements.html
 msgid "Search Report Elements"
 msgstr "Search Report Elements"
-
-#: app/views/terms-of-use.html
-msgid "Security"
-msgstr "Security"
 
 #: app/views/comparison.html
 msgid "Selected Filters"
@@ -1647,14 +1274,6 @@ msgstr "Sign Up for Pro"
 msgid "Sign Up to access all SEC dataset"
 msgstr "Sign Up to access all SEC dataset"
 
-#: app/views/terms-of-use.html
-msgid "Since we respect artist and content owner rights, it is 28msec's policy to respond to alleged infringement notices that comply with the Digital Millennium Copyright Act of 1998 (\"DMCA\")."
-msgstr "Since we respect artist and content owner rights, it is 28msec's policy to respond to alleged infringement notices that comply with the Digital Millennium Copyright Act of 1998 (\"DMCA\")."
-
-#: app/views/terms-of-use.html
-msgid "Some areas of the Service allow Users to post content such as profile information, comments, questions, and other content or information (any such materials a User submits, posts, displays, or otherwise makes available on the Service \"User Content\").  We claim no ownership rights over User Content created by you. The User Content you create remains yours; however, by sharing User Content through the Service, you agree to allow others to view, edit, and/or share your User Content in accordance with your settings and this Agreement. 28msec has the right (but not the obligation) in its sole discretion to remove any User Content that is shared via the Service."
-msgstr "Some areas of the Service allow Users to post content such as profile information, comments, questions, and other content or information (any such materials a User submits, posts, displays, or otherwise makes available on the Service \"User Content\").  We claim no ownership rights over User Content created by you. The User Content you create remains yours; however, by sharing User Content through the Service, you agree to allow others to view, edit, and/or share your User Content in accordance with your settings and this Agreement. 28msec has the right (but not the obligation) in its sole discretion to remove any User Content that is shared via the Service."
-
 #: app/views/home.html
 msgid "Sophisticated Semantic Analysis"
 msgstr "Sophisticated Semantic Analysis"
@@ -1669,12 +1288,9 @@ msgid "Status"
 msgstr "Status"
 
 #: app/views/entity/component.html
-msgid "SubCategory"
-msgstr "SubCategory"
-
 #: app/views/entity/components.html
-msgid "Subcategory (Level)"
-msgstr "Subcategory (Level)"
+msgid "Sub Category"
+msgstr "Sub Category"
 
 #: app/views/account/billing.html
 msgid "Subscribed to <b>{{sub.plan.name}}</b> since {{sub.activatedAt | date }}"
@@ -1702,24 +1318,9 @@ msgstr "Summary"
 msgid "Support"
 msgstr "Support"
 
-#: app/views/terms-of-use.html
-msgid "THE SERVICE IS PROVIDED ON AN \"AS IS\" AND \"AS AVAILABLE\" BASIS.  USE OF THE SERVICE IS AT YOUR OWN RISK.  TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SERVICE IS PROVIDED WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.  WITHOUT LIMITING THE FOREGOING, 28MSEC, ITS SUBSIDIARIES, ITS AFFILIATES, AND ITS LICENSORS DO NOT WARRANT THAT THE CONTENT IS ACCURATE, RELIABLE OR CORRECT; THAT THE SERVICE WILL MEET YOUR REQUIREMENTS; THAT THE SERVICE WILL BE AVAILABLE AT ANY PARTICULAR TIME OR LOCATION, UNINTERRUPTED OR SECURE; THAT ANY DEFECTS OR ERRORS WILL BE CORRECTED; OR THAT THE SERVICE IS FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.  ANY CONTENT DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SERVICE IS DOWNLOADED AT YOUR OWN RISK AND YOU WILL BE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR LOSS OF DATA THAT RESULTS FROM SUCH DOWNLOAD OR YOUR USE OF THE SERVICE."
-msgstr "THE SERVICE IS PROVIDED ON AN \"AS IS\" AND \"AS AVAILABLE\" BASIS.  USE OF THE SERVICE IS AT YOUR OWN RISK.  TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SERVICE IS PROVIDED WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.  WITHOUT LIMITING THE FOREGOING, 28MSEC, ITS SUBSIDIARIES, ITS AFFILIATES, AND ITS LICENSORS DO NOT WARRANT THAT THE CONTENT IS ACCURATE, RELIABLE OR CORRECT; THAT THE SERVICE WILL MEET YOUR REQUIREMENTS; THAT THE SERVICE WILL BE AVAILABLE AT ANY PARTICULAR TIME OR LOCATION, UNINTERRUPTED OR SECURE; THAT ANY DEFECTS OR ERRORS WILL BE CORRECTED; OR THAT THE SERVICE IS FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.  ANY CONTENT DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SERVICE IS DOWNLOADED AT YOUR OWN RISK AND YOU WILL BE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR LOSS OF DATA THAT RESULTS FROM SUCH DOWNLOAD OR YOUR USE OF THE SERVICE."
-
-#: app/views/terms-of-use.html
-msgid "THIS LIMITATION OF LIABILITY SECTION APPLIES WHETHER THE ALLEGED LIABILITY IS BASED ON CONTRACT, TORT, NEGLIGENCE, STRICT LIABILITY, OR ANY OTHER BASIS, EVEN IF 28MSEC HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  THE FOREGOING LIMITATION OF LIABILITY SHALL APPLY TO THE FULLEST EXTENT PERMITTED BY LAW IN THE APPLICABLE JURISDICTION."
-msgstr "THIS LIMITATION OF LIABILITY SECTION APPLIES WHETHER THE ALLEGED LIABILITY IS BASED ON CONTRACT, TORT, NEGLIGENCE, STRICT LIABILITY, OR ANY OTHER BASIS, EVEN IF 28MSEC HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  THE FOREGOING LIMITATION OF LIABILITY SHALL APPLY TO THE FULLEST EXTENT PERMITTED BY LAW IN THE APPLICABLE JURISDICTION."
-
-#: app/views/terms-of-use.html
-msgid "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, 28MSEC ASSUMES NO LIABILITY OR RESPONSIBILITY FOR ANY (I) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT; (II) PERSONAL INJURY OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM YOUR ACCESS TO OR USE OF OUR SERVICE; (III) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION STORED THEREIN; (IV) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE SERVICE; (V) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE THAT MAY BE TRANSMITTED TO OR THROUGH OUR SERVICE BY ANY THIRD PARTY; (VI) ANY ERRORS OR OMISSIONS IN ANY CONTENT OR FOR ANY LOSS OR DAMAGE INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED, EMAILED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE THROUGH THE SERVICE; AND/OR (VII) USER CONTENT OR THE DEFAMATORY, OFFENSIVE, OR ILLEGAL CONDUCT OF ANY THIRD PARTY.  IN NO EVENT SHALL 28MSEC, ITS AFFILIATES, AGENTS, DIRECTORS, EMPLOYEES, SUPPLIERS, OR LICENSORS BE LIABLE TO YOU FOR ANY CLAIMS, PROCEEDINGS, LIABILITIES, OBLIGATIONS, DAMAGES, LOSSES OR COSTS IN AN AMOUNT EXCEEDING THE AMOUNT YOU PAID TO 28MSEC HEREUNDER OR $100.00, WHICHEVER IS GREATER."
-msgstr "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, 28MSEC ASSUMES NO LIABILITY OR RESPONSIBILITY FOR ANY (I) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT; (II) PERSONAL INJURY OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM YOUR ACCESS TO OR USE OF OUR SERVICE; (III) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION STORED THEREIN; (IV) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE SERVICE; (V) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE THAT MAY BE TRANSMITTED TO OR THROUGH OUR SERVICE BY ANY THIRD PARTY; (VI) ANY ERRORS OR OMISSIONS IN ANY CONTENT OR FOR ANY LOSS OR DAMAGE INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED, EMAILED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE THROUGH THE SERVICE; AND/OR (VII) USER CONTENT OR THE DEFAMATORY, OFFENSIVE, OR ILLEGAL CONDUCT OF ANY THIRD PARTY.  IN NO EVENT SHALL 28MSEC, ITS AFFILIATES, AGENTS, DIRECTORS, EMPLOYEES, SUPPLIERS, OR LICENSORS BE LIABLE TO YOU FOR ANY CLAIMS, PROCEEDINGS, LIABILITIES, OBLIGATIONS, DAMAGES, LOSSES OR COSTS IN AN AMOUNT EXCEEDING THE AMOUNT YOU PAID TO 28MSEC HEREUNDER OR $100.00, WHICHEVER IS GREATER."
-
-#: app/views/terms-of-use.html
-msgid "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL 28MSEC, ITS AFFILIATES, AGENTS, DIRECTORS, EMPLOYEES, SUPPLIERS OR LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, PUNITIVE, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING WITHOUT LIMITATION DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR RELATING TO THE USE OF, OR INABILITY TO USE, THIS SERVICE.  UNDER NO CIRCUMSTANCES WILL 28MSEC BE RESPONSIBLE FOR ANY DAMAGE, LOSS OR INJURY RESULTING FROM HACKING, TAMPERING OR OTHER UNAUTHORIZED ACCESS OR USE OF THE SERVICE OR YOUR ACCOUNT OR THE INFORMATION CONTAINED THEREIN."
-msgstr "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL 28MSEC, ITS AFFILIATES, AGENTS, DIRECTORS, EMPLOYEES, SUPPLIERS OR LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, PUNITIVE, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING WITHOUT LIMITATION DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR RELATING TO THE USE OF, OR INABILITY TO USE, THIS SERVICE.  UNDER NO CIRCUMSTANCES WILL 28MSEC BE RESPONSIBLE FOR ANY DAMAGE, LOSS OR INJURY RESULTING FROM HACKING, TAMPERING OR OTHER UNAUTHORIZED ACCESS OR USE OF THE SERVICE OR YOUR ACCOUNT OR THE INFORMATION CONTAINED THEREIN."
-
 #: app/views/comparison/components.html
 #: app/views/entity/components.html
+#: app/views/entity/facttable.html
 #: app/views/entity/modelstructure.html
 msgid "Table"
 msgstr "Table"
@@ -1727,10 +1328,6 @@ msgstr "Table"
 #: app/views/entity/component.html
 msgid "Table Name"
 msgstr "Table Name"
-
-#: app/views/entity/facttable.html
-msgid "Table:"
-msgstr "Table:"
 
 #: app/views/entity/component.html
 #: app/views/entity/filing.html
@@ -1744,14 +1341,6 @@ msgstr "Tailored to your needs"
 #: app/views/concept-map.html
 msgid "Target Concepts"
 msgstr "Target Concepts"
-
-#: app/views/terms-of-use.html
-msgid "Telephone:"
-msgstr "Telephone:"
-
-#: app/views/terms-of-use.html
-msgid "Terms of Service Agreement"
-msgstr "Terms of Service Agreement"
 
 #: app/views/root.html
 msgid "Terms of Use"
@@ -1769,38 +1358,9 @@ msgstr "Text contained in label of the report element"
 msgid "Text contained in network titles"
 msgstr "Text contained in network titles"
 
-#: app/views/terms-of-use.html
-msgid "The Service is controlled and operated from facilities in the United States.  28msec makes no representations that the Service is appropriate or available for use in other locations.  Those who access or use the Service from other jurisdictions do so at their own volition and are entirely responsible for compliance with all applicable United States and local laws and regulations, including but not limited to export and import regulations.  You may not use the Service if you are a resident of a country embargoed by the United States, or are a foreign person or entity blocked or denied by the United States government.  Unless otherwise explicitly stated, all materials found on the Service are solely directed to individuals, companies, or other entities located in the United States."
-msgstr "The Service is controlled and operated from facilities in the United States.  28msec makes no representations that the Service is appropriate or available for use in other locations.  Those who access or use the Service from other jurisdictions do so at their own volition and are entirely responsible for compliance with all applicable United States and local laws and regulations, including but not limited to export and import regulations.  You may not use the Service if you are a resident of a country embargoed by the United States, or are a foreign person or entity blocked or denied by the United States government.  Unless otherwise explicitly stated, all materials found on the Service are solely directed to individuals, companies, or other entities located in the United States."
-
-#: app/views/terms-of-use.html
-msgid "The Service may contain links to third-party websites, services, special offers, or other events or activities that are not owned or controlled by 28msec.  28msec does not endorse or assume any responsibility for any such third-party sites, information, materials, products, or services.  If you access a third party website from the Service, you do so at your own risk, and you understand that this Agreement and 28msec's Privacy Policy do not apply to your use of such sites.  You expressly relieve 28msec from any and all liability arising from your use of any third-party website, service, or content."
-msgstr "The Service may contain links to third-party websites, services, special offers, or other events or activities that are not owned or controlled by 28msec.  28msec does not endorse or assume any responsibility for any such third-party sites, information, materials, products, or services.  If you access a third party website from the Service, you do so at your own risk, and you understand that this Agreement and 28msec's Privacy Policy do not apply to your use of such sites.  You expressly relieve 28msec from any and all liability arising from your use of any third-party website, service, or content."
-
-#: app/views/terms-of-use.html
-msgid "The above information must be submitted to the following DMCA Agent:"
-msgstr "The above information must be submitted to the following DMCA Agent:"
-
-#: app/views/terms-of-use.html
-msgid "The components of software referenced on this page have been provided under one or more open source licenses, and the list is complete to the best of our knowledge. If you believe any additional products should be provided under the applicable open source license, please contact us at <a href=\"mailto:contact@28msec.com\">contact@28msec.com</a> and provide in detail the product or code module in question. 28msec is committed to meeting the requirements of the open source licenses including the GNU General Public License (GPL)."
-msgstr "The components of software referenced on this page have been provided under one or more open source licenses, and the list is complete to the best of our knowledge. If you believe any additional products should be provided under the applicable open source license, please contact us at <a href=\"mailto:contact@28msec.com\">contact@28msec.com</a> and provide in detail the product or code module in question. 28msec is committed to meeting the requirements of the open source licenses including the GNU General Public License (GPL)."
-
 #: app/views/auth.html
 msgid "The page you are trying to access displays information about an entity not included in the DOW30."
 msgstr "The page you are trying to access displays information about an entity not included in the DOW30."
-
-#: app/views/reset.html
-msgid "The password has to be at least 5 characters long."
-msgstr "The password has to be at least 5 characters long."
-
-#: app/views/terms-of-use.html
-msgid "Third-Party Links"
-msgstr "Third-Party Links"
-
-#: app/views/privacy-policy.html
-#: app/views/terms-of-use.html
-msgid "This privacy policy was last modified on May 16th 2014."
-msgstr "This privacy policy was last modified on May 16th 2014."
 
 #: app/views/about.html
 msgid "This repository contains financial information provided to the US Securities and Exchange Commission (SEC) by public companies using the XBRL global standard technical syntax. Submitted XBRL information contained in the filings is read by the system, converted to a format which is optimized for query (as opposed to XBRL which is optimized for information exchange), and stored in a database in that queriable format. Additional metadata is added to the system which is commonly used when querying this financial information. Please note that only financial information provided within SEC forms 10-Q and 10-K is provided via this system."
@@ -1838,10 +1398,6 @@ msgstr "Type"
 msgid "UI access"
 msgstr "UI access"
 
-#: app/views/terms-of-use.html
-msgid "UNDER FEDERAL LAW, IF YOU KNOWINGLY MISREPRESENT THAT ONLINE MATERIAL IS INFRINGING, YOU MAY BE SUBJECT TO CRIMINAL PROSECUTION FOR PERJURY AND CIVIL PENALTIES, INCLUDING MONETARY DAMAGES, COURT COSTS, AND ATTORNEYS' FEES."
-msgstr "UNDER FEDERAL LAW, IF YOU KNOWINGLY MISREPRESENT THAT ONLINE MATERIAL IS INFRINGING, YOU MAY BE SUBJECT TO CRIMINAL PROSECUTION FOR PERJURY AND CIVIL PENALTIES, INCLUDING MONETARY DAMAGES, COURT COSTS, AND ATTORNEYS' FEES."
-
 #: app/views/home.html
 msgid "US Public Company<br>Financial Information<br>Repository"
 msgstr "US Public Company<br>Financial Information<br>Repository"
@@ -1872,18 +1428,6 @@ msgstr "Update Profile"
 msgid "Updating Profile..."
 msgstr "Updating Profile..."
 
-#: app/views/terms-of-use.html
-msgid "Use of Our Service"
-msgstr "Use of Our Service"
-
-#: app/views/terms-of-use.html
-msgid "User Content"
-msgstr "User Content"
-
-#: app/views/terms-of-use.html
-msgid "User Content License Grant"
-msgstr "User Content License Grant"
-
 #: app/views/home.html
 msgid "Using the <a href=\"http://28.io/xbrl\">28.io</a> information processing platform, XBRL can be stored in a way that is optimized for querying"
 msgstr "Using the <a href=\"http://28.io/xbrl\">28.io</a> information processing platform, XBRL can be stored in a way that is optimized for querying"
@@ -1899,34 +1443,6 @@ msgstr "Value"
 #: app/views/api.html
 msgid "View as"
 msgstr "View as"
-
-#: app/views/privacy-policy.html
-msgid "We are not responsible for the practices employed by websites or services linked to or from the Service, including the information or content contained therein.  Please remember that when you use a link to go from the Service to another website, our Privacy Policy does not apply to third-party websites or services.  Your browsing and interaction on any third-party website or service, including those that have a link or advertisement on our website, are subject to that third party's own rules and policies.  In addition, you agree that we are not responsible and we do not control over any third-parties that you authorize to access your User Content. If you are using a third-party website or service (like Facebook) and you allow such a third-party access to your User Content you do so at your own risk.  This Privacy Policy does not apply to information we collect by other means (including offline) or from other sources other than through the Service."
-msgstr "We are not responsible for the practices employed by websites or services linked to or from the Service, including the information or content contained therein.  Please remember that when you use a link to go from the Service to another website, our Privacy Policy does not apply to third-party websites or services.  Your browsing and interaction on any third-party website or service, including those that have a link or advertisement on our website, are subject to that third party's own rules and policies.  In addition, you agree that we are not responsible and we do not control over any third-parties that you authorize to access your User Content. If you are using a third-party website or service (like Facebook) and you allow such a third-party access to your User Content you do so at your own risk.  This Privacy Policy does not apply to information we collect by other means (including offline) or from other sources other than through the Service."
-
-#: app/views/terms-of-use.html
-msgid "We care about the privacy of our Users.  You understand that by using the Services you consent to the collection, use and disclosure of your personally identifiable information and aggregate data as set forth in our <a href=\"/privacy-policy\">Privacy Policy</a>, and to have your personally identifiable information collected, used, transferred to and processed in the United States."
-msgstr "We care about the privacy of our Users.  You understand that by using the Services you consent to the collection, use and disclosure of your personally identifiable information and aggregate data as set forth in our <a href=\"/privacy-policy\">Privacy Policy</a>, and to have your personally identifiable information collected, used, transferred to and processed in the United States."
-
-#: app/views/privacy-policy.html
-msgid "We collect the following types of information about you:"
-msgstr "We collect the following types of information about you:"
-
-#: app/views/terms-of-use.html
-msgid "We may, without prior notice, change the Service; stop providing the Service or features of the Service, to you or to users generally; or create usage limits for the Service.  We may permanently or temporarily terminate or suspend your access to the Service without notice and liability for any reason, including if in our sole determination you violate any provision of this Agreement, or for no reason.  Upon termination for any reason or no reason, you continue to be bound by this Agreement."
-msgstr "We may, without prior notice, change the Service; stop providing the Service or features of the Service, to you or to users generally; or create usage limits for the Service.  We may permanently or temporarily terminate or suspend your access to the Service without notice and liability for any reason, including if in our sole determination you violate any provision of this Agreement, or for no reason.  Upon termination for any reason or no reason, you continue to be bound by this Agreement."
-
-#: app/views/privacy-policy.html
-msgid "We will not rent or sell your information to third parties outside 28msec and its group companies (including any parent, subsidiaries and affiliates) without your consent, except as noted below:"
-msgstr "We will not rent or sell your information to third parties outside 28msec and its group companies (including any parent, subsidiaries and affiliates) without your consent, except as noted below:"
-
-#: app/views/privacy-policy.html
-msgid "Welcome to secxbrl.info, an online service of 28msec, Inc. (\"28msec,\" \"we,\" or \"us\").  Our Privacy Policy explains how we collect, use, disclose, and protect information that applies to our Service, and your choices about the collection and use of your information."
-msgstr "Welcome to secxbrl.info, an online service of 28msec, Inc. (\"28msec,\" \"we,\" or \"us\").  Our Privacy Policy explains how we collect, use, disclose, and protect information that applies to our Service, and your choices about the collection and use of your information."
-
-#: app/views/terms-of-use.html
-msgid "Welcome to secxbrl.info, an online service of 28msec, Inc. (\"28msec,\" \"we,\" or \"us\").  This page explains the terms by which you may use our online services, website, and software provided on or in connection with the service (collectively the \"Service\").  By accessing or using the Service, you signify that you have read, understood, and agree to be bound by this Terms of Service Agreement (\"Agreement\") and to the collection and use of your information as set forth in the 28msec <a href=\"/privacy-policy\">Privacy Policy</a>, whether or not you are a registered user of our Service.  This Agreement applies to all visitors, users, and others who access the Service (\"Users\")."
-msgstr "Welcome to secxbrl.info, an online service of 28msec, Inc. (\"28msec,\" \"we,\" or \"us\").  This page explains the terms by which you may use our online services, website, and software provided on or in connection with the service (collectively the \"Service\").  By accessing or using the Service, you signify that you have read, understood, and agree to be bound by this Terms of Service Agreement (\"Agreement\") and to the collection and use of your information as set forth in the 28msec <a href=\"/privacy-policy\">Privacy Policy</a>, whether or not you are a registered user of our Service.  This Agreement applies to all visitors, users, and others who access the Service (\"Users\")."
 
 #: app/views/comparison/filings.html
 #: app/views/entity/filing.html
@@ -1952,25 +1468,9 @@ msgstr "XBRL Instance"
 msgid "XML"
 msgstr "XML"
 
-#: app/views/privacy-policy.html
-msgid "YOUR CHOICES ABOUT YOUR INFORMATION"
-msgstr "YOUR CHOICES ABOUT YOUR INFORMATION"
-
-#: app/views/comparison/validations-dashboard.html
-msgid "Year"
-msgstr "Year"
-
 #: app/views/entity/summary.html
 msgid "Yes"
 msgstr "Yes"
-
-#: app/views/terms-of-use.html
-msgid "You agree not to post User Content that: (i) may create a risk of harm, loss, physical or mental injury, emotional distress, death, disability, disfigurement, or physical or mental illness to you, to any other person, or to any animal; (ii) may create a risk of any other loss or damage to any person or property; (iii) seeks to harm or exploit children by exposing them to inappropriate content, asking for personally identifiable details or otherwise; (iv) may constitute or contribute to a crime or tort; (v) contains any information or content that we deem to be unlawful, harmful, abusive, racially or ethnically offensive, defamatory, infringing, invasive of personal privacy or publicity rights, harassing, humiliating to other people (publicly or otherwise), libelous, threatening, profane, or otherwise objectionable; (vi) contains any information or content that is illegal (including, without limitation, the disclosure of insider information under securities law or of another party's trade secrets); (vii) contains any information or content that you do not have a right to make available under any law or under contractual or fiduciary relationships; or (viii) contains any information or content that you know is not correct and current.  You agree that any User Content that you post does not and will not violate third-party rights of any kind, including without limitation any Intellectual Property Rights (as defined below) or rights of privacy.  To the extent that your User Content contains music, you hereby represent that you are the owner of all the copyright rights, including without limitation the performance, mechanical, and sound recordings rights, with respect to each and every musical composition (including lyrics) and sound recording contained in such User Content and have the power to grant the license granted below.  28msec reserves the right, but is not obligated, to reject and/or remove any User Content that 28msec believes, in its sole discretion, violates these provisions.  You understand that publishing your User Content on the Service is not a substitute for registering it with the U.S. Copyright Office, the Writer's Guild of America, or any other rights organization."
-msgstr "You agree not to post User Content that: (i) may create a risk of harm, loss, physical or mental injury, emotional distress, death, disability, disfigurement, or physical or mental illness to you, to any other person, or to any animal; (ii) may create a risk of any other loss or damage to any person or property; (iii) seeks to harm or exploit children by exposing them to inappropriate content, asking for personally identifiable details or otherwise; (iv) may constitute or contribute to a crime or tort; (v) contains any information or content that we deem to be unlawful, harmful, abusive, racially or ethnically offensive, defamatory, infringing, invasive of personal privacy or publicity rights, harassing, humiliating to other people (publicly or otherwise), libelous, threatening, profane, or otherwise objectionable; (vi) contains any information or content that is illegal (including, without limitation, the disclosure of insider information under securities law or of another party's trade secrets); (vii) contains any information or content that you do not have a right to make available under any law or under contractual or fiduciary relationships; or (viii) contains any information or content that you know is not correct and current.  You agree that any User Content that you post does not and will not violate third-party rights of any kind, including without limitation any Intellectual Property Rights (as defined below) or rights of privacy.  To the extent that your User Content contains music, you hereby represent that you are the owner of all the copyright rights, including without limitation the performance, mechanical, and sound recordings rights, with respect to each and every musical composition (including lyrics) and sound recording contained in such User Content and have the power to grant the license granted below.  28msec reserves the right, but is not obligated, to reject and/or remove any User Content that 28msec believes, in its sole discretion, violates these provisions.  You understand that publishing your User Content on the Service is not a substitute for registering it with the U.S. Copyright Office, the Writer's Guild of America, or any other rights organization."
-
-#: app/views/terms-of-use.html
-msgid "You agree to defend, indemnify and hold harmless 28msec and its subsidiaries, agents, licensors, managers, and other affiliated companies, and their employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees) arising out of or related to: (i) your use of and access to the Service, including any data or content transmitted or received by you; (ii) your violation of any term of this Agreement, including without limitation your breach of any of the representations and warranties above; (iii) your violation of any third-party right, including without limitation any right of privacy or Intellectual Property Rights; (iv) your violation of any applicable law, rule or regulation; (v) User Content or any other information or content that is submitted via your account including without limitation misleading, false or inaccurate information; (vi) negligent or willful misconduct; or (vii) any other party's access and use of the Service with your unique username, password or other appropriate security code."
-msgstr "You agree to defend, indemnify and hold harmless 28msec and its subsidiaries, agents, licensors, managers, and other affiliated companies, and their employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees) arising out of or related to: (i) your use of and access to the Service, including any data or content transmitted or received by you; (ii) your violation of any term of this Agreement, including without limitation your breach of any of the representations and warranties above; (iii) your violation of any third-party right, including without limitation any right of privacy or Intellectual Property Rights; (iv) your violation of any applicable law, rule or regulation; (v) User Content or any other information or content that is submitted via your account including without limitation misleading, false or inaccurate information; (vi) negligent or willful misconduct; or (vii) any other party's access and use of the Service with your unique username, password or other appropriate security code."
 
 #: app/views/reset.html
 msgid "You are about to change your password."
@@ -1982,10 +1482,6 @@ msgstr "You are about to change your password."
 msgid "You are accessing filings for entities that are not part of DOW30."
 msgstr "You are accessing filings for entities that are not part of DOW30."
 
-#: app/views/terms-of-use.html
-msgid "You are solely responsible for your interactions with other secxbrl.info Users.  We reserve the right, but have no obligation, to monitor disputes between you and other Users.  28msec shall have no liability for your interactions with other Users, or for any User's action or inaction."
-msgstr "You are solely responsible for your interactions with other secxbrl.info Users.  We reserve the right, but have no obligation, to monitor disputes between you and other Users.  28msec shall have no liability for your interactions with other Users, or for any User's action or inaction."
-
 #: app/views/comparison/information.html
 #: app/views/comparison/validations-dashboard.html
 msgid "You are trying to compare information across {{filings.length}} filings."
@@ -1994,18 +1490,6 @@ msgstr "You are trying to compare information across {{filings.length}} filings.
 #: app/views/home.html
 msgid "You can create your own XBRL-based information repository using the same approach, no programming required, just configure settings. You build your own XBRL taxonomy, submit XBRL instances, and you are in business in just a couple of hours. Or, if you need more flexibility, you can even modify existing application profiles to fit your needs or even create your own application profile."
 msgstr "You can create your own XBRL-based information repository using the same approach, no programming required, just configure settings. You build your own XBRL taxonomy, submit XBRL instances, and you are in business in just a couple of hours. Or, if you need more flexibility, you can even modify existing application profiles to fit your needs or even create your own application profile."
-
-#: app/views/terms-of-use.html
-msgid "You may choose to or we may invite you to submit comments or ideas about the Service, including without limitation about how to improve the Service or our products (\"Ideas\").  By submitting any Idea, you agree that your disclosure is gratuitous, unsolicited and without restriction and will not place 28msec under any fiduciary or other obligation, and that we are free to use the Idea without any additional compensation to you, and/or to disclose the Idea on a non-confidential basis or otherwise to anyone.  You further acknowledge that, by acceptance of your submission, 28msec does not waive any rights to use similar or related ideas previously known to 28msec, or developed by its employees, or obtained from sources other than you."
-msgstr "You may choose to or we may invite you to submit comments or ideas about the Service, including without limitation about how to improve the Service or our products (\"Ideas\").  By submitting any Idea, you agree that your disclosure is gratuitous, unsolicited and without restriction and will not place 28msec under any fiduciary or other obligation, and that we are free to use the Idea without any additional compensation to you, and/or to disclose the Idea on a non-confidential basis or otherwise to anyone.  You further acknowledge that, by acceptance of your submission, 28msec does not waive any rights to use similar or related ideas previously known to 28msec, or developed by its employees, or obtained from sources other than you."
-
-#: app/views/terms-of-use.html
-msgid "You may control your User profile and how you interact with the Service by changing the settings in your Profile Page.  By providing 28msec your email address you consent to our using the email address to send you Service-related notices, including any notices required by law, in lieu of communication by postal mail.  We may also use your email address to send you other messages, such as changes to features of the Service and special offers.  If you do not want to receive such email messages, you may opt out or change your preferences in your Profile Page.  Opting out may prevent you from receiving email messages regarding updates, improvements, or offers."
-msgstr "You may control your User profile and how you interact with the Service by changing the settings in your Profile Page.  By providing 28msec your email address you consent to our using the email address to send you Service-related notices, including any notices required by law, in lieu of communication by postal mail.  We may also use your email address to send you other messages, such as changes to features of the Service and special offers.  If you do not want to receive such email messages, you may opt out or change your preferences in your Profile Page.  Opting out may prevent you from receiving email messages regarding updates, improvements, or offers."
-
-#: app/views/terms-of-use.html
-msgid "You may never use another User's account without permission.  When creating your account, you must provide accurate and complete information.  You are solely responsible for the activity that occurs on your account, and you must keep your account password secure.  We encourage you to use \"strong\" passwords (passwords that use a combination of upper and lower case letters, numbers and symbols) with your account.  You must notify 28msec immediately of any breach of security or unauthorized use of your account.  28msec will not be liable for any losses caused by any unauthorized use of your account."
-msgstr "You may never use another User's account without permission.  When creating your account, you must provide accurate and complete information.  You are solely responsible for the activity that occurs on your account, and you must keep your account password secure.  We encourage you to use \"strong\" passwords (passwords that use a combination of upper and lower case letters, numbers and symbols) with your account.  You must notify 28msec immediately of any breach of security or unauthorized use of your account.  28msec will not be liable for any losses caused by any unauthorized use of your account."
 
 #: app/views/comparison/information.html
 #: app/views/comparison/validations-dashboard.html
@@ -2031,10 +1515,6 @@ msgstr "an out-of-date link"
 #: app/views/root.html
 msgid "beta"
 msgstr "beta"
-
-#: app/views/terms-of-use.html
-msgid "secxbrl.info is database of U.S. public company financial information that enables Users to view and analyze the data contained in the database."
-msgstr "secxbrl.info is database of U.S. public company financial information that enables Users to view and analyze the data contained in the database."
 
 #: app/views/account/billing.html
 msgid "{{more}} older."
