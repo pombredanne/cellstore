@@ -17,13 +17,13 @@ import module namespace networks = "http://xbrl.io/modules/bizql/networks";
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
  :
- : @error resolution:unknown-definition-node-kind if a definition node kind
+ : @error resolution:UNKNOWN-DEFINITION-NODE-KIND if a definition node kind
  : is unrecognized.
- : @error resolution:unresolved-concept-relationship if a root concept
+ : @error resolution:UNRESOLVED-CONCEPT-RELATIONSHIP if a root concept
  : cannot be resolved.
- : @error resolution:unresolved-dimension-relationship if a root member
+ : @error resolution:UNRESOLVED-DIMENSION-RELATIONSHIP if a root member
  : cannot be resolved.
- : @error resolution:non-abstract-merge-node if a rule node is merge,
+ : @error resolution:NON-ABSTRACT-MERGE-NODE if a rule node is merge,
  : but non-abstract.
  :
  : @return the converted, structural breakdown.
@@ -57,13 +57,13 @@ declare %private function resolution:convert-breakdown(
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
  :
- : @error resolution:unknown-definition-node-kind if a definition node kind
+ : @error resolution:UNKNOWN-DEFINITION-NODE-KIND if a definition node kind
  : is unrecognized.
- : @error resolution:unresolved-concept-relationship if a root concept
+ : @error resolution:UNRESOLVED-CONCEPT-RELATIONSHIP if a root concept
  : cannot be resolved.
- : @error resolution:unresolved-dimension-relationship if a root member
+ : @error resolution:UNRESOLVED-DIMENSION-RELATIONSHIP if a root member
  : cannot be resolved.
- : @error resolution:non-abstract-merge-node if a rule node is merge,
+ : @error resolution:NON-ABSTRACT-MERGE-NODE if a rule node is merge,
  : but non-abstract.
  :
  : @return the converted structural nodes.
@@ -94,7 +94,7 @@ declare %private function resolution:convert-definition-nodes(
           $components,
           $parent-child-order)
       default return error(
-          QName("resolution:unknown-definition-node-kind"),
+          QName("resolution:UNKNOWN-DEFINITION-NODE-KIND"),
           "Unknown definition node kind: $definition-node.Kind")
     return if(exists($definition-node.Id))
            then copy $c := $converted-node
@@ -112,7 +112,7 @@ declare %private function resolution:convert-definition-nodes(
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
  :
- : @error resolution:non-abstract-merge-node if a rule node is merge,
+ : @error resolution:NON-ABSTRACT-MERGE-NODE if a rule node is merge,
  : but non-abstract.
  :
  : @return the converted structural nodes.
@@ -160,7 +160,7 @@ declare %private function resolution:convert-rule-node(
         return $c
     return switch(true)
            case not $definition-node.Abstract and $definition-node.Merge
-                return error(QName("resolution:non-abstract-merge-node"), "A definition rule node cannot be non-abstract and merged.")
+                return error(QName("resolution:NON-ABSTRACT-MERGE-NODE"), "A definition rule node cannot be non-abstract and merged.")
            case $definition-node.Merge return $merged-children
            case $definition-node.Abstract return {|
                 {
@@ -241,7 +241,7 @@ declare %private function resolution:convert-aspect-node(
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
  :
- : @error resolution:unresolved-concept-relationship if the root concept
+ : @error resolution:UNRESOLVED-CONCEPT-RELATIONSHIP if the root concept
  : cannot be resolved.
  :
  : @return the converted structural node.
@@ -265,7 +265,7 @@ declare %private function resolution:convert-concept-relationship-node(
     let $subnetwork := descendant-objects($network.Trees)[$$.Name eq $root]
     return if(exists($subnetwork))
     then resolution:expand-concept-network($subnetwork, $components, $parent-child-order)
-    else error(QName("resolution:unresolved-concept-relationship"), $root || ": The concept root could not be resolved.")
+    else error(QName("resolution:UNRESOLVED-CONCEPT-RELATIONSHIP"), $root || ": The concept root could not be resolved.")
 };
 
 (:~
@@ -348,7 +348,7 @@ declare %private function resolution:expand-concept-network(
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
  :
- : @error resolution:unresolved-concept-relationship if the root member
+ : @error resolution:UNRESOLVED-CONCEPT-RELATIONSHIP if the root member
  : cannot be resolved.
  :
  : @return the converted structural node.
@@ -365,7 +365,7 @@ declare %private function resolution:convert-dimension-relationship-node(
     let $subnetwork as object := descendant-objects($hypercubes.Aspects.$dimension)[$$.Name eq $root][1]
     return if(exists($subnetwork))
     then resolution:expand-dimension-network($dimension, $subnetwork, $components, $parent-child-order)
-    else error(QName("resolution:unresolved-dimension-relationship"), $root || ": The dimension member root could not be resolved.")
+    else error(QName("resolution:UNRESOLVED-DIMENSION-RELATIONSHIP"), $root || ": The dimension member root could not be resolved.")
 };
 
 (:
@@ -464,7 +464,7 @@ declare function resolution:height-balance($axis-breakdown-trees as object*, $de
                 case $desired-depth eq 1 and empty($tree.Children)
                   return $tree
                 default
-                  return error(QName("resolution:unforeseen-error"), "An error occurred while height-balancing")
+                  return error(QName("resolution:UNFORESEEN-ERROR"), "An error occurred while height-balancing")
 };
 
 (:~
@@ -489,8 +489,8 @@ declare %private function resolution:metadata(
   @param $definition-model A definition mode, in 28msec's proprietary JSON format.
   @param $component A component, in 28msec's proprietary JSON format.
   
-  @error resolution:unforeseen-error Something went wrong, contact us.
-  @error resolution:unknown-definition-node-kind A definition node was not recognized.
+  @error resolution:UNFORESEEN-ERROR Something went wrong, contact us.
+  @error resolution:UNKNOWN-DEFINITION-NODE-KIND A definition node was not recognized.
   
   @return a structural model
 :)
@@ -515,13 +515,13 @@ declare function resolution:resolve(
  :    </li>
  :  </ul>
  :
- : @error resolution:unforeseen-error Something went wrong, contact us.
- : @error resolution:unknown-definition-node-kind A definition node was not recognized.
- : @error resolution:unresolved-concept-relationship if the root concept
+ : @error resolution:UNFORESEEN-ERROR Something went wrong, contact us.
+ : @error resolution:UNKNOWN-DEFINITION-NODE-KIND A definition node was not recognized.
+ : @error resolution:UNRESOLVED-CONCEPT-RELATIONSHIP if the root concept
  : cannot be resolved.
- : @error resolution:unresolved-dimension-relationship if the root member
+ : @error resolution:UNRESOLVED-DIMENSION-RELATIONSHIP if the root member
  : cannot be resolved.
- : @error resolution:non-abstract-merge-node if a rule node is merge,
+ : @error resolution:NON-ABSTRACT-MERGE-NODE if a rule node is merge,
  : but non-abstract.
  :
  : @return a structural model

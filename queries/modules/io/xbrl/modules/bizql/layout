@@ -260,7 +260,7 @@ declare function layout:slices($table-headers as array, $tag-selectors as string
             case 0 return (1 to $span) ! ($first-row-cell.CellConstraints."", {})[1]
             case 1 return (1 to $span) ! ($first-row-cell.CellConstraints.$tag-matches, {})[1]
             default return error(
-                QName("layout:more-than-one-matching-tag"),
+                QName("layout:MORE-THAN-ONE-MATCHING-TAG"),
                 "Several tag selectors apply to a cell: " || string-join($tag-matches, " ")
             )
     return
@@ -447,7 +447,7 @@ declare function layout:eliminate($header-groups as array*, $empty-columns as in
                               return ()
                               case $cell.CellSpan gt $number
                               return copy $c := $cell modify replace value of json $c.CellSpan with $c.CellSpan - $number return $c
-                              default return error(QName("layout:elimination-error"), ($number || " > " || $cell.CellSpan))
+                              default return error(QName("layout:ELIMINATION-ERROR"), ($number || " > " || $cell.CellSpan))
                     ]
                ]
                return (
@@ -463,7 +463,9 @@ declare function layout:eliminate($header-groups as array*, $empty-columns as in
  : @options - hypercube: a hypercube (null for using table domain, default: dimensionless hypercube)
  :          - filter
  :
- : @error layout:more-than-one-matching-tag in case of a tag selector conflict.
+ : @error layout:MORE-THAN-ONE-MATCHING-TAG in case of a tag selector conflict.
+ : @error layout:ELIMINATION_ERROR an error occurred during elimination of empty rows/columns.
+ :
  : @return a layout model.
  :)
 declare function layout:layout(
