@@ -34,7 +34,8 @@
     "grunt-xqlint": "0.1.0",
     "netdna": "~0.0.6",
     "request": "~2.33.0",
-    "grunt-jsonlint": "~1.0.4"
+    "grunt-jsonlint": "~1.0.4",
+    "grunt-swagger-js-codegen": "~0.2.2"
   },
   "engines": {
     "node": ">=0.8.0"

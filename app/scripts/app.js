@@ -3,7 +3,8 @@
 angular.module('main', [
     'ui.router', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle',
     'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite',
-    'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'angular.directives-round-progress'
+    'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'angular.directives-round-progress',
+    'queries-api', 'session-api', 'users-api', 'billing-api'
 ])
 .run(function($rootScope, ngProgressLite) {
   
