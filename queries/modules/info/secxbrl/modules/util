@@ -1,0 +1,125 @@
+jsoniq version "1.0";
+
+module namespace util = "http://secxbrl.info/modules/util";
+
+
+import module namespace session = "http://apps.28.io/session";
+import module namespace response = "http://www.28msec.com/modules/http-response";
+
+import module namespace entities = "http://xbrl.io/modules/bizql/entities";
+import module namespace archives = "http://xbrl.io/modules/bizql/archives";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
+import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+
+declare %an:sequential function util:check-and-return-results(
+    $entities as object*,
+    $results as item*,
+    $format as string
+)
+{
+    switch(session:check-access($entities, "data_sec"))
+    case $session:ACCESS-ALLOWED return
+        $results
+    case $session:ACCESS-DENIED return {
+          response:status-code(403);
+          session:error("accessing filings of an entity that is not in the DOW30", $format)
+       }
+    case $session:ACCESS-AUTH-REQUIRED return {
+          response:status-code(401);
+          session:error("authentication required or session expired", $format)
+       }
+    default return error()
+};
+
+declare function util:entities(
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $aids as string*) as object*
+{
+    if ($tags = "ALL")
+        then companies:companies()
+        else (
+            companies:companies($ciks),
+            companies:companies-for-tags($tags),
+            companies:companies-for-tickers($tickers),
+            companies:companies-for-SIC($sics)
+        ),
+    entities:entities(archives:entities($aids))
+};
+
+declare function util:filter-override(
+    $entities as object*,
+    $fp as string*,
+    $fy as string*,
+    $aids as item*) as object?
+{
+    let $latest-filings :=
+        for $entity in $entities
+        for $fp in $fp 
+        let $fy :=
+            if ($fp eq "FY")
+            then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year 
+            else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
+        return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
+    let $fiscal-years as integer* :=
+        switch(true)
+        case $fy = "ALL" return ()
+        default return distinct-values(
+            $fy[$$ ne "LATEST"] ! ($$ cast as integer)
+        )
+    let $fiscal-periods as string* := switch(true)
+                         case $fp = "ALL" return ()
+                         default return distinct-values($fp)
+    return
+    switch(true)
+    case exists($aids) return {
+        "sec:Archive" : {
+            Type: "string",
+            Domain : [ $aids ]
+        },
+        "sec:FiscalPeriod" : {|
+            {
+                Type: "string",
+                Domain: [ $fiscal-periods ]
+            }[exists($fiscal-periods)]
+        |}
+    }
+    case deep-equal($fy, "LATEST")
+    return {
+        "sec:Archive" : {
+            Type: "string",
+            Domain : [archives:aid($latest-filings)]
+        },
+        "sec:FiscalPeriod" : {|
+            {
+                Type: "string",
+                Domain: [ $fiscal-periods ]
+            }[exists($fiscal-periods)]
+        |}
+    }
+    case exists(($entities, $fiscal-years, $fiscal-periods))
+    return {
+        "xbrl:Entity" : {|
+            {
+                Type: "string",
+                Domain: [ $entities._id ]
+            }[exists($entities)]
+        |},
+        "sec:FiscalYear" : {|
+            {
+                Type: "integer",
+                Domain: [ $fiscal-years ]
+            }[exists($fiscal-years)]
+        |},
+        "sec:FiscalPeriod" : {|
+            {
+                Type: "string",
+                Domain: [ $fiscal-periods ]
+            }[exists($fiscal-periods)]
+        |},
+        "sec:Archive" : {}
+    }
+    default return ()
+};
