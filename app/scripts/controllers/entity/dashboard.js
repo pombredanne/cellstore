@@ -120,7 +120,7 @@ angular.module('main')
 
     var concepts = ['fac:Revenues', 'fac:NetIncomeLoss', 'fac:LiabilitiesAndEquity', 'fac:Equity'];
     $scope.params = {
-        $method: 'POST',
+        _method: 'POST',
         concept: concepts,
         map: 'FundamentalAccountingConcepts',
         fiscalYear: fiscalYears,

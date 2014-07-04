@@ -43,7 +43,7 @@ angular.module('main')
     if (results.FactTable && results.FactTable.length > 0)
     {
         $scope.params = {
-            $method: 'POST',
+            _method: 'POST',
             tag: $scope.selection.tag,
             cik: $scope.selection.cik,
             fiscalYear: $scope.selection.fiscalYear,

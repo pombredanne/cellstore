@@ -234,7 +234,7 @@ angular.module('main')
     {
         $scope.computeUsage();
         $backend.Queries.listFilings({
-            $method: 'POST',
+            _method: 'POST',
             cik: $scope.cik,
             fiscalYear: $scope.year,
             fiscalPeriod: $scope.period,
