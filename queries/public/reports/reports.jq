@@ -2,24 +2,12 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace user = "http://apps.28.io/user";
+import module namespace reports = "http://apps.28.io/reports";
+
 declare namespace api = "http://apps.28.io/api";
 
-declare function local:isReadable($report as object, $authenticated-user-email as string) as boolean
-{
-    if($report.Owner eq $authenticated-user-email) 
-    then true
-    else 
-        boolean(
-            distinct-values(
-                for $right in $report.ACL[]
-                return
-                    if($right.Grantee eq "http://28.io/groups/AllUsers" and $right.Permission eq "READ")
-                    then true
-                    else ()
-            ))
-};
-
 try{
+    (: ### INIT PARAMS :)
     let $id := request:param-values("_id")
     let $userids := request:param-values("user")
     let $public-read := request:param-values("public-read")
@@ -30,18 +18,19 @@ try{
     
     let $query := 
         {|
-            if(exists($id))
-            then { "_id" :  if(count($id) gt 1 ) then { "$in" : [ $id ] } else $id }
-            else (),
             switch(true)
+            case (exists($id)) return 
+                { "_id" :  if(count($id) gt 1 ) then { "$in" : [ $id ] } else $id }
             case $private return 
-                {
-                    "Owner": $authenticated-user.email,
-                    "AccessControlList": { "$not": {"$elemMatch": { "Type": "Group", "Grantee" : "http://28.io/groups/AllUsers", "Permission": "READ"}}}
+                { "$or":
+                    [ 
+                        {"Owner": $authenticated-user.email},
+                        {"AccessControlList": { "$elemMatch": { "Type": "User", "Grantee" : $authenticated-user.email, "Permission": { "$in": [ "READ", "WRITE", "FULL_CONTROL" ]}}}}
+                    ]
                 }
             case $public-read return             {
                     "Owner": if($users) then {"$in": [$users ! $$.email]} else $authenticated-user.email,
-                    "AccessControlList": { "$elemMatch": { "Type": "Group", "Grantee" : "http://28.io/groups/AllUsers", "Permission": "READ"}}
+                    "AccessControlList": { "$elemMatch": { "Type": "Group", "Grantee" : "http://28.io/groups/AllUsers", "Permission": { "$in": [ "READ", "WRITE", "FULL_CONTROL" ]}}}
                 }
             default return 
                 {"Owner": $authenticated-user.email}
@@ -49,27 +38,31 @@ try{
     
     let $reports as object* :=
         for $report in find("reports", $query)
-        where local:isReadable($report, $authenticated-user.email)
+        where reports:has-report-access-permission($report, $authenticated-user.email, "READ")
         return $report
     return 
         switch (true)
         
+        (: ### AUTHENTICATION :)
         case not(session:valid()) return {
             response:status-code(401);
             session:error("Unauthorized: Login required", "json")
         }
         
+        (: ### AUTHORIZATION :)
         case not(session:valid("reports_get")) return {
             response:status-code(403);
             session:error("Forbidden: You are not authorized to access the requested resource", "json")
         }
         
+        (: ### BAD REQUEST HANDLING :)
         case (empty($reports) and exists($id))
         return {
             response:status-code(404);
             session:error("report not found", "json")
         }
         
+        (: ### MAIN WORK :)
         default
         return {
             response:content-type("application/json");

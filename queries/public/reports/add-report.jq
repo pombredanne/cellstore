@@ -1,99 +1,14 @@
-import module namespace reports = "http://apps.28.io/reports";
-
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace user = "http://apps.28.io/user";
+import module namespace reports = "http://apps.28.io/reports";
 
 declare namespace api = "http://apps.28.io/api";
 
-declare function local:isAllowed($report as object, $authenticated-user-email as string, $rights as string*) as boolean
-{
-    if($report.Owner eq $authenticated-user-email) 
-    then true
-    else 
-        boolean(
-            distinct-values(
-                for $right in $report.ACL[]
-                return
-                    if($right.Grantee eq $authenticated-user-email and $right.Permission = $rights)
-                    then true
-                    else ()
-            ))
-};
-
-declare function local:isPublicReadable($report as object) as boolean
-{
-    boolean(
-        distinct-values(
-            for $right in $report.ACL[]
-            return
-                if($right.Grantee eq "http://28.io/groups/AllUsers" and $right.Permission eq "READ")
-                then true
-                else ()
-        ))
-};
-
-declare function local:ensurePublicRead($report as object) as object
-{
-    if(local:isPublicReadable($report))
-    then $report
-    else
-        {|
-            trim($report, "ACL"),
-            { "ACL": [
-                {
-                      "Type": "Group",
-                      "Grantee": "http://28.io/groups/AllUsers",
-                      "Permission": "READ"
-                },
-                flatten($report.ACL)
-            ]}
-        |}
-};
-
-declare function local:ensurePrivateRead($report as object) as object
-{
-    if(local:isPublicReadable($report))
-    then 
-        {|
-            trim($report, "ACL"),
-            { "ACL": [
-                for $ac in flatten($report.ACL)
-                where not($ac.Type eq "Group" and $ac.Grantee eq "http://28.io/groups/AllUsers")
-                return
-                    $ac
-            ]}
-        |}
-    else $report
-};
-
-declare function local:ensureReportProperties($report as object, $existing-report as object?, $authenticated-user-email as string) as object
-{
-    let $report :=
-        if(empty($existing-report))
-        then $report
-        else 
-            if($existing-report.LastModified eq $report.LastModified)
-            then $report
-            else 
-                error(xs:QName("reports:conflict"), "The stored report (last modified: " || $existing-report.LastModified 
-                      || ") contains changes that are newer than the report (last modified: " || $report.LastModified || ") to store.")
-    return 
-        copy $r := $report
-        modify (
-            if(exists($report.LastModified))
-            then replace value of json $r.LastModified with string(current-dateTime())
-            else insert json { "LastModified": string(current-dateTime()) } into $r,
-            if(empty($r.Owner))
-            then insert json { "Owner": $authenticated-user-email } into $r
-            else ()
-        )
-        return $r
-};
-
 try {
     
+    (: ### INIT PARAMS :)
     let $validation-only := request:param-values("validation-only")
     let $public-read := 
       let $pr := request:param-values("public-read")
@@ -102,7 +17,6 @@ try {
       let $p := request:param-values("private")
       return ($p eq "" or boolean($p))
     let $authenticated-user := user:get-existing-by-id(session:validate())
-    
     let $report as object? := 
        let $body := request:text-content()
        return 
@@ -111,8 +25,8 @@ try {
                 let $r := parse-json($body)
                 return
                     switch(true)
-                    case ($private) return local:ensurePrivateRead($r)
-                    case ($public-read) return local:ensurePublicRead($r)
+                    case ($private) return reports:make-private-read($r)
+                    case ($public-read) return reports:make-public-read($r)
                     default return $r
             else ()
     let $id as string? := 
@@ -127,24 +41,29 @@ try {
     return 
         switch (true)
         
+        (: ### AUTHENTICATION :)
         case not(session:valid()) return {
             response:status-code(401);
             session:error("Unauthorized: Login required", "json")
         }
         
+        (: ### AUTHORIZATION :)
+        (: user authorized to validate report? :)
         case (exists($validation-only) and not(session:valid("reports_validate"))) 
+        
+        (: user authorized to update report? :)
         case (exists($id) and exists($existing-report) and 
-            (not(session:valid("reports_edit")) or not(local:isAllowed($existing-report, $authenticated-user.email, ( "FULL_CONTROL", "WRITE")))))
+            (not(session:valid("reports_edit")) or not(reports:has-report-access-permission($existing-report, $authenticated-user.email, "WRITE"))))
+        
+        (: user authorized to create a report? :)
         case (exists($id) and empty($existing-report) and 
-            (not(session:valid("reports_create")) or not(local:isAllowed($report, $authenticated-user.email, ( "FULL_CONTROL", "WRITE")))))
-        case (
-            (exists(request:param-values("public-read")) or exists(request:param-values("public-read"))) 
-            and not(local:isAllowed($report, $authenticated-user.email, ( "FULL_CONTROL"))))
+              not(session:valid("reports_create")))
         return {
             response:status-code(403);
             session:error("Forbidden: You are not authorized to access the requested resource", "json")
         }
         
+        (: ### BAD REQUEST HANDLING :)
         case (empty($report))
         return {
             response:status-code(400);
@@ -157,6 +76,7 @@ try {
             session:error("report: mandatory _id field missing or empty in report object", "json")
         }
         
+        (: ### MAIN WORK :)
         (: report validation :)
         case (exists($validation-only) and ($validation-only eq "" or boolean($validation-only)))
         return {
@@ -178,10 +98,12 @@ try {
             then truncate("reportcache");
             else create("reportcache");
             
-            {
-                db:edit($existing-report,local:ensureReportProperties($report, $existing-report, $authenticated-user.email));
-                $report
-            }
+            let $report := reports:validate-and-update-report-properties($report, $existing-report, $authenticated-user.email)
+            return
+                {
+                    db:edit($existing-report,$report);
+                    $report
+                }
         }
         
         (: create new report :)
@@ -194,12 +116,19 @@ try {
             then truncate("reportcache");
             else create("reportcache");
             
-            {
-                db:insert("reportschemas", local:ensureReportProperties($report, $existing-report, $authenticated-user.email));
-                $report
-            }
+            let $report := reports:validate-and-update-report-properties($report, $existing-report, $authenticated-user.email)
+            return
+                {
+                    db:insert("reports", $report);
+                    $report
+                }
         }
-} catch reports:conflict {
+} catch reports:UNAUTHORIZED {
+    {
+        response:status-code(403);
+        session:error("Access denied: " || $err:description, "json")
+    }
+} catch reports:CONFLICT {
     {
         response:status-code(409);
         session:error("Conflict: " || $err:description, "json")
@@ -207,14 +136,14 @@ try {
 } catch session:expired {
     {
         response:status-code(401);
-        session:error("Unauthorized: Login required", "json")
+        session:error("Unauthorized: Login required (session expired)", "json")
     }
 } catch api:missing-parameter {
     if(exists($err:value) and $err:value.parameter eq "token")
     then
     {
         response:status-code(401);
-        session:error("Unauthorized: Login required", "json")
+        session:error("Unauthorized: Login required (token missing)", "json")
     }
     else 
     {

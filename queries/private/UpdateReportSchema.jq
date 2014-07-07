@@ -1,10 +1,17 @@
 let $schema := {
-  "_id" : "1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOc", 
+  "_id" : "1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOa", 
   "Label": "Fundamental Accounting Concepts",
   "Archive" : null, 
-  "Owner": "d@28.io",
+  "Owner": "admin@28.io",
   "Description": "Contains bla bla",
   "LastModified": "2014-06-25T11:09:07.28464Z",
+  "ACL": [
+       {
+          Type: "Group",
+          Grantee: "http://28.io/groups/AllUsers",
+          Permission: "READ"
+       }
+    ],
   "Role" : "http://xbrl.io/fundamental-accounting-concepts", 
   "Networks" : [ {
     "LinkName" : "link:presentationLink", 
@@ -2352,7 +2359,66 @@ let $schema := {
         }
       }
     }
-  }, 
+  },
+  "DefinitionModels" : [ {
+    "ModelKind" : "DefinitionModel", 
+    "Labels" : [ "Fundamental Accounting Concepts" ], 
+    "Parameters" : {
+
+    }, 
+    "Breakdowns" : {
+      "x" : [ {
+        "BreakdownLabels" : [ "Reporting Entity Breakdown" ], 
+        "BreakdownTrees" : [ {
+          "Kind" : "Rule", 
+          "Abstract" : true, 
+          "Labels" : [ "Reporting Entity [Axis]" ], 
+          "Children" : [ {
+            "Kind" : "Aspect", 
+            "Aspect" : "xbrl:Entity"
+          } ]
+        } ]
+      }, {
+        "BreakdownLabels" : [ "Fiscal Year Breakdown" ], 
+        "BreakdownTrees" : [ {
+          "Kind" : "Rule", 
+          "Abstract" : true, 
+          "Labels" : [ "Fiscal Year [Axis]" ], 
+          "Children" : [ {
+            "Kind" : "Aspect", 
+            "Aspect" : "sec:FiscalYear"
+          } ]
+        } ]
+      }, {
+        "BreakdownLabels" : [ "Fiscal Period Breakdown" ], 
+        "BreakdownTrees" : [ {
+          "Kind" : "Rule", 
+          "Abstract" : true, 
+          "Labels" : [ "Fiscal Period [Axis]" ], 
+          "Children" : [ {
+            "Kind" : "Aspect", 
+            "Aspect" : "sec:FiscalPeriod"
+          } ]
+        } ]
+      } ], 
+      "y" : [ {
+        "BreakdownLabels" : [ "Breakdown on concepts" ], 
+        "BreakdownTrees" : [ {
+          "Kind" : "ConceptRelationship", 
+          "LinkName" : "link:presentationLink", 
+          "LinkRole" : "http://xbrl.io/fundamental-accounting-concepts", 
+          "ArcName" : "link:presentationArc", 
+          "ArcRole" : "http://www.xbrl.org/2003/arcrole/parent-child", 
+          "RelationshipSource" : "fac:FundamentalAccountingConceptsLineItems", 
+          "FormulaAxis" : "descendant", 
+          "Generations" : 0
+        } ]
+      } ]
+    }, 
+    "TableFilters" : {
+
+    }
+  } ],
   "Rules" : [ {
     "Id" : "gi_IncomeStatementStartPeriod", 
     "Type" : "xbrl28:formula", 
