@@ -55,8 +55,7 @@ let $spreadsheet as object? :=
                 FilterOverride: $filter-override,
                 FlattenRows: true,
                 Eliminate: boolean($eliminate eq "true"),
-                Validate: boolean($validate eq "true"),
-                Hypercube: $hypercube
+                Validate: boolean($validate eq "true")
             }
         )
     
@@ -66,8 +65,7 @@ let $spreadsheet as object? :=
         {
             FlattenRows: true,
             Eliminate: boolean($eliminate eq "true"),
-            Validate: boolean($validate eq "true"),
-            Hypercube: $hypercube
+            Validate: boolean($validate eq "true")
         })
     
     default return ()
