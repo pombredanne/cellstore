@@ -483,15 +483,17 @@ as object*
     let $new-options as object :=
         {|
             $options,
-            { "ConceptMaps": $concept-map }[exists($concept-map)],
+            {"ConceptMaps": $concept-map }[exists($concept-map)],
             { "Rules": $rules }[exists($rules)],
-            if(exists($options.FilterOverride))
-            then {
-                Hypercube: hypercubes2:modify-hypercube(
-                    $overriden-hypercube,
-                    $options.FilterOverride
-                )
-            } else ()
+            {
+                Hypercube:
+                    if(exists($options.FilterOverride))
+                    then hypercubes2:modify-hypercube(
+                        $overriden-hypercube,
+                        $options.FilterOverride
+                    )
+                    else $overriden-hypercube
+            }[exists($overriden-hypercube)]
         |}
     let $structural-model as object := resolution:resolve(
         $definition-model,

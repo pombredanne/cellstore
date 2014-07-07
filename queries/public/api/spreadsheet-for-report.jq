@@ -21,10 +21,10 @@ let $tags           := distinct-values(request:param-values("tag") ! upper-case(
 let $tickers        := distinct-values(request:param-values("ticker"))
 let $sics           := distinct-values(request:param-values("sic"))
 let $fiscalYears    := distinct-values(
-                        request:param-values("fiscalYear", "LATEST")
+                        request:param-values("fiscalYear")
                             [$$ = ("LATEST", "ALL") or $$ castable as integer]
                     )
-let $fiscalPeriods  := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
+let $fiscalPeriods  := distinct-values(let $fp := request:param-values("fiscalPeriod")
                       return
                         if (($fp ! lower-case($$)) = "all")
                         then $sec-fiscal:ALL_FISCAL_PERIODS
@@ -41,10 +41,9 @@ let $report := reports:reports($report)
 (: Fact resolution :)
 let $filter-override as object? :=
     util:filter-override($entities, $fiscalPeriods, $fiscalYears, $aids)
-let $filtered-aspects := 
-    let $report := reports:reports($report)
-    let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
-    return values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
+let $report := reports:reports($report)
+let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
+let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
 let $spreadsheet as object? :=
     switch(true)
 
