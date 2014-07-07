@@ -155,14 +155,6 @@ as object*
   let $hypercube := if(exists($hypercube))
                     then $modified-hypercube
                     else $new-hypercube
-let $hypercube as object :=
-    if(exists($hypercube.Aspects."sec:FiscalYear".Default))
-    then copy $hc := $hypercube modify replace value of json $hc.Aspects."sec:FiscalYear".Default with null return $hc
-    else $hypercube
-let $hypercube as object :=
-    if(exists($hypercube.Aspects."sec:FiscalPeriod".Default))
-    then copy $hc := $hypercube modify replace value of json $hc.Aspects."sec:FiscalPeriod".Default with null return $hc
-    else $hypercube
   let $facts := hypercubes:facts-for-hypercube(
     $hypercube,
     $component.Archive,
