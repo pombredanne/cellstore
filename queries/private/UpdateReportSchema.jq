@@ -1890,16 +1890,12 @@ let $schema := {
       "Aspects" : {
         "xbrl:Concept" : {
           "Name" : "xbrl:Concept", 
-          "Label" : "Implicit XBRL Concept Dimension", 
+          "Label" : "Concept", 
           "Domains" : {
             "xbrl:ConceptDomain" : {
               "Name" : "xbrl:ConceptDomain", 
               "Label" : "Implicit XBRL Concept Domain", 
               "Members" : {
-                "oag:ReservesProvedNaturalGas" : {
-                  "Name" : "oag:ReservesProvedNaturalGas", 
-                  "Label" : "Proved Reserve Natural Gas"
-                }, 
                 "fac:ValidationStatistics" : {
                   "Name" : "fac:ValidationStatistics", 
                   "Label" : "Validation Rule Statistics [Hierarchy]", 
@@ -1973,6 +1969,14 @@ let $schema := {
                 "fac:LiabilitiesValidation" : {
                   "Name" : "fac:LiabilitiesValidation", 
                   "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities"
+                }, 
+                "fac:AssetsValidation" : {
+                  "Name" : "fac:AssetsValidation", 
+                  "Label" : "Assets = CurrentAssets + NoncurrentAssets"
+                }, 
+                "fac:Assets2Validation" : {
+                  "Name" : "fac:Assets2Validation", 
+                  "Label" : "Assets = LiabilitiesAndEquity"
                 }, 
                 "fac:EquityValidation" : {
                   "Name" : "fac:EquityValidation", 
@@ -2329,16 +2333,6 @@ let $schema := {
                 "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" : {
                   "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount", 
                   "Label" : "Redeemable Noncontrolling Interest Equity Common Carrying Amount"
-                }, 
-                "fac:AssetsValidation" : {
-                  "Name" : "fac:AssetsValidation", 
-                  "Label" : "Assets = LiabilitiesAndEquity", 
-                  "IsAbstract" : false
-                }, 
-                "fac:AssetsValidation2" : {
-                  "Name" : "fac:AssetsValidation2", 
-                  "Label" : "Assets = CurrentAssets + NoncurrentAssets", 
-                  "IsAbstract" : false
                 }
               }
             }
@@ -2346,15 +2340,43 @@ let $schema := {
         }, 
         "xbrl:Period" : {
           "Name" : "xbrl:Period", 
-          "Label" : "Implicit XBRL Period Dimension"
+          "Label" : "Period"
         }, 
         "xbrl:Entity" : {
           "Name" : "xbrl:Entity", 
-          "Label" : "Implicit XBRL Entity Dimension"
+          "Label" : "Reporting Entity"
+        }, 
+        "xbrl:Unit" : {
+          "Name" : "xbrl:Unit", 
+          "Label" : "Unit", 
+          "Default" : "xbrl:NonNumeric"
+        }, 
+        "sec:Accepted" : {
+          "Name" : "sec:Accepted", 
+          "Label" : "Acceptance Date"
+        }, 
+        "sec:Archive" : {
+          "Name" : "sec:Archive", 
+          "Label" : "Archive ID", 
+          "Kind" : "TypedDimension", 
+          "Type" : "string", 
+          "DomainRestriction" : {
+            "Name" : "sec:ArchiveDomain", 
+            "Label" : "sec:Archive Domain", 
+            "Enumeration" : [ "0000021344-14-000008", "0000104169-14-000019" ]
+          }
+        }, 
+        "sec:FiscalYear" : {
+          "Name" : "sec:FiscalYear", 
+          "Label" : "Fiscal Year"
+        }, 
+        "sec:FiscalPeriod" : {
+          "Name" : "sec:FiscalPeriod", 
+          "Label" : "Fiscal Period"
         }, 
         "dei:LegalEntityAxis" : {
           "Name" : "dei:LegalEntityAxis", 
-          "Label" : "Legal Entity Dimension", 
+          "Label" : "Legal Entity", 
           "Default" : "sec:DefaultLegalEntity"
         }
       }
