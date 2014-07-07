@@ -8,6 +8,7 @@ import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
+import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
 import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
 
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
@@ -121,25 +122,47 @@ as object*
 {
   for $component as object in components:components($networks-or-ids)
   for $table as string? allowing empty in sec-networks:tables($component).Name
+  let $fiscal-filter := {
+        "sec:FiscalYear" : {
+            Type: "integer",
+            Default: null
+        },
+        "sec:FiscalPeriod" : {
+            Type: "string",
+            Default: null
+        }
+  }
+  let $legal-entity-filter := {
+      "dei:LegalEntityAxis" : { 
+          "Name": "dei:LegalEntityAxis",
+          "Label": "Legal Entity Dimension",
+          "Default" : "sec:DefaultLegalEntity"
+      }
+  }
   let $hypercube as object? := hypercubes:hypercubes-for-components($component, $table)
-  let $hypercube as object := if (exists($hypercube))
-                              then 
-                                if(exists($hypercube.Aspects."dei:LegalEntityAxis"))
-                                then $hypercube
-                                else
-                                  copy $h := $hypercube
-                                  modify (
-                                    insert json { "dei:LegalEntityAxis" : 
-                                      { 
-                                        "Name": "dei:LegalEntityAxis",
-                                        "Label": "Legal Entity Dimension",
-                                        "Default" : "sec:DefaultLegalEntity"
-                                      }} into $h.Aspects
-                                    )
-                                  return $h
-                              else sec:dimensionless-hypercube({
-                                  Concepts: [ sec-networks:line-items($component).Name ]
-                              })
+  let $modified-hypercube as object := hypercubes2:modify-hypercube(
+      $hypercube,
+      {|
+        $fiscal-filter,
+        $legal-entity-filter[empty($hypercube.Aspects."dei:LegalEntityAxis")]
+      |}
+  )
+  let $new-hypercube as object := sec:dimensionless-hypercube({|
+      { Concepts: [ sec-networks:line-items($component).Name ] },
+      $fiscal-filter,
+      $legal-entity-filter
+  |})
+  let $hypercube := if(exists($hypercube))
+                    then $modified-hypercube
+                    else $new-hypercube
+let $hypercube as object :=
+    if(exists($hypercube.Aspects."sec:FiscalYear".Default))
+    then copy $hc := $hypercube modify replace value of json $hc.Aspects."sec:FiscalYear".Default with null return $hc
+    else $hypercube
+let $hypercube as object :=
+    if(exists($hypercube.Aspects."sec:FiscalPeriod".Default))
+    then copy $hc := $hypercube modify replace value of json $hc.Aspects."sec:FiscalPeriod".Default with null return $hc
+    else $hypercube
   let $facts := hypercubes:facts-for-hypercube(
     $hypercube,
     $component.Archive,
@@ -201,6 +224,10 @@ return
                      then 
                          let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
                          let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube") (: sec-networks:tables($component).Name) :)
+                         let $hc := hypercubes2:modify-hypercube($hc, {
+                             "sec:FiscalYear" : { Type: "integer", Default: null },
+                             "sec:FiscalPeriod" : { Type: "string", Default: null }
+                         })
                          let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive)
                          let $map := concept-maps:concept-maps($map)
                          let $concepts := 
@@ -258,7 +285,7 @@ return
                     acceptanceDatetime="{filings:acceptance-dateTimes($archive)}"
                     disclosure="{$component.Profiles.SEC.Disclosure}"
                     >{
-                    conversion:facts-to-xml($fact-table)
+                    conversion:facts-to-xml($fact-table, { Caller: "Component" })
                 }</FactTable>)
             }
             case "text" case "csv" return {
