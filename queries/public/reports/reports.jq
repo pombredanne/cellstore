@@ -28,9 +28,14 @@ try{
                         {"AccessControlList": { "$elemMatch": { "Type": "User", "Grantee" : $authenticated-user.email, "Permission": { "$in": [ "READ", "WRITE", "FULL_CONTROL" ]}}}}
                     ]
                 }
-            case $public-read return             {
-                    "Owner": if($users) then {"$in": [$users ! $$.email]} else $authenticated-user.email,
-                    "AccessControlList": { "$elemMatch": { "Type": "Group", "Grantee" : "http://28.io/groups/AllUsers", "Permission": { "$in": [ "READ", "WRITE", "FULL_CONTROL" ]}}}
+            case $public-read and exists($users) return
+                {
+                    "Owner": {"$in": [$users ! $$.email]},
+                    "ACL": { "$elemMatch": { "Type": "Group", "Grantee" : "http://28.io/groups/AllUsers", "Permission": { "$in": [ "READ", "WRITE", "FULL_CONTROL" ]}}}
+                }
+            case $public-read and empty($users) return
+                {
+                    "ACL": { "$elemMatch": { "Type": "Group", "Grantee" : "http://28.io/groups/AllUsers", "Permission": { "$in": [ "READ", "WRITE", "FULL_CONTROL" ]}}}
                 }
             default return 
                 {"Owner": $authenticated-user.email}

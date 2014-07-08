@@ -4,6 +4,8 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace user = "http://apps.28.io/user";
 import module namespace reports = "http://apps.28.io/reports";
 
+import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
+
 declare namespace api = "http://apps.28.io/api";
 
 try {
@@ -95,7 +97,7 @@ try {
             response:serialization-parameters({"indent" : true});
             
             if (is-available-collection("reportcache"))
-            then truncate("reportcache");
+            then db:delete(find("reportcache", { "_id" : { "$regex" : mongos:regex("^" || $existing-report."_id" || ".*" ) }}));
             else create("reportcache");
             
             let $report := reports:validate-and-update-report-properties($report, $existing-report, $authenticated-user.email)
@@ -113,7 +115,7 @@ try {
             response:serialization-parameters({"indent" : true});
             
             if (is-available-collection("reportcache"))
-            then truncate("reportcache");
+            then db:delete(find("reportcache", { "_id" : { "$regex" : mongos:regex("^" || $existing-report."_id" || ".*" ) }}));
             else create("reportcache");
             
             let $report := reports:validate-and-update-report-properties($report, $existing-report, $authenticated-user.email)
