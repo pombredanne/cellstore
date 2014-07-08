@@ -16,6 +16,7 @@ import module namespace networks = "http://xbrl.io/modules/bizql/networks";
  : @param $breakdown a breandowk
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $options the options object
  :
  : @error resolution:UNKNOWN-DEFINITION-NODE-KIND if a definition node kind
  : is unrecognized.
@@ -31,7 +32,8 @@ import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 declare %private function resolution:convert-breakdown(
     $breakdown as object,
     $components as object*,
-    $parent-child-order as string?) as object
+    $parent-child-order as string?,
+    $options as object?) as object
 {
     let $parent-child-order as string? := ($breakdown.ParentChildOrder, $parent-child-order)[1]
 
@@ -40,7 +42,8 @@ declare %private function resolution:convert-breakdown(
     let $unbalanced-trees as object* := resolution:convert-definition-nodes(
         $breakdown.BreakdownTrees[],
         $components,
-        $parent-child-order
+        $parent-child-order,
+        $options
     )
     let $balanced-trees as object* := resolution:height-balance($unbalanced-trees)
 
@@ -56,6 +59,7 @@ declare %private function resolution:convert-breakdown(
  : @param $definition-nodes some definition nodes.
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $options the options object
  :
  : @error resolution:UNKNOWN-DEFINITION-NODE-KIND if a definition node kind
  : is unrecognized.
@@ -71,7 +75,8 @@ declare %private function resolution:convert-breakdown(
 declare %private function resolution:convert-definition-nodes(
     $definition-nodes as object*,
     $components as object*,
-    $parent-child-order as string?) as object*
+    $parent-child-order as string?,
+    $options as object?) as object*
 {
     for $definition-node as object in $definition-nodes
     let $parent-child-order as string? := ($definition-node.ParentChildOrder, $parent-child-order)[1]
@@ -80,11 +85,13 @@ declare %private function resolution:convert-definition-nodes(
       case "Rule" return resolution:convert-rule-node(
           $definition-node,
           $components,
-          $parent-child-order)
+          $parent-child-order,
+          $options)
       case "Aspect" return resolution:convert-aspect-node(
           $definition-node,
           $components,
-          $parent-child-order)
+          $parent-child-order,
+          $options)
       case "ConceptRelationship" return resolution:convert-concept-relationship-node(
           $definition-node,
           $components,
@@ -111,6 +118,7 @@ declare %private function resolution:convert-definition-nodes(
  : @param $definition-node a definition node.
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $options the options object
  :
  : @error resolution:NON-ABSTRACT-MERGE-NODE if a rule node is merge,
  : but non-abstract.
@@ -120,7 +128,8 @@ declare %private function resolution:convert-definition-nodes(
 declare %private function resolution:convert-rule-node(
     $definition-node as object,
     $components as object*,
-    $parent-child-order as string?) as object*
+    $parent-child-order as string?,
+    $options as object?) as object*
 {
     let $main-members := values(values($definition-node.AspectRulesSet))
     let $all-hypercubes as object* := hypercubes:hypercubes-for-components($components)
@@ -129,7 +138,8 @@ declare %private function resolution:convert-rule-node(
                                 else ()
     let $labels := ($definition-node.Labels[], $metadata.Label)
 
-    let $children := resolution:convert-definition-nodes($definition-node.Children[], $components, $parent-child-order)
+    let $children := resolution:convert-definition-nodes($definition-node.Children[], $components, 
+                                                         $parent-child-order, $options)
     let $roll-up := {
         Labels: [ ],
         ConstraintSets : {
@@ -208,18 +218,21 @@ declare %private function resolution:convert-rule-node(
  : @param $definition-node a definition node.
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $options the options object
  :
  : @return the converted structural node.
  :)
 declare %private function resolution:convert-aspect-node(
     $definition-node as object,
     $components as object*,
-    $parent-child-order as string?) as object
+    $parent-child-order as string?,
+    $options as object?) as object
 {
     let $children :=  resolution:convert-definition-nodes(
         $definition-node.Children[],
         $components,
-        $parent-child-order)
+        $parent-child-order,
+        $options)
     let $constrained-aspect := $definition-node.Aspect
     return {|
         {
@@ -508,12 +521,12 @@ declare function resolution:resolve(
  : @param $definition-model A definition mode, in 28msec's proprietary JSON format.
  : @param $component A component, in 28msec's proprietary JSON format.
  : @param $options Optional parameters among which 
- :  <ul>
- :    <li>Hypercube: override the components' hypercubes with the provided hypercube
+ : <ul>
+ :   <li>Hypercube: override the components' hypercubes with the provided hypercube
  :      (this will only affect the default values used later in the layout pipeline).</li>
- :      </ul>
- :    </li>
- :  </ul>
+ :    <li>Language: override the components' default language
+ :      (this will only affect the default values used later in the layout pipeline).</li>
+ : </ul>
  :
  : @error resolution:UNFORESEEN-ERROR Something went wrong, contact us.
  : @error resolution:UNKNOWN-DEFINITION-NODE-KIND A definition node was not recognized.
@@ -541,7 +554,8 @@ declare function resolution:resolve(
                     return {
                         $axis: [
                             for $breakdown in $definition-model.Breakdowns.$axis[]
-                            return resolution:convert-breakdown($breakdown, $components, $definition-model.ParentChildOrder)
+                            return resolution:convert-breakdown($breakdown, $components, 
+                                                                $definition-model.ParentChildOrder, $options)
                         ]
                     }
                 |}
