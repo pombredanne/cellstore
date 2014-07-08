@@ -2,6 +2,7 @@ jsoniq version "1.0";
 
 module namespace resolution = "http://xbrl.io/modules/bizql/resolution";
 
+import module namespace concepts = "http://xbrl.io/modules/bizql/concepts";
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace networks = "http://xbrl.io/modules/bizql/networks";
@@ -133,10 +134,17 @@ declare %private function resolution:convert-rule-node(
 {
     let $main-members := values(values($definition-node.AspectRulesSet))
     let $all-hypercubes as object* := hypercubes:hypercubes-for-components($components)
-    let $metadata as object* := if($main-members instance of string*)
+    let $metadata as object* := if ($main-members instance of string*)
                                 then descendant-objects($all-hypercubes.Aspects)[$$.Name = $main-members]
                                 else ()
-    let $labels := ($definition-node.Labels[], $metadata.Label)
+    
+    let $labels := (concepts:labels($concept-names as string*, (: ???? :) 
+                                    $components, 
+                                    $label-role, (: ???? :) 
+                                    ($options("Language"), $components:DefautLanguage)[1] (: ???? :) 
+                                    ),
+                    $definition-node.Labels[], 
+                    $metadata.Label)
 
     let $children := resolution:convert-definition-nodes($definition-node.Children[], $components, 
                                                          $parent-child-order, $options)
