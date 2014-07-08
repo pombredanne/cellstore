@@ -141,7 +141,7 @@ declare %private function resolution:convert-rule-node(
     let $labels := (concepts:labels($concept-names as string*, (: ???? :) 
                                     $components, 
                                     $label-role, (: ???? :) 
-                                    ($options("Language"), $components:DEFAULTLANGUAGE)[1] (: ???? :) 
+                                    ($options("Language"), $components($components:DEFAULTLANGUAGE))[1] (: ???? :) 
                                     ),
                     $definition-node.Labels[], 
                     $metadata.Label)
