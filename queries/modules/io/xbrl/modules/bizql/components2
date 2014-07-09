@@ -5,7 +5,9 @@ jsoniq version "1.0";
 
 module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 
+import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace networks = "http://xbrl.io/modules/bizql/networks";
+import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace resolution = "http://xbrl.io/modules/bizql/resolution";
 import module namespace layout = "http://xbrl.io/modules/bizql/layout";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
@@ -13,6 +15,66 @@ import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2"
 
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 import module namespace accountant = "http://xbrl.io/modules/bizql/profiles/accountant/converter";
+
+import module namespace mongo = "http://www.28msec.com/modules/mongodb";
+import module namespace credentials = "http://www.28msec.com/modules/credentials";
+
+
+(:~
+ : Retrieves all components for the supplied filings and roles.
+ :
+ : @param $archives-or-ids a sequence of archives or AIDs.
+ : @param $roles a sequence of role URIs.
+ :
+ : @return the components.
+ :)
+declare function components2:components-by-archives-and-roles($archives-or-ids as item*, $roles as string*) as object*
+{
+    let $aids := archives:aid($archives-or-ids)
+    let $conn :=   
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    return
+        mongo:find($conn, "components", 
+        {
+            $components:ARCHIVE: { "$in" : [ $aids ] },
+            "Role": { "$in" : [ $roles ] }
+        })
+};
+
+(:~
+ : Retrieves all components for the supplied filings and that use the supplied concepts.
+ :
+ : @param $archives-or-ids a sequence of archives or AIDs.
+ : @param $concepts a sequence of concept names.
+ :
+ : @return the components.
+ :)
+declare function components2:components-by-archives-and-concepts($archives-or-ids as item*, $concepts as string*) 
+{
+    let $aids as string* := archives:aid($archives-or-ids)
+    let $conn :=   
+      let $credentials := credentials:credentials("MongoDB", "xbrl")
+      return
+        try {
+            mongo:connect($credentials)
+        } catch mongo:* {
+            error(QName("components:CONNECTION-FAILED"), $err:description)
+        }
+    let $ids  := mongo:find($conn, "concepts", 
+        {| 
+            (
+                { "Name" : { "$in" : [ $concepts ] } },
+                { "Archive" : { "$in" : [ $aids ] } }
+            )
+        |}).Component
+    return components:components($ids)
+};
 
 
 (:~
@@ -58,9 +120,9 @@ declare function components2:definition-models-for-components(
  :
  : @return a definition model
  :)
-declare function components2:standard-definition-model-for-components($components as object*) as object
+declare function components2:standard-definition-models-for-components($components as object*) as object
 {
-    components2:standard-definition-model-for-components($components, ())
+    components2:standard-definition-models-for-components($components, ())
 };
 
 
@@ -85,7 +147,7 @@ declare function components2:standard-definition-model-for-components($component
  : @error components2:HYPERCUBE-DOES-NOT-EXIST if the specified hypercube is not found.
  : @return a definition model
  :)
-declare function components2:standard-definition-model-for-components($components as object*, $options as object?) as object
+declare function components2:standard-definition-models-for-components($components as object*, $options as object?) as object
 {
     for $component in $components
     let $implicit-table as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
@@ -154,54 +216,6 @@ declare function components2:standard-definition-model-for-components($component
             else ()
         |}
     }
-};
-
-(:~
- : <p>Builds a standard layout model out of the specified component.</p>
- : <p>The concepts will be put on the y axis according to the presentation network.</p>
- : <p>The other dimensions are put on the x axis, with one breakdown for each.</p>
- : <p>Explicit dimensions are organized according to the dimension hierarchy from the domain-member network.</p>
- : <p>Typed dimensions are organized according to the actual values.</p>
- :
- : 
- : @param $component a component object.
- :
- : @return a layout model
- :)
-declare function components2:standard-layout-model-for-components($components as object*) as object
-{
-    components2:standard-layout-model-for-components($components, ())
-};
-
-
-(:~
-  <p>Builds a standard layout model out of the specified component.</p>
- : <p>The concepts will be put on the y axis according to the presentation network.</p>
- : <p>The other dimensions are put on the x axis, with one breakdown for each.</p>
- : <p>Explicit dimensions are organized according to the dimension hierarchy from the domain-member network.</p>
- : <p>Typed dimensions are organized according to the actual values.</p>
- :
- :  
- : @param $component a component object.
- : @param $options <p>some optional parameters, including:</p>
- : <ul>
- :  <li>HypercubeName: a string specifying which hypercube to use. By default, one of the non-default hypercubes will be arbitrarily chosen. If none
- :  is available, the default hypercube will be picked.</li>
- :  <li>AutoSlice: a boolean specifying whether or not slicing should be done automatically, looking at the fact table. Deactivating auto slicing will
- :  lead to better performance, but a more verbose table. If AutoSlice is active, dimensions with only one value in the fact pool will become
- : global filters rather than breakdowns on the x axis.</li>
- :  <li>Slicers: an object with forced slicers.</li>
- : </ul>
- :
- : @error components2:HYPERCUBE-DOES-NOT-EXIST if the specified hypercube is not found.
- : @return a layout model
- :)
-declare function components2:standard-layout-model-for-components($components as object*, $options as object?) as object
-{
-    for $definition-model as object in components2:standard-definition-model-for-components($components, $options)
-    let $structural-model as object := resolution:resolve($definition-model, $components, $options)
-    let $layout-model as object := layout:layout($structural-model, $options)
-    return $layout-model
 };
 
 (:~
@@ -464,18 +478,17 @@ declare function components2:spreadsheet(
 as object*
 {
     let $definition-model as object :=
-        if(exists($options.DefinitionModelName))
-        then components2:definition-models-for-components($component, $options.DefinitionModelName)
-        else components2:definition-models-for-components($component)
+        switch(true)
+        case exists($options.DefinitionModel)
+            return $options.DefinitionModel
+        case (exists($options.DefinitionModelName))
+            return components2:definition-models-for-components($component, $options.DefinitionModelName)
+        default
+            return components2:definition-models-for-components($component)
     let $overriden-hypercube as object? :=
         if(exists($options.Hypercube))
         then $options.Hypercube
-        else hypercubes:hypercubes-for-components(
-             $component,
-             if (exists($options.HypercubeName))
-             then $options.HypercubeName
-             else "xbrl:DefaultHypercube"
-    )
+        else components2:select-table($component, $options)
     let $concept-map as object?:= networks:networks-for-components-and-short-names(
       $component,
       "ConceptMap")

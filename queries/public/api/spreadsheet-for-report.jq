@@ -76,26 +76,9 @@ let $results :=
               session:error("The report filters are too weak, which leads to too big an output.", $format)
         }
         else {
-            switch ($format)
-            case "xml" return {} (:)
-                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-                local:to-xml($spreadsheet)
-            }
-            case "text" case "csv" return {
-                response:content-type("text/csv");
-                response:header("Content-Disposition", "attachment; filename=facts.csv");
-                conversion:facts-to-csv($spreadsheet, { Caller: "Report"})
-            }
-            case "excel" return {
-                response:content-type("application/vnd.ms-excel");
-                response:header("Content-Disposition", "attachment; filename=fact.csv");
-                conversion:facts-to-csv($spreadsheet, { Caller: "Report"})
-            }:)
-            default return {
-                response:content-type("application/json");
-                response:serialization-parameters({"indent" : true});
-                $spreadsheet
-            }
+            response:content-type("application/json");
+            response:serialization-parameters({"indent" : true});
+            $spreadsheet
         }
 return
     util:check-and-return-results($entities, $results, $format)
