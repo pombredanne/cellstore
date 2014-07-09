@@ -3138,6 +3138,6 @@ then insert("reports", $schema);
 else edit($record, $schema);
 
 if (is-available-collection("reportcache"))
-then truncate("reportcache");
+then db:delete(find("reportcache", { "_id" : { "$regex" : mongos:regex("^" || $schema."_id" || ".*" ) }}));
 else create("reportcache");
 "Schema successfully deployed."
