@@ -1,0 +1,176 @@
+jsoniq version "1.0";
+
+module namespace reports = "http://apps.28.io/reports";
+
+declare variable $reports:INFO := "INFO";
+declare variable $reports:WARNING := "WARNING";
+declare variable $reports:ERROR := "ERROR";
+
+declare variable $reports:CONTEXT-REPORT := "Report";
+declare variable $reports:CONTEXT-NETWORKS-PRESENTATION := "Presentation";
+declare variable $reports:CONTEXT-NETWORKS-CONCEPTMAP := "ConceptMap";
+declare variable $reports:CONTEXT-HYPERCUBES := "Hypercubes";
+declare variable $reports:CONTEXT-RULES := "Rules";
+
+declare %private function reports:message($type, $context, $identifier, $message)
+as object
+{
+    reports:message($type, $context, $identifier, $message, ())
+};
+
+declare %private function reports:message($type, $context, $identifier, $message, $details)
+as object
+{
+    {|
+        {
+            type: $type,
+            context: $context,
+            identifier: $identifier,
+            message: $message
+        }, 
+        if(exists($details))
+        then { details: $details }
+        else ()
+    |}
+};
+
+
+declare function reports:labels-checks($report as object)
+as object*
+{
+    let $all-concepts := descendant-objects($report)[not(empty($$.Name))]
+    for $concept in $all-concepts
+    where not(substring-before($concept.Name, ":") = ("us-gaap", "dei"))
+    group by $concept.Name
+    let $labels := distinct-values($concept.Label)
+    return
+        switch(true)
+        
+        case(empty($labels))
+        return reports:message($reports:WARNING, 
+                               $reports:CONTEXT-REPORT, 
+                               $concept[1].Name, 
+                               "No Label for '" || $concept[1].Name || "'")
+        
+        case(count($labels) gt 1)
+        return reports:message($reports:WARNING, 
+                               $reports:CONTEXT-REPORT, 
+                               $concept[1].Name, 
+                               "Different Labels for '" || $concept[1].Name || "' (" || string-join($labels ! ("'" || $$ || "'"), ", ") || ")")
+        
+        default return ()
+};
+
+
+declare function reports:concepts-checks($report)
+as object*
+{
+    (: check whether all indexes match the concept name -> index : { Name: index } :)
+    let $all-presentation-network-mappings := descendant-objects($report.Networks[][$$.ShortName eq "Presentation"]) ! ($$.Trees, $$.To)
+    let $all-conceptmap-network-mappings := descendant-objects($report.Networks[][$$.ShortName eq "ConceptMap"]) ! ($$.Trees, $$.To)
+    let $all-hypercube-mappings := descendant-objects($report.Hypercubes) ! ($$.Members)
+    return
+        (
+            for $key in keys($all-presentation-network-mappings)
+            for $concept in $all-presentation-network-mappings.$key
+            return 
+                if($concept.Name eq $key)
+                then ()
+                else reports:message($reports:ERROR,
+                                     $reports:CONTEXT-NETWORKS-PRESENTATION,
+                                     $key, 
+                                     "Concept.Name ('" || $concept.Name || "') does not match index key ('" || $key || "') in presentation network",
+                                     $concept),
+            
+            for $key in keys($all-conceptmap-network-mappings)
+            for $concept in $all-conceptmap-network-mappings.$key
+            return 
+                if($concept.Name eq $key)
+                then ()
+                else reports:message($reports:ERROR,
+                                     $reports:CONTEXT-NETWORKS-CONCEPTMAP,
+                                     $key, 
+                                     "Concept.Name ('" || $concept.Name || "') does not match index key ('" || $key || "') in concept map",
+                                     $concept),
+            
+            for $key in keys($all-hypercube-mappings)
+            for $concept in $all-hypercube-mappings.$key
+            return 
+                if($concept.Name eq $key)
+                then ()
+                else reports:message($reports:ERROR,
+                                     $reports:CONTEXT-HYPERCUBES,
+                                     $key, 
+                                     "Concept.Name ('" || $concept.Name || "') does not match index key ('" || $key || "') in hypercube",
+                                     $concept)
+        ),
+    
+    (: check whether all used concepts are in the hypercube :)
+    let $hypercube-concepts := keys($report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members)
+    return
+        (
+            let $pres-concepts := 
+                descendant-objects($report.Networks[][$$.ShortName eq "Presentation"].Trees).Name
+            for $concept-names in $pres-concepts
+            group by $concept-name := $concept-names
+            return
+                (
+                    if(count($concept-names) gt 1)
+                    then reports:message($reports:INFO,
+                                         $reports:CONTEXT-NETWORKS-PRESENTATION,
+                                         $concept-name, 
+                                         "Duplicate concept: '" || $concept-name || "'")
+                    else (),
+                    if ($concept-name = $hypercube-concepts)
+                    then ()
+                    else reports:message($reports:ERROR,
+                                         $reports:CONTEXT-NETWORKS-PRESENTATION,
+                                         $concept-name, 
+                                         "Concept is not in the hypercubes' value space: '" || $concept-name || "'")
+                ),
+                
+            let $rule-concepts := $report.Rules[] ! ($$.ComputableConcepts[])
+            for $concept-name in $rule-concepts
+            let $rules := $report.Rules[][$$.ComputableConcepts[] = $concept-name]
+            return
+                (
+                    if(count($rules) gt 1)
+                    then reports:message($reports:ERROR,
+                                         $reports:CONTEXT-RULES,
+                                         ($rules.id),
+                                         "Concept: '" || $concept-name || "' is computable by multiple rules: " 
+                                                      || string-join(($rules ! ("'" || $$.Label || "'")), ","),
+                                         $rules)
+                    else (),
+                    if ($concept-name = $hypercube-concepts)
+                    then ()
+                    else reports:message($reports:ERROR,
+                                         $reports:CONTEXT-RULES,
+                                         ($rules.id),
+                                         "Concept is not in the hypercubes' value space: '" || $concept-name || "'",
+                                         $rules)
+                ),
+            
+            let $map-concepts := 
+                keys($report.Networks[][$$.ShortName eq "ConceptMap"].Trees)
+            for $concept-names in $map-concepts
+            group by $concept-name := $concept-names
+            return
+                (
+                    if ($concept-name = $hypercube-concepts)
+                    then ()
+                    else reports:message($reports:ERROR,
+                                         $reports:CONTEXT-NETWORKS-CONCEPTMAP,
+                                         $concept-name, 
+                                         "Concept is not in the hypercubes' value space: '" || $concept-name || "'")
+                )
+        )
+};
+
+declare function reports:validate($report as object)
+as object*
+{
+  reports:labels-checks($report),
+  reports:concepts-checks($report)
+};
+

@@ -90,18 +90,42 @@ angular.module('main')
                                         item.value[index] = list[key].Facts[0].Value;
                                     }
                                     if (list[key].Facts[0].AuditTrails && list[key].Facts[0].AuditTrails.length > 0) {
-                                        switch(list[key].Facts[0].AuditTrails[0].Type) {
+                                        var indexCM = null;
+                                        var indexF = null;
+                                        var indexV = null;
+                                        var indexD = null;
+
+                                        for (var i = 0; i < list[key].Facts[0].AuditTrails.length ; i++)
+                                        {
+                                            switch(list[key].Facts[0].AuditTrails[i].Type) {
                                             case 'xbrl28:concept-maps':
-                                                item.audit[index] = list[key].Facts[0].AuditTrails[0].Data.OriginalConcept;
+                                                indexCM = i + 1;
                                                 break;
-                                            case 'hypercubes:dimension-default':
-                                                item.audit[index] = list[key].Facts[0].AuditTrails[0].Data.Dimension;
+                                            case 'xbrl28:dimension-default':
+                                                indexD = i + 1;
                                                 break;
                                             case 'xbrl28:formula':
-                                                item.audit[index] = list[key].Facts[0].AuditTrails[0].Message;
+                                                indexF = i + 1;
                                                 break;
                                             case 'xbrl28:validation':
-                                                item.audit[index] = list[key].Facts[0].AuditTrails[0].Message;
+                                                indexV = i + 1;
+                                                break;
+                                            }
+                                        }
+                                        var auditItem = list[key].Facts[0].AuditTrails[(indexCM || indexF || indexV || indexD) - 1];
+
+                                        switch(auditItem.Type) {
+                                            case 'xbrl28:concept-maps':
+                                                item.audit[index] = auditItem.Data.OriginalConcept;
+                                                break;
+                                            case 'xbrl28:dimension-default':
+                                                item.audit[index] = auditItem.Data.Dimension;
+                                                break;
+                                            case 'xbrl28:formula':
+                                                item.audit[index] = auditItem.Message;
+                                                break;
+                                            case 'xbrl28:validation':
+                                                item.audit[index] = auditItem.Message;
                                                 break;
                                         }
                                     }

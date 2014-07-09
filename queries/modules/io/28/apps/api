@@ -50,7 +50,7 @@ as string
   variable $param := api:parameter($name, $regexp, ());
   if (exists($param))
   then $param
-  else fn:error(xs:QName("api:missing-parameter"), "Missing required parameter " || $name)
+  else fn:error(xs:QName("api:missing-parameter"), "Missing required parameter " || $name, { "parameter": $name })
 };
 
 declare %private function api:sgpl($count as integer, $singular as string, $plural as string)

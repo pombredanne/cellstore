@@ -147,6 +147,24 @@ as boolean
       else false
 };
 
+declare function session:validate($right-id as string)
+as string
+{    
+    variable $user-id := session:validate();
+    if (user:is-authorized($user-id, $right-id))
+    then $user-id
+    else fn:error(xs:QName("session:missing-authorization"), "User does not have required right " || $right-id)
+};
+
+declare function session:valid($right-id as string)
+as boolean
+{
+    variable $user-id := session:validate();
+    if (user:is-authorized($user-id, $right-id))
+    then true
+    else false
+};
+
 declare function session:check-access($entities, $right-id as string)
 as integer
 {
@@ -185,21 +203,11 @@ declare function session:error($msg as string, $format as string?)
 	}
 };
 
-declare function session:validate($right-id as string)
-as string
-{    
-    variable $user-id := session:validate();
-    if (user:is-authorized($user-id, $right-id))
-    then $user-id
-    else fn:error(xs:QName("session:missing-authorization"), "User does not have required right " || $right-id)
-};
-
 declare %an:sequential function session:terminate()
 as empty-sequence()
 {
    session:terminate(api:required-parameter("token", $session:VALID-TOKEN))
 };
-
 
 declare %an:sequential function session:audit-call() as empty-sequence()
 {
