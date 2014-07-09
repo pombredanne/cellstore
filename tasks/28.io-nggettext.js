@@ -75,7 +75,7 @@ module.exports = function(grunt) {
             grunt.log.writeln('--------------------------------');
             grunt.log.writeln('Processing file: ' + file);
 
-            var contentFile = 'msgid ""\nmsgstr ""\n"Content-Type: text/plain; charset=UTF-8\\n"\n"Content-Transfer-Encoding: 8bit\\n"\n"Language: ' + 
+            var contentFile = 'msgid ""\nmsgstr ""\n"Content-Type: text/plain; charset=UTF-8\\n"\n"Content-Transfer-Encoding: 8bit\\n"\n"Language: ' +
                     file.substring(file.lastIndexOf('/') + 1, file.length - 3) + '\\n"\n';
             matches.forEach(function(match) {
                 contentFile += match.value.replace('msgstr ""', 'msgstr "' + match.key + '"');
@@ -104,7 +104,7 @@ module.exports = function(grunt) {
             grunt.log.writeln('Processing file: ' + file);
             var contentFile = grunt.file.read(file);
             
-            var mergedFile = 'msgid ""\nmsgstr ""\n"Content-Type: text/plain; charset=UTF-8\\n"\n"Content-Transfer-Encoding: 8bit\\n"\n"Language: ' + 
+            var mergedFile = 'msgid ""\nmsgstr ""\n"Content-Type: text/plain; charset=UTF-8\\n"\n"Content-Transfer-Encoding: 8bit\\n"\n"Language: ' +
                     file.substring(file.lastIndexOf('/') + 1, file.length - 3) + '\\n"\n';
 
             matches.forEach(function(match) {
@@ -118,7 +118,7 @@ module.exports = function(grunt) {
                 {
                     mergedFile += match.value.replace('msgstr ""', 'msgstr "' + m[1] + '"');
                 }
-                else 
+                else
                 {
                     mergedFile += match.value;
                 }
