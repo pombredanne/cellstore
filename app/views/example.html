@@ -1,7 +1,7 @@
 <div>
 <ul class="breadcrumb">
     <li class="dropdown">
-        <a class="dropdown-toggle">All Examples <span class="fa fa-caret-down"></span></a>
+        <a class="dropdown-toggle"><span translate>All Examples</span> <span class="fa fa-caret-down"></span></a>
         <ul class="dropdown-menu">
             <li ng-repeat="c in getCategories()" class="dropdown-submenu">
                 <a>{{spacify(c)}}</a>
@@ -13,7 +13,7 @@
           </li>
         </ul>
     </li>
-    <li class="dropdown" ng-if="category">
+    <li class="dropdown" ng-show="category">
         <a class="dropdown-toggle">{{spacify(category)}} <span class="fa fa-caret-down"></span></a>
         <ul class="dropdown-menu">
             <li ng-repeat="ex in examples | filter: {category: category}">
@@ -26,9 +26,9 @@
 <div class="std-container">
 	<div>
         <div>
-          <div class="container" ng-if="data">
+          <div class="container" ng-show="data">
                 <span class="dropdown pull-right">
-                    <a class="dropdown-toggle">Related Examples</a>
+                    <a class="dropdown-toggle" translate>Related Examples</a>
                     <ul class="dropdown-menu">
                         <li ng-repeat="ex in examples | filter: {category: category}">
                             <a href="/example/{{ex.name}}">{{spacify(ex.name)}}</a>
@@ -43,11 +43,11 @@
               </div>
               <table class="table table-condensed small">
                 <tbody>
-                  <tr ng-repeat="(key, value) in data" ng-if="(key!='FactTable' && key!='Comment')"><td>{{key}}</td><td>{{value}}</td></tr>
+                  <tr ng-repeat="(key, value) in data" ng-show="(key!='FactTable' && key!='Comment')"><td>{{key}}</td><td>{{value}}</td></tr>
                 </tbody>
               </table>
           </div>
-          <div ng-if="data">
+          <div ng-show="data">
               <p>  
                 <input type="text" class="form-control" ng-model="search" placeholder="Type here to search...">
               </p>
@@ -56,20 +56,20 @@
                           <thead>
                             <th>#</th>
                             <th ng-repeat="key in columns">{{key}}</th>
-                            <th>Value</th>
-                            <th>Unit</th>
-                            <th>Decimals</th>
+                            <th translate>Value</th>
+                            <th translate>Unit</th>
+                            <th translate>Decimals</th>
                           </thead>
                           <tbody>
                             <tr ng-repeat="item in data.FactTable | filter : search">
                               <td>{{$index + 1}}</td>
                               <td ng-repeat="key in columns" class="nowrap">
-                                <span ng-if="$index==entityIndex">{{item.Aspects[key]}} <span ng-if="item.EntityRegistrantName">({{item.EntityRegistrantName}})</span></span>
-                                <span ng-if="$index!=entityIndex">{{item.Aspects[key]}}</span>
+                                <span ng-show="$index==entityIndex">{{item.Aspects[key]}} <span ng-show="item.EntityRegistrantName">({{item.EntityRegistrantName}})</span></span>
+                                <span ng-show="$index!=entityIndex">{{item.Aspects[key]}}</span>
                               </td>
-                              <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
-                              <td ng-if="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
-                              <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
+                              <td ng-show="(item.Type == 'NumericValue')" style="text-align: right">{{item.Value | number}}</td>
+                              <td ng-show="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
+                              <td ng-show="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
                               <td>{{item.Unit=='xbrl:NonNumeric'?"":item.Unit}}</td>
                               <td>{{item.Decimals}}</td>
                             </tr>
@@ -79,11 +79,11 @@
             </div>
       </div>
       <div class="text-right" ng-show="data">
-        All data as:
-          <a href="{{getUrl('json')}}" download="{{example}}.json" target="_blank">JSON</a>,
-          <a href="{{getUrl('xml')}}" download="{{example}}.xml" target="_blank">XML</a>,
-          <a href="{{getUrl('csv')}}" download="{{example}}.csv" target="_blank">CSV</a>,
-          <a href="{{getUrl('excel')}}" download="{{example}}.csv" target="_blank">Excel</a>
+        <span translate>All data as:</span>
+          <a href="{{getUrl('json')}}" download="{{example}}.json" target="_blank" translate>JSON</a>,
+          <a href="{{getUrl('xml')}}" download="{{example}}.xml" target="_blank" translate>XML</a>,
+          <a href="{{getUrl('csv')}}" download="{{example}}.csv" target="_blank" translate>CSV</a>,
+          <a href="{{getUrl('excel')}}" download="{{example}}.csv" target="_blank" translate>Excel</a>
         </div>
 	</div>
 </div>

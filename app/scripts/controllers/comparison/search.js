@@ -1,7 +1,5 @@
 'use strict';
 
-/*globals accounting*/
-
 angular.module('main')
 .controller('ComparisonSearchCtrl', function($scope, $state, $stateParams, $location, $modal, $backend, conceptMaps, conceptMapKeys, results) {
     $scope.none = 'US-GAAP Taxonomy Concepts';
@@ -200,10 +198,6 @@ angular.module('main')
         $scope.$emit('alert', 'Text Details', html);
     };
 
-    $scope.showNumber = function(value) {
-        return accounting.formatNumber(value);
-    };
-
     $scope.isBlock = function(string) {
         if (!string) {
             return false;
@@ -213,7 +207,7 @@ angular.module('main')
 
     $scope.getUrl = function(format) {
         var str = $backend.API_URL + '/_queries/public/api/facts.jq';
-        var params = angular.copy($scope.params);
+        var params = angular.copy($scope.params) || {};
         if (format) {
             params.format = format;
         }

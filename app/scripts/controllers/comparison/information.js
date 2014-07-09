@@ -1,9 +1,7 @@
 'use strict';
 
-/*globals accounting*/
-
 angular.module('main')
-.controller('ComparisonInformationCtrl', function($scope, $state, $backend, informations) {
+.controller('ComparisonInformationCtrl', function($scope, $state, $filter, $backend, informations) {
     $scope.showtab = [];
     $scope.reports = [];
     $scope.filings = null;
@@ -87,8 +85,7 @@ angular.module('main')
                                     item.type[index] = list[key].Facts[0].Type;
                                     if (list[key].Facts[0].Type === 'NumericValue') {
                                         var num = list[key].Facts[0].Value;
-                                        if (!num) { num = '0'; }
-                                        item.value[index] = accounting.formatNumber(num, decimals);
+                                        item.value[index] = $filter('number')(num || 0, decimals);
                                     } else {
                                         item.value[index] = list[key].Facts[0].Value;
                                     }

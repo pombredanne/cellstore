@@ -1,9 +1,7 @@
 'use strict';
 
-/*globals accounting*/
-
 angular.module('main')
-.controller('DashboardCtrl', function ($scope, $rootScope, $anchorScroll, $location, $state, $stateParams, $http, $modal, $backend) {
+.controller('DashboardCtrl', function ($scope, $rootScope, $anchorScroll, $location, $state, $stateParams, $http, $modal, $filter, $backend) {
     $scope.table1 = null;
     $scope.table2 = null;
     $scope.cik = ($stateParams.cik ? $stateParams.cik : null);
@@ -14,13 +12,13 @@ angular.module('main')
         }
         var ret = '<dl class="chart-tip"><dt>' + key + '</dt><dd>';
         if (item1) {
-            ret += '<i class="fa fa-square" style="color:#428BCA"></i> ' + title1 + ': ' + accounting.formatNumber(item1);
+            ret += '<i class="fa fa-square" style="color:#428BCA"></i> ' + title1 + ': ' + $filter('number')(item1);
         }
         if (item2) {
             if (item1) {
                 ret += '<br>';
             }
-            ret += '<i class="fa fa-square" style="color:orange"></i> ' + title2 + ': ' + accounting.formatNumber(item2);
+            ret += '<i class="fa fa-square" style="color:orange"></i> ' + title2 + ': ' + $filter('number')(item2);
         }
         ret += '</dd></dl>';
         return ret;

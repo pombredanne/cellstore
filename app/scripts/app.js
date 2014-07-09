@@ -3,7 +3,8 @@
 angular.module('main', [
     'ui.router', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle',
     'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite',
-    'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'angular.directives-round-progress'
+    'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'angular.directives-round-progress',
+    'translator'
 ])
 .run(function($rootScope, ngProgressLite) {
   
@@ -65,7 +66,7 @@ angular.module('main', [
         }
     };
 })
-.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider) {
+.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider, tmhDynamicLocaleProvider) {
     
     //Because angularjs default transformResponse is not based on ContentType
     $httpProvider.defaults.transformResponse = function(response, headers){
@@ -86,6 +87,8 @@ angular.module('main', [
     $locationProvider.html5Mode(true);
     //CRD: taken out
     //$httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
+
+    tmhDynamicLocaleProvider.localeLocationPattern('/bower_components/angular-i18n/angular-locale_{{locale}}.js');
 
     //TODO: refactor title property to go in data property
     $stateProvider

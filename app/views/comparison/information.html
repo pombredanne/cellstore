@@ -1,27 +1,27 @@
 <div class="export">
     <div class="row">
         <div class="col-lg-3">
-            <span class="tag tag-primary" ng-if="reports.length"><span ng-bind="Statistics.NumArchives | number"></span> Hits</span>
-            <span class="tag" ng-if="reports.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+            <span class="tag tag-primary" ng-show="reports.length"><span ng-bind="Statistics.NumArchives | number"></span> <span translate>Hits</span></span>
+            <span class="tag" ng-show="reports.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> <span translate>Archives</span></span>
         </div>
         <div class="col-lg-6">
-            <h2 class="text-center">Compare Basic Financial Information Across Selected Filings</h2>
+            <h2 class="text-center" translate>Compare Basic Financial Information Across Selected Filings</h2>
         </div>
         <div class="col-lg-3">
-            <span class="dropdown pull-right" ng-if="reports.length">
-                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+            <span class="dropdown pull-right" ng-show="reports.length">
+                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                 <ul class="dropdown-menu">
-                    <li><a ng-href="{{getUrl('json')}}" download="comparison-information.json" target="_blank">JSON</a></li>
-                    <li><a href="{{getUrl('xml')}}" download="comparison-information.xml" target="_blank">XML</a></li>
-                    <li><a href="{{getUrl('csv')}}" download="comparison-information.csv" target="_blank">CSV</a></li>
-                    <li><a href="{{getUrl('excel')}}" download="comparison-information.csv" target="_blank">Excel</a></li>
+                    <li><a ng-href="{{getUrl('json')}}" download="comparison-information.json" target="_blank" translate>JSON</a></li>
+                    <li><a href="{{getUrl('xml')}}" download="comparison-information.xml" target="_blank" translate>XML</a></li>
+                    <li><a href="{{getUrl('csv')}}" download="comparison-information.csv" target="_blank" translate>CSV</a></li>
+                    <li><a href="{{getUrl('excel')}}" download="comparison-information.csv" target="_blank" translate>Excel</a></li>
                 </ul>
             </span>
         </div>
     </div>
 </div>
 
-<div ng-if="reports.length">
+<div ng-show="reports.length">
     <div class="table-responsive">
         <table class="table table-condensed table-justcolumns small" id="comparison-information-table">
             <thead>
@@ -38,23 +38,23 @@
                         </a>
                     </td>
                 </tr>
-                <tr ng-repeat="item in report.items" ng-if="showtab[reports.indexOf(report)]">
-                    <td ng-if="!report.isBoolean">
+                <tr ng-repeat="item in report.items" ng-show="showtab[reports.indexOf(report)]">
+                    <td ng-show="!report.isBoolean">
                         {{item.label}}
                     </td>
-                    <td class="nowrap" ng-if="!report.isBoolean" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
-                        <span ng-if="item.type[$index] == 'NumericValue'">{{v || 0}}</span>
-                        <span ng-if="item.type[$index] != 'NumericValue' && !isBlock(v)">{{v || ' '}}</span>
-                        <a ng-if="item.type[$index] != 'NumericValue' && isBlock(v)" ng-click="showText(v)">Show Text</a>
+                    <td class="nowrap" ng-show="!report.isBoolean" ng-repeat="v in item.value track by $index" ng-class="{ 'text-right' : (item.type[$index] == 'NumericValue') }">
+                        <span ng-show="item.type[$index] == 'NumericValue'">{{v || 0}}</span>
+                        <span ng-show="item.type[$index] != 'NumericValue' && !isBlock(v)">{{v || ' '}}</span>
+                        <a ng-show="item.type[$index] != 'NumericValue' && isBlock(v)" ng-click="showText(v)" translate>Show Text</a>
                     </td>
-                    <td ng-if="report.isBoolean">
-                        <div ng-if="item.auditId">{{item.auditId}}</div>
+                    <td ng-show="report.isBoolean">
+                        <div ng-show="item.auditId">{{item.auditId}}</div>
                         <samp class="small">{{item.label}}</samp>
                     </td>
-                    <td class="nowrap text-center" ng-if="(report.isBoolean)" ng-repeat="v in item.value track by $index">
-                      <i class="fa semaphore fa-check-circle success" ng-if="v === true" tooltip="Rule passed" ng-click="showAudit(true, item.audit[$index])"></i>
-                      <i class="fa semaphore fa-exclamation-triangle" ng-if="v === false" tooltip="Rule failed" ng-click="showAudit(false, item.audit[$index])"></i>
-                      <span class="fa-stack semaphore disabled" ng-if="v === null" tooltip="Rule has been skipped because a precondition was not met">
+                    <td class="nowrap text-center" ng-show="(report.isBoolean)" ng-repeat="v in item.value track by $index">
+                      <i class="fa semaphore fa-check-circle success" ng-show="v === true" tooltip="Rule passed" ng-click="showAudit(true, item.audit[$index])"></i>
+                      <i class="fa semaphore fa-exclamation-triangle" ng-show="v === false" tooltip="Rule failed" ng-click="showAudit(false, item.audit[$index])"></i>
+                      <span class="fa-stack semaphore disabled" ng-show="v === null" tooltip="Rule has been skipped because a precondition was not met">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>
                       </span>
@@ -65,19 +65,17 @@
     </div>
 </div>
 
-<div class="alert alert-info" ng-if="errornoresults">
-    <h4>No results found.</h4>
-    Here are some working examples: 
-    <a href="/comparison/information?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY">Basic financial information for DOW30 in 2013</a> or 
-    <a href="/comparison/information?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1">Basic financial information for Coca Cola and Walmart throughout 2012</a>
+<div class="alert alert-info" ng-show="errornoresults">
+    <h4 translate>No results found.</h4>
+    <span translate>Here are some working examples: <a href="/comparison/information?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY">Basic financial information for DOW30 in 2013</a> or <a href="/comparison/information?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1">Basic financial information for Coca Cola and Walmart throughout 2012</a></span>
 </div>
 
-<div class="alert alert-danger" ng-if="error">
-    <h4>You are accessing filings for entities that are not part of DOW30.</h4>
-    To view that information you have to login with your credentials. If you do not have an account, you can create one using the <a href="/auth">registration form</a>.
+<div class="alert alert-danger" ng-show="error">
+    <h4 translate>You are accessing filings for entities that are not part of DOW30.</h4>
+    <span translate>To view that information you have to login with your credentials. If you do not have an account, you can create one using the <a href="/auth">registration form</a>.</span>
 </div>
 
-<div class="alert alert-info" ng-if="errormany">
-    <h4>You are trying to compare information across {{filings.length}} filings.</h4>
-    Your account is restricted to compare 30 filings at a time. Please <a href="mailto:hello@28.io">contact us</a> to talk about your use case.
+<div class="alert alert-info" ng-show="errormany">
+    <h4 translate>You are trying to compare information across {{filings.length}} filings.</h4>
+    <span translate>Your account is restricted to compare 30 filings at a time. Please <a href="mailto:hello@28.io">contact us</a> to talk about your use case.</span>
 </div>

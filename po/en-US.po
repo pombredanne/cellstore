@@ -1,0 +1,1525 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en-US\n"
+
+#: app/views/pricing.html
+msgid "$49 / month (1 month trial)"
+msgstr "$49 / month (1 month trial)"
+
+#: app/views/account/billing.html
+#: app/views/pricing.html
+msgid "1000 API calls per month"
+msgstr "1000 API calls per month"
+
+#: app/views/root.html
+msgid "2013 28msec Inc. All rights reserved."
+msgstr "2013 28msec Inc. All rights reserved."
+
+#: app/views/comparison.html
+msgid "ADD ENTITY"
+msgstr "ADD ENTITY"
+
+#: app/views/comparison.html
+msgid "ADD ENTITY GROUP"
+msgstr "ADD ENTITY GROUP"
+
+#: app/views/comparison.html
+msgid "ADD FISCAL PERIODS"
+msgstr "ADD FISCAL PERIODS"
+
+#: app/views/comparison.html
+msgid "ADD FISCAL YEARS"
+msgstr "ADD FISCAL YEARS"
+
+#: app/views/comparison.html
+msgid "ADD INDUSTRY GROUP"
+msgstr "ADD INDUSTRY GROUP"
+
+#: app/views/root.html
+msgid "API"
+msgstr "API"
+
+#: app/views/account.html
+#: app/views/account/tokens.html
+msgid "API Tokens"
+msgstr "API Tokens"
+
+#: app/views/account/billing.html
+#: app/views/pricing.html
+msgid "API access"
+msgstr "API access"
+
+#: app/views/account/billing.html
+msgid "API calls in billing cycle"
+msgstr "API calls in billing cycle"
+
+#: app/views/about.html
+msgid "About secxbrl.info"
+msgstr "About secxbrl.info"
+
+#: app/views/comparison/report-elements.html
+msgid "Abstract"
+msgstr "Abstract"
+
+#: app/views/entity/component.html
+#: app/views/entity/filing.html
+msgid "Abstracts"
+msgstr "Abstracts"
+
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/modelstructure.html
+msgid "Accepted"
+msgstr "Accepted"
+
+#: app/views/comparison/filings.html
+#: app/views/entity/filings.html
+msgid "Accepted by SEC"
+msgstr "Accepted by SEC"
+
+#: app/views/pricing.html
+msgid "Access to DOW30 filings"
+msgstr "Access to DOW30 filings"
+
+#: app/views/account/billing.html
+#: app/views/pricing.html
+msgid "Access to all SEC filings"
+msgstr "Access to all SEC filings"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/filings.html
+#: app/views/comparison/report-elements.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+#: app/views/entity/modelstructure.html
+msgid "Accession Number"
+msgstr "Accession Number"
+
+#: app/views/account.html
+msgid "Account Management"
+msgstr "Account Management"
+
+#: app/views/account/tokens.html
+msgid "Action"
+msgstr "Action"
+
+#: app/views/pricing.html
+msgid "Adapt API for your sophisticated queries"
+msgstr "Adapt API for your sophisticated queries"
+
+#: app/views/comparison/search.html
+msgid "Add"
+msgstr "Add"
+
+#: app/views/pricing.html
+msgid "Affordable Access to Financial Information"
+msgstr "Affordable Access to Financial Information"
+
+#: app/views/example.html
+msgid "All Examples"
+msgstr "All Examples"
+
+#: app/views/example.html
+msgid "All data as:"
+msgstr "All data as:"
+
+#: app/views/account/billing.html
+msgid "Amount"
+msgstr "Amount"
+
+#: app/views/comparison/filings.html
+#: app/views/comparison/information.html
+#: app/views/comparison/validations-dashboard.html
+#: app/views/entity/component.html
+#: app/views/entity/dashboard.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+#: app/views/entity/modelstructure.html
+msgid "Archives"
+msgstr "Archives"
+
+#: app/views/entity/component.html
+#: app/views/entity/filing.html
+msgid "Axis"
+msgstr "Axis"
+
+#: app/views/comparison/report-elements.html
+#: app/views/entity/modelstructure.html
+msgid "Balance"
+msgstr "Balance"
+
+#: app/views/comparison/report-elements.html
+msgid "Base Type"
+msgstr "Base Type"
+
+#: app/views/entity.html
+msgid "Basic Analysis"
+msgstr "Basic Analysis"
+
+#: app/views/comparison.html
+#: app/views/entity.html
+msgid "Basic Financial Information"
+msgstr "Basic Financial Information"
+
+#: app/views/comparison.html
+msgid "Basic Semantic Validations"
+msgstr "Basic Semantic Validations"
+
+#: app/views/account.html
+msgid "Billing"
+msgstr "Billing"
+
+#: app/views/account/billing.html
+msgid "Billing information"
+msgstr "Billing information"
+
+#: app/views/comparison/components.html
+#: app/views/entity/components.html
+msgid "BizPivot Rendering"
+msgstr "BizPivot Rendering"
+
+#: app/views/blog.html
+#: app/views/root.html
+msgid "Blog"
+msgstr "Blog"
+
+#: app/views/home.html
+msgid "Breakdown General Electric’s 2013 Assets by Business Segments."
+msgstr "Breakdown General Electric’s 2013 Assets by Business Segments."
+
+#: app/views/pricing.html
+msgid "Bring your own filings"
+msgstr "Bring your own filings"
+
+#: app/views/root.html
+msgid "Browse"
+msgstr "Browse"
+
+#: app/views/home.html
+#: app/views/pricing.html
+msgid "Browse DOW30"
+msgstr "Browse DOW30"
+
+#: app/views/entity/filing.html
+#: app/views/entity/summary.html
+#: app/views/entity_details.html
+msgid "CIK"
+msgstr "CIK"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/filings.html
+#: app/views/comparison/information.html
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/search.html
+#: app/views/comparison/validations-dashboard.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/dashboard.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+#: app/views/entity/modelstructure.html
+#: app/views/entity/summary.html
+#: app/views/example.html
+msgid "CSV"
+msgstr "CSV"
+
+#: app/views/account/billing.html
+msgid "Cancel subscription"
+msgstr "Cancel subscription"
+
+#: app/views/account/billing.html
+msgid "Canceled on {{sub.canceledAt | date }}."
+msgstr "Canceled on {{sub.canceledAt | date }}."
+
+#: app/views/comparison/components.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+msgid "Category"
+msgstr "Category"
+
+#: app/views/account/password.html
+#: app/views/reset.html
+msgid "Change Password"
+msgstr "Change Password"
+
+#: app/views/account/password.html
+#: app/views/reset.html
+msgid "Changing Password..."
+msgstr "Changing Password..."
+
+#: app/views/reset.html
+msgid "Choose password"
+msgstr "Choose password"
+
+#: app/views/comparison/report-elements.html
+msgid "Closest Schema Builtin Type"
+msgstr "Closest Schema Builtin Type"
+
+#: app/views/auth.html
+msgid "Company Name is required."
+msgstr "Company Name is required."
+
+#: app/views/root.html
+msgid "Compare"
+msgstr "Compare"
+
+#: app/views/comparison/validations-dashboard.html
+msgid "Compare Accuracy Measurements of Basic Financial Information Across Selected Filings"
+msgstr "Compare Accuracy Measurements of Basic Financial Information Across Selected Filings"
+
+#: app/views/comparison/information.html
+msgid "Compare Basic Financial Information Across Selected Filings"
+msgstr "Compare Basic Financial Information Across Selected Filings"
+
+#: app/views/home.html
+msgid "Compare or aggregate facts across filings, entities, periods, or sectors. Filter by any combination of explicit dimensions. Easily deal with amendments or duplicated information. Apply custom mappings of synonymous concepts. Use business rules to compute unreported facts or key ratios."
+msgstr "Compare or aggregate facts across filings, entities, periods, or sectors. Filter by any combination of explicit dimensions. Easily deal with amendments or duplicated information. Apply custom mappings of synonymous concepts. Use business rules to compute unreported facts or key ratios."
+
+#: app/views/home.html
+msgid "Compare the DOW30's latest filings using fundamental accounting concepts."
+msgstr "Compare the DOW30's latest filings using fundamental accounting concepts."
+
+#: app/views/pricing.html
+msgid "Complete database of U.S. public company financial information. User-friendly and affordable access."
+msgstr "Complete database of U.S. public company financial information. User-friendly and affordable access."
+
+#: app/views/entity/modelstructure.html
+msgid "Component"
+msgstr "Component"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/report-elements.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+#: app/views/entity/modelstructure.html
+msgid "Component Details"
+msgstr "Component Details"
+
+#: app/views/entity/component.html
+msgid "Component ID"
+msgstr "Component ID"
+
+#: app/views/comparison/report-elements.html
+msgid "Component Label / Name"
+msgstr "Component Label / Name"
+
+#: app/views/comparison/components.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/modelstructure.html
+msgid "Components"
+msgstr "Components"
+
+#: app/views/home.html
+msgid "Compute - in real time - the sum of all values reported against the concept us-gaap:Assets, on all 10-K SEC XBRL financial filings, aggregated by fiscal period."
+msgstr "Compute - in real time - the sum of all values reported against the concept us-gaap:Assets, on all 10-K SEC XBRL financial filings, aggregated by fiscal period."
+
+#: app/views/entity/information.html
+msgid "Compute analytics based on information extracted from the SEC filings"
+msgstr "Compute analytics based on information extracted from the SEC filings"
+
+#: app/views/concept-map.html
+msgid "Concept"
+msgstr "Concept"
+
+#: app/views/comparison/search.html
+msgid "Concept map"
+msgstr "Concept map"
+
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/search.html
+#: app/views/entity/component.html
+#: app/views/entity/filing.html
+msgid "Concepts"
+msgstr "Concepts"
+
+#: app/views/pricing.html
+msgid "Contact Us"
+msgstr "Contact Us"
+
+#: app/views/home.html
+msgid "Create Your Own Business Information Repository"
+msgstr "Create Your Own Business Information Repository"
+
+#: app/views/account/tokens.html
+msgid "Create new token"
+msgstr "Create new token"
+
+#: app/views/home.html
+msgid "Create reports the way you need them. Add aggregates, ratios, or external information. Create your own validation or verification rules. Compare across competitors or sectors."
+msgstr "Create reports the way you need them. Add aggregates, ratios, or external information. Create your own validation or verification rules. Compare across competitors or sectors."
+
+#: app/views/home.html
+#: app/views/pricing.html
+msgid "Custom Reports"
+msgstr "Custom Reports"
+
+#: app/views/about.html
+msgid "DISCLAIMER: All information provided is as reported by the reporting entity and has not been adjusted to correct for errors. This repository is a working prototype created using 28.io and is intended to be a demonstration of 28.io. This information repository should not be relied upon for financial analysis or for making investment decisions."
+msgstr "DISCLAIMER: All information provided is as reported by the reporting entity and has not been adjusted to correct for errors. This repository is a working prototype created using 28.io and is intended to be a demonstration of 28.io. This information repository should not be relied upon for financial analysis or for making investment decisions."
+
+#: app/views/comparison/report-elements.html
+#: app/views/entity/modelstructure.html
+msgid "Data Type"
+msgstr "Data Type"
+
+#: app/views/concept-map.html
+msgid "Data as:"
+msgstr "Data as:"
+
+#: app/views/account/billing.html
+msgid "Date"
+msgstr "Date"
+
+#: app/views/comparison/search.html
+#: app/views/entity/facttable.html
+#: app/views/example.html
+msgid "Decimals"
+msgstr "Decimals"
+
+#: app/views/api.html
+msgid "Description"
+msgstr "Description"
+
+#: app/views/comparison/search.html
+msgid "Dimensions"
+msgstr "Dimensions"
+
+#: app/views/comparison/components.html
+#: app/views/entity/modelstructure.html
+msgid "Disclosure"
+msgstr "Disclosure"
+
+#: app/views/comparison/components.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+msgid "Disclosure Name"
+msgstr "Disclosure Name"
+
+#: app/views/disclosures.html
+msgid "Disclosures"
+msgstr "Disclosures"
+
+#: app/views/comparison.html
+msgid "ENTITIES OR ENTITY GROUPS"
+msgstr "ENTITIES OR ENTITY GROUPS"
+
+#: app/views/auth.html
+msgid "Email and Password do not match our records."
+msgstr "Email and Password do not match our records."
+
+#: app/views/auth.html
+msgid "Email is invalid."
+msgstr "Email is invalid."
+
+#: app/views/auth.html
+msgid "Email is required."
+msgstr "Email is required."
+
+#: app/views/account/billing.html
+msgid "Enter Billing Information"
+msgstr "Enter Billing Information"
+
+#: app/views/auth.html
+msgid "Enter your credentials below. If you do not have an account, you can create one using the registration form."
+msgstr "Enter your credentials below. If you do not have an account, you can create one using the registration form."
+
+#: app/views/pricing.html
+msgid "Enterprise"
+msgstr "Enterprise"
+
+#: app/views/entity/summary.html
+msgid "Entities"
+msgstr "Entities"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/validations-dashboard.html
+msgid "Entity"
+msgstr "Entity"
+
+#: app/views/entity/component.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/modelstructure.html
+#: app/views/entity_details.html
+msgid "Entity Information"
+msgstr "Entity Information"
+
+#: app/views/comparison/filings.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+#: app/views/entity_details.html
+msgid "Entity Registrant Name"
+msgstr "Entity Registrant Name"
+
+#: app/views/entity/components.html
+msgid "Entity Summary"
+msgstr "Entity Summary"
+
+#: app/views/entity/summary.html
+#: app/views/entity_details.html
+msgid "Entity Type"
+msgstr "Entity Type"
+
+#: app/views/api.html
+#: app/views/home.html
+msgid "Example"
+msgstr "Example"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/filings.html
+#: app/views/comparison/information.html
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/search.html
+#: app/views/comparison/validations-dashboard.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/dashboard.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+#: app/views/entity/modelstructure.html
+#: app/views/entity/summary.html
+#: app/views/example.html
+msgid "Excel"
+msgstr "Excel"
+
+#: app/views/account/tokens.html
+msgid "Expires on"
+msgstr "Expires on"
+
+#: app/views/account/billing.html
+msgid "Expires on {{sub.expiresAt | date }}."
+msgstr "Expires on {{sub.expiresAt | date }}."
+
+#: app/views/account/billing.html
+msgid "Expiring"
+msgstr "Expiring"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/filings.html
+#: app/views/comparison/information.html
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/search.html
+#: app/views/comparison/validations-dashboard.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/dashboard.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+#: app/views/entity/modelstructure.html
+#: app/views/entity/summary.html
+msgid "Export"
+msgstr "Export"
+
+#: app/views/entity/filing.html
+msgid "Extension Abstracts"
+msgstr "Extension Abstracts"
+
+#: app/views/entity/filing.html
+msgid "Extension Concepts"
+msgstr "Extension Concepts"
+
+#: app/views/entity/filing.html
+msgid "Extension Facts"
+msgstr "Extension Facts"
+
+#: app/views/entity/information.html
+msgid "FISCAL PERIOD"
+msgstr "FISCAL PERIOD"
+
+#: app/views/comparison.html
+msgid "FISCAL PERIODS"
+msgstr "FISCAL PERIODS"
+
+#: app/views/entity/information.html
+msgid "FISCAL YEAR"
+msgstr "FISCAL YEAR"
+
+#: app/views/comparison.html
+msgid "FISCAL YEARS"
+msgstr "FISCAL YEARS"
+
+#: app/views/entity/information.html
+msgid "FUNDAMENTAL ACCOUNTING"
+msgstr "FUNDAMENTAL ACCOUNTING"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/report-elements.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/modelstructure.html
+msgid "Fact Table"
+msgstr "Fact Table"
+
+#: app/views/comparison/search.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+msgid "Facts"
+msgstr "Facts"
+
+#: app/views/comparison/validations-dashboard.html
+msgid "Failed"
+msgstr "Failed"
+
+#: app/views/home.html
+msgid "Featured Users"
+msgstr "Featured Users"
+
+#: app/views/entity/modelstructure.html
+msgid "Filing"
+msgstr "Filing"
+
+#: app/views/comparison/filings.html
+#: app/views/entity/filings.html
+msgid "Filing Components"
+msgstr "Filing Components"
+
+#: app/views/comparison/filings.html
+#: app/views/comparison/report-elements.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+#: app/views/entity/modelstructure.html
+msgid "Filing Details"
+msgstr "Filing Details"
+
+#: app/views/comparison.html
+#: app/views/entity.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+#: app/views/entity/modelstructure.html
+#: app/views/entity_details.html
+msgid "Filings"
+msgstr "Filings"
+
+#: app/views/entity/filings.html
+msgid "Filings for {{filings[0].EntityRegistrantName}} ({{filings[0].CIK.substr(23)}})"
+msgstr "Filings for {{filings[0].EntityRegistrantName}} ({{filings[0].CIK.substr(23)}})"
+
+#: app/views/comparison/filings.html
+msgid "Filings included in the filter"
+msgstr "Filings included in the filter"
+
+#: app/views/comparison/components.html
+msgid "Find components by"
+msgstr "Find components by"
+
+#: app/views/comparison/report-elements.html
+msgid "Find report elements by"
+msgstr "Find report elements by"
+
+#: app/views/account/info.html
+msgid "First Name"
+msgstr "First Name"
+
+#: app/views/account/info.html
+#: app/views/auth.html
+msgid "First Name is required."
+msgstr "First Name is required."
+
+#: app/views/comparison/filings.html
+#: app/views/comparison/validations-dashboard.html
+#: app/views/entity/filings.html
+msgid "Fiscal Period"
+msgstr "Fiscal Period"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/report-elements.html
+msgid "Fiscal Period / Year"
+msgstr "Fiscal Period / Year"
+
+#: app/views/comparison/filings.html
+#: app/views/comparison/validations-dashboard.html
+#: app/views/entity/filings.html
+msgid "Fiscal Year"
+msgstr "Fiscal Year"
+
+#: app/views/entity/filing.html
+msgid "Footnotes"
+msgstr "Footnotes"
+
+#: app/views/auth.html
+msgid "Forgot Password"
+msgstr "Forgot Password"
+
+#: app/views/auth.html
+msgid "Forgot password?"
+msgstr "Forgot password?"
+
+#: app/views/comparison/filings.html
+#: app/views/entity/filings.html
+msgid "Form"
+msgstr "Form"
+
+#: app/views/comparison/components.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/modelstructure.html
+msgid "Form Type"
+msgstr "Form Type"
+
+#: app/views/pricing.html
+msgid "Free"
+msgstr "Free"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/search.html
+msgid "GO"
+msgstr "GO"
+
+#: app/views/comparison/filings.html
+#: app/views/comparison/validations-dashboard.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+msgid "Generator"
+msgstr "Generator"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/filings.html
+#: app/views/comparison/report-elements.html
+#: app/views/entity/components.html
+#: app/views/entity/filings.html
+msgid "Go to"
+msgstr "Go to"
+
+#: app/views/reset.html
+msgid "Hello {{email}}"
+msgstr "Hello {{email}}"
+
+#: app/views/comparison/components.html
+msgid "Here are some working examples: <a href=\"/comparison/components?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY&amp;disclosure=BalanceSheet\">Balance Sheets for DOW30 in 2013</a> or <a href=\"/comparison/components?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1&amp;reportElement=us-gaap:Assets\">Components containing us-gaap:Assets of Coca Cola and Walmart throughout 2012</a>"
+msgstr "Here are some working examples: <a href=\"/comparison/components?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY&amp;disclosure=BalanceSheet\">Balance Sheets for DOW30 in 2013</a> or <a href=\"/comparison/components?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1&amp;reportElement=us-gaap:Assets\">Components containing us-gaap:Assets of Coca Cola and Walmart throughout 2012</a>"
+
+#: app/views/comparison/filings.html
+msgid "Here are some working examples: <a href=\"/comparison/filings?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY\">Filings for DOW30 in 2013</a> or <a href=\"/comparison/filings?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1\">Coca Cola and Walmart filings throughout 2012</a>"
+msgstr "Here are some working examples: <a href=\"/comparison/filings?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY\">Filings for DOW30 in 2013</a> or <a href=\"/comparison/filings?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1\">Coca Cola and Walmart filings throughout 2012</a>"
+
+#: app/views/comparison/information.html
+msgid "Here are some working examples: <a href=\"/comparison/information?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY\">Basic financial information for DOW30 in 2013</a> or <a href=\"/comparison/information?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1\">Basic financial information for Coca Cola and Walmart throughout 2012</a>"
+msgstr "Here are some working examples: <a href=\"/comparison/information?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY\">Basic financial information for DOW30 in 2013</a> or <a href=\"/comparison/information?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1\">Basic financial information for Coca Cola and Walmart throughout 2012</a>"
+
+#: app/views/comparison/report-elements.html
+msgid "Here are some working examples: <a href=\"/comparison/reportElements?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY&amp;label=Assets\">Assets for DOW30 in 2013</a> or <a href=\"/comparison/reportElements?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1&amp;name=us-gaap:Assets\">Report Element us-gaap:Assets of Coca Cola and Walmart throughout 2012</a>"
+msgstr "Here are some working examples: <a href=\"/comparison/reportElements?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY&amp;label=Assets\">Assets for DOW30 in 2013</a> or <a href=\"/comparison/reportElements?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1&amp;name=us-gaap:Assets\">Report Element us-gaap:Assets of Coca Cola and Walmart throughout 2012</a>"
+
+#: app/views/comparison/search.html
+msgid "Here are some working examples: <a href=\"/comparison/search?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY&amp;map=FundamentalAccountingConcepts&amp;concept=fac:Revenues\">Revenues for DOW30 in 2013</a> or <a href=\"/comparison/search?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1&amp;concept=us-gaap:Assets\">Assets for Coca Cola and Walmart throughout 2012</a>"
+msgstr "Here are some working examples: <a href=\"/comparison/search?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY&amp;map=FundamentalAccountingConcepts&amp;concept=fac:Revenues\">Revenues for DOW30 in 2013</a> or <a href=\"/comparison/search?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1&amp;concept=us-gaap:Assets\">Assets for Coca Cola and Walmart throughout 2012</a>"
+
+#: app/views/comparison/validations-dashboard.html
+msgid "Here are some working examples: <a href=\"/comparison/validations-dashboard?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY\">Basic semantic validations for DOW30 in 2013</a> or <a href=\"/comparison/validations-dashboard?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1\">Basic semantic validations for Coca Cola and Walmart throughout 2012</a>"
+msgstr "Here are some working examples: <a href=\"/comparison/validations-dashboard?tag=DOW30&amp;fiscalYear=2013&amp;fiscalPeriod=FY\">Basic semantic validations for DOW30 in 2013</a> or <a href=\"/comparison/validations-dashboard?cik=0000104169&amp;cik=0000021344&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;fiscalPeriod=Q3&amp;fiscalPeriod=Q2&amp;fiscalPeriod=Q1\">Basic semantic validations for Coca Cola and Walmart throughout 2012</a>"
+
+#: app/views/entity/component.html
+#: app/views/entity/dashboard.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/modelstructure.html
+#: app/views/entity/summary.html
+msgid "Hit"
+msgstr "Hit"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/filings.html
+#: app/views/comparison/information.html
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/search.html
+#: app/views/comparison/validations-dashboard.html
+#: app/views/entity/components.html
+#: app/views/entity/filings.html
+msgid "Hits"
+msgstr "Hits"
+
+#: app/views/root.html
+msgid "Home"
+msgstr "Home"
+
+#: app/views/comparison.html
+msgid "INDUSTRY GROUP"
+msgstr "INDUSTRY GROUP"
+
+#: app/views/about.html
+msgid "In addition to the GUI (graphical user interface) an <a href=\"/api\">API</a> (application programming interface) is also provided. Using the API information can be retrieved about entities, the filings made by those entities, the components contained within those filings, the model structure of a component, or the facts reported within a component. All information is provided in the following formats: JSON (the default), XML, CSV, and Excel."
+msgstr "In addition to the GUI (graphical user interface) an <a href=\"/api\">API</a> (application programming interface) is also provided. Using the API information can be retrieved about entities, the filings made by those entities, the components contained within those filings, the model structure of a component, or the facts reported within a component. All information is provided in the following formats: JSON (the default), XML, CSV, and Excel."
+
+#: app/views/entity/summary.html
+#: app/views/entity_details.html
+msgid "Industry Sector"
+msgstr "Industry Sector"
+
+#: app/views/about.html
+msgid "Information relating to the entities which make up the DOW 30 is provided without login.  Please note that information outside of the DOW30 can only be accessed using a valid token that can be retrieved by creating an account on http://www.secxbrl.info and login is done using the Session API."
+msgstr "Information relating to the entities which make up the DOW 30 is provided without login.  Please note that information outside of the DOW30 can only be accessed using a valid token that can be retrieved by creating an account on http://www.secxbrl.info and login is done using the Session API."
+
+#: app/views/account/billing.html
+msgid "Invoice ID"
+msgstr "Invoice ID"
+
+#: app/views/account/billing.html
+msgid "Invoices"
+msgstr "Invoices"
+
+#: app/views/entity/summary.html
+#: app/views/entity_details.html
+msgid "Is a Trust"
+msgstr "Is a Trust"
+
+#: app/views/404.html
+msgid "It looks like this was the result of either:"
+msgstr "It looks like this was the result of either:"
+
+#: app/views/api.html
+#: app/views/comparison/components.html
+#: app/views/comparison/filings.html
+#: app/views/comparison/information.html
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/search.html
+#: app/views/comparison/validations-dashboard.html
+#: app/views/concept-map.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/dashboard.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+#: app/views/entity/modelstructure.html
+#: app/views/entity/summary.html
+#: app/views/example.html
+msgid "JSON"
+msgstr "JSON"
+
+#: app/views/comparison/report-elements.html
+#: app/views/concept-map.html
+#: app/views/disclosures.html
+#: app/views/entity/information.html
+#: app/views/entity/modelstructure.html
+msgid "Label"
+msgstr "Label"
+
+#: app/views/account/info.html
+msgid "Last Name"
+msgstr "Last Name"
+
+#: app/views/account/info.html
+#: app/views/auth.html
+msgid "Last Name is required."
+msgstr "Last Name is required."
+
+#: app/views/home.html
+msgid "Learn More."
+msgstr "Learn More."
+
+#: app/views/entity/dashboard.html
+msgid "Liabilities vs. Equity"
+msgstr "Liabilities vs. Equity"
+
+#: app/views/entity/component.html
+#: app/views/entity/filing.html
+msgid "Line Items"
+msgstr "Line Items"
+
+#: app/views/account/billing.html
+msgid "Load more..."
+msgstr "Load more..."
+
+#: app/views/blog.html
+msgid "Loading"
+msgstr "Loading"
+
+#: app/views/account/billing.html
+msgid "Loading billing information..."
+msgstr "Loading billing information..."
+
+#: app/views/account/billing.html
+msgid "Loading invoices..."
+msgstr "Loading invoices..."
+
+#: app/views/account/billing.html
+msgid "Loading subscriptions..."
+msgstr "Loading subscriptions..."
+
+#: app/views/auth.html
+msgid "Login"
+msgstr "Login"
+
+#: app/views/root.html
+msgid "Login / Sign-Up"
+msgstr "Login / Sign-Up"
+
+#: app/views/auth.html
+msgid "Login or Sign-Up"
+msgstr "Login or Sign-Up"
+
+#: app/views/entity/component.html
+#: app/views/entity/filing.html
+msgid "Members"
+msgstr "Members"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/report-elements.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+msgid "Model Structure"
+msgstr "Model Structure"
+
+#: app/views/entity/modelstructure.html
+msgid "Model Structure for {{EntityRegistrantName}}<br>({{FiscalPeriod}} / {{FiscalYear}})"
+msgstr "Model Structure for {{EntityRegistrantName}}<br>({{FiscalPeriod}} / {{FiscalYear}})"
+
+#: app/views/api.html
+#: app/views/comparison/report-elements.html
+#: app/views/disclosures.html
+msgid "Name"
+msgstr "Name"
+
+#: app/views/comparison/report-elements.html
+msgid "Name / Label"
+msgstr "Name / Label"
+
+#: app/views/comparison/components.html
+msgid "Name of a contained report element"
+msgstr "Name of a contained report element"
+
+#: app/views/comparison/report-elements.html
+msgid "Name of the report element"
+msgstr "Name of the report element"
+
+#: app/views/entity/dashboard.html
+msgid "Net Income vs. Revenue"
+msgstr "Net Income vs. Revenue"
+
+#: app/views/entity/facttable.html
+#: app/views/entity/modelstructure.html
+msgid "Network"
+msgstr "Network"
+
+#: app/views/entity/component.html
+msgid "Network Description"
+msgstr "Network Description"
+
+#: app/views/entity/component.html
+msgid "Network Identifier"
+msgstr "Network Identifier"
+
+#: app/views/comparison/components.html
+#: app/views/entity/components.html
+msgid "Network Label / Name"
+msgstr "Network Label / Name"
+
+#: app/views/comparison/components.html
+msgid "Network title"
+msgstr "Network title"
+
+#: app/views/entity/filing.html
+msgid "Networks"
+msgstr "Networks"
+
+#: app/views/auth.html
+msgid "Nevermind, I remembered!"
+msgstr "Nevermind, I remembered!"
+
+#: app/views/account/password.html
+msgid "New password"
+msgstr "New password"
+
+#: app/views/comparison/report-elements.html
+msgid "Nillable"
+msgstr "Nillable"
+
+#: app/views/entity/summary.html
+msgid "No"
+msgstr "No"
+
+#: app/views/pricing.html
+msgid "No account or credit card required"
+msgstr "No account or credit card required"
+
+#: app/views/account/billing.html
+msgid "No billing information present"
+msgstr "No billing information present"
+
+#: app/views/comparison/search.html
+msgid "No dimension filters used."
+msgstr "No dimension filters used."
+
+#: app/views/account/billing.html
+msgid "No invoices."
+msgstr "No invoices."
+
+#: app/views/comparison/components.html
+#: app/views/comparison/filings.html
+#: app/views/comparison/information.html
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/search.html
+#: app/views/comparison/validations-dashboard.html
+msgid "No results found."
+msgstr "No results found."
+
+#: app/views/account/billing.html
+msgid "No subscriptions."
+msgstr "No subscriptions."
+
+#: app/views/home.html
+msgid "NoLAP extends the OLAP paradigm by removing hypercube rigidity and letting users generate their own hypercubes on the fly on the same pool of (fact) values."
+msgstr "NoLAP extends the OLAP paradigm by removing hypercube rigidity and letting users generate their own hypercubes on the fly on the same pool of (fact) values."
+
+#: app/views/home.html
+msgid "NoLAP: NoSQL Analytical Processing"
+msgstr "NoLAP: NoSQL Analytical Processing"
+
+#: app/views/404.html
+msgid "Not found <span>:(</span>"
+msgstr "Not found <span>:(</span>"
+
+#: app/views/disclosures.html
+#: app/views/entity/modelstructure.html
+msgid "Object Class"
+msgstr "Object Class"
+
+#: app/views/account/password.html
+msgid "Old password"
+msgstr "Old password"
+
+#: app/views/account/password.html
+msgid "Old password doesn't match our records."
+msgstr "Old password doesn't match our records."
+
+#: app/views/account/password.html
+msgid "Old password is required."
+msgstr "Old password is required."
+
+#: app/views/pricing.html
+msgid "One user"
+msgstr "One user"
+
+#: app/views/entity/information.html
+msgid "Origin"
+msgstr "Origin"
+
+#: app/views/comparison/validations-dashboard.html
+msgid "Passed"
+msgstr "Passed"
+
+#: app/views/account.html
+msgid "Password"
+msgstr "Password"
+
+#: app/views/account/password.html
+#: app/views/auth.html
+#: app/views/reset.html
+msgid "Password confirmation doesn't match."
+msgstr "Password confirmation doesn't match."
+
+#: app/views/account/password.html
+#: app/views/auth.html
+#: app/views/reset.html
+msgid "Password confirmation is required."
+msgstr "Password confirmation is required."
+
+#: app/views/account/password.html
+msgid "Password confirmation must exceed 5 characters."
+msgstr "Password confirmation must exceed 5 characters."
+
+#: app/views/account/password.html
+#: app/views/auth.html
+#: app/views/reset.html
+msgid "Password is required."
+msgstr "Password is required."
+
+#: app/views/account/password.html
+#: app/views/auth.html
+#: app/views/reset.html
+msgid "Password must exceed 5 characters."
+msgstr "Password must exceed 5 characters."
+
+#: app/views/account/billing.html
+msgid "Payment method"
+msgstr "Payment method"
+
+#: app/views/home.html
+msgid "Perform truly interactive data analysis. Get answers to even the most sophisticated queries in seconds. Slice and dice, drill down, everything in real-time."
+msgstr "Perform truly interactive data analysis. Get answers to even the most sophisticated queries in seconds. Slice and dice, drill down, everything in real-time."
+
+#: app/views/entity/modelstructure.html
+msgid "Period"
+msgstr "Period"
+
+#: app/views/comparison/report-elements.html
+msgid "Period Type"
+msgstr "Period Type"
+
+#: app/views/account/billing.html
+msgid "Please <a ng-click=\"updateBillingInfo()\">enter your billing information</a> before you sign up."
+msgstr "Please <a ng-click=\"updateBillingInfo()\">enter your billing information</a> before you sign up."
+
+#: app/views/blog.html
+msgid "Posted {{formatDate(entry.updated)}} ago"
+msgstr "Posted {{formatDate(entry.updated)}} ago"
+
+#: app/views/home.html
+msgid "Powered by <a href=\"http://28.io/xbrl\">28.io</a>"
+msgstr "Powered by <a href=\"http://28.io/xbrl\">28.io</a>"
+
+#: app/views/home.html
+msgid "Powered with <i class=\"fa fa-heart-o\"></i> by <a href=\"http://28.io/xbrl\">28.io</a>"
+msgstr "Powered with <i class=\"fa fa-heart-o\"></i> by <a href=\"http://28.io/xbrl\">28.io</a>"
+
+#: app/views/root.html
+msgid "Pricing"
+msgstr "Pricing"
+
+#: app/views/root.html
+msgid "Privacy Policy"
+msgstr "Privacy Policy"
+
+#: app/views/pricing.html
+msgid "Pro"
+msgstr "Pro"
+
+#: app/views/account/billing.html
+msgid "Pro Includes"
+msgstr "Pro Includes"
+
+#: app/views/account.html
+msgid "Profile"
+msgstr "Profile"
+
+#: app/views/account/info.html
+msgid "Profile Information"
+msgstr "Profile Information"
+
+#: app/views/api.html
+msgid "Queries API"
+msgstr "Queries API"
+
+#: app/views/comparison.html
+msgid "RESET"
+msgstr "RESET"
+
+#: app/views/blog.html
+msgid "Read more →"
+msgstr "Read more →"
+
+#: app/views/home.html
+msgid "Real-Time"
+msgstr "Real-Time"
+
+#: app/views/auth.html
+msgid "Register"
+msgstr "Register"
+
+#: app/views/example.html
+msgid "Related Examples"
+msgstr "Related Examples"
+
+#: app/views/entity/modelstructure.html
+msgid "Report Element"
+msgstr "Report Element"
+
+#: app/views/entity/component.html
+#: app/views/entity/filing.html
+msgid "Report Elements"
+msgstr "Report Elements"
+
+#: app/views/comparison/components.html
+msgid "Report element name"
+msgstr "Report element name"
+
+#: app/views/api.html
+msgid "Request"
+msgstr "Request"
+
+#: app/views/api.html
+msgid "Request Parameters"
+msgstr "Request Parameters"
+
+#: app/views/account/info.html
+#: app/views/account/password.html
+msgid "Reset"
+msgstr "Reset"
+
+#: app/views/api.html
+msgid "Resource Overview"
+msgstr "Resource Overview"
+
+#: app/views/api.html
+msgid "Response Status Codes"
+msgstr "Response Status Codes"
+
+#: app/views/auth.html
+msgid "Restricted access"
+msgstr "Restricted access"
+
+#: app/views/comparison/search.html
+msgid "Retrieve facts from all filings"
+msgstr "Retrieve facts from all filings"
+
+#: app/views/account/password.html
+msgid "Retype new password"
+msgstr "Retype new password"
+
+#: app/views/account/tokens.html
+msgid "Revoke"
+msgstr "Revoke"
+
+#: app/views/comparison/validations-dashboard.html
+msgid "Rules Not Applicable"
+msgstr "Rules Not Applicable"
+
+#: app/views/comparison/filings.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+msgid "SEC Filing Page"
+msgstr "SEC Filing Page"
+
+#: app/views/comparison/components.html
+#: app/views/entity/components.html
+msgid "SEC Preview"
+msgstr "SEC Preview"
+
+#: app/views/api.html
+msgid "SEC XBRL API"
+msgstr "SEC XBRL API"
+
+#: app/views/home.html
+msgid "SECXBRL.info is a prototype repository built on top of <a href=\"http://28.io/xbrl\">28.io</a>."
+msgstr "SECXBRL.info is a prototype repository built on top of <a href=\"http://28.io/xbrl\">28.io</a>."
+
+#: app/views/entity/summary.html
+#: app/views/entity_details.html
+msgid "SIC Code"
+msgstr "SIC Code"
+
+#: app/views/entity/summary.html
+#: app/views/entity_details.html
+msgid "SIC Description"
+msgstr "SIC Description"
+
+#: app/views/pricing.html
+msgid "Scalable processing power"
+msgstr "Scalable processing power"
+
+#: app/views/root.html
+msgid "Search"
+msgstr "Search"
+
+#: app/views/comparison.html
+msgid "Search Components"
+msgstr "Search Components"
+
+#: app/views/entities.html
+msgid "Search Entity"
+msgstr "Search Entity"
+
+#: app/views/comparison.html
+msgid "Search Facts"
+msgstr "Search Facts"
+
+#: app/views/comparison.html
+#: app/views/comparison/report-elements.html
+msgid "Search Report Elements"
+msgstr "Search Report Elements"
+
+#: app/views/comparison.html
+msgid "Selected Filters"
+msgstr "Selected Filters"
+
+#: app/views/auth.html
+msgid "Send me help"
+msgstr "Send me help"
+
+#: app/views/api.html
+msgid "Session API"
+msgstr "Session API"
+
+#: app/views/comparison.html
+msgid "Set Filters"
+msgstr "Set Filters"
+
+#: app/views/comparison/information.html
+#: app/views/entity/facttable.html
+#: app/views/entity/information.html
+msgid "Show Text"
+msgstr "Show Text"
+
+#: app/views/pricing.html
+msgid "Sign Up"
+msgstr "Sign Up"
+
+#: app/views/account/billing.html
+msgid "Sign Up for Pro"
+msgstr "Sign Up for Pro"
+
+#: app/views/about.html
+msgid "Sign Up to access all SEC dataset"
+msgstr "Sign Up to access all SEC dataset"
+
+#: app/views/home.html
+msgid "Sophisticated Semantic Analysis"
+msgstr "Sophisticated Semantic Analysis"
+
+#: app/views/404.html
+msgid "Sorry, but the page you were trying to view does not exist."
+msgstr "Sorry, but the page you were trying to view does not exist."
+
+#: app/views/account/billing.html
+#: app/views/api.html
+msgid "Status"
+msgstr "Status"
+
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+msgid "Sub Category"
+msgstr "Sub Category"
+
+#: app/views/account/billing.html
+msgid "Subscribed to <b>{{sub.plan.name}}</b> since {{sub.activatedAt | date }}"
+msgstr "Subscribed to <b>{{sub.plan.name}}</b> since {{sub.activatedAt | date }}"
+
+#: app/views/account/billing.html
+msgid "Subscription"
+msgstr "Subscription"
+
+#: app/views/comparison/report-elements.html
+msgid "Substitution Group"
+msgstr "Substitution Group"
+
+#: app/views/comparison/validations-dashboard.html
+msgid "Success Rate"
+msgstr "Success Rate"
+
+#: app/views/entity.html
+#: app/views/entity/filings.html
+msgid "Summary"
+msgstr "Summary"
+
+#: app/views/pricing.html
+#: app/views/root.html
+msgid "Support"
+msgstr "Support"
+
+#: app/views/comparison/components.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+#: app/views/entity/modelstructure.html
+msgid "Table"
+msgstr "Table"
+
+#: app/views/entity/component.html
+msgid "Table Name"
+msgstr "Table Name"
+
+#: app/views/entity/component.html
+#: app/views/entity/filing.html
+msgid "Tables"
+msgstr "Tables"
+
+#: app/views/pricing.html
+msgid "Tailored to your needs"
+msgstr "Tailored to your needs"
+
+#: app/views/concept-map.html
+msgid "Target Concepts"
+msgstr "Target Concepts"
+
+#: app/views/root.html
+msgid "Terms of Use"
+msgstr "Terms of Use"
+
+#: app/views/comparison/report-elements.html
+msgid "Text Block"
+msgstr "Text Block"
+
+#: app/views/comparison/report-elements.html
+msgid "Text contained in label of the report element"
+msgstr "Text contained in label of the report element"
+
+#: app/views/comparison/components.html
+msgid "Text contained in network titles"
+msgstr "Text contained in network titles"
+
+#: app/views/auth.html
+msgid "The page you are trying to access displays information about an entity not included in the DOW30."
+msgstr "The page you are trying to access displays information about an entity not included in the DOW30."
+
+#: app/views/about.html
+msgid "This repository contains financial information provided to the US Securities and Exchange Commission (SEC) by public companies using the XBRL global standard technical syntax. Submitted XBRL information contained in the filings is read by the system, converted to a format which is optimized for query (as opposed to XBRL which is optimized for information exchange), and stored in a database in that queriable format. Additional metadata is added to the system which is commonly used when querying this financial information. Please note that only financial information provided within SEC forms 10-Q and 10-K is provided via this system."
+msgstr "This repository contains financial information provided to the US Securities and Exchange Commission (SEC) by public companies using the XBRL global standard technical syntax. Submitted XBRL information contained in the filings is read by the system, converted to a format which is optimized for query (as opposed to XBRL which is optimized for information exchange), and stored in a database in that queriable format. Additional metadata is added to the system which is commonly used when querying this financial information. Please note that only financial information provided within SEC forms 10-Q and 10-K is provided via this system."
+
+#: app/views/entity/summary.html
+#: app/views/entity_details.html
+msgid "Ticker Symbol"
+msgstr "Ticker Symbol"
+
+#: app/views/comparison/information.html
+#: app/views/comparison/validations-dashboard.html
+msgid "To view that information you have to login with your credentials. If you do not have an account, you can create one using the <a href=\"/auth\">registration form</a>."
+msgstr "To view that information you have to login with your credentials. If you do not have an account, you can create one using the <a href=\"/auth\">registration form</a>."
+
+#: app/views/auth.html
+#: app/views/comparison/filings.html
+msgid "To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form."
+msgstr "To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form."
+
+#: app/views/root.html
+msgid "Toggle navigation"
+msgstr "Toggle navigation"
+
+#: app/views/account/tokens.html
+msgid "Token"
+msgstr "Token"
+
+#: app/views/api.html
+msgid "Type"
+msgstr "Type"
+
+#: app/views/account/billing.html
+#: app/views/pricing.html
+msgid "UI access"
+msgstr "UI access"
+
+#: app/views/home.html
+msgid "US Public Company<br>Financial Information<br>Repository"
+msgstr "US Public Company<br>Financial Information<br>Repository"
+
+#: app/views/comparison/search.html
+#: app/views/entity/facttable.html
+#: app/views/example.html
+msgid "Unit"
+msgstr "Unit"
+
+#: app/views/pricing.html
+msgid "Unlimited API calls"
+msgstr "Unlimited API calls"
+
+#: app/views/pricing.html
+msgid "Unlimited Users"
+msgstr "Unlimited Users"
+
+#: app/views/account/billing.html
+msgid "Update Billing Information"
+msgstr "Update Billing Information"
+
+#: app/views/account/info.html
+msgid "Update Profile"
+msgstr "Update Profile"
+
+#: app/views/account/info.html
+msgid "Updating Profile..."
+msgstr "Updating Profile..."
+
+#: app/views/home.html
+msgid "Using the <a href=\"http://28.io/xbrl\">28.io</a> information processing platform, XBRL can be stored in a way that is optimized for querying"
+msgstr "Using the <a href=\"http://28.io/xbrl\">28.io</a> information processing platform, XBRL can be stored in a way that is optimized for querying"
+
+#: app/views/api.html
+#: app/views/comparison/search.html
+#: app/views/entity/facttable.html
+#: app/views/entity/information.html
+#: app/views/example.html
+msgid "Value"
+msgstr "Value"
+
+#: app/views/api.html
+msgid "View as"
+msgstr "View as"
+
+#: app/views/comparison/filings.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+msgid "XBRL Instance"
+msgstr "XBRL Instance"
+
+#: app/views/comparison/components.html
+#: app/views/comparison/filings.html
+#: app/views/comparison/information.html
+#: app/views/comparison/report-elements.html
+#: app/views/comparison/search.html
+#: app/views/comparison/validations-dashboard.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/dashboard.html
+#: app/views/entity/facttable.html
+#: app/views/entity/filing.html
+#: app/views/entity/filings.html
+#: app/views/entity/modelstructure.html
+#: app/views/entity/summary.html
+#: app/views/example.html
+msgid "XML"
+msgstr "XML"
+
+#: app/views/entity/summary.html
+msgid "Yes"
+msgstr "Yes"
+
+#: app/views/reset.html
+msgid "You are about to change your password."
+msgstr "You are about to change your password."
+
+#: app/views/comparison/filings.html
+#: app/views/comparison/information.html
+#: app/views/comparison/validations-dashboard.html
+msgid "You are accessing filings for entities that are not part of DOW30."
+msgstr "You are accessing filings for entities that are not part of DOW30."
+
+#: app/views/comparison/information.html
+#: app/views/comparison/validations-dashboard.html
+msgid "You are trying to compare information across {{filings.length}} filings."
+msgstr "You are trying to compare information across {{filings.length}} filings."
+
+#: app/views/home.html
+msgid "You can create your own XBRL-based information repository using the same approach, no programming required, just configure settings. You build your own XBRL taxonomy, submit XBRL instances, and you are in business in just a couple of hours. Or, if you need more flexibility, you can even modify existing application profiles to fit your needs or even create your own application profile."
+msgstr "You can create your own XBRL-based information repository using the same approach, no programming required, just configure settings. You build your own XBRL taxonomy, submit XBRL instances, and you are in business in just a couple of hours. Or, if you need more flexibility, you can even modify existing application profiles to fit your needs or even create your own application profile."
+
+#: app/views/comparison/information.html
+#: app/views/comparison/validations-dashboard.html
+msgid "Your account is restricted to compare 30 filings at a time. Please <a href=\"mailto:hello@28.io\">contact us</a> to talk about your use case."
+msgstr "Your account is restricted to compare 30 filings at a time. Please <a href=\"mailto:hello@28.io\">contact us</a> to talk about your use case."
+
+#: app/views/pricing.html
+msgid "Your domain &amp; your SSL certificate"
+msgstr "Your domain &amp; your SSL certificate"
+
+#: app/views/404.html
+msgid "a mistyped address"
+msgstr "a mistyped address"
+
+#: app/views/home.html
+msgid "a regulator can specify that the IFRS taxonomy be used to submit information, specify a few configuration settings, and specify XBRL-based business rules. Your repository can be up and running in hours."
+msgstr "a regulator can specify that the IFRS taxonomy be used to submit information, specify a few configuration settings, and specify XBRL-based business rules. Your repository can be up and running in hours."
+
+#: app/views/404.html
+msgid "an out-of-date link"
+msgstr "an out-of-date link"
+
+#: app/views/root.html
+msgid "beta"
+msgstr "beta"
+
+#: app/views/account/billing.html
+msgid "{{more}} older."
+msgstr "{{more}} older."
+
+#: app/views/root.html
+msgid "{{user.firstname}} {{user.lastname}}"
+msgstr "{{user.firstname}} {{user.lastname}}"

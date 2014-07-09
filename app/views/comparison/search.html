@@ -2,20 +2,20 @@
 <div class="export">
     <div class="row">
         <div class="col-lg-3">
-            <span class="tag tag-primary" ng-if="data"><span ng-bind="Statistics.NumFacts | number"></span> Hits</span>
-            <span class="tag" ng-if="data"><span ng-bind="Statistics.TotalNumFacts | number"></span> Facts</span>
+            <span class="tag tag-primary" ng-show="data"><span ng-bind="Statistics.NumFacts | number"></span> <span translate>Hits</span></span>
+            <span class="tag" ng-show="data"><span ng-bind="Statistics.TotalNumFacts | number"></span> <span translate>Facts</span></span>
         </div>
         <div class="col-lg-6">
-            <h2 class="text-center">Retrieve facts from all filings</h2>
+            <h2 class="text-center" translate>Retrieve facts from all filings</h2>
         </div>
         <div class="col-lg-3">
-            <span class="dropdown pull-right" ng-if="data">
-                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+            <span class="dropdown pull-right" ng-show="data">
+                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                 <ul class="dropdown-menu">
-                    <li><a ng-href="{{getUrl('json')}}" download="comparison-search.json" target="_blank">JSON</a></li>
-                    <li><a ng-href="{{getUrl('xml')}}" download="comparison-search.xml" target="_blank">XML</a></li>
-                    <li><a ng-href="{{getUrl('csv')}}" download="comparison-search.csv" target="_blank">CSV</a></li>
-                    <li><a ng-href="{{getUrl('excel')}}" download="comparison-search.csv" target="_blank">Excel</a></li>
+                    <li><a ng-href="{{getUrl('json')}}" download="comparison-search.json" target="_blank" translate>JSON</a></li>
+                    <li><a ng-href="{{getUrl('xml')}}" download="comparison-search.xml" target="_blank" translate>XML</a></li>
+                    <li><a ng-href="{{getUrl('csv')}}" download="comparison-search.csv" target="_blank" translate>CSV</a></li>
+                    <li><a ng-href="{{getUrl('excel')}}" download="comparison-search.csv" target="_blank" translate>Excel</a></li>
                 </ul>
             </span>
         </div>
@@ -24,22 +24,22 @@
 
 <form ng-submit="submit()">
     <div>
-       <label>
+       <label translate>
           Concept map
        </label> &nbsp;<br class="visible-sm visible-xs"> 
        <span style="display: inline-block;">
           <select ng-model="selection.map" ng-change="selectMap()" ng-options="map for map in conceptMaps" class="form-control"></select>
        </span>
-       <a href="/concept-map/{{selection.map}}" ng-if="selection.map !== none"><i class="fa fa-question"></i></a>
+       <a href="/concept-map/{{selection.map}}" ng-show="selection.map !== none"><i class="fa fa-question"></i></a>
     </div>
 
-    <h4>Concepts</h4>
+    <h4 translate>Concepts</h4>
     
     <div class="input-group">
       <input type="text" ng-model="conceptMapKey" placeholder="Type to search concept" class="form-control"
                          typeahead="key for key in conceptMapKeys | filter:$viewValue | limitTo: 20" ng-enter="addConceptKey(conceptMapKey)">
       <div class="input-group-btn">
-        <button class="btn btn-primary" ng-click="addConceptKey(conceptMapKey)">Add</button>
+        <button class="btn btn-primary" ng-click="addConceptKey(conceptMapKey)" translate>Add</button>
       </div>
     </div>
     
@@ -50,59 +50,59 @@
         </div>
     </div>
 
-    <h4>Dimensions <a ng-click="addDimension()"><i class="fa fa-plus-square-o"></i></a></h4>
+    <h4><span translate>Dimensions</span> <a ng-click="addDimension()"><i class="fa fa-plus-square-o"></i></a></h4>
     <div ng-repeat="key in dimensions track by $index">
         <a ng-click="deleteDimension(key)"><i class="fa fa-times"></i></a>
         <a popover="Dimension {{ key.name }} with value {{ key.value }}, considering {{ key.defaultValue }} if missing" popover-position="top" popover-trigger="click">{{ key.name }} = {{ key.value }}</a>
     </div>
-    <div ng-hide="dimensions.length">
+    <div ng-hide="dimensions.length" translate>
         No dimension filters used.
     </div>
     
     <script type="text/ng-template" id="dimension.html">
         <div class="modal-header">
             <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-            <h4>Add a new dimension</h4>
+            <h4 translate>Add a new dimension</h4>
         </div>
         <form role="form" name="dimension.form" ng-submit="ok()" novalidate>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Name</label>
+                    <label translate>Name</label>
                     <input type="text" name="name" ng-model="dimension.name" placeholder="dei:LegalEntityAxis" class="form-control" required>
-                    <div class="text-danger" ng-show="dimension.form.name.$error.required && (dimension.form.name.$dirty || dimension.attempted)">
+                    <div class="text-danger" ng-show="dimension.form.name.$error.required && (dimension.form.name.$dirty || dimension.attempted)" translate>
                         Dimension name is required.
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Value</label>
+                    <label translate>Value</label>
                     <input type="text" name="value" ng-model="dimension.value" placeholder="sec:DefaultLegalEntity or ALL" class="form-control" required>
-                    <div class="text-danger" ng-show="dimension.form.value.$error.required && (dimension.form.value.$dirty || dimension.attempted)">
+                    <div class="text-danger" ng-show="dimension.form.value.$error.required && (dimension.form.value.$dirty || dimension.attempted)" translate>
                         Dimension value is required.
                     </div>
-                    filter by value of use ALL to bring in all facts that have this dimension
+                    <span translate>filter by value of use ALL to bring in all facts that have this dimension</span>
                 </div>
                 <div class="form-group">
-                    <label>Default Value</label>
+                    <label translate>Default Value</label>
                     <input type="text" ng-model="dimension.defaultValue" placeholder="sec:DefaultLegalEntity" class="form-control">
-                    default value to be used if a fact doesn't have that dimension
+                    <span translate>default value to be used if a fact doesn't have that dimension</span>
                 </div>
                 <div class="form-group">
-                  Shortcuts: <span ng-repeat="l in links"><a  ng-click="applyLink(l)">{{l.Name}}</a> &nbsp;</span> 
+                  <span translate>Shortcuts:</span> <span ng-repeat="l in links"><a  ng-click="applyLink(l)">{{l.Name}}</a> &nbsp;</span> 
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="submit">OK</button>
-                <button class="btn btn-default" ng-click="cancel()" type="button">Cancel</button>
+                <button class="btn btn-primary" type="submit" translate>OK</button>
+                <button class="btn btn-default" ng-click="cancel()" type="button" translate>Cancel</button>
             </div>
         </form>
     </script>
     
     <div>
-        <button class="btn btn-primary" class="form-control" type="submit">GO</button>
+        <button class="btn btn-primary" class="form-control" type="submit" translate>GO</button>
     </div>
 </form>
 <br>
-<div ng-if="data">
+<div ng-show="data">
   <p>
     <input type="text" class="form-control" ng-model="search" placeholder="Type here to search..."/>
   </p>
@@ -111,17 +111,17 @@
           <thead>
             <th>#</th>
             <th ng-repeat="key in columns">{{key}}</th>
-            <th>Value</th>
-            <th>Unit</th>
-            <th>Decimals</th>
+            <th translate>Value</th>
+            <th translate>Unit</th>
+            <th translate>Decimals</th>
           </thead>
           <tbody>
             <tr ng-repeat="item in data | filter : search">
               <td>{{$index + 1}}</td>
-              <td ng-repeat="key in columns" class="nowrap"><span ng-if="$index==entityIndex">{{item.Aspects[key].substring(23)}} ({{item.EntityRegistrantName}})</span><span ng-if="$index!=entityIndex">{{item.Aspects[key]}}</span></td>
-              <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
-              <td ng-if="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
-              <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
+              <td ng-repeat="key in columns" class="nowrap"><span ng-show="$index==entityIndex">{{item.Aspects[key].substring(23)}} ({{item.EntityRegistrantName}})</span><span ng-show="$index!=entityIndex">{{item.Aspects[key]}}</span></td>
+              <td ng-show="(item.Type == 'NumericValue')" style="text-align: right" >{{item.Value | number}}</td>
+              <td ng-show="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
+              <td ng-show="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
               <td>{{item.Unit=='xbrl:NonNumeric'?"":clear(item.Unit)}}</td>
               <td>{{item.Decimals}}</td>
             </tr>
@@ -129,9 +129,7 @@
       </table>
   </div>
 </div>
-<div class="alert alert-info" ng-if="errornoresults">
-    <h4>No results found</h4>
-    Here are some working examples: 
-    <a href="/comparison/search?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY&map=FundamentalAccountingConcepts&concept=fac:Revenues">Revenues for DOW30 in 2013</a> or 
-    <a href="/comparison/search?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1&concept=us-gaap:Assets">Assets for Coca Cola and Walmart throughout 2012</a>
+<div class="alert alert-info" ng-show="errornoresults">
+    <h4 translate>No results found.</h4>
+    <span translate>Here are some working examples: <a href="/comparison/search?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY&map=FundamentalAccountingConcepts&concept=fac:Revenues">Revenues for DOW30 in 2013</a> or <a href="/comparison/search?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1&concept=us-gaap:Assets">Assets for Coca Cola and Walmart throughout 2012</a></span>
 </div>

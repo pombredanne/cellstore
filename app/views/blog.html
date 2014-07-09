@@ -1,6 +1,6 @@
 <section class="container" id="blog">
     <div ng-show="loading && entries.length == 0">
-        <h1 class="text-center">Loading</h1>
+        <h1 class="text-center" translate>Loading</h1>
         <h1 class="text-center"><i class="icon-spinner icon-spin icon-large"></i></h1>
     </div>
     <div ng-show="!loading && entries.length == 0">
@@ -8,7 +8,7 @@
     </div>
     <div>
         <ol class="breadcrumb row" ng-show="idFilter !== null && entries.length > 0">
-            <li><a href="/blog">Blog</a></li>
+            <li><a href="/blog" translate>Blog</a></li>
             <li class="active" ng-bind="entries[0].title"></li>
         </ol>
         <!--ol class="breadcrumb row visible-xs visible-sm hidden-lg hidden-md" ng-show="idFilter !== null && entries.length > 0">
@@ -16,9 +16,9 @@
         </ol-->
     </div>
     
-    <div class="row" ng-show="!loading && entries.length == 1">
-        <h2 ng-bind="entries[0].title"></h2>
-        <p class="date">Posted {{formatDate(entries[0].updated)}} ago</p>
+    <div class="row" ng-show="!loading && entries.length == 1" ng-repeat="entry in entries">
+        <h2 ng-bind="entry.title"></h2>
+        <p class="date" translate>Posted {{formatDate(entry.updated)}} ago</p>
         <div class="entry" entry></div>
         <div id="disqus" class="disqus" disqus>
             <div id="disqus_thread" class="content-panel-content"></div>
@@ -30,11 +30,11 @@
             <div class="row">
                 <div class="col-lg-4">
                     <h3><a ng-href="/blog{{entry.id}}" ng-bind="entry.title"></a></h3>
-                    <p class="date">Posted {{formatDate(entry.updated)}} ago</p>
+                    <p class="date" translate>Posted {{formatDate(entry.updated)}} ago</p>
                 </div>
                 <div class="col-lg-8">
                     <p ng-bind="entry.summary"></p>
-                    <p><a ng-href="/blog{{entry.id}}">Read more →</a></p>
+                    <p><a ng-href="/blog{{entry.id}}" translate>Read more →</a></p>
                 </div>
             </div>
             <hr>

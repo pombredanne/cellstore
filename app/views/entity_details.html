@@ -4,39 +4,39 @@
 <div class="modal-body">
 <table class="table" cellpadding="2">
     <tr>
-        <td style="width: 35%">CIK</td>
+        <td style="width: 35%" translate>CIK</td>
         <td>{{cik}}</td>
     </tr>
     <tr>
-        <td>Ticker Symbol</td>
+        <td translate>Ticker Symbol</td>
         <td>{{ticker}}</td>
     </tr>
     <tr>
-        <td>Entity Registrant Name</td>
+        <td translate>Entity Registrant Name</td>
         <td>{{result.Profiles.SEC.CompanyName}}</td>
     </tr>
     <tr>
-        <td>Entity Type</td>
+        <td translate>Entity Type</td>
         <td>{{result.Profiles.SEC.CompanyType}}</td>
     </tr>
     <tr>
-        <td>SIC Code</td>
+        <td translate>SIC Code</td>
         <td>{{result.Profiles.SEC.SIC}}</td>
     </tr>
     <tr>
-        <td>SIC Description</td>
+        <td translate>SIC Description</td>
         <td>{{result.Profiles.SEC.SICDescription}}</td>
     </tr>
     <tr>
-        <td>Industry Sector</td>
+        <td translate>Industry Sector</td>
         <td>{{result.Profiles.SEC.Sector}}</td>
     </tr>
     <tr>
-        <td>Is a Trust</td>
+        <td translate>Is a Trust</td>
         <td>{{result.Profiles.SEC.IsTrust?"Yes":"No"}}</td>
     </tr>
 </table>
 </div>
 <div class="modal-footer">
-    <a href="/entity/{{cik}}">Entity Information</a> | <a href="/filings/{{cik}}">Filings</a>
+    <a href="/entity/{{cik}}" translate>Entity Information</a> | <a href="/filings/{{cik}}" translate>Filings</a>
 </div>
