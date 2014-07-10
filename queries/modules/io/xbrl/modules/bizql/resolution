@@ -532,8 +532,7 @@ declare function resolution:resolve(
  : <ul>
  :   <li>Hypercube: override the components' hypercubes with the provided hypercube
  :      (this will only affect the default values used later in the layout pipeline).</li>
- :    <li>Language: override the components' default language
- :      (this will only affect the default values used later in the layout pipeline).</li>
+ :    <li>Language: override the components' default language in the rendering.</li>
  : </ul>
  :
  : @error resolution:UNFORESEEN-ERROR Something went wrong, contact us.
