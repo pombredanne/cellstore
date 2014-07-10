@@ -807,13 +807,14 @@ angular.module('main', [
                         concept: concept,
                         map: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
                         rules: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
-                        token: $rootScope.token
+                        token: $rootScope.token,
+                        $queryParameters: {}
                     };
                     dimensions.forEach(function(dimension) {
-                        params[dimension.name] = dimension.value;
+                        params.$queryParameters[dimension.name] = dimension.value;
                         if (dimension.defaultValue)
                         {
-                            params[dimension.name + '::default'] = dimension.defaultValue;
+                            params.$queryParameters[dimension.name + '::default'] = dimension.defaultValue;
                         }
                     });
                     console.log(params);
