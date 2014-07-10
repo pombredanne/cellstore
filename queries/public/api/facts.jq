@@ -4,90 +4,13 @@ import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/
 import module namespace core = "http://xbrl.io/modules/bizql/profiles/sec/core";
 
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
+import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
+import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
-import module namespace csv = "http://zorba.io/modules/json-csv";
- 
-declare function local:modify-hypercube(
-    $hypercube as object,
-    $options as object?) as object
-{
-    let $options :=
-    {|
-        for $dimension in keys(($hypercube.Aspects, $options))
-        let $hypercube-metadata := $hypercube.Aspects.$dimension
-        let $new-metadata := $options.$dimension
-        return {
-            $dimension : if(exists($new-metadata))
-            then
-                $new-metadata
-            else {|
-                { Type : $hypercube.Aspects.$dimension.Type }[$hypercube-metadata.Kind eq "TypedDimension"],
-                let $hypercube-domain := descendant-objects(values($hypercube-metadata.Domains)).Name
-                where exists($hypercube-domain)
-                return { Domain : [ $hypercube-domain ] },
-                let $hypercube-default := $hypercube-metadata.Default
-                where exists($hypercube-default)
-                return { Default : $hypercube-default }
-            |}
-        }
-    |}
-    return hypercubes:user-defined-hypercube($options)
-};
 
-declare function local:to-csv($o as object*) as string?
-{
-    if (exists($o)) (: bug in csv:serialize :)
-    then
-    string-join(
-        csv:serialize(
-            for $o in $o
-            let $a := $o.Aspects
-            return {|
-                for $k in keys($a)
-                return { $k : $a.$k },
-                { "Value" : $o.Value },
-                if (exists($o."Unit"))
-                then { "Unit" :  $o."Unit" }
-                else (),
-                if (exists($o.Decimals))
-                then { "Decimals" : $o.Decimals }
-                else(),
-                { "EntityRegistrantName" : $o.EntityRegistrantName },
-                if (exists($o.ReportedConcept))
-                then { "ReportedConcept" : $o.ReportedConcept }
-                else ()
-            |},
-            { serialize-null-as : "" }
-        )
-    )
-    else ()
-};
-
-declare function local:audittrail-to-xml($audit as item) as element()
-{
-    <AuditTrails>{
-        for $a in flatten($audit)
-        return (
-            <Type>{$a.Type}</Type>,
-            <Label>{$a.Label}</Label>,
-            <Message>{$a.Message}</Message>,
-            <Data>{
-                if (exists($a.Data.OriginalConcept))
-                then <OriginalConcept>{$a.Data.OriginalConcept}</OriginalConcept>
-                else (),
-                if (exists($a.Data.OutputConcept))
-                then <OutputConcept>{$a.Data.OutputConcept}</OutputConcept>
-                else (),
-                if (exists($a.Data.AuditTrails))
-                then local:audittrail-to-xml($a.Data.AuditTrails)
-                else ()
-            }</Data>
-        )
-    }</AuditTrails>
-};
-
+import module namespace util = "http://secxbrl.info/modules/util";
 
 declare function local:to-xml($o as object*) as node()*
 {
@@ -99,31 +22,7 @@ declare function local:to-xml($o as object*) as node()*
     }),
     <FactTable NetworkIdentifier="http://bizql.io/facts"
             TableName="xbrl:Facts">{
-        for $o in $o
-        let $a := $o.Aspects
-        return
-            <Fact>{
-                <Aspects>{
-                    for $k in keys($a)
-                    return
-                        <Aspect>
-                            <Name>{$k}</Name>
-                            <Value>{$a.$k}</Value>
-                        </Aspect>
-                }</Aspects>,
-                <Value>{$o.Value}</Value>,
-                <Type>{$o.Type}</Type>,
-                if (exists($o.Unit))
-                then <Unit>{$o.Unit}</Unit>
-                else(),
-                if (exists($o.Decimals))
-                then <Decimals>{$o.Decimals}</Decimals>
-                else (),
-                <EntityRegistrantName>{$o.EntityRegistrantName}</EntityRegistrantName>,
-                if (exists($o.AuditTrails))
-                then local:audittrail-to-xml($o."AuditTrails")
-                else ()
-            }</Fact>
+        conversion:facts-to-xml($o, { Caller: "Report"})
     }</FactTable>)
 };
 
@@ -206,7 +105,7 @@ declare function local:facts(
     $map as string?,
     $rules as string?) as object*
 {
-    let $hypercube := local:modify-hypercube(
+    let $hypercube := hypercubes2:modify-hypercube(
         local:hypercube(),
         {
             "sec:Archive" : {
@@ -310,54 +209,44 @@ let $archives := (
                     archives:archives($aids)
                  )
 let $entities := companies:companies($archives.Entity)
+
+let $results :=
+    let $facts := local:facts($archives, $map, $rules)
+    return
+        switch ($format)
+        case "xml" return {
+            response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+            local:to-xml($facts)
+        }
+        case "text" case "csv" return {
+            response:content-type("text/csv");
+            response:header("Content-Disposition", "attachment; filename=facts.csv");
+            conversion:facts-to-csv($facts, { Caller: "Report" })
+        }
+        case "excel" return {
+            response:content-type("application/vnd.ms-excel");
+            response:header("Content-Disposition", "attachment; filename=fact.csv");
+            conversion:facts-to-csv($facts, { Caller: "Report" })
+        }
+        default return {
+            response:content-type("application/json");
+            response:serialization-parameters({"indent" : true});
+            {|
+                { NetworkIdentifier : "http://bizql.io/facts" },
+                { TableName : "xbrl:Facts" },
+                { FactTable : [ $facts ] },
+                session:comment("json", {
+                        NumFacts: count($facts),
+                        TotalNumFacts: session:num-facts(),
+                        TotalNumArchives: session:num-archives(),
+                        TotalNumEntities: session:num-entities()
+                    })
+            |}
+        }
 return 
     switch(true)
     case empty($archives) return {
         response:status-code(400);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
     }
-    default return 
-      switch(session:check-access($entities, "data_sec"))
-      case $session:ACCESS-ALLOWED return {
-        let $facts := local:facts($archives, $map, $rules)
-        return
-            switch ($format)
-            case "xml" return {
-                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-                local:to-xml($facts)
-            }
-            case "text" case "csv" return {
-                response:content-type("text/csv");
-                response:header("Content-Disposition", "attachment; filename=facts.csv");
-                local:to-csv($facts)
-            }
-            case "excel" return {
-                response:content-type("application/vnd.ms-excel");
-                response:header("Content-Disposition", "attachment; filename=fact.csv");
-                local:to-csv($facts)
-            }
-            default return {
-                response:content-type("application/json");
-                response:serialization-parameters({"indent" : true});
-                {|
-                    { NetworkIdentifier : "http://bizql.io/facts" },
-                    { TableName : "xbrl:Facts" },
-                    { FactTable : [ $facts ] },
-                    session:comment("json", {
-                            NumFacts: count($facts),
-                            TotalNumFacts: session:num-facts(),
-                            TotalNumArchives: session:num-archives(),
-                            TotalNumEntities: session:num-entities()
-                        })
-                |}
-            }
-       }
-    case $session:ACCESS-DENIED return {
-          response:status-code(403);
-          session:error("accessing filings of an entity that is not in the DOW30", $format)
-       }
-    case $session:ACCESS-AUTH-REQUIRED return {
-          response:status-code(401);
-          session:error("authentication required or session expired", $format)
-       }
-    default return error()
+    default return util:check-and-return-results($entities, $results, $format)
