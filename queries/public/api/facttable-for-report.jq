@@ -60,28 +60,23 @@ let $entities as object* := util:entities-from-parameters($parameters, { Resolve
 let $report as object? := reports:reports($parameters.Report)
 
 (: Fact resolution :)
-let $filter-override as object? :=
-    util:filter-override($entities, $parameters.FiscalPeriods[], $parameters.FiscalYears[], $parameters.AIDs[])
-let $filtered-aspects := 
-    let $report := reports:reports($report)
+let $filter-override as object? := util:filter-override-from-parameters($parameters, { ResolveArchives: true })
+let $facts as object* :=
     let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
-    return values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
-let $facts := (
+    let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
+    return if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
+    then {
+          response:status-code(403);
+          session:error("The report filters are too weak, which leads to too big an output.", $format)
+    } else
         components2:facts(
-            $report,
-            {
-                FilterOverride: $filter-override,
-                Validate: $parameters.Validate
-            }
-        )[exists($filter-override)],
-        if(count($filtered-aspects) ge 2 and not exists($filter-override))
-        then components2:facts(
-            $report,
-            {
-                Validate: $parameters.Validate
-            }
-        )
-        else ())
+                $report,
+                {|
+                    { FilterOverride: $filter-override }[exists($filter-override)],
+                    { Validate: $parameters.Validate }
+                |}
+            )
+
 let $facts :=
     for $fact in $facts
     group by $archive := $fact.Archive
@@ -90,60 +85,52 @@ let $facts :=
     for $fact in $fact
     return
     {|
-        project($fact, "Aspects"),
-        { Type: $fact.Type },
-        { Unit: $fact.Aspects."xbrl:Unit" }[exists($fact.Aspects."xbrl:Unit")],
-        project($fact, ("Decimals", "Value")),
-        { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
-        project($fact, "AuditTrails")
+        $fact,
+        { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName }
     |}
+
+let $facts := util:move-unit-out-of-aspects($facts)
+
 let $results :=
-        if(count($filtered-aspects) lt 2 and not exists($filter-override))
-        then {
-              response:status-code(403);
-              session:error("The report filters are too weak, which leads to too big an output.", $parameters.Format)
-        }
-        else {
-            switch ($parameters.Format)
-            case "xml" return {
-                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-                session:comment("xml",
-                {
+    switch ($parameters.Format)
+    case "xml" return {
+        response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+        session:comment("xml",
+        {
+            NumFacts : count($facts),
+            TotalNumFacts: session:num-facts(),
+            TotalNumArchives: session:num-archives(),
+            TotalNumEntities: session:num-entities()
+        }),
+        <FactTable NetworkIdentifier="http://bizql.io/facttable-for-report"
+                TableName="xbrl:FactTableForReport">{
+            conversion:facts-to-xml($facts, { Caller: "Report" })
+        }</FactTable>
+    }
+    case "text" case "csv" return {
+        response:content-type("text/csv");
+        response:header("Content-Disposition", "attachment; filename=facts.csv");
+        conversion:facts-to-csv($facts, { Caller: "Report"})
+    }
+    case "excel" return {
+        response:content-type("application/vnd.ms-excel");
+        response:header("Content-Disposition", "attachment; filename=fact.csv");
+        conversion:facts-to-csv($facts, { Caller: "Report"})
+    }
+    default return {
+        response:content-type("application/json");
+        response:serialization-parameters({"indent" : true});
+        {|
+            { NetworkIdentifier : "http://secxbrl.info/facts" },
+            { TableName : "xbrl:Facts" },
+            { FactTable : [ $facts ] },
+            session:comment("json", {
                     NumFacts : count($facts),
                     TotalNumFacts: session:num-facts(),
                     TotalNumArchives: session:num-archives(),
                     TotalNumEntities: session:num-entities()
-                }),
-                <FactTable NetworkIdentifier="http://bizql.io/facttable-for-report"
-                        TableName="xbrl:FactTableForReport">{
-                    conversion:facts-to-xml($facts, { Caller: "Report" })
-                }</FactTable>
-            }
-            case "text" case "csv" return {
-                response:content-type("text/csv");
-                response:header("Content-Disposition", "attachment; filename=facts.csv");
-                conversion:facts-to-csv($facts, { Caller: "Report"})
-            }
-            case "excel" return {
-                response:content-type("application/vnd.ms-excel");
-                response:header("Content-Disposition", "attachment; filename=fact.csv");
-                conversion:facts-to-csv($facts, { Caller: "Report"})
-            }
-            default return {
-                response:content-type("application/json");
-                response:serialization-parameters({"indent" : true});
-                {|
-                    { NetworkIdentifier : "http://secxbrl.info/facts" },
-                    { TableName : "xbrl:Facts" },
-                    { FactTable : [ $facts ] },
-                    session:comment("json", {
-                            NumFacts : count($facts),
-                            TotalNumFacts: session:num-facts(),
-                            TotalNumArchives: session:num-archives(),
-                            TotalNumEntities: session:num-entities()
-                        })
-                |}
-            }
-        }
+                })
+        |}
+    }
 return
     util:check-and-return-results($entities, $results, $parameters.Format)

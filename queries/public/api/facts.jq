@@ -140,7 +140,7 @@ declare function local:cast($value as string, $type as string) as atomic
   default return error(xs:QName("local:unsupported-type"), $type || ": unsupported type")
 };
 
-declare function local:hypercube($fiscalYears as string*, $fiscalPeriods as string*) as object
+declare function local:hypercube() as object
 {
     hypercubes:user-defined-hypercube({|
         let $concepts := (request:param-values("concept"), request:param-values("xbrl:Concept"))
@@ -160,11 +160,11 @@ declare function local:hypercube($fiscalYears as string*, $fiscalPeriods as stri
         if (not(local:contains-aspect("sec:Accepted")))
         then { "sec:Accepted" : {  } } else (),
 
-        if (not(local:contains-aspect("sec:FiscalYear")) and not(local:contains-aspect("fiscalYear")))
-        then { "sec:FiscalYear" : {  } } else { "sec:FiscalYear" : { Type: "xs:integer", Domain : [ $fiscalYears ! local:cast($$, "integer") ] } },
+        if (not(local:contains-aspect("sec:FiscalYear")))
+        then { "sec:FiscalYear" : {  } } else (),
 
-        if (not(local:contains-aspect("sec:FiscalPeriod")) and not(local:contains-aspect("fiscalPeriod")))
-        then { "sec:FiscalPeriod" : {  } } else { "sec:FiscalPeriod" : { Domain : [ $fiscalPeriods ] } },
+        if (not(local:contains-aspect("sec:FiscalPeriod")))
+        then { "sec:FiscalPeriod" : {  } } else (),
 
         for $p in request:param-names()
         where contains($p, ":") and not(starts-with($p, "xbrl:Concept"))
@@ -204,12 +204,10 @@ declare function local:hypercube($fiscalYears as string*, $fiscalPeriods as stri
 declare function local:facts(
     $archives as object*,
     $map as string?,
-    $rules as string?,
-    $fiscalYears as string*,
-    $fiscalPeriods as string*) as object*
+    $rules as string?) as object*
 {
     let $hypercube := local:modify-hypercube(
-        local:hypercube($fiscalYears, $fiscalPeriods),
+        local:hypercube(),
         {
             "sec:Archive" : {
                 Type: "string",
@@ -321,7 +319,7 @@ return
     default return 
       switch(session:check-access($entities, "data_sec"))
       case $session:ACCESS-ALLOWED return {
-        let $facts := local:facts($archives, $map, $rules, $fiscalYears, $fiscalPeriods)
+        let $facts := local:facts($archives, $map, $rules)
         return
             switch ($format)
             case "xml" return {
@@ -363,4 +361,3 @@ return
           session:error("authentication required or session expired", $format)
        }
     default return error()
-

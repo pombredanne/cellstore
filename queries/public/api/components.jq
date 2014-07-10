@@ -1,10 +1,8 @@
-import module namespace archives = "http://xbrl.io/modules/bizql/archives";
-import module namespace fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 
-import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
+
+import module namespace util = "http://secxbrl.info/modules/util";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
@@ -42,110 +40,84 @@ declare function local:to-csv($res as object*) as string*
 };
 
 
-declare function local:filings(
-    $ciks as string*,
-    $tags as string*,
-    $tickers as string*,
-    $sics as string*,
-    $fp as string*,
-    $fy as string*) as object*
-{
-    let $entities := if ($tags = "ALL") then companies:companies()
-                                        else (
-                                            companies:companies($ciks),
-                                            companies:companies-for-tags($tags),
-                                            companies:companies-for-tickers($tickers),
-                                            companies:companies-for-SIC($sics)
-                                        )
-    for $entity in $entities
-    for $fy in distinct-values(
-                for $fy in $fy
-                return
-                    switch ($fy)
-                    case "LATEST" return
-                        for $p in $fp
-                        return
-                            if ($p eq "FY")
-                            then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
-                            else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                    case "ALL" return  $fiscal:ALL_FISCAL_YEARS
-                    default return $fy cast as integer
-                )
-    for $fp in $fp 
-    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy)
-};
-
 session:audit-call();
 
-let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
-let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
-let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
-let $tickers     := distinct-values(request:param-values("ticker"))
-let $sics        := distinct-values(request:param-values("sic"))
-let $fiscalYears := distinct-values(
-                        for $y in request:param-values("fiscalYear", "LATEST")
-                        return
-                            if ($y eq "LATEST" or $y eq "ALL")
-                            then $y
-                            else if ($y castable as integer)
-                            then $y
-                            else  ()
-                    )
-let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
-                      return
-                        if (($fp ! lower-case($$)) = "all")
-                        then $fiscal:ALL_FISCAL_PERIODS
-                        else $fp)
-let $aids        := archives:aid(request:param-values("aid"))
-let $roles       := request:param-values("networkIdentifier")
-let $archives    := (
-                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
-                        archives:archives($aids)
-                    )
-let $cid         := request:param-values("cid")
-let $reportElements    := distinct-values(request:param-values("reportElement"))
-let $disclosures := request:param-values("disclosure")
-let $search := request:param-values("label")
-let $components  := (if (exists($cid))
-                    then components:components($cid)
-                    else (),
-                    if (exists($reportElements))
-                    then sec-networks:networks-for-filings-and-reportElements($archives, $reportElements) 
-                    else if (exists($disclosures))
-                    then sec-networks:networks-for-filings-and-disclosures($archives, $disclosures) 
-                    else if (exists($roles))
-                    then sec-networks:networks-for-filings-and-roles($archives, $roles) 
-                    else if (exists($search))
-                    then sec-networks:networks-for-filings-and-label($archives, $search) 
-                    else sec-networks:networks-for-filings($archives))
+(: Query parameters :)
+let $format as string?         := request:param-values("format")
+let $ciks as string*           := distinct-values(request:param-values("cik"))
+let $tags as string*           := distinct-values(request:param-values("tag"))
+let $tickers as string*        := distinct-values(request:param-values("ticker"))
+let $sics as string*           := distinct-values(request:param-values("sic"))
+let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
+let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
+let $aids as string*           := distinct-values(request:param-values("aid"))
+let $roles as string*          := request:param-values("networkIdentifier")
+let $cid as string?            := request:param-values("cid")
+let $reportElements as string* := distinct-values(request:param-values("reportElement"))
+let $concepts as string*       := distinct-values(request:param-values("concept"))
+let $rollups as string*        := distinct-values(request:param-values("rollup"))
+let $map as string?            := request:param-values("map")
+let $disclosures as string*    := request:param-values("disclosure")
+let $validate as string        := request:param-values("validate", "false")
+let $eliminate as string       := request:param-values("eliminate", "false")
+let $report as string?         := request:param-values("report")
+let $search as string*         := request:param-values("label")
+let $parameters := {|
+    {
+        CIKs: [ $ciks ],
+        Tags: [ $tags ],
+        Tickers: [ $tickers ],
+        SICs: [ $sics ],
+        FiscalYears: [ $fiscalYears ],
+        FiscalPeriods: [ $fiscalPeriods ],
+        AIDs: [ $aids ],
+        Roles: [ $roles ],
+        CIDs: [ $cid ],
+        ReportElements: [ $reportElements ],
+        Concepts: [ $concepts ],
+        RollUps: [ $rollups ],
+        Disclosures: [ $disclosures ],
+        Search: [ $search ]
+    },
+    { Format: $format }[exists($format)],
+    { Map: $map }[exists($map)],
+    { Validate: $validate }[exists($validate)],
+    { Eliminate: $eliminate }[exists($eliminate)],
+    { Report: $report }[exists($report)] 
+|}
+
+
+(: Object resolution :)
+let $parameters as object := util:process-parameters($parameters)
+let $archives as object* := util:filings-from-parameters($parameters, ())
+let $components  := util:components-from-parameters($parameters, ())
 let $entities    := entities:entities($archives.Entity)
-let $res         :=  { "Archives" : [
-                        for $r in $components
-                        let $disclosure := sec-networks:disclosures($r)
-                        where $disclosure ne "DefaultComponent" and
-                            exists(sec-networks:model-structures($r))
-                        order by $r.Label
-                        group by $archive := $r.Archive
-                        let $archive := archives:archives($archive)
-                        let $e := entities:entities($archive.Entity)
-                        return
-                        {
-                          AccessionNumber : $archive._id,
-                          EntityRegistrantName : $e.Profiles.SEC.CompanyName,
-                          CIK : $e._id,
-                          FiscalYear :$archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
-                          FiscalPeriod :$archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
-                          AcceptanceDatetime : $archive.Profiles.SEC.AcceptanceDatetime,
-                          FormType : $archive.Profiles.SEC.FormType,
-                          Components : [ 
-                            $r ! sec-networks:summaries($$)
-                          ]
-                        }
-                    ]}
-return 
-    switch(session:check-access($entities, "data_sec"))
-    case $session:ACCESS-ALLOWED return {
-        switch ($format)
+let $res         := 
+    {
+        "Archives" : [
+            for $r in $components
+            let $disclosure := sec-networks:disclosures($r)
+            where $disclosure ne "DefaultComponent" and
+                exists(sec-networks:model-structures($r))
+            order by $r.Label
+            group by $archive := $r.Archive
+            let $archive := $archives[$$._id eq $archive]
+            let $e := $entities[$$._id eq $archive.Entity]
+            return
+            {
+              AccessionNumber : $archive._id,
+              EntityRegistrantName : $e.Profiles.SEC.CompanyName,
+              CIK : $e._id,
+              FiscalYear :$archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
+              FiscalPeriod :$archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
+              AcceptanceDatetime : $archive.Profiles.SEC.AcceptanceDatetime,
+              FormType : $archive.Profiles.SEC.FormType,
+              Components : [ sec-networks:summaries($r) ]
+            }
+        ]
+    }
+                    
+let $results := switch ($format)
         case "xml" return {
             response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
             (session:comment("xml", {
@@ -190,13 +162,5 @@ return
                     }), $res
                 |}
             }
-       }
-    case $session:ACCESS-DENIED return {
-          response:status-code(403);
-          session:error("accessing filings of an entity that is not in the DOW30", $format)
-       }
-    case $session:ACCESS-AUTH-REQUIRED return {
-          response:status-code(401);
-          session:error("authentication required or session expired", $format)
-       }
-    default return error()
+return 
+    util:check-and-return-results($entities, $results, $parameters.Format)

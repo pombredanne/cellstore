@@ -1,9 +1,7 @@
 jsoniq version "1.0";
 
-import module namespace components = "http://xbrl.io/modules/bizql/components";
+import module namespace sec-networks2 = "http://xbrl.io/modules/bizql/profiles/sec/networks2";
 import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
-
-import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
@@ -19,8 +17,8 @@ let $ciks as string*          := distinct-values(request:param-values("cik"))
 let $tags as string*          := distinct-values(request:param-values("tag"))
 let $tickers as string*       := distinct-values(request:param-values("ticker"))
 let $sics as string*          := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear"))
-let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod"))
+let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear", "LATEST"))
+let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*          := distinct-values(request:param-values("aid"))
 let $roles as string*         := request:param-values("networkIdentifier")
 let $cid as string?           := request:param-values("cid")
@@ -56,21 +54,11 @@ let $parameters := {|
 (: Object resolution :)
 let $parameters as object := util:process-parameters($parameters)
 let $entities as object? := util:entities-from-parameters($parameters, ())
-let $archive as object? := util:filings-from-parameters($parameters, ())
-let $components  :=
-    (
-    components:components($parameters.CID)[exists($parameters.CID)],
-    if (exists(($parameters.Concepts[], $parameters.Disclosures[], $parameters.Roles[])))
-    then (
-            components2:components-by-archives-and-concepts($archive, $parameters.Concepts[]),
-            sec-networks:networks-for-filings-and-disclosures($archive, $parameters.Disclosures[]),
-            components2:components-by-archives-and-roles($archive, $parameters.Roles[])
-        )
-    else components:components-for-archives($archive))
+let $components  := util:components-from-parameters($parameters, ())
 let $component as object? := $components[1] (: only one for know :)
 
 (: Fact resolution :)
-let $definition-model := components2:standard-definition-models-for-components($component, {})
+let $definition-model := sec-networks2:standard-definition-models-for-components($component, {})
 let $spreadsheet as object? :=
     components2:spreadsheet(
         $component,

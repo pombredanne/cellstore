@@ -54,48 +54,33 @@ let $parameters := {|
 let $parameters as object := util:process-parameters($parameters)
 let $entities := util:entities-from-parameters($parameters, { ResolveArchives: true })
 let $report := reports:reports($report)
+let $filter-override as object? := util:filter-override-from-parameters($parameters, { ResolveArchives: true })
 
 (: Fact resolution :)
-let $filter-override as object? :=
-    util:filter-override($entities, $fiscalPeriods, $fiscalYears, $aids)
-let $report := reports:reports($report)
 let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
 let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
 let $spreadsheet as object? :=
-    switch(true)
-
-    case exists($filter-override)
-    return
+    if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
+    then {
+          response:status-code(403);
+          session:error("The report filters are too weak, which leads to too big an output.", $format)
+    } else
         components2:spreadsheet(
             $report,
-            {
-                FilterOverride: $filter-override,
-                FlattenRows: true,
-                Eliminate: boolean($eliminate eq "true"),
-                Validate: boolean($validate eq "true")
-            }
+            {|
+                { FilterOverride: $filter-override}[exists($filter-override)],
+                {
+                    FlattenRows: true,
+                    Eliminate: boolean($eliminate eq "true"),
+                    Validate: boolean($validate eq "true")
+                }
+            |}
         )
-    
-    case count($filtered-aspects) ge 2
-    return components2:spreadsheet(
-        $report,
-        {
-            FlattenRows: true,
-            Eliminate: boolean($eliminate eq "true"),
-            Validate: boolean($validate eq "true")
-        })
-    
-    default return ()
 let $results :=
-        if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
-        then {
-              response:status-code(403);
-              session:error("The report filters are too weak, which leads to too big an output.", $format)
-        }
-        else {
-            response:content-type("application/json");
-            response:serialization-parameters({"indent" : true});
-            $spreadsheet
-        }
+    {
+        response:content-type("application/json");
+        response:serialization-parameters({"indent" : true});
+        $spreadsheet
+    }
 return
     util:check-and-return-results($entities, $results, $parameters.Format)

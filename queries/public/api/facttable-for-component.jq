@@ -27,8 +27,8 @@ let $ciks as string*          := distinct-values(request:param-values("cik"))
 let $tags as string*          := distinct-values(request:param-values("tag"))
 let $tickers as string*       := distinct-values(request:param-values("ticker"))
 let $sics as string*          := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear"))
-let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod"))
+let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear", "LATEST"))
+let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*          := distinct-values(request:param-values("aid"))
 let $roles as string*         := request:param-values("networkIdentifier")
 let $cid as string?           := request:param-values("cid")
@@ -66,16 +66,7 @@ let $parameters := {|
 let $parameters as object := util:process-parameters($parameters)
 let $archive as object? := util:filings-from-parameters($parameters, ())
 let $entity as object? := entities:entities($archive.Entity)
-let $components  :=
-    (
-    components:components($parameters.CID)[exists($parameters.CID)],
-    if (exists(($parameters.Concepts[], $parameters.Disclosures[], $parameters.Roles[])))
-    then (
-            components2:components-by-archives-and-concepts($archive, $parameters.Concepts[]),
-            sec-networks:networks-for-filings-and-disclosures($archive, $parameters.Disclosures[]),
-            components2:components-by-archives-and-roles($archive, $parameters.Roles[])
-        )
-    else components:components-for-archives($archive))
+let $components  := util:components-from-parameters($parameters, ())
 let $component as object? := $components[1] (: only one for know :)
 let $cid as string? := components:cid($component)
 
@@ -84,7 +75,7 @@ let $facts :=
     if (exists($parameters.Rollups[]))
          then 
              let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
-             let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube") (: sec-networks:tables($component).Name) :)
+             let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
              let $hc := hypercubes2:modify-hypercube($hc, {
                  "sec:FiscalYear" : { Type: "integer", Default: null },
                  "sec:FiscalPeriod" : { Type: "string", Default: null }
@@ -108,18 +99,8 @@ let $facts :=
             }
         )
         
-let $facts :=
-    for $fact in $facts
-    return {|
-        {
-            "Aspects" : {|
-                trim($fact.Aspects, ("xbrl:Unit"))
-            |}
-        },
-        trim($fact, ("Aspects")),
-        { Unit: $fact.Aspects."xbrl:Unit" }[exists($fact.Aspects."xbrl:Unit")]
-    |}
-    
+let $facts := util:move-unit-out-of-aspects($facts)
+
 let $results :=
     switch ($parameters.Format)
     case "xml" return {
@@ -159,24 +140,29 @@ let $results :=
         response:content-type("application/json");
         response:serialization-parameters({"indent" : true});
         {|
-            { CIK : $entity._id },
-            { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
-            { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
-            { Label : $component.Label },
-            { AccessionNumber : $component.Archive },
-            { FormType : $archive.Profiles.SEC.FormType },
-            { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
-            { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
-            { AcceptanceDatetime : filings:acceptance-dateTimes($archive) },
-            { NetworkIdentifier: $component.Role },  
-            { Disclosure : $component.Profiles.SEC.Disclosure },
-            { FactTable : [ $facts ] },
-            session:comment("json", {
+            {
+                CIK : $entity._id,
+                EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
+                TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name,
+                Label : $component.Label,
+                AccessionNumber : $component.Archive,
+                FormType : $archive.Profiles.SEC.FormType,
+                FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
+                FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
+                AcceptanceDatetime : filings:acceptance-dateTimes($archive),
+                NetworkIdentifier: $component.Role,
+                Disclosure : $component.Profiles.SEC.Disclosure,
+                FactTable : [ $facts ]
+            },
+            session:comment(
+                "json",
+                {
                     NumFacts : count($facts),
                     TotalNumFacts: session:num-facts(),
                     TotalNumArchives: session:num-archives(),
                     TotalNumEntities: session:num-entities()
-                })
+                }
+            )
         |}
     }
 return util:check-and-return-results($entity, $results, $parameters.Format)
