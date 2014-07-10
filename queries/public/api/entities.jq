@@ -3,25 +3,35 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace session = "http://apps.28.io/session";
 
+import module namespace util = "http://secxbrl.info/modules/util";
+
 session:audit-call();
 
-let $format  := lower-case(request:param-values("format")[1])
-let $ciks    := request:param-values("cik")
-let $tags    := request:param-values("tag") ! upper-case($$) (: DOW30, SP500, FORTUNE100 :)
-let $tickers := request:param-values("ticker")
-let $sics    := request:param-values("sic")
+(: Query parameters :)
+let $format as string?         := request:param-values("format")
+let $ciks as string*           := distinct-values(request:param-values("cik"))
+let $tags as string*           := distinct-values(request:param-values("tag"))
+let $tickers as string*        := distinct-values(request:param-values("ticker"))
+let $sics as string*           := distinct-values(request:param-values("sic"))
+let $parameters := {|
+    {
+        CIKs: [ $ciks ],
+        Tags: [ $tags ],
+        Tickers: [ $tickers ],
+        SICs: [ $sics ]
+    },
+    { Format: $format }[exists($format)]
+|}
+
+
+(: Object resolution :)
+let $parameters as object := util:process-parameters($parameters)
 let $entities := 
     for $entity in 
         if (exists(($ciks, $tags, $tickers, $sics)))
-        then companies:companies-for({
-                ciks : [ $ciks ],
-                tags : [ $tags ],
-                tickers : [ $tickers ],
-                sics : [ $sics ]
-            })
-        else
-            companies:companies()
-    order by $entity.Profiles.SEC.CompanyName (: companies:name() ? :)
+        then util:entities-from-parameters($parameters, {})
+        else companies:companies()
+    order by $entity.Profiles.SEC.CompanyName
     return $entity
 return
     switch ($format)

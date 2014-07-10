@@ -1,9 +1,10 @@
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace reports = "http://xbrl.io/modules/bizql/reports";
+jsoniq version "1.0";
+
+import module namespace sec-networks2 = "http://xbrl.io/modules/bizql/profiles/sec/networks2";
 import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 
-import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace response = "http://www.28msec.com/modules/http-response";
 
 import module namespace session = "http://apps.28.io/session";
 import module namespace util = "http://secxbrl.info/modules/util";
@@ -16,8 +17,8 @@ let $ciks as string*          := distinct-values(request:param-values("cik"))
 let $tags as string*          := distinct-values(request:param-values("tag"))
 let $tickers as string*       := distinct-values(request:param-values("ticker"))
 let $sics as string*          := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear"))
-let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod"))
+let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear", "LATEST"))
+let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*          := distinct-values(request:param-values("aid"))
 let $roles as string*         := request:param-values("networkIdentifier")
 let $cid as string?           := request:param-values("cid")
@@ -52,35 +53,27 @@ let $parameters := {|
 
 (: Object resolution :)
 let $parameters as object := util:process-parameters($parameters)
-let $entities := util:entities-from-parameters($parameters, { ResolveArchives: true })
-let $report := reports:reports($report)
-let $filter-override as object? := util:filter-override-from-parameters($parameters, { ResolveArchives: true })
+let $entities as object? := util:entities-from-parameters($parameters, ())
+let $components  := util:components-from-parameters($parameters, ())
+let $component as object? := $components[1] (: only one for know :)
 
 (: Fact resolution :)
-let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
-let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
+let $definition-model := sec-networks2:standard-definition-models-for-components($component, {})
 let $spreadsheet as object? :=
-    if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
-    then {
-          response:status-code(403);
-          session:error("The report filters are too weak, which leads to too big an output.", $format)
-    } else
-        components2:spreadsheet(
-            $report,
-            {|
-                { FilterOverride: $filter-override}[exists($filter-override)],
-                {
-                    FlattenRows: true,
-                    Eliminate: boolean($eliminate eq "true"),
-                    Validate: boolean($validate eq "true")
-                }
-            |}
-        )
+    components2:spreadsheet(
+        $component,
+        {
+            FlattenRows: true,
+            Eliminate: $parameters.Eliminate,
+            Validate: $parameters.Validate,
+            DefinitionModel: $definition-model
+        })
+
 let $results :=
-    {
-        response:content-type("application/json");
-        response:serialization-parameters({"indent" : true});
-        $spreadsheet
-    }
-return
+        {
+            response:content-type("application/json");
+            response:serialization-parameters({"indent" : true});
+            $spreadsheet
+        }
+return 
     util:check-and-return-results($entities, $results, $parameters.Format)
