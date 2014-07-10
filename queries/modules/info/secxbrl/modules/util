@@ -7,6 +7,7 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 
+import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
@@ -32,22 +33,45 @@ declare %an:sequential function util:check-and-return-results(
     default return error()
 };
 
-declare function util:entities(
-    $ciks as string*,
-    $tags as string*,
-    $tickers as string*,
-    $sics as string*,
-    $aids as string*) as object*
+declare function util:entities-from-parameters(
+    $parameters as object,
+    $options as object?) as object*
 {
-    if ($tags = "ALL")
-        then companies:companies()
-        else (
-            companies:companies($ciks),
-            companies:companies-for-tags($tags),
-            companies:companies-for-tickers($tickers),
-            companies:companies-for-SIC($sics)
-        ),
-    entities:entities(archives:entities($aids))
+    if ($parameters.Tags[] = "ALL")
+    then companies:companies()
+    else (
+        companies:companies($parameters.CIKs[]),
+        companies:companies-for-tags($parameters.Tags[]),
+        companies:companies-for-tickers($parameters.Tickers[]),
+        companies:companies-for-SIC($parameters.SICs[])
+    ),
+    if($options.ResolveArchives )
+    then entities:entities(archives:entities($parameters.AIDs[]))
+    else ()
+};
+
+declare function util:filings-from-parameters(
+    $parameters as object,
+    $options as object?) as object*
+{
+    let $fy := $parameters.FiscalYears[]
+    let $fp := $parameters.FiscalPeriods[]
+    let $fiscal-years as integer* :=
+        switch(true)
+        case $fy = "ALL" return ()
+        default return distinct-values(
+            $fy[$$ ne "LATEST"] ! ($$ cast as integer)
+        )
+    let $fiscal-periods as string* := switch(true)
+                         case $fp = "ALL" return ()
+                         default return distinct-values($fp)
+    for $entity in util:entities-from-parameters($parameters, { ResolveArchives: false })
+    return (
+        if(deep-equal($fy, "LATEST"))
+        then util:latest-filings($entity, $fp)
+        else sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fiscal-periods, $fiscal-years),
+        archives:archives($parameters.AIDs[])
+    )
 };
 
 declare function util:filings(
@@ -156,19 +180,57 @@ declare function util:filter-override(
 
 declare function util:parameters() as object
 {
+    let $format as string?        := request:param-values("format")
+    let $ciks as string*          := distinct-values(request:param-values("cik"))
+    let $tags as string*          := distinct-values(request:param-values("tag"))
+    let $tickers as string*       := distinct-values(request:param-values("ticker"))
+    let $sics as string*          := distinct-values(request:param-values("sic"))
+    let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear"))
+    let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod"))
+    let $aids as string*          := distinct-values(request:param-values("aid"))
+    let $role as string?          := request:param-values("networkIdentifier")
+    let $cid as string?           := request:param-values("cid")
+    let $concepts as string*      := distinct-values(request:param-values("concept"))
+    let $rollups as string*       := distinct-values(request:param-values("rollup"))
+    let $map as string?           := request:param-values("map")
+    let $disclosure as string?    := request:param-values("disclosure")
+    let $validate as string       := request:param-values("validate", "false")
+    let $eliminate as string      := request:param-values("eliminate", "false")
+    let $report as string?        := request:param-values("report")
+    return {|
+        {
+            CIKs: [ $ciks ],
+            Tags: [ $tags ],
+            Tickers: [ $tickers ],
+            SICs: [ $sics ],
+            FiscalYears: [ $fiscalYears ],
+            FiscalPeriods: [ $fiscalPeriods ],
+            AIDs: [ $aids ],
+            CIDs: [ $cid ],
+            Concepts: [ $concepts ],
+            RollUps: [ $rollups ],
+            Disclosure: [ $disclosure ]
+        },
+        { Format: $format }[exists($format)],
+        { Role: $role}[exists($role)],
+        { Map: $map }[exists($map)],
+        { Validate: $validate }[exists($validate)],
+        { Eliminate: $eliminate }[exists($eliminate)],
+        { Report: $report }[exists($report)] 
+    |}
+};
+
+declare function util:process-parameters($parameters as object) as object
+{
     let $format as string? :=
-        lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
+        lower-case(($parameters.Format, substring-after(request:path(), ".jq."))[1])
     let $ciks as string* :=
-        distinct-values(companies:eid(request:param-values("cik")))
+        companies:eid($parameters.CIKs[])
     let $tags as string* :=
-        distinct-values(request:param-values("tag") ! upper-case($$))
-    let $tickers as string* :=
-        distinct-values(request:param-values("ticker"))
-    let $sics as string* :=
-        distinct-values(request:param-values("sic"))
+        distinct-values($parameters.Tags[] ! upper-case($$))
     let $fiscalYears as atomic* :=
         distinct-values(
-        for $y in request:param-values("fiscalYear", "LATEST")
+        for $y in $parameters.FiscalYears[]
         return
             if ($y eq "LATEST" or $y eq "ALL")
             then $y
@@ -177,38 +239,23 @@ declare function util:parameters() as object
             else ()
         )
     let $fiscalPeriods as atomic* :=
-        distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
-            return
-            if (($fp ! lower-case($$)) = "all")
+            if (($parameters.FiscalPeriods[] ! lower-case($$)) = "all")
             then $sec-fiscal:ALL_FISCAL_PERIODS
-            else $fp)
-    let $aids as string* := archives:aid(request:param-values("aid"))
-    let $roles as string* := request:param-values("networkIdentifier")
-    let $cid as string* := request:param-values("cid")
-    let $concepts as string* := distinct-values(request:param-values("concept"))
-    let $rollups as string* := distinct-values(request:param-values("rollup"))
-    let $map as string? := request:param-values("map")
-    let $disclosures as string* := request:param-values("disclosure")
-    let $validate as boolean := (request:param-values("validate", "false") = "true")
-    let $eliminate as boolean := (request:param-values("eliminate", "false") = "true")
-    let $report as string? := request:param-values("report")
-    return {
-        Format: $format,
-        CIKs: [ $ciks ],
-        Tags: [ $tags ],
-        Tickers: [ $tickers ],
-        SICs: [ $sics ],
-        FiscalYears: [ $fiscalYears ],
-        FiscalPeriods: [ $fiscalPeriods ],
-        AIDs: [ $aids ],
-        Roles: [ $roles ],
-        CIDs: [ $cid ],
-        Concepts: [ $concepts ],
-        RollUps: [ $rollups ],
-        Map: $map,
-        Disclosures: [ $disclosures ],
-        Validate: $validate,
-        Eliminate: $eliminate,
-        Report: $report 
-    }
+            else $parameters.FiscalPeriods[]
+    let $aids as string* := archives:aid($parameters.AIDs[])
+    let $validate as boolean := $parameters.Validate = "true"
+    let $eliminate as boolean := $parameters.Eliminate = "true"
+
+    return facts:merge-objects({|
+        {
+            CIKs: [ $ciks ],
+            Tags: [ $tags ],
+            FiscalYears: [ $fiscalYears ],
+            FiscalPeriods: [ $fiscalPeriods ],
+            AIDs: [ $aids ],
+            Validate: $validate,
+            Eliminate: $eliminate
+        },
+        { Format: $format}[exists($format)]
+    |}, $parameters, true)
 };

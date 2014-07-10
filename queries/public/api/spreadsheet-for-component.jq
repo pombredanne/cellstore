@@ -2,18 +2,10 @@ jsoniq version "1.0";
 
 import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
-import module namespace archives = "http://xbrl.io/modules/bizql/archives";
-import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
-import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
 
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
-import module namespace networks = "http://xbrl.io/modules/bizql/networks";
-import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 
+import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
 import module namespace session = "http://apps.28.io/session";
@@ -22,16 +14,49 @@ import module namespace util = "http://secxbrl.info/modules/util";
 session:audit-call();
 
 (: Query parameters :)
-let $parameters as object := util:parameters()
+let $format as string?        := request:param-values("format")
+let $ciks as string*          := distinct-values(request:param-values("cik"))
+let $tags as string*          := distinct-values(request:param-values("tag"))
+let $tickers as string*       := distinct-values(request:param-values("ticker"))
+let $sics as string*          := distinct-values(request:param-values("sic"))
+let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear"))
+let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod"))
+let $aids as string*          := distinct-values(request:param-values("aid"))
+let $roles as string*         := request:param-values("networkIdentifier")
+let $cid as string?           := request:param-values("cid")
+let $concepts as string*      := distinct-values(request:param-values("concept"))
+let $rollups as string*       := distinct-values(request:param-values("rollup"))
+let $map as string?           := request:param-values("map")
+let $disclosures as string*   := request:param-values("disclosure")
+let $validate as string       := request:param-values("validate", "false")
+let $eliminate as string      := request:param-values("eliminate", "false")
+let $report as string?        := request:param-values("report")
+let $parameters := {|
+    {
+        CIKs: [ $ciks ],
+        Tags: [ $tags ],
+        Tickers: [ $tickers ],
+        SICs: [ $sics ],
+        FiscalYears: [ $fiscalYears ],
+        FiscalPeriods: [ $fiscalPeriods ],
+        AIDs: [ $aids ],
+        Roles: [ $roles ],
+        CIDs: [ $cid ],
+        Concepts: [ $concepts ],
+        RollUps: [ $rollups ],
+        Disclosures: [ $disclosures ]
+    },
+    { Format: $format }[exists($format)],
+    { Map: $map }[exists($map)],
+    { Validate: $validate }[exists($validate)],
+    { Eliminate: $eliminate }[exists($eliminate)],
+    { Report: $report }[exists($report)] 
+|}
 
 (: Object resolution :)
-let $entities as object* := util:entities($parameters.CIKs[], $parameters.Tags[], $parameters.Tickers[], $parameters.SICs[], ())
-let $archive as object? :=
-    (
-        util:filings($entities, $parameters.FiscalYears[], $parameters.FiscalPeriods[]),
-        archives:archives($parameters.AIDs[])
-    )
-let $entity as object? := entities:entities($archive.Entity)
+let $parameters as object := util:process-parameters($parameters)
+let $entities as object? := util:entities-from-parameters($parameters, ())
+let $archive as object? := util:filings-from-parameters($parameters, ())
 let $components  :=
     (
     components:components($parameters.CID)[exists($parameters.CID)],
