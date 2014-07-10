@@ -12,16 +12,8 @@ import module namespace session = "http://apps.28.io/session";
 declare function local:to-csv($res as object*) as string*
 {
     csv:serialize(
-        for $a in flatten($res.Archives)
-        for $c in flatten($a.Components)
+        for $c in $res
         return { 
-            AcessionNumber : $a.AccessionNumber,
-            EntityRegistrantName : $a.EntityRegistrantName,
-            CIK : $a.CIK,
-            FiscalYear : $a.FiscalYear,
-            FiscalPeriod : $a.FiscalPeriod,
-            AcceptanceDateTime : $a.AcceptanceDatetime,
-            FormType : $a.FormType,
             NetworkLabel : $c.NetworkLabel,
             NetworkIdentifier : $c.NetworkRole,
             Category : $c.Category,
@@ -93,53 +85,23 @@ let $archives as object* := util:filings-from-parameters($parameters, ())
 let $components  := util:components-from-parameters($parameters, ())
 let $entities    := entities:entities($archives.Entity)
 let $res         := 
-    {
-        "Archives" : [
-            for $r in $components
-            let $disclosure := sec-networks:disclosures($r)
-            where $disclosure ne "DefaultComponent" and
-                exists(sec-networks:model-structures($r))
-            order by $r.Label
-            group by $archive := $r.Archive
-            let $archive := $archives[$$._id eq $archive]
-            let $e := $entities[$$._id eq $archive.Entity]
-            return
-            {
-              AccessionNumber : $archive._id,
-              EntityRegistrantName : $e.Profiles.SEC.CompanyName,
-              CIK : $e._id,
-              FiscalYear :$archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
-              FiscalPeriod :$archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
-              AcceptanceDatetime : $archive.Profiles.SEC.AcceptanceDatetime,
-              FormType : $archive.Profiles.SEC.FormType,
-              Components : [ sec-networks:summaries($r) ]
-            }
-        ]
-    }
-                    
+    for $r in $components
+    let $disclosure := sec-networks:disclosures($r)
+    where $disclosure ne "DefaultComponent"
+    where exists(sec-networks:model-structures($r))
+    order by $r.Label
+    group by $archive := $r.Archive
+    return sec-networks:summaries($r)
+
 let $results := switch ($format)
         case "xml" return {
             response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-            (session:comment("xml", {
+            session:comment("xml", {
                     NumComponents : count($components),
                     TotalNumComponents: session:num-components(),
                     TotalNumArchives: session:num-archives()
                 }),
-             <Archives>{
-                 for $r in flatten($res.Archives)
-                 return
-                     <Archive id="{$r.AccessionNumber}">
-                        <EntityRegistrantName>{$r.EntityRegistrantName}</EntityRegistrantName>
-                        <CIK>{$r.CIK}</CIK>
-                        <FiscalYear>{$r.FiscalYear}</FiscalYear>
-                        <FiscalPeriod>{$r.FiscalPeriod}</FiscalPeriod>
-                        <AcceptanceDatetime>{$r.AcceptanceDatetime}</AcceptanceDatetime>
-                        <FormType>{$r.FormType}</FormType>
-                        <Components>{
-                            sec-networks:summaries-to-xml(flatten($r.Components))
-                        }</Components>
-                    </Archive>
-            }</Archives>)
+            <Components>{ $res ! sec-networks:summaries-to-xml($$) }</Components>
         } 
             case "text" case "csv" return {
                 response:content-type("text/csv");
@@ -154,13 +116,14 @@ let $results := switch ($format)
             default return {
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
-                {|
-                    session:comment("json", {
+                session:comment("json",
+                    {
                         NumComponents : count($components),
                         TotalNumComponents: session:num-components(),
                         TotalNumArchives: session:num-archives()
-                    }), $res
-                |}
+                    }
+                ),
+                $res
             }
 return 
     util:check-and-return-results($entities, $results, $parameters.Format)

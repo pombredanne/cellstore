@@ -62,19 +62,21 @@ declare function util:filings-from-parameters(
     let $fp := $parameters.FiscalPeriods[]
     let $fiscal-years as integer* :=
         switch(true)
-        case $fy = "ALL" return ()
-        default return distinct-values(
-            $fy[$$ ne "LATEST"] ! ($$ cast as integer)
-        )
-    let $fiscal-periods as string* := switch(true)
-                         case $fp = "ALL" return ()
-                         default return distinct-values($fp)
-    for $entity in util:entities-from-parameters($parameters, { ResolveArchives: false })
-    return (
+        case exists(index-of($fy, "ALL")) return $sec-fiscal:ALL_FISCAL_YEARS
+        default return $fy[not deep-equal($$, "LATEST")]
+    let $fiscal-periods as string* :=
+        switch(true)
+        case $fp = "ALL" return $sec-fiscal:ALL_FISCAL_PERIODS
+        default return $fp
+    let $entities := util:entities-from-parameters($parameters, { ResolveArchives: false })
+    return
         if(deep-equal($fy, "LATEST"))
-        then util:latest-filings($entity, $fp)
-        else sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fiscal-periods, $fiscal-years)
-    ),
+        then
+            for $entity in $entities
+            return
+            util:latest-filings($entity, $fp)
+        else
+            sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entities, $fiscal-periods, $fiscal-years),
     archives:archives($parameters.AIDs[])
 };
 
@@ -82,7 +84,7 @@ declare function util:components-from-parameters(
     $parameters as object,
     $options as object?) as object*
 {
-    let $archives := util:filings-from-parameters($parameters, $options)
+    let $archives := util:filings-from-parameters($parameters, { ResolveArchives: true })
     return(
         components:components($parameters.CID)[exists($parameters.CID)],
         if (exists(($parameters.ReportElements[], $parameters.Concepts[], $parameters.Disclosures[], $parameters.Roles[], $parameters.Search[])))
