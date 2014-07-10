@@ -796,7 +796,8 @@
                             "required": false,
                             "type": "string",
                             "enum": [
-                                "FundamentalAccountingConcepts  <a href=\"/concept-map/FundamentalAccountingConcepts\"><i class=\"fa fa-question\"></i>"
+                                "FundamentalAccountingConcepts",
+                                "null"
                               ],
                             "paramType": "query"
                         },
@@ -933,7 +934,8 @@
                             "required": false,
                             "type": "string",
                             "enum": [
-                                "FundamentalAccountingConcepts  <a href=\"/concept-map/FundamentalAccountingConcepts\"><i class=\"fa fa-question\"></i>"
+                                "FundamentalAccountingConcepts",
+                                "null"
                               ],
                             "paramType": "query"
                         },
@@ -1085,7 +1087,8 @@
                             "required": false,
                             "type": "string",
                             "enum": [
-                                "FundamentalAccountingConcepts  <a href=\"/concept-map/FundamentalAccountingConcepts\"><i class=\"fa fa-question\"></i>"
+                                "FundamentalAccountingConcepts",
+                                "null"
                               ],
                             "paramType": "query"
                         },
@@ -1095,7 +1098,8 @@
                             "required": false,
                             "type": "string",
                             "enum": [
-                                "FundamentalAccountingConcepts"
+                                "FundamentalAccountingConcepts",
+                                "null"
                               ],
                             "paramType": "query"
                         },

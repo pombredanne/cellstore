@@ -816,7 +816,7 @@ angular.module('main', [
                             params[dimension.name + '::default'] = dimension.defaultValue;
                         }
                     });
-
+                    console.log(params);
                     return $backend.Queries.listFacts(params);
                 }
                 else {
