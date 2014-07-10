@@ -552,7 +552,7 @@
                         {
                             "name":"token",
                             "description":"The user's token",
-                            "required":true,
+                            "required":false,
                             "type":"string",
                             "paramType":"query"
                         },

@@ -1,20 +1,20 @@
 <div class="export">
     <div class="container">
         <div class="col-lg-3">
-            <span class="tag tag-primary">1 Hit</span>
-            <span class="tag"><span ng-bind="Statistics.TotalNumEntities | number"></span> Entities</span>
+            <span class="tag tag-primary">1 <span translate>Hit</span></span>
+            <span class="tag"><span ng-bind="Statistics.TotalNumEntities | number"></span> <span translate>Entities</span></span>
         </div>
         <div class="col-lg-6">
             <h2 class="text-center">{{entity.Profiles.SEC.CompanyName}}</h2>
         </div>
         <div class="col-lg-3">
             <span class="dropdown pull-right">
-            <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+            <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
             <ul class="dropdown-menu">
-                <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}" target="_blank" download="{{cik.json}}">JSON</a></li>
-                <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}" target="_blank" download="{{cik.xml}}">XML</a></li>
-                <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">CSV</a></li>
-                <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}">Excel</a></li>
+                <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&cik={{cik}}" target="_blank" download="{{cik.json}}" translate>JSON</a></li>
+                <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&cik={{cik}}" target="_blank" download="{{cik.xml}}" translate>XML</a></li>
+                <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}" translate>CSV</a></li>
+                <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST&cik={{cik}}" target="_blank" download="{{cik.csv}}" translate>Excel</a></li>
             </ul>
             </span>
         </div>
@@ -23,25 +23,25 @@
 <div class="container" id="entity-summary">
     <table class="table" cellpadding="5">
               <tr>
-                <td style="width: 40%">CIK</td><td>{{cik}}</td>
+                <td style="width: 40%" translate>CIK</td><td>{{cik}}</td>
               </tr>
               <tr>
-                <td>Ticker Symbol</td><td>{{entity.Profiles.SEC.Tickers[0]}}</td>
+                <td translate>Ticker Symbol</td><td>{{entity.Profiles.SEC.Tickers[0]}}</td>
               </tr>
               <tr>
-                <td>Entity Type</td><td>{{entity.Profiles.SEC.CompanyType}}</td>
+                <td translate>Entity Type</td><td>{{entity.Profiles.SEC.CompanyType}}</td>
               </tr>
               <tr>
-                <td>SIC Code</td><td>{{entity.Profiles.SEC.SIC}}</td>
+                <td translate>SIC Code</td><td>{{entity.Profiles.SEC.SIC}}</td>
               </tr>
               <tr>
-                <td>SIC Description</td><td>{{entity.Profiles.SEC.SICDescription}}</td>
+                <td translate>SIC Description</td><td>{{entity.Profiles.SEC.SICDescription}}</td>
               </tr>
               <tr>
-                <td>Industry Sector</td><td>{{entity.Profiles.SEC.Sector}}</td>
+                <td translate>Industry Sector</td><td>{{entity.Profiles.SEC.Sector}}</td>
               </tr>
               <tr>
-                <td>Is a Trust</td><td>{{entity.Profiles.SEC.IsTrust?"Yes":"No"}}</td>
+                <td translate>Is a Trust</td><td ng-show="entity.Profiles.SEC.IsTrust" translate>Yes</td><td ng-hide="entity.Profiles.SEC.IsTrust" translate>No</td>
               </tr>
         </table>    
     </div>

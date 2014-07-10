@@ -3,7 +3,7 @@
         <div class="col-md-3 col-sm-4 col-xs-12">
             <section class="row">
                 <div class="col-xs-6">
-                    <h6 class="nowrap">FISCAL YEAR</h6>
+                    <h6 class="nowrap" translate>FISCAL YEAR</h6>
                     <ul class="selector">
                         <li ng-repeat="y in usage" ng-class="{ selected: year==years[$index], disabled: !y.used }" ng-click="setYear(years[$index], y.used)">
                         {{years[$index]}}
@@ -11,7 +11,7 @@
                     </ul>
                 </div>
                 <div class="col-xs-6">
-                    <h6 class="nowrap">FISCAL PERIOD</h6>
+                    <h6 class="nowrap" translate>FISCAL PERIOD</h6>
                     <ul class="selector">
                         <li ng-repeat="p in usage[years.indexOf(year)].periods" ng-class="{ selected: period==periods[$index], disabled: !p.used }" ng-click="setPeriod(periods[$index], p.used)">
                         {{periods[$index]}}
@@ -21,7 +21,7 @@
             </section>
             <div class="hidden-xs" ng-show="reports.length">
                 <div>
-                    <h6>FUNDAMENTAL ACCOUNTING</h6>
+                    <h6 translate>FUNDAMENTAL ACCOUNTING</h6>
                     <ul class="normal">
                         <li ng-repeat="report in reports">
                             <a ng-click="showtab[$index]=true; gotoId('report' + $index)">{{report.name}}</a>
@@ -33,10 +33,10 @@
 
         <div class="col-md-9 col-sm-8 col-xs-12" id="divInformation">
             <div>
-                <h2>Compute analytics based on information extracted from the SEC filings</h2>
+                <h2 translate>Compute analytics based on information extracted from the SEC filings</h2>
                 <!--div class="export">
-                    <span class="tag tag-primary"><span ng-bind="Statistics.NumArchives | number"></span> Archives</span>
-                    <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+                    <span class="tag tag-primary"><span ng-bind="Statistics.NumArchives | number"></span> <span translate>Archives</span></span>
+                    <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> <span translate>Archives</span></span>
                 </div-->
                 <div>
                     <div ng-repeat="report in reports" scroll-id="report{{$index}}">
@@ -54,30 +54,30 @@
                             <div ng-show="showtab[$index]" class="table-responsive">
                                 <table class="table table-condensed" ng-class="{ 'info-numeric': report.isNumeric, 'info-boolean': report.isBoolean }">
                                     <thead>
-                                        <th>Label</th>
-                                        <th>Value</th>
-                                        <th>Origin</th>
+                                        <th translate>Label</th>
+                                        <th translate>Value</th>
+                                        <th translate>Origin</th>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="item in report.items">
-                                            <td ng-if="!report.isBoolean">
+                                            <td ng-show="!report.isBoolean">
                                                 {{item.label}}
                                             </td>
-                                            <td ng-if="report.isBoolean">
-                                                <div ng-if="item.auditId">{{item.auditId}}</div>
+                                            <td ng-show="report.isBoolean">
+                                                <div ng-show="item.auditId">{{item.auditId}}</div>
                                                 <samp class="small">{{item.label}}</samp>
                                             </td>
-                                            <td class="nowrap text-right" ng-if="(item.type == 'NumericValue')">{{item.value || 0}}</td>
-                                            <td class="nowrap text-center" ng-if="(report.isBoolean)">
-                                              <i class="fa semaphore fa-check-circle success" ng-if="item.value === true" tooltip="Rule passed"></i>
-                                              <i class="fa semaphore fa-exclamation-triangle" ng-if="item.value === false" tooltip="Rule failed"></i>
-                                              <span class="fa fa-stack semaphore disabled" ng-if="item.value === null" tooltip="Rule has been skipped because a precondition was not met">
+                                            <td class="nowrap text-right" ng-show="(item.type == 'NumericValue')">{{item.value || 0}}</td>
+                                            <td class="nowrap text-center" ng-show="(report.isBoolean)">
+                                              <i class="fa semaphore fa-check-circle success" ng-show="item.value === true" tooltip="Rule passed"></i>
+                                              <i class="fa semaphore fa-exclamation-triangle" ng-show="item.value === false" tooltip="Rule failed"></i>
+                                              <span class="fa fa-stack semaphore disabled" ng-show="item.value === null" tooltip="Rule has been skipped because a precondition was not met">
                                                   <i class="fa fa-circle fa-stack-2x"></i>
                                                   <i class="fa fa-step-forward fa-stack-1x fa-inverse"></i>
                                               </span>
                                             </td>
-                                            <td class="nowrap" ng-if="(!report.isBoolean && item.type != 'NumericValue' && !isBlock(item.value))">{{item.value || ' '}}</td>
-                                            <td class="nowrap" ng-if="(!report.isBoolean && item.type != 'NumericValue' && isBlock(item.value))"><a ng-click="showText(item.value)">Show Text</a></td>
+                                            <td class="nowrap" ng-show="(!report.isBoolean && item.type != 'NumericValue' && !isBlock(item.value))">{{item.value || ' '}}</td>
+                                            <td class="nowrap" ng-show="(!report.isBoolean && item.type != 'NumericValue' && isBlock(item.value))"><a ng-click="showText(item.value)" translate>Show Text</a></td>
                                             <td>
                                                 <samp class="small">{{item.auditValue}}</samp>
                                             </td>

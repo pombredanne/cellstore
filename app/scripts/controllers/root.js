@@ -8,11 +8,19 @@ angular.module('main')
         $scope.active = toState.data && toState.data.active;
     });
 
-    $scope.doLogout = function() {
+    $scope.doLogout = function(e) {
+        if (e)
+        {
+            e.preventDefault();
+        }
         $scope.$emit('logout');
     };
 
-    $scope.doAuth = function() {
+    $scope.doAuth = function(e) {
+        if (e)
+        {
+            e.preventDefault();
+        }
         $scope.$emit('auth');
     };
 

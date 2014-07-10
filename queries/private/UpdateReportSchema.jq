@@ -1,7 +1,10 @@
 let $schema := {
-  "_id" : "FundamentalAccountingConcepts", 
+  "_id" : "1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOc", 
+  "Label": "Fundamental Accounting Concepts",
   "Archive" : null, 
-  "Label" : "Fundamental Accounting Concepts", 
+  "Owner": "d@28.io",
+  "Description": "Contains bla bla",
+  "LastModified": "2014-06-25T11:09:07.28464Z",
   "Role" : "http://xbrl.io/fundamental-accounting-concepts", 
   "Networks" : [ {
     "LinkName" : "link:presentationLink", 
@@ -27,70 +30,97 @@ let $schema := {
                   "fac:EntityRegistrantName" : {
                     "Name" : "fac:EntityRegistrantName", 
                     "Label" : "Entity Registrant Name", 
-                    "Id" : "f1079749-bb6a-4b89-8eae-1b0c55929348"
+                    "Id" : "69f0cb0f-c486-4465-9e8b-47941aed2e2c", 
+                    "expanded" : true, 
+                    "Order" : 3
                   }, 
                   "fac:EntityCentralIndexKey" : {
                     "Name" : "fac:EntityCentralIndexKey", 
                     "Label" : "Central Index Key (CIK)", 
-                    "Id" : "2b57b840-4e8a-4dc9-9b00-f63d7657ac0e"
+                    "Id" : "02ff7a91-a86f-491b-a3df-1dd318d77359", 
+                    "expanded" : true, 
+                    "Order" : 8
                   }, 
                   "fac:EntityFilerCategory" : {
                     "Name" : "fac:EntityFilerCategory", 
                     "Label" : "Entity Filer Category", 
-                    "Id" : "6f6cb7e3-a1a1-49eb-843a-245b9f244da7"
+                    "Id" : "1d638c86-a38d-489b-bdfc-3fa72d1a90c2", 
+                    "expanded" : true, 
+                    "Order" : 4
                   }, 
                   "fac:TradingSymbol" : {
                     "Name" : "fac:TradingSymbol", 
                     "Label" : "Trading Symbol", 
-                    "Id" : "a1699000-b7d3-4cff-9662-8ed6602cb0f9"
+                    "Id" : "0c90ffc7-15c8-45a4-8d6e-514737c367d8", 
+                    "expanded" : true, 
+                    "Order" : 5
                   }, 
                   "fac:FiscalYearEnd" : {
                     "Name" : "fac:FiscalYearEnd", 
                     "Label" : "Fiscal Year End", 
-                    "Id" : "f67c8ba4-fdd0-4c55-8149-597be484fe0a"
+                    "Id" : "ee1a4a3b-2def-4154-8f6d-4ccd36198095", 
+                    "expanded" : true, 
+                    "Order" : 6
                   }, 
                   "fac:FiscalYear" : {
                     "Name" : "fac:FiscalYear", 
                     "Label" : "Fiscal Year", 
-                    "Id" : "cf480f34-819c-4986-8bb9-ce77092f89f4"
+                    "Id" : "aceef7a7-17c4-416b-bdca-e9ecd5d767f2", 
+                    "expanded" : true, 
+                    "Order" : 7
                   }, 
                   "fac:FiscalPeriod" : {
                     "Name" : "fac:FiscalPeriod", 
                     "Label" : "Fiscal Period", 
-                    "Id" : "0b7276c9-a8ff-4f5f-86cb-69dc6f3d2661"
+                    "Id" : "f00df389-de98-41fa-a488-6ba58a8e30ca", 
+                    "expanded" : true, 
+                    "Order" : 2
                   }, 
                   "fac:DocumentType" : {
                     "Name" : "fac:DocumentType", 
                     "Label" : "Document Type", 
-                    "Id" : "7c47570f-a107-4b84-afb7-90100cc08beb"
+                    "Id" : "7ff0df88-a7f3-405b-b877-fa70236affab", 
+                    "expanded" : true, 
+                    "Order" : 9
                   }, 
                   "fac:BalanceSheetDate" : {
                     "Name" : "fac:BalanceSheetDate", 
                     "Label" : "Balance Sheet Date", 
-                    "Id" : "191cb2b2-b339-46bd-8b47-e3d6b36e4987"
+                    "Id" : "75d92bf3-8293-4088-a3c4-70e0c62e34ce", 
+                    "expanded" : true, 
+                    "Order" : 10
                   }, 
                   "fac:IncomeStatementStartPeriod" : {
                     "Name" : "fac:IncomeStatementStartPeriod", 
                     "Label" : "Income Statement Start of Period", 
-                    "Id" : "b6501ead-df8d-4bbd-89d2-2ebf3dcd3d9f"
+                    "Id" : "801567c0-5411-4634-9484-fc17608dcba8", 
+                    "expanded" : true, 
+                    "Order" : 11
                   }, 
                   "fac:BalanceSheetFormat" : {
                     "Name" : "fac:BalanceSheetFormat", 
                     "Label" : "Balance Sheet Format", 
-                    "Id" : "53a1c9e5-0296-4e5e-9886-9ab3364d2c5d"
+                    "Id" : "27611898-39fe-4db5-a194-158882dceecb", 
+                    "expanded" : true, 
+                    "Order" : 12
                   }, 
                   "fac:IncomeStatementFormat" : {
                     "Name" : "fac:IncomeStatementFormat", 
                     "Label" : "Income Statement Format", 
-                    "Id" : "8719be24-8b28-46a4-98c3-eeca64643691"
+                    "Id" : "23aea896-aa2f-4e79-810b-9206aab5ea57", 
+                    "expanded" : true, 
+                    "Order" : 13
                   }, 
                   "fac:NatureOfOperations" : {
                     "Name" : "fac:NatureOfOperations", 
                     "Label" : "Nature of Operations", 
-                    "Id" : "5d414999-4aa3-4c57-810a-f9822e5ff60c"
+                    "Id" : "c6bd12a5-8adf-4c48-8422-57832ade87aa", 
+                    "expanded" : true, 
+                    "Order" : 14
                   }
                 }, 
-                "Id" : "ee97d4ab-704d-4bc7-9eee-f775969673fd"
+                "Id" : "f3468332-90e9-4038-8bcf-776d2d336f3e", 
+                "expanded" : true
               }, 
               "fac:BalanceSheetHierarchy" : {
                 "Name" : "fac:BalanceSheetHierarchy", 
@@ -99,83 +129,97 @@ let $schema := {
                   "fac:CurrentAssets" : {
                     "Name" : "fac:CurrentAssets", 
                     "Label" : "Current Assets", 
-                    "Order" : 1, 
-                    "Id" : "239d38f8-c64a-411f-8783-5b7e74a97d00"
+                    "Order" : 2, 
+                    "Id" : "25ed5df1-aa75-4a5b-8241-dfa777330d05", 
+                    "expanded" : true
                   }, 
                   "fac:NoncurrentAssets" : {
                     "Name" : "fac:NoncurrentAssets", 
                     "Label" : "Noncurrent Assets", 
-                    "Order" : 2, 
-                    "Id" : "e5e52c3c-9412-465a-b55e-f2874659b193"
+                    "Order" : 3, 
+                    "Id" : "8c70fab1-1cd4-47fe-b76a-196665ac263b", 
+                    "expanded" : true
                   }, 
                   "fac:Assets" : {
                     "Name" : "fac:Assets", 
                     "Label" : "Assets", 
-                    "Order" : 3, 
-                    "Id" : "a02a0d00-1309-4498-b6ca-ee3184d92a28"
+                    "Order" : 4, 
+                    "Id" : "4b91dabb-d153-4fe8-8af0-23f86d049631", 
+                    "expanded" : true
                   }, 
                   "fac:CurrentLiabilities" : {
                     "Name" : "fac:CurrentLiabilities", 
                     "Label" : "Current Liabilities", 
-                    "Order" : 4, 
-                    "Id" : "3c09f5ee-d98b-4fc9-a8a9-e2e9e431b2d3"
+                    "Order" : 5, 
+                    "Id" : "e439f954-7ae1-471b-9ec9-b9e6ce9cadc9", 
+                    "expanded" : true
                   }, 
                   "fac:NoncurrentLiabilities" : {
                     "Name" : "fac:NoncurrentLiabilities", 
                     "Label" : "Noncurrent Liabilities", 
-                    "Order" : 5, 
-                    "Id" : "c4d42a3d-96f6-4740-953a-29c468ee742b"
+                    "Order" : 6, 
+                    "Id" : "f1cc9266-893e-4001-8247-6f03f730b7b2", 
+                    "expanded" : true
                   }, 
                   "fac:Liabilities" : {
                     "Name" : "fac:Liabilities", 
                     "Label" : "Liabilities", 
-                    "Order" : 6, 
-                    "Id" : "58c43b87-dec6-4d2b-b5bf-eb2769885333"
+                    "Order" : 7, 
+                    "Id" : "394e7593-b1b6-4201-842e-b26492d1b411", 
+                    "expanded" : true
                   }, 
                   "fac:CommitmentsAndContingencies" : {
                     "Name" : "fac:CommitmentsAndContingencies", 
                     "Label" : "Commitments and Contingencies", 
-                    "Order" : 7, 
-                    "Id" : "7f4eb288-8756-46b2-98c9-2d28578fc78a"
+                    "Order" : 8, 
+                    "Id" : "c5ed067f-7cce-43a0-9cac-e333e8bbecaa", 
+                    "expanded" : true
                   }, 
                   "fac:TemporaryEquity" : {
                     "Name" : "fac:TemporaryEquity", 
                     "Label" : "Temporary Equity", 
-                    "Order" : 8, 
-                    "Id" : "41fcf92f-04d5-442b-adf8-1f88040debd9"
+                    "Order" : 9, 
+                    "Id" : "d62f9f98-67c3-46e1-affd-27c6be847e0d", 
+                    "expanded" : true
                   }, 
                   "fac:RedeemableNoncontrollingInterest" : {
                     "Name" : "fac:RedeemableNoncontrollingInterest", 
                     "Label" : "Redeemable Noncontrolling Interest", 
-                    "Order" : 9, 
-                    "Id" : "0f8c4e13-2c18-4540-9139-38a4e0d20230"
+                    "Order" : 10, 
+                    "Id" : "53344bf4-22c8-4153-918e-6f462064a7ff", 
+                    "expanded" : true
                   }, 
                   "fac:EquityAttributableToParent" : {
                     "Name" : "fac:EquityAttributableToParent", 
                     "Label" : "Equity Attributable to Parent", 
-                    "Order" : 10, 
-                    "Id" : "2c75735d-1f5a-44a1-948b-ae8d9484c55a"
+                    "Order" : 11, 
+                    "Id" : "5c762b51-619c-4031-9a03-02881d2bc827", 
+                    "expanded" : true
                   }, 
                   "fac:EquityAttributableToNoncontrollingInterest" : {
                     "Name" : "fac:EquityAttributableToNoncontrollingInterest", 
                     "Label" : "Equity Attributable to Noncontrolling Interest", 
-                    "Order" : 11, 
-                    "Id" : "e463eb3a-8bdf-4147-bca8-f419c97b79cb"
+                    "Order" : 12, 
+                    "Id" : "9095b5b6-31cd-48f0-9828-a61c267fe9a3", 
+                    "expanded" : true
                   }, 
                   "fac:Equity" : {
                     "Name" : "fac:Equity", 
                     "Label" : "Equity", 
-                    "Order" : 12, 
-                    "Id" : "d7afa58e-859d-468f-83dd-914c7facc732"
+                    "Order" : 13, 
+                    "Id" : "56071ec5-070c-4036-b6f3-dc4db762a2d4", 
+                    "expanded" : true
                   }, 
                   "fac:LiabilitiesAndEquity" : {
                     "Name" : "fac:LiabilitiesAndEquity", 
                     "Label" : "Liabilities and Equity", 
-                    "Order" : 13, 
-                    "Id" : "fe3b3335-d5f3-4ed0-b82b-20d7d5a5469d"
+                    "Order" : 14, 
+                    "Id" : "0b2073b7-922c-4ed4-babd-5a363c846da0", 
+                    "expanded" : true
                   }
                 }, 
-                "Id" : "7de95353-874a-4f1a-9ee2-e1cd4a757374"
+                "Id" : "3429b878-7d5a-4ab0-84e7-7c565b28f084", 
+                "expanded" : true
               }, 
               "fac:IncomeStatementHierarchy" : {
                 "Name" : "fac:IncomeStatementHierarchy", 
@@ -185,148 +229,173 @@ let $schema := {
                     "Name" : "fac:Revenues", 
                     "Label" : "Revenues", 
                     "Order" : 1, 
-                    "Id" : "6c966ba9-4b49-4725-badc-7ccd7763d2ca"
+                    "Id" : "66d70a6b-61d2-4ae1-8daa-293b8f357d6c", 
+                    "expanded" : true
                   }, 
                   "fac:CostOfRevenue" : {
                     "Name" : "fac:CostOfRevenue", 
                     "Label" : "Cost of Revenues", 
                     "Order" : 2, 
-                    "Id" : "e116bec7-8064-4727-8035-57bc78c9bd72"
+                    "Id" : "a7299479-234f-41ab-a822-b5321a4c35c8", 
+                    "expanded" : true
                   }, 
                   "fac:GrossProfit" : {
                     "Name" : "fac:GrossProfit", 
                     "Label" : "Gross Profit", 
                     "Order" : 3, 
-                    "Id" : "b74a92c6-7639-459f-831a-3cf38702a9b7"
+                    "Id" : "bfd7c4af-7cda-45b5-ba31-2cba25d9f7ff", 
+                    "expanded" : true
                   }, 
                   "fac:OperatingExpenses" : {
                     "Name" : "fac:OperatingExpenses", 
                     "Label" : "Operating Expenses", 
                     "Order" : 4, 
-                    "Id" : "ee9d8605-b82d-4e02-91be-5c23c0114779"
+                    "Id" : "c15b1294-7b2f-4080-8b8b-32837dc919c3", 
+                    "expanded" : true
                   }, 
                   "fac:CostsAndExpenses" : {
                     "Name" : "fac:CostsAndExpenses", 
                     "Label" : "Costs and Expenses", 
                     "Order" : 5, 
-                    "Id" : "cd43bba5-1b0c-43e9-bb2c-c34d95f75263"
+                    "Id" : "c7a0d341-58a9-4759-9a9c-5750dc484ac0", 
+                    "expanded" : true
                   }, 
                   "fac:OtherOperatingIncomeExpenses" : {
                     "Name" : "fac:OtherOperatingIncomeExpenses", 
                     "Label" : "Other Operating Income (Expenses)", 
                     "Order" : 6, 
-                    "Id" : "75926861-39ae-4bba-a511-5984f69b4a4d"
+                    "Id" : "009ad620-5c47-4ea8-bc6a-de0ac67ed302", 
+                    "expanded" : true
                   }, 
                   "fac:OperatingIncomeLoss" : {
                     "Name" : "fac:OperatingIncomeLoss", 
                     "Label" : "Operating Income (Loss)", 
                     "Order" : 7, 
-                    "Id" : "7f2f3c44-d81a-4754-987b-1dc2ce1799a0"
+                    "Id" : "468fc16a-954f-4ec0-9d23-0b46856088cf", 
+                    "expanded" : true
                   }, 
                   "fac:NonoperatingIncomeLoss" : {
                     "Name" : "fac:NonoperatingIncomeLoss", 
                     "Label" : "Nonoperating Income (Loss)", 
                     "Order" : 8, 
-                    "Id" : "3ec64471-da6f-4739-a83f-8197a481d7ef"
+                    "Id" : "cd43fc78-895e-48c7-94d8-80c804d6fdbe", 
+                    "expanded" : true
                   }, 
                   "fac:InterestAndDebtExpense" : {
                     "Name" : "fac:InterestAndDebtExpense", 
                     "Label" : "Interest and Debt Expense", 
                     "Order" : 9, 
-                    "Id" : "cf86202f-2be1-41e4-9f6c-a448e87b0de0"
+                    "Id" : "85043f9f-4614-4b31-bb37-3548e8349e82", 
+                    "expanded" : true
                   }, 
                   "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense" : {
                     "Name" : "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense", 
                     "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense", 
                     "Order" : 10, 
-                    "Id" : "2da28cb9-1a48-4517-9ce2-60aa33eec2b2"
+                    "Id" : "27434461-278d-476a-aee0-93e11db757e6", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeBeforeEquityMethodInvestments" : {
                     "Name" : "fac:IncomeBeforeEquityMethodInvestments", 
                     "Label" : "Income (Loss) Before Equity Method Investments", 
                     "Order" : 11, 
-                    "Id" : "88be833e-a1d8-4ec5-aa35-bfc4c02377e9"
+                    "Id" : "b1938a83-b8d5-4300-9121-4932fa8e11eb", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeLossFromEquityMethodInvestments" : {
                     "Name" : "fac:IncomeLossFromEquityMethodInvestments", 
                     "Label" : "Income (Loss) from Equity Method Investments", 
                     "Order" : 12, 
-                    "Id" : "63005aa7-fd36-499c-bac0-8b41022ca14c"
+                    "Id" : "63c1d50c-c18f-494d-9d20-dbf96b50bbe6", 
+                    "expanded" : true
                   }, 
                   "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments" : {
                     "Name" : "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments", 
                     "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense + Income (Loss) from Equity Method Investments", 
                     "Order" : 13, 
-                    "Id" : "4289a83c-43ee-4a9d-aaca-fcd062ddc041"
+                    "Id" : "6ffa3e8b-562f-4d3a-b95f-52b21812990c", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeLossFromContinuingOperationsBeforeTax" : {
                     "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTax", 
                     "Label" : "Income (Loss) from Continuing Operations Before Tax", 
                     "Order" : 14, 
-                    "Id" : "0659b0a4-20c7-4cb4-ac17-a6ad0b22da12"
+                    "Id" : "447b7d82-57f0-4612-8eb7-891639d3be57", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeTaxExpenseBenefit" : {
                     "Name" : "fac:IncomeTaxExpenseBenefit", 
                     "Label" : "Income Tax Expense (Benefit)", 
                     "Order" : 15, 
-                    "Id" : "cbfcb2b0-e79e-4d12-8d16-1e805da49d6c"
+                    "Id" : "4b43edbd-0e07-48d1-bfe6-418d758d226a", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeLossFromContinuingOperationsAfterTax" : {
                     "Name" : "fac:IncomeLossFromContinuingOperationsAfterTax", 
                     "Label" : "Income (Loss) from Continuing Operations After Tax", 
                     "Order" : 16, 
-                    "Id" : "209aba39-9372-423a-b889-362d5083db95"
+                    "Id" : "c7c379b8-6802-4574-beae-48bd3eaa27b3", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeLossFromDiscontinuedOperationsNetTax" : {
                     "Name" : "fac:IncomeLossFromDiscontinuedOperationsNetTax", 
                     "Label" : "Income (Loss) from Discontinued Operations, Net of Tax", 
                     "Order" : 17, 
-                    "Id" : "2b0a6aec-2f36-47df-8710-be04dfa4d21e"
+                    "Id" : "8ffb51cc-edfc-432d-beb5-e48b4cd57f13", 
+                    "expanded" : true
                   }, 
                   "fac:ExtraordinaryItemsIncomeExpenseNetTax" : {
                     "Name" : "fac:ExtraordinaryItemsIncomeExpenseNetTax", 
                     "Label" : "Extraordinary Items of Income (Expense), Net of Tax", 
                     "Order" : 18, 
-                    "Id" : "04e30b2b-1b14-4f06-a6ae-b6a6fcf3d057"
+                    "Id" : "b8279d3c-d404-4fe8-9072-83ad7f07e011", 
+                    "expanded" : true
                   }, 
                   "fac:NetIncomeLoss" : {
                     "Name" : "fac:NetIncomeLoss", 
                     "Label" : "Net Income (Loss)", 
                     "Order" : 19, 
-                    "Id" : "477c3aa6-e89d-4cc5-afcc-dbb324454278"
+                    "Id" : "405a567b-6ac0-4f24-ac86-a5d8a9dffbcf", 
+                    "expanded" : true
                   }, 
                   "fac:NetIncomeAttributableToParent" : {
                     "Name" : "fac:NetIncomeAttributableToParent", 
                     "Label" : "Net Income Attributable to Parent", 
                     "Order" : 20, 
-                    "Id" : "6f500a77-9af3-4a72-9df5-a080e677edaa"
+                    "Id" : "25c6394e-bbd0-4f93-9571-18ba25171c4a", 
+                    "expanded" : true
                   }, 
                   "fac:NetIncomeAttributableToNoncontrollingInterest" : {
                     "Name" : "fac:NetIncomeAttributableToNoncontrollingInterest", 
                     "Label" : "Net Income Attributable to Noncontrolling Interest", 
                     "Order" : 21, 
-                    "Id" : "83463da1-5249-49f0-b710-b8c6e15f9c14"
+                    "Id" : "7d8cd263-cb29-4b16-901d-19dd01b81ee0", 
+                    "expanded" : true
                   }, 
                   "fac:ResearchAndDevelopment" : {
                     "Name" : "fac:ResearchAndDevelopment", 
                     "Label" : "Research and Development", 
                     "Order" : 22, 
-                    "Id" : "998f37a0-3d96-46ae-a203-302981f29f41"
+                    "Id" : "7d9c9b4c-ccd1-4e52-9929-fb59913d29e0", 
+                    "expanded" : true
                   }, 
                   "fac:PreferredStockDividendsAndOtherAdjustments" : {
                     "Name" : "fac:PreferredStockDividendsAndOtherAdjustments", 
                     "Label" : "Preferred Stock Dividends and Other Adjustments", 
                     "Order" : 23, 
-                    "Id" : "28d0be7c-c6ea-4e5d-888c-db9609d0e19d"
+                    "Id" : "0058d20c-866f-44a2-a7f9-0c1db5010e17", 
+                    "expanded" : true
                   }, 
                   "fac:NetIncomeLossAvailableToCommonStockholdersBasic" : {
                     "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic", 
                     "Label" : "Net Income (Loss) Available to Common Stockholders, Basic", 
                     "Order" : 24, 
-                    "Id" : "9d851f9c-26e8-4be8-acba-c905b677adc7"
+                    "Id" : "649d04af-415c-4ea6-9c7d-64d82bb94959", 
+                    "expanded" : true
                   }
                 }, 
-                "Id" : "ac114baa-eec5-46b0-9d42-94d6e9339956"
+                "Id" : "9ec9dc05-6184-424b-9116-1a4462471091", 
+                "expanded" : true
               }, 
               "fac:StatementComprehensiveIncomeHierarchy" : {
                 "Name" : "fac:StatementComprehensiveIncomeHierarchy", 
@@ -336,34 +405,40 @@ let $schema := {
                     "Name" : "fac:NetIncomeLoss", 
                     "Label" : "Net Income (Loss)", 
                     "Order" : 1, 
-                    "Id" : "19630171-0438-46c8-8061-51f94c4b5139"
+                    "Id" : "4400add6-e9b6-4dfe-8103-757396f0ad0d", 
+                    "expanded" : true
                   }, 
                   "fac:OtherComprehensiveIncomeLoss" : {
                     "Name" : "fac:OtherComprehensiveIncomeLoss", 
                     "Label" : "Other Comprehensive Income (Loss)", 
                     "Order" : 2, 
-                    "Id" : "8b044028-5bbb-4e37-a299-3fe4f0c27d5b"
+                    "Id" : "a55fdc54-80ac-410b-afda-2e70c6d8bbae", 
+                    "expanded" : true
                   }, 
                   "fac:ComprehensiveIncomeLoss" : {
                     "Name" : "fac:ComprehensiveIncomeLoss", 
                     "Label" : "Comprehensive Income (Loss)", 
                     "Order" : 3, 
-                    "Id" : "dab3c4f7-1753-4fe8-bd45-76089d1dcd75"
+                    "Id" : "5c58653e-07ad-4c02-8d77-e0afe207954e", 
+                    "expanded" : true
                   }, 
                   "fac:ComprehensiveIncomeLossAttributableToParent" : {
                     "Name" : "fac:ComprehensiveIncomeLossAttributableToParent", 
                     "Label" : "Comprehensive Income (Loss) Attributable to Parent", 
                     "Order" : 4, 
-                    "Id" : "ae4e16cb-6a65-4404-bde6-8a5fd5200bbf"
+                    "Id" : "91640e68-b529-4318-9a8f-b6a46cea752b", 
+                    "expanded" : true
                   }, 
                   "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest" : {
                     "Name" : "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
                     "Label" : "Comprehensive Income (Loss) Attributable to Noncontrolling Interest", 
                     "Order" : 5, 
-                    "Id" : "fc18b054-c6f4-484b-8dd9-120cc56b4a8c"
+                    "Id" : "33ec5d28-b389-4873-828d-31e1f3f51cde", 
+                    "expanded" : true
                   }
                 }, 
-                "Id" : "72166390-efe7-4f12-afa1-9abb4b9cdd5c"
+                "Id" : "1ba833bd-10d8-4528-ae1d-d48957bb82c4", 
+                "expanded" : true
               }, 
               "fac:CashFlowStatementHierarchy" : {
                 "Name" : "fac:CashFlowStatementHierarchy", 
@@ -373,82 +448,96 @@ let $schema := {
                     "Name" : "fac:NetCashFlowsFromOperatingActivitiesContinuing", 
                     "Label" : "Net Cash Flows from Operating Activities, Continuing", 
                     "Order" : 1, 
-                    "Id" : "1408317f-cecb-44bf-9ce0-111e53cfc05c"
+                    "Id" : "f79c84a9-8e18-4a2c-b852-c91ffcf4547e", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" : {
                     "Name" : "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", 
                     "Label" : "Net Cash Flows from Operating Activities, Discontinued", 
                     "Order" : 2, 
-                    "Id" : "ce55e8f5-e17f-4770-b3b6-3dd5cc67659d"
+                    "Id" : "cbd1e528-f9fd-4da0-8d2d-fb4df1258e5e", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromOperatingActivities" : {
                     "Name" : "fac:NetCashFlowsFromOperatingActivities", 
                     "Label" : "Net Cash Flows from Operating Activities", 
                     "Order" : 3, 
-                    "Id" : "372f794f-5625-4354-9358-5b46f05c957e"
+                    "Id" : "3d478903-efe5-46f8-affc-cf0a0dc45461", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromInvestingActivitiesContinuing" : {
                     "Name" : "fac:NetCashFlowsFromInvestingActivitiesContinuing", 
                     "Label" : "Net Cash Flows from Investing Activities, Continuing", 
                     "Order" : 4, 
-                    "Id" : "f8bbc64f-1ff7-4b18-83de-87cd8b70eef0"
+                    "Id" : "4e5edd73-d7a0-4fc4-9b4a-64a79b879052", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" : {
                     "Name" : "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", 
                     "Label" : "Net Cash Flows from Investing Activities, Discontinued", 
                     "Order" : 5, 
-                    "Id" : "ac16cb52-8901-47a4-8b25-c221f836f1a1"
+                    "Id" : "60ed7144-40ce-4adf-8459-5143d27196aa", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromInvestingActivities" : {
                     "Name" : "fac:NetCashFlowsFromInvestingActivities", 
                     "Label" : "Net Cash Flows from Investing Activities", 
                     "Order" : 6, 
-                    "Id" : "c34e4de9-323b-440d-960b-b87a5768b573"
+                    "Id" : "877bb8ce-efa9-400c-8099-865120cbad7c", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromFinancingActivitiesContinuing" : {
                     "Name" : "fac:NetCashFlowsFromFinancingActivitiesContinuing", 
                     "Label" : "Net Cash Flows from Financing Activities, Continuing", 
                     "Order" : 7, 
-                    "Id" : "f1263386-973d-4a8d-8c6b-07dbab640642"
+                    "Id" : "1d16c7a6-15a9-4a23-aa7d-852a6f58ad23", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" : {
                     "Name" : "fac:NetCashFlowsFromFinancingActivitiesDiscontinued", 
                     "Label" : "Net Cash Flows from Financing Activities, Discontinued", 
                     "Order" : 8, 
-                    "Id" : "2677cf6e-c03f-4840-8561-e817e2cd18dc"
+                    "Id" : "f4dd8592-872d-4eb6-af17-c3109fbb8f55", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromFinancingActivities" : {
                     "Name" : "fac:NetCashFlowsFromFinancingActivities", 
                     "Label" : "Net Cash Flows from Financing Activities", 
                     "Order" : 9, 
-                    "Id" : "398c6c55-8597-4492-a4e9-62561e59aace"
+                    "Id" : "df0289ab-44f3-4c00-8827-65ccfdb4dc51", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsContinuing" : {
                     "Name" : "fac:NetCashFlowsContinuing", 
                     "Label" : "Net Cash Flows, Continuing", 
                     "Order" : 10, 
-                    "Id" : "a6350756-325d-4d59-98f8-0a25d657eaf4"
+                    "Id" : "a2c288cf-775d-47f5-8673-b6101f1818dd", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsDiscontinued" : {
                     "Name" : "fac:NetCashFlowsDiscontinued", 
                     "Label" : "Net Cash Flows, Discontinued", 
                     "Order" : 11, 
-                    "Id" : "41c3bf9f-afe0-4e69-900b-9d6ad33ad51e"
+                    "Id" : "85367ae5-5cf8-4d35-9390-826592eb3a39", 
+                    "expanded" : true
                   }, 
                   "fac:ExchangeGainsLosses" : {
                     "Name" : "fac:ExchangeGainsLosses", 
                     "Label" : "Exchange Gains (Losses)", 
                     "Order" : 12, 
-                    "Id" : "d0a448d2-8e65-4f76-a36d-f1e62ff25709"
+                    "Id" : "9b9677ca-c19e-4a81-af91-39c80f3e0cc6", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlows" : {
                     "Name" : "fac:NetCashFlows", 
                     "Label" : "Net Cash Flows", 
                     "Order" : 13, 
-                    "Id" : "2adc5ee2-51bd-4bd4-88e3-3de62db12792"
+                    "Id" : "00716111-4fa8-45fe-919b-369b1767099a", 
+                    "expanded" : true
                   }
                 }, 
-                "Id" : "0c025df6-c894-4a46-82a8-16bb1d918fa2"
+                "Id" : "b1407050-e5cf-42c7-a776-633e83bb9304", 
+                "expanded" : true
               }, 
               "fac:KeyRatiosHierarchy" : {
                 "Name" : "fac:KeyRatiosHierarchy", 
@@ -457,29 +546,34 @@ let $schema := {
                   "fac:ReturnOnEquity" : {
                     "Name" : "fac:ReturnOnEquity", 
                     "Label" : "Return on Equity (ROE)", 
-                    "Order" : 1, 
-                    "Id" : "bdae2799-5f78-4463-8141-00b532e1e038"
+                    "Order" : 2, 
+                    "Id" : "4d63286e-708a-4e17-a6d0-571f49ebad1a", 
+                    "expanded" : true
                   }, 
                   "fac:ReturnOnAssets" : {
                     "Name" : "fac:ReturnOnAssets", 
                     "Label" : "Return on Assets (ROA)", 
-                    "Order" : 2, 
-                    "Id" : "a0f57e8d-89ad-458c-88b1-a48ba23c7395"
+                    "Order" : 3, 
+                    "Id" : "deb538a1-efe7-4aa7-8aec-420c8eb18bc0", 
+                    "expanded" : true
                   }, 
                   "fac:ReturnOnSalesROS" : {
                     "Name" : "fac:ReturnOnSalesROS", 
                     "Label" : "Return on Sales (ROS)", 
-                    "Order" : 3, 
-                    "Id" : "cea31b0f-5dd9-47f5-b2d1-bd72c12407be"
+                    "Order" : 4, 
+                    "Id" : "ef973cf4-1e98-4cc8-9a08-ddec587c1e8b", 
+                    "expanded" : true
                   }, 
                   "fac:SustainableGrowthRate" : {
                     "Name" : "fac:SustainableGrowthRate", 
                     "Label" : "Sustainable Growth Rate (SGR)", 
-                    "Order" : 4, 
-                    "Id" : "5252d20e-34c9-412c-80f2-b893d654ac10"
+                    "Order" : 5, 
+                    "Id" : "802e94aa-8137-4536-829a-d14e40ac341d", 
+                    "expanded" : true
                   }
                 }, 
-                "Id" : "6d7ac851-81ad-444b-bb75-161c00737b0c"
+                "Id" : "1fc4187a-21fe-4ee0-a4c4-44560195599f", 
+                "expanded" : true
               }, 
               "fac:ValidationStatistics" : {
                 "Name" : "fac:ValidationStatistics", 
@@ -488,20 +582,24 @@ let $schema := {
                   "fac:PassedValidations" : {
                     "Name" : "fac:PassedValidations", 
                     "Label" : "Passed Validations", 
-                    "Id" : "abce42c7-e9f3-4324-a73b-f6db7da07eff"
+                    "Id" : "0bd3f758-5743-4217-a2a6-10aabf9df92d", 
+                    "expanded" : true
                   }, 
                   "fac:FailedValidations" : {
                     "Name" : "fac:FailedValidations", 
                     "Label" : "Failing Validations", 
-                    "Id" : "d753f11f-0041-455e-983e-062d70af9336"
+                    "Id" : "acd696ba-0a1c-48b4-bf83-838e91b6d131", 
+                    "expanded" : true
                   }, 
                   "fac:NotApplicableValidations" : {
                     "Name" : "fac:NotApplicableValidations", 
                     "Label" : "Skipped Validations (unmet preconditions)", 
-                    "Id" : "e2e55c97-24dc-4600-8c5e-a73e6c09b20b"
+                    "Id" : "8f08115c-518b-43c8-9165-00de15a49836", 
+                    "expanded" : true
                   }
                 }, 
-                "Id" : "41274d2d-6f2a-4e47-9327-c0171463f996"
+                "Id" : "df9b9b17-d0a0-43fa-84af-1850d94e720a", 
+                "expanded" : true
               }, 
               "fac:Validations" : {
                 "Name" : "fac:Validations", 
@@ -510,121 +608,168 @@ let $schema := {
                   "fac:EquityValidation" : {
                     "Name" : "fac:EquityValidation", 
                     "Label" : "Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
-                    "Id" : "321594d1-475d-42cf-9462-812a18de14f3"
-                  }, 
-                  "fac:Assets2Validation" : {
-                    "Name" : "fac:Assets2Validation", 
-                    "Label" : "Assets = LiabilitiesAndEquity", 
-                    "Id" : "a6e2a23c-42a8-49a2-ae27-57f720b6330c"
+                    "Id" : "ac2e93f9-eb11-4385-ae12-2cd7abc25c8b", 
+                    "expanded" : true, 
+                    "Order" : 3
                   }, 
                   "fac:AssetsValidation" : {
+                    "Id" : "e629c26f-0a6d-45d0-a4c4-1a528301627b", 
                     "Name" : "fac:AssetsValidation", 
+                    "Label" : "Assets = LiabilitiesAndEquity", 
+                    "Order" : 13, 
+                    "expanded" : true
+                  }, 
+                  "fac:AssetsValidation2" : {
+                    "Id" : "9677db98-a706-44ae-8a5e-6f5394a5fb49", 
+                    "Name" : "fac:AssetsValidation2", 
                     "Label" : "Assets = CurrentAssets + NoncurrentAssets", 
-                    "Id" : "004ce0f9-e0e9-4606-8665-59205cf55598"
+                    "Order" : 4, 
+                    "expanded" : true
                   }, 
                   "fac:LiabilitiesValidation" : {
                     "Name" : "fac:LiabilitiesValidation", 
                     "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
-                    "Id" : "aaf6e7db-261f-4610-a1e6-71994e854ccc"
+                    "Id" : "8ef620f4-9a41-426d-9feb-e8499fb7618f", 
+                    "expanded" : true, 
+                    "Order" : 5
                   }, 
                   "fac:LiabilitiesAndEquityValidation" : {
                     "Name" : "fac:LiabilitiesAndEquityValidation", 
                     "Label" : "LiabilitiesAndEquity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
-                    "Id" : "fc6f8538-b171-49fc-acdd-ef5bfbe36643"
+                    "Id" : "4e483151-666f-44be-a1d9-de8b4583edc3", 
+                    "expanded" : true, 
+                    "Order" : 6
                   }, 
                   "fac:GrossProfitValidation" : {
                     "Name" : "fac:GrossProfitValidation", 
                     "Label" : "GrossProfit = Revenues - CostOfRevenue", 
-                    "Id" : "8ed46fda-c4d7-4a67-9540-9ac08bbcb8cf"
+                    "Id" : "11dba54b-088f-43ab-b62c-41fd58c93962", 
+                    "expanded" : true, 
+                    "Order" : 7
                   }, 
                   "fac:OperatingIncomeLossValidation" : {
                     "Name" : "fac:OperatingIncomeLossValidation", 
                     "Label" : "OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
-                    "Id" : "263f1b83-762e-4a91-97b1-dcbbfcecee6e"
+                    "Id" : "18d142b3-18a1-459a-81e3-a8b73a4771b1", 
+                    "expanded" : true, 
+                    "Order" : 8
                   }, 
                   "fac:IncomeBeforeEquityMethodInvestmentsValidation" : {
                     "Name" : "fac:IncomeBeforeEquityMethodInvestmentsValidation", 
                     "Label" : "IncomeBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
-                    "Id" : "30a76613-23dc-456d-b4ea-f899a446b12d"
+                    "Id" : "aeeba100-3e0d-47dd-a778-507a9ed0be20", 
+                    "expanded" : true, 
+                    "Order" : 9
                   }, 
                   "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation" : {
                     "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", 
                     "Label" : "IncomeLossFromContinuingOperationsBeforeTax = IncomeBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
-                    "Id" : "98aa10ff-a80c-4b0a-9ed6-b9f27edb93bf"
+                    "Id" : "bc9d317e-5bbc-46bc-8006-0bb124d6a8e2", 
+                    "expanded" : true, 
+                    "Order" : 10
                   }, 
                   "fac:IncomeLossFromContinuingOperationsAfterTaxValidation" : {
                     "Name" : "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", 
                     "Label" : "IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
-                    "Id" : "ba696487-98eb-4f56-b8e6-4680167e3745"
+                    "Id" : "672ba74f-540a-4047-81db-bc02483088e9", 
+                    "expanded" : true, 
+                    "Order" : 11
                   }, 
                   "fac:NetIncomeLossValidation" : {
                     "Name" : "fac:NetIncomeLossValidation", 
                     "Label" : "NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetTax + ExtraordinaryItemsIncomeExpenseNetTax", 
-                    "Id" : "925f9293-ec0e-498f-9833-184050b7d900"
+                    "Id" : "c527f140-da14-47f8-bb6a-a336a34aa60e", 
+                    "expanded" : true, 
+                    "Order" : 12
                   }, 
                   "fac:NetIncomeLoss2Validation" : {
                     "Name" : "fac:NetIncomeLoss2Validation", 
                     "Label" : "NetIncomeLoss = NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest", 
-                    "Id" : "44b03699-58d4-4438-b5a0-196d53328a9a"
+                    "Id" : "269d13b8-c2de-465a-a73c-271c1f5367c9", 
+                    "expanded" : true, 
+                    "Order" : 2
                   }, 
                   "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation" : {
                     "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
                     "Label" : "NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
-                    "Id" : "635d0b73-cf0d-4882-a5cd-12908906c0f7"
+                    "Id" : "33e587a4-ceca-4dfe-b7a7-4b581979b526", 
+                    "expanded" : true, 
+                    "Order" : 14
                   }, 
                   "fac:ComprehensiveIncomeLossValidation" : {
                     "Name" : "fac:ComprehensiveIncomeLossValidation", 
                     "Label" : "ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
-                    "Id" : "7753f380-c21d-41f9-8c17-cc3d36504d14"
+                    "Id" : "3551726d-513d-46a7-9ef8-125080ae54fb", 
+                    "expanded" : true, 
+                    "Order" : 15
                   }, 
                   "fac:ComprehensiveIncomeLoss2Validation" : {
                     "Name" : "fac:ComprehensiveIncomeLoss2Validation", 
                     "Label" : "ComprehensiveIncome = NetIncomeLoss + OtherComprehensiveIncome", 
-                    "Id" : "32c6b7dc-95e1-4757-a54a-b15fc1210038"
+                    "Id" : "62f3cab9-4fc0-48d2-9c1d-602d52de0080", 
+                    "expanded" : true, 
+                    "Order" : 16
                   }, 
                   "fac:OperatingIncomeLoss2Validation" : {
                     "Name" : "fac:OperatingIncomeLoss2Validation", 
                     "Label" : "OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
-                    "Id" : "3a6e41f7-c668-49f8-a3d1-efe0e74bd680"
+                    "Id" : "35e4c4d4-0947-4ffc-8039-5f6411069145", 
+                    "expanded" : true, 
+                    "Order" : 17
                   }, 
                   "fac:NetCashFlowsValidation" : {
                     "Name" : "fac:NetCashFlowsValidation", 
                     "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses]", 
-                    "Id" : "f99c78b0-1cfa-4ca1-b3ca-19acd9f0c411"
+                    "Id" : "e1530488-3432-4005-b5d4-2c19cdf125b6", 
+                    "expanded" : true, 
+                    "Order" : 18
                   }, 
                   "fac:NetCashFlowsContinuingValidation" : {
                     "Name" : "fac:NetCashFlowsContinuingValidation", 
                     "Label" : "NetCashFlowsContinuing = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesContinuing", 
-                    "Id" : "4056d3b9-0147-4413-8b43-da303d5f1858"
+                    "Id" : "2598b79f-357a-4a1c-b4ea-ac5e1110c8ba", 
+                    "expanded" : true, 
+                    "Order" : 19
                   }, 
                   "fac:NetCashFlowsDiscontinuedValidation" : {
                     "Name" : "fac:NetCashFlowsDiscontinuedValidation", 
                     "Label" : "NetCashFlowsDiscontinued = NetCashFlowsFromOperatingActivitiesDiscontinued + NetCashFlowsFromInvestingActivitiesDiscontinued + NetCashFlowsFromFinancingActivitiesDiscontinued", 
-                    "Id" : "588057ce-2c37-4b18-8510-d3d6613034a9"
+                    "Id" : "5b9e2b9f-e73f-4fd3-9f49-68e9504d0539", 
+                    "expanded" : true, 
+                    "Order" : 20
                   }, 
                   "fac:NetCashFlowsFromOperatingActivitiesValidation" : {
                     "Name" : "fac:NetCashFlowsFromOperatingActivitiesValidation", 
                     "Label" : "NetCashFlowsFromOperatingActivities = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromOperatingActivitiesDiscontinued", 
-                    "Id" : "fc25db2f-efc5-49b6-b7f0-2fac7a6c83b5"
+                    "Id" : "2dc43dfa-1473-4e02-be62-73e04039b789", 
+                    "expanded" : true, 
+                    "Order" : 21
                   }, 
                   "fac:NetCashFlowsFromInvestingActivitiesValidation" : {
                     "Name" : "fac:NetCashFlowsFromInvestingActivitiesValidation", 
                     "Label" : "NetCashFlowsFromInvestingActivities = NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesDiscontinued", 
-                    "Id" : "56b96817-7742-4067-ad91-0746f85e20b7"
+                    "Id" : "8aff03dc-f74d-4e5b-9c63-2e88ecc5fdec", 
+                    "expanded" : true, 
+                    "Order" : 22
                   }, 
                   "fac:NetCashFlowsFromFinancingActivitiesValidation" : {
                     "Name" : "fac:NetCashFlowsFromFinancingActivitiesValidation", 
                     "Label" : "NetCashFlowsFromFinancingActivities = NetCashFlowsFromFinancingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesDiscontinued", 
-                    "Id" : "e53e01c4-2232-4f28-bd36-fc6009bf1d75"
+                    "Id" : "c0167ac6-2ec3-408c-8895-5b9ded20a7d5", 
+                    "expanded" : true, 
+                    "Order" : 23
                   }
                 }, 
-                "Id" : "0a3a1392-0496-42ad-895d-803ccc4b2c63"
+                "Id" : "e1547838-cf51-472b-b864-b2caede2156a", 
+                "expanded" : true
               }
             }, 
-            "Id" : "637206a5-2865-4adc-ba05-b0b4c44e71cd"
+            "Id" : "a3e2ac2b-4b9c-4b8e-8f44-7fd39297de99", 
+            "expanded" : true
           }
         }, 
-        "Id" : "b5a50994-596a-496e-a636-cabe18ab7301"
+        "Id" : "e3f711bf-7ee3-42e3-a71e-c9f045425f2f", 
+        "expanded" : true
       }
     }
   }, {
@@ -642,10 +787,10 @@ let $schema := {
         "To" : {
           "us-gaap:PreferredStockDividendsAndOtherAdjustments" : {
             "Name" : "us-gaap:PreferredStockDividendsAndOtherAdjustments", 
-            "Id" : "7472db2b-828c-4594-be69-40e14e1a6575"
+            "Id" : "c08ec2d8-bd70-4a54-a912-c33aa651fd46"
           }
         }, 
-        "Id" : "c9b1e2e4-070b-46b6-a248-2b857ed6eef6"
+        "Id" : "30384133-a1e5-411e-b57d-d6d0ae6b54f3"
       }, 
       "fac:NoncurrentLiabilities" : {
         "Name" : "fac:NoncurrentLiabilities", 
@@ -653,10 +798,10 @@ let $schema := {
         "To" : {
           "us-gaap:LiabilitiesNoncurrent" : {
             "Name" : "us-gaap:LiabilitiesNoncurrent", 
-            "Id" : "3b8a8492-8cb7-42fe-b7e5-8ab95436ebc2"
+            "Id" : "52d6060c-b54c-4cba-a457-06a4b70bb1e4"
           }
         }, 
-        "Id" : "d3d68122-197e-4ffa-a6ce-67d85a31803f"
+        "Id" : "cbb31bba-25f0-42d1-b509-72746e83b284"
       }, 
       "fac:EntityRegistrantName" : {
         "Name" : "fac:EntityRegistrantName", 
@@ -664,10 +809,10 @@ let $schema := {
         "To" : {
           "dei:EntityRegistrantName" : {
             "Name" : "dei:EntityRegistrantName", 
-            "Id" : "36762e25-6a1b-4ca0-baab-0be51803a09c"
+            "Id" : "741d7793-f5dc-4a7e-ac74-524d96da0f56"
           }
         }, 
-        "Id" : "bad70b31-5604-4378-b4e7-05462c775a08"
+        "Id" : "26d20f5f-389f-4efb-8ee8-e8cf6c24b4ba"
       }, 
       "fac:Revenues" : {
         "Name" : "fac:Revenues", 
@@ -675,186 +820,186 @@ let $schema := {
         "To" : {
           "us-gaap:Revenues" : {
             "Name" : "us-gaap:Revenues", 
-            "Id" : "b07dac03-17f3-465a-8db3-9cc743f7c28e"
+            "Id" : "070a24ea-d907-43dd-aa1c-0e03f317f0d9"
           }, 
           "us-gaap:SalesRevenueNet" : {
             "Name" : "us-gaap:SalesRevenueNet", 
-            "Id" : "2be1e283-40df-405a-ab3b-1fbba3104e9b"
+            "Id" : "cbbc24aa-dd5a-48a5-a643-18d242941170"
           }, 
           "us-gaap:SalesRevenueServicesNet" : {
             "Name" : "us-gaap:SalesRevenueServicesNet", 
-            "Id" : "b5a47eec-0115-45f3-8859-694775a73a3d"
+            "Id" : "1c763b87-df2c-45b7-80e6-851576726e98"
           }, 
           "us-gaap:SalesRevenueGoodsNet" : {
             "Name" : "us-gaap:SalesRevenueGoodsNet", 
-            "Id" : "be65139c-483f-42d9-a26d-d87ae9ab6c86"
+            "Id" : "6dcde9d2-cc0b-49b8-a240-bf9b91461ed5"
           }, 
           "us-gaap:RevenuesNetOfInterestExpense" : {
             "Name" : "us-gaap:RevenuesNetOfInterestExpense", 
-            "Id" : "06c69dc3-67cf-4f61-943e-05482e06265e"
+            "Id" : "2b492f5a-7bad-4063-a9a7-87f29cf8bd6c"
           }, 
           "us-gaap:HealthCareOrganizationRevenue" : {
             "Name" : "us-gaap:HealthCareOrganizationRevenue", 
-            "Id" : "160bbafe-25f5-40a3-83c0-54bb07d0744e"
+            "Id" : "8e317a74-646c-4eee-b63c-b8fa856795fd"
           }, 
           "us-gaap:InterestAndDividendIncomeOperating" : {
             "Name" : "us-gaap:InterestAndDividendIncomeOperating", 
-            "Id" : "b9171388-324c-49be-a77d-d2a6c6e7ca79"
+            "Id" : "8c9102d2-ad1a-4759-a95b-251e211c82a8"
           }, 
           "us-gaap:RealEstateRevenueNet" : {
             "Name" : "us-gaap:RealEstateRevenueNet", 
-            "Id" : "88bd9137-ce6f-4a1a-ae64-08fde7ce2f2f"
+            "Id" : "b20b3201-83af-4568-85b5-98b2ecbbcce5"
           }, 
           "us-gaap:RevenueMineralSales" : {
             "Name" : "us-gaap:RevenueMineralSales", 
-            "Id" : "d0775de7-0508-4868-830e-08d5731e486c"
+            "Id" : "431046c3-7efc-46f3-8c89-8ba276c68667"
           }, 
           "us-gaap:OilAndGasRevenue" : {
             "Name" : "us-gaap:OilAndGasRevenue", 
-            "Id" : "1c81bb62-b03f-493d-9cdc-af5bad3895c0"
+            "Id" : "4c1a9cdd-9f63-4979-9968-ebfd8e3a02b0"
           }, 
           "us-gaap:RegulatedAndUnregulatedOperatingRevenue" : {
             "Name" : "us-gaap:RegulatedAndUnregulatedOperatingRevenue", 
-            "Id" : "0e98e277-b62e-4b5a-869f-3862ababa824"
+            "Id" : "81dfec0c-497d-4e95-b50e-52aea6f923c6"
           }, 
           "us-gaap:FinancialServicesRevenue" : {
             "Name" : "us-gaap:FinancialServicesRevenue", 
-            "Id" : "45a83a1b-b1a0-4b52-959c-58d2ea6e9287"
+            "Id" : "65574555-bd21-42cd-8e9b-a10c15957fdd"
           }, 
           "us-gaap:ShippingAndHandlingRevenue" : {
             "Name" : "us-gaap:ShippingAndHandlingRevenue", 
-            "Id" : "49f62771-224a-4897-ada3-7edf1e62c365"
+            "Id" : "4e7dacab-ede5-4df8-b40e-68d2ec14d3ec"
           }, 
           "us-gaap:SalesRevenueFromEnergyCommoditiesAndServices" : {
             "Name" : "us-gaap:SalesRevenueFromEnergyCommoditiesAndServices", 
-            "Id" : "89d7989c-3293-4832-ae35-ce3aa67f5d1d"
+            "Id" : "e659348e-7ce1-4399-afc5-31ad9bfa3f6a"
           }, 
           "us-gaap:UtilityRevenue" : {
             "Name" : "us-gaap:UtilityRevenue", 
-            "Id" : "a2b4b09d-59cf-4e3b-9933-f48c6d1e4b11"
+            "Id" : "f644aeab-805b-47b8-8692-32d2a8ba9146"
           }, 
           "us-gaap:PhaseInPlanAmountOfCapitalizedCostsRecovered" : {
             "Name" : "us-gaap:PhaseInPlanAmountOfCapitalizedCostsRecovered", 
-            "Id" : "477c38ab-4ecc-4bf4-8c45-90289da002ac"
+            "Id" : "e036bcd6-5bda-4da2-9e2a-95429204b665"
           }, 
           "us-gaap:SecondaryProcessingRevenue" : {
             "Name" : "us-gaap:SecondaryProcessingRevenue", 
-            "Id" : "cb8e39d5-cf16-472e-8eb9-1ddfa6d2f49b"
+            "Id" : "87bbd619-fa77-490b-b679-f4442a36ec84"
           }, 
           "us-gaap:RevenueSteamProductsAndServices" : {
             "Name" : "us-gaap:RevenueSteamProductsAndServices", 
-            "Id" : "dcb94bfa-9cf2-4659-b64d-17bd3bab3cd8"
+            "Id" : "271f513e-60d8-40ee-8bdf-3330a3502a47"
           }, 
           "us-gaap:RevenueFromLeasedAndOwnedHotels" : {
             "Name" : "us-gaap:RevenueFromLeasedAndOwnedHotels", 
-            "Id" : "8ab4c992-628c-49d6-9074-6ec172a451a0"
+            "Id" : "c43bd9f9-198b-4afa-bdb2-985e205cd50e"
           }, 
           "us-gaap:FranchisorRevenue" : {
             "Name" : "us-gaap:FranchisorRevenue", 
-            "Id" : "d0bec30b-83de-4b59-8b9e-c9dbfa447ab7"
+            "Id" : "8f25904a-da75-4a69-b3ac-d1e0dd31167e"
           }, 
           "us-gaap:SubscriptionRevenue" : {
             "Name" : "us-gaap:SubscriptionRevenue", 
-            "Id" : "30df4161-7396-420a-ade2-62812e616a3d"
+            "Id" : "a77589cd-adef-42ed-a2f6-bd68b36ca2d6"
           }, 
           "us-gaap:AdvertisingRevenue" : {
             "Name" : "us-gaap:AdvertisingRevenue", 
-            "Id" : "3ff016ab-bbfa-4fc0-9746-62a4241b568c"
+            "Id" : "b5036388-48f0-470b-97ba-4900ef0cffee"
           }, 
           "us-gaap:AdmissionsRevenue" : {
             "Name" : "us-gaap:AdmissionsRevenue", 
-            "Id" : "e6aa9de2-274c-4fcb-84b8-9de781e45047"
+            "Id" : "8fdc0660-cf48-4050-94d8-f67e12648e12"
           }, 
           "us-gaap:RevenueFromEnrollmentAndRegistrationFeesExcludingHospitalityEnterprises" : {
             "Name" : "us-gaap:RevenueFromEnrollmentAndRegistrationFeesExcludingHospitalityEnterprises", 
-            "Id" : "af4ec895-76b0-4890-8c90-8f32f073fcbb"
+            "Id" : "afc675ed-4855-44ed-9b4b-feb67ab86934"
           }, 
           "us-gaap:MembershipDuesRevenueOnGoing" : {
             "Name" : "us-gaap:MembershipDuesRevenueOnGoing", 
-            "Id" : "3f802570-c29b-466e-94ef-e461c9776adb"
+            "Id" : "6cdcf1f7-91c2-47d2-9fbf-e9032244108a"
           }, 
           "us-gaap:LicensesRevenue" : {
             "Name" : "us-gaap:LicensesRevenue", 
-            "Id" : "fcef9ad7-91ea-4856-a86f-363fba0d2948"
+            "Id" : "7422ad73-0548-4284-a481-d65f94d64220"
           }, 
           "us-gaap:RoyaltyRevenue" : {
             "Name" : "us-gaap:RoyaltyRevenue", 
-            "Id" : "f1d6fe7f-811e-4ba0-9988-d2e7d8491d1c"
+            "Id" : "0762358e-34a3-4002-8b39-198edb11c896"
           }, 
           "us-gaap:SalesOfOilAndGasProspects" : {
             "Name" : "us-gaap:SalesOfOilAndGasProspects", 
-            "Id" : "44249469-d079-4a83-8e71-5a64c642c4a0"
+            "Id" : "a88d37af-0afe-47ac-b99a-e50f0b8ad446"
           }, 
           "us-gaap:ClearingFeesRevenue" : {
             "Name" : "us-gaap:ClearingFeesRevenue", 
-            "Id" : "e9256c90-ba89-4c01-b717-51f35684e12a"
+            "Id" : "550dc2eb-941a-4e75-989f-0d307c7d98f8"
           }, 
           "us-gaap:ReimbursementRevenue" : {
             "Name" : "us-gaap:ReimbursementRevenue", 
-            "Id" : "7dbc088d-bdc4-45fb-8eb2-d44ac02ad1fb"
+            "Id" : "1ad094d4-6b6a-4f75-a57d-8cd60e1cbd2d"
           }, 
           "us-gaap:RevenueFromGrants" : {
             "Name" : "us-gaap:RevenueFromGrants", 
-            "Id" : "284da2fd-6116-42b7-a661-ce557648bc69"
+            "Id" : "58c22849-703b-4487-a7c8-b21cb83c3627"
           }, 
           "us-gaap:RevenueOtherManufacturedProducts" : {
             "Name" : "us-gaap:RevenueOtherManufacturedProducts", 
-            "Id" : "4ae3a867-2971-4b95-981f-eded201377bd"
+            "Id" : "3d02df8e-95be-41a7-a9d5-81aba36e31d5"
           }, 
           "us-gaap:ConstructionMaterialsRevenue" : {
             "Name" : "us-gaap:ConstructionMaterialsRevenue", 
-            "Id" : "435eb0ba-582a-4472-b3e8-ff2f2d4a04dd"
+            "Id" : "aa401f7d-f24f-4a24-afd2-723c27c9c605"
           }, 
           "us-gaap:TimberRevenue" : {
             "Name" : "us-gaap:TimberRevenue", 
-            "Id" : "090ab3ad-9359-48c3-a51e-811ec84f70cd"
+            "Id" : "5c51681f-5367-48c1-8555-2756c65fa70a"
           }, 
           "us-gaap:RecyclingRevenue" : {
             "Name" : "us-gaap:RecyclingRevenue", 
-            "Id" : "abc38930-4a23-4854-86db-1e753672a905"
+            "Id" : "528c2db6-0f0e-4af3-8c4c-e47314d0e981"
           }, 
           "us-gaap:OtherSalesRevenueNet" : {
             "Name" : "us-gaap:OtherSalesRevenueNet", 
-            "Id" : "4752b9b9-6882-4e5e-891c-68ca68261f22"
+            "Id" : "7a31af00-e29f-48bb-bb76-0ddf8f08bbe9"
           }, 
           "us-gaap:SaleOfTrustAssetsToPayExpenses" : {
             "Name" : "us-gaap:SaleOfTrustAssetsToPayExpenses", 
-            "Id" : "885860d5-754b-4522-bc28-51a4301546b1"
+            "Id" : "56bf4649-4154-4729-a690-e9e3a5222445"
           }, 
           "us-gaap:PassengerRevenue" : {
             "Name" : "us-gaap:PassengerRevenue", 
-            "Id" : "ca3d2e66-05ee-4c25-b0a0-2cb3baa01af7"
+            "Id" : "76dc3d25-5431-42b9-bf28-3dc70e87608f"
           }, 
           "us-gaap:VehicleTollRevenue" : {
             "Name" : "us-gaap:VehicleTollRevenue", 
-            "Id" : "13701b58-089f-45d5-ad9b-e2136e020a50"
+            "Id" : "e17e9f59-3755-4947-9f6c-d09fa9328cfb"
           }, 
           "us-gaap:CargoAndFreightRevenue" : {
             "Name" : "us-gaap:CargoAndFreightRevenue", 
-            "Id" : "0a11932a-072a-4353-92bb-aebb82b540cc"
+            "Id" : "9201640f-bdb3-404a-8d7d-9f2cc6ce0e42"
           }, 
           "us-gaap:NetInvestmentIncome" : {
             "Name" : "us-gaap:NetInvestmentIncome", 
-            "Id" : "03e23013-1b94-4518-a8da-3ac4445b453d"
+            "Id" : "b78fff86-97b3-4500-84d7-54a72cc68e4a"
           }, 
           "us-gaap:RevenuesExcludingInterestAndDividends" : {
             "Name" : "us-gaap:RevenuesExcludingInterestAndDividends", 
-            "Id" : "cf74c479-ff65-4c27-b99d-eb5ab9e50a9d"
+            "Id" : "7928ab6d-a770-4310-b1ee-a4418322378f"
           }, 
           "us-gaap:InvestmentBankingRevenue" : {
             "Name" : "us-gaap:InvestmentBankingRevenue", 
-            "Id" : "82467f70-9029-4a74-9950-37cce8ccffc1"
+            "Id" : "d1fa3b7c-ad00-4f64-87e7-c8b42cbdf0b8"
           }, 
           "us-gaap:UnderwritingIncomeLoss" : {
             "Name" : "us-gaap:UnderwritingIncomeLoss", 
-            "Id" : "291403f9-86a9-4470-9603-1a0f07e7151e"
+            "Id" : "730d365a-d6f3-46e3-af10-b49c1a5c1e59"
           }, 
           "us-gaap:MarketDataRevenue" : {
             "Name" : "us-gaap:MarketDataRevenue", 
-            "Id" : "9abc569f-b1b9-4f7e-85e2-374e19eb17ec"
+            "Id" : "ebe2ddc5-b804-4b08-8a9e-7c16ae733d43"
           }
         }, 
-        "Id" : "64e3252a-e9ba-4500-b626-85fb3c941031"
+        "Id" : "7f142386-db71-47b6-a3b6-3359c6154341"
       }, 
       "fac:NetCashFlowsContinuing" : {
         "Name" : "fac:NetCashFlowsContinuing", 
@@ -862,10 +1007,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetCashProvidedByUsedInContinuingOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInContinuingOperations", 
-            "Id" : "c6ba6cd2-fa3a-4d45-b5b4-39be57ac9888"
+            "Id" : "03ff95fc-2d87-475c-bda2-b39e4fe2f1a5"
           }
         }, 
-        "Id" : "b5a90a86-ea9f-48e9-a92f-cfc8b463de91"
+        "Id" : "397f3df1-cada-4bc9-a885-1887734e2afe"
       }, 
       "fac:Assets" : {
         "Name" : "fac:Assets", 
@@ -873,14 +1018,14 @@ let $schema := {
         "To" : {
           "us-gaap:Assets" : {
             "Name" : "us-gaap:Assets", 
-            "Id" : "5f8f5fae-7d66-4f25-9984-116ae271748b"
+            "Id" : "cf8b0075-3480-4abc-bf30-3d6077eefee5"
           }, 
           "us-gaap:AssetsCurrent" : {
             "Name" : "us-gaap:AssetsCurrent", 
-            "Id" : "8207c005-3434-4451-90db-a2582c9df521"
+            "Id" : "42600d11-dda8-4bb2-a350-f3aff454ec04"
           }
         }, 
-        "Id" : "8911b161-bb05-4ba3-a64d-b2e6512a061b"
+        "Id" : "b66c1d41-9beb-4595-be30-9591b41b08a1"
       }, 
       "fac:EquityAttributableToParent" : {
         "Name" : "fac:EquityAttributableToParent", 
@@ -888,18 +1033,18 @@ let $schema := {
         "To" : {
           "us-gaap:StockholdersEquity" : {
             "Name" : "us-gaap:StockholdersEquity", 
-            "Id" : "53d3190e-075b-455e-9d3e-b78170b92088"
+            "Id" : "c0e504c4-03af-48c1-94ae-1f000093d0c0"
           }, 
           "us-gaap:PartnersCapital" : {
             "Name" : "us-gaap:PartnersCapital", 
-            "Id" : "b14786c6-ffa0-45b4-bdf8-77905a0d4034"
+            "Id" : "b3986ad8-4ebe-4e1a-891a-f5111598331a"
           }, 
           "us-gaap:MemberEquity" : {
             "Name" : "us-gaap:MemberEquity", 
-            "Id" : "633060b1-dc68-4e7f-81f5-0531e6d9908d"
+            "Id" : "d8f5a358-3d45-44a3-9aa8-69bb19b522a5"
           }
         }, 
-        "Id" : "e4246fdd-df4b-4b28-ba77-b96573da26e4"
+        "Id" : "2796490e-51a2-4135-9752-c195fc69f9ef"
       }, 
       "fac:InterestAndDebtExpense" : {
         "Name" : "fac:InterestAndDebtExpense", 
@@ -907,10 +1052,10 @@ let $schema := {
         "To" : {
           "us-gaap:InterestAndDebtExpense" : {
             "Name" : "us-gaap:InterestAndDebtExpense", 
-            "Id" : "d4b5d7a4-eedd-48dd-9234-af8c41b620c6"
+            "Id" : "50305f05-52c4-48a5-89a8-177581cc4335"
           }
         }, 
-        "Id" : "537f3e57-4f47-4093-b84f-c5190c987e46"
+        "Id" : "3700be64-3c27-4c4a-9aab-2d4e9012521f"
       }, 
       "fac:IncomeTaxExpenseBenefit" : {
         "Name" : "fac:IncomeTaxExpenseBenefit", 
@@ -918,18 +1063,18 @@ let $schema := {
         "To" : {
           "us-gaap:IncomeTaxExpenseBenefit" : {
             "Name" : "us-gaap:IncomeTaxExpenseBenefit", 
-            "Id" : "ce66c40e-71eb-4afb-8cca-78cadde50459"
+            "Id" : "adec10cf-b1fc-44fe-9742-fa6a71cfb3fc"
           }, 
           "us-gaap:IncomeTaxExpenseBenefitContinuingOperations" : {
             "Name" : "us-gaap:IncomeTaxExpenseBenefitContinuingOperations", 
-            "Id" : "d78f909a-8fc4-4961-ad00-74d193da300d"
+            "Id" : "9be815d3-9cdf-4840-acf9-1307823771be"
           }, 
           "us-gaap:FederalHomeLoanBankAssessments" : {
             "Name" : "us-gaap:FederalHomeLoanBankAssessments", 
-            "Id" : "63910e5b-f234-406f-851a-5ff76a4bb648"
+            "Id" : "96c1dcae-89e5-40c0-bce0-3dca51d4a30d"
           }
         }, 
-        "Id" : "3a4fac72-9673-4fd8-8f3f-0960a1c76e52"
+        "Id" : "0003d831-31e5-45de-a86a-47c12077d966"
       }, 
       "fac:EntityCentralIndexKey" : {
         "Name" : "fac:EntityCentralIndexKey", 
@@ -937,10 +1082,10 @@ let $schema := {
         "To" : {
           "dei:EntityCentralIndexKey" : {
             "Name" : "dei:EntityCentralIndexKey", 
-            "Id" : "aae9413f-e7aa-4af1-9ac0-e279d401770a"
+            "Id" : "0b75d1a5-4d73-447a-a982-4059e0b94188"
           }
         }, 
-        "Id" : "c13b42a5-fed5-4ccc-8b9e-8ab98f9ef328"
+        "Id" : "c293e7b1-85ea-40c5-b59c-3118c6893795"
       }, 
       "fac:NatureOfOperations" : {
         "Name" : "fac:NatureOfOperations", 
@@ -948,22 +1093,22 @@ let $schema := {
         "To" : {
           "us-gaap:NatureOfOperations" : {
             "Name" : "us-gaap:NatureOfOperations", 
-            "Id" : "0f0fb4a7-23c5-43b2-98d2-0bdc324a8198"
+            "Id" : "9298ed1a-da85-47b7-98f9-73258094787c"
           }, 
           "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock" : {
             "Name" : "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock", 
-            "Id" : "dd3bb2d9-cb06-4343-93ae-e0f55c28a497"
+            "Id" : "327b87da-8652-4fa0-a8be-ba71a0754c58"
           }, 
           "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock" : {
             "Name" : "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock", 
-            "Id" : "10f93d66-6c7d-4d46-8057-0c6397631bcc"
+            "Id" : "78632610-0140-4b93-ab10-ca9b19bc94e3"
           }, 
           "us-gaap:OrganizationConsolidationBasisOfPresentationBusinessDescriptionAndAccountingPoliciesTextBlock" : {
             "Name" : "us-gaap:OrganizationConsolidationBasisOfPresentationBusinessDescriptionAndAccountingPoliciesTextBlock", 
-            "Id" : "aa30645d-b2bc-4277-90cc-1228c682a45a"
+            "Id" : "374e9d10-7106-447a-b78b-afa6b8d049e6"
           }
         }, 
-        "Id" : "0f06c2f5-9b6d-414e-afc6-ac378b41da61"
+        "Id" : "49f5d663-3b20-44d4-9543-78156c3ffa63"
       }, 
       "fac:ResearchAndDevelopment" : {
         "Name" : "fac:ResearchAndDevelopment", 
@@ -971,26 +1116,26 @@ let $schema := {
         "To" : {
           "us-gaap:ResearchAndDevelopmentExpense" : {
             "Name" : "us-gaap:ResearchAndDevelopmentExpense", 
-            "Id" : "a1a88694-ab59-4da5-b710-5dfe14b4f36b"
+            "Id" : "54c777f0-2644-4b6d-a27a-17aae6cc506a"
           }, 
           "us-gaap:ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost" : {
             "Name" : "us-gaap:ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost", 
-            "Id" : "71630786-5a0a-4ac6-a407-433dd6020619"
+            "Id" : "5de7ea80-7d96-4d6c-8fab-529d27959d5e"
           }, 
           "us-gaap:ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost" : {
             "Name" : "us-gaap:ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost", 
-            "Id" : "6819ea0a-43bb-485b-bbd5-5e99af3b867d"
+            "Id" : "46c4a856-a863-427b-b01b-f28c3783d90e"
           }, 
           "us-gaap:ResearchAndDevelopmentInProcess" : {
             "Name" : "us-gaap:ResearchAndDevelopmentInProcess", 
-            "Id" : "6965ba53-784e-4ad8-91d8-21ad93ef9db7"
+            "Id" : "fe8ca221-e936-4f61-8137-ec75fb1df993"
           }, 
           "us-gaap:ResearchAndDevelopmentAssetAcquiredOtherThanThroughBusinessCombinationWrittenOff" : {
             "Name" : "us-gaap:ResearchAndDevelopmentAssetAcquiredOtherThanThroughBusinessCombinationWrittenOff", 
-            "Id" : "4a407bf7-c40a-4ef3-8c0f-6981a60eb3d1"
+            "Id" : "60e9a484-8616-4670-8985-ddce6a55c1db"
           }
         }, 
-        "Id" : "d1f1fe3a-dd66-4333-a369-9dae853f42e3"
+        "Id" : "dde6cad8-44c5-448a-8cf0-c714a40f5255"
       }, 
       "fac:OtherOperatingIncomeExpenses" : {
         "Name" : "fac:OtherOperatingIncomeExpenses", 
@@ -998,10 +1143,10 @@ let $schema := {
         "To" : {
           "us-gaap:OtherOperatingIncome" : {
             "Name" : "us-gaap:OtherOperatingIncome", 
-            "Id" : "1e9aaa1d-1faf-417d-be3f-f6b071b4611a"
+            "Id" : "f9452138-64fc-408c-b974-733c1ef04007"
           }
         }, 
-        "Id" : "294fb43e-423c-4983-86bb-f6e32056c5a9"
+        "Id" : "c55bf227-cdbf-4d9d-aaa7-9774123701e1"
       }, 
       "fac:NetCashFlowsFromInvestingActivities" : {
         "Name" : "fac:NetCashFlowsFromInvestingActivities", 
@@ -1009,10 +1154,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetCashProvidedByUsedInInvestingActivities" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-            "Id" : "9d72dd5c-1c16-4d21-994d-1e8f0e8395a2"
+            "Id" : "c4ac07cf-e17f-4611-807d-5c551594ef72"
           }
         }, 
-        "Id" : "cc2c54bc-11ca-4f42-977d-727244b48205"
+        "Id" : "e512ec68-b35f-41d3-aba6-524d8436899c"
       }, 
       "fac:IncomeBeforeEquityMethodInvestments" : {
         "Name" : "fac:IncomeBeforeEquityMethodInvestments", 
@@ -1020,10 +1165,10 @@ let $schema := {
         "To" : {
           "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments", 
-            "Id" : "35173cef-a47f-4a36-ab9b-2fb278648110"
+            "Id" : "eac5dd0e-65ff-4f27-8957-d000037e0cc2"
           }
         }, 
-        "Id" : "eefef6e5-f7d3-4e5e-90c2-1469bc7d0fd1"
+        "Id" : "de4fd79e-a78d-4a6e-98a9-a23c0b36d0c6"
       }, 
       "fac:TradingSymbol" : {
         "Name" : "fac:TradingSymbol", 
@@ -1031,10 +1176,10 @@ let $schema := {
         "To" : {
           "dei:TradingSymbol" : {
             "Name" : "dei:TradingSymbol", 
-            "Id" : "3679a09a-60f5-4782-81cc-f896586d57cb"
+            "Id" : "12688aaf-c745-4ab5-a64b-0ed4b0c8b241"
           }
         }, 
-        "Id" : "81c1f80f-3e08-43a2-9f2c-4e5d0f024760"
+        "Id" : "fa928032-4803-4fb6-98d2-08edea971e17"
       }, 
       "fac:NetIncomeLossAvailableToCommonStockholdersBasic" : {
         "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic", 
@@ -1042,10 +1187,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic" : {
             "Name" : "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic", 
-            "Id" : "036f1437-2c14-4fb8-acd0-e528dc4a8174"
+            "Id" : "c38b8fd5-2ab0-4462-bd06-10ca7cd2453c"
           }
         }, 
-        "Id" : "38780dd3-ea53-448a-8399-13ce9a1f993c"
+        "Id" : "50136d6f-11f1-4280-bd13-c8c592ef121a"
       }, 
       "fac:EntityFilerCategory" : {
         "Name" : "fac:EntityFilerCategory", 
@@ -1053,10 +1198,10 @@ let $schema := {
         "To" : {
           "dei:EntityFilerCategory" : {
             "Name" : "dei:EntityFilerCategory", 
-            "Id" : "28dca934-65cb-4d38-ae75-5ddbcf85e44b"
+            "Id" : "3501895b-c83c-4bb5-8102-8978e42beef5"
           }
         }, 
-        "Id" : "c71a2144-cd6e-42bd-af8e-ea0251e2cee7"
+        "Id" : "6bea67ed-bf88-4f73-98fd-6370a87e6052"
       }, 
       "fac:IncomeLossFromContinuingOperationsBeforeTax" : {
         "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTax", 
@@ -1064,14 +1209,14 @@ let $schema := {
         "To" : {
           "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments", 
-            "Id" : "bc019c85-56d2-4235-826f-b4ca87a89412"
+            "Id" : "88119bcd-9d61-425a-8bd1-3ba514d3f9cb"
           }, 
           "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest", 
-            "Id" : "a5bc569b-488a-4713-89ab-e98590e75f77"
+            "Id" : "9952d575-c7cc-43f3-98fb-cbba5cc58ffd"
           }
         }, 
-        "Id" : "47502919-1029-4077-814b-f13b4e819196"
+        "Id" : "4b587ce5-44ac-4a09-8f4b-c8025c83fee9"
       }, 
       "fac:OperatingExpenses" : {
         "Name" : "fac:OperatingExpenses", 
@@ -1079,14 +1224,14 @@ let $schema := {
         "To" : {
           "us-gaap:OperatingExpenses" : {
             "Name" : "us-gaap:OperatingExpenses", 
-            "Id" : "8bc5afeb-a700-465b-b7ec-5a65725089ed"
+            "Id" : "99ef0e7b-ffe1-4bd1-baf2-94568b1087be"
           }, 
           "us-gaap:OperatingCostsAndExpenses" : {
             "Name" : "us-gaap:OperatingCostsAndExpenses", 
-            "Id" : "bac1c9a9-f889-4210-9095-031a332a158a"
+            "Id" : "af175215-9cac-4e0a-ad2f-b56e2275218d"
           }
         }, 
-        "Id" : "c22a35ad-804c-4cc4-af19-13875990ee06"
+        "Id" : "1d4ffc61-49e5-4e97-8b59-d1bfcc694ed4"
       }, 
       "fac:NetCashFlowsDiscontinued" : {
         "Name" : "fac:NetCashFlowsDiscontinued", 
@@ -1094,10 +1239,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetCashProvidedByUsedInDiscontinuedOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInDiscontinuedOperations", 
-            "Id" : "048d1bc8-0bb7-4416-904a-f87554f2c879"
+            "Id" : "e82540f6-3e73-49db-9cc7-d868003a7b3c"
           }
         }, 
-        "Id" : "73e22082-8431-4332-a977-87ba19af506f"
+        "Id" : "6a799de8-81bb-4115-baa6-74e39c6087fe"
       }, 
       "fac:Liabilities" : {
         "Name" : "fac:Liabilities", 
@@ -1105,10 +1250,10 @@ let $schema := {
         "To" : {
           "us-gaap:Liabilities" : {
             "Name" : "us-gaap:Liabilities", 
-            "Id" : "94682efd-1dfc-470a-a5f4-2c5f9d61f69c"
+            "Id" : "ab5e6acc-7d77-4455-bb8e-d720963ad7ab"
           }
         }, 
-        "Id" : "327c2526-ab75-4e96-8026-c070d9ab9723"
+        "Id" : "c797bb70-2fe8-48b1-8103-28cd31b315ca"
       }, 
       "fac:ComprehensiveIncomeLossAttributableToParent" : {
         "Name" : "fac:ComprehensiveIncomeLossAttributableToParent", 
@@ -1116,10 +1261,10 @@ let $schema := {
         "To" : {
           "us-gaap:ComprehensiveIncomeNetOfTax" : {
             "Name" : "us-gaap:ComprehensiveIncomeNetOfTax", 
-            "Id" : "b5673d6d-12cf-4c59-ac14-499e6bc1ced1"
+            "Id" : "e063512d-e869-47a0-adda-e83cbcff4cf7"
           }
         }, 
-        "Id" : "1eaa9a93-1c6a-4dc3-b162-e1cef74763c1"
+        "Id" : "162cd9e5-8eeb-4349-9878-728e1cfdbccb"
       }, 
       "fac:CostOfRevenue" : {
         "Name" : "fac:CostOfRevenue", 
@@ -1127,22 +1272,22 @@ let $schema := {
         "To" : {
           "us-gaap:CostOfRevenue" : {
             "Name" : "us-gaap:CostOfRevenue", 
-            "Id" : "ad897537-b3ce-40a1-8ab5-470e7ebe2c2e"
+            "Id" : "14f6e204-ecca-4bc5-881a-28fcc7444e71"
           }, 
           "us-gaap:CostOfGoodsAndServicesSold" : {
             "Name" : "us-gaap:CostOfGoodsAndServicesSold", 
-            "Id" : "91a7963e-80cb-4d0b-9d0a-8890e234c4a5"
+            "Id" : "6873b9d3-7ab6-4e3d-8c2b-99745d03bc0a"
           }, 
           "us-gaap:CostOfServices" : {
             "Name" : "us-gaap:CostOfServices", 
-            "Id" : "0f355ead-a81c-45f8-a2fe-eec697a38d7c"
+            "Id" : "bf1ca924-7b58-4e26-81e6-e5975e6d9edc"
           }, 
           "us-gaap:CostOfGoodsSold" : {
             "Name" : "us-gaap:CostOfGoodsSold", 
-            "Id" : "1ebc67eb-a483-4d87-9d13-515c684db006"
+            "Id" : "b41b4e92-fdb0-45e8-8aa3-65b7e3647b4d"
           }
         }, 
-        "Id" : "777ae64f-beda-47aa-9811-d1b670287554"
+        "Id" : "6e17f01d-2c9d-417f-8c68-49ed485ba590"
       }, 
       "fac:NetCashFlows" : {
         "Name" : "fac:NetCashFlows", 
@@ -1150,18 +1295,18 @@ let $schema := {
         "To" : {
           "us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease" : {
             "Name" : "us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease", 
-            "Id" : "eebf1a66-8805-4239-9f3e-bf492b2e2286"
+            "Id" : "bd872d25-4d10-4aea-b759-0ebf1360b313"
           }, 
           "us-gaap:CashPeriodIncreaseDecrease" : {
             "Name" : "us-gaap:CashPeriodIncreaseDecrease", 
-            "Id" : "041773d3-4c75-4a30-b42e-cb8713c14220"
+            "Id" : "2ce0a8ae-5e4d-44a2-995d-358e2590c8ac"
           }, 
           "us-gaap:NetCashProvidedByUsedInContinuingOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInContinuingOperations", 
-            "Id" : "15056bc7-d438-42c0-a660-3fa0a6e70d24"
+            "Id" : "9f4b395b-29c7-4516-a22e-c4fe17ac8684"
           }
         }, 
-        "Id" : "078b9d6e-406b-4a6f-af55-702773d1f109"
+        "Id" : "611afa66-be37-4238-9c7f-c7d312f44b3e"
       }, 
       "fac:NonoperatingIncomeLoss" : {
         "Name" : "fac:NonoperatingIncomeLoss", 
@@ -1169,10 +1314,10 @@ let $schema := {
         "To" : {
           "us-gaap:NonoperatingIncomeExpense" : {
             "Name" : "us-gaap:NonoperatingIncomeExpense", 
-            "Id" : "2cb60107-68a8-4a26-ac81-805deff940fa"
+            "Id" : "db2989bf-3f98-4696-9da0-16e6ff631484"
           }
         }, 
-        "Id" : "120462d1-0a1a-4314-afcc-b1c1bd9394db"
+        "Id" : "1c5c270c-88b7-451f-95dd-1ed15e93e85f"
       }, 
       "fac:NetCashFlowsFromFinancingActivitiesContinuing" : {
         "Name" : "fac:NetCashFlowsFromFinancingActivitiesContinuing", 
@@ -1180,10 +1325,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations", 
-            "Id" : "be6379b4-3b70-4576-b080-e83c14ff99ad"
+            "Id" : "640d7682-72b9-4e17-ad61-33cbc86bd489"
           }
         }, 
-        "Id" : "8bf17490-680d-4c95-a49a-94f998addd29"
+        "Id" : "5421bdbe-b2fb-49ff-a9ec-da1777ab3e69"
       }, 
       "fac:IncomeLossFromContinuingOperationsAfterTax" : {
         "Name" : "fac:IncomeLossFromContinuingOperationsAfterTax", 
@@ -1191,18 +1336,18 @@ let $schema := {
         "To" : {
           "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest", 
-            "Id" : "c84cac32-1bdb-4271-8a42-e7adedb8c8fa"
+            "Id" : "b7f15e52-f874-4158-ae01-770e4cb0a9b5"
           }, 
           "us-gaap:IncomeLossBeforeExtraordinaryItemsAndCumulativeEffectOfChangeInAccountingPrinciple" : {
             "Name" : "us-gaap:IncomeLossBeforeExtraordinaryItemsAndCumulativeEffectOfChangeInAccountingPrinciple", 
-            "Id" : "201b0d40-85e3-4616-ad47-f23f0bbf242e"
+            "Id" : "a2d845ff-ea67-4956-a739-5b46e99012b6"
           }, 
           "us-gaap:IncomeLossFromContinuingOperations" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperations", 
-            "Id" : "46878162-d33a-4161-800f-72838aa1e667"
+            "Id" : "e6655fd7-7cb3-40e1-9f3d-1d912f243c41"
           }
         }, 
-        "Id" : "ddc25968-0ec5-4a57-b9d9-3aa97ad38142"
+        "Id" : "52eae2d0-f144-468b-97f1-f52b4cfb1319"
       }, 
       "fac:NetIncomeAttributableToParent" : {
         "Name" : "fac:NetIncomeAttributableToParent", 
@@ -1210,10 +1355,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetIncomeLoss" : {
             "Name" : "us-gaap:NetIncomeLoss", 
-            "Id" : "f4376114-3727-4071-97e6-6cc5034d3a0c"
+            "Id" : "2e976974-e5af-4dd7-945d-c203c327ce5d"
           }
         }, 
-        "Id" : "522a4d27-bdb2-454a-abe1-87410f3446c4"
+        "Id" : "c5528e35-ce0a-46c3-8f2a-0ea619c23731"
       }, 
       "fac:CommitmentsAndContingencies" : {
         "Name" : "fac:CommitmentsAndContingencies", 
@@ -1221,10 +1366,10 @@ let $schema := {
         "To" : {
           "us-gaap:CommitmentsAndContingencies" : {
             "Name" : "us-gaap:CommitmentsAndContingencies", 
-            "Id" : "45a3e2d6-9b9f-4b3d-90b1-4a88e19c100d"
+            "Id" : "ece3cdec-59d3-4c60-939d-c852db760249"
           }
         }, 
-        "Id" : "1791972b-fade-41eb-8b2a-f3ff6b6e6b05"
+        "Id" : "76f129d3-8f10-48df-a829-b4bd55c01591"
       }, 
       "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" : {
         "Name" : "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", 
@@ -1232,10 +1377,10 @@ let $schema := {
         "To" : {
           "us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations" : {
             "Name" : "us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations", 
-            "Id" : "53e7301c-6e53-4b08-aef1-f4ba485e2b58"
+            "Id" : "ad8baabd-2d87-4859-905c-d4bdd3c33ccc"
           }
         }, 
-        "Id" : "d7de8283-2eca-4a38-af6d-9a9047a8b8c5"
+        "Id" : "b2f594ac-14ec-4323-af8d-e187a1dc2ba6"
       }, 
       "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" : {
         "Name" : "fac:NetCashFlowsFromFinancingActivitiesDiscontinued", 
@@ -1243,10 +1388,10 @@ let $schema := {
         "To" : {
           "us-gaap:CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations" : {
             "Name" : "us-gaap:CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations", 
-            "Id" : "92078b6d-9453-43e5-9c08-1ac99f9e4421"
+            "Id" : "1cfd8e8d-e550-4d02-8e45-0f269d23b603"
           }
         }, 
-        "Id" : "6b949b8e-f8b5-45e3-ae43-33af7eded07a"
+        "Id" : "fdd0dea3-6e91-46f4-b5a5-e497e0bfb906"
       }, 
       "fac:NetIncomeAttributableToNoncontrollingInterest" : {
         "Name" : "fac:NetIncomeAttributableToNoncontrollingInterest", 
@@ -1254,10 +1399,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest", 
-            "Id" : "44693ae3-788e-42c8-8f3b-a934e894aa42"
+            "Id" : "1f9e4cf3-6497-4898-b264-96a937ff8549"
           }
         }, 
-        "Id" : "b986fb64-5c5c-428d-89f5-fef0987a2f31"
+        "Id" : "f1eedfb4-7ccb-41a0-a7f3-a8046ae3cf5b"
       }, 
       "fac:FiscalYearEnd" : {
         "Name" : "fac:FiscalYearEnd", 
@@ -1265,10 +1410,10 @@ let $schema := {
         "To" : {
           "dei:CurrentFiscalYearEndDate" : {
             "Name" : "dei:CurrentFiscalYearEndDate", 
-            "Id" : "b7304589-9f3b-4af2-b9ae-5db9b69f243c"
+            "Id" : "10733da9-2bd9-4257-a5b4-4407be5b1bb8"
           }
         }, 
-        "Id" : "c91b67e1-7b92-487b-9c07-f40ae8726c59"
+        "Id" : "27435af9-2b54-4d0c-a6db-d5e46699dc13"
       }, 
       "fac:NoncurrentAssets" : {
         "Name" : "fac:NoncurrentAssets", 
@@ -1276,10 +1421,10 @@ let $schema := {
         "To" : {
           "us-gaap:AssetsNoncurrent" : {
             "Name" : "us-gaap:AssetsNoncurrent", 
-            "Id" : "96e7fb08-7531-49ff-b778-2311f340cb85"
+            "Id" : "72f7baf6-a46f-45c3-9a64-0a66233477c6"
           }
         }, 
-        "Id" : "72411896-b8ec-46ba-bd72-e01d742a2b87"
+        "Id" : "45cbc36b-e19c-4b7a-88f4-41c0b158195f"
       }, 
       "fac:FiscalPeriod" : {
         "Name" : "fac:FiscalPeriod", 
@@ -1287,10 +1432,10 @@ let $schema := {
         "To" : {
           "dei:DocumentFiscalPeriodFocus" : {
             "Name" : "dei:DocumentFiscalPeriodFocus", 
-            "Id" : "5acf036e-7730-4495-b2da-bb6cdd347a35"
+            "Id" : "64330f91-c0d1-4757-aba9-5b24987652f2"
           }
         }, 
-        "Id" : "ce61aad4-86c2-4727-889e-51485e40bc5b"
+        "Id" : "64359584-61c5-4f75-b4e4-98bb5df1bbdb"
       }, 
       "fac:FiscalYear" : {
         "Name" : "fac:FiscalYear", 
@@ -1298,10 +1443,10 @@ let $schema := {
         "To" : {
           "dei:DocumentFiscalYearFocus" : {
             "Name" : "dei:DocumentFiscalYearFocus", 
-            "Id" : "1d1869fa-e828-43bf-a735-48517d7fbde6"
+            "Id" : "8c4c37bd-c9a0-41ba-85db-705c4eb05b46"
           }
         }, 
-        "Id" : "bb5632b0-c348-4762-9851-f9ebbeaf83c5"
+        "Id" : "dd43ba70-907c-400c-b5ac-f984c9614968"
       }, 
       "fac:NetIncomeLoss" : {
         "Name" : "fac:NetIncomeLoss", 
@@ -1309,30 +1454,30 @@ let $schema := {
         "To" : {
           "us-gaap:ProfitLoss" : {
             "Name" : "us-gaap:ProfitLoss", 
-            "Id" : "7e72c024-2b36-4c05-99e8-fb8319ab5350"
+            "Id" : "817ac35a-f579-4afe-ad09-de24d0fc55ee"
           }, 
           "us-gaap:NetIncomeLoss" : {
             "Name" : "us-gaap:NetIncomeLoss", 
-            "Id" : "c4e6d287-5f76-46a6-b3d2-66f10be5358c"
+            "Id" : "6d9d178e-774a-4b68-a1a2-e0b1eb4c8ee0"
           }, 
           "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic" : {
             "Name" : "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic", 
-            "Id" : "9ef56659-3b76-4ab4-8f93-580ba2d8fa4b"
+            "Id" : "7ae54062-bced-4b06-a807-b01866f2adde"
           }, 
           "us-gaap:IncomeLossFromContinuingOperations" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperations", 
-            "Id" : "459649be-f5d1-4d39-8f6a-557f01963296"
+            "Id" : "df269230-c250-4bdd-9dca-04d3a4a92d25"
           }, 
           "us-gaap:IncomeLossAttributableToParent" : {
             "Name" : "us-gaap:IncomeLossAttributableToParent", 
-            "Id" : "65f4764a-c883-4d61-8dbc-ca3fb779c765"
+            "Id" : "be8ff5e2-4c38-4606-b62d-afef584050a5"
           }, 
           "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest", 
-            "Id" : "c95d0060-8346-4a5d-814c-7212e8fdac56"
+            "Id" : "1c991fb8-0632-44a3-b952-1abc6343aa31"
           }
         }, 
-        "Id" : "1fbf914a-64f1-4b86-ac1a-36d63424daeb"
+        "Id" : "a917a098-803e-4ffb-b7dc-f4421ce154c0"
       }, 
       "fac:ExchangeGainsLosses" : {
         "Name" : "fac:ExchangeGainsLosses", 
@@ -1340,18 +1485,18 @@ let $schema := {
         "To" : {
           "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents" : {
             "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents", 
-            "Id" : "7c3d8878-dbf3-45d1-97b9-29ac82503c00"
+            "Id" : "ea696b73-bf9a-4051-b705-2c0293f78e09"
           }, 
           "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations" : {
             "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations", 
-            "Id" : "90ba23fa-5d8d-4624-aba2-45e33afb2d62"
+            "Id" : "68ac4b3d-2083-4f50-8ce2-5e4cae1d773d"
           }, 
           "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations" : {
             "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations", 
-            "Id" : "853a66b0-40f2-4dd6-b98a-4422459d103f"
+            "Id" : "f8c16447-ffe8-4dcb-bd98-f63f26c6d8ae"
           }
         }, 
-        "Id" : "db9925f3-d218-4d23-9410-9e77a45fc872"
+        "Id" : "48d0b197-e081-476d-8de9-0f6cd9b26771"
       }, 
       "fac:GrossProfit" : {
         "Name" : "fac:GrossProfit", 
@@ -1359,10 +1504,10 @@ let $schema := {
         "To" : {
           "us-gaap:GrossProfit" : {
             "Name" : "us-gaap:GrossProfit", 
-            "Id" : "07170445-693b-41eb-9381-df8e15a910b8"
+            "Id" : "1c1baf03-59e2-485d-b277-a75b09c4b203"
           }
         }, 
-        "Id" : "fd26062f-4f5c-4d9d-8fed-563c261e0da3"
+        "Id" : "6e0ae3db-ae59-44cc-8512-9f605f617b1d"
       }, 
       "fac:EquityAttributableToNoncontrollingInterest" : {
         "Name" : "fac:EquityAttributableToNoncontrollingInterest", 
@@ -1370,42 +1515,42 @@ let $schema := {
         "To" : {
           "us-gaap:MinorityInterest" : {
             "Name" : "us-gaap:MinorityInterest", 
-            "Id" : "0eb7b655-88d0-4a27-9169-f56283b8f20b"
+            "Id" : "70eb0816-d6b8-47a9-8702-bbcb617412df"
           }, 
           "us-gaap:PartnersCapitalAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:PartnersCapitalAttributableToNoncontrollingInterest", 
-            "Id" : "9af97f50-78d1-4272-8a64-7d1b07fcb209"
+            "Id" : "e8687ae0-9b0c-43cc-b41f-9c6f3528e7fa"
           }, 
           "us-gaap:MinorityInterestInLimitedPartnerships" : {
             "Name" : "us-gaap:MinorityInterestInLimitedPartnerships", 
-            "Id" : "dadc2e55-7296-4381-80b1-c8e1bde0e2ca"
+            "Id" : "43f3d61b-1c6e-41bf-9704-47f8fe12e41b"
           }, 
           "us-gaap:MinorityInterestInOperatingPartnerships" : {
             "Name" : "us-gaap:MinorityInterestInOperatingPartnerships", 
-            "Id" : "de286384-4308-403f-b873-d8d960921af3"
+            "Id" : "108bf842-62c2-4691-b328-8bacd617a5c7"
           }, 
           "us-gaap:MinorityInterestInPreferredUnitHolders" : {
             "Name" : "us-gaap:MinorityInterestInPreferredUnitHolders", 
-            "Id" : "6cee4869-07a5-4462-8904-c0ada5b71d6e"
+            "Id" : "93731252-4026-4293-aba2-99d5f822cd61"
           }, 
           "us-gaap:MinorityInterestInJointVentures" : {
             "Name" : "us-gaap:MinorityInterestInJointVentures", 
-            "Id" : "d00790fd-26bf-4f50-b976-949367969039"
+            "Id" : "fa373f7e-5592-447c-aa41-cb1526a37f0b"
           }, 
           "us-gaap:OtherMinorityInterests" : {
             "Name" : "us-gaap:OtherMinorityInterests", 
-            "Id" : "6b54972b-4686-458d-99a4-e3620f7388fa"
+            "Id" : "33ef5168-71d6-4a20-9f22-b1045ccc6f52"
           }, 
           "us-gaap:NonredeemableNoncontrollingInterest" : {
             "Name" : "us-gaap:NonredeemableNoncontrollingInterest", 
-            "Id" : "444c2420-653b-4186-abb1-835adf034f92"
+            "Id" : "0e5f0563-df05-4d1c-aac9-bf4c88eece28"
           }, 
           "us-gaap:NoncontrollingInterestInVariableInterestEntity" : {
             "Name" : "us-gaap:NoncontrollingInterestInVariableInterestEntity", 
-            "Id" : "7eb6f5b1-f46e-4a65-ad9c-c54bd7ff5427"
+            "Id" : "8af3bab5-9c5c-4c0a-adf7-8b142b87b6a1"
           }
         }, 
-        "Id" : "ee02c470-9198-47c2-87d0-e0f354790db2"
+        "Id" : "5a8e3b58-ae40-4397-9486-edf9bf6e427c"
       }, 
       "fac:CostsAndExpenses" : {
         "Name" : "fac:CostsAndExpenses", 
@@ -1413,14 +1558,14 @@ let $schema := {
         "To" : {
           "us-gaap:CostsAndExpenses" : {
             "Name" : "us-gaap:CostsAndExpenses", 
-            "Id" : "bf66649d-70b1-4ac4-9e6f-1704ecdfce84"
+            "Id" : "50adecaa-ab45-409a-b0fb-b1b564cd9438"
           }, 
           "us-gaap:BenefitsLossesAndExpenses" : {
             "Name" : "us-gaap:BenefitsLossesAndExpenses", 
-            "Id" : "60a5ffb9-7232-4754-a98d-fd61e8a605d7"
+            "Id" : "8ab02b39-2cb8-493e-9f7a-415ccdea865c"
           }
         }, 
-        "Id" : "b8fdf65f-5f1a-4b2d-989f-ea2c31779c4f"
+        "Id" : "5bde6a9c-da73-4fe7-9a0a-20dac122ec8f"
       }, 
       "fac:CurrentLiabilities" : {
         "Name" : "fac:CurrentLiabilities", 
@@ -1428,10 +1573,10 @@ let $schema := {
         "To" : {
           "us-gaap:LiabilitiesCurrent" : {
             "Name" : "us-gaap:LiabilitiesCurrent", 
-            "Id" : "3ba76578-4df9-46ad-a531-efd7ef115d7f"
+            "Id" : "f2da58ad-58ec-4661-9570-3deaf43e6303"
           }
         }, 
-        "Id" : "1090c394-e19e-4164-96e2-c294cd3bc74d"
+        "Id" : "e4fe868b-08b5-4446-ad46-7fab18dc931b"
       }, 
       "fac:NetCashFlowsFromOperatingActivities" : {
         "Name" : "fac:NetCashFlowsFromOperatingActivities", 
@@ -1439,10 +1584,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetCashProvidedByUsedInOperatingActivities" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-            "Id" : "9a39b1e6-ebf0-4f64-a8a0-d3f859c3f8ae"
+            "Id" : "8e216a3f-dd58-469d-a91c-dacff7fef8fe"
           }
         }, 
-        "Id" : "93ac2390-69c1-48e0-94b4-0b233e736624"
+        "Id" : "e5f868a4-008b-46e1-8bec-2da6cc871657"
       }, 
       "fac:IncomeLossFromDiscontinuedOperationsNetTax" : {
         "Name" : "fac:IncomeLossFromDiscontinuedOperationsNetTax", 
@@ -1450,18 +1595,18 @@ let $schema := {
         "To" : {
           "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTax" : {
             "Name" : "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTax", 
-            "Id" : "b103aeb3-48c3-456d-919d-31d039e328ec"
+            "Id" : "3aedf02e-b396-422f-a943-9bf875b217a4"
           }, 
           "us-gaap:DiscontinuedOperationGainLossOnDisposalOfDiscontinuedOperationNetOfTax" : {
             "Name" : "us-gaap:DiscontinuedOperationGainLossOnDisposalOfDiscontinuedOperationNetOfTax", 
-            "Id" : "295cb26b-aeea-43fa-b474-7102286a45a2"
+            "Id" : "710f0181-b048-4f0b-8534-88eaaf98b753"
           }, 
           "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity" : {
             "Name" : "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity", 
-            "Id" : "e452b0e6-b98f-4af8-b8a4-3a53d9abcd29"
+            "Id" : "ea8b8973-46fd-4d81-856e-8e9f395ec16b"
           }
         }, 
-        "Id" : "73d5743a-809c-4de6-9a92-b5be28a00bef"
+        "Id" : "177bec70-9b6c-406e-af2e-33cd0f535029"
       }, 
       "fac:ExtraordinaryItemsIncomeExpenseNetTax" : {
         "Name" : "fac:ExtraordinaryItemsIncomeExpenseNetTax", 
@@ -1469,10 +1614,10 @@ let $schema := {
         "To" : {
           "us-gaap:ExtraordinaryItemNetOfTax" : {
             "Name" : "us-gaap:ExtraordinaryItemNetOfTax", 
-            "Id" : "9d38646c-4d8c-400e-904e-2c0b2f06b0f9"
+            "Id" : "c3399671-2aae-4744-8598-915ec5b0a9be"
           }
         }, 
-        "Id" : "a2311719-bb15-4da5-a517-8fe65a30bc1f"
+        "Id" : "1696155f-00cb-4a8f-bc5e-c3e60a6351d8"
       }, 
       "fac:OperatingIncomeLoss" : {
         "Name" : "fac:OperatingIncomeLoss", 
@@ -1480,10 +1625,10 @@ let $schema := {
         "To" : {
           "us-gaap:OperatingIncomeLoss" : {
             "Name" : "us-gaap:OperatingIncomeLoss", 
-            "Id" : "96f32116-9dff-4291-944e-f8db3bccdfef"
+            "Id" : "84882929-f105-48f2-a2d7-97ace57fef8f"
           }
         }, 
-        "Id" : "44f74103-123b-41b6-8199-eceb27314dd2"
+        "Id" : "7e253af8-8779-4c68-bde4-4a5f8db9ae28"
       }, 
       "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" : {
         "Name" : "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", 
@@ -1491,10 +1636,10 @@ let $schema := {
         "To" : {
           "us-gaap:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations" : {
             "Name" : "us-gaap:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations", 
-            "Id" : "53be047d-f1bb-4daf-b01d-0ac7834ab4e1"
+            "Id" : "d8be8c69-51bc-414f-8c18-c1af630eb01c"
           }
         }, 
-        "Id" : "1f433455-c934-44e2-941a-691c0c04f92e"
+        "Id" : "a818c629-8e07-44b5-be5d-556fc449da3c"
       }, 
       "fac:OtherComprehensiveIncomeLoss" : {
         "Name" : "fac:OtherComprehensiveIncomeLoss", 
@@ -1502,10 +1647,10 @@ let $schema := {
         "To" : {
           "us-gaap:OtherComprehensiveIncomeLossNetOfTax" : {
             "Name" : "us-gaap:OtherComprehensiveIncomeLossNetOfTax", 
-            "Id" : "1d93bf72-f185-4fe4-9874-b003ce33f3f8"
+            "Id" : "906c6d2a-e4da-41a8-974c-fbea7374351a"
           }
         }, 
-        "Id" : "67c71269-cdc3-48be-9713-ef380d4c0961"
+        "Id" : "52729dae-7372-42eb-aaba-00c6436816c0"
       }, 
       "fac:NetCashFlowsFromInvestingActivitiesContinuing" : {
         "Name" : "fac:NetCashFlowsFromInvestingActivitiesContinuing", 
@@ -1513,10 +1658,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetCashProvidedByUsedInInvestingActivitiesContinuingOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInInvestingActivitiesContinuingOperations", 
-            "Id" : "7d7b906e-18d1-46e0-a5b6-f3e18685ebfb"
+            "Id" : "bf498e36-d21f-4bd3-8c10-80cd28b6944e"
           }
         }, 
-        "Id" : "22bab53d-610c-4a1b-b227-695948568b0c"
+        "Id" : "e3486493-ea5e-46bf-8b83-5b1ea48297ff"
       }, 
       "fac:BalanceSheetDate" : {
         "Name" : "fac:BalanceSheetDate", 
@@ -1524,10 +1669,10 @@ let $schema := {
         "To" : {
           "dei:DocumentPeriodEndDate" : {
             "Name" : "dei:DocumentPeriodEndDate", 
-            "Id" : "024df475-ccff-4ece-8570-142bf1a59a11"
+            "Id" : "5c133731-dbd9-4ae4-b08d-594dd63810a8"
           }
         }, 
-        "Id" : "48e34505-6984-4438-8b10-5a1d75b01f98"
+        "Id" : "f9de76be-27f4-46fc-9286-c389e93466c8"
       }, 
       "fac:LiabilitiesAndEquity" : {
         "Name" : "fac:LiabilitiesAndEquity", 
@@ -1535,14 +1680,14 @@ let $schema := {
         "To" : {
           "us-gaap:LiabilitiesAndStockholdersEquity" : {
             "Name" : "us-gaap:LiabilitiesAndStockholdersEquity", 
-            "Id" : "22a117d0-af68-4c82-9c23-96af0645f243"
+            "Id" : "81a4fafb-e2f6-4247-bba0-d25a87e65b49"
           }, 
           "us-gaap:LiabilitiesAndPartnersCapital" : {
             "Name" : "us-gaap:LiabilitiesAndPartnersCapital", 
-            "Id" : "e23b5df3-a203-4eae-a6d3-2049f442ef2d"
+            "Id" : "d00dbc95-c971-460d-a4ba-84195c9f08f0"
           }
         }, 
-        "Id" : "0844d29d-3259-46a0-bd92-d0256220f013"
+        "Id" : "fe7a2526-7e0b-4680-82a6-cf065e2cb433"
       }, 
       "fac:Equity" : {
         "Name" : "fac:Equity", 
@@ -1550,34 +1695,34 @@ let $schema := {
         "To" : {
           "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
-            "Id" : "a16b774b-af01-4433-b982-76a341b985f6"
+            "Id" : "ba75ba9f-413f-439c-a344-ec78d693a0b0"
           }, 
           "us-gaap:StockholdersEquity" : {
             "Name" : "us-gaap:StockholdersEquity", 
-            "Id" : "4a17761f-59a3-418f-9c52-260c73c5c159"
+            "Id" : "4431187b-2ac5-4fd8-8023-eacc74913627"
           }, 
           "us-gaap:PartnersCapitalIncludingPortionAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:PartnersCapitalIncludingPortionAttributableToNoncontrollingInterest", 
-            "Id" : "1aeafb99-6fb7-4638-9252-c66c7cf25799"
+            "Id" : "64cd3c18-c9f6-472a-bd9e-d3e252460dab"
           }, 
           "us-gaap:PartnersCapital" : {
             "Name" : "us-gaap:PartnersCapital", 
-            "Id" : "22ca7ea4-b107-424d-9e1d-e029125de6d1"
+            "Id" : "c8914c02-12ea-4824-b6d5-1cdc13b99285"
           }, 
           "us-gaap:CommonStockholdersEquity" : {
             "Name" : "us-gaap:CommonStockholdersEquity", 
-            "Id" : "969f8407-7a7d-48d6-9fe4-1461c380b0d8"
+            "Id" : "5e4bebfa-ebc0-4444-ad05-dc1991d366b6"
           }, 
           "us-gaap:MembersEquity" : {
             "Name" : "us-gaap:MembersEquity", 
-            "Id" : "e28b2014-871f-4c00-a979-2093d815bde3"
+            "Id" : "6a7228fc-7370-42d7-9b61-3ebda2cbdb59"
           }, 
           "us-gaap:AssetsNet" : {
             "Name" : "us-gaap:AssetsNet", 
-            "Id" : "078594b4-8df4-499f-a0d5-4f6d21cca451"
+            "Id" : "fff28a64-d3db-4801-a8d9-2b5e5c965c21"
           }
         }, 
-        "Id" : "26bcfe3a-f718-4d11-9561-687969b2d808"
+        "Id" : "01afb5ff-6a75-4ca9-8ad2-28ab189c5ac5"
       }, 
       "fac:DocumentType" : {
         "Name" : "fac:DocumentType", 
@@ -1585,10 +1730,10 @@ let $schema := {
         "To" : {
           "dei:DocumentType" : {
             "Name" : "dei:DocumentType", 
-            "Id" : "dae94287-1e48-4248-a775-3ecce259fef9"
+            "Id" : "aae5b42b-73f1-4280-b18f-bd8d9dfa5224"
           }
         }, 
-        "Id" : "8c6da674-7db9-46ba-9e8a-b37083acd333"
+        "Id" : "4134a0e2-3fc5-4f55-880b-91c05277ca2b"
       }, 
       "fac:IncomeLossFromEquityMethodInvestments" : {
         "Name" : "fac:IncomeLossFromEquityMethodInvestments", 
@@ -1596,10 +1741,10 @@ let $schema := {
         "To" : {
           "us-gaap:IncomeLossFromEquityMethodInvestments" : {
             "Name" : "us-gaap:IncomeLossFromEquityMethodInvestments", 
-            "Id" : "830cd924-650a-4ce9-9803-97475cea21ce"
+            "Id" : "809b3fe6-a6d1-4a4e-a964-5c3b71585e13"
           }
         }, 
-        "Id" : "2cd245d0-9609-47d1-ae1d-bbd1d17ee120"
+        "Id" : "bf34da69-7e33-4ba0-a418-bf5f6ff6bc4f"
       }, 
       "fac:ComprehensiveIncomeLoss" : {
         "Name" : "fac:ComprehensiveIncomeLoss", 
@@ -1607,14 +1752,14 @@ let $schema := {
         "To" : {
           "us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest", 
-            "Id" : "f87211b7-719d-47c6-80b5-11d49acad0ce"
+            "Id" : "bfa4510b-2e03-48cf-9e97-c8244d8c3139"
           }, 
           "us-gaap:ComprehensiveIncomeNetOfTax" : {
             "Name" : "us-gaap:ComprehensiveIncomeNetOfTax", 
-            "Id" : "b9568105-0ce6-4d31-974a-21bac8f73992"
+            "Id" : "0359b755-4fe5-44d7-80ea-951699264f60"
           }
         }, 
-        "Id" : "cc0f814b-0d53-4e9c-836b-bc3f435e3aca"
+        "Id" : "97e33702-752e-4fe8-9257-47a6b0786537"
       }, 
       "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest" : {
         "Name" : "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
@@ -1622,10 +1767,10 @@ let $schema := {
         "To" : {
           "us-gaap:ComprehensiveIncomeNetOfTaxAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:ComprehensiveIncomeNetOfTaxAttributableToNoncontrollingInterest", 
-            "Id" : "d1bcb7ad-1b16-485c-87e0-e534d2407b63"
+            "Id" : "99e608be-ab85-420f-a860-06ed35df3059"
           }
         }, 
-        "Id" : "edcc5d8b-ab65-469c-8062-9db986ee8371"
+        "Id" : "af1ac2ec-bfe6-4ff7-b1a8-70fff98bcea6"
       }, 
       "fac:CurrentAssets" : {
         "Name" : "fac:CurrentAssets", 
@@ -1633,10 +1778,10 @@ let $schema := {
         "To" : {
           "us-gaap:AssetsCurrent" : {
             "Name" : "us-gaap:AssetsCurrent", 
-            "Id" : "8f8effbd-f681-4707-aecc-f51c1e37676c"
+            "Id" : "986e7dcb-b086-4056-965b-55c2deb40554"
           }
         }, 
-        "Id" : "9df8a2db-4c9f-4392-8f66-faf180531cd8"
+        "Id" : "22ece9ea-518f-4b26-879e-217d7cf0104f"
       }, 
       "fac:NetCashFlowsFromOperatingActivitiesContinuing" : {
         "Name" : "fac:NetCashFlowsFromOperatingActivitiesContinuing", 
@@ -1644,10 +1789,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations", 
-            "Id" : "c41c18df-147b-455e-a58f-aa8afc609e1e"
+            "Id" : "a217f17a-7f65-4805-b3a5-01af711abd46"
           }
         }, 
-        "Id" : "32feb8da-ad5f-4d58-bfde-0a2922899820"
+        "Id" : "e526f608-19b6-48ca-ab53-52c355e2da68"
       }, 
       "fac:NetCashFlowsFromFinancingActivities" : {
         "Name" : "fac:NetCashFlowsFromFinancingActivities", 
@@ -1655,10 +1800,10 @@ let $schema := {
         "To" : {
           "us-gaap:NetCashProvidedByUsedInFinancingActivities" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-            "Id" : "9df1a80b-05ed-4e95-b26b-400443cfef95"
+            "Id" : "accae6ad-46da-413c-b434-306def7151ac"
           }
         }, 
-        "Id" : "f21084d8-d881-463c-956a-77901b859495"
+        "Id" : "4008efa3-5396-45e2-901d-4a3fa6cf3e56"
       }, 
       "fac:RedeemableNoncontrollingInterest" : {
         "Name" : "fac:RedeemableNoncontrollingInterest", 
@@ -1666,22 +1811,22 @@ let $schema := {
         "To" : {
           "us-gaap:RedeemableNoncontrollingInterestEquityCarryingAmount" : {
             "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCarryingAmount", 
-            "Id" : "18e088fb-a46a-4afb-9675-5ec61a9c4a51"
+            "Id" : "1ec1908a-5a95-437c-89da-b56afa563d65"
           }, 
           "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" : {
             "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount", 
-            "Id" : "0469aa4d-38db-4b1a-9cc2-25b743328af3"
+            "Id" : "ebc30a8d-e77e-4dd1-b252-76195f2e792c"
           }, 
           "us-gaap:RedeemableNoncontrollingInterestEquityPreferredCarryingAmount" : {
             "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityPreferredCarryingAmount", 
-            "Id" : "53a3cba3-c3ed-414c-ba4a-844e4fec761a"
+            "Id" : "6927f5d2-b62b-430e-87bc-7a554bce3071"
           }, 
           "us-gaap:RedeemableNoncontrollingInterestEquityOtherCarryingAmount" : {
             "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityOtherCarryingAmount", 
-            "Id" : "c29773f5-68ed-41d0-8b01-3f1338688622"
+            "Id" : "52211f2a-9ceb-467a-930e-78d6ccc7bf86"
           }
         }, 
-        "Id" : "31072699-ffe9-4680-a1c1-4247fb481ce6"
+        "Id" : "b1acbe3f-355b-4cd1-86ea-d06e6aa7a4a1"
       }, 
       "fac:TemporaryEquity" : {
         "Name" : "fac:TemporaryEquity", 
@@ -1689,34 +1834,45 @@ let $schema := {
         "To" : {
           "us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests" : {
             "Name" : "us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests", 
-            "Id" : "55ae844c-9938-4201-95c8-236b09798840"
+            "Id" : "9f30b2d3-4f56-4a85-92c5-294b602c7390"
           }, 
           "us-gaap:TemporaryEquityRedemptionValue" : {
             "Name" : "us-gaap:TemporaryEquityRedemptionValue", 
-            "Id" : "d031ae1b-c338-4c2d-bcf4-1b31e46218ee"
+            "Id" : "41535046-b368-4f96-b9e9-ac795d16f2a3"
           }, 
           "us-gaap:RedeemablePreferredStockCarryingAmount" : {
             "Name" : "us-gaap:RedeemablePreferredStockCarryingAmount", 
-            "Id" : "9dd2768b-4071-4f3e-ad03-dd4eab8bdc3d"
+            "Id" : "17133e20-d802-42b6-badb-a4df15b0a9ca"
           }, 
           "us-gaap:TemporaryEquityCarryingAmount" : {
             "Name" : "us-gaap:TemporaryEquityCarryingAmount", 
-            "Id" : "835c936e-3cd4-4483-ab8b-a3d20185e9a4"
+            "Id" : "e61b7401-30e9-4531-9979-5da39d46aef5"
           }, 
           "us-gaap:TemporaryEquityValueExcludingAdditionalPaidInCapital" : {
             "Name" : "us-gaap:TemporaryEquityValueExcludingAdditionalPaidInCapital", 
-            "Id" : "b12c514e-cad4-4e89-9dfa-5c7f92a11f38"
+            "Id" : "2b26dff6-a855-4745-b465-c6bf757d7e25"
           }, 
           "us-gaap:RedeemableNoncontrollingInterestEquityFairValue" : {
             "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityFairValue", 
-            "Id" : "fb3258dc-856e-445b-8493-62f4da50e61e"
+            "Id" : "82052929-8ea4-49ad-b129-beeae8aa324a"
           }, 
           "us-gaap:TemporaryEquityCarryingAmountAttributableToParent" : {
             "Name" : "us-gaap:TemporaryEquityCarryingAmountAttributableToParent", 
-            "Id" : "7572e5ff-1218-4a38-b7c5-e6ec8cfc2bfe"
+            "Id" : "7035ec27-91ca-4aab-ba2c-cd9aa5320c91"
           }
         }, 
-        "Id" : "9bec10e3-0b24-44fa-b7cc-7748d5f395e8"
+        "Id" : "a1dd7353-5bda-48de-a0bd-e3535697ef2b"
+      }, 
+      "oag:ReservesProvedNaturalGas" : {
+        "Id" : "cd7ff458-641a-4a8f-b313-4dae8b51ed51", 
+        "Name" : "oag:ReservesProvedNaturalGas", 
+        "To" : {
+          "us-gaap:ProvedDevelopedReservesVolume" : {
+            "Name" : "us-gaap:ProvedDevelopedReservesVolume", 
+            "Order" : 1, 
+            "Id" : "215b497b-aa57-47c8-be08-029751e5d7ee"
+          }
+        }
       }
     }
   } ], 
@@ -1727,12 +1883,16 @@ let $schema := {
       "Aspects" : {
         "xbrl:Concept" : {
           "Name" : "xbrl:Concept", 
-          "Label" : "Concept", 
+          "Label" : "Implicit XBRL Concept Dimension", 
           "Domains" : {
             "xbrl:ConceptDomain" : {
               "Name" : "xbrl:ConceptDomain", 
               "Label" : "Implicit XBRL Concept Domain", 
               "Members" : {
+                "oag:ReservesProvedNaturalGas" : {
+                  "Name" : "oag:ReservesProvedNaturalGas", 
+                  "Label" : "Proved Reserve Natural Gas"
+                }, 
                 "fac:ValidationStatistics" : {
                   "Name" : "fac:ValidationStatistics", 
                   "Label" : "Validation Rule Statistics [Hierarchy]", 
@@ -1806,14 +1966,6 @@ let $schema := {
                 "fac:LiabilitiesValidation" : {
                   "Name" : "fac:LiabilitiesValidation", 
                   "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities"
-                }, 
-                "fac:AssetsValidation" : {
-                  "Name" : "fac:AssetsValidation", 
-                  "Label" : "Assets = CurrentAssets + NoncurrentAssets"
-                }, 
-                "fac:Assets2Validation" : {
-                  "Name" : "fac:Assets2Validation", 
-                  "Label" : "Assets = LiabilitiesAndEquity"
                 }, 
                 "fac:EquityValidation" : {
                   "Name" : "fac:EquityValidation", 
@@ -2170,6 +2322,16 @@ let $schema := {
                 "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" : {
                   "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount", 
                   "Label" : "Redeemable Noncontrolling Interest Equity Common Carrying Amount"
+                }, 
+                "fac:AssetsValidation" : {
+                  "Name" : "fac:AssetsValidation", 
+                  "Label" : "Assets = LiabilitiesAndEquity", 
+                  "IsAbstract" : false
+                }, 
+                "fac:AssetsValidation2" : {
+                  "Name" : "fac:AssetsValidation2", 
+                  "Label" : "Assets = CurrentAssets + NoncurrentAssets", 
+                  "IsAbstract" : false
                 }
               }
             }
@@ -2177,38 +2339,15 @@ let $schema := {
         }, 
         "xbrl:Period" : {
           "Name" : "xbrl:Period", 
-          "Label" : "Period"
+          "Label" : "Implicit XBRL Period Dimension"
         }, 
         "xbrl:Entity" : {
           "Name" : "xbrl:Entity", 
-          "Label" : "Reporting Entity"
-        }, 
-        "xbrl:Unit" : {
-          "Name" : "xbrl:Unit", 
-          "Label" : "Unit", 
-          "Default" : "xbrl:NonNumeric"
-        }, 
-        "sec:Accepted" : {
-          "Name" : "sec:Accepted", 
-          "Label" : "Acceptance Date"
-        }, 
-        "sec:Archive" : {
-          "Name" : "sec:Archive", 
-          "Label" : "Archive ID", 
-          "Kind" : "TypedDimension", 
-          "Type" : "string"
-        }, 
-        "sec:FiscalYear" : {
-          "Name" : "sec:FiscalYear", 
-          "Label" : "Fiscal Year"
-        }, 
-        "sec:FiscalPeriod" : {
-          "Name" : "sec:FiscalPeriod", 
-          "Label" : "Fiscal Period"
+          "Label" : "Implicit XBRL Entity Dimension"
         }, 
         "dei:LegalEntityAxis" : {
           "Name" : "dei:LegalEntityAxis", 
-          "Label" : "Legal Entity", 
+          "Label" : "Legal Entity Dimension", 
           "Default" : "sec:DefaultLegalEntity"
         }
       }
@@ -2235,13 +2374,6 @@ let $schema := {
     "Formula" : "for $facts in facts:facts-for-internal(( \"fac:BalanceSheetFormat\", \"fac:DocumentType\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:NoncurrentLiabilities\", \"fac:CurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, $facts:UNIT, \"Balance\")), $aligned-period let $BalanceSheetFormat as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:BalanceSheetFormat\"] let $DocumentType as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:DocumentType\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] return switch (true) case exists($BalanceSheetFormat) return $BalanceSheetFormat case(exists($DocumentType)) return let $computed-value := if (rules:decimal-value($CurrentAssets) eq 0 and rules:decimal-value($NoncurrentAssets) eq 0 and rules:decimal-value($NoncurrentLiabilities) eq 0 and rules:decimal-value($CurrentLiabilities) eq 0) then \"Unclassified\" else \"Classified\" let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:BalanceSheetFormat\" }, Value: $computed-value , Type: \"NonNumericValue\" }) || \" = \" || $computed-value || \" (because \" || rules:fact-trail($CurrentAssets, \"fac:CurrentAssets\") || \", \" || rules:fact-trail($NoncurrentAssets, \"fac:NoncurrentAssets\") || \", \" || rules:fact-trail($NoncurrentLiabilities, \"fac:NoncurrentLiabilities\") || \", \" || rules:fact-trail($CurrentLiabilities, \"fac:CurrentLiabilities\") || \")\" let $source-facts := ( $CurrentAssets, $NoncurrentAssets, $NoncurrentLiabilities, $CurrentLiabilities) return copy $newfact := rules:create-computed-fact( ($DocumentType, $source-facts)[1], \"fac:BalanceSheetFormat\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return ()", 
     "ComputableConcepts" : [ "fac:BalanceSheetFormat" ], 
     "DependsOn" : [ "fac:DocumentType", "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:NoncurrentLiabilities", "fac:CurrentLiabilities" ]
-  }, {
-    "Id" : "bs_Assets", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Assets imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Assets\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:Liabilities\", \"fac:LiabilitiesAndEquity\", \"fac:Equity\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch (true) case exists($Assets) return $Assets case (exists($LiabilitiesAndEquity)) and (rules:decimal-value ($CurrentAssets) eq rules:decimal-value($LiabilitiesAndEquity)) return let $computed-value := rules:decimal-value($CurrentAssets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Assets\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\") let $source-facts := $CurrentAssets return rules:create-computed-fact( $LiabilitiesAndEquity, \"fac:Assets\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) case (empty($NoncurrentAssets)) and (exists($LiabilitiesAndEquity)) and (rules:decimal-value($LiabilitiesAndEquity) eq (rules:decimal-value($Equity) + rules:decimal-value($Liabilities))) return let $computed-value := rules:decimal-value($CurrentAssets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Assets\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\") let $source-facts := $CurrentAssets return rules:create-computed-fact( $LiabilitiesAndEquity, \"fac:Assets\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:Assets" ], 
-    "DependsOn" : [ "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:Liabilities", "fac:LiabilitiesAndEquity", "fac:Equity" ]
   }, {
     "Id" : "bs_CurrentAssets", 
     "Type" : "xbrl28:formula", 
@@ -2284,13 +2416,6 @@ let $schema := {
     "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NoncurrentLiabilities\", \"fac:Liabilities\", \"fac:CurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NoncurrentLiabilities)) return $NoncurrentLiabilities case(exists($CurrentLiabilities) and exists($Liabilities)) return let $computed-value := rules:decimal-value($Liabilities) - rules:decimal-value($CurrentLiabilities) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NoncurrentLiabilities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Liabilities) || \" - \" || rules:fact-trail($CurrentLiabilities) let $source-facts := ($Liabilities, $CurrentLiabilities) return rules:create-computed-fact( $CurrentLiabilities, \"fac:NoncurrentLiabilities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
     "ComputableConcepts" : [ "fac:NoncurrentLiabilities" ], 
     "DependsOn" : [ "fac:Liabilities", "fac:CurrentLiabilities" ]
-  }, {
-    "Id" : "bs_NoncurrentAssets", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "NoncurrentAssets imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NoncurrentAssets\", \"fac:Assets\", \"fac:CurrentAssets\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($NoncurrentAssets) return $NoncurrentAssets case exists($Assets) and exists($CurrentAssets) return let $computed-value := rules:decimal-value($Assets) - rules:decimal-value($CurrentAssets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NoncurrentAssets\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Assets, \"Assets\") || \" - \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\") let $source-facts := ($Assets, $CurrentAssets) return rules:create-computed-fact( $Assets, \"fac:NoncurrentAssets\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NoncurrentAssets" ], 
-    "DependsOn" : [ "fac:Assets", "fac:CurrentAssets" ]
   }, {
     "Id" : "bs_TemporaryEquity", 
     "Type" : "xbrl28:formula", 
@@ -2559,22 +2684,6 @@ let $schema := {
     "ValidatedConcepts" : [ "fac:Equity" ], 
     "DependsOn" : [ "fac:EquityAttributableToParent", "fac:EquityAttributableToNoncontrollingInterest" ]
   }, {
-    "Id" : "BS3", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "Assets = CurrentAssets + NoncurrentAssets", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Assets\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:CurrentLiabilities\", \"fac:NoncurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] where exists($Assets) and not(rules:decimal-value($CurrentAssets) eq 0 and rules:decimal-value($NoncurrentAssets) eq 0 and rules:decimal-value($CurrentLiabilities) eq 0 and rules:decimal-value($NoncurrentLiabilities) eq 0) return let $test := rules:decimal-value($Assets) eq (rules:decimal-value($CurrentAssets) + rules:decimal-value($NoncurrentAssets)) let $audit-trail-message := rules:fact-trail($Assets) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($CurrentAssets,\"CurrentAssets\") || \" + \" || rules:fact-trail($NoncurrentAssets,\"NoncurrentAssets\") || \")\" let $source-facts := ( $CurrentAssets, $NoncurrentAssets, $CurrentLiabilities, $NoncurrentLiabilities) return rules:create-computed-fact( $Assets, \"fac:AssetsValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $Assets, $test)", 
-    "ComputableConcepts" : [ "fac:AssetsValidation" ], 
-    "ValidatedConcepts" : [ "fac:Assets" ], 
-    "DependsOn" : [ "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:CurrentLiabilities", "fac:NoncurrentLiabilities" ]
-  }, {
-    "Id" : "BS2", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "Assets = LiabilitiesAndEquity", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Assets\", \"fac:LiabilitiesAndEquity\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] where exists($Assets) return let $test := rules:decimal-value($Assets) eq rules:decimal-value($LiabilitiesAndEquity) let $audit-trail-message := rules:fact-trail($Assets) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($LiabilitiesAndEquity,\"LiabilitiesAndEquity\") || \"\" let $source-facts := ( $LiabilitiesAndEquity) return rules:create-computed-fact( $Assets, \"fac:Assets2Validation\", $test, $rule, $audit-trail-message, $source-facts, $options, $Assets, $test)", 
-    "ComputableConcepts" : [ "fac:Assets2Validation" ], 
-    "ValidatedConcepts" : [ "fac:Assets" ], 
-    "DependsOn" : [ "fac:LiabilitiesAndEquity" ]
-  }, {
     "Id" : "BS4", 
     "Type" : "xbrl28:validation", 
     "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
@@ -2727,19 +2836,217 @@ let $schema := {
     "ValidatedConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
     "DependsOn" : [ "fac:NetIncomeLoss", "fac:OtherComprehensiveIncomeLoss" ]
   }, {
-    "Id" : "VAL1", 
+    "Id" : "oag_ProvedReserves", 
     "Type" : "xbrl28:formula", 
+    "Label" : "Proved reserves calculation", 
+    "Formula" : "declare function local:mapToMember($concept) { switch(true) case ($concept = \"oag:ReservesProvedNaturalGas\") return \"us-gaap:NaturalGasReservesMember\" case ($concept = \"oag:ReservesProvedNaturalGasLiquids\") return \"apa:NaturalGasLiquidsMember\" case ($concept = \"oag:ReservesProvedOilAndCondensateReserves\") return \"apa:CrudeOilAndCondensateMember\" case ($concept = \"oag:ReservesProvedTotal\") return \"us-gaap:TypeOfReserveDomain\" default return () }; let $target-concept := \"us-gaap:ProvedDevelopedReservesVolume\" let $concepts := flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT)[$$ = (\"oag:ReservesProvedNaturalGas\", \"oag:ReservesProvedOilAndCondensateReserves\", \"oag:ReservesProvedNaturalGasLiquids\", \"oag:ReservesProvedTotal\")] for $concept in $concepts let $filter-mod := if($concept ne \"oag:ReservesProvedTotal\") then local:mapToMember($concept) else () let $hypercube-mod := { \"Name\" : \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\", \"Default\" : \"us-gaap:TypeOfReserveDomain\" } let $aligned-filter := copy $f := $aligned-filter modify ( if(exists($filter-mod)) then if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $filter-mod else insert json { \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\": [ $filter-mod ] } into $f.Aspects else (), replace value of json $f.Aspects.$facts:CONCEPT with [ $target-concept ] ) return $f let $hypercube := copy $h := $hypercube modify ( if(exists($h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $hypercube-mod else insert json {\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" : $hypercube-mod } into $h.Aspects ) return $h return for $facts in facts:facts-for-internal( $target-concept, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) return let $member := local:mapToMember($concept) for $provedReserve in $facts[$$.$facts:ASPECTS.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" eq $member] return let $source-fact := $provedReserve let $value := rules:decimal-value($provedReserve) let $original-concept := $provedReserve.$facts:ASPECTS.$facts:CONCEPT let $audit-trail-message := \"concept to member mapping: '\" || $concept || \"' -> '\" || $original-concept || \"(us-gaap:ReserveQuantitiesByTypeOfReserveAxis::\" || $member || \")'\" return copy $f := rules:create-computed-fact( $source-fact, $concept, $value, $rule, $audit-trail-message, $source-fact, $options) modify if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then delete json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" else () return $f", 
+    "ComputableConcepts" : [ "oag:ReservesProvedNaturalGas", "oag:ReservesProvedOilAndCondensateReserves", "oag:ReservesProvedNaturalGasLiquids", "oag:ReservesProvedTotal" ]
+  }, {
+    "Id" : "oag_SalesVolumes", 
+    "Type" : "xbrl28:formula", 
+    "Label" : "Sales Volumes calculation", 
+    "Formula" : "declare function local:mapToMember($concept) { switch(true) case ($concept = (\"oag:SalesVolumesNaturalGas\", \"oag:SalesVolumesDailyNaturalGas\")) return \"us-gaap:NaturalGasReservesMember\" case ($concept = (\"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesDailyNaturalGasLiquids\")) return \"apa:NaturalGasLiquidsMember\" case ($concept = (\"oag:SalesVolumesOilAndCondensate\", \"oag:SalesVolumesDailyOilAndCondensate\")) return \"apa:CrudeOilAndCondensateMember\" case ($concept = (\"oag:SalesVolumesTotal\", \"oag:SalesVolumesDailyTotal\")) return \"us-gaap:TypeOfReserveDomain\" default return () }; declare function local:valueAdjusted($concept, $fact) { let $unit := $fact.Aspects.\"xbrl:Unit\" return switch(true) case ($concept eq \"oag:SalesVolumesNaturalGas\" and contains($unit, \":MMcf\")) return rules:decimal-value($fact) div 1000 case ($concept eq \"oag:SalesVolumesDailyNaturalGas\") return rules:decimal-value($fact) div 365 case ($concept = (\"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesOilAndCondensate\", \"oag:SalesVolumesTotal\") and contains($unit, \":MBbls\")) return rules:decimal-value($fact) div 1000 case ($concept = (\"oag:SalesVolumesDailyNaturalGasLiquids\", \"oag:SalesVolumesDailyOilAndCondensate\", \"oag:SalesVolumesDailyTotal\")) return rules:decimal-value($fact) div 365 default return rules:decimal-value($fact) }; declare function local:unitsAdjusted($concept, $fact) { let $unit := $fact.Aspects.\"xbrl:Unit\" return switch(true) case ($concept eq \"oag:SalesVolumesNaturalGas\" and contains($unit, \":MMcf\")) return \"utr:Bcf\" case ($concept eq \"oag:SalesVolumesDailyNaturalGas\" and contains($unit, \":MMcf\")) return \"utr:MMcf/d\" case ($concept = (\"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesOilAndCondensate\") and contains($unit, \":MBbls\")) return \"utr:MMBbls\" case ($concept = (\"oag:SalesVolumesDailyNaturalGasLiquids\", \"oag:SalesVolumesDailyOilAndCondensate\") and contains($unit, \":MBbls\")) return \"utr:MBbls/d\" case ($concept eq \"oag:SalesVolumesTotal\" and contains($unit, \":MBbls\")) return \"utr:MMBOE\" case ($concept eq \"oag:SalesVolumesDailyTotal\" and contains($unit, \":MBbls\")) return \"utr:MBOE/d\" default return $unit }; let $target-concept := \"us-gaap:ProvedDevelopedAndUndevelopedReservesSalesOfMineralsInPlace\" let $concepts := flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT)[$$ = (\"oag:SalesVolumesNaturalGas\", \"oag:SalesVolumesOilAndCondensate\", \"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesTotal\", \"oag:SalesVolumesDailyNaturalGas\", \"oag:SalesVolumesDailyOilAndCondensate\", \"oag:SalesVolumesDailyNaturalGasLiquids\", \"oag:SalesVolumesDailyTotal\")] for $concept in $concepts let $filter-mod := if($concept = (\"oag:SalesVolumesTotal\", \"oag:SalesVolumesDailyTotal\")) then () else local:mapToMember($concept) let $hypercube-mod := { \"Name\" : \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\", \"Default\" : \"us-gaap:TypeOfReserveDomain\" } let $aligned-filter := copy $f := $aligned-filter modify ( if(exists($filter-mod)) then if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $filter-mod else insert json { \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\": [ $filter-mod ] } into $f.Aspects else (), replace value of json $f.Aspects.$facts:CONCEPT with [ $target-concept ] ) return $f let $hypercube := copy $h := $hypercube modify ( if(exists($h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $hypercube-mod else insert json {\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" : $hypercube-mod } into $h.Aspects ) return $h return for $facts in facts:facts-for-internal( $target-concept, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) return let $member := local:mapToMember($concept) for $salesVolume in $facts[$$.$facts:ASPECTS.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" eq $member] return let $source-fact := $salesVolume let $value := local:valueAdjusted($concept, $salesVolume) let $unit := local:unitsAdjusted($concept, $salesVolume) let $original-concept := $salesVolume.$facts:ASPECTS.$facts:CONCEPT let $audit-trail-message := \"concept to member mapping: '\" || $concept || \"' -> '\" || $original-concept || \"(us-gaap:ReserveQuantitiesByTypeOfReserveAxis::\" || $member || \")'\" return copy $f := rules:create-computed-fact( $source-fact, $concept, $value, $rule, $audit-trail-message, $source-fact, $options) modify ( if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then delete json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" else (), replace value of json $f.Aspects.\"xbrl:Unit\" with $unit ) return $f", 
+    "ComputableConcepts" : [ "oag:SalesVolumesNaturalGas", "oag:SalesVolumesOilAndCondensate", "oag:SalesVolumesNaturalGasLiquids", "oag:SalesVolumesTotal", "oag:SalesVolumesDailyNaturalGas", "oag:SalesVolumesDailyOilAndCondensate", "oag:SalesVolumesDailyNaturalGasLiquids", "oag:SalesVolumesDailyTotal" ]
+  }, {
+    "Id" : "BS2", 
+    "OriginalLanguage" : "SpreadsheetFormula", 
+    "Type" : "xbrl28:validation", 
+    "Label" : "Assets = LiabilitiesAndEquity", 
+    "Description" : "Rule to validate Assets (fac:Assets). It also creates a new fact (fac:AssetsValidation) that contains the validation result.", 
+    "ComputableConcepts" : [ "fac:AssetsValidation" ], 
+    "DependsOn" : [ "fac:Assets", "fac:LiabilitiesAndEquity" ], 
+    "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:AssetsValidation\", \"fac:Assets\", \"fac:LiabilitiesAndEquity\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))\n  , $aligned-period\nlet $AssetsValidation as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:AssetsValidation\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($AssetsValidation) return $AssetsValidation\n  case (exists($Assets) and true)\n  return\n    let $computed-value := rules:decimal-value($Assets) eq rules:decimal-value($LiabilitiesAndEquity)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:AssetsValidation\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($Assets, \"Assets\") || \" eq \" || rules:fact-trail($LiabilitiesAndEquity, \"LiabilitiesAndEquity\")\n\t let $source-facts := ($AssetsValidation, $Assets, $LiabilitiesAndEquity)\n    return\n      rules:create-computed-fact(\n          $Assets,\n          \"fac:AssetsValidation\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+    "ValidatedConcepts" : [ "fac:Assets" ], 
+    "Formulae" : [ {
+      "PrereqSrc" : "TRUE", 
+      "Prereq" : {
+        "Type" : "boolean", 
+        "Value" : "true"
+      }, 
+      "SourceFact" : [ "Assets" ], 
+      "BodySrc" : "Assets = LiabilitiesAndEquity", 
+      "Body" : {
+        "Type" : "eq", 
+        "Children" : [ {
+          "Type" : "variable", 
+          "Name" : "Assets"
+        }, {
+          "Type" : "variable", 
+          "Name" : "LiabilitiesAndEquity"
+        } ]
+      }, 
+      "active" : true, 
+      "valid" : true
+    } ], 
+    "AllowCrossPeriod" : true, 
+    "AllowCrossBalance" : true
+  }, {
+    "Id" : "BS3", 
+    "OriginalLanguage" : "SpreadsheetFormula", 
+    "Type" : "xbrl28:validation", 
+    "Label" : "Assets = CurrentAssets + NoncurrentAssets", 
+    "Description" : "Rule to validate Assets (fac:Assets). It also creates a new fact (fac:AssetsValidation2) that contains the validation result.", 
+    "ComputableConcepts" : [ "fac:AssetsValidation2" ], 
+    "DependsOn" : [ "fac:Assets", "fac:CurrentAssets", "fac:NoncurrentAssets" ], 
+    "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:AssetsValidation2\", \"fac:Assets\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))\n  , $aligned-period\nlet $AssetsValidation2 as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:AssetsValidation2\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"]\nlet $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($AssetsValidation2) return $AssetsValidation2\n  case (exists($Assets) and true)\n  return\n    let $computed-value := rules:decimal-value($Assets) eq rules:decimal-value($CurrentAssets) + rules:decimal-value($NoncurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:AssetsValidation2\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($Assets, \"Assets\") || \" eq \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\") || \" + \" || rules:fact-trail($NoncurrentAssets, \"NoncurrentAssets\")\n\t let $source-facts := ($AssetsValidation2, $Assets, $CurrentAssets, $NoncurrentAssets)\n    return\n      rules:create-computed-fact(\n          $Assets,\n          \"fac:AssetsValidation2\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+    "ValidatedConcepts" : [ "fac:Assets" ], 
+    "Formulae" : [ {
+      "PrereqSrc" : "TRUE", 
+      "Prereq" : {
+        "Type" : "boolean", 
+        "Value" : "true"
+      }, 
+      "SourceFact" : [ "Assets" ], 
+      "BodySrc" : "Assets = CurrentAssets + NoncurrentAssets", 
+      "Body" : {
+        "Type" : "eq", 
+        "Children" : [ {
+          "Type" : "variable", 
+          "Name" : "Assets"
+        }, {
+          "Type" : "add", 
+          "Children" : [ {
+            "Type" : "variable", 
+            "Name" : "CurrentAssets"
+          }, {
+            "Type" : "variable", 
+            "Name" : "NoncurrentAssets"
+          } ]
+        } ]
+      }, 
+      "active" : true, 
+      "valid" : true
+    } ], 
+    "AllowCrossPeriod" : true, 
+    "AllowCrossBalance" : true
+  }, {
+    "Id" : "13fa53d2-502e-4ee9-8e30-ba24ba3e43f0", 
+    "OriginalLanguage" : "SpreadsheetFormula", 
+    "Type" : "xbrl28:formula", 
+    "Label" : "Assets", 
+    "Description" : "Rule to compute Assets (fac:Assets).", 
+    "ComputableConcepts" : [ "fac:Assets" ], 
+    "DependsOn" : [ "fac:CurrentAssets", "fac:LiabilitiesAndEquity", "fac:NoncurrentAssets" ], 
+    "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:Assets\", \"fac:CurrentAssets\", \"fac:LiabilitiesAndEquity\", \"fac:NoncurrentAssets\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))\n  , $aligned-period\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"]\nlet $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"]\nlet $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($Assets) return $Assets\n  case (exists($LiabilitiesAndEquity) and rules:decimal-value($CurrentAssets) eq rules:decimal-value($LiabilitiesAndEquity))\n  return\n    let $computed-value := rules:decimal-value($CurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:Assets\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($CurrentAssets, \"CurrentAssets\")\n\t let $source-facts := ($Assets, $CurrentAssets, $LiabilitiesAndEquity, $NoncurrentAssets)\n    return\n      rules:create-computed-fact(\n          $LiabilitiesAndEquity,\n          \"fac:Assets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  case (exists($NoncurrentAssets) and ())\n  return\n    let $computed-value := rules:decimal-value($CurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:Assets\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($CurrentAssets, \"CurrentAssets\")\n\t let $source-facts := ($Assets, $CurrentAssets, $LiabilitiesAndEquity, $NoncurrentAssets)\n    return\n      rules:create-computed-fact(\n          $NoncurrentAssets,\n          \"fac:Assets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+    "Formulae" : [ {
+      "PrereqSrc" : "CurrentAssets = LiabilitiesAndEquity", 
+      "Prereq" : {
+        "Type" : "eq", 
+        "Children" : [ {
+          "Type" : "variable", 
+          "Name" : "CurrentAssets"
+        }, {
+          "Type" : "variable", 
+          "Name" : "LiabilitiesAndEquity"
+        } ]
+      }, 
+      "SourceFact" : [ "LiabilitiesAndEquity" ], 
+      "BodySrc" : "CurrentAssets", 
+      "Body" : {
+        "Type" : "variable", 
+        "Name" : "CurrentAssets"
+      }, 
+      "active" : true, 
+      "valid" : true
+    }, {
+      "PrereqSrc" : "and(not(isblank(LiabilitiesAndEquity)),LiabilitiesAndEquity=Equity+Liabilities)", 
+      "Prereq" : {
+        "Type" : "function", 
+        "Name" : "and", 
+        "Children" : [ [ {
+          "Type" : "function", 
+          "Name" : "not", 
+          "Children" : [ {
+            "Type" : "function", 
+            "Name" : "isblank", 
+            "Children" : [ {
+              "Type" : "variable", 
+              "Name" : "LiabilitiesAndEquity"
+            } ]
+          } ]
+        }, {
+          "Type" : "eq", 
+          "Children" : [ {
+            "Type" : "variable", 
+            "Name" : "LiabilitiesAndEquity"
+          }, {
+            "Type" : "add", 
+            "Children" : [ {
+              "Type" : "variable", 
+              "Name" : "Equity"
+            }, {
+              "Type" : "variable", 
+              "Name" : "Liabilities"
+            } ]
+          } ]
+        } ] ]
+      }, 
+      "SourceFact" : [ "NoncurrentAssets" ], 
+      "BodySrc" : "CurrentAssets", 
+      "Body" : {
+        "Type" : "variable", 
+        "Name" : "CurrentAssets"
+      }, 
+      "active" : false, 
+      "valid" : true
+    } ], 
+    "AllowCrossPeriod" : true, 
+    "AllowCrossBalance" : true
+  }, {
+    "Id" : "VAL1", 
     "Label" : "Validation Statistics", 
-    "Formula" : "let $validations := (\"fac:EquityValidation\", \"fac:AssetsValidation\", \"fac:Assets2Validation\", \"fac:LiabilitiesValidation\", \"fac:LiabilitiesAndEquityValidation\", \"fac:NetCashFlowsValidation\", \"fac:NetCashFlowsContinuingValidation\", \"fac:NetCashFlowsDiscontinuedValidation\", \"fac:NetCashFlowsFromOperatingActivitiesValidation\", \"fac:NetCashFlowsFromInvestingActivitiesValidation\", \"fac:NetCashFlowsFromFinancingActivitiesValidation\", \"fac:GrossProfitValidation\", \"fac:OperatingIncomeLossValidation\", \"fac:OperatingIncomeLoss2Validation\", \"fac:IncomeBeforeEquityMethodInvestmentsValidation\", \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\", \"fac:IncomeLossFromContinuingOperationsAfterTaxValidation\", \"fac:NetIncomeLossValidation\", \"fac:NetIncomeLoss2Validation\", \"fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation\", \"fac:ComprehensiveIncomeLossValidation\", \"fac:ComprehensiveIncomeLoss2Validation\") for $facts in facts:facts-for-internal($validations, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, \"Balance\")), $aligned-period return let $passed as object* := $facts[$$.Value eq true] let $failed as object* := $facts[$$.Value eq false] let $not-applied as string* := distinct-values($validations)[not($$ = $facts.$facts:ASPECTS.$facts:CONCEPT)] for $concept in flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT) return switch ($concept) case \"fac:PassedValidations\" return let $computed-value := count($passed) let $audit-trail-message := \"count(\" || string-join($passed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($passed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:PassedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:FailedValidations\" return let $computed-value := count($failed) let $audit-trail-message := \"count(\" || string-join($failed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($failed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:FailedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:NotApplicableValidations\" return let $computed-value := count($not-applied) let $audit-trail-message := \"count(\" || string-join($not-applied, \", \") || \")\" let $source-facts := () return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:NotApplicableValidations\", $computed-value, {Label: $rule.Label || \": Validations that couldn't be applied\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new default return ()", 
+    "Type" : "xbrl28:formula", 
+    "Formula" : "let $validations := (\"fac:EquityValidation\", \"fac:AssetsValidation\", \"fac:AssetsValidation2\", \"fac:LiabilitiesValidation\", \"fac:LiabilitiesAndEquityValidation\", \"fac:NetCashFlowsValidation\", \"fac:NetCashFlowsContinuingValidation\", \"fac:NetCashFlowsDiscontinuedValidation\", \"fac:NetCashFlowsFromOperatingActivitiesValidation\", \"fac:NetCashFlowsFromInvestingActivitiesValidation\", \"fac:NetCashFlowsFromFinancingActivitiesValidation\", \"fac:GrossProfitValidation\", \"fac:OperatingIncomeLossValidation\", \"fac:OperatingIncomeLoss2Validation\", \"fac:IncomeBeforeEquityMethodInvestmentsValidation\", \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\", \"fac:IncomeLossFromContinuingOperationsAfterTaxValidation\", \"fac:NetIncomeLossValidation\", \"fac:NetIncomeLoss2Validation\", \"fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation\", \"fac:ComprehensiveIncomeLossValidation\", \"fac:ComprehensiveIncomeLoss2Validation\") for $facts in facts:facts-for-internal($validations, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, \"Balance\")), $aligned-period return let $passed as object* := $facts[$$.Value eq true] let $failed as object* := $facts[$$.Value eq false] let $not-applied as string* := distinct-values($validations)[not($$ = $facts.$facts:ASPECTS.$facts:CONCEPT)] for $concept in flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT) return switch ($concept) case \"fac:PassedValidations\" return let $computed-value := count($passed) let $audit-trail-message := \"count(\" || string-join($passed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($passed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:PassedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:FailedValidations\" return let $computed-value := count($failed) let $audit-trail-message := \"count(\" || string-join($failed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($failed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:FailedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:NotApplicableValidations\" return let $computed-value := count($not-applied) let $audit-trail-message := \"count(\" || string-join($not-applied, \", \") || \")\" let $source-facts := () return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:NotApplicableValidations\", $computed-value, {Label: $rule.Label || \": Validations that couldn't be applied\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new default return ()", 
     "ComputableConcepts" : [ "fac:PassedValidations", "fac:FailedValidations", "fac:NotApplicableValidations" ], 
-    "DependsOn" : [ "fac:EquityValidation", "fac:AssetsValidation", "fac:Assets2Validation", "fac:LiabilitiesValidation", "fac:LiabilitiesAndEquityValidation", "fac:NetCashFlowsValidation", "fac:NetCashFlowsContinuingValidation", "fac:NetCashFlowsDiscontinuedValidation", "fac:NetCashFlowsFromOperatingActivitiesValidation", "fac:NetCashFlowsFromInvestingActivitiesValidation", "fac:NetCashFlowsFromFinancingActivitiesValidation", "fac:GrossProfitValidation", "fac:OperatingIncomeLossValidation", "fac:OperatingIncomeLoss2Validation", "fac:IncomeBeforeEquityMethodInvestmentsValidation", "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", "fac:NetIncomeLossValidation", "fac:NetIncomeLoss2Validation", "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", "fac:ComprehensiveIncomeLossValidation", "fac:ComprehensiveIncomeLoss2Validation" ]
-  } ]
+    "DependsOn" : [ "fac:EquityValidation", "fac:AssetsValidation", "fac:AssetsValidation2", "fac:LiabilitiesValidation", "fac:LiabilitiesAndEquityValidation", "fac:NetCashFlowsValidation", "fac:NetCashFlowsContinuingValidation", "fac:NetCashFlowsDiscontinuedValidation", "fac:NetCashFlowsFromOperatingActivitiesValidation", "fac:NetCashFlowsFromInvestingActivitiesValidation", "fac:NetCashFlowsFromFinancingActivitiesValidation", "fac:GrossProfitValidation", "fac:OperatingIncomeLossValidation", "fac:OperatingIncomeLoss2Validation", "fac:IncomeBeforeEquityMethodInvestmentsValidation", "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", "fac:NetIncomeLossValidation", "fac:NetIncomeLoss2Validation", "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", "fac:ComprehensiveIncomeLossValidation", "fac:ComprehensiveIncomeLoss2Validation" ]
+  }, {
+    "Id" : "bd23fac2-7a5e-498a-97ee-105117f48ff4", 
+    "OriginalLanguage" : "SpreadsheetFormula", 
+    "Type" : "xbrl28:formula", 
+    "Label" : "Noncurrent Assets", 
+    "Description" : "Rule to compute Noncurrent Assets (fac:NoncurrentAssets).", 
+    "ComputableConcepts" : [ "fac:NoncurrentAssets" ], 
+    "DependsOn" : [ "fac:CurrentAssets", "fac:Assets" ], 
+    "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NoncurrentAssets\", \"fac:CurrentAssets\", \"fac:Assets\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"]\nlet $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NoncurrentAssets) return $NoncurrentAssets\n  case (exists($Assets) and not((not(exists($CurrentAssets)))))\n  return\n    let $computed-value := rules:decimal-value($Assets) - rules:decimal-value($CurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NoncurrentAssets\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($Assets, \"Assets\") || \" - \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\")\n\t let $source-facts := ($NoncurrentAssets, $CurrentAssets, $Assets)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Assets,\n            \"fac:NoncurrentAssets\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Assets,\n          \"fac:NoncurrentAssets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+    "Formulae" : [ {
+      "PrereqSrc" : "not(isblank(CurrentAssets))", 
+      "Prereq" : {
+        "Type" : "function", 
+        "Name" : "not", 
+        "Children" : [ {
+          "Type" : "function", 
+          "Name" : "isblank", 
+          "Children" : [ {
+            "Type" : "variable", 
+            "Name" : "CurrentAssets"
+          } ]
+        } ]
+      }, 
+      "SourceFact" : [ "Assets" ], 
+      "BodySrc" : "Assets-CurrentAssets", 
+      "Body" : {
+        "Type" : "sub", 
+        "Children" : [ {
+          "Type" : "variable", 
+          "Name" : "Assets"
+        }, {
+          "Type" : "variable", 
+          "Name" : "CurrentAssets"
+        } ]
+      }, 
+      "active" : true, 
+      "valid" : true
+    } ], 
+    "AllowCrossPeriod" : true, 
+    "AllowCrossBalance" : true
+  } ], 
+  "Prefix" : "fac"
 }
 
-let $record := find("reportschemas", { "_id" : "FundamentalAccountingConcepts" })
+let $record := find("reports", { "_id" : $schema."_id" })
 return
 if(empty($record))
-then insert("reportschemas", $schema);
+then insert("reports", $schema);
 else edit($record, $schema);
 
 if (is-available-collection("reportcache"))

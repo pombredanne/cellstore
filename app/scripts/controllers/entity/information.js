@@ -1,9 +1,7 @@
 'use strict';
 
-/*globals accounting*/
-
 angular.module('main')
-.controller('InformationCtrl', function($scope, $rootScope, $anchorScroll, $state, $stateParams, $http, $modal, $backend, years, periods) {
+.controller('InformationCtrl', function($scope, $rootScope, $anchorScroll, $state, $stateParams, $http, $modal, $filter, $backend, years, periods) {
     $scope.year = $stateParams.year ? $stateParams.year : null;
     $scope.period = $stateParams.period ? $stateParams.period : null;
     $scope.cik = $stateParams.cik ? $stateParams.cik : null;
@@ -135,33 +133,54 @@ angular.module('main')
                             item.type = list[key].Facts[0].Type;
                             if(list[key].Facts[0].Type === 'NumericValue') {
                                 var num = list[key].Facts[0].Value;
-                                if (!num) {
-                                    num = '0';
-                                }
-                                item.value = accounting.formatNumber(num, decimals);
+                                item.value = $filter('number')(num || 0, decimals);
                             } else {
                                 item.value = list[key].Facts[0].Value;
                             }
                             item.auditLabel = '';
                             item.auditValue = '';
                             if (list[key].Facts[0].AuditTrails && list[key].Facts[0].AuditTrails.length > 0) {
-                                item.auditId = list[key].Facts[0].AuditTrails[0].Id;
-                                switch(list[key].Facts[0].AuditTrails[0].Type) {
+                                var indexCM = null;
+                                var indexF = null;
+                                var indexV = null;
+                                var indexD = null;
+
+                                for (var i = 0; i < list[key].Facts[0].AuditTrails.length ; i++)
+                                {
+                                    switch(list[key].Facts[0].AuditTrails[i].Type) {
+                                    case 'xbrl28:concept-maps':
+                                        indexCM = i + 1;
+                                        break;
+                                    case 'xbrl28:dimension-default':
+                                        indexD = i + 1;
+                                        break;
+                                    case 'xbrl28:formula':
+                                        indexF = i + 1;
+                                        break;
+                                    case 'xbrl28:validation':
+                                        indexV = i + 1;
+                                        break;
+                                    }
+                                }
+                                var auditItem = list[key].Facts[0].AuditTrails[(indexCM || indexF || indexV || indexD) - 1];
+
+                                item.auditId = auditItem.Id;
+                                switch(auditItem.Type) {
                                 case 'xbrl28:concept-maps':
-                                    item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
-                                    item.auditValue = list[key].Facts[0].AuditTrails[0].Data.OriginalConcept;
+                                    item.auditLabel = auditItem.Label;
+                                    item.auditValue = auditItem.Data.OriginalConcept;
                                     break;
-                                case 'hypercubes:dimension-default':
-                                    item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
-                                    item.auditValue = list[key].Facts[0].AuditTrails[0].Data.Dimension;
+                                case 'xbrl28:dimension-default':
+                                    item.auditLabel = auditItem.Label;
+                                    item.auditValue = auditItem.Data.Dimension;
                                     break;
                                 case 'xbrl28:formula':
-                                    item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
-                                    item.auditValue = list[key].Facts[0].AuditTrails[0].Message;
+                                    item.auditLabel = auditItem.Label;
+                                    item.auditValue = auditItem.Message;
                                     break;
                                 case 'xbrl28:validation':
-                                    item.auditLabel = list[key].Facts[0].AuditTrails[0].Label;
-                                    item.auditValue = list[key].Facts[0].AuditTrails[0].Message;
+                                    item.auditLabel = auditItem.Label;
+                                    item.auditValue = auditItem.Message;
                                     break;
                                 }
                             }

@@ -36,6 +36,8 @@
     "request": "~2.33.0",
     "grunt-jsonlint": "~1.0.4",
     "grunt-swagger-js-codegen": "~0.2.2"
+    "grunt-angular-gettext": "~0.2.14",
+    "grunt-jsonlint": "~1.0.4"
   },
   "engines": {
     "node": ">=0.8.0"

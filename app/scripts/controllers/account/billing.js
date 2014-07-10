@@ -219,7 +219,7 @@ angular.module('main')
 
     if (!recurly.configured)
     {
-        recurly.configure('sc-KoybJOmD5aBLdfoRQNAKTj');
+        recurly.configure($backend.RECURLY_KEY);
     }
     $scope.pricing = recurly.Pricing();
 

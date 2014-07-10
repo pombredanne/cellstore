@@ -7,21 +7,21 @@
 		      <div class="table-responsive">
             <table class="table">
               <thead>
-                <th>Concept</th>
-                <th>Label</th>
-                <th>Target Concepts</th>
+                <th translate>Concept</th>
+                <th translate>Label</th>
+                <th translate>Target Concepts</th>
               </thead>
               <tbody>
                 <tr ng-repeat="item in result | filter:search | orderBy:'name':false">
                   <td>{{item.name}}</td>
                   <td>{{item.label}}</td>
-                  <td><small ng-repeat="v in item.values track by $index">{{v}}<br ng-if="!$last"></small></td>
+                  <td><small ng-repeat="v in item.values track by $index">{{v}}<br ng-show="!$last"></small></td>
                 </tr>
               </tbody>
             </table>
 		      </div>
         <div class="text-right">
-          Data as: <a href="{{API_URL}}/_queries/public/api/concept-map.jq.json?name={{name}}{{(token?'&token=' + token : '')}}&_method=POST" download="{{name}}.json">JSON</a>
+          <span translate>Data as:</span> <a href="{{API_URL}}/_queries/public/api/concept-map.jq.json?name={{name}}{{(token?'&token=' + token : '')}}&_method=POST" download="{{name}}.json" translate>JSON</a>
         </div>
       </div>
 </div>
