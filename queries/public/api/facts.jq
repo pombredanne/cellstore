@@ -1,12 +1,11 @@
 import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace archives = "http://xbrl.io/modules/bizql/archives";
+import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
 import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
 
-import module namespace core = "http://xbrl.io/modules/bizql/profiles/sec/core";
+import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
@@ -33,114 +32,77 @@ declare function local:contains-aspect($name as string) as boolean
   satisfies $x
 };
 
-declare function local:cast($value as string, $type as string) as atomic
+declare function local:cast-sequence($values as atomic*, $type as string) as atomic*
 {
-  switch ($type)
-  case "integer" return $value cast as integer
-  default return error(xs:QName("local:unsupported-type"), $type || ": unsupported type")
+  for $value in $values
+  return
+      switch ($type)
+      case "integer" return $value cast as integer
+      case "string" return $value cast as string
+      default return error(xs:QName("local:unsupported-type"), $type || ": unsupported type")
 };
 
-declare function local:hypercube() as object
+declare function local:hypercube($parameters as object) as object
 {
-    hypercubes:user-defined-hypercube({|
-        let $concepts := (request:param-values("concept"), request:param-values("xbrl:Concept"))
-        return
-            if (exists($concepts))
-            then { "xbrl:Concept" : { Domain : [ $concepts ] } }
-            else (),
+    let $shortcut-hypercube-spec :=
+    {|
+        let $concepts := request:param-values("concept")
+        return { "xbrl:Concept" : { Domain : [ $concepts ] } }[exists($concepts)],
+        util:filter-override-from-parameters($parameters, {})
+    |}
+    let $main-hypercube-spec :=
+    {|
+        {
+            "dei:LegalEntityAxis" : {
+                "Domain" : [ "sec:DefaultLegalEntity" ],
+                "Default" : "sec:DefaultLegalEntity"
+            }
+        }[not local:contains-aspect("dei:LegalEntityAxis")],
 
-        if (not(request:param-names() = "dei:LegalEntityAxis"))
-        then {
-                "dei:LegalEntityAxis" : {
-                    "Domain" : [ "sec:DefaultLegalEntity" ],
-                    "Default" : "sec:DefaultLegalEntity"
-                }
-        } else (),
-
-        if (not(local:contains-aspect("sec:Accepted")))
-        then { "sec:Accepted" : {  } } else (),
-
-        if (not(local:contains-aspect("sec:FiscalYear")))
-        then { "sec:FiscalYear" : {  } } else (),
-
-        if (not(local:contains-aspect("sec:FiscalPeriod")))
-        then { "sec:FiscalPeriod" : {  } } else (),
-
-        for $p in request:param-names()
-        where contains($p, ":") and not(starts-with($p, "xbrl:Concept"))
-        group by $dimension-name := if (ends-with(lower-case($p), "::default"))
-                                    then substring-before($p, "::default")
-                                    else if (ends-with(lower-case($p), ":default"))
-                                    then substring-before($p, ":default")
-                                    else if (ends-with(lower-case($p), "::type"))
-                                    then substring-before($p, "::type")
-                                    else $p
-        let $all := (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
-        let $type := (request:param-values($dimension-name || "::type"), request:param-values($dimension-name || ":type"))[1]
+        for $parameter in (
+            request:param-names(),
+            keys($shortcut-hypercube-spec),
+            "sec:Accepted",
+            "sec:FiscalPeriod",
+            "sec:FiscalYear")
+        where contains($parameter, ":")
+        group by $dimension-name :=
+            switch(true)
+            case ends-with(lower-case($parameter), "::default")
+                return substring-before($parameter, "::default")
+            case ends-with(lower-case($parameter), ":default")
+                return substring-before($parameter, ":default")
+            case ends-with(lower-case($parameter), "::type")
+                return substring-before($parameter, "::type")
+            default
+                return $parameter
+        let $all as boolean :=
+            (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
+        let $user-defined-type as string? :=
+            (request:param-values($dimension-name || "::type"), request:param-values($dimension-name || ":type"))[1]
+        let $type as string? :=
+            switch(true)
+            case exists($user-defined-type)
+                return $user-defined-type
+            case exists($shortcut-hypercube-spec.$dimension-name.Type)
+                return $shortcut-hypercube-spec.$dimension-name.Type
+            default
+                return ()
+        let $values := (request:param-values($dimension-name), $shortcut-hypercube-spec.$dimension-name.Domain[])
+        let $typed-values := if (exists($type)) then local:cast-sequence($values, $type) else $values
+        let $has-default := ($parameter = $dimension-name || "::default") or ($parameter = $dimension-name || ":default")
+        let $default-value := (request:param-values($dimension-name || "::default"), request:param-values($dimension-name || ":default"))[1]
+        let $typed-default-value := if (exists($type)) then local:cast-sequence($default-value, $type) else $default-value
         return
         {
             $dimension-name : {|
-                let $v := request:param-values($dimension-name)
-                return
-                    if (exists($v) and not($all))
-                    then { "Domain" : [ if (exists($type)) then local:cast($v, $type) else $v ] }
-                    else (),
-
-            let $is-default := ($p = $dimension-name || "::default") or ($p = $dimension-name || ":default")
-            let $default := (request:param-values($dimension-name || "::default"), request:param-values($dimension-name || ":default"))[1]
-            return
-                (if ($is-default)
-                then {
-                    "Default" : if (exists($type)) then local:cast($default, $type) else $default
-                  } else (),
-                if (exists($type))
-                then { "Type" : $type }
-                else ())
+                { "Type" : $type }[exists($type)],
+                { "Domain" : [ $typed-values ] }[(exists($typed-values) and not($all))],
+                { "Default" : $typed-default-value }[$has-default]
             |}
         }
-    |})
-};
-
-declare function local:facts(
-    $archives as object*,
-    $map as string?,
-    $rules as string?) as object*
-{
-    let $hypercube := hypercubes2:modify-hypercube(
-        local:hypercube(),
-        {
-            "sec:Archive" : {
-                Type: "string",
-                Domain : [archives:aid($archives)]
-            }
-        }
-    )
-    for $fact in core:facts-for(
-        {|
-            { Hypercube : $hypercube },
-            if (exists($map)) then { "ConceptMaps" : $map } else (),
-            if (exists($rules)) then { "Rules" : $rules } else ()
-        |}
-    )
-    return {|
-        { Aspects : {|
-            for $a in keys($fact.Aspects)
-            where $a ne "xbrl:Unit"
-            return { $a : $fact.Aspects.$a }
-        |} },
-        { Type: $fact.Type },
-        if (exists($fact.Aspects."xbrl:Unit"))
-        then { Unit: $fact.Aspects."xbrl:Unit" }
-        else  (),
-        if (exists($fact.Decimals))
-        then { Decimals: $fact.Decimals }
-        else (), 
-        { Value: $fact.Value },
-        { "EntityRegistrantName" : companies:companies($fact.Aspects."xbrl:Entity").Profiles.SEC.CompanyName},
-        if (exists(flatten($fact.AuditTrails[])))
-        then { "AuditTrails" : $fact.AuditTrails }
-        else ()
-    |} 
+    |}
+    return hypercubes:user-defined-hypercube($main-hypercube-spec)
 };
 
 declare function local:filings(
@@ -178,42 +140,59 @@ declare function local:filings(
 
 session:audit-call();
 
-let $format      := lower-case(request:param-values("format")[1])
+(: Query parameters :)
+let $format as string?         := request:param-values("format")
+let $ciks as string*           := distinct-values(request:param-values("cik"))
+let $tags as string*           := distinct-values(request:param-values("tag"))
+let $tickers as string*        := distinct-values(request:param-values("ticker"))
+let $sics as string*           := distinct-values(request:param-values("sic"))
+let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
+let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
+let $aids as string*           := distinct-values(request:param-values("aid"))
+let $map as string?            := request:param-values("map")
+let $rule as string?            := request:param-values("rule")
+let $parameters := {|
+    {
+        CIKs: [ $ciks ],
+        Tags: [ $tags ],
+        Tickers: [ $tickers ],
+        SICs: [ $sics ],
+        FiscalYears: [ $fiscalYears ],
+        FiscalPeriods: [ $fiscalPeriods ],
+        AIDs: [ $aids ]
+    },
+    { Format: $format }[exists($format)],
+    { Map: $map }[exists($map)],
+    { Rule: $rule }[exists($rule)]
+|}
 
-(: choose 
-    1. entities (using ciks, tags, tickers, sics), FY, and FP ) or
-    2. accession numbers
-:)
-let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
-let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
-let $tickers     := distinct-values(request:param-values("ticker"))
-let $sics        := distinct-values(request:param-values("sic"))
-let $fiscalYears := distinct-values(
-                        for $y in request:param-values("fiscalYear", "LATEST")
-                        return
-                            if ($y eq "LATEST" or $y eq "ALL")
-                            then $y
-                            else if ($y castable as integer)
-                            then $y
-                            else ()
-                    )
-let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
-                      return
-                        if (($fp ! lower-case($$)) = "all")
-                        then $sec-fiscal:ALL_FISCAL_PERIODS
-                        else $fp)
-let $aids     := request:param-values("aid")
-let $map      := request:param-values("map")[1]
-let $rules    := request:param-values("rules")[1]
-let $archives := (
-                    local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
-                    archives:archives($aids)
-                 )
-let $entities := companies:companies($archives.Entity)
+
+(: Object resolution :)
+let $parameters as object := util:process-parameters($parameters)
+let $archives as object* := util:filings-from-parameters($parameters, ())
+let $entities := entities:entities($archives.Entity)
+
+let $hypercube := local:hypercube($parameters)
+
+let $facts :=
+    if(empty($archives))
+    then ()
+    else 
+        for $fact in sec:facts-for(
+            {|
+                { Hypercube : $hypercube },
+                { "ConceptMaps" : $map }[exists($map)],
+                { "Rules" : $parameters.Rule }[exists($parameters.Rule)]
+            |}
+        )
+        return {|
+            $fact,
+            { "EntityRegistrantName" : companies:companies($fact.Aspects."xbrl:Entity").Profiles.SEC.CompanyName}
+        |} 
+
+let $facts := util:move-unit-out-of-aspects($facts)
 
 let $results :=
-    let $facts := local:facts($archives, $map, $rules)
-    return
         switch ($format)
         case "xml" return {
             response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
@@ -250,4 +229,4 @@ return
         response:status-code(400);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
     }
-    default return util:check-and-return-results($entities, $results, $format)
+    default return util:check-and-return-results($entities, $results, $parameters.Format)

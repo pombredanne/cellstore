@@ -145,9 +145,9 @@ declare function util:filter-override-from-parameters(
     let $latest-filings := util:latest-filings($entities, $fp)
     let $fiscal-years as integer* :=
         switch(true)
-        case $fy = "ALL" return ()
+        case exists(index-of($fy, "ALL")) return ()
         default return distinct-values(
-            $fy[$$ ne "LATEST"] ! ($$ cast as integer)
+            $fy[not deep-equal($$, "LATEST")] ! ($$ cast as integer)
         )
     let $fiscal-periods as string* := switch(true)
                          case $fp = "ALL" return ()
