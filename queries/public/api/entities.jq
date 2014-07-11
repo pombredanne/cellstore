@@ -1,9 +1,10 @@
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace request = "http://www.28msec.com/modules/http-request";
-import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
+
+import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace response = "http://www.28msec.com/modules/http-response";
 
 session:audit-call();
 

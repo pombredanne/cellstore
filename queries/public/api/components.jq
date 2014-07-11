@@ -1,13 +1,13 @@
+import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace session = "http://apps.28.io/session";
+
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 
-import module namespace util = "http://secxbrl.info/modules/util";
-
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
-import module namespace session = "http://apps.28.io/session";
 
 declare function local:to-csv($res as object*) as string*
 {

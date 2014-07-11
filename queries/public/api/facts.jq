@@ -1,16 +1,17 @@
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace archives = "http://xbrl.io/modules/bizql/archives";
-import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace core = "http://xbrl.io/modules/bizql/profiles/sec/core";
-
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
-import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
-import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace archives = "http://xbrl.io/modules/bizql/archives";
+import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
+import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
+import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
+
+import module namespace core = "http://xbrl.io/modules/bizql/profiles/sec/core";
+import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
+import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+
+import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace request = "http://www.28msec.com/modules/http-request";
 
 declare function local:to-xml($o as object*) as node()*
 {
