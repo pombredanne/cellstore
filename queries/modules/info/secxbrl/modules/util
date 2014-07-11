@@ -137,7 +137,7 @@ declare function util:latest-filings(
 
 declare function util:filter-override-from-parameters(
     $parameters as object,
-    $options as object?) as object
+    $options as object?) as object?
 {
     let $entities := util:entities-from-parameters($parameters, $options)
     let $fy := $parameters.FiscalYears[]

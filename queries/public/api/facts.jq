@@ -6,8 +6,6 @@ import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
 
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
@@ -105,39 +103,6 @@ declare function local:hypercube($parameters as object) as object
     return hypercubes:user-defined-hypercube($main-hypercube-spec)
 };
 
-declare function local:filings(
-    $ciks as string*,
-    $tags as string*,
-    $tickers as string*,
-    $sics as string*,
-    $fp as string*,
-    $fy as string*) as object*
-{
-    let $entities := if ($tags = "ALL") then companies:companies()
-                                        else (
-                                            companies:companies($ciks),
-                                            companies:companies-for-tags($tags),
-                                            companies:companies-for-tickers($tickers),
-                                            companies:companies-for-SIC($sics)
-                                        )
-    for $entity in $entities
-    for $fy in distinct-values(
-                for $fy in $fy
-                return
-                    switch ($fy)
-                    case "LATEST" return
-                        for $p in $fp
-                        return
-                            if ($p eq "FY")
-                            then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year
-                            else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                        case "ALL" return  $sec-fiscal:ALL_FISCAL_YEARS
-                    default return $fy
-                )
-    for $fp in $fp
-    return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
-};
-
 session:audit-call();
 
 (: Query parameters :)
@@ -187,7 +152,7 @@ let $facts :=
         )
         return {|
             $fact,
-            { "EntityRegistrantName" : companies:companies($fact.Aspects."xbrl:Entity").Profiles.SEC.CompanyName}
+            { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName}
         |} 
 
 let $facts := util:move-unit-out-of-aspects($facts)
