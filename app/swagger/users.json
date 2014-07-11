@@ -36,6 +36,10 @@
                             "required": false,
                             "type": "string",
                             "paramType": "query"
+                        },
+                        {
+                            "name": "_method",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -84,6 +88,10 @@
                             "required":true,
                             "type":"string",
                             "paramType":"query"
+                        },
+                        {
+                            "name": "_method",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -153,6 +161,10 @@
                             "required": false,
                             "type": "string",
                             "paramType": "query"
+                        },
+                        {
+                            "name": "_method",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -220,6 +232,10 @@
                             "description": "The token of the current session",
                             "required": false,
                             "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "_method",
                             "paramType": "query"
                         }
                     ],
@@ -303,6 +319,10 @@
                             "required":true,
                             "type":"string",
                             "paramType":"query"
+                        },
+                        {
+                            "name": "_method",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -350,6 +370,10 @@
                             "required": true,
                             "type": "string",
                             "paramType": "query"
+                        },
+                        {
+                            "name": "_method",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -392,6 +416,10 @@
                             "required": true,
                             "type": "string",
                             "paramType": "query"
+                        },
+                        {
+                            "name": "_method",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -426,6 +454,10 @@
                             "required": true,
                             "type": "string",
                             "paramType": "query"
+                        },
+                        {
+                            "name": "_method",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages":[
@@ -459,6 +491,10 @@
                             "description": "The token of the current session",
                             "required": true,
                             "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "_method",
                             "paramType": "query"
                         }
                     ],
