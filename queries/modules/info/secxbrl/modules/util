@@ -86,7 +86,7 @@ declare function util:components-from-parameters(
 {
     let $archives := util:filings-from-parameters($parameters, { ResolveArchives: true })
     return(
-        components:components($parameters.CID)[exists($parameters.CID)],
+        components:components($parameters.CIDs[])[exists($parameters.CIDs)],
         if (exists(($parameters.ReportElements[], $parameters.Concepts[], $parameters.Disclosures[], $parameters.Roles[], $parameters.Search[])))
         then (
                 components2:components-for-archives-and-concepts($archives, $parameters.Concepts[]),
