@@ -13,6 +13,6 @@ declare %an:nondeterministic function local:test-entities($expected as integer, 
         dow30: local:test-entities(30, "&tag=DOW30"),
         cik: local:test-entities(1, "&cik=4962"),
         ticker: local:test-entities(1, "&ticker=wmt"),
-        sic: local:test-entities(1, "&sic=5331") 
+        sic: local:test-entities(2, "&sic=4813") 
     }
 }

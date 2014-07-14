@@ -9,10 +9,10 @@ declare %an:nondeterministic function local:test-components($expected as integer
 
 {
     Components: {
-        byid: local:test-components(1, "&cid=21fbc6e8-e762-47e3-a9fd-741c7a69578a"),
+        byid: local:test-components(1, "&cid=5735ef0c-14fb-4196-8ac5-03adaf5689ab"),
         cocacola: local:test-components(94, "&ticker=ko"),
         cocacolaincome: local:test-components(1, "&ticker=ko&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
-        byconcept: local:test-components(1, "&tag=DOW30&concept=us-gaap:NetIncomeLoss"),
+        byconcept: local:test-components(113, "&tag=DOW30&concept=us-gaap:NetIncomeLoss"),
         byfyfp: local:test-components(1, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets") 
     }
 }

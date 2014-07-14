@@ -124,7 +124,7 @@ declare function util:filings(
 
 declare function util:latest-filings(
     $entities as object*,
-    $fiscal-periods as string*)
+    $fiscal-periods as string*) as object*
 {
     for $entity in $entities
     for $fiscal-period in $fiscal-periods 
@@ -132,7 +132,7 @@ declare function util:latest-filings(
         if ($fiscal-period eq "FY")
         then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year 
         else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-    return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fiscal-period, $latest-fiscal-year cast as integer)
+    return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fiscal-period, $latest-fiscal-year cast as integer?)
 };
 
 declare function util:filter-override-from-parameters(
