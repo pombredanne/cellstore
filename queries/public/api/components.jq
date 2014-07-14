@@ -116,14 +116,16 @@ let $results := switch ($format)
             default return {
                 response:content-type("application/json");
                 response:serialization-parameters({"indent" : true});
-                session:comment("json",
-                    {
-                        NumComponents : count($components),
-                        TotalNumComponents: session:num-components(),
-                        TotalNumArchives: session:num-archives()
-                    }
-                ),
-                $res
+                {|
+                    session:comment("json",
+                        {
+                            NumComponents : count($components),
+                            TotalNumComponents: session:num-components(),
+                            TotalNumArchives: session:num-archives()
+                        }
+                    ),
+                    { Components: [ $res ] }
+                |}
             }
 return 
     util:check-and-return-results($entities, $results, $parameters.Format)
