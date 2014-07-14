@@ -4,7 +4,6 @@ import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/fil
 import module namespace util = "http://secxbrl.info/modules/util";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
-import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace session = "http://apps.28.io/session";
 
 (: Query parameters :)
@@ -37,41 +36,24 @@ let $entities as object* := companies:companies($archives.Entity)
 let $summaries := for $f in filings:summaries($archives) 
                   order by $f.Accepted descending
                   return $f
-let $results :=
-    switch ($format)
-    case "xml"  return {
-        response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-        ( session:comment("xml", {
-            NumArchives: count($summaries),
-            TotalNumArchives: session:num-archives(),
-            TotalNumEntities: session:num-entities()
-        }),
+let $result := { "Archives" : [ $summaries ] }
+let $comment :=
+{
+    NumArchives: count($summaries),
+    TotalNumArchives: session:num-archives(),
+    TotalNumEntities: session:num-entities()
+}
+let $serializers := {
+    to-xml : function($res as object) as node() {
         <Filings>{
-            filings:summaries-to-xml($summaries)   
-        }</Filings>)
+            filings:summaries-to-xml($res.Archives[])   
+        }</Filings>
+    },
+    to-csv : function($res as object) as string {
+        string-join(filings:summaries-to-csv($res.Archives[]))
     }
-    case "csv" case "text" return {
-        response:content-type("text/csv");
-        response:header("Content-Disposition", "attachment; filename=filings.csv");
-        string-join(filings:summaries-to-csv($summaries), "")
-    }
-    case "excel" return {
-        response:content-type("application/vnd.ms-excel");
-        response:header("Content-Disposition", "attachment; filename=filings.csv");
-        string-join(filings:summaries-to-csv($summaries))
-    }
-    default return {
-        response:content-type("application/json");
-        response:serialization-parameters({"indent" : true});
-        {|
-            { "Archives" : [ $summaries ] },
-            session:comment("json", {
-                NumArchives: count($summaries),
-                TotalNumArchives: session:num-archives(),
-                TotalNumEntities: session:num-entities()
-            })
-        |}
-    }
+}
 
+let $results := util:serialize($result, $comment, $serializers, $parameters)
 return
     util:check-and-return-results($entities, $results, $parameters.Format)

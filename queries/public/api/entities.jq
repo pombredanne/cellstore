@@ -4,7 +4,6 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
-import module namespace response = "http://www.28msec.com/modules/http-response";
 
 session:audit-call();
 
@@ -34,36 +33,20 @@ let $entities :=
         else companies:companies()
     order by $entity.Profiles.SEC.CompanyName
     return $entity
-return
-    switch ($format)
-        case "xml"  return { 
-            response:content-type("application/xml");
-            response:serialization-parameters({"omit-xml-declaration" : false});
-            (session:comment("xml", {
-                NumEntities: count($entities),
-                TotalNumEntities: session:num-entities() 
-            }),
-            <Entities>{
-                companies:to-xml($entities)
-            }</Entities>)
-        }
-        case "text" case "csv" return {
-            response:content-type("application/csv");
-            string-join(companies:to-csv($entities))
-        }
-        case "excel" return {
-            response:content-type("application/vnd.ms-excel");
-            response:header("Content-Disposition", "attachment; filename=entities.csv");
-            string-join(companies:to-csv($entities))
-        }
-        default return {
-            response:content-type("application/json");
-            response:serialization-parameters({"indent" : false});
-            {|
-                { "Entities" : [ $entities ] },
-                session:comment("json", {
-                        NumEntities: count($entities),
-                        TotalNumEntities: session:num-entities() 
-                    }) 
-            |} 
-        } 
+let $comment := 
+{
+    NumEntities: count($entities),
+    TotalNumEntities: session:num-entities() 
+}
+let $result := { "Entities" : [ $entities ] }
+let $serializers := {
+    to-xml : function($res as object) as node() {
+        <Entities>{
+            companies:to-xml($res.Entities[])
+        }</Entities>
+    },
+    to-csv : function($res as object) as string {
+        string-join(companies:to-csv($res.Entities[]))
+    }
+}
+return util:serialize($result, $comment, $serializers, $parameters)

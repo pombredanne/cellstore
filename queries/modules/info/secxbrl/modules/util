@@ -258,3 +258,36 @@ declare function util:move-unit-out-of-aspects(
         { Unit: $fact.Aspects."xbrl:Unit" }[exists($fact.Aspects."xbrl:Unit")]
     |}
 };
+
+declare %an:sequential function util:serialize(
+    $result as json-item,
+    $comment as object,
+    $serializers as object,
+    $parameters as object) as item*
+{
+    switch ($parameters.Format)
+    case "xml" return {
+        response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+        session:comment("xml", $comment),
+        $serializers.to-xml($result)
+    }
+    case "text" case "csv" return {
+        response:content-type("text/csv");
+        response:header("Content-Disposition", "attachment; filename=facts.csv");
+        $serializers.to-csv($result)
+    }
+    case "excel" return {
+        response:content-type("application/vnd.ms-excel");
+        response:header("Content-Disposition", "attachment; filename=fact.csv");
+        $serializers.to-csv($result)
+    }
+    default return {
+        response:content-type("application/json");
+        response:serialization-parameters({"indent" : true});
+        {|
+            session:comment("json", $comment),
+            $result
+        |}
+    }
+};
+
