@@ -66,7 +66,11 @@ let $spreadsheet as object? :=
             FlattenRows: true,
             Eliminate: $parameters.Eliminate,
             Validate: $parameters.Validate,
-            DefinitionModel: $definition-model
+            DefinitionModel: $definition-model,
+                FilterOverride : {
+                    "sec:FiscalPeriod" : { Type: "string", Default: null },
+                    "sec:FiscalYear" : { Type: "string", Default: null }
+                }
         })
 
 let $results :=

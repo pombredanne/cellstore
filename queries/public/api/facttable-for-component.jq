@@ -95,7 +95,11 @@ let $facts :=
          else components2:facts(
             $component,
             {
-                Validate: $parameters.Validate
+                Validate: $parameters.Validate,
+                FilterOverride : {
+                    "sec:FiscalPeriod" : { Type: "string", Default: null },
+                    "sec:FiscalYear" : { Type: "string", Default: null }
+                }
             }
         )
         
