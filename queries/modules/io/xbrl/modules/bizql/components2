@@ -187,22 +187,17 @@ as object*
       $component,
       "ConceptMap")
   let $rules := $component.Rules
-  let $hypercube :=
-    if(exists($options.Hypercube))
-    then $options.Hypercube
-    else hypercubes:hypercubes-for-components(
-             $component,
-             if (exists($options.HypercubeName))
-             then $options.HypercubeName
-             else "xbrl:DefaultHypercube"
-    )
-  let $hypercube :=
+  let $overriden-hypercube as object? :=
+        if(exists($options.Hypercube))
+        then $options.Hypercube
+        else components2:select-table($component, $options)
+    let $hypercube :=
     if(exists($options.FilterOverride))
     then hypercubes2:modify-hypercube(
-      $hypercube,
+      $overriden-hypercube,
       $options.FilterOverride
     )
-    else $hypercube
+    else $overriden-hypercube
   return hypercubes:facts(
           $hypercube,
           {|
