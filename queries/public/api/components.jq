@@ -93,7 +93,7 @@ let $res         :=
     group by $archive := $r.Archive
     return sec-networks:summaries($r)
 
-let $results := switch ($format)
+let $results := switch ($parameters.Format)
         case "xml" return {
             response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
             session:comment("xml", {
