@@ -158,7 +158,7 @@ let $facts :=
 let $facts := util:move-unit-out-of-aspects($facts)
 
 let $results :=
-        switch ($format)
+        switch ($parameters.Format)
         case "xml" return {
             response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
             local:to-xml($facts)
@@ -192,6 +192,6 @@ return
     switch(true)
     case empty($archives) return {
         response:status-code(400);
-        session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
+        session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $parameters.Format)
     }
     default return util:check-and-return-results($entities, $results, $parameters.Format)
