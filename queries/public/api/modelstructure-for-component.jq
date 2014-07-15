@@ -193,7 +193,7 @@ let $results :=
         { Disclosure : $component.Profiles.SEC.Disclosure }
     |}
     return 
-    switch ($format)
+    switch ($parameters.Format)
     case "xml" return {
         response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
         local:to-xml($model)
