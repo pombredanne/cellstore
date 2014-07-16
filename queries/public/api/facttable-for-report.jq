@@ -5,6 +5,10 @@ import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
 import module namespace reports = "http://xbrl.io/modules/bizql/reports";
 import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 
+import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
+import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
+
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
@@ -22,45 +26,45 @@ let $sics as string*          := distinct-values(request:param-values("sic"))
 let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear"))
 let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod"))
 let $aids as string*          := distinct-values(request:param-values("aid"))
-let $roles as string*         := request:param-values("networkIdentifier")
-let $cid as string?           := request:param-values("cid")
-let $concepts as string*      := distinct-values(request:param-values("concept"))
-let $rollups as string*       := distinct-values(request:param-values("rollup"))
-let $map as string?           := request:param-values("map")
-let $disclosures as string*   := request:param-values("disclosure")
 let $validate as string       := request:param-values("validate", "false")
-let $eliminate as string      := request:param-values("eliminate", "false")
 let $report as string?        := request:param-values("report")
-let $parameters := {|
-    {
-        CIKs: [ $ciks ],
-        Tags: [ $tags ],
-        Tickers: [ $tickers ],
-        SICs: [ $sics ],
-        FiscalYears: [ $fiscalYears ],
-        FiscalPeriods: [ $fiscalPeriods ],
-        AIDs: [ $aids ],
-        Roles: [ $roles ],
-        CIDs: [ $cid ],
-        Concepts: [ $concepts ],
-        RollUps: [ $rollups ],
-        Disclosures: [ $disclosures ]
-    },
-    { Format: $format }[exists($format)],
-    { Map: $map }[exists($map)],
-    { Validate: $validate }[exists($validate)],
-    { Eliminate: $eliminate }[exists($eliminate)],
-    { Report: $report }[exists($report)] 
-|}
 
+(: Post-processing :)
+let $format as string? := (: backwards compatibility, to be deprecated  :)
+    lower-case(($format, substring-after(request:path(), ".jq."))[1])
+let $tags as string* := (: backwards compatibility, to be deprecated :)
+    distinct-values($tags ! upper-case($$))
+let $fiscalYears as integer* :=
+    for $fy in $fiscalYears
+    return switch($fy)
+           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
+           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
+           default return if($fy castable as integer) then integer($fy) else ()
+let $fiscalPeriods as string* :=
+    for $fp in $fiscalPeriods
+    return switch($fp)
+           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
+           default return $fp
+let $validate as boolean := $validate = "true"
 
 (: Object resolution :)
-let $parameters as object := util:process-parameters($parameters)
-let $entities as object* := util:entities-from-parameters($parameters, { ResolveArchives: true })
-let $report as object? := reports:reports($parameters.Report)
+let $entities := 
+    for $entity in 
+        companies2:companies-for-cik-tag-ticker-and-sic(
+            $ciks,
+            $tags,
+            $tickers,
+            $sics)
+    order by $entity.Profiles.SEC.CompanyName
+    return $entity
+let $report as object? := reports:reports($report)
 
 (: Fact resolution :)
-let $filter-override as object? := util:filter-override-from-parameters($parameters, { ResolveArchives: true })
+let $filter-override as object? := fiscal-core2:filter-override(
+    $entities,
+    $fiscalYears,
+    $fiscalPeriods,
+    $aids)
 let $facts as object* :=
     let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
     let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
@@ -73,7 +77,7 @@ let $facts as object* :=
                 $report,
                 {|
                     { FilterOverride: $filter-override }[exists($filter-override)],
-                    { Validate: $parameters.Validate }
+                    { Validate: $validate }
                 |}
             )
 
@@ -92,7 +96,7 @@ let $facts :=
 let $facts := util:move-unit-out-of-aspects($facts)
 
 let $results :=
-    switch ($parameters.Format)
+    switch ($format)
     case "xml" return {
         response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
         session:comment("xml",
@@ -133,4 +137,4 @@ let $results :=
         |}
     }
 return
-    util:check-and-return-results($entities, $results, $parameters.Format)
+    util:check-and-return-results($entities, $results, $format)

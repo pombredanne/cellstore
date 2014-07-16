@@ -2,12 +2,51 @@ jsoniq version "1.0";
 
 module namespace sec-networks2 = "http://xbrl.io/modules/bizql/profiles/sec/networks2";
 
+import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace networks = "http://xbrl.io/modules/bizql/networks";
+import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
 
+(:~
+ : <p>Retrieves the components with the given CID, or belonging to the given archives and corresponding to one of report
+ : elements, concepts, disclosures, roles or label search.</p>
+ :
+ : @param $archives-or-aids a sequence of archives or AIDs.
+ : @param $components-or-ids a sequence of components or their CIDs.
+ : @param $report-elements a sequence of report element names.
+ : @param $concepts a sequence of concept names.
+ : @param $disclosures a sequence of disclosures.
+ : @param $roles a sequence of role URIs.
+ : @param $search a sequence of label search strings.
+ : 
+ : @return a sequence of components.
+ :)
+declare function sec-networks2:components-for-criteria(
+    $archives-or-aids as item*,
+    $components-or-ids as item*,
+    $report-elements as string*,
+    $concepts as string*,
+    $disclosures as string*,
+    $roles as string*,
+    $search as string*) as object*
+{
+    let $archives as object* := archives:archives($archives-or-aids)
+    return(
+        components:components($components-or-ids)[exists($components-or-ids)],
+        if (exists(($report-elements, $concepts, $disclosures, $roles, $search)))
+        then (
+                components2:components-for-archives-and-concepts($archives, $concepts),
+                sec-networks:networks-for-filings-and-disclosures($archives, $disclosures),
+                components2:components-for-archives-and-roles($archives, $roles),
+                sec-networks:networks-for-filings-and-reportElements($archives, $report-elements),
+                sec-networks:networks-for-filings-and-label($archives, $search)
+            )
+        else components:components-for-archives($archives)
+    )
+};
 
 (:~
  : <p>Builds a standard definition model out of the specified component.</p>

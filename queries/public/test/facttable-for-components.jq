@@ -10,8 +10,8 @@ declare %an:nondeterministic function local:test-facttable($expected as integer,
 {
     Entities: {
         cocacola: local:test-facttable(1, "&ticker=ko"),
-        tickerrole: local:test-facttable(20, "&ticker=ko&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
-        tickerconcept: local:test-facttable(32, "&ticker=ko&concept=us-gaap:NetIncomeLoss"),
-        tickerfyfprole: local:test-facttable(34, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets") 
+        tickerrole: local:test-facttable(60, "&ticker=ko&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
+        tickerconcept: local:test-facttable(99, "&ticker=ko&concept=us-gaap:NetIncomeLoss"),
+        tickerfyfprole: local:test-facttable(70, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets") 
     }
 }
