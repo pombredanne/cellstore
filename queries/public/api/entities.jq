@@ -2,6 +2,7 @@ import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
+import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 
@@ -13,24 +14,24 @@ let $ciks as string*           := distinct-values(request:param-values("cik"))
 let $tags as string*           := distinct-values(request:param-values("tag"))
 let $tickers as string*        := distinct-values(request:param-values("ticker"))
 let $sics as string*           := distinct-values(request:param-values("sic"))
-let $parameters := {|
-    {
-        CIKs: [ $ciks ],
-        Tags: [ $tags ],
-        Tickers: [ $tickers ],
-        SICs: [ $sics ]
-    },
-    { Format: $format }[exists($format)]
-|}
 
+(: Post-processing :)
+let $format as string? := (: backwards compatibility, to be deprecated  :)
+    lower-case(($format, substring-after(request:path(), ".jq."))[1])
+let $tags as string* := (: backwards compatibility, to be deprecated :)
+    distinct-values($tags ! upper-case($$))
+let $tags := if (exists(($ciks, $tags, $tickers, $sics)))
+             then $tags
+             else "ALL"
 
 (: Object resolution :)
-let $parameters as object := util:process-parameters($parameters)
 let $entities := 
     for $entity in 
-        if (exists(($ciks, $tags, $tickers, $sics)))
-        then util:entities-from-parameters($parameters, {})
-        else companies:companies()
+        companies2:companies-for-cik-tag-ticker-and-sic(
+            $ciks,
+            $tags,
+            $tickers,
+            $sics)
     order by $entity.Profiles.SEC.CompanyName
     return $entity
 let $comment := 
@@ -49,4 +50,4 @@ let $serializers := {
         string-join(companies:to-csv($res.Entities[]))
     }
 }
-return util:serialize($result, $comment, $serializers, $parameters)
+return util:serialize($result, $comment, $serializers, $format)

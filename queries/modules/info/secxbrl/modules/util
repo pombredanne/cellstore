@@ -263,9 +263,9 @@ declare %an:sequential function util:serialize(
     $result as json-item,
     $comment as object,
     $serializers as object,
-    $parameters as object) as item*
+    $format as string?) as item*
 {
-    switch ($parameters.Format)
+    switch ($format)
     case "xml" return {
         response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
         session:comment("xml", $comment),
