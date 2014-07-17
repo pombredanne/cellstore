@@ -2,7 +2,7 @@ import module namespace fetch = "http://zorba.io/modules/fetch";
 import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
 
 declare variable $schema := parse-json(fetch:content("/private/ReportSchema.jq", "MODULE"));
-declare variable $user := "w@28.io";
+declare variable $user := "admin@28.io";
 
 if($user eq "admin@28.io")
 then

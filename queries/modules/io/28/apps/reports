@@ -242,12 +242,12 @@ declare function reports:validate-and-update-report-properties($report as object
 {
     copy $r := $report
     modify (
-        (:
-        @TODO 
+        (: @TODO conflict checking
         if($existing-report.LastModified ne $report.LastModified)
         then error(xs:QName("reports:CONFLICT"), "The stored report (last modified: " || $existing-report.LastModified 
                   || ") contains changes that are newer than the report (last modified: " || $report.LastModified || ") to store.")
-        else (),:)
+        else (),
+        :)
         
         (: user authorized to change owner? :)
         if(empty($r.Owner))
