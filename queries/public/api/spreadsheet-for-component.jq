@@ -1,7 +1,7 @@
 jsoniq version "1.0";
 
 import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
-
+    
 import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
 import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
