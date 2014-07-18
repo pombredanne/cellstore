@@ -1049,6 +1049,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "aid",
+                            "description": "The id of the filing",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "fiscalYear",
                             "description": "The fiscal year of the fact to retrieve (default: LATEST)",
                             "required": false,
