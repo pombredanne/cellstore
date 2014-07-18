@@ -4,6 +4,7 @@ angular.module('main', [
     'ui.router', 'ngSanitize', 'ui.bootstrap', 'jmdobry.angular-cache', 'googlechart', 'navbar-toggle',
     'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite',
     'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'angular.directives-round-progress',
+    'queries-api', 'session-api', 'users-api', 'billing-api',
     'translator'
 ])
 .run(function($rootScope, ngProgressLite) {
@@ -191,7 +192,7 @@ angular.module('main', [
         controller: 'EntityCtrl',
         resolve: {
             entity: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listEntities({ $method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
+                return $backend.Queries.listEntities({ _method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
             }]
         },
         data: {
@@ -206,7 +207,7 @@ angular.module('main', [
         templateUrl: '/views/entity/summary.html',
         resolve: {
             entity: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listEntities({ $method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
+                return $backend.Queries.listEntities({ _method: 'POST', cik: $stateParams.cik, token: $rootScope.token });
             }]
         },
         data: {
@@ -220,7 +221,7 @@ angular.module('main', [
         controller: 'FilingsCtrl',
         resolve: {
             filings: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listFilings({ $method: 'POST', cik: $stateParams.cik, fiscalPeriod: 'ALL', fiscalYear: 'ALL', token: $rootScope.token });
+                return $backend.Queries.listFilings({ _method: 'POST', cik: $stateParams.cik, fiscalPeriod: 'ALL', fiscalYear: 'ALL', token: $rootScope.token });
             }]
         },
         data: {
@@ -257,7 +258,7 @@ angular.module('main', [
         controller: 'FilingCtrl',
         resolve: {
             filing: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listFilings({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
+                return $backend.Queries.listFilings({ _method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         data: {
@@ -271,7 +272,7 @@ angular.module('main', [
         controller: 'ComponentsCtrl',
         resolve: {
             components: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listComponents({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
+                return $backend.Queries.listComponents({ _method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         data: {
@@ -285,7 +286,7 @@ angular.module('main', [
         controller: 'ComponentCtrl',
         resolve: {
             component: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listComponents({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+                return $backend.Queries.listComponents({ _method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         data: {
@@ -300,7 +301,7 @@ angular.module('main', [
         resolve: {
             facttable: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend){
                 return $backend.Queries.listFactTable({
-                    $method : 'POST',
+                    _method : 'POST',
                     aid : $stateParams.aid,
                     networkIdentifier : $stateParams.networkIdentifier,
                     token : $rootScope.token
@@ -318,7 +319,7 @@ angular.module('main', [
         controller: 'ModelStructureCtrl',
         resolve: {
             modelStructure: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listModelStructure({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+                return $backend.Queries.listModelStructure({ _method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         data: {
@@ -332,7 +333,7 @@ angular.module('main', [
         url: '/filing/:aid',
         resolve: {
             filing: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listFilings({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
+                return $backend.Queries.listFilings({ _method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         controller: 'RootFilingCtrl'
@@ -343,7 +344,7 @@ angular.module('main', [
         url: '/components/:aid',
         resolve: {
             components: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listComponents({ $method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
+                return $backend.Queries.listComponents({ _method: 'POST', aid: $stateParams.aid, token: $rootScope.token });
             }]
         },
         controller: 'RootComponentsCtrl'
@@ -354,7 +355,7 @@ angular.module('main', [
         url: '/component/:aid/{networkIdentifier:.*}',
         resolve: {
             component: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listComponents({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+                return $backend.Queries.listComponents({ _method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         controller: 'RootComponentCtrl'
@@ -366,7 +367,7 @@ angular.module('main', [
         resolve: {
             facttable: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend){
                 return $backend.Queries.listFactTable({
-                    $method : 'POST',
+                    _method : 'POST',
                     aid : $stateParams.aid,
                     networkIdentifier : $stateParams.networkIdentifier,
                     token : $rootScope.token
@@ -381,7 +382,7 @@ angular.module('main', [
         url: '/modelstructure/:aid/{networkIdentifier:.*}',
         resolve: {
             modelStructure: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                return $backend.Queries.listModelStructure({ $method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+                return $backend.Queries.listModelStructure({ _method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }]
         },
         controller: 'RootModelStructureCtrl'
@@ -440,7 +441,7 @@ angular.module('main', [
                 var deferred = $q.defer();
 
                 $backend.Users.isAuthorized({
-                    $method: 'POST',
+                    _method: 'POST',
                     right: 'statistics_usage',
                     token: $rootScope.token
                 })
@@ -475,7 +476,7 @@ angular.module('main', [
         resolve: {
             apiStatistics: ['$rootScope', '$http', '$backend', function($rootScope, $http, $backend) {
                     return $backend.Billing.usage({
-                        $method : 'POST',
+                        _method : 'POST',
                         token : $rootScope.token,
                         $refresh : true
                     });
@@ -602,7 +603,7 @@ angular.module('main', [
         resolve: {
             filings: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
                 return $backend.Queries.listFilings({
-                    $method: 'POST',
+                    _method: 'POST',
                     cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
                     tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
                     fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
@@ -626,7 +627,7 @@ angular.module('main', [
         resolve: {
             filings: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
                 return $backend.Queries.listFilings({
-                    $method: 'POST',
+                    _method: 'POST',
                     cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
                     tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
                     fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
@@ -649,7 +650,7 @@ angular.module('main', [
         resolve: {
             informations: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend) {
                 return $backend.Queries.listFilings({
-                    $method: 'POST',
+                    _method: 'POST',
                     cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
                     tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
                     fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
@@ -694,7 +695,7 @@ angular.module('main', [
         resolve: {
             informations: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend) {
                 return $backend.Queries.listFilings({
-                    $method: 'POST',
+                    _method: 'POST',
                     cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
                     tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
                     fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
@@ -759,7 +760,7 @@ angular.module('main', [
                 else
                 {
                     return $backend.Queries.listReportElements({
-                            $method : 'POST',
+                            _method : 'POST',
                             onlyNames : true,
                             cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
                             tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
@@ -797,7 +798,7 @@ angular.module('main', [
                     });
 
                     var params = {
-                        $method: 'POST',
+                        _method: 'POST',
                         cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
                         tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
                         fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
@@ -806,16 +807,17 @@ angular.module('main', [
                         concept: concept,
                         map: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
                         rules: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
-                        token: $rootScope.token
+                        token: $rootScope.token,
+                        $queryParameters: {}
                     };
                     dimensions.forEach(function(dimension) {
-                        params[dimension.name] = dimension.value;
+                        params.$queryParameters[dimension.name] = dimension.value;
                         if (dimension.defaultValue)
                         {
-                            params[dimension.name + '::default'] = dimension.defaultValue;
+                            params.$queryParameters[dimension.name + '::default'] = dimension.defaultValue;
                         }
                     });
-
+                    console.log(params);
                     return $backend.Queries.listFacts(params);
                 }
                 else {
@@ -836,7 +838,7 @@ angular.module('main', [
         resolve: {
             reportElements: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
                 return $backend.Queries.listReportElements({
-                    $method : 'POST',
+                    _method : 'POST',
                     onlyNames : true,
                     cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
                     tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
@@ -855,7 +857,7 @@ angular.module('main', [
             components: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
                 if ($stateParams.disclosure || $stateParams.reportElement || $stateParams.label) {
                     return $backend.Queries.listComponents({
-                        $method: 'POST',
+                        _method: 'POST',
                         cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
                         tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
                         fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
@@ -885,7 +887,7 @@ angular.module('main', [
         resolve: {
             reportElements: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
                 return $backend.Queries.listReportElements({
-                    $method : 'POST',
+                    _method : 'POST',
                     onlyNames : true,
                     cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
                     tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
@@ -898,7 +900,7 @@ angular.module('main', [
             results: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
                 if ($stateParams.name || $stateParams.label) {
                     return $backend.Queries.listReportElements({
-                        $method: 'POST',
+                        _method: 'POST',
                         cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
                         tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
                         fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
@@ -1117,7 +1119,7 @@ angular.module('main', [
             var p = [];
             Object.keys(params).forEach(function (param) {
                 if (params.hasOwnProperty(param) && params[param]) {
-                    if (param === '$method') {
+                    if (param === '_method') {
                         p.push('_method=' + encodeURIComponent(params[param].toString()));
                     } else {
                         if (Object.prototype.toString.call(params[param]) === '[object Array]') {

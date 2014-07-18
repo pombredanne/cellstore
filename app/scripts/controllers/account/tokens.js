@@ -5,7 +5,7 @@ angular.module('main')
     $scope.tokens = [];
     
     $scope.getData = function() {
-        $backend.Session.tokens({ $method: 'POST', token: $scope.token, $refresh: true })
+        $backend.Session.tokens({ _method: 'POST', token: $scope.token, $refresh: true })
             .then(
                 function(data) {
                     $scope.tokens = data.results;
@@ -33,7 +33,7 @@ angular.module('main')
                 token: function() { return token.token; }
             }
         }).result.then(function(item) {
-            $backend.Session.revoke({ $method: 'POST', email: $scope.user.email, password: item.password, token: token.token, $refresh: true })
+            $backend.Session.revoke({ _method: 'POST', email: $scope.user.email, password: item.password, token: token.token, $refresh: true })
                 .then(
                     function() {
                         if (token.token === $scope.token)
@@ -82,7 +82,7 @@ angular.module('main')
                 };
             }]
         }).result.then(function(item) {
-            $backend.Session.token({ $method: 'POST', email: $scope.user.email, password: item.password, expiration: item.expiration, $refresh: true })
+            $backend.Session.token({ _method: 'POST', email: $scope.user.email, password: item.password, expiration: item.expiration, $refresh: true })
                 .then(
                     function() {
                         $scope.getData();

@@ -18,7 +18,7 @@ angular.module('main')
 
     $scope.getBillingInfo = function() {
         $scope.loadingBillingInfo = true;
-        $backend.Billing.getBillingInfo({ $method: 'POST', token: $scope.token, $refresh: true })
+        $backend.Billing.getBillingInfo({ _method: 'POST', token: $scope.token, $refresh: true })
          .then(
             function(data) {
                 $scope.billingInfo = data;
@@ -34,7 +34,7 @@ angular.module('main')
     $scope.getInvoices = function() {
         $scope.loadingInvoices = true;
         $backend.Billing.invoices({
-            $method: 'POST',
+            _method: 'POST',
             cursor: $scope.next,
             limit: $scope.PAGESIZE,
             token: $scope.token
@@ -57,7 +57,7 @@ angular.module('main')
         $scope.loadingSubscriptions = true;
         $scope.subscriptions = [];
         $scope.hasPro = false;
-        $backend.Billing.subscriptions({ $method: 'POST', token: $scope.token, $refresh: true })
+        $backend.Billing.subscriptions({ _method: 'POST', token: $scope.token, $refresh: true })
           .then(
             function(data) {
                 $scope.subscriptions = data;
@@ -116,7 +116,7 @@ angular.module('main')
         modal.result
             .then(function(data) {
                 $scope.loadingBillingInfo = true;
-                $backend.Billing.setBillingInfo({ $method: 'POST', recurlyToken: data.token, token: $scope.token, $refresh: true })
+                $backend.Billing.setBillingInfo({ _method: 'POST', recurlyToken: data.token, token: $scope.token, $refresh: true })
                     .then(
                         function(data) {
                             $scope.billingInfo = data;
