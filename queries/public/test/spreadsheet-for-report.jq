@@ -12,6 +12,6 @@ declare %an:nondeterministic function local:test-spreadsheet($expected as intege
         cocacola: local:test-spreadsheet(85, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=LATEST&fiscalPeriod=Q1"),
         tickerrole: local:test-spreadsheet(85, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
         tickerconcept: local:test-spreadsheet(416, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=ALL"),
-        tickerfyfprole: local:test-spreadsheet(205, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=LATEST&fiscalPeriod=FY&eliminate=true") 
+        tickerfyfprole: local:test-spreadsheet(173, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=LATEST&fiscalPeriod=FY&eliminate=true") 
     }
 }

@@ -76,14 +76,26 @@ declare function fiscal-core2:filter-override(
         "sec:Archive" : {
             Type: "string",
             Domain : [ $aids ]
-        }
+        },
+        "sec:FiscalPeriod" : {|
+            {
+                Type: "string",
+                Domain: [ $fiscal-periods ]
+            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $sec-fiscal:ALL_FISCAL_PERIODS))]
+        |}
     }
     case exists(index-of($fiscal-years, $fiscal-core2:LATEST_FISCAL_YEAR))
     return {
         "sec:Archive" : {
             Type: "string",
             Domain : [archives:aid($latest-filings)]
-        }
+        },
+        "sec:FiscalPeriod" : {|
+            {
+                Type: "string",
+                Domain: [ $fiscal-periods ]
+            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $sec-fiscal:ALL_FISCAL_PERIODS))]
+        |}
     }
     case exists(($entities, $fiscal-years, $fiscal-periods))
     return {

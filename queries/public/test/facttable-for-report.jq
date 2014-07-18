@@ -12,6 +12,6 @@ declare %an:nondeterministic function local:test-facttable($expected as integer,
         cocacola: local:test-facttable(84, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=LATEST&fiscalPeriod=Q1"),
         tickerrole: local:test-facttable(84, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
         tickerconcept: local:test-facttable(410, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=ALL"),
-        tickerfyfprole: local:test-facttable(202, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=LATEST&fiscalPeriod=FY") 
+        tickerfyfprole: local:test-facttable(171, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=LATEST&fiscalPeriod=FY") 
     }
 }
