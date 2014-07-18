@@ -521,6 +521,20 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "label",
+                            "description": "A search term to search in the labels of components (e.g. stock)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "validate",
+                            "description": "Whether or not to stamp facts for validity (default is false)",
+                            "required": false,
+                            "type": "boolean",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
                             "required": false,
