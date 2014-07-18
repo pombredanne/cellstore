@@ -1294,6 +1294,17 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "map",
+                            "description": "The concept map that should be used to resolve the concept (default: none)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "FundamentalAccountingConcepts",
+                                "null"
+                              ],
+                            "paramType": "query"
+                        },
+                        {
                             "name": "label",
                             "description": "A search term to search in the labels of report elements (e.g. stock)",
                             "required": false,
