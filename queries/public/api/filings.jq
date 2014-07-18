@@ -10,6 +10,8 @@ import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 
+session:audit-call();
+
 (: Query parameters :)
 let $format as string?         := request:param-values("format")
 let $ciks as string*           := distinct-values(request:param-values("cik"))

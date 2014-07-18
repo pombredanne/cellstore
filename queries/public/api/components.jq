@@ -70,6 +70,7 @@ let $fiscalPeriods as string* :=
     return switch($fp)
            case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
            default return $fp
+let $reportElements := ($reportElements, $concepts)
 
 (: Object resolution :)
 let $entities := 
@@ -88,7 +89,6 @@ let $components  := sec-networks2:components(
     $archives,
     $cids,
     $reportElements,
-    $concepts,
     $disclosures,
     $roles,
     $search)

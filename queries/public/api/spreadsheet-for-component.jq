@@ -49,6 +49,7 @@ let $fiscalPeriods as string* :=
     return switch($fp)
            case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
            default return $fp
+let $reportElements := ($reportElements, $concepts)
 let $validate as boolean := $validate = "true"
 let $eliminate as boolean := $eliminate = "true"
 
@@ -68,7 +69,6 @@ let $components  := sec-networks2:components(
     $archive,
     $cids,
     $reportElements,
-    $concepts,
     $disclosures,
     $roles,
     $search)

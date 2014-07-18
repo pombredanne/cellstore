@@ -28,7 +28,6 @@ declare function sec-networks2:components(
     $archives-or-aids as item*,
     $components-or-ids as item*,
     $report-elements as string*,
-    $concepts as string*,
     $disclosures as string*,
     $roles as string*,
     $search as string*) as object*
@@ -36,12 +35,11 @@ declare function sec-networks2:components(
     let $archives as object* := archives:archives($archives-or-aids)
     return(
         components:components($components-or-ids)[exists($components-or-ids)],
-        if (exists(($report-elements, $concepts, $disclosures, $roles, $search)))
+        if (exists(($report-elements, $disclosures, $roles, $search)))
         then (
-                components2:components-for-archives-and-concepts($archives, $concepts),
+                components2:components-for-archives-and-concepts($archives, $report-elements),
                 sec-networks:networks-for-filings-and-disclosures($archives, $disclosures),
                 components2:components-for-archives-and-roles($archives, $roles),
-                sec-networks:networks-for-filings-and-reportElements($archives, $report-elements),
                 sec-networks:networks-for-filings-and-label($archives, $search)
             )
         else components:components-for-archives($archives)
