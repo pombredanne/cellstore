@@ -52,6 +52,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "sic",
+                            "description": "The industry group",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "ticker",
                             "description": "A ticker symbols",
                             "required": false,
