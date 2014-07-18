@@ -54,17 +54,17 @@ let $eliminate as boolean := $eliminate = "true"
 
 (: Object resolution :)
 let $entities as object* := 
-    companies2:companies-for-cik-tag-ticker-and-sic(
+    companies2:companies(
         $ciks,
         $tags,
         $tickers,
         $sics)
-let $archive as object? := fiscal-core2:filings-for-entities-and-fiscal-periods-and-years-and-archives(
+let $archive as object? := fiscal-core2:filings(
     $entities,
     $fiscalPeriods,
     $fiscalYears,
     $aids)
-let $components  := sec-networks2:components-for-criteria(
+let $components  := sec-networks2:components(
     $archive,
     $cids,
     $reportElements,

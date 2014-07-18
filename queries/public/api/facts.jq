@@ -6,6 +6,9 @@ import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
 
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
+import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
+import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
@@ -40,13 +43,21 @@ declare function local:cast-sequence($values as atomic*, $type as string) as ato
       default return error(xs:QName("local:unsupported-type"), $type || ": unsupported type")
 };
 
-declare function local:hypercube($parameters as object) as object
+declare function local:hypercube(
+    $entities as object*,
+    $fiscalPeriods as string*,
+    $fiscalYears as integer*,
+    $aids as string*) as object
 {
     let $shortcut-hypercube-spec :=
     {|
         let $concepts := request:param-values("concept")
         return { "xbrl:Concept" : { Domain : [ $concepts ] } }[exists($concepts)],
-        util:filter-override-from-parameters($parameters, {})
+        fiscal-core2:filter-override(
+            $entities,
+            $fiscalYears,
+            $fiscalPeriods,
+            $aids)
     |}
     let $main-hypercube-spec :=
     {|
@@ -116,28 +127,41 @@ let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPe
 let $aids as string*           := distinct-values(request:param-values("aid"))
 let $map as string?            := request:param-values("map")
 let $rule as string?            := request:param-values("rule")
-let $parameters := {|
-    {
-        CIKs: [ $ciks ],
-        Tags: [ $tags ],
-        Tickers: [ $tickers ],
-        SICs: [ $sics ],
-        FiscalYears: [ $fiscalYears ],
-        FiscalPeriods: [ $fiscalPeriods ],
-        AIDs: [ $aids ]
-    },
-    { Format: $format }[exists($format)],
-    { Map: $map }[exists($map)],
-    { Rule: $rule }[exists($rule)]
-|}
+let $validate as string       := request:param-values("validate", "false")
 
+(: Post-processing :)
+let $format as string? := (: backwards compatibility, to be deprecated  :)
+    lower-case(($format, substring-after(request:path(), ".jq."))[1])
+let $tags as string* := (: backwards compatibility, to be deprecated :)
+    distinct-values($tags ! upper-case($$))
+let $fiscalYears as integer* :=
+    for $fy in $fiscalYears
+    return switch($fy)
+           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
+           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
+           default return if($fy castable as integer) then integer($fy) else ()
+let $fiscalPeriods as string* :=
+    for $fp in $fiscalPeriods
+    return switch($fp)
+           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
+           default return $fp
+let $validate as boolean := $validate = "true"
 
 (: Object resolution :)
-let $parameters as object := util:process-parameters($parameters)
-let $archives as object* := util:filings-from-parameters($parameters, ())
+let $entities as object* := 
+    companies2:companies(
+        $ciks,
+        $tags,
+        $tickers,
+        $sics)
+let $archives as object* := fiscal-core2:filings(
+    $entities,
+    $fiscalPeriods,
+    $fiscalYears,
+    $aids)
 let $entities := entities:entities($archives.Entity)
 
-let $hypercube := local:hypercube($parameters)
+let $hypercube := local:hypercube($entities, $fiscalPeriods, $fiscalYears, $aids)
 
 let $facts :=
     if(empty($archives))
@@ -147,7 +171,7 @@ let $facts :=
             {|
                 { Hypercube : $hypercube },
                 { "ConceptMaps" : $map }[exists($map)],
-                { "Rules" : $parameters.Rule }[exists($parameters.Rule)]
+                { "Rules" : [ $rule ] }[exists($rule)]
             |}
         )
         return {|
@@ -158,7 +182,7 @@ let $facts :=
 let $facts := util:move-unit-out-of-aspects($facts)
 
 let $results :=
-        switch ($parameters.Format)
+        switch ($format)
         case "xml" return {
             response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
             local:to-xml($facts)
@@ -192,6 +216,6 @@ return
     switch(true)
     case empty($archives) return {
         response:status-code(400);
-        session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $parameters.Format)
+        session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
     }
-    default return util:check-and-return-results($entities, $results, $parameters.Format)
+    default return util:check-and-return-results($entities, $results, $format)

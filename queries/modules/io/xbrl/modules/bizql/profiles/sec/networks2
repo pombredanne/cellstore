@@ -24,7 +24,7 @@ import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/se
  : 
  : @return a sequence of components.
  :)
-declare function sec-networks2:components-for-criteria(
+declare function sec-networks2:components(
     $archives-or-aids as item*,
     $components-or-ids as item*,
     $report-elements as string*,

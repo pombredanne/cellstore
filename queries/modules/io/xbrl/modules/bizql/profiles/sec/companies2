@@ -15,7 +15,7 @@ import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/c
  :
  : @return the companies with the given identifiers, tags, tickers, or sic codes.
  :)
-declare function companies2:companies-for-cik-tag-ticker-and-sic(
+declare function companies2:companies(
     $ciks as string*,
     $tags as string*,
     $tickers as string*,

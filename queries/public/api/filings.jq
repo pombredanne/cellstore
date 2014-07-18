@@ -39,12 +39,12 @@ let $fiscalPeriods as string* :=
 
 (: Object resolution :)
 let $entities := 
-    companies2:companies-for-cik-tag-ticker-and-sic(
+    companies2:companies(
         $ciks,
         $tags,
         $tickers,
         $sics)
-let $archives as object* := fiscal-core2:filings-for-entities-and-fiscal-periods-and-years-and-archives(
+let $archives as object* := fiscal-core2:filings(
     $entities,
     $fiscalPeriods,
     $fiscalYears,

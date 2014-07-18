@@ -24,11 +24,11 @@ declare variable $fiscal-core2:LATEST_FISCAL_YEAR as integer := 1;
  :
  : @return the companies with the given identifiers, tags, tickers, or sic codes.
  :)
-declare function fiscal-core2:filings-for-entities-and-fiscal-periods-and-years-and-archives(
+declare function fiscal-core2:filings(
     $entities-or-eids as item*,
     $fiscal-periods as string*,
     $fiscal-years as integer*,
-    $archives-or-aids as item*) as object?
+    $archives-or-aids as item*) as object*
 {
     let $entities := entities:entities($entities-or-eids)
     return

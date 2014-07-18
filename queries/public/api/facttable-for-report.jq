@@ -50,7 +50,7 @@ let $validate as boolean := $validate = "true"
 (: Object resolution :)
 let $entities := 
     for $entity in 
-        companies2:companies-for-cik-tag-ticker-and-sic(
+        companies2:companies(
             $ciks,
             $tags,
             $tickers,
