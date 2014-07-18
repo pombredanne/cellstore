@@ -696,6 +696,17 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "eliminate",
+                            "description": "Wwether to eliminate empty rows/colummns",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "true",
+                                "false"
+                              ],
+                            "paramType": "query"
+                        },
+                        {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
                             "required": false,
