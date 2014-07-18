@@ -1049,6 +1049,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "aid",
+                            "description": "The id of the filing",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "fiscalYear",
                             "description": "The fiscal year of the fact to retrieve (default: LATEST)",
                             "required": false,
@@ -1284,6 +1291,17 @@
                             "description": "The name of the report element to return (e.g. us-gaap:Assets).",
                             "required": false,
                             "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "map",
+                            "description": "The concept map that should be used to resolve the concept (default: none)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "FundamentalAccountingConcepts",
+                                "null"
+                              ],
                             "paramType": "query"
                         },
                         {

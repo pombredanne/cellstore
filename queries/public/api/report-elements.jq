@@ -7,11 +7,13 @@ import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace components = "http://xbrl.io/modules/bizql/components";
+import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
  
 import module namespace csv = "http://zorba.io/modules/json-csv";
+import module namespace seq = "http://zorba.io/modules/sequence";
 
 declare namespace concepts = "http://www.28msec.com/modules/bizql/concepts";
 
@@ -106,7 +108,7 @@ declare function local:concepts-for-archives($aids as string*) as object*
         })
 };
 
-declare function local:concepts-for-archives($aids as string*, $names as string*) as object*
+declare function local:concepts-for-archives($aids as string*, $names as string*, $map as string?) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -116,12 +118,40 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
         } catch mongo:* {
             error(QName("concepts:CONNECTION-FAILED"), $err:description)
         }
-    return
-        mongo:find($conn, "concepts", 
+    let $map := if (exists($map)) then concept-maps:concept-maps($map) else ()
+    
+    let $all-concepts-computable-by-maps as string* := keys($map.Trees)
+
+    let $concepts-computable-by-maps as object* := 
+        for $c in $names[$$ = $all-concepts-computable-by-maps] 
+        return $map.Trees.$c
+    
+    let $mapped-names := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
+        
+    let $concepts-not-computable-by-maps as string* := seq:value-except($names, $mapped-names)
+    let $results-not-computed-by-maps := mongo:find($conn, "concepts", 
         {
-            "Name" : { "$in" : [ $names ] },
+            "Name" : { "$in" : [ $concepts-not-computable-by-maps ] },
             "Archive": { "$in" : [ $aids ] }
         })
+    let $results-computed-by-maps := 
+        for $c in mongo:find($conn, "concepts", 
+            {
+                "Name" : { "$in" : [ $mapped-names ] },
+                "Archive": { "$in" : [ $aids ] }
+            })
+        for $candidate-concept in $concepts-computable-by-maps
+        let $concepts := $c[$$.Name = (keys($candidate-concept.To), $candidate-concept.To[].Name)]
+        where exists($concepts)
+        count $c    
+        where $c eq 1
+        return
+            copy $n := $concepts
+            modify (
+                replace value of json $n.Name with $candidate-concept.Name,
+                insert json  { Origin : $concepts.Name } into $n)
+            return $n
+    return ($results-not-computed-by-maps, $results-computed-by-maps)
 };
 
 declare function local:concepts-for-archives-and-labels($aids as string*, $labels as string) as object*
@@ -168,6 +198,7 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
                         then ("Q1", "Q2", "Q3", "Q4", "FY")
                         else $fp)
 let $aids        := archives:aid(request:param-values("aid"))
+let $map         := request:param-values("map")[1]
 let $archives    := (
                         local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
                         archives:archives($aids)
@@ -176,11 +207,11 @@ let $entities    := entities:entities($archives.Entity)
 let $names       := distinct-values(request:param-values("name"))
 let $labels      := distinct-values(request:param-values("label"))
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
-return
+return 
     switch(session:check-access($entities, "data_sec"))
     case $session:ACCESS-ALLOWED return {
             let $concepts := let $concepts := if (exists($names))
-                                              then local:concepts-for-archives($archives._id, $names)
+                                              then local:concepts-for-archives($archives._id, $names, $map)
                                               else if (exists($labels))
                                               then local:concepts-for-archives-and-labels($archives._id, $labels[1])
                                               else local:concepts-for-archives($archives._id)
@@ -194,10 +225,14 @@ return
                                          let $archive := archives:archives($c[1].Archive)
                                          let $entity := entities:entities($archive.Entity)
                                          return
-                                             for $name in $c.Name
+                                             for $name in if (exists($c.Origin)) then $c.Origin else $c.Name
                                              return
                                                  copy $res := $members.$name
                                                  modify (
+                                                    replace value of json $res.Name with $c.Name,
+                                                    if (exists($c.Origin))
+                                                    then insert json { Origin : $c.Origin } into $res
+                                                    else (),
                                                     insert json { ComponentRole : $component.Role } into $res,
                                                     insert json { ComponentLabel : $component.Label } into $res,
                                                     insert json { AccessionNumber : $archive._id } into $res,
