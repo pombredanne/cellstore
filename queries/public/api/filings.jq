@@ -73,6 +73,6 @@ let $serializers := {
     }
 }
 
-let $results := util:serialize($result, $comment, $serializers, $format)
+let $results := util:serialize($result, $comment, $serializers, $format, "filings")
 return
     util:check-and-return-results($entities, $results, $format)

@@ -50,4 +50,4 @@ let $serializers := {
         string-join(companies:to-csv($res.Entities[]))
     }
 }
-return util:serialize($result, $comment, $serializers, $format)
+return util:serialize($result, $comment, $serializers, $format, "entities")

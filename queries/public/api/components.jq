@@ -10,7 +10,6 @@ import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec
 import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
-import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($res as object*) as string*
@@ -101,39 +100,22 @@ let $res         :=
     group by $archive := $r.Archive
     return sec-networks:summaries($r)
 
-let $results := switch ($format)
-        case "xml" return {
-            response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-            session:comment("xml", {
-                    NumComponents : count($components),
-                    TotalNumComponents: session:num-components(),
-                    TotalNumArchives: session:num-archives()
-                }),
-            <Components>{ $res ! sec-networks:summaries-to-xml($$) }</Components>
-        } 
-            case "text" case "csv" return {
-                response:content-type("text/csv");
-                response:header("Content-Disposition", "attachment; filename=components.csv");
-                string-join(local:to-csv($res), "")
-            }
-            case "excel" return {
-                response:content-type("application/vnd.ms-excel");
-                response:header("Content-Disposition", "attachment; filename=components.csv");
-                string-join(local:to-csv($res), "")
-            }
-            default return {
-                response:content-type("application/json");
-                response:serialization-parameters({"indent" : true});
-                {|
-                    session:comment("json",
-                        {
-                            NumComponents : count($components),
-                            TotalNumComponents: session:num-components(),
-                            TotalNumArchives: session:num-archives()
-                        }
-                    ),
-                    { Components: [ $res ] }
-                |}
-            }
+let $result := { Components: [ $res ] }
+let $comment :=
+ {
+    NumComponents : count($components),
+    TotalNumComponents: session:num-components(),
+    TotalNumArchives: session:num-archives()
+}
+let $serializers := {
+    to-xml : function($res as object) as node() {
+        <Components>{ $res.Components[] ! sec-networks:summaries-to-xml($$) }</Components>
+    },
+    to-csv : function($res as object) as string {
+        string-join(local:to-csv($res.Components[]), "")
+    }
+}
+
+let $results := util:serialize($result, $comment, $serializers, $format, "components")
 return 
     util:check-and-return-results($entities, $results, $format)

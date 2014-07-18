@@ -45,7 +45,8 @@ declare %an:sequential function util:serialize(
     $result as json-item,
     $comment as object,
     $serializers as object,
-    $format as string?) as item*
+    $format as string?,
+    $file-name as string) as item*
 {
     switch ($format)
     case "xml" return {
@@ -55,12 +56,12 @@ declare %an:sequential function util:serialize(
     }
     case "text" case "csv" return {
         response:content-type("text/csv");
-        response:header("Content-Disposition", "attachment; filename=facts.csv");
+        response:header("Content-Disposition", "attachment; filename=" || $file-name || ".csv");
         $serializers.to-csv($result)
     }
     case "excel" return {
         response:content-type("application/vnd.ms-excel");
-        response:header("Content-Disposition", "attachment; filename=fact.csv");
+        response:header("Content-Disposition", "attachment; filename=" || $file-name || ".csv");
         $serializers.to-csv($result)
     }
     default return {
