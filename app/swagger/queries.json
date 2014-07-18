@@ -53,7 +53,7 @@
                         },
                         {
                             "name": "sic",
-                            "description": "An SIC code",
+                            "description": "The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
