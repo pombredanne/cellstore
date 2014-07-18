@@ -13,20 +13,6 @@ import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/se
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 
-declare function local:to-xml($o as object*) as node()*
-{
-    (session:comment("xml", {
-        NumFacts: count($o),
-        TotalNumFacts: session:num-facts(),
-        TotalNumArchives: session:num-archives(),
-        TotalNumEntities: session:num-entities()
-    }),
-    <FactTable NetworkIdentifier="http://bizql.io/facts"
-            TableName="xbrl:Facts">{
-        conversion:facts-to-xml($o, { Caller: "Report"})
-    }</FactTable>)
-};
-
 declare function local:contains-aspect($name as string) as boolean
 {
   some $x in (request:param-names() ! starts-with($$, $name))
@@ -169,7 +155,10 @@ let $facts :=
     else 
         for $fact in sec:facts-for(
             {|
-                { Hypercube : $hypercube },
+                {
+                    Hypercube : $hypercube,
+                    Validate: $validate
+                },
                 { "ConceptMaps" : $map }[exists($map)],
                 { "Rules" : [ $rule ] }[exists($rule)]
             |}
@@ -181,41 +170,35 @@ let $facts :=
 
 let $facts := util:move-unit-out-of-aspects($facts)
 
-let $results :=
-        switch ($format)
-        case "xml" return {
-            response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-            local:to-xml($facts)
-        }
-        case "text" case "csv" return {
-            response:content-type("text/csv");
-            response:header("Content-Disposition", "attachment; filename=facts.csv");
-            conversion:facts-to-csv($facts, { Caller: "Report" })
-        }
-        case "excel" return {
-            response:content-type("application/vnd.ms-excel");
-            response:header("Content-Disposition", "attachment; filename=fact.csv");
-            conversion:facts-to-csv($facts, { Caller: "Report" })
-        }
-        default return {
-            response:content-type("application/json");
-            response:serialization-parameters({"indent" : true});
-            {|
-                { NetworkIdentifier : "http://bizql.io/facts" },
-                { TableName : "xbrl:Facts" },
-                { FactTable : [ $facts ] },
-                session:comment("json", {
-                        NumFacts: count($facts),
-                        TotalNumFacts: session:num-facts(),
-                        TotalNumArchives: session:num-archives(),
-                        TotalNumEntities: session:num-entities()
-                    })
-            |}
-        }
+let $result := {
+    NetworkIdentifier : "http://bizql.io/facts",
+    TableName : "xbrl:Facts",
+    FactTable : [ $facts ]
+}
+let $comment :=
+{
+    NumFacts: count($facts),
+    TotalNumFacts: session:num-facts(),
+    TotalNumArchives: session:num-archives(),
+    TotalNumEntities: session:num-entities()
+}
+let $serializers := {
+    to-xml : function($res as object) as node()* {
+           <FactTable NetworkIdentifier="http://bizql.io/facts"
+            TableName="xbrl:Facts">{
+                conversion:facts-to-xml($res.FactTable[], { Caller: "Report"})
+        }</FactTable>
+    },
+    to-csv : function($res as object) as string {
+        conversion:facts-to-csv($res.FactTable[], { Caller: "Report" })
+    }
+}
+
 return 
-    switch(true)
-    case empty($archives) return {
+    if(empty($archives))
+    then {
         response:status-code(400);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
     }
-    default return util:check-and-return-results($entities, $results, $format)
+    else let $results := util:serialize($result, $comment, $serializers, $format, "facts")
+         return util:check-and-return-results($entities, $results, $format)

@@ -17,7 +17,7 @@ declare function local:to-xml($c as object) as node()*
                 <Mapping>{
                      (
                          <Concept>{$k}</Concept>,
-                         for $t in keys($c.Trees.$k.To)
+                         for $t in $c.Trees.$k.To[].Name
                          return
                              <MappedTo>{$t}</MappedTo>
                      )
@@ -47,41 +47,26 @@ session:audit-call();
 (: Query parameters :)
 let $format as string?         := request:param-values("format")
 let $map as string?            := request:param-values("map")
-let $parameters := {|
-    { Format: $format }[exists($format)],
-    { Map: $map }[exists($map)]
-|}
+let $name as string?            := request:param-values("name")
 
 (: Object resolution :)
-let $parameters as object := util:process-parameters($parameters)
+let $format as string? := (: backwards compatibility, to be deprecated  :)
+    lower-case(($format, substring-after(request:path(), ".jq."))[1])
+let $map := ($map, $name)
 let $map := concept-maps:concept-maps($map)
+let $comment := {
+    NumMaps: count($map)
+}
+let $serializers := {
+    to-xml : local:to-xml#1,
+    to-csv : local:to-csv#1
+}
+
 return
-    if (exists($parameters.Map))
-    then
-        switch ($parameters.Format)
-        case "xml" return {
-            response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-            local:to-xml($map)
-        }
-        case "text" case "csv" return {
-            response:content-type("text/csv");
-            response:header("Content-Disposition", "attachment; filename=map.csv");
-            local:to-csv($map)
-        }
-        case "excel" return {
-            response:content-type("application/vnd.ms-excel");
-            response:header("Content-Disposition", "attachment; filename=map.csv");
-            local:to-csv($map)
-        }
-        default return {
-            response:content-type("application/json");
-            response:serialization-parameters({"indent" : true});
-            {|
-                $map,
-                session:comment("json")
-            |}
-        }
+    if (exists($map))
+    then util:serialize($map, $comment, $serializers, $format, "components")
     else {
         response:status-code(404);
+        response:content-type("application/json");
         session:error("concept map not found", "json")
     }
