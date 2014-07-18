@@ -4,12 +4,16 @@ import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 
+import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
+import module namespace sec-networks2 = "http://xbrl.io/modules/bizql/profiles/sec/networks2";
+import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
 
 import module namespace util = "http://secxbrl.info/modules/util";
 
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace request = "http://www.28msec.com/modules/http-request";
 
 import module namespace session = "http://apps.28.io/session";
 import module namespace csv = "http://zorba.io/modules/json-csv";
@@ -33,10 +37,6 @@ declare function local:to-xml-rec($o as object*, $level as integer) as element()
 
 declare function local:to-xml($model as object) as node()*
 {
-    ((session:comment("xml", {
-                            TotalNumArchives: session:num-archives(),
-                            TotalNumEntities: session:num-entities()
-                        })),
     <Component>
         <Network entityRegistrantName="{$model.EntityRegistrantName}"
                  accessionNumber="{$model.AccessionNumber}"
@@ -52,8 +52,7 @@ declare function local:to-xml($model as object) as node()*
                  >{
             local:to-xml-rec($model.ModelStructure, 0)
         }</Network>
-    </Component>)
-    
+    </Component>
 };
 
 declare function local:to-csv-rec($objects as object*, $level as integer) as object*
@@ -135,88 +134,80 @@ let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYe
 let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*           := distinct-values(request:param-values("aid"))
 let $roles as string*          := request:param-values("networkIdentifier")
-let $cid as string?            := request:param-values("cid")
+let $cid as string?           := request:param-values("cid")
 let $reportElements as string* := distinct-values(request:param-values("reportElement"))
 let $concepts as string*       := distinct-values(request:param-values("concept"))
-let $rollups as string*        := distinct-values(request:param-values("rollup"))
 let $map as string?            := request:param-values("map")
 let $disclosures as string*    := request:param-values("disclosure")
-let $validate as string        := request:param-values("validate", "false")
-let $eliminate as string       := request:param-values("eliminate", "false")
-let $report as string?         := request:param-values("report")
 let $search as string*         := request:param-values("label")
-let $parameters := {|
-    {
-        CIKs: [ $ciks ],
-        Tags: [ $tags ],
-        Tickers: [ $tickers ],
-        SICs: [ $sics ],
-        FiscalYears: [ $fiscalYears ],
-        FiscalPeriods: [ $fiscalPeriods ],
-        AIDs: [ $aids ],
-        Roles: [ $roles ],
-        CIDs: [ $cid ],
-        ReportElements: [ $reportElements ],
-        Concepts: [ $concepts ],
-        RollUps: [ $rollups ],
-        Disclosures: [ $disclosures ],
-        Search: [ $search ]
-    },
-    { Format: $format }[exists($format)],
-    { Map: $map }[exists($map)],
-    { Validate: $validate }[exists($validate)],
-    { Eliminate: $eliminate }[exists($eliminate)],
-    { Report: $report }[exists($report)] 
-|}
 
+(: Post-processing :)
+let $format as string? := (: backwards compatibility, to be deprecated  :)
+    lower-case(($format, substring-after(request:path(), ".jq."))[1])
+let $tags as string* := (: backwards compatibility, to be deprecated :)
+    distinct-values($tags ! upper-case($$))
+let $fiscalYears as integer* :=
+    for $fy in $fiscalYears
+    return switch($fy)
+           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
+           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
+           default return if($fy castable as integer) then integer($fy) else ()
+let $fiscalPeriods as string* :=
+    for $fp in $fiscalPeriods
+    return switch($fp)
+           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
+           default return $fp
+let $reportElements := ($reportElements, $concepts)
 
 (: Object resolution :)
-let $parameters as object := util:process-parameters($parameters)
-let $components  := util:components-from-parameters($parameters, ())
+let $entities := 
+    companies2:companies(
+        $ciks,
+        $tags,
+        $tickers,
+        $sics)
+let $archives as object* := fiscal-core2:filings(
+    $entities,
+    $fiscalPeriods,
+    $fiscalYears,
+    $aids)
+let $components  := sec-networks2:components(
+    $archives,
+    $cid,
+    $reportElements,
+    $disclosures,
+    $roles,
+    $search)
 let $component := $components[1] (: only one for now :)
 let $archive   := archives:archives($component.Archive)
 let $entity    := entities:entities($archive.Entity)
 
-let $results :=
-    let $model := {|
-        { CIK : $entity._id },
-        { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
-        { ModelStructure : sec-networks:model-structures($component) },
-        { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
-        { Label : $component.Label },
-        { AccessionNumber : $component.Archive },
-        { FormType : $archive.Profiles.SEC.FormType },
-        { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
-        { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
-        { AcceptanceDatetime : filings:acceptance-dateTimes($archive) },
-        { NetworkIdentifier: $component.Role },
-        { Disclosure : $component.Profiles.SEC.Disclosure }
-    |}
-    return 
-    switch ($parameters.Format)
-    case "xml" return {
-        response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-        local:to-xml($model)
-    }
-    case "text" case "csv" return {
-        response:content-type("text/csv");
-        response:header("Content-Disposition", "attachment; filename=modelstructure-" || $cid || ".csv");
-        local:to-csv($model)
-    }
-    case "excel" return {
-        response:content-type("application/vnd.ms-excel");
-        response:header("Content-Disposition", "attachment; filename=modelstructure-" || $cid || ".csv");
-        local:to-csv($model)
-    }
-    default return {
+let $result := {|
+    { CIK : $entity._id },
+    { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
+    { ModelStructure : sec-networks:model-structures($component) },
+    { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
+    { Label : $component.Label },
+    { AccessionNumber : $component.Archive },
+    { FormType : $archive.Profiles.SEC.FormType },
+    { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
+    { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
+    { AcceptanceDatetime : filings:acceptance-dateTimes($archive) },
+    { NetworkIdentifier: $component.Role },
+    { Disclosure : $component.Profiles.SEC.Disclosure }
+|}
+let $comment := {
+    TotalNumArchives: session:num-archives(),
+    TotalNumEntities: session:num-entities()
+}
+let $serializers := {
+    to-xml : local:to-xml#1,
+    to-csv : local:to-csv#1
+}
+return if (exists($component))
+    then util:serialize($result, $comment, $serializers, $format, "components")
+    else {
+        response:status-code(404);
         response:content-type("application/json");
-        response:serialization-parameters({"indent" : true});
-        {|
-            local:enrich-json($model), 
-            session:comment("json", {
-                    TotalNumArchives: session:num-archives(),
-                    TotalNumEntities: session:num-entities()
-                })
-        |}
+        session:error("component not found", "json")
     }
-return util:check-and-return-results($entity, $results, $parameters.Format)
