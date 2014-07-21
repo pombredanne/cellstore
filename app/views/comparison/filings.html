@@ -1,20 +1,20 @@
 <div class="export">
     <div class="row">
         <div class="col-lg-3">
-            <span class="tag tag-primary" ng-if="filings.length"><span ng-bind="Statistics.NumArchives | number"></span> Hits</span>
-            <span class="tag" ng-if="filings.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+            <span class="tag tag-primary" ng-show="filings.length"><span ng-bind="Statistics.NumArchives | number"></span> <span translate>Hits</span></span>
+            <span class="tag" ng-show="filings.length"><span ng-bind="Statistics.TotalNumArchives | number"></span> <span translate>Archives</span></span>
         </div>
         <div class="col-lg-6">
-            <h2 class="text-center">Filings included in the filter</h2>
+            <h2 class="text-center" translate>Filings included in the filter</h2>
         </div>
         <div class="col-lg-3">
-            <span class="dropdown pull-right" ng-if="filings.length">
-                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+            <span class="dropdown pull-right" ng-show="filings.length">
+                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                 <ul class="dropdown-menu">
-                    <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="comparison.json">JSON</a></li>
-                    <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="comparison.xml">XML</a></li>
-                    <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="comparison.csv">CSV</a></li>
-                    <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="comparison.csv">Excel</a></li>
+                    <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="comparison.json" translate>JSON</a></li>
+                    <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="comparison.xml" translate>XML</a></li>
+                    <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="comparison.csv" translate>CSV</a></li>
+                    <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="comparison.csv" translate>Excel</a></li>
                 </ul>
             </span>
         </div>
@@ -28,14 +28,14 @@
         <table class="table table-condensed table-justcolumns">
             <thead>
                 <th>#</th>
-                <th>Entity Registrant Name</th>
-                <th>Form</th>
-                <th>Fiscal Year</th>
-                <th>Fiscal Period</th>
-                <th>Accepted by SEC</th>
-                <th>Generator</th>
-                <th>Accession Number</th>
-                <th>Go to</th>
+                <th translate>Entity Registrant Name</th>
+                <th translate>Form</th>
+                <th translate>Fiscal Year</th>
+                <th translate>Fiscal Period</th>
+                <th translate>Accepted by SEC</th>
+                <th translate>Generator</th>
+                <th translate>Accession Number</th>
+                <th translate>Go to</th>
             </thead>
             <tbody>
                 <tr ng-repeat="item in filings | filter : search">
@@ -51,10 +51,10 @@
                         <span class="dropdown">
                             <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
                             <ul class="dropdown-menu text-left pull-right">
-                                <li><a href="/filing/{{item.AccessionNumber}}">Filing Details</a></li>
-                                <li><a href="{{item.SECFilingPage}}">SEC Filing Page</a></li>
-                                <li><a href="{{item.XBRLInstanceURL}}">XBRL Instance</a></li>
-                                <li><a href="/components/{{item.AccessionNumber}}">Filing Components</a></li>
+                                <li><a href="/filing/{{item.AccessionNumber}}" translate>Filing Details</a></li>
+                                <li><a href="{{item.SECFilingPage}}" translate>SEC Filing Page</a></li>
+                                <li><a href="{{item.XBRLInstanceURL}}" translate>XBRL Instance</a></li>
+                                <li><a href="/components/{{item.AccessionNumber}}" translate>Filing Components</a></li>
                             </ul>
                         </span>
                     </td>
@@ -64,14 +64,12 @@
     </div>
 </div>
 
-<div class="alert alert-info" ng-if="errornoresults">
-    <h4>No results found.</h4>
-    Here are some working examples: 
-    <a href="/comparison/filings?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY">Filings for DOW30 in 2013</a> or 
-    <a href="/comparison/filings?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1">Coca Cola and Walmart filings throughout 2012</a>
+<div class="alert alert-info" ng-show="errornoresults">
+    <h4 translate>No results found.</h4>
+    <span translate>Here are some working examples: <a href="/comparison/filings?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY">Filings for DOW30 in 2013</a> or <a href="/comparison/filings?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1">Coca Cola and Walmart filings throughout 2012</a></span>
 </div>
 
-<div class="alert alert-danger" ng-if="error">
-    <h4>You are accessing filings for entities that are not part of DOW30.</h4>
-    To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form.
+<div class="alert alert-danger" ng-show="error">
+    <h4 translate>You are accessing filings for entities that are not part of DOW30.</h4>
+    <span translate>To view that information you have to login with your credentials. If you do not have an account, you can create one using the registration form.</span>
 </div>
