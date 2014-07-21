@@ -37,96 +37,83 @@
                   "fac:EntityRegistrantName" : {
                     "Name" : "fac:EntityRegistrantName", 
                     "Label" : "Entity Registrant Name", 
-                    "Id" : "69f0cb0f-c486-4465-9e8b-47941aed2e2c", 
-                    "expanded" : true, 
-                    "Order" : 3
+                    "Id" : "0faa52f2-336f-49ee-98da-8e4f09a373f2", 
+                    "expanded" : true
                   }, 
                   "fac:EntityCentralIndexKey" : {
                     "Name" : "fac:EntityCentralIndexKey", 
                     "Label" : "Central Index Key (CIK)", 
-                    "Id" : "02ff7a91-a86f-491b-a3df-1dd318d77359", 
-                    "expanded" : true, 
-                    "Order" : 8
+                    "Id" : "9d0c845e-aeae-4755-b25b-5ac55eeb4c11", 
+                    "expanded" : true
                   }, 
                   "fac:EntityFilerCategory" : {
                     "Name" : "fac:EntityFilerCategory", 
                     "Label" : "Entity Filer Category", 
-                    "Id" : "1d638c86-a38d-489b-bdfc-3fa72d1a90c2", 
-                    "expanded" : true, 
-                    "Order" : 4
+                    "Id" : "5c97d4d6-0a4f-4bf1-8fb1-aec79a129a84", 
+                    "expanded" : true
                   }, 
                   "fac:TradingSymbol" : {
                     "Name" : "fac:TradingSymbol", 
                     "Label" : "Trading Symbol", 
-                    "Id" : "0c90ffc7-15c8-45a4-8d6e-514737c367d8", 
-                    "expanded" : true, 
-                    "Order" : 5
+                    "Id" : "4365cf66-9b6e-433a-842b-17c6b447e64f", 
+                    "expanded" : true
                   }, 
                   "fac:FiscalYearEnd" : {
                     "Name" : "fac:FiscalYearEnd", 
                     "Label" : "Fiscal Year End", 
-                    "Id" : "ee1a4a3b-2def-4154-8f6d-4ccd36198095", 
-                    "expanded" : true, 
-                    "Order" : 6
+                    "Id" : "ba01100a-8e4e-4d02-874a-508ef88a0abf", 
+                    "expanded" : true
                   }, 
                   "fac:FiscalYear" : {
                     "Name" : "fac:FiscalYear", 
                     "Label" : "Fiscal Year", 
-                    "Id" : "aceef7a7-17c4-416b-bdca-e9ecd5d767f2", 
-                    "expanded" : true, 
-                    "Order" : 7
+                    "Id" : "24cfc384-4a35-41a6-891c-f88c4288e2b6", 
+                    "expanded" : true
                   }, 
                   "fac:FiscalPeriod" : {
                     "Name" : "fac:FiscalPeriod", 
                     "Label" : "Fiscal Period", 
-                    "Id" : "f00df389-de98-41fa-a488-6ba58a8e30ca", 
-                    "expanded" : true, 
-                    "Order" : 2
+                    "Id" : "a766acf7-db97-497a-854a-71f859e93b93", 
+                    "expanded" : true
                   }, 
                   "fac:DocumentType" : {
                     "Name" : "fac:DocumentType", 
                     "Label" : "Document Type", 
-                    "Id" : "7ff0df88-a7f3-405b-b877-fa70236affab", 
-                    "expanded" : true, 
-                    "Order" : 9
+                    "Id" : "c34ef95e-2453-4af0-908c-53e367c647e2", 
+                    "expanded" : true
                   }, 
                   "fac:BalanceSheetDate" : {
                     "Name" : "fac:BalanceSheetDate", 
                     "Label" : "Balance Sheet Date", 
-                    "Id" : "75d92bf3-8293-4088-a3c4-70e0c62e34ce", 
-                    "expanded" : true, 
-                    "Order" : 10
+                    "Id" : "d2438c22-0bf8-420c-ada5-4c6271f99ed4", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeStatementStartPeriod" : {
                     "Name" : "fac:IncomeStatementStartPeriod", 
                     "Label" : "Income Statement Start of Period", 
-                    "Id" : "801567c0-5411-4634-9484-fc17608dcba8", 
-                    "expanded" : true, 
-                    "Order" : 11
+                    "Id" : "93940333-1905-4e35-ace6-50b610222a59", 
+                    "expanded" : true
                   }, 
                   "fac:BalanceSheetFormat" : {
                     "Name" : "fac:BalanceSheetFormat", 
                     "Label" : "Balance Sheet Format", 
-                    "Id" : "27611898-39fe-4db5-a194-158882dceecb", 
-                    "expanded" : true, 
-                    "Order" : 12
+                    "Id" : "31e675df-393c-4c94-a59a-3d8e24fef49b", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeStatementFormat" : {
                     "Name" : "fac:IncomeStatementFormat", 
                     "Label" : "Income Statement Format", 
-                    "Id" : "23aea896-aa2f-4e79-810b-9206aab5ea57", 
-                    "expanded" : true, 
-                    "Order" : 13
+                    "Id" : "2d213e03-f88d-4808-8a2c-d8d9eeaa0368", 
+                    "expanded" : true
                   }, 
                   "fac:NatureOfOperations" : {
                     "Name" : "fac:NatureOfOperations", 
                     "Label" : "Nature of Operations", 
-                    "Id" : "c6bd12a5-8adf-4c48-8422-57832ade87aa", 
-                    "expanded" : true, 
-                    "Order" : 14
+                    "Id" : "abf38e04-76c9-4fdf-81c9-72dffad172fb", 
+                    "expanded" : true
                   }
                 }, 
-                "Id" : "f3468332-90e9-4038-8bcf-776d2d336f3e", 
+                "Id" : "368e4683-e47f-4e04-854f-dfc5eb43e401", 
                 "expanded" : true
               }, 
               "fac:BalanceSheetHierarchy" : {
@@ -136,96 +123,96 @@
                   "fac:CurrentAssets" : {
                     "Name" : "fac:CurrentAssets", 
                     "Label" : "Current Assets", 
-                    "Order" : 2, 
-                    "Id" : "25ed5df1-aa75-4a5b-8241-dfa777330d05", 
+                    "Order" : 1, 
+                    "Id" : "119ac3ff-cfc7-4595-947d-42acab81284b", 
                     "expanded" : true
                   }, 
                   "fac:NoncurrentAssets" : {
                     "Name" : "fac:NoncurrentAssets", 
                     "Label" : "Noncurrent Assets", 
-                    "Order" : 3, 
-                    "Id" : "8c70fab1-1cd4-47fe-b76a-196665ac263b", 
+                    "Order" : 2, 
+                    "Id" : "598130de-2a5a-4280-b57c-1a6e378d437b", 
                     "expanded" : true
                   }, 
                   "fac:Assets" : {
                     "Name" : "fac:Assets", 
                     "Label" : "Assets", 
-                    "Order" : 4, 
-                    "Id" : "4b91dabb-d153-4fe8-8af0-23f86d049631", 
+                    "Order" : 3, 
+                    "Id" : "db2044bc-74d0-4f33-bbe3-66956f59bbe1", 
                     "expanded" : true
                   }, 
                   "fac:CurrentLiabilities" : {
                     "Name" : "fac:CurrentLiabilities", 
                     "Label" : "Current Liabilities", 
-                    "Order" : 5, 
-                    "Id" : "e439f954-7ae1-471b-9ec9-b9e6ce9cadc9", 
+                    "Order" : 4, 
+                    "Id" : "ac483d05-972b-4a3c-a89c-01e9afe60ab9", 
                     "expanded" : true
                   }, 
                   "fac:NoncurrentLiabilities" : {
                     "Name" : "fac:NoncurrentLiabilities", 
                     "Label" : "Noncurrent Liabilities", 
-                    "Order" : 6, 
-                    "Id" : "f1cc9266-893e-4001-8247-6f03f730b7b2", 
+                    "Order" : 5, 
+                    "Id" : "d54ac4a8-af6a-4e11-94e1-d7566fbdb23f", 
                     "expanded" : true
                   }, 
                   "fac:Liabilities" : {
                     "Name" : "fac:Liabilities", 
                     "Label" : "Liabilities", 
-                    "Order" : 7, 
-                    "Id" : "394e7593-b1b6-4201-842e-b26492d1b411", 
+                    "Order" : 6, 
+                    "Id" : "530d7100-72c7-4e2e-b6bf-7fe047108b6a", 
                     "expanded" : true
                   }, 
                   "fac:CommitmentsAndContingencies" : {
                     "Name" : "fac:CommitmentsAndContingencies", 
                     "Label" : "Commitments and Contingencies", 
-                    "Order" : 8, 
-                    "Id" : "c5ed067f-7cce-43a0-9cac-e333e8bbecaa", 
+                    "Order" : 7, 
+                    "Id" : "3fcec7f9-ac17-4cff-95df-2a0f0a7f3de8", 
                     "expanded" : true
                   }, 
                   "fac:TemporaryEquity" : {
                     "Name" : "fac:TemporaryEquity", 
                     "Label" : "Temporary Equity", 
-                    "Order" : 9, 
-                    "Id" : "d62f9f98-67c3-46e1-affd-27c6be847e0d", 
+                    "Order" : 8, 
+                    "Id" : "5b6ad874-5269-4114-9df8-d82b40e65af2", 
                     "expanded" : true
                   }, 
                   "fac:RedeemableNoncontrollingInterest" : {
                     "Name" : "fac:RedeemableNoncontrollingInterest", 
                     "Label" : "Redeemable Noncontrolling Interest", 
-                    "Order" : 10, 
-                    "Id" : "53344bf4-22c8-4153-918e-6f462064a7ff", 
+                    "Order" : 9, 
+                    "Id" : "f4d9ed7d-ab0e-434f-b3d1-ddceda0803e8", 
                     "expanded" : true
                   }, 
                   "fac:EquityAttributableToParent" : {
                     "Name" : "fac:EquityAttributableToParent", 
                     "Label" : "Equity Attributable to Parent", 
-                    "Order" : 11, 
-                    "Id" : "5c762b51-619c-4031-9a03-02881d2bc827", 
+                    "Order" : 10, 
+                    "Id" : "6d70df8c-5215-4bc2-85ae-70eda5e06744", 
                     "expanded" : true
                   }, 
                   "fac:EquityAttributableToNoncontrollingInterest" : {
                     "Name" : "fac:EquityAttributableToNoncontrollingInterest", 
                     "Label" : "Equity Attributable to Noncontrolling Interest", 
-                    "Order" : 12, 
-                    "Id" : "9095b5b6-31cd-48f0-9828-a61c267fe9a3", 
+                    "Order" : 11, 
+                    "Id" : "97003475-c14d-4a53-be10-7a4975d34d50", 
                     "expanded" : true
                   }, 
                   "fac:Equity" : {
                     "Name" : "fac:Equity", 
                     "Label" : "Equity", 
-                    "Order" : 13, 
-                    "Id" : "56071ec5-070c-4036-b6f3-dc4db762a2d4", 
+                    "Order" : 12, 
+                    "Id" : "c59cdf52-d304-45f4-b131-93d74a838d98", 
                     "expanded" : true
                   }, 
                   "fac:LiabilitiesAndEquity" : {
                     "Name" : "fac:LiabilitiesAndEquity", 
                     "Label" : "Liabilities and Equity", 
-                    "Order" : 14, 
-                    "Id" : "0b2073b7-922c-4ed4-babd-5a363c846da0", 
+                    "Order" : 13, 
+                    "Id" : "b5a1c875-5911-4398-940d-8d1695cd7eac", 
                     "expanded" : true
                   }
                 }, 
-                "Id" : "3429b878-7d5a-4ab0-84e7-7c565b28f084", 
+                "Id" : "35ad1007-6674-481d-b1d2-9bb8c6bbb45f", 
                 "expanded" : true
               }, 
               "fac:IncomeStatementHierarchy" : {
@@ -236,172 +223,172 @@
                     "Name" : "fac:Revenues", 
                     "Label" : "Revenues", 
                     "Order" : 1, 
-                    "Id" : "66d70a6b-61d2-4ae1-8daa-293b8f357d6c", 
+                    "Id" : "bc17477e-b75c-407c-834a-90b1383d88c6", 
                     "expanded" : true
                   }, 
                   "fac:CostOfRevenue" : {
                     "Name" : "fac:CostOfRevenue", 
                     "Label" : "Cost of Revenues", 
                     "Order" : 2, 
-                    "Id" : "a7299479-234f-41ab-a822-b5321a4c35c8", 
+                    "Id" : "b3a8878e-bcc7-42c1-9232-7a3b5548769d", 
                     "expanded" : true
                   }, 
                   "fac:GrossProfit" : {
                     "Name" : "fac:GrossProfit", 
                     "Label" : "Gross Profit", 
                     "Order" : 3, 
-                    "Id" : "bfd7c4af-7cda-45b5-ba31-2cba25d9f7ff", 
+                    "Id" : "a3a91297-d9b9-4f46-8f90-972bdcdbd705", 
                     "expanded" : true
                   }, 
                   "fac:OperatingExpenses" : {
                     "Name" : "fac:OperatingExpenses", 
                     "Label" : "Operating Expenses", 
                     "Order" : 4, 
-                    "Id" : "c15b1294-7b2f-4080-8b8b-32837dc919c3", 
+                    "Id" : "01ee4d13-15f8-44be-88f5-fa8e0dd428ba", 
                     "expanded" : true
                   }, 
                   "fac:CostsAndExpenses" : {
                     "Name" : "fac:CostsAndExpenses", 
                     "Label" : "Costs and Expenses", 
                     "Order" : 5, 
-                    "Id" : "c7a0d341-58a9-4759-9a9c-5750dc484ac0", 
+                    "Id" : "dd389af7-9349-40cd-898d-82f892eb1776", 
                     "expanded" : true
                   }, 
                   "fac:OtherOperatingIncomeExpenses" : {
                     "Name" : "fac:OtherOperatingIncomeExpenses", 
                     "Label" : "Other Operating Income (Expenses)", 
                     "Order" : 6, 
-                    "Id" : "009ad620-5c47-4ea8-bc6a-de0ac67ed302", 
+                    "Id" : "5d21070a-7b9b-4640-be1e-eb9247aaffd2", 
                     "expanded" : true
                   }, 
                   "fac:OperatingIncomeLoss" : {
                     "Name" : "fac:OperatingIncomeLoss", 
                     "Label" : "Operating Income (Loss)", 
                     "Order" : 7, 
-                    "Id" : "468fc16a-954f-4ec0-9d23-0b46856088cf", 
+                    "Id" : "e20bf4b9-3855-42fe-8911-1ed7b8595033", 
                     "expanded" : true
                   }, 
                   "fac:NonoperatingIncomeLoss" : {
                     "Name" : "fac:NonoperatingIncomeLoss", 
                     "Label" : "Nonoperating Income (Loss)", 
                     "Order" : 8, 
-                    "Id" : "cd43fc78-895e-48c7-94d8-80c804d6fdbe", 
+                    "Id" : "f03d19df-1cdb-419e-b2f0-8e59b84b4e5c", 
                     "expanded" : true
                   }, 
                   "fac:InterestAndDebtExpense" : {
                     "Name" : "fac:InterestAndDebtExpense", 
                     "Label" : "Interest and Debt Expense", 
                     "Order" : 9, 
-                    "Id" : "85043f9f-4614-4b31-bb37-3548e8349e82", 
+                    "Id" : "bd1d42e3-6b96-4a9b-bbe3-beb312e91150", 
                     "expanded" : true
                   }, 
                   "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense" : {
                     "Name" : "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense", 
                     "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense", 
                     "Order" : 10, 
-                    "Id" : "27434461-278d-476a-aee0-93e11db757e6", 
+                    "Id" : "898f9cde-740d-4403-8a51-5a460c1d5223", 
                     "expanded" : true
                   }, 
                   "fac:IncomeBeforeEquityMethodInvestments" : {
                     "Name" : "fac:IncomeBeforeEquityMethodInvestments", 
                     "Label" : "Income (Loss) Before Equity Method Investments", 
                     "Order" : 11, 
-                    "Id" : "b1938a83-b8d5-4300-9121-4932fa8e11eb", 
+                    "Id" : "6d3b7bd9-fc2b-4ca9-b071-926930af6a03", 
                     "expanded" : true
                   }, 
                   "fac:IncomeLossFromEquityMethodInvestments" : {
                     "Name" : "fac:IncomeLossFromEquityMethodInvestments", 
                     "Label" : "Income (Loss) from Equity Method Investments", 
                     "Order" : 12, 
-                    "Id" : "63c1d50c-c18f-494d-9d20-dbf96b50bbe6", 
+                    "Id" : "573d25c1-cc32-4420-9dc9-6f3d6745c924", 
                     "expanded" : true
                   }, 
                   "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments" : {
                     "Name" : "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments", 
                     "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense + Income (Loss) from Equity Method Investments", 
                     "Order" : 13, 
-                    "Id" : "6ffa3e8b-562f-4d3a-b95f-52b21812990c", 
+                    "Id" : "b8c4bf89-b2a7-4d4a-9006-73586dea7cca", 
                     "expanded" : true
                   }, 
                   "fac:IncomeLossFromContinuingOperationsBeforeTax" : {
                     "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTax", 
                     "Label" : "Income (Loss) from Continuing Operations Before Tax", 
                     "Order" : 14, 
-                    "Id" : "447b7d82-57f0-4612-8eb7-891639d3be57", 
+                    "Id" : "bdf371e6-4aa2-457a-b6b6-334041dd17a4", 
                     "expanded" : true
                   }, 
                   "fac:IncomeTaxExpenseBenefit" : {
                     "Name" : "fac:IncomeTaxExpenseBenefit", 
                     "Label" : "Income Tax Expense (Benefit)", 
                     "Order" : 15, 
-                    "Id" : "4b43edbd-0e07-48d1-bfe6-418d758d226a", 
+                    "Id" : "127c2ead-9dc2-48af-a609-54596217d3e5", 
                     "expanded" : true
                   }, 
                   "fac:IncomeLossFromContinuingOperationsAfterTax" : {
                     "Name" : "fac:IncomeLossFromContinuingOperationsAfterTax", 
                     "Label" : "Income (Loss) from Continuing Operations After Tax", 
                     "Order" : 16, 
-                    "Id" : "c7c379b8-6802-4574-beae-48bd3eaa27b3", 
+                    "Id" : "5ff26803-ca39-45ce-9623-083959b019d6", 
                     "expanded" : true
                   }, 
                   "fac:IncomeLossFromDiscontinuedOperationsNetTax" : {
                     "Name" : "fac:IncomeLossFromDiscontinuedOperationsNetTax", 
                     "Label" : "Income (Loss) from Discontinued Operations, Net of Tax", 
                     "Order" : 17, 
-                    "Id" : "8ffb51cc-edfc-432d-beb5-e48b4cd57f13", 
+                    "Id" : "d1aaa4d3-9e7c-4cb8-936b-7c1de91cc458", 
                     "expanded" : true
                   }, 
                   "fac:ExtraordinaryItemsIncomeExpenseNetTax" : {
                     "Name" : "fac:ExtraordinaryItemsIncomeExpenseNetTax", 
                     "Label" : "Extraordinary Items of Income (Expense), Net of Tax", 
                     "Order" : 18, 
-                    "Id" : "b8279d3c-d404-4fe8-9072-83ad7f07e011", 
+                    "Id" : "e2af888c-8dcd-41b0-8ff1-c444f5a1a0fa", 
                     "expanded" : true
                   }, 
                   "fac:NetIncomeLoss" : {
                     "Name" : "fac:NetIncomeLoss", 
                     "Label" : "Net Income (Loss)", 
                     "Order" : 19, 
-                    "Id" : "405a567b-6ac0-4f24-ac86-a5d8a9dffbcf", 
+                    "Id" : "8de38627-fc83-493e-b810-8c430cf89821", 
                     "expanded" : true
                   }, 
                   "fac:NetIncomeAttributableToParent" : {
                     "Name" : "fac:NetIncomeAttributableToParent", 
                     "Label" : "Net Income Attributable to Parent", 
                     "Order" : 20, 
-                    "Id" : "25c6394e-bbd0-4f93-9571-18ba25171c4a", 
+                    "Id" : "57c7b889-eeb8-493e-a98f-11247ec21f4e", 
                     "expanded" : true
                   }, 
                   "fac:NetIncomeAttributableToNoncontrollingInterest" : {
                     "Name" : "fac:NetIncomeAttributableToNoncontrollingInterest", 
                     "Label" : "Net Income Attributable to Noncontrolling Interest", 
                     "Order" : 21, 
-                    "Id" : "7d8cd263-cb29-4b16-901d-19dd01b81ee0", 
+                    "Id" : "abd4cf79-16d1-401d-be06-5f208719cd5c", 
                     "expanded" : true
                   }, 
                   "fac:ResearchAndDevelopment" : {
                     "Name" : "fac:ResearchAndDevelopment", 
                     "Label" : "Research and Development", 
                     "Order" : 22, 
-                    "Id" : "7d9c9b4c-ccd1-4e52-9929-fb59913d29e0", 
+                    "Id" : "ef297e4d-89ac-4188-b2fd-0effc268544c", 
                     "expanded" : true
                   }, 
                   "fac:PreferredStockDividendsAndOtherAdjustments" : {
                     "Name" : "fac:PreferredStockDividendsAndOtherAdjustments", 
                     "Label" : "Preferred Stock Dividends and Other Adjustments", 
                     "Order" : 23, 
-                    "Id" : "0058d20c-866f-44a2-a7f9-0c1db5010e17", 
+                    "Id" : "68ab4c38-51d3-489a-9c5d-05a2ccbf16c2", 
                     "expanded" : true
                   }, 
                   "fac:NetIncomeLossAvailableToCommonStockholdersBasic" : {
                     "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic", 
                     "Label" : "Net Income (Loss) Available to Common Stockholders, Basic", 
                     "Order" : 24, 
-                    "Id" : "649d04af-415c-4ea6-9c7d-64d82bb94959", 
+                    "Id" : "4819769a-e020-41fc-a1fc-591c6e2b855d", 
                     "expanded" : true
                   }
                 }, 
-                "Id" : "9ec9dc05-6184-424b-9116-1a4462471091", 
+                "Id" : "9bc9d470-7536-4161-bbe3-e0e4925082ed", 
                 "expanded" : true
               }, 
               "fac:StatementComprehensiveIncomeHierarchy" : {
@@ -412,39 +399,39 @@
                     "Name" : "fac:NetIncomeLoss", 
                     "Label" : "Net Income (Loss)", 
                     "Order" : 1, 
-                    "Id" : "4400add6-e9b6-4dfe-8103-757396f0ad0d", 
+                    "Id" : "4c96a34b-f8b6-4978-8bd0-4bf3878f108a", 
                     "expanded" : true
                   }, 
                   "fac:OtherComprehensiveIncomeLoss" : {
                     "Name" : "fac:OtherComprehensiveIncomeLoss", 
                     "Label" : "Other Comprehensive Income (Loss)", 
                     "Order" : 2, 
-                    "Id" : "a55fdc54-80ac-410b-afda-2e70c6d8bbae", 
+                    "Id" : "bfb0b730-a206-4f23-8fb1-3c252f7eae89", 
                     "expanded" : true
                   }, 
                   "fac:ComprehensiveIncomeLoss" : {
                     "Name" : "fac:ComprehensiveIncomeLoss", 
                     "Label" : "Comprehensive Income (Loss)", 
                     "Order" : 3, 
-                    "Id" : "5c58653e-07ad-4c02-8d77-e0afe207954e", 
+                    "Id" : "8e874feb-fc5b-4261-baae-d3ecd897ab15", 
                     "expanded" : true
                   }, 
                   "fac:ComprehensiveIncomeLossAttributableToParent" : {
                     "Name" : "fac:ComprehensiveIncomeLossAttributableToParent", 
                     "Label" : "Comprehensive Income (Loss) Attributable to Parent", 
                     "Order" : 4, 
-                    "Id" : "91640e68-b529-4318-9a8f-b6a46cea752b", 
+                    "Id" : "945c25b6-5795-4ced-8c0f-ad6c97714bb3", 
                     "expanded" : true
                   }, 
                   "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest" : {
                     "Name" : "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
                     "Label" : "Comprehensive Income (Loss) Attributable to Noncontrolling Interest", 
                     "Order" : 5, 
-                    "Id" : "33ec5d28-b389-4873-828d-31e1f3f51cde", 
+                    "Id" : "18c6cb18-bd7e-4244-8e90-b49a17d2445f", 
                     "expanded" : true
                   }
                 }, 
-                "Id" : "1ba833bd-10d8-4528-ae1d-d48957bb82c4", 
+                "Id" : "3345a395-a301-4e78-aad1-ecb1de1166aa", 
                 "expanded" : true
               }, 
               "fac:CashFlowStatementHierarchy" : {
@@ -455,95 +442,95 @@
                     "Name" : "fac:NetCashFlowsFromOperatingActivitiesContinuing", 
                     "Label" : "Net Cash Flows from Operating Activities, Continuing", 
                     "Order" : 1, 
-                    "Id" : "f79c84a9-8e18-4a2c-b852-c91ffcf4547e", 
+                    "Id" : "efcb63cc-18ba-4469-ad2f-7e2ca09363f5", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" : {
                     "Name" : "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", 
                     "Label" : "Net Cash Flows from Operating Activities, Discontinued", 
                     "Order" : 2, 
-                    "Id" : "cbd1e528-f9fd-4da0-8d2d-fb4df1258e5e", 
+                    "Id" : "35426691-b2fe-41d0-a525-def1802d5e72", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromOperatingActivities" : {
                     "Name" : "fac:NetCashFlowsFromOperatingActivities", 
                     "Label" : "Net Cash Flows from Operating Activities", 
                     "Order" : 3, 
-                    "Id" : "3d478903-efe5-46f8-affc-cf0a0dc45461", 
+                    "Id" : "ed5d99ef-a7ee-465b-a96f-f5eca5eb1f3f", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromInvestingActivitiesContinuing" : {
                     "Name" : "fac:NetCashFlowsFromInvestingActivitiesContinuing", 
                     "Label" : "Net Cash Flows from Investing Activities, Continuing", 
                     "Order" : 4, 
-                    "Id" : "4e5edd73-d7a0-4fc4-9b4a-64a79b879052", 
+                    "Id" : "22d9c484-33e7-42ea-b5f9-3905cd15c738", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" : {
                     "Name" : "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", 
                     "Label" : "Net Cash Flows from Investing Activities, Discontinued", 
                     "Order" : 5, 
-                    "Id" : "60ed7144-40ce-4adf-8459-5143d27196aa", 
+                    "Id" : "b32c86ba-616c-4685-8fd4-c08ad2baf36b", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromInvestingActivities" : {
                     "Name" : "fac:NetCashFlowsFromInvestingActivities", 
                     "Label" : "Net Cash Flows from Investing Activities", 
                     "Order" : 6, 
-                    "Id" : "877bb8ce-efa9-400c-8099-865120cbad7c", 
+                    "Id" : "7bd10758-1899-4e5d-b565-8188065af6aa", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromFinancingActivitiesContinuing" : {
                     "Name" : "fac:NetCashFlowsFromFinancingActivitiesContinuing", 
                     "Label" : "Net Cash Flows from Financing Activities, Continuing", 
                     "Order" : 7, 
-                    "Id" : "1d16c7a6-15a9-4a23-aa7d-852a6f58ad23", 
+                    "Id" : "34a5cbf9-197b-490d-a146-22f54bcbac66", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" : {
                     "Name" : "fac:NetCashFlowsFromFinancingActivitiesDiscontinued", 
                     "Label" : "Net Cash Flows from Financing Activities, Discontinued", 
                     "Order" : 8, 
-                    "Id" : "f4dd8592-872d-4eb6-af17-c3109fbb8f55", 
+                    "Id" : "2f1a141d-981d-4c75-b03e-94919b030aec", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromFinancingActivities" : {
                     "Name" : "fac:NetCashFlowsFromFinancingActivities", 
                     "Label" : "Net Cash Flows from Financing Activities", 
                     "Order" : 9, 
-                    "Id" : "df0289ab-44f3-4c00-8827-65ccfdb4dc51", 
+                    "Id" : "e4602916-882e-472a-8574-a991f86c8152", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlowsContinuing" : {
                     "Name" : "fac:NetCashFlowsContinuing", 
                     "Label" : "Net Cash Flows, Continuing", 
                     "Order" : 10, 
-                    "Id" : "a2c288cf-775d-47f5-8673-b6101f1818dd", 
+                    "Id" : "464004ea-9f9a-439f-9cb7-04af54024ed9", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlowsDiscontinued" : {
                     "Name" : "fac:NetCashFlowsDiscontinued", 
                     "Label" : "Net Cash Flows, Discontinued", 
                     "Order" : 11, 
-                    "Id" : "85367ae5-5cf8-4d35-9390-826592eb3a39", 
+                    "Id" : "fb5a765f-6f8e-4409-be72-af711bca19cc", 
                     "expanded" : true
                   }, 
                   "fac:ExchangeGainsLosses" : {
                     "Name" : "fac:ExchangeGainsLosses", 
                     "Label" : "Exchange Gains (Losses)", 
                     "Order" : 12, 
-                    "Id" : "9b9677ca-c19e-4a81-af91-39c80f3e0cc6", 
+                    "Id" : "cf75293f-3eb5-45d3-9477-c5a025edd184", 
                     "expanded" : true
                   }, 
                   "fac:NetCashFlows" : {
                     "Name" : "fac:NetCashFlows", 
                     "Label" : "Net Cash Flows", 
                     "Order" : 13, 
-                    "Id" : "00716111-4fa8-45fe-919b-369b1767099a", 
+                    "Id" : "e988dd46-dbf2-4a1e-89ea-55c23e753f79", 
                     "expanded" : true
                   }
                 }, 
-                "Id" : "b1407050-e5cf-42c7-a776-633e83bb9304", 
+                "Id" : "ea86a7f9-ab3b-4a87-9d4c-f248f33e59b7", 
                 "expanded" : true
               }, 
               "fac:KeyRatiosHierarchy" : {
@@ -553,33 +540,33 @@
                   "fac:ReturnOnEquity" : {
                     "Name" : "fac:ReturnOnEquity", 
                     "Label" : "Return on Equity (ROE)", 
-                    "Order" : 2, 
-                    "Id" : "4d63286e-708a-4e17-a6d0-571f49ebad1a", 
+                    "Order" : 1, 
+                    "Id" : "fa933373-3a51-422a-ab67-66d8cecf6736", 
                     "expanded" : true
                   }, 
                   "fac:ReturnOnAssets" : {
                     "Name" : "fac:ReturnOnAssets", 
                     "Label" : "Return on Assets (ROA)", 
-                    "Order" : 3, 
-                    "Id" : "deb538a1-efe7-4aa7-8aec-420c8eb18bc0", 
+                    "Order" : 2, 
+                    "Id" : "1308ff1d-5835-4058-8f3f-586a92215db3", 
                     "expanded" : true
                   }, 
                   "fac:ReturnOnSalesROS" : {
                     "Name" : "fac:ReturnOnSalesROS", 
                     "Label" : "Return on Sales (ROS)", 
-                    "Order" : 4, 
-                    "Id" : "ef973cf4-1e98-4cc8-9a08-ddec587c1e8b", 
+                    "Order" : 3, 
+                    "Id" : "3802316b-efc5-4c1c-b29a-37419a8e3d32", 
                     "expanded" : true
                   }, 
                   "fac:SustainableGrowthRate" : {
                     "Name" : "fac:SustainableGrowthRate", 
                     "Label" : "Sustainable Growth Rate (SGR)", 
-                    "Order" : 5, 
-                    "Id" : "802e94aa-8137-4536-829a-d14e40ac341d", 
+                    "Order" : 4, 
+                    "Id" : "eafd48e1-672a-4743-8208-f12ee998d7a7", 
                     "expanded" : true
                   }
                 }, 
-                "Id" : "1fc4187a-21fe-4ee0-a4c4-44560195599f", 
+                "Id" : "cb706c3a-cf45-476d-b7b4-4074a163026e", 
                 "expanded" : true
               }, 
               "fac:ValidationStatistics" : {
@@ -589,23 +576,23 @@
                   "fac:PassedValidations" : {
                     "Name" : "fac:PassedValidations", 
                     "Label" : "Passed Validations", 
-                    "Id" : "0bd3f758-5743-4217-a2a6-10aabf9df92d", 
+                    "Id" : "ea5517cb-239a-4f49-80b0-2401406bf0dd", 
                     "expanded" : true
                   }, 
                   "fac:FailedValidations" : {
                     "Name" : "fac:FailedValidations", 
                     "Label" : "Failing Validations", 
-                    "Id" : "acd696ba-0a1c-48b4-bf83-838e91b6d131", 
+                    "Id" : "901e2c73-dc4b-43c6-8fe1-acce601ec3f8", 
                     "expanded" : true
                   }, 
                   "fac:NotApplicableValidations" : {
                     "Name" : "fac:NotApplicableValidations", 
                     "Label" : "Skipped Validations (unmet preconditions)", 
-                    "Id" : "8f08115c-518b-43c8-9165-00de15a49836", 
+                    "Id" : "a3538326-e1c2-416f-bb5a-84ee55d6b1ae", 
                     "expanded" : true
                   }
                 }, 
-                "Id" : "df9b9b17-d0a0-43fa-84af-1850d94e720a", 
+                "Id" : "5961832a-41d8-4f10-9a26-60a298599c12", 
                 "expanded" : true
               }, 
               "fac:Validations" : {
@@ -615,167 +602,145 @@
                   "fac:EquityValidation" : {
                     "Name" : "fac:EquityValidation", 
                     "Label" : "Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
-                    "Id" : "ac2e93f9-eb11-4385-ae12-2cd7abc25c8b", 
-                    "expanded" : true, 
-                    "Order" : 3
-                  }, 
-                  "fac:AssetsValidation" : {
-                    "Id" : "e629c26f-0a6d-45d0-a4c4-1a528301627b", 
-                    "Name" : "fac:AssetsValidation", 
-                    "Label" : "Assets = LiabilitiesAndEquity", 
-                    "Order" : 13, 
+                    "Id" : "a91f84a2-7333-40eb-9682-fb6f9e673b18", 
                     "expanded" : true
                   }, 
-                  "fac:AssetsValidation2" : {
-                    "Id" : "9677db98-a706-44ae-8a5e-6f5394a5fb49", 
-                    "Name" : "fac:AssetsValidation2", 
+                  "fac:Assets2Validation" : {
+                    "Name" : "fac:Assets2Validation", 
+                    "Label" : "Assets = LiabilitiesAndEquity", 
+                    "Id" : "1314c825-263e-4026-b1e8-52f1019a5a82", 
+                    "expanded" : true
+                  }, 
+                  "fac:AssetsValidation" : {
+                    "Name" : "fac:AssetsValidation", 
                     "Label" : "Assets = CurrentAssets + NoncurrentAssets", 
-                    "Order" : 4, 
+                    "Id" : "201eb543-13dd-4d0f-ad4c-be3825f01930", 
                     "expanded" : true
                   }, 
                   "fac:LiabilitiesValidation" : {
                     "Name" : "fac:LiabilitiesValidation", 
                     "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
-                    "Id" : "8ef620f4-9a41-426d-9feb-e8499fb7618f", 
-                    "expanded" : true, 
-                    "Order" : 5
+                    "Id" : "9a4f5bd8-ea40-4738-b89c-1c1d4c9732aa", 
+                    "expanded" : true
                   }, 
                   "fac:LiabilitiesAndEquityValidation" : {
                     "Name" : "fac:LiabilitiesAndEquityValidation", 
                     "Label" : "LiabilitiesAndEquity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
-                    "Id" : "4e483151-666f-44be-a1d9-de8b4583edc3", 
-                    "expanded" : true, 
-                    "Order" : 6
+                    "Id" : "c91f1008-a989-42cf-a83a-81a0dbab4873", 
+                    "expanded" : true
                   }, 
                   "fac:GrossProfitValidation" : {
                     "Name" : "fac:GrossProfitValidation", 
                     "Label" : "GrossProfit = Revenues - CostOfRevenue", 
-                    "Id" : "11dba54b-088f-43ab-b62c-41fd58c93962", 
-                    "expanded" : true, 
-                    "Order" : 7
+                    "Id" : "49f1c876-4510-41f5-84b1-55c94678c46a", 
+                    "expanded" : true
                   }, 
                   "fac:OperatingIncomeLossValidation" : {
                     "Name" : "fac:OperatingIncomeLossValidation", 
                     "Label" : "OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
-                    "Id" : "18d142b3-18a1-459a-81e3-a8b73a4771b1", 
-                    "expanded" : true, 
-                    "Order" : 8
+                    "Id" : "92459f1c-8051-49e5-9fd5-db16cd2e3710", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeBeforeEquityMethodInvestmentsValidation" : {
                     "Name" : "fac:IncomeBeforeEquityMethodInvestmentsValidation", 
                     "Label" : "IncomeBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
-                    "Id" : "aeeba100-3e0d-47dd-a778-507a9ed0be20", 
-                    "expanded" : true, 
-                    "Order" : 9
+                    "Id" : "ed742251-b569-43f1-98f9-fe1c814c374e", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation" : {
                     "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", 
                     "Label" : "IncomeLossFromContinuingOperationsBeforeTax = IncomeBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
-                    "Id" : "bc9d317e-5bbc-46bc-8006-0bb124d6a8e2", 
-                    "expanded" : true, 
-                    "Order" : 10
+                    "Id" : "fb75d915-dbb1-4386-a616-f850a21e14a1", 
+                    "expanded" : true
                   }, 
                   "fac:IncomeLossFromContinuingOperationsAfterTaxValidation" : {
                     "Name" : "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", 
                     "Label" : "IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
-                    "Id" : "672ba74f-540a-4047-81db-bc02483088e9", 
-                    "expanded" : true, 
-                    "Order" : 11
+                    "Id" : "f1b04b83-1b34-465d-b73b-0bfe58d25924", 
+                    "expanded" : true
                   }, 
                   "fac:NetIncomeLossValidation" : {
                     "Name" : "fac:NetIncomeLossValidation", 
                     "Label" : "NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetTax + ExtraordinaryItemsIncomeExpenseNetTax", 
-                    "Id" : "c527f140-da14-47f8-bb6a-a336a34aa60e", 
-                    "expanded" : true, 
-                    "Order" : 12
+                    "Id" : "3a502c79-29ce-44e5-acea-8670ad4d4aba", 
+                    "expanded" : true
                   }, 
                   "fac:NetIncomeLoss2Validation" : {
                     "Name" : "fac:NetIncomeLoss2Validation", 
                     "Label" : "NetIncomeLoss = NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest", 
-                    "Id" : "269d13b8-c2de-465a-a73c-271c1f5367c9", 
-                    "expanded" : true, 
-                    "Order" : 2
+                    "Id" : "ada5245b-0a9f-4783-8ea7-852e639a716a", 
+                    "expanded" : true
                   }, 
                   "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation" : {
                     "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
                     "Label" : "NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
-                    "Id" : "33e587a4-ceca-4dfe-b7a7-4b581979b526", 
-                    "expanded" : true, 
-                    "Order" : 14
+                    "Id" : "2550e442-9a0f-41da-99a2-8ebab9acca60", 
+                    "expanded" : true
                   }, 
                   "fac:ComprehensiveIncomeLossValidation" : {
                     "Name" : "fac:ComprehensiveIncomeLossValidation", 
                     "Label" : "ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
-                    "Id" : "3551726d-513d-46a7-9ef8-125080ae54fb", 
-                    "expanded" : true, 
-                    "Order" : 15
+                    "Id" : "86bd842b-7c76-41a5-862d-2a73d3b09b12", 
+                    "expanded" : true
                   }, 
                   "fac:ComprehensiveIncomeLoss2Validation" : {
                     "Name" : "fac:ComprehensiveIncomeLoss2Validation", 
                     "Label" : "ComprehensiveIncome = NetIncomeLoss + OtherComprehensiveIncome", 
-                    "Id" : "62f3cab9-4fc0-48d2-9c1d-602d52de0080", 
-                    "expanded" : true, 
-                    "Order" : 16
+                    "Id" : "b6f17ac1-3244-43c4-ac74-873697c0ef9c", 
+                    "expanded" : true
                   }, 
                   "fac:OperatingIncomeLoss2Validation" : {
                     "Name" : "fac:OperatingIncomeLoss2Validation", 
                     "Label" : "OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
-                    "Id" : "35e4c4d4-0947-4ffc-8039-5f6411069145", 
-                    "expanded" : true, 
-                    "Order" : 17
+                    "Id" : "b464599f-25a6-4bc7-83c0-18b53ddb61e1", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsValidation" : {
                     "Name" : "fac:NetCashFlowsValidation", 
                     "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses]", 
-                    "Id" : "e1530488-3432-4005-b5d4-2c19cdf125b6", 
-                    "expanded" : true, 
-                    "Order" : 18
+                    "Id" : "c13c8d66-f83b-44d3-9296-305e874b794b", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsContinuingValidation" : {
                     "Name" : "fac:NetCashFlowsContinuingValidation", 
                     "Label" : "NetCashFlowsContinuing = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesContinuing", 
-                    "Id" : "2598b79f-357a-4a1c-b4ea-ac5e1110c8ba", 
-                    "expanded" : true, 
-                    "Order" : 19
+                    "Id" : "56dc32e6-1f26-4f8f-a93e-20b246a56575", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsDiscontinuedValidation" : {
                     "Name" : "fac:NetCashFlowsDiscontinuedValidation", 
                     "Label" : "NetCashFlowsDiscontinued = NetCashFlowsFromOperatingActivitiesDiscontinued + NetCashFlowsFromInvestingActivitiesDiscontinued + NetCashFlowsFromFinancingActivitiesDiscontinued", 
-                    "Id" : "5b9e2b9f-e73f-4fd3-9f49-68e9504d0539", 
-                    "expanded" : true, 
-                    "Order" : 20
+                    "Id" : "0fb7b760-405d-447c-ba69-de41d99216f9", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromOperatingActivitiesValidation" : {
                     "Name" : "fac:NetCashFlowsFromOperatingActivitiesValidation", 
                     "Label" : "NetCashFlowsFromOperatingActivities = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromOperatingActivitiesDiscontinued", 
-                    "Id" : "2dc43dfa-1473-4e02-be62-73e04039b789", 
-                    "expanded" : true, 
-                    "Order" : 21
+                    "Id" : "897ba356-f94f-4d11-95ae-950be64ff656", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromInvestingActivitiesValidation" : {
                     "Name" : "fac:NetCashFlowsFromInvestingActivitiesValidation", 
                     "Label" : "NetCashFlowsFromInvestingActivities = NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesDiscontinued", 
-                    "Id" : "8aff03dc-f74d-4e5b-9c63-2e88ecc5fdec", 
-                    "expanded" : true, 
-                    "Order" : 22
+                    "Id" : "a40fe0f9-c8cd-46f2-a2d9-0c862f5fd987", 
+                    "expanded" : true
                   }, 
                   "fac:NetCashFlowsFromFinancingActivitiesValidation" : {
                     "Name" : "fac:NetCashFlowsFromFinancingActivitiesValidation", 
                     "Label" : "NetCashFlowsFromFinancingActivities = NetCashFlowsFromFinancingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesDiscontinued", 
-                    "Id" : "c0167ac6-2ec3-408c-8895-5b9ded20a7d5", 
-                    "expanded" : true, 
-                    "Order" : 23
+                    "Id" : "30cf2b70-ae4d-4f22-a445-3e42afb37363", 
+                    "expanded" : true
                   }
                 }, 
-                "Id" : "e1547838-cf51-472b-b864-b2caede2156a", 
+                "Id" : "07449cd9-1dbf-4978-ba43-7d84cf5cfc2f", 
                 "expanded" : true
               }
             }, 
-            "Id" : "a3e2ac2b-4b9c-4b8e-8f44-7fd39297de99", 
+            "Id" : "5a800c15-8a39-4228-93e1-08c967d917e5", 
             "expanded" : true
           }
         }, 
-        "Id" : "e3f711bf-7ee3-42e3-a71e-c9f045425f2f", 
+        "Id" : "7f8a6800-a523-41a5-98d2-6c2a01f3f604", 
         "expanded" : true
       }
     }
@@ -794,10 +759,10 @@
         "To" : {
           "us-gaap:PreferredStockDividendsAndOtherAdjustments" : {
             "Name" : "us-gaap:PreferredStockDividendsAndOtherAdjustments", 
-            "Id" : "c08ec2d8-bd70-4a54-a912-c33aa651fd46"
+            "Id" : "07a67fb6-f09c-4d7a-8cd9-405db8bb447e"
           }
         }, 
-        "Id" : "30384133-a1e5-411e-b57d-d6d0ae6b54f3"
+        "Id" : "3947f39d-4a52-4aa9-b750-1e2c466a2ffb"
       }, 
       "fac:NoncurrentLiabilities" : {
         "Name" : "fac:NoncurrentLiabilities", 
@@ -805,10 +770,10 @@
         "To" : {
           "us-gaap:LiabilitiesNoncurrent" : {
             "Name" : "us-gaap:LiabilitiesNoncurrent", 
-            "Id" : "52d6060c-b54c-4cba-a457-06a4b70bb1e4"
+            "Id" : "20d8f287-f6ab-411a-bee7-aeda9022da96"
           }
         }, 
-        "Id" : "cbb31bba-25f0-42d1-b509-72746e83b284"
+        "Id" : "43aa816d-3602-4cd0-bbe3-80be9cc7c9b6"
       }, 
       "fac:EntityRegistrantName" : {
         "Name" : "fac:EntityRegistrantName", 
@@ -816,10 +781,10 @@
         "To" : {
           "dei:EntityRegistrantName" : {
             "Name" : "dei:EntityRegistrantName", 
-            "Id" : "741d7793-f5dc-4a7e-ac74-524d96da0f56"
+            "Id" : "40cdc89c-ed17-4fab-993e-9d7573369c47"
           }
         }, 
-        "Id" : "26d20f5f-389f-4efb-8ee8-e8cf6c24b4ba"
+        "Id" : "cafbf475-357d-4d5a-a004-4f594fc90474"
       }, 
       "fac:Revenues" : {
         "Name" : "fac:Revenues", 
@@ -827,186 +792,186 @@
         "To" : {
           "us-gaap:Revenues" : {
             "Name" : "us-gaap:Revenues", 
-            "Id" : "070a24ea-d907-43dd-aa1c-0e03f317f0d9"
+            "Id" : "bb17a6b5-c881-4e32-82c9-f6208a15d9de"
           }, 
           "us-gaap:SalesRevenueNet" : {
             "Name" : "us-gaap:SalesRevenueNet", 
-            "Id" : "cbbc24aa-dd5a-48a5-a643-18d242941170"
+            "Id" : "afbe39a6-9a62-40e2-9acb-4d0c45f5d1f2"
           }, 
           "us-gaap:SalesRevenueServicesNet" : {
             "Name" : "us-gaap:SalesRevenueServicesNet", 
-            "Id" : "1c763b87-df2c-45b7-80e6-851576726e98"
+            "Id" : "80cbc877-b0f4-47fb-a44d-59d33302f724"
           }, 
           "us-gaap:SalesRevenueGoodsNet" : {
             "Name" : "us-gaap:SalesRevenueGoodsNet", 
-            "Id" : "6dcde9d2-cc0b-49b8-a240-bf9b91461ed5"
+            "Id" : "e4d3bd39-4441-462b-b778-37b487415b97"
           }, 
           "us-gaap:RevenuesNetOfInterestExpense" : {
             "Name" : "us-gaap:RevenuesNetOfInterestExpense", 
-            "Id" : "2b492f5a-7bad-4063-a9a7-87f29cf8bd6c"
+            "Id" : "206d16ea-7aa3-4357-892e-162635694f5b"
           }, 
           "us-gaap:HealthCareOrganizationRevenue" : {
             "Name" : "us-gaap:HealthCareOrganizationRevenue", 
-            "Id" : "8e317a74-646c-4eee-b63c-b8fa856795fd"
+            "Id" : "fd8b327c-556d-4ea8-a06e-dca505bfe17a"
           }, 
           "us-gaap:InterestAndDividendIncomeOperating" : {
             "Name" : "us-gaap:InterestAndDividendIncomeOperating", 
-            "Id" : "8c9102d2-ad1a-4759-a95b-251e211c82a8"
+            "Id" : "d54ea5a3-0766-4284-83c1-885848c97c0f"
           }, 
           "us-gaap:RealEstateRevenueNet" : {
             "Name" : "us-gaap:RealEstateRevenueNet", 
-            "Id" : "b20b3201-83af-4568-85b5-98b2ecbbcce5"
+            "Id" : "b94f6393-f316-4017-bce6-b92cfe044c0d"
           }, 
           "us-gaap:RevenueMineralSales" : {
             "Name" : "us-gaap:RevenueMineralSales", 
-            "Id" : "431046c3-7efc-46f3-8c89-8ba276c68667"
+            "Id" : "428f6c42-b229-4005-936e-11d863459cff"
           }, 
           "us-gaap:OilAndGasRevenue" : {
             "Name" : "us-gaap:OilAndGasRevenue", 
-            "Id" : "4c1a9cdd-9f63-4979-9968-ebfd8e3a02b0"
+            "Id" : "8484103d-fd87-42c3-ac14-abf7a094a282"
           }, 
           "us-gaap:RegulatedAndUnregulatedOperatingRevenue" : {
             "Name" : "us-gaap:RegulatedAndUnregulatedOperatingRevenue", 
-            "Id" : "81dfec0c-497d-4e95-b50e-52aea6f923c6"
+            "Id" : "003c1b99-3074-4758-b81e-f37b418f9eac"
           }, 
           "us-gaap:FinancialServicesRevenue" : {
             "Name" : "us-gaap:FinancialServicesRevenue", 
-            "Id" : "65574555-bd21-42cd-8e9b-a10c15957fdd"
+            "Id" : "43d3e84c-e06c-458a-87a0-ade7f98f452c"
           }, 
           "us-gaap:ShippingAndHandlingRevenue" : {
             "Name" : "us-gaap:ShippingAndHandlingRevenue", 
-            "Id" : "4e7dacab-ede5-4df8-b40e-68d2ec14d3ec"
+            "Id" : "52ca1a52-0cce-4980-b3d6-d47551610d34"
           }, 
           "us-gaap:SalesRevenueFromEnergyCommoditiesAndServices" : {
             "Name" : "us-gaap:SalesRevenueFromEnergyCommoditiesAndServices", 
-            "Id" : "e659348e-7ce1-4399-afc5-31ad9bfa3f6a"
+            "Id" : "b002598a-c744-4554-b1f8-98824fb82d82"
           }, 
           "us-gaap:UtilityRevenue" : {
             "Name" : "us-gaap:UtilityRevenue", 
-            "Id" : "f644aeab-805b-47b8-8692-32d2a8ba9146"
+            "Id" : "032bd095-8901-409e-8982-f1aac3681ad6"
           }, 
           "us-gaap:PhaseInPlanAmountOfCapitalizedCostsRecovered" : {
             "Name" : "us-gaap:PhaseInPlanAmountOfCapitalizedCostsRecovered", 
-            "Id" : "e036bcd6-5bda-4da2-9e2a-95429204b665"
+            "Id" : "a5412af0-2583-4e33-8dfe-3dd5bd55e944"
           }, 
           "us-gaap:SecondaryProcessingRevenue" : {
             "Name" : "us-gaap:SecondaryProcessingRevenue", 
-            "Id" : "87bbd619-fa77-490b-b679-f4442a36ec84"
+            "Id" : "20da8d58-67c4-40db-ad37-9b96d72fb1b4"
           }, 
           "us-gaap:RevenueSteamProductsAndServices" : {
             "Name" : "us-gaap:RevenueSteamProductsAndServices", 
-            "Id" : "271f513e-60d8-40ee-8bdf-3330a3502a47"
+            "Id" : "c77f9e01-44f2-4537-a0e1-de41dbc4de78"
           }, 
           "us-gaap:RevenueFromLeasedAndOwnedHotels" : {
             "Name" : "us-gaap:RevenueFromLeasedAndOwnedHotels", 
-            "Id" : "c43bd9f9-198b-4afa-bdb2-985e205cd50e"
+            "Id" : "37c1dcfe-d982-450a-83e6-032f271fb75e"
           }, 
           "us-gaap:FranchisorRevenue" : {
             "Name" : "us-gaap:FranchisorRevenue", 
-            "Id" : "8f25904a-da75-4a69-b3ac-d1e0dd31167e"
+            "Id" : "fff4d73b-c03f-4842-a0bc-ca5659df8200"
           }, 
           "us-gaap:SubscriptionRevenue" : {
             "Name" : "us-gaap:SubscriptionRevenue", 
-            "Id" : "a77589cd-adef-42ed-a2f6-bd68b36ca2d6"
+            "Id" : "887294e2-001b-420f-b700-b27194225335"
           }, 
           "us-gaap:AdvertisingRevenue" : {
             "Name" : "us-gaap:AdvertisingRevenue", 
-            "Id" : "b5036388-48f0-470b-97ba-4900ef0cffee"
+            "Id" : "5dc17ee0-1da6-481f-93bb-f05e776b6f54"
           }, 
           "us-gaap:AdmissionsRevenue" : {
             "Name" : "us-gaap:AdmissionsRevenue", 
-            "Id" : "8fdc0660-cf48-4050-94d8-f67e12648e12"
+            "Id" : "5bc89800-986e-4c6d-b068-6a774184c1cd"
           }, 
           "us-gaap:RevenueFromEnrollmentAndRegistrationFeesExcludingHospitalityEnterprises" : {
             "Name" : "us-gaap:RevenueFromEnrollmentAndRegistrationFeesExcludingHospitalityEnterprises", 
-            "Id" : "afc675ed-4855-44ed-9b4b-feb67ab86934"
+            "Id" : "046895b9-2f82-4009-8c47-f225a97cfef4"
           }, 
           "us-gaap:MembershipDuesRevenueOnGoing" : {
             "Name" : "us-gaap:MembershipDuesRevenueOnGoing", 
-            "Id" : "6cdcf1f7-91c2-47d2-9fbf-e9032244108a"
+            "Id" : "cfd58746-e2f0-4a4f-a666-d8ba73c99c7b"
           }, 
           "us-gaap:LicensesRevenue" : {
             "Name" : "us-gaap:LicensesRevenue", 
-            "Id" : "7422ad73-0548-4284-a481-d65f94d64220"
+            "Id" : "edf01b78-011a-45a0-ade3-14347f7b073f"
           }, 
           "us-gaap:RoyaltyRevenue" : {
             "Name" : "us-gaap:RoyaltyRevenue", 
-            "Id" : "0762358e-34a3-4002-8b39-198edb11c896"
+            "Id" : "d34686af-345a-4052-bcdf-44c77b3c26b9"
           }, 
           "us-gaap:SalesOfOilAndGasProspects" : {
             "Name" : "us-gaap:SalesOfOilAndGasProspects", 
-            "Id" : "a88d37af-0afe-47ac-b99a-e50f0b8ad446"
+            "Id" : "89e34d89-8868-42dc-95e9-16a41ad1a75c"
           }, 
           "us-gaap:ClearingFeesRevenue" : {
             "Name" : "us-gaap:ClearingFeesRevenue", 
-            "Id" : "550dc2eb-941a-4e75-989f-0d307c7d98f8"
+            "Id" : "d730fb6b-1c61-411a-9a71-a818227a0699"
           }, 
           "us-gaap:ReimbursementRevenue" : {
             "Name" : "us-gaap:ReimbursementRevenue", 
-            "Id" : "1ad094d4-6b6a-4f75-a57d-8cd60e1cbd2d"
+            "Id" : "6dc8d8da-40c5-4db7-9952-d1a4bf31638b"
           }, 
           "us-gaap:RevenueFromGrants" : {
             "Name" : "us-gaap:RevenueFromGrants", 
-            "Id" : "58c22849-703b-4487-a7c8-b21cb83c3627"
+            "Id" : "cdde62ba-b974-4939-b46a-2eb72ecc6177"
           }, 
           "us-gaap:RevenueOtherManufacturedProducts" : {
             "Name" : "us-gaap:RevenueOtherManufacturedProducts", 
-            "Id" : "3d02df8e-95be-41a7-a9d5-81aba36e31d5"
+            "Id" : "8672b43f-8716-4ec2-a3cb-bed35ed6591e"
           }, 
           "us-gaap:ConstructionMaterialsRevenue" : {
             "Name" : "us-gaap:ConstructionMaterialsRevenue", 
-            "Id" : "aa401f7d-f24f-4a24-afd2-723c27c9c605"
+            "Id" : "3ff17025-aa04-47a2-a84b-d757330e20bb"
           }, 
           "us-gaap:TimberRevenue" : {
             "Name" : "us-gaap:TimberRevenue", 
-            "Id" : "5c51681f-5367-48c1-8555-2756c65fa70a"
+            "Id" : "5638565d-565a-4fb4-8c8a-89f099b6eb00"
           }, 
           "us-gaap:RecyclingRevenue" : {
             "Name" : "us-gaap:RecyclingRevenue", 
-            "Id" : "528c2db6-0f0e-4af3-8c4c-e47314d0e981"
+            "Id" : "2d15a667-612e-4c59-bb28-3c82e97df038"
           }, 
           "us-gaap:OtherSalesRevenueNet" : {
             "Name" : "us-gaap:OtherSalesRevenueNet", 
-            "Id" : "7a31af00-e29f-48bb-bb76-0ddf8f08bbe9"
+            "Id" : "cb036fbb-373b-45fa-b567-7b304f8feca3"
           }, 
           "us-gaap:SaleOfTrustAssetsToPayExpenses" : {
             "Name" : "us-gaap:SaleOfTrustAssetsToPayExpenses", 
-            "Id" : "56bf4649-4154-4729-a690-e9e3a5222445"
+            "Id" : "f98f6df2-7c08-4f7a-9d56-96884e0e5d54"
           }, 
           "us-gaap:PassengerRevenue" : {
             "Name" : "us-gaap:PassengerRevenue", 
-            "Id" : "76dc3d25-5431-42b9-bf28-3dc70e87608f"
+            "Id" : "f894a241-19bf-431d-b271-fd866658fa66"
           }, 
           "us-gaap:VehicleTollRevenue" : {
             "Name" : "us-gaap:VehicleTollRevenue", 
-            "Id" : "e17e9f59-3755-4947-9f6c-d09fa9328cfb"
+            "Id" : "07d81ec1-dd6a-44c6-9d22-3d6aa69d2ced"
           }, 
           "us-gaap:CargoAndFreightRevenue" : {
             "Name" : "us-gaap:CargoAndFreightRevenue", 
-            "Id" : "9201640f-bdb3-404a-8d7d-9f2cc6ce0e42"
+            "Id" : "f4f07b9a-7e23-4a08-bf22-3cecd123e37c"
           }, 
           "us-gaap:NetInvestmentIncome" : {
             "Name" : "us-gaap:NetInvestmentIncome", 
-            "Id" : "b78fff86-97b3-4500-84d7-54a72cc68e4a"
+            "Id" : "cc9169e5-dbfa-49bf-9237-3e2a07687e0a"
           }, 
           "us-gaap:RevenuesExcludingInterestAndDividends" : {
             "Name" : "us-gaap:RevenuesExcludingInterestAndDividends", 
-            "Id" : "7928ab6d-a770-4310-b1ee-a4418322378f"
+            "Id" : "70fbf496-2fd1-4b1f-b838-bda9a2a21e72"
           }, 
           "us-gaap:InvestmentBankingRevenue" : {
             "Name" : "us-gaap:InvestmentBankingRevenue", 
-            "Id" : "d1fa3b7c-ad00-4f64-87e7-c8b42cbdf0b8"
+            "Id" : "d6204306-6101-407f-bb71-1ac7394eb818"
           }, 
           "us-gaap:UnderwritingIncomeLoss" : {
             "Name" : "us-gaap:UnderwritingIncomeLoss", 
-            "Id" : "730d365a-d6f3-46e3-af10-b49c1a5c1e59"
+            "Id" : "f3b0fcdc-4c00-4f43-926b-286c786a31df"
           }, 
           "us-gaap:MarketDataRevenue" : {
             "Name" : "us-gaap:MarketDataRevenue", 
-            "Id" : "ebe2ddc5-b804-4b08-8a9e-7c16ae733d43"
+            "Id" : "5a2c3012-c599-4cc3-8155-352f1cc5aff0"
           }
         }, 
-        "Id" : "7f142386-db71-47b6-a3b6-3359c6154341"
+        "Id" : "b7adfbd2-ee02-406c-84e2-2b1cadd396b1"
       }, 
       "fac:NetCashFlowsContinuing" : {
         "Name" : "fac:NetCashFlowsContinuing", 
@@ -1014,10 +979,10 @@
         "To" : {
           "us-gaap:NetCashProvidedByUsedInContinuingOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInContinuingOperations", 
-            "Id" : "03ff95fc-2d87-475c-bda2-b39e4fe2f1a5"
+            "Id" : "456ba8bf-7c9b-4019-95a8-2b90ac4084fc"
           }
         }, 
-        "Id" : "397f3df1-cada-4bc9-a885-1887734e2afe"
+        "Id" : "47771240-291b-467f-999a-dd8539290a29"
       }, 
       "fac:Assets" : {
         "Name" : "fac:Assets", 
@@ -1025,14 +990,14 @@
         "To" : {
           "us-gaap:Assets" : {
             "Name" : "us-gaap:Assets", 
-            "Id" : "cf8b0075-3480-4abc-bf30-3d6077eefee5"
+            "Id" : "d66bcf22-f5e9-451a-b22b-b5673b0ae537"
           }, 
           "us-gaap:AssetsCurrent" : {
             "Name" : "us-gaap:AssetsCurrent", 
-            "Id" : "42600d11-dda8-4bb2-a350-f3aff454ec04"
+            "Id" : "8eaee000-39f5-4b3d-828c-9c426fe7199b"
           }
         }, 
-        "Id" : "b66c1d41-9beb-4595-be30-9591b41b08a1"
+        "Id" : "4ab5d61d-393d-4d9e-9b9f-6c7ae97d8db1"
       }, 
       "fac:EquityAttributableToParent" : {
         "Name" : "fac:EquityAttributableToParent", 
@@ -1040,18 +1005,18 @@
         "To" : {
           "us-gaap:StockholdersEquity" : {
             "Name" : "us-gaap:StockholdersEquity", 
-            "Id" : "c0e504c4-03af-48c1-94ae-1f000093d0c0"
+            "Id" : "131424be-7c97-4cda-b735-200ef2309844"
           }, 
           "us-gaap:PartnersCapital" : {
             "Name" : "us-gaap:PartnersCapital", 
-            "Id" : "b3986ad8-4ebe-4e1a-891a-f5111598331a"
+            "Id" : "9591c4c2-7c49-4bb2-95cd-5b6035df0c60"
           }, 
           "us-gaap:MemberEquity" : {
             "Name" : "us-gaap:MemberEquity", 
-            "Id" : "d8f5a358-3d45-44a3-9aa8-69bb19b522a5"
+            "Id" : "3dda6a8a-6dae-4209-9c85-6af499e26f68"
           }
         }, 
-        "Id" : "2796490e-51a2-4135-9752-c195fc69f9ef"
+        "Id" : "080b29b1-98ff-4b1c-a520-9f50460b2545"
       }, 
       "fac:InterestAndDebtExpense" : {
         "Name" : "fac:InterestAndDebtExpense", 
@@ -1059,10 +1024,10 @@
         "To" : {
           "us-gaap:InterestAndDebtExpense" : {
             "Name" : "us-gaap:InterestAndDebtExpense", 
-            "Id" : "50305f05-52c4-48a5-89a8-177581cc4335"
+            "Id" : "01fe3c6b-3d0a-4010-a96a-a19da9bf8de7"
           }
         }, 
-        "Id" : "3700be64-3c27-4c4a-9aab-2d4e9012521f"
+        "Id" : "f913dfa2-a0f3-4e92-ba89-94cc487c6749"
       }, 
       "fac:IncomeTaxExpenseBenefit" : {
         "Name" : "fac:IncomeTaxExpenseBenefit", 
@@ -1070,18 +1035,18 @@
         "To" : {
           "us-gaap:IncomeTaxExpenseBenefit" : {
             "Name" : "us-gaap:IncomeTaxExpenseBenefit", 
-            "Id" : "adec10cf-b1fc-44fe-9742-fa6a71cfb3fc"
+            "Id" : "bea18b1f-129c-448a-a9ee-c74b121057f6"
           }, 
           "us-gaap:IncomeTaxExpenseBenefitContinuingOperations" : {
             "Name" : "us-gaap:IncomeTaxExpenseBenefitContinuingOperations", 
-            "Id" : "9be815d3-9cdf-4840-acf9-1307823771be"
+            "Id" : "18a9eaa4-5135-4917-8edb-ee1bf800f6b0"
           }, 
           "us-gaap:FederalHomeLoanBankAssessments" : {
             "Name" : "us-gaap:FederalHomeLoanBankAssessments", 
-            "Id" : "96c1dcae-89e5-40c0-bce0-3dca51d4a30d"
+            "Id" : "d72beb19-fcd2-4f8d-8a74-3daabf6c4df0"
           }
         }, 
-        "Id" : "0003d831-31e5-45de-a86a-47c12077d966"
+        "Id" : "593c2099-f044-4e4d-853c-a2f5dbf66cc4"
       }, 
       "fac:EntityCentralIndexKey" : {
         "Name" : "fac:EntityCentralIndexKey", 
@@ -1089,10 +1054,10 @@
         "To" : {
           "dei:EntityCentralIndexKey" : {
             "Name" : "dei:EntityCentralIndexKey", 
-            "Id" : "0b75d1a5-4d73-447a-a982-4059e0b94188"
+            "Id" : "042d8097-89a1-451d-8ee7-d81361db4c40"
           }
         }, 
-        "Id" : "c293e7b1-85ea-40c5-b59c-3118c6893795"
+        "Id" : "73c3ebbd-1861-4581-9633-e1debb503037"
       }, 
       "fac:NatureOfOperations" : {
         "Name" : "fac:NatureOfOperations", 
@@ -1100,22 +1065,22 @@
         "To" : {
           "us-gaap:NatureOfOperations" : {
             "Name" : "us-gaap:NatureOfOperations", 
-            "Id" : "9298ed1a-da85-47b7-98f9-73258094787c"
+            "Id" : "d3c74b93-6595-4d0d-afef-bd0e5a3def6a"
           }, 
           "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock" : {
             "Name" : "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock", 
-            "Id" : "327b87da-8652-4fa0-a8be-ba71a0754c58"
+            "Id" : "1c1a4021-690b-4278-b563-1a680264e916"
           }, 
           "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock" : {
             "Name" : "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock", 
-            "Id" : "78632610-0140-4b93-ab10-ca9b19bc94e3"
+            "Id" : "718781e7-4faa-4ee3-9b65-f019c946f23e"
           }, 
           "us-gaap:OrganizationConsolidationBasisOfPresentationBusinessDescriptionAndAccountingPoliciesTextBlock" : {
             "Name" : "us-gaap:OrganizationConsolidationBasisOfPresentationBusinessDescriptionAndAccountingPoliciesTextBlock", 
-            "Id" : "374e9d10-7106-447a-b78b-afa6b8d049e6"
+            "Id" : "415a27ba-96ba-4ea4-a56e-3ee68a7cd696"
           }
         }, 
-        "Id" : "49f5d663-3b20-44d4-9543-78156c3ffa63"
+        "Id" : "63b4557c-e54d-4b55-abfd-4f1638f8595a"
       }, 
       "fac:ResearchAndDevelopment" : {
         "Name" : "fac:ResearchAndDevelopment", 
@@ -1123,26 +1088,26 @@
         "To" : {
           "us-gaap:ResearchAndDevelopmentExpense" : {
             "Name" : "us-gaap:ResearchAndDevelopmentExpense", 
-            "Id" : "54c777f0-2644-4b6d-a27a-17aae6cc506a"
+            "Id" : "216f2594-0294-4fda-9366-61bcd0240385"
           }, 
           "us-gaap:ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost" : {
             "Name" : "us-gaap:ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost", 
-            "Id" : "5de7ea80-7d96-4d6c-8fab-529d27959d5e"
+            "Id" : "da9322fc-1331-4dec-b5e5-94607cf385cd"
           }, 
           "us-gaap:ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost" : {
             "Name" : "us-gaap:ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost", 
-            "Id" : "46c4a856-a863-427b-b01b-f28c3783d90e"
+            "Id" : "fc62e94d-ec13-499e-bcfc-3f6e553f9dfb"
           }, 
           "us-gaap:ResearchAndDevelopmentInProcess" : {
             "Name" : "us-gaap:ResearchAndDevelopmentInProcess", 
-            "Id" : "fe8ca221-e936-4f61-8137-ec75fb1df993"
+            "Id" : "6e5f5939-6b33-4872-afb4-ecacc5166828"
           }, 
           "us-gaap:ResearchAndDevelopmentAssetAcquiredOtherThanThroughBusinessCombinationWrittenOff" : {
             "Name" : "us-gaap:ResearchAndDevelopmentAssetAcquiredOtherThanThroughBusinessCombinationWrittenOff", 
-            "Id" : "60e9a484-8616-4670-8985-ddce6a55c1db"
+            "Id" : "0aabca20-300b-4cd6-8522-e936dfa91aa1"
           }
         }, 
-        "Id" : "dde6cad8-44c5-448a-8cf0-c714a40f5255"
+        "Id" : "3dde3358-7168-4b01-9a96-034344ee7681"
       }, 
       "fac:OtherOperatingIncomeExpenses" : {
         "Name" : "fac:OtherOperatingIncomeExpenses", 
@@ -1150,10 +1115,10 @@
         "To" : {
           "us-gaap:OtherOperatingIncome" : {
             "Name" : "us-gaap:OtherOperatingIncome", 
-            "Id" : "f9452138-64fc-408c-b974-733c1ef04007"
+            "Id" : "4682eb68-4c28-44d5-bc9f-e50b0c36c4fc"
           }
         }, 
-        "Id" : "c55bf227-cdbf-4d9d-aaa7-9774123701e1"
+        "Id" : "bbb6ebda-c920-4d11-b71c-31738b5f4501"
       }, 
       "fac:NetCashFlowsFromInvestingActivities" : {
         "Name" : "fac:NetCashFlowsFromInvestingActivities", 
@@ -1161,10 +1126,10 @@
         "To" : {
           "us-gaap:NetCashProvidedByUsedInInvestingActivities" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-            "Id" : "c4ac07cf-e17f-4611-807d-5c551594ef72"
+            "Id" : "27be0330-d36e-41dd-81e8-2a42b3a930e8"
           }
         }, 
-        "Id" : "e512ec68-b35f-41d3-aba6-524d8436899c"
+        "Id" : "1daaeb76-c502-4e33-b139-465af8b9ea6b"
       }, 
       "fac:IncomeBeforeEquityMethodInvestments" : {
         "Name" : "fac:IncomeBeforeEquityMethodInvestments", 
@@ -1172,10 +1137,10 @@
         "To" : {
           "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments", 
-            "Id" : "eac5dd0e-65ff-4f27-8957-d000037e0cc2"
+            "Id" : "d71ef5ab-0448-4a1e-ac46-eed1f191a9d8"
           }
         }, 
-        "Id" : "de4fd79e-a78d-4a6e-98a9-a23c0b36d0c6"
+        "Id" : "7c5986ff-40a0-4f6e-a9d6-7c142fa6896b"
       }, 
       "fac:TradingSymbol" : {
         "Name" : "fac:TradingSymbol", 
@@ -1183,10 +1148,10 @@
         "To" : {
           "dei:TradingSymbol" : {
             "Name" : "dei:TradingSymbol", 
-            "Id" : "12688aaf-c745-4ab5-a64b-0ed4b0c8b241"
+            "Id" : "19d02c19-ea68-420b-8b92-c4208f34880c"
           }
         }, 
-        "Id" : "fa928032-4803-4fb6-98d2-08edea971e17"
+        "Id" : "8f5e2b02-d51d-473e-8c2a-4b01275d975c"
       }, 
       "fac:NetIncomeLossAvailableToCommonStockholdersBasic" : {
         "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic", 
@@ -1194,10 +1159,10 @@
         "To" : {
           "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic" : {
             "Name" : "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic", 
-            "Id" : "c38b8fd5-2ab0-4462-bd06-10ca7cd2453c"
+            "Id" : "a5d316f3-9a21-4da6-9344-b5054b531e31"
           }
         }, 
-        "Id" : "50136d6f-11f1-4280-bd13-c8c592ef121a"
+        "Id" : "1588c523-1f20-43c0-95b5-926dd5e087d6"
       }, 
       "fac:EntityFilerCategory" : {
         "Name" : "fac:EntityFilerCategory", 
@@ -1205,10 +1170,10 @@
         "To" : {
           "dei:EntityFilerCategory" : {
             "Name" : "dei:EntityFilerCategory", 
-            "Id" : "3501895b-c83c-4bb5-8102-8978e42beef5"
+            "Id" : "0d4a05e8-f64f-4fef-bb07-81108da1759d"
           }
         }, 
-        "Id" : "6bea67ed-bf88-4f73-98fd-6370a87e6052"
+        "Id" : "939209d3-5434-4436-a636-66e36e372c98"
       }, 
       "fac:IncomeLossFromContinuingOperationsBeforeTax" : {
         "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTax", 
@@ -1216,14 +1181,14 @@
         "To" : {
           "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments", 
-            "Id" : "88119bcd-9d61-425a-8bd1-3ba514d3f9cb"
+            "Id" : "50765905-a1ab-4593-a742-a84f7ce8fe10"
           }, 
           "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest", 
-            "Id" : "9952d575-c7cc-43f3-98fb-cbba5cc58ffd"
+            "Id" : "2ab4dcbb-3f95-4c47-af72-c9972e5cf3d8"
           }
         }, 
-        "Id" : "4b587ce5-44ac-4a09-8f4b-c8025c83fee9"
+        "Id" : "aeddbae4-63a0-4982-bba7-f47763404186"
       }, 
       "fac:OperatingExpenses" : {
         "Name" : "fac:OperatingExpenses", 
@@ -1231,14 +1196,14 @@
         "To" : {
           "us-gaap:OperatingExpenses" : {
             "Name" : "us-gaap:OperatingExpenses", 
-            "Id" : "99ef0e7b-ffe1-4bd1-baf2-94568b1087be"
+            "Id" : "4bd413f0-2ee4-4852-b7e9-ce545e10e828"
           }, 
           "us-gaap:OperatingCostsAndExpenses" : {
             "Name" : "us-gaap:OperatingCostsAndExpenses", 
-            "Id" : "af175215-9cac-4e0a-ad2f-b56e2275218d"
+            "Id" : "289e6457-3721-40f1-a9d7-98e14b5d0e65"
           }
         }, 
-        "Id" : "1d4ffc61-49e5-4e97-8b59-d1bfcc694ed4"
+        "Id" : "8470e939-9745-48b3-8d5a-4da8cea3ca69"
       }, 
       "fac:NetCashFlowsDiscontinued" : {
         "Name" : "fac:NetCashFlowsDiscontinued", 
@@ -1246,10 +1211,10 @@
         "To" : {
           "us-gaap:NetCashProvidedByUsedInDiscontinuedOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInDiscontinuedOperations", 
-            "Id" : "e82540f6-3e73-49db-9cc7-d868003a7b3c"
+            "Id" : "e8415a25-01fa-4f56-847d-e5147376fcca"
           }
         }, 
-        "Id" : "6a799de8-81bb-4115-baa6-74e39c6087fe"
+        "Id" : "77329c4a-d5f3-437d-9edc-77498e4a63b6"
       }, 
       "fac:Liabilities" : {
         "Name" : "fac:Liabilities", 
@@ -1257,10 +1222,10 @@
         "To" : {
           "us-gaap:Liabilities" : {
             "Name" : "us-gaap:Liabilities", 
-            "Id" : "ab5e6acc-7d77-4455-bb8e-d720963ad7ab"
+            "Id" : "4edf6ae7-0919-4756-9b93-dcb0637fd6d0"
           }
         }, 
-        "Id" : "c797bb70-2fe8-48b1-8103-28cd31b315ca"
+        "Id" : "7083d81c-4851-47ad-a33f-5147d0fa5553"
       }, 
       "fac:ComprehensiveIncomeLossAttributableToParent" : {
         "Name" : "fac:ComprehensiveIncomeLossAttributableToParent", 
@@ -1268,10 +1233,10 @@
         "To" : {
           "us-gaap:ComprehensiveIncomeNetOfTax" : {
             "Name" : "us-gaap:ComprehensiveIncomeNetOfTax", 
-            "Id" : "e063512d-e869-47a0-adda-e83cbcff4cf7"
+            "Id" : "6a1eb0d4-74d8-4fbd-b890-fe04d388fcaf"
           }
         }, 
-        "Id" : "162cd9e5-8eeb-4349-9878-728e1cfdbccb"
+        "Id" : "36e37b04-64bb-426d-a6c9-e2a82dc6f18c"
       }, 
       "fac:CostOfRevenue" : {
         "Name" : "fac:CostOfRevenue", 
@@ -1279,22 +1244,22 @@
         "To" : {
           "us-gaap:CostOfRevenue" : {
             "Name" : "us-gaap:CostOfRevenue", 
-            "Id" : "14f6e204-ecca-4bc5-881a-28fcc7444e71"
+            "Id" : "be2cc426-3691-4feb-9a53-ad63cf85b843"
           }, 
           "us-gaap:CostOfGoodsAndServicesSold" : {
             "Name" : "us-gaap:CostOfGoodsAndServicesSold", 
-            "Id" : "6873b9d3-7ab6-4e3d-8c2b-99745d03bc0a"
+            "Id" : "b55a9135-ceae-42c6-b6c3-e38c970a7a78"
           }, 
           "us-gaap:CostOfServices" : {
             "Name" : "us-gaap:CostOfServices", 
-            "Id" : "bf1ca924-7b58-4e26-81e6-e5975e6d9edc"
+            "Id" : "7d25bb66-320f-4958-a942-90a3c2ff34a0"
           }, 
           "us-gaap:CostOfGoodsSold" : {
             "Name" : "us-gaap:CostOfGoodsSold", 
-            "Id" : "b41b4e92-fdb0-45e8-8aa3-65b7e3647b4d"
+            "Id" : "2b2d1a1c-d4f0-4fc4-8247-aebfb86f7778"
           }
         }, 
-        "Id" : "6e17f01d-2c9d-417f-8c68-49ed485ba590"
+        "Id" : "da7d9535-dec2-48b7-a532-5fc2e59f7e10"
       }, 
       "fac:NetCashFlows" : {
         "Name" : "fac:NetCashFlows", 
@@ -1302,18 +1267,18 @@
         "To" : {
           "us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease" : {
             "Name" : "us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease", 
-            "Id" : "bd872d25-4d10-4aea-b759-0ebf1360b313"
+            "Id" : "306de736-7887-408e-a29b-488a03e93994"
           }, 
           "us-gaap:CashPeriodIncreaseDecrease" : {
             "Name" : "us-gaap:CashPeriodIncreaseDecrease", 
-            "Id" : "2ce0a8ae-5e4d-44a2-995d-358e2590c8ac"
+            "Id" : "b0442974-a7f4-4764-b1ac-5b359ac3cef9"
           }, 
           "us-gaap:NetCashProvidedByUsedInContinuingOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInContinuingOperations", 
-            "Id" : "9f4b395b-29c7-4516-a22e-c4fe17ac8684"
+            "Id" : "f2830469-9df9-4b86-8c66-2cf80162daff"
           }
         }, 
-        "Id" : "611afa66-be37-4238-9c7f-c7d312f44b3e"
+        "Id" : "03ced8bf-bfaf-4b2f-a099-0070660991d4"
       }, 
       "fac:NonoperatingIncomeLoss" : {
         "Name" : "fac:NonoperatingIncomeLoss", 
@@ -1321,10 +1286,10 @@
         "To" : {
           "us-gaap:NonoperatingIncomeExpense" : {
             "Name" : "us-gaap:NonoperatingIncomeExpense", 
-            "Id" : "db2989bf-3f98-4696-9da0-16e6ff631484"
+            "Id" : "96dd0fa2-4244-482e-aba9-75df3f0de85d"
           }
         }, 
-        "Id" : "1c5c270c-88b7-451f-95dd-1ed15e93e85f"
+        "Id" : "073a78d0-6f53-4715-8c52-5434dfe761aa"
       }, 
       "fac:NetCashFlowsFromFinancingActivitiesContinuing" : {
         "Name" : "fac:NetCashFlowsFromFinancingActivitiesContinuing", 
@@ -1332,10 +1297,10 @@
         "To" : {
           "us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations", 
-            "Id" : "640d7682-72b9-4e17-ad61-33cbc86bd489"
+            "Id" : "d59918e9-11b6-42a6-b3cc-cc194aa81cda"
           }
         }, 
-        "Id" : "5421bdbe-b2fb-49ff-a9ec-da1777ab3e69"
+        "Id" : "a69d5218-110d-4122-9b36-474f5b73c749"
       }, 
       "fac:IncomeLossFromContinuingOperationsAfterTax" : {
         "Name" : "fac:IncomeLossFromContinuingOperationsAfterTax", 
@@ -1343,18 +1308,18 @@
         "To" : {
           "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest", 
-            "Id" : "b7f15e52-f874-4158-ae01-770e4cb0a9b5"
+            "Id" : "74d61400-8e48-4ad9-a8bb-5891cc75f1b0"
           }, 
           "us-gaap:IncomeLossBeforeExtraordinaryItemsAndCumulativeEffectOfChangeInAccountingPrinciple" : {
             "Name" : "us-gaap:IncomeLossBeforeExtraordinaryItemsAndCumulativeEffectOfChangeInAccountingPrinciple", 
-            "Id" : "a2d845ff-ea67-4956-a739-5b46e99012b6"
+            "Id" : "05bc52bd-ed84-4caf-9dcf-2bd7776dc241"
           }, 
           "us-gaap:IncomeLossFromContinuingOperations" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperations", 
-            "Id" : "e6655fd7-7cb3-40e1-9f3d-1d912f243c41"
+            "Id" : "7db2fec5-373f-4357-b8e3-61e7f5f4f8e0"
           }
         }, 
-        "Id" : "52eae2d0-f144-468b-97f1-f52b4cfb1319"
+        "Id" : "b411d599-3024-4e91-a9fe-7a4c4f9332a1"
       }, 
       "fac:NetIncomeAttributableToParent" : {
         "Name" : "fac:NetIncomeAttributableToParent", 
@@ -1362,10 +1327,10 @@
         "To" : {
           "us-gaap:NetIncomeLoss" : {
             "Name" : "us-gaap:NetIncomeLoss", 
-            "Id" : "2e976974-e5af-4dd7-945d-c203c327ce5d"
+            "Id" : "472745ea-362d-484f-b85d-59222229c820"
           }
         }, 
-        "Id" : "c5528e35-ce0a-46c3-8f2a-0ea619c23731"
+        "Id" : "47a59d37-7cec-4815-90eb-c6809041e5e2"
       }, 
       "fac:CommitmentsAndContingencies" : {
         "Name" : "fac:CommitmentsAndContingencies", 
@@ -1373,10 +1338,10 @@
         "To" : {
           "us-gaap:CommitmentsAndContingencies" : {
             "Name" : "us-gaap:CommitmentsAndContingencies", 
-            "Id" : "ece3cdec-59d3-4c60-939d-c852db760249"
+            "Id" : "3311107e-61bc-431e-aa37-3b3784f113d3"
           }
         }, 
-        "Id" : "76f129d3-8f10-48df-a829-b4bd55c01591"
+        "Id" : "f6dc2e49-451c-40cd-834b-4a5186c043b3"
       }, 
       "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" : {
         "Name" : "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", 
@@ -1384,10 +1349,10 @@
         "To" : {
           "us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations" : {
             "Name" : "us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations", 
-            "Id" : "ad8baabd-2d87-4859-905c-d4bdd3c33ccc"
+            "Id" : "dc316e40-dd3d-4432-86f2-cd7250da0c6e"
           }
         }, 
-        "Id" : "b2f594ac-14ec-4323-af8d-e187a1dc2ba6"
+        "Id" : "ba4ce76b-05a7-46f1-ac81-d0a3ea052fb8"
       }, 
       "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" : {
         "Name" : "fac:NetCashFlowsFromFinancingActivitiesDiscontinued", 
@@ -1395,10 +1360,10 @@
         "To" : {
           "us-gaap:CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations" : {
             "Name" : "us-gaap:CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations", 
-            "Id" : "1cfd8e8d-e550-4d02-8e45-0f269d23b603"
+            "Id" : "99c3e1f0-4faf-4453-87e9-c2617b1b8d49"
           }
         }, 
-        "Id" : "fdd0dea3-6e91-46f4-b5a5-e497e0bfb906"
+        "Id" : "792e8053-1fd1-4052-80b7-c3647099daef"
       }, 
       "fac:NetIncomeAttributableToNoncontrollingInterest" : {
         "Name" : "fac:NetIncomeAttributableToNoncontrollingInterest", 
@@ -1406,10 +1371,10 @@
         "To" : {
           "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest", 
-            "Id" : "1f9e4cf3-6497-4898-b264-96a937ff8549"
+            "Id" : "d7f71c5c-a7ed-40a2-b592-1fc7d81006bf"
           }
         }, 
-        "Id" : "f1eedfb4-7ccb-41a0-a7f3-a8046ae3cf5b"
+        "Id" : "c5832ad5-094f-4f12-9991-15303b56074b"
       }, 
       "fac:FiscalYearEnd" : {
         "Name" : "fac:FiscalYearEnd", 
@@ -1417,10 +1382,10 @@
         "To" : {
           "dei:CurrentFiscalYearEndDate" : {
             "Name" : "dei:CurrentFiscalYearEndDate", 
-            "Id" : "10733da9-2bd9-4257-a5b4-4407be5b1bb8"
+            "Id" : "5297ff3b-0d8b-4274-8b95-73fad1df2a03"
           }
         }, 
-        "Id" : "27435af9-2b54-4d0c-a6db-d5e46699dc13"
+        "Id" : "e8db794e-17b0-4335-b288-6655e8ec0bca"
       }, 
       "fac:NoncurrentAssets" : {
         "Name" : "fac:NoncurrentAssets", 
@@ -1428,10 +1393,10 @@
         "To" : {
           "us-gaap:AssetsNoncurrent" : {
             "Name" : "us-gaap:AssetsNoncurrent", 
-            "Id" : "72f7baf6-a46f-45c3-9a64-0a66233477c6"
+            "Id" : "78a8aeb6-66b5-4de8-bd45-d147d045da63"
           }
         }, 
-        "Id" : "45cbc36b-e19c-4b7a-88f4-41c0b158195f"
+        "Id" : "4c882455-6e23-4398-9fa0-6ac12dd80b04"
       }, 
       "fac:FiscalPeriod" : {
         "Name" : "fac:FiscalPeriod", 
@@ -1439,10 +1404,10 @@
         "To" : {
           "dei:DocumentFiscalPeriodFocus" : {
             "Name" : "dei:DocumentFiscalPeriodFocus", 
-            "Id" : "64330f91-c0d1-4757-aba9-5b24987652f2"
+            "Id" : "b10919ff-b88a-407e-84ab-69c334824c13"
           }
         }, 
-        "Id" : "64359584-61c5-4f75-b4e4-98bb5df1bbdb"
+        "Id" : "357ac670-ac11-4ce2-803a-1fb7cbf12e1d"
       }, 
       "fac:FiscalYear" : {
         "Name" : "fac:FiscalYear", 
@@ -1450,10 +1415,10 @@
         "To" : {
           "dei:DocumentFiscalYearFocus" : {
             "Name" : "dei:DocumentFiscalYearFocus", 
-            "Id" : "8c4c37bd-c9a0-41ba-85db-705c4eb05b46"
+            "Id" : "ffeeaf3a-794c-4b6c-ba71-f73013ce612f"
           }
         }, 
-        "Id" : "dd43ba70-907c-400c-b5ac-f984c9614968"
+        "Id" : "3155f4fa-fc35-4ec2-a667-a45b5cf226af"
       }, 
       "fac:NetIncomeLoss" : {
         "Name" : "fac:NetIncomeLoss", 
@@ -1461,30 +1426,30 @@
         "To" : {
           "us-gaap:ProfitLoss" : {
             "Name" : "us-gaap:ProfitLoss", 
-            "Id" : "817ac35a-f579-4afe-ad09-de24d0fc55ee"
+            "Id" : "60633ca0-4313-4407-8577-c5bb870bf9b0"
           }, 
           "us-gaap:NetIncomeLoss" : {
             "Name" : "us-gaap:NetIncomeLoss", 
-            "Id" : "6d9d178e-774a-4b68-a1a2-e0b1eb4c8ee0"
+            "Id" : "22a47996-5cc3-48dd-93b3-f15ee6e6277e"
           }, 
           "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic" : {
             "Name" : "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic", 
-            "Id" : "7ae54062-bced-4b06-a807-b01866f2adde"
+            "Id" : "4ac07caf-5443-4c8e-98c8-2b97095af197"
           }, 
           "us-gaap:IncomeLossFromContinuingOperations" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperations", 
-            "Id" : "df269230-c250-4bdd-9dca-04d3a4a92d25"
+            "Id" : "9076ab5c-5c52-4086-b867-27292a53ae0f"
           }, 
           "us-gaap:IncomeLossAttributableToParent" : {
             "Name" : "us-gaap:IncomeLossAttributableToParent", 
-            "Id" : "be8ff5e2-4c38-4606-b62d-afef584050a5"
+            "Id" : "f037c4da-08d7-47c8-8dae-9faf5bb35a59"
           }, 
           "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest", 
-            "Id" : "1c991fb8-0632-44a3-b952-1abc6343aa31"
+            "Id" : "fb683fe6-6175-4e4f-b455-f95ca20b6ed6"
           }
         }, 
-        "Id" : "a917a098-803e-4ffb-b7dc-f4421ce154c0"
+        "Id" : "b5164267-d716-452e-aa19-e77922614ef2"
       }, 
       "fac:ExchangeGainsLosses" : {
         "Name" : "fac:ExchangeGainsLosses", 
@@ -1492,18 +1457,18 @@
         "To" : {
           "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents" : {
             "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents", 
-            "Id" : "ea696b73-bf9a-4051-b705-2c0293f78e09"
+            "Id" : "26df39ea-441a-46d9-8e40-98e4b188e1ce"
           }, 
           "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations" : {
             "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations", 
-            "Id" : "68ac4b3d-2083-4f50-8ce2-5e4cae1d773d"
+            "Id" : "7f75fac8-fcda-4504-b5c2-e0a3b14536b5"
           }, 
           "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations" : {
             "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations", 
-            "Id" : "f8c16447-ffe8-4dcb-bd98-f63f26c6d8ae"
+            "Id" : "4c8c160d-3418-4485-af6f-f77f4c314a59"
           }
         }, 
-        "Id" : "48d0b197-e081-476d-8de9-0f6cd9b26771"
+        "Id" : "99cea5bd-1fee-4ccd-bc18-1d9cbd045bd7"
       }, 
       "fac:GrossProfit" : {
         "Name" : "fac:GrossProfit", 
@@ -1511,10 +1476,10 @@
         "To" : {
           "us-gaap:GrossProfit" : {
             "Name" : "us-gaap:GrossProfit", 
-            "Id" : "1c1baf03-59e2-485d-b277-a75b09c4b203"
+            "Id" : "632bc06e-34d2-4ed9-b9cb-c04667c51079"
           }
         }, 
-        "Id" : "6e0ae3db-ae59-44cc-8512-9f605f617b1d"
+        "Id" : "1b2165c5-9d51-4d3a-aa89-83bcb2b7d342"
       }, 
       "fac:EquityAttributableToNoncontrollingInterest" : {
         "Name" : "fac:EquityAttributableToNoncontrollingInterest", 
@@ -1522,42 +1487,42 @@
         "To" : {
           "us-gaap:MinorityInterest" : {
             "Name" : "us-gaap:MinorityInterest", 
-            "Id" : "70eb0816-d6b8-47a9-8702-bbcb617412df"
+            "Id" : "22c9ec20-42b4-4546-9a7f-1dd835d9d7af"
           }, 
           "us-gaap:PartnersCapitalAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:PartnersCapitalAttributableToNoncontrollingInterest", 
-            "Id" : "e8687ae0-9b0c-43cc-b41f-9c6f3528e7fa"
+            "Id" : "f327ef02-45a2-4e8f-82b5-5027d67ff22b"
           }, 
           "us-gaap:MinorityInterestInLimitedPartnerships" : {
             "Name" : "us-gaap:MinorityInterestInLimitedPartnerships", 
-            "Id" : "43f3d61b-1c6e-41bf-9704-47f8fe12e41b"
+            "Id" : "19df2274-d288-4310-b091-7df23534ef90"
           }, 
           "us-gaap:MinorityInterestInOperatingPartnerships" : {
             "Name" : "us-gaap:MinorityInterestInOperatingPartnerships", 
-            "Id" : "108bf842-62c2-4691-b328-8bacd617a5c7"
+            "Id" : "703e568c-ce77-40b2-bc06-3b2fe947c4cc"
           }, 
           "us-gaap:MinorityInterestInPreferredUnitHolders" : {
             "Name" : "us-gaap:MinorityInterestInPreferredUnitHolders", 
-            "Id" : "93731252-4026-4293-aba2-99d5f822cd61"
+            "Id" : "ebe44195-4153-493a-9982-c1f00ac27512"
           }, 
           "us-gaap:MinorityInterestInJointVentures" : {
             "Name" : "us-gaap:MinorityInterestInJointVentures", 
-            "Id" : "fa373f7e-5592-447c-aa41-cb1526a37f0b"
+            "Id" : "b1da4617-01f6-4da3-a40f-2d44397a2cf9"
           }, 
           "us-gaap:OtherMinorityInterests" : {
             "Name" : "us-gaap:OtherMinorityInterests", 
-            "Id" : "33ef5168-71d6-4a20-9f22-b1045ccc6f52"
+            "Id" : "7fcf84da-f1ca-4cc0-ba44-945831aee050"
           }, 
           "us-gaap:NonredeemableNoncontrollingInterest" : {
             "Name" : "us-gaap:NonredeemableNoncontrollingInterest", 
-            "Id" : "0e5f0563-df05-4d1c-aac9-bf4c88eece28"
+            "Id" : "10199204-e6df-492b-a25c-160d1f4d17f3"
           }, 
           "us-gaap:NoncontrollingInterestInVariableInterestEntity" : {
             "Name" : "us-gaap:NoncontrollingInterestInVariableInterestEntity", 
-            "Id" : "8af3bab5-9c5c-4c0a-adf7-8b142b87b6a1"
+            "Id" : "77293bf4-3640-4210-ab73-f5436ff46dc4"
           }
         }, 
-        "Id" : "5a8e3b58-ae40-4397-9486-edf9bf6e427c"
+        "Id" : "1636709f-e87c-4a40-897f-d5986c9c356a"
       }, 
       "fac:CostsAndExpenses" : {
         "Name" : "fac:CostsAndExpenses", 
@@ -1565,14 +1530,14 @@
         "To" : {
           "us-gaap:CostsAndExpenses" : {
             "Name" : "us-gaap:CostsAndExpenses", 
-            "Id" : "50adecaa-ab45-409a-b0fb-b1b564cd9438"
+            "Id" : "69657de5-aed4-4cb4-9ed0-d5db9bbdaa9c"
           }, 
           "us-gaap:BenefitsLossesAndExpenses" : {
             "Name" : "us-gaap:BenefitsLossesAndExpenses", 
-            "Id" : "8ab02b39-2cb8-493e-9f7a-415ccdea865c"
+            "Id" : "016ee4fd-1ced-4c0b-9ea0-dd9b2b096f92"
           }
         }, 
-        "Id" : "5bde6a9c-da73-4fe7-9a0a-20dac122ec8f"
+        "Id" : "597781a3-83f9-4e99-82da-9972bbb7b22d"
       }, 
       "fac:CurrentLiabilities" : {
         "Name" : "fac:CurrentLiabilities", 
@@ -1580,10 +1545,10 @@
         "To" : {
           "us-gaap:LiabilitiesCurrent" : {
             "Name" : "us-gaap:LiabilitiesCurrent", 
-            "Id" : "f2da58ad-58ec-4661-9570-3deaf43e6303"
+            "Id" : "1595b29a-6b6f-4cfc-8de2-adab5c8456d4"
           }
         }, 
-        "Id" : "e4fe868b-08b5-4446-ad46-7fab18dc931b"
+        "Id" : "1e727def-6aa1-4831-854b-056b7ac7fae7"
       }, 
       "fac:NetCashFlowsFromOperatingActivities" : {
         "Name" : "fac:NetCashFlowsFromOperatingActivities", 
@@ -1591,10 +1556,10 @@
         "To" : {
           "us-gaap:NetCashProvidedByUsedInOperatingActivities" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-            "Id" : "8e216a3f-dd58-469d-a91c-dacff7fef8fe"
+            "Id" : "fdcef487-dc84-49e4-bc6b-65a47a338704"
           }
         }, 
-        "Id" : "e5f868a4-008b-46e1-8bec-2da6cc871657"
+        "Id" : "8363034f-85c3-43d6-b79a-458ef80dbb33"
       }, 
       "fac:IncomeLossFromDiscontinuedOperationsNetTax" : {
         "Name" : "fac:IncomeLossFromDiscontinuedOperationsNetTax", 
@@ -1602,18 +1567,18 @@
         "To" : {
           "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTax" : {
             "Name" : "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTax", 
-            "Id" : "3aedf02e-b396-422f-a943-9bf875b217a4"
+            "Id" : "181316cc-b5f9-44c7-9c99-89f9122fdb64"
           }, 
           "us-gaap:DiscontinuedOperationGainLossOnDisposalOfDiscontinuedOperationNetOfTax" : {
             "Name" : "us-gaap:DiscontinuedOperationGainLossOnDisposalOfDiscontinuedOperationNetOfTax", 
-            "Id" : "710f0181-b048-4f0b-8534-88eaaf98b753"
+            "Id" : "0d532ea3-6f82-4843-aa2b-db331d1dee6e"
           }, 
           "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity" : {
             "Name" : "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity", 
-            "Id" : "ea8b8973-46fd-4d81-856e-8e9f395ec16b"
+            "Id" : "05445a31-648b-4d17-adee-aa3f8adbea79"
           }
         }, 
-        "Id" : "177bec70-9b6c-406e-af2e-33cd0f535029"
+        "Id" : "9abcb2f2-e290-45d4-8bd8-d3806b52e403"
       }, 
       "fac:ExtraordinaryItemsIncomeExpenseNetTax" : {
         "Name" : "fac:ExtraordinaryItemsIncomeExpenseNetTax", 
@@ -1621,10 +1586,10 @@
         "To" : {
           "us-gaap:ExtraordinaryItemNetOfTax" : {
             "Name" : "us-gaap:ExtraordinaryItemNetOfTax", 
-            "Id" : "c3399671-2aae-4744-8598-915ec5b0a9be"
+            "Id" : "deedfae1-c498-46f0-b685-aa23dd5421fb"
           }
         }, 
-        "Id" : "1696155f-00cb-4a8f-bc5e-c3e60a6351d8"
+        "Id" : "ee671db2-27af-4a5a-8457-64725c1e3050"
       }, 
       "fac:OperatingIncomeLoss" : {
         "Name" : "fac:OperatingIncomeLoss", 
@@ -1632,10 +1597,10 @@
         "To" : {
           "us-gaap:OperatingIncomeLoss" : {
             "Name" : "us-gaap:OperatingIncomeLoss", 
-            "Id" : "84882929-f105-48f2-a2d7-97ace57fef8f"
+            "Id" : "7fbc4329-1e0f-492a-9cf6-d8dcd155c8a2"
           }
         }, 
-        "Id" : "7e253af8-8779-4c68-bde4-4a5f8db9ae28"
+        "Id" : "246e80e2-4fa6-4fe8-b58a-e5f0867de76d"
       }, 
       "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" : {
         "Name" : "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", 
@@ -1643,10 +1608,10 @@
         "To" : {
           "us-gaap:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations" : {
             "Name" : "us-gaap:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations", 
-            "Id" : "d8be8c69-51bc-414f-8c18-c1af630eb01c"
+            "Id" : "a0f59d64-87c9-416e-a118-57151704c731"
           }
         }, 
-        "Id" : "a818c629-8e07-44b5-be5d-556fc449da3c"
+        "Id" : "4a4d2947-511d-46c8-9d53-2c8cab3755a3"
       }, 
       "fac:OtherComprehensiveIncomeLoss" : {
         "Name" : "fac:OtherComprehensiveIncomeLoss", 
@@ -1654,10 +1619,10 @@
         "To" : {
           "us-gaap:OtherComprehensiveIncomeLossNetOfTax" : {
             "Name" : "us-gaap:OtherComprehensiveIncomeLossNetOfTax", 
-            "Id" : "906c6d2a-e4da-41a8-974c-fbea7374351a"
+            "Id" : "31c04c0d-cb55-4f1e-8144-590de1f4cd57"
           }
         }, 
-        "Id" : "52729dae-7372-42eb-aaba-00c6436816c0"
+        "Id" : "d451751d-53eb-4486-9df0-019fe91b58d8"
       }, 
       "fac:NetCashFlowsFromInvestingActivitiesContinuing" : {
         "Name" : "fac:NetCashFlowsFromInvestingActivitiesContinuing", 
@@ -1665,10 +1630,10 @@
         "To" : {
           "us-gaap:NetCashProvidedByUsedInInvestingActivitiesContinuingOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInInvestingActivitiesContinuingOperations", 
-            "Id" : "bf498e36-d21f-4bd3-8c10-80cd28b6944e"
+            "Id" : "815599b0-f3ab-4d48-9bb0-99413bb93208"
           }
         }, 
-        "Id" : "e3486493-ea5e-46bf-8b83-5b1ea48297ff"
+        "Id" : "c0ce069d-b6c2-41db-9f92-bdce9a862c49"
       }, 
       "fac:BalanceSheetDate" : {
         "Name" : "fac:BalanceSheetDate", 
@@ -1676,10 +1641,10 @@
         "To" : {
           "dei:DocumentPeriodEndDate" : {
             "Name" : "dei:DocumentPeriodEndDate", 
-            "Id" : "5c133731-dbd9-4ae4-b08d-594dd63810a8"
+            "Id" : "fc76f9b2-4f42-4f4f-818a-824924b45db2"
           }
         }, 
-        "Id" : "f9de76be-27f4-46fc-9286-c389e93466c8"
+        "Id" : "df7711f4-da56-4905-a5a7-e6f302f928d2"
       }, 
       "fac:LiabilitiesAndEquity" : {
         "Name" : "fac:LiabilitiesAndEquity", 
@@ -1687,14 +1652,14 @@
         "To" : {
           "us-gaap:LiabilitiesAndStockholdersEquity" : {
             "Name" : "us-gaap:LiabilitiesAndStockholdersEquity", 
-            "Id" : "81a4fafb-e2f6-4247-bba0-d25a87e65b49"
+            "Id" : "9395f54e-c718-4cb0-ae32-292f90828132"
           }, 
           "us-gaap:LiabilitiesAndPartnersCapital" : {
             "Name" : "us-gaap:LiabilitiesAndPartnersCapital", 
-            "Id" : "d00dbc95-c971-460d-a4ba-84195c9f08f0"
+            "Id" : "9218d081-a9ba-4408-bee4-cc8b3ca579fe"
           }
         }, 
-        "Id" : "fe7a2526-7e0b-4680-82a6-cf065e2cb433"
+        "Id" : "9c69663a-83da-443f-b655-a97ef548a4af"
       }, 
       "fac:Equity" : {
         "Name" : "fac:Equity", 
@@ -1702,34 +1667,34 @@
         "To" : {
           "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
-            "Id" : "ba75ba9f-413f-439c-a344-ec78d693a0b0"
+            "Id" : "ca33c20d-690f-4614-ac2b-525f1b336eff"
           }, 
           "us-gaap:StockholdersEquity" : {
             "Name" : "us-gaap:StockholdersEquity", 
-            "Id" : "4431187b-2ac5-4fd8-8023-eacc74913627"
+            "Id" : "bf0635dc-e8c0-428f-b44e-78cec721179e"
           }, 
           "us-gaap:PartnersCapitalIncludingPortionAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:PartnersCapitalIncludingPortionAttributableToNoncontrollingInterest", 
-            "Id" : "64cd3c18-c9f6-472a-bd9e-d3e252460dab"
+            "Id" : "ead36051-7319-46cf-9520-80cbc6806318"
           }, 
           "us-gaap:PartnersCapital" : {
             "Name" : "us-gaap:PartnersCapital", 
-            "Id" : "c8914c02-12ea-4824-b6d5-1cdc13b99285"
+            "Id" : "86d10a99-c26a-49a1-b978-3f8cb08afc4b"
           }, 
           "us-gaap:CommonStockholdersEquity" : {
             "Name" : "us-gaap:CommonStockholdersEquity", 
-            "Id" : "5e4bebfa-ebc0-4444-ad05-dc1991d366b6"
+            "Id" : "2c4624e3-9840-4305-9c09-9ecffe10760a"
           }, 
           "us-gaap:MembersEquity" : {
             "Name" : "us-gaap:MembersEquity", 
-            "Id" : "6a7228fc-7370-42d7-9b61-3ebda2cbdb59"
+            "Id" : "cee8e0b9-bd28-4c0b-ad4c-dd5ee2f5daa0"
           }, 
           "us-gaap:AssetsNet" : {
             "Name" : "us-gaap:AssetsNet", 
-            "Id" : "fff28a64-d3db-4801-a8d9-2b5e5c965c21"
+            "Id" : "f20bbcf1-31a7-4b23-87a9-9f232582b8cb"
           }
         }, 
-        "Id" : "01afb5ff-6a75-4ca9-8ad2-28ab189c5ac5"
+        "Id" : "e8f74834-bdb0-48cf-9663-28a92e1f1127"
       }, 
       "fac:DocumentType" : {
         "Name" : "fac:DocumentType", 
@@ -1737,10 +1702,10 @@
         "To" : {
           "dei:DocumentType" : {
             "Name" : "dei:DocumentType", 
-            "Id" : "aae5b42b-73f1-4280-b18f-bd8d9dfa5224"
+            "Id" : "db93a09a-7e44-47fa-a857-f22d6f2305d7"
           }
         }, 
-        "Id" : "4134a0e2-3fc5-4f55-880b-91c05277ca2b"
+        "Id" : "8f72ed83-0ae2-4191-aaf7-caaa09d54de6"
       }, 
       "fac:IncomeLossFromEquityMethodInvestments" : {
         "Name" : "fac:IncomeLossFromEquityMethodInvestments", 
@@ -1748,10 +1713,10 @@
         "To" : {
           "us-gaap:IncomeLossFromEquityMethodInvestments" : {
             "Name" : "us-gaap:IncomeLossFromEquityMethodInvestments", 
-            "Id" : "809b3fe6-a6d1-4a4e-a964-5c3b71585e13"
+            "Id" : "c2fae18d-a1c6-45d1-9aec-d0f844ba78e7"
           }
         }, 
-        "Id" : "bf34da69-7e33-4ba0-a418-bf5f6ff6bc4f"
+        "Id" : "9856be7e-52a8-403f-b686-d1ef542a947c"
       }, 
       "fac:ComprehensiveIncomeLoss" : {
         "Name" : "fac:ComprehensiveIncomeLoss", 
@@ -1759,14 +1724,14 @@
         "To" : {
           "us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest", 
-            "Id" : "bfa4510b-2e03-48cf-9e97-c8244d8c3139"
+            "Id" : "01baa298-9848-41fc-ac2f-9df9dc7228e2"
           }, 
           "us-gaap:ComprehensiveIncomeNetOfTax" : {
             "Name" : "us-gaap:ComprehensiveIncomeNetOfTax", 
-            "Id" : "0359b755-4fe5-44d7-80ea-951699264f60"
+            "Id" : "077db573-fa7e-4cb3-aa9e-aa9cf04fb8eb"
           }
         }, 
-        "Id" : "97e33702-752e-4fe8-9257-47a6b0786537"
+        "Id" : "d5ec6aee-4064-4fec-8b38-0dc9c0e35999"
       }, 
       "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest" : {
         "Name" : "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
@@ -1774,10 +1739,10 @@
         "To" : {
           "us-gaap:ComprehensiveIncomeNetOfTaxAttributableToNoncontrollingInterest" : {
             "Name" : "us-gaap:ComprehensiveIncomeNetOfTaxAttributableToNoncontrollingInterest", 
-            "Id" : "99e608be-ab85-420f-a860-06ed35df3059"
+            "Id" : "4a3f299a-8e79-451d-b408-1728a472d98e"
           }
         }, 
-        "Id" : "af1ac2ec-bfe6-4ff7-b1a8-70fff98bcea6"
+        "Id" : "035819d1-0c4b-48fb-8faa-ccc088f0224d"
       }, 
       "fac:CurrentAssets" : {
         "Name" : "fac:CurrentAssets", 
@@ -1785,10 +1750,10 @@
         "To" : {
           "us-gaap:AssetsCurrent" : {
             "Name" : "us-gaap:AssetsCurrent", 
-            "Id" : "986e7dcb-b086-4056-965b-55c2deb40554"
+            "Id" : "fd39bfed-2bb6-49b9-9074-328311517a80"
           }
         }, 
-        "Id" : "22ece9ea-518f-4b26-879e-217d7cf0104f"
+        "Id" : "1f6d48e4-1d47-4d5b-8517-29b7764b9c9a"
       }, 
       "fac:NetCashFlowsFromOperatingActivitiesContinuing" : {
         "Name" : "fac:NetCashFlowsFromOperatingActivitiesContinuing", 
@@ -1796,10 +1761,10 @@
         "To" : {
           "us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations", 
-            "Id" : "a217f17a-7f65-4805-b3a5-01af711abd46"
+            "Id" : "48c92ff0-fe98-4dd5-b0d5-4e16b1902222"
           }
         }, 
-        "Id" : "e526f608-19b6-48ca-ab53-52c355e2da68"
+        "Id" : "8c1990e3-92ee-495a-8f1b-16fafd601b7b"
       }, 
       "fac:NetCashFlowsFromFinancingActivities" : {
         "Name" : "fac:NetCashFlowsFromFinancingActivities", 
@@ -1807,10 +1772,10 @@
         "To" : {
           "us-gaap:NetCashProvidedByUsedInFinancingActivities" : {
             "Name" : "us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-            "Id" : "accae6ad-46da-413c-b434-306def7151ac"
+            "Id" : "62605fc8-42c1-4113-86d7-e79199b91b7f"
           }
         }, 
-        "Id" : "4008efa3-5396-45e2-901d-4a3fa6cf3e56"
+        "Id" : "46f4cf55-b374-4997-8485-b45a19923614"
       }, 
       "fac:RedeemableNoncontrollingInterest" : {
         "Name" : "fac:RedeemableNoncontrollingInterest", 
@@ -1818,22 +1783,22 @@
         "To" : {
           "us-gaap:RedeemableNoncontrollingInterestEquityCarryingAmount" : {
             "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCarryingAmount", 
-            "Id" : "1ec1908a-5a95-437c-89da-b56afa563d65"
+            "Id" : "ff83bd5e-452e-469c-8e3c-dfdad75c7e0a"
           }, 
           "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" : {
             "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount", 
-            "Id" : "ebc30a8d-e77e-4dd1-b252-76195f2e792c"
+            "Id" : "ff86b9b1-6c49-44bc-9221-442ba6dda242"
           }, 
           "us-gaap:RedeemableNoncontrollingInterestEquityPreferredCarryingAmount" : {
             "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityPreferredCarryingAmount", 
-            "Id" : "6927f5d2-b62b-430e-87bc-7a554bce3071"
+            "Id" : "5414d30c-2f01-4d9a-b424-c6accd6abd86"
           }, 
           "us-gaap:RedeemableNoncontrollingInterestEquityOtherCarryingAmount" : {
             "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityOtherCarryingAmount", 
-            "Id" : "52211f2a-9ceb-467a-930e-78d6ccc7bf86"
+            "Id" : "3d65c847-f0cd-434c-9b16-64836775d2af"
           }
         }, 
-        "Id" : "b1acbe3f-355b-4cd1-86ea-d06e6aa7a4a1"
+        "Id" : "be981102-0b02-41d0-8868-6d3bf7d48553"
       }, 
       "fac:TemporaryEquity" : {
         "Name" : "fac:TemporaryEquity", 
@@ -1841,45 +1806,34 @@
         "To" : {
           "us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests" : {
             "Name" : "us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests", 
-            "Id" : "9f30b2d3-4f56-4a85-92c5-294b602c7390"
+            "Id" : "099675a7-27f0-4ad1-bb08-cf778d02723b"
           }, 
           "us-gaap:TemporaryEquityRedemptionValue" : {
             "Name" : "us-gaap:TemporaryEquityRedemptionValue", 
-            "Id" : "41535046-b368-4f96-b9e9-ac795d16f2a3"
+            "Id" : "6914f034-7469-4765-a382-4fda5d5f4214"
           }, 
           "us-gaap:RedeemablePreferredStockCarryingAmount" : {
             "Name" : "us-gaap:RedeemablePreferredStockCarryingAmount", 
-            "Id" : "17133e20-d802-42b6-badb-a4df15b0a9ca"
+            "Id" : "fb628cc2-a11c-45bd-b05d-0150adcaba70"
           }, 
           "us-gaap:TemporaryEquityCarryingAmount" : {
             "Name" : "us-gaap:TemporaryEquityCarryingAmount", 
-            "Id" : "e61b7401-30e9-4531-9979-5da39d46aef5"
+            "Id" : "7038aaea-9d86-4cc7-9dd1-6004004bd394"
           }, 
           "us-gaap:TemporaryEquityValueExcludingAdditionalPaidInCapital" : {
             "Name" : "us-gaap:TemporaryEquityValueExcludingAdditionalPaidInCapital", 
-            "Id" : "2b26dff6-a855-4745-b465-c6bf757d7e25"
+            "Id" : "03245243-7c9a-4040-aca5-cf801f0f1a0e"
           }, 
           "us-gaap:RedeemableNoncontrollingInterestEquityFairValue" : {
             "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityFairValue", 
-            "Id" : "82052929-8ea4-49ad-b129-beeae8aa324a"
+            "Id" : "ba6a7e75-42d4-4984-96b5-6af80f4f68f3"
           }, 
           "us-gaap:TemporaryEquityCarryingAmountAttributableToParent" : {
             "Name" : "us-gaap:TemporaryEquityCarryingAmountAttributableToParent", 
-            "Id" : "7035ec27-91ca-4aab-ba2c-cd9aa5320c91"
+            "Id" : "88357649-2be2-4112-a366-95b12c76ed65"
           }
         }, 
-        "Id" : "a1dd7353-5bda-48de-a0bd-e3535697ef2b"
-      }, 
-      "oag:ReservesProvedNaturalGas" : {
-        "Id" : "cd7ff458-641a-4a8f-b313-4dae8b51ed51", 
-        "Name" : "oag:ReservesProvedNaturalGas", 
-        "To" : {
-          "us-gaap:ProvedDevelopedReservesVolume" : {
-            "Name" : "us-gaap:ProvedDevelopedReservesVolume", 
-            "Order" : 1, 
-            "Id" : "215b497b-aa57-47c8-be08-029751e5d7ee"
-          }
-        }
+        "Id" : "0dca4bc2-e289-4c90-8c30-429be9f72ce2"
       }
     }
   } ], 
@@ -1890,7 +1844,7 @@
       "Aspects" : {
         "xbrl:Concept" : {
           "Name" : "xbrl:Concept", 
-          "Label" : "Concept", 
+          "Label" : "Implicit XBRL Concept Dimension", 
           "Domains" : {
             "xbrl:ConceptDomain" : {
               "Name" : "xbrl:ConceptDomain", 
@@ -1972,11 +1926,11 @@
                 }, 
                 "fac:AssetsValidation" : {
                   "Name" : "fac:AssetsValidation", 
-                  "Label" : "Assets = LiabilitiesAndEquity"
-                }, 
-                "fac:AssetsValidation2" : {
-                  "Name" : "fac:AssetsValidation2", 
                   "Label" : "Assets = CurrentAssets + NoncurrentAssets"
+                }, 
+                "fac:Assets2Validation" : {
+                  "Name" : "fac:Assets2Validation", 
+                  "Label" : "Assets = LiabilitiesAndEquity"
                 }, 
                 "fac:EquityValidation" : {
                   "Name" : "fac:EquityValidation", 
@@ -2340,11 +2294,16 @@
         }, 
         "xbrl:Period" : {
           "Name" : "xbrl:Period", 
-          "Label" : "Period"
+          "Label" : "Implicit XBRL Period Dimension"
         }, 
         "xbrl:Entity" : {
           "Name" : "xbrl:Entity", 
-          "Label" : "Reporting Entity"
+          "Label" : "Implicit XBRL Entity Dimension"
+        }, 
+        "dei:LegalEntityAxis" : {
+          "Name" : "dei:LegalEntityAxis", 
+          "Label" : "Legal Entity Dimension", 
+          "Default" : "sec:DefaultLegalEntity"
         }, 
         "xbrl:Unit" : {
           "Name" : "xbrl:Unit", 
@@ -2359,12 +2318,7 @@
           "Name" : "sec:Archive", 
           "Label" : "Archive ID", 
           "Kind" : "TypedDimension", 
-          "Type" : "string", 
-          "DomainRestriction" : {
-            "Name" : "sec:ArchiveDomain", 
-            "Label" : "sec:Archive Domain", 
-            "Enumeration" : [ "0000021344-14-000008", "0000104169-14-000019" ]
-          }
+          "Type" : "string"
         }, 
         "sec:FiscalYear" : {
           "Name" : "sec:FiscalYear", 
@@ -2373,760 +2327,918 @@
         "sec:FiscalPeriod" : {
           "Name" : "sec:FiscalPeriod", 
           "Label" : "Fiscal Period"
-        }, 
-        "dei:LegalEntityAxis" : {
-          "Name" : "dei:LegalEntityAxis", 
-          "Label" : "Legal Entity", 
-          "Default" : "sec:DefaultLegalEntity"
         }
       }
     }
-  },
-  "DefinitionModels" : [ {
-    "ModelKind" : "DefinitionModel", 
-    "Labels" : [ "Fundamental Accounting Concepts" ], 
-    "Parameters" : {
-
-    }, 
-    "Breakdowns" : {
-      "x" : [ {
-        "BreakdownLabels" : [ "Reporting Entity Breakdown" ], 
-        "BreakdownTrees" : [ {
-          "Kind" : "Rule", 
-          "Abstract" : true, 
-          "Labels" : [ "Reporting Entity [Axis]" ], 
-          "Children" : [ {
-            "Kind" : "Aspect", 
-            "Aspect" : "xbrl:Entity"
-          } ]
-        } ]
-      }, {
-        "BreakdownLabels" : [ "Fiscal Year Breakdown" ], 
-        "BreakdownTrees" : [ {
-          "Kind" : "Rule", 
-          "Abstract" : true, 
-          "Labels" : [ "Fiscal Year [Axis]" ], 
-          "Children" : [ {
-            "Kind" : "Aspect", 
-            "Aspect" : "sec:FiscalYear"
-          } ]
-        } ]
-      }, {
-        "BreakdownLabels" : [ "Fiscal Period Breakdown" ], 
-        "BreakdownTrees" : [ {
-          "Kind" : "Rule", 
-          "Abstract" : true, 
-          "Labels" : [ "Fiscal Period [Axis]" ], 
-          "Children" : [ {
-            "Kind" : "Aspect", 
-            "Aspect" : "sec:FiscalPeriod"
-          } ]
-        } ]
-      } ], 
-      "y" : [ {
-        "BreakdownLabels" : [ "Breakdown on concepts" ], 
-        "BreakdownTrees" : [ {
-          "Kind" : "ConceptRelationship", 
-          "LinkName" : "link:presentationLink", 
-          "LinkRole" : "http://xbrl.io/fundamental-accounting-concepts", 
-          "ArcName" : "link:presentationArc", 
-          "ArcRole" : "http://www.xbrl.org/2003/arcrole/parent-child", 
-          "RelationshipSource" : "fac:FundamentalAccountingConceptsLineItems", 
-          "FormulaAxis" : "descendant", 
-          "Generations" : 0
-        } ]
-      } ]
-    }, 
-    "TableFilters" : {
-
-    }
-  } ],
-  "Rules" : [ {
-    "Id" : "gi_IncomeStatementStartPeriod", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Income Statement Start Period imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:CostOfRevenue\", \"fac:GrossProfit\", \"fac:Revenues\", \"fac:CostsAndExpenses\", \"fac:OperatingIncomeLoss\", \"fac:OtherOperatingIncomeExpenses\", \"fac:OperatingExpenses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"] let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"] let $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"] return switch(true) case (exists($facts)) return let $source-fact := $facts[1] let $computed-value := facts:duration-for-fact($source-fact).Start let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:IncomeStatementStartPeriod\" }, Value: $computed-value, Type: \"NonNumericValue\" }) || \" = \" || \"facts:duration-for-fact(\" || rules:fact-trail($source-fact) || \").Start\" return copy $newfact := rules:create-computed-fact( $source-fact, \"fac:IncomeStatementStartPeriod\", $computed-value, $rule, $audit-trail-message, $source-fact, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return ()", 
-    "ComputableConcepts" : [ "fac:IncomeStatementStartPeriod" ], 
-    "DependsOn" : [ "fac:GrossProfit", "fac:Revenues", "fac:CostsAndExpenses", "fac:OperatingIncomeLoss", "fac:OtherOperatingIncomeExpenses", "fac:OperatingExpenses" ]
-  }, {
-    "Id" : "gi_TradingSymbol", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "TradingSymbol imputation", 
-    "Formula" : "import module namespace entities = \"http://xbrl.io/modules/bizql/entities\"; for $facts in facts:facts-for-internal(( \"fac:TradingSymbol\", \"fac:Assets\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $TradingSymbol as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TradingSymbol\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch (true) case (exists($TradingSymbol)) return $TradingSymbol case (exists($Assets)) return let $computed-value := entities:entities($Assets.Aspects.\"xbrl:Entity\").Profiles.SEC.Tickers[[1]] let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:TradingSymbol\" }, Value: $computed-value }) || \" = external source\" return copy $newfact := rules:create-computed-fact( $Assets, \"fac:TradingSymbol\", if (exists($computed-value)) then $computed-value else \"N/A\", $rule, $audit-trail-message, $Assets, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return {}", 
-    "ComputableConcepts" : [ "fac:TradingSymbol" ], 
-    "DependsOn" : [ "fac:TradingSymbol", "fac:Assets" ]
-  }, {
-    "Id" : "bs_BalanceSheetFormat", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Balance Sheet Format imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:BalanceSheetFormat\", \"fac:DocumentType\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:NoncurrentLiabilities\", \"fac:CurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, $facts:UNIT, \"Balance\")), $aligned-period let $BalanceSheetFormat as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:BalanceSheetFormat\"] let $DocumentType as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:DocumentType\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] return switch (true) case exists($BalanceSheetFormat) return $BalanceSheetFormat case(exists($DocumentType)) return let $computed-value := if (rules:decimal-value($CurrentAssets) eq 0 and rules:decimal-value($NoncurrentAssets) eq 0 and rules:decimal-value($NoncurrentLiabilities) eq 0 and rules:decimal-value($CurrentLiabilities) eq 0) then \"Unclassified\" else \"Classified\" let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:BalanceSheetFormat\" }, Value: $computed-value , Type: \"NonNumericValue\" }) || \" = \" || $computed-value || \" (because \" || rules:fact-trail($CurrentAssets, \"fac:CurrentAssets\") || \", \" || rules:fact-trail($NoncurrentAssets, \"fac:NoncurrentAssets\") || \", \" || rules:fact-trail($NoncurrentLiabilities, \"fac:NoncurrentLiabilities\") || \", \" || rules:fact-trail($CurrentLiabilities, \"fac:CurrentLiabilities\") || \")\" let $source-facts := ( $CurrentAssets, $NoncurrentAssets, $NoncurrentLiabilities, $CurrentLiabilities) return copy $newfact := rules:create-computed-fact( ($DocumentType, $source-facts)[1], \"fac:BalanceSheetFormat\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return ()", 
-    "ComputableConcepts" : [ "fac:BalanceSheetFormat" ], 
-    "DependsOn" : [ "fac:DocumentType", "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:NoncurrentLiabilities", "fac:CurrentLiabilities" ]
-  }, {
-    "Id" : "bs_CurrentAssets", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "CurrentAssets imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:CurrentAssets\", \"fac:Assets\", \"fac:NoncurrentAssets\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch (true) case (exists($CurrentAssets)) return $CurrentAssets case (exists($Assets) and exists($NoncurrentAssets)) return let $computed-value := rules:decimal-value($Assets) - rules:decimal-value($NoncurrentAssets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:CurrentAssets\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Assets, \"Assets\") || \" - \" || rules:fact-trail($NoncurrentAssets, \"NoncurrentAssets\") let $source-facts := ($Assets, $NoncurrentAssets) return rules:create-computed-fact( $Assets, \"fac:CurrentAssets\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:CurrentAssets" ], 
-    "DependsOn" : [ "fac:Assets", "fac:NoncurrentAssets" ]
-  }, {
-    "Id" : "bs_Equity", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Equity imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Equity\", \"fac:EquityAttributableToNoncontrollingInterest\", \"fac:EquityAttributableToParent\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $EquityAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToNoncontrollingInterest\"] let $EquityAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToParent\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($Equity)) return $Equity case (exists($EquityAttributableToNoncontrollingInterest) or exists($EquityAttributableToParent)) return let $computed-value := rules:decimal-value($EquityAttributableToNoncontrollingInterest) + rules:decimal-value($EquityAttributableToParent) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Equity\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($EquityAttributableToNoncontrollingInterest, \"EquityAttributableToNoncontrollingInterest\") || \" + \" || rules:fact-trail($EquityAttributableToParent, \"EquityAttributableToParent\") let $source-facts := ($EquityAttributableToNoncontrollingInterest, $EquityAttributableToParent) return rules:create-computed-fact( $source-facts[1], \"fac:Equity\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:Equity" ], 
-    "DependsOn" : [ "fac:EquityAttributableToNoncontrollingInterest", "fac:EquityAttributableToParent" ]
-  }, {
-    "Id" : "bs_EquityAttributableToParent", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Equity Attributable ToParent imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:EquityAttributableToParent\", \"fac:Equity\", \"fac:EquityAttributableToNoncontrollingInterest\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $EquityAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToParent\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $EquityAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToNoncontrollingInterest\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($EquityAttributableToParent)) return $EquityAttributableToParent case (exists($Equity)) return let $computed-value := rules:decimal-value($Equity) - rules:decimal-value($EquityAttributableToNoncontrollingInterest) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:EquityAttributableToParent\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Equity, \"Equity\") || \" - \" || rules:fact-trail($EquityAttributableToNoncontrollingInterest, \"EquityAttributableToNoncontrollingInterest\") let $source-facts := ($Equity, $EquityAttributableToNoncontrollingInterest) return rules:create-computed-fact( $Equity, \"fac:EquityAttributableToParent\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return()", 
-    "ComputableConcepts" : [ "fac:EquityAttributableToParent" ], 
-    "DependsOn" : [ "fac:Equity", "fac:EquityAttributableToNoncontrollingInterest" ]
-  }, {
-    "Id" : "bs_LiabilitiesAndEquity", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Liabilities And Equity imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:LiabilitiesAndEquity\", \"fac:Assets\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($LiabilitiesAndEquity)) return $LiabilitiesAndEquity case(exists($Assets)) return let $computed-value := rules:decimal-value($Assets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:LiabilitiesAndEquity\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Assets, \"Assets\") let $source-facts := $Assets return rules:create-computed-fact( $Assets, \"fac:LiabilitiesAndEquity\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:LiabilitiesAndEquity" ], 
-    "DependsOn" : [ "fac:Assets" ]
-  }, {
-    "Id" : "bs_Liabilities", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Liabilities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Liabilities\", \"fac:Equity\", \"fac:LiabilitiesAndEquity\", \"fac:CommitmentsAndContingencies\", \"fac:TemporaryEquity\", \"fac:CurrentLiabilities\", \"fac:NoncurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $CommitmentsAndContingencies as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommitmentsAndContingencies\"] let $TemporaryEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TemporaryEquity\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($Liabilities)) return $Liabilities case(exists($Equity)) return let $computed-value := rules:decimal-value($LiabilitiesAndEquity) - ( rules:decimal-value($CommitmentsAndContingencies) + rules:decimal-value($TemporaryEquity) + rules:decimal-value($Equity) ) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Liabilities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($LiabilitiesAndEquity, \"LiabilitiesAndEquity\") || \" - (\" || rules:fact-trail($CommitmentsAndContingencies, \"CommitmentsAndContingencies\") || \" + \" || rules:fact-trail($TemporaryEquity, \"TemporaryEquity\") || \" + \" || rules:fact-trail($Equity) || \")\" let $source-facts := ($LiabilitiesAndEquity, $CommitmentsAndContingencies, $TemporaryEquity, $Equity) return rules:create-computed-fact( $Equity, \"fac:Liabilities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) case(exists($CurrentLiabilities) and exists($NoncurrentLiabilities)) return let $computed-value := rules:decimal-value($CurrentLiabilities) + rules:decimal-value($NoncurrentLiabilities) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Liabilities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($CurrentLiabilities) || \" + \" || rules:fact-trail($NoncurrentLiabilities) let $source-facts := ($CurrentLiabilities, $NoncurrentLiabilities) return rules:create-computed-fact( $CurrentLiabilities, \"fac:Liabilities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:Liabilities" ], 
-    "DependsOn" : [ "fac:Equity", "fac:LiabilitiesAndEquity", "fac:CommitmentsAndContingencies", "fac:TemporaryEquity", "fac:CurrentLiabilities", "fac:NoncurrentLiabilities" ]
-  }, {
-    "Id" : "bs_NoncurrentLiabilities", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Noncurrent Liabilities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NoncurrentLiabilities\", \"fac:Liabilities\", \"fac:CurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NoncurrentLiabilities)) return $NoncurrentLiabilities case(exists($CurrentLiabilities) and exists($Liabilities)) return let $computed-value := rules:decimal-value($Liabilities) - rules:decimal-value($CurrentLiabilities) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NoncurrentLiabilities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Liabilities) || \" - \" || rules:fact-trail($CurrentLiabilities) let $source-facts := ($Liabilities, $CurrentLiabilities) return rules:create-computed-fact( $CurrentLiabilities, \"fac:NoncurrentLiabilities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NoncurrentLiabilities" ], 
-    "DependsOn" : [ "fac:Liabilities", "fac:CurrentLiabilities" ]
-  }, {
-    "Id" : "bs_TemporaryEquity", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Temporary Equity imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:TemporaryEquity\", \"us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $TemporaryEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TemporaryEquity\"] let $RedeemableNoncontrollingInterestEquityCommonCarryingAmount as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (not(exists($RedeemableNoncontrollingInterestEquityCommonCarryingAmount))) return $TemporaryEquity case (exists($RedeemableNoncontrollingInterestEquityCommonCarryingAmount)) return let $computed-value := rules:decimal-value($TemporaryEquity) + rules:decimal-value($RedeemableNoncontrollingInterestEquityCommonCarryingAmount) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:TemporaryEquity\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($TemporaryEquity, \"TemporaryEquity\") || \" + \" || rules:fact-trail($RedeemableNoncontrollingInterestEquityCommonCarryingAmount, \"RedeemableNoncontrollingInterestEquityCommonCarryingAmount\") let $source-facts := ($TemporaryEquity, $RedeemableNoncontrollingInterestEquityCommonCarryingAmount) return rules:create-computed-fact( $RedeemableNoncontrollingInterestEquityCommonCarryingAmount, \"fac:TemporaryEquity\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:TemporaryEquity" ], 
-    "DependsOn" : [ "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" ]
-  }, {
-    "Id" : "is_IncomeStatementFormat", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Income Statement Format imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeStatementFormat\", \"fac:GrossProfit\", \"fac:CostOfRevenue\", \"fac:Revenues\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := if(empty($facts)) then \"\" else facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeStatementFormat as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeStatementFormat\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] return switch(true) case exists($IncomeStatementFormat) return $IncomeStatementFormat case exists($Revenues) return let $computed-value := if (rules:decimal-value($GrossProfit) eq 0 and rules:decimal-value($CostOfRevenue) eq 0) then \"Single-step\" else \"Multi-step\" let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:IncomeStatementFormat\" }, Value: $computed-value , Type: \"NonNumericValue\"}) || \" = \" || $computed-value || \" (because \" || rules:fact-trail($GrossProfit, \"GrossProfit\") || \", \" || rules:fact-trail($CostOfRevenue, \"CostOfRevenue\") || \")\" let $source-facts := ( $GrossProfit, $CostOfRevenue) return copy $newfact := rules:create-computed-fact( ($source-facts, $Revenues)[1], \"fac:IncomeStatementFormat\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return ()", 
-    "ComputableConcepts" : [ "fac:IncomeStatementFormat" ], 
-    "DependsOn" : [ "fac:GrossProfit", "fac:CostOfRevenue" ]
-  }, {
-    "Id" : "is_CostOfRevenue", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Cost Of Revenue imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:CostOfRevenue\", \"fac:GrossProfit\", \"fac:Revenues\", \"fac:CostsAndExpenses\", \"fac:OperatingIncomeLoss\", \"fac:OtherOperatingIncomeExpenses\", \"fac:OperatingExpenses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"] let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"] let $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($CostOfRevenue) return $CostOfRevenue case (exists($Revenues) and exists($GrossProfit)) return let $computed-value := rules:decimal-value($Revenues) - rules:decimal-value($GrossProfit) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:CostOfRevenue\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Revenues, \"Revenues\") || \" - \" || rules:fact-trail($GrossProfit, \"GrossProfit\") let $source-facts := ($Revenues, $GrossProfit) return rules:create-computed-fact( $source-facts[1], \"fac:CostOfRevenue\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) case (exists($CostOfRevenue) and exists($Revenues) and not(exists($GrossProfit)) and (($Revenues - $CostsAndExpenses) = $OperatingIncomeLoss) and not(exists($OperatingExpenses = 0)) and not(exists($OtherOperatingIncomeExpenses))) return let $computed-value := rules:decimal-value($CostsAndExpenses) - rules:decimal-value($OperatingExpenses) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:CostOfRevenue\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($CostsAndExpenses, \"CostsAndExpenses\") || \" - \" || rules:fact-trail($OperatingExpenses, \"OperatingExpenses\") let $source-facts := ($CostsAndExpenses, $OperatingExpenses) return rules:create-computed-fact( $source-facts[1], \"fac:CostOfRevenue\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:CostOfRevenue" ], 
-    "DependsOn" : [ "fac:GrossProfit", "fac:Revenues", "fac:CostsAndExpenses", "fac:OperatingIncomeLoss", "fac:OtherOperatingIncomeExpenses", "fac:OperatingExpenses" ]
-  }, {
-    "Id" : "is_CostsAndExpenses", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Costs And Expenses imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:CostsAndExpenses\", \"fac:OperatingExpenses\", \"fac:CostOfRevenue\", \"fac:GrossProfit\", \"fac:Revenues\", \"fac:OperatingIncomeLoss\", \"fac:OtherOperatingIncomeExpenses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"] let $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"] let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($CostsAndExpenses) return $CostsAndExpenses case (exists($OperatingExpenses) and exists($CostOfRevenue)) return let $computed-value := rules:decimal-value($OperatingExpenses) + rules:decimal-value($CostOfRevenue) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:CostsAndExpenses\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($OperatingExpenses, \"OperatingExpenses\") || \" + \" || rules:fact-trail($CostOfRevenue, \"CostOfRevenue\") let $source-facts := ($CostOfRevenue, $OperatingExpenses) return rules:create-computed-fact( $source-facts[1], \"fac:CostsAndExpenses\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) case (not(exists($GrossProfit)) and exists($Revenues) and exists($OperatingIncomeLoss) and exists($OtherOperatingIncomeExpenses)) return let $computed-value := rules:decimal-value($Revenues) - rules:decimal-value($OperatingIncomeLoss)- rules:decimal-value($OtherOperatingIncomeExpenses) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:CostsAndExpenses\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Revenues, \"$Revenues\") || \" - \" || rules:fact-trail($OperatingIncomeLoss, \"OperatingIncomeLoss\") || \" - \" || rules:fact-trail($OtherOperatingIncomeExpenses, \"OtherOperatingIncomeExpenses\") let $source-facts := ($Revenues, $OperatingIncomeLoss,$OtherOperatingIncomeExpenses ) return rules:create-computed-fact( $source-facts[1], \"fac:CostsAndExpenses\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:CostsAndExpenses" ], 
-    "DependsOn" : [ "fac:OperatingExpenses", "fac:CostOfRevenue", "fac:GrossProfit", "fac:Revenues", "fac:OperatingIncomeLoss", "fac:OtherOperatingIncomeExpenses" ]
-  }, {
-    "Id" : "is_GrossProfit", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Gross Profit imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:GrossProfit\", \"fac:Revenues\", \"fac:CostOfRevenue\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($GrossProfit) return $GrossProfit case (exists($Revenues) and exists($CostOfRevenue)) return let $computed-value := rules:decimal-value($Revenues) - rules:decimal-value($CostOfRevenue) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:GrossProfit\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Revenues, \"Revenues\") || \" - \" || rules:fact-trail($CostOfRevenue, \"CostOfRevenue\") let $source-facts := ($Revenues, $CostOfRevenue) return rules:create-computed-fact( $source-facts[1], \"fac:GrossProfit\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:GrossProfit" ], 
-    "DependsOn" : [ "fac:Revenues", "fac:CostOfRevenue" ]
-  }, {
-    "Id" : "is_IncomeLossFromContinuingOperationsAfterTax", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Income Loss From Continuing Operations After Tax imputation", 
-    "Formula" : "import module namespace sec = \"http://xbrl.io/modules/bizql/profiles/sec/core\"; for $facts in facts:facts-for-internal(( \"fac:IncomeLossFromContinuingOperationsAfterTax\", \"fac:NetIncomeLoss\", \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:IncomeLossFromDiscontinuedOperationsNetTax\", \"fac:ExtraordinaryItemsIncomeExpenseNetTax\", \"fac:IncomeTaxExpenseBenefit\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeLossFromContinuingOperationsAfterTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsAfterTax\"] let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"] let $IncomeLossFromDiscontinuedOperationsNetTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromDiscontinuedOperationsNetTax\"] let $ExtraordinaryItemsIncomeExpenseNetTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExtraordinaryItemsIncomeExpenseNetTax\"] let $IncomeTaxExpenseBenefit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeTaxExpenseBenefit\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch (true) case exists($IncomeLossFromContinuingOperationsAfterTax) return $IncomeLossFromContinuingOperationsAfterTax case (exists($NetIncomeLoss)) return let $computed-value := rules:decimal-value($NetIncomeLoss) - rules:decimal-value($IncomeLossFromDiscontinuedOperationsNetTax) - rules:decimal-value($ExtraordinaryItemsIncomeExpenseNetTax) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:IncomeLossFromContinuingOperationsAfterTax\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\") || \" - \" || rules:fact-trail($IncomeLossFromDiscontinuedOperationsNetTax, \"IncomeLossFromDiscontinuedOperationsNetTax\") || \" - \" || rules:fact-trail($ExtraordinaryItemsIncomeExpenseNetTax, \"ExtraordinaryItemsIncomeExpenseNetTax\") let $source-facts := ($NetIncomeLoss, $IncomeLossFromDiscontinuedOperationsNetTax, $ExtraordinaryItemsIncomeExpenseNetTax) return rules:create-computed-fact( $source-facts[1], \"fac:IncomeLossFromContinuingOperationsAfterTax\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) case (exists($IncomeLossFromContinuingOperationsBeforeTax)) return let $computed-value := rules:decimal-value($IncomeLossFromContinuingOperationsBeforeTax) - rules:decimal-value($IncomeTaxExpenseBenefit) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:IncomeLossFromContinuingOperationsAfterTax\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($IncomeLossFromContinuingOperationsBeforeTax, \"IncomeLossFromContinuingOperationsBeforeTax\") || \" - \" || rules:fact-trail($IncomeTaxExpenseBenefit, \"IncomeTaxExpenseBenefit\") let $source-facts := ($IncomeLossFromContinuingOperationsBeforeTax, $IncomeTaxExpenseBenefit) return rules:create-computed-fact( $source-facts[1], \"fac:IncomeLossFromContinuingOperationsAfterTax\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsAfterTax" ], 
-    "DependsOn" : [ "fac:NetIncomeLoss", "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:IncomeLossFromDiscontinuedOperationsNetTax", "fac:ExtraordinaryItemsIncomeExpenseNetTax", "fac:IncomeTaxExpenseBenefit" ]
-  }, {
-    "Id" : "is_IncomeLossFromContinuingOperationsBeforeTax", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Income Loss From Continuing Operations Before Tax imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:IncomeLossFromEquityMethodInvestments\", \"fac:IncomeBeforeEquityMethodInvestments\", \"fac:IncomeLossFromContinuingOperationsAfterTax\", \"fac:IncomeTaxExpenseBenefit\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"] let $IncomeLossFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromEquityMethodInvestments\"] let $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"] let $IncomeLossFromContinuingOperationsAfterTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsAfterTax\"] let $IncomeTaxExpenseBenefit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeTaxExpenseBenefit\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch (true) case exists($IncomeLossFromContinuingOperationsBeforeTax) return $IncomeLossFromContinuingOperationsBeforeTax case (exists($IncomeLossFromEquityMethodInvestments) and exists($IncomeBeforeEquityMethodInvestments)) return let $computed-value := rules:decimal-value($IncomeLossFromEquityMethodInvestments) + rules:decimal-value($IncomeBeforeEquityMethodInvestments) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:IncomeLossFromContinuingOperationsBeforeTax\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($IncomeLossFromEquityMethodInvestments, \"IncomeLossFromEquityMethodInvestments\") || \" + \" || rules:fact-trail($IncomeBeforeEquityMethodInvestments, \"IncomeBeforeEquityMethodInvestments\") let $source-facts := ($IncomeLossFromEquityMethodInvestments,$IncomeBeforeEquityMethodInvestments) return rules:create-computed-fact( $source-facts[1], \"fac:IncomeLossFromContinuingOperationsBeforeTax\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) case (exists($IncomeLossFromContinuingOperationsAfterTax)) return let $computed-value := rules:decimal-value($IncomeLossFromContinuingOperationsAfterTax) + rules:decimal-value($IncomeTaxExpenseBenefit) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:IncomeLossFromContinuingOperationsBeforeTax\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($IncomeLossFromContinuingOperationsAfterTax, \"IncomeLossFromContinuingOperationsAfterTax\") || \" - \" || rules:fact-trail($IncomeTaxExpenseBenefit, \"IncomeTaxExpenseBenefit\") let $source-facts := ($IncomeLossFromContinuingOperationsAfterTax, $IncomeTaxExpenseBenefit) return rules:create-computed-fact( $source-facts[1], \"fac:IncomeLossFromContinuingOperationsBeforeTax\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax" ], 
-    "DependsOn" : [ "fac:IncomeLossFromEquityMethodInvestments", "fac:IncomeBeforeEquityMethodInvestments", "fac:IncomeLossFromContinuingOperationsAfterTax", "fac:IncomeTaxExpenseBenefit" ]
-  }, {
-    "Id" : "is_NetIncomeAttributableToParent", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Net Income Attributable To Parent imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetIncomeAttributableToParent\", \"fac:NetIncomeLoss\", \"fac:NetIncomeAttributableToNoncontrollingInterest\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetIncomeAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToParent\"] let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $NetIncomeAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToNoncontrollingInterest\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($NetIncomeAttributableToParent) return $NetIncomeAttributableToParent case (exists($NetIncomeLoss) and not(exists($NetIncomeAttributableToNoncontrollingInterest))) return let $computed-value := rules:decimal-value($NetIncomeLoss) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetIncomeAttributableToParent\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\") let $source-facts := $NetIncomeLoss return rules:create-computed-fact( $NetIncomeLoss, \"fac:NetIncomeAttributableToParent\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NetIncomeAttributableToParent" ], 
-    "DependsOn" : [ "fac:NetIncomeLoss", "fac:NetIncomeAttributableToNoncontrollingInterest" ]
-  }, {
-    "Id" : "is_NetIncomeLossAvailableToCommonStockholdersBasic", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Net Income Loss Available To Common Stockholders Basic imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\", \"fac:NetIncomeAttributableToParent\", \"fac:PreferredStockDividendsAndOtherAdjustments\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetIncomeLossAvailableToCommonStockholdersBasic as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\"] let $NetIncomeAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToParent\"] let $PreferredStockDividendsAndOtherAdjustments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:PreferredStockDividendsAndOtherAdjustments\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($NetIncomeLossAvailableToCommonStockholdersBasic) return $NetIncomeLossAvailableToCommonStockholdersBasic case (exists($NetIncomeAttributableToParent) and rules:decimal-value($PreferredStockDividendsAndOtherAdjustments) eq 0) return let $computed-value := rules:decimal-value($NetIncomeAttributableToParent) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetIncomeAttributableToParent, \"NetIncomeAttributableToParent\") let $source-facts := $NetIncomeAttributableToParent return rules:create-computed-fact( $NetIncomeAttributableToParent, \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return()", 
-    "ComputableConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ], 
-    "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:PreferredStockDividendsAndOtherAdjustments" ]
-  }, {
-    "Id" : "is_OperatingExpenses", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Operating Expenses imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:OperatingExpenses\", \"fac:CostsAndExpenses\", \"fac:CostOfRevenue\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"] let $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"] let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($OperatingExpenses) return $OperatingExpenses case (exists($CostsAndExpenses) and exists($CostOfRevenue)) return let $computed-value := rules:decimal-value($CostsAndExpenses) - rules:decimal-value($CostOfRevenue) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:OperatingExpenses\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($CostsAndExpenses, \"CostsAndExpenses\") || \" - \" || rules:fact-trail($CostOfRevenue, \"CostOfRevenue \") let $source-facts := ($CostsAndExpenses, $CostOfRevenue) return rules:create-computed-fact( $source-facts[1], \"fac:OperatingExpenses\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:OperatingExpenses" ], 
-    "DependsOn" : [ "fac:CostsAndExpenses", "fac:CostOfRevenue" ]
-  }, {
-    "Id" : "is_PreferredStockDividendsAndOtherAdjustments", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Preferred Stock Dividends And Other Adjustments imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:PreferredStockDividendsAndOtherAdjustments\", \"fac:NetIncomeAttributableToParent\", \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $PreferredStockDividendsAndOtherAdjustments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:PreferredStockDividendsAndOtherAdjustments\"] let $NetIncomeAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToParent\"] let $NetIncomeLossAvailableToCommonStockholdersBasic as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($PreferredStockDividendsAndOtherAdjustments) return $PreferredStockDividendsAndOtherAdjustments case (exists($NetIncomeAttributableToParent) and exists($NetIncomeLossAvailableToCommonStockholdersBasic)) return let $computed-value := rules:decimal-value($NetIncomeAttributableToParent) - rules:decimal-value($NetIncomeLossAvailableToCommonStockholdersBasic) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:PreferredStockDividendsAndOtherAdjustments\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetIncomeAttributableToParent, \"NetIncomeAttributableToParent\") || \" - \" || rules:fact-trail($NetIncomeLossAvailableToCommonStockholdersBasic, \"NetIncomeLossAvailableToCommonStockholdersBasic\") let $source-facts := ($NetIncomeAttributableToParent, $NetIncomeLossAvailableToCommonStockholdersBasic) return rules:create-computed-fact( $NetIncomeAttributableToParent, \"fac:PreferredStockDividendsAndOtherAdjustments\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:PreferredStockDividendsAndOtherAdjustments" ], 
-    "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ]
-  }, {
-    "Id" : "is_Revenues", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Revenues imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Revenues\", \"fac:GrossProfit\", \"fac:CostOfRevenue\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($Revenues) return $Revenues case (exists($GrossProfit) and exists($CostOfRevenue)) return let $computed-value := rules:decimal-value($GrossProfit) + rules:decimal-value($CostOfRevenue) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Revenues\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($GrossProfit, \"GrossProfit\") || \" + \" || rules:fact-trail($CostOfRevenue, \"CostOfRevenue\") let $source-facts := ($GrossProfit, $CostOfRevenue) return rules:create-computed-fact( $source-facts[1], \"fac:Revenues\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:Revenues" ], 
-    "DependsOn" : [ "fac:GrossProfit", "fac:CostOfRevenue" ]
-  }, {
-    "Id" : "is_IncomeBeforeEquityMethodInvestments", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Income Before Equity Method Investments imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeBeforeEquityMethodInvestments\", \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:IncomeLossFromEquityMethodInvestments\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"] let $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"] let $IncomeLossFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromEquityMethodInvestments\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($IncomeBeforeEquityMethodInvestments) return $IncomeBeforeEquityMethodInvestments case(exists($IncomeLossFromContinuingOperationsBeforeTax)) return let $computed-value := rules:decimal-value($IncomeLossFromContinuingOperationsBeforeTax) - rules:decimal-value($IncomeLossFromEquityMethodInvestments) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:IncomeBeforeEquityMethodInvestments\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($IncomeLossFromContinuingOperationsBeforeTax, \"IncomeLossFromContinuingOperationsBeforeTax\") || \" - \" || rules:fact-trail($IncomeLossFromEquityMethodInvestments, \"IncomeLossFromEquityMethodInvestments \") let $source-facts := ($IncomeLossFromContinuingOperationsBeforeTax, $IncomeLossFromEquityMethodInvestments) return rules:create-computed-fact( $source-facts[1], \"fac:IncomeBeforeEquityMethodInvestments\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:IncomeBeforeEquityMethodInvestments" ], 
-    "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:IncomeLossFromEquityMethodInvestments" ]
-  }, {
-    "Id" : "is_InterestAndDebtExpense", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Interest And Debt Expense imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:InterestAndDebtExpense\", \"fac:OperatingIncomeLoss\", \"fac:NonoperatingIncomeLoss\", \"fac:IncomeBeforeEquityMethodInvestments\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $InterestAndDebtExpense as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:InterestAndDebtExpense\"] let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $NonoperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomeLoss\"] let $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($InterestAndDebtExpense) return $InterestAndDebtExpense case (exists($OperatingIncomeLoss) and exists($NonoperatingIncomeLoss) and exists($IncomeBeforeEquityMethodInvestments)) return let $computed-value := rules:decimal-value($IncomeBeforeEquityMethodInvestments) - rules:decimal-value($OperatingIncomeLoss) - rules:decimal-value($NonoperatingIncomeLoss) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:InterestAndDebtExpense\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($IncomeBeforeEquityMethodInvestments, \"IncomeBeforeEquityMethodInvestments\") || \" - (\" || rules:fact-trail($OperatingIncomeLoss, \"OperatingIncomeLoss\") || \" + \" || rules:fact-trail($NonoperatingIncomeLoss, \"NonoperatingIncomeLoss )\") let $source-facts := ($IncomeBeforeEquityMethodInvestments, $OperatingIncomeLoss, $NonoperatingIncomeLoss) return rules:create-computed-fact( $source-facts[1], \"fac:InterestAndDebtExpense\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:InterestAndDebtExpense" ], 
-    "DependsOn" : [ "fac:OperatingIncomeLoss", "fac:NonoperatingIncomeLoss", "fac:IncomeBeforeEquityMethodInvestments" ]
-  }, {
-    "Id" : "is_OtherOperatingIncomeExpenses", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Other Operating Income Expenses imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:OtherOperatingIncomeExpenses\", \"fac:OperatingIncomeLoss\", \"fac:GrossProfit\", \"fac:OperatingExpenses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"] let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($OtherOperatingIncomeExpenses) return $OtherOperatingIncomeExpenses case (exists($OperatingIncomeLoss) and exists($GrossProfit) and exists($OperatingExpenses)) return let $computed-value := rules:decimal-value($OperatingIncomeLoss) - (rules:decimal-value($GrossProfit) - rules:decimal-value($OperatingExpenses)) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:OtherOperatingIncomeExpenses\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($OperatingIncomeLoss, \"OperatingIncomeLoss\") || \" - (\" || rules:fact-trail($GrossProfit, \"GrossProfit\") || \" - \" || rules:fact-trail($OperatingExpenses, \"OperatingExpenses )\") let $source-facts := ($OperatingIncomeLoss, $GrossProfit, $OperatingExpenses ) return rules:create-computed-fact( $source-facts[1], \"fac:OtherOperatingIncomeExpenses\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:OtherOperatingIncomeExpenses" ], 
-    "DependsOn" : [ "fac:OperatingIncomeLoss", "fac:GrossProfit", "fac:OperatingExpenses" ]
-  }, {
-    "Id" : "is_OperatingIncomeLoss", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Operating Income Loss imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:OperatingIncomeLoss\", \"fac:IncomeBeforeEquityMethodInvestments\", \"fac:NonoperatingIncomeLoss\", \"fac:InterestAndDebtExpense\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"] let $NonoperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomeLoss\"] let $InterestAndDebtExpense as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:InterestAndDebtExpense\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($OperatingIncomeLoss) return $OperatingIncomeLoss case (exists($IncomeBeforeEquityMethodInvestments)) return let $computed-value := rules:decimal-value($IncomeBeforeEquityMethodInvestments) + rules:decimal-value($NonoperatingIncomeLoss) - rules:decimal-value($InterestAndDebtExpense) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:OperatingIncomeLoss\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($IncomeBeforeEquityMethodInvestments, \"IncomeBeforeEquityMethodInvestments\") || \" + \" || rules:fact-trail($NonoperatingIncomeLoss, \"NonoperatingIncomeLoss\") || \" - \" || rules:fact-trail($InterestAndDebtExpense, \"InterestAndDebtExpense\") let $source-facts := ($IncomeBeforeEquityMethodInvestments, $NonoperatingIncomeLoss, $InterestAndDebtExpense ) return rules:create-computed-fact( $source-facts[1], \"fac:OperatingIncomeLoss\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:OperatingIncomeLoss" ], 
-    "DependsOn" : [ "fac:IncomeBeforeEquityMethodInvestments", "fac:NonoperatingIncomeLoss", "fac:InterestAndDebtExpense" ]
-  }, {
-    "Id" : "is_NonoperatingIncomeLossPlusInterestAndDebtExpense", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Nonoperating Income Loss Plus Interest And Debt Expense imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\", \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\", \"fac:IncomeLossFromEquityMethodInvestments\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NonoperatingIncomeLossPlusInterestAndDebtExpense as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\"] let $NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\"] let $IncomeLossFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromEquityMethodInvestments\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($NonoperatingIncomeLossPlusInterestAndDebtExpense) return $NonoperatingIncomeLossPlusInterestAndDebtExpense case(exists($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments)) return let $computed-value := rules:decimal-value($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments) - rules:decimal-value($IncomeLossFromEquityMethodInvestments) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments, \"NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\") || \" - \" || rules:fact-trail($IncomeLossFromEquityMethodInvestments, \"IncomeLossFromEquityMethodInvestments\") let $source-facts := ($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments, $IncomeLossFromEquityMethodInvestments) return rules:create-computed-fact( $source-facts[1], \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense" ], 
-    "DependsOn" : [ "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments", "fac:IncomeLossFromEquityMethodInvestments" ]
-  }, {
-    "Id" : "is_NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Nonoperating Income Loss + Interest And Debt Expense + Income From Equity Method Investments imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\", \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:OperatingIncomeLoss\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\"] let $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"] let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case exists($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments) return $NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments case(exists($IncomeLossFromContinuingOperationsBeforeTax)) return let $computed-value := rules:decimal-value($IncomeLossFromContinuingOperationsBeforeTax) - rules:decimal-value($OperatingIncomeLoss) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($IncomeLossFromContinuingOperationsBeforeTax, \"IncomeLossFromContinuingOperationsBeforeTax\") || \" - \" || rules:fact-trail($OperatingIncomeLoss, \"OperatingIncomeLoss\") let $source-facts := ($IncomeLossFromContinuingOperationsBeforeTax, $OperatingIncomeLoss) return rules:create-computed-fact( $IncomeLossFromContinuingOperationsBeforeTax, \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments" ], 
-    "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:OperatingIncomeLoss" ]
-  }, {
-    "Id" : "cf_NetCashFlowsFromOperatingActivitiesContinuing", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Cash Flow From Continuing Operating Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromOperatingActivitiesContinuing\", \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"] let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsFromOperatingActivitiesContinuing)) return $NetCashFlowsFromOperatingActivitiesContinuing case(exists($NetCashFlowsFromOperatingActivities)) return let $computed-value := rules:decimal-value($NetCashFlowsFromOperatingActivities) - rules:decimal-value($NetCashFlowsFromOperatingActivitiesDiscontinued) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromOperatingActivitiesContinuing\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetCashFlowsFromOperatingActivities) || \" - \" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesDiscontinued, \"NetCashFlowsFromOperatingActivitiesDiscontinued\") let $source-facts := ($NetCashFlowsFromOperatingActivities, $NetCashFlowsFromOperatingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromOperatingActivities, \"fac:NetCashFlowsFromOperatingActivitiesContinuing\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "cf_NetCashFlowsFromOperatingActivitiesDiscontinued", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Cash Flow From Discontinued Operating Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\", \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"] let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsFromOperatingActivitiesDiscontinued)) return $NetCashFlowsFromOperatingActivitiesDiscontinued case(exists($NetCashFlowsFromOperatingActivities) and exists($NetCashFlowsFromOperatingActivitiesContinuing) and (rules:decimal-value($NetCashFlowsFromOperatingActivitiesContinuing) eq rules:decimal-value($NetCashFlowsFromOperatingActivities))) return let $computed-value := 0 let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\" }, Value: $computed-value }) || \" = 0 (because \" || rules:fact-trail($NetCashFlowsFromOperatingActivities) || \" = \" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesContinuing) || \")\" let $source-facts := ($NetCashFlowsFromOperatingActivities, $NetCashFlowsFromOperatingActivitiesContinuing) return rules:create-computed-fact( $NetCashFlowsFromOperatingActivities, \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromOperatingActivitiesContinuing" ]
-  }, {
-    "Id" : "cf_NetCashFlowsFromOperatingActivities", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Cash Flow From Operating Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromOperatingActivitiesContinuing\", \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"] let $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsFromOperatingActivities)) return $NetCashFlowsFromOperatingActivities case(exists($NetCashFlowsFromOperatingActivitiesContinuing) and rules:decimal-value($NetCashFlowsFromOperatingActivitiesDiscontinued) eq 0) return let $computed-value := rules:decimal-value($NetCashFlowsFromOperatingActivitiesContinuing) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromOperatingActivities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesContinuing) || \" (given that \" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesDiscontinued, \"NetCashFlowsFromOperatingActivitiesDiscontinued\") || \")\" let $source-facts := ($NetCashFlowsFromOperatingActivitiesContinuing, $NetCashFlowsFromOperatingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromOperatingActivitiesContinuing, \"fac:NetCashFlowsFromOperatingActivities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivities" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "cf_NetCashFlowsFromInvestingActivitiesContinuing", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Cash Flow From Continuing Investing Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromInvestingActivitiesContinuing\", \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"] let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsFromInvestingActivitiesContinuing)) return $NetCashFlowsFromInvestingActivitiesContinuing case(exists($NetCashFlowsFromInvestingActivities)) return let $computed-value := rules:decimal-value($NetCashFlowsFromInvestingActivities) - rules:decimal-value($NetCashFlowsFromInvestingActivitiesDiscontinued) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromInvestingActivitiesContinuing\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetCashFlowsFromInvestingActivities) || \" - \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesDiscontinued, \"NetCashFlowsFromInvestingActivitiesDiscontinued\") let $source-facts := ($NetCashFlowsFromInvestingActivities, $NetCashFlowsFromInvestingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromInvestingActivities, \"fac:NetCashFlowsFromInvestingActivitiesContinuing\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivitiesContinuing" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "cf_NetCashFlowsFromInvestingActivitiesDiscontinued", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Cash Flow From Discontinued Investing Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\", \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"] let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsFromInvestingActivitiesDiscontinued)) return $NetCashFlowsFromInvestingActivitiesDiscontinued case(exists($NetCashFlowsFromInvestingActivities) and exists($NetCashFlowsFromInvestingActivitiesContinuing) and (rules:decimal-value($NetCashFlowsFromInvestingActivitiesContinuing) eq rules:decimal-value($NetCashFlowsFromInvestingActivities))) return let $computed-value := 0 let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\" }, Value: $computed-value }) || \" = 0 (because \" || rules:fact-trail($NetCashFlowsFromInvestingActivities) || \" = \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesContinuing) || \")\" let $source-facts := ($NetCashFlowsFromInvestingActivities, $NetCashFlowsFromInvestingActivitiesContinuing) return rules:create-computed-fact( $NetCashFlowsFromInvestingActivities, \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromInvestingActivitiesContinuing" ]
-  }, {
-    "Id" : "cf_NetCashFlowsFromInvestingActivities", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Cash Flow From Investing Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromInvestingActivitiesContinuing\", \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"] let $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsFromInvestingActivities)) return $NetCashFlowsFromInvestingActivities case(exists($NetCashFlowsFromInvestingActivitiesContinuing) and rules:decimal-value($NetCashFlowsFromInvestingActivitiesDiscontinued) eq 0) return let $computed-value := rules:decimal-value($NetCashFlowsFromInvestingActivitiesContinuing) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromInvestingActivities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesContinuing) || \" (given that \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesDiscontinued, \"NetCashFlowsFromInvestingActivitiesDiscontinued\") || \")\" let $source-facts := ($NetCashFlowsFromInvestingActivitiesContinuing, $NetCashFlowsFromInvestingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromInvestingActivitiesContinuing, \"fac:NetCashFlowsFromInvestingActivities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivities" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "cf_NetCashFlowsFromFinancingActivitiesContinuing", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Cash Flow From Continuing Financing Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromFinancingActivitiesContinuing\", \"fac:NetCashFlowsFromFinancingActivities\", \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"] let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsFromFinancingActivitiesContinuing)) return $NetCashFlowsFromFinancingActivitiesContinuing case(exists($NetCashFlowsFromFinancingActivities)) return let $computed-value := rules:decimal-value($NetCashFlowsFromFinancingActivities) - rules:decimal-value($NetCashFlowsFromFinancingActivitiesDiscontinued) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromFinancingActivitiesContinuing\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetCashFlowsFromFinancingActivities) || \" - \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesDiscontinued, \"NetCashFlowsFromFinancingActivitiesDiscontinued\") let $source-facts := ($NetCashFlowsFromFinancingActivities, $NetCashFlowsFromFinancingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromFinancingActivities, \"fac:NetCashFlowsFromFinancingActivitiesContinuing\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivitiesContinuing" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivities", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "cf_NetCashFlowsFromFinancingActivitiesDiscontinued", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Cash Flow From Discontinued Financing Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\", \"fac:NetCashFlowsFromFinancingActivities\", \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"] let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsFromFinancingActivitiesDiscontinued)) return $NetCashFlowsFromFinancingActivitiesDiscontinued case(exists($NetCashFlowsFromFinancingActivities) and exists($NetCashFlowsFromFinancingActivitiesContinuing) and (rules:decimal-value($NetCashFlowsFromFinancingActivitiesContinuing) eq rules:decimal-value($NetCashFlowsFromFinancingActivities))) return let $computed-value := 0 let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\" }, Value: $computed-value }) || \" = 0 (because \" || rules:fact-trail($NetCashFlowsFromFinancingActivities) || \" = \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesContinuing) || \")\" let $source-facts := ($NetCashFlowsFromFinancingActivities, $NetCashFlowsFromFinancingActivitiesContinuing) return rules:create-computed-fact( $NetCashFlowsFromFinancingActivities, \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivities", "fac:NetCashFlowsFromFinancingActivitiesContinuing" ]
-  }, {
-    "Id" : "cf_NetCashFlowsFromFinancingActivities", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Cash Flow From Financing Activities", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromFinancingActivities\", \"fac:NetCashFlowsFromFinancingActivitiesContinuing\", \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"] let $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsFromFinancingActivities)) return $NetCashFlowsFromFinancingActivities case(exists($NetCashFlowsFromFinancingActivitiesContinuing) and rules:decimal-value($NetCashFlowsFromFinancingActivitiesDiscontinued) eq 0) return let $computed-value := rules:decimal-value($NetCashFlowsFromFinancingActivitiesContinuing) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromFinancingActivities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesContinuing) || \" (given that \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesDiscontinued, \"NetCashFlowsFromFinancingActivitiesDiscontinued\") || \")\" let $source-facts := ($NetCashFlowsFromFinancingActivitiesContinuing, $NetCashFlowsFromFinancingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromFinancingActivitiesContinuing, \"fac:NetCashFlowsFromFinancingActivities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivities" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "cf_NetCashFlowsDiscontinued", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Net Cash Flow From Discontinued Operating Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsDiscontinued\", \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\", \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\", \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsDiscontinued\"] let $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"] let $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"] let $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsDiscontinued)) return $NetCashFlowsDiscontinued case(exists(($NetCashFlowsFromOperatingActivitiesDiscontinued, $NetCashFlowsFromInvestingActivitiesDiscontinued, $NetCashFlowsFromFinancingActivitiesDiscontinued))) return let $computed-value := rules:decimal-value($NetCashFlowsFromOperatingActivitiesDiscontinued) + rules:decimal-value($NetCashFlowsFromInvestingActivitiesDiscontinued) + rules:decimal-value($NetCashFlowsFromFinancingActivitiesDiscontinued) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsDiscontinued\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesDiscontinued, \"NetCashFlowsFromOperatingActivitiesDiscontinued\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesDiscontinued, \"NetCashFlowsFromInvestingActivitiesDiscontinued\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesDiscontinued, \"NetCashFlowsFromFinancingActivitiesDiscontinued\") let $source-facts := ($NetCashFlowsFromOperatingActivitiesDiscontinued, $NetCashFlowsFromInvestingActivitiesDiscontinued, $NetCashFlowsFromFinancingActivitiesDiscontinued) return rules:create-computed-fact( $source-facts[1], \"fac:NetCashFlowsDiscontinued\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsDiscontinued" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "cf_NetCashFlowsContinuing", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Net Cash Flow From Continuing Operating Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsContinuing\", \"fac:NetCashFlowsFromOperatingActivitiesContinuing\", \"fac:NetCashFlowsFromInvestingActivitiesContinuing\", \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsContinuing\"] let $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"] let $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"] let $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlowsContinuing)) return $NetCashFlowsContinuing case(exists(($NetCashFlowsFromOperatingActivitiesContinuing, $NetCashFlowsFromInvestingActivitiesContinuing, $NetCashFlowsFromFinancingActivitiesContinuing))) return let $computed-value := rules:decimal-value($NetCashFlowsFromOperatingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromInvestingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromFinancingActivitiesContinuing) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlowsContinuing\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesContinuing, \"NetCashFlowsFromOperatingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesContinuing, \"NetCashFlowsFromInvestingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesContinuing, \"NetCashFlowsFromFinancingActivitiesContinuing\") let $source-facts := ($NetCashFlowsFromOperatingActivitiesContinuing, $NetCashFlowsFromInvestingActivitiesContinuing, $NetCashFlowsFromFinancingActivitiesContinuing) return rules:create-computed-fact( $source-facts[1], \"fac:NetCashFlowsContinuing\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsContinuing" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesContinuing" ]
-  }, {
-    "Id" : "cf_NetCashFlows", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Net Cash Flow From Discontinued Operating Activities imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlows\", \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromFinancingActivities\", \"fac:ExchangeGainsLosses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlows as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlows\"] let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $ExchangeGainsLosses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExchangeGainsLosses\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NetCashFlows)) return $NetCashFlows case(exists(($NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses))) return let $computed-value := rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities) + rules:decimal-value($ExchangeGainsLosses) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NetCashFlows\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetCashFlowsFromOperatingActivities, \"NetCashFlowsFromOperatingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivities, \"NetCashFlowsFromInvestingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivities, \"NetCashFlowsFromFinancingActivities\") || \" + \" || rules:fact-trail($ExchangeGainsLosses, \"ExchangeGainsLosses\") let $source-facts := ($NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses) return rules:create-computed-fact( $source-facts[1], \"fac:NetCashFlows\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return()", 
-    "ComputableConcepts" : [ "fac:NetCashFlows" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromFinancingActivities", "fac:ExchangeGainsLosses" ]
-  }, {
-    "Id" : "ci_ComprehensiveIncomeLoss", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Comprehensive Income (Loss) imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:ComprehensiveIncomeLoss\", \"fac:NetIncomeLoss\", \"fac:ComprehensiveIncomeLossAttributableToParent\", \"fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest\", \"fac:OtherComprehensiveIncomeLoss\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $ComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLoss\"] let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $ComprehensiveIncomeLossAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLossAttributableToParent\"] let $ComprehensiveIncomeLossAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest\"] let $OtherComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherComprehensiveIncomeLoss\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($ComprehensiveIncomeLoss)) return $ComprehensiveIncomeLoss case(exists($NetIncomeLoss) and exists($ComprehensiveIncomeLossAttributableToParent) and rules:decimal-value($NetIncomeLoss) eq rules:decimal-value($ComprehensiveIncomeLossAttributableToParent) and empty($ComprehensiveIncomeLossAttributableToNoncontrollingInterest) and empty($OtherComprehensiveIncomeLoss) ) return let $computed-value := rules:decimal-value($NetIncomeLoss) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:ComprehensiveIncomeLoss\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetIncomeLoss) let $source-facts := ($NetIncomeLoss, $ComprehensiveIncomeLossAttributableToParent, $ComprehensiveIncomeLossAttributableToNoncontrollingInterest, $OtherComprehensiveIncomeLoss) return rules:create-computed-fact( $NetIncomeLoss, \"fac:ComprehensiveIncomeLoss\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
-    "DependsOn" : [ "fac:NetIncomeLoss", "fac:ComprehensiveIncomeLossAttributableToParent", "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest", "fac:OtherComprehensiveIncomeLoss" ]
-  }, {
-    "Id" : "ci_ComprehensiveIncomeLossAttributableToParent", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Comprehensive Income (Loss) Attributable to Parent imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:ComprehensiveIncomeLossAttributableToParent\", \"fac:NetIncomeLoss\", \"fac:ComprehensiveIncomeLoss\", \"fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest\", \"fac:OtherComprehensiveIncomeLoss\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $ComprehensiveIncomeLossAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLossAttributableToParent\"] let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $ComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLoss\"] let $ComprehensiveIncomeLossAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest\"] let $OtherComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherComprehensiveIncomeLoss\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($ComprehensiveIncomeLossAttributableToParent)) return $ComprehensiveIncomeLossAttributableToParent case(exists($ComprehensiveIncomeLoss) and empty($ComprehensiveIncomeLossAttributableToNoncontrollingInterest)) return let $computed-value := rules:decimal-value($ComprehensiveIncomeLoss) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:ComprehensiveIncomeLossAttributableToParent\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($ComprehensiveIncomeLoss) let $source-facts := ($ComprehensiveIncomeLoss, $ComprehensiveIncomeLossAttributableToNoncontrollingInterest) return rules:create-computed-fact( $ComprehensiveIncomeLoss, \"fac:ComprehensiveIncomeLossAttributableToParent\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) case(empty($ComprehensiveIncomeLoss) and empty($ComprehensiveIncomeLossAttributableToNoncontrollingInterest) and empty($OtherComprehensiveIncomeLoss) and exists($NetIncomeLoss)) return let $computed-value := rules:decimal-value($NetIncomeLoss) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:ComprehensiveIncomeLossAttributableToParent\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetIncomeLoss) let $source-facts := ($ComprehensiveIncomeLoss, $ComprehensiveIncomeLossAttributableToNoncontrollingInterest, $OtherComprehensiveIncomeLoss, $NetIncomeLoss) return rules:create-computed-fact( $NetIncomeLoss, \"fac:ComprehensiveIncomeLossAttributableToParent\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:ComprehensiveIncomeLossAttributableToParent" ], 
-    "DependsOn" : [ "fac:NetIncomeLoss", "fac:ComprehensiveIncomeLoss", "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest", "fac:OtherComprehensiveIncomeLoss" ]
-  }, {
-    "Id" : "ci_OtherComprehensiveIncomeLoss", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Other Comprehensive Income (Loss) imputation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:OtherComprehensiveIncomeLoss\", \"fac:NetIncomeLoss\", \"fac:ComprehensiveIncomeLoss\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $OtherComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherComprehensiveIncomeLoss\"] let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $ComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLoss\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($OtherComprehensiveIncomeLoss)) return $OtherComprehensiveIncomeLoss case(exists($NetIncomeLoss) and exists($ComprehensiveIncomeLoss)) return let $computed-value := rules:decimal-value($ComprehensiveIncomeLoss) - rules:decimal-value($NetIncomeLoss) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:OtherComprehensiveIncomeLoss\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($ComprehensiveIncomeLoss) || \" - \" || rules:fact-trail($NetIncomeLoss) let $source-facts := ($NetIncomeLoss, $ComprehensiveIncomeLoss) return rules:create-computed-fact( $ComprehensiveIncomeLoss, \"fac:OtherComprehensiveIncomeLoss\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:OtherComprehensiveIncomeLoss" ], 
-    "DependsOn" : [ "fac:NetIncomeLoss", "fac:ComprehensiveIncomeLoss" ]
-  }, {
-    "Id" : "kfr_ReturnOnAssets", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Return on Assets (ROA) computation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:ReturnOnAssets\", \"fac:NetIncomeLoss\", \"fac:Assets\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, \"Balance\")), $aligned-period let $ReturnOnAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ReturnOnAssets\"] for $NetIncomeLoss as object? allowing empty in $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] return switch(true) case (exists($ReturnOnAssets)) return $ReturnOnAssets case(exists($Assets) and rules:decimal-value($Assets) ne 0) return let $computed-value := rules:decimal-value($NetIncomeLoss) div rules:decimal-value($Assets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:ReturnOnAssets\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetIncomeLoss, \"fac:NetIncomeLoss\") || \" / \" || rules:fact-trail($Assets) let $source-facts := ($NetIncomeLoss, $Assets) return rules:create-computed-fact( $Assets, \"fac:ReturnOnAssets\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:ReturnOnAssets" ], 
-    "DependsOn" : [ "fac:NetIncomeLoss", "fac:Assets" ]
-  }, {
-    "Id" : "kfr_ReturnOnEquity", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Return on Equity (ROE) computation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:ReturnOnEquity\", \"fac:NetIncomeLoss\", \"fac:Equity\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, \"Balance\")), $aligned-period let $ReturnOnEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ReturnOnEquity\"] for $NetIncomeLoss as object? allowing empty in $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] return switch(true) case (exists($ReturnOnEquity)) return $ReturnOnEquity case(exists($Equity) and rules:decimal-value($Equity) ne 0) return let $computed-value := rules:decimal-value($NetIncomeLoss) div rules:decimal-value($Equity) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:ReturnOnEquity\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetIncomeLoss, \"fac:NetIncomeLoss\") || \" / \" || rules:fact-trail($Equity) let $source-facts := ($NetIncomeLoss, $Equity) return rules:create-computed-fact( $Equity, \"fac:ReturnOnEquity\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:ReturnOnEquity" ], 
-    "DependsOn" : [ "fac:NetIncomeLoss", "fac:Equity" ]
-  }, {
-    "Id" : "kfr_ReturnOnSalesROS", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Return on Sales (ROS) computation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:ReturnOnSalesROS\", \"fac:NetIncomeLoss\", \"fac:Revenues\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $ReturnOnSalesROS as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ReturnOnSalesROS\"] let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] return switch(true) case (exists($ReturnOnSalesROS)) return $ReturnOnSalesROS case(exists($Revenues) and rules:decimal-value($Revenues) ne 0) return let $computed-value := rules:decimal-value($NetIncomeLoss) div rules:decimal-value($Revenues) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:ReturnOnSalesROS\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($NetIncomeLoss, \"fac:NetIncomeLoss\") || \" / \" || rules:fact-trail($Revenues) let $source-facts := ($NetIncomeLoss, $Revenues) return rules:create-computed-fact( $Revenues, \"fac:ReturnOnSalesROS\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:ReturnOnSalesROS" ], 
-    "DependsOn" : [ "fac:NetIncomeLoss", "fac:Revenues" ]
-  }, {
-    "Id" : "kfr_SustainableGrowthRate", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Sustainable Growth Rate (SGR) computation", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:SustainableGrowthRate\", \"fac:NetIncomeLoss\", \"fac:Equity\", \"fac:Assets\", \"fac:Revenues\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, \"Balance\")), $aligned-period return for $duration-facts allowing empty in $facts[exists(facts:duration-for-fact($$))] group by $duration-facts ! facts:duration-for-fact($$).Start let $SustainableGrowthRate as object? := $duration-facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:SustainableGrowthRate\"] let $NetIncomeLoss as object? := $duration-facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $Revenues as object? := $duration-facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] return switch(true) case (exists($SustainableGrowthRate)) return $SustainableGrowthRate case(exists($Equity) and exists($Assets) and exists($Revenues) and rules:decimal-value($Revenues) ne 0 and rules:decimal-value($Equity) ne 0 and rules:decimal-value($Assets) ne 0 and rules:decimal-value($NetIncomeLoss) ne 0) return let $profit-margin := let $val := rules:decimal-value($NetIncomeLoss) div rules:decimal-value($Revenues) let $msg := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"temp:ProfitMargin\" }, Value: $val }) || \" = \" || rules:fact-trail($NetIncomeLoss) || \" / \" || rules:fact-trail($Revenues) let $facts as object+ := ($NetIncomeLoss, $Revenues) let $rule := copy $r := $rule modify replace value of json $r.Label with \"Temporary temp:ProfitMargin fact creation\" return $r return rules:create-computed-fact( $Revenues, \"temp:ProfitMargin\", $val, $rule, $msg, $facts, $options) let $debt-to-equity-ratio := let $val := (rules:decimal-value($Assets) - rules:decimal-value($Equity)) div rules:decimal-value($Equity) let $msg := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"temp:DebtToEquityRatio\" }, Value: $val }) || \" = (\" || rules:fact-trail($Assets) || \" - \" || rules:fact-trail($Equity) || \") / \" || rules:fact-trail($Equity) let $facts as object+ := ($Assets, $Equity) let $rule := copy $r := $rule modify ( replace value of json $r.Label with \"Temporary temp:DebtToEquityRatio fact creation\" ) return $r return rules:create-computed-fact( $Equity, \"temp:DebtToEquityRatio\", $val, $rule, $msg, $facts, $options) let $assets-to-sales-ratio := let $val := 1 div (rules:decimal-value($Revenues) div rules:decimal-value($Assets)) let $msg := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"temp:AssetsToSalesRatio\" }, Value: $val }) || \" = 1 / (\" || rules:fact-trail($Revenues) || \" / \" || rules:fact-trail($Assets) || \")\" let $facts as object+ := ($Assets, $Revenues) let $rule := copy $r := $rule modify ( replace value of json $r.Label with \"Temporary temp:AssetsToSalesRatio fact creation\" ) return $r return rules:create-computed-fact( $Assets, \"temp:AssetsToSalesRatio\", $val, $rule, $msg, $facts, $options) let $computed-value := ( rules:decimal-value($profit-margin) * (1 + rules:decimal-value($debt-to-equity-ratio))) div ( rules:decimal-value($assets-to-sales-ratio) - ( rules:decimal-value($profit-margin) * (1 + rules:decimal-value($debt-to-equity-ratio))) ) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:SustainableGrowthRate\" }, Value: $computed-value }) || \" = (\" || rules:fact-trail($profit-margin) || \" * ( 1 + \" || rules:fact-trail($debt-to-equity-ratio) || \")) div (\" || rules:fact-trail($assets-to-sales-ratio) || \" - (\" || rules:fact-trail($profit-margin) || \" * ( 1 + \" || rules:fact-trail($debt-to-equity-ratio) || \")))\" let $source-facts := ($profit-margin, $assets-to-sales-ratio, $debt-to-equity-ratio, $NetIncomeLoss, $Revenues, $Assets, $Equity) return rules:create-computed-fact( $Equity, \"fac:SustainableGrowthRate\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
-    "ComputableConcepts" : [ "fac:SustainableGrowthRate" ], 
-    "DependsOn" : [ "fac:NetIncomeLoss", "fac:Equity", "fac:Assets", "fac:Revenues" ]
-  }, {
-    "Id" : "BS1", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Equity\", \"fac:EquityAttributableToParent\", \"fac:EquityAttributableToNoncontrollingInterest\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $EquityAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToParent\"] let $EquityAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToNoncontrollingInterest\"] where exists($Equity) return let $test := rules:decimal-value($Equity) eq ( rules:decimal-value($EquityAttributableToParent) + rules:decimal-value($EquityAttributableToNoncontrollingInterest)) let $audit-trail-message := rules:fact-trail($Equity) || (if($test) then \" = \" else \" != \") || \"( \" || rules:fact-trail($EquityAttributableToParent,\"EquityAttributableToParent\") || \" + \" || rules:fact-trail($EquityAttributableToNoncontrollingInterest,\"EquityAttributableToNoncontrollingInterest\") || \")\" let $source-facts := ( $EquityAttributableToParent, $EquityAttributableToNoncontrollingInterest) return rules:create-computed-fact( $Equity, \"fac:EquityValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $Equity, $test)", 
-    "ComputableConcepts" : [ "fac:EquityValidation" ], 
-    "ValidatedConcepts" : [ "fac:Equity" ], 
-    "DependsOn" : [ "fac:EquityAttributableToParent", "fac:EquityAttributableToNoncontrollingInterest" ]
-  }, {
-    "Id" : "BS4", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Liabilities\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:CurrentLiabilities\", \"fac:NoncurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] where exists($Liabilities) and not(rules:decimal-value($CurrentAssets) eq 0 and rules:decimal-value($NoncurrentAssets) eq 0 and rules:decimal-value($CurrentLiabilities) eq 0 and rules:decimal-value($NoncurrentLiabilities) eq 0) return let $test := rules:decimal-value($Liabilities) eq (rules:decimal-value($CurrentLiabilities) + rules:decimal-value($NoncurrentLiabilities)) let $audit-trail-message := rules:fact-trail($Liabilities) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($CurrentLiabilities,\"CurrentLiabilities\") || \" + \" || rules:fact-trail($NoncurrentLiabilities,\"NoncurrentLiabilities\") || \")\" let $source-facts := ( $CurrentAssets, $NoncurrentAssets, $CurrentLiabilities, $NoncurrentLiabilities) return rules:create-computed-fact( $Liabilities, \"fac:LiabilitiesValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $Liabilities, $test)", 
-    "ComputableConcepts" : [ "fac:LiabilitiesValidation" ], 
-    "ValidatedConcepts" : [ "fac:Liabilities" ], 
-    "DependsOn" : [ "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:CurrentLiabilities", "fac:NoncurrentLiabilities" ]
-  }, {
-    "Id" : "BS5", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:LiabilitiesAndEquity\", \"fac:Liabilities\", \"fac:CommitmentsAndContingencies\", \"fac:TemporaryEquity\", \"fac:Equity\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $CommitmentsAndContingencies as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommitmentsAndContingencies\"] let $TemporaryEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TemporaryEquity\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] where exists($LiabilitiesAndEquity) return let $test := rules:decimal-value($LiabilitiesAndEquity) eq (rules:decimal-value($Liabilities) + rules:decimal-value($CommitmentsAndContingencies) + rules:decimal-value($TemporaryEquity) + rules:decimal-value($Equity)) let $audit-trail-message := rules:fact-trail($LiabilitiesAndEquity) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($Liabilities,\"Liabilities\") || \" + \" || rules:fact-trail($CommitmentsAndContingencies,\"CommitmentsAndContingencies\") || \" + \" || rules:fact-trail($TemporaryEquity,\"TemporaryEquity\") || \" + \" || rules:fact-trail($Equity,\"Equity\") || \")\" let $source-facts := ( $Liabilities, $CommitmentsAndContingencies, $TemporaryEquity, $Equity) return rules:create-computed-fact( $LiabilitiesAndEquity, \"fac:LiabilitiesAndEquityValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $LiabilitiesAndEquity, $test)", 
-    "ComputableConcepts" : [ "fac:LiabilitiesAndEquityValidation" ], 
-    "ValidatedConcepts" : [ "fac:LiabilitiesAndEquity" ], 
-    "DependsOn" : [ "fac:Liabilities", "fac:CommitmentsAndContingencies", "fac:TemporaryEquity", "fac:Equity" ]
-  }, {
-    "Id" : "CF1", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses]", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlows\", \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromFinancingActivities\", \"fac:ExchangeGainsLosses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlows as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlows\"] let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $ExchangeGainsLosses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExchangeGainsLosses\"] return switch (true) case (exists($NetCashFlows) and rules:decimal-value($NetCashFlows) ne (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities))) return let $test := rules:decimal-value($NetCashFlows) eq (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities) + rules:decimal-value($ExchangeGainsLosses)) let $audit-trail-message := rules:fact-trail($NetCashFlows) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivities,\"NetCashFlowsFromOperatingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivities,\"NetCashFlowsFromInvestingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivities,\"NetCashFlowsFromFinancingActivities\") || \" + \" || rules:fact-trail($ExchangeGainsLosses,\"ExchangeGainsLosses\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses) return rules:create-computed-fact( $NetCashFlows, \"fac:NetCashFlowsValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlows, $test) case (exists($NetCashFlows) and rules:decimal-value($NetCashFlows) ne (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities) + rules:decimal-value($ExchangeGainsLosses))) return let $test := rules:decimal-value($NetCashFlows) eq (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities)) let $audit-trail-message := rules:fact-trail($NetCashFlows) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivities,\"NetCashFlowsFromOperatingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivities,\"NetCashFlowsFromInvestingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivities,\"NetCashFlowsFromFinancingActivities\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses) return rules:create-computed-fact( $NetCashFlows, \"fac:NetCashFlowsValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlows, $test) default return ()", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsValidation" ], 
-    "ValidatedConcepts" : [ "fac:NetCashFlows" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromFinancingActivities", "fac:ExchangeGainsLosses" ]
-  }, {
-    "Id" : "CF2", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "NetCashFlowsContinuing = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesContinuing", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsContinuing\", \"fac:NetCashFlowsFromOperatingActivitiesContinuing\", \"fac:NetCashFlowsFromInvestingActivitiesContinuing\", \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsContinuing\"] let $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"] let $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"] let $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"] where exists($NetCashFlowsContinuing) return let $test := rules:decimal-value($NetCashFlowsContinuing) eq (rules:decimal-value($NetCashFlowsFromOperatingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromInvestingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromFinancingActivitiesContinuing)) let $audit-trail-message := rules:fact-trail($NetCashFlowsContinuing) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesContinuing,\"NetCashFlowsFromOperatingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesContinuing,\"NetCashFlowsFromInvestingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesContinuing,\"NetCashFlowsFromFinancingActivitiesContinuing\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivitiesContinuing, $NetCashFlowsFromInvestingActivitiesContinuing, $NetCashFlowsFromFinancingActivitiesContinuing) return rules:create-computed-fact( $NetCashFlowsContinuing, \"fac:NetCashFlowsContinuingValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlowsContinuing, $test)", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsContinuingValidation" ], 
-    "ValidatedConcepts" : [ "fac:NetCashFlowsContinuing" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesContinuing" ]
-  }, {
-    "Id" : "CF3", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "NetCashFlowsDiscontinued = NetCashFlowsFromOperatingActivitiesDiscontinued + NetCashFlowsFromInvestingActivitiesDiscontinued + NetCashFlowsFromFinancingActivitiesDiscontinued", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsDiscontinued\", \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\", \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\", \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsDiscontinued\"] let $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"] let $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"] let $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"] where exists($NetCashFlowsDiscontinued) return let $test := rules:decimal-value($NetCashFlowsDiscontinued) eq (rules:decimal-value($NetCashFlowsFromOperatingActivitiesDiscontinued) + rules:decimal-value($NetCashFlowsFromInvestingActivitiesDiscontinued) + rules:decimal-value($NetCashFlowsFromFinancingActivitiesDiscontinued)) let $audit-trail-message := rules:fact-trail($NetCashFlowsDiscontinued) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesDiscontinued,\"NetCashFlowsFromOperatingActivitiesDiscontinued\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesDiscontinued,\"NetCashFlowsFromInvestingActivitiesDiscontinued\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesDiscontinued,\"NetCashFlowsFromFinancingActivitiesDiscontinued\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivitiesDiscontinued, $NetCashFlowsFromInvestingActivitiesDiscontinued, $NetCashFlowsFromFinancingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsDiscontinued, \"fac:NetCashFlowsDiscontinuedValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlowsDiscontinued, $test)", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsDiscontinuedValidation" ], 
-    "ValidatedConcepts" : [ "fac:NetCashFlowsDiscontinued" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "CF4", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "NetCashFlowsFromOperatingActivities = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromOperatingActivitiesDiscontinued", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromOperatingActivitiesContinuing\", \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"] let $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"] where exists($NetCashFlowsFromOperatingActivities) return let $test := rules:decimal-value($NetCashFlowsFromOperatingActivities) eq (rules:decimal-value($NetCashFlowsFromOperatingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromOperatingActivitiesDiscontinued)) let $audit-trail-message := rules:fact-trail($NetCashFlowsFromOperatingActivities) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesContinuing,\"NetCashFlowsFromOperatingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesDiscontinued,\"NetCashFlowsFromOperatingActivitiesDiscontinued\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivitiesContinuing, $NetCashFlowsFromOperatingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromOperatingActivities, \"fac:NetCashFlowsFromOperatingActivitiesValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlowsFromOperatingActivities, $test)", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivitiesValidation" ], 
-    "ValidatedConcepts" : [ "fac:NetCashFlowsFromOperatingActivities" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "CF5", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "NetCashFlowsFromInvestingActivities = NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesDiscontinued", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromInvestingActivitiesContinuing\", \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"] let $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"] where exists($NetCashFlowsFromInvestingActivities) return let $test := rules:decimal-value($NetCashFlowsFromInvestingActivities) eq (rules:decimal-value($NetCashFlowsFromInvestingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromInvestingActivitiesDiscontinued)) let $audit-trail-message := rules:fact-trail($NetCashFlowsFromInvestingActivities) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesContinuing,\"NetCashFlowsFromInvestingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesDiscontinued,\"NetCashFlowsFromInvestingActivitiesDiscontinued\") || \")\" let $source-facts := ( $NetCashFlowsFromInvestingActivitiesContinuing, $NetCashFlowsFromInvestingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromInvestingActivities, \"fac:NetCashFlowsFromInvestingActivitiesValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlowsFromInvestingActivities, $test)", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivitiesValidation" ], 
-    "ValidatedConcepts" : [ "fac:NetCashFlowsFromInvestingActivities" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "CF6", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "NetCashFlowsFromFinancingActivities = NetCashFlowsFromFinancingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesDiscontinued", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromFinancingActivities\", \"fac:NetCashFlowsFromFinancingActivitiesContinuing\", \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"] let $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"] where exists($NetCashFlowsFromFinancingActivities) return let $test := rules:decimal-value($NetCashFlowsFromFinancingActivities) eq (rules:decimal-value($NetCashFlowsFromFinancingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromFinancingActivitiesDiscontinued)) let $audit-trail-message := rules:fact-trail($NetCashFlowsFromFinancingActivities) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesContinuing,\"NetCashFlowsFromFinancingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesDiscontinued,\"NetCashFlowsFromFinancingActivitiesDiscontinued\") || \")\" let $source-facts := ( $NetCashFlowsFromFinancingActivitiesContinuing, $NetCashFlowsFromFinancingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromFinancingActivities, \"fac:NetCashFlowsFromFinancingActivitiesValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlowsFromFinancingActivities, $test)", 
-    "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivitiesValidation" ], 
-    "ValidatedConcepts" : [ "fac:NetCashFlowsFromFinancingActivities" ], 
-    "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
-  }, {
-    "Id" : "IS1", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "GrossProfit = Revenues - CostOfRevenue", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:GrossProfit\", \"fac:Revenues\", \"fac:CostOfRevenue\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] where exists($GrossProfit) return let $test := rules:decimal-value($GrossProfit) eq (rules:decimal-value($Revenues) - rules:decimal-value($CostOfRevenue)) let $audit-trail-message := rules:fact-trail($GrossProfit) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($Revenues,\"Revenues\") || \" - \" || rules:fact-trail($CostOfRevenue,\"CostOfRevenue\") || \")\" let $source-facts := ( $Revenues, $CostOfRevenue) return rules:create-computed-fact( $GrossProfit, \"fac:GrossProfitValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $GrossProfit, $test)", 
-    "ComputableConcepts" : [ "fac:GrossProfitValidation" ], 
-    "ValidatedConcepts" : [ "fac:GrossProfit" ], 
-    "DependsOn" : [ "fac:Revenues", "fac:CostOfRevenue" ]
-  }, {
-    "Id" : "IS2", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:OperatingIncomeLoss\", \"fac:GrossProfit\", \"fac:OperatingExpenses\", \"fac:OtherOperatingIncomeExpenses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"] let $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"] where exists($OperatingIncomeLoss) return let $test := rules:decimal-value($OperatingIncomeLoss) eq (rules:decimal-value($GrossProfit) - rules:decimal-value($OperatingExpenses) + rules:decimal-value($OtherOperatingIncomeExpenses)) let $audit-trail-message := rules:fact-trail($OperatingIncomeLoss) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($GrossProfit,\"GrossProfit\") || \" - \" || rules:fact-trail($OperatingExpenses,\"OperatingExpenses\") || \" + \" || rules:fact-trail($OtherOperatingIncomeExpenses,\"OtherOperatingIncomeExpenses\") || \")\" let $source-facts := ( $GrossProfit, $OperatingExpenses, $OtherOperatingIncomeExpenses) return rules:create-computed-fact( $OperatingIncomeLoss, \"fac:OperatingIncomeLossValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $OperatingIncomeLoss, $test)", 
-    "ComputableConcepts" : [ "fac:OperatingIncomeLossValidation" ], 
-    "ValidatedConcepts" : [ "fac:OperatingIncomeLoss" ], 
-    "DependsOn" : [ "fac:GrossProfit", "fac:OperatingExpenses", "fac:OtherOperatingIncomeExpenses" ]
-  }, {
-    "Id" : "IS11", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:OperatingIncomeLoss\", \"fac:Revenues\", \"fac:CostsAndExpenses\", \"fac:OtherOperatingIncomeExpenses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"] let $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"] where exists($OperatingIncomeLoss) return let $test := rules:decimal-value($OperatingIncomeLoss) eq (rules:decimal-value($Revenues) - rules:decimal-value($CostsAndExpenses) + rules:decimal-value($OtherOperatingIncomeExpenses)) let $audit-trail-message := rules:fact-trail($OperatingIncomeLoss) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($Revenues,\"Revenues\") || \" - \" || rules:fact-trail($CostsAndExpenses,\"CostsAndExpenses\") || \" + \" || rules:fact-trail($OtherOperatingIncomeExpenses,\"OtherOperatingIncomeExpenses\") || \")\" let $source-facts := ( $Revenues, $CostsAndExpenses, $OtherOperatingIncomeExpenses) return rules:create-computed-fact( $OperatingIncomeLoss, \"fac:OperatingIncomeLoss2Validation\", $test, $rule, $audit-trail-message, $source-facts, $options, $OperatingIncomeLoss, $test)", 
-    "ComputableConcepts" : [ "fac:OperatingIncomeLoss2Validation" ], 
-    "ValidatedConcepts" : [ "fac:OperatingIncomeLoss" ], 
-    "DependsOn" : [ "fac:Revenues", "fac:CostsAndExpenses", "fac:OtherOperatingIncomeExpenses" ]
-  }, {
-    "Id" : "IS3", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "IncomeBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeBeforeEquityMethodInvestments\", \"fac:OperatingIncomeLoss\", \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"] let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $NonoperatingIncomeLossPlusInterestAndDebtExpense as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\"] where exists($IncomeBeforeEquityMethodInvestments) return let $test := rules:decimal-value($IncomeBeforeEquityMethodInvestments) eq rules:decimal-value($OperatingIncomeLoss) + rules:decimal-value($NonoperatingIncomeLossPlusInterestAndDebtExpense) let $audit-trail-message := rules:fact-trail($IncomeBeforeEquityMethodInvestments) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($OperatingIncomeLoss,\"OperatingIncomeLoss\") || \" + \" || rules:fact-trail($NonoperatingIncomeLossPlusInterestAndDebtExpense,\"NonoperatingIncomeLossPlusInterestAndDebtExpense\") || \"\" let $source-facts := ( $OperatingIncomeLoss, $NonoperatingIncomeLossPlusInterestAndDebtExpense) return rules:create-computed-fact( $IncomeBeforeEquityMethodInvestments, \"fac:IncomeBeforeEquityMethodInvestmentsValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $IncomeBeforeEquityMethodInvestments, $test)", 
-    "ComputableConcepts" : [ "fac:IncomeBeforeEquityMethodInvestmentsValidation" ], 
-    "ValidatedConcepts" : [ "fac:IncomeBeforeEquityMethodInvestments" ], 
-    "DependsOn" : [ "fac:OperatingIncomeLoss", "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense" ]
-  }, {
-    "Id" : "IS4", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "IncomeLossFromContinuingOperationsBeforeTax = IncomeBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:IncomeBeforeEquityMethodInvestments\", \"fac:IncomeLossFromEquityMethodInvestments\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"] let $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"] let $IncomeLossFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromEquityMethodInvestments\"] where exists($IncomeLossFromContinuingOperationsBeforeTax) return let $test := rules:decimal-value($IncomeLossFromContinuingOperationsBeforeTax) eq rules:decimal-value($IncomeBeforeEquityMethodInvestments) + rules:decimal-value($IncomeLossFromEquityMethodInvestments) let $audit-trail-message := rules:fact-trail($IncomeLossFromContinuingOperationsBeforeTax) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($IncomeBeforeEquityMethodInvestments,\"IncomeBeforeEquityMethodInvestments\") || \" + \" || rules:fact-trail($IncomeLossFromEquityMethodInvestments,\"IncomeLossFromEquityMethodInvestments\") || \"\" let $source-facts := ( $IncomeBeforeEquityMethodInvestments, $IncomeLossFromEquityMethodInvestments) return rules:create-computed-fact( $IncomeLossFromContinuingOperationsBeforeTax, \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $IncomeLossFromContinuingOperationsBeforeTax, $test)", 
-    "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation" ], 
-    "ValidatedConcepts" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax" ], 
-    "DependsOn" : [ "fac:IncomeBeforeEquityMethodInvestments", "fac:IncomeLossFromEquityMethodInvestments" ]
-  }, {
-    "Id" : "IS5", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeLossFromContinuingOperationsAfterTax\", \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:IncomeTaxExpenseBenefit\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeLossFromContinuingOperationsAfterTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsAfterTax\"] let $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"] let $IncomeTaxExpenseBenefit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeTaxExpenseBenefit\"] where exists($IncomeLossFromContinuingOperationsAfterTax) return let $test := rules:decimal-value($IncomeLossFromContinuingOperationsAfterTax) eq (rules:decimal-value($IncomeLossFromContinuingOperationsBeforeTax) - rules:decimal-value($IncomeTaxExpenseBenefit)) let $audit-trail-message := rules:fact-trail($IncomeLossFromContinuingOperationsAfterTax) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($IncomeLossFromContinuingOperationsBeforeTax,\"IncomeLossFromContinuingOperationsBeforeTax\") || \" - \" || rules:fact-trail($IncomeTaxExpenseBenefit,\"IncomeTaxExpenseBenefit\") || \")\" let $source-facts := ( $IncomeLossFromContinuingOperationsBeforeTax, $IncomeTaxExpenseBenefit) return rules:create-computed-fact( $IncomeLossFromContinuingOperationsAfterTax, \"fac:IncomeLossFromContinuingOperationsAfterTaxValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $IncomeLossFromContinuingOperationsAfterTax, $test)", 
-    "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsAfterTaxValidation" ], 
-    "ValidatedConcepts" : [ "fac:IncomeLossFromContinuingOperationsAfterTax" ], 
-    "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:IncomeTaxExpenseBenefit" ]
-  }, {
-    "Id" : "IS6", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetTax + ExtraordinaryItemsIncomeExpenseNetTax", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetIncomeLoss\", \"fac:IncomeLossFromContinuingOperationsAfterTax\", \"fac:IncomeLossFromDiscontinuedOperationsNetTax\", \"fac:ExtraordinaryItemsIncomeExpenseNetTax\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $IncomeLossFromContinuingOperationsAfterTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsAfterTax\"] let $IncomeLossFromDiscontinuedOperationsNetTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromDiscontinuedOperationsNetTax\"] let $ExtraordinaryItemsIncomeExpenseNetTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExtraordinaryItemsIncomeExpenseNetTax\"] where exists($NetIncomeLoss) return let $test := rules:decimal-value($NetIncomeLoss) eq rules:decimal-value($IncomeLossFromContinuingOperationsAfterTax) + rules:decimal-value($IncomeLossFromDiscontinuedOperationsNetTax) + rules:decimal-value($ExtraordinaryItemsIncomeExpenseNetTax) let $audit-trail-message := rules:fact-trail($NetIncomeLoss) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($IncomeLossFromContinuingOperationsAfterTax,\"IncomeLossFromContinuingOperationsAfterTax\") || \" + \" || rules:fact-trail($IncomeLossFromDiscontinuedOperationsNetTax,\"IncomeLossFromDiscontinuedOperationsNetTax\") || \" + \" || rules:fact-trail($ExtraordinaryItemsIncomeExpenseNetTax,\"ExtraordinaryItemsIncomeExpenseNetTax\") || \"\" let $source-facts := ( $IncomeLossFromContinuingOperationsAfterTax, $IncomeLossFromDiscontinuedOperationsNetTax, $ExtraordinaryItemsIncomeExpenseNetTax) return rules:create-computed-fact( $NetIncomeLoss, \"fac:NetIncomeLossValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetIncomeLoss, $test)", 
-    "ComputableConcepts" : [ "fac:NetIncomeLossValidation" ], 
-    "ValidatedConcepts" : [ "fac:NetIncomeLoss" ], 
-    "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsAfterTax", "fac:IncomeLossFromDiscontinuedOperationsNetTax", "fac:ExtraordinaryItemsIncomeExpenseNetTax" ]
-  }, {
-    "Id" : "IS7", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "NetIncomeLoss = NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetIncomeLoss\", \"fac:NetIncomeAttributableToParent\", \"fac:NetIncomeAttributableToNoncontrollingInterest\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $NetIncomeAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToParent\"] let $NetIncomeAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToNoncontrollingInterest\"] where exists($NetIncomeLoss) return let $test := rules:decimal-value($NetIncomeLoss) eq rules:decimal-value($NetIncomeAttributableToParent) + rules:decimal-value($NetIncomeAttributableToNoncontrollingInterest) let $audit-trail-message := rules:fact-trail($NetIncomeLoss) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($NetIncomeAttributableToParent,\"NetIncomeAttributableToParent\") || \" + \" || rules:fact-trail($NetIncomeAttributableToNoncontrollingInterest,\"NetIncomeAttributableToNoncontrollingInterest\") || \"\" let $source-facts := ( $NetIncomeAttributableToParent, $NetIncomeAttributableToNoncontrollingInterest) return rules:create-computed-fact( $NetIncomeLoss, \"fac:NetIncomeLoss2Validation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetIncomeLoss, $test)", 
-    "ComputableConcepts" : [ "fac:NetIncomeLoss2Validation" ], 
-    "ValidatedConcepts" : [ "fac:NetIncomeLoss" ], 
-    "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:NetIncomeAttributableToNoncontrollingInterest" ]
-  }, {
-    "Id" : "IS8", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\", \"fac:NetIncomeAttributableToParent\", \"fac:PreferredStockDividendsAndOtherAdjustments\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetIncomeLossAvailableToCommonStockholdersBasic as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\"] let $NetIncomeAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToParent\"] let $PreferredStockDividendsAndOtherAdjustments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:PreferredStockDividendsAndOtherAdjustments\"] where exists($NetIncomeLossAvailableToCommonStockholdersBasic) return let $test := rules:decimal-value($NetIncomeLossAvailableToCommonStockholdersBasic) eq rules:decimal-value($NetIncomeAttributableToParent) - rules:decimal-value($PreferredStockDividendsAndOtherAdjustments) let $audit-trail-message := rules:fact-trail($NetIncomeLossAvailableToCommonStockholdersBasic) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($NetIncomeAttributableToParent,\"NetIncomeAttributableToParent\") || \" - \" || rules:fact-trail($PreferredStockDividendsAndOtherAdjustments,\"PreferredStockDividendsAndOtherAdjustments\") || \"\" let $source-facts := ( $NetIncomeAttributableToParent, $PreferredStockDividendsAndOtherAdjustments) return rules:create-computed-fact( $NetIncomeLossAvailableToCommonStockholdersBasic, \"fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetIncomeLossAvailableToCommonStockholdersBasic, $test)", 
-    "ComputableConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation" ], 
-    "ValidatedConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ], 
-    "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:PreferredStockDividendsAndOtherAdjustments" ]
-  }, {
-    "Id" : "IS9", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:ComprehensiveIncomeLoss\", \"fac:ComprehensiveIncomeLossAttributableToParent\", \"fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $ComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLoss\"] let $ComprehensiveIncomeLossAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLossAttributableToParent\"] let $ComprehensiveIncomeLossAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest\"] where exists($ComprehensiveIncomeLoss) return let $test := rules:decimal-value($ComprehensiveIncomeLoss) eq rules:decimal-value($ComprehensiveIncomeLossAttributableToParent) + rules:decimal-value($ComprehensiveIncomeLossAttributableToNoncontrollingInterest) let $audit-trail-message := rules:fact-trail($ComprehensiveIncomeLoss) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($ComprehensiveIncomeLossAttributableToParent,\"ComprehensiveIncomeLossAttributableToParent\") || \" + \" || rules:fact-trail($ComprehensiveIncomeLossAttributableToNoncontrollingInterest,\"ComprehensiveIncomeLossAttributableToNoncontrollingInterest\") || \"\" let $source-facts := ( $ComprehensiveIncomeLossAttributableToParent, $ComprehensiveIncomeLossAttributableToNoncontrollingInterest) return rules:create-computed-fact( $ComprehensiveIncomeLoss, \"fac:ComprehensiveIncomeLossValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $ComprehensiveIncomeLoss, $test)", 
-    "ComputableConcepts" : [ "fac:ComprehensiveIncomeLossValidation" ], 
-    "ValidatedConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
-    "DependsOn" : [ "fac:ComprehensiveIncomeLossAttributableToParent", "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest" ]
-  }, {
-    "Id" : "IS10", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "ComprehensiveIncomeLoss = NetIncomeLoss + OtherComprehensiveIncomeLoss", 
-    "Formula" : "for $facts in facts:facts-for-internal(( \"fac:ComprehensiveIncomeLoss\", \"fac:NetIncomeLoss\", \"fac:OtherComprehensiveIncomeLoss\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $ComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLoss\"] let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $OtherComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherComprehensiveIncomeLoss\"] where exists($ComprehensiveIncomeLoss) return let $test := rules:decimal-value($ComprehensiveIncomeLoss) eq rules:decimal-value($NetIncomeLoss) + rules:decimal-value($OtherComprehensiveIncomeLoss) let $audit-trail-message := rules:fact-trail($ComprehensiveIncomeLoss) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($NetIncomeLoss,\"NetIncomeLoss\") || \" + \" || rules:fact-trail($OtherComprehensiveIncomeLoss,\"OtherComprehensiveIncomeLoss\") || \"\" let $source-facts := ( $NetIncomeLoss, $OtherComprehensiveIncomeLoss) return rules:create-computed-fact( $ComprehensiveIncomeLoss, \"fac:ComprehensiveIncomeLoss2Validation\", $test, $rule, $audit-trail-message, $source-facts, $options, $ComprehensiveIncomeLoss, $test)", 
-    "ComputableConcepts" : [ "fac:ComprehensiveIncomeLoss2Validation" ], 
-    "ValidatedConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
-    "DependsOn" : [ "fac:NetIncomeLoss", "fac:OtherComprehensiveIncomeLoss" ]
-  }, {
-    "Id" : "oag_ProvedReserves", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Proved reserves calculation", 
-    "Formula" : "declare function local:mapToMember($concept) { switch(true) case ($concept = \"oag:ReservesProvedNaturalGas\") return \"us-gaap:NaturalGasReservesMember\" case ($concept = \"oag:ReservesProvedNaturalGasLiquids\") return \"apa:NaturalGasLiquidsMember\" case ($concept = \"oag:ReservesProvedOilAndCondensateReserves\") return \"apa:CrudeOilAndCondensateMember\" case ($concept = \"oag:ReservesProvedTotal\") return \"us-gaap:TypeOfReserveDomain\" default return () }; let $target-concept := \"us-gaap:ProvedDevelopedReservesVolume\" let $concepts := flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT)[$$ = (\"oag:ReservesProvedNaturalGas\", \"oag:ReservesProvedOilAndCondensateReserves\", \"oag:ReservesProvedNaturalGasLiquids\", \"oag:ReservesProvedTotal\")] for $concept in $concepts let $filter-mod := if($concept ne \"oag:ReservesProvedTotal\") then local:mapToMember($concept) else () let $hypercube-mod := { \"Name\" : \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\", \"Default\" : \"us-gaap:TypeOfReserveDomain\" } let $aligned-filter := copy $f := $aligned-filter modify ( if(exists($filter-mod)) then if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $filter-mod else insert json { \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\": [ $filter-mod ] } into $f.Aspects else (), replace value of json $f.Aspects.$facts:CONCEPT with [ $target-concept ] ) return $f let $hypercube := copy $h := $hypercube modify ( if(exists($h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $hypercube-mod else insert json {\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" : $hypercube-mod } into $h.Aspects ) return $h return for $facts in facts:facts-for-internal( $target-concept, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) return let $member := local:mapToMember($concept) for $provedReserve in $facts[$$.$facts:ASPECTS.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" eq $member] return let $source-fact := $provedReserve let $value := rules:decimal-value($provedReserve) let $original-concept := $provedReserve.$facts:ASPECTS.$facts:CONCEPT let $audit-trail-message := \"concept to member mapping: '\" || $concept || \"' -> '\" || $original-concept || \"(us-gaap:ReserveQuantitiesByTypeOfReserveAxis::\" || $member || \")'\" return copy $f := rules:create-computed-fact( $source-fact, $concept, $value, $rule, $audit-trail-message, $source-fact, $options) modify if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then delete json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" else () return $f", 
-    "ComputableConcepts" : [ "oag:ReservesProvedNaturalGas", "oag:ReservesProvedOilAndCondensateReserves", "oag:ReservesProvedNaturalGasLiquids", "oag:ReservesProvedTotal" ]
-  }, {
-    "Id" : "oag_SalesVolumes", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Sales Volumes calculation", 
-    "Formula" : "declare function local:mapToMember($concept) { switch(true) case ($concept = (\"oag:SalesVolumesNaturalGas\", \"oag:SalesVolumesDailyNaturalGas\")) return \"us-gaap:NaturalGasReservesMember\" case ($concept = (\"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesDailyNaturalGasLiquids\")) return \"apa:NaturalGasLiquidsMember\" case ($concept = (\"oag:SalesVolumesOilAndCondensate\", \"oag:SalesVolumesDailyOilAndCondensate\")) return \"apa:CrudeOilAndCondensateMember\" case ($concept = (\"oag:SalesVolumesTotal\", \"oag:SalesVolumesDailyTotal\")) return \"us-gaap:TypeOfReserveDomain\" default return () }; declare function local:valueAdjusted($concept, $fact) { let $unit := $fact.Aspects.\"xbrl:Unit\" return switch(true) case ($concept eq \"oag:SalesVolumesNaturalGas\" and contains($unit, \":MMcf\")) return rules:decimal-value($fact) div 1000 case ($concept eq \"oag:SalesVolumesDailyNaturalGas\") return rules:decimal-value($fact) div 365 case ($concept = (\"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesOilAndCondensate\", \"oag:SalesVolumesTotal\") and contains($unit, \":MBbls\")) return rules:decimal-value($fact) div 1000 case ($concept = (\"oag:SalesVolumesDailyNaturalGasLiquids\", \"oag:SalesVolumesDailyOilAndCondensate\", \"oag:SalesVolumesDailyTotal\")) return rules:decimal-value($fact) div 365 default return rules:decimal-value($fact) }; declare function local:unitsAdjusted($concept, $fact) { let $unit := $fact.Aspects.\"xbrl:Unit\" return switch(true) case ($concept eq \"oag:SalesVolumesNaturalGas\" and contains($unit, \":MMcf\")) return \"utr:Bcf\" case ($concept eq \"oag:SalesVolumesDailyNaturalGas\" and contains($unit, \":MMcf\")) return \"utr:MMcf/d\" case ($concept = (\"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesOilAndCondensate\") and contains($unit, \":MBbls\")) return \"utr:MMBbls\" case ($concept = (\"oag:SalesVolumesDailyNaturalGasLiquids\", \"oag:SalesVolumesDailyOilAndCondensate\") and contains($unit, \":MBbls\")) return \"utr:MBbls/d\" case ($concept eq \"oag:SalesVolumesTotal\" and contains($unit, \":MBbls\")) return \"utr:MMBOE\" case ($concept eq \"oag:SalesVolumesDailyTotal\" and contains($unit, \":MBbls\")) return \"utr:MBOE/d\" default return $unit }; let $target-concept := \"us-gaap:ProvedDevelopedAndUndevelopedReservesSalesOfMineralsInPlace\" let $concepts := flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT)[$$ = (\"oag:SalesVolumesNaturalGas\", \"oag:SalesVolumesOilAndCondensate\", \"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesTotal\", \"oag:SalesVolumesDailyNaturalGas\", \"oag:SalesVolumesDailyOilAndCondensate\", \"oag:SalesVolumesDailyNaturalGasLiquids\", \"oag:SalesVolumesDailyTotal\")] for $concept in $concepts let $filter-mod := if($concept = (\"oag:SalesVolumesTotal\", \"oag:SalesVolumesDailyTotal\")) then () else local:mapToMember($concept) let $hypercube-mod := { \"Name\" : \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\", \"Default\" : \"us-gaap:TypeOfReserveDomain\" } let $aligned-filter := copy $f := $aligned-filter modify ( if(exists($filter-mod)) then if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $filter-mod else insert json { \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\": [ $filter-mod ] } into $f.Aspects else (), replace value of json $f.Aspects.$facts:CONCEPT with [ $target-concept ] ) return $f let $hypercube := copy $h := $hypercube modify ( if(exists($h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $hypercube-mod else insert json {\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" : $hypercube-mod } into $h.Aspects ) return $h return for $facts in facts:facts-for-internal( $target-concept, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) return let $member := local:mapToMember($concept) for $salesVolume in $facts[$$.$facts:ASPECTS.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" eq $member] return let $source-fact := $salesVolume let $value := local:valueAdjusted($concept, $salesVolume) let $unit := local:unitsAdjusted($concept, $salesVolume) let $original-concept := $salesVolume.$facts:ASPECTS.$facts:CONCEPT let $audit-trail-message := \"concept to member mapping: '\" || $concept || \"' -> '\" || $original-concept || \"(us-gaap:ReserveQuantitiesByTypeOfReserveAxis::\" || $member || \")'\" return copy $f := rules:create-computed-fact( $source-fact, $concept, $value, $rule, $audit-trail-message, $source-fact, $options) modify ( if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then delete json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" else (), replace value of json $f.Aspects.\"xbrl:Unit\" with $unit ) return $f", 
-    "ComputableConcepts" : [ "oag:SalesVolumesNaturalGas", "oag:SalesVolumesOilAndCondensate", "oag:SalesVolumesNaturalGasLiquids", "oag:SalesVolumesTotal", "oag:SalesVolumesDailyNaturalGas", "oag:SalesVolumesDailyOilAndCondensate", "oag:SalesVolumesDailyNaturalGasLiquids", "oag:SalesVolumesDailyTotal" ]
-  }, {
-    "Id" : "BS2", 
-    "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "Assets = LiabilitiesAndEquity", 
-    "Description" : "Rule to validate Assets (fac:Assets). It also creates a new fact (fac:AssetsValidation) that contains the validation result.", 
-    "ComputableConcepts" : [ "fac:AssetsValidation" ], 
-    "DependsOn" : [ "fac:Assets", "fac:LiabilitiesAndEquity" ], 
-    "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:AssetsValidation\", \"fac:Assets\", \"fac:LiabilitiesAndEquity\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))\n  , $aligned-period\nlet $AssetsValidation as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:AssetsValidation\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($AssetsValidation) return $AssetsValidation\n  case (exists($Assets) and true)\n  return\n    let $computed-value := rules:decimal-value($Assets) eq rules:decimal-value($LiabilitiesAndEquity)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:AssetsValidation\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($Assets, \"Assets\") || \" eq \" || rules:fact-trail($LiabilitiesAndEquity, \"LiabilitiesAndEquity\")\n\t let $source-facts := ($AssetsValidation, $Assets, $LiabilitiesAndEquity)\n    return\n      rules:create-computed-fact(\n          $Assets,\n          \"fac:AssetsValidation\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
-    "ValidatedConcepts" : [ "fac:Assets" ], 
-    "Formulae" : [ {
-      "PrereqSrc" : "TRUE", 
-      "Prereq" : {
-        "Type" : "boolean", 
-        "Value" : "true"
-      }, 
-      "SourceFact" : [ "Assets" ], 
-      "BodySrc" : "Assets = LiabilitiesAndEquity", 
-      "Body" : {
-        "Type" : "eq", 
-        "Children" : [ {
-          "Type" : "variable", 
-          "Name" : "Assets"
-        }, {
-          "Type" : "variable", 
-          "Name" : "LiabilitiesAndEquity"
-        } ]
-      }, 
-      "active" : true, 
-      "valid" : true
-    } ], 
-    "AllowCrossPeriod" : true, 
-    "AllowCrossBalance" : true
-  }, {
-    "Id" : "BS3", 
-    "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:validation", 
-    "Label" : "Assets = CurrentAssets + NoncurrentAssets", 
-    "Description" : "Rule to validate Assets (fac:Assets). It also creates a new fact (fac:AssetsValidation2) that contains the validation result.", 
-    "ComputableConcepts" : [ "fac:AssetsValidation2" ], 
-    "DependsOn" : [ "fac:Assets", "fac:CurrentAssets", "fac:NoncurrentAssets" ], 
-    "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:AssetsValidation2\", \"fac:Assets\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))\n  , $aligned-period\nlet $AssetsValidation2 as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:AssetsValidation2\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"]\nlet $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($AssetsValidation2) return $AssetsValidation2\n  case (exists($Assets) and true)\n  return\n    let $computed-value := rules:decimal-value($Assets) eq rules:decimal-value($CurrentAssets) + rules:decimal-value($NoncurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:AssetsValidation2\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($Assets, \"Assets\") || \" eq \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\") || \" + \" || rules:fact-trail($NoncurrentAssets, \"NoncurrentAssets\")\n\t let $source-facts := ($AssetsValidation2, $Assets, $CurrentAssets, $NoncurrentAssets)\n    return\n      rules:create-computed-fact(\n          $Assets,\n          \"fac:AssetsValidation2\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
-    "ValidatedConcepts" : [ "fac:Assets" ], 
-    "Formulae" : [ {
-      "PrereqSrc" : "TRUE", 
-      "Prereq" : {
-        "Type" : "boolean", 
-        "Value" : "true"
-      }, 
-      "SourceFact" : [ "Assets" ], 
-      "BodySrc" : "Assets = CurrentAssets + NoncurrentAssets", 
-      "Body" : {
-        "Type" : "eq", 
-        "Children" : [ {
-          "Type" : "variable", 
-          "Name" : "Assets"
-        }, {
-          "Type" : "add", 
-          "Children" : [ {
-            "Type" : "variable", 
-            "Name" : "CurrentAssets"
-          }, {
-            "Type" : "variable", 
-            "Name" : "NoncurrentAssets"
-          } ]
-        } ]
-      }, 
-      "active" : true, 
-      "valid" : true
-    } ], 
-    "AllowCrossPeriod" : true, 
-    "AllowCrossBalance" : true
-  }, {
-    "Id" : "13fa53d2-502e-4ee9-8e30-ba24ba3e43f0", 
-    "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Assets", 
-    "Description" : "Rule to compute Assets (fac:Assets).", 
-    "ComputableConcepts" : [ "fac:Assets" ], 
-    "DependsOn" : [ "fac:CurrentAssets", "fac:LiabilitiesAndEquity", "fac:NoncurrentAssets" ], 
-    "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:Assets\", \"fac:CurrentAssets\", \"fac:LiabilitiesAndEquity\", \"fac:NoncurrentAssets\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))\n  , $aligned-period\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"]\nlet $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"]\nlet $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($Assets) return $Assets\n  case (exists($LiabilitiesAndEquity) and rules:decimal-value($CurrentAssets) eq rules:decimal-value($LiabilitiesAndEquity))\n  return\n    let $computed-value := rules:decimal-value($CurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:Assets\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($CurrentAssets, \"CurrentAssets\")\n\t let $source-facts := ($Assets, $CurrentAssets, $LiabilitiesAndEquity, $NoncurrentAssets)\n    return\n      rules:create-computed-fact(\n          $LiabilitiesAndEquity,\n          \"fac:Assets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  case (exists($NoncurrentAssets) and ())\n  return\n    let $computed-value := rules:decimal-value($CurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:Assets\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($CurrentAssets, \"CurrentAssets\")\n\t let $source-facts := ($Assets, $CurrentAssets, $LiabilitiesAndEquity, $NoncurrentAssets)\n    return\n      rules:create-computed-fact(\n          $NoncurrentAssets,\n          \"fac:Assets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
-    "Formulae" : [ {
-      "PrereqSrc" : "CurrentAssets = LiabilitiesAndEquity", 
-      "Prereq" : {
-        "Type" : "eq", 
-        "Children" : [ {
-          "Type" : "variable", 
-          "Name" : "CurrentAssets"
-        }, {
-          "Type" : "variable", 
-          "Name" : "LiabilitiesAndEquity"
-        } ]
-      }, 
-      "SourceFact" : [ "LiabilitiesAndEquity" ], 
-      "BodySrc" : "CurrentAssets", 
-      "Body" : {
-        "Type" : "variable", 
-        "Name" : "CurrentAssets"
-      }, 
-      "active" : true, 
-      "valid" : true
-    }, {
-      "PrereqSrc" : "and(not(isblank(LiabilitiesAndEquity)),LiabilitiesAndEquity=Equity+Liabilities)", 
-      "Prereq" : {
-        "Type" : "function", 
-        "Name" : "and", 
-        "Children" : [ [ {
-          "Type" : "function", 
-          "Name" : "not", 
-          "Children" : [ {
-            "Type" : "function", 
-            "Name" : "isblank", 
-            "Children" : [ {
-              "Type" : "variable", 
-              "Name" : "LiabilitiesAndEquity"
-            } ]
-          } ]
-        }, {
-          "Type" : "eq", 
-          "Children" : [ {
-            "Type" : "variable", 
-            "Name" : "LiabilitiesAndEquity"
-          }, {
-            "Type" : "add", 
-            "Children" : [ {
-              "Type" : "variable", 
-              "Name" : "Equity"
-            }, {
-              "Type" : "variable", 
-              "Name" : "Liabilities"
-            } ]
-          } ]
-        } ] ]
-      }, 
-      "SourceFact" : [ "NoncurrentAssets" ], 
-      "BodySrc" : "CurrentAssets", 
-      "Body" : {
-        "Type" : "variable", 
-        "Name" : "CurrentAssets"
-      }, 
-      "active" : false, 
-      "valid" : true
-    } ], 
-    "AllowCrossPeriod" : true, 
-    "AllowCrossBalance" : true
-  }, {
-    "Id" : "VAL1", 
-    "Label" : "Validation Statistics", 
-    "Type" : "xbrl28:formula", 
-    "Formula" : "let $validations := (\"fac:EquityValidation\", \"fac:AssetsValidation\", \"fac:AssetsValidation2\", \"fac:LiabilitiesValidation\", \"fac:LiabilitiesAndEquityValidation\", \"fac:NetCashFlowsValidation\", \"fac:NetCashFlowsContinuingValidation\", \"fac:NetCashFlowsDiscontinuedValidation\", \"fac:NetCashFlowsFromOperatingActivitiesValidation\", \"fac:NetCashFlowsFromInvestingActivitiesValidation\", \"fac:NetCashFlowsFromFinancingActivitiesValidation\", \"fac:GrossProfitValidation\", \"fac:OperatingIncomeLossValidation\", \"fac:OperatingIncomeLoss2Validation\", \"fac:IncomeBeforeEquityMethodInvestmentsValidation\", \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\", \"fac:IncomeLossFromContinuingOperationsAfterTaxValidation\", \"fac:NetIncomeLossValidation\", \"fac:NetIncomeLoss2Validation\", \"fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation\", \"fac:ComprehensiveIncomeLossValidation\", \"fac:ComprehensiveIncomeLoss2Validation\") for $facts in facts:facts-for-internal($validations, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, \"Balance\")), $aligned-period return let $passed as object* := $facts[$$.Value eq true] let $failed as object* := $facts[$$.Value eq false] let $not-applied as string* := distinct-values($validations)[not($$ = $facts.$facts:ASPECTS.$facts:CONCEPT)] for $concept in flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT) return switch ($concept) case \"fac:PassedValidations\" return let $computed-value := count($passed) let $audit-trail-message := \"count(\" || string-join($passed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($passed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:PassedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:FailedValidations\" return let $computed-value := count($failed) let $audit-trail-message := \"count(\" || string-join($failed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($failed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:FailedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:NotApplicableValidations\" return let $computed-value := count($not-applied) let $audit-trail-message := \"count(\" || string-join($not-applied, \", \") || \")\" let $source-facts := () return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:NotApplicableValidations\", $computed-value, {Label: $rule.Label || \": Validations that couldn't be applied\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new default return ()", 
-    "ComputableConcepts" : [ "fac:PassedValidations", "fac:FailedValidations", "fac:NotApplicableValidations" ], 
-    "DependsOn" : [ "fac:EquityValidation", "fac:AssetsValidation", "fac:AssetsValidation2", "fac:LiabilitiesValidation", "fac:LiabilitiesAndEquityValidation", "fac:NetCashFlowsValidation", "fac:NetCashFlowsContinuingValidation", "fac:NetCashFlowsDiscontinuedValidation", "fac:NetCashFlowsFromOperatingActivitiesValidation", "fac:NetCashFlowsFromInvestingActivitiesValidation", "fac:NetCashFlowsFromFinancingActivitiesValidation", "fac:GrossProfitValidation", "fac:OperatingIncomeLossValidation", "fac:OperatingIncomeLoss2Validation", "fac:IncomeBeforeEquityMethodInvestmentsValidation", "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", "fac:NetIncomeLossValidation", "fac:NetIncomeLoss2Validation", "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", "fac:ComprehensiveIncomeLossValidation", "fac:ComprehensiveIncomeLoss2Validation" ]
-  }, {
-    "Id" : "bd23fac2-7a5e-498a-97ee-105117f48ff4", 
-    "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "Noncurrent Assets", 
-    "Description" : "Rule to compute Noncurrent Assets (fac:NoncurrentAssets).", 
-    "ComputableConcepts" : [ "fac:NoncurrentAssets" ], 
-    "DependsOn" : [ "fac:CurrentAssets", "fac:Assets" ], 
-    "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NoncurrentAssets\", \"fac:CurrentAssets\", \"fac:Assets\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"]\nlet $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NoncurrentAssets) return $NoncurrentAssets\n  case (exists($Assets) and not((not(exists($CurrentAssets)))))\n  return\n    let $computed-value := rules:decimal-value($Assets) - rules:decimal-value($CurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NoncurrentAssets\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($Assets, \"Assets\") || \" - \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\")\n\t let $source-facts := ($NoncurrentAssets, $CurrentAssets, $Assets)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Assets,\n            \"fac:NoncurrentAssets\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Assets,\n          \"fac:NoncurrentAssets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
-    "Formulae" : [ {
-      "PrereqSrc" : "not(isblank(CurrentAssets))", 
-      "Prereq" : {
-        "Type" : "function", 
-        "Name" : "not", 
-        "Children" : [ {
-          "Type" : "function", 
-          "Name" : "isblank", 
-          "Children" : [ {
-            "Type" : "variable", 
-            "Name" : "CurrentAssets"
-          } ]
-        } ]
-      }, 
-      "SourceFact" : [ "Assets" ], 
-      "BodySrc" : "Assets-CurrentAssets", 
-      "Body" : {
-        "Type" : "sub", 
-        "Children" : [ {
-          "Type" : "variable", 
-          "Name" : "Assets"
-        }, {
-          "Type" : "variable", 
-          "Name" : "CurrentAssets"
-        } ]
-      }, 
-      "active" : true, 
-      "valid" : true
-    } ], 
-    "AllowCrossPeriod" : true, 
-    "AllowCrossBalance" : true
+  }, 
+  "Rules": 
+[ {
+  "Id" : "gi_IncomeStatementStartPeriod", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Income Statement Start Period imputation", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:CostOfRevenue\", \"fac:GrossProfit\", \"fac:Revenues\", \"fac:CostsAndExpenses\", \"fac:OperatingIncomeLoss\", \"fac:OtherOperatingIncomeExpenses\", \"fac:OperatingExpenses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"] let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"] let $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"] return switch(true) case (exists($facts)) return let $source-fact := $facts[1] let $computed-value := facts:duration-for-fact($source-fact).Start let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:IncomeStatementStartPeriod\" }, Value: $computed-value, Type: \"NonNumericValue\" }) || \" = \" || \"facts:duration-for-fact(\" || rules:fact-trail($source-fact) || \").Start\" return copy $newfact := rules:create-computed-fact( $source-fact, \"fac:IncomeStatementStartPeriod\", $computed-value, $rule, $audit-trail-message, $source-fact, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return ()", 
+  "ComputableConcepts" : [ "fac:IncomeStatementStartPeriod" ], 
+  "DependsOn" : [ "fac:GrossProfit", "fac:Revenues", "fac:CostsAndExpenses", "fac:OperatingIncomeLoss", "fac:OtherOperatingIncomeExpenses", "fac:OperatingExpenses" ]
+}, {
+  "Id" : "gi_TradingSymbol", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "TradingSymbol imputation", 
+  "Formula" : "import module namespace entities = \"http://xbrl.io/modules/bizql/entities\"; for $facts in facts:facts-for-internal(( \"fac:TradingSymbol\", \"fac:Assets\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $TradingSymbol as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TradingSymbol\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch (true) case (exists($TradingSymbol)) return $TradingSymbol case (exists($Assets)) return let $computed-value := entities:entities($Assets.Aspects.\"xbrl:Entity\").Profiles.SEC.Tickers[[1]] let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:TradingSymbol\" }, Value: $computed-value }) || \" = external source\" return copy $newfact := rules:create-computed-fact( $Assets, \"fac:TradingSymbol\", if (exists($computed-value)) then $computed-value else \"N/A\", $rule, $audit-trail-message, $Assets, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return {}", 
+  "ComputableConcepts" : [ "fac:TradingSymbol" ], 
+  "DependsOn" : [ "fac:TradingSymbol", "fac:Assets" ]
+}, {
+  "Id" : "bs_BalanceSheetFormat", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Balance Sheet Format imputation", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:BalanceSheetFormat\", \"fac:DocumentType\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:NoncurrentLiabilities\", \"fac:CurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, $facts:UNIT, \"Balance\")), $aligned-period let $BalanceSheetFormat as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:BalanceSheetFormat\"] let $DocumentType as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:DocumentType\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] return switch (true) case exists($BalanceSheetFormat) return $BalanceSheetFormat case(exists($DocumentType)) return let $computed-value := if (rules:decimal-value($CurrentAssets) eq 0 and rules:decimal-value($NoncurrentAssets) eq 0 and rules:decimal-value($NoncurrentLiabilities) eq 0 and rules:decimal-value($CurrentLiabilities) eq 0) then \"Unclassified\" else \"Classified\" let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:BalanceSheetFormat\" }, Value: $computed-value , Type: \"NonNumericValue\" }) || \" = \" || $computed-value || \" (because \" || rules:fact-trail($CurrentAssets, \"fac:CurrentAssets\") || \", \" || rules:fact-trail($NoncurrentAssets, \"fac:NoncurrentAssets\") || \", \" || rules:fact-trail($NoncurrentLiabilities, \"fac:NoncurrentLiabilities\") || \", \" || rules:fact-trail($CurrentLiabilities, \"fac:CurrentLiabilities\") || \")\" let $source-facts := ( $CurrentAssets, $NoncurrentAssets, $NoncurrentLiabilities, $CurrentLiabilities) return copy $newfact := rules:create-computed-fact( ($DocumentType, $source-facts)[1], \"fac:BalanceSheetFormat\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return ()", 
+  "ComputableConcepts" : [ "fac:BalanceSheetFormat" ], 
+  "DependsOn" : [ "fac:DocumentType", "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:NoncurrentLiabilities", "fac:CurrentLiabilities" ]
+}, {
+  "Id" : "bs_Equity", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Equity imputation", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Equity\", \"fac:EquityAttributableToNoncontrollingInterest\", \"fac:EquityAttributableToParent\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $EquityAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToNoncontrollingInterest\"] let $EquityAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToParent\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($Equity)) return $Equity case (exists($EquityAttributableToNoncontrollingInterest) or exists($EquityAttributableToParent)) return let $computed-value := rules:decimal-value($EquityAttributableToNoncontrollingInterest) + rules:decimal-value($EquityAttributableToParent) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Equity\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($EquityAttributableToNoncontrollingInterest, \"EquityAttributableToNoncontrollingInterest\") || \" + \" || rules:fact-trail($EquityAttributableToParent, \"EquityAttributableToParent\") let $source-facts := ($EquityAttributableToNoncontrollingInterest, $EquityAttributableToParent) return rules:create-computed-fact( $source-facts[1], \"fac:Equity\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
+  "ComputableConcepts" : [ "fac:Equity" ], 
+  "DependsOn" : [ "fac:EquityAttributableToNoncontrollingInterest", "fac:EquityAttributableToParent" ]
+}, {
+  "Id" : "bs_EquityAttributableToParent", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Equity Attributable ToParent imputation", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:EquityAttributableToParent\", \"fac:Equity\", \"fac:EquityAttributableToNoncontrollingInterest\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $EquityAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToParent\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $EquityAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToNoncontrollingInterest\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($EquityAttributableToParent)) return $EquityAttributableToParent case (exists($Equity)) return let $computed-value := rules:decimal-value($Equity) - rules:decimal-value($EquityAttributableToNoncontrollingInterest) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:EquityAttributableToParent\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Equity, \"Equity\") || \" - \" || rules:fact-trail($EquityAttributableToNoncontrollingInterest, \"EquityAttributableToNoncontrollingInterest\") let $source-facts := ($Equity, $EquityAttributableToNoncontrollingInterest) return rules:create-computed-fact( $Equity, \"fac:EquityAttributableToParent\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return()", 
+  "ComputableConcepts" : [ "fac:EquityAttributableToParent" ], 
+  "DependsOn" : [ "fac:Equity", "fac:EquityAttributableToNoncontrollingInterest" ]
+}, {
+  "Id" : "bs_LiabilitiesAndEquity", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Liabilities And Equity imputation", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:LiabilitiesAndEquity\", \"fac:Assets\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($LiabilitiesAndEquity)) return $LiabilitiesAndEquity case(exists($Assets)) return let $computed-value := rules:decimal-value($Assets) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:LiabilitiesAndEquity\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Assets, \"Assets\") let $source-facts := $Assets return rules:create-computed-fact( $Assets, \"fac:LiabilitiesAndEquity\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
+  "ComputableConcepts" : [ "fac:LiabilitiesAndEquity" ], 
+  "DependsOn" : [ "fac:Assets" ]
+}, {
+  "Id" : "bs_Liabilities", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Liabilities imputation", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Liabilities\", \"fac:Equity\", \"fac:LiabilitiesAndEquity\", \"fac:CommitmentsAndContingencies\", \"fac:TemporaryEquity\", \"fac:CurrentLiabilities\", \"fac:NoncurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $CommitmentsAndContingencies as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommitmentsAndContingencies\"] let $TemporaryEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TemporaryEquity\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($Liabilities)) return $Liabilities case(exists($Equity)) return let $computed-value := rules:decimal-value($LiabilitiesAndEquity) - ( rules:decimal-value($CommitmentsAndContingencies) + rules:decimal-value($TemporaryEquity) + rules:decimal-value($Equity) ) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Liabilities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($LiabilitiesAndEquity, \"LiabilitiesAndEquity\") || \" - (\" || rules:fact-trail($CommitmentsAndContingencies, \"CommitmentsAndContingencies\") || \" + \" || rules:fact-trail($TemporaryEquity, \"TemporaryEquity\") || \" + \" || rules:fact-trail($Equity) || \")\" let $source-facts := ($LiabilitiesAndEquity, $CommitmentsAndContingencies, $TemporaryEquity, $Equity) return rules:create-computed-fact( $Equity, \"fac:Liabilities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) case(exists($CurrentLiabilities) and exists($NoncurrentLiabilities)) return let $computed-value := rules:decimal-value($CurrentLiabilities) + rules:decimal-value($NoncurrentLiabilities) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:Liabilities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($CurrentLiabilities) || \" + \" || rules:fact-trail($NoncurrentLiabilities) let $source-facts := ($CurrentLiabilities, $NoncurrentLiabilities) return rules:create-computed-fact( $CurrentLiabilities, \"fac:Liabilities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
+  "ComputableConcepts" : [ "fac:Liabilities" ], 
+  "DependsOn" : [ "fac:Equity", "fac:LiabilitiesAndEquity", "fac:CommitmentsAndContingencies", "fac:TemporaryEquity", "fac:CurrentLiabilities", "fac:NoncurrentLiabilities" ]
+}, {
+  "Id" : "bs_NoncurrentLiabilities", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Noncurrent Liabilities imputation", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NoncurrentLiabilities\", \"fac:Liabilities\", \"fac:CurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (exists($NoncurrentLiabilities)) return $NoncurrentLiabilities case(exists($CurrentLiabilities) and exists($Liabilities)) return let $computed-value := rules:decimal-value($Liabilities) - rules:decimal-value($CurrentLiabilities) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:NoncurrentLiabilities\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($Liabilities) || \" - \" || rules:fact-trail($CurrentLiabilities) let $source-facts := ($Liabilities, $CurrentLiabilities) return rules:create-computed-fact( $CurrentLiabilities, \"fac:NoncurrentLiabilities\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
+  "ComputableConcepts" : [ "fac:NoncurrentLiabilities" ], 
+  "DependsOn" : [ "fac:Liabilities", "fac:CurrentLiabilities" ]
+}, {
+  "Id" : "bs_TemporaryEquity", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Temporary Equity imputation", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:TemporaryEquity\", \"us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $TemporaryEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TemporaryEquity\"] let $RedeemableNoncontrollingInterestEquityCommonCarryingAmount as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount\"] let $unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1] return switch(true) case (not(exists($RedeemableNoncontrollingInterestEquityCommonCarryingAmount))) return $TemporaryEquity case (exists($RedeemableNoncontrollingInterestEquityCommonCarryingAmount)) return let $computed-value := rules:decimal-value($TemporaryEquity) + rules:decimal-value($RedeemableNoncontrollingInterestEquityCommonCarryingAmount) let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : $unit, \"xbrl:Concept\" : \"fac:TemporaryEquity\" }, Value: $computed-value }) || \" = \" || rules:fact-trail($TemporaryEquity, \"TemporaryEquity\") || \" + \" || rules:fact-trail($RedeemableNoncontrollingInterestEquityCommonCarryingAmount, \"RedeemableNoncontrollingInterestEquityCommonCarryingAmount\") let $source-facts := ($TemporaryEquity, $RedeemableNoncontrollingInterestEquityCommonCarryingAmount) return rules:create-computed-fact( $RedeemableNoncontrollingInterestEquityCommonCarryingAmount, \"fac:TemporaryEquity\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) default return ()", 
+  "ComputableConcepts" : [ "fac:TemporaryEquity" ], 
+  "DependsOn" : [ "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" ]
+}, {
+  "Id" : "is_IncomeStatementFormat", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Income Statement Format imputation", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeStatementFormat\", \"fac:GrossProfit\", \"fac:CostOfRevenue\", \"fac:Revenues\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := if(empty($facts)) then \"\" else facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeStatementFormat as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeStatementFormat\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] return switch(true) case exists($IncomeStatementFormat) return $IncomeStatementFormat case exists($Revenues) return let $computed-value := if (rules:decimal-value($GrossProfit) eq 0 and rules:decimal-value($CostOfRevenue) eq 0) then \"Single-step\" else \"Multi-step\" let $audit-trail-message := rules:fact-trail({ \"Aspects\" : { \"xbrl:Concept\" : \"fac:IncomeStatementFormat\" }, Value: $computed-value , Type: \"NonNumericValue\"}) || \" = \" || $computed-value || \" (because \" || rules:fact-trail($GrossProfit, \"GrossProfit\") || \", \" || rules:fact-trail($CostOfRevenue, \"CostOfRevenue\") || \")\" let $source-facts := ( $GrossProfit, $CostOfRevenue) return copy $newfact := rules:create-computed-fact( ($source-facts, $Revenues)[1], \"fac:IncomeStatementFormat\", $computed-value, $rule, $audit-trail-message, $source-facts, $options) modify ( replace value of json $newfact(\"Type\") with \"NonNumericValue\" ) return $newfact default return ()", 
+  "ComputableConcepts" : [ "fac:IncomeStatementFormat" ], 
+  "DependsOn" : [ "fac:GrossProfit", "fac:CostOfRevenue" ]
+}, {
+  "Id" : "BS1", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Equity\", \"fac:EquityAttributableToParent\", \"fac:EquityAttributableToNoncontrollingInterest\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] let $EquityAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToParent\"] let $EquityAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:EquityAttributableToNoncontrollingInterest\"] where exists($Equity) return let $test := rules:decimal-value($Equity) eq ( rules:decimal-value($EquityAttributableToParent) + rules:decimal-value($EquityAttributableToNoncontrollingInterest)) let $audit-trail-message := rules:fact-trail($Equity) || (if($test) then \" = \" else \" != \") || \"( \" || rules:fact-trail($EquityAttributableToParent,\"EquityAttributableToParent\") || \" + \" || rules:fact-trail($EquityAttributableToNoncontrollingInterest,\"EquityAttributableToNoncontrollingInterest\") || \")\" let $source-facts := ( $EquityAttributableToParent, $EquityAttributableToNoncontrollingInterest) return rules:create-computed-fact( $Equity, \"fac:EquityValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $Equity, $test)", 
+  "ComputableConcepts" : [ "fac:EquityValidation" ], 
+  "ValidatedConcepts" : [ "fac:Equity" ], 
+  "DependsOn" : [ "fac:EquityAttributableToParent", "fac:EquityAttributableToNoncontrollingInterest" ]
+}, {
+  "Id" : "BS4", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:Liabilities\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:CurrentLiabilities\", \"fac:NoncurrentLiabilities\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"] let $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"] let $CurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentLiabilities\"] let $NoncurrentLiabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentLiabilities\"] where exists($Liabilities) and not(rules:decimal-value($CurrentAssets) eq 0 and rules:decimal-value($NoncurrentAssets) eq 0 and rules:decimal-value($CurrentLiabilities) eq 0 and rules:decimal-value($NoncurrentLiabilities) eq 0) return let $test := rules:decimal-value($Liabilities) eq (rules:decimal-value($CurrentLiabilities) + rules:decimal-value($NoncurrentLiabilities)) let $audit-trail-message := rules:fact-trail($Liabilities) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($CurrentLiabilities,\"CurrentLiabilities\") || \" + \" || rules:fact-trail($NoncurrentLiabilities,\"NoncurrentLiabilities\") || \")\" let $source-facts := ( $CurrentAssets, $NoncurrentAssets, $CurrentLiabilities, $NoncurrentLiabilities) return rules:create-computed-fact( $Liabilities, \"fac:LiabilitiesValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $Liabilities, $test)", 
+  "ComputableConcepts" : [ "fac:LiabilitiesValidation" ], 
+  "ValidatedConcepts" : [ "fac:Liabilities" ], 
+  "DependsOn" : [ "fac:CurrentAssets", "fac:NoncurrentAssets", "fac:CurrentLiabilities", "fac:NoncurrentLiabilities" ]
+}, {
+  "Id" : "BS5", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:LiabilitiesAndEquity\", \"fac:Liabilities\", \"fac:CommitmentsAndContingencies\", \"fac:TemporaryEquity\", \"fac:Equity\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"] let $Liabilities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Liabilities\"] let $CommitmentsAndContingencies as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommitmentsAndContingencies\"] let $TemporaryEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:TemporaryEquity\"] let $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"] where exists($LiabilitiesAndEquity) return let $test := rules:decimal-value($LiabilitiesAndEquity) eq (rules:decimal-value($Liabilities) + rules:decimal-value($CommitmentsAndContingencies) + rules:decimal-value($TemporaryEquity) + rules:decimal-value($Equity)) let $audit-trail-message := rules:fact-trail($LiabilitiesAndEquity) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($Liabilities,\"Liabilities\") || \" + \" || rules:fact-trail($CommitmentsAndContingencies,\"CommitmentsAndContingencies\") || \" + \" || rules:fact-trail($TemporaryEquity,\"TemporaryEquity\") || \" + \" || rules:fact-trail($Equity,\"Equity\") || \")\" let $source-facts := ( $Liabilities, $CommitmentsAndContingencies, $TemporaryEquity, $Equity) return rules:create-computed-fact( $LiabilitiesAndEquity, \"fac:LiabilitiesAndEquityValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $LiabilitiesAndEquity, $test)", 
+  "ComputableConcepts" : [ "fac:LiabilitiesAndEquityValidation" ], 
+  "ValidatedConcepts" : [ "fac:LiabilitiesAndEquity" ], 
+  "DependsOn" : [ "fac:Liabilities", "fac:CommitmentsAndContingencies", "fac:TemporaryEquity", "fac:Equity" ]
+}, {
+  "Id" : "CF1", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses]", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlows\", \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromFinancingActivities\", \"fac:ExchangeGainsLosses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlows as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlows\"] let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $ExchangeGainsLosses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExchangeGainsLosses\"] return switch (true) case (exists($NetCashFlows) and rules:decimal-value($NetCashFlows) ne (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities))) return let $test := rules:decimal-value($NetCashFlows) eq (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities) + rules:decimal-value($ExchangeGainsLosses)) let $audit-trail-message := rules:fact-trail($NetCashFlows) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivities,\"NetCashFlowsFromOperatingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivities,\"NetCashFlowsFromInvestingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivities,\"NetCashFlowsFromFinancingActivities\") || \" + \" || rules:fact-trail($ExchangeGainsLosses,\"ExchangeGainsLosses\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses) return rules:create-computed-fact( $NetCashFlows, \"fac:NetCashFlowsValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlows, $test) case (exists($NetCashFlows) and rules:decimal-value($NetCashFlows) ne (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities) + rules:decimal-value($ExchangeGainsLosses))) return let $test := rules:decimal-value($NetCashFlows) eq (rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities)) let $audit-trail-message := rules:fact-trail($NetCashFlows) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivities,\"NetCashFlowsFromOperatingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivities,\"NetCashFlowsFromInvestingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivities,\"NetCashFlowsFromFinancingActivities\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses) return rules:create-computed-fact( $NetCashFlows, \"fac:NetCashFlowsValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlows, $test) default return ()", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsValidation" ], 
+  "ValidatedConcepts" : [ "fac:NetCashFlows" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromFinancingActivities", "fac:ExchangeGainsLosses" ]
+}, {
+  "Id" : "CF2", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "NetCashFlowsContinuing = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesContinuing", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsContinuing\", \"fac:NetCashFlowsFromOperatingActivitiesContinuing\", \"fac:NetCashFlowsFromInvestingActivitiesContinuing\", \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsContinuing\"] let $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"] let $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"] let $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"] where exists($NetCashFlowsContinuing) return let $test := rules:decimal-value($NetCashFlowsContinuing) eq (rules:decimal-value($NetCashFlowsFromOperatingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromInvestingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromFinancingActivitiesContinuing)) let $audit-trail-message := rules:fact-trail($NetCashFlowsContinuing) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesContinuing,\"NetCashFlowsFromOperatingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesContinuing,\"NetCashFlowsFromInvestingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesContinuing,\"NetCashFlowsFromFinancingActivitiesContinuing\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivitiesContinuing, $NetCashFlowsFromInvestingActivitiesContinuing, $NetCashFlowsFromFinancingActivitiesContinuing) return rules:create-computed-fact( $NetCashFlowsContinuing, \"fac:NetCashFlowsContinuingValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlowsContinuing, $test)", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsContinuingValidation" ], 
+  "ValidatedConcepts" : [ "fac:NetCashFlowsContinuing" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesContinuing" ]
+}, {
+  "Id" : "CF3", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "NetCashFlowsDiscontinued = NetCashFlowsFromOperatingActivitiesDiscontinued + NetCashFlowsFromInvestingActivitiesDiscontinued + NetCashFlowsFromFinancingActivitiesDiscontinued", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsDiscontinued\", \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\", \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\", \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsDiscontinued\"] let $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"] let $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"] let $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"] where exists($NetCashFlowsDiscontinued) return let $test := rules:decimal-value($NetCashFlowsDiscontinued) eq (rules:decimal-value($NetCashFlowsFromOperatingActivitiesDiscontinued) + rules:decimal-value($NetCashFlowsFromInvestingActivitiesDiscontinued) + rules:decimal-value($NetCashFlowsFromFinancingActivitiesDiscontinued)) let $audit-trail-message := rules:fact-trail($NetCashFlowsDiscontinued) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesDiscontinued,\"NetCashFlowsFromOperatingActivitiesDiscontinued\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesDiscontinued,\"NetCashFlowsFromInvestingActivitiesDiscontinued\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesDiscontinued,\"NetCashFlowsFromFinancingActivitiesDiscontinued\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivitiesDiscontinued, $NetCashFlowsFromInvestingActivitiesDiscontinued, $NetCashFlowsFromFinancingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsDiscontinued, \"fac:NetCashFlowsDiscontinuedValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlowsDiscontinued, $test)", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsDiscontinuedValidation" ], 
+  "ValidatedConcepts" : [ "fac:NetCashFlowsDiscontinued" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
+}, {
+  "Id" : "CF4", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "NetCashFlowsFromOperatingActivities = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromOperatingActivitiesDiscontinued", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromOperatingActivitiesContinuing\", \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"] let $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"] let $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"] where exists($NetCashFlowsFromOperatingActivities) return let $test := rules:decimal-value($NetCashFlowsFromOperatingActivities) eq (rules:decimal-value($NetCashFlowsFromOperatingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromOperatingActivitiesDiscontinued)) let $audit-trail-message := rules:fact-trail($NetCashFlowsFromOperatingActivities) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesContinuing,\"NetCashFlowsFromOperatingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesDiscontinued,\"NetCashFlowsFromOperatingActivitiesDiscontinued\") || \")\" let $source-facts := ( $NetCashFlowsFromOperatingActivitiesContinuing, $NetCashFlowsFromOperatingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromOperatingActivities, \"fac:NetCashFlowsFromOperatingActivitiesValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlowsFromOperatingActivities, $test)", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivitiesValidation" ], 
+  "ValidatedConcepts" : [ "fac:NetCashFlowsFromOperatingActivities" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ]
+}, {
+  "Id" : "CF5", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "NetCashFlowsFromInvestingActivities = NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesDiscontinued", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromInvestingActivitiesContinuing\", \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"] let $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"] let $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"] where exists($NetCashFlowsFromInvestingActivities) return let $test := rules:decimal-value($NetCashFlowsFromInvestingActivities) eq (rules:decimal-value($NetCashFlowsFromInvestingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromInvestingActivitiesDiscontinued)) let $audit-trail-message := rules:fact-trail($NetCashFlowsFromInvestingActivities) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesContinuing,\"NetCashFlowsFromInvestingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesDiscontinued,\"NetCashFlowsFromInvestingActivitiesDiscontinued\") || \")\" let $source-facts := ( $NetCashFlowsFromInvestingActivitiesContinuing, $NetCashFlowsFromInvestingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromInvestingActivities, \"fac:NetCashFlowsFromInvestingActivitiesValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlowsFromInvestingActivities, $test)", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivitiesValidation" ], 
+  "ValidatedConcepts" : [ "fac:NetCashFlowsFromInvestingActivities" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ]
+}, {
+  "Id" : "CF6", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "NetCashFlowsFromFinancingActivities = NetCashFlowsFromFinancingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesDiscontinued", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetCashFlowsFromFinancingActivities\", \"fac:NetCashFlowsFromFinancingActivitiesContinuing\", \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"] let $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"] let $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"] where exists($NetCashFlowsFromFinancingActivities) return let $test := rules:decimal-value($NetCashFlowsFromFinancingActivities) eq (rules:decimal-value($NetCashFlowsFromFinancingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromFinancingActivitiesDiscontinued)) let $audit-trail-message := rules:fact-trail($NetCashFlowsFromFinancingActivities) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesContinuing,\"NetCashFlowsFromFinancingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesDiscontinued,\"NetCashFlowsFromFinancingActivitiesDiscontinued\") || \")\" let $source-facts := ( $NetCashFlowsFromFinancingActivitiesContinuing, $NetCashFlowsFromFinancingActivitiesDiscontinued) return rules:create-computed-fact( $NetCashFlowsFromFinancingActivities, \"fac:NetCashFlowsFromFinancingActivitiesValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetCashFlowsFromFinancingActivities, $test)", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivitiesValidation" ], 
+  "ValidatedConcepts" : [ "fac:NetCashFlowsFromFinancingActivities" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ]
+}, {
+  "Id" : "IS1", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "GrossProfit = Revenues - CostOfRevenue", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:GrossProfit\", \"fac:Revenues\", \"fac:CostOfRevenue\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"] where exists($GrossProfit) return let $test := rules:decimal-value($GrossProfit) eq (rules:decimal-value($Revenues) - rules:decimal-value($CostOfRevenue)) let $audit-trail-message := rules:fact-trail($GrossProfit) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($Revenues,\"Revenues\") || \" - \" || rules:fact-trail($CostOfRevenue,\"CostOfRevenue\") || \")\" let $source-facts := ( $Revenues, $CostOfRevenue) return rules:create-computed-fact( $GrossProfit, \"fac:GrossProfitValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $GrossProfit, $test)", 
+  "ComputableConcepts" : [ "fac:GrossProfitValidation" ], 
+  "ValidatedConcepts" : [ "fac:GrossProfit" ], 
+  "DependsOn" : [ "fac:Revenues", "fac:CostOfRevenue" ]
+}, {
+  "Id" : "IS2", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:OperatingIncomeLoss\", \"fac:GrossProfit\", \"fac:OperatingExpenses\", \"fac:OtherOperatingIncomeExpenses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"] let $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"] let $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"] where exists($OperatingIncomeLoss) return let $test := rules:decimal-value($OperatingIncomeLoss) eq (rules:decimal-value($GrossProfit) - rules:decimal-value($OperatingExpenses) + rules:decimal-value($OtherOperatingIncomeExpenses)) let $audit-trail-message := rules:fact-trail($OperatingIncomeLoss) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($GrossProfit,\"GrossProfit\") || \" - \" || rules:fact-trail($OperatingExpenses,\"OperatingExpenses\") || \" + \" || rules:fact-trail($OtherOperatingIncomeExpenses,\"OtherOperatingIncomeExpenses\") || \")\" let $source-facts := ( $GrossProfit, $OperatingExpenses, $OtherOperatingIncomeExpenses) return rules:create-computed-fact( $OperatingIncomeLoss, \"fac:OperatingIncomeLossValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $OperatingIncomeLoss, $test)", 
+  "ComputableConcepts" : [ "fac:OperatingIncomeLossValidation" ], 
+  "ValidatedConcepts" : [ "fac:OperatingIncomeLoss" ], 
+  "DependsOn" : [ "fac:GrossProfit", "fac:OperatingExpenses", "fac:OtherOperatingIncomeExpenses" ]
+}, {
+  "Id" : "IS11", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:OperatingIncomeLoss\", \"fac:Revenues\", \"fac:CostsAndExpenses\", \"fac:OtherOperatingIncomeExpenses\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"] let $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"] let $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"] where exists($OperatingIncomeLoss) return let $test := rules:decimal-value($OperatingIncomeLoss) eq (rules:decimal-value($Revenues) - rules:decimal-value($CostsAndExpenses) + rules:decimal-value($OtherOperatingIncomeExpenses)) let $audit-trail-message := rules:fact-trail($OperatingIncomeLoss) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($Revenues,\"Revenues\") || \" - \" || rules:fact-trail($CostsAndExpenses,\"CostsAndExpenses\") || \" + \" || rules:fact-trail($OtherOperatingIncomeExpenses,\"OtherOperatingIncomeExpenses\") || \")\" let $source-facts := ( $Revenues, $CostsAndExpenses, $OtherOperatingIncomeExpenses) return rules:create-computed-fact( $OperatingIncomeLoss, \"fac:OperatingIncomeLoss2Validation\", $test, $rule, $audit-trail-message, $source-facts, $options, $OperatingIncomeLoss, $test)", 
+  "ComputableConcepts" : [ "fac:OperatingIncomeLoss2Validation" ], 
+  "ValidatedConcepts" : [ "fac:OperatingIncomeLoss" ], 
+  "DependsOn" : [ "fac:Revenues", "fac:CostsAndExpenses", "fac:OtherOperatingIncomeExpenses" ]
+}, {
+  "Id" : "IS3", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "IncomeBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeBeforeEquityMethodInvestments\", \"fac:OperatingIncomeLoss\", \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"] let $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"] let $NonoperatingIncomeLossPlusInterestAndDebtExpense as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\"] where exists($IncomeBeforeEquityMethodInvestments) return let $test := rules:decimal-value($IncomeBeforeEquityMethodInvestments) eq rules:decimal-value($OperatingIncomeLoss) + rules:decimal-value($NonoperatingIncomeLossPlusInterestAndDebtExpense) let $audit-trail-message := rules:fact-trail($IncomeBeforeEquityMethodInvestments) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($OperatingIncomeLoss,\"OperatingIncomeLoss\") || \" + \" || rules:fact-trail($NonoperatingIncomeLossPlusInterestAndDebtExpense,\"NonoperatingIncomeLossPlusInterestAndDebtExpense\") || \"\" let $source-facts := ( $OperatingIncomeLoss, $NonoperatingIncomeLossPlusInterestAndDebtExpense) return rules:create-computed-fact( $IncomeBeforeEquityMethodInvestments, \"fac:IncomeBeforeEquityMethodInvestmentsValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $IncomeBeforeEquityMethodInvestments, $test)", 
+  "ComputableConcepts" : [ "fac:IncomeBeforeEquityMethodInvestmentsValidation" ], 
+  "ValidatedConcepts" : [ "fac:IncomeBeforeEquityMethodInvestments" ], 
+  "DependsOn" : [ "fac:OperatingIncomeLoss", "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense" ]
+}, {
+  "Id" : "IS4", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "IncomeLossFromContinuingOperationsBeforeTax = IncomeBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:IncomeBeforeEquityMethodInvestments\", \"fac:IncomeLossFromEquityMethodInvestments\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"] let $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"] let $IncomeLossFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromEquityMethodInvestments\"] where exists($IncomeLossFromContinuingOperationsBeforeTax) return let $test := rules:decimal-value($IncomeLossFromContinuingOperationsBeforeTax) eq rules:decimal-value($IncomeBeforeEquityMethodInvestments) + rules:decimal-value($IncomeLossFromEquityMethodInvestments) let $audit-trail-message := rules:fact-trail($IncomeLossFromContinuingOperationsBeforeTax) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($IncomeBeforeEquityMethodInvestments,\"IncomeBeforeEquityMethodInvestments\") || \" + \" || rules:fact-trail($IncomeLossFromEquityMethodInvestments,\"IncomeLossFromEquityMethodInvestments\") || \"\" let $source-facts := ( $IncomeBeforeEquityMethodInvestments, $IncomeLossFromEquityMethodInvestments) return rules:create-computed-fact( $IncomeLossFromContinuingOperationsBeforeTax, \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $IncomeLossFromContinuingOperationsBeforeTax, $test)", 
+  "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation" ], 
+  "ValidatedConcepts" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax" ], 
+  "DependsOn" : [ "fac:IncomeBeforeEquityMethodInvestments", "fac:IncomeLossFromEquityMethodInvestments" ]
+}, {
+  "Id" : "IS5", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:IncomeLossFromContinuingOperationsAfterTax\", \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:IncomeTaxExpenseBenefit\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $IncomeLossFromContinuingOperationsAfterTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsAfterTax\"] let $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"] let $IncomeTaxExpenseBenefit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeTaxExpenseBenefit\"] where exists($IncomeLossFromContinuingOperationsAfterTax) return let $test := rules:decimal-value($IncomeLossFromContinuingOperationsAfterTax) eq (rules:decimal-value($IncomeLossFromContinuingOperationsBeforeTax) - rules:decimal-value($IncomeTaxExpenseBenefit)) let $audit-trail-message := rules:fact-trail($IncomeLossFromContinuingOperationsAfterTax) || (if($test) then \" = \" else \" != \") || \"(\" || rules:fact-trail($IncomeLossFromContinuingOperationsBeforeTax,\"IncomeLossFromContinuingOperationsBeforeTax\") || \" - \" || rules:fact-trail($IncomeTaxExpenseBenefit,\"IncomeTaxExpenseBenefit\") || \")\" let $source-facts := ( $IncomeLossFromContinuingOperationsBeforeTax, $IncomeTaxExpenseBenefit) return rules:create-computed-fact( $IncomeLossFromContinuingOperationsAfterTax, \"fac:IncomeLossFromContinuingOperationsAfterTaxValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $IncomeLossFromContinuingOperationsAfterTax, $test)", 
+  "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsAfterTaxValidation" ], 
+  "ValidatedConcepts" : [ "fac:IncomeLossFromContinuingOperationsAfterTax" ], 
+  "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:IncomeTaxExpenseBenefit" ]
+}, {
+  "Id" : "IS6", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetTax + ExtraordinaryItemsIncomeExpenseNetTax", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetIncomeLoss\", \"fac:IncomeLossFromContinuingOperationsAfterTax\", \"fac:IncomeLossFromDiscontinuedOperationsNetTax\", \"fac:ExtraordinaryItemsIncomeExpenseNetTax\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $IncomeLossFromContinuingOperationsAfterTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsAfterTax\"] let $IncomeLossFromDiscontinuedOperationsNetTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromDiscontinuedOperationsNetTax\"] let $ExtraordinaryItemsIncomeExpenseNetTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExtraordinaryItemsIncomeExpenseNetTax\"] where exists($NetIncomeLoss) return let $test := rules:decimal-value($NetIncomeLoss) eq rules:decimal-value($IncomeLossFromContinuingOperationsAfterTax) + rules:decimal-value($IncomeLossFromDiscontinuedOperationsNetTax) + rules:decimal-value($ExtraordinaryItemsIncomeExpenseNetTax) let $audit-trail-message := rules:fact-trail($NetIncomeLoss) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($IncomeLossFromContinuingOperationsAfterTax,\"IncomeLossFromContinuingOperationsAfterTax\") || \" + \" || rules:fact-trail($IncomeLossFromDiscontinuedOperationsNetTax,\"IncomeLossFromDiscontinuedOperationsNetTax\") || \" + \" || rules:fact-trail($ExtraordinaryItemsIncomeExpenseNetTax,\"ExtraordinaryItemsIncomeExpenseNetTax\") || \"\" let $source-facts := ( $IncomeLossFromContinuingOperationsAfterTax, $IncomeLossFromDiscontinuedOperationsNetTax, $ExtraordinaryItemsIncomeExpenseNetTax) return rules:create-computed-fact( $NetIncomeLoss, \"fac:NetIncomeLossValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetIncomeLoss, $test)", 
+  "ComputableConcepts" : [ "fac:NetIncomeLossValidation" ], 
+  "ValidatedConcepts" : [ "fac:NetIncomeLoss" ], 
+  "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsAfterTax", "fac:IncomeLossFromDiscontinuedOperationsNetTax", "fac:ExtraordinaryItemsIncomeExpenseNetTax" ]
+}, {
+  "Id" : "IS7", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "NetIncomeLoss = NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetIncomeLoss\", \"fac:NetIncomeAttributableToParent\", \"fac:NetIncomeAttributableToNoncontrollingInterest\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $NetIncomeAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToParent\"] let $NetIncomeAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToNoncontrollingInterest\"] where exists($NetIncomeLoss) return let $test := rules:decimal-value($NetIncomeLoss) eq rules:decimal-value($NetIncomeAttributableToParent) + rules:decimal-value($NetIncomeAttributableToNoncontrollingInterest) let $audit-trail-message := rules:fact-trail($NetIncomeLoss) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($NetIncomeAttributableToParent,\"NetIncomeAttributableToParent\") || \" + \" || rules:fact-trail($NetIncomeAttributableToNoncontrollingInterest,\"NetIncomeAttributableToNoncontrollingInterest\") || \"\" let $source-facts := ( $NetIncomeAttributableToParent, $NetIncomeAttributableToNoncontrollingInterest) return rules:create-computed-fact( $NetIncomeLoss, \"fac:NetIncomeLoss2Validation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetIncomeLoss, $test)", 
+  "ComputableConcepts" : [ "fac:NetIncomeLoss2Validation" ], 
+  "ValidatedConcepts" : [ "fac:NetIncomeLoss" ], 
+  "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:NetIncomeAttributableToNoncontrollingInterest" ]
+}, {
+  "Id" : "IS8", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\", \"fac:NetIncomeAttributableToParent\", \"fac:PreferredStockDividendsAndOtherAdjustments\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $NetIncomeLossAvailableToCommonStockholdersBasic as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\"] let $NetIncomeAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToParent\"] let $PreferredStockDividendsAndOtherAdjustments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:PreferredStockDividendsAndOtherAdjustments\"] where exists($NetIncomeLossAvailableToCommonStockholdersBasic) return let $test := rules:decimal-value($NetIncomeLossAvailableToCommonStockholdersBasic) eq rules:decimal-value($NetIncomeAttributableToParent) - rules:decimal-value($PreferredStockDividendsAndOtherAdjustments) let $audit-trail-message := rules:fact-trail($NetIncomeLossAvailableToCommonStockholdersBasic) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($NetIncomeAttributableToParent,\"NetIncomeAttributableToParent\") || \" - \" || rules:fact-trail($PreferredStockDividendsAndOtherAdjustments,\"PreferredStockDividendsAndOtherAdjustments\") || \"\" let $source-facts := ( $NetIncomeAttributableToParent, $PreferredStockDividendsAndOtherAdjustments) return rules:create-computed-fact( $NetIncomeLossAvailableToCommonStockholdersBasic, \"fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $NetIncomeLossAvailableToCommonStockholdersBasic, $test)", 
+  "ComputableConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation" ], 
+  "ValidatedConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ], 
+  "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:PreferredStockDividendsAndOtherAdjustments" ]
+}, {
+  "Id" : "IS9", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:ComprehensiveIncomeLoss\", \"fac:ComprehensiveIncomeLossAttributableToParent\", \"fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $ComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLoss\"] let $ComprehensiveIncomeLossAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLossAttributableToParent\"] let $ComprehensiveIncomeLossAttributableToNoncontrollingInterest as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest\"] where exists($ComprehensiveIncomeLoss) return let $test := rules:decimal-value($ComprehensiveIncomeLoss) eq rules:decimal-value($ComprehensiveIncomeLossAttributableToParent) + rules:decimal-value($ComprehensiveIncomeLossAttributableToNoncontrollingInterest) let $audit-trail-message := rules:fact-trail($ComprehensiveIncomeLoss) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($ComprehensiveIncomeLossAttributableToParent,\"ComprehensiveIncomeLossAttributableToParent\") || \" + \" || rules:fact-trail($ComprehensiveIncomeLossAttributableToNoncontrollingInterest,\"ComprehensiveIncomeLossAttributableToNoncontrollingInterest\") || \"\" let $source-facts := ( $ComprehensiveIncomeLossAttributableToParent, $ComprehensiveIncomeLossAttributableToNoncontrollingInterest) return rules:create-computed-fact( $ComprehensiveIncomeLoss, \"fac:ComprehensiveIncomeLossValidation\", $test, $rule, $audit-trail-message, $source-facts, $options, $ComprehensiveIncomeLoss, $test)", 
+  "ComputableConcepts" : [ "fac:ComprehensiveIncomeLossValidation" ], 
+  "ValidatedConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
+  "DependsOn" : [ "fac:ComprehensiveIncomeLossAttributableToParent", "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest" ]
+}, {
+  "Id" : "IS10", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "ComprehensiveIncomeLoss = NetIncomeLoss + OtherComprehensiveIncomeLoss", 
+  "Formula" : "for $facts in facts:facts-for-internal(( \"fac:ComprehensiveIncomeLoss\", \"fac:NetIncomeLoss\", \"fac:OtherComprehensiveIncomeLoss\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) let $ComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLoss\"] let $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"] let $OtherComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherComprehensiveIncomeLoss\"] where exists($ComprehensiveIncomeLoss) return let $test := rules:decimal-value($ComprehensiveIncomeLoss) eq rules:decimal-value($NetIncomeLoss) + rules:decimal-value($OtherComprehensiveIncomeLoss) let $audit-trail-message := rules:fact-trail($ComprehensiveIncomeLoss) || (if($test) then \" = \" else \" != \") || \"\" || rules:fact-trail($NetIncomeLoss,\"NetIncomeLoss\") || \" + \" || rules:fact-trail($OtherComprehensiveIncomeLoss,\"OtherComprehensiveIncomeLoss\") || \"\" let $source-facts := ( $NetIncomeLoss, $OtherComprehensiveIncomeLoss) return rules:create-computed-fact( $ComprehensiveIncomeLoss, \"fac:ComprehensiveIncomeLoss2Validation\", $test, $rule, $audit-trail-message, $source-facts, $options, $ComprehensiveIncomeLoss, $test)", 
+  "ComputableConcepts" : [ "fac:ComprehensiveIncomeLoss2Validation" ], 
+  "ValidatedConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
+  "DependsOn" : [ "fac:NetIncomeLoss", "fac:OtherComprehensiveIncomeLoss" ]
+}, {
+  "Id" : "oag_ProvedReserves", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Proved reserves calculation", 
+  "Formula" : "declare function local:mapToMember($concept) { switch(true) case ($concept = \"oag:ReservesProvedNaturalGas\") return \"us-gaap:NaturalGasReservesMember\" case ($concept = \"oag:ReservesProvedNaturalGasLiquids\") return \"apa:NaturalGasLiquidsMember\" case ($concept = \"oag:ReservesProvedOilAndCondensateReserves\") return \"apa:CrudeOilAndCondensateMember\" case ($concept = \"oag:ReservesProvedTotal\") return \"us-gaap:TypeOfReserveDomain\" default return () }; let $target-concept := \"us-gaap:ProvedDevelopedReservesVolume\" let $concepts := flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT)[$$ = (\"oag:ReservesProvedNaturalGas\", \"oag:ReservesProvedOilAndCondensateReserves\", \"oag:ReservesProvedNaturalGasLiquids\", \"oag:ReservesProvedTotal\")] for $concept in $concepts let $filter-mod := if($concept ne \"oag:ReservesProvedTotal\") then local:mapToMember($concept) else () let $hypercube-mod := { \"Name\" : \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\", \"Default\" : \"us-gaap:TypeOfReserveDomain\" } let $aligned-filter := copy $f := $aligned-filter modify ( if(exists($filter-mod)) then if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $filter-mod else insert json { \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\": [ $filter-mod ] } into $f.Aspects else (), replace value of json $f.Aspects.$facts:CONCEPT with [ $target-concept ] ) return $f let $hypercube := copy $h := $hypercube modify ( if(exists($h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $hypercube-mod else insert json {\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" : $hypercube-mod } into $h.Aspects ) return $h return for $facts in facts:facts-for-internal( $target-concept, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) return let $member := local:mapToMember($concept) for $provedReserve in $facts[$$.$facts:ASPECTS.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" eq $member] return let $source-fact := $provedReserve let $value := rules:decimal-value($provedReserve) let $original-concept := $provedReserve.$facts:ASPECTS.$facts:CONCEPT let $audit-trail-message := \"concept to member mapping: '\" || $concept || \"' -> '\" || $original-concept || \"(us-gaap:ReserveQuantitiesByTypeOfReserveAxis::\" || $member || \")'\" return copy $f := rules:create-computed-fact( $source-fact, $concept, $value, $rule, $audit-trail-message, $source-fact, $options) modify if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then delete json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" else () return $f", 
+  "ComputableConcepts" : [ "oag:ReservesProvedNaturalGas", "oag:ReservesProvedOilAndCondensateReserves", "oag:ReservesProvedNaturalGasLiquids", "oag:ReservesProvedTotal" ]
+}, {
+  "Id" : "oag_SalesVolumes", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Sales Volumes calculation", 
+  "Formula" : "declare function local:mapToMember($concept) { switch(true) case ($concept = (\"oag:SalesVolumesNaturalGas\", \"oag:SalesVolumesDailyNaturalGas\")) return \"us-gaap:NaturalGasReservesMember\" case ($concept = (\"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesDailyNaturalGasLiquids\")) return \"apa:NaturalGasLiquidsMember\" case ($concept = (\"oag:SalesVolumesOilAndCondensate\", \"oag:SalesVolumesDailyOilAndCondensate\")) return \"apa:CrudeOilAndCondensateMember\" case ($concept = (\"oag:SalesVolumesTotal\", \"oag:SalesVolumesDailyTotal\")) return \"us-gaap:TypeOfReserveDomain\" default return () }; declare function local:valueAdjusted($concept, $fact) { let $unit := $fact.Aspects.\"xbrl:Unit\" return switch(true) case ($concept eq \"oag:SalesVolumesNaturalGas\" and contains($unit, \":MMcf\")) return rules:decimal-value($fact) div 1000 case ($concept eq \"oag:SalesVolumesDailyNaturalGas\") return rules:decimal-value($fact) div 365 case ($concept = (\"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesOilAndCondensate\", \"oag:SalesVolumesTotal\") and contains($unit, \":MBbls\")) return rules:decimal-value($fact) div 1000 case ($concept = (\"oag:SalesVolumesDailyNaturalGasLiquids\", \"oag:SalesVolumesDailyOilAndCondensate\", \"oag:SalesVolumesDailyTotal\")) return rules:decimal-value($fact) div 365 default return rules:decimal-value($fact) }; declare function local:unitsAdjusted($concept, $fact) { let $unit := $fact.Aspects.\"xbrl:Unit\" return switch(true) case ($concept eq \"oag:SalesVolumesNaturalGas\" and contains($unit, \":MMcf\")) return \"utr:Bcf\" case ($concept eq \"oag:SalesVolumesDailyNaturalGas\" and contains($unit, \":MMcf\")) return \"utr:MMcf/d\" case ($concept = (\"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesOilAndCondensate\") and contains($unit, \":MBbls\")) return \"utr:MMBbls\" case ($concept = (\"oag:SalesVolumesDailyNaturalGasLiquids\", \"oag:SalesVolumesDailyOilAndCondensate\") and contains($unit, \":MBbls\")) return \"utr:MBbls/d\" case ($concept eq \"oag:SalesVolumesTotal\" and contains($unit, \":MBbls\")) return \"utr:MMBOE\" case ($concept eq \"oag:SalesVolumesDailyTotal\" and contains($unit, \":MBbls\")) return \"utr:MBOE/d\" default return $unit }; let $target-concept := \"us-gaap:ProvedDevelopedAndUndevelopedReservesSalesOfMineralsInPlace\" let $concepts := flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT)[$$ = (\"oag:SalesVolumesNaturalGas\", \"oag:SalesVolumesOilAndCondensate\", \"oag:SalesVolumesNaturalGasLiquids\", \"oag:SalesVolumesTotal\", \"oag:SalesVolumesDailyNaturalGas\", \"oag:SalesVolumesDailyOilAndCondensate\", \"oag:SalesVolumesDailyNaturalGasLiquids\", \"oag:SalesVolumesDailyTotal\")] for $concept in $concepts let $filter-mod := if($concept = (\"oag:SalesVolumesTotal\", \"oag:SalesVolumesDailyTotal\")) then () else local:mapToMember($concept) let $hypercube-mod := { \"Name\" : \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\", \"Default\" : \"us-gaap:TypeOfReserveDomain\" } let $aligned-filter := copy $f := $aligned-filter modify ( if(exists($filter-mod)) then if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $filter-mod else insert json { \"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\": [ $filter-mod ] } into $f.Aspects else (), replace value of json $f.Aspects.$facts:CONCEPT with [ $target-concept ] ) return $f let $hypercube := copy $h := $hypercube modify ( if(exists($h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then replace value of json $h.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" with $hypercube-mod else insert json {\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" : $hypercube-mod } into $h.Aspects ) return $h return for $facts in facts:facts-for-internal( $target-concept, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\")) return let $member := local:mapToMember($concept) for $salesVolume in $facts[$$.$facts:ASPECTS.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" eq $member] return let $source-fact := $salesVolume let $value := local:valueAdjusted($concept, $salesVolume) let $unit := local:unitsAdjusted($concept, $salesVolume) let $original-concept := $salesVolume.$facts:ASPECTS.$facts:CONCEPT let $audit-trail-message := \"concept to member mapping: '\" || $concept || \"' -> '\" || $original-concept || \"(us-gaap:ReserveQuantitiesByTypeOfReserveAxis::\" || $member || \")'\" return copy $f := rules:create-computed-fact( $source-fact, $concept, $value, $rule, $audit-trail-message, $source-fact, $options) modify ( if(exists($f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\")) then delete json $f.Aspects.\"us-gaap:ReserveQuantitiesByTypeOfReserveAxis\" else (), replace value of json $f.Aspects.\"xbrl:Unit\" with $unit ) return $f", 
+  "ComputableConcepts" : [ "oag:SalesVolumesNaturalGas", "oag:SalesVolumesOilAndCondensate", "oag:SalesVolumesNaturalGasLiquids", "oag:SalesVolumesTotal", "oag:SalesVolumesDailyNaturalGas", "oag:SalesVolumesDailyOilAndCondensate", "oag:SalesVolumesDailyNaturalGasLiquids", "oag:SalesVolumesDailyTotal" ]
+}, {
+  "Id" : "BS2", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "Assets = LiabilitiesAndEquity", 
+  "Description" : "Rule to validate Assets (fac:Assets). It also creates a new fact (fac:AssetsValidation) that contains the validation result.", 
+  "ComputableConcepts" : [ "fac:AssetsValidation" ], 
+  "DependsOn" : [ "fac:Assets", "fac:LiabilitiesAndEquity" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:AssetsValidation\", \"fac:Assets\", \"fac:LiabilitiesAndEquity\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))\n  , $aligned-period\nlet $AssetsValidation as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:AssetsValidation\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($AssetsValidation) return $AssetsValidation\n  case (exists($Assets) and true)\n  return\n    let $computed-value := rules:decimal-value($Assets) eq rules:decimal-value($LiabilitiesAndEquity)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:AssetsValidation\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($Assets, \"Assets\") || \" eq \" || rules:fact-trail($LiabilitiesAndEquity, \"LiabilitiesAndEquity\")\n\t let $source-facts := ($AssetsValidation, $Assets, $LiabilitiesAndEquity)\n    return\n      rules:create-computed-fact(\n          $Assets,\n          \"fac:AssetsValidation\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "ValidatedConcepts" : [ "fac:Assets" ], 
+  "Formulae" : [ {
+    "PrereqSrc" : "TRUE", 
+    "SourceFact" : [ "Assets" ], 
+    "BodySrc" : "Assets = LiabilitiesAndEquity"
   } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "BS3", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:validation", 
+  "Label" : "Assets = CurrentAssets + NoncurrentAssets", 
+  "Description" : "Rule to validate Assets (fac:Assets). It also creates a new fact (fac:AssetsValidation2) that contains the validation result.", 
+  "ComputableConcepts" : [ "fac:AssetsValidation2" ], 
+  "DependsOn" : [ "fac:Assets", "fac:CurrentAssets", "fac:NoncurrentAssets" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:AssetsValidation2\", \"fac:Assets\", \"fac:CurrentAssets\", \"fac:NoncurrentAssets\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))\n  , $aligned-period\nlet $AssetsValidation2 as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:AssetsValidation2\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"]\nlet $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($AssetsValidation2) return $AssetsValidation2\n  case (exists($Assets) and true)\n  return\n    let $computed-value := rules:decimal-value($Assets) eq rules:decimal-value($CurrentAssets) + rules:decimal-value($NoncurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:AssetsValidation2\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($Assets, \"Assets\") || \" eq \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\") || \" + \" || rules:fact-trail($NoncurrentAssets, \"NoncurrentAssets\")\n\t let $source-facts := ($AssetsValidation2, $Assets, $CurrentAssets, $NoncurrentAssets)\n    return\n      rules:create-computed-fact(\n          $Assets,\n          \"fac:AssetsValidation2\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "ValidatedConcepts" : [ "fac:Assets" ], 
+  "Formulae" : [ {
+    "PrereqSrc" : "TRUE", 
+    "SourceFact" : [ "Assets" ], 
+    "BodySrc" : "Assets = CurrentAssets + NoncurrentAssets"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "13fa53d2-502e-4ee9-8e30-ba24ba3e43f0", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Assets", 
+  "Description" : "Rule to compute Assets (fac:Assets).", 
+  "ComputableConcepts" : [ "fac:Assets" ], 
+  "DependsOn" : [ "fac:CurrentAssets", "fac:LiabilitiesAndEquity", "fac:NoncurrentAssets" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:Assets\", \"fac:CurrentAssets\", \"fac:LiabilitiesAndEquity\", \"fac:NoncurrentAssets\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))\n  , $aligned-period\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"]\nlet $LiabilitiesAndEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:LiabilitiesAndEquity\"]\nlet $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($Assets) return $Assets\n  case (exists($LiabilitiesAndEquity) and rules:decimal-value($CurrentAssets) eq rules:decimal-value($LiabilitiesAndEquity))\n  return\n    let $computed-value := rules:decimal-value($CurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:Assets\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($CurrentAssets, \"CurrentAssets\")\n\t let $source-facts := ($Assets, $CurrentAssets, $LiabilitiesAndEquity, $NoncurrentAssets)\n    return\n      rules:create-computed-fact(\n          $LiabilitiesAndEquity,\n          \"fac:Assets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  case (exists($NoncurrentAssets) and ())\n  return\n    let $computed-value := rules:decimal-value($CurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:Assets\" }, Value: $computed-value }) || \" = \"\n\t        || rules:fact-trail($CurrentAssets, \"CurrentAssets\")\n\t let $source-facts := ($Assets, $CurrentAssets, $LiabilitiesAndEquity, $NoncurrentAssets)\n    return\n      rules:create-computed-fact(\n          $NoncurrentAssets,\n          \"fac:Assets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "CurrentAssets = LiabilitiesAndEquity", 
+    "SourceFact" : [ "LiabilitiesAndEquity" ], 
+    "BodySrc" : "CurrentAssets"
+  }, {
+    "PrereqSrc" : "and(not(isblank(LiabilitiesAndEquity)),LiabilitiesAndEquity=Equity+Liabilities)", 
+    "SourceFact" : [ "NoncurrentAssets" ], 
+    "BodySrc" : "CurrentAssets"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "VAL1", 
+  "Label" : "Validation Statistics", 
+  "Type" : "xbrl28:formula", 
+  "Formula" : "let $validations := (\"fac:EquityValidation\", \"fac:AssetsValidation\", \"fac:AssetsValidation2\", \"fac:LiabilitiesValidation\", \"fac:LiabilitiesAndEquityValidation\", \"fac:NetCashFlowsValidation\", \"fac:NetCashFlowsContinuingValidation\", \"fac:NetCashFlowsDiscontinuedValidation\", \"fac:NetCashFlowsFromOperatingActivitiesValidation\", \"fac:NetCashFlowsFromInvestingActivitiesValidation\", \"fac:NetCashFlowsFromFinancingActivitiesValidation\", \"fac:GrossProfitValidation\", \"fac:OperatingIncomeLossValidation\", \"fac:OperatingIncomeLoss2Validation\", \"fac:IncomeBeforeEquityMethodInvestmentsValidation\", \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\", \"fac:IncomeLossFromContinuingOperationsAfterTaxValidation\", \"fac:NetIncomeLossValidation\", \"fac:NetIncomeLoss2Validation\", \"fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation\", \"fac:ComprehensiveIncomeLossValidation\", \"fac:ComprehensiveIncomeLoss2Validation\") for $facts in facts:facts-for-internal($validations, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1] group by $canonical-filter-string := facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", $facts:PERIOD, \"Balance\")), $aligned-period return let $passed as object* := $facts[$$.Value eq true] let $failed as object* := $facts[$$.Value eq false] let $not-applied as string* := distinct-values($validations)[not($$ = $facts.$facts:ASPECTS.$facts:CONCEPT)] for $concept in flatten($aligned-filter.$facts:ASPECTS.$facts:CONCEPT) return switch ($concept) case \"fac:PassedValidations\" return let $computed-value := count($passed) let $audit-trail-message := \"count(\" || string-join($passed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($passed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:PassedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:FailedValidations\" return let $computed-value := count($failed) let $audit-trail-message := \"count(\" || string-join($failed.$facts:ASPECTS.$facts:CONCEPT, \", \") || \")\" let $source-facts := ($failed) return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:FailedValidations\", $computed-value, {Label: $rule.Label || \": Passed Validations\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new case \"fac:NotApplicableValidations\" return let $computed-value := count($not-applied) let $audit-trail-message := \"count(\" || string-join($not-applied, \", \") || \")\" let $source-facts := () return copy $new := rules:create-computed-fact( ($facts[exists(facts:instant-for-fact($$))],$facts)[1], \"fac:NotApplicableValidations\", $computed-value, {Label: $rule.Label || \": Validations that couldn't be applied\", Type: \"xbrl28:formula\" }, $audit-trail-message, $source-facts, $options) modify ( if(exists($new.$facts:ASPECTS.$facts:UNIT)) then replace value of json $new.$facts:ASPECTS.$facts:UNIT with \"pure\" else insert json {$facts:UNIT : \"pure\"} into $new.$facts:ASPECTS, if(exists($new.Type)) then replace value of json $new.Type with \"NumericValue\" else insert json { Type : \"NumericValue\"} into $new, if(exists($new.Decimals)) then replace value of json $new.Decimals with 0 else insert json { Decimals : 0} into $new ) return $new default return ()", 
+  "ComputableConcepts" : [ "fac:PassedValidations", "fac:FailedValidations", "fac:NotApplicableValidations" ], 
+  "DependsOn" : [ "fac:EquityValidation", "fac:AssetsValidation", "fac:AssetsValidation2", "fac:LiabilitiesValidation", "fac:LiabilitiesAndEquityValidation", "fac:NetCashFlowsValidation", "fac:NetCashFlowsContinuingValidation", "fac:NetCashFlowsDiscontinuedValidation", "fac:NetCashFlowsFromOperatingActivitiesValidation", "fac:NetCashFlowsFromInvestingActivitiesValidation", "fac:NetCashFlowsFromFinancingActivitiesValidation", "fac:GrossProfitValidation", "fac:OperatingIncomeLossValidation", "fac:OperatingIncomeLoss2Validation", "fac:IncomeBeforeEquityMethodInvestmentsValidation", "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", "fac:NetIncomeLossValidation", "fac:NetIncomeLoss2Validation", "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", "fac:ComprehensiveIncomeLossValidation", "fac:ComprehensiveIncomeLoss2Validation" ]
+}, {
+  "Id" : "af746544-e3f6-412e-9046-4e744cf11335", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Current Assets", 
+  "Description" : "Rule to compute Current Assets (fac:CurrentAssets).", 
+  "ComputableConcepts" : [ "fac:CurrentAssets" ], 
+  "DependsOn" : [ "fac:NoncurrentAssets", "fac:Assets" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:Assets\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"]\nlet $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($CurrentAssets) return $CurrentAssets\n  case (exists($Assets) and not((not(exists($NoncurrentAssets)))))\n  return\n    let $computed-value := rules:decimal-value($Assets) - rules:decimal-value($NoncurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:CurrentAssets\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($Assets, \"Assets\") || \" - \" || rules:fact-trail($NoncurrentAssets, \"NoncurrentAssets\")\n\t let $source-facts := ($CurrentAssets, $NoncurrentAssets, $Assets)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Assets,\n            \"fac:CurrentAssets\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Assets,\n          \"fac:CurrentAssets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(NoncurrentAssets))", 
+    "SourceFact" : [ "Assets" ], 
+    "BodySrc" : "Assets-NoncurrentAssets"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "5d5eefb8-d022-44b7-8575-cadd6d377469", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Noncurrent Assets", 
+  "Description" : "Rule to compute Noncurrent Assets (fac:NoncurrentAssets).", 
+  "ComputableConcepts" : [ "fac:NoncurrentAssets" ], 
+  "DependsOn" : [ "fac:CurrentAssets", "fac:Assets" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NoncurrentAssets\", \"fac:CurrentAssets\", \"fac:Assets\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NoncurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NoncurrentAssets\"]\nlet $CurrentAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CurrentAssets\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NoncurrentAssets) return $NoncurrentAssets\n  case (exists($Assets) and not((not(exists($CurrentAssets)))))\n  return\n    let $computed-value := rules:decimal-value($Assets) - rules:decimal-value($CurrentAssets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NoncurrentAssets\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($Assets, \"Assets\") || \" - \" || rules:fact-trail($CurrentAssets, \"CurrentAssets\")\n\t let $source-facts := ($NoncurrentAssets, $CurrentAssets, $Assets)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Assets,\n            \"fac:NoncurrentAssets\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Assets,\n          \"fac:NoncurrentAssets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(CurrentAssets))", 
+    "SourceFact" : [ "Assets" ], 
+    "BodySrc" : "Assets-CurrentAssets"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "5b6807a6-c57a-4cb5-8d1e-b6ce56162741", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Cost of Revenues", 
+  "Description" : "Rule to compute Cost of Revenues (fac:CostOfRevenue).", 
+  "ComputableConcepts" : [ "fac:CostOfRevenue" ], 
+  "DependsOn" : [ "fac:GrossProfit", "fac:Revenues", "fac:CostsAndExpenses", "fac:OperatingExpenses" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:CostOfRevenue\", \"fac:GrossProfit\", \"fac:Revenues\", \"fac:CostsAndExpenses\", \"fac:OperatingExpenses\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"]\nlet $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"]\nlet $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"]\nlet $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"]\nlet $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($CostOfRevenue) return $CostOfRevenue\n  case (exists($Revenues) and not((not(exists($GrossProfit)))))\n  return\n    let $computed-value := rules:decimal-value($Revenues) - rules:decimal-value($GrossProfit)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:CostOfRevenue\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($Revenues, \"Revenues\") || \" - \" || rules:fact-trail($GrossProfit, \"GrossProfit\")\n\t let $source-facts := ($CostOfRevenue, $GrossProfit, $Revenues, $CostsAndExpenses, $OperatingExpenses)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Revenues,\n            \"fac:CostOfRevenue\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Revenues,\n          \"fac:CostOfRevenue\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  case (exists($CostsAndExpenses) and ())\n  return\n    let $computed-value := rules:decimal-value($CostsAndExpenses) - rules:decimal-value($OperatingExpenses)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:CostOfRevenue\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($CostsAndExpenses, \"CostsAndExpenses\") || \" - \" || rules:fact-trail($OperatingExpenses, \"OperatingExpenses\")\n\t let $source-facts := ($CostOfRevenue, $GrossProfit, $Revenues, $CostsAndExpenses, $OperatingExpenses)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $CostsAndExpenses,\n            \"fac:CostOfRevenue\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $CostsAndExpenses,\n          \"fac:CostOfRevenue\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(GrossProfit))", 
+    "SourceFact" : [ "Revenues" ], 
+    "BodySrc" : "Revenues-GrossProfit"
+  }, {
+    "PrereqSrc" : "and(not(isblank(CostOfRevenue)) , not(isblank(Revenues)), isblank(GrossProfit) , (Revenues - CostsAndExpenses = OperatingIncomeLoss), isblank(OperatingExpenses) , isblank(OtherOperatingIncomeExpenses))", 
+    "SourceFact" : [ "CostsAndExpenses" ], 
+    "BodySrc" : "CostsAndExpenses-OperatingExpenses"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "fc6d4f5d-58db-41f3-8f40-fea21461be53", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Operating Expenses", 
+  "Description" : "Rule to compute Operating Expenses (fac:OperatingExpenses).", 
+  "ComputableConcepts" : [ "fac:OperatingExpenses" ], 
+  "DependsOn" : [ "fac:CostOfRevenue", "fac:CostsAndExpenses" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:OperatingExpenses\", \"fac:CostOfRevenue\", \"fac:CostsAndExpenses\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"]\nlet $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"]\nlet $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($OperatingExpenses) return $OperatingExpenses\n  case (exists($CostsAndExpenses) and not((not(exists($CostOfRevenue)))))\n  return\n    let $computed-value := rules:decimal-value($CostsAndExpenses) - rules:decimal-value($CostOfRevenue)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:OperatingExpenses\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($CostsAndExpenses, \"CostsAndExpenses\") || \" - \" || rules:fact-trail($CostOfRevenue, \"CostOfRevenue\")\n\t let $source-facts := ($OperatingExpenses, $CostOfRevenue, $CostsAndExpenses)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $CostsAndExpenses,\n            \"fac:OperatingExpenses\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $CostsAndExpenses,\n          \"fac:OperatingExpenses\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(CostOfRevenue))", 
+    "SourceFact" : [ "CostsAndExpenses" ], 
+    "BodySrc" : "CostsAndExpenses-CostOfRevenue"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "58996a6a-1c4a-4b92-9aa0-7b29bd4ff514", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Costs and Expenses", 
+  "Description" : "Rule to compute Costs and Expenses (fac:CostsAndExpenses).", 
+  "ComputableConcepts" : [ "fac:CostsAndExpenses" ], 
+  "DependsOn" : [ "fac:OperatingExpenses", "fac:CostOfRevenue", "fac:Revenues", "fac:OperatingIncomeLoss", "fac:OtherOperatingIncomeExpenses" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:CostsAndExpenses\", \"fac:OperatingExpenses\", \"fac:CostOfRevenue\", \"fac:Revenues\", \"fac:OperatingIncomeLoss\", \"fac:OtherOperatingIncomeExpenses\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $CostsAndExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostsAndExpenses\"]\nlet $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"]\nlet $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"]\nlet $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"]\nlet $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"]\nlet $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($CostsAndExpenses) return $CostsAndExpenses\n  case (exists($CostOfRevenue) and not((not(exists($OperatingExpenses)))))\n  return\n    let $computed-value := rules:decimal-value($CostOfRevenue) + rules:decimal-value($OperatingExpenses)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:CostsAndExpenses\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($CostOfRevenue, \"CostOfRevenue\") || \" + \" || rules:fact-trail($OperatingExpenses, \"OperatingExpenses\")\n\t let $source-facts := ($CostsAndExpenses, $OperatingExpenses, $CostOfRevenue, $Revenues, $OperatingIncomeLoss, $OtherOperatingIncomeExpenses)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $CostOfRevenue,\n            \"fac:CostsAndExpenses\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $CostOfRevenue,\n          \"fac:CostsAndExpenses\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  case (exists($Revenues) and ())\n  return\n    let $computed-value := rules:decimal-value($Revenues) - rules:decimal-value($OperatingIncomeLoss) - rules:decimal-value($OtherOperatingIncomeExpenses)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:CostsAndExpenses\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($Revenues, \"Revenues\") || \" - \" || rules:fact-trail($OperatingIncomeLoss, \"OperatingIncomeLoss\") || \" - \" || rules:fact-trail($OtherOperatingIncomeExpenses, \"OtherOperatingIncomeExpenses\")\n\t let $source-facts := ($CostsAndExpenses, $OperatingExpenses, $CostOfRevenue, $Revenues, $OperatingIncomeLoss, $OtherOperatingIncomeExpenses)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Revenues,\n            \"fac:CostsAndExpenses\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Revenues,\n          \"fac:CostsAndExpenses\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(OperatingExpenses))", 
+    "SourceFact" : [ "CostOfRevenue" ], 
+    "BodySrc" : "CostOfRevenue+OperatingExpenses"
+  }, {
+    "PrereqSrc" : "and(isblank(GrossProfit), not(isblank(Revenues)), not(isblank(OperatingIncomeLoss)) and not(isblank(OtherOperatingIncomeExpenses)))", 
+    "SourceFact" : [ "Revenues" ], 
+    "BodySrc" : "Revenues-OperatingIncomeLoss-OtherOperatingIncomeExpenses"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "78e824dc-4b68-4a1b-9aa3-ec51d0f55335", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Return on Assets (ROA)", 
+  "Description" : "Rule to compute Return on Assets (ROA) (fac:ReturnOnAssets).", 
+  "ComputableConcepts" : [ "fac:ReturnOnAssets" ], 
+  "DependsOn" : [ "fac:Assets", "fac:NetIncomeLoss" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:ReturnOnAssets\", \"fac:Assets\", \"fac:NetIncomeLoss\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $ReturnOnAssets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ReturnOnAssets\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($ReturnOnAssets) return $ReturnOnAssets\n  case (exists($Assets) and rules:decimal-value($Assets) ne 0)\n  return\n    let $computed-value := rules:decimal-value($NetIncomeLoss) div rules:decimal-value($Assets)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:ReturnOnAssets\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\") || \" div \" || rules:fact-trail($Assets, \"Assets\")\n\t let $source-facts := ($ReturnOnAssets, $Assets, $NetIncomeLoss)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Assets,\n            \"fac:ReturnOnAssets\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Assets,\n          \"fac:ReturnOnAssets\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "Assets<>0", 
+    "SourceFact" : [ "Assets" ], 
+    "BodySrc" : "NetIncomeLoss/Assets"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "fe735813-326b-4f09-a38e-8f80c80e816b", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Return on Equity (ROE)", 
+  "Description" : "Rule to compute Return on Equity (ROE) (fac:ReturnOnEquity).", 
+  "ComputableConcepts" : [ "fac:ReturnOnEquity" ], 
+  "DependsOn" : [ "fac:Equity", "fac:NetIncomeLoss" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:ReturnOnEquity\", \"fac:Equity\", \"fac:NetIncomeLoss\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $ReturnOnEquity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ReturnOnEquity\"]\nlet $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"]\nlet $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($ReturnOnEquity) return $ReturnOnEquity\n  case (exists($Equity) and rules:decimal-value($Equity) ne 0)\n  return\n    let $computed-value := rules:decimal-value($NetIncomeLoss) div rules:decimal-value($Equity)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:ReturnOnEquity\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\") || \" div \" || rules:fact-trail($Equity, \"Equity\")\n\t let $source-facts := ($ReturnOnEquity, $Equity, $NetIncomeLoss)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Equity,\n            \"fac:ReturnOnEquity\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Equity,\n          \"fac:ReturnOnEquity\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "Equity<>0", 
+    "SourceFact" : [ "Equity" ], 
+    "BodySrc" : "NetIncomeLoss/Equity"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "de1806dc-ff91-47a9-a10b-fb631b268ae3", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Return on Sales (ROS)", 
+  "Description" : "Rule to compute Return on Sales (ROS) (fac:ReturnOnSalesROS).", 
+  "ComputableConcepts" : [ "fac:ReturnOnSalesROS" ], 
+  "DependsOn" : [ "fac:Revenues", "fac:NetIncomeLoss" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:ReturnOnSalesROS\", \"fac:Revenues\", \"fac:NetIncomeLoss\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $ReturnOnSalesROS as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ReturnOnSalesROS\"]\nlet $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"]\nlet $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($ReturnOnSalesROS) return $ReturnOnSalesROS\n  case (exists($Revenues) and rules:decimal-value($Revenues) ne 0)\n  return\n    let $computed-value := rules:decimal-value($NetIncomeLoss) div rules:decimal-value($Revenues)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:ReturnOnSalesROS\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\") || \" div \" || rules:fact-trail($Revenues, \"Revenues\")\n\t let $source-facts := ($ReturnOnSalesROS, $Revenues, $NetIncomeLoss)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Revenues,\n            \"fac:ReturnOnSalesROS\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Revenues,\n          \"fac:ReturnOnSalesROS\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "Revenues<>0", 
+    "SourceFact" : [ "Revenues" ], 
+    "BodySrc" : "NetIncomeLoss/Revenues"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "bf2d1587-491c-4492-b587-ddd00d762f2d", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Other Operating Income (Expenses)", 
+  "Description" : "Rule to compute Other Operating Income (Expenses) (fac:OtherOperatingIncomeExpenses).", 
+  "ComputableConcepts" : [ "fac:OtherOperatingIncomeExpenses" ], 
+  "DependsOn" : [ "fac:OperatingIncomeLoss", "fac:GrossProfit", "fac:OperatingExpenses" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:OtherOperatingIncomeExpenses\", \"fac:OperatingIncomeLoss\", \"fac:GrossProfit\", \"fac:OperatingExpenses\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $OtherOperatingIncomeExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherOperatingIncomeExpenses\"]\nlet $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"]\nlet $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"]\nlet $OperatingExpenses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingExpenses\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($OtherOperatingIncomeExpenses) return $OtherOperatingIncomeExpenses\n  case (exists($OperatingIncomeLoss) and ())\n  return\n    let $computed-value := rules:decimal-value($OperatingIncomeLoss) - rules:decimal-value($GrossProfit) - rules:decimal-value($OperatingExpenses)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:OtherOperatingIncomeExpenses\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($OperatingIncomeLoss, \"OperatingIncomeLoss\") || \" - \" || rules:fact-trail($GrossProfit, \"GrossProfit\") || \" - \" || rules:fact-trail($OperatingExpenses, \"OperatingExpenses\")\n\t let $source-facts := ($OtherOperatingIncomeExpenses, $OperatingIncomeLoss, $GrossProfit, $OperatingExpenses)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $OperatingIncomeLoss,\n            \"fac:OtherOperatingIncomeExpenses\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $OperatingIncomeLoss,\n          \"fac:OtherOperatingIncomeExpenses\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(OperatingIncomeLoss)) and not(isblank(GrossProfit)) and not(isblank(OperatingExpenses)))", 
+    "SourceFact" : [ "OperatingIncomeLoss" ], 
+    "BodySrc" : "OperatingIncomeLoss-GrossProfit-OperatingExpenses"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "97cdc544-35ea-4d12-b3d4-128b4b1e593a", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Operating Income (Loss)", 
+  "Description" : "Rule to compute Operating Income (Loss) (fac:OperatingIncomeLoss).", 
+  "ComputableConcepts" : [ "fac:OperatingIncomeLoss" ], 
+  "DependsOn" : [ "fac:IncomeBeforeEquityMethodInvestments", "fac:NonoperatingIncomeLoss", "fac:InterestAndDebtExpense" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:OperatingIncomeLoss\", \"fac:IncomeBeforeEquityMethodInvestments\", \"fac:NonoperatingIncomeLoss\", \"fac:InterestAndDebtExpense\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"]\nlet $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"]\nlet $NonoperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomeLoss\"]\nlet $InterestAndDebtExpense as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:InterestAndDebtExpense\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($OperatingIncomeLoss) return $OperatingIncomeLoss\n  case (exists($IncomeBeforeEquityMethodInvestments) and not((not(exists($IncomeBeforeEquityMethodInvestments)))))\n  return\n    let $computed-value := rules:decimal-value($IncomeBeforeEquityMethodInvestments) + rules:decimal-value($NonoperatingIncomeLoss) - rules:decimal-value($InterestAndDebtExpense)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:OperatingIncomeLoss\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($IncomeBeforeEquityMethodInvestments, \"IncomeBeforeEquityMethodInvestments\") || \" + \" || rules:fact-trail($NonoperatingIncomeLoss, \"NonoperatingIncomeLoss\") || \" - \" || rules:fact-trail($InterestAndDebtExpense, \"InterestAndDebtExpense\")\n\t let $source-facts := ($OperatingIncomeLoss, $IncomeBeforeEquityMethodInvestments, $NonoperatingIncomeLoss, $InterestAndDebtExpense)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $IncomeBeforeEquityMethodInvestments,\n            \"fac:OperatingIncomeLoss\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $IncomeBeforeEquityMethodInvestments,\n          \"fac:OperatingIncomeLoss\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(IncomeBeforeEquityMethodInvestments))", 
+    "SourceFact" : [ "IncomeBeforeEquityMethodInvestments" ], 
+    "BodySrc" : "IncomeBeforeEquityMethodInvestments+NonoperatingIncomeLoss-InterestAndDebtExpense"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "fd810901-ee86-46ad-8c55-ec933c27169a", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Revenues", 
+  "Description" : "Rule to compute Revenues (fac:Revenues).", 
+  "ComputableConcepts" : [ "fac:Revenues" ], 
+  "DependsOn" : [ "fac:CostOfRevenue", "fac:GrossProfit" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:Revenues\", \"fac:CostOfRevenue\", \"fac:GrossProfit\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"]\nlet $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"]\nlet $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($Revenues) return $Revenues\n  case (exists($GrossProfit) and not((not(exists($CostOfRevenue)))))\n  return\n    let $computed-value := rules:decimal-value($GrossProfit) + rules:decimal-value($CostOfRevenue)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:Revenues\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($GrossProfit, \"GrossProfit\") || \" + \" || rules:fact-trail($CostOfRevenue, \"CostOfRevenue\")\n\t let $source-facts := ($Revenues, $CostOfRevenue, $GrossProfit)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $GrossProfit,\n            \"fac:Revenues\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $GrossProfit,\n          \"fac:Revenues\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(CostOfRevenue))", 
+    "SourceFact" : [ "GrossProfit" ], 
+    "BodySrc" : "GrossProfit+CostOfRevenue"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "752e7bc0-858b-4c36-9e82-fb560298e98e", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Gross Profit", 
+  "Description" : "Rule to compute Gross Profit (fac:GrossProfit).", 
+  "ComputableConcepts" : [ "fac:GrossProfit" ], 
+  "DependsOn" : [ "fac:Revenues", "fac:CostOfRevenue" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:GrossProfit\", \"fac:Revenues\", \"fac:CostOfRevenue\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $GrossProfit as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:GrossProfit\"]\nlet $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"]\nlet $CostOfRevenue as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CostOfRevenue\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($GrossProfit) return $GrossProfit\n  case (exists($Revenues) and ())\n  return\n    let $computed-value := rules:decimal-value($Revenues) - rules:decimal-value($CostOfRevenue)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:GrossProfit\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($Revenues, \"Revenues\") || \" - \" || rules:fact-trail($CostOfRevenue, \"CostOfRevenue\")\n\t let $source-facts := ($GrossProfit, $Revenues, $CostOfRevenue)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Revenues,\n            \"fac:GrossProfit\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Revenues,\n          \"fac:GrossProfit\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(Revenues)),not(isblank(CostOfRevenue)))", 
+    "SourceFact" : [ "Revenues" ], 
+    "BodySrc" : "Revenues-CostOfRevenue"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "6853bb17-792a-4aa0-8a5e-db3f38675382", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Interest and Debt Expense", 
+  "Description" : "Rule to compute Interest and Debt Expense (fac:InterestAndDebtExpense).", 
+  "ComputableConcepts" : [ "fac:InterestAndDebtExpense" ], 
+  "DependsOn" : [ "fac:IncomeBeforeEquityMethodInvestments", "fac:OperatingIncomeLoss", "fac:NonoperatingIncomeLoss" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:InterestAndDebtExpense\", \"fac:IncomeBeforeEquityMethodInvestments\", \"fac:OperatingIncomeLoss\", \"fac:NonoperatingIncomeLoss\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $InterestAndDebtExpense as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:InterestAndDebtExpense\"]\nlet $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"]\nlet $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"]\nlet $NonoperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomeLoss\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($InterestAndDebtExpense) return $InterestAndDebtExpense\n  case (exists($IncomeBeforeEquityMethodInvestments) and ())\n  return\n    let $computed-value := rules:decimal-value($IncomeBeforeEquityMethodInvestments) - rules:decimal-value($OperatingIncomeLoss) - rules:decimal-value($NonoperatingIncomeLoss)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:InterestAndDebtExpense\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($IncomeBeforeEquityMethodInvestments, \"IncomeBeforeEquityMethodInvestments\") || \" - \" || rules:fact-trail($OperatingIncomeLoss, \"OperatingIncomeLoss\") || \" - \" || rules:fact-trail($NonoperatingIncomeLoss, \"NonoperatingIncomeLoss\")\n\t let $source-facts := ($InterestAndDebtExpense, $IncomeBeforeEquityMethodInvestments, $OperatingIncomeLoss, $NonoperatingIncomeLoss)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $IncomeBeforeEquityMethodInvestments,\n            \"fac:InterestAndDebtExpense\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $IncomeBeforeEquityMethodInvestments,\n          \"fac:InterestAndDebtExpense\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(OperatingIncomeLoss)), not(isblank(NonoperatingIncomeLoss)), not(isblank(IncomeBeforeEquityMethodInvestments)))", 
+    "SourceFact" : [ "IncomeBeforeEquityMethodInvestments" ], 
+    "BodySrc" : "IncomeBeforeEquityMethodInvestments-OperatingIncomeLoss-NonoperatingIncomeLoss"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "ee2117cd-9220-4ee2-a982-33f4074c1ebc", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense", 
+  "Description" : "Rule to compute Nonoperating Income (Loss) + Interest and Debt Expense (fac:NonoperatingIncomeLossPlusInterestAndDebtExpense).", 
+  "ComputableConcepts" : [ "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense" ], 
+  "DependsOn" : [ "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments", "fac:IncomeLossFromEquityMethodInvestments" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\", \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\", \"fac:IncomeLossFromEquityMethodInvestments\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NonoperatingIncomeLossPlusInterestAndDebtExpense as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\"]\nlet $NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\"]\nlet $IncomeLossFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromEquityMethodInvestments\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NonoperatingIncomeLossPlusInterestAndDebtExpense) return $NonoperatingIncomeLossPlusInterestAndDebtExpense\n  case (exists($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments) and not((not(exists($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments)))))\n  return\n    let $computed-value := rules:decimal-value($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments) - rules:decimal-value($IncomeLossFromEquityMethodInvestments)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments, \"NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\") || \" - \" || rules:fact-trail($IncomeLossFromEquityMethodInvestments, \"IncomeLossFromEquityMethodInvestments\")\n\t let $source-facts := ($NonoperatingIncomeLossPlusInterestAndDebtExpense, $NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments, $IncomeLossFromEquityMethodInvestments)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments,\n            \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments,\n          \"fac:NonoperatingIncomeLossPlusInterestAndDebtExpense\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments))", 
+    "SourceFact" : [ "NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments" ], 
+    "BodySrc" : "NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments -IncomeLossFromEquityMethodInvestments"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "6abca1d8-12f9-4b87-b410-9d5d9e9322a3", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense + Income (Loss) from Equity Method Investments", 
+  "Description" : "Rule to compute Nonoperating Income (Loss) + Interest and Debt Expense + Income (Loss) from Equity Method Investments (fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments).", 
+  "ComputableConcepts" : [ "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments" ], 
+  "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:OperatingIncomeLoss" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\", \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:OperatingIncomeLoss\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\"]\nlet $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"]\nlet $OperatingIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OperatingIncomeLoss\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments) return $NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\n  case (exists($IncomeLossFromContinuingOperationsBeforeTax) and not((not(exists($IncomeLossFromContinuingOperationsBeforeTax)))))\n  return\n    let $computed-value := rules:decimal-value($IncomeLossFromContinuingOperationsBeforeTax) - rules:decimal-value($OperatingIncomeLoss)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($IncomeLossFromContinuingOperationsBeforeTax, \"IncomeLossFromContinuingOperationsBeforeTax\") || \" - \" || rules:fact-trail($OperatingIncomeLoss, \"OperatingIncomeLoss\")\n\t let $source-facts := ($NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments, $IncomeLossFromContinuingOperationsBeforeTax, $OperatingIncomeLoss)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $IncomeLossFromContinuingOperationsBeforeTax,\n            \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $IncomeLossFromContinuingOperationsBeforeTax,\n          \"fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(IncomeLossFromContinuingOperationsBeforeTax))", 
+    "SourceFact" : [ "IncomeLossFromContinuingOperationsBeforeTax" ], 
+    "BodySrc" : "IncomeLossFromContinuingOperationsBeforeTax-OperatingIncomeLoss"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "f1a8f202-897e-4978-98f3-c81279f7c767", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Income (Loss) from Continuing Operations Before Tax", 
+  "Description" : "Rule to compute Income (Loss) from Continuing Operations Before Tax (fac:IncomeLossFromContinuingOperationsBeforeTax).", 
+  "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax" ], 
+  "DependsOn" : [ "fac:IncomeLossFromEquityMethodInvestments", "fac:IncomeBeforeEquityMethodInvestments" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:IncomeLossFromEquityMethodInvestments\", \"fac:IncomeBeforeEquityMethodInvestments\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"]\nlet $IncomeLossFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromEquityMethodInvestments\"]\nlet $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($IncomeLossFromContinuingOperationsBeforeTax) return $IncomeLossFromContinuingOperationsBeforeTax\n  case (exists($IncomeLossFromEquityMethodInvestments) and ())\n  return\n    let $computed-value := rules:decimal-value($IncomeLossFromEquityMethodInvestments) + rules:decimal-value($IncomeBeforeEquityMethodInvestments)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:IncomeLossFromContinuingOperationsBeforeTax\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($IncomeLossFromEquityMethodInvestments, \"IncomeLossFromEquityMethodInvestments\") || \" + \" || rules:fact-trail($IncomeBeforeEquityMethodInvestments, \"IncomeBeforeEquityMethodInvestments\")\n\t let $source-facts := ($IncomeLossFromContinuingOperationsBeforeTax, $IncomeLossFromEquityMethodInvestments, $IncomeBeforeEquityMethodInvestments)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $IncomeLossFromEquityMethodInvestments,\n            \"fac:IncomeLossFromContinuingOperationsBeforeTax\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $IncomeLossFromEquityMethodInvestments,\n          \"fac:IncomeLossFromContinuingOperationsBeforeTax\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(IncomeLossFromEquityMethodInvestments)), not(isblank(IncomeBeforeEquityMethodInvestments)))", 
+    "SourceFact" : [ "IncomeLossFromEquityMethodInvestments" ], 
+    "BodySrc" : "IncomeLossFromEquityMethodInvestments+IncomeBeforeEquityMethodInvestments"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "7cf0211d-caad-47bd-81e1-cacd6e288ecc", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Income (Loss) from Continuing Operations After Tax", 
+  "Description" : "Rule to compute Income (Loss) from Continuing Operations After Tax (fac:IncomeLossFromContinuingOperationsAfterTax).", 
+  "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsAfterTax" ], 
+  "DependsOn" : [ "fac:NetIncomeLoss", "fac:IncomeLossFromDiscontinuedOperationsNetTax", "fac:ExtraordinaryItemsIncomeExpenseNetTax" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:IncomeLossFromContinuingOperationsAfterTax\", \"fac:NetIncomeLoss\", \"fac:IncomeLossFromDiscontinuedOperationsNetTax\", \"fac:ExtraordinaryItemsIncomeExpenseNetTax\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $IncomeLossFromContinuingOperationsAfterTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsAfterTax\"]\nlet $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"]\nlet $IncomeLossFromDiscontinuedOperationsNetTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromDiscontinuedOperationsNetTax\"]\nlet $ExtraordinaryItemsIncomeExpenseNetTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExtraordinaryItemsIncomeExpenseNetTax\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($IncomeLossFromContinuingOperationsAfterTax) return $IncomeLossFromContinuingOperationsAfterTax\n  case (exists($NetIncomeLoss) and not((not(exists($NetIncomeLoss)))))\n  return\n    let $computed-value := rules:decimal-value($NetIncomeLoss) - rules:decimal-value($IncomeLossFromDiscontinuedOperationsNetTax) - rules:decimal-value($ExtraordinaryItemsIncomeExpenseNetTax)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:IncomeLossFromContinuingOperationsAfterTax\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\") || \" - \" || rules:fact-trail($IncomeLossFromDiscontinuedOperationsNetTax, \"IncomeLossFromDiscontinuedOperationsNetTax\") || \" - \" || rules:fact-trail($ExtraordinaryItemsIncomeExpenseNetTax, \"ExtraordinaryItemsIncomeExpenseNetTax\")\n\t let $source-facts := ($IncomeLossFromContinuingOperationsAfterTax, $NetIncomeLoss, $IncomeLossFromDiscontinuedOperationsNetTax, $ExtraordinaryItemsIncomeExpenseNetTax)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetIncomeLoss,\n            \"fac:IncomeLossFromContinuingOperationsAfterTax\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetIncomeLoss,\n          \"fac:IncomeLossFromContinuingOperationsAfterTax\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(NetIncomeLoss))", 
+    "SourceFact" : [ "NetIncomeLoss" ], 
+    "BodySrc" : "NetIncomeLoss-IncomeLossFromDiscontinuedOperationsNetTax-ExtraordinaryItemsIncomeExpenseNetTax"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "0e7003bf-f1ac-490c-81e1-764f093e678e", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Income Attributable to Parent", 
+  "Description" : "Rule to compute Net Income Attributable to Parent (fac:NetIncomeAttributableToParent).", 
+  "ComputableConcepts" : [ "fac:NetIncomeAttributableToParent" ], 
+  "DependsOn" : [ "fac:NetIncomeLoss" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetIncomeAttributableToParent\", \"fac:NetIncomeLoss\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetIncomeAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToParent\"]\nlet $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetIncomeAttributableToParent) return $NetIncomeAttributableToParent\n  case (exists($NetIncomeLoss) and ())\n  return\n    let $computed-value := rules:decimal-value($NetIncomeLoss)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetIncomeAttributableToParent\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\")\n\t let $source-facts := ($NetIncomeAttributableToParent, $NetIncomeLoss)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetIncomeLoss,\n            \"fac:NetIncomeAttributableToParent\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetIncomeLoss,\n          \"fac:NetIncomeAttributableToParent\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and (not(isblank(NetIncomeLoss)), isblank(NetIncomeAttributableToNoncontrollingInterest))", 
+    "SourceFact" : [ "NetIncomeLoss" ], 
+    "BodySrc" : "NetIncomeLoss"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "4b138859-c05a-4715-86d2-5e75cc0ec110", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Preferred Stock Dividends and Other Adjustments", 
+  "Description" : "Rule to compute Preferred Stock Dividends and Other Adjustments (fac:PreferredStockDividendsAndOtherAdjustments).", 
+  "ComputableConcepts" : [ "fac:PreferredStockDividendsAndOtherAdjustments" ], 
+  "DependsOn" : [ "fac:NetIncomeAttributableToParent", "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:PreferredStockDividendsAndOtherAdjustments\", \"fac:NetIncomeAttributableToParent\", \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $PreferredStockDividendsAndOtherAdjustments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:PreferredStockDividendsAndOtherAdjustments\"]\nlet $NetIncomeAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToParent\"]\nlet $NetIncomeLossAvailableToCommonStockholdersBasic as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($PreferredStockDividendsAndOtherAdjustments) return $PreferredStockDividendsAndOtherAdjustments\n  case (exists($NetIncomeAttributableToParent) and ())\n  return\n    let $computed-value := rules:decimal-value($NetIncomeAttributableToParent) - rules:decimal-value($NetIncomeLossAvailableToCommonStockholdersBasic)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:PreferredStockDividendsAndOtherAdjustments\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetIncomeAttributableToParent, \"NetIncomeAttributableToParent\") || \" - \" || rules:fact-trail($NetIncomeLossAvailableToCommonStockholdersBasic, \"NetIncomeLossAvailableToCommonStockholdersBasic\")\n\t let $source-facts := ($PreferredStockDividendsAndOtherAdjustments, $NetIncomeAttributableToParent, $NetIncomeLossAvailableToCommonStockholdersBasic)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetIncomeAttributableToParent,\n            \"fac:PreferredStockDividendsAndOtherAdjustments\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetIncomeAttributableToParent,\n          \"fac:PreferredStockDividendsAndOtherAdjustments\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(NetIncomeAttributableToParent)), not(isblank(NetIncomeLossAvailableToCommonStockholdersBasic)))", 
+    "SourceFact" : [ "NetIncomeAttributableToParent" ], 
+    "BodySrc" : "NetIncomeAttributableToParent-NetIncomeLossAvailableToCommonStockholdersBasic"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "2c454b43-7933-41b8-ad05-a799dad6d4c0", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Income (Loss) Available to Common Stockholders, Basic", 
+  "Description" : "Rule to compute Net Income (Loss) Available to Common Stockholders, Basic (fac:NetIncomeLossAvailableToCommonStockholdersBasic).", 
+  "ComputableConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ], 
+  "DependsOn" : [ "fac:NetIncomeAttributableToParent" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\", \"fac:NetIncomeAttributableToParent\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetIncomeLossAvailableToCommonStockholdersBasic as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\"]\nlet $NetIncomeAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeAttributableToParent\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetIncomeLossAvailableToCommonStockholdersBasic) return $NetIncomeLossAvailableToCommonStockholdersBasic\n  case (exists($NetIncomeAttributableToParent) and not((not(exists($NetIncomeAttributableToParent)))))\n  return\n    let $computed-value := rules:decimal-value($NetIncomeAttributableToParent)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetIncomeAttributableToParent, \"NetIncomeAttributableToParent\")\n\t let $source-facts := ($NetIncomeLossAvailableToCommonStockholdersBasic, $NetIncomeAttributableToParent)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetIncomeAttributableToParent,\n            \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetIncomeAttributableToParent,\n          \"fac:NetIncomeLossAvailableToCommonStockholdersBasic\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(NetIncomeAttributableToParent))", 
+    "SourceFact" : [ "NetIncomeAttributableToParent" ], 
+    "BodySrc" : "NetIncomeAttributableToParent"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "0cf36e1f-fa8d-4007-b083-008c9a2bd589", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Income (Loss) Before Equity Method Investments", 
+  "Description" : "Rule to compute Income (Loss) Before Equity Method Investments (fac:IncomeBeforeEquityMethodInvestments).", 
+  "ComputableConcepts" : [ "fac:IncomeBeforeEquityMethodInvestments" ], 
+  "DependsOn" : [ "fac:IncomeLossFromContinuingOperationsBeforeTax", "fac:IncomeLossFromEquityMethodInvestments" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:IncomeBeforeEquityMethodInvestments\", \"fac:IncomeLossFromContinuingOperationsBeforeTax\", \"fac:IncomeLossFromEquityMethodInvestments\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $IncomeBeforeEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeBeforeEquityMethodInvestments\"]\nlet $IncomeLossFromContinuingOperationsBeforeTax as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromContinuingOperationsBeforeTax\"]\nlet $IncomeLossFromEquityMethodInvestments as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:IncomeLossFromEquityMethodInvestments\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($IncomeBeforeEquityMethodInvestments) return $IncomeBeforeEquityMethodInvestments\n  case (exists($IncomeLossFromContinuingOperationsBeforeTax) and not((not(exists($IncomeLossFromContinuingOperationsBeforeTax)))))\n  return\n    let $computed-value := rules:decimal-value($IncomeLossFromContinuingOperationsBeforeTax) - rules:decimal-value($IncomeLossFromEquityMethodInvestments)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:IncomeBeforeEquityMethodInvestments\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($IncomeLossFromContinuingOperationsBeforeTax, \"IncomeLossFromContinuingOperationsBeforeTax\") || \" - \" || rules:fact-trail($IncomeLossFromEquityMethodInvestments, \"IncomeLossFromEquityMethodInvestments\")\n\t let $source-facts := ($IncomeBeforeEquityMethodInvestments, $IncomeLossFromContinuingOperationsBeforeTax, $IncomeLossFromEquityMethodInvestments)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $IncomeLossFromContinuingOperationsBeforeTax,\n            \"fac:IncomeBeforeEquityMethodInvestments\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $IncomeLossFromContinuingOperationsBeforeTax,\n          \"fac:IncomeBeforeEquityMethodInvestments\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(IncomeLossFromContinuingOperationsBeforeTax))", 
+    "SourceFact" : [ "IncomeLossFromContinuingOperationsBeforeTax" ], 
+    "BodySrc" : "IncomeLossFromContinuingOperationsBeforeTax-IncomeLossFromEquityMethodInvestments"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "cd07373d-1c26-4278-86e9-9b4715dff5ea", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Other Comprehensive Income (Loss)", 
+  "Description" : "Rule to compute Other Comprehensive Income (Loss) (fac:OtherComprehensiveIncomeLoss).", 
+  "ComputableConcepts" : [ "fac:OtherComprehensiveIncomeLoss" ], 
+  "DependsOn" : [ "fac:ComprehensiveIncomeLoss", "fac:NetIncomeLoss" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:OtherComprehensiveIncomeLoss\", \"fac:ComprehensiveIncomeLoss\", \"fac:NetIncomeLoss\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $OtherComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:OtherComprehensiveIncomeLoss\"]\nlet $ComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLoss\"]\nlet $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($OtherComprehensiveIncomeLoss) return $OtherComprehensiveIncomeLoss\n  case (exists($ComprehensiveIncomeLoss) and not((not(exists($ComprehensiveIncomeLoss)))))\n  return\n    let $computed-value := rules:decimal-value($ComprehensiveIncomeLoss) - rules:decimal-value($NetIncomeLoss)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:OtherComprehensiveIncomeLoss\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($ComprehensiveIncomeLoss, \"ComprehensiveIncomeLoss\") || \" - \" || rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\")\n\t let $source-facts := ($OtherComprehensiveIncomeLoss, $ComprehensiveIncomeLoss, $NetIncomeLoss)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $ComprehensiveIncomeLoss,\n            \"fac:OtherComprehensiveIncomeLoss\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $ComprehensiveIncomeLoss,\n          \"fac:OtherComprehensiveIncomeLoss\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(ComprehensiveIncomeLoss))", 
+    "SourceFact" : [ "ComprehensiveIncomeLoss" ], 
+    "BodySrc" : "ComprehensiveIncomeLoss-NetIncomeLoss"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "a3a832ba-ff2e-471f-899f-115eb415f8b2", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Comprehensive Income (Loss)", 
+  "Description" : "Rule to compute Comprehensive Income (Loss) (fac:ComprehensiveIncomeLoss).", 
+  "ComputableConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
+  "DependsOn" : [ "fac:NetIncomeLoss" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:ComprehensiveIncomeLoss\", \"fac:NetIncomeLoss\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $ComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLoss\"]\nlet $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($ComprehensiveIncomeLoss) return $ComprehensiveIncomeLoss\n  case (exists($NetIncomeLoss) and ())\n  return\n    let $computed-value := rules:decimal-value($NetIncomeLoss)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:ComprehensiveIncomeLoss\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\")\n\t let $source-facts := ($ComprehensiveIncomeLoss, $NetIncomeLoss)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetIncomeLoss,\n            \"fac:ComprehensiveIncomeLoss\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetIncomeLoss,\n          \"fac:ComprehensiveIncomeLoss\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(NetIncomeLoss)),\n           not(isblank(ComprehensiveIncomeLossAttributableToParent)),\n           (NetIncomeLoss-ComprehensiveIncomeLossAttributableToParent=0),\n           (ComprehensiveIncomeLossAttributableToNoncontrollingInterest=0),\n           (OtherComprehensiveIncomeLoss=0))", 
+    "SourceFact" : [ "NetIncomeLoss" ], 
+    "BodySrc" : "NetIncomeLoss"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "85c0c5be-dfdf-4da7-ae99-c006e87eba15", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Comprehensive Income (Loss) Attributable to Parent", 
+  "Description" : "Rule to compute Comprehensive Income (Loss) Attributable to Parent (fac:ComprehensiveIncomeLossAttributableToParent).", 
+  "ComputableConcepts" : [ "fac:ComprehensiveIncomeLossAttributableToParent" ], 
+  "DependsOn" : [ "fac:ComprehensiveIncomeLoss", "fac:NetIncomeLoss" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:ComprehensiveIncomeLossAttributableToParent\", \"fac:ComprehensiveIncomeLoss\", \"fac:NetIncomeLoss\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $ComprehensiveIncomeLossAttributableToParent as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLossAttributableToParent\"]\nlet $ComprehensiveIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ComprehensiveIncomeLoss\"]\nlet $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($ComprehensiveIncomeLossAttributableToParent) return $ComprehensiveIncomeLossAttributableToParent\n  case (exists($ComprehensiveIncomeLoss) and ())\n  return\n    let $computed-value := rules:decimal-value($ComprehensiveIncomeLoss)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:ComprehensiveIncomeLossAttributableToParent\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($ComprehensiveIncomeLoss, \"ComprehensiveIncomeLoss\")\n\t let $source-facts := ($ComprehensiveIncomeLossAttributableToParent, $ComprehensiveIncomeLoss, $NetIncomeLoss)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $ComprehensiveIncomeLoss,\n            \"fac:ComprehensiveIncomeLossAttributableToParent\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $ComprehensiveIncomeLoss,\n          \"fac:ComprehensiveIncomeLossAttributableToParent\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  case (exists($ComprehensiveIncomeLoss) and ())\n  return\n    let $computed-value := rules:decimal-value($NetIncomeLoss)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:ComprehensiveIncomeLossAttributableToParent\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\")\n\t let $source-facts := ($ComprehensiveIncomeLossAttributableToParent, $ComprehensiveIncomeLoss, $NetIncomeLoss)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $ComprehensiveIncomeLoss,\n            \"fac:ComprehensiveIncomeLossAttributableToParent\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $ComprehensiveIncomeLoss,\n          \"fac:ComprehensiveIncomeLossAttributableToParent\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(ComprehensiveIncomeLoss)), isblank(ComprehensiveIncomeLossAttributableToNoncontrollingInterest))", 
+    "SourceFact" : [ "ComprehensiveIncomeLoss" ], 
+    "BodySrc" : "ComprehensiveIncomeLoss"
+  }, {
+    "PrereqSrc" : "and(isblank(ComprehensiveIncomeLoss), isblank(ComprehensiveIncomeLossAttributableToNoncontrollingInterest), \n     isblank(IncomeBeforeEquityMethodInvestments),not(isblank(NetIncomeLoss)) )", 
+    "SourceFact" : [ "ComprehensiveIncomeLoss" ], 
+    "BodySrc" : "NetIncomeLoss"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "50a01bf0-30ab-4d46-8418-066173dd2e67", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows from Operating Activities, Continuing", 
+  "Description" : "Rule to compute Net Cash Flows from Operating Activities, Continuing (fac:NetCashFlowsFromOperatingActivitiesContinuing).", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsFromOperatingActivitiesContinuing\", \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"]\nlet $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"]\nlet $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsFromOperatingActivitiesContinuing) return $NetCashFlowsFromOperatingActivitiesContinuing\n  case (exists($NetCashFlowsFromOperatingActivities) and not((not(exists($NetCashFlowsFromOperatingActivities)))))\n  return\n    let $computed-value := rules:decimal-value($NetCashFlowsFromOperatingActivities) - rules:decimal-value($NetCashFlowsFromOperatingActivitiesDiscontinued)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromOperatingActivitiesContinuing\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetCashFlowsFromOperatingActivities, \"NetCashFlowsFromOperatingActivities\") || \" - \" || rules:fact-trail($NetCashFlowsFromOperatingActivitiesDiscontinued, \"NetCashFlowsFromOperatingActivitiesDiscontinued\")\n\t let $source-facts := ($NetCashFlowsFromOperatingActivitiesContinuing, $NetCashFlowsFromOperatingActivities, $NetCashFlowsFromOperatingActivitiesDiscontinued)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromOperatingActivities,\n            \"fac:NetCashFlowsFromOperatingActivitiesContinuing\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromOperatingActivities,\n          \"fac:NetCashFlowsFromOperatingActivitiesContinuing\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(NetCashFlowsFromOperatingActivities))", 
+    "SourceFact" : [ "NetCashFlowsFromOperatingActivities" ], 
+    "BodySrc" : "NetCashFlowsFromOperatingActivities-NetCashFlowsFromOperatingActivitiesDiscontinued"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "e7f1c48e-4b36-429c-90cc-48634d543ab9", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows from Operating Activities, Discontinued", 
+  "Description" : "Rule to compute Net Cash Flows from Operating Activities, Discontinued (fac:NetCashFlowsFromOperatingActivitiesDiscontinued).", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivitiesDiscontinued" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\", \"fac:NetCashFlowsFromOperatingActivities\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"]\nlet $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsFromOperatingActivitiesDiscontinued) return $NetCashFlowsFromOperatingActivitiesDiscontinued\n  case (exists($NetCashFlowsFromOperatingActivities) and ())\n  return\n    let $computed-value := 0\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\" }, Value: $computed-value }) || \" = \" || \n\t        \"0\"\n\t let $source-facts := ($NetCashFlowsFromOperatingActivitiesDiscontinued, $NetCashFlowsFromOperatingActivities)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromOperatingActivities,\n            \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromOperatingActivities,\n          \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(isblank(NetCashFlowsFromOperatingActivities), isblank(NetCashFlowsFromOperatingActivitiesContinuing), \n     NetCashFlowsFromOperatingActivitiesContinuing=NetCashFlowsFromOperatingActivities)", 
+    "SourceFact" : [ "NetCashFlowsFromOperatingActivities" ], 
+    "BodySrc" : "0"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "bc4dacb2-95d1-45e7-8594-2ad4e7f9f8d9", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows from Investing Activities, Continuing", 
+  "Description" : "Rule to compute Net Cash Flows from Investing Activities, Continuing (fac:NetCashFlowsFromInvestingActivitiesContinuing).", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivitiesContinuing" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsFromInvestingActivitiesContinuing\", \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"]\nlet $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"]\nlet $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsFromInvestingActivitiesContinuing) return $NetCashFlowsFromInvestingActivitiesContinuing\n  case (exists($NetCashFlowsFromInvestingActivities) and not((not(exists($NetCashFlowsFromInvestingActivities)))))\n  return\n    let $computed-value := rules:decimal-value($NetCashFlowsFromInvestingActivities) - rules:decimal-value($NetCashFlowsFromInvestingActivitiesDiscontinued)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromInvestingActivitiesContinuing\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetCashFlowsFromInvestingActivities, \"NetCashFlowsFromInvestingActivities\") || \" - \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesDiscontinued, \"NetCashFlowsFromInvestingActivitiesDiscontinued\")\n\t let $source-facts := ($NetCashFlowsFromInvestingActivitiesContinuing, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromInvestingActivitiesDiscontinued)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromInvestingActivities,\n            \"fac:NetCashFlowsFromInvestingActivitiesContinuing\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromInvestingActivities,\n          \"fac:NetCashFlowsFromInvestingActivitiesContinuing\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(NetCashFlowsFromInvestingActivities))", 
+    "SourceFact" : [ "NetCashFlowsFromInvestingActivities" ], 
+    "BodySrc" : "NetCashFlowsFromInvestingActivities-NetCashFlowsFromInvestingActivitiesDiscontinued"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "394a9eab-557e-4cd0-9f1d-cb45d5b6e6ae", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows from Investing Activities, Discontinued", 
+  "Description" : "If NetCashFlowsInvesting = NetCashFlowsInvestingContinuing then NetCashFlowsInvestingDiscontinued must be 0", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivitiesDiscontinued" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivities" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\", \"fac:NetCashFlowsFromInvestingActivities\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"]\nlet $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsFromInvestingActivitiesDiscontinued) return $NetCashFlowsFromInvestingActivitiesDiscontinued\n  case (exists($NetCashFlowsFromInvestingActivities) and ())\n  return\n    let $computed-value := 0\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\" }, Value: $computed-value }) || \" = \" || \n\t        \"0\"\n\t let $source-facts := ($NetCashFlowsFromInvestingActivitiesDiscontinued, $NetCashFlowsFromInvestingActivities)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromInvestingActivities,\n            \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromInvestingActivities,\n          \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(NetCashFlowsFromInvestingActivities)),\n           not(isblank(NetCashFlowsFromInvestingActivitiesContinuing)),\n           (NetCashFlowsFromInvestingActivitiesContinuing= NetCashFlowsFromInvestingActivities))", 
+    "SourceFact" : [ "NetCashFlowsFromInvestingActivities" ], 
+    "BodySrc" : "0"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "f9e2b8b9-1798-42b9-85a8-0848faa00c33", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows from Investing Activities", 
+  "Description" : "Rule to compute Net Cash Flows from Investing Activities (fac:NetCashFlowsFromInvestingActivities).", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivities" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromInvestingActivitiesContinuing" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"]\nlet $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsFromInvestingActivities) return $NetCashFlowsFromInvestingActivities\n  case (exists($NetCashFlowsFromInvestingActivitiesContinuing) and ())\n  return\n    let $computed-value := rules:decimal-value($NetCashFlowsFromInvestingActivitiesContinuing)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromInvestingActivities\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetCashFlowsFromInvestingActivitiesContinuing, \"NetCashFlowsFromInvestingActivitiesContinuing\")\n\t let $source-facts := ($NetCashFlowsFromInvestingActivities, $NetCashFlowsFromInvestingActivitiesContinuing)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromInvestingActivitiesContinuing,\n            \"fac:NetCashFlowsFromInvestingActivities\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromInvestingActivitiesContinuing,\n          \"fac:NetCashFlowsFromInvestingActivities\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(NetCashFlowsFromInvestingActivitiesContinuing)),\n          NetCashFlowsFromInvestingActivitiesDiscontinued=0)", 
+    "SourceFact" : [ "NetCashFlowsFromInvestingActivitiesContinuing" ], 
+    "BodySrc" : "NetCashFlowsFromInvestingActivitiesContinuing"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "74a3bfc8-8ac4-483a-9325-a27fcb1342d6", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows from Financing Activities, Continuing", 
+  "Description" : "Rule to compute Net Cash Flows from Financing Activities, Continuing (fac:NetCashFlowsFromFinancingActivitiesContinuing).", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivitiesContinuing" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivities", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsFromFinancingActivitiesContinuing\", \"fac:NetCashFlowsFromFinancingActivities\", \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"]\nlet $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"]\nlet $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsFromFinancingActivitiesContinuing) return $NetCashFlowsFromFinancingActivitiesContinuing\n  case (exists($NetCashFlowsFromFinancingActivities) and not((not(exists($NetCashFlowsFromFinancingActivities)))))\n  return\n    let $computed-value := rules:decimal-value($NetCashFlowsFromFinancingActivities) - rules:decimal-value($NetCashFlowsFromFinancingActivitiesDiscontinued)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromFinancingActivitiesContinuing\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetCashFlowsFromFinancingActivities, \"NetCashFlowsFromFinancingActivities\") || \" - \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesDiscontinued, \"NetCashFlowsFromFinancingActivitiesDiscontinued\")\n\t let $source-facts := ($NetCashFlowsFromFinancingActivitiesContinuing, $NetCashFlowsFromFinancingActivities, $NetCashFlowsFromFinancingActivitiesDiscontinued)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromFinancingActivities,\n            \"fac:NetCashFlowsFromFinancingActivitiesContinuing\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromFinancingActivities,\n          \"fac:NetCashFlowsFromFinancingActivitiesContinuing\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "not(isblank(NetCashFlowsFromFinancingActivities))", 
+    "SourceFact" : [ "NetCashFlowsFromFinancingActivities" ], 
+    "BodySrc" : "NetCashFlowsFromFinancingActivities-NetCashFlowsFromFinancingActivitiesDiscontinued"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "d9bd6917-a92a-497b-a8f1-4d8d6098fcec", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows from Financing Activities, Discontinued", 
+  "Description" : "RIf NetCashFlowsFinancing = NetCashFlowsFinancingContinuing then NetCashFlowsFinancingDiscontinued must be 0", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivities" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\", \"fac:NetCashFlowsFromFinancingActivities\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"]\nlet $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsFromFinancingActivitiesDiscontinued) return $NetCashFlowsFromFinancingActivitiesDiscontinued\n  case (exists($NetCashFlowsFromFinancingActivities) and ())\n  return\n    let $computed-value := 0\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\" }, Value: $computed-value }) || \" = \" || \n\t        \"0\"\n\t let $source-facts := ($NetCashFlowsFromFinancingActivitiesDiscontinued, $NetCashFlowsFromFinancingActivities)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromFinancingActivities,\n            \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromFinancingActivities,\n          \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(NetCashFlowsFromInvestingActivities)),\n           not(isblank(NetCashFlowsFromInvestingActivitiesContinuing)),\n           (NetCashFlowsFromInvestingActivitiesContinuing= NetCashFlowsFromInvestingActivities))", 
+    "SourceFact" : [ "NetCashFlowsFromFinancingActivities" ], 
+    "BodySrc" : "0"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "c4cc5336-76fa-430b-8f60-c14a507bbaaa", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows from Operating Activities", 
+  "Description" : "Rule to compute Net Cash Flows from Operating Activities (fac:NetCashFlowsFromOperatingActivities).", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivities" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"]\nlet $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsFromOperatingActivities) return $NetCashFlowsFromOperatingActivities\n  case (exists($NetCashFlowsFromOperatingActivitiesContinuing) and ())\n  return\n    let $computed-value := rules:decimal-value($NetCashFlowsFromOperatingActivitiesContinuing)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromOperatingActivities\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetCashFlowsFromOperatingActivitiesContinuing, \"NetCashFlowsFromOperatingActivitiesContinuing\")\n\t let $source-facts := ($NetCashFlowsFromOperatingActivities, $NetCashFlowsFromOperatingActivitiesContinuing)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromOperatingActivitiesContinuing,\n            \"fac:NetCashFlowsFromOperatingActivities\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromOperatingActivitiesContinuing,\n          \"fac:NetCashFlowsFromOperatingActivities\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(NetCashFlowsFromOperatingActivitiesContinuing)), NetCashFlowsFromOperatingActivitiesDiscontinued=0)", 
+    "SourceFact" : [ "NetCashFlowsFromOperatingActivitiesContinuing" ], 
+    "BodySrc" : "NetCashFlowsFromOperatingActivitiesContinuing"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "d7c2ba1a-141f-4035-877b-e4c149478da8", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows, Continuing", 
+  "Description" : "Rule to compute Net Cash Flows, Continuing (fac:NetCashFlowsContinuing).", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsContinuing" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesContinuing", "fac:NetCashFlowsFromInvestingActivitiesContinuing", "fac:NetCashFlowsFromFinancingActivitiesContinuing" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsContinuing\", \"fac:NetCashFlowsFromOperatingActivitiesContinuing\", \"fac:NetCashFlowsFromInvestingActivitiesContinuing\", \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsContinuing\"]\nlet $NetCashFlowsFromOperatingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesContinuing\"]\nlet $NetCashFlowsFromInvestingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesContinuing\"]\nlet $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsContinuing) return $NetCashFlowsContinuing\n  case (exists($NetCashFlowsFromOperatingActivitiesContinuing) and ())\n  return\n    let $computed-value := rules:decimal-value($NetCashFlowsFromOperatingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromInvestingActivitiesContinuing) + rules:decimal-value($NetCashFlowsFromFinancingActivitiesContinuing)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsContinuing\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetCashFlowsFromOperatingActivitiesContinuing, \"NetCashFlowsFromOperatingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesContinuing, \"NetCashFlowsFromInvestingActivitiesContinuing\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesContinuing, \"NetCashFlowsFromFinancingActivitiesContinuing\")\n\t let $source-facts := ($NetCashFlowsContinuing, $NetCashFlowsFromOperatingActivitiesContinuing, $NetCashFlowsFromInvestingActivitiesContinuing, $NetCashFlowsFromFinancingActivitiesContinuing)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromOperatingActivitiesContinuing,\n            \"fac:NetCashFlowsContinuing\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromOperatingActivitiesContinuing,\n          \"fac:NetCashFlowsContinuing\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(NetCashFlowsFromOperatingActivitiesContinuing)), not(isblank(NetCashFlowsFromInvestingActivitiesContinuing)), \n     not(isblank(NetCashFlowsFromFinancingActivitiesContinuing)) )", 
+    "SourceFact" : [ "NetCashFlowsFromOperatingActivitiesContinuing" ], 
+    "BodySrc" : "NetCashFlowsFromOperatingActivitiesContinuing+NetCashFlowsFromInvestingActivitiesContinuing+NetCashFlowsFromFinancingActivitiesContinuing"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "260e6e0f-e6f4-48d2-8361-75cbfe04fe75", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows, Discontinued", 
+  "Description" : "Rule to compute Net Cash Flows, Discontinued (fac:NetCashFlowsDiscontinued).", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsDiscontinued" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", "fac:NetCashFlowsFromFinancingActivitiesDiscontinued" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsDiscontinued\", \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\", \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\", \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsDiscontinued\"]\nlet $NetCashFlowsFromOperatingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivitiesDiscontinued\"]\nlet $NetCashFlowsFromInvestingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivitiesDiscontinued\"]\nlet $NetCashFlowsFromFinancingActivitiesDiscontinued as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesDiscontinued\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsDiscontinued) return $NetCashFlowsDiscontinued\n  case (exists($NetCashFlowsFromOperatingActivitiesDiscontinued) and ())\n  return\n    let $computed-value := rules:decimal-value($NetCashFlowsFromOperatingActivitiesDiscontinued) + rules:decimal-value($NetCashFlowsFromInvestingActivitiesDiscontinued) + rules:decimal-value($NetCashFlowsFromFinancingActivitiesDiscontinued)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsDiscontinued\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetCashFlowsFromOperatingActivitiesDiscontinued, \"NetCashFlowsFromOperatingActivitiesDiscontinued\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivitiesDiscontinued, \"NetCashFlowsFromInvestingActivitiesDiscontinued\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivitiesDiscontinued, \"NetCashFlowsFromFinancingActivitiesDiscontinued\")\n\t let $source-facts := ($NetCashFlowsDiscontinued, $NetCashFlowsFromOperatingActivitiesDiscontinued, $NetCashFlowsFromInvestingActivitiesDiscontinued, $NetCashFlowsFromFinancingActivitiesDiscontinued)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromOperatingActivitiesDiscontinued,\n            \"fac:NetCashFlowsDiscontinued\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromOperatingActivitiesDiscontinued,\n          \"fac:NetCashFlowsDiscontinued\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(NetCashFlowsFromOperatingActivitiesDiscontinued)), not(isblank(NetCashFlowsFromInvestingActivitiesDiscontinued)), \n     not(isblank(NetCashFlowsFromFinancingActivitiesDiscontinued)) )", 
+    "SourceFact" : [ "NetCashFlowsFromOperatingActivitiesDiscontinued" ], 
+    "BodySrc" : "NetCashFlowsFromOperatingActivitiesDiscontinued+NetCashFlowsFromInvestingActivitiesDiscontinued+NetCashFlowsFromFinancingActivitiesDiscontinued"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "290f2141-89a1-4854-89f0-5511ffd1558b", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows", 
+  "Description" : "Rule to compute Net Cash Flows (fac:NetCashFlows).", 
+  "ComputableConcepts" : [ "fac:NetCashFlows" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromOperatingActivities", "fac:NetCashFlowsFromInvestingActivities", "fac:NetCashFlowsFromFinancingActivities", "fac:ExchangeGainsLosses" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlows\", \"fac:NetCashFlowsFromOperatingActivities\", \"fac:NetCashFlowsFromInvestingActivities\", \"fac:NetCashFlowsFromFinancingActivities\", \"fac:ExchangeGainsLosses\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlows as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlows\"]\nlet $NetCashFlowsFromOperatingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromOperatingActivities\"]\nlet $NetCashFlowsFromInvestingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromInvestingActivities\"]\nlet $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"]\nlet $ExchangeGainsLosses as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:ExchangeGainsLosses\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlows) return $NetCashFlows\n  case (exists($NetCashFlowsFromOperatingActivities) and ())\n  return\n    let $computed-value := rules:decimal-value($NetCashFlowsFromOperatingActivities) + rules:decimal-value($NetCashFlowsFromInvestingActivities) + rules:decimal-value($NetCashFlowsFromFinancingActivities) + rules:decimal-value($ExchangeGainsLosses)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlows\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetCashFlowsFromOperatingActivities, \"NetCashFlowsFromOperatingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromInvestingActivities, \"NetCashFlowsFromInvestingActivities\") || \" + \" || rules:fact-trail($NetCashFlowsFromFinancingActivities, \"NetCashFlowsFromFinancingActivities\") || \" + \" || rules:fact-trail($ExchangeGainsLosses, \"ExchangeGainsLosses\")\n\t let $source-facts := ($NetCashFlows, $NetCashFlowsFromOperatingActivities, $NetCashFlowsFromInvestingActivities, $NetCashFlowsFromFinancingActivities, $ExchangeGainsLosses)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromOperatingActivities,\n            \"fac:NetCashFlows\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromOperatingActivities,\n          \"fac:NetCashFlows\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(NetCashFlowsFromOperatingActivities)), not(isblank(NetCashFlowsFromInvestingActivities)), \n     not(isblank(NetCashFlowsFromFinancingActivities)), not(isblank(ExchangeGainsLosses)))", 
+    "SourceFact" : [ "NetCashFlowsFromOperatingActivities" ], 
+    "BodySrc" : "NetCashFlowsFromOperatingActivities+NetCashFlowsFromInvestingActivities+NetCashFlowsFromFinancingActivities+ExchangeGainsLosses"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "f4766685-ab66-4ef8-b16e-46d65ccaaaf8", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Sustainable Growth Rate (SGR)", 
+  "Description" : "Rule to compute Sustainable Growth Rate (SGR) (fac:SustainableGrowthRate).", 
+  "ComputableConcepts" : [ "fac:SustainableGrowthRate" ], 
+  "DependsOn" : [ "fac:NetIncomeLoss", "fac:Revenues", "fac:Assets", "fac:Equity" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:SustainableGrowthRate\", \"fac:NetIncomeLoss\", \"fac:Revenues\", \"fac:Assets\", \"fac:Equity\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $SustainableGrowthRate as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:SustainableGrowthRate\"]\nlet $NetIncomeLoss as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetIncomeLoss\"]\nlet $Revenues as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Revenues\"]\nlet $Assets as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]\nlet $Equity as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Equity\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($SustainableGrowthRate) return $SustainableGrowthRate\n  case (exists($Assets) and ())\n  return\n    let $computed-value := ((rules:decimal-value($NetIncomeLoss) div rules:decimal-value($Revenues)) * (1 + (rules:decimal-value($Assets) - rules:decimal-value($Equity)) div rules:decimal-value($Equity))) div ((1 div (rules:decimal-value($Revenues) div rules:decimal-value($Assets))) - ((rules:decimal-value($NetIncomeLoss) div rules:decimal-value($Revenues)) * (1 + (rules:decimal-value($Assets) - rules:decimal-value($Equity)) div rules:decimal-value($Equity))))\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:SustainableGrowthRate\" }, Value: $computed-value }) || \" = \" || \n\t        \" ( \" || \" ( \" || rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\") || \" div \" || rules:fact-trail($Revenues, \"Revenues\") || \" )\" || \" * \" || \" ( \" || \"1\" || \" + \" || \" ( \" || rules:fact-trail($Assets, \"Assets\") || \" - \" || rules:fact-trail($Equity, \"Equity\") || \" )\" || \" div \" || rules:fact-trail($Equity, \"Equity\") || \" )\" || \" )\" || \" div \" || \" ( \" || \" ( \" || \"1\" || \" div \" || \" ( \" || rules:fact-trail($Revenues, \"Revenues\") || \" div \" || rules:fact-trail($Assets, \"Assets\") || \" )\" || \" )\" || \" - \" || \" ( \" || \" ( \" || rules:fact-trail($NetIncomeLoss, \"NetIncomeLoss\") || \" div \" || rules:fact-trail($Revenues, \"Revenues\") || \" )\" || \" * \" || \" ( \" || \"1\" || \" + \" || \" ( \" || rules:fact-trail($Assets, \"Assets\") || \" - \" || rules:fact-trail($Equity, \"Equity\") || \" )\" || \" div \" || rules:fact-trail($Equity, \"Equity\") || \" )\" || \" )\" || \" )\"\n\t let $source-facts := ($SustainableGrowthRate, $NetIncomeLoss, $Revenues, $Assets, $Equity)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $Assets,\n            \"fac:SustainableGrowthRate\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $Assets,\n          \"fac:SustainableGrowthRate\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(Equity <> 0, Assets <>0, Revenues <>0, NetIncomeLoss <> 0)", 
+    "SourceFact" : [ "Assets" ], 
+    "BodySrc" : "(( NetIncomeLoss / Revenues ) * (1 + ( Assets - Equity ) / Equity ))\n  /\n  (( 1 / ( Revenues / Assets )) - (( NetIncomeLoss / Revenues ) * (1 + ( Assets - Equity ) / Equity )))"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+}, {
+  "Id" : "f85598dc-58af-45c0-a2c5-94bf4b1bd277", 
+  "OriginalLanguage" : "SpreadsheetFormula", 
+  "Type" : "xbrl28:formula", 
+  "Label" : "Net Cash Flows from Financing Activities", 
+  "Description" : "Rule to compute Net Cash Flows from Financing Activities (fac:NetCashFlowsFromFinancingActivities).", 
+  "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivities" ], 
+  "DependsOn" : [ "fac:NetCashFlowsFromFinancingActivitiesContinuing" ], 
+  "Formula" : "\nfor $facts in facts:facts-for-internal((\n      \"fac:NetCashFlowsFromFinancingActivities\", \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"\n    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\nlet $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]\ngroup by $canonical-filter-string := \n  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))\n  , $aligned-period\nlet $NetCashFlowsFromFinancingActivities as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivities\"]\nlet $NetCashFlowsFromFinancingActivitiesContinuing as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:NetCashFlowsFromFinancingActivitiesContinuing\"]\nlet $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]\nreturn\n  switch (true)\n  case exists($NetCashFlowsFromFinancingActivities) return $NetCashFlowsFromFinancingActivities\n  case (exists($NetCashFlowsFromFinancingActivitiesContinuing) and ())\n  return\n    let $computed-value := rules:decimal-value($NetCashFlowsFromFinancingActivitiesContinuing)\n    let $audit-trail-message := \n\t     rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:NetCashFlowsFromFinancingActivities\" }, Value: $computed-value }) || \" = \" || \n\t        rules:fact-trail($NetCashFlowsFromFinancingActivitiesContinuing, \"NetCashFlowsFromFinancingActivitiesContinuing\")\n\t let $source-facts := ($NetCashFlowsFromFinancingActivities, $NetCashFlowsFromFinancingActivitiesContinuing)\n    return\n      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))\n      then\n        copy $newfact :=\n          rules:create-computed-fact(\n            $NetCashFlowsFromFinancingActivitiesContinuing,\n            \"fac:NetCashFlowsFromFinancingActivities\",\n            $computed-value,\n            $rule,\n            $audit-trail-message,\n            $source-facts,\n            $options)\n        modify (\n            replace value of json $newfact(\"Decimals\") with 2\n          )\n        return $newfact\n      else\n        rules:create-computed-fact(\n          $NetCashFlowsFromFinancingActivitiesContinuing,\n          \"fac:NetCashFlowsFromFinancingActivities\",\n          $computed-value,\n          $rule,\n          $audit-trail-message,\n          $source-facts,\n          $options)\n  default return ()", 
+  "Formulae" : [ {
+    "PrereqSrc" : "and(not(isblank(NetCashFlowsFromFinancingActivitiesContinuing)),NetCashFlowsFromFinancingActivitiesDiscontinued=0)", 
+    "SourceFact" : [ "NetCashFlowsFromFinancingActivitiesContinuing" ], 
+    "BodySrc" : "NetCashFlowsFromFinancingActivitiesContinuing"
+  } ], 
+  "AllowCrossPeriod" : true, 
+  "AllowCrossBalance" : true
+} ],
   "Prefix" : "fac"
 }
