@@ -73,7 +73,11 @@ let $components  := sec-networks2:components(
     $roles,
     $search)
 let $component as object? := $components[1] (: only one for know :)
-
+return if(empty($component)) then {
+    response:status-code(404);
+    response:content-type("application/json");
+    session:error("component not found", "json")
+} else 
 (: Fact resolution :)
 let $definition-model := sec-networks2:standard-definition-models-for-components($component, {})
 let $spreadsheet as object? :=

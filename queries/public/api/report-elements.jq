@@ -157,10 +157,9 @@ let $sics as string*           := distinct-values(request:param-values("sic"))
 let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
 let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*           := distinct-values(request:param-values("aid"))
-let $concepts as string*       := distinct-values(request:param-values("concept"))
 let $labels as string*         := request:param-values("label")
 let $map as string?            := request:param-values("map")
-let $names as string?            := request:param-values("name")
+let $names as string*          := request:param-values("name")
 
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
@@ -195,11 +194,11 @@ let $archives as object* := fiscal-core2:filings(
 let $entities    := entities:entities($archives.Entity)
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
 
-    let $concepts := if (exists($names))
-                      then local:concepts-for-archives($archives._id, $names, $map)
-                      else if (exists($labels))
-                      then local:concepts-for-archives-and-labels($archives._id, $labels[1])
-                      else local:concepts-for-archives($archives._id)
+let $concepts := if (exists($names))
+                  then local:concepts-for-archives($archives._id, $names, $map)
+                  else if (exists($labels))
+                  then local:concepts-for-archives-and-labels($archives._id, $labels[1])
+                  else local:concepts-for-archives($archives._id)
 let $result := { Concepts : [ if ($onlyNames) 
             then distinct-values($concepts.Name)
             else for $c in $concepts
