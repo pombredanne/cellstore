@@ -1,8 +1,11 @@
 jsoniq version "1.0";
 
+import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace entities ="http://xbrl.io/modules/bizql/entities";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
+
+let $param := lower-case(request:param-values("parameter"))
 
 let $years :=
     for $year in 2009 to fn:year-from-date(current-date())
@@ -38,11 +41,39 @@ return
         response:content-type("application/json");
         response:serialization-parameters({"indent" : true});
         
-        { 
-            years: [ $years ],
-            periods: [ $periods ],
-            sics: [ $sics ],
-            tags: [ $tags ],
-            entities: [ $entities ]
-        }
+        switch (true)
+        case $param eq "years"
+        return 
+            { 
+                years: [ $years ]
+            }
+        case $param eq "periods"
+        return 
+            { 
+                periods: [ $periods ]
+            }
+        case $param eq "sics"
+        return 
+            { 
+                sics: [ $sics ]
+            }
+        case $param eq "tags"
+        return 
+            { 
+                tags: [ $tags ]
+            }
+        case $param eq "entities"
+        return 
+            { 
+                entities: [ $entities ]
+            }
+        default
+        return 
+            { 
+                years: [ $years ],
+                periods: [ $periods ],
+                sics: [ $sics ],
+                tags: [ $tags ],
+                entities: [ $entities ]
+            }
     }
