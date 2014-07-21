@@ -589,7 +589,7 @@
                 {
                     "method": "POST",
                     "summary": "Retrieve the business friendly Spreadsheet for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).",
-                    "nickname": "listFactTable",
+                    "nickname": "spreadsheetForComponent",
                     "parameters": [
                         {
                             "name": "format",

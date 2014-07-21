@@ -56,6 +56,14 @@ angular.module('main')
     $state.go('root.entity.facttable', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
     $location.replace();
 })
+.controller('RootSpreadsheetCtrl', function($state, $stateParams, $location, component){
+	var cik = component.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
+    var aid = $stateParams.aid;
+    var networkIdentifier = $stateParams.networkIdentifier;
+    //This state is a redirect
+    $state.go('root.entity.spreadsheet', { cik: cik, aid: aid, networkIdentifier: networkIdentifier });
+    $location.replace();
+})
 .controller('RootModelStructureCtrl', function($state, $stateParams, $location, modelStructure){
     var cik = modelStructure.CIK.substring('http://www.sec.gov/CIK'.length + 1);
     var aid = $stateParams.aid;
