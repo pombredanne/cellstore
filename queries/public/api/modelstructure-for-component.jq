@@ -147,13 +147,13 @@ let $format as string? := (: backwards compatibility, to be deprecated  :)
 let $tags as string* := (: backwards compatibility, to be deprecated :)
     distinct-values($tags ! upper-case($$))
 let $fiscalYears as integer* :=
-    for $fy in $fiscalYears
+    for $fy in $fiscalYears ! upper-case($$)
     return switch($fy)
            case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
            case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
            default return if($fy castable as integer) then integer($fy) else ()
 let $fiscalPeriods as string* :=
-    for $fp in $fiscalPeriods
+    for $fp in $fiscalPeriods ! upper-case($$)
     return switch($fp)
            case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
            default return $fp

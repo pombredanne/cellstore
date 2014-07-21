@@ -13,6 +13,7 @@ declare %an:nondeterministic function local:test-components($expected as integer
         cocacola: local:test-components(94, "&ticker=ko"),
         cocacolaincome: local:test-components(1, "&ticker=ko&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
         byconcept: local:test-components(113, "&tag=DOW30&concept=us-gaap:NetIncomeLoss"),
-        byfyfp: local:test-components(1, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets") 
+        byfyfp: local:test-components(1, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets"),
+        byfyfplowercase: local:test-components(1, "&ticker=ko&fiscalYear=2012&fiscalPeriod=q2&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets") 
     }
 }
