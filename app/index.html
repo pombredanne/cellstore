@@ -40,9 +40,11 @@
     <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
     <script src="/bower_components/angulartics/src/angulartics.js"></script>
-	<script src="/bower_components/angulartics/src/angulartics-ga.js"></script>
+    <script src="/bower_components/angulartics/src/angulartics-ga.js"></script>
     <script src="/bower_components/angular-google-chart/ng-google-chart.js"></script>
     <script src="/bower_components/angular-round-progress-directive/angular-round-progress-directive.js"></script>
+    <script src="/bower_components/angular-gettext/dist/angular-gettext.js"></script>
+    <script src="/bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
     
     <!-- Modules -->
     <script src="/scripts/modules/sticky_footer.js"></script>
@@ -53,17 +55,20 @@
 
     <script src="/scripts/autocomplete.js"></script>
     <script src="/scripts/constants.js"></script>
-    <script src="/scripts/app.js"></script>
-    
-    <!-- TODO: Shouldn't this module be decoupled with the main module? -->
-    <script src="/scripts/modules/backend.js"></script>
 
     <!-- Swagger generated APIs -->
-    <script src="/scripts/swagger/SessionService.js"></script>
-    <script src="/scripts/swagger/QueriesService.js"></script>
-    <script src="/scripts/swagger/UsersService.js"></script>
-    <script src="/scripts/swagger/BillingService.js"></script>
-    
+    <script src="/scripts/swagger/session-api.js"></script>
+    <script src="/scripts/swagger/queries-api.js"></script>
+    <script src="/scripts/swagger/users-api.js"></script>
+    <script src="/scripts/swagger/billing-api.js"></script>
+
+    <script src="/scripts/app.js"></script>
+
+    <!-- TODO: Shouldn't this module be decoupled with the main module? -->
+    <script src="/scripts/modules/backend.js"></script>
+    <script src="/scripts/modules/translator.js"></script>
+    <script src="/scripts/modules/translations.js"></script>
+
     <!-- Controllers -->
     <script src="/scripts/controllers/root.js"></script>
     <script src="/scripts/controllers/head.js"></script>
@@ -108,7 +113,11 @@
     <script src="/scripts/controllers/comparison/validations_dashboard.js"></script>
     <script src="/scripts/controllers/comparison/report_elements.js"></script>
     <!-- endbuild -->
-    
+
+    <!-- Typekit -->
+    <script type="text/javascript" src="//use.typekit.net/put7est.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
     <!-- begin olark code -->
 <script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
 f[z]=function(){

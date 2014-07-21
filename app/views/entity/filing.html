@@ -3,15 +3,15 @@
     <li class="dropdown">
         <a class="dropdown-toggle">{{EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a ui-sref="root.entity.summary({ cik: cik })">Entity Information</a></li>
-            <li><a ui-sref="root.entity.filings({ cik: cik })">Filings</a></li>
+            <li><a ui-sref="root.entity.summary({ cik: cik })" translate>Entity Information</a></li>
+            <li><a ui-sref="root.entity.filings({ cik: cik })" translate>Filings</a></li>
         </ul>
     </li>
     <li class="dropdown">
         <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/filing/{{aid}}">Filing Details</a></li>
-            <li><a href="/components/{{aid}}">Components</a></li>
+            <li><a href="/filing/{{aid}}" translate>Filing Details</a></li>
+            <li><a href="/components/{{aid}}" translate>Components</a></li>
         </ul>
     </li>
     <li></li>
@@ -20,20 +20,20 @@
     <div class="container">
         <div class="export row">
             <div class="col-lg-3">
-                <span class="tag tag-primary">1 Hit</span>
-                <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> Archives</span>
+                <span class="tag tag-primary">1 <span translate>Hit</span></span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumArchives | number"></span> <span translate>Archives</span></span>
             </div>
             <div class="col-lg-6">
                 <h2>{{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h2>
             </div>
             <div class="col-lg-3">
                 <span class="dropdown pull-right">
-                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                     <ul class="dropdown-menu">
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=json&_method=POST&aid={{aid}}" target="_blank" download="{{aid.json}}">JSON</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=xml&_method=POST&aid={{aid}}" target="_blank" download="{{aid.xml}}">XML</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=csv&_method=POST&aid={{aid}}" target="_blank" download="{{aid.csv}}">CSV</a></li>
-                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=excel&_method=POST&aid={{aid}}" target="_blank" download="{{aid.csv}}">Excel</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=json&_method=POST&aid={{aid}}" target="_blank" download="{{aid.json}}" translate>JSON</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=xml&_method=POST&aid={{aid}}" target="_blank" download="{{aid.xml}}" translate>XML</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=csv&_method=POST&aid={{aid}}" target="_blank" download="{{aid.csv}}" translate>CSV</a></li>
+                        <li><a ng-href="{{API_URL}}/_queries/public/api/filings.jq?format=excel&_method=POST&aid={{aid}}" target="_blank" download="{{aid.csv}}" translate>Excel</a></li>
                     </ul>
                 </span>
             </div>
@@ -47,69 +47,69 @@
           <table class="table">
             <tbody>
               <tr>
-                <td style="width: 40%">Accession Number</td><td>{{aid}}</td>
+                <td style="width: 40%" translate>Accession Number</td><td>{{aid}}</td>
               </tr>
               <tr>
-                <td >CIK</td><td>{{cik}}</td>
+                <td translate>CIK</td><td>{{cik}}</td>
               </tr>
               <tr>
-                <td >Entity Registrant Name</td><td>{{filing.EntityRegistrantName}}</td>
+                <td translate>Entity Registrant Name</td><td>{{filing.EntityRegistrantName}}</td>
               </tr>
               <tr>
-                <td >Form Type</td><td>{{filing.FormType}}</td>
+                <td translate>Form Type</td><td>{{filing.FormType}}</td>
               </tr>
               <tr>
-                <td >Accepted</td><td>{{filing.Accepted | date: 'medium'}}</td>
+                <td translate>Accepted</td><td>{{filing.Accepted | date: 'medium'}}</td>
               </tr>
               <tr>
-                <td >Generator</td><td>{{filing.Generator}}</td>
+                <td translate>Generator</td><td>{{filing.Generator}}</td>
               </tr>
               <tr>
-                <td >Networks</td><td>{{filing.Networks}}</td>
+                <td translate>Networks</td><td>{{filing.Networks}}</td>
               </tr>
               <tr>
-                <td >Report Elements</td><td>{{filing.ReportElements}}</td>
+                <td translate>Report Elements</td><td>{{filing.ReportElements}}</td>
               </tr>
               <tr>
-                <td >Tables</td><td>{{filing.Tables}}</td>
+                <td translate>Tables</td><td>{{filing.Tables}}</td>
               </tr>
               <tr>
-                <td >Axis</td><td>{{filing.Axis}}</td>
+                <td translate>Axis</td><td>{{filing.Axis}}</td>
               </tr>
               <tr>
-                <td >Members</td><td>{{filing.Members}}</td>
+                <td translate>Members</td><td>{{filing.Members}}</td>
               </tr>
               <tr>
-                <td >Line Items</td><td>{{filing.LineItems}}</td>
+                <td translate>Line Items</td><td>{{filing.LineItems}}</td>
               </tr>
               <tr>
-                <td >Concepts</td><td>{{filing.Concepts}}</td>
+                <td translate>Concepts</td><td>{{filing.Concepts}}</td>
               </tr>
               <tr>
-                <td >Abstracts</td><td>{{filing.Abstracts}}</td>
+                <td translate>Abstracts</td><td>{{filing.Abstracts}}</td>
               </tr>
               <tr>
-                <td >Footnotes</td><td>{{filing.Footnotes}}</td>
+                <td translate>Footnotes</td><td>{{filing.Footnotes}}</td>
               </tr>
               <tr>
-                <td >Facts</td><td>{{filing.Facts}}</td>
+                <td translate>Facts</td><td>{{filing.Facts}}</td>
               </tr>
               <tr>
-                <td >Extension Facts</td><td>{{filing.ExtensionFacts}}</td>
+                <td translate>Extension Facts</td><td>{{filing.ExtensionFacts}}</td>
               </tr>
               <tr>
-                <td >Extension Concepts</td><td>{{filing.ExtensionConcepts}}</td>
+                <td translate>Extension Concepts</td><td>{{filing.ExtensionConcepts}}</td>
               </tr>
               <tr>
-                <td >Extension Abstracts</td><td>{{filing.ExtensionAbstracts}}</td>
+                <td translate>Extension Abstracts</td><td>{{filing.ExtensionAbstracts}}</td>
               </tr>
             </tbody>
           </table>
 		  </div>
           <div class="white-box-footer" style="padding: 15px;">
-            <a ng-href="/components/{{aid}}">Components</a> | 
-            <a ng-href="{{filing.SECFilingPage}}" target="_blank">SEC Filing Page</a> | 
-            <a ng-href="{{filing.XBRLInstanceURL}}" target="_blank">XBRL Instance</a>
+            <a ng-href="/components/{{aid}}" translate>Components</a> | 
+            <a ng-href="{{filing.SECFilingPage}}" target="_blank" translate>SEC Filing Page</a> | 
+            <a ng-href="{{filing.XBRLInstanceURL}}" target="_blank" translate>XBRL Instance</a>
           </div>
         </div>
 	</div>

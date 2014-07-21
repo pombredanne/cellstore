@@ -1,20 +1,20 @@
 <div class="export">
     <div class="row">
         <div class="col-lg-3">
-            <span class="tag tag-primary" ng-if="results.length"><span ng-bind="Statistics.NumComponents | number"></span> Hits</span>
-            <span class="tag" ng-if="results.length"><span ng-bind="Statistics.TotalNumComponents | number"></span> Components</span>
+            <span class="tag tag-primary" ng-show="results.length"><span ng-bind="Statistics.NumComponents | number"></span> <span translate>Hits</span></span>
+            <span class="tag" ng-show="results.length"><span ng-bind="Statistics.TotalNumComponents | number"></span> <span translate>Components</span></span>
         </div>
         <div class="col-lg-6">
             <h2 class="text-center">Search Components</h2>
         </div>
         <div class="col-lg-3">
-            <span class="dropdown pull-right" ng-if="results.length">
-                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+            <span class="dropdown pull-right" ng-show="results.length">
+                <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                 <ul class="dropdown-menu">
-                    <li><a ng-href="{{getUrl('json')}}" download="comparison-components.json" target="_blank">JSON</a></li>
-                    <li><a ng-href="{{getUrl('xml')}}" download="comparison-components.xml" target="_blank">XML</a></li>
-                    <li><a ng-href="{{getUrl('csv')}}" download="comparison-components.csv" target="_blank">CSV</a></li>
-                    <li><a ng-href="{{getUrl('excel')}}" download="comparison-components.csv" target="_blank">Excel</a></li>
+                    <li><a ng-href="{{getUrl('json')}}" download="comparison-components.json" target="_blank" translate>JSON</a></li>
+                    <li><a ng-href="{{getUrl('xml')}}" download="comparison-components.xml" target="_blank" translate>XML</a></li>
+                    <li><a ng-href="{{getUrl('csv')}}" download="comparison-components.csv" target="_blank" translate>CSV</a></li>
+                    <li><a ng-href="{{getUrl('excel')}}" download="comparison-components.csv" target="_blank" translate>Excel</a></li>
                 </ul>
             </span>
         </div>
@@ -22,25 +22,25 @@
 </div>
 <form class="form-horizontal" id="comparison-components-searchbar" ng-submit="submit()">
     <div class="form-group">
-        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Find components by</label>
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label" translate>Find components by</label>
         <div class="col-lg-6 col-md-9 col-sm-8">
             <label class="radio" ng-click="selectType()">
                 <input type="radio" id="searchType" ng-model="searchType" value="disclosure">
-                Disclosure
+                <span translate>Disclosure</span>
                 <a href="/disclosures"><i class="fa fa-question"></i></a>
             </label>
             <label class="radio" ng-click="selectType()">
                 <input type="radio" id="searchType" ng-model="searchType" value="reportElement">
-                Name of a contained report element
+                <span translate>Name of a contained report element</span>
             </label>
             <label class="radio" ng-click="selectType()">
                 <input type="radio" id="searchType" ng-model="searchType" value="label">
-                Text contained in network titles
+                <span translate>Text contained in network titles</span>
             </label>
         </div>
     </div>
     <div class="form-group" ng-show="searchType==='disclosure'">
-        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Disclosure</label>
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label" translate>Disclosure</label>
         <div class="col-lg-6 col-md-9 col-sm-8">
             <input type="text" class="form-control" ng-model="searchDisclosure"
               typeahead="key.name for key in disclosureNames | filter:$viewValue | limitTo: 10" typeahead-template-url='typeaheaddisclosures.html'
@@ -55,7 +55,7 @@
         </div>
     </div>
     <div class="form-group" ng-show="searchType==='reportElement'">
-        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Report element name</label>
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label" translate>Report element name</label>
         <div class="col-lg-6 col-md-9 col-sm-8">
             <input type="text" class="form-control" ng-model="searchReportElement"
               typeahead="key for key in reportElementNames | filter:$viewValue | limitTo: 15"
@@ -63,19 +63,19 @@
         </div>
     </div>
     <div class="form-group" ng-show="searchType==='label'">
-        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Network title</label>
+        <label class="col-lg-3 col-md-3 col-sm-4 control-label" translate>Network title</label>
         <div class="col-lg-6 col-md-9 col-sm-8">
           <input type="text" class="form-control" ng-model="searchLabel">
         </div>
     </div>
     <div class="form-group">
         <div class="col-lg-9 col-lg-offset-3 col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-4">
-            <button class="btn btn-primary" type="submit">GO</button>
+            <button class="btn btn-primary" type="submit" translate>GO</button>
         </div>
     </div>
 </form>
 
-<div ng-if="results.length">
+<div ng-show="results.length">
     <p>
         <input type="text" class="form-control" ng-model="search" placeholder="Search components...">
     </p>
@@ -83,15 +83,15 @@
         <table class="table table-condensed table-justcolumns small">
             <thead>
                 <th>#</th>
-                <th>Entity</th>
-                <th>Accession Number</th>
-                <th>Form Type</th>
-                <th>Fiscal Period/Year</th>
-                <th>Network Label / Name</th>
-                <th>Category</th>
-                <th>Table</th>
-                <th>Disclosure Name</th>
-                <th>Go to</th>
+                <th translate>Entity</th>
+                <th translate>Accession Number</th>
+                <th translate>Form Type</th>
+                <th translate>Fiscal Period / Year</th>
+                <th translate>Network Label / Name</th>
+                <th translate>Category</th>
+                <th translate>Table</th>
+                <th translate>Disclosure Name</th>
+                <th translate>Go to</th>
             </thead>
             <tbody>
                 <tr ng-repeat="item in results | filter : search">
@@ -108,11 +108,11 @@
                         <span class="dropdown">
                             <a class="dropdown-toggle"><i class="fa fa-external-link fa-2x"></i></a>
                             <ul class="dropdown-menu text-left pull-right">
-                              <li><a href="/component/{{item.AccessionNumber}}/{{item.NetworkIdentifier}}">Component Details</a></li>
-                              <li><a href="/facttable/{{item.AccessionNumber}}/{{item.NetworkIdentifier}}">Fact Table</a></li>
-                              <li><a href="/modelstructure/{{item.AccessionNumber}}/{{item.NetworkIdentifier}}">Model Structure</a></li>
-                                <li><a class="disabled">BizPivot Rendering</a></li>
-                                <li><a class="disabled">SEC Preview</a></li>
+                                <li><a href="/component/{{item.AccessionNumber}}/{{item.NetworkIdentifier}}" translate>Component Details</a></li>
+                                <li><a href="/facttable/{{item.AccessionNumber}}/{{item.NetworkIdentifier}}" translate>Fact Table</a></li>
+                                <li><a href="/modelstructure/{{item.AccessionNumber}}/{{item.NetworkIdentifier}}" translate>Model Structure</a></li>
+                                <li><a class="disabled" translate>BizPivot Rendering</a></li>
+                                <li><a class="disabled" translate>SEC Preview</a></li>
                             </ul>
                         </span>
                     </td>
@@ -121,9 +121,7 @@
         </table>
     </div>
 </div>
-<div class="alert alert-info" ng-if="errornoresults">
-    <h4>No results found</h4>
-    Here are some working examples: 
-    <a href="/comparison/components?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY&disclosure=BalanceSheet">Balance Sheets for DOW30 in 2013</a> or 
-    <a href="/comparison/components?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1&reportElement=us-gaap:Assets">Components containing us-gaap:Assets of Coca Cola and Walmart throughout 2012</a>
+<div class="alert alert-info" ng-show="errornoresults">
+    <h4 translate>No results found.</h4>
+    <span translate>Here are some working examples: <a href="/comparison/components?tag=DOW30&fiscalYear=2013&fiscalPeriod=FY&disclosure=BalanceSheet">Balance Sheets for DOW30 in 2013</a> or <a href="/comparison/components?cik=0000104169&cik=0000021344&fiscalYear=2012&fiscalPeriod=FY&fiscalPeriod=Q3&fiscalPeriod=Q2&fiscalPeriod=Q1&reportElement=us-gaap:Assets">Components containing us-gaap:Assets of Coca Cola and Walmart throughout 2012</a></span>
 </div>

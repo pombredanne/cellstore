@@ -3,22 +3,22 @@
     <li class="dropdown">
         <a class="dropdown-toggle">{{EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/entity/{{cik}}">Entity Information</a></li>
-            <li><a href="/filings/{{cik}}">Filings</a></li>
+            <li><a href="/entity/{{cik}}" translate>Entity Information</a></li>
+            <li><a href="/filings/{{cik}}" translate>Filings</a></li>
         </ul>
     </li>
     <li class="dropdown">
         <a class="dropdown-toggle">{{FiscalPeriod}} / {{FiscalYear}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-            <li><a href="/filing/{{AccessionNumber}}">Filing Details</a></li>
-            <li><a href="/components/{{AccessionNumber}}">Components</a></li>
+            <li><a href="/filing/{{AccessionNumber}}" translate>Filing Details</a></li>
+            <li><a href="/components/{{AccessionNumber}}" translate>Components</a></li>
         </ul>
     </li>
     <li class="dropdown">
         <a class="dropdown-toggle">{{component}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-          <li><a href="/component/{{AccessionNumber}}/{{NetworkIdentifier}}">Component Details</a></li>
-          <li><a href="/modelstructure/{{AccessionNumber}}/{{NetworkIdentifier}}">Model Structure</a></li>
+          <li><a href="/component/{{AccessionNumber}}/{{NetworkIdentifier}}" translate>Component Details</a></li>
+          <li><a href="/modelstructure/{{AccessionNumber}}/{{NetworkIdentifier}}" translate>Model Structure</a></li>
         </ul>
     </li>
     <li></li>
@@ -26,35 +26,35 @@
     <div class="container">
         <div class="row export">
             <div class="col-lg-3">
-              <span class="tag tag-primary"><span ng-bind="Statistics.NumFacts | number"></span> Hit</span>
-                <span class="tag"><span ng-bind="Statistics.TotalNumFacts | number"></span> Facts</span>
+              <span class="tag tag-primary"><span ng-bind="Statistics.NumFacts | number"></span> <span translate>Hit</span></span>
+                <span class="tag"><span ng-bind="Statistics.TotalNumFacts | number"></span> <span translate>Facts</span></span>
             </div>
             <div class="col-lg-6">
                 <h2 class="text-center">{{EntityRegistrantName}} ({{FiscalPeriod}} / {{FiscalYear}})</h2>
             </div>
             <div class="col-lg-3">
                 <span class="dropdown pull-right">
-                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                     <ul class="dropdown-menu">
-                        <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="{{AccessionNumber}}_facttable.json">JSON</a></li>
-                        <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="{{AccessionNumber}}_facttable.xml">XML</a></li>
-                        <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="{{AccessionNumber}}_facttable.csv">CSV</a></li>
-                        <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="{{AccessionNumber}}_facttable.csv">Excel</a></li></ul>
+                        <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="{{AccessionNumber}}_facttable.json" translate>JSON</a></li>
+                        <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="{{AccessionNumber}}_facttable.xml" translate>XML</a></li>
+                        <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="{{AccessionNumber}}_facttable.csv" translate>CSV</a></li>
+                        <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="{{AccessionNumber}}_facttable.csv" translate>Excel</a></li></ul>
                 </span>
             </div>
         </div>
     </div>
 <div class="std-container">
 	<div>
-        <div ng-if="data.length">
+        <div ng-show="data.length">
           <div class="container">
               <table class="table table-condensed small">
                 <tbody>
-                  <tr><td>Network:</td><td>{{Label}}<br/>({{NetworkIdentifier}})</td></tr>
-                  <tr><td>Table:</td><td>{{Table}}</td></tr>
-                  <tr><td>Accession Number:</td><td><a href="/filing/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
-                  <tr><td>Form Type:</td><td>{{FormType}}</td></tr>
-                  <tr><td>Accepted:</td><td>{{AcceptanceDatetime | date: 'medium'}}</td></tr>
+                  <tr><td translate>Network</td><td>{{Label}}<br/>({{NetworkIdentifier}})</td></tr>
+                  <tr><td translate>Table</td><td>{{Table}}</td></tr>
+                  <tr><td translate>Accession Number</td><td><a href="/filing/{{AccessionNumber}}">{{AccessionNumber}}</a></td></tr>
+                  <tr><td translate>Form Type</td><td>{{FormType}}</td></tr>
+                  <tr><td translate>Accepted</td><td>{{AcceptanceDatetime | date: 'medium'}}</td></tr>
                 </tbody>
               </table>
           </div>
@@ -66,9 +66,9 @@
               <thead>
                 <th>#</th>
                 <th ng-repeat="key in columns">{{key}}</th>
-                <th>Value</th>
-                <th>Unit</th>
-                <th>Decimals</th>
+                <th translate>Value</th>
+                <th translate>Unit</th>
+                <th translate>Decimals</th>
               </thead>
               <tbody>
                 <tr ng-repeat="item in data | filter : search">
@@ -76,7 +76,7 @@
                   <td ng-repeat="key in columns" class="nowrap"><span ng-if="$index==entityIndex">{{item.Aspects[key].substring(23)}}</span><span ng-if="$index!=entityIndex">{{item.Aspects[key]}}</span></td>
                   <td ng-if="(item.Type == 'NumericValue')" style="text-align: right">{{showNumber(item.Value)}}</td>
                   <td ng-if="(item.Type != 'NumericValue' && !isBlock(item.Value))">{{item.Value}}</td>
-                  <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)">Show Text</a></td>
+                  <td ng-if="(item.Type != 'NumericValue' && isBlock(item.Value))"><a ng-click="showText(item.Value)" translate>Show Text</a></td>
                   <td>{{item.Unit=='xbrl:NonNumeric'?"":item.Unit}}</td>
                   <td>{{item.Decimals}}</td>
                 </tr>

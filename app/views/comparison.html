@@ -1,23 +1,23 @@
 <div class="menu">
     <div class="btn-group">
-        <a class="btn btn-default" ng-class="{ active: subActive === 'filings' }" ng-href="/comparison/filings?{{wwwFormUrlencoded(selection)}}" ng-if=" active === 'compare' "><i class="fa fa-briefcase"></i> Filings</a>
-        <a class="btn btn-default" ng-class="{ active: subActive === 'information' }" ng-href="/comparison/information?{{wwwFormUrlencoded(selection)}}" ng-if=" active === 'compare' "><i class="fa fa-sitemap"></i> Basic Financial Information</a>
-        <a class="btn btn-default" ng-class="{ active: subActive === 'validations-dashboard' }" ng-href="/comparison/validations-dashboard?{{wwwFormUrlencoded(selection)}}" ng-if=" active === 'compare' "><i class="fa fa-th-large"></i> Basic Semantic Validations</a>
-        <a class="btn btn-default" ng-class="{ active: subActive === 'filings' }" ng-href="/comparison/filingss?{{wwwFormUrlencoded(selection)}}" ng-if=" active === 'search' "><i class="fa fa-briefcase"></i> Filings</a>
-        <a class="btn btn-default" ng-class="{ active: subActive === 'search' }" ng-href="/comparison/search?{{wwwFormUrlencoded(selection)}}" ng-if=" active === 'search' "><i class="fa fa-search"></i> Search Facts</a>
-        <a class="btn btn-default" ng-class="{ active: subActive === 'components' }" ng-href="/comparison/components?{{wwwFormUrlencoded(selection)}}" ng-if=" active === 'search' "><i class="fa fa-puzzle-piece"></i> Search Components</a>
-        <a class="btn btn-default" ng-class="{ active: subActive === 'report-elements' }" ng-href="/comparison/reportElements?{{wwwFormUrlencoded(selection)}}" ng-if=" active === 'search' "><i class="fa fa-bars"></i> Search Report Elements</a>
+        <a class="btn btn-default" ng-class="{ active: subActive === 'filings' }" ng-href="/comparison/filings?{{wwwFormUrlencoded(selection)}}" ng-show=" active === 'compare' "><i class="fa fa-briefcase"></i> <span translate>Filings</span></a>
+        <a class="btn btn-default" ng-class="{ active: subActive === 'information' }" ng-href="/comparison/information?{{wwwFormUrlencoded(selection)}}" ng-show=" active === 'compare' "><i class="fa fa-sitemap"></i> <span translate>Basic Financial Information</span></a>
+        <a class="btn btn-default" ng-class="{ active: subActive === 'validations-dashboard' }" ng-href="/comparison/validations-dashboard?{{wwwFormUrlencoded(selection)}}" ng-show=" active === 'compare' "><i class="fa fa-th-large"></i> <span translate>Basic Semantic Validations</span></a>
+        <a class="btn btn-default" ng-class="{ active: subActive === 'filings' }" ng-href="/comparison/filingss?{{wwwFormUrlencoded(selection)}}" ng-show=" active === 'search' "><i class="fa fa-briefcase"></i> <span translate>Filings</span></a>
+        <a class="btn btn-default" ng-class="{ active: subActive === 'search' }" ng-href="/comparison/search?{{wwwFormUrlencoded(selection)}}" ng-show=" active === 'search' "><i class="fa fa-search"></i> <span translate>Search Facts</span></a>
+        <a class="btn btn-default" ng-class="{ active: subActive === 'components' }" ng-href="/comparison/components?{{wwwFormUrlencoded(selection)}}" ng-show=" active === 'search' "><i class="fa fa-puzzle-piece"></i> <span translate>Search Components</span></a>
+        <a class="btn btn-default" ng-class="{ active: subActive === 'report-elements' }" ng-href="/comparison/reportElements?{{wwwFormUrlencoded(selection)}}" ng-show=" active === 'search' "><i class="fa fa-bars"></i> <span translate>Search Report Elements</span></a>
     </div>
 </div>
 
 <div class="row cols">
     <div class="col-md-3 col-sm-4 col-xs-12">
         <div id="comparison-filter">
-            <a class="pull-right" ng-click="reset()">RESET</a>
-            <h4>Selected Filters</h4>
-            <div ng-if="selection.cik.length + selection.tag.length">
+            <a class="pull-right" ng-click="reset()" translate>RESET</a>
+            <h4 translate>Selected Filters</h4>
+            <div ng-show="selection.cik.length + selection.tag.length">
                 <div>
-                    <h6>ENTITIES OR ENTITY GROUPS</h6>
+                    <h6 translate>ENTITIES OR ENTITY GROUPS</h6>
                     <div class="alert alert-success" ng-repeat="t in selection.tag">
                         <a class="close" ng-click="selection.tag.splice($index, 1)">&times;</a>
                         {{t}}
@@ -28,27 +28,27 @@
                     </div>
                 </div>
             </div>
-            <div ng-if="selection.sic.length">
+            <div ng-show="selection.sic.length">
                 <div>
-                    <h6>INDUSTRY GROUP</h6>
+                    <h6 translate>INDUSTRY GROUP</h6>
                     <div class="alert alert-danger" ng-repeat="s in selection.sic">
                         <a class="close" ng-click="selection.sic.splice($index, 1)">&times;</a>
                         {{getSic(s).Description}}
                     </div>
                 </div>
             </div>
-            <div ng-if="selection.fiscalYear.length">
+            <div ng-show="selection.fiscalYear.length">
                 <div>
-                    <h6>FISCAL YEARS</h6>
+                    <h6 translate>FISCAL YEARS</h6>
                     <div class="alert alert-warning" ng-repeat="y in selection.fiscalYear">
                         <a class="close" ng-click="selection.fiscalYear.splice($index, 1)">&times;</a>
                         {{y}}
                     </div>
                 </div>
             </div>
-            <div ng-if="selection.fiscalPeriod.length">
+            <div ng-show="selection.fiscalPeriod.length">
                 <div>
-                    <h6>FISCAL PERIODS</h6>
+                    <h6 translate>FISCAL PERIODS</h6>
                     <div class="alert alert-warning" ng-repeat="p in selection.fiscalPeriod">
                         <a class="close" ng-click="selection.fiscalPeriod.splice($index, 1)">&times;</a>
                         {{p}}
@@ -57,9 +57,9 @@
             </div>
         </div>
         <div id="comparison-setfilter">
-            <h4>Set Filters</h4>
+            <h4 translate>Set Filters</h4>
             <div>
-                <h6>ADD ENTITY</h6>
+                <h6 translate>ADD ENTITY</h6>
                 <input class="form-control" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
                        placeholder="Search for an entity..."
                        typeahead-template-url="typeahead_entity.html"
@@ -70,11 +70,11 @@
                        <small ng-bind-html='"CIK: " + match.model.cik + (match.model.tickers[0] ? ", Ticker: " + match.model.tickers[0] : "") | typeaheadHighlight:query'></small>
                     </a>
                 </script>
-                <h6 class="nowrap">ADD AN ENTITY GROUP</h6>
+                <h6 class="nowrap" translate>ADD ENTITY GROUP</h6>
                 <span ng-repeat="t in tags">
                     <a class="highlight3" ng-click="(selection.tag.indexOf(t) >= 0 ? null : selection.tag.push(t))">{{t}}</a>&nbsp;
                 </span>
-                <h6 class="nowrap">ADD A INDUSTRY GROUP</h6>
+                <h6 class="nowrap" translate>ADD INDUSTRY GROUP</h6>
                 <input class="form-control" type="text" ng-model="sic" typeahead-on-select="selectSic($item)"
                        placeholder="Search for a industry group..."
                        typeahead-template-url="typeahead_sic.html"
@@ -88,13 +88,13 @@
             </div>
             <div class="row">
                 <div class="col-xs-6">
-                    <h6 class="nowrap">ADD FISCAL YEARS</h6>
+                    <h6 class="nowrap" translate>ADD FISCAL YEARS</h6>
                     <ul class="selector" style="height: 97px">
                         <li ng-repeat="y in years" ng-class="{ selected: (selection.fiscalYear.indexOf(y) >= 0) }" ng-click="(selection.fiscalYear.indexOf(y) >= 0 ? selection.fiscalYear.splice(selection.fiscalYear.indexOf(y), 1) : selection.fiscalYear.push(y))">{{y}}</li>
                     </ul>
                 </div>
                 <div class="col-xs-6">
-                    <h6 class="nowrap">ADD FISCAL PERIODS</h6>
+                    <h6 class="nowrap" translate>ADD FISCAL PERIODS</h6>
                     <ul class="selector" style="height: 97px">
                         <li ng-repeat="p in periods" ng-class="{ selected: (selection.fiscalPeriod.indexOf(p) >= 0) }" ng-click="(selection.fiscalPeriod.indexOf(p) >= 0 ? selection.fiscalPeriod.splice(selection.fiscalPeriod.indexOf(p), 1) : selection.fiscalPeriod.push(p))">{{p}}</li>
                     </ul>
