@@ -5,7 +5,7 @@ angular.module('main', [
     'scroll-id', 'document-click', 'autocomplete', 'ngenter', 'constants', 'ngProgressLite',
     'stickyFooter', 'angulartics', 'angulartics.google.analytics', 'angular.directives-round-progress',
     'queries-api', 'session-api', 'users-api', 'billing-api',
-    'translator'
+    'translator', 'layoutmodel'
 ])
 .run(function($rootScope, ngProgressLite) {
   
@@ -313,6 +313,30 @@ angular.module('main', [
             title: 'Fact Table'
         }
     })
+    .state('root.entity.spreadsheet', {
+        url: '/spreadsheet/:aid/{networkIdentifier:.*}',
+        templateUrl: '/views/entity/spreadsheet.html',
+        controller: 'SpreadsheetCtrl',
+        resolve: {
+        	component: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                 return $backend.Queries.listComponents({ _method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+            }],
+            spreadsheet: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend){            	
+                return $backend.Queries.spreadsheetForComponent({
+                    _method : 'POST',
+                    aid : $stateParams.aid,
+                    networkIdentifier : $stateParams.networkIdentifier,
+                    token : $rootScope.token,
+                    eliminate : true,
+                    validate : true
+                });
+            }]
+        },
+        data: {
+            subActive: 'filings',
+            title: 'Spreadsheet'
+        }
+    })
     .state('root.entity.modelstructure', {
         url: '/modelstructure/:aid/{networkIdentifier:.*}',
         templateUrl: '/views/entity/modelstructure.html',
@@ -375,6 +399,17 @@ angular.module('main', [
             }]
         },
         controller: 'RootFactTableCtrl'
+    })
+    
+     //Spreadsheet
+    .state('root.spreadsheet', {
+        url: '/spreadsheet/:aid/{networkIdentifier:.*}',
+        resolve: {
+            component: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listComponents({ _method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+            }]
+        },
+        controller: 'RootSpreadsheetCtrl'
     })
     
     //Model Structure

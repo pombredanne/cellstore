@@ -60,8 +60,18 @@ declare %private function layout:structural-node-to-header-rows(
                             CellLabels: [ $structural-node.Labels[], $actual-value ],
                             CellConstraints: {
                                 "": {$constrained-aspect : $actual-value},
-                                "table.periodStart" : {$constrained-aspect : if(count($tokens) eq 2) then $tokens[1] else "" },
-                                "table.periodEnd" : {$constrained-aspect : if(count($tokens) eq 2) then $tokens[2] else "" }
+                                "table.periodStart" : {
+                                    $constrained-aspect :
+                                        if(count($tokens) eq 2)
+                                        then string(date($tokens[1]) - dayTimeDuration("P1D"))
+                                        else ""
+                                },
+                                "table.periodEnd" : {
+                                    $constrained-aspect :
+                                        if(count($tokens) eq 2)
+                                        then $tokens[2]
+                                        else ""
+                                }
                             },
                             TagSelectors: [ $structural-node.TagSelectors[] ],
                             CellSpan: $span,
@@ -518,19 +528,28 @@ declare function layout:layout(
             let $y-tag-selectors := layout:tag-selectors([$table-headers.y[].GroupCells[]])
             let $default-x-slices := layout:slices([$table-headers.x[].GroupCells[]], ())
             let $default-y-slices := layout:slices([$table-headers.y[].GroupCells[]], ())
+            let $period-start-x-slices := layout:slices([$table-headers.x[].GroupCells[]], "table.PeriodStart")
+            let $period-start-y-slices := layout:slices([$table-headers.y[].GroupCells[]], "table.PeriodStart")
+            let $period-end-x-slices := layout:slices([$table-headers.x[].GroupCells[]], "table.PeriodEnd")
+            let $period-end-y-slices := layout:slices([$table-headers.y[].GroupCells[]], "table.PeriodEnd")
             let $cells := [
                 for $y-tag-selector at $i in $y-tag-selectors
                 return [
                     for $x-tag-selector at $j in $x-tag-selectors
                     let $selectors as string* := ($x-tag-selector[], $y-tag-selector[])
-                    let $x-slices :=
-                        if(empty($selectors))
-                        then $default-x-slices
-                        else layout:slices([$table-headers.x[].GroupCells[]], $selectors)
+                    let $x-slices as object* :=
+                        switch(true)
+                        case empty($selectors) return $default-x-slices
+                        case deep-equal($selectors, "table.periodStart") return $period-start-x-slices
+                        case deep-equal($selectors, "table.periodEnd") return $period-end-x-slices
+                        default return layout:slices([$table-headers.x[].GroupCells[]], $selectors)
                     let $participating-x := distinct-values(keys($x-slices))
-                    let $y-slices :=if(empty($selectors))
-                        then $default-y-slices
-                        else layout:slices([$table-headers.y[].GroupCells[]], $selectors)
+                    let $y-slices as object* :=
+                        switch(true)
+                        case empty($selectors) return $default-y-slices
+                        case deep-equal($selectors, "table.periodStart") return $period-start-y-slices
+                        case deep-equal($selectors, "table.periodEnd") return $period-end-y-slices
+                        default return layout:slices([$table-headers.y[].GroupCells[]], $selectors)
                     let $participating-y := distinct-values(keys($y-slices))
                     let $row-facts := layout:filter-aspects(
                         $facts,

@@ -5,16 +5,11 @@ module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace archives = "http://xbrl.io/modules/bizql/archives";
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-
 declare %an:sequential function util:check-and-return-results(
     $entities as object*,
     $results as item*,
-    $format as string
-)
+    $format as string?
+) as item*
 {
     switch(session:check-access($entities, "data_sec"))
     case $session:ACCESS-ALLOWED return
@@ -30,95 +25,51 @@ declare %an:sequential function util:check-and-return-results(
     default return error()
 };
 
-declare function util:entities(
-    $ciks as string*,
-    $tags as string*,
-    $tickers as string*,
-    $sics as string*,
-    $aids as string*) as object*
+declare function util:move-unit-out-of-aspects(
+    $facts as object*) as object*
 {
-    if ($tags = "ALL")
-        then companies:companies()
-        else (
-            companies:companies($ciks),
-            companies:companies-for-tags($tags),
-            companies:companies-for-tickers($tickers),
-            companies:companies-for-SIC($sics)
-        ),
-    entities:entities(archives:entities($aids))
+    for $fact in $facts
+    return {|
+        {
+            "Aspects" : {|
+                trim($fact.Aspects, ("xbrl:Unit"))
+            |}
+        },
+        trim($fact, ("Aspects")),
+        { Unit: $fact.Aspects."xbrl:Unit" }[exists($fact.Aspects."xbrl:Unit")]
+    |}
 };
 
-declare function util:filter-override(
-    $entities as object*,
-    $fp as string*,
-    $fy as string*,
-    $aids as item*) as object?
+declare %an:sequential function util:serialize(
+    $result as json-item,
+    $comment as object,
+    $serializers as object,
+    $format as string?,
+    $file-name as string) as item*
 {
-    let $latest-filings :=
-        for $entity in $entities
-        for $fp in $fp 
-        let $fy :=
-            if ($fp eq "FY")
-            then sec-fiscal:latest-reported-fiscal-period($entity, "10-K").year 
-            else sec-fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-        return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
-    let $fiscal-years as integer* :=
-        switch(true)
-        case $fy = "ALL" return ()
-        default return distinct-values(
-            $fy[$$ ne "LATEST"] ! ($$ cast as integer)
-        )
-    let $fiscal-periods as string* := switch(true)
-                         case $fp = "ALL" return ()
-                         default return distinct-values($fp)
-    return
-    switch(true)
-    case exists($aids) return {
-        "sec:Archive" : {
-            Type: "string",
-            Domain : [ $aids ]
-        },
-        "sec:FiscalPeriod" : {|
-            {
-                Type: "string",
-                Domain: [ $fiscal-periods ]
-            }[exists($fiscal-periods)]
+    switch ($format)
+    case "xml" return {
+        response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+        session:comment("xml", $comment),
+        $serializers.to-xml($result)
+    }
+    case "text" case "csv" return {
+        response:content-type("text/csv");
+        response:header("Content-Disposition", "attachment; filename=" || $file-name || ".csv");
+        $serializers.to-csv($result)
+    }
+    case "excel" return {
+        response:content-type("application/vnd.ms-excel");
+        response:header("Content-Disposition", "attachment; filename=" || $file-name || ".csv");
+        $serializers.to-csv($result)
+    }
+    default return {
+        response:content-type("application/json");
+        response:serialization-parameters({"indent" : true});
+        {|
+            session:comment("json", $comment),
+            $result
         |}
     }
-    case deep-equal($fy, "LATEST")
-    return {
-        "sec:Archive" : {
-            Type: "string",
-            Domain : [archives:aid($latest-filings)]
-        },
-        "sec:FiscalPeriod" : {|
-            {
-                Type: "string",
-                Domain: [ $fiscal-periods ]
-            }[exists($fiscal-periods)]
-        |}
-    }
-    case exists(($entities, $fiscal-years, $fiscal-periods))
-    return {
-        "xbrl:Entity" : {|
-            {
-                Type: "string",
-                Domain: [ $entities._id ]
-            }[exists($entities)]
-        |},
-        "sec:FiscalYear" : {|
-            {
-                Type: "integer",
-                Domain: [ $fiscal-years ]
-            }[exists($fiscal-years)]
-        |},
-        "sec:FiscalPeriod" : {|
-            {
-                Type: "string",
-                Domain: [ $fiscal-periods ]
-            }[exists($fiscal-periods)]
-        |},
-        "sec:Archive" : {}
-    }
-    default return ()
 };
+

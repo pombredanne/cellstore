@@ -1,19 +1,19 @@
 jsoniq version "1.0";
 
-import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
-import module namespace fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
-
+import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
 import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
+import module namespace sec-networks2 = "http://xbrl.io/modules/bizql/profiles/sec/networks2";
+import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
+import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
 
-import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace util = "http://secxbrl.info/modules/util";
+
 import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace request = "http://www.28msec.com/modules/http-request";
 
 import module namespace session = "http://apps.28.io/session";
 import module namespace csv = "http://zorba.io/modules/json-csv";
@@ -37,10 +37,6 @@ declare function local:to-xml-rec($o as object*, $level as integer) as element()
 
 declare function local:to-xml($model as object) as node()*
 {
-    ((session:comment("xml", {
-                            TotalNumArchives: session:num-archives(),
-                            TotalNumEntities: session:num-entities()
-                        })),
     <Component>
         <Network entityRegistrantName="{$model.EntityRegistrantName}"
                  accessionNumber="{$model.AccessionNumber}"
@@ -56,8 +52,7 @@ declare function local:to-xml($model as object) as node()*
                  >{
             local:to-xml-rec($model.ModelStructure, 0)
         }</Network>
-    </Component>)
-    
+    </Component>
 };
 
 declare function local:to-csv-rec($objects as object*, $level as integer) as object*
@@ -126,190 +121,93 @@ declare function local:enrich-json($component as object) as object
         Disclosure : $component.Disclosure
     }
 };
-declare function local:components-by-disclosures($disclosures as string*, $aids as string*) as object*
-{
-    let $conn :=   
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return
-        try {
-            mongo:connect($credentials)
-        } catch mongo:* {
-            error(QName("components:CONNECTION-FAILED"), $err:description)
-        }
-    for $aid in $aids
-    return
-        mongo:find($conn, "components", 
-        {
-            $components:ARCHIVE: $aid,
-            "Profiles.SEC.Disclosure": { "$in" : [ $disclosures ] }
-        })
-};
-
-declare function local:components-by-roles($roles as string*, $aids as string*) as object*
-{
-    let $conn :=   
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return
-        try {
-            mongo:connect($credentials)
-        } catch mongo:* {
-            error(QName("components:CONNECTION-FAILED"), $err:description)
-        }
-    return
-        mongo:find($conn, "components", 
-        {
-            $components:ARCHIVE: { "$in" : [ $aids ] },
-            "Role": { "$in" : [ $roles ] }
-        })
-};
-
-declare function local:components-by-concepts($concepts as object*, $aids as string*) as object*
-{
-    let $conn :=   
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return
-        try {
-            mongo:connect($credentials)
-        } catch mongo:* {
-            error(QName("components:CONNECTION-FAILED"), $err:description)
-        }
-    let $ids := mongo:find($conn, "concepts", 
-        {| 
-            (
-                { "Name" : { "$in" : [ $concepts ] } },
-                { "Archive" : { "$in" : [ $aids ] } }
-            )
-        |}).Component
-    return components:components($ids)
-};
-
-declare function local:filings(
-    $ciks as string*,
-    $tags as string*,
-    $tickers as string*,
-    $sics as string*,
-    $fp as string*,
-    $fy as string*) as object*
-{
-    let $entities := if ($tags = "ALL") then companies:companies()
-                                        else (
-                                            companies:companies($ciks),
-                                            companies:companies-for-tags($tags),
-                                            companies:companies-for-tickers($tickers),
-                                            companies:companies-for-SIC($sics)
-                                        )
-    for $entity in $entities
-    for $fy in distinct-values(
-                for $fy in $fy
-                return
-                    switch ($fy)
-                    case "LATEST" return
-                        for $p in $fp
-                        return
-                            if ($p eq "FY")
-                            then fiscal:latest-reported-fiscal-period($entity, "10-K").year 
-                            else fiscal:latest-reported-fiscal-period($entity, "10-Q").year
-                        case "ALL" return $fiscal:ALL_FISCAL_YEARS
-                    default return $fy cast as integer
-                )
-    for $fp in $fp 
-    return fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy)
-};
 
 session:audit-call();
 
-let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
-let $ciks        := distinct-values(companies:eid(request:param-values("cik")))
-let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
-let $tickers     := distinct-values(request:param-values("ticker"))
-let $sics        := distinct-values(request:param-values("sic"))
-let $fiscalYears := distinct-values(
-                        for $y in request:param-values("fiscalYear", "LATEST")
-                        return
-                            if ($y eq "LATEST" or $y eq "ALL")
-                            then $y
-                            else if ($y castable as integer)
-                            then $y
-                            else ()
-                    )
-let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
-                      return
-                        if (($fp ! lower-case($$)) = "all")
-                        then $fiscal:ALL_FISCAL_PERIODS
-                        else $fp)
-let $aids        := archives:aid(request:param-values("aid"))
-let $roles       := request:param-values("networkIdentifier")
-let $archives    := (
-                        local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
-                        archives:archives($aids)
-                    )
-let $cid         := request:param-values("cid")
-let $concepts    := distinct-values(request:param-values("concept"))
-let $disclosures := request:param-values("disclosure")
-let $components  := (if (exists($cid))
-                    then components:components($cid)
-                    else (),
-                    if (exists($concepts))
-                    then local:components-by-concepts($concepts, $archives._id)
-                    else if (exists($disclosures))
-                    then local:components-by-disclosures($disclosures, $archives._id)
-                    else if (exists($roles))
-                    then local:components-by-roles($roles, $archives._id)
-                    else components:components-for-archives($archives._id))
-let $component := $components[1] (: only one for know :)
+(: Query parameters :)
+let $format as string?         := request:param-values("format")
+let $ciks as string*           := distinct-values(request:param-values("cik"))
+let $tags as string*           := distinct-values(request:param-values("tag"))
+let $tickers as string*        := distinct-values(request:param-values("ticker"))
+let $sics as string*           := distinct-values(request:param-values("sic"))
+let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
+let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
+let $aids as string*           := distinct-values(request:param-values("aid"))
+let $roles as string*          := request:param-values("networkIdentifier")
+let $cid as string?           := request:param-values("cid")
+let $reportElements as string* := distinct-values(request:param-values("reportElement"))
+let $concepts as string*       := distinct-values(request:param-values("concept"))
+let $map as string?            := request:param-values("map")
+let $disclosures as string*    := request:param-values("disclosure")
+let $search as string*         := request:param-values("label")
+
+(: Post-processing :)
+let $format as string? := (: backwards compatibility, to be deprecated  :)
+    lower-case(($format, substring-after(request:path(), ".jq."))[1])
+let $tags as string* := (: backwards compatibility, to be deprecated :)
+    distinct-values($tags ! upper-case($$))
+let $fiscalYears as integer* :=
+    for $fy in $fiscalYears ! upper-case($$)
+    return switch($fy)
+           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
+           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
+           default return if($fy castable as integer) then integer($fy) else ()
+let $fiscalPeriods as string* :=
+    for $fp in $fiscalPeriods ! upper-case($$)
+    return switch($fp)
+           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
+           default return $fp
+let $reportElements := ($reportElements, $concepts)
+
+(: Object resolution :)
+let $entities := 
+    companies2:companies(
+        $ciks,
+        $tags,
+        $tickers,
+        $sics)
+let $archives as object* := fiscal-core2:filings(
+    $entities,
+    $fiscalPeriods,
+    $fiscalYears,
+    $aids)
+let $components  := sec-networks2:components(
+    $archives,
+    $cid,
+    $reportElements,
+    $disclosures,
+    $roles,
+    $search)
+let $component := $components[1] (: only one for now :)
 let $archive   := archives:archives($component.Archive)
 let $entity    := entities:entities($archive.Entity)
-return
-    switch(session:check-access($entity, "data_sec"))
-    case $session:ACCESS-ALLOWED return {
-        let $model := {|
-                    { CIK : $entity._id },
-                    { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
-                    { ModelStructure : sec-networks:model-structures($component) },
-                    { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
-                    { Label : $component.Label },
-                    { AccessionNumber : $component.Archive },
-                    { FormType : $archive.Profiles.SEC.FormType },
-                    { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
-                    { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
-                    { AcceptanceDatetime : filings:acceptance-dateTimes($archive) },
-                    { NetworkIdentifier: $component.Role },
-                    { Disclosure : $component.Profiles.SEC.Disclosure }
-        |}
-        return 
-            switch ($format)
-            case "xml" return {
-                response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-                local:to-xml($model)
-            }
-            case "text" case "csv" return {
-                response:content-type("text/csv");
-                response:header("Content-Disposition", "attachment; filename=modelstructure-" || $cid || ".csv");
-                local:to-csv($model)
-            }
-            case "excel" return {
-                response:content-type("application/vnd.ms-excel");
-                response:header("Content-Disposition", "attachment; filename=modelstructure-" || $cid || ".csv");
-                local:to-csv($model)
-            }
-            default return {
-                response:content-type("application/json");
-                response:serialization-parameters({"indent" : true});
-                {|
-                    local:enrich-json($model), 
-                    session:comment("json", {
-                            TotalNumArchives: session:num-archives(),
-                            TotalNumEntities: session:num-entities()
-                        })
-                |}
-            }
-       }
-    case $session:ACCESS-DENIED return {
-          response:status-code(403);
-          session:error("accessing filings of an entity that is not in the DOW30", $format)
-       }
-    case $session:ACCESS-AUTH-REQUIRED return {
-          response:status-code(401);
-          session:error("authentication required or session expired", $format)
-       }
-    default return error()
+
+let $result := {|
+    { CIK : $entity._id },
+    { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
+    { ModelStructure : sec-networks:model-structures($component) },
+    { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
+    { Label : $component.Label },
+    { AccessionNumber : $component.Archive },
+    { FormType : $archive.Profiles.SEC.FormType },
+    { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
+    { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
+    { AcceptanceDatetime : filings:acceptance-dateTimes($archive) },
+    { NetworkIdentifier: $component.Role },
+    { Disclosure : $component.Profiles.SEC.Disclosure }
+|}
+let $comment := {
+    TotalNumArchives: session:num-archives(),
+    TotalNumEntities: session:num-entities()
+}
+let $serializers := {
+    to-xml : local:to-xml#1,
+    to-csv : local:to-csv#1
+}
+return if (exists($component))
+    then util:serialize($result, $comment, $serializers, $format, "components")
+    else {
+        response:status-code(404);
+        response:content-type("application/json");
+        session:error("component not found", "json")
+    }
