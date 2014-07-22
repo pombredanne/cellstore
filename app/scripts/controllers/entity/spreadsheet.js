@@ -6,7 +6,7 @@ angular.module('main')
 	$scope.mymodel = spreadsheet;
 	$scope.myheaders = [ { label:"", value:spreadsheet.TableSetLabels[0] }];
 	  
-	$scope.preview = { constraints : false, checks : true, css : 'preview-style', labelidx : 0 };
+	$scope.preview = { constraints : true, checks : true, css : 'preview-style', labelidx : 0 };
 	  		  		  		
 	$scope.archive = component.Archives[0];
 	$scope.component = $scope.archive.Components[0];
