@@ -23,7 +23,7 @@ angular.module('main')
     }
     
     $scope.getExportURL = function(format) {
- 	   return $backend.API_URL + '/_queries/public/api/spreadsheet-for-component.jq?_method=POST&format=' + format + '&aid=' + $stateParams.aid + '&networkIdentifier=' + encodeURIComponent($stateParams.networkIdentifier) + '&token=' + $rootScope.token;
+ 	   return $backend.API_URL + '/_queries/public/api/spreadsheet-for-component.jq?_method=POST&eliminate=true&validate=' + ( $scope.preview.checks ? 'true' : 'false' ) + '&format=' + format + '&aid=' + $stateParams.aid + '&networkIdentifier=' + encodeURIComponent($stateParams.networkIdentifier) + '&token=' + $rootScope.token;
  	};
     
 });

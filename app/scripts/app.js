@@ -326,7 +326,9 @@ angular.module('main', [
                     _method : 'POST',
                     aid : $stateParams.aid,
                     networkIdentifier : $stateParams.networkIdentifier,
-                    token : $rootScope.token
+                    token : $rootScope.token,
+                    eliminate : true,
+                    validate : true
                 });
             }]
         },
