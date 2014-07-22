@@ -1,6 +1,6 @@
 {
-    "server": "secxbrl-dev.xbrl.io",
-    "test": "secxbrl-test.beta.28.io",
+    "server": "secxbrl-g.28.io",
+    "test": "secxbrl-g.28.io",
     "beta": "secxbrl-beta.xbrl.io",
     "prod": "secxbrl.xbrl.io"
 }
