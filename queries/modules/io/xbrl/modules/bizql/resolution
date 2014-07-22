@@ -2,6 +2,7 @@ jsoniq version "1.0";
 
 module namespace resolution = "http://xbrl.io/modules/bizql/resolution";
 
+import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace concepts = "http://xbrl.io/modules/bizql/concepts";
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
@@ -138,14 +139,24 @@ declare %private function resolution:convert-rule-node(
                                 then descendant-objects($all-hypercubes.Aspects)[$$.Name = $main-members]
                                 else ()
     
-    let $labels := (concepts:labels($concept-names as string*, (: ???? :) 
-                                    $components, 
-                                    $label-role, (: ???? :) 
-                                    ($options("Language"), $components($components:DEFAULTLANGUAGE))[1] (: ???? :) 
-                                    ),
-                    $definition-node.Labels[], 
-                    $metadata.Label)
-
+    let $labels-from-metadata := 
+        if (empty($options.Language) or 
+            every $component in $components satisfies $component($components:DEFAULT-LANGUAGE) eq $options.Language)
+        then ($definition-node.Labels[], $metadata.Label)
+        else ()
+    
+    let $labels := 
+        if ($labels-from-metadata)
+        then $labels-from-metadata
+        else
+          for $main-member in $main-members
+          return concepts:labels($concept-names, (: ???? :) 
+                                 $components, (: ???? :) 
+                                 $label-role, (: ???? :) 
+                                 ($options("Language"), $components($components:DEFAULT-LANGUAGE))[1] (: ???? :)),
+                  $definition-node.Labels[], 
+                  $metadata.Label)
+          
     let $children := resolution:convert-definition-nodes($definition-node.Children[], $components, 
                                                          $parent-child-order, $options)
     let $roll-up := {
