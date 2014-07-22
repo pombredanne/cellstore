@@ -15,8 +15,16 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 declare function local:to-csv($res as object*) as string*
 {
     csv:serialize(
-        for $c in $res
+        for $a in $res
+        for $c in $a.Components[]
         return { 
+            AcessionNumber : $a.AccessionNumber,
+            EntityRegistrantName : $a.EntityRegistrantName,
+            CIK : $a.CIK,
+            FiscalYear : $a.FiscalYear,
+            FiscalPeriod : $a.FiscalPeriod,
+            AcceptanceDateTime : $a.AcceptanceDatetime,
+            FormType : $a.FormType,
             NetworkLabel : $c.NetworkLabel,
             NetworkIdentifier : $c.NetworkRole,
             Category : $c.Category,
@@ -98,9 +106,23 @@ let $res         :=
     where exists(sec-networks:model-structures($r))
     order by $r.Label
     group by $archive := $r.Archive
-    return sec-networks:summaries($r)
+    let $archive := $archives[$$._id eq $archive]
+    let $e := $entities[$$._id eq $archive.Entity]
+    return
+        {
+           AccessionNumber : $archive._id,
+           EntityRegistrantName : $e.Profiles.SEC.CompanyName,
+           CIK : $e._id,
+           FiscalYear :$archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
+           FiscalPeriod :$archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
+           AcceptanceDatetime : $archive.Profiles.SEC.AcceptanceDatetime,
+           FormType : $archive.Profiles.SEC.FormType,
+           Components : [ 
+               sec-networks:summaries($r)
+           ]
+       }
 
-let $result := { Components: [ $res ] }
+let $result := { Archives: [ $res ] }
 let $comment :=
  {
     NumComponents : count($components),
@@ -109,10 +131,24 @@ let $comment :=
 }
 let $serializers := {
     to-xml : function($res as object) as node() {
-        <Components>{ $res.Components[] ! sec-networks:summaries-to-xml($$) }</Components>
+        <Archives>{
+                  for $r in flatten($res.Archives)
+                  return
+                      <Archive id="{$r.AccessionNumber}">
+                         <EntityRegistrantName>{$r.EntityRegistrantName}</EntityRegistrantName>
+                         <CIK>{$r.CIK}</CIK>
+                         <FiscalYear>{$r.FiscalYear}</FiscalYear>
+                         <FiscalPeriod>{$r.FiscalPeriod}</FiscalPeriod>
+                         <AcceptanceDatetime>{$r.AcceptanceDatetime}</AcceptanceDatetime>
+                         <FormType>{$r.FormType}</FormType>
+                         <Components>{
+                             sec-networks:summaries-to-xml(flatten($r.Components))
+                         }</Components>
+                     </Archive>
+             }</Archives>
     },
     to-csv : function($res as object) as string {
-        string-join(local:to-csv($res.Components[]), "")
+        string-join(local:to-csv($res.Archives[]), "")
     }
 }
 
