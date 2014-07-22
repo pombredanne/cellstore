@@ -3,13 +3,17 @@
 angular.module('main')
 .controller('SpreadsheetCtrl', function($rootScope, $scope, $stateParams, $backend, component, spreadsheet) {
     
-	$scope.mymodel = spreadsheet;
-	$scope.myheaders = [ { label:"", value:spreadsheet.TableSetLabels[0] }];
-	  
+	$scope.mymodel = spreadsheet;	  
 	$scope.preview = { constraints : true, checks : true, css : 'preview-style', labelidx : 0 };
 	  		  		  		
 	$scope.archive = component.Archives[0];
 	$scope.component = $scope.archive.Components[0];
+	
+	$scope.myheaders = [ 
+	             	     { label:"", value:spreadsheet.TableSetLabels[0] },
+	             	     { label:"Network", value: $scope.component.NetworkIdentifier },
+	             	     { label:"Table", value: $scope.component.Table }
+	                   ];
 	 
     $scope.aid = $stateParams.aid;
     $scope.networkIdentifier = $stateParams.networkIdentifier;
