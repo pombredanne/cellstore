@@ -3,13 +3,8 @@
     <li class="dropdown">
         <a class="dropdown-toggle">{{EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
-<<<<<<< HEAD
-            <li><a ui-sref="root.entity.summary({ cik: cik })" translate>Entity Information</a></li>
-            <li><a ui-sref="root.entity.filings({ cik: cik })" translate>Filings</a></li>
-=======
             <li><a ui-sref="root.entity.summary({ rut: rut })">Entity Information</a></li>
             <li><a ui-sref="root.entity.filings({ rut: rut })">Filings</a></li>
->>>>>>> svsxbrl.info bootstrap
         </ul>
     </li>
     <li class="dropdown">
@@ -55,15 +50,7 @@
                 <td style="width: 40%" translate>Accession Number</td><td>{{aid}}</td>
               </tr>
               <tr>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <td translate>CIK</td><td>{{cik}}</td>
-=======
-                <td >CIK</td><td>{{rut}}</td>
->>>>>>> svsxbrl.info bootstrap
-=======
                 <td >RUT</td><td>{{rut}}</td>
->>>>>>> cik/CIK -> rut/RUT
               </tr>
               <tr>
                 <td translate>Entity Registrant Name</td><td>{{filing.EntityRegistrantName}}</td>
@@ -120,15 +107,9 @@
           </table>
 		  </div>
           <div class="white-box-footer" style="padding: 15px;">
-<<<<<<< HEAD
-            <a ng-href="/components/{{aid}}" translate>Components</a> | 
-            <a ng-href="{{filing.SECFilingPage}}" target="_blank" translate>SEC Filing Page</a> | 
-            <a ng-href="{{filing.XBRLInstanceURL}}" target="_blank" translate>XBRL Instance</a>
-=======
             <a ng-href="/components/{{aid}}">Components</a> | 
             <a ng-href="{{filing.SECFilingPage}}" target="_blank" ng-disabled="true">SVS Filing Page</a> | 
             <a ng-href="{{filing.XBRLInstanceURL}}" target="_blank" ng-disabled="true">XBRL Instance</a>
->>>>>>> Updated query name in information.js and backend.js
           </div>
         </div>
 	</div>

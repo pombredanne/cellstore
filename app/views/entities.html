@@ -1,14 +1,8 @@
 <div class="container" id="entities">
     <div>
-<<<<<<< HEAD
-        <h2 class="text-center" translate>Search Entity</h2>
-        <input class="form-control input-block input-lg" ng-class="{ 'fade-control': !cik }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
-		    placeholder="Search entities by name, CIK, or ticker..." ng-click="focused=true;"
-=======
         <h2 class="text-center">Search Entity</h2>
         <input class="form-control input-block input-lg" ng-class="{ 'fade-control': !rut }" type="text" ng-model="name" typeahead-on-select="selectEntity($item)"
 		    placeholder="Search entities by name, RUT, or ticker..." ng-click="focused=true;"
->>>>>>> svsxbrl.info bootstrap
             typeahead-template-url="typeaheadmulti.html"
 			typeahead="entity for entity in entities | filter:$viewValue | limitTo:8">
         <script type="text/ng-template" id="typeaheadmulti.html">
