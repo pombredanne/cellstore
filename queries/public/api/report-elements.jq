@@ -110,9 +110,11 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
                 "Name" : { "$in" : [ $mapped-names ] },
                 "Archive": { "$in" : [ $aids ] }
             })
+        group by $c.Component
+        let $c := $c[1]
         let $map-concept := (for $candidate in $concepts-computable-by-maps
                             where $c.Name = (keys($candidate.To), $candidate.To[].Name)
-                            return $candidate)[1]
+                            return $candidate)[1] 
         return
             copy $n := $c
             modify (
@@ -191,7 +193,6 @@ let $archives as object* := fiscal-core2:filings(
     $aids)
 let $entities    := entities:entities($archives.Entity)
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
-
 let $concepts := if (exists($names))
                   then local:concepts-for-archives($archives._id, $names, $map)
                   else if (exists($labels))
