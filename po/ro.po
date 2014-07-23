@@ -179,11 +179,6 @@ msgstr "Facturare"
 msgid "Billing information"
 msgstr "Informații Facturare"
 
-#: app/views/comparison/components.html
-#: app/views/entity/components.html
-msgid "BizPivot Rendering"
-msgstr "BizPivot Rendering"
-
 #: app/views/blog.html
 #: app/views/root.html
 msgid "Blog"
@@ -225,6 +220,7 @@ msgstr "CIK"
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity/summary.html
 #: app/views/example.html
 msgid "CSV"
@@ -316,6 +312,7 @@ msgstr "Nume Componentă"
 #: app/views/entity/facttable.html
 #: app/views/entity/filing.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 msgid "Components"
 msgstr "Componente"
 
@@ -451,6 +448,7 @@ msgstr "Entitate"
 #: app/views/entity/facttable.html
 #: app/views/entity/filing.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity_details.html
 msgid "Entity Information"
 msgstr "Informații Entitate"
@@ -489,6 +487,7 @@ msgstr "Exemplu"
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity/summary.html
 #: app/views/example.html
 msgid "Excel"
@@ -519,6 +518,7 @@ msgstr "Expira"
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity/summary.html
 msgid "Export"
 msgstr "Export"
@@ -560,6 +560,7 @@ msgstr "CONTABILITATE FUNDAMENTALA"
 #: app/views/entity/component.html
 #: app/views/entity/components.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 msgid "Fact Table"
 msgstr "Tabel de valori"
 
@@ -594,6 +595,7 @@ msgstr "Componente Declarație"
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 msgid "Filing Details"
 msgstr "Detalii Declarație"
 
@@ -605,6 +607,7 @@ msgstr "Detalii Declarație"
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity_details.html
 msgid "Filings"
 msgstr "Raportări"
@@ -802,6 +805,7 @@ msgstr "Posibile motive:"
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity/summary.html
 #: app/views/example.html
 msgid "JSON"
@@ -879,6 +883,7 @@ msgstr "Membri"
 #: app/views/entity/component.html
 #: app/views/entity/components.html
 #: app/views/entity/facttable.html
+#: app/views/entity/spreadsheet.html
 msgid "Model Structure"
 msgstr "Model Structural"
 
@@ -1282,6 +1287,15 @@ msgstr "Analiză Semantică Sofisticată"
 msgid "Sorry, but the page you were trying to view does not exist."
 msgstr "Ne pare rău, dar pagina căutată nu există."
 
+#: app/views/comparison/components.html
+#: app/views/comparison/report-elements.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+#: app/views/entity/modelstructure.html
+msgid "Spreadsheet View"
+msgstr ""
+
 #: app/views/account/billing.html
 #: app/views/api.html
 msgid "Status"
@@ -1463,6 +1477,7 @@ msgstr "Instanta XBRL"
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity/summary.html
 #: app/views/example.html
 msgid "XML"

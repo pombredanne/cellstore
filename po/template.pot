@@ -178,11 +178,6 @@ msgstr ""
 msgid "Billing information"
 msgstr ""
 
-#: app/views/comparison/components.html
-#: app/views/entity/components.html
-msgid "BizPivot Rendering"
-msgstr ""
-
 #: app/views/blog.html
 #: app/views/root.html
 msgid "Blog"
@@ -224,6 +219,7 @@ msgstr ""
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity/summary.html
 #: app/views/example.html
 msgid "CSV"
@@ -315,6 +311,7 @@ msgstr ""
 #: app/views/entity/facttable.html
 #: app/views/entity/filing.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 msgid "Components"
 msgstr ""
 
@@ -450,6 +447,7 @@ msgstr ""
 #: app/views/entity/facttable.html
 #: app/views/entity/filing.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity_details.html
 msgid "Entity Information"
 msgstr ""
@@ -488,6 +486,7 @@ msgstr ""
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity/summary.html
 #: app/views/example.html
 msgid "Excel"
@@ -518,6 +517,7 @@ msgstr ""
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity/summary.html
 msgid "Export"
 msgstr ""
@@ -559,6 +559,7 @@ msgstr ""
 #: app/views/entity/component.html
 #: app/views/entity/components.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 msgid "Fact Table"
 msgstr ""
 
@@ -593,6 +594,7 @@ msgstr ""
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 msgid "Filing Details"
 msgstr ""
 
@@ -604,6 +606,7 @@ msgstr ""
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity_details.html
 msgid "Filings"
 msgstr ""
@@ -801,6 +804,7 @@ msgstr ""
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity/summary.html
 #: app/views/example.html
 msgid "JSON"
@@ -878,6 +882,7 @@ msgstr ""
 #: app/views/entity/component.html
 #: app/views/entity/components.html
 #: app/views/entity/facttable.html
+#: app/views/entity/spreadsheet.html
 msgid "Model Structure"
 msgstr ""
 
@@ -1281,6 +1286,15 @@ msgstr ""
 msgid "Sorry, but the page you were trying to view does not exist."
 msgstr ""
 
+#: app/views/comparison/components.html
+#: app/views/comparison/report-elements.html
+#: app/views/entity/component.html
+#: app/views/entity/components.html
+#: app/views/entity/facttable.html
+#: app/views/entity/modelstructure.html
+msgid "Spreadsheet View"
+msgstr ""
+
 #: app/views/account/billing.html
 #: app/views/api.html
 msgid "Status"
@@ -1462,6 +1476,7 @@ msgstr ""
 #: app/views/entity/filing.html
 #: app/views/entity/filings.html
 #: app/views/entity/modelstructure.html
+#: app/views/entity/spreadsheet.html
 #: app/views/entity/summary.html
 #: app/views/example.html
 msgid "XML"

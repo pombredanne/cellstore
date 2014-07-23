@@ -174,3 +174,99 @@ as object*
   reports:concepts-checks($report)
 };
 
+declare function reports:has-report-access-permission($report as object, $authenticated-user-email as string?, $right as string) as boolean
+{
+    let $rights as string* := 
+        (: higher access rights includ lower ones :)
+        switch ($right)
+        case "FULL_CONTROL" return ("FULL_CONTROL")
+        case "WRITE" return ("FULL_CONTROL" ,"WRITE")
+        case "READ" return ("FULL_CONTROL", "WRITE", "READ")
+        default return error(xs:QName("reports:UNKNOWN-ACCESS-RIGHT"), "'" || $right || "': Access to report cannot be checked for unknown right.")
+    return
+        if($report.Owner eq $authenticated-user-email) 
+        then true (: owner has allways full control :)
+        else 
+            boolean(
+                distinct-values(
+                    for $right in $report.ACL[]
+                    let $grantees as string+ := ( "http://28.io/groups/AllUsers", $authenticated-user-email )
+                    return
+                        if($right.Grantee = $grantees and $right.Permission = $rights)
+                        then true
+                        else ()
+                ))
+};
+
+declare function reports:is-public-read($report as object) as boolean
+{
+    reports:has-report-access-permission($report, (), "READ")
+};
+
+declare function reports:make-public-read($report as object) as object
+{
+    if(reports:is-public-read($report))
+    then $report
+    else
+        {|
+            trim($report, "ACL"),
+            { "ACL": [
+                {
+                      "Type": "Group",
+                      "Grantee": "http://28.io/groups/AllUsers",
+                      "Permission": "READ"
+                },
+                flatten($report.ACL)
+            ]}
+        |}
+};
+
+declare function reports:make-private-read($report as object) as object
+{
+    if(reports:is-public-read($report))
+    then 
+        {|
+            trim($report, "ACL"),
+            { "ACL": [
+                for $ac in flatten($report.ACL)
+                (: remove rights allUsers :)
+                where not($ac.Type eq "Group" and $ac.Grantee eq "http://28.io/groups/AllUsers")
+                return
+                    $ac
+            ]}
+        |}
+    else $report
+};
+
+declare function reports:validate-and-update-report-properties($report as object, $existing-report as object?, $authenticated-user-email as string) as object
+{
+    copy $r := $report
+    modify (
+        (: @TODO conflict checking
+        if($existing-report.LastModified ne $report.LastModified)
+        then error(xs:QName("reports:CONFLICT"), "The stored report (last modified: " || $existing-report.LastModified 
+                  || ") contains changes that are newer than the report (last modified: " || $report.LastModified || ") to store.")
+        else (),
+        :)
+        
+        (: user authorized to change owner? :)
+        if(empty($r.Owner))
+        then insert json { "Owner": $authenticated-user-email } into $r
+        else 
+            if($r.Owner ne $existing-report.Owner)
+            then error(xs:QName("reports:UNAUTHORIZED"), "changing the owner from " || $existing-report.Owner || " to " || $r.Owner || " is not allowed.")
+            else (),
+        
+        (: user authorized to update ACL? :)
+        if(exists($existing-report) and not(deep-equal($r.ACL, $existing-report.ACL)) and not(reports:has-report-access-permission($report, $authenticated-user-email, "FULL_CONTROL")))
+        then error(xs:QName("reports:UNAUTHORIZED"), "changing ACL requires FULL_CONTROL access right or being the owner.")
+        else (),
+        
+        if(exists($report.LastModified))
+        then replace value of json $r.LastModified with string(current-dateTime())
+        else insert json { "LastModified": string(current-dateTime()) } into $r
+    )
+    return $r
+};
+
+

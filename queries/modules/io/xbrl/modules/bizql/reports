@@ -173,4 +173,3 @@ declare function reports:rid($report-or-id as item) as atomic
 };
 
 
-

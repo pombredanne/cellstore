@@ -1,0 +1,86 @@
+<div id="facttable">
+<ul class="breadcrumb">
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{archive.EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
+        <ul class='dropdown-menu text-left'>
+            <li><a href="/entity/{{cik}}" translate>Entity Information</a></li>
+            <li><a href="/filings/{{cik}}" translate>Filings</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{archive.FiscalPeriod}} / {{archive.FiscalYear}} <span class="fa fa-caret-down"></span></a>
+        <ul class='dropdown-menu text-left'>
+            <li><a href="/filing/{{aid}}" translate>Filing Details</a></li>
+            <li><a href="/components/{{aid}}" translate>Components</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle">{{NetworkLabel}} <span class="fa fa-caret-down"></span></a>
+        <ul class='dropdown-menu text-left'>
+          <li><a href="/facttable/{{aid}}/{{networkIdentifier}}" translate>Fact Table</a></li>
+          <li><a href="/modelstructure/{{aid}}/{{networkIdentifier}}" translate>Model Structure</a></li>
+        </ul>
+    </li>
+    <li></li>
+</ul>
+    <div class="container" style="width:100%">
+        <div class="row export">
+            <div class="col-lg-3">
+      
+      <form class="form-inline"
+		role="form">
+
+
+		<div class="form-group">
+			<label class="sr-only" for="css">Style</label> <select
+				class="form-control" id="css" ng-model="preview.css">
+				<option value="preview-style">Web Style</option>
+				<option value="plain-style">Plain Style</option>
+				<option value="document-style">Document Style</option>
+			</select>
+		</div>
+		
+		<div class="form-group">
+			<label class="checkbox-inline"> <input type="checkbox"
+				id="checks" ng-model="preview.checks" value="true" />
+				Validation checks
+			</label>
+		</div>
+		
+	</form>
+      
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center">{{archive.EntityRegistrantName}} ({{archive.FiscalPeriod}} / {{archive.FiscalYear}})</h2>
+            </div>            
+            <div class="col-lg-3">
+                <span class="dropdown pull-right">
+                    <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="{{AccessionNumber}}_spreadsheet.json" translate>JSON</a></li>
+                        <li class="disabled"><a target="_blank" download="{{AccessionNumber}}_spreadsheet.xml" translate>XML</a></li>
+                        <li class="disabled"><a target="_blank" download="{{AccessionNumber}}_spreadsheet.csv" translate>CSV</a></li>
+                        <li class="disabled"><a target="_blank" download="{{AccessionNumber}}_spreadsheet.csv" translate>Excel</a></li></ul>
+                </span>
+            </div>
+        </div>
+    </div>
+<div class="std-container">
+
+
+	
+
+	<div ng-show="error" class="alert alert-danger">
+		<strong>Error {{ error.status }}</strong> {{ error.body.message }}
+	</div>
+
+	<div ng-class="preview.css">
+		<layoutmodel model="mymodel" headers="myheaders"
+			labelidx="preview.labelidx" constraints="preview.constraints"
+			checks="preview.checks" headerclick="test(header)"
+			dataclick="test(data)"></layoutmodel>
+	</div>
+	
+
+  </div>
+</div>
