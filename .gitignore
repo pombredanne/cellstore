@@ -12,3 +12,4 @@ app/styles/*.css
 *~
 *.swp
 *.swo
+grunt-aws.json
