@@ -137,7 +137,6 @@ let $roles as string*          := request:param-values("networkIdentifier")
 let $cid as string?           := request:param-values("cid")
 let $reportElements as string* := distinct-values(request:param-values("reportElement"))
 let $concepts as string*       := distinct-values(request:param-values("concept"))
-let $map as string?            := request:param-values("map")
 let $disclosures as string*    := request:param-values("disclosure")
 let $search as string*         := request:param-values("label")
 
@@ -185,7 +184,7 @@ let $entity    := entities:entities($archive.Entity)
 let $result := {|
     { CIK : $entity._id },
     { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
-    { ModelStructure : sec-networks:model-structures($component) },
+    { ModelStructure : [ sec-networks:model-structures($component) ] },
     { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
     { Label : $component.Label },
     { AccessionNumber : $component.Archive },

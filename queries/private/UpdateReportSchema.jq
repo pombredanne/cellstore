@@ -7,7 +7,7 @@ declare variable $schema := parse-json(fetch:content("/private/ReportSchema.jq",
    for whom do you want to reset/init the FACs?
    ################ :)
    
-declare variable $user := "admin@28.io";
+declare variable $user := "d@28.io";
 
 (: ################ 
    don't change anything below this line
