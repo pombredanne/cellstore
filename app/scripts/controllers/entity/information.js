@@ -256,15 +256,9 @@ angular.module('main')
     if ($scope.rut && $scope.year && $scope.period)
     {
         $scope.computeUsage();
-<<<<<<< HEAD
-        $backend.Queries.listFilings({
-            _method: 'POST',
-            cik: $scope.cik,
-=======
         $scope.service.listFilings({
             $method: 'POST',
             rut: $scope.rut,
->>>>>>> cik/CIK -> rut/RUT
             fiscalYear: $scope.year,
             fiscalPeriod: $scope.period,
             token: $scope.token

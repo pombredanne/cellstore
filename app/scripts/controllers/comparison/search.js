@@ -176,9 +176,6 @@ angular.module('main')
             $scope.$emit('alert', 'Warning', 'Please choose concepts to compare.');
             return false;
         }
-<<<<<<< HEAD:app/scripts/controllers/comparison/search.js
-        $scope.selection.stamp=(new Date()).getTime();
-=======
     };
 
     $scope.getValues = function() {
@@ -241,7 +238,6 @@ angular.module('main')
             function(response) {
                 $scope.$emit('error', response.status, response.data);
             });
->>>>>>> cik/CIK -> rut/RUT:app/scripts/controllers/comparison_search.js
     };
     
     $scope.trimURL = function(url) {

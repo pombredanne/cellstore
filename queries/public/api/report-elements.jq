@@ -92,107 +92,6 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
     
     let $all-concepts-computable-by-maps as string* := keys($map.Trees)
 
-<<<<<<< HEAD
-    let $concepts-computable-by-maps as object* := 
-        for $c in $names[$$ = $all-concepts-computable-by-maps] 
-        return $map.Trees.$c
-    
-    let $mapped-names := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
-        
-    let $concepts-not-computable-by-maps as string* := seq:value-except($names, $mapped-names)
-    let $results-not-computed-by-maps := mongo:find($conn, "concepts", 
-        {
-            "Name" : { "$in" : [ $concepts-not-computable-by-maps ] },
-            "Archive": { "$in" : [ $aids ] }
-        })
-    let $results-computed-by-maps := 
-        for $c in mongo:find($conn, "concepts", 
-            {
-                "Name" : { "$in" : [ $mapped-names ] },
-                "Archive": { "$in" : [ $aids ] }
-            })
-        group by $c.Component
-        let $c := $c[1]
-        let $map-concept := (for $candidate in $concepts-computable-by-maps
-                            where $c.Name = (keys($candidate.To), $candidate.To[].Name)
-                            return $candidate)[1] 
-        return
-            copy $n := $c
-            modify (
-                replace value of json $n.Name with $map-concept.Name,
-                insert json  { Origin : $c.Name } into $n)
-            return $n
-    return ($results-not-computed-by-maps, $results-computed-by-maps)
-};
-
-declare function local:concepts-for-archives-and-labels($aids as string*, $labels as string) as object*
-{
-    let $conn :=
-        let $credentials := credentials:credentials("MongoDB", "xbrl")
-        return
-            try {
-                mongo:connect($credentials)
-            } catch mongo:* {
-                error(QName("components:CONNECTION-FAILED"), $err:description)
-            }
-    return mongo:run-cmd-deterministic(
-        $conn,
-        {
-            "text" : "concepts",
-            "filter" : { "Archive" : { "$in" : [ $aids ] } },
-            "search" : $labels,
-            "limit" : 100,
-            "score" : { "$meta" : "textScore" },
-            "sort" : { score: { "$meta" : "textScore" } }
-        }).results[].obj
-}; 
-
-session:audit-call();
-
-(: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $ciks as string*           := distinct-values(request:param-values("cik"))
-let $tags as string*           := distinct-values(request:param-values("tag"))
-let $tickers as string*        := distinct-values(request:param-values("ticker"))
-let $sics as string*           := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
-let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
-let $aids as string*           := distinct-values(request:param-values("aid"))
-let $labels as string*         := request:param-values("label")
-let $map as string?            := request:param-values("map")
-let $names as string*          := request:param-values("name")
-
-(: Post-processing :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
-let $tags as string* := (: backwards compatibility, to be deprecated :)
-    distinct-values($tags ! upper-case($$))
-let $fiscalYears as integer* :=
-    for $fy in $fiscalYears ! upper-case($$)
-    return switch($fy)
-           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
-           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
-           default return if($fy castable as integer) then integer($fy) else ()
-let $fiscalPeriods as string* :=
-    for $fp in $fiscalPeriods ! upper-case($$)
-    return switch($fp)
-           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
-           default return $fp
-
-
-(: Object resolution :)
-let $entities := 
-    companies2:companies(
-        $ciks,
-        $tags,
-        $tickers,
-        $sics)
-let $archives as object* := fiscal-core2:filings(
-    $entities,
-    $fiscalPeriods,
-    $fiscalYears,
-    $aids)
-=======
 let $format      := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1])
 let $ciks        := distinct-values(companies:eid(request:param-values("rut")))
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
@@ -217,7 +116,6 @@ let $archives    := (
                         local:filings($ciks, $tags, $tickers, $sics, $fiscalPeriods, $fiscalYears),
                         archives:archives($aids)
                     )
->>>>>>> cik/CIK -> rut/RUT
 let $entities    := entities:entities($archives.Entity)
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
 let $concepts := if (exists($names))
