@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('main')
-.controller('EntityDetailsCtrl', function($scope, name, cik, ticker, result){
+.controller('EntityDetailsCtrl', function($scope, name, rut, ticker, result){
     $scope.name = name;
-    $scope.cik = cik;
+    $scope.rut = rut;
     $scope.ticker = ticker;
     $scope.result = result.Entities[0];
 });

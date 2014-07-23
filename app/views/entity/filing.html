@@ -3,8 +3,13 @@
     <li class="dropdown">
         <a class="dropdown-toggle">{{EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
         <ul class='dropdown-menu text-left'>
+<<<<<<< HEAD
             <li><a ui-sref="root.entity.summary({ cik: cik })" translate>Entity Information</a></li>
             <li><a ui-sref="root.entity.filings({ cik: cik })" translate>Filings</a></li>
+=======
+            <li><a ui-sref="root.entity.summary({ rut: rut })">Entity Information</a></li>
+            <li><a ui-sref="root.entity.filings({ rut: rut })">Filings</a></li>
+>>>>>>> svsxbrl.info bootstrap
         </ul>
     </li>
     <li class="dropdown">
@@ -50,7 +55,11 @@
                 <td style="width: 40%" translate>Accession Number</td><td>{{aid}}</td>
               </tr>
               <tr>
+<<<<<<< HEAD
                 <td translate>CIK</td><td>{{cik}}</td>
+=======
+                <td >CIK</td><td>{{rut}}</td>
+>>>>>>> svsxbrl.info bootstrap
               </tr>
               <tr>
                 <td translate>Entity Registrant Name</td><td>{{filing.EntityRegistrantName}}</td>

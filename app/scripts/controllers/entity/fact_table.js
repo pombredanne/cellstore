@@ -8,7 +8,7 @@ angular.module('main')
     $scope.NetworkIdentifier = $stateParams.networkIdentifier;
     $scope.data = facttable.FactTable;
     $scope.Label = facttable.Label;
-    $scope.cik = (facttable.CIK || '').substring(23);
+    $scope.rut = (facttable.RUT || '').substring(23);
     $scope.EntityRegistrantName = facttable.EntityRegistrantName;
     $scope.NetworkIdentifier = facttable.NetworkIdentifier;
     var p = facttable.Label.lastIndexOf(' - ');

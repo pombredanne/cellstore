@@ -6,9 +6,9 @@ angular.module('main')
     $scope.entities = entities;
     
 	$scope.selectEntity = function(item) {
-        $scope.cik = item.cik;
+        $scope.rut = item.rut;
         $scope.name = item.name;
         $scope.ticker = item.tickers[0];
-        $location.path('/entity/' + $scope.cik);
+        $location.path('/entity/' + $scope.rut);
 	};
 });

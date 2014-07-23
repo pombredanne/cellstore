@@ -9,6 +9,7 @@ angular.module('main')
     $scope.sics = sics;
 
     $scope.selection = {};
+<<<<<<< HEAD
 
     $scope.selection.cik = ($stateParams.cik ? $stateParams.cik.split(',') : []);
     $scope.selection.tag = ($stateParams.tag ? $stateParams.tag.split(',') : []);
@@ -70,6 +71,34 @@ angular.module('main')
             if (e.cik === cik)
             {
                 ret = e;
+=======
+    
+    $scope.$on('filterChanged', function(event, selection) {
+        $scope.selection = angular.copy(selection);
+        if (!selection) { return; }
+        
+        $location.search($scope.selection);
+        
+        $scope.filings = null;
+        $scope.error = false;
+
+        $scope.service.listFilings({
+            $method: 'POST',
+            rut: selection.rut,
+            tag: selection.tag,
+            fiscalYear: selection.fiscalYear,
+            fiscalPeriod: selection.fiscalPeriod,
+            token: $scope.token
+        })
+        .then(function(data) {
+            $scope.filings = data.Archives;
+        },
+        function(response) {
+            if (response.status === '401') {
+                $scope.error = true;
+            } else {
+                $scope.$emit('error', response.status, response.data);
+>>>>>>> svsxbrl.info bootstrap
             }
         });
         return ret;

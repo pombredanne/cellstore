@@ -3,8 +3,13 @@
         <li class="dropdown">
             <a class="dropdown-toggle">{{filings[0].EntityRegistrantName}} <span class="fa fa-caret-down"></span></a>
             <ul class='dropdown-menu text-left'>
+<<<<<<< HEAD
                 <li><a ui-sref="root.entity.summary({ cik: cik })" translate>Summary</a></li>
                 <li><a ui-sref="root.entity.filings({ cik: cik })" translate>Filings</a></li>
+=======
+                <li><a ui-sref="root.entity.summary({ rut: rut })">Summary</a></li>
+                <li><a ui-sref="root.entity.filings({ rut: rut })">Filings</a></li>
+>>>>>>> svsxbrl.info bootstrap
             </ul>
         </li>
         <li></li>
@@ -23,10 +28,17 @@
                 <span class="dropdown pull-right">
                     <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> <span translate>Export</span></a>
                     <ul class="dropdown-menu">
+<<<<<<< HEAD
                         <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="{{cik}}_filings.json" translate>JSON</a></li>
                         <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="{{cik}}_filings.xml" translate>XML</a></li>
                         <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="{{cik}}_filings.csv" translate>CSV</a></li>
                         <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="{{cik}}_filings.csv" translate>Excel</a></li>
+=======
+                        <li><a ng-href="{{getExportURL('json')}}" target="_blank" download="{{rut}}_filings.json">JSON</a></li>
+                        <li><a ng-href="{{getExportURL('xml')}}" target="_blank" download="{{rut}}_filings.xml">XML</a></li>
+                        <li><a ng-href="{{getExportURL('csv')}}" target="_blank" download="{{rut}}_filings.csv">CSV</a></li>
+                        <li><a ng-href="{{getExportURL('excel')}}" target="_blank" download="{{rut}}_filings.csv">Excel</a></li>
+>>>>>>> svsxbrl.info bootstrap
                     </ul>
                 </span>
             </div>

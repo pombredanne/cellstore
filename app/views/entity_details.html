@@ -4,14 +4,20 @@
 <div class="modal-body">
 <table class="table" cellpadding="2">
     <tr>
+<<<<<<< HEAD
         <td style="width: 35%" translate>CIK</td>
         <td>{{cik}}</td>
+=======
+        <td style="width: 35%">RUT</td>
+        <td>{{rut}}</td>
+>>>>>>> svsxbrl.info bootstrap
     </tr>
     <tr>
         <td translate>Ticker Symbol</td>
         <td>{{ticker}}</td>
     </tr>
     <tr>
+<<<<<<< HEAD
         <td translate>Entity Registrant Name</td>
         <td>{{result.Profiles.SEC.CompanyName}}</td>
     </tr>
@@ -34,9 +40,18 @@
     <tr>
         <td translate>Is a Trust</td>
         <td>{{result.Profiles.SEC.IsTrust?"Yes":"No"}}</td>
+=======
+        <td>Entity Registrant Name</td>
+        <td>{{result.Profiles.SVS.CompanyName}}</td>
+>>>>>>> svsxbrl.info bootstrap
     </tr>
 </table>
 </div>
 <div class="modal-footer">
+<<<<<<< HEAD
     <a href="/entity/{{cik}}" translate>Entity Information</a> | <a href="/filings/{{cik}}" translate>Filings</a>
 </div>
+=======
+    <a href="/entity/{{rut}}">Entity Information</a> | <a href="/filings/{{rut}}">Filings</a>
+</div>
+>>>>>>> svsxbrl.info bootstrap

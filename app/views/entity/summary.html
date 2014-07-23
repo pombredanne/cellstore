@@ -1,5 +1,6 @@
 <div class="export">
     <div class="container">
+<<<<<<< HEAD
         <div class="col-lg-3">
             <span class="tag tag-primary">1 <span translate>Hit</span></span>
             <span class="tag"><span ng-bind="Statistics.TotalNumEntities | number"></span> <span translate>Entities</span></span>
@@ -18,11 +19,25 @@
             </ul>
             </span>
         </div>
+=======
+        <span class="tag tag-primary">1 Hit</span>
+        <span class="tag"><span ng-bind="Statistics.TotalNumEntities | number"></span> Entities</span>
+        <span class="dropdown pull-right">
+        <a class="dropdown-toggle btn btn-primary"><i class="fa fa-cloud-download"></i> Export</a>
+        <ul class="dropdown-menu">
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=json&_method=POST&rut={{rut}}" target="_blank" download="{{rut.json}}">JSON</a></li>
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=xml&_method=POST&rut={{rut}}" target="_blank" download="{{rut.xml}}">XML</a></li>
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=csv&_method=POST&rut={{rut}}" target="_blank" download="{{rut.csv}}">CSV</a></li>
+            <li><a ng-href="{{API_URL}}/_queries/public/api/entities.jq?format=excel&_method=POST&rut={{rut}}" target="_blank" download="{{rut.csv}}">Excel</a></li>
+        </ul>
+        </span>
+>>>>>>> svsxbrl.info bootstrap
     </div>
 </div>
 <div class="container" id="entity-summary">
     <table class="table" cellpadding="5">
               <tr>
+<<<<<<< HEAD
                 <td style="width: 40%" translate>CIK</td><td>{{cik}}</td>
               </tr>
               <tr>
@@ -42,6 +57,12 @@
               </tr>
               <tr>
                 <td translate>Is a Trust</td><td ng-show="entity.Profiles.SEC.IsTrust" translate>Yes</td><td ng-hide="entity.Profiles.SEC.IsTrust" translate>No</td>
+=======
+                <td style="width: 40%">RUT</td><td>{{rut}}</td>
+              </tr>
+              <tr>
+                <td>Ticker Symbol</td><td>{{entity.Profiles.SVS.Tickers[0]}}</td>
+>>>>>>> svsxbrl.info bootstrap
               </tr>
         </table>    
     </div>

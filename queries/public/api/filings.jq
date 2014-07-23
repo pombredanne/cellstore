@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
+=======
+import module namespace facts = "http://xbrl.io/modules/bizql/facts";
+
+import module namespace entities = "http://xbrl.io/modules/bizql/entities";
+>>>>>>> svsxbrl.info bootstrap
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
 
 import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
@@ -12,6 +18,7 @@ import module namespace session = "http://apps.28.io/session";
 
 session:audit-call();
 
+<<<<<<< HEAD
 (: Query parameters :)
 let $format as string?         := request:param-values("format")
 let $ciks as string*           := distinct-values(request:param-values("cik"))
@@ -21,6 +28,45 @@ let $sics as string*           := distinct-values(request:param-values("sic"))
 let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
 let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*           := distinct-values(request:param-values("aid"))
+=======
+declare function local:to-xml($filings as object*) as node()*
+{
+    ( session:comment("xml", {
+        NumArchives: count($filings),
+        TotalNumArchives: session:num-archives(),
+        TotalNumEntities: session:num-entities()
+    }),
+    <Filings>{
+        for $f in $filings
+        return
+        <Filing>
+            <RUT>{$f.RUT}</RUT>
+            <EntityRegistrantName>{$f.EntityRegistrantName}</EntityRegistrantName>
+            <FormType>{$f.FormType}</FormType>
+            <FiscalYear>{$f.FiscalYear}</FiscalYear>
+            <FiscalPeriod>{$f.FiscalPeriod}</FiscalPeriod>
+            <Accepted>{$f.Accepted}</Accepted>
+            <Generator>{$f.Generator}</Generator>
+            <AccessionNumber>{$f.AccessionNumber}</AccessionNumber>
+            <SECFilingPage>{$f.SECFilingPage}</SECFilingPage>
+            <XBRLInstanceURL>{$f.XBRLInstanceURL}</XBRLInstanceURL>
+            <Networks>{$f.Networks}</Networks> 
+            <ReportElements>{$f.ReportElements}</ReportElements> 
+            <Tables>{$f.Tables}</Tables> 
+            <Axis>{$f.Axis}</Axis> 
+            <Members>{$f.Members}</Members> 
+            <LineItems>{$f.LineItems}</LineItems> 
+            <Concepts>{$f.Concepts}</Concepts> 
+            <Abstracts>{$f.Abstracts}</Abstracts> 
+            <Footnotes>{$f.Footnotes}</Footnotes> 
+            <Facts>{$f.Facts}</Facts> 
+            <ExtensionFacts>{$f.ExtensionFacts}</ExtensionFacts>  
+            <ExtensionConcepts>{$f.ExtensionConcepts}</ExtensionConcepts> 
+            <ExtensionAbstracts>{$f.ExtensionAbstracts}</ExtensionAbstracts> 
+        </Filing>
+    }</Filings>)
+};
+>>>>>>> svsxbrl.info bootstrap
 
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
@@ -58,6 +104,7 @@ let $summaries := for $f in filings:summaries($archives)
 let $result := { "Archives" : [ $summaries ] }
 let $comment :=
 {
+<<<<<<< HEAD
     NumArchives: count($summaries),
     TotalNumArchives: session:num-archives(),
     TotalNumEntities: session:num-entities()
@@ -70,9 +117,75 @@ let $serializers := {
     },
     to-csv : function($res as object) as string {
         string-join(filings:summaries-to-csv($res.Archives[]))
+=======
+    {
+        RUT : $a.Entity,
+        EntityRegistrantName : 
+            facts:facts-for-archives-and-concepts($a, "dei:EntityRegistrantName").Value,
+        FormType : filings:document-types($a),
+        FiscalYear : fiscal:fiscal-year($a),
+        FiscalPeriod : fiscal:fiscal-period($a),
+        Accepted : filings:acceptance-dateTimes($a),
+        Generator : filings:generators($a),
+        AccessionNumber: $a._id,
+        SECFilingPage : $a.Profiles.SEC.SECFilingPage,
+        XBRLInstanceURL : $a.InstanceURL,
+        Networks : filings:num-networks($a),
+        ReportElements : filings:num-report-elements($a),
+        Tables : filings:num-tables($a),
+        Axis : filings:num-axes($a),
+        Members : filings:num-members($a),
+        LineItems : $a.Statistics.Profiles.SEC.NumDistinctReportElementNamesEndingWithLineItems,
+        Concepts : filings:num-concepts($a),
+        Abstracts : filings:num-abstracts($a),
+        Footnotes : filings:num-footnotes($a),
+        Facts: filings:num-facts($a),
+        ExtensionFacts:  filings:num-extension-facts($a),
+        ExtensionConcepts : filings:num-extension-concepts($a),
+        ExtensionAbstracts : filings:num-extension-abstracts($a) 
+>>>>>>> svsxbrl.info bootstrap
     }
 }
 
+<<<<<<< HEAD
 let $results := util:serialize($result, $comment, $serializers, $format, "filings")
+=======
+let $format      := lower-case(request:param-values("format")[1])
+let $ruts        := distinct-values(request:param-values("rut") ! ("http://www.svs.cl/rut " || $$))
+let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
+let $tickers     := distinct-values(request:param-values("ticker"))
+let $sics        := distinct-values(request:param-values("sic"))
+let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
+                      return
+                        if (($fp ! lower-case($$)) = "all")
+                        then $fiscal:ALL_FISCAL_PERIODS
+                        else if (($fp ! lower-case($$)) = "fy")
+                        then ("FY", "Q4")
+                        else $fp)
+let $aids     := request:param-values("aid")
+let $fiscalYears := distinct-values(
+                    for $y in request:param-values("fiscalYear", "LATEST")
+                    return
+                        if ($y eq "ALL")
+                        then $fiscal:ALL_FISCAL_YEARS
+                        else if ($y eq "LATEST")
+                          then for $cik in $ruts
+                               for $fp in $fiscalPeriods
+                               return
+                                   if ($fiscal:ALL_FISCAL_PERIODS eq $fp)
+                                   then
+                                       (fiscal:latest-reported-fiscal-period($cik).year) ! ($$ cast as integer) 
+                                   else 
+                                       (fiscal:latest-reported-fiscal-period($cik, $fp).year) ! ($$ cast as integer) 
+                        else if ($y castable as integer)
+                        then $y cast as integer
+                        else ()
+                )
+let $archives := (archives:archives($aids),
+                    for $fp in $fiscalPeriods, $fy in $fiscalYears
+                    return
+                      fiscal:filings-for-entities-and-fiscal-periods-and-years($ruts, $fp, $fy)) 
+let $entities := entities:entities($archives.Entities)
+>>>>>>> svsxbrl.info bootstrap
 return
     util:check-and-return-results($entities, $results, $format)

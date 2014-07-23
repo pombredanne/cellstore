@@ -2,10 +2,11 @@
     <div class="menu">
         <div class="container">
             <h4>
-                {{entity.Profiles.SEC.CompanyName}}
+                {{entity.Profiles.SVS.CompanyName}}
                 <small><a href="/entity">(switch entity)</a></small>
             </h4>
             <div class="btn-group">
+<<<<<<< HEAD
                 <a class="btn btn-default" ng-class="{ active: subActive === 'summary' }" ui-sref="root.entity.summary({ cik: cik })">
                     <i class="fa fa-home"></i> <span translate>Summary</span>
                 </a>
@@ -17,6 +18,19 @@
                 </a>
                 <a class="btn btn-default"  ng-class="{ active: subActive === 'dashboard' }" ui-sref="root.entity.dashboard({ cik: cik })">
                     <i class="fa fa-bar-chart-o"></i> <span translate>Basic Analysis</span>
+=======
+                <a class="btn btn-default" ng-class="{ active: subActive === 'summary' }" ui-sref="root.entity.summary({ rut: rut })">
+                    <i class="fa fa-home"></i> Summary
+                </a>
+                <a class="btn btn-default" ng-class="{ active: subActive === 'filings' }" ui-sref="root.entity.filings({ rut: rut })">
+                    <i class="fa fa-briefcase"></i> Filings
+                </a>
+                <a class="btn btn-default"  ng-class="{ active: subActive === 'information' }" ui-sref="root.entity.information({ rut: rut })">
+                    <i class="fa fa-sitemap"></i> Basic Financial Information
+                </a>
+                <a class="btn btn-default"  ng-class="{ active: subActive === 'dashboard' }" ui-sref="root.entity.dashboard({ rut: rut })">
+                    <i class="fa fa-bar-chart-o"></i> Basic Analysis
+>>>>>>> svsxbrl.info bootstrap
                 </a>
             </div>
         </div>
