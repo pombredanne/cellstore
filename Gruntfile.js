@@ -1,4 +1,3 @@
-// Generated on 2013-07-29 using generator-angular 0.3.0
 'use strict';
 
 var LIVERELOAD_PORT = 35729;
@@ -32,7 +31,6 @@ module.exports = function (grunt) {
     } catch (e) {}
 
     grunt.initConfig({
-        aws: grunt.file.readJSON('grunt-aws.json'),
         yeoman: yeomanConfig,
         api: grunt.file.readJSON('grunt-api.json'),
         watch: {
@@ -345,8 +343,6 @@ module.exports = function (grunt) {
         },
         s3: {
             options: {
-                key: '<%= aws.key %>',
-                secret: '<%= aws.secret %>',
                 access: 'public-read',
                 maxOperations: 5,
                 gzip: true,
