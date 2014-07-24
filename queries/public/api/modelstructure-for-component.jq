@@ -122,96 +122,6 @@ declare function local:enrich-json($component as object) as object
     }
 };
 
-<<<<<<< HEAD
-session:audit-call();
-
-(: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $ciks as string*           := distinct-values(request:param-values("cik"))
-let $tags as string*           := distinct-values(request:param-values("tag"))
-let $tickers as string*        := distinct-values(request:param-values("ticker"))
-let $sics as string*           := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
-let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
-let $aids as string*           := distinct-values(request:param-values("aid"))
-let $roles as string*          := request:param-values("networkIdentifier")
-let $cid as string?           := request:param-values("cid")
-let $reportElements as string* := distinct-values(request:param-values("reportElement"))
-let $concepts as string*       := distinct-values(request:param-values("concept"))
-let $disclosures as string*    := request:param-values("disclosure")
-let $search as string*         := request:param-values("label")
-
-(: Post-processing :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
-let $tags as string* := (: backwards compatibility, to be deprecated :)
-    distinct-values($tags ! upper-case($$))
-let $fiscalYears as integer* :=
-    for $fy in $fiscalYears ! upper-case($$)
-    return switch($fy)
-           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
-           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
-           default return if($fy castable as integer) then integer($fy) else ()
-let $fiscalPeriods as string* :=
-    for $fp in $fiscalPeriods ! upper-case($$)
-    return switch($fp)
-           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
-           default return $fp
-let $reportElements := ($reportElements, $concepts)
-
-(: Object resolution :)
-let $entities := 
-    companies2:companies(
-        $ciks,
-        $tags,
-        $tickers,
-        $sics)
-let $archives as object* := fiscal-core2:filings(
-    $entities,
-    $fiscalPeriods,
-    $fiscalYears,
-    $aids)
-let $components  := sec-networks2:components(
-    $archives,
-    $cid,
-    $reportElements,
-    $disclosures,
-    $roles,
-    $search)
-let $component := $components[1] (: only one for now :)
-let $archive   := archives:archives($component.Archive)
-let $entity    := entities:entities($archive.Entity)
-
-let $result := {|
-    { CIK : $entity._id },
-    { EntityRegistrantName : $entity.Profiles.SEC.CompanyName },
-    { ModelStructure : [ sec-networks:model-structures($component) ] },
-    { TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name },
-    { Label : $component.Label },
-    { AccessionNumber : $component.Archive },
-    { FormType : $archive.Profiles.SEC.FormType },
-    { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus },
-    { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus },
-    { AcceptanceDatetime : filings:acceptance-dateTimes($archive) },
-    { NetworkIdentifier: $component.Role },
-    { Disclosure : $component.Profiles.SEC.Disclosure }
-|}
-let $comment := {
-    TotalNumArchives: session:num-archives(),
-    TotalNumEntities: session:num-entities()
-}
-let $serializers := {
-    to-xml : local:to-xml#1,
-    to-csv : local:to-csv#1
-}
-return if (exists($component))
-    then util:serialize($result, $comment, $serializers, $format, "components")
-    else {
-        response:status-code(404);
-        response:content-type("application/json");
-        session:error("component not found", "json")
-    }
-=======
 declare function local:components-by-roles($roles as string*, $aids as string*) as object*
 {
     let $conn :=   
@@ -371,4 +281,3 @@ return
         response:status-code(401);
         session:error("accessing fact table for an entity that is not in the DOW30", $format)
      }
->>>>>>> cik/CIK -> rut/RUT
