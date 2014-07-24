@@ -17,6 +17,7 @@ declare variable $sendmail:CONFIG :=
     </config>;
 
 declare %an:sequential function sendmail:send($email as xs:string, $subject as xs:string, $message as xs:string)
+as empty-sequence()
 {
    variable $host := validate strict
    {

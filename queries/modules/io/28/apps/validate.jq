@@ -40,7 +40,7 @@ as object
 };
 
 declare %private updating function validation:validate-field($type as string, 
-  $object as object, $key as string)
+  $object as object, $key as string) 
 {
   switch ($type)
     case "boolean" return

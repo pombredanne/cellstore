@@ -313,7 +313,7 @@ as empty-sequence()
 
 };
 
-declare function user:resolve($user-id)
+declare function user:resolve($user-id as atomic)
 as string
 {
     if (empty($user-id) or $user-id eq null)
