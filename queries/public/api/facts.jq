@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-import module namespace util = "http://secxbrl.info/modules/util";
-import module namespace session = "http://apps.28.io/session";
-=======
 (: SVS PARTIAL, FIX constants :)
 import module namespace companies = "http://xbrl.io/modules/bizql/profiles/svs/companies";
 import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace svs-fiscal = "http://xbrl.io/modules/bizql/profiles/svs/fiscal/core";
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
->>>>>>> Updated query name in information.js and backend.js
 
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
@@ -43,69 +38,6 @@ declare function local:hypercube(
     $fiscalYears as integer*,
     $aids as string*) as object
 {
-<<<<<<< HEAD
-    let $shortcut-hypercube-spec :=
-    {|
-        let $concepts := request:param-values("concept")
-        return { "xbrl:Concept" : { Domain : [ $concepts ] } }[exists($concepts)],
-        fiscal-core2:filter-override(
-            $entities,
-            $fiscalYears,
-            $fiscalPeriods,
-            $aids)
-    |}
-    let $main-hypercube-spec :=
-    {|
-        {
-            "dei:LegalEntityAxis" : {
-                "Domain" : [ "sec:DefaultLegalEntity" ],
-                "Default" : "sec:DefaultLegalEntity"
-            }
-        }[not local:contains-aspect("dei:LegalEntityAxis")],
-
-        for $parameter in (
-            request:param-names(),
-            keys($shortcut-hypercube-spec),
-            "sec:Accepted",
-            "sec:FiscalPeriod",
-            "sec:FiscalYear")
-        where contains($parameter, ":")
-        group by $dimension-name :=
-            switch(true)
-            case ends-with(lower-case($parameter), "::default")
-                return substring-before($parameter, "::default")
-            case ends-with(lower-case($parameter), ":default")
-                return substring-before($parameter, ":default")
-            case ends-with(lower-case($parameter), "::type")
-                return substring-before($parameter, "::type")
-            default
-                return $parameter
-        let $all as boolean :=
-            (request:param-values($dimension-name) ! upper-case($$)) = "ALL"
-        let $user-defined-type as string? :=
-            (request:param-values($dimension-name || "::type"), request:param-values($dimension-name || ":type"))[1]
-        let $type as string? :=
-            switch(true)
-            case exists($user-defined-type)
-                return $user-defined-type
-            case exists($shortcut-hypercube-spec.$dimension-name.Type)
-                return $shortcut-hypercube-spec.$dimension-name.Type
-            default
-                return ()
-        let $values := (request:param-values($dimension-name), $shortcut-hypercube-spec.$dimension-name.Domain[])
-        let $typed-values := if (exists($type)) then local:cast-sequence($values, $type) else $values
-        let $has-default := ($parameter = $dimension-name || "::default") or ($parameter = $dimension-name || ":default")
-        let $default-value := (request:param-values($dimension-name || "::default"), request:param-values($dimension-name || ":default"))[1]
-        let $typed-default-value := if (exists($type)) then local:cast-sequence($default-value, $type) else $default-value
-        return
-        {
-            $dimension-name : {|
-                { "Type" : $type }[exists($type)],
-                { "Domain" : [ $typed-values ] }[(exists($typed-values) and not($all))],
-                { "Default" : $typed-default-value }[$has-default]
-            |}
-        }
-=======
     let $aspects :=
         {|
             { "xbrl:Concept" : $concepts },
@@ -177,61 +109,10 @@ declare function local:hypercube(
         if (exists($map))
         then { "ReportedConcept" : $fact.AuditTrails[].Data.OriginalConcept[1] }
         else () 
->>>>>>> Updated query name in information.js and backend.js
     |}
     return hypercubes:user-defined-hypercube($main-hypercube-spec)
 };
 
-<<<<<<< HEAD
-session:audit-call();
-
-(: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $ciks as string*           := distinct-values(request:param-values("cik"))
-let $tags as string*           := distinct-values(request:param-values("tag"))
-let $tickers as string*        := distinct-values(request:param-values("ticker"))
-let $sics as string*           := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
-let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
-let $aids as string*           := distinct-values(request:param-values("aid"))
-let $map as string?            := request:param-values("map")
-let $rule as string?            := request:param-values("rule")
-let $validate as string       := request:param-values("validate", "false")
-
-(: Post-processing :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
-let $tags as string* := (: backwards compatibility, to be deprecated :)
-    distinct-values($tags ! upper-case($$))
-let $fiscalYears as integer* :=
-    for $fy in $fiscalYears ! upper-case($$)
-    return switch($fy)
-           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
-           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
-           default return if($fy castable as integer) then integer($fy) else ()
-let $fiscalPeriods as string* :=
-    for $fp in $fiscalPeriods ! upper-case($$)
-    return switch($fp)
-           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
-           default return $fp
-let $validate as boolean := $validate = "true"
-
-(: Object resolution :)
-let $entities as object* := 
-    companies2:companies(
-        $ciks,
-        $tags,
-        $tickers,
-        $sics)
-let $archives as object* := fiscal-core2:filings(
-    $entities,
-    $fiscalPeriods,
-    $fiscalYears,
-    $aids)
-let $entities := entities:entities($archives.Entity)
-
-let $hypercube := local:hypercube($entities, $fiscalPeriods, $fiscalYears, $aids)
-=======
 declare function local:filings(
     $ruts as string*,
     $tags as string*,
@@ -263,7 +144,6 @@ declare function local:filings(
     for $fp in $fp
     return svs-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity, $fp, $fy cast as integer)
 };
->>>>>>> Updated query name in information.js and backend.js
 
 let $facts :=
     if(empty($archives))
@@ -310,16 +190,6 @@ let $serializers := {
     }
 }
 
-<<<<<<< HEAD
-return 
-    if(empty($archives))
-    then {
-        response:status-code(400);
-        session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
-    }
-    else let $results := util:serialize($result, $comment, $serializers, $format, "facts")
-         return util:check-and-return-results($entities, $results, $format)
-=======
 (: choose 
     1. entities (using ruts, tags, tickers, sics), FY, and FP ) or
     2. accession numbers
@@ -340,11 +210,7 @@ let $fiscalYears := distinct-values(
 let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPeriod", "FY")
                       return
                         if (($fp ! lower-case($$)) = "all")
-<<<<<<< HEAD
-                        then $sec-fiscal:ALL_FISCAL_PERIODS
-=======
                         then $svs-fiscal:ALL_FISCAL_PERIODS
->>>>>>> Updated query name in information.js and backend.js
                         else $fp)
 let $aids := request:param-values("aid")
 let $dimensions :=  for $p in request:param-names()
@@ -435,4 +301,3 @@ return
                         })
                 |}
             }
->>>>>>> cik/CIK -> rut/RUT
