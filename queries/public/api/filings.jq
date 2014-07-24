@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-=======
-=======
 (: SVS OK:)
->>>>>>> Updated query name in information.js and backend.js
 import module namespace facts = "http://xbrl.io/modules/bizql/facts";
 
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
->>>>>>> svsxbrl.info bootstrap
 import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
 
 import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
@@ -22,17 +15,6 @@ import module namespace session = "http://apps.28.io/session";
 
 session:audit-call();
 
-<<<<<<< HEAD
-(: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $ciks as string*           := distinct-values(request:param-values("cik"))
-let $tags as string*           := distinct-values(request:param-values("tag"))
-let $tickers as string*        := distinct-values(request:param-values("ticker"))
-let $sics as string*           := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
-let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
-let $aids as string*           := distinct-values(request:param-values("aid"))
-=======
 declare function local:to-xml($filings as object*) as node()*
 {
     ( session:comment("xml", {
@@ -70,7 +52,6 @@ declare function local:to-xml($filings as object*) as node()*
         </Filing>
     }</Filings>)
 };
->>>>>>> svsxbrl.info bootstrap
 
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
@@ -108,20 +89,6 @@ let $summaries := for $f in filings:summaries($archives)
 let $result := { "Archives" : [ $summaries ] }
 let $comment :=
 {
-<<<<<<< HEAD
-    NumArchives: count($summaries),
-    TotalNumArchives: session:num-archives(),
-    TotalNumEntities: session:num-entities()
-}
-let $serializers := {
-    to-xml : function($res as object) as node() {
-        <Filings>{
-            filings:summaries-to-xml($res.Archives[])   
-        }</Filings>
-    },
-    to-csv : function($res as object) as string {
-        string-join(filings:summaries-to-csv($res.Archives[]))
-=======
     {
         RUT : $a.Entity,
         EntityRegistrantName : 
@@ -147,23 +114,12 @@ let $serializers := {
         ExtensionFacts:  filings:num-extension-facts($a),
         ExtensionConcepts : filings:num-extension-concepts($a),
         ExtensionAbstracts : filings:num-extension-abstracts($a) 
-<<<<<<< HEAD
->>>>>>> svsxbrl.info bootstrap
     }
 }
-
-<<<<<<< HEAD
-let $results := util:serialize($result, $comment, $serializers, $format, "filings")
-=======
-let $format      := lower-case(request:param-values("format")[1])
-let $ruts        := distinct-values(request:param-values("rut") ! ("http://www.svs.cl/rut " || $$))
-=======
-    }
 };
 
 let $format      := lower-case(request:param-values("format")[1])
 let $ruts        := distinct-values(companies:eid(request:param-values("rut")))
->>>>>>> Updated query name in information.js and backend.js
 let $tags        := distinct-values(request:param-values("tag") ! upper-case($$))
 let $tickers     := distinct-values(request:param-values("ticker"))
 let $sics        := distinct-values(request:param-values("sic"))
@@ -175,13 +131,10 @@ let $fiscalPeriods := distinct-values(let $fp := request:param-values("fiscalPer
                         then ("FY", "Q4")
                         else $fp)
 let $aids     := request:param-values("aid")
-<<<<<<< HEAD
-=======
 let $ruts := ($ruts, 
     companies:companies-for-tags($tags),
     companies:companies-for-tickers($tickers),
     companies:companies-for-SIC($sics))
->>>>>>> Updated query name in information.js and backend.js
 let $fiscalYears := distinct-values(
                     for $y in request:param-values("fiscalYear", "LATEST")
                     return
@@ -204,11 +157,6 @@ let $archives := (archives:archives($aids),
                     for $fp in $fiscalPeriods, $fy in $fiscalYears
                     return
                       fiscal:filings-for-entities-and-fiscal-periods-and-years($ruts, $fp, $fy)) 
-<<<<<<< HEAD
-let $entities := entities:entities($archives.Entities)
->>>>>>> svsxbrl.info bootstrap
-=======
 let $entities := companies:companies($archives.Entities)
->>>>>>> Updated query name in information.js and backend.js
 return
     util:check-and-return-results($entities, $results, $format)
