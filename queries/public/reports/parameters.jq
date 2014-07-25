@@ -8,9 +8,12 @@ import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 let $param := lower-case(request:param-values("parameter"))
 
 let $years :=
-    for $year in 2009 to fn:year-from-date(current-date())
-    order by $year descending
-    return $year
+    (   
+        "LATEST",
+        for $year in 2009 to fn:year-from-date(current-date())
+        order by $year descending
+        return $year
+    )
 
 let $periods := ("FY", "Q3", "Q2", "Q1")
 
