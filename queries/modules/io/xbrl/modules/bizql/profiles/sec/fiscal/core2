@@ -72,7 +72,7 @@ declare function fiscal-core2:filter-override(
     let $latest-filings := fiscal-core2:latest-filings($entities, $fiscal-periods)
     return
     switch(true)
-    case size($aids) gt 0 return {
+    case count($aids) gt 0 return {
         "sec:Archive" : {
             Type: "string",
             Domain : [ $aids ]
