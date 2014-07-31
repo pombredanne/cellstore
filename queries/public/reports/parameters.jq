@@ -18,10 +18,11 @@ let $sics :=
     let $c := mongo:connect("xbrl", {})
     return 
         for $s in mongo:find($c, "sics")
+        group by $s.ID
         return {
-            ID: $s.ID,
-            Description: $s.Description,
-            Sector: $s.Sector
+            ID: $s[1].ID,
+            Description: $s[1].Description,
+            Sector: $s[1].Sector
         }
 
 let $tags := ("DOW30", "SP500", "FORTUNE100", "PJI")
