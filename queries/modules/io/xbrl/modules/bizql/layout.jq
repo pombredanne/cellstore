@@ -232,7 +232,7 @@ declare function layout:matches-aspects(
     $fact as object,
     $aspect-constraints as object,
     $participating-aspects as string*,
-    $defaults) as boolean
+    $defaults as object?) as boolean
 {
     (
         every $aspect in $participating-aspects
@@ -442,7 +442,6 @@ declare function layout:eliminate($header-groups as array*, $empty-columns as in
     return if(empty($first-group))
            then ()
            else
-               let $width as integer := sum(($first-group[[1]])[].CellSpan)
                let $new-first-group as array := [
                   for $row as array in $first-group[]
                   return [

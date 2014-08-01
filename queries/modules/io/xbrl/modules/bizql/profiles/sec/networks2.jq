@@ -206,7 +206,7 @@ declare %private function sec-networks2:standard-explicit-dimension-breakdown(
     $dimension-name as string,
     $dimension-label as string,
     $domain-names as string*,
-    $role as string)
+    $role as string) as object
 {
     {
         BreakdownLabels: [ "Dimension Breakdown" ],
@@ -231,7 +231,7 @@ declare %private function sec-networks2:standard-explicit-dimension-breakdown(
     }
 };
 
-declare %private function sec-networks2:standard-entity-breakdown()
+declare %private function sec-networks2:standard-entity-breakdown() as object
 {
     {
         BreakdownLabels: [ "Entity breakdown" ],
@@ -252,7 +252,7 @@ declare %private function sec-networks2:standard-entity-breakdown()
 
 declare %private function sec-networks2:standard-concept-breakdown(
     $line-items-elements as string*,
-    $role as string)
+    $role as string) as object
 {
     {
         BreakdownLabels: [ "Breakdown on concepts" ],
