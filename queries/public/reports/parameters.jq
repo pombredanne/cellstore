@@ -9,6 +9,7 @@ let $param := lower-case(request:param-values("parameter"))
 
 let $years :=
     (
+        "LATEST",
         if(month-from-date(current-date()) gt 4) 
         then year-from-date(current-date()) + 1
         else (),
