@@ -318,10 +318,10 @@ angular.module('main', [
         templateUrl: '/views/entity/spreadsheet.html',
         controller: 'SpreadsheetCtrl',
         resolve: {
-        	component: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
-                 return $backend.Queries.listComponents({ _method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
+            component: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+                return $backend.Queries.listComponents({ _method: 'POST', aid: $stateParams.aid, networkIdentifier: $stateParams.networkIdentifier, token: $rootScope.token });
             }],
-            spreadsheet: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend){            	
+            spreadsheet: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
                 return $backend.Queries.spreadsheetForComponent({
                     _method : 'POST',
                     aid : $stateParams.aid,
