@@ -12,7 +12,7 @@ declare %an:sequential function local:check($o as object) as object
 {
     if (not(every $k in (keys($o) ! $o.$$) satisfies ($k instance of boolean and $k)))
     then {
-            response:status-code(500);
+            response:status-code(200);
             $o
     } else
             $o
@@ -20,8 +20,8 @@ declare %an:sequential function local:check($o as object) as object
 
 
 local:check({
-    cocacola: local:test-spreadsheet(85, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=LATEST&fiscalPeriod=Q1"),
+    cocacola: local:test-spreadsheet(85, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalPeriod=Q1"),
     tickerrole: local:test-spreadsheet(85, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
     tickerconcept: local:test-spreadsheet(416, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=ALL"),
-    tickerfyfprole: local:test-spreadsheet(173, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=LATEST&fiscalPeriod=FY&eliminate=true") 
+    tickerfyfprole: local:test-spreadsheet(173, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=2013&fiscalPeriod=FY&eliminate=true") 
 })

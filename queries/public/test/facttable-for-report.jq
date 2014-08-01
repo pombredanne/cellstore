@@ -21,8 +21,8 @@ declare %an:sequential function local:check($o as object) as object
 };
 
 local:check({
-    cocacola: local:test-facttable(84, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=LATEST&fiscalPeriod=Q1"),
-    tickerrole: local:test-facttable(84, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
-    tickerconcept: local:test-facttable(410, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=ALL"),
-    tickerfyfprole: local:test-facttable(171, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=LATEST&fiscalPeriod=FY") 
+    cocacola: local:test-facttable(74, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalPeriod=Q1"),
+    tickerrole: local:test-facttable(74, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
+    tickerconcept: local:test-facttable(368, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=ALL"),
+    tickerfyfprole: local:test-facttable(149, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=2013&fiscalPeriod=FY") 
 })
