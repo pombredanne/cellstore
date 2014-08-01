@@ -39,8 +39,11 @@ as object
   return $validated-object
 };
 
-declare %private updating function validation:validate-field($type as string, 
-  $object as object, $key as string) 
+declare %private updating function validation:validate-field(
+  $type as string, 
+  $object as object,
+  $key as string)
+  as empty-sequence()
 {
   switch ($type)
     case "boolean" return

@@ -21,8 +21,6 @@ declare variable $recurly-api:VALID-NUMBER := "[A-Za-z0-9]+";
 declare %an:sequential function recurly-api:get-billing-info($account as object) 
 as object()
 {
-  recurly-api:verify-recurly($account);
-  
   variable $account-code := recurly-api:ensure-billing-account($account);
 
   variable $request :=
@@ -52,10 +50,7 @@ as object()
   |}
   else if ($response("status") eq 404)
   then $update-info
-  else
-  {
-    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve billing information");
-  }
+  else fn:error(xs:QName("recurly-api:error"), "Cannot retrieve billing information")
 };
 
 (:
@@ -64,8 +59,6 @@ as object()
 declare %an:sequential function recurly-api:set-billing-info($account as object, $recurly-token as string)
 as object()
 {
-  recurly-api:verify-recurly($account);
-  
   variable $account-code := recurly-api:ensure-billing-account($account);
   variable $request :=
   {
@@ -102,17 +95,7 @@ as object()
     { "billingData": recurly-api:object-result($response, ("first_six")) },
     $update-info
   |}
-  else if ($response("status") eq 422)
-  then
-  {
-    (:let $result := recurly-api:error-result($response)
-    return :)
-    fn:error(xs:QName("recurly-api:error"),"Cannot update billing information"); 
-  }
-  else
-  {
-    fn:error(xs:QName("recurly-api:error"), "Cannot update billing information");
-  }
+  else fn:error(xs:QName("recurly-api:error"), "Cannot update billing information")
 };
 
 (:
@@ -123,8 +106,6 @@ declare %an:sequential function recurly-api:update-billing-info($account as obje
   $billing-info as object())
 as object()
 {
-  recurly-api:verify-recurly($account);
-  
   variable $account-code := recurly-api:ensure-billing-account($account);
   variable $request :=
   {
@@ -167,19 +148,7 @@ as object()
 
   if ($response("status") = (200, 201))
   then recurly-api:object-result($response, ("first_six"))
-  else if ($response("status") eq 422)
-  then
-  {
-    (:
-    let $result := recurly-api:error-result($response)
-    return
-    :)
-    fn:error(xs:QName("recurly-api:error"),"Cannot update billing information"); 
-  }
-  else
-  {
-    fn:error(xs:QName("recurly-api:error"), "Cannot update billing information");
-  }
+  else fn:error(xs:QName("recurly-api:error"), "Cannot update billing information")
 };
 
 (:
@@ -189,8 +158,6 @@ as object()
 declare %an:sequential function recurly-api:ensure-billing-account($account as object)
 as xs:string
 {
-  recurly-api:verify-recurly($account);
-  
   variable $billing-account := recurly-api:billing-account($account);
   if ($billing-account)
   then exit returning $billing-account;
@@ -280,18 +247,13 @@ as empty-sequence()
   variable $response := http:send-request($request);
   
   if ($response("status") eq 200)
-  then ();    
-  else
-  { 
-    fn:error(xs:QName("recurly-api:error"), "Cannot update recurly account");
-  }  
+  then ()
+  else fn:error(xs:QName("recurly-api:error"), "Cannot update recurly account")
 };
 
 declare %an:sequential function recurly-api:list-subscriptions($account as object)
 as array()
 {
-  recurly-api:verify-recurly($account);
-
   variable $billing-account := recurly-api:billing-account($account);  
   if (not($billing-account))
   then exit returning [];
@@ -312,16 +274,12 @@ as array()
   variable $response := http:send-request($request);
   if ($response("status") eq 200)
   then
-  {
     [
       for $subscription in members(recurly-api:array-result($response, ("a")))
       return $subscription
     ]
-  }
   else
-  { 
-    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve subscription list");
-  }
+    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve subscription list")
 };
 
 declare %an:sequential function recurly-api:create-subscription($account as object, 
@@ -335,9 +293,7 @@ declare %an:sequential function recurly-api:create-subscription($account as obje
   $plan as xs:string, $quantity as xs:positiveInteger, $coupon-code as xs:string?)
 as object()
 {
-  recurly-api:verify-recurly($account);
   recurly-api:verify-billing-information($account);
-  recurly-api:verify-updatable-plan($plan, $quantity);
   
   recurly-api:create-recurly-subscription($account, $plan, $quantity, $coupon-code)
 };
@@ -382,37 +338,18 @@ as object()
   variable $response := http:send-request($request);
   
   if ($response("status") eq 201)
-  then 
-  {
-    recurly-api:object-result($response, ("a")) 
-  }  
-  else if ($response("status") eq 422)
-  then
-  {
-    (:
-    let $result := recurly-api:error-result($response)
-    return
-    :)
-    fn:error(xs:QName("recurly-api:error"), "Cannot create recurly subscription"); 
-  }
-  else
-  {
-    fn:error(xs:QName("recurly-api:error"), "Cannot create recurly subscription");
-  }
+  then recurly-api:object-result($response, ("a"))    
+  else fn:error(xs:QName("recurly-api:error"), "Cannot create recurly subscription")
 };
 
 declare %an:sequential function recurly-api:get-subscription($account as object, 
   $subscription-uuid as xs:string)
 as object()
 {
-  recurly-api:verify-recurly($account);
-  
   variable $billing-account := recurly-api:billing-account($account);
   if (not($billing-account))
   then
-  {
     fn:error(xs:QName("recurly-api:error"), "Subscription not found");
-  }
   else ();
   
   variable $request :=
@@ -433,32 +370,23 @@ as object()
   if (substring-after(data($xml-response/account/@href), "https://api.recurly.com/v2/accounts/") eq $billing-account)
   then ();
   else 
-  {
     fn:error(xs:QName("recurly-api:error"), "Subscription not found");
-  }    
   
   if ($response("status") = 200)
-  then recurly-api:object-result($response, ("a")) 
+  then recurly-api:object-result($response, ("a"))  
   else if ($response("status") = 404)
   then
-  {
-    fn:error(xs:QName("recurly-api:error"), "Subscription not found");
-  }
+    fn:error(xs:QName("recurly-api:error"), "Subscription not found")
   else
-  {
-    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve subscription");
-  }
+    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve subscription")
 };
 
 declare %an:sequential function recurly-api:update-subscription($account as object, 
   $subscription-uuid as xs:string, $quantity as xs:positiveInteger)
 as object()
 {
-  recurly-api:verify-recurly($account);
   recurly-api:verify-billing-information($account);
-  variable $subscription := recurly-api:get-subscription($account, $subscription-uuid);
-  recurly-api:verify-updatable-plan($subscription("plan")("planCode"), $quantity);
-  
+  recurly-api:get-subscription($account, $subscription-uuid);
   
   variable $request :=
   {
@@ -498,10 +426,6 @@ as object()
   else if ($response("status") eq 422)
   then
   {
-    (:
-    let $result := recurly-api:error-result($response)
-    return
-    :)
     fn:error(xs:QName("recurly-api:error"), "Cannot update recurly subscription"); 
   }
   else
@@ -514,17 +438,15 @@ declare %an:sequential function recurly-api:terminate-subscription($account as o
   $subscription-uuid as xs:string)
 as object()
 {
-  recurly-api:verify-recurly($account);
   recurly-api:verify-billing-information($account);
-  variable $subscription := recurly-api:get-subscription($account, $subscription-uuid);
-  variable $plan := $subscription("plan")("planCode");
-  recurly-api:verify-updatable-plan($plan, 0);
+  recurly-api:get-subscription($account, $subscription-uuid);
   
-  recurly-api:terminate-recurly-subscription($subscription-uuid)
+  recurly-api:terminate-recurly-subscription($account, $subscription-uuid)
 };
 
-declare %an:sequential %private function recurly-api:terminate-recurly-subscription($subscription-uuid as xs:string)
-as object()
+declare %an:sequential %private function recurly-api:terminate-recurly-subscription(
+  $subscription-uuid as xs:string)
+  as object()
 {
   variable $request :=
   {
@@ -552,9 +474,6 @@ as object()
   else if ($response("status") eq 422)
   then
   {
-    (:let $result := recurly-api:error-result($response)
-    return
-    :)
     fn:error(xs:QName("recurly-api:error"), "Cannot terminate recurly subscription"); 
   }
   else
@@ -567,7 +486,6 @@ declare %an:sequential function recurly-api:list-invoices($account as object,
   $cursor as xs:string?, $limit as xs:positiveInteger?)
 as object()
 {
-  recurly-api:verify-recurly($account);
 
   variable $billing-account := recurly-api:billing-account($account);  
   if (not($billing-account))
@@ -625,8 +543,7 @@ as object()
   }
 };
 
-declare function recurly-api:parse-link-header($link-header as xs:string?)
-as object?
+declare function recurly-api:parse-link-header($link-header as xs:string?) as object?
 {
   if ($link-header)
   then
@@ -646,8 +563,6 @@ declare %an:sequential function recurly-api:get-invoice($account as object,
   $invoice-number as xs:string)
 as object()
 {
-  recurly-api:verify-recurly($account);
-  
   variable $billing-account := recurly-api:billing-account($account);  
   if (not($billing-account))
   then
@@ -690,8 +605,6 @@ declare %an:sequential function recurly-api:get-pdf-invoice($account as object,
   $invoice-number as xs:string)
 as xs:base64Binary
 {
-  recurly-api:verify-recurly($account);
-  
   variable $billing-account := recurly-api:billing-account($account);  
   if (not($billing-account))
   then
@@ -802,24 +715,6 @@ as xs:string
   "28msec-dev"
 };
 
-(:
- : Checks that the account can be billed (is not an internal/admin account) and
- : that recurly is enabled in the configuration.
- :)
-declare %private %an:sequential function recurly-api:verify-recurly((:$account as object:))
-as empty-sequence()
-{
-};
-
-(:
- : Checks that the given subscription can be modified through this API,
- : that is, it is a support or datasource subscription.
- :)
-declare %private %an:sequential function recurly-api:verify-updatable-plan((:$plan as xs:string, $quantity as xs:integer:)) as empty-sequence()
-{
-};
-
-
 declare %private function recurly-api:billing-account($account as object)
 as xs:string?
 {
@@ -847,8 +742,11 @@ as xs:string
   $sign || "|" || $urlParameters     
 };
 
-declare %private function recurly-api:xml-field($object as object(), $field-name as xs:string, 
-  $element-name as xs:string, $mandatory as xs:boolean) as element()?
+declare %private function recurly-api:xml-field(
+  $object as object(),
+  $field-name as xs:string, 
+  $element-name as string,
+  $mandatory as xs:boolean) as element()?
 {
   let $value := $object($field-name)
   return 
@@ -862,7 +760,7 @@ declare %private function recurly-api:xml-field($object as object(), $field-name
 
 declare %private %an:sequential function recurly-api:json-name($node as node()) as xs:string
 {
-  let $name := local-name($node)
+  let $name := fn:local-name($node)
   let $parts := tokenize($name, "_")
   return string-join(($parts[1],
     for $part in subsequence($parts,2)
@@ -896,20 +794,18 @@ declare %private %an:sequential function recurly-api:error-result($response as o
   |}
 };
 
-declare %private %an:sequential function recurly-api:object-result($response as object())
-as object()
-{
-  recurly-api:object-result($response, (), ())
-};
-
-declare %private %an:sequential function recurly-api:object-result($response as object(),
-  $exclude as xs:string*) as object()
+declare %private %an:sequential function recurly-api:object-result(
+  $response as object(),
+  $exclude as xs:string*)
+  as object()
 {
   recurly-api:object-result($response, $exclude, ())
 };
 
-declare %private %an:sequential function recurly-api:object-result($response as object(),
-  $exclude as xs:string*, $include-href as xs:string*)
+declare %private %an:sequential function recurly-api:object-result(
+  $response as object(),
+  $exclude as xs:string*,
+  $include-href as xs:string*)
   as object()
 {
     let $xml-response := recurly-api:xml-response($response)
@@ -924,19 +820,18 @@ declare %private %an:sequential function recurly-api:object-result($response as 
       }    
 };
 
-declare %private %an:sequential function recurly-api:array-result($response as object()) as array()
-{
-   recurly-api:array-result($response, (), ())
-};
-
-declare %private %an:sequential function recurly-api:array-result($response as object(), 
-  $exclude as xs:string*) as array()
+declare %private %an:sequential function recurly-api:array-result(
+  $response as object(), 
+  $exclude as xs:string*)
+  as array()
 {
    recurly-api:array-result($response, $exclude, ())
 };
 
-declare %private %an:sequential function recurly-api:array-result($response as object(), 
-  $exclude as xs:string*, $include-href as xs:string*) 
+declare %private %an:sequential function recurly-api:array-result(
+  $response as object(), 
+  $exclude as xs:string*,
+  $include-href as xs:string*) 
   as array()
 {
     let $xml-response := recurly-api:xml-response($response)
@@ -951,7 +846,8 @@ declare %private %an:sequential function recurly-api:array-result($response as o
       }
 };
 
-declare %private %an:sequential function recurly-api:base64Binary-result($response as object()) as xs:base64Binary
+declare %private %an:sequential function recurly-api:base64Binary-result($response as object())
+  as xs:base64Binary
 {
     let $result := $response("body")("content")
     return 
@@ -995,8 +891,13 @@ as item()?
     if ($element/@type eq "array")
     then ([for $child in $element/* return recurly-api:json-result($child, $exclude, $include-href)])
     else 
-      if ($element/* and $element/($$/*[not(local-name($$) = $exclude) and (not($$/@nil) or $$/@nil ne "nil")] |
-        $$/@*[not(local-name($$) = ("code", "href"))]))
+      if ($element/* and
+            (
+              $element/*[not(fn:local-name($$) = $exclude) and (not($$/@nil) or $$/@nil ne "nil")]
+              or
+              $element/@*[not(fn:local-name($$) = ("code", "href"))]
+            )
+         )
       then 
       {|
         for $attr in $element/@*[not(local-name($$) = ("code", "href"))]
@@ -1004,7 +905,7 @@ as item()?
         let $value := data($attr)
         return if (exists($value)) then { $name : $value } else (),
       
-        for $child in $element/*[not(local-name($$) = $exclude) and (not($$/@nil) or $$/@nil ne "nil")]
+        for $child in $element/*[not(fn:local-name($$) = $exclude) and (not($$/@nil) or $$/@nil ne "nil")]
         let $name := recurly-api:json-name($child)
         let $value := recurly-api:json-result($child, $exclude, $include-href)
         return if (exists($value)) then { $name : $value } else ()          

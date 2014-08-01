@@ -83,18 +83,13 @@ declare %private function accountant-converter:flatten-headers(
             $depth
         )
 
-        (:
-        let $is-roll-up := $roll-up-position ne 0 and $span ne $roll-up-span
-        :)
-
         let $new-first-header as object := copy $n := $first-header
                                            modify (insert json {
                                                         Depth: $depth,
                                                         IsAbstract: size($cells-to-the-right[[1]]) gt 1 or not $cells-to-the-right[[1]][[1]].RollUp
                                                    } into $n,
                                                    delete json $n.CellSpan,
-                                                   delete json $n.RollUp(:),
-                                                   if($is-roll-up) then insert json { IsRollUp: true } into $n else ():))
+                                                   delete json $n.RollUp)
                                            return $n
         
         return {

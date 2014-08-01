@@ -1293,8 +1293,8 @@ msgstr "Sorry, but the page you were trying to view does not exist."
 #: app/views/entity/components.html
 #: app/views/entity/facttable.html
 #: app/views/entity/modelstructure.html
-msgid "Spreadsheet View"
-msgstr "Spreadsheet View"
+msgid "Spreadsheet"
+msgstr "Spreadsheet (beta)"
 
 #: app/views/account/billing.html
 #: app/views/api.html

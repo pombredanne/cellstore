@@ -12,13 +12,23 @@ declare variable $reports:CONTEXT-NETWORKS-CONCEPTMAP := "ConceptMap";
 declare variable $reports:CONTEXT-HYPERCUBES := "Hypercubes";
 declare variable $reports:CONTEXT-RULES := "Rules";
 
-declare %private function reports:message($type as string, $context as string, $identifier as string, $message as string)
-as object
+declare %private function reports:message(
+  $type as string,
+  $context as string,
+  $identifier as string,
+  $message as string)
+  as object
 {
     reports:message($type, $context, $identifier, $message, ())
 };
 
-declare %private function reports:message($type as string, $context as string, $identifier as string, $message as string, $details as string?)
+declare %private function reports:message(
+  $type as string,
+  $context as string,
+  $identifier as string,
+  $message as string,
+  $details as string)
+
 as object
 {
     {|
