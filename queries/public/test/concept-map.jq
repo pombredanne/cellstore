@@ -1,5 +1,7 @@
 import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace response = "http://www.28msec.com/modules/http-response";
+
 
 declare %an:nondeterministic function local:test-map($expected as integer, $params as string) as atomic
 {
@@ -12,8 +14,17 @@ declare %an:nondeterministic function local:test-map($expected as integer, $para
         else "false [Actual="||$actual||", Expected="||$expected ||"]"
 };
 
+
+declare %an:sequential function local:check($o as object) as object
 {
-    Entities: {
-        all: local:test-map(1, "&name=FundamentalAccountingConcepts")
-    }
-}
+    if (not(every $k in (keys($o) ! $o.$$) satisfies ($k instance of boolean and $k)))
+    then {
+            response:status-code(500);
+            $o
+    } else
+            $o
+};
+
+local:check({
+    all: local:test-map(1, "&name=FundamentalAccountingConcepts")
+})

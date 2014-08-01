@@ -529,10 +529,10 @@ module.exports = function (grunt) {
     
     grunt.registerTask('default', [
         'xqlint',
+        'jsonlint',
+        'jshint',
         'nggettext_default',
         'nggettext_check',
         'nggettext_compile',
-        'jsonlint',
-        'jshint'
     ]);
 };
