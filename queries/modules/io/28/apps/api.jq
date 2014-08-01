@@ -61,7 +61,7 @@ as string
     else $count || " " || $plural
 };
 
-declare function api:passed($timestamp)
+declare function api:passed($timestamp as xs:dateTime?)
 as string
 {
     if (empty($timestamp) or $timestamp eq null)
@@ -84,12 +84,12 @@ as string
             else "Just Now"        
 };
 
-declare function api:success()
+declare function api:success() as object
 {
   { "success" : true }
 };
 
-declare function api:success($data as object())
+declare function api:success($data as object()) as object
 {
   {| 
      {"success" : true },
