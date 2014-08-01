@@ -532,7 +532,7 @@ module.exports = function (grunt) {
         'jsonlint',
         'jshint',
         'nggettext_default',
-        //'nggettext_check',
+        'nggettext_check',
         'nggettext_compile',
     ]);
 };
