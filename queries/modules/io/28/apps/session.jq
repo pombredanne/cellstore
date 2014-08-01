@@ -46,37 +46,37 @@ declare function session:comment($format as string, $stats as object)
     default return error()
 };
 
-declare function session:connect() as object
+declare function session:connect() as xs:anyURI
 {
     let $cred := cred:credentials("MongoDB", "xbrl")
     return mongo:connect($cred)
 };
 
-declare function session:num-facts() as object
+declare function session:num-facts() as xs:integer
 {
     let $conn := session:connect()
     return mongo:count($conn, "facts")
 };
 
-declare function session:num-archives() as object
+declare function session:num-archives() as xs:integer
 {
     let $conn := session:connect()
     return mongo:count($conn, "archives")
 };
 
-declare function session:num-components() as object
+declare function session:num-components() as xs:integer
 {
     let $conn := session:connect()
     return mongo:count($conn, "components")
 };
 
-declare function session:num-concepts() as object
+declare function session:num-concepts() as xs:integer
 {
     let $conn := session:connect()
     return mongo:count($conn, "concepts")
 };
 
-declare function session:num-entities() as object
+declare function session:num-entities() as xs:integer
 {
     let $conn := session:connect()
     return mongo:count($conn, "entities")
