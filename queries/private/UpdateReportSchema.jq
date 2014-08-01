@@ -1,7 +1,7 @@
 import module namespace fetch = "http://zorba.io/modules/fetch";
 import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
 
-let$schema := parse-json(fetch:content("/private/ReportSchema.jq", "MODULE"))
+let $schema := parse-json(fetch:content("/private/ReportSchema.jq", "MODULE"))
 
 (: ################ 
    for whom do you want to reset/init the FACs?
