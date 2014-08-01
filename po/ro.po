@@ -1293,8 +1293,8 @@ msgstr "Ne pare rău, dar pagina căutată nu există."
 #: app/views/entity/components.html
 #: app/views/entity/facttable.html
 #: app/views/entity/modelstructure.html
-msgid "Spreadsheet View"
-msgstr ""
+msgid "Spreadsheet"
+msgstr "Vizualizare (beta)"
 
 #: app/views/account/billing.html
 #: app/views/api.html
