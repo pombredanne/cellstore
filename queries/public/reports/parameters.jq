@@ -26,10 +26,11 @@ let $sics :=
     return 
         for $s in mongo:find($c, "sics")
         group by $s.ID
+        let $s := $s[1]
         return {
-            ID: $s[1].ID,
-            Description: $s[1].Description,
-            Sector: $s[1].Sector
+            ID: $s.ID,
+            Description: $s.Description,
+            Sector: $s.Sector
         }
 
 let $tags := ("DOW30", "SP500", "FORTUNE100", "PJI")
