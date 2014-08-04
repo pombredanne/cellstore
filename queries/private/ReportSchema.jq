@@ -1,17 +1,12 @@
 {
-  "_id" : "1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOa", 
+  "_id" : "1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOad", 
   "Archive" : null, 
   "Label" : "Fundamental Accounting Concepts", 
   "Description" : "Documentation about the fundamental accounting concepts defined in this report can be found at http://fundamentalaccountingconcepts.wikispaces.com/home", 
   "Prefix" : "fac", 
   "Role" : "http://xbrl.io/fundamental-accounting-concepts", 
-  "Owner" : "admin@28.io", 
-  "ACL" : [ {
-    "Type" : "Group", 
-    "Grantee" : "http://28.io/groups/AllUsers", 
-    "Permission" : "READ"
-  } ], 
-  "LastModified" : "2014-08-04T11:44:05.696725Z", 
+  "Owner" : "d@28.io", 
+  "LastModified" : "2014-08-04T17:29:47.431715Z", 
   "Networks" : [ {
     "LinkName" : "link:presentationLink", 
     "LinkRole" : "http://xbrl.io/fundamental-accounting-concepts", 
@@ -2230,7 +2225,7 @@
           "DomainRestriction" : {
             "Name" : "xbrl:EntityDomain", 
             "Label" : "Entity Domain", 
-            "Enumeration" : [ "http://www.sec.gov/CIK 0000021344" ]
+            "Enumeration" : [ "http://www.sec.gov/CIK 0000789019" ]
           }
         }, 
         "dei:LegalEntityAxis" : {
@@ -2270,7 +2265,7 @@
           "DomainRestriction" : {
             "Name" : "sec:FiscalYearDomain", 
             "Label" : "Fiscal Year Domain", 
-            "Enumeration" : [ 2013, 2012 ]
+            "Enumeration" : [ 2014 ]
           }
         }, 
         "sec:FiscalPeriod" : {
@@ -2281,7 +2276,7 @@
           "DomainRestriction" : {
             "Name" : "sec:FiscalPeriodDomain", 
             "Label" : "Fiscal Period Domain", 
-            "Enumeration" : [ "FY" ]
+            "Enumeration" : [ "Q3" ]
           }
         }
       }
@@ -3086,7 +3081,7 @@
   }, {
     "Id" : "bff72d51-9a37-4333-8132-f734653241c3", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[IS7] NetIncomeLoss = NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest", 
     "Description" : "Rule to compute NetIncomeLoss = NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest (fac:NetIncomeLossValidation2).", 
     "ComputableConcepts" : [ "fac:NetIncomeLossValidation2" ], 
@@ -3102,7 +3097,7 @@
   }, {
     "Id" : "0b05f4a2-ed4b-403d-895f-16c62353ab7b", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[BS1] Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
     "Description" : "Rule to compute Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest (fac:EquityValidation).", 
     "ComputableConcepts" : [ "fac:EquityValidation" ], 
@@ -3118,7 +3113,7 @@
   }, {
     "Id" : "bcf76a12-17ab-4a7f-9c45-72bf6757e7d6", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[BS4] Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
     "Description" : "Rule to compute Liabilities = CurrentLiabilities + NoncurrentLiabilities (fac:LiabilitiesValidation).", 
     "ComputableConcepts" : [ "fac:LiabilitiesValidation" ], 
@@ -3134,7 +3129,7 @@
   }, {
     "Id" : "bf89caa8-673f-4484-8f42-05204d9fb81a", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[BS5] LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity", 
     "Description" : "Rule to compute LiabilitiesAndEquity = LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity(fac:LiabilitiesAndEquityValidation).", 
     "ComputableConcepts" : [ "fac:LiabilitiesAndEquityValidation" ], 
@@ -3150,7 +3145,7 @@
   }, {
     "Id" : "35f3ac47-8b95-4528-9dcf-4f676b5a46d9", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[IS1] GrossProfit = Revenues - CostOfRevenue", 
     "Description" : "Rule to compute GrossProfit = Revenues - CostOfRevenue (fac:GrossProfitValidation).", 
     "ComputableConcepts" : [ "fac:GrossProfitValidation" ], 
@@ -3166,7 +3161,7 @@
   }, {
     "Id" : "9adb2318-60b4-4f65-8625-7052642ed3af", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[IS2] OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
     "Description" : "Rule to compute OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses (fac:OperatingIncomeLossValidation).", 
     "ComputableConcepts" : [ "fac:OperatingIncomeLossValidation" ], 
@@ -3182,7 +3177,7 @@
   }, {
     "Id" : "567ba16a-bb93-442e-92df-cc0591ece3cf", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[IS3] IncomeBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
     "Description" : "Rule to compute IncomeBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense (fac:IncomeBeforeEquityMethodInvestmentsValidation).", 
     "ComputableConcepts" : [ "fac:IncomeBeforeEquityMethodInvestmentsValidation" ], 
@@ -3198,7 +3193,7 @@
   }, {
     "Id" : "d3ade374-bbe1-48f2-9bab-11e861c8e280", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[IS4] IncomeLossFromContinuingOperationsBeforeTax = IncomeBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
     "Description" : "Rule to compute IncomeLossFromContinuingOperationsBeforeTax = IncomeBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments (fac:IncomeLossFromContinuingOperationsBeforeTaxValidation).", 
     "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation" ], 
@@ -3214,7 +3209,7 @@
   }, {
     "Id" : "79277c12-a029-48f6-8247-6024ddda634e", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[IS5] IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
     "Description" : "Rule to compute IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit (fac:IncomeLossFromContinuingOperationsAfterTaxValidation).", 
     "ComputableConcepts" : [ "fac:IncomeLossFromContinuingOperationsAfterTaxValidation" ], 
@@ -3230,7 +3225,7 @@
   }, {
     "Id" : "ca30831b-aded-4749-80d0-3fa0f0715d61", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[IS6] NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetTax + ExtraordinaryItemsIncomeExpenseNetTax", 
     "Description" : "Rule to compute NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetTax + ExtraordinaryItemsIncomeExpenseNetTax (fac:NetIncomeLossValidation).", 
     "ComputableConcepts" : [ "fac:NetIncomeLossValidation" ], 
@@ -3246,7 +3241,7 @@
   }, {
     "Id" : "ed503db5-0b16-44e1-a26a-909036c0d973", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[IS8] NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
     "Description" : "Rule to compute NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeAttributableToParent - PreferredStockDividendsAndOtherAdjustments (fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation).", 
     "ComputableConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation" ], 
@@ -3262,7 +3257,7 @@
   }, {
     "Id" : "2f7240a1-d90c-4b2c-8099-8292a938003c", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[IS9] ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
     "Description" : "Rule to compute ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest (fac:ComprehensiveIncomeLossValidation).", 
     "ComputableConcepts" : [ "fac:ComprehensiveIncomeLossValidation" ], 
@@ -3276,10 +3271,10 @@
     "AllowCrossPeriod" : true, 
     "AllowCrossBalance" : true
   }, {
-    "Id" : "d8b9213a-f2a0-4e1f-944c-4504f34e2601", 
+    "Id" : "IS10", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
-    "Label" : "ComprehensiveIncome = NetIncomeLoss + OtherComprehensiveIncome", 
+    "Type" : "xbrl28:validation", 
+    "Label" : "[IS10] ComprehensiveIncome = NetIncomeLoss + OtherComprehensiveIncome", 
     "Description" : "Rule to compute ComprehensiveIncome = NetIncomeLoss + OtherComprehensiveIncome (fac:ComprehensiveIncomeLossValidation2).", 
     "ComputableConcepts" : [ "fac:ComprehensiveIncomeLossValidation2" ], 
     "DependsOn" : [ "fac:ComprehensiveIncomeLoss", "fac:NetIncomeLoss", "fac:OtherComprehensiveIncomeLoss" ], 
@@ -3294,7 +3289,7 @@
   }, {
     "Id" : "123b10cf-8f79-416b-8aae-6d30245e3022", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[IS11] OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
     "Description" : "Rule to compute OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses (fac:OperatingIncomeLossValidation2).", 
     "ComputableConcepts" : [ "fac:OperatingIncomeLossValidation2" ], 
@@ -3310,7 +3305,7 @@
   }, {
     "Id" : "ea47e896-8d6e-4c8f-8204-1314a74f5e0d", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[CF2] NetCashFlowsContinuing = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesContinuing", 
     "Description" : "Rule to compute NetCashFlowsContinuing = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesContinuing (fac:NetCashFlowsContinuingValidation).", 
     "ComputableConcepts" : [ "fac:NetCashFlowsContinuingValidation" ], 
@@ -3326,7 +3321,7 @@
   }, {
     "Id" : "bb0de66f-42b4-4991-89e8-3b5bace6b67d", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[CF3] NetCashFlowsDiscontinued = NetCashFlowsFromOperatingActivitiesDiscontinued + NetCashFlowsFromInvestingActivitiesDiscontinued + NetCashFlowsFromFinancingActivitiesDiscontinued", 
     "Description" : "Rule to compute NetCashFlowsDiscontinued = NetCashFlowsFromOperatingActivitiesDiscontinued + NetCashFlowsFromInvestingActivitiesDiscontinued + NetCashFlowsFromFinancingActivitiesDiscontinued (fac:NetCashFlowsDiscontinuedValidation).", 
     "ComputableConcepts" : [ "fac:NetCashFlowsDiscontinuedValidation" ], 
@@ -3342,7 +3337,7 @@
   }, {
     "Id" : "6ef7773f-f52d-4e46-ac92-3e929fcccf8f", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[CF4] NetCashFlowsFromOperatingActivities = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromOperatingActivitiesDiscontinued", 
     "Description" : "Rule to compute NetCashFlowsFromOperatingActivities = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromOperatingActivitiesDiscontinued (fac:NetCashFlowsFromOperatingActivitiesValidation).", 
     "ComputableConcepts" : [ "fac:NetCashFlowsFromOperatingActivitiesValidation" ], 
@@ -3358,7 +3353,7 @@
   }, {
     "Id" : "a6414edd-339b-4d1b-9b45-e8c96802765f", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[CF5] NetCashFlowsFromInvestingActivities = NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesDiscontinued", 
     "Description" : "Rule to compute NetCashFlowsFromInvestingActivities = NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesDiscontinued (fac:NetCashFlowsFromInvestingActivitiesValidation).", 
     "ComputableConcepts" : [ "fac:NetCashFlowsFromInvestingActivitiesValidation" ], 
@@ -3374,7 +3369,7 @@
   }, {
     "Id" : "bae9a013-4fe6-4186-8ac9-5590e607e231", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[CF6] NetCashFlowsFromFinancingActivities = NetCashFlowsFromFinancingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesDiscontinued", 
     "Description" : "Rule to compute NetCashFlowsFromFinancingActivities = NetCashFlowsFromFinancingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesDiscontinued (fac:NetCashFlowsFromFinancingActivitiesValidation).", 
     "ComputableConcepts" : [ "fac:NetCashFlowsFromFinancingActivitiesValidation" ], 
@@ -3446,7 +3441,7 @@
   }, {
     "Id" : "29aeb472-7cac-4206-a376-204ed63b0bfd", 
     "OriginalLanguage" : "SpreadsheetFormula", 
-    "Type" : "xbrl28:formula", 
+    "Type" : "xbrl28:validation", 
     "Label" : "[CF1] NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses]", 
     "Description" : "Rule to compute NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses] (fac:NetCashFlowsValidation).", 
     "ComputableConcepts" : [ "fac:NetCashFlowsValidation" ], 
