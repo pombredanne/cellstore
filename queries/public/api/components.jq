@@ -103,7 +103,6 @@ let $res         :=
     for $r in $components
     let $disclosure := sec-networks:disclosures($r)
     where $disclosure ne "DefaultComponent"
-    where exists(sec-networks:model-structures($r))
     order by $r.Label
     group by $archive := $r.Archive
     let $archive := $archives[$$._id eq $archive]
