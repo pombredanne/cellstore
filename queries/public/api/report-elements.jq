@@ -117,10 +117,10 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
                             where $c.Name = (keys($candidate.To), $candidate.To[].Name)
                             return $candidate)[1]
         return
-            copy $n := $concepts
+            copy $n := $c
             modify (
-                replace value of json $n.Name with $candidate-concept.Name,
-                insert json  { Origin : $concepts.Name } into $n)
+                replace value of json $n.Name with $map-concept.Name,
+                insert json  { Origin : $c.Name } into $n)
             return $n
     return ($results-not-computed-by-maps, $results-computed-by-maps)
 };
