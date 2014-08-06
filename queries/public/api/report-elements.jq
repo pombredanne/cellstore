@@ -2,10 +2,9 @@ import module namespace util = "http://secxbrl.info/modules/util";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
-import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace components = "http://xbrl.io/modules/bizql/components";
+declare namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 
