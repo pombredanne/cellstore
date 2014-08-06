@@ -114,9 +114,8 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
         group by $c.Component
         let $c := $c[1]
         let $map-concept := (for $candidate in $concepts-computable-by-maps
-                             where $c.Name = (keys($candidate.To), $candidate.To[].Name)
-                             return $candidate)[1]         for $candidate-concept in $concepts-computable-by-maps
-        let $concepts := $c[$$.Name = (keys($candidate-concept.To), $candidate-concept.To[].Name)]
+                            where $c.Name = (keys($candidate.To), $candidate.To[].Name)
+                            return $candidate)[1]
         return
             copy $n := $concepts
             modify (
