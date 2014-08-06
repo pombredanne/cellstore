@@ -6,6 +6,7 @@ import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace components = "http://xbrl.io/modules/bizql/components";
+import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 
 import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
@@ -110,16 +111,16 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
                 "Name" : { "$in" : [ $mapped-names ] },
                 "Archive": { "$in" : [ $aids ] }
             })
-        group by $c.Component
-        let $c := $c[1]
-        let $map-concept := (for $candidate in $concepts-computable-by-maps
-                            where $c.Name = (keys($candidate.To), $candidate.To[].Name)
-                            return $candidate)[1] 
+        for $candidate-concept in $concepts-computable-by-maps
+        let $concepts := $c[$$.Name = (keys($candidate-concept.To), $candidate-concept.To[].Name)]
+        where exists($concepts)
+        count $c    
+        where $c eq 1
         return
-            copy $n := $c
+            copy $n := $concepts
             modify (
-                replace value of json $n.Name with $map-concept.Name,
-                insert json  { Origin : $c.Name } into $n)
+                replace value of json $n.Name with $candidate-concept.Name,
+                insert json  { Origin : $concepts.Name } into $n)
             return $n
     return ($results-not-computed-by-maps, $results-computed-by-maps)
 };
@@ -193,38 +194,49 @@ let $archives as object* := fiscal-core2:filings(
     $aids)
 let $entities    := entities:entities($archives.Entity)
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
+
 let $concepts := if (exists($names))
                   then local:concepts-for-archives($archives._id, $names, $map)
                   else if (exists($labels))
                   then local:concepts-for-archives-and-labels($archives._id, $labels[1])
                   else local:concepts-for-archives($archives._id)
-let $result := { ReportElements : [ if ($onlyNames) 
-            then distinct-values($concepts.Name)
-            else for $c in $concepts
-                 group by $component := $c.Component
-                 let $component := components:components($component)
-                 let $default-hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-                 let $members := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
-                 let $archive := archives:archives($c[1].Archive)
-                 let $entity := entities:entities($archive.Entity)
-                 return
-                     for $name in if (exists($c.Origin)) then $c.Origin else $c.Name
-                     return
-                         copy $res := $members.$name
-                         modify (
-                            replace value of json $res.Name with $c.Name,
-                            if (exists($c.Origin))
-                            then insert json { Origin : $c.Origin } into $res
-                            else (),
-                            insert json { ComponentRole : $component.Role } into $res,
-                            insert json { ComponentLabel : $component.Label } into $res,
-                            insert json { AccessionNumber : $archive._id } into $res,
-                            insert json { CIK : $entity._id } into $res,
-                            insert json { EntityRegistrantName : $entity.Profiles.SEC.CompanyName } into $res,
-                            insert json { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus } into $res,
-                            insert json { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus } into $res
-                         )
-                         return $res ] }
+let $result := {
+    Concepts : [
+        if ($onlyNames) 
+        then distinct-values($concepts.Name)
+        else
+            let $all-aids := $concepts.Archive
+            let $roles := $concepts.Role
+            let $components := components2:components-for-archives-and-roles($all-aids, $roles)
+            return
+            for $concept in $concepts
+            group by $archive := $concept.Archive,  $role := $concept.Role
+            let $component := $components[$$.Archive eq $archive and $$.Role eq $role]
+            let $default-hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+            let $members := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+            let $archive := $archives[$$._id eq $archive]
+            let $entity := $entities[$$._id eq $archive.Entity]
+            let $metadata := {|
+                { Origin : $concept.Origin }[exists($concept.Origin)],
+                {
+                    Name: $concept.Name,
+                    ComponentRole : $component.Role,
+                    ComponentLabel : $component.Label,
+                    AccessionNumber : $archive._id,
+                    CIK : $entity._id,
+                    EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
+                    FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
+                    FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
+                }
+            |}
+            for $concept in $concept
+            let $original-name := ($concept.Origin, $concept.Name)[1]
+            return {|
+                trim($members.$original-name, "Name"),
+                $metadata
+            |}
+    ]
+}
 let $comment := {
     NumConcepts: count($concepts),
     TotalNumConcepts: session:num-concepts()
@@ -232,11 +244,11 @@ let $comment := {
 let $serializers := {
     to-xml : function($res as object) as node() {
         <ReportElements>{
-                    local:to-xml($res.ReportElements[], $onlyNames)
+                    local:to-xml($res.Concepts[], $onlyNames)
                 }</ReportElements>
     },
     to-csv : function($res as object) as string {
-        local:to-csv($res.ReportElements[], $onlyNames)
+        local:to-csv($res.Concepts[], $onlyNames)
     }
 }
 let $results := util:serialize($result, $comment, $serializers, $format, "report-elements")
