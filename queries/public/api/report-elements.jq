@@ -198,7 +198,7 @@ let $concepts := if (exists($names))
                   else if (exists($labels))
                   then local:concepts-for-archives-and-labels($archives._id, $labels[1])
                   else local:concepts-for-archives($archives._id)
-let $result := { Concepts : [ if ($onlyNames) 
+let $result := { ReportElements : [ if ($onlyNames) 
             then distinct-values($concepts.Name)
             else for $c in $concepts
                  group by $component := $c.Component
@@ -232,11 +232,11 @@ let $comment := {
 let $serializers := {
     to-xml : function($res as object) as node() {
         <ReportElements>{
-                    local:to-xml($res.Concepts[], $onlyNames)
+                    local:to-xml($res.ReportElements[], $onlyNames)
                 }</ReportElements>
     },
     to-csv : function($res as object) as string {
-        local:to-csv($res.Concepts[], $onlyNames)
+        local:to-csv($res.ReportElements[], $onlyNames)
     }
 }
 let $results := util:serialize($result, $comment, $serializers, $format, "report-elements")

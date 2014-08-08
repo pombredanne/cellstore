@@ -1,10 +1,7 @@
-[![Build Status](https://buildstatus.28.io/v1/_queries/public/status.jq?_method=POST&repo=secxbrl.info&branch=master)](http://ppa.28.io:8888)
+#secxbrl.info
+[![Build Status](http://img.shields.io/travis/28msec/secxbrl.info/master.svg?style=flat)](https://travis-ci.org/28msec/secxbrl.info) [![Code Climate](http://img.shields.io/codeclimate/github/28msec/secxbrl.info.svg?style=flat)](https://codeclimate.com/github/28msec/secxbrl.info)
 
-secxbrl.info website
---------------------------------
-
-This repository holds the www.secxbrl.info website.
-
+US Public Company Financial Information Repository. Built on top of 28.io.
 
 Development setup steps
 ----------------------------

@@ -12,13 +12,23 @@ declare variable $reports:CONTEXT-NETWORKS-CONCEPTMAP := "ConceptMap";
 declare variable $reports:CONTEXT-HYPERCUBES := "Hypercubes";
 declare variable $reports:CONTEXT-RULES := "Rules";
 
-declare %private function reports:message($type, $context, $identifier, $message)
-as object
+declare %private function reports:message(
+  $type as string,
+  $context as string,
+  $identifier as string,
+  $message as string)
+  as object
 {
     reports:message($type, $context, $identifier, $message, ())
 };
 
-declare %private function reports:message($type, $context, $identifier, $message, $details)
+declare %private function reports:message(
+  $type as string,
+  $context as string,
+  $identifier as string,
+  $message as string,
+  $details as string)
+
 as object
 {
     {|
@@ -62,7 +72,7 @@ as object*
 };
 
 
-declare function reports:concepts-checks($report)
+declare function reports:concepts-checks($report as object)
 as object*
 {
     (: check whether all indexes match the concept name -> index : { Name: index } :)
