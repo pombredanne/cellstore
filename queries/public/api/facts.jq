@@ -2,6 +2,8 @@ import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
+import module namespace reports = "http://xbrl.io/modules/bizql/reports";
+import module namespace networks = "http://xbrl.io/modules/bizql/networks";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
 
@@ -111,8 +113,9 @@ let $sics as string*           := distinct-values(request:param-values("sic"))
 let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
 let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*           := distinct-values(request:param-values("aid"))
-let $map as string?            := request:param-values("map")
-let $rule as string?            := request:param-values("rule")
+let $map as string?            := request:param-values("map") (: Backwards compatibility :)
+let $rule as string?            := request:param-values("rule") (: Backwards compatibility :)
+let $report as string?        := request:param-values("report")
 let $validate as string       := request:param-values("validate", "false")
 
 (: Post-processing :)
@@ -146,6 +149,17 @@ let $archives as object* := fiscal-core2:filings(
     $fiscalYears,
     $aids)
 let $entities := entities:entities($archives.Entity)
+let $report as object? := reports:reports($report)
+let $map as item* :=
+    if (exists($report))
+    then networks:networks-for-components-and-short-names(
+        $report,
+          "ConceptMap")
+    else $map
+let $rule as item* :=
+    if(exists($report))
+    then $report.Rules
+    else $rule
 
 let $hypercube := local:hypercube($entities, $fiscalPeriods, $fiscalYears, $aids)
 
@@ -166,7 +180,7 @@ let $facts :=
         return {|
             $fact,
             { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName}
-        |} 
+        |}
 
 let $facts := util:move-unit-out-of-aspects($facts)
 
