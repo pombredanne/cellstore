@@ -2,10 +2,9 @@ import module namespace util = "http://secxbrl.info/modules/util";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
-import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace components = "http://xbrl.io/modules/bizql/components";
+declare namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
 import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 
@@ -111,16 +110,16 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
                 "Name" : { "$in" : [ $mapped-names ] },
                 "Archive": { "$in" : [ $aids ] }
             })
-        for $candidate-concept in $concepts-computable-by-maps
-        let $concepts := $c[$$.Name = (keys($candidate-concept.To), $candidate-concept.To[].Name)]
-        where exists($concepts)
-        count $c    
-        where $c eq 1
+        group by $c.Component
+        let $c := $c[1]
+        let $map-concept := (for $candidate in $concepts-computable-by-maps
+                            where $c.Name = (keys($candidate.To), $candidate.To[].Name)
+                            return $candidate)[1]
         return
-            copy $n := $concepts
+            copy $n := $c
             modify (
-                replace value of json $n.Name with $candidate-concept.Name,
-                insert json  { Origin : $concepts.Name } into $n)
+                replace value of json $n.Name with $map-concept.Name,
+                insert json  { Origin : $c.Name } into $n)
             return $n
     return ($results-not-computed-by-maps, $results-computed-by-maps)
 };
@@ -201,7 +200,7 @@ let $concepts := if (exists($names))
                   then local:concepts-for-archives-and-labels($archives._id, $labels[1])
                   else local:concepts-for-archives($archives._id)
 let $result := {
-    Concepts : [
+    ReportElements : [
         if ($onlyNames) 
         then distinct-values($concepts.Name)
         else
@@ -244,11 +243,11 @@ let $comment := {
 let $serializers := {
     to-xml : function($res as object) as node() {
         <ReportElements>{
-                    local:to-xml($res.Concepts[], $onlyNames)
+                    local:to-xml($res.ReportElements[], $onlyNames)
                 }</ReportElements>
     },
     to-csv : function($res as object) as string {
-        local:to-csv($res.Concepts[], $onlyNames)
+        local:to-csv($res.ReportElements[], $onlyNames)
     }
 }
 let $results := util:serialize($result, $comment, $serializers, $format, "report-elements")
