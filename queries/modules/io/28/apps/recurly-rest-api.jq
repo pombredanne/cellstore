@@ -434,14 +434,15 @@ as object()
   }
 };
 
-declare %an:sequential function recurly-api:terminate-subscription($account as object, 
+declare %an:sequential function recurly-api:terminate-subscription(
+  $account as object, 
   $subscription-uuid as xs:string)
 as object()
 {
   recurly-api:verify-billing-information($account);
   recurly-api:get-subscription($account, $subscription-uuid);
   
-  recurly-api:terminate-recurly-subscription($account, $subscription-uuid)
+  recurly-api:terminate-recurly-subscription($subscription-uuid)
 };
 
 declare %an:sequential %private function recurly-api:terminate-recurly-subscription(
@@ -481,7 +482,7 @@ declare %an:sequential %private function recurly-api:terminate-recurly-subscript
     fn:error(xs:QName("recurly-api:error"), "Cannot terminate recurly subscription");
   }
 };
-
+ 
 declare %an:sequential function recurly-api:list-invoices($account as object, 
   $cursor as xs:string?, $limit as xs:positiveInteger?)
 as object()
