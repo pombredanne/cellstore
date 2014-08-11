@@ -1,11 +1,10 @@
 import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace reports = "http://xbrl.io/modules/bizql/reports";
-import module namespace networks = "http://xbrl.io/modules/bizql/networks";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
+import module namespace entities = "http://xbrl.io/modules/bizql/entities";
+import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
+import module namespace reports = "http://xbrl.io/modules/bizql/reports";
 
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
