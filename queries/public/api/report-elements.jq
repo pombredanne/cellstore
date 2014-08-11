@@ -6,6 +6,7 @@ import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 declare namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
+import module namespace reports = "http://xbrl.io/modules/bizql/reports";
 import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 
 import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
@@ -159,6 +160,7 @@ let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPe
 let $aids as string*           := distinct-values(request:param-values("aid"))
 let $labels as string*         := request:param-values("label")
 let $map as string?            := request:param-values("map")
+let $report as string?         := request:param-values("report")
 let $names as string*          := request:param-values("name")
 
 (: Post-processing :)
@@ -193,7 +195,14 @@ let $archives as object* := fiscal-core2:filings(
     $aids)
 let $entities    := entities:entities($archives.Entity)
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
+<<<<<<< HEAD
 
+=======
+let $map as item* :=
+    if(exists($report))
+    then reports:concept-map($report)
+    else $map
+>>>>>>> ReportParameterInFactsJq
 let $concepts := if (exists($names))
                   then local:concepts-for-archives($archives._id, $names, $map)
                   else if (exists($labels))

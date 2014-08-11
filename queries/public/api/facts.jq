@@ -114,9 +114,9 @@ let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYe
 let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*           := distinct-values(request:param-values("aid"))
 let $map as string?            := request:param-values("map") (: Backwards compatibility :)
-let $rule as string?            := request:param-values("rule") (: Backwards compatibility :)
-let $report as string?        := request:param-values("report")
-let $validate as string       := request:param-values("validate", "false")
+let $rules as string?          := request:param-values("rule") (: Backwards compatibility :)
+let $report as string?         := request:param-values("report")
+let $validate as string        := request:param-values("validate", "false")
 
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
@@ -151,15 +151,13 @@ let $archives as object* := fiscal-core2:filings(
 let $entities := entities:entities($archives.Entity)
 let $report as object? := reports:reports($report)
 let $map as item* :=
-    if (exists($report))
-    then networks:networks-for-components-and-short-names(
-        $report,
-          "ConceptMap")
-    else $map
-let $rule as item* :=
     if(exists($report))
-    then $report.Rules
-    else $rule
+    then reports:concept-map($report)
+    else $map
+let $rules as item* :=
+    if(exists($report))
+    then reports:rules($report)
+    else $rules
 
 let $hypercube := local:hypercube($entities, $fiscalPeriods, $fiscalYears, $aids)
 
@@ -174,7 +172,7 @@ let $facts :=
                     Validate: $validate
                 },
                 { "ConceptMaps" : $map }[exists($map)],
-                { "Rules" : [ $rule ] }[exists($rule)]
+                { "Rules" : [ $rules ] }[exists($rules)]
             |}
         )
         return {|
