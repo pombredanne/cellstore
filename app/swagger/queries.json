@@ -1283,7 +1283,7 @@
                         },
                         {
                             "name": "map",
-                            "description": "The concept map that should be used to resolve the concept (default: none)",
+                            "description": "[Deprecated, use report] The concept map that should be used to resolve the concept (default: none)",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -1294,7 +1294,18 @@
                         },
                         {
                             "name": "rules",
-                            "description": "The rules that should be used to resolve the concept (default: none)",
+                            "description": "[Deprecated, use report] The rules that should be used to resolve the concept (default: none)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "FundamentalAccountingConcepts",
+                                "null"
+                              ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "report",
+                            "description": "The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none)",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -1488,7 +1499,18 @@
                         },
                         {
                             "name": "map",
-                            "description": "The concept map that should be used to resolve the concept (default: none)",
+                            "description": "[Deprecated, use report] The concept map that should be used to resolve the concept (default: none)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "FundamentalAccountingConcepts",
+                                "null"
+                              ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "report",
+                            "description": "The report to use as a context to retrieve the report elements. In particular, concept maps found in this report will be used. (default: none)",
                             "required": false,
                             "type": "string",
                             "enum": [

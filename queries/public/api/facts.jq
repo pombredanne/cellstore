@@ -1,9 +1,10 @@
 import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
+import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
+import module namespace reports = "http://xbrl.io/modules/bizql/reports";
 
 import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
 import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
@@ -111,9 +112,10 @@ let $sics as string*           := distinct-values(request:param-values("sic"))
 let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
 let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*           := distinct-values(request:param-values("aid"))
-let $map as string?            := request:param-values("map")
-let $rule as string?            := request:param-values("rule")
-let $validate as string       := request:param-values("validate", "false")
+let $map as string?            := request:param-values("map") (: Backwards compatibility :)
+let $rules as string?          := request:param-values("rule") (: Backwards compatibility :)
+let $report as string?         := request:param-values("report")
+let $validate as string        := request:param-values("validate", "false")
 
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
@@ -146,6 +148,15 @@ let $archives as object* := fiscal-core2:filings(
     $fiscalYears,
     $aids)
 let $entities := entities:entities($archives.Entity)
+let $report as object? := reports:reports($report)
+let $map as item* :=
+    if(exists($report))
+    then reports:concept-map($report)
+    else $map
+let $rules as item* :=
+    if(exists($report))
+    then reports:rules($report)
+    else $rules
 
 let $hypercube := local:hypercube($entities, $fiscalPeriods, $fiscalYears, $aids)
 
@@ -160,13 +171,13 @@ let $facts :=
                     Validate: $validate
                 },
                 { "ConceptMaps" : $map }[exists($map)],
-                { "Rules" : [ $rule ] }[exists($rule)]
+                { "Rules" : [ $rules ] }[exists($rules)]
             |}
         )
         return {|
             $fact,
             { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName}
-        |} 
+        |}
 
 let $facts := util:move-unit-out-of-aspects($facts)
 
