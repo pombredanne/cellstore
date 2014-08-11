@@ -299,6 +299,14 @@ declare %private function resolution:expand-concept-network(
         return {
             IsTotal: true
         }
+        case "http://www.xbrl.org/2009/role/negatedLabel"
+        return {
+            IsNegated: true
+        }
+        case "http://www.xbrl.org/2009/role/negatedTerseLabel"
+        return {
+            IsNegated: true
+        }
         case "http://www.xbrl.org/2003/role/periodStartLabel"
         return {
             TagSelectors: [ "table.periodStart" ]

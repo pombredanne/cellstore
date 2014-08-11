@@ -109,7 +109,8 @@ declare %private function layout:structural-node-to-header-rows(
                 TagSelectors: [ $structural-node.TagSelectors[] ],
                 CellSpan: $span,
                 RollUp: boolean($structural-node.RollUp),
-                IsRollUp: ($structural-node.IsTotal, false)[1]
+                IsRollUp: ($structural-node.IsTotal, false)[1],
+                IsNegated: ($structural-node.IsNegated, false)[1]
             },
            { Id: $structural-node.Id }[exists($structural-node.Id)]
         |} ],
