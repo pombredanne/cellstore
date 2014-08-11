@@ -195,14 +195,11 @@ let $archives as object* := fiscal-core2:filings(
     $aids)
 let $entities    := entities:entities($archives.Entity)
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
-<<<<<<< HEAD
-
-=======
 let $map as item* :=
     if(exists($report))
     then reports:concept-map($report)
     else $map
->>>>>>> ReportParameterInFactsJq
+
 let $concepts := if (exists($names))
                   then local:concepts-for-archives($archives._id, $names, $map)
                   else if (exists($labels))
