@@ -151,7 +151,7 @@ let $archives as object* := fiscal-core2:filings(
 let $entities := entities:entities($archives.Entity)
 let $report as object? := reports:reports($report)
 let $map as item* :=
-    if (exists($report))
+    if(exists($report))
     then reports:concept-map($report)
     else $map
 let $rules as item* :=
