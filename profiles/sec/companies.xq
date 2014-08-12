@@ -75,6 +75,36 @@ declare function companies:companies($companies-or-ids as item*) as object*
  : <p>Return a distinct set of companies identified by either
  :   CIKs, tags, tickers, or sics.</p>
  : 
+ : @param $ciks a set of CIKs.
+ : @param $tags a set of tags (ALL retrieves all companies).
+ : @param $tickers a set of tickers.
+ : @param $sics a set of SIC codes.
+ :
+ : @return the companies with the given identifiers, tags, tickers, or sic codes.
+ :)
+declare function companies:companies(
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*) as object*
+{
+    if ($tags = "ALL")
+    then companies:companies()
+    else
+        for $c in (
+            companies:companies($ciks),
+            companies:companies-for-tags($tags),
+            companies:companies-for-tickers($tickers),
+            companies:companies-for-SIC($sics)
+        )
+        group by $c._id
+        return $c[1]
+};
+
+(:~
+ : <p>Return a distinct set of companies identified by either
+ :   CIKs, tags, tickers, or sics.</p>
+ : 
  : @param $options an object of the form
  :   {
  :     ciks : [ ],
@@ -97,7 +127,6 @@ declare function companies:companies-for(
   group by $c._id
   return $c[1]
 };
-  
 
 (:~
  : <p>Retrieves the type of a company.</p>
