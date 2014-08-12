@@ -230,18 +230,17 @@ as object*
     then $facts
     else
       for $grouped-facts in $facts
-      let $entity as string := $grouped-facts.Aspects."xbrl:Entity"
-      let $fiscal-period as atomic? := $grouped-facts.Aspects."sec:FiscalPeriod"
-      let $fiscal-year as atomic? := $grouped-facts.Aspects."sec:FiscalYear"
-      group by $entity, $fiscal-period, $fiscal-year
+      group by
+        $entity := $grouped-facts.Aspects."xbrl:Entity",
+        $fiscal-period := $grouped-facts.Aspects."sec:FiscalPeriod",
+        $fiscal-year := $grouped-facts.Aspects."sec:FiscalYear"
       return
         if (empty($fiscal-period) or empty($fiscal-year) or $fiscal-period instance of null or $fiscal-year instance of null)
         then
           (: $grouped-facts is already grouped by entity.
              Now, group by period as a fallback. :)
           for $regrouped-facts in $grouped-facts
-          let $period as string := $regrouped-facts.Aspects."xbrl:Period"
-          group by $period
+          group by $period := $regrouped-facts.Aspects."xbrl:Period"
           return
             let $latest-accepted :=
               max(distinct-values($regrouped-facts.Aspects."sec:Accepted"))

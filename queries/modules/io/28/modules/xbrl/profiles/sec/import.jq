@@ -206,8 +206,7 @@ declare %private function imp:network-label-matches($category as xs:string, $lab
   (: if we have multiple different hits we choose the one with the most
      hits as best effort. :)
   for $disclosure in $disclosures
-  let $d := $disclosure
-  group by $d
+  group by $d := $disclosure
   order by count($disclosure) descending
   return
     ( $disclosure )[1]
@@ -227,7 +226,7 @@ declare function imp:disclosure-for-network-label($component as object) as objec
 {  
   let $network-label as xs:string := $component.network-label
   let $tokens := string:split($network-label, "-")
-  let $number as xs:string := normalize-space($tokens[1])
+  (:let $number as xs:string := normalize-space($tokens[1]):)
   let $category as xs:string := normalize-space(lower-case($tokens[2]))
   let $label as xs:string := normalize-space(lower-case($tokens[3]))
 
