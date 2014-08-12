@@ -201,6 +201,7 @@ declare %private function resolution:convert-rule-node(
         $definition-node.Children[],
         $components, 
         $parent-child-order,
+        $concepts,
         $options)
     let $roll-up := {
         Labels: [ ],
@@ -416,7 +417,8 @@ declare %private function resolution:expand-concept-network(
                 resolution:expand-concept-network(
                         $sub-network,
                         $components,
-                        $parent-child-order
+                        $parent-child-order,
+                        $concepts
                     ) 
         let $roll-up :=
             if($concept-metadata.IsAbstract)
@@ -500,7 +502,8 @@ declare function resolution:expand-dimension-network(
                         $dimension,
                         $sub-network,
                         $components,
-                        $parent-child-order
+                        $parent-child-order,
+                        $concepts
                 ) 
         let $roll-up :={
             Labels: [],
