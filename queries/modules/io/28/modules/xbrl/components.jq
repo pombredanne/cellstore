@@ -22,7 +22,6 @@ module namespace components = "http://28.io/modules/xbrl/components";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
-import module namespace components = "http://28.io/modules/xbrl/components";
 import module namespace resolution = "http://28.io/modules/xbrl/resolution";
 import module namespace layout = "http://28.io/modules/xbrl/layout";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
@@ -390,7 +389,7 @@ declare function components:num-hypercubes($components-or-ids as item*) as integ
  :
  : @return the said number of networks
  :)
-declare function components:num-networks($components-or-ids) as integer*
+declare function components:num-networks($components-or-ids as item*) as integer*
 {
   components:components($components-or-ids) ! $$.Statistics.NumNetworks
 };
@@ -402,7 +401,7 @@ declare function components:num-networks($components-or-ids) as integer*
  :
  : @return the said number of dimensions
  :)
-declare function components:num-explicit-dimensions($components-or-ids) as integer*
+declare function components:num-explicit-dimensions($components-or-ids as item*) as integer*
 {
   components:components($components-or-ids) ! $$.Statistics.NumDistinctExplicitDimensions
 };
@@ -414,7 +413,7 @@ declare function components:num-explicit-dimensions($components-or-ids) as integ
  :
  : @return the said number of domains
  :)
-declare function components:num-domains($components-or-ids) as integer*
+declare function components:num-domains($components-or-ids as item*) as integer*
 {
   components:components($components-or-ids) ! $$.Statistics.NumDistinctDomains
 };
@@ -426,7 +425,7 @@ declare function components:num-domains($components-or-ids) as integer*
  :
  : @return the said number of members
  :)
-declare function components:num-members($components-or-ids) as integer*
+declare function components:num-members($components-or-ids as item*) as integer*
 {
   components:components($components-or-ids) ! $$.Statistics.NumDistinctMembers
 };
@@ -439,7 +438,7 @@ declare function components:num-members($components-or-ids) as integer*
  :
  : @return the said number of primary items
  :)
-declare function components:num-concrete-primary-items-in-hypercubes($components-or-ids) as integer*
+declare function components:num-concrete-primary-items-in-hypercubes($components-or-ids as item*) as integer*
 {
   components:components($components-or-ids) ! $$.Statistics.NumDistinctConcretePrimaryItemsInHypercubes
 };
@@ -452,7 +451,7 @@ declare function components:num-concrete-primary-items-in-hypercubes($components
  :
  : @return the said number of primary items
  :)
-declare function components:num-abstract-primary-items-in-hypercubes($components-or-ids) as integer*
+declare function components:num-abstract-primary-items-in-hypercubes($components-or-ids as item*) as integer*
 {
   components:components($components-or-ids) ! $$.Statistics.NumDistinctAbstractPrimaryItemsInHypercubes
 };
@@ -465,7 +464,7 @@ declare function components:num-abstract-primary-items-in-hypercubes($components
  :
  : @return the said number of primary items
  :)
-declare function components:num-concrete-primary-items-not-in-hypercubes($components-or-ids) as integer*
+declare function components:num-concrete-primary-items-not-in-hypercubes($components-or-ids as item*) as integer*
 {
   components:components($components-or-ids) ! $$.Statistics.NumDistinctConcretePrimaryItemsNotInHypercubes
 };
@@ -478,7 +477,7 @@ declare function components:num-concrete-primary-items-not-in-hypercubes($compon
  :
  : @return the said number of primary items
  :)
-declare function components:num-distinct-abstract-primary-items-not-in-hypercubes($components-or-ids) as integer*
+declare function components:num-distinct-abstract-primary-items-not-in-hypercubes($components-or-ids as item*) as integer*
 {
   components:components($components-or-ids) ! $$.Statistics.NumDistinctAbstractPrimaryItemsNotInHypercubes
 };

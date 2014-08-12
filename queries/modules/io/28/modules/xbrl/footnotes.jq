@@ -16,10 +16,7 @@ jsoniq version "1.0";
  :)
 module namespace footnotes = "http://28.io/modules/xbrl/footnotes";
 
-import module namespace string = "http://zorba.io/modules/string";
-
 import module namespace facts = "http://28.io/modules/xbrl/facts";
-import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";

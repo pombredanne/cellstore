@@ -27,8 +27,6 @@ jsoniq version "1.0";
  :)
 module namespace networks = "http://28.io/modules/xbrl/networks";
 
-import module namespace components = "http://28.io/modules/xbrl/components";
-
 (:~
  : Short name of the presentation network.
  :)

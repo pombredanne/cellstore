@@ -15,8 +15,6 @@ jsoniq version "1.0";
  :)
 module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
-import module namespace j = "http://jsoniq.org/function-library";
-
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
 

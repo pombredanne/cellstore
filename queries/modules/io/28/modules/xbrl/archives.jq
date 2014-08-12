@@ -32,8 +32,6 @@ import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
 
-declare namespace err = "http://www.w3.org/2005/xqt-errors";
-
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
 
@@ -137,7 +135,7 @@ declare function archives:num-hypercubes($archives-or-ids as item*) as integer*
  :
  : @return the said number of networks
  :)
-declare function archives:num-networks($archives-or-ids) as integer*
+declare function archives:num-networks($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumNetworks
 };
@@ -149,7 +147,7 @@ declare function archives:num-networks($archives-or-ids) as integer*
  :
  : @return the said number of dimensions
  :)
-declare function archives:num-explicit-dimensions($archives-or-ids) as integer*
+declare function archives:num-explicit-dimensions($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumDistinctExplicitDimensions
 };
@@ -161,7 +159,7 @@ declare function archives:num-explicit-dimensions($archives-or-ids) as integer*
  :
  : @return the said number of domains
  :)
-declare function archives:num-domains($archives-or-ids) as integer*
+declare function archives:num-domains($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumDistinctDomains
 };
@@ -173,7 +171,7 @@ declare function archives:num-domains($archives-or-ids) as integer*
  :
  : @return the said number of members
  :)
-declare function archives:num-members($archives-or-ids) as integer*
+declare function archives:num-members($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumDistinctMembers
 };
@@ -186,7 +184,7 @@ declare function archives:num-members($archives-or-ids) as integer*
  :
  : @return the said number of primary items
  :)
-declare function archives:num-concrete-primary-items-in-hypercubes($archives-or-ids) as integer*
+declare function archives:num-concrete-primary-items-in-hypercubes($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumDistinctConcretePrimaryItemsInHypercubes
 };
@@ -199,7 +197,7 @@ declare function archives:num-concrete-primary-items-in-hypercubes($archives-or-
  :
  : @return the said number of primary items
  :)
-declare function archives:num-abstract-primary-items-in-hypercubes($archives-or-ids) as integer*
+declare function archives:num-abstract-primary-items-in-hypercubes($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumDistinctAbstractPrimaryItemsInHypercubes
 };
@@ -212,7 +210,7 @@ declare function archives:num-abstract-primary-items-in-hypercubes($archives-or-
  :
  : @return the said number of primary items
  :)
-declare function archives:num-concrete-primary-items-not-in-hypercubes($archives-or-ids) as integer*
+declare function archives:num-concrete-primary-items-not-in-hypercubes($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumDistinctConcretePrimaryItemsNotInHypercubes
 };
@@ -225,7 +223,7 @@ declare function archives:num-concrete-primary-items-not-in-hypercubes($archives
  :
  : @return the said number of primary items
  :)
-declare function archives:num-distinct-abstract-primary-items-not-in-hypercubes($archives-or-ids) as integer*
+declare function archives:num-distinct-abstract-primary-items-not-in-hypercubes($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumDistinctAbstractPrimaryItemsNotInHypercubes
 };
@@ -237,7 +235,7 @@ declare function archives:num-distinct-abstract-primary-items-not-in-hypercubes(
  :
  : @return the said number of facts
  :)
-declare function archives:num-facts($archives-or-ids) as integer*
+declare function archives:num-facts($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumFacts
 };
@@ -249,7 +247,7 @@ declare function archives:num-facts($archives-or-ids) as integer*
  :
  : @return the said number of footnotes
  :)
-declare function archives:num-footnotes($archives-or-ids) as integer*
+declare function archives:num-footnotes($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumFootnotes
 };
@@ -261,7 +259,7 @@ declare function archives:num-footnotes($archives-or-ids) as integer*
  :
  : @return the said number of components
  :)
-declare function archives:num-components($archives-or-ids) as integer*
+declare function archives:num-components($archives-or-ids as item*) as integer*
 {
   archives:archives($archives-or-ids) ! $$.Statistics.NumComponents
 };

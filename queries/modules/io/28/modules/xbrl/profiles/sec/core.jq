@@ -32,18 +32,12 @@ jsoniq version "1.0";
  :)
 module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 
-import module namespace string = "http://zorba.io/modules/string";
-
-import module namespace m = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
-
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace report-schemas = "http://28.io/modules/xbrl/report-schemas";
-import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";

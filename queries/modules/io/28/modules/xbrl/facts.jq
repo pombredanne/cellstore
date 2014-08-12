@@ -110,15 +110,11 @@ import module namespace rules = "http://28.io/modules/xbrl/rules";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
 
-import module namespace zq = "http://zorba.io/modules/zorba-query";
 import module namespace reflection = "http://zorba.io/modules/reflection";
 import module namespace string = "http://zorba.io/modules/string";
 import module namespace seq = "http://zorba.io/modules/sequence";
 
-import module namespace j = "http://jsoniq.org/function-library";
-
 declare namespace ver = "http://zorba.io/options/versioning";
-declare namespace zerr = "http://zorba.io/errors";
 
 declare option ver:module-version "1.0";
 
@@ -1178,7 +1174,7 @@ declare %private function facts:facts-for-direct(
 {
   let $query as object := facts:filter-to-mongo-query($filter)
   return
-    if (some $array in j:descendant-arrays($filter)
+    if (some $array in descendant-arrays($filter)
         satisfies size($array) eq 0)
     then 
       (: if the user filters for a value which is not in the value space
@@ -1447,7 +1443,7 @@ declare %private function facts:align-aspects(
     let $hypercube-members as atomic* :=
       if ($typed-dimension)
       then flatten($hypercube-domains)
-      else j:descendant-objects($hypercube-domains).Name
+      else descendant-objects($hypercube-domains).Name
     let $hypercube-default as atomic? := $dimension.Default
     let $hypercube-has-default as boolean := exists($hypercube-default)
 

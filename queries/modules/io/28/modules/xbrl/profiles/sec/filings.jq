@@ -22,8 +22,6 @@ module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 
 import module namespace datetime = "http://zorba.io/modules/datetime";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
@@ -382,7 +380,7 @@ declare function filings:summaries-to-xml($summaries as object*) as element()*
  :
  : @return a sequence of strings, each one representing one filings summary as CSV
  :)
-declare function filings:summaries-to-csv($summaries) as string*
+declare function filings:summaries-to-csv($summaries as object*) as string*
 {
   csv:serialize($summaries, { serialize-null-as : "" })
 };

@@ -32,7 +32,6 @@ module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
-import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace schema = "http://zorba.io/modules/schema";
 

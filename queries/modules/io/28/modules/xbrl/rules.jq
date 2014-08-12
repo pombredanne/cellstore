@@ -31,9 +31,6 @@ jsoniq version "1.0";
  :)
 module namespace rules = "http://28.io/modules/xbrl/rules";
 
-import module namespace archives = "http://28.io/modules/xbrl/archives";
-import module namespace facts = "http://28.io/modules/xbrl/facts";
-import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace report-schemas = "http://28.io/modules/xbrl/report-schemas";
 import module namespace r = "http://zorba.io/modules/random";
 
