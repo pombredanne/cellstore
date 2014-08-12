@@ -901,7 +901,7 @@ declare function sec-networks:disclosures($networks-or-ids as item*) as string+
  :
  : @return the category of each network.
  :)
-declare function sec-networks:categories($networks-or-ids) as string*
+declare function sec-networks:categories($networks-or-ids as item*) as string*
 {
   let $component := components:components($networks-or-ids)
   return normalize-space(tokenize($component.Label, "-")[2])
@@ -915,7 +915,7 @@ declare function sec-networks:categories($networks-or-ids) as string*
  :
  : @return the sub-category of each network.
  :)
-declare function sec-networks:sub-categories($networks-or-ids) as string*
+declare function sec-networks:sub-categories($networks-or-ids as item*) as string*
 {
   for $network in $networks-or-ids
   let $numbers :=
@@ -996,7 +996,7 @@ declare function sec-networks:summaries-to-xml($summaries as object*) as element
  :
  : @return a sequence of strings, each one representing one networks summary as CSV
  :)
-declare function sec-networks:summaries-to-csv($summaries) as string*
+declare function sec-networks:summaries-to-csv($summaries as object*) as string*
 {
   csv:serialize($summaries, { serialize-null-as : "" })
 };
