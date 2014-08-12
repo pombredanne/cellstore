@@ -1,8 +1,8 @@
 import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
+import module namespace companies2 = "http://28.io/modules/xbrl/profiles/sec/companies2";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 

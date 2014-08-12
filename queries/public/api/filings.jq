@@ -1,9 +1,9 @@
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
+import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 
-import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
-import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
+import module namespace companies2 = "http://28.io/modules/xbrl/profiles/sec/companies2";
+import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace fiscal-core2 = "http://28.io/modules/xbrl/profiles/sec/fiscal/core2";
 
 import module namespace util = "http://secxbrl.info/modules/util";
 

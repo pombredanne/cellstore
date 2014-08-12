@@ -1,5 +1,5 @@
 
-import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
+import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 import module namespace req = "http://www.28msec.com/modules/http-request";
 
 variable $mapName := let $mapName := req:param-values("mapName","FundamentalAccountingConcepts")

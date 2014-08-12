@@ -1,5 +1,5 @@
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 
 hypercubes:facts(
     hypercubes:dimensionless-hypercube({

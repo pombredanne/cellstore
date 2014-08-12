@@ -1,21 +1,21 @@
 jsoniq version "1.0";
 
-import module namespace components = "http://xbrl.io/modules/bizql/components";
-import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
-import module namespace filings = "http://xbrl.io/modules/bizql/profiles/sec/filings";
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace hypercubes2 = "http://xbrl.io/modules/bizql/hypercubes2";
-import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
-import module namespace networks = "http://xbrl.io/modules/bizql/networks";
-import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
+import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace components2 = "http://28.io/modules/xbrl/components2";
+import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
+import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+import module namespace hypercubes2 = "http://28.io/modules/xbrl/hypercubes2";
+import module namespace conversion = "http://28.io/modules/xbrl/conversion";
+import module namespace networks = "http://28.io/modules/xbrl/networks";
+import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 
-import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
-import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
-import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
-import module namespace sec-networks2 = "http://xbrl.io/modules/bizql/profiles/sec/networks2";
+import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace fiscal-core2 = "http://28.io/modules/xbrl/profiles/sec/fiscal/core2";
+import module namespace companies2 = "http://28.io/modules/xbrl/profiles/sec/companies2";
+import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
+import module namespace sec-networks2 = "http://28.io/modules/xbrl/profiles/sec/networks2";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";

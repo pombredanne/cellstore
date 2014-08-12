@@ -1,4 +1,4 @@
-import module namespace entities ="http://xbrl.io/modules/bizql/entities";
+import module namespace entities ="http://28.io/modules/xbrl/entities";
 
 declare function local:compute() as object* {
     for $entity in entities:entities()

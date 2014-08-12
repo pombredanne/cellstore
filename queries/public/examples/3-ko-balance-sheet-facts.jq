@@ -1,5 +1,5 @@
-import module namespace fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace sec-networks = "http://xbrl.io/modules/bizql/profiles/sec/networks";
+import module namespace fiscal = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 let $filing := fiscal:filings-for-entities-and-fiscal-periods-and-years( 21344, "FY", 2012 )

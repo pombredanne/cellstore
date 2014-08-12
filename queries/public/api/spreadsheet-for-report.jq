@@ -1,10 +1,10 @@
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace reports = "http://xbrl.io/modules/bizql/reports";
-import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+import module namespace reports = "http://28.io/modules/xbrl/reports";
+import module namespace components2 = "http://28.io/modules/xbrl/components2";
 
-import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
-import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
+import module namespace companies2 = "http://28.io/modules/xbrl/profiles/sec/companies2";
+import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace fiscal-core2 = "http://28.io/modules/xbrl/profiles/sec/fiscal/core2";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";

@@ -1,15 +1,15 @@
 import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace reports = "http://xbrl.io/modules/bizql/reports";
+import module namespace conversion = "http://28.io/modules/xbrl/conversion";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+import module namespace reports = "http://28.io/modules/xbrl/reports";
 
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
-import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
-import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
+import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
+import module namespace companies2 = "http://28.io/modules/xbrl/profiles/sec/companies2";
+import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace fiscal-core2 = "http://28.io/modules/xbrl/profiles/sec/fiscal/core2";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";

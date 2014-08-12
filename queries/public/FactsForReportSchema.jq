@@ -1,9 +1,9 @@
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace networks = "http://xbrl.io/modules/bizql/networks";
-import module namespace archives = "http://xbrl.io/modules/bizql/archives";
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
-import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
-import module namespace reports = "http://xbrl.io/modules/bizql/reports";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
+import module namespace networks = "http://28.io/modules/xbrl/networks";
+import module namespace archives = "http://28.io/modules/xbrl/archives";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
+import module namespace components2 = "http://28.io/modules/xbrl/components2";
+import module namespace reports = "http://28.io/modules/xbrl/reports";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";

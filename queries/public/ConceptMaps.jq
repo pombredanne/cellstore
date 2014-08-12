@@ -1,4 +1,4 @@
-(: import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps"; :)
+(: import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps"; :)
 
 { availableMaps: ["FundamentalAccountingConcepts"] }
 

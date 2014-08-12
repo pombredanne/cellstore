@@ -1,6 +1,6 @@
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
+import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($facts as object*) as string*
