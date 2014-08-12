@@ -278,7 +278,7 @@ declare %an:nondeterministic function rules:create-computed-fact(
   $options as object?
 ) as object
 {
-  copy $newfact := $template-fact
+  copy $newfact := ($template-fact, $options)[1] (: just avoid warning :)
   modify (
     (: generate id :)
     let $id := r:uuid()

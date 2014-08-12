@@ -110,7 +110,7 @@ import module namespace rules = "http://28.io/modules/xbrl/rules";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
 
-import module namespace reflection = "http://zorba.io/modules/reflection";
+(:import module namespace reflection = "http://zorba.io/modules/reflection";:)
 import module namespace string = "http://zorba.io/modules/string";
 import module namespace seq = "http://zorba.io/modules/sequence";
 
@@ -1064,7 +1064,6 @@ declare %private function facts:facts-for-concepts-and-rules-recursive(
  :
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
- :)
 declare %private function facts:facts-for-rules(
     $rules-to-evaluate as object+,
     $concepts as string*,
@@ -1110,6 +1109,7 @@ declare %private function facts:facts-for-rules(
       "Invalid rule type : '" || $type || "' of rule with label: '"
       || $rule.Label || "'")
 };
+ :)
 
 (:~
  : fetch free lunch facts from cache if possible
