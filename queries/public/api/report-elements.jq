@@ -6,6 +6,7 @@ import module namespace archives = "http://xbrl.io/modules/bizql/archives";
 import module namespace entities = "http://xbrl.io/modules/bizql/entities";
 import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
 import module namespace components = "http://xbrl.io/modules/bizql/components";
+import module namespace reports = "http://xbrl.io/modules/bizql/reports";
 import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 
 import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
@@ -159,6 +160,7 @@ let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPe
 let $aids as string*           := distinct-values(request:param-values("aid"))
 let $labels as string*         := request:param-values("label")
 let $map as string?            := request:param-values("map")
+let $report as string?         := request:param-values("report")
 let $names as string*          := request:param-values("name")
 
 (: Post-processing :)
@@ -193,12 +195,16 @@ let $archives as object* := fiscal-core2:filings(
     $aids)
 let $entities    := entities:entities($archives.Entity)
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
+let $map as item* :=
+    if(exists($report))
+    then reports:concept-map($report)
+    else $map
 let $concepts := if (exists($names))
                   then local:concepts-for-archives($archives._id, $names, $map)
                   else if (exists($labels))
                   then local:concepts-for-archives-and-labels($archives._id, $labels[1])
                   else local:concepts-for-archives($archives._id)
-let $result := { Concepts : [ if ($onlyNames) 
+let $result := { ReportElements : [ if ($onlyNames) 
             then distinct-values($concepts.Name)
             else for $c in $concepts
                  group by $component := $c.Component
@@ -232,11 +238,11 @@ let $comment := {
 let $serializers := {
     to-xml : function($res as object) as node() {
         <ReportElements>{
-                    local:to-xml($res.Concepts[], $onlyNames)
+                    local:to-xml($res.ReportElements[], $onlyNames)
                 }</ReportElements>
     },
     to-csv : function($res as object) as string {
-        local:to-csv($res.Concepts[], $onlyNames)
+        local:to-csv($res.ReportElements[], $onlyNames)
     }
 }
 let $results := util:serialize($result, $comment, $serializers, $format, "report-elements")
