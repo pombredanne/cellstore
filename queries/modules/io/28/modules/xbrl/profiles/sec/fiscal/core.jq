@@ -24,6 +24,7 @@ import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 
@@ -73,7 +74,7 @@ declare function fiscal-core:filings(
             let $fiscal-years as integer* :=
                 $fiscal-years[$$ ne $fiscal-core:LATEST_FISCAL_YEAR]
             return
-                sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entities, $fiscal-periods, $fiscal-years),
+                fiscal-core:filings-for-entities-and-fiscal-periods-and-years($entities, $fiscal-periods, $fiscal-years),
     archives:archives($archives-or-aids)
 };
 
@@ -84,8 +85,8 @@ declare function fiscal-core:latest-filings(
     for $entity in $entities
     for $fiscal-period in $fiscal-periods 
     let $latest-fiscal-year :=
-        sec-fiscal:latest-reported-fiscal-period($entity, $fiscal-period).year
-    return sec-fiscal:filings-for-entities-and-fiscal-periods-and-years(
+        fiscal-core:latest-reported-fiscal-period($entity, $fiscal-period).year
+    return fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
         $entity,
         $fiscal-period,
         $latest-fiscal-year cast as integer?
@@ -113,7 +114,7 @@ declare function fiscal-core:filter-override(
             {
                 Type: "string",
                 Domain: [ $fiscal-periods ]
-            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $sec-fiscal:ALL_FISCAL_PERIODS))]
+            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS))]
         |}
     }
     case exists(index-of($fiscal-years, $fiscal-core:LATEST_FISCAL_YEAR))
@@ -126,7 +127,7 @@ declare function fiscal-core:filter-override(
             {
                 Type: "string",
                 Domain: [ $fiscal-periods ]
-            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $sec-fiscal:ALL_FISCAL_PERIODS))]
+            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS))]
         |}
     }
     case exists(($entities, $fiscal-years, $fiscal-periods))
@@ -144,13 +145,13 @@ declare function fiscal-core:filter-override(
                 {
                     Type: "integer",
                     Domain: [ $fiscal-years ]
-                }[exists($fiscal-years) and empty(index-of($fiscal-years, $sec-fiscal:ALL_FISCAL_YEARS))]
+                }[exists($fiscal-years) and empty(index-of($fiscal-years, $fiscal-core:ALL_FISCAL_YEARS))]
             |},
         "sec:FiscalPeriod" : {|
             {
                 Type: "string",
                 Domain: [ $fiscal-periods ]
-            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $sec-fiscal:ALL_FISCAL_PERIODS))]
+            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS))]
         |},
         "sec:Archive" : {}
     }

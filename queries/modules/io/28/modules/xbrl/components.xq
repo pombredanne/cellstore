@@ -271,7 +271,7 @@ as object*
         else components:select-table($component, $options)
     let $hypercube :=
     if(exists($options.FilterOverride))
-    then hypercubes2:modify-hypercube(
+    then hypercubes:modify-hypercube(
       $overriden-hypercube,
       $options.FilterOverride
     )
@@ -352,7 +352,7 @@ as object*
             {
                 Hypercube:
                     if(exists($options.FilterOverride))
-                    then hypercubes2:modify-hypercube(
+                    then hypercubes:modify-hypercube(
                         $overriden-hypercube,
                         $options.FilterOverride
                     )

@@ -4,11 +4,9 @@ import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 
-import module namespace companies2 = "http://28.io/modules/xbrl/profiles/sec/companies2";
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
-import module namespace sec-networks2 = "http://28.io/modules/xbrl/profiles/sec/networks2";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
-import module namespace fiscal-core2 = "http://28.io/modules/xbrl/profiles/sec/fiscal/core2";
 
 import module namespace util = "http://secxbrl.info/modules/util";
 
@@ -148,7 +146,7 @@ let $tags as string* := (: backwards compatibility, to be deprecated :)
 let $fiscalYears as integer* :=
     for $fy in $fiscalYears ! upper-case($$)
     return switch($fy)
-           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
+           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
            case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
            default return if($fy castable as integer) then integer($fy) else ()
 let $fiscalPeriods as string* :=
@@ -160,17 +158,17 @@ let $reportElements := ($reportElements, $concepts)
 
 (: Object resolution :)
 let $entities := 
-    companies2:companies(
+    companies:companies(
         $ciks,
         $tags,
         $tickers,
         $sics)
-let $archives as object* := fiscal-core2:filings(
+let $archives as object* := fiscal-core:filings(
     $entities,
     $fiscalPeriods,
     $fiscalYears,
     $aids)
-let $components  := sec-networks2:components(
+let $components  := sec-networks:components(
     $archives,
     $cid,
     $reportElements,

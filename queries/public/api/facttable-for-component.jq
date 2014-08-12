@@ -1,21 +1,17 @@
 jsoniq version "1.0";
 
 import module namespace components = "http://28.io/modules/xbrl/components";
-import module namespace components2 = "http://28.io/modules/xbrl/components2";
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
-import module namespace hypercubes2 = "http://28.io/modules/xbrl/hypercubes2";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
-import module namespace fiscal-core2 = "http://28.io/modules/xbrl/profiles/sec/fiscal/core2";
-import module namespace companies2 = "http://28.io/modules/xbrl/profiles/sec/companies2";
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
-import module namespace sec-networks2 = "http://28.io/modules/xbrl/profiles/sec/networks2";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
@@ -52,7 +48,7 @@ let $tags as string* := (: backwards compatibility, to be deprecated :)
 let $fiscalYears as integer* :=
     for $fy in $fiscalYears ! upper-case($$)
     return switch($fy)
-           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
+           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
            case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
            default return if($fy castable as integer) then integer($fy) else ()
 let $fiscalPeriods as string* :=
@@ -65,18 +61,18 @@ let $validate as boolean := $validate = "true"
 
 (: Object resolution :)
 let $entities as object* := 
-    companies2:companies(
+    companies:companies(
         $ciks,
         $tags,
         $tickers,
         $sics)
-let $archive as object? := fiscal-core2:filings(
+let $archive as object? := fiscal-core:filings(
     $entities,
     $fiscalPeriods,
     $fiscalYears,
     $aids)
 let $entity    := entities:entities($archive.Entity)
-let $components  := sec-networks2:components(
+let $components  := sec-networks:components(
     $archive,
     $cids,
     $reportElements,
@@ -92,7 +88,7 @@ let $facts :=
          then 
              let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
              let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-             let $hc := hypercubes2:modify-hypercube($hc, {
+             let $hc := hypercubes:modify-hypercube($hc, {
                  "sec:FiscalYear" : { Type: "integer", Default: null },
                  "sec:FiscalPeriod" : { Type: "string", Default: null }
              })
@@ -108,7 +104,7 @@ let $facts :=
                     for $d in $rollups[]
                     return ($d, keys(descendant-objects($p)[$$.Name eq $d].To))
              return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
-         else components2:facts(
+         else components:facts(
             $component,
             {
                 Validate: $validate,

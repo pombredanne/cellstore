@@ -7,9 +7,8 @@ import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
-import module namespace companies2 = "http://28.io/modules/xbrl/profiles/sec/companies2";
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
-import module namespace fiscal-core2 = "http://28.io/modules/xbrl/profiles/sec/fiscal/core2";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
@@ -40,7 +39,7 @@ declare function local:hypercube(
     {|
         let $concepts := request:param-values("concept")
         return { "xbrl:Concept" : { Domain : [ $concepts ] } }[exists($concepts)],
-        fiscal-core2:filter-override(
+        fiscal-core:filter-override(
             $entities,
             $fiscalYears,
             $fiscalPeriods,
@@ -125,7 +124,7 @@ let $tags as string* := (: backwards compatibility, to be deprecated :)
 let $fiscalYears as integer* :=
     for $fy in $fiscalYears ! upper-case($$)
     return switch($fy)
-           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
+           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
            case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
            default return if($fy castable as integer) then integer($fy) else ()
 let $fiscalPeriods as string* :=
@@ -137,12 +136,12 @@ let $validate as boolean := $validate = "true"
 
 (: Object resolution :)
 let $entities as object* := 
-    companies2:companies(
+    companies:companies(
         $ciks,
         $tags,
         $tickers,
         $sics)
-let $archives as object* := fiscal-core2:filings(
+let $archives as object* := fiscal-core:filings(
     $entities,
     $fiscalPeriods,
     $fiscalYears,

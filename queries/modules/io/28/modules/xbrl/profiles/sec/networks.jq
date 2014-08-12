@@ -346,9 +346,9 @@ declare function sec-networks:components(
         components:components($components-or-ids)[exists($components-or-ids)],
         if (exists(($report-elements, $disclosures, $roles, $search)))
         then (
-                components2:components-for-archives-and-concepts($archives, $report-elements),
+                components:components-for-archives-and-concepts($archives, $report-elements),
                 sec-networks:networks-for-filings-and-disclosures($archives, $disclosures),
-                components2:components-for-archives-and-roles($archives, $roles),
+                components:components-for-archives-and-roles($archives, $roles),
                 sec-networks:networks-for-filings-and-label($archives, $search)
             )
         else components:components-for-archives($archives)
@@ -393,14 +393,14 @@ declare function sec-networks:standard-definition-models-for-components($compone
  :  <li>Slicers: an object with forced slicers.</li>
  : </ul>
  :
- : @error components2:HYPERCUBE-DOES-NOT-EXIST if the specified hypercube is not found.
+ : @error components:HYPERCUBE-DOES-NOT-EXIST if the specified hypercube is not found.
  : @return a definition model
  :)
 declare function sec-networks:standard-definition-models-for-components($components as object*, $options as object?) as object
 {
     for $component in $components
     let $implicit-table as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-    let $table as object := components2:select-table($component, $options)
+    let $table as object := components:select-table($component, $options)
 
     let $auto-slice as boolean := empty($options.AutoSlice) or $options.AutoSlice
     let $facts as object*:=

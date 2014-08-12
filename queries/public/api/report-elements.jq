@@ -9,9 +9,8 @@ import module namespace components = "http://28.io/modules/xbrl/components";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 
-import module namespace companies2 = "http://28.io/modules/xbrl/profiles/sec/companies2";
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
-import module namespace fiscal-core2 = "http://28.io/modules/xbrl/profiles/sec/fiscal/core2";
 
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
@@ -171,7 +170,7 @@ let $tags as string* := (: backwards compatibility, to be deprecated :)
 let $fiscalYears as integer* :=
     for $fy in $fiscalYears ! upper-case($$)
     return switch($fy)
-           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
+           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
            case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
            default return if($fy castable as integer) then integer($fy) else ()
 let $fiscalPeriods as string* :=
@@ -183,12 +182,12 @@ let $fiscalPeriods as string* :=
 
 (: Object resolution :)
 let $entities := 
-    companies2:companies(
+    companies:companies(
         $ciks,
         $tags,
         $tickers,
         $sics)
-let $archives as object* := fiscal-core2:filings(
+let $archives as object* := fiscal-core:filings(
     $entities,
     $fiscalPeriods,
     $fiscalYears,
