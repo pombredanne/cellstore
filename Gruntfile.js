@@ -528,7 +528,7 @@ module.exports = function (grunt) {
     ]);
     
     grunt.registerTask('default', [
-        'xqlint',
+        //'xqlint',
         'jsonlint',
         'jshint',
         'nggettext_default',
