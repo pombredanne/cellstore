@@ -205,10 +205,11 @@ declare %an:nondeterministic function rules:create-computed-fact(
 ) as object
 {
   let $audit-trail-option as string := 
-    (
-      lower-case($options.audit-trail),
-      "debug"
-    )[1]
+      lower-case((
+          $options.audit-trail,
+          $options.AuditTrail,
+          "production"
+      )[1])
   let $computed-concept := 
     if($concept-name-or-aspects instance of string)
     then $concept-name-or-aspects
