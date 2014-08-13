@@ -1,8 +1,6 @@
 import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace session = "http://apps.28.io/session";
-import module namespace user = "http://apps.28.io/user";
 
 declare %an:sequential function local:test-filings($expected as integer, $params as string) as atomic
 {
