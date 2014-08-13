@@ -1,9 +1,9 @@
 jsoniq version "1.0";
 
-module namespace layout = "http://xbrl.io/modules/bizql/layout";
+module namespace layout = "http://28.io/modules/xbrl/layout";
 
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 
 (:
     TODO: roll-up layout nodes for open structural nodes if desired

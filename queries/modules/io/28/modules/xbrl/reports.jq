@@ -29,9 +29,9 @@ jsoniq version "1.0";
  : @author Ghislain Fourny
  :
  :)
-module namespace reports = "http://xbrl.io/modules/bizql/reports";
+module namespace reports = "http://28.io/modules/xbrl/reports";
 
-import module namespace networks = "http://xbrl.io/modules/bizql/networks";
+import module namespace networks = "http://28.io/modules/xbrl/networks";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";

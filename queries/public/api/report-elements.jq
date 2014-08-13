@@ -2,16 +2,16 @@ import module namespace util = "http://secxbrl.info/modules/util";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-declare namespace components = "http://xbrl.io/modules/bizql/components";
-import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
-import module namespace reports = "http://xbrl.io/modules/bizql/reports";
-import module namespace concept-maps = "http://xbrl.io/modules/bizql/concept-maps";
 
-import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
-import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
+import module namespace archives = "http://28.io/modules/xbrl/archives";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace reports = "http://28.io/modules/xbrl/reports";
+import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
+
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
+import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
@@ -171,7 +171,7 @@ let $tags as string* := (: backwards compatibility, to be deprecated :)
 let $fiscalYears as integer* :=
     for $fy in $fiscalYears ! upper-case($$)
     return switch($fy)
-           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
+           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
            case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
            default return if($fy castable as integer) then integer($fy) else ()
 let $fiscalPeriods as string* :=
@@ -183,12 +183,12 @@ let $fiscalPeriods as string* :=
 
 (: Object resolution :)
 let $entities := 
-    companies2:companies(
+    companies:companies(
         $ciks,
         $tags,
         $tickers,
         $sics)
-let $archives as object* := fiscal-core2:filings(
+let $archives as object* := fiscal-core:filings(
     $entities,
     $fiscalPeriods,
     $fiscalYears,

@@ -1,6 +1,6 @@
 jsoniq version "1.0";
 
-module namespace accountant-converter = "http://xbrl.io/modules/bizql/profiles/accountant/converter";
+module namespace accountant-converter = "http://28.io/modules/xbrl/profiles/accountant/converter";
 
 (:~
  : <p>Flattens the row headers of the layout, leading to a rendering more familiar to

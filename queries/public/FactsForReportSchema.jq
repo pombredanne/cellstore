@@ -1,9 +1,9 @@
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace networks = "http://xbrl.io/modules/bizql/networks";
-import module namespace archives = "http://xbrl.io/modules/bizql/archives";
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
-import module namespace components2 = "http://xbrl.io/modules/bizql/components2";
-import module namespace reports = "http://xbrl.io/modules/bizql/reports";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
+import module namespace networks = "http://28.io/modules/xbrl/networks";
+import module namespace archives = "http://28.io/modules/xbrl/archives";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
+import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace reports = "http://28.io/modules/xbrl/reports";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
@@ -34,7 +34,7 @@ return switch(true)
       case $session:ACCESS-ALLOWED return {
         let $cached-archives := store:find("reportcache", { _id : { "$in" : [ $archives._id ! ($report || $$)]}})
         let $noncached-archives := seq:value-except($archives._id, $cached-archives._id ! substring-after($$, $report))
-        let $facts := components2:facts($report-object,
+        let $facts := components:facts($report-object,
             {
                 FilterOverride: {
                     "sec:Archive" : {
