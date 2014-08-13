@@ -212,7 +212,7 @@ let $result := {
         else
             let $all-aids := $concepts.Archive
             let $roles := $concepts.Role
-            let $components := components2:components-for-archives-and-roles($all-aids, $roles)
+            let $components := components:components-for-archives-and-roles($all-aids, $roles)
             return
             for $concept in $concepts
             group by $archive := $concept.Archive,  $role := $concept.Role
