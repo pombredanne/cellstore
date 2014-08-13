@@ -1085,6 +1085,7 @@ declare %private function facts:facts-for-rules(
       let $formula := $rule.Formula
       return 
         try {
+          (: avoid xqlint warnings :)
           (($concepts, $hypercube, $aligned-filter,
            $concept-maps, $rules, $cache, $options)[1] ! $$
           ) ! reflection:eval($formula)
