@@ -1110,7 +1110,6 @@ declare %private function facts:facts-for-rules(
       "Invalid rule type : '" || $type || "' of rule with label: '"
       || $rule.Label || "'")
 };
- :)
 
 (:~
  : fetch free lunch facts from cache if possible
