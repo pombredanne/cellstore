@@ -972,7 +972,7 @@ declare function sec-networks:summaries($networks-or-ids as item*) as object*
     Members : sec-networks:num-members($component),
     LineItems : sec-networks:num-line-items($component),
     Concepts : sec-networks:num-concepts($component),
-    Abstracts : count(sec-networks:abstracts($component)) 
+    Abstracts : sec-networks:num-abstracts($component)
   }
 };
 
