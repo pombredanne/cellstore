@@ -341,38 +341,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        s3: {
-            options: {
-                access: 'public-read',
-                maxOperations: 5,
-                gzip: true,
-                gzipExclude: ['.jpg', '.jpeg', '.png', '.xml', '.json', '.pdf', '.txt', '.ico']
-            },
-            test: {
-                bucket: '<%= aws.bucket_test %>',
-                upload: [{
-                    src: '<%= yeoman.dist %>/**/*',
-                    dest: '',
-                    rel: '<%= yeoman.dist %>/',
-                }]
-            },
-            beta: {
-                bucket: '<%= aws.bucket_beta %>',
-                upload: [{
-                    src: '<%= yeoman.dist %>/**/*',
-                    dest: '',
-                    rel: '<%= yeoman.dist %>/',
-                }]
-            },
-            prod: {
-                bucket: '<%= aws.bucket_prod %>',
-                upload: [{
-                    src: '<%= yeoman.dist %>/**/*',
-                    dest: '',
-                    rel: '<%= yeoman.dist %>/',
-                }]
-            }
-        },
         netdna : {
             options: {
                 companyAlias: '28msecinc',
@@ -459,8 +427,74 @@ module.exports = function (grunt) {
                     'bower.json',
                     'grunt-api.json',
                     'grunt-aws.json',
+                    'WebsiteConfiguration.json',
+                    'datasources.json',
                     'app/swagger/*.json'
                 ]
+            }
+        },
+        s3: {
+            options: {
+                access: 'public-read',
+                maxOperations: 5,
+                gzip: true,
+                gzipExclude: ['.jpg', '.jpeg', '.png', '.xml', '.json', '.pdf', '.txt', '.ico'],
+                key: '<%= secxbrl.s3.accessKeyId %>',
+                secret: '<%= secxbrl.s3.secretAccessKey %>'
+            },
+            dev: {
+                bucket: '<%= secxbrl.s3.bucket %>',
+                upload: [{
+                    src: '<%= yeoman.dist %>/**/*',
+                    dest: '',
+                    rel: '<%= yeoman.dist %>/'
+                }]
+            }
+        },
+        setupS3Bucket: {
+            dev: {
+                bucket: '<%= secxbrl.s3.bucket %>',
+                delete: {
+                    idempotent: true
+                },
+                create: {},
+                website: {
+                    WebsiteConfiguration: grunt.file.readJSON('WebsiteConfiguration.json')
+                }
+            }
+        },
+        28: {
+            options: {
+                src: 'queries',
+                email: process.env.USERNAME_28,
+                password: process.env.PASSWORD_28
+            },
+            dev: {
+                project: '<%= secxbrl.s3.bucket %>',
+                delete: {
+                    idempotent: true
+                },
+                create: {},
+                upload: {
+                    projectPath: 'queries'
+                },
+                datasources: JSON.parse(grunt.template.process(grunt.file.read('datasources.json'), { data: {
+                    SECXBRL_USERNAME: process.env.SECXBRL_USERNAME,
+                    SECXBRL_PASSWORD: process.env.SECXBRL_PASSWORD
+                }})),
+                //1, 2, 3 are executed sequentially, queries in each set are executed in parallel
+                runQueries: [
+                    'queries/private/InitAuditCollection.jq',
+                    'queries/private/init.jq',
+                    'queries/private/UpdateReportSchema.jq',
+                    'queries/public/test/*',
+                    'queries/private/test/*'
+                ]
+            }
+        },
+        debug: {
+            options: {
+                open: false
             }
         }
     });
@@ -511,21 +545,23 @@ module.exports = function (grunt) {
         ]);
     });
 
-    grunt.registerTask('deploy:test', [
-        'build:test',
-        's3:test'
-    ]);
+    grunt.registerTask('deploy', function() {
+        // only deploy if triggered by a pull request
+        if (process.env.TRAVIS_BRANCH !== undefined && process.env.TRAVIS_PULL_REQUEST !== undefined &&
+            process.env.TRAVIS_PULL_REQUEST !== 'false') {
+            grunt.config.set('secxbrl', {
+                s3: {
+                    bucket: 'secxbrl-' + process.env.TRAVIS_BRANCH + '-' + process.env.TRAVIS_PULL_REQUEST,
+                    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+                }
+            });
 
-    grunt.registerTask('deploy:beta', [
-        'build:beta',
-        's3:beta'
-    ]);
-
-    grunt.registerTask('deploy:prod', [
-        'build:prod',
-        's3:prod',
-        'netdna:prod'
-    ]);
+            grunt.task.run(['setupS3Bucket']);
+            grunt.task.run(['s3']);
+            grunt.task.run(['28']);
+        }
+    });
     
     grunt.registerTask('default', [
         'xqlint',
@@ -534,5 +570,7 @@ module.exports = function (grunt) {
         'nggettext_default',
         'nggettext_check',
         'nggettext_compile',
+        'build',
+        'deploy'
     ]);
 };
