@@ -16,5 +16,6 @@ grunt server
 Each PR creates a new frontend and test project. If your PR is against master and is number 43, you will have the following frontend and backend deployed:
 * http://secxbrl-master-284.s3-website-us-east-1.amazonaws.com
 * http://secxbrl-master-284.28.io
+
 `Gruntfile.js` is configure to run setup queries and then test queries in order to validate the build. These are declared at https://github.com/28msec/secxbrl.info/blob/master/Gruntfile.js#L485.
 Here's an example of build passing on travis: https://travis-ci.org/28msec/secxbrl.info/builds/32395013
