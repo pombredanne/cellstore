@@ -14,7 +14,7 @@ jsoniq version "1.0";
  : unit, further XBRL dimensions), as well as profile-specific information.</p>
  :
  : <p>With this module, you can retrieve facts by picking the characteristics
- : you would like your results to have. You can retrieve a fact with its FID
+ : you would like your results to have. You can retrieve a f,act with its FID
  : (Fact ID). You can extract information about facts (period, entity, etc).
  : You can perform a full-text search on fact values, and obtain footnotes.</p>
  :
@@ -839,8 +839,9 @@ declare function facts:facts-for-internal(
       facts:facts-from-cache($concepts-in-cache, $cache-filter-index, $cache)
 
   (: ### 3. issue a direct lookup ### :)
-  let $direct-lookup-results as object* := 
-    facts:facts-for-direct($concepts-not-computable-by-rules-or-maps,
+  let $direct-lookup-results as object* :=
+    for $concept in $concepts-not-computable-by-rules-or-maps
+    return facts:facts-for-direct($concept,
                            $aligned-filter,
                            $hypercube,
                            $options)
@@ -1065,7 +1066,7 @@ declare %private function facts:facts-for-concepts-and-rules-recursive(
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
  :)
-declare %private function facts:facts-for-rules(
+declare %private %an:strictlydeterministic %an:exclude-from-cache-key(1, 3, 4, 5, 6, 7, 8) function facts:facts-for-rules(
     $rules-to-evaluate as object+,
     $concepts as string*,
     $hypercube as object?,
@@ -1080,7 +1081,7 @@ declare %private function facts:facts-for-rules(
   let $type := $rule.Type
   return
     switch(true)
-    case ($type = ("xbrl28:formula", "xbrl28:validation"))
+    case ($type = ("xbrl28:formula", "xbrl28:validation", trace($concepts, "Rule for")))
     return
       let $formula := $rule.Formula
       return 
@@ -1130,7 +1131,7 @@ declare %private function facts:facts-from-cache(
 (:~
  : issue a direct lookup of facts from the store
  :)
-declare %private function facts:facts-for-direct(
+declare %private %an:strictlydeterministic function facts:facts-for-direct(
     $concepts-not-computable-by-rules-or-maps as string*,
     $filter as object,
     $hypercube as object?,
@@ -1674,7 +1675,8 @@ declare %private function facts:prepopulate-cache(
     let $concepts :=
       facts:get-dependent-concepts($concepts, $rules, $concept-maps)
     let $direct-lookup-results as object* :=
-      facts:facts-for-direct($concepts,
+      for $concept in $concepts
+      return facts:facts-for-direct($concept,
                              $aligned-filter,
                              $hypercube,
                              $options)
