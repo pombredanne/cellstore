@@ -1085,7 +1085,9 @@ declare %private function facts:facts-for-rules(
       let $formula := $rule.Formula
       return 
         try {
-          reflection:eval($formula)
+          (($concepts, $hypercube, $aligned-filter,
+           $concept-maps, $rules, $cache, $options)[1] ! $$
+          ) ! reflection:eval($formula)
         } catch * {
           let $error-details :=
             {
