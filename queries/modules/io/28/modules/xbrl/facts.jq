@@ -810,7 +810,7 @@ declare function facts:facts-for-internal(
 
   (: Learn about what concepts can be computed where :)
   let $concepts-from-cache as string* := keys($cache)[exists($cache.$$.$cache-filter-index)]
-  let $default-rules := $rules[empty($$.ComputableConcepts)]
+  let $default-rules := $rules[empty(jn:flatten($$.ComputableConcepts))]
   let $all-concepts-computable-by-rules as string* := 
       if(empty($default-rules))
       then jn:flatten($rules.ComputableConcepts)
