@@ -110,9 +110,9 @@ import module namespace rules = "http://28.io/modules/xbrl/rules";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
 
-(:import module namespace reflection = "http://zorba.io/modules/reflection";:)
 import module namespace string = "http://zorba.io/modules/string";
 import module namespace seq = "http://zorba.io/modules/sequence";
+import module namespace reflection = "http://zorba.io/modules/reflection";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 
