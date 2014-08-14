@@ -7,7 +7,6 @@ before_script:
 - npm install -g grunt-cli
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-- "export TRAVIS_COMMIT_MSG=\"$(git log --format=%B --no-merges -n 1)\""
 script:
 - grunt
 after_script:
