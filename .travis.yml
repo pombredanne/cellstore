@@ -1,16 +1,17 @@
 language: node_js
 node_js:
 - '0.10'
-addons:
-  firefox: '28.0'
 before_script:
 - npm install -g bower
 - bower install
 - npm install -g grunt-cli
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
+- "export TRAVIS_COMMIT_MSG=\"$(git log --format=%B --no-merges -n 1)\""
 script:
 - grunt
+after_script:
+- grunt test:teardown
 env:
   global:
   #AWS_ACCESS_KEY_ID
@@ -18,9 +19,9 @@ env:
   #AWS_SECRET_ACCESS_KEY
   - secure: "c/V+hR9sZ5lQ8XkcRsxv+zTybIS2rhrB9D/O16h6kJHp7YB5AxQDt9tiVtcPE47G8FxY/aueljuBON3fIK3Z5JbkKKxQivULb0hmEzvw4S3ZYJunTrYDt616eQqV6OVx0ZHXdaWGuw+Y3Vk50Z0aYdHPCoI+Gw6SE7TwYekSHQE="
   #USERNAME_28
-  - secure: "eFSb5g2ACb+Fw7+pCTx3WLL3L5sRKGQrI8LmflH1ANu2+I7qYinnVV11QqacECLhWxGWGQ740di+q49nmEJDpL27M2/h1h6AVChGGUN9M/1sZaYRp/FHd22QNhVw8Fk9T3xFKdxgshZpTY5a8slENN+ROE0kMdt/rT3Idio7iDw="
+  - secure: "R2wc9nzyq3SugTxSfAuQ9d5+tbVC3/svFlDeLkJy3+gioW+XjNg8JhAbFn8c2UEjoHV6NAlBM2mldDGitBiOZpL+qtG1PperVjnyjwqaYGVJRV6SPnUh+UhSBRv3APV8nxyFWjide7WmQXlkoPzTXAlIiRudCX45xVofvgkdGi8="
   #PASSWORD_28
-  - secure: "Q0RItZxtqYM26fy1e4vq294hMAWjH6HemzDkZKtTOnc1iJc69DLz+7HDrkiR2f3ci9UhMzIQtgjJeh18RTC3P4FF2JBv++KTc3DoFc3VP/sxve8a/rIIxZ3ajDaRvLv0OtlNzKfOHFIPCFZISK+11Rcp3bp7kLoRzVZmSIFd0CA="
+  - secure: "AwbHQZSyjgcJyVIwIQZhFedWhTbFUBjCb5a3QFbvZjol28EI+E0bfJI/cPWxXXGmPer3es+YvkOMuotQ77umV1QwCIH5Mt1tqvXv4ePzuWyWrtP+dYCXhfrRYVOdqrXXUosYXrR204QVG71yq4ga5/LFLp//odiyIu5gZETWcJ4="
   #SECXBRL_USERNAME
   - secure: "g8iDPtQV9KiBsHkRut9v6Lc6Y9zH75/jVJtX4pqvSA4dRDZo0n34MswwEhVDzpyb++8RSYdKG99Y02f1Ua1G/YRQL3Xy6F5kQRwBvq9A34oQY9LawwzLtse3NNRiq2wLJ3yG6oP2w4e6RJS5OALKor8RxUrml0atPCV85Tb4bZE="
   #SECXBRL_PASSWORD

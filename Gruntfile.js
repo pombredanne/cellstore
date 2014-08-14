@@ -423,44 +423,47 @@ module.exports = function (grunt) {
         jsonlint: {
             all: {
                 src: [
-                    'package.json',
-                    'bower.json',
-                    'grunt-api.json',
-                    'grunt-aws.json',
-                    'WebsiteConfiguration.json',
-                    'datasources.json',
+                    '*.json',
                     'app/swagger/*.json'
                 ]
             }
         },
-        s3: {
+        'aws_s3': {
             options: {
-                access: 'public-read',
-                maxOperations: 5,
-                gzip: true,
-                gzipExclude: ['.jpg', '.jpeg', '.png', '.xml', '.json', '.pdf', '.txt', '.ico'],
-                key: '<%= secxbrl.s3.accessKeyId %>',
-                secret: '<%= secxbrl.s3.secretAccessKey %>'
+                accessKeyId: '<%= secxbrl.s3.accessKeyId %>',
+                secretAccessKey: '<%= secxbrl.s3.secretAccessKey %>',
+                region: 'us-east-1',
+                uploadConcurrency: 5,
+                downloadConcurrency: 5
             },
-            dev: {
-                bucket: '<%= secxbrl.s3.bucket %>',
-                upload: [{
-                    src: '<%= yeoman.dist %>/**/*',
-                    dest: '',
-                    rel: '<%= yeoman.dist %>/'
-                }]
+            setup: {
+                options: {
+                    bucket: '<%= secxbrl.s3.bucket %>'
+                },
+                files: [
+                    { 'action': 'upload', expand: true, cwd: '<%= yeoman.dist %>', dest: '/', src: ['**'] }
+                ]
+            },
+            teardown: {
+                options: {
+                    bucket: '<%= secxbrl.s3.bucket %>'
+                },
+                files: [
+                    { 'action': 'delete', dest: '/' }
+                ]
             }
         },
         setupS3Bucket: {
-            dev: {
+            setup: {
                 bucket: '<%= secxbrl.s3.bucket %>',
-                delete: {
-                    idempotent: true
-                },
                 create: {},
                 website: {
                     WebsiteConfiguration: grunt.file.readJSON('WebsiteConfiguration.json')
                 }
+            },
+            teardown: {
+                bucket: '<%= secxbrl.s3.bucket %>',
+                delete: {}
             }
         },
         28: {
@@ -469,7 +472,7 @@ module.exports = function (grunt) {
                 email: process.env.USERNAME_28,
                 password: process.env.PASSWORD_28
             },
-            dev: {
+            setup: {
                 project: '<%= secxbrl.s3.bucket %>',
                 delete: {
                     idempotent: true
@@ -482,14 +485,22 @@ module.exports = function (grunt) {
                     SECXBRL_USERNAME: process.env.SECXBRL_USERNAME,
                     SECXBRL_PASSWORD: process.env.SECXBRL_PASSWORD
                 }})),
-                //1, 2, 3 are executed sequentially, queries in each set are executed in parallel
                 runQueries: [
                     'queries/private/InitAuditCollection.jq',
                     'queries/private/init.jq',
-                    'queries/private/UpdateReportSchema.jq',
+                    'queries/private/UpdateReportSchema.jq'
+                ]
+            },
+            run: {
+                project: '<%= secxbrl.s3.bucket %>',
+                runQueries: [
                     'queries/public/test/*',
                     'queries/private/test/*'
                 ]
+            },
+            teardown: {
+                project: '<%= secxbrl.s3.bucket %>',
+                delete: {}
             }
         },
         debug: {
@@ -545,21 +556,43 @@ module.exports = function (grunt) {
         ]);
     });
 
-    grunt.registerTask('deploy', function() {
-        // only deploy if triggered by a pull request
-        if (process.env.TRAVIS_BRANCH !== undefined && process.env.TRAVIS_PULL_REQUEST !== undefined &&
-            process.env.TRAVIS_PULL_REQUEST !== 'false') {
-            grunt.config.set('secxbrl', {
-                s3: {
-                    bucket: 'secxbrl-' + process.env.TRAVIS_BRANCH + '-' + process.env.TRAVIS_PULL_REQUEST,
-                    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-                    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-                }
-            });
+    grunt.registerTask('test', function (target) {
+        var _ = require('lodash');
+        var buildId = process.env.TRAVIS_JOB_NUMBER;
+        if(!buildId) {
+            var idx =_.findIndex(process.argv, function(val){ return val.substring(0, '--build-id='.length) === '--build-id='; });
+            buildId = idx > -1 ? process.argv[idx].substring('--build-id='.length) : undefined;
+        }
+        if(buildId) {
+            buildId = buildId.replace('.', '-');
+        } else {
+            grunt.fail.fatal('No build id found. Looked up the TRAVIS_BUILD_NUMBER environment variable and --build-id argument');
+        }
+        grunt.log.writeln('Build ID: ' + buildId);
+        var id = 'secxbrl-' + buildId;
+        grunt.config.set('secxbrl', {
+            s3: {
+                bucket: id,
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+            }
+        });
+        if (target === 'setup') {
+            //Setup
+            grunt.log.writeln('After setup is done. Run grunt test:teardown --build-id=' + buildId + ' to tear it down.');
+            grunt.task.run(['setupS3Bucket:setup']);
+            grunt.task.run(['aws_s3:setup']);
+            grunt.task.run(['28:setup']);
 
-            grunt.task.run(['setupS3Bucket']);
-            grunt.task.run(['s3']);
-            grunt.task.run(['28']);
+        } else if (target === 'teardown') {
+            //Teardown
+            grunt.task.run(['28:teardown']);
+            grunt.task.run(['aws_s3:teardown']);
+            grunt.task.run(['setupS3Bucket:teardown']);
+        } else if (target === 'run') {
+            grunt.task.run(['28:run']);
+        } else {
+            grunt.fail.fatal('Unknown target ' + target);
         }
     });
     
@@ -571,6 +604,7 @@ module.exports = function (grunt) {
         'nggettext_check',
         'nggettext_compile',
         'build',
-        'deploy'
+        'test:setup',
+        'test:run'
     ]);
 };
