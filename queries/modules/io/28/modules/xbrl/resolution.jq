@@ -2,11 +2,11 @@ jsoniq version "1.0";
 
 module namespace resolution = "http://28.io/modules/xbrl/resolution";
 
-import module namespace components = "http://xbrl.io/modules/bizql/components";
-import module namespace concepts = "http://xbrl.io/modules/bizql/concepts";
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace networks = "http://xbrl.io/modules/bizql/networks";
+import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+import module namespace networks = "http://28.io/modules/xbrl/networks";
 
 (: TODOs
 - Options for relationship networks (formulaAxis, depth)
