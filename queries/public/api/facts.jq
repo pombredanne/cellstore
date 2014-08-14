@@ -1,14 +1,14 @@
 import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
+import module namespace conversion = "http://28.io/modules/xbrl/conversion";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+import module namespace reports = "http://28.io/modules/xbrl/reports";
 
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
-import module namespace companies2 = "http://xbrl.io/modules/bizql/profiles/sec/companies2";
-import module namespace fiscal-core = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace fiscal-core2 = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core2";
+import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
+import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
@@ -39,7 +39,7 @@ declare function local:hypercube(
     {|
         let $concepts := request:param-values("concept")
         return { "xbrl:Concept" : { Domain : [ $concepts ] } }[exists($concepts)],
-        fiscal-core2:filter-override(
+        fiscal-core:filter-override(
             $entities,
             $fiscalYears,
             $fiscalPeriods,
@@ -111,9 +111,10 @@ let $sics as string*           := distinct-values(request:param-values("sic"))
 let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
 let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*           := distinct-values(request:param-values("aid"))
-let $map as string?            := request:param-values("map")
-let $rule as string?            := request:param-values("rule")
-let $validate as string       := request:param-values("validate", "false")
+let $map as string?            := request:param-values("map") (: Backwards compatibility :)
+let $rules as string?          := request:param-values("rule") (: Backwards compatibility :)
+let $report as string?         := request:param-values("report")
+let $validate as string        := request:param-values("validate", "false")
 
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
@@ -123,7 +124,7 @@ let $tags as string* := (: backwards compatibility, to be deprecated :)
 let $fiscalYears as integer* :=
     for $fy in $fiscalYears ! upper-case($$)
     return switch($fy)
-           case "LATEST" return $fiscal-core2:LATEST_FISCAL_YEAR
+           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
            case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
            default return if($fy castable as integer) then integer($fy) else ()
 let $fiscalPeriods as string* :=
@@ -135,17 +136,26 @@ let $validate as boolean := $validate = "true"
 
 (: Object resolution :)
 let $entities as object* := 
-    companies2:companies(
+    companies:companies(
         $ciks,
         $tags,
         $tickers,
         $sics)
-let $archives as object* := fiscal-core2:filings(
+let $archives as object* := fiscal-core:filings(
     $entities,
     $fiscalPeriods,
     $fiscalYears,
     $aids)
 let $entities := entities:entities($archives.Entity)
+let $report as object? := reports:reports($report)
+let $map as item* :=
+    if(exists($report))
+    then reports:concept-map($report)
+    else $map
+let $rules as item* :=
+    if(exists($report))
+    then reports:rules($report)
+    else $rules
 
 let $hypercube := local:hypercube($entities, $fiscalPeriods, $fiscalYears, $aids)
 
@@ -160,13 +170,13 @@ let $facts :=
                     Validate: $validate
                 },
                 { "ConceptMaps" : $map }[exists($map)],
-                { "Rules" : [ $rule ] }[exists($rule)]
+                { "Rules" : [ $rules ] }[exists($rules)]
             |}
         )
         return {|
             $fact,
             { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName}
-        |} 
+        |}
 
 let $facts := util:move-unit-out-of-aspects($facts)
 

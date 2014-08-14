@@ -1,9 +1,9 @@
 jsoniq version "1.0";
 
-module namespace layout = "http://xbrl.io/modules/bizql/layout";
+module namespace layout = "http://28.io/modules/xbrl/layout";
 
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 
 (:
     TODO: roll-up layout nodes for open structural nodes if desired
@@ -109,7 +109,8 @@ declare %private function layout:structural-node-to-header-rows(
                 TagSelectors: [ $structural-node.TagSelectors[] ],
                 CellSpan: $span,
                 RollUp: boolean($structural-node.RollUp),
-                IsRollUp: ($structural-node.IsTotal, false)[1]
+                IsRollUp: ($structural-node.IsTotal, false)[1],
+                IsNegated: ($structural-node.IsNegated, false)[1]
             },
            { Id: $structural-node.Id }[exists($structural-node.Id)]
         |} ],
@@ -232,7 +233,7 @@ declare function layout:matches-aspects(
     $fact as object,
     $aspect-constraints as object,
     $participating-aspects as string*,
-    $defaults) as boolean
+    $defaults as object?) as boolean
 {
     (
         every $aspect in $participating-aspects
@@ -442,7 +443,6 @@ declare function layout:eliminate($header-groups as array*, $empty-columns as in
     return if(empty($first-group))
            then ()
            else
-               let $width as integer := sum(($first-group[[1]])[].CellSpan)
                let $new-first-group as array := [
                   for $row as array in $first-group[]
                   return [
@@ -528,10 +528,10 @@ declare function layout:layout(
             let $y-tag-selectors := layout:tag-selectors([$table-headers.y[].GroupCells[]])
             let $default-x-slices := layout:slices([$table-headers.x[].GroupCells[]], ())
             let $default-y-slices := layout:slices([$table-headers.y[].GroupCells[]], ())
-            let $period-start-x-slices := layout:slices([$table-headers.x[].GroupCells[]], "table.PeriodStart")
-            let $period-start-y-slices := layout:slices([$table-headers.y[].GroupCells[]], "table.PeriodStart")
-            let $period-end-x-slices := layout:slices([$table-headers.x[].GroupCells[]], "table.PeriodEnd")
-            let $period-end-y-slices := layout:slices([$table-headers.y[].GroupCells[]], "table.PeriodEnd")
+            let $period-start-x-slices := layout:slices([$table-headers.x[].GroupCells[]], "table.periodStart")
+            let $period-start-y-slices := layout:slices([$table-headers.y[].GroupCells[]], "table.periodStart")
+            let $period-end-x-slices := layout:slices([$table-headers.x[].GroupCells[]], "table.periodEnd")
+            let $period-end-y-slices := layout:slices([$table-headers.y[].GroupCells[]], "table.periodEnd")
             let $cells := [
                 for $y-tag-selector at $i in $y-tag-selectors
                 return [

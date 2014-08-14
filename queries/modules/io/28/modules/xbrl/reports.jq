@@ -29,7 +29,9 @@ jsoniq version "1.0";
  : @author Ghislain Fourny
  :
  :)
-module namespace reports = "http://xbrl.io/modules/bizql/reports";
+module namespace reports = "http://28.io/modules/xbrl/reports";
+
+import module namespace networks = "http://28.io/modules/xbrl/networks";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -172,4 +174,28 @@ declare function reports:rid($report-or-id as item) as atomic
   )
 };
 
+(:~
+ : Returns the concept map network contained in the report, if any.
+ :
+ : @param $report-or-id a report identifier (RID)) or a report object.
+ : @return the concept map or the empty sequence.
+ :)
+declare function reports:concept-map($report-or-id as item) as object?
+{
+    let $report as object? := reports:reports($report-or-id)
+    return networks:networks-for-components-and-short-names(
+        $report,
+        "ConceptMap")
+};
 
+(:~
+ : Returns the rules contained in the report, if any.
+ :
+ : @param $report-or-id a report identifier (RID)) or a report object.
+ : @return the rule objects.
+ :)
+declare function reports:rules($report-or-id as item) as object*
+{
+    let $report as object? := reports:reports($report-or-id)
+    return $report.Rules[]
+};

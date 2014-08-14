@@ -341,38 +341,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        s3: {
-            options: {
-                access: 'public-read',
-                maxOperations: 5,
-                gzip: true,
-                gzipExclude: ['.jpg', '.jpeg', '.png', '.xml', '.json', '.pdf', '.txt', '.ico']
-            },
-            test: {
-                bucket: '<%= aws.bucket_test %>',
-                upload: [{
-                    src: '<%= yeoman.dist %>/**/*',
-                    dest: '',
-                    rel: '<%= yeoman.dist %>/',
-                }]
-            },
-            beta: {
-                bucket: '<%= aws.bucket_beta %>',
-                upload: [{
-                    src: '<%= yeoman.dist %>/**/*',
-                    dest: '',
-                    rel: '<%= yeoman.dist %>/',
-                }]
-            },
-            prod: {
-                bucket: '<%= aws.bucket_prod %>',
-                upload: [{
-                    src: '<%= yeoman.dist %>/**/*',
-                    dest: '',
-                    rel: '<%= yeoman.dist %>/',
-                }]
-            }
-        },
         netdna : {
             options: {
                 companyAlias: '28msecinc',
@@ -455,12 +423,90 @@ module.exports = function (grunt) {
         jsonlint: {
             all: {
                 src: [
-                    'package.json',
-                    'bower.json',
-                    'grunt-api.json',
-                    'grunt-aws.json',
+                    '*.json',
                     'app/swagger/*.json'
                 ]
+            }
+        },
+        'aws_s3': {
+            options: {
+                accessKeyId: '<%= secxbrl.s3.accessKeyId %>',
+                secretAccessKey: '<%= secxbrl.s3.secretAccessKey %>',
+                region: 'us-east-1',
+                uploadConcurrency: 5,
+                downloadConcurrency: 5
+            },
+            setup: {
+                options: {
+                    bucket: '<%= secxbrl.s3.bucket %>'
+                },
+                files: [
+                    { 'action': 'upload', expand: true, cwd: '<%= yeoman.dist %>', src: ['**'] }
+                ]
+            },
+            teardown: {
+                options: {
+                    bucket: '<%= secxbrl.s3.bucket %>'
+                },
+                files: [
+                    { 'action': 'delete', dest: '/' }
+                ]
+            }
+        },
+        setupS3Bucket: {
+            setup: {
+                bucket: '<%= secxbrl.s3.bucket %>',
+                create: {},
+                website: {
+                    WebsiteConfiguration: grunt.file.readJSON('WebsiteConfiguration.json')
+                }
+            },
+            teardown: {
+                bucket: '<%= secxbrl.s3.bucket %>',
+                delete: {}
+            }
+        },
+        28: {
+            options: {
+                src: 'queries',
+                email: process.env.USERNAME_28,
+                password: process.env.PASSWORD_28
+            },
+            setup: {
+                project: '<%= secxbrl.s3.bucket %>',
+                delete: {
+                    idempotent: true
+                },
+                create: {},
+                upload: {
+                    projectPath: 'queries'
+                },
+                datasources: JSON.parse(grunt.template.process(grunt.file.read('datasources.json'), { data: {
+                    USERNAME_XBRL_DB: process.env.USERNAME_XBRL_DB,
+                    PASSWORD_XBRL_DB: process.env.PASSWORD_XBRL_DB,
+                    NAME_XBRL_DB: process.env.NAME_XBRL_DB
+                }})),
+                runQueries: [
+                    'queries/private/InitAuditCollection.jq',
+                    'queries/private/init.jq',
+                    'queries/private/UpdateReportSchema.jq'
+                ]
+            },
+            run: {
+                project: '<%= secxbrl.s3.bucket %>',
+                runQueries: [
+                    'queries/public/test/*',
+                    'queries/private/test/*'
+                ]
+            },
+            teardown: {
+                project: '<%= secxbrl.s3.bucket %>',
+                delete: {}
+            }
+        },
+        debug: {
+            options: {
+                open: false
             }
         }
     });
@@ -511,28 +557,54 @@ module.exports = function (grunt) {
         ]);
     });
 
-    grunt.registerTask('deploy:test', [
-        'build:test',
-        's3:test'
-    ]);
-
-    grunt.registerTask('deploy:beta', [
-        'build:beta',
-        's3:beta'
-    ]);
-
-    grunt.registerTask('deploy:prod', [
-        'build:prod',
-        's3:prod',
-        'netdna:prod'
-    ]);
+    grunt.registerTask('test', function (target) {
+        var _ = require('lodash');
+        var buildId = process.env.TRAVIS_JOB_NUMBER;
+        if(!buildId) {
+            var idx =_.findIndex(process.argv, function(val){ return val.substring(0, '--build-id='.length) === '--build-id='; });
+            buildId = idx > -1 ? process.argv[idx].substring('--build-id='.length) : undefined;
+        }
+        if(buildId) {
+            buildId = buildId.replace('.', '-');
+        } else {
+            grunt.fail.fatal('No build id found. Looked up the TRAVIS_BUILD_NUMBER environment variable and --build-id argument');
+        }
+        grunt.log.writeln('Build ID: ' + buildId);
+        var id = 'secxbrl-' + buildId;
+        grunt.config.set('secxbrl', {
+            s3: {
+                bucket: id,
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+            }
+        });
+        if (target === 'setup') {
+            //Setup
+            grunt.log.writeln('After the setup is done, run grunt test:teardown --build-id=' + buildId + ' to tear it down.');
+            grunt.task.run(['setupS3Bucket:setup']);
+            grunt.task.run(['aws_s3:setup']);
+            grunt.task.run(['28:setup']);
+        } else if (target === 'teardown') {
+            //Teardown
+            grunt.task.run(['28:teardown']);
+            grunt.task.run(['aws_s3:teardown']);
+            grunt.task.run(['setupS3Bucket:teardown']);
+        } else if (target === 'run') {
+            grunt.task.run(['28:run']);
+        } else {
+            grunt.fail.fatal('Unknown target ' + target);
+        }
+    });
     
     grunt.registerTask('default', [
         'xqlint',
+        'jsonlint',
+        'jshint',
         'nggettext_default',
         'nggettext_check',
         'nggettext_compile',
-        'jsonlint',
-        'jshint'
+        'build',
+        'test:setup',
+        'test:run'
     ]);
 };

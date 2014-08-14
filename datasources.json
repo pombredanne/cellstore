@@ -1,0 +1,12 @@
+[
+    {
+        "category": "MongoDB",
+        "name": "xbrl",
+        "credentials": {
+            "conn-string": "set-52b47c641f2f15407c000005/c0.all-sec-filings.m0.mongolayer.com:27017,c0.all-sec-filings.m1.mongolayer.com:27017",
+            "db": "<%= NAME_XBRL_DB %>",
+            "user": "<%= USERNAME_XBRL_DB %>",
+            "pass": "<%= PASSWORD_XBRL_DB %>"
+        }
+    }
+]

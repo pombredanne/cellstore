@@ -1,10 +1,10 @@
 jsoniq version "1.0";
 
-module namespace resolution = "http://xbrl.io/modules/bizql/resolution";
+module namespace resolution = "http://28.io/modules/xbrl/resolution";
 
-import module namespace facts = "http://xbrl.io/modules/bizql/facts";
-import module namespace hypercubes = "http://xbrl.io/modules/bizql/hypercubes";
-import module namespace networks = "http://xbrl.io/modules/bizql/networks";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+import module namespace networks = "http://28.io/modules/xbrl/networks";
 
 (: TODOs
 - Options for relationship networks (formulaAxis, depth)
@@ -298,6 +298,14 @@ declare %private function resolution:expand-concept-network(
         case "http://www.xbrl.org/2003/role/totalLabel"
         return {
             IsTotal: true
+        }
+        case "http://www.xbrl.org/2009/role/negatedLabel"
+        return {
+            IsNegated: true
+        }
+        case "http://www.xbrl.org/2009/role/negatedTerseLabel"
+        return {
+            IsNegated: true
         }
         case "http://www.xbrl.org/2003/role/periodStartLabel"
         return {

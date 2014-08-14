@@ -2,18 +2,22 @@ jsoniq version "1.0";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace entities ="http://xbrl.io/modules/bizql/entities";
+import module namespace entities ="http://28.io/modules/xbrl/entities";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 
 let $param := lower-case(request:param-values("parameter"))
 
 let $years :=
-    (   
+    (
         "LATEST",
+        if(month-from-date(current-date()) gt 4) 
+        then year-from-date(current-date()) + 1
+        else (),
         for $year in 2009 to fn:year-from-date(current-date())
         order by $year descending
-        return $year
+        return $year    
     )
+    
 
 let $periods := ("FY", "Q3", "Q2", "Q1")
 
@@ -21,6 +25,8 @@ let $sics :=
     let $c := mongo:connect("xbrl", {})
     return 
         for $s in mongo:find($c, "sics")
+        group by $s.ID
+        let $s := $s[1]
         return {
             ID: $s.ID,
             Description: $s.Description,

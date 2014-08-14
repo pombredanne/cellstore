@@ -1,7 +1,7 @@
-import module namespace sec = "http://xbrl.io/modules/bizql/profiles/sec/core";
-import module namespace companies = "http://xbrl.io/modules/bizql/profiles/sec/companies";
-import module namespace sec-fiscal = "http://xbrl.io/modules/bizql/profiles/sec/fiscal/core";
-import module namespace entities = "http://xbrl.io/modules/bizql/entities";
+import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
+import module namespace sec-fiscal = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
