@@ -12,15 +12,12 @@ grunt ngconstant:server
 grunt server
 ```
 
-### Deployment
-To deploy a branch, the following environment variables need to be set:
-* AWS_ACCESS_KEY_ID
-* AWS_SECRET_ACCESS_KEY
-* USERNAME_28
-* PASSWORD_28
-* USERNAME_XBRL_DB
-* PASSWORD_XBRL_DB
-* NAME_XBRL_DB
+## Deployment
+There are two scenarios for deploying this project on http://28.io. Using the 28msec account or your own account.
+
+### Using the 28msec account
+To deploy a branch on the 28msec account, the following environment variable need to be set: `TRAVIS_SECRET_KEY`.
+You can simply specify a build id like this:
 
 ```bash
 grunt test:setup --build-id=mydemo
@@ -29,4 +26,49 @@ grunt test:setup --build-id=mydemo
 Once you are done:
 ```bash
 grunt test:teardown --build-id=mydemo
+```
+
+### Using your own account
+In the root of the repository, create a `config.json` file in the root of the repository.
+This is the expected structure of the file:
+```json
+{
+    "s3": {
+        "key": "AWS S3 Access Key",
+        "secret": "AWS S3 Secret Key",
+        "region": "us-east-1",
+        "website": {
+            "ErrorDocument": {
+                "Key": "index.html"
+            },
+            "IndexDocument": {
+                "Suffix": "index.html"
+            },
+            "RoutingRules": [{
+                "Redirect": {
+                    "ReplaceKeyPrefixWith": "#"
+                },
+                "Condition": {
+                    "HttpErrorCodeReturnedEquals": "403"
+                }
+            }]
+        }
+    },
+    "28": {
+        "email": "28.io account email",
+        "password": "password",
+        "datasources": [
+            {
+                "category": "MongoDB",
+                "name": "xbrl",
+                "credentials": {
+                    "conn-string": "<hostname>:<port>",
+                    "db": "sec-databasename",
+                    "user": "username",
+                    "pass": "password"
+                }
+            }
+        ]
+    }
+}
 ```
