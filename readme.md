@@ -21,7 +21,6 @@ To deploy a branch, the following environment variables need to be set:
 * USERNAME_XBRL_DB
 * PASSWORD_XBRL_DB
 * NAME_XBRL_DB
-* CONN_XBRL_DB
 
 ```bash
 grunt test:setup --build-id=mydemo

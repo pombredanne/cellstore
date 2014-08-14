@@ -484,8 +484,7 @@ module.exports = function (grunt) {
                 datasources: JSON.parse(grunt.template.process(grunt.file.read('datasources.json'), { data: {
                     USERNAME_XBRL_DB: process.env.USERNAME_XBRL_DB,
                     PASSWORD_XBRL_DB: process.env.PASSWORD_XBRL_DB,
-                    NAME_XBRL_DB: process.env.NAME_XBRL_DB,
-                    CONN_XBRL_DB: process.env.CONN_XBRL_DB
+                    NAME_XBRL_DB: process.env.NAME_XBRL_DB
                 }})),
                 runQueries: [
                     'queries/private/InitAuditCollection.jq',
