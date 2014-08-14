@@ -482,8 +482,10 @@ module.exports = function (grunt) {
                     projectPath: 'queries'
                 },
                 datasources: JSON.parse(grunt.template.process(grunt.file.read('datasources.json'), { data: {
-                    SECXBRL_USERNAME: process.env.SECXBRL_USERNAME,
-                    SECXBRL_PASSWORD: process.env.SECXBRL_PASSWORD
+                    USERNAME_XBRL_DB: process.env.USERNAME_XBRL_DB,
+                    PASSWORD_XBRL_DB: process.env.PASSWORD_XBRL_DB,
+                    NAME_XBRL_DB: process.env.NAME_XBRL_DB,
+                    CONN_XBRL_DB: process.env.CONN_XBRL_DB
                 }})),
                 runQueries: [
                     'queries/private/InitAuditCollection.jq',
@@ -579,7 +581,7 @@ module.exports = function (grunt) {
         });
         if (target === 'setup') {
             //Setup
-            grunt.log.writeln('After setup is done. Run grunt test:teardown --build-id=' + buildId + ' to tear it down.');
+            grunt.log.writeln('After the setup is done, run grunt test:teardown --build-id=' + buildId + ' to tear it down.');
             grunt.task.run(['setupS3Bucket:setup']);
             grunt.task.run(['aws_s3:setup']);
             grunt.task.run(['28:setup']);

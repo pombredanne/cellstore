@@ -18,8 +18,10 @@ To deploy a branch, the following environment variables need to be set:
 * AWS_SECRET_ACCESS_KEY
 * USERNAME_28
 * PASSWORD_28
-* SECXBRL_USERNAME
-* SECXBRL_PASSWORD
+* USERNAME_XBRL_DB
+* PASSWORD_XBRL_DB
+* NAME_XBRL_DB
+* CONN_XBRL_DB
 
 ```bash
 grunt test:setup --build-id=mydemo
