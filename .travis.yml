@@ -1,8 +1,6 @@
 language: node_js
 node_js:
 - '0.10'
-addons:
-  firefox: '28.0'
 before_script:
 - npm install -g bower
 - bower install
@@ -11,6 +9,8 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 script:
 - grunt
+after_script:
+- grunt test:teardown
 env:
   global:
   #AWS_ACCESS_KEY_ID
@@ -21,7 +21,9 @@ env:
   - secure: "R2wc9nzyq3SugTxSfAuQ9d5+tbVC3/svFlDeLkJy3+gioW+XjNg8JhAbFn8c2UEjoHV6NAlBM2mldDGitBiOZpL+qtG1PperVjnyjwqaYGVJRV6SPnUh+UhSBRv3APV8nxyFWjide7WmQXlkoPzTXAlIiRudCX45xVofvgkdGi8="
   #PASSWORD_28
   - secure: "AwbHQZSyjgcJyVIwIQZhFedWhTbFUBjCb5a3QFbvZjol28EI+E0bfJI/cPWxXXGmPer3es+YvkOMuotQ77umV1QwCIH5Mt1tqvXv4ePzuWyWrtP+dYCXhfrRYVOdqrXXUosYXrR204QVG71yq4ga5/LFLp//odiyIu5gZETWcJ4="
-  #SECXBRL_USERNAME
-  - secure: "g8iDPtQV9KiBsHkRut9v6Lc6Y9zH75/jVJtX4pqvSA4dRDZo0n34MswwEhVDzpyb++8RSYdKG99Y02f1Ua1G/YRQL3Xy6F5kQRwBvq9A34oQY9LawwzLtse3NNRiq2wLJ3yG6oP2w4e6RJS5OALKor8RxUrml0atPCV85Tb4bZE="
-  #SECXBRL_PASSWORD
-  - secure: "D4V19ROB2tWbG5z6qAdS5x1fLFt78bMwidHpaXkKXIi6CeuGliLqPqyp7R4VfmZFZ6oI2yIL5uZyFQzToUSul0ayMQGtDvnoW3PyAeH94NfbtbGBVIyXnb0LtLfDAPPRYXRsxeeDzravwqoClN5rc9n2oBtFqX6MOtknkeoyqrQ="
+  #USERNAME_XBRL_DB
+  - secure: "inuQ3PeVaZr6C/ALinRP9X/ehZdVxi6LfKY3jCHEUH0q7jq2DM9I9HCiGx2Z5DneWtfMaaKVWTFmnEKkxxjHa3qPAOXD2v3GtZF2L6LbJLmlzmTcCmOftfBRddPHzg+XSLmZh6nZM5KfYqhtfhZ64Tc06z7Sk3NUX/DrsfkKSEw="
+  #PASSWORD_XBRL_DB
+  - secure: "B0vKgBoMXA3ANGBE7qRovtZ/Yq8NSsbYccSeuRgqRsAYclxWxBOyJ9aATMbcapDYfVMJTh9hamI2QJeuT/ZARwIP8/apgqKYH53AYZbPBRaBEU7umvfonmgsosxUUztgVxiXU8lRp38U/lZaEdvstsGAj3HU9dKiChVFYYyOhjI="
+  #NAME_XBRL_DB
+  - secure: "INJZzb8zDpqFWwRcS6qOvtvOyh5sGQIbE1uzwksWk7QLcjAhPKOm4dEJw2hD9zDjp0hAk7iQPHb44DROr19pohxZ9qZp3BBepRq9sc5HbXfX4hpPKcONq2JgXwwYptb+YdNs4p0lTlj3e3ihF3Fn7SjhU4pTFbF0dzlEeP+ADoA="
