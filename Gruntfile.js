@@ -604,6 +604,7 @@ module.exports = function (grunt) {
         'nggettext_check',
         'nggettext_compile',
         'build',
+        'reports',
         'test:setup',
         'test:run'
     ]);
