@@ -1,6 +1,6 @@
 jsoniq version "1.0";
 
-module namespace resolution = "http://xbrl.io/modules/bizql/resolution";
+module namespace resolution = "http://28.io/modules/xbrl/resolution";
 
 import module namespace components = "http://xbrl.io/modules/bizql/components";
 import module namespace concepts = "http://xbrl.io/modules/bizql/concepts";

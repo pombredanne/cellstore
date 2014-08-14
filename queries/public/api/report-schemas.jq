@@ -1,4 +1,4 @@
-import module namespace report-schemas = "http://xbrl.io/modules/bizql/report-schemas";
+import module namespace report-schemas = "http://28.io/modules/xbrl/report-schemas";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
