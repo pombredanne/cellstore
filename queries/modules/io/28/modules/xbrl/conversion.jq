@@ -1,6 +1,6 @@
 jsoniq version "1.0";
 
-module namespace conversion = "http://xbrl.io/modules/bizql/conversion";
+module namespace conversion = "http://28.io/modules/xbrl/conversion";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
 

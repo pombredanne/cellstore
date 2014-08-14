@@ -2,7 +2,7 @@ jsoniq version "1.0";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace entities ="http://xbrl.io/modules/bizql/entities";
+import module namespace entities ="http://28.io/modules/xbrl/entities";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 
 let $param := lower-case(request:param-values("parameter"))

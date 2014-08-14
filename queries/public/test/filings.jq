@@ -2,11 +2,13 @@ import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
-
-declare %an:nondeterministic function local:test-filings($expected as integer, $params as string) as atomic
+declare %an:sequential function local:test-filings($expected as integer, $params as string) as atomic
 {
-    let $actual as integer := count(parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/filings.jq?_method=POST" || $params).body.content).Archives[])
-    return if ($actual eq $expected) then true else "false [Actual="||$actual||", Expected="||$expected ||"]"
+    let $root-url := "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public"
+    let $token as string := parse-json(http-client:get($root-url||"/session/login.jq?_method=POST&email=admin@28.io&password=12345").body.content).token
+    let $url := $root-url || "/api/filings.jq?_method=POST" || $params || "&token="||$token
+    let $actual as integer := count(parse-json(http-client:get($url).body.content).Archives[])
+    return if ($actual eq $expected) then true else "false [URL=" || $url || "Actual="||$actual||", Expected="||$expected ||"]"
 };
 
 
