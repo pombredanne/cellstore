@@ -418,7 +418,15 @@ declare function sec-networks:standard-definition-models-for-components($compone
         keys($options.Slicers)
 
     let $column-dimensions as string* := keys($values-by-dimension)[not $$ =
-        ("xbrl:Concept", "xbrl:Period", "xbrl:Unit", "xbrl:Entity", "sec:Archive", $auto-slice-dimensions, $user-slice-dimensions)]
+        ("xbrl:Concept",
+         "xbrl:Period",
+         "xbrl:Unit",
+         "xbrl:Entity",
+         "sec:Archive",
+         "sec:FiscalYear",
+         "sec:FiscalPeriod",
+         $auto-slice-dimensions,
+         $user-slice-dimensions)]
     
     let $x-breakdowns as object* := (
         sec-networks:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
@@ -483,14 +491,13 @@ declare function sec-networks:tables($networks-or-ids as item*, $options as obje
   let $include-implied-table as boolean := if(exists($options("IncludeImpliedTable")))
                                            then $options("IncludeImpliedTable")
                                            else false
-  for $model-structure in sec-networks:model-structures($networks-or-ids)
-  let $explicit-tables :=
-    for $object in
-      ($model-structure, descendant-objects($model-structure))[$$.Kind eq "Table"]
-    group by $name := $object.Name
-    return trim($object[1], "Children")
-  return if (exists($explicit-tables) or not $include-implied-table)
-         then $explicit-tables
+  for $sec-network in components:components($networks-or-ids)
+  let $default-hypercube as object := hypercubes:hypercubes-for-components($sec-network, "xbrl:DefaultHypercube")
+  let $hypercube-metadata as object* := values(
+      $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+  )[$$.SubstitutionGroup eq "xbrldt:hypercubeItem"]
+  return if (exists($hypercube-metadata) or not $include-implied-table)
+         then $hypercube-metadata
          else {
            Name: "xbrl28:ImpliedTable",
            Label: "BizQL SEC Implied Table"
@@ -586,11 +593,18 @@ declare function sec-networks:line-items-report-elements($networks-or-ids as ite
  :)
 declare function sec-networks:abstracts($networks-or-ids as item*) as object*
 {
-  let $model-structure := sec-networks:model-structures($networks-or-ids)
-  for $object in
-    ($model-structure, descendant-objects($model-structure))[$$.Kind eq "Abstract"]
-  group by $name := $object.Name
-  return trim($object[1], "Children")
+  for $sec-network in components:components($networks-or-ids)
+  let $default-hypercube as object := hypercubes:hypercubes-for-components($sec-network, "xbrl:DefaultHypercube")
+  let $abstract-metadata as object* := values(
+      $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+  )[not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem")][$$.IsAbstract]
+  let $tables := sec-networks:tables($sec-network)
+  let $presentation-network := networks:networks-for-components-and-short-names(
+      $sec-network,
+      $networks:PRESENTATION_NETWORK)
+  where not $abstract-metadata.Name
+      = descendant-objects($presentation-network)[$$.Name = $tables.Name].To[].Name
+  return $abstract-metadata
 };
 
 (:~
@@ -606,11 +620,12 @@ declare function sec-networks:abstracts($networks-or-ids as item*) as object*
  :)
 declare function sec-networks:concepts($networks-or-ids as item*) as object*
 {
-  let $model-structure := sec-networks:model-structures($networks-or-ids)
-  for $object in
-    ($model-structure, descendant-objects($model-structure))[$$.Kind eq "Concept"]
-  group by $name := $object.Name
-  return trim($object[1], "Children")
+  for $sec-network in components:components($networks-or-ids)
+  let $default-hypercube as object := hypercubes:hypercubes-for-components($sec-network, "xbrl:DefaultHypercube")
+  let $concept-metadata as object* := values(
+      $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+  )[not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem")][not $$.IsAbstract]
+  return $concept-metadata
 };
 
 (:~
@@ -714,6 +729,8 @@ declare function sec-networks:num-abstracts($networks-or-ids as item*) as intege
   return  $s.NumDistinctAbstractPrimaryItemsInHypercubes
           + $s.NumDistinctAbstractPrimaryItemsNotInHypercubes
           - $s.Profiles.SEC.NumDistinctReportElementNamesEndingWithLineItems
+          - $s.NumDistinctDomains
+          - $s.NumDistinctMembers
 };
 
 (:~
@@ -955,7 +972,7 @@ declare function sec-networks:summaries($networks-or-ids as item*) as object*
     Members : sec-networks:num-members($component),
     LineItems : sec-networks:num-line-items($component),
     Concepts : sec-networks:num-concepts($component),
-    Abstracts : count(sec-networks:abstracts($component)) 
+    Abstracts : sec-networks:num-abstracts($component)
   }
 };
 

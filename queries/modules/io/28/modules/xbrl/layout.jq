@@ -528,10 +528,10 @@ declare function layout:layout(
             let $y-tag-selectors := layout:tag-selectors([$table-headers.y[].GroupCells[]])
             let $default-x-slices := layout:slices([$table-headers.x[].GroupCells[]], ())
             let $default-y-slices := layout:slices([$table-headers.y[].GroupCells[]], ())
-            let $period-start-x-slices := layout:slices([$table-headers.x[].GroupCells[]], "table.PeriodStart")
-            let $period-start-y-slices := layout:slices([$table-headers.y[].GroupCells[]], "table.PeriodStart")
-            let $period-end-x-slices := layout:slices([$table-headers.x[].GroupCells[]], "table.PeriodEnd")
-            let $period-end-y-slices := layout:slices([$table-headers.y[].GroupCells[]], "table.PeriodEnd")
+            let $period-start-x-slices := layout:slices([$table-headers.x[].GroupCells[]], "table.periodStart")
+            let $period-start-y-slices := layout:slices([$table-headers.y[].GroupCells[]], "table.periodStart")
+            let $period-end-x-slices := layout:slices([$table-headers.x[].GroupCells[]], "table.periodEnd")
+            let $period-end-y-slices := layout:slices([$table-headers.y[].GroupCells[]], "table.periodEnd")
             let $cells := [
                 for $y-tag-selector at $i in $y-tag-selectors
                 return [
