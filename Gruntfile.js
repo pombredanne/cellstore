@@ -441,7 +441,7 @@ module.exports = function (grunt) {
                     bucket: '<%= secxbrl.s3.bucket %>'
                 },
                 files: [
-                    { 'action': 'upload', expand: true, cwd: '<%= yeoman.dist %>', dest: '/', src: ['**'] }
+                    { 'action': 'upload', expand: true, cwd: '<%= yeoman.dist %>', src: ['**'] }
                 ]
             },
             teardown: {
@@ -584,7 +584,6 @@ module.exports = function (grunt) {
             grunt.task.run(['setupS3Bucket:setup']);
             grunt.task.run(['aws_s3:setup']);
             grunt.task.run(['28:setup']);
-
         } else if (target === 'teardown') {
             //Teardown
             grunt.task.run(['28:teardown']);
