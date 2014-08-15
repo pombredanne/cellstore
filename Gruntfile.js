@@ -581,6 +581,9 @@ module.exports = function (grunt) {
         }
         grunt.log.writeln('Build ID: ' + buildId);
         var id = 'secxbrl-' + buildId;
+        if(process.env.TRAVIS_JOB_NUMBER){
+            id += '-' + crypto.randomBytes(4).toString('hex');
+        }
         var config = grunt.file.readJSON('config.json');
         config.s3.bucket = id;
         grunt.config.set('secxbrl', config);
