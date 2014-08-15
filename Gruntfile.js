@@ -576,6 +576,9 @@ module.exports = function (grunt) {
         if(process.env.RANDOM_ID){
             id += '-' + process.env.RANDOM_ID;
         }
+
+        grunt.task.run(['shell:decrypt']);
+
         var config = grunt.file.readJSON('config.json');
         config.s3.bucket = id;
         config['28'].api = { url : 'http://' + id + '.28.io/v1' };
@@ -588,7 +591,6 @@ module.exports = function (grunt) {
             'nggettext_check',
             'nggettext_compile',
             'build:test',
-            'shell:decrypt',
             'test:setup',
             'test:run'
         ]);
