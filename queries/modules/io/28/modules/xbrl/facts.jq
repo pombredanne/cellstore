@@ -1610,6 +1610,8 @@ declare function facts:canonical-serialization(
  : @param $exclude-fields the strings of field names to exclude from serialization
  :
  : @return the serialized object as string
+ : @deprecated This function has been deprecated in favor of the fact specific
+ :   function facts:canonical-serialization.
  :) 
 declare function facts:canonically-serialize-object(
   $object as object, 
