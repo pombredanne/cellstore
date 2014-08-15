@@ -305,7 +305,7 @@ module.exports = function (grunt) {
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
-                    'API_URL': '//<%= secxbrl.api.url %>',
+                    'API_URL': '//<%= secxbrl[\'28\'].api.url %>',
                     'DEBUG': true,
                     'RECURLY_KEY': process.env.RECURLY_KEY_DEV
                 }
@@ -543,7 +543,7 @@ module.exports = function (grunt) {
         var secxbrl = grunt.config.get(['secxbrl']);
         if (target === 'setup') {
             //Setup
-            grunt.log.writeln('After the setup is done, run grunt test:teardown --build-id=' + secxbrl.env.buildI + ' to tear it down.');
+            grunt.log.writeln('After the setup is done, run grunt test:teardown --build-id=' + secxbrl.s3.id + ' to tear it down.');
             grunt.task.run(['setupS3Bucket:setup']);
             grunt.task.run(['aws_s3:setup']);
             grunt.task.run(['28:setup']);
@@ -578,7 +578,7 @@ module.exports = function (grunt) {
         }
         var config = grunt.file.readJSON('config.json');
         config.s3.bucket = id;
-        config['28'].api = id;
+        config['28'].api = { url : 'http://' + id + '.28.io/v1' };
         grunt.config.set('secxbrl', config);
         grunt.task.run([
             'xqlint',
