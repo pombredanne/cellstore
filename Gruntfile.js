@@ -315,7 +315,7 @@ module.exports = function (grunt) {
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
-                    'API_URL': '//<%= api.test %>/v1',
+                    'API_URL': '//<%= secxbrl.api.url %>',
                     'DEBUG': true,
                     'RECURLY_KEY': process.env.RECURLY_KEY_DEV
                 }
@@ -539,6 +539,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build', function (target) {
+        grunt.config.requires(['secxbrl']);
         var env = (target ? target : 'server');
       
         grunt.task.run([
@@ -558,29 +559,11 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', function (target) {
-        var _ = require('lodash');
-        var buildId = process.env.TRAVIS_JOB_NUMBER;
-        if(!buildId) {
-            var idx =_.findIndex(process.argv, function(val){ return val.substring(0, '--build-id='.length) === '--build-id='; });
-            buildId = idx > -1 ? process.argv[idx].substring('--build-id='.length) : undefined;
-        }
-        if(buildId) {
-            buildId = buildId.replace('.', '-');
-        } else {
-            grunt.fail.fatal('No build id found. Looked up the TRAVIS_BUILD_NUMBER environment variable and --build-id argument');
-        }
-        grunt.log.writeln('Build ID: ' + buildId);
-        var id = 'secxbrl-' + buildId;
-        grunt.config.set('secxbrl', {
-            s3: {
-                bucket: id,
-                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-            }
-        });
+        grunt.config.requires(['secxbrl']);
+        var secxbrl = grunt.config.get(['secxbrl']);
         if (target === 'setup') {
             //Setup
-            grunt.log.writeln('After the setup is done, run grunt test:teardown --build-id=' + buildId + ' to tear it down.');
+            grunt.log.writeln('After the setup is done, run grunt test:teardown --build-id=' + secxbrl.env.buildI + ' to tear it down.');
             grunt.task.run(['setupS3Bucket:setup']);
             grunt.task.run(['aws_s3:setup']);
             grunt.task.run(['28:setup']);
@@ -596,15 +579,43 @@ module.exports = function (grunt) {
         }
     });
     
-    grunt.registerTask('default', [
-        'xqlint',
-        'jsonlint',
-        'jshint',
-        'nggettext_default',
-        'nggettext_check',
-        'nggettext_compile',
-        'build',
-        'test:setup',
-        'test:run'
-    ]);
+    grunt.registerTask('default', function() {
+        var _ = require('lodash');
+        var buildId = process.env.TRAVIS_JOB_NUMBER;
+        if(!buildId) {
+            var idx =_.findIndex(process.argv, function(val){ return val.substring(0, '--build-id='.length) === '--build-id='; });
+            buildId = idx > -1 ? process.argv[idx].substring('--build-id='.length) : undefined;
+        }
+        if(buildId) {
+            buildId = buildId.replace('.', '-');
+        } else {
+            grunt.fail.fatal('No build id found. Looked up the TRAVIS_BUILD_NUMBER environment variable and --build-id argument');
+        }
+        grunt.log.writeln('Build ID: ' + buildId);
+        var id = 'secxbrl-' + buildId;
+        grunt.config.set('secxbrl', {
+            env : {
+                buildId : buildId
+            },
+            s3: {
+                bucket: id,
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+            },
+            api: {
+                url : id + '.28.io/v1'
+            }
+        });
+        grunt.task.run([
+            'xqlint',
+            'jsonlint',
+            'jshint',
+            'nggettext_default',
+            'nggettext_check',
+            'nggettext_compile',
+            'build:test',
+            'test:setup',
+            'test:run'
+        ]);
+    });
 };
