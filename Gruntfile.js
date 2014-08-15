@@ -300,16 +300,6 @@ module.exports = function (grunt) {
             options: {
                 space: '    '
             },
-            server: {
-                dest: '<%= yeoman.app %>/scripts/constants.js',
-                name: 'constants',
-                wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
-                constants: {
-                    'API_URL': '//<%= api.server %>/v1',
-                    'DEBUG': true,
-                    'RECURLY_KEY': process.env.RECURLY_KEY_DEV
-                }
-            },
             test: {
                 dest: '<%= yeoman.app %>/scripts/constants.js',
                 name: 'constants',
@@ -318,26 +308,6 @@ module.exports = function (grunt) {
                     'API_URL': '//<%= secxbrl.api.url %>',
                     'DEBUG': true,
                     'RECURLY_KEY': process.env.RECURLY_KEY_DEV
-                }
-            },
-            beta: {
-                dest: '<%= yeoman.app %>/scripts/constants.js',
-                name: 'constants',
-                wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
-                constants: {
-                    'API_URL': '//<%= api.beta %>/v1',
-                    'DEBUG': false,
-                    'RECURLY_KEY': process.env.RECURLY_KEY_DEV
-                }
-            },
-            prod: {
-                dest: '<%= yeoman.app %>/scripts/constants.js',
-                name: 'constants',
-                wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
-                constants: {
-                    'API_URL': '//<%= api.prod %>/v1',
-                    'DEBUG': false,
-                    'RECURLY_KEY': process.env.RECURLY_KEY
                 }
             }
         },
@@ -430,9 +400,9 @@ module.exports = function (grunt) {
         },
         'aws_s3': {
             options: {
-                accessKeyId: '<%= secxbrl.s3.accessKeyId %>',
-                secretAccessKey: '<%= secxbrl.s3.secretAccessKey %>',
-                region: 'us-east-1',
+                accessKeyId: '<%= secxbrl.s3.key %>',
+                secretAccessKey: '<%= secxbrl.s3.secret %>',
+                region: '<%= secxbrl.s3.region %>',
                 uploadConcurrency: 5,
                 downloadConcurrency: 5
             },
@@ -454,23 +424,29 @@ module.exports = function (grunt) {
             }
         },
         setupS3Bucket: {
+            options: {
+                key: '<%= secxbrl.s3.key %>',
+                secret: '<%= secxbrl.s3.secret %>'
+            },
             setup: {
                 bucket: '<%= secxbrl.s3.bucket %>',
+                region: '<%= secxbrl.s3.region %>',
                 create: {},
                 website: {
-                    WebsiteConfiguration: grunt.file.readJSON('WebsiteConfiguration.json')
+                    WebsiteConfiguration: '<%= secxbrl.s3.website %>'
                 }
             },
             teardown: {
                 bucket: '<%= secxbrl.s3.bucket %>',
+                region: '<%= secxbrl.s3.region %>',
                 delete: {}
             }
         },
         28: {
             options: {
                 src: 'queries',
-                email: process.env.USERNAME_28,
-                password: process.env.PASSWORD_28
+                email: '<%= secxbrl.28.email %>',
+                password: '<%= secxbrl.28.password %>'
             },
             setup: {
                 project: '<%= secxbrl.s3.bucket %>',
@@ -481,11 +457,7 @@ module.exports = function (grunt) {
                 upload: {
                     projectPath: 'queries'
                 },
-                datasources: JSON.parse(grunt.template.process(grunt.file.read('datasources.json'), { data: {
-                    USERNAME_XBRL_DB: process.env.USERNAME_XBRL_DB,
-                    PASSWORD_XBRL_DB: process.env.PASSWORD_XBRL_DB,
-                    NAME_XBRL_DB: process.env.NAME_XBRL_DB
-                }})),
+                datasources: '<%= secxbrl.28.datasources %>',
                 runQueries: [
                     'queries/private/InitAuditCollection.jq',
                     'queries/private/init.jq',
@@ -507,6 +479,14 @@ module.exports = function (grunt) {
         debug: {
             options: {
                 open: false
+            }
+        },
+        shell: {
+            encrypt: {
+                command: 'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
+            },
+            decrypt: {
+                command: 'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json.enc -out config.json -d'
             }
         }
     });
@@ -589,33 +569,45 @@ module.exports = function (grunt) {
         if(buildId) {
             buildId = buildId.replace('.', '-');
         } else {
-            grunt.fail.fatal('No build id found. Looked up the TRAVIS_BUILD_NUMBER environment variable and --build-id argument');
+            grunt.fail.fatal('No build id found. Looked up the TRAVIS_JOB_NUMBER environment variable and --build-id argument');
         }
         grunt.log.writeln('Build ID: ' + buildId);
         var id = 'secxbrl-' + buildId;
-        grunt.config.set('secxbrl', {
-            env : {
-                buildId : buildId
-            },
-            s3: {
-                bucket: id,
-                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-            },
-            api: {
-                url : id + '.28.io/v1'
-            }
-        });
-        grunt.task.run([
-            'xqlint',
-            'jsonlint',
-            'jshint',
-            'nggettext_default',
-            'nggettext_check',
-            'nggettext_compile',
-            'build:test',
-            'test:setup',
-            'test:run'
-        ]);
+        if(process.env.RANDOM_ID){
+            id += '-' + process.env.RANDOM_ID;
+        }
+        var config = grunt.file.readJSON('config.json');
+        config.s3.bucket = id;
+        config.28.api = id;
+        grunt.config.set('secxbrl', config);
+        if (target === 'setup') {
+            //Setup
+            grunt.log.writeln('After the setup is done, run grunt test:teardown --build-id=' + buildId + ' to tear it down.');
+            grunt.task.run(['setupS3Bucket:setup']);
+            grunt.task.run(['aws_s3:setup']);
+            grunt.task.run(['28:setup']);
+        } else if (target === 'teardown') {
+            //Teardown
+            grunt.task.run(['28:teardown']);
+            grunt.task.run(['aws_s3:teardown']);
+            grunt.task.run(['setupS3Bucket:teardown']);
+        } else if (target === 'run') {
+            grunt.task.run(['28:run']);
+        } else {
+            grunt.fail.fatal('Unknown target ' + target);
+        }
     });
+    
+    grunt.registerTask('default', [
+        'xqlint',
+        'jsonlint',
+        'jshint',
+        'nggettext_default',
+        'nggettext_check',
+        'nggettext_compile',
+        'build:test',
+        'shell:decrypt',
+        'test:setup',
+        'test:run'
+    ]);
 };
