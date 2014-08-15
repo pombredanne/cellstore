@@ -558,8 +558,8 @@ module.exports = function (grunt) {
             grunt.fail.fatal('Unknown target ' + target);
         }
     });
-    
-    grunt.registerTask('default', function() {
+
+    grunt.registerTask('config', function() {
         var _ = require('lodash');
         var buildId = process.env.TRAVIS_JOB_NUMBER;
         if(!buildId) {
@@ -576,14 +576,16 @@ module.exports = function (grunt) {
         if(process.env.RANDOM_ID){
             id += '-' + process.env.RANDOM_ID;
         }
-
-        grunt.task.run(['shell:decrypt']);
-
         var config = grunt.file.readJSON('config.json');
         config.s3.bucket = id;
         config['28'].api = { url : 'http://' + id + '.28.io/v1' };
         grunt.config.set('secxbrl', config);
+    });
+    
+    grunt.registerTask('default', function() {
         grunt.task.run([
+            'shell:decrypt',
+            'config',
             'xqlint',
             'jsonlint',
             'jshint',
