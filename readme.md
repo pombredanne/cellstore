@@ -23,6 +23,11 @@ You can simply specify a build id like this:
 grunt test:setup --build-id=mydemo
 ```
 
+And a test as follows:
+```bash
+grunt test:run --build-id=mydemo
+```
+
 Once you are done:
 ```bash
 grunt test:teardown --build-id=mydemo
