@@ -512,6 +512,9 @@ module.exports = function (grunt) {
             }
         },
         shell: {
+            encrypt: {
+                command: 'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
+            },
             decrypt: {
                 command: 'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json.enc -out config.json -d'
             }

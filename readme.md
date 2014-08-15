@@ -72,3 +72,10 @@ This is the expected structure of the file:
     }
 }
 ```
+
+## Update config.json
+If you would like to update the `config.json` file into the repo, you need the following environment variable need to be set: `TRAVIS_SECRET_KEY`.
+Simply run:
+```bash
+grunt shell:encrypt
+```
