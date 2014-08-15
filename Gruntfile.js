@@ -468,6 +468,7 @@ module.exports = function (grunt) {
             },
             teardown: {
                 bucket: '<%= secxbrl.s3.bucket %>',
+                region: '<%= secxbrl.s3.region %>',
                 delete: {}
             }
         },
