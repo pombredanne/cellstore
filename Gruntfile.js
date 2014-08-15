@@ -578,36 +578,19 @@ module.exports = function (grunt) {
         }
         var config = grunt.file.readJSON('config.json');
         config.s3.bucket = id;
-        config.28.api = id;
+        config['28'].api = id;
         grunt.config.set('secxbrl', config);
-        if (target === 'setup') {
-            //Setup
-            grunt.log.writeln('After the setup is done, run grunt test:teardown --build-id=' + buildId + ' to tear it down.');
-            grunt.task.run(['setupS3Bucket:setup']);
-            grunt.task.run(['aws_s3:setup']);
-            grunt.task.run(['28:setup']);
-        } else if (target === 'teardown') {
-            //Teardown
-            grunt.task.run(['28:teardown']);
-            grunt.task.run(['aws_s3:teardown']);
-            grunt.task.run(['setupS3Bucket:teardown']);
-        } else if (target === 'run') {
-            grunt.task.run(['28:run']);
-        } else {
-            grunt.fail.fatal('Unknown target ' + target);
-        }
+        grunt.task.run([
+            'xqlint',
+            'jsonlint',
+            'jshint',
+            'nggettext_default',
+            'nggettext_check',
+            'nggettext_compile',
+            'build:test',
+            'shell:decrypt',
+            'test:setup',
+            'test:run'
+        ]);
     });
-    
-    grunt.registerTask('default', [
-        'xqlint',
-        'jsonlint',
-        'jshint',
-        'nggettext_default',
-        'nggettext_check',
-        'nggettext_compile',
-        'build:test',
-        'shell:decrypt',
-        'test:setup',
-        'test:run'
-    ]);
 };
