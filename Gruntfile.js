@@ -505,7 +505,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', function (target) {
-        grunt.task.run(['decrypt', 'config']);
+        grunt.task.run(['shell:decrypt', 'config']);
         if (target === 'setup') {
             grunt.task.run([
                 'build',
