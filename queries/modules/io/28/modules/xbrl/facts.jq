@@ -1580,6 +1580,28 @@ declare function facts:merge-objects(
 };
 
 (:~
+ : <p>Canonically serialize a fact, i.e. serialize non-covered key aspects. 
+ :    This serialized format is helpful for identifying/grouping facts from
+ :    the same slice, or dice.</p>
+ :
+ : @param $fact the fact to be canonically serialized
+ : @param $covered-aspects the strings of aspects to exclude from serialization
+ :
+ : @return the serialized fact as string
+ :) 
+declare function facts:canonical-serialization(
+  $fact as object, 
+  $covered-aspects as string*) as string
+{
+  string-join(
+    let $aspects := $fact.Aspects
+    for $non-covered-key-aspect in $fact.KeyAspects[][not $$ = $covered-aspects]
+    order by $non-covered-key-aspect
+    return $non-covered-key-aspect || ":" || string-join(jn:flatten($aspects.$non-covered-key-aspect), ",")
+  , "|")
+};
+
+(:~
  : <p>Canonically serialize an object, i.e. serialize fields in an ordered way. 
  :    Fields can be excluded from serialization (e.g. xbrl:Concept in case of 
  :    serializing a filter)</p>
