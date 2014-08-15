@@ -273,12 +273,6 @@ module.exports = function (grunt) {
                 'htmlmin'
             ]
         },
-        karma: {
-            unit: {
-                configFile: 'karma.conf.js',
-                singleRun: true
-            }
-        },
         ngmin: {
             dist: {
                 files: [{
@@ -300,7 +294,7 @@ module.exports = function (grunt) {
             options: {
                 space: '    '
             },
-            test: {
+            all: {
                 dest: '<%= yeoman.app %>/scripts/constants.js',
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
@@ -332,31 +326,6 @@ module.exports = function (grunt) {
                 src: '<%= yeoman.queries %>'
             },
             dist: {}
-        },
-        prettify: {
-            options: {
-                indent: 4,
-                'indent_char': ' ',
-                'wrap_line_length': 78,
-                'brace_style': 'expand',
-                unformatted: ['a', 'sub', 'sup', 'b', 'i', 'u', 'pre']
-            },
-            // Prettify a directory of files
-            all: {
-                expand: true,
-                cwd: '<%= yeoman.app %>/views',
-                ext: '.html',
-                src: ['*.html'],
-                dest: '<%= yeoman.app %>/views'
-            },
-            // Prettify a directory of files
-            entity: {
-                expand: true,
-                cwd: '<%= yeoman.app %>/views/entity',
-                ext: '.html',
-                src: ['*.html'],
-                dest: '<%= yeoman.app %>/views/entity'
-            }
         },
         'nggettext_extract': {
             pot: {
@@ -510,21 +479,18 @@ module.exports = function (grunt) {
         ]);
     });
 
-    grunt.registerTask('test', [
-        'clean:server',
-        'recess',
-        'concurrent:test',
-        'connect:test',
-        'karma'
-    ]);
-
-    grunt.registerTask('build', function (target) {
+    grunt.registerTask('build', function () {
         grunt.config.requires(['secxbrl']);
-        var env = (target ? target : 'server');
       
         grunt.task.run([
+            'xqlint',
+            'jsonlint',
+            'jshint',
+            'nggettext_default',
+            'nggettext_check',
+            'nggettext_compile',
             'clean:dist',
-            'ngconstant:' + env,
+            'ngconstant',
             'swagger-js-codegen:',
             'useminPrepare',
             'concurrent:dist',
@@ -539,19 +505,20 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', function (target) {
-        grunt.config.requires(['secxbrl']);
-        var secxbrl = grunt.config.get(['secxbrl']);
+        grunt.task.run(['config']);
         if (target === 'setup') {
-            //Setup
-            grunt.log.writeln('After the setup is done, run grunt test:teardown --build-id=' + secxbrl.s3.id + ' to tear it down.');
-            grunt.task.run(['setupS3Bucket:setup']);
-            grunt.task.run(['aws_s3:setup']);
-            grunt.task.run(['28:setup']);
+            grunt.task.run([
+                'build',
+                'setupS3Bucket:setup',
+                'aws_s3:setup',
+                '28:setup'
+            ]);
         } else if (target === 'teardown') {
-            //Teardown
-            grunt.task.run(['28:teardown']);
-            grunt.task.run(['aws_s3:teardown']);
-            grunt.task.run(['setupS3Bucket:teardown']);
+            grunt.task.run([
+                '28:teardown',
+                'aws_s3:teardown',
+                'setupS3Bucket:teardown'
+            ]);
         } else if (target === 'run') {
             grunt.task.run(['28:run']);
         } else {
@@ -581,20 +548,12 @@ module.exports = function (grunt) {
         config['28'].api = { url : 'http://' + id + '.28.io/v1' };
         grunt.config.set('secxbrl', config);
     });
-    
+
     grunt.registerTask('default', function() {
         grunt.task.run([
-            'shell:decrypt',
-            'config',
-            'xqlint',
-            'jsonlint',
-            'jshint',
-            'nggettext_default',
-            'nggettext_check',
-            'nggettext_compile',
-            'build:test',
             'test:setup',
-            'test:run'
+            'test:run',
+            'test:teardown'
         ]);
     });
 };
