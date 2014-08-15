@@ -567,7 +567,7 @@ module.exports = function (grunt) {
         if(buildId) {
             buildId = buildId.replace('.', '-');
         } else {
-            grunt.fail.fatal('No build id found. Looked up the TRAVIS_BUILD_NUMBER environment variable and --build-id argument');
+            grunt.fail.fatal('No build id found. Looked up the TRAVIS_JOB_NUMBER environment variable and --build-id argument');
         }
         grunt.log.writeln('Build ID: ' + buildId);
         var id = 'secxbrl-' + buildId;
