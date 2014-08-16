@@ -1102,10 +1102,9 @@ declare %private function facts:facts-for-rules(
       let $formula := $rule.Formula
       return 
         try {
-          (: avoid xqlint warnings :)
-          (($concepts, $hypercube, $aligned-filter,
-           $concept-maps, $rules, $cache, $options)[1] ! $$
-          ) ! reflection:eval($formula)
+          (# Q{http://xqlint.io}xqlint varrefs($concepts, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) #) {
+            reflection:eval($formula)
+          }
         } catch * {
           let $error-details :=
             {
