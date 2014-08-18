@@ -273,12 +273,6 @@ module.exports = function (grunt) {
                 'htmlmin'
             ]
         },
-        karma: {
-            unit: {
-                configFile: 'karma.conf.js',
-                singleRun: true
-            }
-        },
         ngmin: {
             dist: {
                 files: [{
@@ -300,44 +294,14 @@ module.exports = function (grunt) {
             options: {
                 space: '    '
             },
-            server: {
+            all: {
                 dest: '<%= yeoman.app %>/scripts/constants.js',
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
-                    'API_URL': '//<%= api.server %>/v1',
+                    'API_URL': '<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
                     'RECURLY_KEY': process.env.RECURLY_KEY_DEV
-                }
-            },
-            test: {
-                dest: '<%= yeoman.app %>/scripts/constants.js',
-                name: 'constants',
-                wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
-                constants: {
-                    'API_URL': '//<%= api.test %>/v1',
-                    'DEBUG': true,
-                    'RECURLY_KEY': process.env.RECURLY_KEY_DEV
-                }
-            },
-            beta: {
-                dest: '<%= yeoman.app %>/scripts/constants.js',
-                name: 'constants',
-                wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
-                constants: {
-                    'API_URL': '//<%= api.beta %>/v1',
-                    'DEBUG': false,
-                    'RECURLY_KEY': process.env.RECURLY_KEY_DEV
-                }
-            },
-            prod: {
-                dest: '<%= yeoman.app %>/scripts/constants.js',
-                name: 'constants',
-                wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
-                constants: {
-                    'API_URL': '//<%= api.prod %>/v1',
-                    'DEBUG': false,
-                    'RECURLY_KEY': process.env.RECURLY_KEY
                 }
             }
         },
@@ -362,31 +326,6 @@ module.exports = function (grunt) {
                 src: '<%= yeoman.queries %>'
             },
             dist: {}
-        },
-        prettify: {
-            options: {
-                indent: 4,
-                'indent_char': ' ',
-                'wrap_line_length': 78,
-                'brace_style': 'expand',
-                unformatted: ['a', 'sub', 'sup', 'b', 'i', 'u', 'pre']
-            },
-            // Prettify a directory of files
-            all: {
-                expand: true,
-                cwd: '<%= yeoman.app %>/views',
-                ext: '.html',
-                src: ['*.html'],
-                dest: '<%= yeoman.app %>/views'
-            },
-            // Prettify a directory of files
-            entity: {
-                expand: true,
-                cwd: '<%= yeoman.app %>/views/entity',
-                ext: '.html',
-                src: ['*.html'],
-                dest: '<%= yeoman.app %>/views/entity'
-            }
         },
         'nggettext_extract': {
             pot: {
@@ -513,10 +452,20 @@ module.exports = function (grunt) {
         },
         shell: {
             encrypt: {
-                command: 'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
+                command: [ '[ "config.json" -nt "config.json.enc" ]',
+                    'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
+                ].join('&&'),
+                options : {
+                    failOnError : false
+                }
             },
             decrypt: {
-                command: 'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json.enc -out config.json -d'
+                command: [ '[ ! -f "config.json" -o "config.json.enc" -nt "config.json" ]',
+                    'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json.enc -out config.json -d'
+                ].join('&&'),
+                options : {
+                    failOnError : false
+                }
             }
         }
     });
@@ -540,20 +489,18 @@ module.exports = function (grunt) {
         ]);
     });
 
-    grunt.registerTask('test', [
-        'clean:server',
-        'recess',
-        'concurrent:test',
-        'connect:test',
-        'karma'
-    ]);
-
-    grunt.registerTask('build', function (target) {
-        var env = (target ? target : 'server');
+    grunt.registerTask('build', function () {
+        grunt.config.requires(['secxbrl']);
       
         grunt.task.run([
+            'xqlint',
+            'jsonlint',
+            'jshint',
+            'nggettext_default',
+            'nggettext_check',
+            'nggettext_compile',
             'clean:dist',
-            'ngconstant:' + env,
+            'ngconstant',
             'swagger-js-codegen:',
             'useminPrepare',
             'concurrent:dist',
@@ -568,6 +515,28 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', function (target) {
+        grunt.task.run(['shell:decrypt', 'config']);
+        if (target === 'setup') {
+            grunt.task.run([
+                'build',
+                'setupS3Bucket:setup',
+                'aws_s3:setup',
+                '28:setup'
+            ]);
+        } else if (target === 'teardown') {
+            grunt.task.run([
+                '28:teardown',
+                'aws_s3:teardown',
+                'setupS3Bucket:teardown'
+            ]);
+        } else if (target === 'run') {
+            grunt.task.run(['28:run']);
+        } else {
+            grunt.fail.fatal('Unknown target ' + target);
+        }
+    });
+
+    grunt.registerTask('config', function() {
         var _ = require('lodash');
         var buildId = process.env.TRAVIS_JOB_NUMBER;
         if(!buildId) {
@@ -586,35 +555,15 @@ module.exports = function (grunt) {
         }
         var config = grunt.file.readJSON('config.json');
         config.s3.bucket = id;
+        config['28'].api = { url : 'http://' + id + '.28.io/v1' };
         grunt.config.set('secxbrl', config);
-        if (target === 'setup') {
-            //Setup
-            grunt.log.writeln('After the setup is done, run grunt test:teardown --build-id=' + buildId + ' to tear it down.');
-            grunt.task.run(['setupS3Bucket:setup']);
-            grunt.task.run(['aws_s3:setup']);
-            grunt.task.run(['28:setup']);
-        } else if (target === 'teardown') {
-            //Teardown
-            grunt.task.run(['28:teardown']);
-            grunt.task.run(['aws_s3:teardown']);
-            grunt.task.run(['setupS3Bucket:teardown']);
-        } else if (target === 'run') {
-            grunt.task.run(['28:run']);
-        } else {
-            grunt.fail.fatal('Unknown target ' + target);
-        }
     });
-    
-    grunt.registerTask('default', [
-        'xqlint',
-        'jsonlint',
-        'jshint',
-        'nggettext_default',
-        'nggettext_check',
-        'nggettext_compile',
-        'build',
-        'shell:decrypt',
-        'test:setup',
-        'test:run'
-    ]);
+
+    grunt.registerTask('default', function() {
+        grunt.task.run([
+            'test:setup',
+            'test:run',
+            'test:teardown'
+        ]);
+    });
 };
