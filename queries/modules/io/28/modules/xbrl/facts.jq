@@ -1596,7 +1596,7 @@ declare function facts:canonical-serialization(
     let $aspects := $fact.Aspects
     for $non-covered-key-aspect in $fact.KeyAspects[][not $$ = $covered-aspects]
     order by $non-covered-key-aspect
-    return $non-covered-key-aspect || ":" || string-join(jn:flatten($aspects.$non-covered-key-aspect), ",")
+    return ($non-covered-key-aspect, $aspects.$non-covered-key-aspect)
   , "|")
 };
 
