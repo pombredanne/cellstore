@@ -299,7 +299,7 @@ module.exports = function (grunt) {
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
-                    'API_URL': '//<%= secxbrl[\'28\'].api.url %>',
+                    'API_URL': '//<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
                     'RECURLY_KEY': process.env.RECURLY_KEY_DEV
                 }
@@ -452,10 +452,21 @@ module.exports = function (grunt) {
         },
         shell: {
             encrypt: {
-                command: 'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
+                command: '#!/bin/bash [ "config.json" -nt "config.json.enc" ] && openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
+                command: [ '[ "config.json" -nt "config.json.enc" ]',
+                    'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
+                ].join('&&'),
+                options : {
+                    failOnError : false
+                }
             },
             decrypt: {
-                command: 'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json.enc -out config.json -d'
+                command: [ '[ "config.json.enc" -nt "config.json" ]',
+                    'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json.enc -out config.json -d'
+                ].join('&&'),
+                options : {
+                    failOnError : false
+                }
             }
         }
     });
