@@ -452,7 +452,6 @@ module.exports = function (grunt) {
         },
         shell: {
             encrypt: {
-                command: '#!/bin/bash [ "config.json" -nt "config.json.enc" ] && openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
                 command: [ '[ "config.json" -nt "config.json.enc" ]',
                     'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
                 ].join('&&'),
