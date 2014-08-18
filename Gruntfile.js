@@ -299,7 +299,7 @@ module.exports = function (grunt) {
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
-                    'API_URL': '//<%= secxbrl.28.api.url %>',
+                    'API_URL': '<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
                     'RECURLY_KEY': process.env.RECURLY_KEY_DEV
                 }
@@ -460,7 +460,7 @@ module.exports = function (grunt) {
                 }
             },
             decrypt: {
-                command: [ '[ "config.json.enc" -nt "config.json" ]',
+                command: [ '[ ! -f "config.json" -o "config.json.enc" -nt "config.json" ]',
                     'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json.enc -out config.json -d'
                 ].join('&&'),
                 options : {
