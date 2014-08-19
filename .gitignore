@@ -14,3 +14,4 @@ app/styles/*.css
 *.swo
 grunt-aws.json
 .project
+config.json
