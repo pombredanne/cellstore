@@ -1565,9 +1565,53 @@ declare function facts:merge-objects(
 };
 
 (:~
+ : <p>Generates a grouping key for a fact. It is done by building
+ : a canonical serialization of its key aspects.
+ : This serialized format is helpful for identifying and grouping facts from
+ : the same slice or dice. Since no aspect is covered, the generated key
+ : uniquely identifies the cell in which a fact lies, providing
+ : the key aspects are sound.</p>
+ :
+ : @param $fact the fact for which to generate a grouping key.
+ :
+ : @return the serialized grouping key.
+ :) 
+declare function facts:canonical-grouping-key(
+  $fact as object) as string
+{
+  facts:canonical-grouping-key($fact, ())
+};
+
+(:~
+ : <p>Generates a grouping key for a fact. It is done by building
+ : a canonical serialization of its non-covered key aspects.
+ : This serialized format is helpful for identifying and grouping facts from
+ : the same slice or dice.</p>
+ :
+ : @param $fact the fact for which to generate a grouping key.
+ : @param $covered-aspects the aspects that are covered and that are not grouped on.
+ :
+ : @return the serialized grouping key.
+ :) 
+declare function facts:canonical-grouping-key(
+  $fact as object, 
+  $covered-aspects as string*) as string
+{
+  string-join(
+    let $aspects := $fact.Aspects
+    for $non-covered-key-aspect in $fact.KeyAspects[][not $$ = $covered-aspects]
+    order by $non-covered-key-aspect
+    return ($non-covered-key-aspect, $aspects.$non-covered-key-aspect)
+  , "|")
+};
+
+(:~
  : <p>Canonically serialize an object, i.e. serialize fields in an ordered way. 
  :    Fields can be excluded from serialization (e.g. xbrl:Concept in case of 
  :    serializing a filter)</p>
+ :
+ : @deprecated This function has been deprecated in favor of the fact specific
+ :   function facts:canonical-serialization.
  :
  : @param $object the object to be canonically serialized
  : @param $exclude-fields the strings of field names to exclude from serialization
