@@ -22,6 +22,7 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
+response:content-type("application/json");
 local:check({
     all: local:test-filings(1, "&ticker=ko"),
     dow30: local:test-filings(30, "&tag=DOW30"),

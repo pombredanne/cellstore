@@ -20,6 +20,7 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
+response:content-type("application/json");
 local:check({
     cocacola: local:test-facttable(74, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalPeriod=Q1"),
     tickerrole: local:test-facttable(74, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),

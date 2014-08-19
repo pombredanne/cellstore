@@ -19,6 +19,7 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
+response:content-type("application/json");
 local:check({
     cocacola: local:test-components(1, "&ticker=ko"),
     cocacolaincome: local:test-components(1, "&ticker=ko&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
