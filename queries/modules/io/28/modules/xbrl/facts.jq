@@ -1572,14 +1572,14 @@ declare function facts:merge-objects(
  : uniquely identifies the cell in which a fact lies, providing
  : the key aspects are sound.</p>
  :
- : @param $fact the fact for which to generate a grouping key.
+ : @param $facts the facts for which to generate a grouping key.
  :
- : @return the serialized grouping key.
+ : @return the serialized grouping keys.
  :) 
 declare function facts:canonical-grouping-key(
-  $fact as object) as string
+  $facts as object*) as string*
 {
-  facts:canonical-grouping-key($fact, ())
+  facts:canonical-grouping-key($facts, ())
 };
 
 (:~
@@ -1588,16 +1588,17 @@ declare function facts:canonical-grouping-key(
  : This serialized format is helpful for identifying and grouping facts from
  : the same slice or dice.</p>
  :
- : @param $fact the fact for which to generate a grouping key.
+ : @param $facts the facts for which to generate a grouping key.
  : @param $covered-aspects the aspects that are covered and that are not grouped on.
  :
- : @return the serialized grouping key.
+ : @return the serialized grouping keys.
  :) 
 declare function facts:canonical-grouping-key(
-  $fact as object, 
-  $covered-aspects as string*) as string
+  $fact as object*, 
+  $covered-aspects as string*) as string*
 {
-  string-join(
+  for $fact in $facts
+  return string-join(
     let $aspects := $fact.Aspects
     for $non-covered-key-aspect in $fact.KeyAspects[][not $$ = $covered-aspects]
     order by $non-covered-key-aspect
