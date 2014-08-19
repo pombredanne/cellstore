@@ -1,7 +1,7 @@
 jsoniq version "1.0";
 
 import module namespace components = "http://28.io/modules/xbrl/components";
-    
+
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";

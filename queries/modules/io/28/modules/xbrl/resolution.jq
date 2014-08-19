@@ -143,23 +143,31 @@ declare %private function resolution:labels(
 {
     let $components-with-the-language-as-default :=
         $components[not $$.$components:DEFAULT-LANGUAGE ne $options.Language]
-    let $components-with-a-different-default-language :=
-        $components[$$.$components:DEFAULT-LANGUAGE ne $options.Language]
-    let $all-hypercubes as object* := hypercubes:hypercubes-for-components($components-with-the-language-as-default)
-    let $local-metadata as object* :=
-        if ($concept-names instance of string*)
-        then descendant-objects($all-hypercubes.Aspects)[$$.Name = $concept-names]
-        else ()
-    let $labels-from-local-metadata as string* := $local-metadata.Label
-    let $labels-from-concepts-collection as string* := 
-          for $concept-name in $concept-names
-          return concepts:labels-for-components(
-                $concept-name,
-                $components-with-a-different-default-language, 
+
+    let $labels-from-local-metadata as string* :=
+        let $default-hypercubes as object* :=
+            hypercubes:hypercubes-for-components($components-with-the-language-as-default, "xbrl:DefaultHypercube")
+        for $local-metadata as object in
+            descendant-objects($default-hypercubes.Aspects)
+        let $local-metadata-name := $local-metadata.Name
+        let $local-metadata-preferred-label-role as string := ($local-metadata.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1]
+        where $local-metadata-name = $concept-names and
+              $local-metadata-preferred-label-role eq $label-role
+        return
+            $local-metadata.Label
+
+    let $labels-from-concepts-collection as string* :=
+        if(empty($labels-from-local-metadata))
+        then
+            concepts:labels-for-components(
+                $concept-names,
+                $components, 
                 $label-role, 
-                $options.Language,
+                ($options.Language, "en-US")[1],
                 $concepts,
                 ())
+        else ()
+
     return ($labels-from-local-metadata, $labels-from-concepts-collection)
  };
 
@@ -640,11 +648,9 @@ declare function resolution:resolve(
     $components as object*,
     $options as object?) as object
 {
-    let $components-with-a-different-default-language :=
-        $components[$$.$components:DEFAULT-LANGUAGE ne $options.Language]
-    let $concepts := concepts:concepts-for-components(
+    let $concepts as object* := concepts:concepts-for-components(
         $concepts:ALL_CONCEPT_NAMES,
-        $components-with-a-different-default-language)
+        $components)
     return
     {
         ModelKind: "StructuralModel",
