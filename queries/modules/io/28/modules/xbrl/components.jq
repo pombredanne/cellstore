@@ -45,6 +45,16 @@ declare variable $components:col as xs:string := "components";
 declare variable $components:ARCHIVE as xs:string := "Archive";
 
 (:~
+ : Name of the field pointing to the role.
+ :)
+declare variable $components:ROLE as xs:string := "Role";
+
+(:~
+ : Name of the field pointing to the default language.
+ :)
+declare variable $components:DEFAULT-LANGUAGE as xs:string := "DefaultLanguage";
+
+(:~
  : <p>Retrieves all components.</p>
  : 
  : @return all components.

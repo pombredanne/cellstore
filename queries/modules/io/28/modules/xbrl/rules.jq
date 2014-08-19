@@ -235,12 +235,7 @@ declare %an:nondeterministic function rules:create-computed-fact(
             ValidatedFacts: [ $validated-facts ! $$._id ],
             ValidationPassed: $passed
           }
-        else (),
-        let $sub-audit-trails := $source-facts ! $$.AuditTrails[]
-        return
-          if (exists($sub-audit-trails))
-          then { AuditTrails: [ $sub-audit-trails ] }
-          else ()
+        else ()
       |}
     }
   )
