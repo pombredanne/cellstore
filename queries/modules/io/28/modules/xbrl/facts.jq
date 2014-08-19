@@ -1594,7 +1594,7 @@ declare function facts:canonical-grouping-key(
  : @return the serialized grouping keys.
  :) 
 declare function facts:canonical-grouping-key(
-  $fact as object*, 
+  $facts as object*, 
   $covered-aspects as string*) as string*
 {
   for $fact in $facts
