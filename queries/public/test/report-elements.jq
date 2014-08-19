@@ -19,7 +19,6 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
-response:content-type("application/json");
 local:check({
     all: local:test-concepts(3, "&cik=4962&name=us-gaap:Assets")
 })

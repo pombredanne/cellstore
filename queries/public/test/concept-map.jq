@@ -25,7 +25,6 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
-response:content-type("application/json");
 local:check({
     all: true (: disabling for now until we have the reports module checked in local:test-map(1, "&name=FundamentalAccountingConcepts"):)
 })
