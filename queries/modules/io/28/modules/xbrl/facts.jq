@@ -154,6 +154,11 @@ declare variable $facts:PERIOD as string := "xbrl:Period";
 declare variable $facts:ENTITY as string := "xbrl:Entity";
 
 (:~
+ : Name of the accepted aspect.
+ :)
+declare variable $facts:ACCEPTED as string := "sec:Accepted";
+
+(:~
  : Name of the unit aspect.
  :)
 declare variable $facts:UNIT as string := "xbrl:Unit";
@@ -413,7 +418,7 @@ declare function facts:facts-for-archives-and-concepts(
 declare function facts:prefix-from-fact-concept(
   $fact as object) as string? 
 {
-  let $concept-name as string := $fact.Aspects("xbrl:Concept")
+  let $concept-name as string := $fact.Aspects.$facts:CONCEPT
   let $tokenz := string:split($concept-name,":")
   return 
     if (exists($tokenz[2]))
@@ -725,7 +730,7 @@ declare %private function facts:validate(
   for $facts in $facts
 
   group by $canonical-filter-string :=
-    facts:canonically-serialize-object($facts.Aspects, $facts:CONCEPT)
+    facts:canonical-grouping-key($facts, $facts:CONCEPT)
 
   for $fact in $facts
   let $concept := $fact.$facts:ASPECTS.$facts:CONCEPT
@@ -796,7 +801,7 @@ declare function facts:facts-for-internal(
   $options as object?) as object*
 {
   let $cache-filter-index as string := 
-    facts:canonically-serialize-object($aligned-filter, "xbrl:Concept")
+    facts:canonically-serialize-object($aligned-filter, $facts:CONCEPT)
   
   (: ### 0. prepopulate cache from known dependencies? ### :)
   let $cache :=
@@ -1286,9 +1291,9 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
       (: @TODO: why do we remove concept-maps here? :)
       copy $new := trim($options, ($facts:ARCHIVE, "concept-maps", "ConceptMaps", "cache-control"))
       modify (switch(true)
-              case exists($new.Filter.Aspects."xbrl:Concept")
+              case exists($new.Filter.Aspects.$facts:CONCEPT)
                   return 
-                    replace value of json $new.Filter.Aspects."xbrl:Concept" 
+                    replace value of json $new.Filter.Aspects.$facts:CONCEPT 
                             with [ $all-mapped-concepts ]
               case exists($new.Filter.Aspects)
                   return 
@@ -1307,8 +1312,8 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
                           { "Aspects" : 
                             { "xbrl:Concept" : [ $all-mapped-concepts ] } } }
                       into $new,
-              if(exists($new.Hypercube.Aspects."xbrl:Concept".Domains)) 
-              then delete json $new.Hypercube.Aspects."xbrl:Concept".Domains 
+              if(exists($new.Hypercube.Aspects.$facts:CONCEPT.Domains)) 
+              then delete json $new.Hypercube.Aspects.$facts:CONCEPT.Domains 
               else (),
               insert json { "cache-control" : "no-cache" } into $new
             )
@@ -1333,13 +1338,13 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
     return 
     for $facts in $underlying-facts
     group by $uncovered-filter :=
-        facts:canonically-serialize-object($facts.Aspects, "xbrl:Concept")
+        facts:canonical-grouping-key($facts, $facts:CONCEPT)
     return
     for $concept in $concepts
     let $children := $concept-maps.Trees.$concept.To
     for $fact as object in
           for $candidate-concept in (keys($children), $children[].Name)
-          let $facts := $facts[$$.Aspects."xbrl:Concept" = $candidate-concept]
+          let $facts := $facts[$$.Aspects.$facts:CONCEPT = $candidate-concept]
           where exists($facts)
           count $c
           where $c eq 1
@@ -1347,7 +1352,7 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
     return
       copy $populated := $fact
       modify (replace value of json 
-                  $populated.Aspects."xbrl:Concept" with $concept,
+                  $populated.Aspects.$facts:CONCEPT with $concept,
               let $orig-concept as string := 
                 facts:concept-for-fact($populated)
               let $audit-trail := {
@@ -1599,8 +1604,8 @@ declare function facts:canonical-grouping-key(
 {
   for $fact in $facts
   return string-join(
-    let $aspects := $fact.Aspects
-    for $non-covered-key-aspect in $fact.KeyAspects[][not $$ = $covered-aspects]
+    let $aspects as object := $fact.Aspects
+    for $non-covered-key-aspect as string in $fact.KeyAspects[][not $$ = $covered-aspects]
     order by $non-covered-key-aspect
     return ($non-covered-key-aspect, $aspects.$non-covered-key-aspect)
   , "|")
@@ -1623,16 +1628,29 @@ declare function facts:canonically-serialize-object(
   $object as object, 
   $exclude-fields as string*) as string
 {
-  "{" ||
-  string-join(
-    for $key in keys($object)
-    where not(some $ex in $exclude-fields satisfies $ex eq $key)
-    order by $key
-    let $val := $object.$key
-    return
-      $key || ":" || facts:canonically-serialize-items($val, $exclude-fields)
-    , ",")
-  || "}"
+    switch(true)
+    case $object.$facts:CONCEPT instance of string and
+         $object.$facts:ENTITY instance of string and
+         $object.$facts:PERIOD instance of string and
+         $object.$facts:ACCEPTED instance of string
+        return facts:canonical-grouping-key(
+            {
+                KeyAspects: [ keys($object)[not $$ = ("sec:Archive", "sec:FiscalYear", "sec:FiscalPeriod", "sec:IsExtension")]],
+                Aspects: $object
+            }, $exclude-fields)
+    case exists($object.Aspects) and exists($object.KeyAspects)
+        return facts:canonical-grouping-key($object, $exclude-fields)
+    default return
+      "{" ||
+      string-join(
+        for $key in keys($object)
+        where not(some $ex in $exclude-fields satisfies $ex eq $key)
+        order by $key
+        let $val := $object.$key
+        return
+          $key || ":" || facts:canonically-serialize-items($val, $exclude-fields)
+        , ",")
+      || "}"
 };
 
 (:~
