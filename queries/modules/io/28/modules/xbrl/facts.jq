@@ -1070,7 +1070,10 @@ declare %private function facts:facts-for-concepts-and-rules-recursive(
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
  :)
-declare %private function facts:facts-for-rules(
+declare %private
+        %an:strictlydeterministic
+        %an:exclude-from-cache-key(1, 3, 4, 5, 6, 7, 8)
+        function facts:facts-for-rules(
     $rules-to-evaluate as object+,
     $concepts as string*,
     $hypercube as object?,
