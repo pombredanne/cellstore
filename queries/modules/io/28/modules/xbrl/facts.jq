@@ -976,42 +976,6 @@ declare %private function facts:facts-for-concepts-and-rules(
       let $dependencies-count := count($rules[jn:flatten($$.ComputableConcepts) = $concept].DependsOn[])
       order by $count descending, $dependencies-count ascending
       return $concept
-    let $concept := $concepts-computable-by-rules[1]
-    let $concepts-computable-by-rules-tail := tail($concepts-computable-by-rules)
-    return
-      facts:facts-for-concepts-and-rules-recursive($concept,
-                              $rules,
-                              $options,
-                              $concepts-computable-by-rules-tail,
-                              $cache-filter-index,
-                              $hypercube,
-                              $aligned-filter,
-                              $concept-maps,
-                              $cache)
-};
-
-(:~
- : fetch facts for rules recursively. Don't use this directly. Use 
- : facts:facts-for-rules#4 instead
- :
- : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
- : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
- :)
-declare %private function facts:facts-for-concepts-and-rules-recursive(
-    $concept as string,
-    $rules as object*,
-    $options as object?,
-    $concepts-computable-by-rules-tail as string*,
-    $cache-filter-index as string,
-    $hypercube as object?,
-    $aligned-filter as object,
-    $concept-maps as object*,
-    $cache as object*
-) as object*
-{
-  let $current-rules := $rules[jn:flatten($$.ComputableConcepts) = $concept]
-  let $new-rules as object* := $rules[not(jn:flatten($$.ComputableConcepts) = $concept)]
-  let $result :=
     let $options as object? :=
       if (facts:from-options("cache-control", $options) eq "no-cache" and
           exists(facts:from-options("debug", $options)))
@@ -1029,7 +993,10 @@ declare %private function facts:facts-for-concepts-and-rules-recursive(
         then { "debug": { "connection": string(facts:connection()) }} 
         else ()
       |}
-    return
+  for $concept in $concepts-computable-by-rules
+  let $current-rules := $rules[jn:flatten($$.ComputableConcepts) = $concept]
+  let $new-rules as object* := $rules[not(jn:flatten($$.ComputableConcepts) = $concept)]
+  return
       facts:facts-for-rules(
           $current-rules,
           $concept,
@@ -1039,26 +1006,6 @@ declare %private function facts:facts-for-concepts-and-rules-recursive(
           $new-rules,
           $cache,
           $options)
-  let $tail-result :=
-    if(empty($concepts-computable-by-rules-tail))
-    then ()
-    else
-      let $next-concept := $concepts-computable-by-rules-tail[1]
-      let $concepts-computable-by-rules-tail := tail($concepts-computable-by-rules-tail)
-      return
-        if (empty($next-concept))
-        then ()
-        else
-            facts:facts-for-concepts-and-rules-recursive($next-concept,
-                                  $rules,
-                                  $options,
-                                  $concepts-computable-by-rules-tail,
-                                  $cache-filter-index,
-                                  $hypercube,
-                                  $aligned-filter,
-                                  $concept-maps,
-                                  $cache)
-  return ($result, $tail-result)
 };
 
 (:~
