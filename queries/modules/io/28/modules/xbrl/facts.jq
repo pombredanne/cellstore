@@ -1049,11 +1049,8 @@ declare %private function facts:facts-for-concepts-and-rules-recursive(
         if (empty($next-concept))
         then ()
         else
-          let $cache :=
-            facts:update-cache($cache,$options,$result,$concept,$cache-filter-index)
-          return
             facts:facts-for-concepts-and-rules-recursive($next-concept,
-                                  $new-rules,
+                                  $rules,
                                   $options,
                                   $concepts-computable-by-rules-tail,
                                   $cache-filter-index,
@@ -1072,7 +1069,7 @@ declare %private function facts:facts-for-concepts-and-rules-recursive(
  :)
 declare %private
         %an:strictlydeterministic
-        %an:exclude-from-cache-key(1, 3, 4, 5, 6, 7, 8)
+        %an:exclude-from-cache-key(5, 6, 7, 8)
         function facts:facts-for-rules(
     $rules-to-evaluate as object+,
     $concepts as string*,
@@ -1094,7 +1091,7 @@ declare %private
       return 
         try {
           (# Q{http://xqlint.io}xqlint varrefs($concepts, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) #) {
-            reflection:eval($formula)
+            reflection:eval($formula)[$$.Aspects.$facts:CONCEPT = $concepts]
           }
         } catch * {
           let $error-details :=
