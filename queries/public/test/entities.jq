@@ -2,8 +2,6 @@ import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
-import module namespace request = "http://www.28msec.com/modules/http-request";
-declare variable $db := request:param-values("db", "all-sec-filings");
 
 declare %an:nondeterministic function local:test-entities($expected as integer*, $params as string) as atomic
 {
@@ -27,7 +25,8 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
-local:check({
+let $db := request:param-values("db", "all-sec-filings")
+return local:check({
     dow30: local:test-entities(30, "&tag=DOW30"),
     cik: local:test-entities(1, "&cik=4962"),
     ticker: local:test-entities(1, "&ticker=wmt"),
