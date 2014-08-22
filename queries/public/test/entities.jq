@@ -2,6 +2,8 @@ import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
+import module namespace request = "http://www.28msec.com/modules/http-request";
+declare variable $db := request:param-values("db", "all-sec-filings");
 
 declare %an:nondeterministic function local:test-entities($expected as integer*, $params as string) as atomic
 {
@@ -30,6 +32,6 @@ local:check({
     cik: local:test-entities(1, "&cik=4962"),
     ticker: local:test-entities(1, "&ticker=wmt"),
     ticker2: local:test-entities(2, "&ticker=wmt&ticker=ko"),
-    sic: local:test-entities((2, 74), "&sic=4813"),
-    mixed: local:test-entities((5, 77), "&cik=4962&sic=4813&ticker=wmt&ticker=ko")
+    sic: local:test-entities(switch($db) case "all-dow30" return 2 default return 74, "&sic=4813"),
+    mixed: local:test-entities(switch($db) case "all-dow30" return 5 default return 77, "&cik=4962&sic=4813&ticker=wmt&ticker=ko")
 })
