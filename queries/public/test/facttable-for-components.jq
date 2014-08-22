@@ -24,6 +24,6 @@ let $db := request:param-values("db", "all-sec-filings")
 return local:check({
     cocacola: local:test-facttable(1, "&ticker=ko"),
     tickerrole: local:test-facttable(60, "&ticker=ko&fiscalYear=2014&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
-    tickerconcept: local:test-facttable(switch($db) case "all-dow30" return 99 default return 60, "&ticker=ko&concept=us-gaap:NetIncomeLoss&fiscalYear=2014"),
+    tickerconcept: local:test-facttable(switch($db) case "all-dow30" return 99 default return 60, "&ticker=ko&concept=us-gaap:NetIncomeLoss&fiscalYear=2013"),
     tickerfyfprole: local:test-facttable(70, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets") 
 })
