@@ -3,13 +3,13 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
 
-declare %an:nondeterministic function local:test-entities($expected as integer*, $params as string) as atomic
+declare %an:nondeterministic function local:test-entities($expected as integer, $params as string) as atomic
 {
     let $actual as integer := count(parse-json(http-client:get(
         "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/entities.jq?_method=POST" || $params
     ).body.content).Entities[])
     return
-        if ($actual = $expected)
+        if ($actual eq $expected)
         then true
         else "false [Actual="||$actual||", Expected="||$expected ||"]"
 };
