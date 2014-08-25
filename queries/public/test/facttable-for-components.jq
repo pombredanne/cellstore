@@ -20,7 +20,6 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
-let $db := request:param-values("db", "all-sec-filings")
 return local:check({
     cocacola: local:test-facttable(1, "&ticker=ko"),
     tickerrole: local:test-facttable(60, "&ticker=ko&fiscalYear=2013&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
