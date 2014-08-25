@@ -25,11 +25,12 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
-local:check({
+let $db := request:param-values("db", "all-sec-filings")
+return local:check({
     dow30: local:test-entities(30, "&tag=DOW30"),
     cik: local:test-entities(1, "&cik=4962"),
     ticker: local:test-entities(1, "&ticker=wmt"),
     ticker2: local:test-entities(2, "&ticker=wmt&ticker=ko"),
-    sic: local:test-entities(74, "&sic=4813"),
-    mixed: local:test-entities(77, "&cik=4962&sic=4813&ticker=wmt&ticker=ko")
+    sic: local:test-entities(switch($db) case "all-dow30" return 2 default return 74, "&sic=4813"),
+    mixed: local:test-entities(switch($db) case "all-dow30" return 5 default return 77, "&cik=4962&sic=4813&ticker=wmt&ticker=ko")
 })
