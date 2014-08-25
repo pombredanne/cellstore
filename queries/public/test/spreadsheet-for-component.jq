@@ -23,6 +23,6 @@ let $db := request:param-values("db", "all-sec-filings")
 return local:check({
     cocacola: local:test-spreadsheet(1, "&ticker=ko"),
     tickerrole: local:test-spreadsheet(60, "&ticker=ko&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
-    tickerconcept: local:test-spreadsheet(switch($db) case "all-dow30" return 93 default return 60, "&ticker=ko&fiscalYear=2013&concept=us-gaap:NetIncomeLoss"),
+    tickerconcept: local:test-spreadsheet(76, "&ticker=ko&fiscalYear=2013&concept=us-gaap:Assets"),
     tickerfyfprole: local:test-spreadsheet(70, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets") 
 })
