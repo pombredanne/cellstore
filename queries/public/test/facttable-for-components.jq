@@ -20,7 +20,7 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
-return local:check({
+local:check({
     cocacola: local:test-facttable(1, "&ticker=ko"),
     tickerrole: local:test-facttable(60, "&ticker=ko&fiscalYear=2013&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
     tickerconcept: local:test-facttable(76, "&ticker=ko&concept=us-gaap:Assets&fiscalYear=2013"),
