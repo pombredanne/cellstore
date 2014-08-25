@@ -19,8 +19,7 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
-let $db := request:param-values("db", "all-sec-filings")
-return local:check({
+local:check({
     cocacola: local:test-spreadsheet(1, "&ticker=ko"),
     tickerrole: local:test-spreadsheet(60, "&ticker=ko&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
     tickerconcept: local:test-spreadsheet(76, "&ticker=ko&fiscalYear=2013&concept=us-gaap:Assets"),
