@@ -3,7 +3,6 @@ import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace components = "http://28.io/modules/xbrl/components";
@@ -193,7 +192,11 @@ let $archives as object* := fiscal-core:filings(
     $fiscalPeriods,
     $fiscalYears,
     $aids)
-let $entities    := entities:entities($archives.Entity)
+let $entities :=
+    ($entities[$$._id = $archives.Entity],
+    let $not-found := $archives.Entity[not $entities._id = $$]
+    where exists($not-found)
+    return entities:entities($not-found))
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
 let $map as item* :=
     if(exists($report))
