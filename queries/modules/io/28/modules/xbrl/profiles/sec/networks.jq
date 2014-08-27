@@ -945,24 +945,24 @@ declare function sec-networks:categories($networks as object*) as string*
  :
  : <p>Return the sub-categories of the supplied SEC networks (Detail, TextBlockLevel4, TextBLockLevel1to3).</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  :
  : @return the sub-category of each network.
  :)
-declare function sec-networks:sub-categories($networks-or-ids as item*) as string*
+declare function sec-networks:sub-categories($networks as object*) as string*
 {
-  for $network in $networks-or-ids
-  let $numbers :=
-    for $concept in sec-networks:concepts($network)
-    group by $is-text-block := $concept.IsTextBlock
-    return {
-      if($is-text-block) then "TextBlocks" else "NonTextBlocks": count($concept)
-    }
+  for $network in $networks
+  let $default-hypercube as object := hypercubes:hypercubes-for-components($network, "xbrl:DefaultHypercube")
+  let $is-text-blocks as boolean* := values(
+      $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+  )[not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem") and not $$.IsAbstract].IsTextBlock
+  let $exists-text-blocks as boolean := exists($is-text-blocks[$$])
+  let $exists-non-text-blocks as boolean := exists($is-text-blocks[not $$])
   return switch(true)
-         case $numbers.NonTextBlocks gt 0 and not $numbers.TextBlocks gt 0 return "Detail"
-         case $numbers.NonTextBlocks gt 0 return "TextBlockLevel4"
-         case $numbers.TextBlocks gt 0 return "TextBlockLevel1To3"
-         default return "Unknown"
+      case (: no text blocks, but still non-text-blocks :) $exists-non-text-blocks and not $exists-text-blocks return "Detail"
+      case (: both :)  $exists-non-text-blocks (: and $exists-text-blocks :) return "TextBlockLevel4"
+      case (: only text blocks :) $exists-text-blocks return "TextBlockLevel1To3"
+      default (: exists nothing :) return "Unknown"
 };
 
 (:~
