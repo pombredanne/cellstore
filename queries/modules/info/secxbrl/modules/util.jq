@@ -25,7 +25,7 @@ declare %an:sequential function util:check-and-return-results(
     default return error()
 };
 
-declare function util:move-unit-out-of-aspects(
+declare function util:normalize-facts(
     $facts as object*) as object*
 {
     for $fact in $facts
@@ -35,7 +35,7 @@ declare function util:move-unit-out-of-aspects(
                 trim($fact.Aspects, ("xbrl:Unit"))
             |}
         },
-        trim($fact, ("Aspects")),
+        trim($fact, ("Aspects", "_id")),
         { Unit: $fact.Aspects."xbrl:Unit" }[exists($fact.Aspects."xbrl:Unit")]
     |}
 };
