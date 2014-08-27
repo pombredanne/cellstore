@@ -89,7 +89,7 @@ declare function concepts:concepts-for-components($concept-names as string*,
     $component-or-ids as item*) as object*
 {
   let $components := components:components($component-or-ids)
-  return concepts:concepts($concept-names, $components.Archive, $components.Role)
+  return concepts:concepts($concept-names, $components.Archive[not $$ instance of null], $components.Role)
 };
 
 (:~
@@ -112,6 +112,7 @@ declare function concepts:concepts(
   ) as object*
 {
   let $conn := concepts:connection()
+  where exists($archives)
   return mongo:find($conn, $concepts:col, 
     {|
       {
@@ -165,8 +166,8 @@ declare function concepts:concepts(
    ) as string*
 {
   let $components := components:components($component-or-ids)
-  let $concepts := concepts:concepts($concept-names, $components.Archive, $components.Role)
-  return concepts:labels($concept-names, $components.Archive, $components.Role, 
+  let $concepts := concepts:concepts-for-components($concept-names, $components)
+  return concepts:labels($concept-names, $components.Archive[not $$ instance of null], $components.Role, 
       $label-role, $language, $concepts, $options)
 };
 
@@ -215,7 +216,7 @@ declare function concepts:labels-for-components(
   ) as string*
 {
   let $components := components:components($component-or-ids)
-    return concepts:labels($concept-names, $components.Archive, $components.Role, 
+    return concepts:labels($concept-names, $components.Archive[not $$ instance of null], $components.Role, 
       $label-role, $language, $concepts, $options)
 };
 
