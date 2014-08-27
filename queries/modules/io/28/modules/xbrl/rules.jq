@@ -376,4 +376,3 @@ as decimal
      decimal(0)
    )[1]
 };
-
