@@ -505,18 +505,35 @@ declare function sec-networks:tables($networks as object*, $options as object?) 
 };
 
 (:~
+ : <p>Returns the names of all SEC Tables contained in the supplied SEC Networks.</p>
+ :
+ : <p>SEC Tables are XBRL hypercubes.</p>
+ : 
+ : @param $networks a sequence of SEC Network objects.
+ : @param $options <a href="core#standard_options">standard SEC BizQL options</a>.
+ :
+ : @return the names of the SEC Tables.
+ :
+ :)
+declare function sec-networks:table-names($networks as object*) as string*
+{
+  let $names := $networks.Hypercubes[].Name
+  return if (exists($names)) then $names else "xbrl28:ImpliedTable"
+};
+
+(:~
  : <p>Returns all SEC Tables contained in the supplied SEC Networks.</p>
  :
  : <p>SEC Tables are XBRL hypercubes.</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  :
  : @return the SEC Tables.
  :
  :)
-declare function sec-networks:tables($networks-or-ids as item*) as object*
+declare function sec-networks:tables($networks as object*) as object*
 {
-  sec-networks:tables($networks-or-ids, ())
+  sec-networks:tables($networks, ())
 };
 
 (:~
@@ -810,7 +827,7 @@ declare function sec-networks:facts(
 as object*
 {
   for $component as object in $networks
-  for $table as string? allowing empty in sec-networks:tables($component).Name
+  for $table as string? allowing empty in sec-networks:table-names($component)[$$ ne "xbrl28:ImpliedTable"]
   let $hypercube as object? := hypercubes:hypercubes-for-components($component, $table)
   let $hypercube as object := if (exists($hypercube))
                               then $hypercube
@@ -847,7 +864,7 @@ declare function sec-networks:fact-tables(
 as array
 {
   for $component as object in $networks
-  for $table as string? allowing empty in sec-networks:tables($component).Name
+  for $table as string? allowing empty in sec-networks:table-names($component)[$$ ne "xbrl28:ImpliedTable"]
   let $hypercube as object? := hypercubes:hypercubes-for-components($component, $table)
   let $hypercube as object := if (exists($hypercube))
                               then $hypercube
@@ -964,7 +981,7 @@ declare function sec-networks:summaries($networks as object*) as object*
     NetworkIdentifier : $component.Role,
     Category : sec-networks:categories($component),
     SubCategory : sec-networks:sub-categories($component),
-    Table : sec-networks:tables($component, { IncludeImpliedTable: true }).Name[1],
+    Table : sec-networks:table-names($component)[1],
     Disclosure : sec-networks:disclosures($component),
     ReportElements : sec-networks:num-report-elements($component),
     Tables : sec-networks:num-tables($component),
