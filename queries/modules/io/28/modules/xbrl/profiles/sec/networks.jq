@@ -301,14 +301,14 @@ declare %private function sec-networks:model-structures-recursive(
  : <p>Computes the model structure of the supplied SEC Network, which is a hierarchy
  : of SEC Report Elements (Tables, Axes, Members, LineItems, Abstracts, Concepts).</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  :
  : @return the model structures of these SEC Networks.
  :
  :)
-declare function sec-networks:model-structures($networks-or-ids as item*) as object*
+declare function sec-networks:model-structures($networks as object*) as object*
 {
-  for $sec-network in components:components($networks-or-ids)
+  for $sec-network in $networks
   let $presentation-network := networks:networks-for-components-and-short-names(
       $sec-network,
       $networks:PRESENTATION_NETWORK)
@@ -480,18 +480,18 @@ declare function sec-networks:standard-definition-models-for-components($compone
  :
  : <p>SEC Tables are XBRL hypercubes.</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  : @param $options <a href="core#standard_options">standard SEC BizQL options</a>.
  :
  : @return the SEC Tables.
  :
  :)
-declare function sec-networks:tables($networks-or-ids as item*, $options as object?) as object*
+declare function sec-networks:tables($networks as object*, $options as object?) as object*
 {
   let $include-implied-table as boolean := if(exists($options("IncludeImpliedTable")))
                                            then $options("IncludeImpliedTable")
                                            else false
-  for $sec-network in components:components($networks-or-ids)
+  for $sec-network in $networks
   let $default-hypercube as object := hypercubes:hypercubes-for-components($sec-network, "xbrl:DefaultHypercube")
   let $hypercube-metadata as object* := values(
       $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
@@ -586,14 +586,14 @@ declare function sec-networks:line-items-report-elements($networks-or-ids as ite
  : <p>SEC Abstracts are XBRL abstract primary items that may or may not be associated
  : with a hypercube -- except those that are SEC LineItems (i.e., source of an all relation).</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  :
  : @return the SEC Abstracts.
  :
  :)
-declare function sec-networks:abstracts($networks-or-ids as item*) as object*
+declare function sec-networks:abstracts($networks as object*) as object*
 {
-  for $sec-network in components:components($networks-or-ids)
+  for $sec-network in $networks
   let $default-hypercube as object := hypercubes:hypercubes-for-components($sec-network, "xbrl:DefaultHypercube")
   let $abstract-metadata as object* := values(
       $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
@@ -613,14 +613,14 @@ declare function sec-networks:abstracts($networks-or-ids as item*) as object*
  : <p>SEC Concepts are XBRL concrete primary items that may or may not be associated
  : with a hypercube.</p>
  : 
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  :
  : @return the SEC Concepts.
  :
  :)
-declare function sec-networks:concepts($networks-or-ids as item*) as object*
+declare function sec-networks:concepts($networks as object*) as object*
 {
-  for $sec-network in components:components($networks-or-ids)
+  for $sec-network in $networks
   let $default-hypercube as object := hypercubes:hypercubes-for-components($sec-network, "xbrl:DefaultHypercube")
   let $concept-metadata as object* := values(
       $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
@@ -661,13 +661,13 @@ declare function sec-networks:num-tables($networks-or-ids as item*) as integer*
 (:~
  : Return the number of (distinct) SEC report elements in each of the given components.
  :
- : @param $networks-or-ids list of components or IDs
+ : @param $networks list of components.
  :
  : @return the said number of report elements
  :)
-declare function sec-networks:num-report-elements($networks-or-ids as item*) as integer*
+declare function sec-networks:num-report-elements($networks as object*) as integer*
 {
-  for $c in components:components($networks-or-ids)
+  for $c in $networks
   return sum(
     (
       components:num-concrete-primary-items-in-hypercubes($c),
@@ -693,38 +693,38 @@ declare function sec-networks:num-axes($networks-or-ids as item*) as integer*
 (:~
  : Return the number of (distinct) SEC Members in each of the given components.
  :
- : @param $networks-or-ids list of components or IDs
+ : @param $networks list of components.
  :
  : @return the said number of members
  :)
-declare function sec-networks:num-members($networks-or-ids as item*) as integer*
+declare function sec-networks:num-members($networks as object*) as integer*
 {
-  for $c in components:components($networks-or-ids)
+  for $c in $networks
   return $c.Statistics.NumDistinctMembers
 };
 
 (:~
  : Return the number of (distinct) SEC LineItems report elements in each of the given components.
  :
- : @param $networks-or-ids list of components or IDs
+ : @param $networks list of components.
  :
  : @return the said number of line items
  :)
-declare function sec-networks:num-line-items($networks-or-ids as item*) as integer*
+declare function sec-networks:num-line-items($networks as object*) as integer*
 {
-  components:components($networks-or-ids) ! $$.Statistics.Profiles.SEC.NumDistinctReportElementNamesEndingWithLineItems
+  $networks ! $$.Statistics.Profiles.SEC.NumDistinctReportElementNamesEndingWithLineItems
 };
 
 (:~
  : Return the number of (distinct) SEC Abstracts in each of the given components.
  :
- : @param $networks-or-ids list of components or IDs
+ : @param $networks list of components.
  :
  : @return the said number of abstracts
  :)
-declare function sec-networks:num-abstracts($networks-or-ids as item*) as integer*
+declare function sec-networks:num-abstracts($networks as object*) as integer*
 {
-  for $c in components:components($networks-or-ids)
+  for $c in $networks
   let $s := $c.Statistics
   return  $s.NumDistinctAbstractPrimaryItemsInHypercubes
           + $s.NumDistinctAbstractPrimaryItemsNotInHypercubes
@@ -736,13 +736,13 @@ declare function sec-networks:num-abstracts($networks-or-ids as item*) as intege
 (:~
  : Return the number of (distinct) SEC Concepts in each of the given components.
  :
- : @param $networks-or-ids list of components or IDs
+ : @param $networks list of components.
  :
  : @return the said number of concepts
  :)
-declare function sec-networks:num-concepts($networks-or-ids as item*) as integer*
+declare function sec-networks:num-concepts($networks as object*) as integer*
 {
-  for $c in components:components($networks-or-ids)
+  for $c in $networks
   let $s := $c.Statistics
   return  $s.NumDistinctConcretePrimaryItemsInHypercubes
           + $s.NumDistinctConcretePrimaryItemsNotInHypercubes
@@ -798,18 +798,18 @@ as object*
  :
  : <p>Retrieves all facts belonging to the SEC Network.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  : @param $options <a href="core#standard_options">standard SEC BizQL options</a>.
  :
  : @return a sequence of facts.
  :)
 declare function sec-networks:facts(
-    $networks-or-ids as item*,
+    $networks as object*,
     $options as object?
 )
 as object*
 {
-  for $component as object in components:components($networks-or-ids)
+  for $component as object in $networks
   for $table as string? allowing empty in sec-networks:tables($component).Name
   let $hypercube as object? := hypercubes:hypercubes-for-components($component, $table)
   let $hypercube as object := if (exists($hypercube))
@@ -835,18 +835,18 @@ as object*
  :
  : <p>Retrieves all facts belonging to the SEC Network.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  : @param $options <a href="core#standard_options">standard SEC BizQL options</a>.
  :
  : @return a array of arrays filled with fact values.
  :)
 declare function sec-networks:fact-tables(
-    $networks-or-ids as item*,
+    $networks as object*,
     $options as object?
 )
 as array
 {
-  for $component as object in components:components($networks-or-ids)
+  for $component as object in $networks
   for $table as string? allowing empty in sec-networks:tables($component).Name
   let $hypercube as object? := hypercubes:hypercubes-for-components($component, $table)
   let $hypercube as object := if (exists($hypercube))
@@ -897,13 +897,13 @@ as object*
  : 
  : <p>Returns the disclosures of the suplied networks.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  : @return the disclosure names, or "UncategorizedInformation" if none.
  : 
  :)
-declare function sec-networks:disclosures($networks-or-ids as item*) as string+
+declare function sec-networks:disclosures($networks as object*) as string+
 {
-  for $component in components:components($networks-or-ids)
+  for $component in $networks
   let $disclosure := $component.Profiles.SEC.Disclosure
   return if (exists($disclosure))
          then $disclosure
@@ -914,13 +914,13 @@ declare function sec-networks:disclosures($networks-or-ids as item*) as string+
  :
  : <p>Return the categories of the supplied SEC networks (Statement, Disclosure, Document or Schedule).</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  :
  : @return the category of each network.
  :)
-declare function sec-networks:categories($networks-or-ids as item*) as string*
+declare function sec-networks:categories($networks as object*) as string*
 {
-  let $component := components:components($networks-or-ids)
+  for $component in $networks
   return normalize-space(tokenize($component.Label, "-")[2])
 };
 
@@ -952,13 +952,13 @@ declare function sec-networks:sub-categories($networks-or-ids as item*) as strin
  :
  : <p>Return summary information for the supplied SEC networks.</p>
  :
- : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
+ : @param $networks a sequence of SEC Network objects.
  :
  : @return one object per network, containing a summary.
  :)
-declare function sec-networks:summaries($networks-or-ids as item*) as object*
+declare function sec-networks:summaries($networks as object*) as object*
 {
-  for $component in components:components($networks-or-ids)
+  for $component in $networks
   return {
     NetworkLabel : $component.Label,
     NetworkIdentifier : $component.Role,
