@@ -46,6 +46,8 @@ return switch(true)
                     },
                     "sec:FiscalPeriod" : {
                         Type: "string"
+                    },
+                    "xbrl:Entity" : {
                     }
                 }
             }
