@@ -61,7 +61,7 @@ declare function local:to-xml($concepts as item*, $onlyNames as boolean) as elem
         }</ReportElement>
 };
 
-declare function local:concepts-for-archives($aids as string*) as object*
+declare function local:concepts-for-archives($aids as string*, $projection as object) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -75,7 +75,9 @@ declare function local:concepts-for-archives($aids as string*) as object*
         mongo:find($conn, "concepts", 
         {
             "Archive": { "$in" : [ $aids ] }
-        })
+        },
+        $projection,
+        {})
 };
 
 declare function local:concepts-for-archives($aids as string*, $names as string*, $map as string?) as object*
@@ -207,7 +209,9 @@ let $concepts := if (exists($names))
                   then local:concepts-for-archives($archives._id, $names, $map)
                   else if (exists($labels))
                   then local:concepts-for-archives-and-labels($archives._id, $labels[1])
-                  else local:concepts-for-archives($archives._id)
+                  else if($onlyNames)
+                  then local:concepts-for-archives($archives._id, { Name: 1 })
+                  else local:concepts-for-archives($archives._id, {})
 let $result := {
     ReportElements : [
         if ($onlyNames) 
