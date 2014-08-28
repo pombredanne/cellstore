@@ -40,6 +40,12 @@ return switch(true)
                     "sec:Archive" : {
                         Type: "string",
                         Domain : [archives:aid($noncached-archives)]
+                    },
+                    "sec:FiscalYear" : {
+                        Type: "integer"
+                    },
+                    "sec:FiscalPeriod" : {
+                        Type: "string"
                     }
                 }
             }
