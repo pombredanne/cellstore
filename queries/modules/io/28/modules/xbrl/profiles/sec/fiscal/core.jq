@@ -108,6 +108,9 @@ declare function fiscal-core:filter-override(
             Type: "string",
             Domain : [ $aids ]
         },
+        "sec:FiscalYear" : {
+            Type: "integer"
+        },
         "sec:FiscalPeriod" : {|
             {
                 Type: "string",
