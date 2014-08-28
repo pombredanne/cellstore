@@ -386,113 +386,113 @@ as object*
 (:~
  : Return the number of hypercubes in each of the given components.
  :
- : @param $components-or-ids list of archives or IDs
+ : @param $components sequence of components.
  :
  : @return the said number of hypercubes
  :)
-declare function components:num-hypercubes($components-or-ids as item*) as integer*
+declare function components:num-hypercubes($components as object*) as integer*
 {
-  components:components($components-or-ids) ! $$.Statistics.NumHypercubes
+  $components ! $$.Statistics.NumHypercubes
 };
 
 (:~
  : Return the number of networks in each of the given components.
  :
- : @param $components-or-ids list of archives or IDs
+ : @param $components sequence of components.
  :
  : @return the said number of networks
  :)
-declare function components:num-networks($components-or-ids as item*) as integer*
+declare function components:num-networks($components as object*) as integer*
 {
-  components:components($components-or-ids) ! $$.Statistics.NumNetworks
+  $components ! $$.Statistics.NumNetworks
 };
 
 (:~
  : Return the number of (distinct) explicit dimensions in each of the given components.
  :
- : @param $components-or-ids list of archives or IDs
+ : @param $components sequence of components.
  :
  : @return the said number of dimensions
  :)
-declare function components:num-explicit-dimensions($components-or-ids as item*) as integer*
+declare function components:num-explicit-dimensions($components as object*) as integer*
 {
-  components:components($components-or-ids) ! $$.Statistics.NumDistinctExplicitDimensions
+  $components ! $$.Statistics.NumDistinctExplicitDimensions
 };
 
 (:~
  : Return the number of (distinct) domains in each of the given components.
  :
- : @param $components-or-ids list of archives or IDs
+ : @param $components sequence of components.
  :
  : @return the said number of domains
  :)
-declare function components:num-domains($components-or-ids as item*) as integer*
+declare function components:num-domains($components as object*) as integer*
 {
-  components:components($components-or-ids) ! $$.Statistics.NumDistinctDomains
+  $components ! $$.Statistics.NumDistinctDomains
 };
 
 (:~
  : Return the number of (distinct) members in each of the given components.
  :
- : @param $components-or-ids list of archives or IDs
+ : @param $components sequence of components.
  :
  : @return the said number of members
  :)
-declare function components:num-members($components-or-ids as item*) as integer*
+declare function components:num-members($components as object*) as integer*
 {
-  components:components($components-or-ids) ! $$.Statistics.NumDistinctMembers
+  $components ! $$.Statistics.NumDistinctMembers
 };
 
 (:~
  : Return the number of (distinct) concrete primary items being
  : in a hypercube for each of the given components.
  :
- : @param $components-or-ids list of archives or IDs
+ : @param $components sequence of components.
  :
  : @return the said number of primary items
  :)
-declare function components:num-concrete-primary-items-in-hypercubes($components-or-ids as item*) as integer*
+declare function components:num-concrete-primary-items-in-hypercubes($components as object*) as integer*
 {
-  components:components($components-or-ids) ! $$.Statistics.NumDistinctConcretePrimaryItemsInHypercubes
+  $components ! $$.Statistics.NumDistinctConcretePrimaryItemsInHypercubes
 };
 
 (:~
  : Return the number of (distinct) abstract primary items being
  : in a hypercube for each of the given components.
  :
- : @param $components-or-ids list of archives or IDs
+ : @param $components sequence of components.
  :
  : @return the said number of primary items
  :)
-declare function components:num-abstract-primary-items-in-hypercubes($components-or-ids as item*) as integer*
+declare function components:num-abstract-primary-items-in-hypercubes($components as object*) as integer*
 {
-  components:components($components-or-ids) ! $$.Statistics.NumDistinctAbstractPrimaryItemsInHypercubes
+  $components ! $$.Statistics.NumDistinctAbstractPrimaryItemsInHypercubes
 };
 
 (:~
  : Return the number of (distinct) concrete primary items not being
  : in a hypercube for each of the given components.
  :
- : @param $components-or-ids list of archives or IDs
+ : @param $components sequence of components.
  :
  : @return the said number of primary items
  :)
-declare function components:num-concrete-primary-items-not-in-hypercubes($components-or-ids as item*) as integer*
+declare function components:num-concrete-primary-items-not-in-hypercubes($components as object*) as integer*
 {
-  components:components($components-or-ids) ! $$.Statistics.NumDistinctConcretePrimaryItemsNotInHypercubes
+  $components ! $$.Statistics.NumDistinctConcretePrimaryItemsNotInHypercubes
 };
 
 (:~
  : Return the number of (distinct) abstract primary items not being
  : in a hypercube for each of the given components.
  :
- : @param $components-or-ids list of archives or IDs
+ : @param $components sequence of components.
  :
  : @return the said number of primary items
  :)
-declare function components:num-distinct-abstract-primary-items-not-in-hypercubes($components-or-ids as item*) as integer*
+declare function components:num-distinct-abstract-primary-items-not-in-hypercubes($components as object*) as integer*
 {
-  components:components($components-or-ids) ! $$.Statistics.NumDistinctAbstractPrimaryItemsNotInHypercubes
+  $components ! $$.Statistics.NumDistinctAbstractPrimaryItemsNotInHypercubes
 };
 
 (:~
