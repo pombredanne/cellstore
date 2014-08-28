@@ -99,10 +99,9 @@ module.exports = function (grunt) {
         reports: {
             options: {
                 dest: '<%= yeoman.queries %>/private/UpdateReportSchema.jq',
-                src:  'data/fac.json'
+                reports:  ['data/*.json']
             },
-            all : {
-            }
+            all : {}
         },
         connect: {
             options: {
