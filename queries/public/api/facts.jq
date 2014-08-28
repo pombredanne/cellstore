@@ -178,7 +178,7 @@ let $facts :=
             { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName}
         |}
 
-let $facts := util:move-unit-out-of-aspects($facts)
+let $facts := util:normalize-facts($facts)
 
 let $result := {
     NetworkIdentifier : "http://bizql.io/facts",

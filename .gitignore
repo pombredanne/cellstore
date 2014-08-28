@@ -13,4 +13,5 @@ app/styles/*.css
 *.swp
 *.swo
 grunt-aws.json
+queries/private/UpdateReportSchema.jq
 config.json
