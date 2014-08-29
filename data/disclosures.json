@@ -4,6 +4,12 @@
     "Label": "Disclosures",
     "Description": "Disclosures",
     "Role": "Disclosures",
+    "Owner": "admin@28.io",
+    "ACL": [ {
+        "Type": "Group",
+        "Grantee": "http://28.io/groups/AllUsers",
+        "Permission": "READ"
+    } ],
     "Networks": [
         {
             "LinkName": "link:presentationLink",
