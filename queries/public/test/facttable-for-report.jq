@@ -3841,7 +3841,7 @@ local:check({
     cocacola: local:test-facttable(82, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalPeriod=Q1"),
     aid: local:test-facttable(84, "&aid=0001193125-14-157120&report=FundamentalAccountingConcepts"),
     aid2: local:test-facttable(85, "&aid=0000732717-14-000022&report=FundamentalAccountingConcepts"),
-    tickerrole: local:test-facttable(844, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
+    tickerrole: local:test-facttable(82, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
     tickerfyfprole: local:test-facttable(166, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=2013&fiscalPeriod=FY"),
     allvalues : local:test-values()
 })
