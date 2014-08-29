@@ -1417,7 +1417,8 @@ declare %private function facts:align-aspects(
           return { $dimension-name : [ $intersection-members, if ($intersection-members = $hypercube-default) then null else () ] }
 
       (: no member restriction, and no default -> The dimension MUST exist :)
-      case not $hypercube-has-default
+      case not $hypercube-has-default and
+           not $dimension-name = ($facts:CONCEPT, $facts:ENTITY, $facts:PERIOD)
           return { $dimension-name : { "$exists": true } }
 
       (: no member restriction, a default -> Any fact will do w.r.t. this aspect :)
