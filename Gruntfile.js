@@ -256,7 +256,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: '<%= yeoman.app %>/bower_components/angular-i18n',
                     dest: '<%= yeoman.dist %>/bower_components/angular-i18n',
-                    src: ['*.js']
+                    src: ['angular-locale_en-us.js']
                 }]
             }
         },
