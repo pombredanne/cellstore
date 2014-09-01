@@ -108,7 +108,7 @@ variable $user := user:get-by-email("support@28.io");
 if(empty($user))
 then {
     $user := user:new("support@28.io", "System", "Administrator", "foobar", {| |});
-    user:assign-role($admin, "sec_pro", (), (), $user);
+    user:assign-role($user, "sec_pro", (), (), $user);
   }
 else ();
 
