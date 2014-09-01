@@ -105,7 +105,7 @@ user:allow("anybody", "data_sec_dow30");
 
 (: Pro user :)
 variable $user := user:get-by-email("support@28.io");
-if(empty($admin))
+if(empty($user))
 then {
     $user := user:new("support@28.io", "System", "Administrator", "foobar", {| |});
     user:assign-role($admin, "sec_pro", (), (), $user);
