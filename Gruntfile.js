@@ -524,11 +524,15 @@ module.exports = function (grunt) {
                 '28:setup'
             ]);
         } else if (target === 'teardown') {
-            grunt.task.run([
-                '28:teardown',
-                'aws_s3:teardown',
-                'setupS3Bucket:teardown'
-            ]);
+            if(!(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false')) {
+                grunt.task.run([
+                    '28:teardown',
+                    'aws_s3:teardown',
+                    'setupS3Bucket:teardown'
+                ]);
+            } else {
+                console.log('We\'re on master, no teardown.');
+            }
         } else if (target === 'run') {
             grunt.task.run(['28:run']);
         } else {
@@ -542,6 +546,7 @@ module.exports = function (grunt) {
         if(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false') {
             buildId = 'dev';
             delete process.env.RANDOM_ID;
+            console.log('This is master we deploy on secxbrl-dev.28.io');
         } else if(!buildId) {
             var idx =_.findIndex(process.argv, function(val){ return val.substring(0, '--build-id='.length) === '--build-id='; });
             buildId = idx > -1 ? process.argv[idx].substring('--build-id='.length) : undefined;
