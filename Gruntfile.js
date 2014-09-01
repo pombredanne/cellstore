@@ -471,7 +471,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', function (target) {
         if (!grunt.file.exists(grunt.config('yeoman.app') + '/scripts/constants.js')) {
-            grunt.fail.fatal('Unable to find file ' + grunt.config('yeoman.app') + '/scripts/constants.js.\nRun grunt ngconstant:server before.');
+            grunt.fail.fatal('Unable to find file ' + grunt.config('yeoman.app') + '/scripts/constants.js.\nSetup the TRAVIS_SECRET_KEY env variable and run grunt test:setup --build-id=myfeature before.');
         }
 
         if (target === 'dist') {
