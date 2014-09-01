@@ -539,7 +539,10 @@ module.exports = function (grunt) {
     grunt.registerTask('config', function() {
         var _ = require('lodash');
         var buildId = process.env.TRAVIS_JOB_NUMBER;
-        if(!buildId) {
+        if(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false') {
+            buildId = 'dev';
+            delete process.env.RANDOM_ID;
+        } else if(!buildId) {
             var idx =_.findIndex(process.argv, function(val){ return val.substring(0, '--build-id='.length) === '--build-id='; });
             buildId = idx > -1 ? process.argv[idx].substring('--build-id='.length) : undefined;
         }
