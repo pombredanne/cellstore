@@ -8,22 +8,12 @@ before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 script:
-- grunt
+- grunt test:setup
+- grunt test:run
 after_script:
 - grunt test:teardown
 env:
   global:
-  #AWS_ACCESS_KEY_ID
-  - secure: "ZJTT7faHhrpuzwDvgB/ctxLhnKVaOxB5LirysUw/C+hc6TnZrPwmGVlFVmJyWgMQVdkA/r7nlWsI7vZ05VVWIJ1i656uu6DIUhPyu+SAVWFw/5LK6yFQxABbWYI0a2if0P1GWM1bpAYSQM4vQ0pWIsInvp8nbvvXBPqQayvlMq4="
-  #AWS_SECRET_ACCESS_KEY
-  - secure: "c/V+hR9sZ5lQ8XkcRsxv+zTybIS2rhrB9D/O16h6kJHp7YB5AxQDt9tiVtcPE47G8FxY/aueljuBON3fIK3Z5JbkKKxQivULb0hmEzvw4S3ZYJunTrYDt616eQqV6OVx0ZHXdaWGuw+Y3Vk50Z0aYdHPCoI+Gw6SE7TwYekSHQE="
-  #USERNAME_28
-  - secure: "R2wc9nzyq3SugTxSfAuQ9d5+tbVC3/svFlDeLkJy3+gioW+XjNg8JhAbFn8c2UEjoHV6NAlBM2mldDGitBiOZpL+qtG1PperVjnyjwqaYGVJRV6SPnUh+UhSBRv3APV8nxyFWjide7WmQXlkoPzTXAlIiRudCX45xVofvgkdGi8="
-  #PASSWORD_28
-  - secure: "AwbHQZSyjgcJyVIwIQZhFedWhTbFUBjCb5a3QFbvZjol28EI+E0bfJI/cPWxXXGmPer3es+YvkOMuotQ77umV1QwCIH5Mt1tqvXv4ePzuWyWrtP+dYCXhfrRYVOdqrXXUosYXrR204QVG71yq4ga5/LFLp//odiyIu5gZETWcJ4="
-  #USERNAME_XBRL_DB
-  - secure: "inuQ3PeVaZr6C/ALinRP9X/ehZdVxi6LfKY3jCHEUH0q7jq2DM9I9HCiGx2Z5DneWtfMaaKVWTFmnEKkxxjHa3qPAOXD2v3GtZF2L6LbJLmlzmTcCmOftfBRddPHzg+XSLmZh6nZM5KfYqhtfhZ64Tc06z7Sk3NUX/DrsfkKSEw="
-  #PASSWORD_XBRL_DB
-  - secure: "B0vKgBoMXA3ANGBE7qRovtZ/Yq8NSsbYccSeuRgqRsAYclxWxBOyJ9aATMbcapDYfVMJTh9hamI2QJeuT/ZARwIP8/apgqKYH53AYZbPBRaBEU7umvfonmgsosxUUztgVxiXU8lRp38U/lZaEdvstsGAj3HU9dKiChVFYYyOhjI="
-  #NAME_XBRL_DB
-  - secure: "INJZzb8zDpqFWwRcS6qOvtvOyh5sGQIbE1uzwksWk7QLcjAhPKOm4dEJw2hD9zDjp0hAk7iQPHb44DROr19pohxZ9qZp3BBepRq9sc5HbXfX4hpPKcONq2JgXwwYptb+YdNs4p0lTlj3e3ihF3Fn7SjhU4pTFbF0dzlEeP+ADoA="
+  - RANDOM_ID=$RANDOM
+  #TRAVIS_SECRET_KEY
+  - secure: "fiUFTXfxErtySuib70NOP40NJ9D15ArwkZmkZhjoHP0fpTcLvhi0AuvEEDuGrsn+Cs35vFcuQlflarP+1e/5LMe4jUaGXuhBtUUcf9d1znpJHBgpHuj+jEHFCoQ3ew+NXrh+lKADKeyalkF8R9xXjj/+dwfNVWVu8n85qw0mn/I="

@@ -89,7 +89,7 @@ angular.module('main', [
     //CRD: taken out
     //$httpProvider.interceptors.push('RootScopeSpinnerInterceptor');
 
-    tmhDynamicLocaleProvider.localeLocationPattern('/bower_components/angular-i18n/angular-locale_{{locale}}.js');
+    tmhDynamicLocaleProvider.localeLocationPattern('/bower_components/angular-i18n/angular-locale_{{locale.toLowerCase()}}.js');
 
     //TODO: refactor title property to go in data property
     $stateProvider
