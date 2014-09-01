@@ -882,7 +882,6 @@ declare function facts:facts-for-internal(
       facts:facts-for-concepts-and-rules($concepts-computable-by-rules,
                                          $rules,
                                          $options,
-                                         $cache-filter-index,
                                          $hypercube,
                                          $aligned-filter,
                                          $concept-maps,
@@ -960,7 +959,6 @@ declare %private function facts:facts-for-concepts-and-rules(
     $concepts-computable-by-rules as string*,
     $rules as object*,
     $options as object?,
-    $cache-filter-index as string,
     $hypercube as object?,
     $aligned-filter as object,
     $concept-maps as object*,
@@ -987,48 +985,6 @@ declare %private function facts:facts-for-concepts-and-rules(
       let $dependencies-count := count($rules[jn:flatten($$.ComputableConcepts) = $concept].DependsOn[])
       order by $count descending, $dependencies-count ascending
       return $concept
-    let $concept := $concepts-computable-by-rules[1]
-    let $concepts-computable-by-rules-tail := tail($concepts-computable-by-rules)
-    return
-      facts:facts-for-concepts-and-rules-recursive($concept,
-                              $rules,
-                              $options,
-                              $concepts-computable-by-rules-tail,
-                              $cache-filter-index,
-                              $hypercube,
-                              $aligned-filter,
-                              $concept-maps,
-                              $cache)
-};
-
-(:~
- : fetch facts for rules recursively. Don't use this directly. Use 
- : facts:facts-for-rules#4 instead
- :
- : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
- : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
- :)
-declare %private function facts:facts-for-concepts-and-rules-recursive(
-    $concept as string,
-    $rules as object*,
-    $options as object?,
-    $concepts-computable-by-rules-tail as string*,
-    $cache-filter-index as string,
-    $hypercube as object?,
-    $aligned-filter as object,
-    $concept-maps as object*,
-    $cache as object*
-) as object*
-{
-  let $prioritized-rules := 
-      (
-          (: default rules have precedence :)
-          $rules[empty(jn:flatten($$.ComputableConcepts))],
-          $rules[jn:flatten($$.ComputableConcepts) = $concept]
-      )
-  let $current-rules := $prioritized-rules[1]
-  let $new-rules as object* := tail($prioritized-rules)
-  let $result :=
     let $options as object? :=
       if (facts:from-options("cache-control", $options) eq "no-cache" and
           exists(facts:from-options("debug", $options)))
@@ -1046,7 +1002,16 @@ declare %private function facts:facts-for-concepts-and-rules-recursive(
         then { "debug": { "connection": string(facts:connection()) }} 
         else ()
       |}
-    return
+  for $concept in $concepts-computable-by-rules
+  let $prioritized-rules := 
+      (
+          (: default rules have precedence :)
+          $rules[empty(jn:flatten($$.ComputableConcepts))],
+          $rules[jn:flatten($$.ComputableConcepts) = $concept]
+      )
+  let $current-rules := $prioritized-rules[1]
+  let $new-rules as object* := tail($prioritized-rules)
+  return
       facts:facts-for-rules(
           $current-rules,
           $concept,
@@ -1056,29 +1021,6 @@ declare %private function facts:facts-for-concepts-and-rules-recursive(
           $new-rules,
           $cache,
           $options)
-  let $tail-result :=
-    if(empty($concepts-computable-by-rules-tail))
-    then ()
-    else
-      let $next-concept := $concepts-computable-by-rules-tail[1]
-      let $concepts-computable-by-rules-tail := tail($concepts-computable-by-rules-tail)
-      return
-        if (empty($next-concept))
-        then ()
-        else
-          let $cache :=
-            facts:update-cache($cache,$options,$result,$concept,$cache-filter-index)
-          return
-            facts:facts-for-concepts-and-rules-recursive($next-concept,
-                                  $new-rules,
-                                  $options,
-                                  $concepts-computable-by-rules-tail,
-                                  $cache-filter-index,
-                                  $hypercube,
-                                  $aligned-filter,
-                                  $concept-maps,
-                                  $cache)
-  return ($result, $tail-result)
 };
 
 (:~
@@ -1087,7 +1029,10 @@ declare %private function facts:facts-for-concepts-and-rules-recursive(
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
  :)
-declare %private function facts:facts-for-rules(
+declare %private
+        %an:strictlydeterministic
+        %an:exclude-from-cache-key(5, 6, 7, 8)
+        function facts:facts-for-rules(
     $rules-to-evaluate as object+,
     $concepts as string*,
     $hypercube as object?,
@@ -1108,7 +1053,7 @@ declare %private function facts:facts-for-rules(
       return 
         try {
           (# Q{http://xqlint.io}xqlint varrefs($concepts, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) #) {
-            reflection:eval($formula)
+            reflection:eval($formula)[$$.Aspects.$facts:CONCEPT = $concepts]
           }
         } catch * {
           let $error-details :=
@@ -1619,7 +1564,7 @@ declare function facts:canonical-grouping-key(
   for $fact in $facts
   return string-join(
     let $aspects as object := $fact.Aspects
-    for $non-covered-key-aspect as string in $fact.KeyAspects[][not $$ = $covered-aspects]
+    for $non-covered-key-aspect as string in ("sec:FiscalPeriod", $fact.KeyAspects[][not $$ = $covered-aspects])
     order by $non-covered-key-aspect
     return ($non-covered-key-aspect, $aspects.$non-covered-key-aspect)
   , "|")

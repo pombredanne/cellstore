@@ -92,7 +92,7 @@ let $facts :=
         { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName }
     |}
 
-let $facts := util:move-unit-out-of-aspects($facts)
+let $facts := util:normalize-facts($facts)
 
 let $results :=
     switch ($format)

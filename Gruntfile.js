@@ -96,13 +96,12 @@ module.exports = function (grunt) {
             },
             all: {}
         },
-        reportschema: {
+        reports: {
             options: {
-                dest: '<%= yeoman.queries %>/private/UpdateReportSchema.jq'
+                dest: '<%= yeoman.queries %>/private/UpdateReportSchema.jq',
+                reports:  ['data/*.json']
             },
-            all: {
-                url: 'http://facs.28.io/process-report-schema.jq'
-            }
+            all : {}
         },
         connect: {
             options: {
@@ -493,6 +492,7 @@ module.exports = function (grunt) {
         grunt.config.requires(['secxbrl']);
       
         grunt.task.run([
+            'reports',
             'xqlint',
             'jsonlint',
             'jshint',
