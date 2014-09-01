@@ -1009,8 +1009,10 @@ declare %private function facts:facts-for-concepts-and-rules(
           $rules[empty(jn:flatten($$.ComputableConcepts))],
           $rules[jn:flatten($$.ComputableConcepts) = $concept]
       )
+  let $other-rules := $rules[exists(jn:flatten($$.ComputableConcepts)) and
+                             not jn:flatten($$.ComputableConcepts) = $concept]
   let $current-rules := $prioritized-rules[1]
-  let $new-rules as object* := tail($prioritized-rules)
+  let $new-rules as object* := (tail($prioritized-rules), $other-rules)
   return
       facts:facts-for-rules(
           $current-rules,
