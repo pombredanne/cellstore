@@ -16,3 +16,4 @@ grunt-aws.json
 .project
 queries/private/UpdateReportSchema.jq
 config.json
+.c9
