@@ -48,7 +48,7 @@ return switch(true)
             networks:networks-for-components-and-short-names($report-object, "Presentation")
         let $computed-archives :=
             for $facts-by-archive in $facts
-            let $archive := $archives[$$._id eq $facts-by-archive.Archive]
+            let $archive := $archives[$$._id eq $facts-by-archive.$facts:ASPECTS."sec:Archive"]
             group by $archive._id
             return
                 copy $result := $network

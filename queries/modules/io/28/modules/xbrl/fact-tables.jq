@@ -79,10 +79,10 @@ declare function fact-tables:fact-table-as-objects(
         for $facts in facts:facts-for-archives-and-concepts($archives, 
                                                             $all-mapped-concepts,
                                                             $options)
-        group by $archive := $facts.Archive
+        group by $archive := $facts.$facts:ASPECTS."sec:Archive"
         return { $archive : {|
             for $facts-for-archive in $facts
-            group by $concept := $facts-for-archive.Aspects."xbrl:Concept"
+            group by $concept := $facts-for-archive.$facts:ASPECTS."xbrl:Concept"
             return { $concept : [ $facts-for-archive ] }
         |} }
     |}

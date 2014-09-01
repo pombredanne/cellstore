@@ -82,7 +82,7 @@ let $facts as object* :=
 
 let $facts :=
     for $fact in $facts
-    group by $archive := $fact.Archive
+    group by $archive := $fact.Aspects."sec:Archive"
     let $archive := archives:archives($archive)
     let $entity := entities:entities($archive.Entity)
     for $fact in $fact
