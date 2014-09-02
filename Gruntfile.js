@@ -543,9 +543,9 @@ module.exports = function (grunt) {
     grunt.registerTask('config', function() {
         var _ = require('lodash');
         var buildId = process.env.TRAVIS_JOB_NUMBER;
-        if(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false') {
+        var isMaster = process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
+        if(isMaster) {
             buildId = 'dev';
-            delete process.env.RANDOM_ID;
             console.log('This is master we deploy on secxbrl-dev.28.io');
         } else if(!buildId) {
             var idx =_.findIndex(process.argv, function(val){ return val.substring(0, '--build-id='.length) === '--build-id='; });
@@ -556,11 +556,11 @@ module.exports = function (grunt) {
         } else {
             grunt.fail.fatal('No build id found. Looked up the TRAVIS_JOB_NUMBER environment variable and --build-id argument');
         }
-        grunt.log.writeln('Build ID: ' + buildId);
         var id = 'secxbrl-' + buildId;
-        if(process.env.RANDOM_ID){
+        if(process.env.RANDOM_ID && !isMaster){
             id += '-' + process.env.RANDOM_ID;
         }
+        grunt.log.writeln('Build ID: ' + id);
         var config = grunt.file.readJSON('config.json');
         config.s3.bucket = id;
         config['28'].api = { url : 'http://' + id + '.28.io/v1' };
