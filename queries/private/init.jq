@@ -100,6 +100,7 @@ user:allow("anybody", "users_edit_self");
 user:allow("anybody", "users_remove_picture_self");
 user:allow("reports-admin", "reports");
 user:allow("sec_pro", "data_sec");
+user:allow("sec_pro", "reports");
 user:allow("sec_enterprise", "data_sec");
 user:allow("anybody", "data_sec_dow30");
 
