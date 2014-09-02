@@ -472,7 +472,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', function (target) {
         if (!grunt.file.exists(grunt.config('yeoman.app') + '/scripts/constants.js')) {
-            grunt.fail.fatal('Unable to find file ' + grunt.config('yeoman.app') + '/scripts/constants.js.\nRun grunt ngconstant:server before.');
+            grunt.fail.fatal('Unable to find file ' + grunt.config('yeoman.app') + '/scripts/constants.js.\nSetup the TRAVIS_SECRET_KEY env variable and run grunt test:setup --build-id=myfeature before.');
         }
 
         if (target === 'dist') {
@@ -533,11 +533,15 @@ module.exports = function (grunt) {
                 'deployed-message'
             ]);
         } else if (target === 'teardown') {
-            grunt.task.run([
-                '28:teardown',
-                'aws_s3:teardown',
-                'setupS3Bucket:teardown'
-            ]);
+            if(!(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false')) {
+                grunt.task.run([
+                    '28:teardown',
+                    'aws_s3:teardown',
+                    'setupS3Bucket:teardown'
+                ]);
+            } else {
+                console.log('We\'re on master, no teardown.');
+            }
         } else if (target === 'run') {
             grunt.task.run(['28:run']);
         } else {
@@ -548,7 +552,11 @@ module.exports = function (grunt) {
     grunt.registerTask('config', function() {
         var _ = require('lodash');
         var buildId = process.env.TRAVIS_JOB_NUMBER;
-        if(!buildId) {
+        var isMaster = process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
+        if(isMaster) {
+            buildId = 'dev';
+            console.log('This is master we deploy on secxbrl-dev.28.io');
+        } else if(!buildId) {
             var idx =_.findIndex(process.argv, function(val){ return val.substring(0, '--build-id='.length) === '--build-id='; });
             buildId = idx > -1 ? process.argv[idx].substring('--build-id='.length) : undefined;
         }
@@ -557,11 +565,11 @@ module.exports = function (grunt) {
         } else {
             grunt.fail.fatal('No build id found. Looked up the TRAVIS_JOB_NUMBER environment variable and --build-id argument');
         }
-        grunt.log.writeln('Build ID: ' + buildId);
         var id = 'secxbrl-' + buildId;
-        if(process.env.RANDOM_ID){
+        if(process.env.RANDOM_ID && !isMaster){
             id += '-' + process.env.RANDOM_ID;
         }
+        grunt.log.writeln('Build ID: ' + id);
         var config = grunt.file.readJSON('config.json');
         config.s3.bucket = id;
         config['28'].api = { url : 'http://' + id + '.28.io/v1' };
