@@ -120,7 +120,7 @@ angular.module('main')
     $scope.params = {
         _method: 'POST',
         concept: concepts,
-        map: 'FundamentalAccountingConcepts',
+        report: 'FundamentalAccountingConcepts',
         fiscalYear: fiscalYears,
         fiscalPeriod: 'ALL',
         cik: $scope.cik,
