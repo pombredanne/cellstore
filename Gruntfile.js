@@ -459,10 +459,10 @@ module.exports = function (grunt) {
                 }
             },
             decrypt: {
-                command: 'sh -c "KEY=' + process.env.TRAVIS_SECRET_KEY + '; ' +
-                         'if [ -z $KEY ] ; then echo \'TRAVIS_SECRET_KEY not set\'; fi ; ' +
+                command: 'sh -c "if [ -z \"' + process.env.TRAVIS_SECRET_KEY + '\" ' +
+                                     '-o \"' + process.env.TRAVIS_SECRET_KEY + '\" = "undefined" ] ; then echo \'decrypt failed: env var TRAVIS_SECRET_KEY not set\'; exit 1; fi ; ' +
                          'if [ ! -f config.json -o config.json.enc -nt config.json ] ; ' +
-                         'then openssl aes-256-cbc -k $KEY -in config.json.enc -out config.json -d; fi"',
+                         'then openssl aes-256-cbc -k ' + process.env.TRAVIS_SECRET_KEY + ' -in config.json.enc -out config.json -d; fi"',
                 options : {
                     failOnError : false
                 }
