@@ -459,9 +459,10 @@ module.exports = function (grunt) {
                 }
             },
             decrypt: {
-                command: [ '[ ! -f "config.json" -o "config.json.enc" -nt "config.json" ]',
-                    'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json.enc -out config.json -d'
-                ].join('&&'),
+                command: 'sh -c "KEY=' + process.env.TRAVIS_SECRET_KEY + '; ' +
+                         'if [ -z $KEY ] ; then echo \'TRAVIS_SECRET_KEY not set\'; fi ; ' +
+                         'if [ ! -f config.json -o config.json.enc -nt config.json ] ; ' +
+                         'then openssl aes-256-cbc -k $KEY -in config.json.enc -out config.json -d; fi"',
                 options : {
                     failOnError : false
                 }
@@ -492,6 +493,7 @@ module.exports = function (grunt) {
         grunt.config.requires(['secxbrl']);
       
         grunt.task.run([
+            'config',
             'reports',
             'xqlint',
             'jsonlint',
@@ -514,6 +516,12 @@ module.exports = function (grunt) {
         ]);
     });
 
+    grunt.registerTask('deployed-message', function () {
+        grunt.config.requires(['secxbrl']);
+        grunt.log.writeln('Frontend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.s3-website-us-east-1.amazonaws.com');
+        grunt.log.writeln('Backend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.28.io');
+    });
+
     grunt.registerTask('test', function (target) {
         grunt.task.run(['shell:decrypt', 'config']);
         if (target === 'setup') {
@@ -521,7 +529,8 @@ module.exports = function (grunt) {
                 'build',
                 'setupS3Bucket:setup',
                 'aws_s3:setup',
-                '28:setup'
+                '28:setup',
+                'deployed-message'
             ]);
         } else if (target === 'teardown') {
             grunt.task.run([
