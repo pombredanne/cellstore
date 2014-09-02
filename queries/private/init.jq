@@ -100,8 +100,18 @@ user:allow("anybody", "users_edit_self");
 user:allow("anybody", "users_remove_picture_self");
 user:allow("reports-admin", "reports");
 user:allow("sec_pro", "data_sec");
+user:allow("sec_pro", "reports");
 user:allow("sec_enterprise", "data_sec");
 user:allow("anybody", "data_sec_dow30");
+
+(: Pro user :)
+variable $user := user:get-by-email("support@28.io");
+if(empty($user))
+then {
+    $user := user:new("support@28.io", "System", "Administrator", "foobar", {| |});
+    user:assign-role($user, "sec_pro", (), (), $user);
+  }
+else ();
 
 (: Admin user :)
 variable $admin := user:get-by-email("admin@28.io");
