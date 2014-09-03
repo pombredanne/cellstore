@@ -516,10 +516,14 @@ module.exports = function (grunt) {
         ]);
     });
 
-    grunt.registerTask('deployed-message', function () {
+    grunt.registerTask('deployed-message', function (target) {
         grunt.config.requires(['secxbrl']);
-        grunt.log.writeln('Frontend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.s3-website-us-east-1.amazonaws.com');
-        grunt.log.writeln('Backend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.28.io');
+        if(!target || target === 'frontend') {
+            grunt.log.writeln('Frontend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.s3-website-us-east-1.amazonaws.com');
+        }
+        if(!target || target === 'backend') {
+            grunt.log.writeln('Backend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.28.io');
+        }
     });
 
     grunt.registerTask('test', function (target) {
@@ -544,6 +548,50 @@ module.exports = function (grunt) {
             }
         } else if (target === 'run') {
             grunt.task.run(['28:run']);
+        } else {
+            grunt.fail.fatal('Unknown target ' + target);
+        }
+    });
+
+    grunt.registerTask('backend', function (target) {
+        grunt.task.run(['shell:decrypt', 'config']);
+        if (target === 'setup') {
+            grunt.task.run([
+                'reports',
+                '28:setup',
+                'deployed-message:backend'
+            ]);
+        } else if (target === 'teardown') {
+            if(!(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false')) {
+                grunt.task.run([
+                    '28:teardown'
+                ]);
+            } else {
+                console.log('We\'re on master, no teardown.');
+            }
+        } else {
+            grunt.fail.fatal('Unknown target ' + target);
+        }
+    });
+
+    grunt.registerTask('frontend', function (target) {
+        grunt.task.run(['shell:decrypt', 'config']);
+        if (target === 'setup') {
+            grunt.task.run([
+                'build',
+                'setupS3Bucket:setup',
+                'aws_s3:setup',
+                'deployed-message:frontend'
+            ]);
+        } else if (target === 'teardown') {
+            if(!(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false')) {
+                grunt.task.run([
+                    'aws_s3:teardown',
+                    'setupS3Bucket:teardown'
+                ]);
+            } else {
+                console.log('We\'re on master, no teardown.');
+            }
         } else {
             grunt.fail.fatal('Unknown target ' + target);
         }
