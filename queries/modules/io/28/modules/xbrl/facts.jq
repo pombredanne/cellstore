@@ -1058,6 +1058,11 @@ declare %private
             reflection:eval($formula)[$$.Aspects.$facts:CONCEPT = $concepts]
           }
         } catch * {
+          let $ser-params :=
+            <output:serialization-parameters xmlns:output="http://www.w3.org/2010/xslt-xquery-serialization">
+              <output:indent value="yes"/>
+              <output:omit-xml-declaration value="yes"/>
+            </output:serialization-parameters>
           let $error-details :=
             {
               "error": true,
@@ -1068,8 +1073,18 @@ declare %private
               "column-number": $err:column-number,
               "stack-trace": $zerr:stack-trace
             }
-          let $message := "Error executing rule '" || $rule.Label 
-             || "'. Details: \n\n" || serialize($error-details)
+          let $message := 
+            if($err:code eq xs:QName("facts:RULE-EXECUTION-ERROR"))
+            then
+                $err:description
+            else
+                "Error executing rule '" || $rule.Label 
+                    || "'. 
+
+Details: (" || $err:code || ") location:" || $err:line-number || ":" || $err:column-number || " " || $err:description || " 
+Object: [" || serialize($err:value, $ser-params) || "]
+Stacktrace: 
+"  || serialize($zerr:stack-trace, $ser-params)
           return
             error(xs:QName("facts:RULE-EXECUTION-ERROR"),
                   $message,
