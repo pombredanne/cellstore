@@ -104,9 +104,14 @@ declare function fiscal-core:filter-override(
     return
     switch(true)
     case count($aids) gt 0 return {
+        "xbrl:Entity" : {
+        },
         "sec:Archive" : {
             Type: "string",
             Domain : [ $aids ]
+        },
+        "sec:FiscalYear" : {
+            Type: "integer"
         },
         "sec:FiscalPeriod" : {|
             {
