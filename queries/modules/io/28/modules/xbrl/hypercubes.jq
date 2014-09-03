@@ -481,7 +481,7 @@ declare function hypercubes:user-defined-hypercube($dimensions as object?) as ob
                   case "xbrl:Unit" return "XBRL Unit Domain"
                   default return $dimension-name || " Domain",
                 "Members" : {|
-                  for $dimension-member in $dimension-domain[]
+                  for $dimension-member in distinct-values($dimension-domain[])
                   return {
                     $dimension-member: {
                       Name: hypercubes:check-type-and-return($dimension-member, "string")
@@ -537,13 +537,14 @@ declare function hypercubes:modify-hypercube(
                 $new-metadata
             else {|
                 { Type : $hypercube.Aspects.$dimension.Type }[$hypercube-metadata.Kind eq "TypedDimension"],
-                let $hypercube-domain := 
+                let $hypercube-domain-names := keys($hypercube-metadata.Domains)
+                let $hypercube-members :=
                   (
-                     descendant-objects(values($hypercube-metadata.Domains)).Name,
+                     descendant-objects(($hypercube-domain-names ! values($hypercube-metadata.Domains.$$.Members))).Name,
                      jn:flatten($hypercube-metadata.DomainRestriction.Enumeration)
                   )
-                where exists($hypercube-domain)
-                return { Domain : [ $hypercube-domain ] },
+                where exists($hypercube-members)
+                return { Domain : [ distinct-values($hypercube-members) ] },
                 let $hypercube-default := $hypercube-metadata.Default
                 where exists($hypercube-default)
                 return { Default : $hypercube-default }
