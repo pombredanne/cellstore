@@ -1,3 +1,4 @@
+
 {
     "_id" : "FundamentalAccountingConcepts",
     "Archive" : null,
@@ -11,7 +12,7 @@
         "Grantee" : "http://28.io/groups/AllUsers",
         "Permission" : "READ"
     } ],
-    "LastModified" : "2014-09-02T13:44:32.056497Z",
+    "LastModified" : "2014-09-03T16:05:46.001221Z",
     "Networks" : [ {
         "LinkName" : "link:presentationLink",
         "LinkRole" : "http://xbrl.io/fundamental-accounting-concepts",
@@ -6063,7 +6064,7 @@
                     "DomainRestriction" : {
                         "Name" : "sec:FiscalYearDomain",
                         "Label" : "Fiscal Year Domain",
-                        "Enumeration" : [ 2013 ]
+                        "Enumeration" : [ 2014 ]
                     }
                 },
                 "sec:FiscalPeriod" : {
@@ -7292,7 +7293,7 @@
     "Filters" : {
         "cik" : [  ],
         "tag" : [ "DOW30" ],
-        "fiscalYear" : [ 2013 ],
+        "fiscalYear" : [ 2014 ],
         "fiscalPeriod" : [ "FY" ],
         "sic" : [  ]
     }
