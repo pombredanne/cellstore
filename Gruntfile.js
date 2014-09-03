@@ -459,9 +459,10 @@ module.exports = function (grunt) {
                 }
             },
             decrypt: {
-                command: [ '[ ! -f "config.json" -o "config.json.enc" -nt "config.json" ]',
-                    'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json.enc -out config.json -d'
-                ].join('&&'),
+                command: 'sh -c "if [ -z \"' + process.env.TRAVIS_SECRET_KEY + '\" ' +
+                                     '-o \"' + process.env.TRAVIS_SECRET_KEY + '\" = "undefined" ] ; then echo \'decrypt failed: env var TRAVIS_SECRET_KEY not set\'; exit 1; fi ; ' +
+                         'if [ ! -f config.json -o config.json.enc -nt config.json ] ; ' +
+                         'then openssl aes-256-cbc -k ' + process.env.TRAVIS_SECRET_KEY + ' -in config.json.enc -out config.json -d; fi"',
                 options : {
                     failOnError : false
                 }
@@ -492,6 +493,7 @@ module.exports = function (grunt) {
         grunt.config.requires(['secxbrl']);
       
         grunt.task.run([
+            'config',
             'reports',
             'xqlint',
             'jsonlint',
@@ -514,6 +516,16 @@ module.exports = function (grunt) {
         ]);
     });
 
+    grunt.registerTask('deployed-message', function (target) {
+        grunt.config.requires(['secxbrl']);
+        if(!target || target === 'frontend') {
+            grunt.log.writeln('Frontend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.s3-website-us-east-1.amazonaws.com');
+        }
+        if(!target || target === 'backend') {
+            grunt.log.writeln('Backend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.28.io');
+        }
+    });
+
     grunt.registerTask('test', function (target) {
         grunt.task.run(['shell:decrypt', 'config']);
         if (target === 'setup') {
@@ -521,7 +533,8 @@ module.exports = function (grunt) {
                 'build',
                 'setupS3Bucket:setup',
                 'aws_s3:setup',
-                '28:setup'
+                '28:setup',
+                'deployed-message'
             ]);
         } else if (target === 'teardown') {
             if(!(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false')) {
@@ -535,6 +548,50 @@ module.exports = function (grunt) {
             }
         } else if (target === 'run') {
             grunt.task.run(['28:run']);
+        } else {
+            grunt.fail.fatal('Unknown target ' + target);
+        }
+    });
+
+    grunt.registerTask('backend', function (target) {
+        grunt.task.run(['shell:decrypt', 'config']);
+        if (target === 'setup') {
+            grunt.task.run([
+                'reports',
+                '28:setup',
+                'deployed-message:backend'
+            ]);
+        } else if (target === 'teardown') {
+            if(!(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false')) {
+                grunt.task.run([
+                    '28:teardown'
+                ]);
+            } else {
+                console.log('We\'re on master, no teardown.');
+            }
+        } else {
+            grunt.fail.fatal('Unknown target ' + target);
+        }
+    });
+
+    grunt.registerTask('frontend', function (target) {
+        grunt.task.run(['shell:decrypt', 'config']);
+        if (target === 'setup') {
+            grunt.task.run([
+                'build',
+                'setupS3Bucket:setup',
+                'aws_s3:setup',
+                'deployed-message:frontend'
+            ]);
+        } else if (target === 'teardown') {
+            if(!(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false')) {
+                grunt.task.run([
+                    'aws_s3:teardown',
+                    'setupS3Bucket:teardown'
+                ]);
+            } else {
+                console.log('We\'re on master, no teardown.');
+            }
         } else {
             grunt.fail.fatal('Unknown target ' + target);
         }
