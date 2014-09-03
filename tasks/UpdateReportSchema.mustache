@@ -1,13 +1,38 @@
-import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
+(:
+  call this query with UpdateReportSchema.jq?user=support@28.io&report=FundamentalAccountingConcepts
+  to update FundamentalAccountingConcepts report for user support@28.io
 
-variable $reports := ({{& reports}});
+  by default the reports are added as defined in the templates
+:)
+import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
+import module namespace request = "http://www.28msec.com/modules/http-request";
+
+variable $report-templates := ({{& reports}});
+
+(: for updating only a specific report for a specific user
+   default: update all reports for user defined in report template :)
+variable $report-id := request:param-values("report");
+variable $user := request:param-values("user")
+variable $reports :=
+    for $rep in $report-templates[empty($report-id) or $$."_id" eq $report-id]
+    return
+        if (empty($user) or $user eq $rep.Owner)
+        then $rep
+        else
+            copy $r := $rep
+            modify (
+                    replace value of json $r."_id" with substring-before($user, "@") || $rep."_id";
+                    replace value of json $r.Owner with $user;
+                    delete json $r.ACL;
+                )
+            return $r;
 
 for $report in $reports
 let $record := find("reports", { "_id" : $report."_id" })
 return
-if(empty($record))
-then db:insert("reports", $report);
-else db:edit($record, $report);
+    if(empty($record))
+    then db:insert("reports", $report);
+    else db:edit($record, $report);
 
 if (is-available-collection("reportcache"))
 then for $report in $reports
