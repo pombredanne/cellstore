@@ -1,5 +1,4 @@
 
-import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace req = "http://www.28msec.com/modules/http-request";
 
