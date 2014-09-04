@@ -1002,7 +1002,6 @@ declare %private function facts:facts-for-concepts-and-rules(
         then { "debug": { "connection": string(facts:connection()) }} 
         else ()
       |}
-  for $concept in $concepts-computable-by-rules
   let $default-rules := $rules[empty(jn:flatten($$.ComputableConcepts))]
   let $non-default-rules := $rules[exists(jn:flatten($$.ComputableConcepts))]
   return
@@ -1013,7 +1012,7 @@ declare %private function facts:facts-for-concepts-and-rules(
       return
           facts:facts-for-rules(
               $current-rules,
-              $concept,
+              $concepts-computable-by-rules,
               $hypercube,
               $aligned-filter,
               $concept-maps,
@@ -1021,6 +1020,7 @@ declare %private function facts:facts-for-concepts-and-rules(
               $cache,
               $options)
   else
+    for $concept in $concepts-computable-by-rules
     let $prioritized-rules := $non-default-rules[jn:flatten($$.ComputableConcepts) = $concept]
     let $other-rules := $non-default-rules[not jn:flatten($$.ComputableConcepts) = $concept]
     let $current-rules := $prioritized-rules[1]
