@@ -2,6 +2,123 @@ import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
+declare function local:diff-facts($fact-expected as object, $fact-actual as object?) as object* {
+    if(empty($fact-actual))
+    then
+        {
+            type: "missing-fact-in-result"
+        }
+    else
+        (
+            for $key in distinct-values((keys($fact-expected), keys($fact-actual)))
+            where not($key = ("Aspects", "KeyAspects", "Profiles", "AuditTrails"))
+            let $exp-value := $fact-expected.$key
+            let $act-value := $fact-actual.$key
+            return 
+                if(deep-equal($exp-value, $act-value))
+                then ()
+                else 
+                    {
+                        type: "unexpected-fact-field-value",
+                        field: $key,
+                        expected: $exp-value,
+                        actual: $act-value
+                    },
+            (: compare aspects :)
+            for $key in distinct-values((keys($fact-expected.Aspects), keys($fact-actual.Aspects)))
+            let $exp-value := $fact-expected.Aspects.$key
+            let $act-value := $fact-actual.Aspects.$key
+            return 
+                if(deep-equal($exp-value, $act-value))
+                then ()
+                else 
+                    {
+                        type: "unexpected-aspect-value",
+                        aspect: $key,
+                        expected: $exp-value,
+                        actual: $act-value
+                    },
+            (: compare keyaspects :)
+            let $exp-value := $fact-expected.KeyAspects
+            let $act-value := $fact-actual.KeyAspects
+            return 
+                if(deep-equal($exp-value, $act-value))
+                then ()
+                else 
+                    {
+                        type: "unexpected-keyaspects-value",
+                        expected: $exp-value,
+                        actual: $act-value
+                    },
+            (: compare Profiles :)
+            let $exp-value := $fact-expected.Profiles
+            let $act-value := $fact-actual.Profiles
+            return 
+                if(deep-equal($exp-value, $act-value))
+                then ()
+                else 
+                    {
+                        type: "unexpected-profiles-value",
+                        expected: $exp-value,
+                        actual: $act-value
+                    },
+            (: compare Audittrails :)
+            let $exp-value := $fact-expected.AuditTrails
+            let $act-value := $fact-actual.AuditTrails
+            return 
+                if(deep-equal($exp-value, $act-value))
+                then ()
+                else 
+                    {
+                        type: "unexpected-audittrails-value",
+                        expected: $exp-value,
+                        actual: $act-value
+                    }
+        )
+};
+
+declare function local:compare-fact-tables($fact-table-expected as object, $fact-table-actual as object) as object*{
+    let $actual-facts as object+ := $fact-table-actual.FactTable[]
+    let $expected-facts as object+ := $fact-table-expected.FactTable[]
+    let $errors :=
+        (
+            for $exp in $expected-facts
+            let $act := $actual-facts[$$.Aspects."xbrl:Concept" eq $exp.Aspects."xbrl:Concept"
+                                      and $$.Aspects."xbrl:Entity" eq $exp.Aspects."xbrl:Entity"
+                                      and $$.Aspects."xbrl:Period" eq $exp.Aspects."xbrl:Period"
+                                      and $$.Aspects."sec:Archive" eq $exp.Aspects."sec:Archive"]
+            let $errors as object* := local:diff-facts($exp, $act)
+            return 
+                if(empty($errors))
+                then ()
+                else {
+                    expectedFact: $exp,
+                    actualFact: $act,
+                    errors: [$errors]
+                },
+            
+            for $act in $actual-facts
+            let $exp := $expected-facts[$$.Aspects."xbrl:Concept" eq $act.Aspects."xbrl:Concept"
+                                      and $$.Aspects."xbrl:Entity" eq $act.Aspects."xbrl:Entity"
+                                      and $$.Aspects."xbrl:Period" eq $act.Aspects."xbrl:Period"
+                                      and $$.Aspects."sec:Archive" eq $act.Aspects."sec:Archive"]
+            where empty($exp)
+            return 
+                {
+                    unexpectedFact: $act
+                }
+        )
+    return
+        if(empty($errors))
+        then ()
+        else (
+                {
+                    expectedNumberOfFacts: count($expected-facts),
+                    actualNumberOfFacts: count($actual-facts)
+                },
+                $errors
+            )
+};
 
 declare %an:nondeterministic function local:test-facttable($expected as integer, $params as string) as atomic
 {
@@ -22,7 +139,7 @@ declare %an:sequential function local:check($o as object) as object
 
 declare %an:nondeterministic function local:test-values() as item*
 {
-  let $actual := { Facttable : parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-report.jq?_method=POST&ticker=ko&fiscalYear=2013&fiscalPeriod=FY&report=FundamentalAccountingConcepts").body.content).FactTable }
+  let $actual := parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-report.jq?_method=POST&ticker=ko&fiscalYear=2013&fiscalPeriod=FY&report=FundamentalAccountingConcepts").body.content)
   let $expected := 
     {
       "FactTable" : [ {
@@ -3897,7 +4014,8 @@ declare %an:nondeterministic function local:test-values() as item*
         "Unit" : "xbrl:NonNumeric"
       } ]
     }
-  return if (deep-equal($actual, $expected)) then true else { actual : $actual, expected : $expected }
+  let $diff := local:compare-fact-tables($expected, $actual)
+  return if (empty($diff)) then true else { factTableDiff: [ $diff ], expectedFactTable: $expected, actualFactTable: $actual }
 };
 
 local:check({
