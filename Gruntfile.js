@@ -602,7 +602,6 @@ module.exports = function (grunt) {
         var buildId = process.env.TRAVIS_JOB_NUMBER;
         var isMaster = process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
         if(isMaster) {
-            buildId = '';
             console.log('This is master we deploy on secxbrl.28.io');
         } else if(!buildId) {
             var idx =_.findIndex(process.argv, function(val){ return val.substring(0, '--build-id='.length) === '--build-id='; });
@@ -610,10 +609,10 @@ module.exports = function (grunt) {
         }
         if(buildId) {
             buildId = buildId.replace('.', '-');
-        } else {
+        } else if(!isMaster) {
             grunt.fail.fatal('No build id found. Looked up the TRAVIS_JOB_NUMBER environment variable and --build-id argument');
         }
-        var id = buildId === '' ? 'secxbrl' : 'secxbrl-' + buildId;
+        var id = isMaster ? 'secxbrl' : 'secxbrl-' + buildId;
         if(process.env.RANDOM_ID && !isMaster){
             id += '-' + process.env.RANDOM_ID;
         }
