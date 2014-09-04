@@ -540,6 +540,7 @@ declare function hypercubes:modify-hypercube(
                 let $hypercube-domain-names := keys($hypercube-metadata.Domains)
                 let $hypercube-members :=
                   (
+                     descendant-objects(values($hypercube-metadata.Domains)).Name,
                      descendant-objects(($hypercube-domain-names ! values($hypercube-metadata.Domains.$$.Members))).Name,
                      jn:flatten($hypercube-metadata.DomainRestriction.Enumeration)
                   )
