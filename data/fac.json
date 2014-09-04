@@ -7289,6 +7289,11 @@
         } ],
         "AllowCrossPeriod" : true,
         "AllowCrossBalance" : true
+    }, {
+        "Id" : "default_zero",
+        "Type" : "xbrl28:formula",
+        "Label" : "Zeros instead of null",
+        "Formula" : "let $facts := facts:facts-for-internal($concepts, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) for $fact in $facts return if($fact.Type eq \"NumericValue\" and $fact.Value eq null) then let $concept := $fact.$facts:ASPECTS.$facts:CONCEPT let $audit-trail := { Type: \"xbrl28:null-to-zero\", Label: \"Adapting null value\", Message: \"Replacing null value with 0.\", Data: { OutputConcept: $concept } } return copy $f := $fact modify ( replace value of json $f.Value with 0, if(exists($f.AuditTrails)) then append json $audit-trail into $f.AuditTrails else insert json { AuditTrails: [ $audit-trail ] } into $f ) return $f else $fact"
     } ],
     "Filters" : {
         "cik" : [  ],
