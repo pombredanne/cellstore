@@ -537,15 +537,13 @@ declare function hypercubes:modify-hypercube(
                 $new-metadata
             else {|
                 { Type : $hypercube.Aspects.$dimension.Type }[$hypercube-metadata.Kind eq "TypedDimension"],
-                let $hypercube-domain-names := keys($hypercube-metadata.Domains)
-                let $hypercube-members :=
+                let $hypercube-domain := 
                   (
-                     $hypercube-domain-names,
-                     descendant-objects(($hypercube-domain-names ! values($hypercube-metadata.Domains.$$.Members))).Name,
+                     descendant-objects(values($hypercube-metadata.Domains)).Name,
                      jn:flatten($hypercube-metadata.DomainRestriction.Enumeration)
                   )
-                where exists($hypercube-members)
-                return { Domain : [ distinct-values($hypercube-members) ] },
+                where exists($hypercube-domain)
+                return { Domain : [ distinct-values($hypercube-domain) ] },
                 let $hypercube-default := $hypercube-metadata.Default
                 where exists($hypercube-default)
                 return { Default : $hypercube-default }
