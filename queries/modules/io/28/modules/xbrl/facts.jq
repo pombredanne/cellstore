@@ -1003,17 +1003,29 @@ declare %private function facts:facts-for-concepts-and-rules(
         else ()
       |}
   for $concept in $concepts-computable-by-rules
-  let $prioritized-rules := 
-      (
-          (: default rules have precedence :)
-          $rules[empty(jn:flatten($$.ComputableConcepts))],
-          $rules[jn:flatten($$.ComputableConcepts) = $concept]
-      )
-  let $other-rules := $rules[exists(jn:flatten($$.ComputableConcepts)) and
-                             not jn:flatten($$.ComputableConcepts) = $concept]
-  let $current-rules := $prioritized-rules[1]
-  let $new-rules as object* := (tail($prioritized-rules), $other-rules)
+  let $default-rules := $rules[empty(jn:flatten($$.ComputableConcepts))]
+  let $non-default-rules := $rules[exists(jn:flatten($$.ComputableConcepts))]
   return
+    if(exists($default-rules))
+    then
+      let $current-rules := $default-rules[1]
+      let $new-rules as object* := (tail($default-rules), $non-default-rules)
+      return
+          facts:facts-for-rules(
+              $current-rules,
+              $concept,
+              $hypercube,
+              $aligned-filter,
+              $concept-maps,
+              $new-rules,
+              $cache,
+              $options)
+  else
+    let $prioritized-rules := $non-default-rules[jn:flatten($$.ComputableConcepts) = $concept]
+    let $other-rules := $non-default-rules[not jn:flatten($$.ComputableConcepts) = $concept]
+    let $current-rules := $prioritized-rules[1]
+    let $new-rules as object* := (tail($prioritized-rules), $other-rules)
+    return
       facts:facts-for-rules(
           $current-rules,
           $concept,
