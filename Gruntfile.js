@@ -612,7 +612,7 @@ module.exports = function (grunt) {
         } else if(!isMaster) {
             grunt.fail.fatal('No build id found. Looked up the TRAVIS_JOB_NUMBER environment variable and --build-id argument');
         }
-        var id = isMaster ? 'secxbrl-dev' : 'secxbrl-' + buildId;
+        var id = isMaster ? 'secxbrl' : 'secxbrl-' + buildId;
         if(process.env.RANDOM_ID && !isMaster){
             id += '-' + process.env.RANDOM_ID;
         }
