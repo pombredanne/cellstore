@@ -601,7 +601,6 @@ declare function layout:layout(
         DebugInfo: {
             Hypercube: $hypercube,
             OriginalHypercube: $original-hypercube,
-            Facts: $facts
         }
     }
 };
