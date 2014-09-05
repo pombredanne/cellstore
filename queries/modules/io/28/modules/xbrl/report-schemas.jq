@@ -41,7 +41,7 @@ declare option ver:module-version "1.0";
 (:~
  : Name of the collection the report schemas are stored in.
  :)
-declare variable $report-schemas:col as string := "reportschemas";
+declare variable $report-schemas:col as string := "reports";
 
 (:~
  : Joker for all archives.
