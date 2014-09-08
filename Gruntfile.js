@@ -425,7 +425,10 @@ module.exports = function (grunt) {
                 delete: {
                     idempotent: true
                 },
-                create: {},
+                create: {}
+            },
+            deploy: {
+                project: '<%= secxbrl.s3.bucket %>',
                 upload: {
                     projectPath: 'queries'
                 },
@@ -435,6 +438,7 @@ module.exports = function (grunt) {
                     'queries/private/init.jq',
                     'queries/private/UpdateReportSchema.jq'
                 ]
+
             },
             run: {
                 project: '<%= secxbrl.s3.bucket %>',
@@ -532,16 +536,26 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', function (target) {
         grunt.task.run(['shell:decrypt', 'config']);
+        var isMaster = process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
         if (target === 'setup') {
-            grunt.task.run([
-                'build',
-                'setupS3Bucket:setup',
-                'aws_s3:setup',
-                '28:setup',
-                'deployed-message'
-            ]);
+            if(isMaster) {
+                grunt.task.run([
+                    'build',
+                    'aws_s3:setup',
+                    '28:deploy'
+                ]);
+            } else {
+                grunt.task.run([
+                    'build',
+                    'setupS3Bucket:setup',
+                    'aws_s3:setup',
+                    '28:setup',
+                    '28:deploy',
+                    'deployed-message'
+                ]);
+            }
         } else if (target === 'teardown') {
-            if(!(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false')) {
+            if(!isMaster) {
                 grunt.task.run([
                     '28:teardown',
                     'aws_s3:teardown',
@@ -557,48 +571,23 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('backend', function (target) {
+    grunt.registerTask('backend', function () {
         grunt.task.run(['shell:decrypt', 'config']);
-        if (target === 'setup') {
-            grunt.task.run([
-                'reports',
-                '28:setup',
-                'deployed-message:backend'
-            ]);
-        } else if (target === 'teardown') {
-            if(!(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false')) {
-                grunt.task.run([
-                    '28:teardown'
-                ]);
-            } else {
-                console.log('We\'re on master, no teardown.');
-            }
-        } else {
-            grunt.fail.fatal('Unknown target ' + target);
-        }
+        grunt.task.run([
+            'reports',
+            '28:deploy',
+            'deployed-message:backend'
+        ]);
     });
 
-    grunt.registerTask('frontend', function (target) {
+    grunt.registerTask('frontend', function () {
         grunt.task.run(['shell:decrypt', 'config']);
-        if (target === 'setup') {
-            grunt.task.run([
-                'build',
-                'setupS3Bucket:setup',
-                'aws_s3:setup',
-                'deployed-message:frontend'
-            ]);
-        } else if (target === 'teardown') {
-            if(!(process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false')) {
-                grunt.task.run([
-                    'aws_s3:teardown',
-                    'setupS3Bucket:teardown'
-                ]);
-            } else {
-                console.log('We\'re on master, no teardown.');
-            }
-        } else {
-            grunt.fail.fatal('Unknown target ' + target);
-        }
+        grunt.task.run([
+            'build',
+            'setupS3Bucket:setup',
+            'aws_s3:setup',
+            'deployed-message:frontend'
+        ]);
     });
 
     grunt.registerTask('config', function() {
