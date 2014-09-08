@@ -284,8 +284,8 @@ module.exports = function (grunt) {
         },
         uglify: {
             options: {
-                sourceMap: true,
-                sourceMapIncludeSources: true
+                //sourceMap: true,
+                //sourceMapIncludeSources: true
             },
             dist: {
                 files: {
