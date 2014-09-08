@@ -440,6 +440,17 @@ module.exports = function (grunt) {
                 ]
 
             },
+            deployMaster: {
+                project: '<%= secxbrl.s3.bucket %>',
+                upload: {
+                    projectPath: 'queries'
+                },
+                runQueries: [
+                    'queries/private/InitAuditCollection.jq',
+                    'queries/private/init.jq',
+                    'queries/private/UpdateReportSchema.jq'
+                ]
+            },
             run: {
                 project: '<%= secxbrl.s3.bucket %>',
                 runQueries: [
@@ -542,7 +553,7 @@ module.exports = function (grunt) {
                 grunt.task.run([
                     'build',
                     'aws_s3:setup',
-                    '28:deploy'
+                    '28:deployMaster'
                 ]);
             } else {
                 grunt.task.run([
