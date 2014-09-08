@@ -283,6 +283,10 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
+            options: {
+                sourceMap: true,
+                sourceMapIncludeSources: true
+            },
             dist: {
                 files: {
                     '<%= yeoman.dist %>/scripts/scripts.js': ['<%= yeoman.dist %>/scripts/scripts.js']
