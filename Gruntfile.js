@@ -571,31 +571,23 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('backend', function (target) {
+    grunt.registerTask('backend', function () {
         grunt.task.run(['shell:decrypt', 'config']);
-        if (target === 'deploy') {
-            grunt.task.run([
-                'reports',
-                '28:deploy',
-                'deployed-message:backend'
-            ]);
-        } else {
-            grunt.fail.fatal('Unknown target ' + target);
-        }
+        grunt.task.run([
+            'reports',
+            '28:deploy',
+            'deployed-message:backend'
+        ]);
     });
 
-    grunt.registerTask('frontend', function (target) {
+    grunt.registerTask('frontend', function () {
         grunt.task.run(['shell:decrypt', 'config']);
-        if (target === 'deploy') {
-            grunt.task.run([
-                'build',
-                'setupS3Bucket:setup',
-                'aws_s3:setup',
-                'deployed-message:frontend'
-            ]);
-        } else {
-            grunt.fail.fatal('Unknown target ' + target);
-        }
+        grunt.task.run([
+            'build',
+            'setupS3Bucket:setup',
+            'aws_s3:setup',
+            'deployed-message:frontend'
+        ]);
     });
 
     grunt.registerTask('config', function() {
