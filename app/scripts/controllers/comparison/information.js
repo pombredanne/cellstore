@@ -113,20 +113,22 @@ angular.module('main')
                                             }
                                         }
                                         var auditItem = list[key].Facts[0].AuditTrails[(indexCM || indexF || indexV || indexD) - 1];
-
-                                        switch(auditItem.Type) {
-                                            case 'xbrl28:concept-maps':
-                                                item.audit[index] = auditItem.Data.OriginalConcept;
-                                                break;
-                                            case 'xbrl28:dimension-default':
-                                                item.audit[index] = auditItem.Data.Dimension;
-                                                break;
-                                            case 'xbrl28:formula':
-                                                item.audit[index] = auditItem.Message;
-                                                break;
-                                            case 'xbrl28:validation':
-                                                item.audit[index] = auditItem.Message;
-                                                break;
+                                        
+                                        if (auditItem !== undefined) {
+                                            switch(auditItem.Type) {
+                                                case 'xbrl28:concept-maps':
+                                                    item.audit[index] = auditItem.Data.OriginalConcept;
+                                                    break;
+                                                case 'xbrl28:dimension-default':
+                                                    item.audit[index] = auditItem.Data.Dimension;
+                                                    break;
+                                                case 'xbrl28:formula':
+                                                    item.audit[index] = auditItem.Message;
+                                                    break;
+                                                case 'xbrl28:validation':
+                                                    item.audit[index] = auditItem.Message;
+                                                    break;
+                                            }
                                         }
                                     }
                                 } else {
