@@ -600,8 +600,7 @@ declare function layout:layout(
         GlobalConstraintLabels: $structural-model.GlobalConstraintLabels,
         DebugInfo: {
             Hypercube: $hypercube,
-            OriginalHypercube: $original-hypercube,
-            Facts: $facts
+            OriginalHypercube: $original-hypercube
         }
     }
 };

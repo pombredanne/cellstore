@@ -8,7 +8,7 @@ US Public Company Financial Information Repository. Built on top of http://28.io
 ```bash
 npm install
 bower install
-grunt ngconstant:server
+grunt test:setup --build-id=myfeature
 grunt server
 ```
 
