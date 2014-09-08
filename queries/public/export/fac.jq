@@ -12,67 +12,6 @@ declare variable $acl :=
           "Permission": "READ"
        }
     ];
-declare variable $def :=
-    [ {
-        "ModelKind" : "DefinitionModel",
-        "Labels" : [ "Fundamental Accounting Concepts" ],
-        "Parameters" : {
-
-        }, 
-        "Breakdowns" : {
-          "x" : [ {
-            "BreakdownLabels" : [ "Reporting Entity Breakdown" ],
-            "BreakdownTrees" : [ {
-              "Kind" : "Rule",
-              "Abstract" : true,
-              "Labels" : [ "Reporting Entity [Axis]" ],
-              "Children" : [ {
-                "Kind" : "Aspect",
-                "Aspect" : "xbrl:Entity"
-              } ]
-            } ]
-          }, {
-            "BreakdownLabels" : [ "Fiscal Year Breakdown" ],
-            "BreakdownTrees" : [ {
-              "Kind" : "Rule",
-              "Abstract" : true,
-              "Labels" : [ "Fiscal Year [Axis]" ],
-              "Children" : [ {
-                "Kind" : "Aspect",
-                "Aspect" : "sec:FiscalYear"
-              } ]
-            } ]
-          }, {
-            "BreakdownLabels" : [ "Fiscal Period Breakdown" ],
-            "BreakdownTrees" : [ {
-              "Kind" : "Rule",
-              "Abstract" : true,
-              "Labels" : [ "Fiscal Period [Axis]" ],
-              "Children" : [ {
-                "Kind" : "Aspect",
-                "Aspect" : "sec:FiscalPeriod"
-              } ]
-            } ]
-          } ],
-          "y" : [ {
-            "BreakdownLabels" : [ "Breakdown on concepts" ],
-            "BreakdownTrees" : [ {
-              "Kind" : "ConceptRelationship",
-              "LinkName" : "link:presentationLink",
-              "LinkRole" : "http://xbrl.io/fundamental-accounting-concepts",
-              "ArcName" : "link:presentationArc",
-              "ArcRole" : "http://www.xbrl.org/2003/arcrole/parent-child",
-              "RelationshipSource" : "fac:FundamentalAccountingConceptsLineItems",
-              "FormulaAxis" : "descendant",
-              "Generations" : 0
-            } ]
-          } ]
-        },
-        "TableFilters" : {
-
-        }
-      }
-    ];
 
 declare function local:convert($item as item)
 {
@@ -175,7 +114,7 @@ local:convert(
       LastModified: string(current-dateTime()),
       Networks: $report.Networks,
       Hypercubes: $report.Hypercubes,
-      DefinitionModels: $def,
+      DefinitionModels: $report.DefinitionModels,
       Rules: $report.Rules,
       Filters: {
         cik: [  ],
