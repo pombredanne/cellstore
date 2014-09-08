@@ -13,7 +13,7 @@ declare variable $acl :=
        }
     ];
 
-declare function local:convert($item as item)
+declare function local:convert($item as item) as item*
 {
     typeswitch($item)
     case $object as object return {|
