@@ -3,6 +3,7 @@ import module namespace session = "http://apps.28.io/session";
 
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 
+import module namespace sec-filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
@@ -112,7 +113,7 @@ let $res         :=
            CIK : $e._id,
            FiscalYear :$archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
            FiscalPeriod :$archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
-           AcceptanceDatetime : $archive.Profiles.SEC.AcceptanceDatetime,
+           AcceptanceDatetime : sec-filings:acceptance-dateTimes($archive),
            FormType : $archive.Profiles.SEC.FormType,
            Components : [ 
                sec-networks:summaries($r)
