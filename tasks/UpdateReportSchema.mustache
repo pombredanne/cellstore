@@ -1,11 +1,5 @@
 jsoniq version "1.0";
 
-(:
-  call this query with UpdateReportSchema.jq?user=support@28.io&report=FundamentalAccountingConcepts
-  to update FundamentalAccountingConcepts report for user support@28.io
-
-  by default the reports are added as defined in the templates
-:)
 import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
 
 variable $report-templates := ({{& reports}});

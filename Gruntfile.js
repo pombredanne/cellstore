@@ -283,6 +283,10 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
+            options: {
+                //sourceMap: true,
+                //sourceMapIncludeSources: true
+            },
             dist: {
                 files: {
                     '<%= yeoman.dist %>/scripts/scripts.js': ['<%= yeoman.dist %>/scripts/scripts.js']
@@ -617,6 +621,11 @@ module.exports = function (grunt) {
         var config = grunt.file.readJSON('config.json');
         config.s3.bucket = id;
         config['28'].api = { url : 'http://' + id + '.28.io/v1' };
+        if(isMaster) {
+            config.s3.key = config.s3.production.key;
+            config.s3.secret = config.s3.production.secret;
+            config.s3.region = config.s3.production.region;
+        }
         grunt.config.set('secxbrl', config);
     });
 
