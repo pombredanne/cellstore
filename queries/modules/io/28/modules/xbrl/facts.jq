@@ -76,7 +76,7 @@ jsoniq version "1.0";
  : <li><b>include-footnotes</b>: include XBRL Footnotes in each fact (true | false)</li>
  : <li><b>Lang</b>: language identifier according to http://www.ietf.org/rfc/rfc3066.txt,
  :     i.e. only return footnotes etc. for this specific language</li>
- : <li><b>audit-trail</b>: if set to "debug" the audit trails will be more verbose</li>
+ : <li><b>AuditTrail</b>: if set to "debug" the audit trails will be more verbose</li>
  : <li><b>facts-for-archives-and-concept</b> (deprecated, use filters instead):
  :     to override how underlying facts are 
  :     resolved, for example with finer-grained, profile-specific filtering (option value
@@ -740,10 +740,7 @@ declare %private function facts:validate(
       $facts[$$.$facts:ASPECTS.$facts:CONCEPT = $validation-concepts]
   let $is-valid as boolean := not $validation-facts.Value = false
   let $audit-trail-option as string := 
-  lower-case((
-    facts:from-options("audit-trail", $options),
-    "production"
-  )[1])
+      facts:from-options("audit-trail", $options)
   let $audit-trail := {
     Type: "xbrl28:validation-stamp",
     Label: "Validation stamp",
@@ -818,7 +815,13 @@ declare function facts:facts-for-internal(
 
   (: Learn about what concepts can be computed where :)
   let $concepts-from-cache as string* := keys($cache)[exists($cache.$$.$cache-filter-index)]
-  let $all-concepts-computable-by-rules as string* := jn:flatten($rules.ComputableConcepts)
+  let $default-rules := $rules[empty(jn:flatten($$.ComputableConcepts))]
+  let $all-concepts-computable-by-rules as string* := 
+      if(empty($default-rules))
+      then jn:flatten($rules.ComputableConcepts)
+      else 
+          (: default rules are applied to every concept :)
+          $concepts
   let $all-concepts-computable-by-maps as string* := keys($concept-maps.Trees)
 
   (: determine concepts that should be computed with the cache :)
@@ -932,8 +935,16 @@ declare %private function facts:from-options(
         return hypercubes:dimensionless-hypercube()
 
     case ($option-name eq "Validate")
-      return let $option-value as boolean? := $options.Validate
-             return ($option-value, false)[1]
+    return let $option-value as boolean? := $options.Validate
+           return ($option-value, false)[1]
+
+    case ($option-name eq "audit-trail" or $option-name eq "AuditTrail")
+    return
+        lower-case((
+          $options."audit-trail", 
+          $options.AuditTrail,
+          "production"
+        )[1])
 
     default return $options.$option-name
 };
@@ -991,10 +1002,30 @@ declare %private function facts:facts-for-concepts-and-rules(
         then { "debug": { "connection": string(facts:connection()) }} 
         else ()
       |}
-  for $concept in $concepts-computable-by-rules
-  let $current-rules := $rules[jn:flatten($$.ComputableConcepts) = $concept]
-  let $new-rules as object* := $rules[not(jn:flatten($$.ComputableConcepts) = $concept)]
+  let $default-rules := $rules[empty(jn:flatten($$.ComputableConcepts))]
+  let $non-default-rules := $rules[exists(jn:flatten($$.ComputableConcepts))]
   return
+    if(exists($default-rules))
+    then
+      let $current-rules := $default-rules[1]
+      let $new-rules as object* := (tail($default-rules), $non-default-rules)
+      return
+          facts:facts-for-rules(
+              $current-rules,
+              $concepts-computable-by-rules,
+              $hypercube,
+              $aligned-filter,
+              $concept-maps,
+              $new-rules,
+              $cache,
+              $options)
+  else
+    for $concept in $concepts-computable-by-rules
+    let $prioritized-rules := $non-default-rules[jn:flatten($$.ComputableConcepts) = $concept]
+    let $other-rules := $non-default-rules[not jn:flatten($$.ComputableConcepts) = $concept]
+    let $current-rules := $prioritized-rules[1]
+    let $new-rules as object* := (tail($prioritized-rules), $other-rules)
+    return
       facts:facts-for-rules(
           $current-rules,
           $concept,
@@ -1039,6 +1070,11 @@ declare %private
             reflection:eval($formula)[$$.Aspects.$facts:CONCEPT = $concepts]
           }
         } catch * {
+          let $ser-params :=
+            <output:serialization-parameters xmlns:output="http://www.w3.org/2010/xslt-xquery-serialization">
+              <output:indent value="yes"/>
+              <output:omit-xml-declaration value="yes"/>
+            </output:serialization-parameters>
           let $error-details :=
             {
               "error": true,
@@ -1049,8 +1085,18 @@ declare %private
               "column-number": $err:column-number,
               "stack-trace": $zerr:stack-trace
             }
-          let $message := "Error executing rule '" || $rule.Label 
-             || "'. Details: \n\n" || serialize($error-details)
+          let $message := 
+            if($err:code eq xs:QName("facts:RULE-EXECUTION-ERROR"))
+            then
+                $err:description
+            else
+                "Error executing rule '" || $rule.Label 
+                    || "'. 
+
+Details: (" || $err:code || ") location:" || $err:line-number || ":" || $err:column-number || " " || $err:description || " 
+Object: [" || serialize($err:value, $ser-params) || "]
+Stacktrace: 
+"  || serialize($zerr:stack-trace, $ser-params)
           return
             error(xs:QName("facts:RULE-EXECUTION-ERROR"),
                   $message,
@@ -1276,10 +1322,7 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
           $cache,
           $new-options)
     let $audit-trail-option as string := 
-      lower-case((
-        facts:from-options("audit-trail", $options),
-        "production"
-      )[1])
+        facts:from-options("AuditTrail", $options)
     return 
     for $facts in $underlying-facts
     group by $uncovered-filter :=
@@ -1563,7 +1606,7 @@ declare function facts:canonical-grouping-key(
  :    serializing a filter)</p>
  :
  : @deprecated This function has been deprecated in favor of the fact specific
- :   function facts:canonical-serialization.
+ :   function facts:canonical-grouping-key.
  :
  : @param $object the object to be canonically serialized
  : @param $exclude-fields the strings of field names to exclude from serialization

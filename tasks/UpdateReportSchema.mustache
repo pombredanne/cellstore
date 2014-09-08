@@ -1,13 +1,39 @@
+jsoniq version "1.0";
+
+(:
+  call this query with UpdateReportSchema.jq?user=support@28.io&report=FundamentalAccountingConcepts
+  to update FundamentalAccountingConcepts report for user support@28.io
+
+  by default the reports are added as defined in the templates
+:)
 import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
 
-variable $reports := ({{& reports}});
+variable $report-templates := ({{& reports}});
+
+(: for updating only a specific report for a specific user
+   default: update all reports for user defined in report template :)
+variable $users := ("none", "support@28.io");
+variable $reports :=
+    for $user in $users
+    for $rep in $report-templates
+    return
+        if ($user eq "none" or $user eq $rep.Owner)
+        then $rep
+        else
+            copy $r := $rep
+            modify (
+                    replace value of json $r."_id" with substring-before($user, "@") || $rep."_id",
+                    replace value of json $r.Owner with $user,
+                    delete json $r.ACL
+                )
+            return $r;
 
 for $report in $reports
 let $record := find("reports", { "_id" : $report."_id" })
 return
-if(empty($record))
-then db:insert("reports", $report);
-else db:edit($record, $report);
+    if(empty($record))
+    then db:insert("reports", $report);
+    else db:edit($record, $report);
 
 if (is-available-collection("reportcache"))
 then for $report in $reports
