@@ -5,6 +5,7 @@
     "Description": "Disclosures",
     "Role": "Disclosures",
     "Owner": "admin@28.io",
+    "LastModified": "2014-09-05T18:39:01.710005Z",
     "ACL": [ {
         "Type": "Group",
         "Grantee": "http://28.io/groups/AllUsers",
