@@ -163,26 +163,26 @@ angular.module('main')
                                     }
                                 }
                                 var auditItem = list[key].Facts[0].AuditTrails[(indexCM || indexF || indexV || indexD) - 1];
-								
-								if (auditItem !== undefined) {
-                                	item.auditId = auditItem.Id;
-                                	switch(auditItem.Type) {
-                                	case 'xbrl28:concept-maps':
-	                                    item.auditLabel = auditItem.Label;
-                                    	item.auditValue = auditItem.Data.OriginalConcept;
-                                    	break;
-                                	case 'xbrl28:dimension-default':
-	                                    item.auditLabel = auditItem.Label;
-                                    	item.auditValue = auditItem.Data.Dimension;
-                                    	break;
-                                	case 'xbrl28:formula':
-	                                    item.auditLabel = auditItem.Label;
-                                    	item.auditValue = auditItem.Message;
-                                    	break;
-                                	case 'xbrl28:validation':
-                                    	item.auditLabel = auditItem.Label;
-                                    	item.auditValue = auditItem.Message;
-                                    	break;
+
+                                if (auditItem !== undefined) {
+                                    item.auditId = auditItem.Id;
+                                    switch(auditItem.Type) {
+                                    case 'xbrl28:concept-maps':
+                                        item.auditLabel = auditItem.Label;
+                                        item.auditValue = auditItem.Data.OriginalConcept;
+                                        break;
+                                    case 'xbrl28:dimension-default':
+                                        item.auditLabel = auditItem.Label;
+                                        item.auditValue = auditItem.Data.Dimension;
+                                        break;
+                                    case 'xbrl28:formula':
+                                        item.auditLabel = auditItem.Label;
+                                        item.auditValue = auditItem.Message;
+                                        break;
+                                    case 'xbrl28:validation':
+                                        item.auditLabel = auditItem.Label;
+                                        item.auditValue = auditItem.Message;
+                                        break;
                                     }
                                 }
                             }
