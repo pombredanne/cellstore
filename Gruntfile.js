@@ -547,34 +547,34 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', function (target) {
         grunt.task.run(['shell:decrypt', 'config']);
-        var isMaster = process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
+        //var isMaster = process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
         if (target === 'setup') {
-            if(isMaster) {
+            /*if(isMaster) {
                 grunt.task.run([
                     'build',
                     'aws_s3:setup',
                     '28:deployMaster'
                 ]);
-            } else {
-                grunt.task.run([
-                    'build',
-                    'setupS3Bucket:setup',
-                    'aws_s3:setup',
-                    '28:setup',
-                    '28:deploy',
-                    'deployed-message'
-                ]);
-            }
+            } else {*/
+            grunt.task.run([
+                'build',
+                'setupS3Bucket:setup',
+                'aws_s3:setup',
+                '28:setup',
+                '28:deploy',
+                'deployed-message'
+            ]);
+            //}
         } else if (target === 'teardown') {
-            if(!isMaster) {
-                grunt.task.run([
-                    '28:teardown',
-                    'aws_s3:teardown',
-                    'setupS3Bucket:teardown'
-                ]);
-            } else {
-                console.log('We\'re on master, no teardown.');
-            }
+           // if(!isMaster) {
+            grunt.task.run([
+                '28:teardown',
+                'aws_s3:teardown',
+                'setupS3Bucket:teardown'
+            ]);
+            //} else {
+            //    console.log('We\'re on master, no teardown.');
+            //}
         } else if (target === 'run') {
             grunt.task.run(['28:run']);
         } else {
