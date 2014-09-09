@@ -117,6 +117,10 @@ msgstr "Adaptează API pentru nevoi mai sofisticate"
 msgid "Add"
 msgstr "Adaugă"
 
+#: app/views/comparison/search.html
+msgid "Add a new dimension"
+msgstr "Add a new dimension"
+
 #: app/views/pricing.html
 msgid "Affordable Access to Financial Information"
 msgstr "Acces la Informațiile Financiare la preț rezonabil"
@@ -200,6 +204,10 @@ msgstr "Navighează"
 #: app/views/pricing.html
 msgid "Browse DOW30"
 msgstr "Vezi DOW30"
+
+#: app/views/comparison/search.html
+msgid "Cancel"
+msgstr "Cancel"
 
 #: app/views/entity/filing.html
 #: app/views/entity/summary.html
@@ -382,6 +390,10 @@ msgstr "Data"
 #: app/views/example.html
 msgid "Decimals"
 msgstr "Zecimale"
+
+#: app/views/comparison/search.html
+msgid "Default Value"
+msgstr "Default Value"
 
 #: app/views/api.html
 msgid "Description"
@@ -1001,6 +1013,10 @@ msgstr "Nu s-a gasit <span>:(</span>"
 msgid "Object Class"
 msgstr "Clasa de Obiecte"
 
+#: app/views/comparison/search.html
+msgid "OK"
+msgstr "OK"
+
 #: app/views/account/password.html
 msgid "Old password"
 msgstr "Parola veche"
@@ -1260,6 +1276,10 @@ msgstr "API Session"
 #: app/views/comparison.html
 msgid "Set Filters"
 msgstr "Seteaza Filtrele"
+
+#: app/views/comparison/search.html
+msgid "Shortcuts:"
+msgstr "Shortcuts:"
 
 #: app/views/comparison/information.html
 #: app/views/entity/facttable.html
@@ -1530,6 +1550,14 @@ msgstr "o adresă care nu mai este de actualitate"
 #: app/views/root.html
 msgid "beta"
 msgstr "beta"
+
+#: app/views/comparison/search.html
+msgid "filter by value of use ALL to bring in all facts that have this dimension"
+msgstr "filter by value of use ALL to bring in all facts that have this dimension"
+
+#: app/views/comparison/search.html
+msgid "default value to be used if a fact doesn't have that dimension"
+msgstr "default value to be used if a fact doesn't have that dimension"
 
 #: app/views/account/billing.html
 msgid "{{more}} older."
