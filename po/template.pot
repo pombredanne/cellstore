@@ -116,6 +116,10 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+#: app/views/comparison/search.html
+msgid "Add a new dimension"
+msgstr ""
+
 #: app/views/pricing.html
 msgid "Affordable Access to Financial Information"
 msgstr ""
@@ -198,6 +202,10 @@ msgstr ""
 #: app/views/home.html
 #: app/views/pricing.html
 msgid "Browse DOW30"
+msgstr ""
+
+#: app/views/comparison/search.html
+msgid "Cancel"
 msgstr ""
 
 #: app/views/entity/filing.html
@@ -381,6 +389,10 @@ msgstr ""
 #: app/views/example.html
 msgid "Decimals"
 msgstr ""
+
+#: app/views/comparison/search.html
+msgid "Default Value"
+msgstr "Default Value"
 
 #: app/views/api.html
 msgid "Description"
@@ -1000,6 +1012,10 @@ msgstr ""
 msgid "Object Class"
 msgstr ""
 
+#: app/views/comparison/search.html
+msgid "OK"
+msgstr ""
+
 #: app/views/account/password.html
 msgid "Old password"
 msgstr ""
@@ -1258,6 +1274,10 @@ msgstr ""
 
 #: app/views/comparison.html
 msgid "Set Filters"
+msgstr ""
+
+#: app/views/comparison/search.html
+msgid "Shortcuts:"
 msgstr ""
 
 #: app/views/comparison/information.html
@@ -1529,6 +1549,15 @@ msgstr ""
 #: app/views/root.html
 msgid "beta"
 msgstr ""
+
+#: app/views/comparison/search.html
+msgid "filter by value of use ALL to bring in all facts that have this dimension"
+msgstr ""
+
+#: app/views/comparison/search.html
+msgid "default value to be used if a fact doesn't have that dimension"
+msgstr ""
+
 
 #: app/views/account/billing.html
 msgid "{{more}} older."
