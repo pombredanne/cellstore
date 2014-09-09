@@ -661,7 +661,7 @@ as boolean
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
  : @error facts:FILTER-TOO-GENERIC The filter object must have at least one of the 
- :        fields Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
+ :        fields Aspects.sec:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
  :        Aspects.xbrl:Entity.
  : @return all facts satisfying the filter and options.
  :) 
@@ -784,7 +784,7 @@ declare %private function facts:validate(
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
  : @error facts:FILTER-TOO-GENERIC The filter object must have at least one of the 
- :        fields Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
+ :        fields Aspects.sec:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
  :        Aspects.xbrl:Entity.
  : @return all facts satisfying the filter and options.
  :) 
