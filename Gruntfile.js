@@ -586,6 +586,7 @@ module.exports = function (grunt) {
         grunt.task.run(['shell:decrypt', 'config']);
         grunt.task.run([
             'reports',
+            '28:setup',
             '28:deploy',
             'deployed-message:backend'
         ]);
