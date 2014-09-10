@@ -3501,7 +3501,7 @@
         "Label" : "Zeros instead of null",
         "Formula" : "import module namespace r = \"http://zorba.io/modules/random\";
 
-let $non-numeric-concepts := (\"xbrl:ConceptDomain\", \"fac:FiscalPeriod\", \"fac:EntityRegistrantName\", \"fac:EntityCentralIndexKey\", \"fac:EntityFilerCategory\",
+let $non-numeric-concepts := (\"fac:FiscalPeriod\", \"fac:EntityRegistrantName\", \"fac:EntityCentralIndexKey\", \"fac:EntityFilerCategory\",
                             \"fac:TradingSymbol\", \"fac:FiscalYearEnd\", \"fac:FiscalYear\", \"fac:FiscalPeriod\", \"fac:DocumentType\",
                             \"fac:BalanceSheetDate\", \"fac:IncomeStatementStartPeriodYearToDate\", \"fac:BalanceSheetFormat\",
                             \"fac:IncomeStatementFormat\", \"fac:NatureOfOperations\", \"fac:EquityValidation\",
@@ -3514,7 +3514,11 @@ let $non-numeric-concepts := (\"xbrl:ConceptDomain\", \"fac:FiscalPeriod\", \"fa
                             \"fac:NetCashFlowDiscontinuedValidation\", \"fac:NetCashFlowFromOperatingActivitiesValidation\",
                             \"fac:NetCashFlowFromInvestingActivitiesValidation\", \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\",
                             \"fac:NetCashFlowFromFinancingActivitiesValidation\", \"fac:NetIncomeLossValidation2\", \"fac:AssetsValidation\" )
-let $numeric-concepts := $concepts[not($$ = $non-numeric-concepts)]
+let $abstract-concepts := (\"xbrl:ConceptDomain\", \"fac:FundamentalAccountingConceptsLineItems\", \"fac:FundamentalAccountingConceptsHierarchy\",
+                           \"fac:GeneralInformationHierarchy\", \"fac:BalanceSheetHierarchy\", \"fac:IncomeStatementHierarchy\",
+                           \"fac:StatementComprehensiveIncomeHierarchy\", \"fac:CashFlowStatementHierarchy\", \"fac:KeyRatiosHierarchy\",
+                           \"fac:ValidationStatistics\", \"fac:Validations\", \"\")
+let $numeric-concepts := $concepts[not($$ = $non-numeric-concepts) and not($$ = $abstract-concepts)]
 let $numeric-instant-concepts := (\"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:Assets\", \"fac:CurrentLiabilities\",
                          \"fac:NoncurrentLiabilities\", \"fac:Liabilities\", \"fac:CommitmentsAndContingencies\", \"fac:TemporaryEquity\",
                          \"fac:RedeemableNoncontrollingInterest\", \"fac:EquityAttributableToParent\",
