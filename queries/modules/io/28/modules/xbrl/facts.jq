@@ -1002,37 +1002,41 @@ declare %private function facts:facts-for-concepts-and-rules(
         then { "debug": { "connection": string(facts:connection()) }} 
         else ()
       |}
-  let $default-rules := $rules[empty(jn:flatten($$.ComputableConcepts))]
-  let $non-default-rules := $rules[exists(jn:flatten($$.ComputableConcepts))]
+  let $default-rules as object* := $rules[empty(jn:flatten($$.ComputableConcepts))]
+  let $non-default-rules as object* := $rules[exists(jn:flatten($$.ComputableConcepts))]
   return
     if(exists($default-rules))
     then
-      let $current-rules := $default-rules[1]
-      let $new-rules as object* := (tail($default-rules), $non-default-rules)
+      let $current-rule as object := head($default-rules)
+      let $recursive-rules as object* := (tail($default-rules), $non-default-rules)
       return
           facts:facts-for-rules(
-              $current-rules,
+              $current-rule,
               $concepts-computable-by-rules,
               $hypercube,
               $aligned-filter,
               $concept-maps,
-              $new-rules,
+              $recursive-rules,
               $cache,
               $options)
   else
-    for $concept in $concepts-computable-by-rules
-    let $prioritized-rules := $non-default-rules[jn:flatten($$.ComputableConcepts) = $concept]
-    let $other-rules := $non-default-rules[not jn:flatten($$.ComputableConcepts) = $concept]
-    let $current-rules := $prioritized-rules[1]
-    let $new-rules as object* := (tail($prioritized-rules), $other-rules)
+    for $concept as string in $concepts-computable-by-rules
+    let $prioritized-rules as object* :=
+        $non-default-rules[$$.ComputableConcepts[] = $concept]
+    let $other-rules as object* :=
+        $non-default-rules[not $$.ComputableConcepts[] = $concept]
+    let $current-rule as object := head($prioritized-rules)
+    let $recursive-rules as object* :=
+        (tail($prioritized-rules), $other-rules)
+            [not $$.ComputableConcepts[] = $current-rule.HideRulesForConcepts[]]
     return
       facts:facts-for-rules(
-          $current-rules,
+          $current-rule,
           $concept,
           $hypercube,
           $aligned-filter,
           $concept-maps,
-          $new-rules,
+          $recursive-rules,
           $cache,
           $options)
 };
