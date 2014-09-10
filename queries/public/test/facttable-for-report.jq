@@ -4385,7 +4385,7 @@ declare %an:nondeterministic function local:test-values() as item*
           "sec:Archive" : "0000021344-14-000008",
           "xbrl:Concept" : "fac:PassedValidations",
           "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
-          "xbrl:Period" : "2013-12-31",
+          "xbrl:Period" : "2013-01-01/2013-12-31",
           "sec:FiscalPeriod" : "FY",
           "sec:FiscalYear" : 2013,
           "sec:Accepted" : "20140227132423",
@@ -4406,7 +4406,7 @@ declare %an:nondeterministic function local:test-values() as item*
             "IsExtension" : false
           }
         },
-        "Balance" : "DEBIT",
+        "Balance" : "CREDIT",
         "Type" : "NumericValue",
         "Value" : 20,
         "Decimals" : 0,
@@ -4427,7 +4427,7 @@ declare %an:nondeterministic function local:test-values() as item*
           "sec:Archive" : "0000021344-14-000008",
           "xbrl:Concept" : "fac:FailedValidations",
           "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
-          "xbrl:Period" : "2013-12-31",
+          "xbrl:Period" : "2013-01-01/2013-12-31",
           "sec:FiscalPeriod" : "FY",
           "sec:FiscalYear" : 2013,
           "sec:Accepted" : "20140227132423",
@@ -4448,7 +4448,7 @@ declare %an:nondeterministic function local:test-values() as item*
             "IsExtension" : false
           }
         },
-        "Balance" : "DEBIT",
+        "Balance" : "CREDIT",
         "Type" : "NumericValue",
         "Value" : 2,
         "Decimals" : 0,
@@ -4469,7 +4469,7 @@ declare %an:nondeterministic function local:test-values() as item*
           "sec:Archive" : "0000021344-14-000008",
           "xbrl:Concept" : "fac:NotApplicableValidations",
           "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
-          "xbrl:Period" : "2013-12-31",
+          "xbrl:Period" : "2013-01-01/2013-12-31",
           "sec:FiscalPeriod" : "FY",
           "sec:FiscalYear" : 2013,
           "sec:Accepted" : "20140227132423",
@@ -4490,7 +4490,7 @@ declare %an:nondeterministic function local:test-values() as item*
             "IsExtension" : false
           }
         },
-        "Balance" : "DEBIT",
+        "Balance" : "CREDIT",
         "Type" : "NumericValue",
         "Value" : 0,
         "Decimals" : 0,
