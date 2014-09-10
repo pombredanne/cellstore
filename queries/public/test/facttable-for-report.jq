@@ -4217,7 +4217,7 @@ declare %an:nondeterministic function local:test-values() as item*
           "sec:Archive" : "0000021344-14-000008",
           "xbrl:Concept" : "fac:ReturnOnEquity",
           "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
-          "xbrl:Period" : "2013-12-31",
+          "xbrl:Period" : "2013-01-01/2013-12-31",
           "sec:FiscalPeriod" : "FY",
           "sec:FiscalYear" : 2013,
           "sec:Accepted" : "20140227132423",
@@ -4259,7 +4259,7 @@ declare %an:nondeterministic function local:test-values() as item*
           "sec:Archive" : "0000021344-14-000008",
           "xbrl:Concept" : "fac:ReturnOnAssets",
           "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
-          "xbrl:Period" : "2013-12-31",
+          "xbrl:Period" : "2013-01-01/2013-12-31",
           "sec:FiscalPeriod" : "FY",
           "sec:FiscalYear" : 2013,
           "sec:Accepted" : "20140227132423",
@@ -4280,7 +4280,7 @@ declare %an:nondeterministic function local:test-values() as item*
             "IsExtension" : false
           }
         },
-        "Balance" : "DEBIT",
+        "Balance" : "CREDIT",
         "Type" : "NumericValue",
         "Value" : 0.095785908611404142,
         "Decimals" : 2,
@@ -4343,7 +4343,7 @@ declare %an:nondeterministic function local:test-values() as item*
           "sec:Archive" : "0000021344-14-000008",
           "xbrl:Concept" : "fac:SustainableGrowthRate",
           "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
-          "xbrl:Period" : "2013-12-31",
+          "xbrl:Period" : "2013-01-01/2013-12-31",
           "sec:FiscalPeriod" : "FY",
           "sec:FiscalYear" : 2013,
           "sec:Accepted" : "20140227132423",
@@ -4364,7 +4364,7 @@ declare %an:nondeterministic function local:test-values() as item*
             "IsExtension" : false
           }
         },
-        "Balance" : "DEBIT",
+        "Balance" : "CREDIT",
         "Type" : "NumericValue",
         "Value" : 0.347626339969372129,
         "Decimals" : 2,
