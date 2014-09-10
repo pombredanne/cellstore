@@ -3499,7 +3499,93 @@
         "Id" : "default_zero",
         "Type" : "xbrl28:formula",
         "Label" : "Zeros instead of null",
-        "Formula" : "import module namespace r = \"http://zorba.io/modules/random\";\n\nlet $non-numeric-concepts := (\"fac:FiscalPeriod\", \"fac:EntityRegistrantName\", \"fac:EntityCentralIndexKey\", \"fac:EntityFilerCategory\",\n                            \"fac:TradingSymbol\", \"fac:FiscalYearEnd\", \"fac:FiscalYear\", \"fac:FiscalPeriod\", \"fac:DocumentType\", \n                            \"fac:BalanceSheetDate\", \"fac:IncomeStatementStartPeriodYearToDate\", \"fac:BalanceSheetFormat\", \n                            \"fac:IncomeStatementFormat\", \"fac:NatureOfOperations\", \"fac:EquityValidation\", \n                            \"fac:AssetsValidation2\", \"fac:LiabilitiesValidation\", \"fac:LiabilitiesAndEquityValidation\", \n                            \"fac:GrossProfitValidation\", \"fac:OperatingIncomeLossValidation\", \n                            \"fac:IncomeLossBeforeEquityMethodInvestmentsValidation\", \"fac:IncomeLossFromContinuingOperationsAfterTaxValidation\", \n                            \"fac:NetIncomeLossValidation\", \"fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation\", \n                            \"fac:ComprehensiveIncomeLossValidation\", \"fac:ComprehensiveIncomeLossValidation2\", \n                            \"fac:OperatingIncomeLossValidation2\", \"fac:NetCashFlowValidation\", \"fac:NetCashFlowContinuingValidation\", \n                            \"fac:NetCashFlowDiscontinuedValidation\", \"fac:NetCashFlowFromOperatingActivitiesValidation\", \n                            \"fac:NetCashFlowFromInvestingActivitiesValidation\", \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\", \n                            \"fac:NetCashFlowFromFinancingActivitiesValidation\", \"fac:NetIncomeLossValidation2\", \"fac:AssetsValidation\" )\nlet $numeric-concepts := $concepts[not($$ = $non-numeric-concepts)]\nlet $numeric-instant-concepts := (\"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:Assets\", \"fac:CurrentLiabilities\", \"fac:NoncurrentLiabilities\",\n                         \"fac:Liabilities\", \"fac:CommitmentsAndContingencies\", \"fac:TemporaryEquity\", \"fac:RedeemableNoncontrollingInterest\",\n                         \"fac:EquityAttributableToParent\", \"fac:EquityAttributableToNoncontrollingInterest\", \"fac:Equity\",\n                         \"fac:LiabilitiesAndEquity\")\nlet $numeric-duration-concepts := $numeric-concepts[not($$ = $numeric-instant-concepts)]\nlet $numeric-instant-concepts := $numeric-concepts[$$ = $numeric-instant-concepts]\nreturn\nfor $facts in facts:facts-for-internal($concepts, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\ngroup by facts:canonical-grouping-key($facts, ($facts:CONCEPT, $facts:UNIT))\nlet $template-fact as object := ($facts[$$.$facts:ASPECTS.$facts:CONCEPT = $numeric-concepts], $facts)[1]\nlet $is-instant := not contains($template-fact.$facts:ASPECTS.$facts:PERIOD, \"/\")\nreturn (\n        $facts[$$.$facts:ASPECTS.$facts:CONCEPT = $non-numeric-concepts],\n\n        (: default 0 :)\n        let $concepts-with-relevant-period-type := if($is-instant) then $numeric-instant-concepts else $numeric-duration-concepts\n        for $concept in $concepts-with-relevant-period-type\n        let $fact as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq $concept]\n        return switch(true)\n          (: fill empty cell with zero :)\n          case empty($fact)\n          return\n            let $audit-trail := {\n              \"Type\" : \"xbrl28:default-fact-value\", \n              \"Label\" : \"Default fact value\", \n              \"Message\" : $concept || \" = 0\", \n              \"Data\" : {\n                \"OutputConcept\" : $concept\n              }\n            }\n            return\n            copy $f := $template-fact \n            modify (\n                replace value of json $f._id with r:uuid(),\n                replace value of json $f.$facts:ASPECTS.$facts:CONCEPT with $concept,\n                replace value of json $f.Value with 0,\n                replace value of json $f.Type with \"NumericValue\",\n                if(exists($f.Decimals))\n                then replace value of json $f.Decimals with 3\n                else insert json { Decimals: 3 } into $f,\n                if(exists($f.AuditTrails))\n                then replace value of json $f.AuditTrails with [ $audit-trail ]\n                else insert json { AuditTrails: [ $audit-trail ] } into $f\n            )\n            return $f\n        \n        (: replacing null with zero :)\n        case $fact.Type eq \"NumericValue\" and $fact.Value eq null \n        return\n                let $concept := $fact.$facts:ASPECTS.$facts:CONCEPT\n                let $audit-trail := {\n                    Type: \"xbrl28:null-to-zero\",\n                    Label: \"Adapting null value\",\n                    Message: \"Replacing null value with 0.\",\n                    Data: \n                        { OutputConcept: $concept }\n                }\n                return\n                    copy $f := $fact\n                    modify (\n                        replace value of json $f.Value with 0,\n                        if(exists($f.AuditTrails))\n                        then append json $audit-trail into $f.AuditTrails\n                        else insert json { AuditTrails: [ $audit-trail ] } into $f\n                    )\n                    return $f\n\n        default return $fact\n    )\n\n"
+        "Formula" : "import module namespace r = \"http://zorba.io/modules/random\";
+
+let $non-numeric-concepts := (\"xbrl:ConceptDomain\", \"fac:FiscalPeriod\", \"fac:EntityRegistrantName\", \"fac:EntityCentralIndexKey\", \"fac:EntityFilerCategory\",
+                            \"fac:TradingSymbol\", \"fac:FiscalYearEnd\", \"fac:FiscalYear\", \"fac:FiscalPeriod\", \"fac:DocumentType\",
+                            \"fac:BalanceSheetDate\", \"fac:IncomeStatementStartPeriodYearToDate\", \"fac:BalanceSheetFormat\",
+                            \"fac:IncomeStatementFormat\", \"fac:NatureOfOperations\", \"fac:EquityValidation\",
+                            \"fac:AssetsValidation2\", \"fac:LiabilitiesValidation\", \"fac:LiabilitiesAndEquityValidation\",
+                            \"fac:GrossProfitValidation\", \"fac:OperatingIncomeLossValidation\",
+                            \"fac:IncomeLossBeforeEquityMethodInvestmentsValidation\", \"fac:IncomeLossFromContinuingOperationsAfterTaxValidation\",
+                            \"fac:NetIncomeLossValidation\", \"fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation\",
+                            \"fac:ComprehensiveIncomeLossValidation\", \"fac:ComprehensiveIncomeLossValidation2\",
+                            \"fac:OperatingIncomeLossValidation2\", \"fac:NetCashFlowValidation\", \"fac:NetCashFlowContinuingValidation\",
+                            \"fac:NetCashFlowDiscontinuedValidation\", \"fac:NetCashFlowFromOperatingActivitiesValidation\",
+                            \"fac:NetCashFlowFromInvestingActivitiesValidation\", \"fac:IncomeLossFromContinuingOperationsBeforeTaxValidation\",
+                            \"fac:NetCashFlowFromFinancingActivitiesValidation\", \"fac:NetIncomeLossValidation2\", \"fac:AssetsValidation\" )
+let $numeric-concepts := $concepts[not($$ = $non-numeric-concepts)]
+let $numeric-instant-concepts := (\"fac:CurrentAssets\", \"fac:NoncurrentAssets\", \"fac:Assets\", \"fac:CurrentLiabilities\",
+                         \"fac:NoncurrentLiabilities\", \"fac:Liabilities\", \"fac:CommitmentsAndContingencies\", \"fac:TemporaryEquity\",
+                         \"fac:RedeemableNoncontrollingInterest\", \"fac:EquityAttributableToParent\",
+                         \"fac:EquityAttributableToNoncontrollingInterest\", \"fac:Equity\", \"fac:LiabilitiesAndEquity\",
+                         \"fac:ReturnOnEquity\", \"fac:ReturnOnAssets\", \"fac:SustainableGrowthRate\", \"fac:NotApplicableValidations\",
+                         \"fac:FailedValidations\", \"fac:PassedValidations\")
+let $numeric-duration-concepts := $numeric-concepts[not($$ = $numeric-instant-concepts)]
+let $numeric-instant-concepts := $numeric-concepts[$$ = $numeric-instant-concepts]
+return
+for $facts in facts:facts-for-internal($concepts, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)
+group by facts:canonical-grouping-key($facts, ($facts:CONCEPT, $facts:UNIT))
+let $template-fact as object := ($facts[$$.$facts:ASPECTS.$facts:CONCEPT = $numeric-concepts], $facts)[1]
+let $is-instant := not contains($template-fact.$facts:ASPECTS.$facts:PERIOD, \"/\")
+return (
+        $facts[$$.$facts:ASPECTS.$facts:CONCEPT = $non-numeric-concepts],
+
+        (: default 0 :)
+        let $concepts-with-relevant-period-type := if($is-instant) then $numeric-instant-concepts else $numeric-duration-concepts
+        for $concept in $concepts-with-relevant-period-type
+        let $fact as object? := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq $concept]
+        return switch(true)
+          (: fill empty cell with zero :)
+          case empty($fact)
+          return
+            let $audit-trail := {
+              \"Type\" : \"xbrl28:default-fact-value\",
+              \"Label\" : \"Default fact value\",
+              \"Message\" : $concept || \" = 0\",
+              \"Data\" : {
+                \"OutputConcept\" : $concept
+              }
+            }
+            return
+            copy $f := $template-fact
+            modify (
+                replace value of json $f._id with r:uuid(),
+                replace value of json $f.$facts:ASPECTS.$facts:CONCEPT with $concept,
+                replace value of json $f.Value with 0,
+                replace value of json $f.Type with \"NumericValue\",
+                if(exists($f.Decimals))
+                then replace value of json $f.Decimals with 3
+                else insert json { Decimals: 3 } into $f,
+                if(exists($f.AuditTrails))
+                then replace value of json $f.AuditTrails with [ $audit-trail ]
+                else insert json { AuditTrails: [ $audit-trail ] } into $f
+            )
+            return $f
+
+        (: replacing null with zero :)
+        case $fact.Type eq \"NumericValue\" and $fact.Value eq null
+        return
+                let $concept := $fact.$facts:ASPECTS.$facts:CONCEPT
+                let $audit-trail := {
+                    Type: \"xbrl28:null-to-zero\",
+                    Label: \"Adapting null value\",
+                    Message: \"Replacing null value with 0.\",
+                    Data:
+                        { OutputConcept: $concept }
+                }
+                return
+                    copy $f := $fact
+                    modify (
+                        replace value of json $f.Value with 0,
+                        if(exists($f.AuditTrails))
+                        then append json $audit-trail into $f.AuditTrails
+                        else insert json { AuditTrails: [ $audit-trail ] } into $f
+                    )
+                    return $f
+
+        default return $fact
+    )"
     } ],
     "Filters" : {
         "cik" : [  ],
