@@ -2,6 +2,51 @@ import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
+declare variable $local:expected-OtherOperatingIncomeExpenses-ATnT-2013 :=
+    {
+        "Aspects" : {
+          "sec:Archive" : "0000732717-14-000010", 
+          "xbrl:Concept" : "fac:OtherOperatingIncomeExpenses", 
+          "xbrl:Entity" : "http://www.sec.gov/CIK 0000732717", 
+          "xbrl:Period" : "2013-01-01/2013-12-31", 
+          "sec:FiscalPeriod" : "FY", 
+          "sec:FiscalYear" : 2013, 
+          "sec:Accepted" : "20140221162554", 
+          "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+        }, 
+        "Archive" : "0000732717-14-000010", 
+        "IsInDefaultHypercube" : true, 
+        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+        "Profiles" : {
+          "SEC" : {
+            "Name" : "SEC", 
+            "Fiscal" : {
+              "Period" : "FY", 
+              "Year" : 2013
+            }, 
+            "DocEndDate" : "2013-12-31", 
+            "Accepted" : "20140221162554", 
+            "IsExtension" : false
+          }
+        }, 
+        "Balance" : "CREDIT", 
+        "Type" : "NumericValue", 
+        "Value" : -145082000000, 
+        "Decimals" : -6, 
+        "AuditTrails" : [ {
+          "Id" : "bf2d1587-491c-4492-b587-ddd00d762f2d", 
+          "Type" : "xbrl28:formula", 
+          "Label" : "Other Operating Income (Expenses)", 
+          "Message" : "fac:OtherOperatingIncomeExpenses[-145,082,000,000 USD] = fac:OperatingIncomeLoss[30,479,000,000 USD] - fac:GrossProfit[77,288,000,000 USD] - fac:OperatingExpenses[98,273,000,000 USD]", 
+          "Data" : {
+            "OutputConcept" : "fac:OtherOperatingIncomeExpenses"
+          }
+        } ], 
+        "xbrl28:Type" : "xbrl28:formula", 
+        "EntityRegistrantName" : "AT&T INC.", 
+        "Unit" : "iso4217:USD"
+      };
+
 declare function local:diff-facts($fact-expected as object, $fact-actual as object?) as object* {
     if(empty($fact-actual))
     then
@@ -124,6 +169,15 @@ declare %an:nondeterministic function local:test-facttable($expected as integer,
 {
     let $actual as integer := count(parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-report.jq?_method=POST" || $params).body.content).FactTable[])
     return if ($actual eq $expected) then true else "false [Actual="||$actual||", Expected="||$expected ||"]"
+};
+
+declare %an:nondeterministic function local:test-facttable-fact($concept as string, $expected as object, $params as string) as item
+{
+    let $facts as object* := parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-report.jq?_method=POST" || $params).body.content).FactTable[]
+    let $actual := $facts[$$.Aspects."xbrl:Concept" eq $concept]
+    let $diff := 
+      for $f in $actual return local:diff-facts($expected, $f)
+    return if (empty($diff)) then true else { factDiffErrors: [ $diff ], expectedFact: $expected, actualFact: $actual }
 };
 
 
@@ -4600,5 +4654,8 @@ local:check({
     aid2: local:test-facttable(97, "&aid=0000732717-14-000022&report=FundamentalAccountingConcepts"),
     tickerrole: local:test-facttable(96, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
     tickerfyfprole: local:test-facttable(193, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=2013&fiscalPeriod=FY"),
-    allvalues : local:test-values()
+    allvalues : local:test-values(),
+    otheroperatingincometest: local:test-facttable-fact("fac:OtherOperatingIncomeExpenses",
+                                                        $local:expected-OtherOperatingIncomeExpenses-ATnT-2013,
+                                                        "&report=FundamentalAccountingConcepts&ticker=t&fiscalYear=2013&fiscalPeriod=FY")
 })
