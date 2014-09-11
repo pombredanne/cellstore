@@ -200,14 +200,14 @@ let $serializers := {
         }</FactTable>
     },
     to-csv : function($res as object) as string {
-        conversion:facts-to-csv($res.FactTable[], { Caller: "Report" })
+        (conversion:facts-to-csv($res.FactTable[], { Caller: "Report" }), "")[1]
     }
 }
 
 return 
-    if(empty($archives))
+    if(empty($archives) and (not(empty($aids)) or not(empty($ciks))))
     then {
-        response:status-code(400);
+        response:status-code(404);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
     }
     else let $results := util:serialize($result, $comment, $serializers, $format, "facts")
