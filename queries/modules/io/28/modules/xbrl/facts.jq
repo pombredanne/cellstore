@@ -745,7 +745,7 @@ declare %private function facts:validate(
     Type: "xbrl28:validation-stamp",
     Label: "Validation stamp",
     Message: if($is-valid)
-      then "All" || count($validation-facts) || " related validation rules pass."
+      then "All " || count($validation-facts) || " related validation rules pass."
       else count($validation-facts[$$.Value eq false]) || " related validation rules fail.",
     Data: {|
       { AuditTrails: [ $validation-facts.AuditTrails[] ] },
