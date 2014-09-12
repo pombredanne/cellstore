@@ -9,6 +9,13 @@ declare %an:nondeterministic function local:test-facttable($expected as integer,
     return if ($actual eq $expected) then true else "false [Actual="||$actual||", Expected="||$expected ||"]"
 };
 
+declare %an:nondeterministic function local:test-empty($params as string) as item
+{
+    let $res as object := http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facts.jq?_method=POST" || $params)
+    return if($res.status eq 200 and $res.headers."Content-Length" eq "0") then true else {
+        unexpectedResponse: $res
+    }
+};
 
 declare %an:sequential function local:check($o as object) as object
 {
@@ -25,5 +32,6 @@ local:check({
     tickerconcept: local:test-facttable(1, "&ticker=ko&concept=us-gaap:Assets"),
     tickerfyfprole: local:test-facttable(1, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&concept=us-gaap:Assets"),
     tagconcept: local:test-facttable(30, "&tag=DOW30&concept=us-gaap:Assets"),
-    tagfyfprole: local:test-facttable(30, "&tag=DOW30&fiscalYear=2012&fiscalPeriod=Q1&concept=us-gaap:Assets")
+    tagfyfprole: local:test-facttable(30, "&tag=DOW30&fiscalYear=2012&fiscalPeriod=Q1&concept=us-gaap:Assets"),
+    testNoEntity4Sic: local:test-empty("&concept=fac:Assets&map=FundamentalAccountingConcepts&format=csv&sic=5052&fiscalYear=2010&fiscalPeriod=Q3")
 })
