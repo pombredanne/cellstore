@@ -112,6 +112,7 @@ then {
     user:assign-role($user, "sec_pro", (), (), $user);
   }
 else ();
+session:start($user, xs:dateTime("2016-09-12T22:17:23.851315Z"));
 
 (: Admin user :)
 variable $admin := user:get-by-email("admin@28.io");
