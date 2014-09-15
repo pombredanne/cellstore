@@ -13,7 +13,35 @@ declare variable $additionalRules :=
         "Id" : "gi_CommonStockSharesOutstanding",
         "Type" : "xbrl28:formula",
         "Label" : "CommonStockSharesOutstanding imputation",
-        "Formula" : "\n(: workaround for bug: https://github.com/28msec/xbrl-infosetgenerator/issues/7 :)\nlet $aligned-filter := trim($aligned-filter, (\"Profiles.SEC.Fiscal\"))\nfor $facts in  facts:facts-for-internal((\n        \"fac:CommonStockSharesOutstanding\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)\ngroup by $canonical-filter-string := \n            facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))\nfor $CommonStockSharesOutstandingByArchive in $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommonStockSharesOutstanding\"]\ngroup by $CommonStockSharesOutstandingByArchive.Archive\nreturn\n    let $source-fact :=\n        (\n            for $CommonStockSharesOutstanding in $CommonStockSharesOutstandingByArchive\n            order by $CommonStockSharesOutstanding.$facts:ASPECTS.$facts:PERIOD descending\n            return $CommonStockSharesOutstanding\n        )[1]\n    let $value := rules:decimal-value($source-fact)\n    let $original-concept := $source-fact.AuditTrails[][$$.Type eq \"xbrl28:concept-maps\"].Data.OriginalConcept\n    let $audit-trail-message :=\n       rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : \"shares\", \"xbrl:Concept\" : $original-concept }, Value: $value }) || \" (as of latest practicable date: \" || $source-fact.$facts:ASPECTS.$facts:PERIOD\n       || \")\"\n    return\n        rules:create-computed-fact(\n            $source-fact,\n            \"fac:CommonStockSharesOutstanding\",\n            $value,\n            $rule,\n            $audit-trail-message,\n            $source-fact,\n            $options)",
+        "Formula" : "(: workaround for bug: https://github.com/28msec/xbrl-infosetgenerator/issues/7 :)
+                     let $aligned-filter := trim($aligned-filter, (\"Profiles.SEC.Fiscal\"))
+                     for $facts in  facts:facts-for-internal((
+                             \"fac:CommonStockSharesOutstanding\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)
+                     group by $canonical-filter-string :=
+                                 facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))
+                     for $CommonStockSharesOutstandingByArchive in $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommonStockSharesOutstanding\"]
+                     group by $CommonStockSharesOutstandingByArchive.Archive
+                     return
+                         let $source-fact :=
+                             (
+                                 for $CommonStockSharesOutstanding in $CommonStockSharesOutstandingByArchive
+                                 order by $CommonStockSharesOutstanding.$facts:ASPECTS.$facts:PERIOD descending
+                                 return $CommonStockSharesOutstanding
+                             )[1]
+                         let $value := rules:decimal-value($source-fact)
+                         let $original-concept := $source-fact.AuditTrails[][$$.Type eq \"xbrl28:concept-maps\"].Data.OriginalConcept
+                         let $audit-trail-message :=
+                            rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : \"shares\", \"xbrl:Concept\" : $original-concept }, Value: $value }) || \" (as of latest practicable date: \" || $source-fact.$facts:ASPECTS.$facts:PERIOD
+                            || \")\"
+                         return
+                             rules:create-computed-fact(
+                                 $source-fact,
+                                 \"fac:CommonStockSharesOutstanding\",
+                                 $value,
+                                 $rule,
+                                 $audit-trail-message,
+                                 $source-fact,
+                                 $options)",
         "ComputableConcepts" : [ "fac:CommonStockSharesOutstanding" ]
       },
       {
