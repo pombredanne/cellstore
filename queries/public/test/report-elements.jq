@@ -7,9 +7,9 @@ declare %an:nondeterministic function local:test-concepts($expected as integer, 
 {
     let $elements as object* := parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/report-elements.jq?_method=POST" || $params).body.content).ReportElements[]
     let $actual as integer := count($elements)
-    let $duplicate := for $element in $elements where $element.CIK instance of array return $element
+    let $duplicates := for $element in $elements where $element.CIK instance of array return $element
     return
-        if (exists($duplicate)) then 
+        if (exists($duplicates)) then 
             "false [CIK " || $duplicates[1].CIK || " is not unique]"
         else if ($actual eq $expected) then
             true
