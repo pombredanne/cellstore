@@ -113,6 +113,14 @@ then {
   }
 else ();
 
+(: Disclosures Token :)
+let $token := collection("Tokens")[$$."expiration-date" eq xs:dateTime("2016-09-12T22:17:23.851315Z")
+and $$."user-id" eq $user."_id"]
+return 
+if(empty($token))
+then session:start($user, xs:dateTime("2016-09-12T22:17:23.851315Z"));
+else ();
+
 (: Admin user :)
 variable $admin := user:get-by-email("admin@28.io");
 if(empty($admin))

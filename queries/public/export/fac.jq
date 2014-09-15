@@ -115,7 +115,9 @@ local:convert(
       Networks: $report.Networks,
       Hypercubes: $report.Hypercubes,
       DefinitionModels: $report.DefinitionModels,
-      Rules: $report.Rules,
+      Rules: [ for $rule in $report.Rules[]
+               order by $rule.ComputableConcepts[][1], $rule.Id descending empty least
+               return $rule ],
       Filters: {
         cik: [  ],
         tag: [ "DOW30" ],
