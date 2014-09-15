@@ -10,7 +10,7 @@ declare %an:nondeterministic function local:test-concepts($expected as integer, 
     let $duplicates := for $element in $elements where $element.CIK instance of array return $element
     return
         if (exists($duplicates)) then 
-            "false [CIK " || $duplicates[1].CIK || " is not unique]"
+            "false [CIK " || serialize($duplicates[1].CIK, ()) || " is not unique]"
         else if ($actual eq $expected) then
             true
         else
