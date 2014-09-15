@@ -5,7 +5,7 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 declare variable $id := "BasicFinancialInformation";
 declare variable $report := parse-json(http:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/export/fac.jq?_method=POST").body.content);
 declare variable $desc :=
-  "Documentation about the fundamental accounting concepts defined in this report can be found at http://fundamentalaccountingconcepts.wikispaces.com/home";
+  "This report extends the fundamental accounting concepts report. Documentation about the fundamental accounting concepts defined in this report can be found at http://fundamentalaccountingconcepts.wikispaces.com/home";
 declare variable $role := "http://xbrl.io/basic-financial-information";
 declare variable $additionalRules :=
   (
