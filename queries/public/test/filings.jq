@@ -30,6 +30,6 @@ return local:check({
     ticker: local:test-filings(switch($db) case "all-dow30" return 4 default return 4, "&ticker=wmt&fiscalYear=ALL"),
     fpall: local:test-filings(4, "&ticker=wmt&fiscalYear=2012&fiscalPeriod=ALL") ,
     fyfp: local:test-filings(1, "&ticker=wmt&fiscalYear=2012&fiscalPeriod=Q1"),
-    several: local:test-filings(switch($db) case "all-dow30" return 18 default return 17, "&cik=0000021344&fiscalPeriod=ALL&fiscalYear=ALL") (:,
+    several: local:test-filings(switch($db) case "all-dow30" return 18 default return 18, "&cik=0000021344&fiscalPeriod=ALL&fiscalYear=ALL") (:,
     sic: local:test-filings(69, "&sic=4813") disabled right now because needs token :)
 })
