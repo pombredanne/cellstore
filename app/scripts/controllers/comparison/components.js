@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, $stateParams, $modal, $backend, reportElements, disclosures, components) {
+angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, $stateParams, $location, $modal, $backend, reportElements, disclosures, components) {
     $scope.results = [];
     $scope.reportElementNames = [];
     $scope.disclosureNames = [];
@@ -177,7 +177,9 @@ angular.module('main').controller('ComparisonComponentsCtrl', function ($scope, 
 
     $scope.getUrl = function (format) {
         var str = $backend.API_URL + '/_queries/public/api/components.jq';
-        var params = angular.copy($scope.params);
+        var params = {};
+        angular.extend(params, $scope.params);
+        angular.extend(params, $location.search());
         if (format) {
             params.format = format;
         }
