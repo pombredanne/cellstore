@@ -5,7 +5,7 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 
 declare %an:nondeterministic function local:test-concepts($expected as integer, $params as string) as atomic
 {
-    let $elements as object* := parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/report-elements.jq?_method=POST" || $params).body.content).ReportElements[]
+    let $elements as item* := parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/report-elements.jq?_method=POST" || $params).body.content).ReportElements[]
     let $actual as integer := count($elements)
     let $duplicates := for $element in $elements where $element.CIK instance of array return $element
     return
