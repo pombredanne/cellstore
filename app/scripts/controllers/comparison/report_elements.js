@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('main').controller('ComparisonReportElementsCtrl', function ($scope, $modal, $stateParams, $backend, reportElements, results) {
+angular.module('main').controller('ComparisonReportElementsCtrl', function ($scope, $modal, $location, $stateParams, $backend, reportElements, results) {
     $scope.results = [];
     $scope.errornoresults = false;
     $scope.Statistics = {};
@@ -119,7 +119,9 @@ angular.module('main').controller('ComparisonReportElementsCtrl', function ($sco
 
     $scope.getUrl = function (format) {
         var str = $backend.API_URL + '/_queries/public/api/report-elements.jq';
-        var params = angular.copy($scope.params);
+        var params = {};
+        angular.extend(params, $scope.params);
+        angular.extend(params, $location.search());
         if (format) {
             params.format = format;
         }
