@@ -180,7 +180,7 @@ let $fiscalPeriods as string* :=
 
 
 (: Object resolution :)
-let $entities := 
+let $entities as object* := 
     companies:companies(
         $ciks,
         $tags,
@@ -191,7 +191,7 @@ let $archives as object* := fiscal-core:filings(
     $fiscalPeriods,
     $fiscalYears,
     $aids)
-let $entities :=
+let $entities as object* :=
     ($entities[$$._id = $archives.Entity],
     let $not-found := $archives.Entity[not $entities._id = $$]
     where exists($not-found)
@@ -210,11 +210,11 @@ let $result := { ReportElements : [ if ($onlyNames)
             then distinct-values($concepts.Name)
             else for $c in $concepts
                  group by $component := $c.Component
-                 let $component := components:components($component)
-                 let $default-hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-                 let $members := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
-                 let $archive := $archives[$$._id = $c[1].Archive]
-                 let $entity := $entities[$$._id = $archives.Entity]
+                 let $component as object := components:components($component)
+                 let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+                 let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+                 let $archive as object := $archives[$$._id = $c[1].Archive]
+                 let $entity as object := $entities[$$._id = $archive.Entity]
                  return
                      for $name in if (exists($c.Origin)) then $c.Origin else $c.Name
                      return
