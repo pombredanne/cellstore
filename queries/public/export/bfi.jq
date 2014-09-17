@@ -177,7 +177,7 @@ replace value of json $report.DefinitionModels[1].Breakdowns.y[1].BreakdownTrees
 let $defaultZeroRule := $report.Rules[][$$.Id eq "default_zero"]
 let $formula := replace($defaultZeroRule.Formula,
                         "\"fac:LiabilitiesAndEquity\"\\)",
-                        "\"fac:LiabilitiesAndEquity\", \"us-gaap:CommonStockSharesAuthorized\", \"us-gaap:CommonStockSharesIssued\", \"dei:EntityCommonStockSharesOutstanding\")"
+                        "\"fac:LiabilitiesAndEquity\", \"fac:CommonStockSharesAuthorized\", \"fac:CommonStockSharesIssued\", \"fac:CommonStockSharesOutstanding\")"
                        )
 return
   {

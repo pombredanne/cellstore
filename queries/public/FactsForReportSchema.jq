@@ -15,6 +15,7 @@ session:audit-call();
 
 let $format  := lower-case(request:param-values("format")[1])
 let $aids     := request:param-values("aid")
+let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod"))
 let $report   := request:param-values("report")[1]
 let $report-object   := reports:reports($report)
 
@@ -34,6 +35,7 @@ return switch(true)
       case $session:ACCESS-ALLOWED return {
         let $cached-archives := store:find("reportcache", { _id : { "$in" : [ $archives._id ! ($report || $$)]}})
         let $noncached-archives := seq:value-except($archives._id, $cached-archives._id ! substring-after($$, $report))
+        (: Fact resolution :)
         let $facts := components:facts($report-object,
             {
                 FilterOverride: {
@@ -76,7 +78,24 @@ return switch(true)
             if (exists($computed-archives))
             then db:insert("reportcache", $computed-archives);
             else ();
-            [ $cached-archives, $computed-archives ] 
+            if(empty($fiscalPeriods))
+            then [ $cached-archives, $computed-archives ] 
+            else [
+                for $archive in ($cached-archives, $computed-archives)
+                return
+                    copy $a := $archive
+                    modify (
+                        for $objects in descendant-objects($a)
+                        where exists($objects.Facts)
+                        let $factPositionsToRemove := 
+                            for $f at $pos in $objects.Facts[]
+                            where not($f.Aspects."sec:FiscalPeriod" = $fiscalPeriods)
+                            return $pos
+                        where exists($factPositionsToRemove)
+                        return replace value of json $objects.Facts with [ $objects.Facts[][not position() = $factPositionsToRemove] ]
+                        )
+                    return $a
+            ]
         }
       }
     case $session:ACCESS-DENIED return {
