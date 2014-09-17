@@ -143,7 +143,48 @@ declare %an:sequential function local:test-values() as item*
                                                 "Order": 3
                                             }, 
                                             "fac:CommitmentsAndContingencies": {
-                                                "Facts": [], 
+                                                "Facts": [
+                                                    {
+                                                        "Aspects": {
+                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
+                                                            "sec:Accepted": "20140227132423", 
+                                                            "sec:Archive": "0000021344-14-000008", 
+                                                            "sec:FiscalPeriod": "FY", 
+                                                            "sec:FiscalYear": 2013, 
+                                                            "xbrl:Concept": "fac:CommitmentsAndContingencies", 
+                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
+                                                            "xbrl:Period": "2013-12-31", 
+                                                            "xbrl:Unit": "iso4217:USD"
+                                                        }, 
+                                                        "AuditTrails": [
+                                                            {
+                                                                "Data": {
+                                                                    "OutputConcept": "fac:CommitmentsAndContingencies"
+                                                                }, 
+                                                                "Label": "Default fact value", 
+                                                                "Message": "fac:CommitmentsAndContingencies = 0", 
+                                                                "Type": "xbrl28:default-fact-value"
+                                                            }
+                                                        ], 
+                                                        "Concept": {
+                                                            "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
+                                                        "Decimals": 3, 
+                                                        "KeyAspects": [
+                                                            "xbrl:Concept", 
+                                                            "xbrl:Entity", 
+                                                            "xbrl:Period", 
+                                                            "xbrl:Unit", 
+                                                            "sec:Accepted"
+                                                        ], 
+                                                        "Type": "NumericValue", 
+                                                        "Value": 0, 
+                                                        "_id": "REMOVED", 
+                                                        "xbrl28:Type": "xbrl28:concept-maps"
+                                                    }
+                                                ], 
                                                 "Id": "REMOVED", 
                                                 "Label": "Commitments and Contingencies", 
                                                 "Name": "fac:CommitmentsAndContingencies", 
@@ -651,14 +692,96 @@ declare %an:sequential function local:test-values() as item*
                                                 "Order": 5
                                             }, 
                                             "fac:RedeemableNoncontrollingInterest": {
-                                                "Facts": [], 
+                                                "Facts": [
+                                                    {
+                                                        "Aspects": {
+                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
+                                                            "sec:Accepted": "20140227132423", 
+                                                            "sec:Archive": "0000021344-14-000008", 
+                                                            "sec:FiscalPeriod": "FY", 
+                                                            "sec:FiscalYear": 2013, 
+                                                            "xbrl:Concept": "fac:RedeemableNoncontrollingInterest", 
+                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
+                                                            "xbrl:Period": "2013-12-31", 
+                                                            "xbrl:Unit": "iso4217:USD"
+                                                        }, 
+                                                        "AuditTrails": [
+                                                            {
+                                                                "Data": {
+                                                                    "OutputConcept": "fac:RedeemableNoncontrollingInterest"
+                                                                }, 
+                                                                "Label": "Default fact value", 
+                                                                "Message": "fac:RedeemableNoncontrollingInterest = 0", 
+                                                                "Type": "xbrl28:default-fact-value"
+                                                            }
+                                                        ], 
+                                                        "Concept": {
+                                                            "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
+                                                        "Decimals": 3, 
+                                                        "KeyAspects": [
+                                                            "xbrl:Concept", 
+                                                            "xbrl:Entity", 
+                                                            "xbrl:Period", 
+                                                            "xbrl:Unit", 
+                                                            "sec:Accepted"
+                                                        ], 
+                                                        "Type": "NumericValue", 
+                                                        "Value": 0, 
+                                                        "_id": "REMOVED", 
+                                                        "xbrl28:Type": "xbrl28:concept-maps"
+                                                    }
+                                                ], 
                                                 "Id": "REMOVED", 
                                                 "Label": "Redeemable Noncontrolling Interest", 
                                                 "Name": "fac:RedeemableNoncontrollingInterest", 
                                                 "Order": 9
                                             }, 
                                             "fac:TemporaryEquity": {
-                                                "Facts": [], 
+                                                "Facts": [
+                                                    {
+                                                        "Aspects": {
+                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
+                                                            "sec:Accepted": "20140227132423", 
+                                                            "sec:Archive": "0000021344-14-000008", 
+                                                            "sec:FiscalPeriod": "FY", 
+                                                            "sec:FiscalYear": 2013, 
+                                                            "xbrl:Concept": "fac:TemporaryEquity", 
+                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
+                                                            "xbrl:Period": "2013-12-31", 
+                                                            "xbrl:Unit": "iso4217:USD"
+                                                        }, 
+                                                        "AuditTrails": [
+                                                            {
+                                                                "Data": {
+                                                                    "OutputConcept": "fac:TemporaryEquity"
+                                                                }, 
+                                                                "Label": "Default fact value", 
+                                                                "Message": "fac:TemporaryEquity = 0", 
+                                                                "Type": "xbrl28:default-fact-value"
+                                                            }
+                                                        ], 
+                                                        "Concept": {
+                                                            "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
+                                                        "Decimals": 3, 
+                                                        "KeyAspects": [
+                                                            "xbrl:Concept", 
+                                                            "xbrl:Entity", 
+                                                            "xbrl:Period", 
+                                                            "xbrl:Unit", 
+                                                            "sec:Accepted"
+                                                        ], 
+                                                        "Type": "NumericValue", 
+                                                        "Value": 0, 
+                                                        "_id": "REMOVED", 
+                                                        "xbrl28:Type": "xbrl28:concept-maps"
+                                                    }
+                                                ], 
                                                 "Id": "REMOVED", 
                                                 "Label": "Temporary Equity", 
                                                 "Name": "fac:TemporaryEquity", 
@@ -1014,13 +1137,13 @@ declare %an:sequential function local:test-values() as item*
                                                             {
                                                                 "Data": {
                                                                     "OutputConcept": "fac:NetCashFlowFromFinancingActivitiesDiscontinued"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Net Cash Flow from Financing Activities, Discontinued", 
-                                                                            "Message": "fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD] = 0", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
+                                                                }, 
+                                                                "Id": "REMOVED", 
+                                                                "Label": "Net Cash Flow from Financing Activities, Discontinued", 
+                                                                "Message": "fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD] = 0", 
+                                                                "Type": "xbrl28:formula"
+                                                            }
+                                                        ], 
                                                         "Concept": {
                                                             "Balance": "DEBIT", 
                                                             "DataType": "xbrli:monetaryItemType", 
@@ -1170,68 +1293,19 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromInvestingActivities"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:NetCashFlowsFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromInvestingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromInvestingActivitiesContinuing"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Continuing Investing Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromInvestingActivitiesContinuing[-4,214,000,000 USD] = fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] - NetCashFlowsFromInvestingActivitiesDiscontinued[0]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:NetCashFlowsFromInvestingActivitiesDiscontinued"
+                                                                    "OutputConcept": "fac:NetCashFlowFromInvestingActivitiesDiscontinued"
                                                                 }, 
-                                                                "Id": "REMOVED", 
-                                                                "Label": "Cash Flow From Discontinued Investing Activities imputation", 
-                                                                "Message": "fac:NetCashFlowsFromInvestingActivitiesDiscontinued[0 USD] = 0 (because fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] = fac:NetCashFlowsFromInvestingActivitiesContinuing[-4,214,000,000 USD])", 
-                                                                "Type": "xbrl28:formula"
+                                                                "Label": "Default fact value", 
+                                                                "Message": "fac:NetCashFlowFromInvestingActivitiesDiscontinued = 0", 
+                                                                "Type": "xbrl28:default-fact-value"
                                                             }
                                                         ], 
-                                                        "Balance": "DEBIT", 
-                                                        "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
+                                                        "Decimals": 3, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -1372,69 +1446,20 @@ declare %an:sequential function local:test-values() as item*
                                                         }, 
                                                         "AuditTrails": [
                                                             {
-                                                                "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromOperatingActivities"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:NetCashFlowsFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromOperatingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromOperatingActivitiesContinuing"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Continuing Operating Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] - NetCashFlowsFromOperatingActivitiesDiscontinued[0]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:NetCashFlowsFromOperatingActivitiesDiscontinued"
+                                                                "Data": {                                                                    
+                                                                    "OutputConcept": "fac:NetCashFlowFromOperatingActivitiesDiscontinued"
                                                                 }, 
-                                                                "Id": "REMOVED", 
-                                                                "Label": "Cash Flow From Discontinued Operating Activities imputation", 
-                                                                "Message": "fac:NetCashFlowsFromOperatingActivitiesDiscontinued[0 USD] = 0 (because fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] = fac:NetCashFlowsFromOperatingActivitiesContinuing[10,542,000,000 USD])", 
-                                                                "Type": "xbrl28:formula"
+                                                                "Label": "Default fact value", 
+                                                                "Message": "fac:NetCashFlowFromOperatingActivitiesDiscontinued = 0", 
+                                                                "Type": "xbrl28:default-fact-value"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
-                                                        "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
+                                                        "Decimals": 3, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -2132,18 +2157,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "2013-01-01", 
                                                         "_id": "REMOVED", 
@@ -2457,7 +2470,7 @@ declare %an:sequential function local:test-values() as item*
                                                             }
                                                         ], 
                                                         "Concept": {
-                                                        "Balance": "CREDIT", 
+                                                            "Balance": "CREDIT", 
                                                             "DataType": "xbrli:monetaryItemType", 
                                                             "PeriodType": "duration"
                                                         }, 
@@ -2986,7 +2999,7 @@ declare %an:sequential function local:test-values() as item*
                                                         }, 
                                                         "AuditTrails": [
                                                             {
-                                                                "Data": {                                                                    
+                                                                "Data": {
                                                                     "OutputConcept": "fac:NetIncomeLossAvailableToCommonStockholdersBasic"
                                                                 }, 
                                                                 "Id": "REMOVED", 
@@ -2996,7 +3009,7 @@ declare %an:sequential function local:test-values() as item*
                                                             }
                                                         ], 
                                                         "Concept": {
-                                                        "Balance": "CREDIT", 
+                                                            "Balance": "CREDIT", 
                                                             "DataType": "xbrli:monetaryItemType", 
                                                             "PeriodType": "duration"
                                                         }, 
@@ -3021,7 +3034,7 @@ declare %an:sequential function local:test-values() as item*
                                             }, 
                                             "fac:NonoperatingIncomeLoss": {
                                                 "Facts": [
-                                                              {
+                                                    {
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -3093,7 +3106,7 @@ declare %an:sequential function local:test-values() as item*
                                                             }
                                                         ], 
                                                         "Concept": {
-                                                        "Balance": "CREDIT", 
+                                                            "Balance": "CREDIT", 
                                                             "DataType": "xbrli:monetaryItemType", 
                                                             "PeriodType": "duration"
                                                         }, 
@@ -3142,7 +3155,7 @@ declare %an:sequential function local:test-values() as item*
                                                             }
                                                         ], 
                                                         "Concept": {
-                                                        "Balance": "CREDIT", 
+                                                            "Balance": "CREDIT", 
                                                             "DataType": "xbrli:monetaryItemType", 
                                                             "PeriodType": "duration"
                                                         }, 
@@ -3560,7 +3573,7 @@ declare %an:sequential function local:test-values() as item*
                                                             }
                                                         ], 
                                                         "Concept": {
-                                                        "Balance": "CREDIT", 
+                                                            "Balance": "CREDIT", 
                                                             "DataType": "xbrli:monetaryItemType", 
                                                             "PeriodType": "duration"
                                                         }, 
@@ -3581,7 +3594,7 @@ declare %an:sequential function local:test-values() as item*
                                                 "Id": "REMOVED", 
                                                 "Label": "Return on Equity (ROE)", 
                                                 "Name": "fac:ReturnOnEquity", 
-                                                "Order": 1
+                                                "Order": 4
                                             }, 
                                             "fac:ReturnOnSales": {
                                                 "Facts": [
@@ -3609,7 +3622,7 @@ declare %an:sequential function local:test-values() as item*
                                                             }
                                                         ], 
                                                         "Concept": {
-                                                        "Balance": "CREDIT", 
+                                                            "Balance": "CREDIT", 
                                                             "DataType": "xbrli:monetaryItemType", 
                                                             "PeriodType": "duration"
                                                         }, 
@@ -3658,7 +3671,7 @@ declare %an:sequential function local:test-values() as item*
                                                             }
                                                         ], 
                                                         "Concept": {
-                                                        "Balance": "CREDIT", 
+                                                            "Balance": "CREDIT", 
                                                             "DataType": "xbrli:monetaryItemType", 
                                                             "PeriodType": "duration"
                                                         }, 
@@ -4646,7 +4659,7 @@ declare %an:sequential function local:test-values() as item*
                                                             }
                                                         ], 
                                                         "Concept": {
-                                                        "Balance": "CREDIT", 
+                                                            "Balance": "CREDIT", 
                                                             "DataType": "xbrli:monetaryItemType", 
                                                             "PeriodType": "duration"
                                                         }, 
@@ -5177,101 +5190,9 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromOperatingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromOperatingActivitiesContinuing"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Continuing Operating Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] - NetCashFlowsFromOperatingActivitiesDiscontinued[0]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromInvestingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromInvestingActivitiesContinuing"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Continuing Investing Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromInvestingActivitiesContinuing[-4,214,000,000 USD] = fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] - NetCashFlowsFromInvestingActivitiesDiscontinued[0]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromFinancingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromFinancingActivities -> us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromFinancingActivitiesContinuing"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Continuing Financing Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromFinancingActivitiesContinuing[-3,745,000,000 USD] = fac:NetCashFlowsFromFinancingActivities[-3,745,000,000 USD] - NetCashFlowsFromFinancingActivitiesDiscontinued[0]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:NetCashFlowsContinuingValidation", 
+                                                                    "OutputConcept": "fac:NetCashFlowContinuingValidation", 
                                                                     "ValidatedConcepts": [
-                                                                        "fac:NetCashFlowsContinuing"
+                                                                        "fac:NetCashFlowContinuing"
                                                                     ], 
                                                                     "ValidatedFacts": [
                                                                         "1507f853-95cc-42c3-a7b0-b3505878441e"
@@ -5323,192 +5244,10 @@ declare %an:sequential function local:test-values() as item*
                                                         }, 
                                                         "AuditTrails": [
                                                             {
-                                                                "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromOperatingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "AuditTrails": [
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "Dimension": "dei:LegalEntityAxis", 
-                                                                                                        "Member": "sec:DefaultLegalEntity", 
-                                                                                                        "OutputConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Default dimension value", 
-                                                                                                    "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                                    "Type": "xbrl28:dimension-default"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "OriginalConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                                        "OutputConcept": "fac:NetCashFlowsFromOperatingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Concept map", 
-                                                                                                    "Message": "fac:NetCashFlowsFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                                    "Type": "xbrl28:concept-maps"
-                                                                                                }
-                                                                                            ], 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromOperatingActivitiesContinuing"
-                                                                                        }, 
-                                                                                        "Id": "REMOVED", 
-                                                                                        "Label": "Cash Flow From Continuing Operating Activities imputation", 
-                                                                                        "Message": "fac:NetCashFlowsFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] - NetCashFlowsFromOperatingActivitiesDiscontinued[0]", 
-                                                                                        "Type": "xbrl28:formula"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromOperatingActivitiesDiscontinued"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Discontinued Operating Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromOperatingActivitiesDiscontinued[0 USD] = 0 (because fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] = fac:NetCashFlowsFromOperatingActivitiesContinuing[10,542,000,000 USD])", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromInvestingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "AuditTrails": [
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "Dimension": "dei:LegalEntityAxis", 
-                                                                                                        "Member": "sec:DefaultLegalEntity", 
-                                                                                                        "OutputConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Default dimension value", 
-                                                                                                    "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                                    "Type": "xbrl28:dimension-default"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "OriginalConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                                        "OutputConcept": "fac:NetCashFlowsFromInvestingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Concept map", 
-                                                                                                    "Message": "fac:NetCashFlowsFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                                    "Type": "xbrl28:concept-maps"
-                                                                                                }
-                                                                                            ], 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromInvestingActivitiesContinuing"
-                                                                                        }, 
-                                                                                        "Id": "REMOVED", 
-                                                                                        "Label": "Cash Flow From Continuing Investing Activities imputation", 
-                                                                                        "Message": "fac:NetCashFlowsFromInvestingActivitiesContinuing[-4,214,000,000 USD] = fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] - NetCashFlowsFromInvestingActivitiesDiscontinued[0]", 
-                                                                                        "Type": "xbrl28:formula"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromInvestingActivitiesDiscontinued"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Discontinued Investing Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromInvestingActivitiesDiscontinued[0 USD] = 0 (because fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] = fac:NetCashFlowsFromInvestingActivitiesContinuing[-4,214,000,000 USD])", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromFinancingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromFinancingActivities -> us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "AuditTrails": [
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "Dimension": "dei:LegalEntityAxis", 
-                                                                                                        "Member": "sec:DefaultLegalEntity", 
-                                                                                                        "OutputConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Default dimension value", 
-                                                                                                    "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                                    "Type": "xbrl28:dimension-default"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "OriginalConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                                        "OutputConcept": "fac:NetCashFlowsFromFinancingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Concept map", 
-                                                                                                    "Message": "fac:NetCashFlowsFromFinancingActivities -> us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                                    "Type": "xbrl28:concept-maps"
-                                                                                                }
-                                                                                            ], 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromFinancingActivitiesContinuing"
-                                                                                        }, 
-                                                                                        "Id": "REMOVED", 
-                                                                                        "Label": "Cash Flow From Continuing Financing Activities imputation", 
-                                                                                        "Message": "fac:NetCashFlowsFromFinancingActivitiesContinuing[-3,745,000,000 USD] = fac:NetCashFlowsFromFinancingActivities[-3,745,000,000 USD] - NetCashFlowsFromFinancingActivitiesDiscontinued[0]", 
-                                                                                        "Type": "xbrl28:formula"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromFinancingActivitiesDiscontinued"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Discontinued Financing Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromFinancingActivitiesDiscontinued[0 USD] = 0 (because fac:NetCashFlowsFromFinancingActivities[-3,745,000,000 USD] = fac:NetCashFlowsFromFinancingActivitiesContinuing[-3,745,000,000 USD])", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:NetCashFlowsDiscontinuedValidation", 
+                                                                "Data": {                                                                    
+                                                                    "OutputConcept": "fac:NetCashFlowDiscontinuedValidation", 
                                                                     "ValidatedConcepts": [
-                                                                        "fac:NetCashFlowsDiscontinued"
+                                                                        "fac:NetCashFlowDiscontinued"
                                                                     ], 
                                                                     "ValidatedFacts": [
                                                                         "6558d3b5-aba4-4f12-94d3-43bc25904946"
@@ -5561,105 +5300,10 @@ declare %an:sequential function local:test-values() as item*
                                                         }, 
                                                         "AuditTrails": [
                                                             {
-                                                                "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromFinancingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromFinancingActivities -> us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromFinancingActivitiesContinuing"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Continuing Financing Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromFinancingActivitiesContinuing[-3,745,000,000 USD] = fac:NetCashFlowsFromFinancingActivities[-3,745,000,000 USD] - NetCashFlowsFromFinancingActivitiesDiscontinued[0]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromFinancingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromFinancingActivities -> us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "AuditTrails": [
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "Dimension": "dei:LegalEntityAxis", 
-                                                                                                        "Member": "sec:DefaultLegalEntity", 
-                                                                                                        "OutputConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Default dimension value", 
-                                                                                                    "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                                    "Type": "xbrl28:dimension-default"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "OriginalConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                                        "OutputConcept": "fac:NetCashFlowsFromFinancingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Concept map", 
-                                                                                                    "Message": "fac:NetCashFlowsFromFinancingActivities -> us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                                    "Type": "xbrl28:concept-maps"
-                                                                                                }
-                                                                                            ], 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromFinancingActivitiesContinuing"
-                                                                                        }, 
-                                                                                        "Id": "REMOVED", 
-                                                                                        "Label": "Cash Flow From Continuing Financing Activities imputation", 
-                                                                                        "Message": "fac:NetCashFlowsFromFinancingActivitiesContinuing[-3,745,000,000 USD] = fac:NetCashFlowsFromFinancingActivities[-3,745,000,000 USD] - NetCashFlowsFromFinancingActivitiesDiscontinued[0]", 
-                                                                                        "Type": "xbrl28:formula"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromFinancingActivitiesDiscontinued"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Discontinued Financing Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromFinancingActivitiesDiscontinued[0 USD] = 0 (because fac:NetCashFlowsFromFinancingActivities[-3,745,000,000 USD] = fac:NetCashFlowsFromFinancingActivitiesContinuing[-3,745,000,000 USD])", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:NetCashFlowsFromFinancingActivitiesValidation", 
+                                                                "Data": {                                                                    
+                                                                    "OutputConcept": "fac:NetCashFlowFromFinancingActivitiesValidation", 
                                                                     "ValidatedConcepts": [
-                                                                        "fac:NetCashFlowsFromFinancingActivities"
-                                                                    ], 
-                                                                    "ValidatedFacts": [
-                                                                        "a9948851-c65a-49bb-a2c4-e2a593d94df8"
+                                                                        "fac:NetCashFlowFromFinancingActivities"
                                                                     ], 
                                                                     "ValidationPassed": true
                                                                 }, 
@@ -5709,102 +5353,10 @@ declare %an:sequential function local:test-values() as item*
                                                         }, 
                                                         "AuditTrails": [
                                                             {
-                                                                "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromInvestingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromInvestingActivitiesContinuing"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Continuing Investing Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromInvestingActivitiesContinuing[-4,214,000,000 USD] = fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] - NetCashFlowsFromInvestingActivitiesDiscontinued[0]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromInvestingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "AuditTrails": [
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "Dimension": "dei:LegalEntityAxis", 
-                                                                                                        "Member": "sec:DefaultLegalEntity", 
-                                                                                                        "OutputConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Default dimension value", 
-                                                                                                    "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                                    "Type": "xbrl28:dimension-default"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "OriginalConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                                        "OutputConcept": "fac:NetCashFlowsFromInvestingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Concept map", 
-                                                                                                    "Message": "fac:NetCashFlowsFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                                    "Type": "xbrl28:concept-maps"
-                                                                                                }
-                                                                                            ], 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromInvestingActivitiesContinuing"
-                                                                                        }, 
-                                                                                        "Id": "REMOVED", 
-                                                                                        "Label": "Cash Flow From Continuing Investing Activities imputation", 
-                                                                                        "Message": "fac:NetCashFlowsFromInvestingActivitiesContinuing[-4,214,000,000 USD] = fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] - NetCashFlowsFromInvestingActivitiesDiscontinued[0]", 
-                                                                                        "Type": "xbrl28:formula"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromInvestingActivitiesDiscontinued"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Discontinued Investing Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromInvestingActivitiesDiscontinued[0 USD] = 0 (because fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] = fac:NetCashFlowsFromInvestingActivitiesContinuing[-4,214,000,000 USD])", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:NetCashFlowsFromInvestingActivitiesValidation", 
+                                                                "Data": {                                                                    
+                                                                    "OutputConcept": "fac:NetCashFlowFromInvestingActivitiesValidation", 
                                                                     "ValidatedConcepts": [
-                                                                        "fac:NetCashFlowsFromInvestingActivities"
+                                                                        "fac:NetCashFlowFromInvestingActivities"
                                                                     ], 
                                                                     "ValidatedFacts": [
                                                                         "9e9dbf80-4a4b-48cb-9876-4b06394bef40"
@@ -5858,101 +5410,9 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromOperatingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromOperatingActivitiesContinuing"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Continuing Operating Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] - NetCashFlowsFromOperatingActivitiesDiscontinued[0]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromOperatingActivities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetCashFlowsFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "AuditTrails": [
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "Dimension": "dei:LegalEntityAxis", 
-                                                                                                        "Member": "sec:DefaultLegalEntity", 
-                                                                                                        "OutputConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Default dimension value", 
-                                                                                                    "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                                    "Type": "xbrl28:dimension-default"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "OriginalConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                                        "OutputConcept": "fac:NetCashFlowsFromOperatingActivities"
-                                                                                                    }, 
-                                                                                                    "Label": "Concept map", 
-                                                                                                    "Message": "fac:NetCashFlowsFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                                    "Type": "xbrl28:concept-maps"
-                                                                                                }
-                                                                                            ], 
-                                                                                            "OutputConcept": "fac:NetCashFlowsFromOperatingActivitiesContinuing"
-                                                                                        }, 
-                                                                                        "Id": "REMOVED", 
-                                                                                        "Label": "Cash Flow From Continuing Operating Activities imputation", 
-                                                                                        "Message": "fac:NetCashFlowsFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] - NetCashFlowsFromOperatingActivitiesDiscontinued[0]", 
-                                                                                        "Type": "xbrl28:formula"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromOperatingActivitiesDiscontinued"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Discontinued Operating Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromOperatingActivitiesDiscontinued[0 USD] = 0 (because fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] = fac:NetCashFlowsFromOperatingActivitiesContinuing[10,542,000,000 USD])", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:NetCashFlowsFromOperatingActivitiesValidation", 
+                                                                    "OutputConcept": "fac:NetCashFlowFromOperatingActivitiesValidation", 
                                                                     "ValidatedConcepts": [
-                                                                        "fac:NetCashFlowsFromOperatingActivities"
+                                                                        "fac:NetCashFlowFromOperatingActivities"
                                                                     ], 
                                                                     "ValidatedFacts": [
                                                                         "e4e47f3d-b31d-442b-a815-bdcfd5f02cc1"
@@ -6005,87 +5465,9 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromOperatingActivities"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:NetCashFlowsFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromInvestingActivities"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:NetCashFlowsFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                                "OutputConcept": "fac:NetCashFlowsFromFinancingActivities"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:NetCashFlowsFromFinancingActivities -> us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents", 
-                                                                                "OutputConcept": "fac:ExchangeGainsLosses"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:ExchangeGainsLosses -> us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:NetCashFlowsValidation", 
+                                                                    "OutputConcept": "fac:NetCashFlowValidation", 
                                                                     "ValidatedConcepts": [
-                                                                        "fac:NetCashFlows"
+                                                                        "fac:NetCashFlow"
                                                                     ], 
                                                                     "ValidatedFacts": [
                                                                         "27bd0a02-7e3b-4886-8737-29e4a1055ee8"
@@ -6139,46 +5521,6 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:NetIncomeLoss"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:NetIncomeLoss", 
-                                                                                "OutputConcept": "fac:NetIncomeAttributableToParent"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:NetIncomeAttributableToParent -> us-gaap:NetIncomeLoss", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest", 
-                                                                                "OutputConcept": "fac:NetIncomeAttributableToNoncontrollingInterest"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:NetIncomeAttributableToNoncontrollingInterest -> us-gaap:NetIncomeLossAttributableToNoncontrollingInterest", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:NetIncomeLoss2Validation", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetIncomeLoss"
@@ -6235,27 +5577,6 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:NetIncomeLoss"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:NetIncomeLoss", 
-                                                                                "OutputConcept": "fac:NetIncomeAttributableToParent"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:NetIncomeAttributableToParent -> us-gaap:NetIncomeLoss", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetIncomeLossAvailableToCommonStockholdersBasic"
@@ -6312,38 +5633,6 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:ProfitLoss"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:ProfitLoss", 
-                                                                                            "OutputConcept": "fac:NetIncomeLoss"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetIncomeLoss -> us-gaap:ProfitLoss", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:IncomeLossFromContinuingOperationsAfterTax"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Income Loss From Continuing Operations After Tax imputation", 
-                                                                            "Message": "fac:IncomeLossFromContinuingOperationsAfterTax[8,626,000,000 USD] = fac:NetIncomeLoss[8,626,000,000 USD] - IncomeLossFromDiscontinuedOperationsNetTax[0] - ExtraordinaryItemsIncomeExpenseNetTax[0]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:NetIncomeLossValidation", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetIncomeLoss"
@@ -6400,27 +5689,6 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:SalesRevenueGoodsNet"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:SalesRevenueGoodsNet", 
-                                                                                "OutputConcept": "fac:Revenues"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:Revenues -> us-gaap:SalesRevenueGoodsNet", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:OperatingIncomeLoss2Validation", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:OperatingIncomeLoss"
@@ -6477,27 +5745,6 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:GrossProfit"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:GrossProfit", 
-                                                                                "OutputConcept": "fac:GrossProfit"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:GrossProfit -> us-gaap:GrossProfit", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:OperatingIncomeLossValidation", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:OperatingIncomeLoss"
