@@ -1446,7 +1446,7 @@ declare %an:sequential function local:test-values() as item*
                                                         }, 
                                                         "AuditTrails": [
                                                             {
-                                                                "Data": {                                                                    
+                                                                "Data": {
                                                                     "OutputConcept": "fac:NetCashFlowFromOperatingActivitiesDiscontinued"
                                                                 }, 
                                                                 "Label": "Default fact value", 
@@ -2100,17 +2100,16 @@ declare %an:sequential function local:test-values() as item*
                                                 "Label": "Income Statement Format", 
                                                 "Name": "fac:IncomeStatementFormat"
                                             }, 
-                                            "fac:IncomeStatementStartPeriod": {
+                                            "fac:IncomeStatementStartPeriodYearToDate": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:IncomeStatementStartPeriod", 
+                                                            "xbrl:Concept": "fac:IncomeStatementStartPeriodYearToDate", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -2118,38 +2117,20 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:CostOfGoodsSold"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:CostOfGoodsSold", 
-                                                                                "OutputConcept": "fac:CostOfRevenue"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:CostOfRevenue -> us-gaap:CostOfGoodsSold", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:IncomeStatementStartPeriod"
+                                                                    "OutputConcept": "fac:IncomeStatementStartPeriodYearToDate"
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "Income Statement Start Period imputation", 
-                                                                "Message": "fac:IncomeStatementStartPeriod[2013-01-01] = facts:duration-for-fact(fac:CostOfRevenue[18,421,000,000 USD]).Start", 
+                                                                "Message": "fac:IncomeStatementStartPeriodYearToDate[2013-01-01] = facts:duration-for-fact(fac:OperatingIncomeLoss[10,228,000,000 USD]).Start", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
-                                                        "Balance": "DEBIT", 
+                                                        "Concept": {
+                                                            "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -2165,7 +2146,7 @@ declare %an:sequential function local:test-values() as item*
                                                 ], 
                                                 "Id": "REMOVED", 
                                                 "Label": "Income Statement Start of Period", 
-                                                "Name": "fac:IncomeStatementStartPeriod"
+                                                "Name": "fac:IncomeStatementStartPeriodYearToDate"
                                             }, 
                                             "fac:NatureOfOperations": {
                                                 "Facts": [], 
@@ -2444,7 +2425,7 @@ declare %an:sequential function local:test-values() as item*
                                                 "Name": "fac:GrossProfit", 
                                                 "Order": 3
                                             }, 
-                                            "fac:IncomeBeforeEquityMethodInvestments": {
+                                            "fac:IncomeLossBeforeEquityMethodInvestments": {
                                                 "Facts": [
                                                     {
                                                         "Aspects": {
@@ -2453,7 +2434,7 @@ declare %an:sequential function local:test-values() as item*
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:IncomeBeforeEquityMethodInvestments", 
+                                                            "xbrl:Concept": "fac:IncomeLossBeforeEquityMethodInvestments", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -2461,11 +2442,11 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "OutputConcept": "fac:IncomeBeforeEquityMethodInvestments"
+                                                                    "OutputConcept": "fac:IncomeLossBeforeEquityMethodInvestments"
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Income Before Equity Method Investments imputation", 
-                                                                "Message": "fac:IncomeBeforeEquityMethodInvestments[10,875,000,000 USD] = fac:IncomeLossFromContinuingOperationsBeforeTax[11,477,000,000 USD] - fac:IncomeLossFromEquityMethodInvestments[602,000,000 USD]", 
+                                                                "Label": "Income (Loss) Before Equity Method Investments", 
+                                                                "Message": "fac:IncomeLossBeforeEquityMethodInvestments[10,875,000,000 USD] = fac:IncomeLossFromContinuingOperationsBeforeTax[11,477,000,000 USD] - fac:IncomeLossFromEquityMethodInvestments[602,000,000 USD]", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
@@ -2490,7 +2471,7 @@ declare %an:sequential function local:test-values() as item*
                                                 ], 
                                                 "Id": "REMOVED", 
                                                 "Label": "Income (Loss) Before Equity Method Investments", 
-                                                "Name": "fac:IncomeBeforeEquityMethodInvestments", 
+                                                "Name": "fac:IncomeLossBeforeEquityMethodInvestments", 
                                                 "Order": 11
                                             }, 
                                             "fac:IncomeLossFromContinuingOperationsAfterTax": {
@@ -2815,118 +2796,6 @@ declare %an:sequential function local:test-values() as item*
                                                 "Name": "fac:InterestAndDebtExpense", 
                                                 "Order": 9
                                             }, 
-                                            "fac:NetIncomeAttributableToNoncontrollingInterest": {
-                                                "Facts": [
-                                                    {
-                                                        "Aspects": {
-                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                                                            "sec:Accepted": "20140227132423", 
-                                                            "sec:Archive": "0000021344-14-000008", 
-                                                            "sec:FiscalPeriod": "FY", 
-                                                            "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetIncomeAttributableToNoncontrollingInterest", 
-                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
-                                                            "xbrl:Unit": "iso4217:USD"
-                                                        }, 
-                                                        "AuditTrails": [
-                                                            {
-                                                                "Data": {
-                                                                    "Dimension": "dei:LegalEntityAxis", 
-                                                                    "Member": "sec:DefaultLegalEntity", 
-                                                                    "OutputConcept": "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest"
-                                                                }, 
-                                                                "Label": "Default dimension value", 
-                                                                "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                "Type": "xbrl28:dimension-default"
-                                                            }, 
-                                                            {
-                                                                "Data": {
-                                                                    "OriginalConcept": "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest", 
-                                                                    "OutputConcept": "fac:NetIncomeAttributableToNoncontrollingInterest"
-                                                                }, 
-                                                                "Label": "Concept map", 
-                                                                "Message": "fac:NetIncomeAttributableToNoncontrollingInterest -> us-gaap:NetIncomeLossAttributableToNoncontrollingInterest", 
-                                                                "Type": "xbrl28:concept-maps"
-                                                            }
-                                                        ], 
-                                                        "Balance": "DEBIT", 
-                                                        "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
-                                                        "KeyAspects": [
-                                                            "xbrl:Concept", 
-                                                            "xbrl:Entity", 
-                                                            "xbrl:Period", 
-                                                            "xbrl:Unit", 
-                                                            "sec:Accepted"
-                                                        ], 
-                                                        "Type": "NumericValue", 
-                                                        "Value": 42000000, 
-                                                        "_id": "REMOVED", 
-                                                        "xbrl28:Type": "xbrl28:concept-maps"
-                                                    }
-                                                ], 
-                                                "Id": "REMOVED", 
-                                                "Label": "Net Income Attributable to Noncontrolling Interest", 
-                                                "Name": "fac:NetIncomeAttributableToNoncontrollingInterest", 
-                                                "Order": 21
-                                            }, 
-                                            "fac:NetIncomeAttributableToParent": {
-                                                "Facts": [
-                                                    {
-                                                        "Aspects": {
-                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                                                            "sec:Accepted": "20140227132423", 
-                                                            "sec:Archive": "0000021344-14-000008", 
-                                                            "sec:FiscalPeriod": "FY", 
-                                                            "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetIncomeAttributableToParent", 
-                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
-                                                            "xbrl:Unit": "iso4217:USD"
-                                                        }, 
-                                                        "AuditTrails": [
-                                                            {
-                                                                "Data": {
-                                                                    "Dimension": "dei:LegalEntityAxis", 
-                                                                    "Member": "sec:DefaultLegalEntity", 
-                                                                    "OutputConcept": "us-gaap:NetIncomeLoss"
-                                                                }, 
-                                                                "Label": "Default dimension value", 
-                                                                "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                "Type": "xbrl28:dimension-default"
-                                                            }, 
-                                                            {
-                                                                "Data": {
-                                                                    "OriginalConcept": "us-gaap:NetIncomeLoss", 
-                                                                    "OutputConcept": "fac:NetIncomeAttributableToParent"
-                                                                }, 
-                                                                "Label": "Concept map", 
-                                                                "Message": "fac:NetIncomeAttributableToParent -> us-gaap:NetIncomeLoss", 
-                                                                "Type": "xbrl28:concept-maps"
-                                                            }
-                                                        ], 
-                                                        "Balance": "CREDIT", 
-                                                        "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
-                                                        "KeyAspects": [
-                                                            "xbrl:Concept", 
-                                                            "xbrl:Entity", 
-                                                            "xbrl:Period", 
-                                                            "xbrl:Unit", 
-                                                            "sec:Accepted"
-                                                        ], 
-                                                        "Type": "NumericValue", 
-                                                        "Value": 8584000000, 
-                                                        "_id": "REMOVED", 
-                                                        "xbrl28:Type": "xbrl28:concept-maps"
-                                                    }
-                                                ], 
-                                                "Id": "REMOVED", 
-                                                "Label": "Net Income Attributable to Parent", 
-                                                "Name": "fac:NetIncomeAttributableToParent", 
-                                                "Order": 20
-                                            }, 
                                             "fac:NetIncomeLoss": {
                                                 "Facts": [
                                                     {
@@ -2962,9 +2831,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -2982,6 +2854,124 @@ declare %an:sequential function local:test-values() as item*
                                                 "Label": "Net Income (Loss)", 
                                                 "Name": "fac:NetIncomeLoss", 
                                                 "Order": 19
+                                            },
+                                            "fac:NetIncomeLossAttributableToNoncontrollingInterest": {
+                                                "Facts": [
+                                                    {
+                                                        "Aspects": {
+                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
+                                                            "sec:Accepted": "20140227132423", 
+                                                            "sec:Archive": "0000021344-14-000008", 
+                                                            "sec:FiscalPeriod": "FY", 
+                                                            "sec:FiscalYear": 2013, 
+                                                            "xbrl:Concept": "fac:NetIncomeLossAttributableToNoncontrollingInterest", 
+                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
+                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
+                                                            "xbrl:Unit": "iso4217:USD"
+                                                        }, 
+                                                        "AuditTrails": [
+                                                            {
+                                                                "Data": {
+                                                                    "Dimension": "dei:LegalEntityAxis", 
+                                                                    "Member": "sec:DefaultLegalEntity", 
+                                                                    "OutputConcept": "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest"
+                                                                }, 
+                                                                "Label": "Default dimension value", 
+                                                                "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
+                                                                "Type": "xbrl28:dimension-default"
+                                                            }, 
+                                                            {
+                                                                "Data": {
+                                                                    "OriginalConcept": "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest", 
+                                                                    "OutputConcept": "fac:NetIncomeLossAttributableToNoncontrollingInterest"
+                                                                }, 
+                                                                "Label": "Concept map", 
+                                                                "Message": "fac:NetIncomeLossAttributableToNoncontrollingInterest -> us-gaap:NetIncomeLossAttributableToNoncontrollingInterest", 
+                                                                "Type": "xbrl28:concept-maps"
+                                                            }
+                                                        ], 
+                                                        "Concept": {
+                                                        "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
+                                                        "Decimals": -6, 
+                                                        "KeyAspects": [
+                                                            "xbrl:Concept", 
+                                                            "xbrl:Entity", 
+                                                            "xbrl:Period", 
+                                                            "xbrl:Unit", 
+                                                            "sec:Accepted"
+                                                        ], 
+                                                        "Type": "NumericValue", 
+                                                        "Value": 42000000, 
+                                                        "_id": "REMOVED", 
+                                                        "xbrl28:Type": "xbrl28:concept-maps"
+                                                    }
+                                                ], 
+                                                "Id": "REMOVED", 
+                                                "Label": "Net Income Attributable to Noncontrolling Interest", 
+                                                "Name": "fac:NetIncomeLossAttributableToNoncontrollingInterest", 
+                                                "Order": 21
+                                            }, 
+                                            "fac:NetIncomeLossAttributableToParent": {
+                                                "Facts": [
+                                                    {
+                                                        "Aspects": {
+                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
+                                                            "sec:Accepted": "20140227132423", 
+                                                            "sec:Archive": "0000021344-14-000008", 
+                                                            "sec:FiscalPeriod": "FY", 
+                                                            "sec:FiscalYear": 2013, 
+                                                            "xbrl:Concept": "fac:NetIncomeLossAttributableToParent", 
+                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
+                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
+                                                            "xbrl:Unit": "iso4217:USD"
+                                                        }, 
+                                                        "AuditTrails": [
+                                                            {
+                                                                "Data": {
+                                                                    "Dimension": "dei:LegalEntityAxis", 
+                                                                    "Member": "sec:DefaultLegalEntity", 
+                                                                    "OutputConcept": "us-gaap:NetIncomeLoss"
+                                                                }, 
+                                                                "Label": "Default dimension value", 
+                                                                "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
+                                                                "Type": "xbrl28:dimension-default"
+                                                            }, 
+                                                            {
+                                                                "Data": {
+                                                                    "OriginalConcept": "us-gaap:NetIncomeLoss", 
+                                                                    "OutputConcept": "fac:NetIncomeLossAttributableToParent"
+                                                                }, 
+                                                                "Label": "Concept map", 
+                                                                "Message": "fac:NetIncomeLossAttributableToParent -> us-gaap:NetIncomeLoss", 
+                                                                "Type": "xbrl28:concept-maps"
+                                                            }
+                                                        ], 
+                                                        "Concept": {
+                                                        "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
+                                                        "Decimals": -6, 
+                                                        "KeyAspects": [
+                                                            "xbrl:Concept", 
+                                                            "xbrl:Entity", 
+                                                            "xbrl:Period", 
+                                                            "xbrl:Unit", 
+                                                            "sec:Accepted"
+                                                        ], 
+                                                        "Type": "NumericValue", 
+                                                        "Value": 8584000000, 
+                                                        "_id": "REMOVED", 
+                                                        "xbrl28:Type": "xbrl28:concept-maps"
+                                                    }
+                                                ], 
+                                                "Id": "REMOVED", 
+                                                "Label": "Net Income Attributable to Parent", 
+                                                "Name": "fac:NetIncomeLossAttributableToParent", 
+                                                "Order": 20
                                             }, 
                                             "fac:NetIncomeLossAvailableToCommonStockholdersBasic": {
                                                 "Facts": [
@@ -4018,7 +4008,7 @@ declare %an:sequential function local:test-values() as item*
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "Validation Statistics: Passed Validations", 
-                                                                "Message": "count(fac:OperatingIncomeLossValidation, fac:OperatingIncomeLoss2Validation)", 
+                                                                "Message": "count(fac:OperatingIncomeLossValidation, fac:OperatingIncomeLossValidation2)", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
@@ -4114,7 +4104,7 @@ declare %an:sequential function local:test-values() as item*
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "Validation Statistics: Passed Validations", 
-                                                                "Message": "count(fac:EquityValidation, fac:AssetsValidation, fac:Assets2Validation, fac:LiabilitiesValidation, fac:LiabilitiesAndEquityValidation, fac:NetCashFlowsValidation, fac:NetCashFlowsContinuingValidation, fac:NetCashFlowsDiscontinuedValidation, fac:NetCashFlowsFromOperatingActivitiesValidation, fac:NetCashFlowsFromInvestingActivitiesValidation, fac:NetCashFlowsFromFinancingActivitiesValidation, fac:GrossProfitValidation, fac:IncomeBeforeEquityMethodInvestmentsValidation, fac:IncomeLossFromContinuingOperationsBeforeTaxValidation, fac:IncomeLossFromContinuingOperationsAfterTaxValidation, fac:NetIncomeLossValidation, fac:NetIncomeLoss2Validation, fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation, fac:ComprehensiveIncomeLossValidation, fac:ComprehensiveIncomeLoss2Validation)", 
+                                                                "Message": "count(fac:AssetsValidation, fac:GrossProfitValidation, fac:ComprehensiveIncomeLossValidation2, fac:ComprehensiveIncomeLossValidation, fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation, fac:NetIncomeLossValidation2, fac:IncomeLossFromContinuingOperationsAfterTaxValidation, fac:IncomeLossFromContinuingOperationsBeforeTaxValidation, fac:IncomeLossBeforeEquityMethodInvestmentsValidation, fac:EquityValidation, fac:NetCashFlowFromFinancingActivitiesValidation, fac:NetCashFlowFromInvestingActivitiesValidation, fac:NetCashFlowFromOperatingActivitiesValidation, fac:LiabilitiesValidation, fac:AssetsValidation2, fac:NetCashFlowDiscontinuedValidation, fac:NetCashFlowContinuingValidation, fac:NetIncomeLossValidation, fac:NetCashFlowValidation, fac:LiabilitiesAndEquityValidation)", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
@@ -4150,92 +4140,6 @@ declare %an:sequential function local:test-values() as item*
                                         "Label": "Fact Validation Rule Results [Hierarchy]", 
                                         "Name": "fac:Validations", 
                                         "To": {
-                                            "fac:Assets2Validation": {
-                                                "Facts": [
-                                                    {
-                                                        "Archive": "0000021344-14-000008", 
-                                                        "Aspects": {
-                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                                                            "sec:Accepted": "20140227132423", 
-                                                            "sec:Archive": "0000021344-14-000008", 
-                                                            "sec:FiscalPeriod": "FY", 
-                                                            "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:Assets2Validation", 
-                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-12-31", 
-                                                            "xbrl:Unit": "iso4217:USD"
-                                                        }, 
-                                                        "AuditTrails": [
-                                                            {
-                                                                "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:LiabilitiesAndStockholdersEquity"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:LiabilitiesAndStockholdersEquity", 
-                                                                                "OutputConcept": "fac:LiabilitiesAndEquity"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:LiabilitiesAndEquity -> us-gaap:LiabilitiesAndStockholdersEquity", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:Assets2Validation", 
-                                                                    "ValidatedConcepts": [
-                                                                        "fac:Assets"
-                                                                    ], 
-                                                                    "ValidatedFacts": [
-                                                                        "ca429bbc-719c-4184-a370-dad32a9c69eb"
-                                                                    ], 
-                                                                    "ValidationPassed": true
-                                                                }, 
-                                                                "Id": "REMOVED", 
-                                                                "Label": "Assets = LiabilitiesAndEquity", 
-                                                                "Message": "fac:Assets[90,055,000,000 USD] = fac:LiabilitiesAndEquity[90,055,000,000 USD]", 
-                                                                "Type": "xbrl28:validation"
-                                                            }
-                                                        ], 
-                                                        "Balance": "DEBIT", 
-                                                        "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
-                                                        "KeyAspects": [
-                                                            "xbrl:Concept", 
-                                                            "xbrl:Entity", 
-                                                            "xbrl:Period", 
-                                                            "xbrl:Unit", 
-                                                            "sec:Accepted"
-                                                        ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
-                                                        "Type": "BooleanValue", 
-                                                        "Value": true, 
-                                                        "_id": "REMOVED", 
-                                                        "xbrl28:Type": "xbrl28:validation"
-                                                    }
-                                                ], 
-                                                "Id": "REMOVED", 
-                                                "Label": "Assets = LiabilitiesAndEquity", 
-                                                "Name": "fac:Assets2Validation"
-                                            }, 
                                             "fac:AssetsValidation": {
                                                 "Facts": [
                                                     {
@@ -4253,175 +4157,63 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:AssetsCurrent"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:AssetsCurrent", 
-                                                                                "OutputConcept": "fac:CurrentAssets"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:CurrentAssets -> us-gaap:AssetsCurrent", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:Assets"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:Assets", 
-                                                                                            "OutputConcept": "fac:Assets"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:Assets -> us-gaap:Assets", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:AssetsCurrent"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:AssetsCurrent", 
-                                                                                            "OutputConcept": "fac:CurrentAssets"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:CurrentAssets -> us-gaap:AssetsCurrent", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NoncurrentAssets"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "NoncurrentAssets imputation", 
-                                                                            "Message": "fac:NoncurrentAssets[58,751,000,000 USD] = fac:Assets[90,055,000,000 USD] - fac:CurrentAssets[31,304,000,000 USD]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:LiabilitiesCurrent"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:LiabilitiesCurrent", 
-                                                                                "OutputConcept": "fac:CurrentLiabilities"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:CurrentLiabilities -> us-gaap:LiabilitiesCurrent", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "AuditTrails": [
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "Dimension": "dei:LegalEntityAxis", 
-                                                                                                        "Member": "sec:DefaultLegalEntity", 
-                                                                                                        "OutputConcept": "us-gaap:LiabilitiesAndStockholdersEquity"
-                                                                                                    }, 
-                                                                                                    "Label": "Default dimension value", 
-                                                                                                    "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                                    "Type": "xbrl28:dimension-default"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "OriginalConcept": "us-gaap:LiabilitiesAndStockholdersEquity", 
-                                                                                                        "OutputConcept": "fac:LiabilitiesAndEquity"
-                                                                                                    }, 
-                                                                                                    "Label": "Concept map", 
-                                                                                                    "Message": "fac:LiabilitiesAndEquity -> us-gaap:LiabilitiesAndStockholdersEquity", 
-                                                                                                    "Type": "xbrl28:concept-maps"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "Dimension": "dei:LegalEntityAxis", 
-                                                                                                        "Member": "sec:DefaultLegalEntity", 
-                                                                                                        "OutputConcept": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
-                                                                                                    }, 
-                                                                                                    "Label": "Default dimension value", 
-                                                                                                    "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                                    "Type": "xbrl28:dimension-default"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "OriginalConcept": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
-                                                                                                        "OutputConcept": "fac:Equity"
-                                                                                                    }, 
-                                                                                                    "Label": "Concept map", 
-                                                                                                    "Message": "fac:Equity -> us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
-                                                                                                    "Type": "xbrl28:concept-maps"
-                                                                                                }
-                                                                                            ], 
-                                                                                            "OutputConcept": "fac:Liabilities"
-                                                                                        }, 
-                                                                                        "Id": "REMOVED", 
-                                                                                        "Label": "Liabilities imputation", 
-                                                                                        "Message": "fac:Liabilities[56,615,000,000 USD] = fac:LiabilitiesAndEquity[90,055,000,000 USD] - (CommitmentsAndContingencies[0] + TemporaryEquity[0] + fac:Equity[33,440,000,000 USD])", 
-                                                                                        "Type": "xbrl28:formula"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:LiabilitiesCurrent"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:LiabilitiesCurrent", 
-                                                                                            "OutputConcept": "fac:CurrentLiabilities"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:CurrentLiabilities -> us-gaap:LiabilitiesCurrent", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NoncurrentLiabilities"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Noncurrent Liabilities imputation", 
-                                                                            "Message": "fac:NoncurrentLiabilities[28,804,000,000 USD] = fac:Liabilities[56,615,000,000 USD] - fac:CurrentLiabilities[27,811,000,000 USD]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:AssetsValidation", 
+                                                                    "ValidatedConcepts": [
+                                                                        "fac:Assets"
+                                                                    ], 
+                                                                    "ValidatedFacts": [
+                                                                        "ca429bbc-719c-4184-a370-dad32a9c69eb"
+                                                                    ], 
+                                                                    "ValidationPassed": true
+                                                                }, 
+                                                                "Id": "REMOVED", 
+                                                                "Label": "[BS2] Assets = LiabilitiesAndEquity", 
+                                                                "Message": "fac:Assets[90,055,000,000 USD] = fac:LiabilitiesAndEquity[90,055,000,000 USD]", 
+                                                                "Type": "xbrl28:validation"
+                                                            }
+                                                        ], 
+                                                        "Concept": {
+                                                        "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
+                                                        "Decimals": -6, 
+                                                        "KeyAspects": [
+                                                            "xbrl:Concept", 
+                                                            "xbrl:Entity", 
+                                                            "xbrl:Period", 
+                                                            "xbrl:Unit", 
+                                                            "sec:Accepted"
+                                                        ], 
+                                                        "Type": "BooleanValue", 
+                                                        "Value": true, 
+                                                        "_id": "REMOVED", 
+                                                        "xbrl28:Type": "xbrl28:validation"
+                                                    }
+                                                ], 
+                                                "Id": "REMOVED", 
+                                                "Label": "[BS2] Assets = LiabilitiesAndEquity", 
+                                                "Name": "fac:AssetsValidation", 
+                                                "Order": 2
+                                            }, 
+                                            "fac:AssetsValidation2": {
+                                                "Facts": [
+                                                    {
+                                                        "Aspects": {
+                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
+                                                            "sec:Accepted": "20140227132423", 
+                                                            "sec:Archive": "0000021344-14-000008", 
+                                                            "sec:FiscalPeriod": "FY", 
+                                                            "sec:FiscalYear": 2013, 
+                                                            "xbrl:Concept": "fac:AssetsValidation2", 
+                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
+                                                            "xbrl:Period": "2013-12-31", 
+                                                            "xbrl:Unit": "iso4217:USD"
+                                                        }, 
+                                                        "AuditTrails": [
+                                                            {
+                                                                "Data": {
+                                                                    "OutputConcept": "fac:AssetsValidation2", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:Assets"
                                                                     ], 
@@ -4456,139 +4248,13 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Assets = CurrentAssets + NoncurrentAssets", 
-                                                "Name": "fac:AssetsValidation"
-                                            }, 
-                                            "fac:ComprehensiveIncomeLoss2Validation": {
-                                                "Facts": [
-                                                    {
-                                                        "Archive": "0000021344-14-000008", 
-                                                        "Aspects": {
-                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                                                            "sec:Accepted": "20140227132423", 
-                                                            "sec:Archive": "0000021344-14-000008", 
-                                                            "sec:FiscalPeriod": "FY", 
-                                                            "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:ComprehensiveIncomeLoss2Validation", 
-                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
-                                                            "xbrl:Unit": "iso4217:USD"
-                                                        }, 
-                                                        "AuditTrails": [
-                                                            {
-                                                                "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:ProfitLoss"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:ProfitLoss", 
-                                                                                "OutputConcept": "fac:NetIncomeLoss"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:NetIncomeLoss -> us-gaap:ProfitLoss", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:ProfitLoss"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:ProfitLoss", 
-                                                                                            "OutputConcept": "fac:NetIncomeLoss"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:NetIncomeLoss -> us-gaap:ProfitLoss", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest", 
-                                                                                            "OutputConcept": "fac:ComprehensiveIncomeLoss"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:ComprehensiveIncomeLoss -> us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:OtherComprehensiveIncomeLoss"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Other Comprehensive Income (Loss) imputation", 
-                                                                            "Message": "fac:OtherComprehensiveIncomeLoss[-50,000,000 USD] = fac:ComprehensiveIncomeLoss[8,576,000,000 USD] - fac:NetIncomeLoss[8,626,000,000 USD]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:ComprehensiveIncomeLoss2Validation", 
-                                                                    "ValidatedConcepts": [
-                                                                        "fac:ComprehensiveIncomeLoss"
-                                                                    ], 
-                                                                    "ValidatedFacts": [
-                                                                        "add069cb-c4a7-458f-9a10-27a832c7d640"
-                                                                    ], 
-                                                                    "ValidationPassed": true
-                                                                }, 
-                                                                "Id": "REMOVED", 
-                                                                "Label": "ComprehensiveIncomeLoss = NetIncomeLoss + OtherComprehensiveIncomeLoss", 
-                                                                "Message": "fac:ComprehensiveIncomeLoss[8,576,000,000 USD] = fac:NetIncomeLoss[8,626,000,000 USD] + fac:OtherComprehensiveIncomeLoss[-50,000,000 USD]", 
-                                                                "Type": "xbrl28:validation"
-                                                            }
-                                                        ], 
-                                                        "Concept": {
-                                                            "Balance": "CREDIT", 
-                                                            "DataType": "xbrli:monetaryItemType", 
-                                                            "PeriodType": "duration"
-                                                        }, 
-                                                        "Decimals": -6, 
-                                                        "KeyAspects": [
-                                                            "xbrl:Concept", 
-                                                            "xbrl:Entity", 
-                                                            "xbrl:Period", 
-                                                            "xbrl:Unit", 
-                                                            "sec:Accepted"
-                                                        ], 
-                                                        "Type": "BooleanValue", 
-                                                        "Value": true, 
-                                                        "_id": "REMOVED", 
-                                                        "xbrl28:Type": "xbrl28:validation"
-                                                    }
-                                                ], 
-                                                "Id": "REMOVED", 
-                                                "Label": "ComprehensiveIncome = NetIncomeLoss + OtherComprehensiveIncome", 
-                                                "Name": "fac:ComprehensiveIncomeLoss2Validation"
+                                                "Label": "[BS3] Assets = CurrentAssets + NoncurrentAssets", 
+                                                "Name": "fac:AssetsValidation2", 
+                                                "Order": 3
                                             }, 
                                             "fac:ComprehensiveIncomeLossValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -4603,46 +4269,6 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:ComprehensiveIncomeNetOfTax"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:ComprehensiveIncomeNetOfTax", 
-                                                                                "OutputConcept": "fac:ComprehensiveIncomeLossAttributableToParent"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:ComprehensiveIncomeLossAttributableToParent -> us-gaap:ComprehensiveIncomeNetOfTax", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:ComprehensiveIncomeNetOfTaxAttributableToNoncontrollingInterest"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:ComprehensiveIncomeNetOfTaxAttributableToNoncontrollingInterest", 
-                                                                                "OutputConcept": "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest -> us-gaap:ComprehensiveIncomeNetOfTaxAttributableToNoncontrollingInterest", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:ComprehensiveIncomeLossValidation", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:ComprehensiveIncomeLoss"
@@ -4653,7 +4279,7 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
+                                                                "Label": "[IS9] ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
                                                                 "Message": "fac:ComprehensiveIncomeLoss[8,576,000,000 USD] = fac:ComprehensiveIncomeLossAttributableToParent[8,537,000,000 USD] + fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest[39,000,000 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
@@ -4678,8 +4304,65 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
-                                                "Name": "fac:ComprehensiveIncomeLossValidation"
+                                                "Label": "[IS9] ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
+                                                "Name": "fac:ComprehensiveIncomeLossValidation", 
+                                                "Order": 14
+                                            }, 
+                                            "fac:ComprehensiveIncomeLossValidation2": {
+                                                "Facts": [
+                                                    {
+                                                        "Aspects": {
+                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
+                                                            "sec:Accepted": "20140227132423", 
+                                                            "sec:Archive": "0000021344-14-000008", 
+                                                            "sec:FiscalPeriod": "FY", 
+                                                            "sec:FiscalYear": 2013, 
+                                                            "xbrl:Concept": "fac:ComprehensiveIncomeLossValidation2", 
+                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
+                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
+                                                            "xbrl:Unit": "iso4217:USD"
+                                                        }, 
+                                                        "AuditTrails": [
+                                                            {
+                                                                "Data": {
+                                                                    "OutputConcept": "fac:ComprehensiveIncomeLossValidation2", 
+                                                                    "ValidatedConcepts": [
+                                                                        "fac:ComprehensiveIncomeLoss"
+                                                                    ], 
+                                                                    "ValidatedFacts": [
+                                                                        "add069cb-c4a7-458f-9a10-27a832c7d640"
+                                                                    ], 
+                                                                    "ValidationPassed": true
+                                                                }, 
+                                                                "Id": "REMOVED", 
+                                                                "Label": "[IS10] ComprehensiveIncomeLoss = NetIncomeLoss + OtherComprehensiveIncomeLoss", 
+                                                                "Message": "fac:ComprehensiveIncomeLoss[8,576,000,000 USD] = fac:NetIncomeLoss[8,626,000,000 USD] + fac:OtherComprehensiveIncomeLoss[-50,000,000 USD]", 
+                                                                "Type": "xbrl28:validation"
+                                                            }
+                                                        ], 
+                                                        "Concept": {
+                                                            "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
+                                                        "Decimals": -6, 
+                                                        "KeyAspects": [
+                                                            "xbrl:Concept", 
+                                                            "xbrl:Entity", 
+                                                            "xbrl:Period", 
+                                                            "xbrl:Unit", 
+                                                            "sec:Accepted"
+                                                        ], 
+                                                        "Type": "BooleanValue", 
+                                                        "Value": true, 
+                                                        "_id": "REMOVED", 
+                                                        "xbrl28:Type": "xbrl28:validation"
+                                                    }
+                                                ], 
+                                                "Id": "REMOVED", 
+                                                "Label": "[IS10] ComprehensiveIncomeLoss = NetIncomeLoss + OtherComprehensiveIncomeLoss", 
+                                                "Name": "fac:ComprehensiveIncomeLossValidation2", 
+                                                "Order": 15
                                             }, 
                                             "fac:EquityValidation": {
                                                 "Facts": [
@@ -4810,109 +4493,9 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:OperatingIncomeLoss"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:OperatingIncomeLoss", 
-                                                                                "OutputConcept": "fac:OperatingIncomeLoss"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:OperatingIncomeLoss -> us-gaap:OperatingIncomeLoss", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "AuditTrails": [
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "Dimension": "dei:LegalEntityAxis", 
-                                                                                                        "Member": "sec:DefaultLegalEntity", 
-                                                                                                        "OutputConcept": "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"
-                                                                                                    }, 
-                                                                                                    "Label": "Default dimension value", 
-                                                                                                    "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                                    "Type": "xbrl28:dimension-default"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "OriginalConcept": "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest", 
-                                                                                                        "OutputConcept": "fac:IncomeLossFromContinuingOperationsBeforeTax"
-                                                                                                    }, 
-                                                                                                    "Label": "Concept map", 
-                                                                                                    "Message": "fac:IncomeLossFromContinuingOperationsBeforeTax -> us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest", 
-                                                                                                    "Type": "xbrl28:concept-maps"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "Dimension": "dei:LegalEntityAxis", 
-                                                                                                        "Member": "sec:DefaultLegalEntity", 
-                                                                                                        "OutputConcept": "us-gaap:OperatingIncomeLoss"
-                                                                                                    }, 
-                                                                                                    "Label": "Default dimension value", 
-                                                                                                    "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                                    "Type": "xbrl28:dimension-default"
-                                                                                                }, 
-                                                                                                {
-                                                                                                    "Data": {
-                                                                                                        "OriginalConcept": "us-gaap:OperatingIncomeLoss", 
-                                                                                                        "OutputConcept": "fac:OperatingIncomeLoss"
-                                                                                                    }, 
-                                                                                                    "Label": "Concept map", 
-                                                                                                    "Message": "fac:OperatingIncomeLoss -> us-gaap:OperatingIncomeLoss", 
-                                                                                                    "Type": "xbrl28:concept-maps"
-                                                                                                }
-                                                                                            ], 
-                                                                                            "OutputConcept": "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments"
-                                                                                        }, 
-                                                                                        "Id": "REMOVED", 
-                                                                                        "Label": "Nonoperating Income Loss + Interest And Debt Expense + Income From Equity Method Investments imputation", 
-                                                                                        "Message": "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments[1,249,000,000 USD] = fac:IncomeLossFromContinuingOperationsBeforeTax[11,477,000,000 USD] - fac:OperatingIncomeLoss[10,228,000,000 USD]", 
-                                                                                        "Type": "xbrl28:formula"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:IncomeLossFromEquityMethodInvestments"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:IncomeLossFromEquityMethodInvestments", 
-                                                                                            "OutputConcept": "fac:IncomeLossFromEquityMethodInvestments"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:IncomeLossFromEquityMethodInvestments -> us-gaap:IncomeLossFromEquityMethodInvestments", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Nonoperating Income Loss Plus Interest And Debt Expense imputation", 
-                                                                            "Message": "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense[647,000,000 USD] = fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments[1,249,000,000 USD] - fac:IncomeLossFromEquityMethodInvestments[602,000,000 USD]", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }
-                                                                    ], 
-                                                                    "OutputConcept": "fac:IncomeBeforeEquityMethodInvestmentsValidation", 
+                                                                    "OutputConcept": "fac:IncomeLossBeforeEquityMethodInvestmentsValidation", 
                                                                     "ValidatedConcepts": [
-                                                                        "fac:IncomeBeforeEquityMethodInvestments"
+                                                                        "fac:IncomeLossBeforeEquityMethodInvestments"
                                                                     ], 
                                                                     "ValidatedFacts": [
                                                                         "ddc8fa8b-e2c3-4f52-a3d7-2369600c0e90"
@@ -5244,7 +4827,7 @@ declare %an:sequential function local:test-values() as item*
                                                         }, 
                                                         "AuditTrails": [
                                                             {
-                                                                "Data": {                                                                    
+                                                                "Data": {
                                                                     "OutputConcept": "fac:NetCashFlowDiscontinuedValidation", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetCashFlowDiscontinued"
@@ -5300,10 +4883,13 @@ declare %an:sequential function local:test-values() as item*
                                                         }, 
                                                         "AuditTrails": [
                                                             {
-                                                                "Data": {                                                                    
+                                                                "Data": {
                                                                     "OutputConcept": "fac:NetCashFlowFromFinancingActivitiesValidation", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetCashFlowFromFinancingActivities"
+                                                                    ], 
+                                                                    "ValidatedFacts": [
+                                                                        "e4e47f3d-b31d-442b-a815-bdcfd5f02cc1"
                                                                     ], 
                                                                     "ValidationPassed": true
                                                                 }, 
@@ -5353,7 +4939,7 @@ declare %an:sequential function local:test-values() as item*
                                                         }, 
                                                         "AuditTrails": [
                                                             {
-                                                                "Data": {                                                                    
+                                                                "Data": {
                                                                     "OutputConcept": "fac:NetCashFlowFromInvestingActivitiesValidation", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetCashFlowFromInvestingActivities"
@@ -5504,7 +5090,7 @@ declare %an:sequential function local:test-values() as item*
                                                 "Name": "fac:NetCashFlowValidation", 
                                                 "Order": 17
                                             }, 
-                                            "fac:NetIncomeLoss2Validation": {
+                                            "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation": {
                                                 "Facts": [
                                                     {
                                                         "Aspects": {
@@ -5513,7 +5099,7 @@ declare %an:sequential function local:test-values() as item*
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetIncomeLoss2Validation", 
+                                                            "xbrl:Concept": "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -5521,9 +5107,9 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "OutputConcept": "fac:NetIncomeLoss2Validation", 
+                                                                    "OutputConcept": "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
                                                                     "ValidatedConcepts": [
-                                                                        "fac:NetIncomeLoss"
+                                                                        "fac:NetIncomeLossAvailableToCommonStockholdersBasic"
                                                                     ], 
                                                                     "ValidatedFacts": [
                                                                         "4973ac72-7e10-4ad6-91e4-8a29d3158acd"
@@ -5569,7 +5155,7 @@ declare %an:sequential function local:test-values() as item*
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
+                                                            "xbrl:Concept": "fac:NetIncomeLossValidation", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -5577,9 +5163,9 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "OutputConcept": "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
+                                                                    "OutputConcept": "fac:NetIncomeLossValidation", 
                                                                     "ValidatedConcepts": [
-                                                                        "fac:NetIncomeLossAvailableToCommonStockholdersBasic"
+                                                                        "fac:NetIncomeLoss"
                                                                     ], 
                                                                     "ValidatedFacts": [
                                                                         "98bebd73-f8e9-4b6b-885c-9d39c6d64a68"
@@ -5633,7 +5219,7 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "OutputConcept": "fac:NetIncomeLossValidation", 
+                                                                    "OutputConcept": "fac:NetIncomeLossValidation2", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetIncomeLoss"
                                                                     ], 
@@ -5672,7 +5258,7 @@ declare %an:sequential function local:test-values() as item*
                                                 "Name": "fac:NetIncomeLossValidation2", 
                                                 "Order": 12
                                             }, 
-                                            "fac:OperatingIncomeLoss2Validation": {
+                                            "fac:OperatingIncomeLossValidation": {
                                                 "Facts": [
                                                     {
                                                         "Aspects": {
@@ -5681,7 +5267,7 @@ declare %an:sequential function local:test-values() as item*
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:OperatingIncomeLoss2Validation", 
+                                                            "xbrl:Concept": "fac:OperatingIncomeLossValidation", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -5689,7 +5275,7 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "OutputConcept": "fac:OperatingIncomeLoss2Validation", 
+                                                                    "OutputConcept": "fac:OperatingIncomeLossValidation", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:OperatingIncomeLoss"
                                                                     ], 
@@ -5728,7 +5314,7 @@ declare %an:sequential function local:test-values() as item*
                                                 "Name": "fac:OperatingIncomeLossValidation", 
                                                 "Order": 7
                                             }, 
-                                            "fac:OperatingIncomeLossValidation": {
+                                            "fac:OperatingIncomeLossValidation2": {
                                                 "Facts": [
                                                     {
                                                         "Aspects": {
@@ -5737,7 +5323,7 @@ declare %an:sequential function local:test-values() as item*
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:OperatingIncomeLossValidation", 
+                                                            "xbrl:Concept": "fac:OperatingIncomeLossValidation2", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -5745,7 +5331,7 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "OutputConcept": "fac:OperatingIncomeLossValidation", 
+                                                                    "OutputConcept": "fac:OperatingIncomeLossValidation2", 
                                                                     "ValidatedConcepts": [
                                                                         "fac:OperatingIncomeLoss"
                                                                     ], 
