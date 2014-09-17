@@ -115,10 +115,15 @@ angular.module('main')
             return;
         }
 
+        var params = { _method: 'POST', aid: $scope.filings, report: 'FundamentalAccountingConcepts', 'token' : $scope.token };
+        if($scope.period !== undefined && $scope.period !== null){
+            angular.extend(params, {'fiscalPeriod': $scope.period });
+        }
+
         $http({
             method: 'GET',
             url: $backend.API_URL + '/_queries/public/FactsForReportSchema.jq',
-            params: { _method: 'POST', aid: $scope.filings, report: 'FundamentalAccountingConcepts', 'token' : $scope.token },
+            params: params,
             cache: true
         })
         .success(function (data) {
