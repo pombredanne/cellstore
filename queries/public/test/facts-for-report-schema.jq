@@ -65,25 +65,27 @@ declare %an:sequential function local:test-values() as item*
                     "fac:FundamentalAccountingConceptsLineItems": {
                         "Facts": [], 
                         "Id": "REMOVED", 
+                        "IsAbstract": true, 
                         "Label": "Fundamental Accounting Concepts [Line Items]", 
                         "Name": "fac:FundamentalAccountingConceptsLineItems", 
                         "To": {
                             "fac:FundamentalAccountingConceptsHierarchy": {
                                 "Facts": [], 
                                 "Id": "REMOVED", 
+                                "IsAbstract": true, 
                                 "Label": "Fundamental Accounting Concepts [Hierarchy]", 
                                 "Name": "fac:FundamentalAccountingConceptsHierarchy", 
                                 "To": {
                                     "fac:BalanceSheetHierarchy": {
                                         "Facts": [], 
                                         "Id": "REMOVED", 
+                                        "IsAbstract": true, 
                                         "Label": "Balance Sheet [Hierarchy]", 
                                         "Name": "fac:BalanceSheetHierarchy", 
                                         "To": {
                                             "fac:Assets": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -116,9 +118,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -126,18 +131,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 90055000000, 
                                                         "_id": "REMOVED", 
@@ -159,7 +152,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:CurrentAssets": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -192,9 +184,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -202,18 +197,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 31304000000, 
                                                         "_id": "REMOVED", 
@@ -228,7 +211,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:CurrentLiabilities": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -261,9 +243,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -271,18 +256,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 27811000000, 
                                                         "_id": "REMOVED", 
@@ -330,9 +303,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -340,18 +316,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 33440000000, 
                                                         "_id": "REMOVED", 
@@ -366,7 +330,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:EquityAttributableToNoncontrollingInterest": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -399,9 +362,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -409,18 +375,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 267000000, 
                                                         "_id": "REMOVED", 
@@ -435,7 +389,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:EquityAttributableToParent": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -468,9 +421,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -478,18 +434,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 33173000000, 
                                                         "_id": "REMOVED", 
@@ -504,7 +448,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:Liabilities": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -519,57 +462,20 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:LiabilitiesAndStockholdersEquity"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:LiabilitiesAndStockholdersEquity", 
-                                                                                "OutputConcept": "fac:LiabilitiesAndEquity"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:LiabilitiesAndEquity -> us-gaap:LiabilitiesAndStockholdersEquity", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
-                                                                                "OutputConcept": "fac:Equity"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:Equity -> us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:Liabilities"
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Liabilities imputation", 
+                                                                "Label": "Liabilities", 
                                                                 "Message": "fac:Liabilities[56,615,000,000 USD] = fac:LiabilitiesAndEquity[90,055,000,000 USD] - (CommitmentsAndContingencies[0] + TemporaryEquity[0] + fac:Equity[33,440,000,000 USD])", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -577,18 +483,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 56615000000, 
                                                         "_id": "REMOVED", 
@@ -603,7 +497,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:LiabilitiesAndEquity": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -636,9 +529,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -646,18 +542,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 90055000000, 
                                                         "_id": "REMOVED", 
@@ -672,7 +556,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:NoncurrentAssets": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -687,57 +570,20 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:Assets"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:Assets", 
-                                                                                "OutputConcept": "fac:Assets"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:Assets -> us-gaap:Assets", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:AssetsCurrent"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:AssetsCurrent", 
-                                                                                "OutputConcept": "fac:CurrentAssets"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:CurrentAssets -> us-gaap:AssetsCurrent", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:NoncurrentAssets"
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "NoncurrentAssets imputation", 
+                                                                "Label": "Noncurrent Assets", 
                                                                 "Message": "fac:NoncurrentAssets[58,751,000,000 USD] = fac:Assets[90,055,000,000 USD] - fac:CurrentAssets[31,304,000,000 USD]", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -745,18 +591,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 58751000000, 
                                                         "_id": "REMOVED", 
@@ -771,7 +605,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:NoncurrentLiabilities": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -786,87 +619,20 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "AuditTrails": [
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:LiabilitiesAndStockholdersEquity"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:LiabilitiesAndStockholdersEquity", 
-                                                                                            "OutputConcept": "fac:LiabilitiesAndEquity"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:LiabilitiesAndEquity -> us-gaap:LiabilitiesAndStockholdersEquity", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "Dimension": "dei:LegalEntityAxis", 
-                                                                                            "Member": "sec:DefaultLegalEntity", 
-                                                                                            "OutputConcept": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
-                                                                                        }, 
-                                                                                        "Label": "Default dimension value", 
-                                                                                        "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                                        "Type": "xbrl28:dimension-default"
-                                                                                    }, 
-                                                                                    {
-                                                                                        "Data": {
-                                                                                            "OriginalConcept": "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
-                                                                                            "OutputConcept": "fac:Equity"
-                                                                                        }, 
-                                                                                        "Label": "Concept map", 
-                                                                                        "Message": "fac:Equity -> us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
-                                                                                        "Type": "xbrl28:concept-maps"
-                                                                                    }
-                                                                                ], 
-                                                                                "OutputConcept": "fac:Liabilities"
-                                                                            }, 
-                                                                            "Id": "REMOVED", 
-                                                                            "Label": "Liabilities imputation", 
-                                                                            "Message": "fac:Liabilities[56,615,000,000 USD] = fac:LiabilitiesAndEquity[90,055,000,000 USD] - (CommitmentsAndContingencies[0] + TemporaryEquity[0] + fac:Equity[33,440,000,000 USD])", 
-                                                                            "Type": "xbrl28:formula"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:LiabilitiesCurrent"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:LiabilitiesCurrent", 
-                                                                                "OutputConcept": "fac:CurrentLiabilities"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:CurrentLiabilities -> us-gaap:LiabilitiesCurrent", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:NoncurrentLiabilities"
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Noncurrent Liabilities imputation", 
+                                                                "Label": "Noncurrent Liabilities", 
                                                                 "Message": "fac:NoncurrentLiabilities[28,804,000,000 USD] = fac:Liabilities[56,615,000,000 USD] - fac:CurrentLiabilities[27,811,000,000 USD]", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -874,18 +640,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 28804000000, 
                                                         "_id": "REMOVED", 
@@ -916,13 +670,13 @@ declare %an:sequential function local:test-values() as item*
                                     "fac:CashFlowStatementHierarchy": {
                                         "Facts": [], 
                                         "Id": "REMOVED", 
+                                        "IsAbstract": true, 
                                         "Label": "Cash Flow Statement [Hierarchy]", 
                                         "Name": "fac:CashFlowStatementHierarchy", 
                                         "To": {
                                             "fac:ExchangeGainsLosses": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -955,9 +709,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -965,18 +722,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": -611000000, 
                                                         "_id": "REMOVED", 
@@ -988,17 +733,16 @@ declare %an:sequential function local:test-values() as item*
                                                 "Name": "fac:ExchangeGainsLosses", 
                                                 "Order": 12
                                             }, 
-                                            "fac:NetCashFlows": {
+                                            "fac:NetCashFlow": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlows", 
+                                                            "xbrl:Concept": "fac:NetCashFlow", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -1017,16 +761,19 @@ declare %an:sequential function local:test-values() as item*
                                                             {
                                                                 "Data": {
                                                                     "OriginalConcept": "us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease", 
-                                                                    "OutputConcept": "fac:NetCashFlows"
+                                                                    "OutputConcept": "fac:NetCashFlow"
                                                                 }, 
                                                                 "Label": "Concept map", 
-                                                                "Message": "fac:NetCashFlows -> us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease", 
+                                                                "Message": "fac:NetCashFlow -> us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease", 
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -1034,18 +781,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 1972000000, 
                                                         "_id": "REMOVED", 
@@ -1053,21 +788,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows", 
-                                                "Name": "fac:NetCashFlows", 
+                                                "Label": "Net Cash Flow", 
+                                                "Name": "fac:NetCashFlow", 
                                                 "Order": 13
                                             }, 
-                                            "fac:NetCashFlowsContinuing": {
+                                            "fac:NetCashFlowContinuing": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsContinuing", 
+                                                            "xbrl:Concept": "fac:NetCashFlowContinuing", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -1185,18 +919,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 2583000000, 
                                                         "_id": "REMOVED", 
@@ -1204,21 +926,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows, Continuing", 
-                                                "Name": "fac:NetCashFlowsContinuing", 
+                                                "Label": "Net Cash Flow, Continuing", 
+                                                "Name": "fac:NetCashFlowContinuing", 
                                                 "Order": 10
                                             }, 
-                                            "fac:NetCashFlowsDiscontinued": {
+                                            "fac:NetCashFlowDiscontinued": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsDiscontinued", 
+                                                            "xbrl:Concept": "fac:NetCashFlowDiscontinued", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -1445,21 +1166,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows, Discontinued", 
-                                                "Name": "fac:NetCashFlowsDiscontinued", 
+                                                "Label": "Net Cash Flow, Discontinued", 
+                                                "Name": "fac:NetCashFlowDiscontinued", 
                                                 "Order": 11
                                             }, 
-                                            "fac:NetCashFlowsFromFinancingActivities": {
+                                            "fac:NetCashFlowFromFinancingActivities": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromFinancingActivities", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromFinancingActivities", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -1478,16 +1198,19 @@ declare %an:sequential function local:test-values() as item*
                                                             {
                                                                 "Data": {
                                                                     "OriginalConcept": "us-gaap:NetCashProvidedByUsedInFinancingActivities", 
-                                                                    "OutputConcept": "fac:NetCashFlowsFromFinancingActivities"
+                                                                    "OutputConcept": "fac:NetCashFlowFromFinancingActivities"
                                                                 }, 
                                                                 "Label": "Concept map", 
-                                                                "Message": "fac:NetCashFlowsFromFinancingActivities -> us-gaap:NetCashProvidedByUsedInFinancingActivities", 
+                                                                "Message": "fac:NetCashFlowFromFinancingActivities -> us-gaap:NetCashProvidedByUsedInFinancingActivities", 
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -1495,18 +1218,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": -3745000000, 
                                                         "_id": "REMOVED", 
@@ -1514,21 +1225,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows from Financing Activities", 
-                                                "Name": "fac:NetCashFlowsFromFinancingActivities", 
+                                                "Label": "Net Cash Flow from Financing Activities", 
+                                                "Name": "fac:NetCashFlowFromFinancingActivities", 
                                                 "Order": 9
                                             }, 
-                                            "fac:NetCashFlowsFromFinancingActivitiesContinuing": {
+                                            "fac:NetCashFlowFromFinancingActivitiesContinuing": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromFinancingActivitiesContinuing", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromFinancingActivitiesContinuing", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -1560,14 +1270,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "OutputConcept": "fac:NetCashFlowsFromFinancingActivitiesContinuing"
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Cash Flow From Continuing Financing Activities imputation", 
-                                                                "Message": "fac:NetCashFlowsFromFinancingActivitiesContinuing[-3,745,000,000 USD] = fac:NetCashFlowsFromFinancingActivities[-3,745,000,000 USD] - NetCashFlowsFromFinancingActivitiesDiscontinued[0]", 
+                                                                "Label": "Net Cash Flow from Financing Activities, Continuing", 
+                                                                "Message": "fac:NetCashFlowFromFinancingActivitiesContinuing[-3,745,000,000 USD] = fac:NetCashFlowFromFinancingActivities[-3,745,000,000 USD] - fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -1575,18 +1288,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": -3745000000, 
                                                         "_id": "REMOVED", 
@@ -1594,21 +1295,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows from Financing Activities, Continuing", 
-                                                "Name": "fac:NetCashFlowsFromFinancingActivitiesContinuing", 
+                                                "Label": "Net Cash Flow from Financing Activities, Continuing", 
+                                                "Name": "fac:NetCashFlowFromFinancingActivitiesContinuing", 
                                                 "Order": 7
                                             }, 
-                                            "fac:NetCashFlowsFromFinancingActivitiesDiscontinued": {
+                                            "fac:NetCashFlowFromFinancingActivitiesDiscontinued": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromFinancingActivitiesDiscontinued", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromFinancingActivitiesDiscontinued", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -1662,8 +1362,8 @@ declare %an:sequential function local:test-values() as item*
                                                                                 "OutputConcept": "fac:NetCashFlowsFromFinancingActivitiesContinuing"
                                                                             }, 
                                                                             "Id": "REMOVED", 
-                                                                            "Label": "Cash Flow From Continuing Financing Activities imputation", 
-                                                                            "Message": "fac:NetCashFlowsFromFinancingActivitiesContinuing[-3,745,000,000 USD] = fac:NetCashFlowsFromFinancingActivities[-3,745,000,000 USD] - NetCashFlowsFromFinancingActivitiesDiscontinued[0]", 
+                                                                "Label": "Net Cash Flow from Financing Activities, Discontinued", 
+                                                                "Message": "fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD] = 0", 
                                                                             "Type": "xbrl28:formula"
                                                                         }
                                                                     ], 
@@ -1685,18 +1385,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 0, 
                                                         "_id": "REMOVED", 
@@ -1704,21 +1392,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows from Financing Activities, Discontinued", 
-                                                "Name": "fac:NetCashFlowsFromFinancingActivitiesDiscontinued", 
+                                                "Label": "Net Cash Flow from Financing Activities, Discontinued", 
+                                                "Name": "fac:NetCashFlowFromFinancingActivitiesDiscontinued", 
                                                 "Order": 8
                                             }, 
-                                            "fac:NetCashFlowsFromInvestingActivities": {
+                                            "fac:NetCashFlowFromInvestingActivities": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromInvestingActivities", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromInvestingActivities", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -1737,16 +1424,19 @@ declare %an:sequential function local:test-values() as item*
                                                             {
                                                                 "Data": {
                                                                     "OriginalConcept": "us-gaap:NetCashProvidedByUsedInInvestingActivities", 
-                                                                    "OutputConcept": "fac:NetCashFlowsFromInvestingActivities"
+                                                                    "OutputConcept": "fac:NetCashFlowFromInvestingActivities"
                                                                 }, 
                                                                 "Label": "Concept map", 
-                                                                "Message": "fac:NetCashFlowsFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
+                                                                "Message": "fac:NetCashFlowFromInvestingActivities -> us-gaap:NetCashProvidedByUsedInInvestingActivities", 
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -1754,18 +1444,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": -4214000000, 
                                                         "_id": "REMOVED", 
@@ -1773,21 +1451,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows from Investing Activities", 
-                                                "Name": "fac:NetCashFlowsFromInvestingActivities", 
+                                                "Label": "Net Cash Flow from Investing Activities", 
+                                                "Name": "fac:NetCashFlowFromInvestingActivities", 
                                                 "Order": 6
                                             }, 
-                                            "fac:NetCashFlowsFromInvestingActivitiesContinuing": {
+                                            "fac:NetCashFlowFromInvestingActivitiesContinuing": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromInvestingActivitiesContinuing", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromInvestingActivitiesContinuing", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -1819,14 +1496,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "OutputConcept": "fac:NetCashFlowsFromInvestingActivitiesContinuing"
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Cash Flow From Continuing Investing Activities imputation", 
-                                                                "Message": "fac:NetCashFlowsFromInvestingActivitiesContinuing[-4,214,000,000 USD] = fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] - NetCashFlowsFromInvestingActivitiesDiscontinued[0]", 
+                                                                "Label": "Net Cash Flow from Investing Activities, Continuing", 
+                                                                "Message": "fac:NetCashFlowFromInvestingActivitiesContinuing[-4,214,000,000 USD] = fac:NetCashFlowFromInvestingActivities[-4,214,000,000 USD] - NetCashFlowFromInvestingActivitiesDiscontinued[0]", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -1834,18 +1514,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": -4214000000, 
                                                         "_id": "REMOVED", 
@@ -1853,21 +1521,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows from Investing Activities, Continuing", 
-                                                "Name": "fac:NetCashFlowsFromInvestingActivitiesContinuing", 
+                                                "Label": "Net Cash Flow from Investing Activities, Continuing", 
+                                                "Name": "fac:NetCashFlowFromInvestingActivitiesContinuing", 
                                                 "Order": 4
                                             }, 
-                                            "fac:NetCashFlowsFromInvestingActivitiesDiscontinued": {
+                                            "fac:NetCashFlowFromInvestingActivitiesDiscontinued": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromInvestingActivitiesDiscontinued", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -1944,40 +1611,27 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 0, 
                                                         "_id": "REMOVED", 
-                                                        "xbrl28:Type": "xbrl28:formula"
+                                                        "xbrl28:Type": "xbrl28:concept-maps"
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows from Investing Activities, Discontinued", 
-                                                "Name": "fac:NetCashFlowsFromInvestingActivitiesDiscontinued", 
+                                                "Label": "Net Cash Flow from Investing Activities, Discontinued", 
+                                                "Name": "fac:NetCashFlowFromInvestingActivitiesDiscontinued", 
                                                 "Order": 5
                                             }, 
-                                            "fac:NetCashFlowsFromOperatingActivities": {
+                                            "fac:NetCashFlowFromOperatingActivities": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromOperatingActivities", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromOperatingActivities", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -1996,16 +1650,18 @@ declare %an:sequential function local:test-values() as item*
                                                             {
                                                                 "Data": {
                                                                     "OriginalConcept": "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-                                                                    "OutputConcept": "fac:NetCashFlowsFromOperatingActivities"
+                                                                    "OutputConcept": "fac:NetCashFlowFromOperatingActivities"
                                                                 }, 
                                                                 "Label": "Concept map", 
-                                                                "Message": "fac:NetCashFlowsFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
+                                                                "Message": "fac:NetCashFlowFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
+                                                        "Concept": {
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -2032,21 +1688,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows from Operating Activities", 
-                                                "Name": "fac:NetCashFlowsFromOperatingActivities", 
+                                                "Label": "Net Cash Flow from Operating Activities", 
+                                                "Name": "fac:NetCashFlowFromOperatingActivities", 
                                                 "Order": 3
                                             }, 
-                                            "fac:NetCashFlowsFromOperatingActivitiesContinuing": {
+                                            "fac:NetCashFlowFromOperatingActivitiesContinuing": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromOperatingActivitiesContinuing", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromOperatingActivitiesContinuing", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -2078,14 +1733,16 @@ declare %an:sequential function local:test-values() as item*
                                                                     "OutputConcept": "fac:NetCashFlowsFromOperatingActivitiesContinuing"
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Cash Flow From Continuing Operating Activities imputation", 
-                                                                "Message": "fac:NetCashFlowsFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] - NetCashFlowsFromOperatingActivitiesDiscontinued[0]", 
+                                                                "Label": "Net Cash Flow from Operating Activities, Continuing", 
+                                                                "Message": "fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] - NetCashFlowFromOperatingActivitiesDiscontinued[0]", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
+                                                        "Concept": {
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -2093,18 +1750,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 10542000000, 
                                                         "_id": "REMOVED", 
@@ -2112,21 +1757,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows from Operating Activities, Continuing", 
-                                                "Name": "fac:NetCashFlowsFromOperatingActivitiesContinuing", 
+                                                "Label": "Net Cash Flow from Operating Activities, Continuing", 
+                                                "Name": "fac:NetCashFlowFromOperatingActivitiesContinuing", 
                                                 "Order": 1
                                             }, 
-                                            "fac:NetCashFlowsFromOperatingActivitiesDiscontinued": {
+                                            "fac:NetCashFlowFromOperatingActivitiesDiscontinued": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromOperatingActivitiesDiscontinued", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -2203,27 +1847,15 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 0, 
                                                         "_id": "REMOVED", 
-                                                        "xbrl28:Type": "xbrl28:formula"
+                                                        "xbrl28:Type": "xbrl28:concept-maps"
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Net Cash Flows from Operating Activities, Discontinued", 
-                                                "Name": "fac:NetCashFlowsFromOperatingActivitiesDiscontinued", 
+                                                "Label": "Net Cash Flow from Operating Activities, Discontinued", 
+                                                "Name": "fac:NetCashFlowFromOperatingActivitiesDiscontinued", 
                                                 "Order": 2
                                             }
                                         }
@@ -2231,13 +1863,13 @@ declare %an:sequential function local:test-values() as item*
                                     "fac:GeneralInformationHierarchy": {
                                         "Facts": [], 
                                         "Id": "REMOVED", 
+                                        "IsAbstract": true, 
                                         "Label": "General Information [Hierarchy]", 
                                         "Name": "fac:GeneralInformationHierarchy", 
                                         "To": {
                                             "fac:BalanceSheetDate": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -2280,26 +1912,16 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "DataType": "xbrli:dateItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
                                                             "xbrl:Period", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "2013-12-31", 
                                                         "_id": "REMOVED", 
@@ -2313,7 +1935,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:BalanceSheetFormat": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -2332,32 +1953,22 @@ declare %an:sequential function local:test-values() as item*
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "Balance Sheet Format imputation", 
-                                                                "Message": "fac:BalanceSheetFormat[Unclassified] = Unclassified (because fac:CurrentAssets[0], fac:NoncurrentAssets[0], fac:NoncurrentLiabilities[0], fac:CurrentLiabilities[0])", 
+                                                                "Message": "fac:BalanceSheetFormat[Classified] = Classified (because fac:CurrentAssets[31,304,000,000 USD], fac:NoncurrentAssets[58,751,000,000 USD], fac:NoncurrentLiabilities[28,804,000,000 USD], fac:CurrentLiabilities[27,811,000,000 USD])", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "DataType": "dei:submissionTypeItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
                                                             "xbrl:Period", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
-                                                        "Value": "Unclassified", 
+                                                        "Value": "Classified", 
                                                         "_id": "REMOVED", 
                                                         "xbrl28:Type": "xbrl28:formula"
                                                     }
@@ -2369,7 +1980,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:DocumentType": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -2412,26 +2022,16 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "DataType": "dei:submissionTypeItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
                                                             "xbrl:Period", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "10-K", 
                                                         "_id": "REMOVED", 
@@ -2445,7 +2045,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:EntityCentralIndexKey": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -2488,26 +2087,16 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "DataType": "dei:centralIndexKeyItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
                                                             "xbrl:Period", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "0000021344", 
                                                         "_id": "REMOVED", 
@@ -2521,7 +2110,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:EntityFilerCategory": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -2564,26 +2152,16 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "DataType": "dei:filerCategoryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
                                                             "xbrl:Period", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "Large Accelerated Filer", 
                                                         "_id": "REMOVED", 
@@ -2597,7 +2175,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:EntityRegistrantName": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -2640,26 +2217,16 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "DataType": "xbrli:normalizedStringItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
                                                             "xbrl:Period", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "COCA COLA CO", 
                                                         "_id": "REMOVED", 
@@ -2673,7 +2240,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:FiscalPeriod": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -2716,26 +2282,16 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "DataType": "dei:fiscalPeriodItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
                                                             "xbrl:Period", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "FY", 
                                                         "_id": "REMOVED", 
@@ -2749,7 +2305,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:FiscalYear": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -2792,26 +2347,16 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "DataType": "xbrli:gYearItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
                                                             "xbrl:Period", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "2013", 
                                                         "_id": "REMOVED", 
@@ -2825,7 +2370,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:FiscalYearEnd": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -2868,26 +2412,16 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
-                                                        "IsInDefaultHypercube": true, 
+                                                        "Concept": {
+                                                            "DataType": "xbrli:gMonthDayItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
                                                             "xbrl:Period", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "--12-31", 
                                                         "_id": "REMOVED", 
@@ -2901,7 +2435,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:IncomeStatementFormat": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -2916,46 +2449,6 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:GrossProfit"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:GrossProfit", 
-                                                                                "OutputConcept": "fac:GrossProfit"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:GrossProfit -> us-gaap:GrossProfit", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:CostOfGoodsSold"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:CostOfGoodsSold", 
-                                                                                "OutputConcept": "fac:CostOfRevenue"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:CostOfRevenue -> us-gaap:CostOfGoodsSold", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:IncomeStatementFormat"
                                                                 }, 
                                                                 "Id": "REMOVED", 
@@ -2964,9 +2457,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -2974,18 +2470,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "Multi-step", 
                                                         "_id": "REMOVED", 
@@ -3084,7 +2568,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:TradingSymbol": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -3099,27 +2582,6 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:Assets"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:Assets", 
-                                                                                "OutputConcept": "fac:Assets"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:Assets -> us-gaap:Assets", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:TradingSymbol"
                                                                 }, 
                                                                 "Id": "REMOVED", 
@@ -3128,9 +2590,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -3138,18 +2603,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NonNumericValue", 
                                                         "Value": "ko", 
                                                         "_id": "REMOVED", 
@@ -3165,13 +2618,13 @@ declare %an:sequential function local:test-values() as item*
                                     "fac:IncomeStatementHierarchy": {
                                         "Facts": [], 
                                         "Id": "REMOVED", 
+                                        "IsAbstract": true, 
                                         "Label": "Income Statement [Hierarchy]", 
                                         "Name": "fac:IncomeStatementHierarchy", 
                                         "To": {
                                             "fac:CostOfRevenue": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -3204,9 +2657,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -3214,18 +2670,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 18421000000, 
                                                         "_id": "REMOVED", 
@@ -3254,7 +2698,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:GrossProfit": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -3287,9 +2730,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -3297,18 +2743,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 28433000000, 
                                                         "_id": "REMOVED", 
@@ -3422,7 +2856,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:IncomeLossFromContinuingOperationsAfterTax": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -3437,38 +2870,20 @@ declare %an:sequential function local:test-values() as item*
                                                         "AuditTrails": [
                                                             {
                                                                 "Data": {
-                                                                    "AuditTrails": [
-                                                                        {
-                                                                            "Data": {
-                                                                                "Dimension": "dei:LegalEntityAxis", 
-                                                                                "Member": "sec:DefaultLegalEntity", 
-                                                                                "OutputConcept": "us-gaap:ProfitLoss"
-                                                                            }, 
-                                                                            "Label": "Default dimension value", 
-                                                                            "Message": "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-                                                                            "Type": "xbrl28:dimension-default"
-                                                                        }, 
-                                                                        {
-                                                                            "Data": {
-                                                                                "OriginalConcept": "us-gaap:ProfitLoss", 
-                                                                                "OutputConcept": "fac:NetIncomeLoss"
-                                                                            }, 
-                                                                            "Label": "Concept map", 
-                                                                            "Message": "fac:NetIncomeLoss -> us-gaap:ProfitLoss", 
-                                                                            "Type": "xbrl28:concept-maps"
-                                                                        }
-                                                                    ], 
                                                                     "OutputConcept": "fac:IncomeLossFromContinuingOperationsAfterTax"
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Income Loss From Continuing Operations After Tax imputation", 
-                                                                "Message": "fac:IncomeLossFromContinuingOperationsAfterTax[8,626,000,000 USD] = fac:NetIncomeLoss[8,626,000,000 USD] - IncomeLossFromDiscontinuedOperationsNetTax[0] - ExtraordinaryItemsIncomeExpenseNetTax[0]", 
+                                                                "Label": "Income (Loss) from Continuing Operations After Tax", 
+                                                                "Message": "fac:IncomeLossFromContinuingOperationsAfterTax[8,626,000,000 USD] = fac:NetIncomeLoss[8,626,000,000 USD] - IncomeLossFromDiscontinuedOperationsNetOfTax[0] - ExtraordinaryItemsOfIncomeExpenseNetOfTax[0]", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -3476,18 +2891,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 8626000000, 
                                                         "_id": "REMOVED", 
@@ -3502,7 +2905,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:IncomeLossFromContinuingOperationsBeforeTax": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -3535,9 +2937,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -3545,18 +2950,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 11477000000, 
                                                         "_id": "REMOVED", 
@@ -3578,7 +2971,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:IncomeLossFromEquityMethodInvestments": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -3611,9 +3003,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -3621,18 +3016,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 602000000, 
                                                         "_id": "REMOVED", 
@@ -3647,7 +3030,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:IncomeTaxExpenseBenefit": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -3680,9 +3062,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -3690,18 +3075,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 2851000000, 
                                                         "_id": "REMOVED", 
@@ -4285,9 +3658,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -4295,18 +3671,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 10228000000, 
                                                         "_id": "REMOVED", 
@@ -4328,7 +3692,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:PreferredStockDividendsAndOtherAdjustments": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -4397,14 +3760,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "OutputConcept": "fac:PreferredStockDividendsAndOtherAdjustments"
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Preferred Stock Dividends And Other Adjustments imputation", 
-                                                                "Message": "fac:PreferredStockDividendsAndOtherAdjustments[0 USD] = fac:NetIncomeAttributableToParent[8,584,000,000 USD] - fac:NetIncomeLossAvailableToCommonStockholdersBasic[8,584,000,000 USD]", 
+                                                                "Label": "Preferred Stock Dividends and Other Adjustments", 
+                                                                "Message": "fac:PreferredStockDividendsAndOtherAdjustments[0 USD] = fac:NetIncomeLossAttributableToParent[8,584,000,000 USD] - fac:NetIncomeLossAvailableToCommonStockholdersBasic[8,584,000,000 USD]", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -4412,18 +3778,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 0, 
                                                         "_id": "REMOVED", 
@@ -4445,7 +3799,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:Revenues": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -4478,9 +3831,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -4488,18 +3844,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 46854000000, 
                                                         "_id": "REMOVED", 
@@ -4516,13 +3860,13 @@ declare %an:sequential function local:test-values() as item*
                                     "fac:KeyRatiosHierarchy": {
                                         "Facts": [], 
                                         "Id": "REMOVED", 
+                                        "IsAbstract": true, 
                                         "Label": "Key Ratios [Hierarchy]", 
                                         "Name": "fac:KeyRatiosHierarchy", 
                                         "To": {
                                             "fac:ReturnOnAssets": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -4531,7 +3875,7 @@ declare %an:sequential function local:test-values() as item*
                                                             "sec:FiscalYear": 2013, 
                                                             "xbrl:Concept": "fac:ReturnOnAssets", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-12-31", 
+                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
                                                         }, 
                                                         "AuditTrails": [
@@ -4621,7 +3965,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:ReturnOnEquity": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -4630,7 +3973,7 @@ declare %an:sequential function local:test-values() as item*
                                                             "sec:FiscalYear": 2013, 
                                                             "xbrl:Concept": "fac:ReturnOnEquity", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-12-31", 
+                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
                                                         }, 
                                                         "AuditTrails": [
@@ -5077,18 +4420,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 0.34762633996937214, 
                                                         "_id": "REMOVED", 
@@ -5105,13 +4436,13 @@ declare %an:sequential function local:test-values() as item*
                                     "fac:StatementComprehensiveIncomeHierarchy": {
                                         "Facts": [], 
                                         "Id": "REMOVED", 
+                                        "IsAbstract": true, 
                                         "Label": "Statement of Comprehensive Income [Hierarchy]", 
                                         "Name": "fac:StatementComprehensiveIncomeHierarchy", 
                                         "To": {
                                             "fac:ComprehensiveIncomeLoss": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -5144,9 +4475,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -5154,18 +4488,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 8576000000, 
                                                         "_id": "REMOVED", 
@@ -5180,7 +4502,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -5213,9 +4534,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -5223,18 +4547,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 39000000, 
                                                         "_id": "REMOVED", 
@@ -5249,7 +4561,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:ComprehensiveIncomeLossAttributableToParent": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -5282,9 +4593,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -5292,18 +4606,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 8537000000, 
                                                         "_id": "REMOVED", 
@@ -5318,7 +4620,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:NetIncomeLoss": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -5351,9 +4652,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:concept-maps"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -5361,18 +4665,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 8626000000, 
                                                         "_id": "REMOVED", 
@@ -5387,7 +4679,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:OtherComprehensiveIncomeLoss": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -5445,14 +4736,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "OutputConcept": "fac:OtherComprehensiveIncomeLoss"
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Other Comprehensive Income (Loss) imputation", 
+                                                                "Label": "Other Comprehensive Income (Loss)", 
                                                                 "Message": "fac:OtherComprehensiveIncomeLoss[-50,000,000 USD] = fac:ComprehensiveIncomeLoss[8,576,000,000 USD] - fac:NetIncomeLoss[8,626,000,000 USD]", 
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -5460,18 +4754,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": -50000000, 
                                                         "_id": "REMOVED", 
@@ -5488,13 +4770,13 @@ declare %an:sequential function local:test-values() as item*
                                     "fac:ValidationStatistics": {
                                         "Facts": [], 
                                         "Id": "REMOVED", 
+                                        "IsAbstract": true, 
                                         "Label": "Validation Rule Statistics [Hierarchy]", 
                                         "Name": "fac:ValidationStatistics", 
                                         "To": {
                                             "fac:FailedValidations": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -5503,7 +4785,7 @@ declare %an:sequential function local:test-values() as item*
                                                             "sec:FiscalYear": 2013, 
                                                             "xbrl:Concept": "fac:FailedValidations", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-12-31", 
+                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "pure"
                                                         }, 
                                                         "AuditTrails": [
@@ -5593,9 +4875,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": 0, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -5603,18 +4888,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 2, 
                                                         "_id": "REMOVED", 
@@ -5628,7 +4901,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:NotApplicableValidations": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -5637,7 +4909,7 @@ declare %an:sequential function local:test-values() as item*
                                                             "sec:FiscalYear": 2013, 
                                                             "xbrl:Concept": "fac:NotApplicableValidations", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-12-31", 
+                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "pure"
                                                         }, 
                                                         "AuditTrails": [
@@ -5651,9 +4923,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": 0, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -5661,18 +4936,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 0, 
                                                         "_id": "REMOVED", 
@@ -5686,7 +4949,6 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:PassedValidations": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -5695,7 +4957,7 @@ declare %an:sequential function local:test-values() as item*
                                                             "sec:FiscalYear": 2013, 
                                                             "xbrl:Concept": "fac:PassedValidations", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-12-31", 
+                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "pure"
                                                         }, 
                                                         "AuditTrails": [
@@ -7579,9 +6841,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:formula"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": 0, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -7589,18 +6854,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "NumericValue", 
                                                         "Value": 20, 
                                                         "_id": "REMOVED", 
@@ -7616,6 +6869,7 @@ declare %an:sequential function local:test-values() as item*
                                     "fac:Validations": {
                                         "Facts": [], 
                                         "Id": "REMOVED", 
+                                        "IsAbstract": true, 
                                         "Label": "Fact Validation Rule Results [Hierarchy]", 
                                         "Name": "fac:Validations", 
                                         "To": {
@@ -7906,9 +7160,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -7916,18 +7173,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -8041,9 +7286,12 @@ declare %an:sequential function local:test-values() as item*
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -8051,18 +7299,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -8246,14 +7482,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
-                                                                "Message": "fac:Equity[33,440,000,000 USD] = ( fac:EquityAttributableToParent[33,173,000,000 USD] + fac:EquityAttributableToNoncontrollingInterest[267,000,000 USD])", 
+                                                                "Label": "[BS1] Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
+                                                                "Message": "fac:Equity[33,440,000,000 USD] = fac:EquityAttributableToParent[33,173,000,000 USD] + fac:EquityAttributableToNoncontrollingInterest[267,000,000 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -8261,18 +7500,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -8280,13 +7507,13 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
-                                                "Name": "fac:EquityValidation"
+                                                "Label": "[BS1] Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
+                                                "Name": "fac:EquityValidation", 
+                                                "Order": 1
                                             }, 
                                             "fac:GrossProfitValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -8351,14 +7578,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "GrossProfit = Revenues - CostOfRevenue", 
-                                                                "Message": "fac:GrossProfit[28,433,000,000 USD] = (fac:Revenues[46,854,000,000 USD] - fac:CostOfRevenue[18,421,000,000 USD])", 
+                                                                "Label": "[IS1] GrossProfit = Revenues - CostOfRevenue", 
+                                                                "Message": "fac:GrossProfit[28,433,000,000 USD] = fac:Revenues[46,854,000,000 USD] - fac:CostOfRevenue[18,421,000,000 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -8366,18 +7596,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -8385,20 +7603,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "GrossProfit = Revenues - CostOfRevenue", 
-                                                "Name": "fac:GrossProfitValidation"
+                                                "Label": "[IS1] GrossProfit = Revenues - CostOfRevenue", 
+                                                "Name": "fac:GrossProfitValidation", 
+                                                "Order": 6
                                             }, 
-                                            "fac:IncomeBeforeEquityMethodInvestmentsValidation": {
+                                            "fac:IncomeLossBeforeEquityMethodInvestmentsValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:IncomeBeforeEquityMethodInvestmentsValidation", 
+                                                            "xbrl:Concept": "fac:IncomeLossBeforeEquityMethodInvestmentsValidation", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -8516,14 +7734,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "IncomeBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
-                                                                "Message": "fac:IncomeBeforeEquityMethodInvestments[10,875,000,000 USD] = fac:OperatingIncomeLoss[10,228,000,000 USD] + fac:NonoperatingIncomeLossPlusInterestAndDebtExpense[647,000,000 USD]", 
+                                                                "Label": "[IS3] IncomeLossBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
+                                                                "Message": "fac:IncomeLossBeforeEquityMethodInvestments[10,875,000,000 USD] = fac:OperatingIncomeLoss[10,228,000,000 USD] + fac:NonoperatingIncomeLossPlusInterestAndDebtExpense[647,000,000 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -8531,18 +7752,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -8550,13 +7759,13 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "IncomeBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
-                                                "Name": "fac:IncomeBeforeEquityMethodInvestmentsValidation"
+                                                "Label": "[IS3] IncomeLossBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
+                                                "Name": "fac:IncomeLossBeforeEquityMethodInvestmentsValidation", 
+                                                "Order": 8
                                             }, 
                                             "fac:IncomeLossFromContinuingOperationsAfterTaxValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -8621,14 +7830,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
-                                                                "Message": "fac:IncomeLossFromContinuingOperationsAfterTax[8,626,000,000 USD] = (fac:IncomeLossFromContinuingOperationsBeforeTax[11,477,000,000 USD] - fac:IncomeTaxExpenseBenefit[2,851,000,000 USD])", 
+                                                                "Label": "[IS5] IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
+                                                                "Message": "fac:IncomeLossFromContinuingOperationsAfterTax[8,626,000,000 USD] = fac:IncomeLossFromContinuingOperationsBeforeTax[11,477,000,000 USD] - fac:IncomeTaxExpenseBenefit[2,851,000,000 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -8636,18 +7848,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -8655,13 +7855,13 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
-                                                "Name": "fac:IncomeLossFromContinuingOperationsAfterTaxValidation"
+                                                "Label": "[IS5] IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
+                                                "Name": "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", 
+                                                "Order": 10
                                             }, 
                                             "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -8756,14 +7956,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "IncomeLossFromContinuingOperationsBeforeTax = IncomeBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
-                                                                "Message": "fac:IncomeLossFromContinuingOperationsBeforeTax[11,477,000,000 USD] = fac:IncomeBeforeEquityMethodInvestments[10,875,000,000 USD] + fac:IncomeLossFromEquityMethodInvestments[602,000,000 USD]", 
+                                                                "Label": "[IS4] IncomeLossFromContinuingOperationsBeforeTax = IncomeLossBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
+                                                                "Message": "fac:IncomeLossFromContinuingOperationsBeforeTax[11,477,000,000 USD] = fac:IncomeLossBeforeEquityMethodInvestments[10,875,000,000 USD] + fac:IncomeLossFromEquityMethodInvestments[602,000,000 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -8771,18 +7974,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -8790,13 +7981,13 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "IncomeLossFromContinuingOperationsBeforeTax = IncomeBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
-                                                "Name": "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation"
+                                                "Label": "[IS4] IncomeLossFromContinuingOperationsBeforeTax = IncomeLossBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
+                                                "Name": "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", 
+                                                "Order": 9
                                             }, 
                                             "fac:LiabilitiesAndEquityValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -8891,14 +8082,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity", 
-                                                                "Message": "fac:LiabilitiesAndEquity[90,055,000,000 USD] = (fac:Liabilities[56,615,000,000 USD] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + fac:Equity[33,440,000,000 USD])", 
+                                                                "Label": "[BS5] LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity", 
+                                                                "Message": "fac:LiabilitiesAndEquity[90,055,000,000 USD] = fac:Liabilities[56,615,000,000 USD] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + fac:Equity[33,440,000,000 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -8906,18 +8100,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -8925,13 +8107,13 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "LiabilitiesAndEquity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
-                                                "Name": "fac:LiabilitiesAndEquityValidation"
+                                                "Label": "[BS5] LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity", 
+                                                "Name": "fac:LiabilitiesAndEquityValidation", 
+                                                "Order": 5
                                             }, 
                                             "fac:LiabilitiesValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -9124,14 +8306,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
-                                                                "Message": "fac:Liabilities[56,615,000,000 USD] = (fac:CurrentLiabilities[27,811,000,000 USD] + fac:NoncurrentLiabilities[28,804,000,000 USD])", 
+                                                                "Label": "[BS4] Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
+                                                                "Message": "fac:Liabilities[56,615,000,000 USD] = fac:CurrentLiabilities[27,811,000,000 USD] + fac:NoncurrentLiabilities[28,804,000,000 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "instant"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -9139,18 +8324,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -9158,20 +8331,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
-                                                "Name": "fac:LiabilitiesValidation"
+                                                "Label": "[BS4] Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
+                                                "Name": "fac:LiabilitiesValidation", 
+                                                "Order": 4
                                             }, 
-                                            "fac:NetCashFlowsContinuingValidation": {
+                                            "fac:NetCashFlowContinuingValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsContinuingValidation", 
+                                                            "xbrl:Concept": "fac:NetCashFlowContinuingValidation", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -9288,7 +8461,6 @@ declare %an:sequential function local:test-values() as item*
                                                         ], 
                                                         "Balance": null, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -9296,18 +8468,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -9315,20 +8475,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "NetCashFlowsContinuing = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesContinuing", 
-                                                "Name": "fac:NetCashFlowsContinuingValidation"
+                                                "Label": "[CF2] NetCashFlowContinuing = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromFinancingActivitiesContinuing", 
+                                                "Name": "fac:NetCashFlowContinuingValidation", 
+                                                "Order": 18
                                             }, 
-                                            "fac:NetCashFlowsDiscontinuedValidation": {
+                                            "fac:NetCashFlowDiscontinuedValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsDiscontinuedValidation", 
+                                                            "xbrl:Concept": "fac:NetCashFlowDiscontinuedValidation", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -9528,14 +8688,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "NetCashFlowsDiscontinued = NetCashFlowsFromOperatingActivitiesDiscontinued + NetCashFlowsFromInvestingActivitiesDiscontinued + NetCashFlowsFromFinancingActivitiesDiscontinued", 
-                                                                "Message": "fac:NetCashFlowsDiscontinued[0 USD] = (fac:NetCashFlowsFromOperatingActivitiesDiscontinued[0 USD] + fac:NetCashFlowsFromInvestingActivitiesDiscontinued[0 USD] + fac:NetCashFlowsFromFinancingActivitiesDiscontinued[0 USD])", 
+                                                                "Label": "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued", 
+                                                                "Message": "fac:NetCashFlowDiscontinued[0 USD] = NetCashFlowFromOperatingActivitiesDiscontinued[0] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
+                                                        "Concept": {
+                                                            "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -9543,18 +8706,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -9562,20 +8713,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "NetCashFlowsDiscontinued = NetCashFlowsFromOperatingActivitiesDiscontinued + NetCashFlowsFromInvestingActivitiesDiscontinued + NetCashFlowsFromFinancingActivitiesDiscontinued", 
-                                                "Name": "fac:NetCashFlowsDiscontinuedValidation"
+                                                "Label": "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued", 
+                                                "Name": "fac:NetCashFlowDiscontinuedValidation", 
+                                                "Order": 19
                                             }, 
-                                            "fac:NetCashFlowsFromFinancingActivitiesValidation": {
+                                            "fac:NetCashFlowFromFinancingActivitiesValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromFinancingActivitiesValidation", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromFinancingActivitiesValidation", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -9685,14 +8836,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "NetCashFlowsFromFinancingActivities = NetCashFlowsFromFinancingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesDiscontinued", 
-                                                                "Message": "fac:NetCashFlowsFromFinancingActivities[-3,745,000,000 USD] = (fac:NetCashFlowsFromFinancingActivitiesContinuing[-3,745,000,000 USD] + fac:NetCashFlowsFromFinancingActivitiesDiscontinued[0 USD])", 
+                                                                "Label": "[CF6] NetCashFlowFromFinancingActivities = NetCashFlowFromFinancingActivitiesContinuing + NetCashFlowFromFinancingActivitiesDiscontinued", 
+                                                                "Message": "fac:NetCashFlowFromFinancingActivities[-3,745,000,000 USD] = fac:NetCashFlowFromFinancingActivitiesContinuing[-3,745,000,000 USD] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -9700,18 +8854,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -9719,20 +8861,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "NetCashFlowsFromFinancingActivities = NetCashFlowsFromFinancingActivitiesContinuing + NetCashFlowsFromFinancingActivitiesDiscontinued", 
-                                                "Name": "fac:NetCashFlowsFromFinancingActivitiesValidation"
+                                                "Label": "[CF6] NetCashFlowFromFinancingActivities = NetCashFlowFromFinancingActivitiesContinuing + NetCashFlowFromFinancingActivitiesDiscontinued", 
+                                                "Name": "fac:NetCashFlowFromFinancingActivitiesValidation", 
+                                                "Order": 22
                                             }, 
-                                            "fac:NetCashFlowsFromInvestingActivitiesValidation": {
+                                            "fac:NetCashFlowFromInvestingActivitiesValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromInvestingActivitiesValidation", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromInvestingActivitiesValidation", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -9842,14 +8984,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "NetCashFlowsFromInvestingActivities = NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesDiscontinued", 
-                                                                "Message": "fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] = (fac:NetCashFlowsFromInvestingActivitiesContinuing[-4,214,000,000 USD] + fac:NetCashFlowsFromInvestingActivitiesDiscontinued[0 USD])", 
+                                                                "Label": "[CF5] NetCashFlowFromInvestingActivities = NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromInvestingActivitiesDiscontinued", 
+                                                                "Message": "fac:NetCashFlowFromInvestingActivities[-4,214,000,000 USD] = fac:NetCashFlowFromInvestingActivitiesContinuing[-4,214,000,000 USD] + NetCashFlowFromInvestingActivitiesDiscontinued[0]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -9857,18 +9002,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -9876,20 +9009,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "NetCashFlowsFromInvestingActivities = NetCashFlowsFromInvestingActivitiesContinuing + NetCashFlowsFromInvestingActivitiesDiscontinued", 
-                                                "Name": "fac:NetCashFlowsFromInvestingActivitiesValidation"
+                                                "Label": "[CF5] NetCashFlowFromInvestingActivities = NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromInvestingActivitiesDiscontinued", 
+                                                "Name": "fac:NetCashFlowFromInvestingActivitiesValidation", 
+                                                "Order": 21
                                             }, 
-                                            "fac:NetCashFlowsFromOperatingActivitiesValidation": {
+                                            "fac:NetCashFlowFromOperatingActivitiesValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsFromOperatingActivitiesValidation", 
+                                                            "xbrl:Concept": "fac:NetCashFlowFromOperatingActivitiesValidation", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -9999,14 +9132,16 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "NetCashFlowsFromOperatingActivities = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromOperatingActivitiesDiscontinued", 
-                                                                "Message": "fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] = (fac:NetCashFlowsFromOperatingActivitiesContinuing[10,542,000,000 USD] + fac:NetCashFlowsFromOperatingActivitiesDiscontinued[0 USD])", 
+                                                                "Label": "[CF4] NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued", 
+                                                                "Message": "fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] + NetCashFlowFromOperatingActivitiesDiscontinued[0]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
-                                                        "Balance": null, 
+                                                        "Concept": {
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -10014,18 +9149,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -10033,20 +9156,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "NetCashFlowsFromOperatingActivities = NetCashFlowsFromOperatingActivitiesContinuing + NetCashFlowsFromOperatingActivitiesDiscontinued", 
-                                                "Name": "fac:NetCashFlowsFromOperatingActivitiesValidation"
+                                                "Label": "[CF4] NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued", 
+                                                "Name": "fac:NetCashFlowFromOperatingActivitiesValidation", 
+                                                "Order": 20
                                             }, 
-                                            "fac:NetCashFlowsValidation": {
+                                            "fac:NetCashFlowValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowsValidation", 
+                                                            "xbrl:Concept": "fac:NetCashFlowValidation", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -10142,14 +9265,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses]", 
-                                                                "Message": "fac:NetCashFlows[1,972,000,000 USD] = (fac:NetCashFlowsFromOperatingActivities[10,542,000,000 USD] + fac:NetCashFlowsFromInvestingActivities[-4,214,000,000 USD] + fac:NetCashFlowsFromFinancingActivities[-3,745,000,000 USD] + fac:ExchangeGainsLosses[-611,000,000 USD])", 
+                                                                "Label": "[CF1] NetCashFlow = NetCashFlowFromOperatingActivities + NetCashFlowFromInvestingActivities + NetCashFlowFromFinancingActivities [+ ExchangeGainsLosses]", 
+                                                                "Message": "fac:NetCashFlow[1,972,000,000 USD] = fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] + fac:NetCashFlowFromInvestingActivities[-4,214,000,000 USD] + fac:NetCashFlowFromFinancingActivities[-3,745,000,000 USD] + fac:ExchangeGainsLosses[-611,000,000 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "DEBIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -10157,18 +9283,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -10176,8 +9290,9 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "NetCashFlows = NetCashFlowsFromOperatingActivities + NetCashFlowsFromInvestingActivities + NetCashFlowsFromFinancingActivities [+ ExchangeGainsLosses]", 
-                                                "Name": "fac:NetCashFlowsValidation"
+                                                "Label": "[CF1] NetCashFlow = NetCashFlowFromOperatingActivities + NetCashFlowFromInvestingActivities + NetCashFlowFromFinancingActivities [+ ExchangeGainsLosses]", 
+                                                "Name": "fac:NetCashFlowValidation", 
+                                                "Order": 17
                                             }, 
                                             "fac:NetIncomeLoss2Validation": {
                                                 "Facts": [
@@ -10247,14 +9362,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "NetIncomeLoss = NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest", 
-                                                                "Message": "fac:NetIncomeLoss[8,626,000,000 USD] = fac:NetIncomeAttributableToParent[8,584,000,000 USD] + fac:NetIncomeAttributableToNoncontrollingInterest[42,000,000 USD]", 
+                                                                "Label": "[IS8] NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeLossAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
+                                                                "Message": "fac:NetIncomeLossAvailableToCommonStockholdersBasic[8,584,000,000 USD] = fac:NetIncomeLossAttributableToParent[8,584,000,000 USD] - fac:PreferredStockDividendsAndOtherAdjustments[0 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -10262,18 +9380,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -10281,13 +9387,13 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "NetIncomeLoss = NetIncomeAttributableToParent + NetIncomeAttributableToNoncontrollingInterest", 
-                                                "Name": "fac:NetIncomeLoss2Validation"
+                                                "Label": "[IS8] NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeLossAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
+                                                "Name": "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
+                                                "Order": 13
                                             }, 
-                                            "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation": {
+                                            "fac:NetIncomeLossValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -10333,14 +9439,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
-                                                                "Message": "fac:NetIncomeLossAvailableToCommonStockholdersBasic[8,584,000,000 USD] = fac:NetIncomeAttributableToParent[8,584,000,000 USD] - PreferredStockDividendsAndOtherAdjustments[0]", 
+                                                                "Label": "[IS6] NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetOfTax + ExtraordinaryItemsOfIncomeExpenseNetOfTax", 
+                                                                "Message": "fac:NetIncomeLoss[8,626,000,000 USD] = fac:IncomeLossFromContinuingOperationsAfterTax[8,626,000,000 USD] + IncomeLossFromDiscontinuedOperationsNetOfTax[0] + ExtraordinaryItemsOfIncomeExpenseNetOfTax[0]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -10348,18 +9457,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -10367,20 +9464,20 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
-                                                "Name": "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation"
+                                                "Label": "[IS6] NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetOfTax + ExtraordinaryItemsOfIncomeExpenseNetOfTax", 
+                                                "Name": "fac:NetIncomeLossValidation", 
+                                                "Order": 11
                                             }, 
-                                            "fac:NetIncomeLossValidation": {
+                                            "fac:NetIncomeLossValidation2": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
                                                             "sec:Archive": "0000021344-14-000008", 
                                                             "sec:FiscalPeriod": "FY", 
                                                             "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetIncomeLossValidation", 
+                                                            "xbrl:Concept": "fac:NetIncomeLossValidation2", 
                                                             "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
                                                             "xbrl:Period": "2013-01-01/2013-12-31", 
                                                             "xbrl:Unit": "iso4217:USD"
@@ -10430,14 +9527,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetTax + ExtraordinaryItemsIncomeExpenseNetTax", 
-                                                                "Message": "fac:NetIncomeLoss[8,626,000,000 USD] = fac:IncomeLossFromContinuingOperationsAfterTax[8,626,000,000 USD] + IncomeLossFromDiscontinuedOperationsNetTax[0] + ExtraordinaryItemsIncomeExpenseNetTax[0]", 
+                                                                "Label": "[IS7] NetIncomeLoss = NetIncomeLossAttributableToParent + NetIncomeLossAttributableToNoncontrollingInterest", 
+                                                                "Message": "fac:NetIncomeLoss[8,626,000,000 USD] = fac:NetIncomeLossAttributableToParent[8,584,000,000 USD] + fac:NetIncomeLossAttributableToNoncontrollingInterest[42,000,000 USD]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -10445,18 +9545,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": true, 
                                                         "_id": "REMOVED", 
@@ -10464,13 +9552,13 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetTax + ExtraordinaryItemsIncomeExpenseNetTax", 
-                                                "Name": "fac:NetIncomeLossValidation"
+                                                "Label": "[IS7] NetIncomeLoss = NetIncomeLossAttributableToParent + NetIncomeLossAttributableToNoncontrollingInterest", 
+                                                "Name": "fac:NetIncomeLossValidation2", 
+                                                "Order": 12
                                             }, 
                                             "fac:OperatingIncomeLoss2Validation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -10516,14 +9604,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": false
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
-                                                                "Message": "fac:OperatingIncomeLoss[10,228,000,000 USD] != (fac:Revenues[46,854,000,000 USD] - CostsAndExpenses[0] + OtherOperatingIncomeExpenses[0])", 
+                                                                "Label": "[IS2] OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
+                                                                "Message": "fac:OperatingIncomeLoss[10,228,000,000 USD] = fac:GrossProfit[28,433,000,000 USD] - OperatingExpenses[0] + OtherOperatingIncomeExpenses[0]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -10531,18 +9622,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": false, 
                                                         "_id": "REMOVED", 
@@ -10550,13 +9629,13 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
-                                                "Name": "fac:OperatingIncomeLoss2Validation"
+                                                "Label": "[IS2] OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
+                                                "Name": "fac:OperatingIncomeLossValidation", 
+                                                "Order": 7
                                             }, 
                                             "fac:OperatingIncomeLossValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Archive": "0000021344-14-000008", 
                                                         "Aspects": {
                                                             "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                                                             "sec:Accepted": "20140227132423", 
@@ -10602,14 +9681,17 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidationPassed": false
                                                                 }, 
                                                                 "Id": "REMOVED", 
-                                                                "Label": "OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
-                                                                "Message": "fac:OperatingIncomeLoss[10,228,000,000 USD] != (fac:GrossProfit[28,433,000,000 USD] - OperatingExpenses[0] + OtherOperatingIncomeExpenses[0])", 
+                                                                "Label": "[IS11] OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
+                                                                "Message": "fac:OperatingIncomeLoss[10,228,000,000 USD] = fac:Revenues[46,854,000,000 USD] - CostsAndExpenses[0] + OtherOperatingIncomeExpenses[0]", 
                                                                 "Type": "xbrl28:validation"
                                                             }
                                                         ], 
+                                                        "Concept": {
                                                         "Balance": "CREDIT", 
+                                                            "DataType": "xbrli:monetaryItemType", 
+                                                            "PeriodType": "duration"
+                                                        }, 
                                                         "Decimals": -6, 
-                                                        "IsInDefaultHypercube": true, 
                                                         "KeyAspects": [
                                                             "xbrl:Concept", 
                                                             "xbrl:Entity", 
@@ -10617,18 +9699,6 @@ declare %an:sequential function local:test-values() as item*
                                                             "xbrl:Unit", 
                                                             "sec:Accepted"
                                                         ], 
-                                                        "Profiles": {
-                                                            "SEC": {
-                                                                "Accepted": "20140227132423", 
-                                                                "DocEndDate": "2013-12-31", 
-                                                                "Fiscal": {
-                                                                    "Period": "FY", 
-                                                                    "Year": 2013
-                                                                }, 
-                                                                "IsExtension": false, 
-                                                                "Name": "SEC"
-                                                            }
-                                                        }, 
                                                         "Type": "BooleanValue", 
                                                         "Value": false, 
                                                         "_id": "REMOVED", 
@@ -10636,8 +9706,9 @@ declare %an:sequential function local:test-values() as item*
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
-                                                "Label": "OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
-                                                "Name": "fac:OperatingIncomeLossValidation"
+                                                "Label": "[IS11] OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
+                                                "Name": "fac:OperatingIncomeLossValidation2", 
+                                                "Order": 16
                                             }
                                         }
                                     }
