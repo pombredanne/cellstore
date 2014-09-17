@@ -94,10 +94,12 @@ angular.module('main')
                                         var indexF = null;
                                         var indexV = null;
                                         var indexD = null;
+                                        var indexZ = null;
+                                        var fact = list[key].Facts[0];
 
-                                        for (var i = 0; i < list[key].Facts[0].AuditTrails.length ; i++)
+                                        for (var i = 0; i < fact.AuditTrails.length ; i++)
                                         {
-                                            switch(list[key].Facts[0].AuditTrails[i].Type) {
+                                            switch(fact.AuditTrails[i].Type) {
                                             case 'xbrl28:concept-maps':
                                                 indexCM = i + 1;
                                                 break;
@@ -110,24 +112,33 @@ angular.module('main')
                                             case 'xbrl28:validation':
                                                 indexV = i + 1;
                                                 break;
+                                            case 'xbrl28:default-fact-value':
+                                                indexZ = i + 1;
+                                                break;
                                             }
                                         }
-                                        var auditItem = list[key].Facts[0].AuditTrails[(indexCM || indexF || indexV || indexD) - 1];
-                                        
-                                        if (auditItem !== undefined) {
-                                            switch(auditItem.Type) {
-                                                case 'xbrl28:concept-maps':
-                                                    item.audit[index] = auditItem.Data.OriginalConcept;
-                                                    break;
-                                                case 'xbrl28:dimension-default':
-                                                    item.audit[index] = auditItem.Data.Dimension;
-                                                    break;
-                                                case 'xbrl28:formula':
-                                                    item.audit[index] = auditItem.Message;
-                                                    break;
-                                                case 'xbrl28:validation':
-                                                    item.audit[index] = auditItem.Message;
-                                                    break;
+
+                                        if((indexCM || indexF || indexV || indexD || indexZ)) {
+                                            var auditItem = fact.AuditTrails[(indexCM || indexF || indexV || indexD || indexZ) - 1];
+
+                                            if (auditItem !== undefined) {
+                                                switch (auditItem.Type) {
+                                                    case 'xbrl28:concept-maps':
+                                                        item.audit[index] = auditItem.Data.OriginalConcept;
+                                                        break;
+                                                    case 'xbrl28:dimension-default':
+                                                        item.audit[index] = auditItem.Data.Dimension;
+                                                        break;
+                                                    case 'xbrl28:formula':
+                                                        item.audit[index] = auditItem.Message;
+                                                        break;
+                                                    case 'xbrl28:validation':
+                                                        item.audit[index] = auditItem.Message;
+                                                        break;
+                                                    case 'xbrl28:default-fact-value':
+                                                        item.audit[index] = auditItem.Label + ': ' + auditItem.Message;
+                                                        break;
+                                                }
                                             }
                                         }
                                     }

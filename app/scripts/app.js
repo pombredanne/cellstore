@@ -706,6 +706,7 @@ angular.module('main', [
                                 _method: 'POST',
                                 aid: aid,
                                 report: 'FundamentalAccountingConcepts',
+                                fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
                                 'token' : $rootScope.token
                             },
                             cache: false
@@ -751,6 +752,7 @@ angular.module('main', [
                                 _method: 'POST',
                                 aid: aid,
                                 report: 'FundamentalAccountingConcepts',
+                                fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
                                 'token' : $rootScope.token
                             },
                             cache: false

@@ -1,7 +1,6 @@
 import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace schema = "http://zorba.io/modules/schema";
 
 declare %an:sequential function local:check($o as object) as object
 {

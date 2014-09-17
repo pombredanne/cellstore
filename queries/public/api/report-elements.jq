@@ -183,7 +183,7 @@ let $fiscalPeriods as string* :=
 
 
 (: Object resolution :)
-let $entities := 
+let $entities as object* := 
     companies:companies(
         $ciks,
         $tags,
@@ -194,7 +194,7 @@ let $archives as object* := fiscal-core:filings(
     $fiscalPeriods,
     $fiscalYears,
     $aids)
-let $entities :=
+let $entities as object* :=
     ($entities[$$._id = $archives.Entity],
     let $not-found := $archives.Entity[not $entities._id = $$]
     where exists($not-found)
@@ -212,43 +212,33 @@ let $concepts := if (exists($names))
                   else if($onlyNames)
                   then local:concepts-for-archives($archives._id, { Name: 1 })
                   else local:concepts-for-archives($archives._id, {})
-let $result := {
-    ReportElements : [
-        if ($onlyNames) 
-        then distinct-values($concepts.Name)
-        else
-            let $all-aids := $concepts.Archive
-            let $roles := $concepts.Role
-            let $components := components:components-for-archives-and-roles($all-aids, $roles)
-            return
-            for $concept in $concepts
-            group by $archive := $concept.Archive,  $role := $concept.Role
-            let $component := $components[$$.Archive eq $archive and $$.Role eq $role]
-            let $default-hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-            let $members := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
-            let $archive := $archives[$$._id eq $archive]
-            let $entity := $entities[$$._id eq $archive.Entity]
-            let $metadata := {|
-                { Origin : $concept.Origin }[exists($concept.Origin)],
-                {
-                    Name: $concept.Name,
-                    ComponentRole : $component.Role,
-                    ComponentLabel : $component.Label,
-                    AccessionNumber : $archive._id,
-                    CIK : $entity._id,
-                    EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
-                    FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
-                    FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
-                }
-            |}
-            for $concept in $concept
-            let $original-name := ($concept.Origin, $concept.Name)[1]
-            return {|
-                trim($members.$original-name, "Name"),
-                $metadata
-            |}
-    ]
-}
+let $result := { ReportElements : [ if ($onlyNames) 
+            then distinct-values($concepts.Name)
+            else for $c in $concepts
+                 group by $component := $c.Component
+                 let $component as object := components:components($component)
+                 let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+                 let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+                 let $archive as object := $archives[$$._id = $c[1].Archive]
+                 let $entity as object := $entities[$$._id = $archive.Entity]
+                 return
+                     for $name in if (exists($c.Origin)) then $c.Origin else $c.Name
+                     return
+                         copy $res := $members.$name
+                         modify (
+                            replace value of json $res.Name with $c.Name,
+                            if (exists($c.Origin))
+                            then insert json { Origin : $c.Origin } into $res
+                            else (),
+                            insert json { ComponentRole : $component.Role } into $res,
+                            insert json { ComponentLabel : $component.Label } into $res,
+                            insert json { AccessionNumber : $archive._id } into $res,
+                            insert json { CIK : $entity._id } into $res,
+                            insert json { EntityRegistrantName : $entity.Profiles.SEC.CompanyName } into $res,
+                            insert json { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus } into $res,
+                            insert json { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus } into $res
+                         )
+                         return $res ] }
 let $comment := {
     NumConcepts: count($concepts),
     TotalNumConcepts: session:num-concepts()

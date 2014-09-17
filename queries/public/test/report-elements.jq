@@ -5,8 +5,16 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 
 declare %an:nondeterministic function local:test-concepts($expected as integer, $params as string) as atomic
 {
-    let $actual as integer := count(parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/report-elements.jq?_method=POST" || $params).body.content).ReportElements[])
-    return if ($actual eq $expected) then true else "false [Actual="||$actual||", Expected="||$expected ||"]"
+    let $elements as item* := parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/report-elements.jq?_method=POST" || $params).body.content).ReportElements[]
+    let $actual as integer := count($elements)
+    let $duplicates := for $element in $elements where $element.CIK instance of array return $element
+    return
+        if (exists($duplicates)) then 
+            "false [CIK " || serialize($duplicates[1].CIK, ()) || " is not unique]"
+        else if ($actual eq $expected) then
+            true
+        else
+            "false [Actual="||$actual||", Expected="||$expected ||"]"
 };
 
 declare %an:sequential function local:check($o as object) as object
