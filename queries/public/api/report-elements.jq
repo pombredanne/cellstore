@@ -240,8 +240,7 @@ let $result := {
             for $concept in $concept
             let $original-name := ($concept.Origin, $concept.Name)[1]
             return {|
-                { Name: $concept.Name },
-                { Origin : $concept.Origin }[exists($concept.Origin)],
+                project($concept, ("Name", "Origin")),
                 trim($members.$original-name, "Name"),
                 $metadata
             |}
