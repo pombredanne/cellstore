@@ -1,7 +1,7 @@
 import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace test = "http://secxbrl.info/modules/test";
+import module namespace schema = "http://zorba.io/modules/schema";
 
 declare %an:sequential function local:check($o as object) as object
 {
@@ -24,6 +24,45 @@ declare %an:sequential function local:get-facs($root as item()) as item()*
     "fac": $key,
     "data": $object($key)
   } 
+};
+
+declare %an:sequential function local:filter($items as item()*, $replace-value-list as xs:string*, $count-list as xs:string*) as item()*
+{
+  for $item in $items
+  return
+  {
+    if ($item instance of object())
+    then
+    {
+      for $key in keys($item)
+      return 
+      {
+        if ($key = $count-list)
+        then 
+            if ($item($key) instance of array())
+            then replace value of json $item($key) with "ARRAY of " || count(members($item($key)));
+            else ();
+        else
+          if ($key = $replace-value-list)
+          then replace value of json $item($key) with "REMOVED";
+          else 
+              if (schema:schema-type($item($key)) eq xs:QName("xs:decimal"))
+              then replace value of json $item($key) with xs:decimal(fn:format-number(xs:decimal($item($key)), "#,##0.0000000000000"));
+              else local:filter($item($key), $replace-value-list, $count-list); 
+      }
+    }
+    else
+    { 
+      if ($item instance of array())
+      then
+      { 
+        for $member in members($item)
+        return local:filter($member, $replace-value-list, $count-list);
+      }
+      else ();
+    }
+  };
+  $items
 };
 
 declare %an:sequential function local:test-values() as item*
@@ -5317,8 +5356,8 @@ declare %an:sequential function local:test-values() as item*
             }
         ];
 
-test:filter($expected, ("Id", "_id", "Order"), ("ValidatedFacts"));
-test:filter($actual, ("Id", "_id", "Order"), ("ValidatedFacts"));
+local:filter($expected, ("Id", "_id", "Order"), ("ValidatedFacts"));
+local:filter($actual, ("Id", "_id", "Order"), ("ValidatedFacts"));
 
 variable $expected-facs := local:get-facs($expected);
 variable $actual-facs := local:get-facs($actual);
