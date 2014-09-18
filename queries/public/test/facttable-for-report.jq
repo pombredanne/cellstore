@@ -47,6 +47,43 @@ declare function local:expected-OtherOperatingIncomeExpenses-ATnT-2013() as obje
     }
 };
 
+declare function local:compare-audit-trails($expected as array?, $actual as array?) as object* {
+    for $exp as object at $pos in $expected[]
+    let $act as object? := $actual[][$pos]
+    return 
+        if (exists($exp.Data.ValidatedFacts))
+        then
+            let $expM := copy $e := $exp modify ( delete json $e.Data.ValidatedFacts ) return $e
+            let $actM := copy $a := $act modify ( delete json $a.Data.ValidatedFacts ) return $a
+            return  (
+                if(deep-equal($expM, $actM))
+                then ()
+                else 
+                    {
+                        type: "unexpected-audittrails-value",
+                        expected: $expM,
+                        actual: $actM
+                    },
+                if(count($exp.Data.ValidatedFacts[]) eq count($act.Data.ValidatedFacts[]))
+                then ()
+                else 
+                    {
+                        type: "number-of-validated-facts-differs",
+                        expected: $exp,
+                        actual: $act
+                    }
+            )
+        else
+            if(deep-equal($exp, $act))
+            then ()
+            else 
+                {
+                    type: "unexpected-audittrails-value",
+                    expected: $exp,
+                    actual: $act
+                }
+};
+
 declare function local:diff-facts($fact-expected as object, $fact-actual as object?) as object* {
     if(empty($fact-actual))
     then
@@ -119,14 +156,7 @@ declare function local:diff-facts($fact-expected as object, $fact-actual as obje
             let $exp-value := $fact-expected.AuditTrails
             let $act-value := $fact-actual.AuditTrails
             return 
-                if(deep-equal($exp-value, $act-value))
-                then ()
-                else 
-                    {
-                        type: "unexpected-audittrails-value",
-                        expected: $exp-value,
-                        actual: $act-value
-                    }
+                local:compare-audit-trails($exp-value, $act-value)
         )
 };
 
@@ -4628,7 +4658,7 @@ declare %an:nondeterministic function local:test-values() as item*
     "TableName": "xbrl:Facts"
 }
   let $diff := local:compare-fact-tables($expected, $actual)
-  return if (empty($diff)) then true else { factTableDiff: [ $diff ], expectedFactTable: $expected, actualFactTable: $actual }
+  return if (empty($diff)) then true else { factTableDiff: [ ({ url : $url },$diff) ], expectedFactTable: $expected, actualFactTable: $actual }
 };
 
 local:check({
