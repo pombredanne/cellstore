@@ -4180,8 +4180,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:Assets"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[BS2] Assets = LiabilitiesAndEquity", 
@@ -4234,8 +4234,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:Assets"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[BS3] Assets = CurrentAssets + NoncurrentAssets", 
@@ -4288,8 +4288,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:ComprehensiveIncomeLoss"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS9] ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
@@ -4342,8 +4342,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:ComprehensiveIncomeLoss"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS10] ComprehensiveIncomeLoss = NetIncomeLoss + OtherComprehensiveIncomeLoss", 
@@ -4396,8 +4396,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:Equity"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[BS1] Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest", 
@@ -4450,8 +4450,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:GrossProfit"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS1] GrossProfit = Revenues - CostOfRevenue", 
@@ -4504,8 +4504,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:IncomeLossBeforeEquityMethodInvestments"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS3] IncomeLossBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense", 
@@ -4558,8 +4558,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:IncomeLossFromContinuingOperationsAfterTax"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS5] IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit", 
@@ -4612,8 +4612,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:IncomeLossFromContinuingOperationsBeforeTax"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS4] IncomeLossFromContinuingOperationsBeforeTax = IncomeLossBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments", 
@@ -4666,8 +4666,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:LiabilitiesAndEquity"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[BS5] LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity", 
@@ -4720,8 +4720,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:Liabilities"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[BS4] Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
@@ -4774,8 +4774,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetCashFlowContinuing"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[CF2] NetCashFlowContinuing = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromFinancingActivitiesContinuing", 
@@ -4827,8 +4827,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetCashFlowDiscontinued"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued", 
@@ -4881,8 +4881,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetCashFlowFromFinancingActivities"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[CF6] NetCashFlowFromFinancingActivities = NetCashFlowFromFinancingActivitiesContinuing + NetCashFlowFromFinancingActivitiesDiscontinued", 
@@ -4935,8 +4935,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetCashFlowFromInvestingActivities"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[CF5] NetCashFlowFromInvestingActivities = NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromInvestingActivitiesDiscontinued", 
@@ -4989,8 +4989,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetCashFlowFromOperatingActivities"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[CF4] NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued", 
@@ -5042,8 +5042,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetCashFlow"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[CF1] NetCashFlow = NetCashFlowFromOperatingActivities + NetCashFlowFromInvestingActivities + NetCashFlowFromFinancingActivities [+ ExchangeGainsLosses]", 
@@ -5096,8 +5096,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetIncomeLossAvailableToCommonStockholdersBasic"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS8] NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeLossAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
@@ -5150,8 +5150,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetIncomeLoss"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS6] NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetOfTax + ExtraordinaryItemsOfIncomeExpenseNetOfTax", 
@@ -5204,8 +5204,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:NetIncomeLoss"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": true
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS7] NetIncomeLoss = NetIncomeLossAttributableToParent + NetIncomeLossAttributableToNoncontrollingInterest", 
@@ -5258,8 +5258,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:OperatingIncomeLoss"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": false
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS2] OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
@@ -5312,8 +5312,8 @@ declare %an:sequential function local:test-values() as item*
                                                                     "ValidatedConcepts": [
                                                                         "fac:OperatingIncomeLoss"
                                                                     ], 
-                                                                    "ValidatedFacts": "ARRAY of 0", 
-                                                                    "ValidationPassed": null
+                                                                    "ValidatedFacts": "ARRAY of 1", 
+                                                                    "ValidationPassed": false
                                                                 }, 
                                                                 "Id": "REMOVED", 
                                                                 "Label": "[IS11] OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses", 
@@ -5396,11 +5396,11 @@ return
 
 if (count(members($errors)) eq 0)
 then true
-else 
+else
 {
     append json { "total-facs": count($expected-facs), "equal-facs": $equal-facs } into $errors; 
     $errors
-} 
+}
     
 };
 

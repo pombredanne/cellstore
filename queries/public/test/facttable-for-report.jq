@@ -106,13 +106,7 @@ declare function local:diff-facts($fact-expected as object, $fact-actual as obje
                         type: "unexpected-fact-field-value",
                         field: $key,
                         expected: $exp-value,
-                        actual: $act-value,
-                        expected-type: schema:schema-type($exp-value),
-                        actual-type: schema:schema-type($act-value),
-                        test: schema:schema-type($exp-value) eq schema:schema-type($act-value) and schema:schema-type($exp-value) eq xs:QName("xs:decimal"),
-                        test2: string($exp-value) eq string($act-value),
-                        expected-string: string($exp-value),
-                        actual-string: string($act-value)
+                        actual: $act-value
                     },
             (: compare aspects :)
             for $key in distinct-values((keys($fact-expected.Aspects), keys($fact-actual.Aspects)))
@@ -231,7 +225,8 @@ declare %an:sequential function local:check($o as object) as object
 
 declare %an:nondeterministic function local:test-values() as item*
 {
-  let $actual := parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-report.jq?_method=POST&ticker=ko&fiscalYear=2013&fiscalPeriod=FY&report=FundamentalAccountingConcepts").body.content)
+  let $url := "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-report.jq?_method=POST&ticker=ko&fiscalYear=2013&fiscalPeriod=FY&report=FundamentalAccountingConcepts"
+  let $actual := parse-json(http-client:get($url).body.content)
   (: To produce meaningfull diffs for the json object below, use http://jsonlint.com/ :)
   let $expected := 
   {
