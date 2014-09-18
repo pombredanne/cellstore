@@ -1,6 +1,7 @@
 import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace schema = "http://zorba.io/modules/schema";
 
 declare %an:sequential function local:check($o as object) as object
 {
@@ -44,7 +45,10 @@ declare %an:sequential function local:filter($items as item()*, $replace-value-l
         else
           if ($key = $replace-value-list)
           then replace value of json $item($key) with "REMOVED";
-          else local:filter($item($key), $replace-value-list, $count-list);
+          else 
+              if (schema:schema-type($item($key)) eq xs:QName("xs:decimal"))
+              then replace value of json $item($key) with xs:decimal(fn:format-number(xs:decimal($item($key)), "#,##0.0000000000000"));
+              else local:filter($item($key), $replace-value-list, $count-list); 
       }
     }
     else
@@ -5352,8 +5356,8 @@ declare %an:sequential function local:test-values() as item*
             }
         ];
 
-local:filter($expected, ("Id", "_id"), ("ValidatedFacts"));
-local:filter($actual, ("Id", "_id"), ("ValidatedFacts"));
+local:filter($expected, ("Id", "_id", "Order"), ("ValidatedFacts"));
+local:filter($actual, ("Id", "_id", "Order"), ("ValidatedFacts"));
 
 variable $expected-facs := local:get-facs($expected);
 variable $actual-facs := local:get-facs($actual);
@@ -5381,7 +5385,7 @@ return
     variable $expected-fac := $expected-facs[$$.fac eq $common-fac];
     variable $actual-fac := $actual-facs[$$.fac eq $common-fac];
     if (not(empty($expected-fac)) and not(empty($actual-fac)) and deep-equal($expected-fac, $actual-fac)) 
-    then $equal-facs := $equal-facs + 1;
+    then $equal-facs := $equal-facs + count($expected-fac);
     else append json
     {
         "different-fac": $common-fac,
@@ -5390,12 +5394,17 @@ return
     } into $errors;
 }
 
-append json { "total-facs": count($expected-facs), "equal-facs": $equal-facs } into $errors; 
-
-(:if (deep-equal($expected, $actual)) then true else { expected: $expected, actual: $actual }:)
-$errors
+if (count(members($errors)) eq 0)
+then true
+else 
+{
+    append json { "total-facs": count($expected-facs), "equal-facs": $equal-facs } into $errors; 
+    $errors
+} 
+    
 };
 
-local:check({
-    values: local:test-values()
-})
+local:check(
+    {
+      "coca-cola": local:test-values()
+    })
