@@ -99,7 +99,7 @@
                         {
                             "title": "Retrieve a specific entity",
                             "description": "Retrieve information about a specific entity identified by its CIK. Return the result as JSON.",
-                            "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&cik=1412090",
+                            "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&cik=21344",
                             "response": ""
                         },
                         {
