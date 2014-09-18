@@ -228,22 +228,19 @@ let $result := {
             let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
             let $archive as object := $archives[$$._id eq $archive]
             let $entity as object := $entities[$$._id eq $archive.Entity]
-            let $metadata := {|
-                { Origin : $concept.Origin }[exists($concept.Origin)],
-                {
-                    Name: $concept.Name,
-                    ComponentRole : $component.Role,
-                    ComponentLabel : $component.Label,
-                    AccessionNumber : $archive._id,
-                    CIK : $entity._id,
-                    EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
-                    FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
-                    FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
-                }
-            |}
+            let $metadata := {
+                ComponentRole : $component.Role,
+                ComponentLabel : $component.Label,
+                AccessionNumber : $archive._id,
+                CIK : $entity._id,
+                EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
+                FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
+                FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
+            }
             for $concept in $concept
             let $original-name := ($concept.Origin, $concept.Name)[1]
             return {|
+                project($concept, ("Name", "Origin")),
                 trim($members.$original-name, "Name"),
                 $metadata
             |}
