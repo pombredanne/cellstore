@@ -184,7 +184,6 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         yeoman: yeomanConfig,
-        api: grunt.file.readJSON('grunt-api.json'),
         watch: {
             recess: {
                 files:  ['<%= yeoman.app %>/styles/{,*/}*.less'],
