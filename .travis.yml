@@ -8,10 +8,8 @@ before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 script:
-- grunt test:setup
-- grunt test:run
-after_script:
-- grunt test:teardown
+# run tests for ci or deploy to prod if on master
+- grunt
 env:
   global:
   - RANDOM_ID=$RANDOM
