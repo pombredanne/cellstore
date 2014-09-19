@@ -175,28 +175,30 @@ angular.module('main')
                                 if((indexCM || indexF || indexV || indexD || indexZ)) {
                                     var auditItem = fact.AuditTrails[(indexCM || indexF || indexV || indexD || indexZ) - 1];
 
-                                    item.auditId = auditItem.Id;
-                                    switch (auditItem.Type) {
-                                    case 'xbrl28:concept-maps':
-                                        item.auditLabel = auditItem.Label;
-                                        item.auditValue = auditItem.Data.OriginalConcept;
-                                        break;
-                                    case 'xbrl28:dimension-default':
-                                        item.auditLabel = auditItem.Label;
-                                        item.auditValue = auditItem.Data.Dimension;
-                                        break;
-                                    case 'xbrl28:formula':
-                                        item.auditLabel = auditItem.Label;
-                                        item.auditValue = auditItem.Message;
-                                        break;
-                                    case 'xbrl28:validation':
-                                        item.auditLabel = auditItem.Label;
-                                        item.auditValue = auditItem.Message;
-                                        break;
-                                    case 'xbrl28:default-fact-value':
-                                        item.auditLabel = auditItem.Label;
-                                        item.auditValue = auditItem.Label + ': ' + auditItem.Message;
-                                        break;
+                                    if (auditItem !== undefined) {
+                                        item.auditId = auditItem.Id;
+                                        switch (auditItem.Type) {
+                                        case 'xbrl28:concept-maps':
+                                            item.auditLabel = auditItem.Label;
+                                            item.auditValue = auditItem.Data.OriginalConcept;
+                                            break;
+                                        case 'xbrl28:dimension-default':
+                                            item.auditLabel = auditItem.Label;
+                                            item.auditValue = auditItem.Data.Dimension;
+                                            break;
+                                        case 'xbrl28:formula':
+                                            item.auditLabel = auditItem.Label;
+                                            item.auditValue = auditItem.Message;
+                                            break;
+                                        case 'xbrl28:validation':
+                                            item.auditLabel = auditItem.Label;
+                                            item.auditValue = auditItem.Message;
+                                            break;
+                                        case 'xbrl28:default-fact-value':
+                                            item.auditLabel = auditItem.Label;
+                                            item.auditValue = auditItem.Label + ': ' + auditItem.Message;
+                                            break;
+                                        }
                                     }
                                 }
                             }

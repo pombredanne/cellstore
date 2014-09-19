@@ -157,14 +157,17 @@ declare function components:components-for-archives-and-concepts(
         } catch mongo:* {
             error(QName("components:CONNECTION-FAILED"), $err:description)
         }
-    let $ids  := mongo:find($conn, "concepts", 
+    let $concepts := mongo:find($conn, "concepts", 
         {| 
             (
                 { "Name" : { "$in" : [ $concepts ] } },
                 { "Archive" : { "$in" : [ $aids ] } }
             )
-        |}).Component
-    return components:components($ids)
+        |})
+    let $roles := $concepts.Role
+    for $component in components:components-for-archives-and-roles($aids, $roles)
+    where (some $concept in $concepts satisfies $concept.Archive eq $component.Archive and $concept.Role eq $component.Role)
+    return $component
 };
 
 (:~

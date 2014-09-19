@@ -2,6 +2,7 @@ import module namespace util = "http://secxbrl.info/modules/util";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
+
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace components = "http://28.io/modules/xbrl/components";
@@ -60,7 +61,7 @@ declare function local:to-xml($concepts as item*, $onlyNames as boolean) as elem
         }</ReportElement>
 };
 
-declare function local:concepts-for-archives($aids as string*) as object*
+declare function local:concepts-for-archives($aids as string*, $projection as object) as object*
 {
     let $conn :=   
       let $credentials := credentials:credentials("MongoDB", "xbrl")
@@ -74,7 +75,9 @@ declare function local:concepts-for-archives($aids as string*) as object*
         mongo:find($conn, "concepts", 
         {
             "Archive": { "$in" : [ $aids ] }
-        })
+        },
+        $projection,
+        {})
 };
 
 declare function local:concepts-for-archives($aids as string*, $names as string*, $map as string?) as object*
@@ -113,7 +116,7 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
         let $c := $c[1]
         let $map-concept := (for $candidate in $concepts-computable-by-maps
                             where $c.Name = (keys($candidate.To), $candidate.To[].Name)
-                            return $candidate)[1] 
+                            return $candidate)[1]
         return
             copy $n := $c
             modify (
@@ -201,38 +204,48 @@ let $map as item* :=
     if(exists($report))
     then reports:concept-map($report)
     else $map
+
 let $concepts := if (exists($names))
                   then local:concepts-for-archives($archives._id, $names, $map)
                   else if (exists($labels))
                   then local:concepts-for-archives-and-labels($archives._id, $labels[1])
-                  else local:concepts-for-archives($archives._id)
-let $result := { ReportElements : [ if ($onlyNames) 
-            then distinct-values($concepts.Name)
-            else for $c in $concepts
-                 group by $component := $c.Component
-                 let $component as object := components:components($component)
-                 let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-                 let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
-                 let $archive as object := $archives[$$._id = $c[1].Archive]
-                 let $entity as object := $entities[$$._id = $archive.Entity]
-                 return
-                     for $name in if (exists($c.Origin)) then $c.Origin else $c.Name
-                     return
-                         copy $res := $members.$name
-                         modify (
-                            replace value of json $res.Name with $c.Name,
-                            if (exists($c.Origin))
-                            then insert json { Origin : $c.Origin } into $res
-                            else (),
-                            insert json { ComponentRole : $component.Role } into $res,
-                            insert json { ComponentLabel : $component.Label } into $res,
-                            insert json { AccessionNumber : $archive._id } into $res,
-                            insert json { CIK : $entity._id } into $res,
-                            insert json { EntityRegistrantName : $entity.Profiles.SEC.CompanyName } into $res,
-                            insert json { FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus } into $res,
-                            insert json { FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus } into $res
-                         )
-                         return $res ] }
+                  else if($onlyNames)
+                  then local:concepts-for-archives($archives._id, { Name: 1 })
+                  else local:concepts-for-archives($archives._id, {})
+let $result := {
+    ReportElements : [
+        if ($onlyNames) 
+        then distinct-values($concepts.Name)
+        else
+            let $all-aids := $concepts.Archive
+            let $roles := $concepts.Role
+            let $components := components:components-for-archives-and-roles($all-aids, $roles)
+            return
+            for $concept in $concepts
+            group by $archive := $concept.Archive,  $role := $concept.Role
+            let $component as object := $components[$$.Archive eq $archive and $$.Role eq $role]
+            let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+            let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+            let $archive as object := $archives[$$._id eq $archive]
+            let $entity as object := $entities[$$._id eq $archive.Entity]
+            let $metadata := {
+                ComponentRole : $component.Role,
+                ComponentLabel : $component.Label,
+                AccessionNumber : $archive._id,
+                CIK : $entity._id,
+                EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
+                FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
+                FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
+            }
+            for $concept in $concept
+            let $original-name := ($concept.Origin, $concept.Name)[1]
+            return {|
+                project($concept, ("Name", "Origin")),
+                trim($members.$original-name, "Name"),
+                $metadata
+            |}
+    ]
+}
 let $comment := {
     NumConcepts: count($concepts),
     TotalNumConcepts: session:num-concepts()

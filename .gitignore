@@ -13,6 +13,7 @@ app/styles/*.css
 *.swp
 *.swo
 grunt-aws.json
+.project
 queries/private/UpdateReportSchema.jq
 config.json
 .c9

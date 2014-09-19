@@ -48,7 +48,7 @@ declare function local:to-xml($model as object) as node()*
                  acceptanceDatetime="{$model.AcceptanceDatetime}"
                  disclosure="{$model.Disclosure}"
                  >{
-            local:to-xml-rec($model.ModelStructure, 0)
+            local:to-xml-rec($model.ModelStructure[], 0)
         }</Network>
     </Component>
 };
