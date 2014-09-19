@@ -18,6 +18,7 @@ angular.module('main', [
     });
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+        throw error;
         var status = error.status || 500;
         var content = error.data || error;
         $rootScope.$emit('error', status, content);
