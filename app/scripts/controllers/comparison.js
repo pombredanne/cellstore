@@ -15,21 +15,21 @@ angular.module('main')
         $scope.selection.cik = [$scope.selection.cik];
     }
     $scope.selection.tag = ($stateParams.tag ? $stateParams.tag : []);
-        if(!_.isArray($scope.selection.tag)) {
-            $scope.selection.tag = [$scope.selection.tag];
-        }
+    if(!_.isArray($scope.selection.tag)) {
+        $scope.selection.tag = [$scope.selection.tag];
+    }
     $scope.selection.fiscalYear = ($stateParams.fiscalYear ? $stateParams.fiscalYear : []);
-        if(!_.isArray($scope.selection.fiscalYear)) {
-            $scope.selection.fiscalYear = [$scope.selection.fiscalYear];
-        }
+    if(!_.isArray($scope.selection.fiscalYear)) {
+        $scope.selection.fiscalYear = [$scope.selection.fiscalYear];
+    }
     $scope.selection.fiscalPeriod = ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []);
-        if(!_.isArray($scope.selection.fiscalPeriod)) {
-            $scope.selection.fiscalPeriod = [$scope.selection.fiscalPeriod];
-        }
+    if(!_.isArray($scope.selection.fiscalPeriod)) {
+        $scope.selection.fiscalPeriod = [$scope.selection.fiscalPeriod];
+    }
     $scope.selection.sic = ($stateParams.sic ? $stateParams.sic : []);
-        if(!_.isArray($scope.selection.sic)) {
-            $scope.selection.sic = [$scope.selection.sic];
-        }
+    if(!_.isArray($scope.selection.sic)) {
+        $scope.selection.sic = [$scope.selection.sic];
+    }
 
     $scope.reset = function() {
         $scope.selection.cik = [];
