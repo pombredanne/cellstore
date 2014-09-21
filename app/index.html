@@ -15,12 +15,13 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link href="/apple-touch-icon.png" rel="apple-touch-icon">
     <link href="/favicon.ico" rel="icon">
-    <!-- build:css({.tmp,app}) styles/main.css -->
+    <!-- build:css({.tmp,app}) /styles/main.css -->
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="/bower_components/animate.css/animate.css">
     <link rel="stylesheet" href="/styles/index.css">
     <!-- endbuild -->
     <script src="https://js.recurly.com/v3/recurly.js"></script>
+    <base href="/">
 </head>
 
 <body class="ng-cloak">
@@ -30,7 +31,7 @@
     <div ui-view></div>
 
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- build:js({.tmp,app}) /scripts/scripts.js -->
     <script src="/bower_components/lodash/dist/lodash.js"></script>
     <script src="/bower_components/accounting/accounting.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
