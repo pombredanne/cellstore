@@ -11,48 +11,35 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace util = "http://secxbrl.info/modules/util";
 
+(: Query parameters :)
+declare  %rest:case-insensitive                 variable $format             as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $cik                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $ticker             as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $sic                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
+declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
+declare  %rest:case-insensitive                 variable $eliminate          as boolean external := false;
+declare  %rest:case-insensitive                 variable $report             as string? external;
+
 session:audit-call();
 
-(: Query parameters :)
-let $format as string?        := request:param-values("format")
-let $ciks as string*          := distinct-values(request:param-values("cik"))
-let $tags as string*          := distinct-values(request:param-values("tag"))
-let $tickers as string*       := distinct-values(request:param-values("ticker"))
-let $sics as string*          := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear"))
-let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod"))
-let $aids as string*          := distinct-values(request:param-values("aid"))
-let $validate as string       := request:param-values("validate", "false")
-let $eliminate as string      := request:param-values("eliminate", "false")
-let $report as string?        := request:param-values("report")
-
 (: Post-processing :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
-let $tags as string* := (: backwards compatibility, to be deprecated :)
-    distinct-values($tags ! upper-case($$))
-let $fiscalYears as integer* :=
-    for $fy in $fiscalYears ! upper-case($$)
-    return switch($fy)
-           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
-           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
-           default return if($fy castable as integer) then integer($fy) else ()
-let $fiscalPeriods as string* :=
-    for $fp in $fiscalPeriods ! upper-case($$)
-    return switch($fp)
-           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
-           default return $fp
-let $validate as boolean := $validate = "true"
-let $eliminate as boolean := $eliminate = "true"
+let $format as string? := util:preprocess-format($format)
+let $fiscalYear as integer* := util:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := util:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := util:preprocess-tags($tag)
 
 (: Object resolution :)
 let $entities := 
     for $entity in 
         companies:companies(
-            $ciks,
-            $tags,
-            $tickers,
-            $sics)
+            $cik,
+            $tag,
+            $ticker,
+            $sic)
     order by $entity.Profiles.SEC.CompanyName
     return $entity
 let $report as object? := reports:reports($report)
@@ -60,9 +47,9 @@ let $report as object? := reports:reports($report)
 (: Fact resolution :)
 let $filter-override as object? := fiscal-core:filter-override(
     $entities,
-    $fiscalYears,
+    $fiscalYear,
     $fiscalPeriods,
-    $aids)
+    $aid)
 
 (: Fact resolution :)
 let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")

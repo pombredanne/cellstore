@@ -148,52 +148,40 @@ declare function local:concepts-for-archives-and-labels($aids as string*, $label
         }).results[].obj
 }; 
 
+(: Query parameters :)
+declare  %rest:case-insensitive                 variable $format             as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $cik                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $ticker             as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $sic                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external := "LATEST";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
+declare  %rest:case-insensitive                 variable $label              as string* external;
+declare  %rest:case-insensitive                 variable $map                as string? external;
+declare  %rest:case-insensitive                 variable $report             as string? external;
+declare  %rest:case-insensitive                 variable $name               as string* external;
+
 session:audit-call();
 
-(: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $ciks as string*           := distinct-values(request:param-values("cik"))
-let $tags as string*           := distinct-values(request:param-values("tag"))
-let $tickers as string*        := distinct-values(request:param-values("ticker"))
-let $sics as string*           := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
-let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
-let $aids as string*           := distinct-values(request:param-values("aid"))
-let $labels as string*         := request:param-values("label")
-let $map as string?            := request:param-values("map")
-let $report as string?         := request:param-values("report")
-let $names as string*          := request:param-values("name")
-
 (: Post-processing :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
-let $tags as string* := (: backwards compatibility, to be deprecated :)
-    distinct-values($tags ! upper-case($$))
-let $fiscalYears as integer* :=
-    for $fy in $fiscalYears ! upper-case($$)
-    return switch($fy)
-           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
-           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
-           default return if($fy castable as integer) then integer($fy) else ()
-let $fiscalPeriods as string* :=
-    for $fp in $fiscalPeriods ! upper-case($$)
-    return switch($fp)
-           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
-           default return $fp
-
+let $format as string? := util:preprocess-format($format)
+let $fiscalYear as integer* := util:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := util:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := util:preprocess-tags($tag)
 
 (: Object resolution :)
 let $entities as object* := 
     companies:companies(
-        $ciks,
-        $tags,
-        $tickers,
-        $sics)
+        $cik,
+        $tag,
+        $ticker,
+        $sic)
 let $archives as object* := fiscal-core:filings(
     $entities,
-    $fiscalPeriods,
-    $fiscalYears,
-    $aids)
+    $fiscalPeriod,
+    $fiscalYear,
+    $aid)
 let $entities as object* :=
     ($entities[$$._id = $archives.Entity],
     let $not-found := $archives.Entity[not $entities._id = $$]
@@ -205,13 +193,13 @@ let $map as item* :=
     then reports:concept-map($report)
     else $map
 
-let $concepts := if (exists($names))
-                  then local:concepts-for-archives($archives._id, $names, $map)
-                  else if (exists($labels))
-                  then local:concepts-for-archives-and-labels($archives._id, $labels[1])
-                  else if($onlyNames)
-                  then local:concepts-for-archives($archives._id, { Name: 1 })
-                  else local:concepts-for-archives($archives._id, {})
+let $concepts := if (exists($name))
+                 then local:concepts-for-archives($archives._id, $name, $map)
+                 else if (exists($label))
+                      then local:concepts-for-archives-and-labels($archives._id, $label[1])
+                      else if($onlyNames)
+                           then local:concepts-for-archives($archives._id, { Name: 1 })
+                           else local:concepts-for-archives($archives._id, {})
 let $result := {
     ReportElements : [
         if ($onlyNames) 

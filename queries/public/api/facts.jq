@@ -100,64 +100,52 @@ declare function local:hypercube(
     return hypercubes:user-defined-hypercube($main-hypercube-spec)
 };
 
+(: Query parameters :)
+declare  %rest:case-insensitive                 variable $format             as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $cik                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $ticker             as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $sic                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external := "LATEST";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
+declare  %rest:case-insensitive                 variable $map                as string? external;
+declare  %rest:case-insensitive                 variable $rule               as string? external;
+declare  %rest:case-insensitive                 variable $report             as string? external;
+declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
+
 session:audit-call();
 
-(: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $ciks as string*           := distinct-values(request:param-values("cik"))
-let $tags as string*           := distinct-values(request:param-values("tag"))
-let $tickers as string*        := distinct-values(request:param-values("ticker"))
-let $sics as string*           := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
-let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
-let $aids as string*           := distinct-values(request:param-values("aid"))
-let $map as string?            := request:param-values("map") (: Backwards compatibility :)
-let $rules as string?          := request:param-values("rule") (: Backwards compatibility :)
-let $report as string?         := request:param-values("report")
-let $validate as string        := request:param-values("validate", "false")
-
 (: Post-processing :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
-let $tags as string* := (: backwards compatibility, to be deprecated :)
-    distinct-values($tags ! upper-case($$))
-let $fiscalYears as integer* :=
-    for $fy in $fiscalYears ! upper-case($$)
-    return switch($fy)
-           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
-           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
-           default return if($fy castable as integer) then integer($fy) else ()
-let $fiscalPeriods as string* :=
-    for $fp in $fiscalPeriods ! upper-case($$)
-    return switch($fp)
-           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
-           default return $fp
-let $validate as boolean := $validate = "true"
+let $format as string? := util:preprocess-format($format)
+let $fiscalYear as integer* := util:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := util:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := util:preprocess-tags($tag)
 
 (: Object resolution :)
 let $entities as object* := 
     companies:companies(
-        $ciks,
-        $tags,
-        $tickers,
-        $sics)
+        $cik,
+        $tag,
+        $ticker,
+        $sic)
 let $archives as object* := fiscal-core:filings(
     $entities,
-    $fiscalPeriods,
-    $fiscalYears,
-    $aids)
+    $fiscalPeriod,
+    $fiscalYear,
+    $aid)
 let $entities := entities:entities($archives.Entity)
 let $report as object? := reports:reports($report)
 let $map as item* :=
     if(exists($report))
     then reports:concept-map($report)
     else $map
-let $rules as item* :=
+let $rule as item* :=
     if(exists($report))
     then reports:rules($report)
-    else $rules
+    else $rule
 
-let $hypercube := local:hypercube($entities, $fiscalPeriods, $fiscalYears, $aids)
+let $hypercube := local:hypercube($entities, $fiscalPeriod, $fiscalYear, $aid)
 
 let $facts :=
     if(empty($archives))
@@ -170,7 +158,7 @@ let $facts :=
                     Validate: $validate
                 },
                 { "ConceptMaps" : $map }[exists($map)],
-                { "Rules" : [ $rules ] }[exists($rules)]
+                { "Rules" : [ $rule ] }[exists($rule)]
             |}
         )
         return {|
@@ -205,7 +193,7 @@ let $serializers := {
 }
 
 return 
-    if(empty($archives) and (not(empty($aids)) or not(empty($ciks))))
+    if(empty($archives) and (not(empty($aid)) or not(empty($cik))))
     then {
         response:status-code(404);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)

@@ -62,36 +62,34 @@ declare function local:to-xml($o as object*) as node()*
             }</Fact>
     }</FactTable>)
 };
+
+declare  %rest:case-insensitive                 variable $format             as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external := "ALL";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $concept            as string  external := "us-gaap:Assets";
+declare  %rest:case-insensitive                 variable $map                as string? external;
+declare  %rest:case-insensitive                 variable $tag                as string* external;
+declare  %rest:case-insensitive                 variable $debug              as boolean external := false;
+
+session:audit-call();
+
+(: Post-processing :)
+let $format as string? := util:preprocess-format($format)
+let $fiscalYear as integer* := util:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := util:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := util:preprocess-tags($tag)
  
-session:audit-call(); 
- 
-let $format  := lower-case(request:param-values("format")[1])
-let $periods := let $period := upper-case(request:param-values("fiscalPeriod", "FY"))
-                return 
-                    if ($period = ("Q1", "Q2", "Q3", "FY", "ALL"))
-                    then distinct-values($period)
-                    else error(xs:QName("local:INVALID-PERIOD"),
-                               $period || ": fiscalPeriod value must be one of Q1, Q2, Q3, FY")
-let $years   := let $years := request:param-values("fiscalYear", "ALL")
-                return
-                    if ($years = "ALL")
-                    then $sec-fiscal:ALL_FISCAL_YEARS
-                    else $years ! $$ cast as integer
-let $concept := request:param-values("concept", "us-gaap:Assets")[1]
-let $map     := request:param-values("map")[1]
-let $tags    := request:param-values("tag")
-let $debug   := request:param-values("debug")
-                
+(: Object resolution :)
 let $json-result := 
     let $facts :=
         for $fact in sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years(
-            (if (exists($tags))
-                then companies:companies-for-tags(upper-case($tags))
+            (if (exists($tag))
+                then companies:companies-for-tags($tag)
                 else entities:entities()
             )[$$.Profiles.SEC.IsTrust eq false],
             $concept,
-            if ($periods = "ALL") then ("Q1", "Q2", "Q3", "FY") else $periods,
-            $years,
+            $fiscalPeriod,
+            $fiscalYear,
             {|
                 if (exists($map))
                 then { "concept-maps" : $map }
@@ -123,7 +121,7 @@ let $json-result :=
         { "Decimals"  : "INF" },
         { "NumReports" : count(distinct-values($fact.$facts:ASPECTS."sec:Archive")) },
 
-        if (exists($debug) and $debug)
+        if ($debug)
         then
             {
                 "Debug" : [ $fact ! 

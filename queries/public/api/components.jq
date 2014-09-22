@@ -41,63 +41,51 @@ declare function local:to-csv($res as object*) as string*
     { serialize-null-as : "" }) 
 };
 
+(: Query parameters :)
+declare  %rest:case-insensitive                 variable $format             as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $cik                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $ticker             as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $sic                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external := "LATEST";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
+declare  %rest:case-insensitive                 variable $networkIdentifier  as string* external;
+declare  %rest:case-insensitive                 variable $cid                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $reportElement      as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $concept            as string* external;
+declare  %rest:case-insensitive                 variable $disclosure         as string* external;
+declare  %rest:case-insensitive                 variable $label              as string* external;
 
 session:audit-call();
 
-(: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $ciks as string*           := distinct-values(request:param-values("cik"))
-let $tags as string*           := distinct-values(request:param-values("tag"))
-let $tickers as string*        := distinct-values(request:param-values("ticker"))
-let $sics as string*           := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
-let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
-let $aids as string*           := distinct-values(request:param-values("aid"))
-let $roles as string*          := request:param-values("networkIdentifier")
-let $cids as string*           := request:param-values("cid")
-let $reportElements as string* := distinct-values(request:param-values("reportElement"))
-let $concepts as string*       := distinct-values(request:param-values("concept"))
-let $disclosures as string*    := request:param-values("disclosure")
-let $search as string*         := request:param-values("label")
-
 (: Post-processing :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
-let $tags as string* := (: backwards compatibility, to be deprecated :)
-    distinct-values($tags ! upper-case($$))
-let $fiscalYears as integer* :=
-    for $fy in $fiscalYears ! upper-case($$)
-    return switch($fy)
-           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
-           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
-           default return if($fy castable as integer) then integer($fy) else ()
-let $fiscalPeriods as string* :=
-    for $fp in $fiscalPeriods ! upper-case($$)
-    return switch($fp)
-           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
-           default return $fp
-let $reportElements := ($reportElements, $concepts)
+let $format as string? := util:preprocess-format($format)
+let $fiscalYear as integer* := util:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := util:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := util:preprocess-tags($tag)
+let $reportElement := ($reportElement, $concept)
 
 (: Object resolution :)
 let $entities := 
     companies:companies(
-        $ciks,
-        $tags,
-        $tickers,
-        $sics)
+        $cik,
+        $tag,
+        $ticker,
+        $sic)
 let $archives as object* := fiscal-core:filings(
     $entities,
-    $fiscalPeriods,
-    $fiscalYears,
-    $aids)
+    $fiscalPeriod,
+    $fiscalYear,
+    $aid)
 let $entities    := entities:entities($archives.Entity)
 let $components  := sec-networks:components(
     $archives,
-    $cids,
-    $reportElements,
-    $disclosures,
-    $roles,
-    $search)
+    $cid,
+    $reportElement,
+    $disclosure,
+    $networkIdentifier,
+    $label)
 let $res         := 
     for $r in $components
     let $disclosure := sec-networks:disclosures($r)

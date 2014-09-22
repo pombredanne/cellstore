@@ -73,3 +73,36 @@ declare %an:sequential function util:serialize(
     }
 };
 
+declare function util:preprocess-fiscal-years($fiscal-years as string*) as integer*
+{
+  distinct-values(
+    for $fy in $fiscal-years ! upper-case($$)
+    return switch($fy)
+           case "LATEST" return $sec-fiscal:LATEST_FISCAL_YEAR
+           case "ALL" return $sec-fiscal:ALL_FISCAL_YEARS
+           default return if($fy castable as integer) then integer($fy) else ()
+  )
+};
+
+declare function util:preprocess-fiscal-periods($fiscal-periods as string*) as string*
+{
+  distinct-values(
+    for $fp in $fiscal-periods ! upper-case($$)
+    return if ($fp = ("Q1", "Q2", "Q3", "FY"))
+           then $fp
+           else if ($fp eq "ALL")
+           then $sec-fiscal:ALL_FISCAL_PERIODS
+           else error(xs:QName("local:INVALID-PERIOD"),
+                      $fp || ": fiscalPeriod values must be one or more of Q1, Q2, Q3, FY, ALL")
+  )
+};
+
+declare function util:preprocess-format($format as string?) as string?
+{
+  lower-case(($format, substring-after(request:path(), ".jq."))[1])
+};
+
+declare function util:preprocess-tags($tags as string*) as string*
+{
+  distinct-values($tags ! upper-case($$))
+};

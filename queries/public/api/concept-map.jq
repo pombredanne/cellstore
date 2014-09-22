@@ -42,16 +42,16 @@ declare function local:to-csv($c as object) as string
     )
 };
 
+declare  %rest:case-insensitive  variable $format  as string? external;
+declare  %rest:case-insensitive  variable $map     as string? external;
+declare  %rest:case-insensitive  variable $name    as string? external;
+
 session:audit-call();
 
-(: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $map as string?            := request:param-values("map")
-let $name as string?            := request:param-values("name")
+(: Post-processing :)
+let $format as string? := util:preprocess-format($format)
 
 (: Object resolution :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
 let $map := ($map, $name)
 let $map := concept-maps:concept-maps($map)
 let $comment := {

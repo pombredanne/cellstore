@@ -5,32 +5,30 @@ import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/comp
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 
+(: Query parameters :)
+declare  %rest:case-insensitive                 variable $format             as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $cik                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $ticker             as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $sic                as string* external;
+
 session:audit-call();
 
-(: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $ciks as string*           := distinct-values(request:param-values("cik"))
-let $tags as string*           := distinct-values(request:param-values("tag"))
-let $tickers as string*        := distinct-values(request:param-values("ticker"))
-let $sics as string*           := distinct-values(request:param-values("sic"))
-
 (: Post-processing :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
-let $tags as string* := (: backwards compatibility, to be deprecated :)
-    distinct-values($tags ! upper-case($$))
-let $tags := if (exists(($ciks, $tags, $tickers, $sics)))
-             then $tags
+let $format as string? := util:preprocess-format($format)
+let $tag as string* := util:preprocess-tags($tag)
+let $tag := if (exists(($cik, $tag, $ticker, $sic)))
+             then $tag
              else "ALL"
 
 (: Object resolution :)
 let $entities := 
     for $entity in 
         companies:companies(
-            $ciks,
-            $tags,
-            $tickers,
-            $sics)
+            $cik,
+            $tag,
+            $ticker,
+            $sic)
     order by $entity.Profiles.SEC.CompanyName
     return $entity
 let $comment := 
