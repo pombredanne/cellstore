@@ -15,8 +15,7 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 
 declare function local:contains-aspect($name as string) as boolean
 {
-  some $x in (request:param-names() ! starts-with($$, $name))
-  satisfies $x
+  exists(request:param-names()[starts-with($$, $name)])  
 };
 
 declare function local:cast-sequence($values as atomic*, $type as string) as atomic*
