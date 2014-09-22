@@ -20,14 +20,14 @@ declare  %rest:case-insensitive %rest:distinct  variable $sic                as 
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external := "LATEST";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
 declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
-declare  %rest:case-insensitive                 variable $networkIdentifier  as string* external;
-declare  %rest:case-insensitive                 variable $cid                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $networkIdentifier  as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $cid                as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $concept            as string* external;
-declare  %rest:case-insensitive                 variable $disclosure         as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $disclosure         as string* external;
 declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate          as boolean external := false;
 declare  %rest:case-insensitive %rest:distinct  variable $reportElement      as string* external;
-declare  %rest:case-insensitive                 variable $label              as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $label              as string* external;
 
 session:audit-call();
 

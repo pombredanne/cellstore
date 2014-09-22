@@ -68,7 +68,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as 
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
 declare  %rest:case-insensitive %rest:distinct  variable $concept            as string  external := "us-gaap:Assets";
 declare  %rest:case-insensitive                 variable $map                as string? external;
-declare  %rest:case-insensitive                 variable $tag                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag                as string* external;
 declare  %rest:case-insensitive                 variable $debug              as boolean external := false;
 
 session:audit-call();
