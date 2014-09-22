@@ -24,9 +24,6 @@ angular.module('main')
         $scope.$emit('auth');
     };
 
-    $scope.$on('SelectionChanged', function(event, selection) {
-        $scope.selection = selection;
-    });
 })
 .controller('RootFilingCtrl', function($state, $stateParams, $location, filing){
     var cik = filing.Archives[0].CIK.substring('http://www.sec.gov/CIK'.length + 1);
