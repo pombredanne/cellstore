@@ -769,7 +769,7 @@ module.exports = function (grunt) {
         if(environment === 'dev' ) {
             grunt.task.run(['shell:decrypt', 'config:' + environment ]);
 
-            if(isRedeploy()){
+            if (isRedeploy()) {
                 grunt.task.run([
                     'reports',
                     '28:redeploy',
@@ -783,6 +783,12 @@ module.exports = function (grunt) {
                     'deployed-message:backend'
                 ]);
             }
+        }else if(environment === 'prod' ) {
+            grunt.task.run([
+                'reports',
+                '28:redeploy',
+                'deployed-message:backend'
+            ]);
         } else {
             failUnknownEnvironment('backend', environment);
         }
@@ -809,6 +815,12 @@ module.exports = function (grunt) {
                     'deployed-message:frontend'
                 ]);
             }
+        }else if(environment === 'prod' ) {
+            grunt.task.run([
+                'build:' + environment,
+                'aws_s3:setup',
+                'deployed-message:frontend'
+            ]);
         } else {
             failUnknownEnvironment('frontend', environment);
         }
