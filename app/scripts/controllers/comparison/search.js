@@ -18,6 +18,10 @@ angular.module('main')
 
     $scope.selection.map = $stateParams.map || $scope.none;
     $scope.selection.concept = ($stateParams.concept ? $stateParams.concept : []);
+    if(!_.isArray($scope.selection.concept)) {
+        $scope.selection.concept = [$scope.selection.concept];
+    }
+
     var src = $location.search();
 
     Object.keys(src).forEach(function (param) {

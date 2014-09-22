@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('ComparisonCtrl', function($scope, $state, $stateParams, $location, $backend, tags, entities, years, periods, sics) {
+.controller('ComparisonCtrl', function($scope, $state, $stateParams, $location, $timeout, $backend, tags, entities, years, periods, sics) {
     $scope.tags = tags;
     $scope.entities = entities;
     $scope.years = years;
@@ -31,18 +31,32 @@ angular.module('main')
         $scope.selection.sic = [$scope.selection.sic];
     }
 
+    $scope.selectionChanged = function(newSelection){
+        $location.search(newSelection);
+        $scope.$emit('SelectionChanged', newSelection);
+    };
+
     $scope.reset = function() {
         $scope.selection.cik = [];
         $scope.selection.tag = [ 'DOW30' ];
         $scope.selection.fiscalYear = [ $scope.years[1] ];
         $scope.selection.fiscalPeriod = [ $scope.periods[0] ];
         $scope.selection.sic = [];
+        $timeout(function(){$scope.selectionChanged($scope.selection);},10);
     };
 
+    var search = $location.search();
     if ($scope.selection.cik.length === 0 &&
         $scope.selection.tag.length === 0 &&
         $scope.selection.fiscalYear.length === 0 &&
         $scope.selection.fiscalPeriod.length === 0)
+    {
+        $scope.reset();
+    } else if (search.cik === undefined &&
+        search.tag === undefined &&
+        search.fiscalYear === undefined &&
+        search.fiscalPeriod === undefined &&
+        search.sic === undefined)
     {
         $scope.reset();
     }
@@ -103,12 +117,15 @@ angular.module('main')
 
     $scope.$watch(
         function() {
-            return angular.toJson($scope.selection);
+            return $scope.selection;
         },
-        function() {
-            $location.search($scope.selection);
-            $scope.$emit('SelectionChanged', $scope.selection);
-        }
+        function(newSelection, oldSelection) {
+            if(!angular.equals(newSelection, oldSelection)) {
+                //$state.transitionTo($state.current.name, newSelection);
+                $scope.selectionChanged(newSelection);
+            }
+        },
+        true
     );
 
     $scope.$on('$stateChangeSuccess', function(event, toState) {
