@@ -5,7 +5,6 @@ import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fi
 
 import module namespace util = "http://secxbrl.info/modules/util";
 
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 
 (: Query parameters :)

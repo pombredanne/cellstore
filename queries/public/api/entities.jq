@@ -3,8 +3,6 @@ import module namespace session = "http://apps.28.io/session";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 
-import module namespace request = "http://www.28msec.com/modules/http-request";
-
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $format             as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik                as string* external;

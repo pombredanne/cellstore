@@ -6,7 +6,6 @@ import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fi
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
 import module namespace session = "http://apps.28.io/session";
