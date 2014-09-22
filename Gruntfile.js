@@ -43,8 +43,8 @@ module.exports = function (grunt) {
         grunt.log.writeln('          grunt backend:dev --bucket=mybucket --project=myproject');
         grunt.log.writeln('          grunt backend:dev --build-id=test --redeploy');
         grunt.log.writeln(' deploy frontend and backend:');
-        grunt.log.writeln('          grunt backend:dev --build-id=test');
-        grunt.log.writeln('          grunt backend:dev --build-id=test --redeploy');
+        grunt.log.writeln('          grunt deploy:dev --build-id=test');
+        grunt.log.writeln('          grunt deploy:dev --build-id=test --redeploy');
         grunt.log.writeln(' run locally:');
         grunt.log.writeln('          grunt');
         grunt.log.writeln('          grunt server');
@@ -52,6 +52,9 @@ module.exports = function (grunt) {
         grunt.log.writeln('          grunt test:setup');
         grunt.log.writeln('          grunt test:run');
         grunt.log.writeln('          grunt test:teardown');
+        grunt.log.writeln(' build locally:');
+        grunt.log.writeln('          grunt build --build-id=test');
+
 
         grunt.log.subhead('Defined Environments (<env>):');
         grunt.log.writeln(' "dev":');
@@ -893,9 +896,9 @@ module.exports = function (grunt) {
                 'test:teardown:' + environment
             ]);
         } else if(environment === 'prod'){
-            /*grunt.task.run([
+            grunt.task.run([
                 'deploy:prod'
-            ]);*/
+            ]);
         } else if(environment === 'dev'){
             grunt.task.run([
                 'server'
