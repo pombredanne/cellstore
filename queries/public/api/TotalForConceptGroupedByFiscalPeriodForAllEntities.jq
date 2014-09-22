@@ -121,14 +121,14 @@ let $json-result :=
         { "Type"  : "NumericValue" },
         { "Unit" : $unit },
         { "Decimals"  : "INF" },
-        { "NumReports" : count(distinct-values($fact.Archive)) },
+        { "NumReports" : count(distinct-values($fact.$facts:ASPECTS."sec:Archive")) },
 
         if (exists($debug) and $debug)
         then
             {
                 "Debug" : [ $fact ! 
                             {
-                                "InstanceURL" : archives:archives(distinct-values($$.Archive)).InstanceURL,
+                                "InstanceURL" : archives:archives(distinct-values($$.$facts:ASPECTS."sec:Archive")).InstanceURL,
                                 "Value" : $$.Value,
                                 "Decimals" : $$.Decimals
                             } ]

@@ -117,25 +117,28 @@ angular.module('main')
                                                 break;
                                             }
                                         }
+
                                         if((indexCM || indexF || indexV || indexD || indexZ)) {
                                             var auditItem = fact.AuditTrails[(indexCM || indexF || indexV || indexD || indexZ) - 1];
 
-                                            switch (auditItem.Type) {
-                                                case 'xbrl28:concept-maps':
-                                                    item.audit[index] = auditItem.Data.OriginalConcept;
-                                                    break;
-                                                case 'xbrl28:dimension-default':
-                                                    item.audit[index] = auditItem.Data.Dimension;
-                                                    break;
-                                                case 'xbrl28:formula':
-                                                    item.audit[index] = auditItem.Message;
-                                                    break;
-                                                case 'xbrl28:validation':
-                                                    item.audit[index] = auditItem.Message;
-                                                    break;
-                                                case 'xbrl28:default-fact-value':
-                                                    item.audit[index] = auditItem.Label + ': ' + auditItem.Message;
-                                                    break;
+                                            if (auditItem !== undefined) {
+                                                switch (auditItem.Type) {
+                                                    case 'xbrl28:concept-maps':
+                                                        item.audit[index] = auditItem.Data.OriginalConcept;
+                                                        break;
+                                                    case 'xbrl28:dimension-default':
+                                                        item.audit[index] = auditItem.Data.Dimension;
+                                                        break;
+                                                    case 'xbrl28:formula':
+                                                        item.audit[index] = auditItem.Message;
+                                                        break;
+                                                    case 'xbrl28:validation':
+                                                        item.audit[index] = auditItem.Message;
+                                                        break;
+                                                    case 'xbrl28:default-fact-value':
+                                                        item.audit[index] = auditItem.Label + ': ' + auditItem.Message;
+                                                        break;
+                                                }
                                             }
                                         }
                                     }

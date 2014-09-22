@@ -419,14 +419,14 @@ declare function sec-networks:standard-definition-models-for-components($compone
 
     let $column-dimensions as string* := keys($values-by-dimension)[not $$ =
         ("xbrl:Concept",
-         "xbrl:Period",
-         "xbrl:Unit",
-         "xbrl:Entity",
-         "sec:Archive",
-         "sec:FiscalYear",
-         "sec:FiscalPeriod",
-         $auto-slice-dimensions,
-         $user-slice-dimensions)]
+        "xbrl:Period",
+        "xbrl:Unit",
+        "xbrl:Entity",
+        "sec:Archive",
+        "sec:FiscalYear",
+        "sec:FiscalPeriod",
+        $auto-slice-dimensions,
+        $user-slice-dimensions)]
     
     let $x-breakdowns as object* := (
         sec-networks:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],

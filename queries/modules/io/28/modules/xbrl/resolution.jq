@@ -2,6 +2,8 @@ jsoniq version "1.0";
 
 module namespace resolution = "http://28.io/modules/xbrl/resolution";
 
+import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
@@ -16,6 +18,8 @@ import module namespace networks = "http://28.io/modules/xbrl/networks";
  : @param $breakdown a breandowk
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $concepts the concept objects (for inferring the labels)
+ : @param $options the option object
  :
  : @error resolution:UNKNOWN-DEFINITION-NODE-KIND if a definition node kind
  : is unrecognized.
@@ -31,7 +35,9 @@ import module namespace networks = "http://28.io/modules/xbrl/networks";
 declare %private function resolution:convert-breakdown(
     $breakdown as object,
     $components as object*,
-    $parent-child-order as string?) as object
+    $parent-child-order as string?,
+    $concepts as object*,
+    $options as object?) as object
 {
     let $parent-child-order as string? := ($breakdown.ParentChildOrder, $parent-child-order)[1]
 
@@ -40,7 +46,9 @@ declare %private function resolution:convert-breakdown(
     let $unbalanced-trees as object* := resolution:convert-definition-nodes(
         $breakdown.BreakdownTrees[],
         $components,
-        $parent-child-order
+        $parent-child-order,
+        $concepts,
+        $options
     )
     let $balanced-trees as object* := resolution:height-balance($unbalanced-trees)
 
@@ -56,6 +64,8 @@ declare %private function resolution:convert-breakdown(
  : @param $definition-nodes some definition nodes.
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $concepts the concept objects (for inferring the labels)
+ : @param $options the options object
  :
  : @error resolution:UNKNOWN-DEFINITION-NODE-KIND if a definition node kind
  : is unrecognized.
@@ -71,7 +81,9 @@ declare %private function resolution:convert-breakdown(
 declare %private function resolution:convert-definition-nodes(
     $definition-nodes as object*,
     $components as object*,
-    $parent-child-order as string?) as object*
+    $parent-child-order as string?,
+    $concepts as object*,
+    $options as object?) as object*
 {
     for $definition-node as object in $definition-nodes
     let $parent-child-order as string? := ($definition-node.ParentChildOrder, $parent-child-order)[1]
@@ -80,19 +92,25 @@ declare %private function resolution:convert-definition-nodes(
       case "Rule" return resolution:convert-rule-node(
           $definition-node,
           $components,
-          $parent-child-order)
+          $parent-child-order,
+          $concepts,
+          $options)
       case "Aspect" return resolution:convert-aspect-node(
           $definition-node,
           $components,
-          $parent-child-order)
+          $parent-child-order,
+          $concepts,
+          $options)
       case "ConceptRelationship" return resolution:convert-concept-relationship-node(
           $definition-node,
           $components,
-          $parent-child-order)
+          $parent-child-order,
+          $concepts)
       case "DimensionRelationship" return resolution:convert-dimension-relationship-node(
           $definition-node,
           $components,
-          $parent-child-order)
+          $parent-child-order,
+          $concepts)
       default return error(
           QName("resolution:UNKNOWN-DEFINITION-NODE-KIND"),
           "Unknown definition node kind: $definition-node.Kind")
@@ -105,12 +123,63 @@ declare %private function resolution:convert-definition-nodes(
 };
 
 (:~
+ : Retrieves the labels from the components' cache (default language)
+ : or from the remove collection cache.
+ :
+ : @param $concept-names a sequence of concept names.
+ : @param $components a sequence of components
+ : @param $concepts the concept objects (for inferring the labels)
+ : @param $label-role the desired label role
+ : @param $options the options object
+ :
+ : @return the labels
+ :)
+declare %private function resolution:labels(
+    $concept-names as string*,
+    $components as object*,
+    $concepts as object*,
+    $label-role as string,
+    $options as object?) as string*
+{
+    let $components-with-the-language-as-default :=
+        $components[not $$.$components:DEFAULT-LANGUAGE ne $options.Language]
+
+    let $labels-from-local-metadata as string* :=
+        let $default-hypercubes as object* :=
+            hypercubes:hypercubes-for-components($components-with-the-language-as-default, "xbrl:DefaultHypercube")
+        for $local-metadata as object in
+            descendant-objects($default-hypercubes.Aspects)
+        let $local-metadata-name := $local-metadata.Name
+        let $local-metadata-preferred-label-role as string := ($local-metadata.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1]
+        where $local-metadata-name = $concept-names and
+              $local-metadata-preferred-label-role eq $label-role
+        return
+            $local-metadata.Label
+
+    let $labels-from-concepts-collection as string* :=
+        if(empty($labels-from-local-metadata))
+        then
+            concepts:labels-for-components(
+                $concept-names,
+                $components, 
+                $label-role, 
+                ($options.Language, "en-US")[1],
+                $concepts,
+                ())
+        else ()
+
+    return ($labels-from-local-metadata, $labels-from-concepts-collection)
+ };
+
+(:~
  : Converts a rule definition node to one or more structural nodes.
  : A rule node restricts a dimension to a value.
  :
  : @param $definition-node a definition node.
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $concepts the concept objects (for inferring the labels)
+ : @param $options the options object
  :
  : @error resolution:NON-ABSTRACT-MERGE-NODE if a rule node is merge,
  : but non-abstract.
@@ -120,16 +189,28 @@ declare %private function resolution:convert-definition-nodes(
 declare %private function resolution:convert-rule-node(
     $definition-node as object,
     $components as object*,
-    $parent-child-order as string?) as object*
+    $parent-child-order as string?,
+    $concepts as object*,
+    $options as object?) as object*
 {
     let $main-members := values(values($definition-node.AspectRulesSet))
-    let $all-hypercubes as object* := hypercubes:hypercubes-for-components($components)
-    let $metadata as object* := if($main-members instance of string*)
-                                then descendant-objects($all-hypercubes.Aspects)[$$.Name = $main-members]
-                                else ()
-    let $labels := ($definition-node.Labels[], $metadata.Label)
 
-    let $children := resolution:convert-definition-nodes($definition-node.Children[], $components, $parent-child-order)
+    let $labels := (
+        $definition-node.Labels[],
+        resolution:labels(
+            $main-members,
+            $components,
+            $concepts,
+            $concepts:STANDARD_LABEL_ROLE, 
+            $options)
+    )
+          
+    let $children := resolution:convert-definition-nodes(
+        $definition-node.Children[],
+        $components, 
+        $parent-child-order,
+        $concepts,
+        $options)
     let $roll-up := {
         Labels: [ ],
         ConstraintSets : {
@@ -208,18 +289,24 @@ declare %private function resolution:convert-rule-node(
  : @param $definition-node a definition node.
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $concepts the concept objects (for inferring the labels)
+ : @param $options the options object
  :
  : @return the converted structural node.
  :)
 declare %private function resolution:convert-aspect-node(
     $definition-node as object,
     $components as object*,
-    $parent-child-order as string?) as object
+    $parent-child-order as string?,
+    $concepts as object*,
+    $options as object?) as object
 {
     let $children :=  resolution:convert-definition-nodes(
         $definition-node.Children[],
         $components,
-        $parent-child-order)
+        $parent-child-order,
+        $concepts,
+        $options)
     let $constrained-aspect := $definition-node.Aspect
     return {|
         {
@@ -240,6 +327,7 @@ declare %private function resolution:convert-aspect-node(
  : @param $definition-node a definition node.
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $concepts the concept objects (for inferring the labels)
  :
  : @error resolution:UNRESOLVED-CONCEPT-RELATIONSHIP if the root concept
  : cannot be resolved.
@@ -249,7 +337,8 @@ declare %private function resolution:convert-aspect-node(
 declare %private function resolution:convert-concept-relationship-node(
     $definition-node as object,
     $components as object*,
-    $parent-child-order as string?) as object
+    $parent-child-order as string?,
+    $concepts as object*) as object
 {
     let $link-role := $definition-node.LinkRole
     let $link-name := $definition-node.LinkName
@@ -264,7 +353,7 @@ declare %private function resolution:convert-concept-relationship-node(
     ]
     let $subnetwork := descendant-objects($network.Trees)[$$.Name eq $root]
     return if(exists($subnetwork))
-    then resolution:expand-concept-network($subnetwork, $components, $parent-child-order)
+    then resolution:expand-concept-network($subnetwork, $components, $parent-child-order, $concepts)
     else error(QName("resolution:UNRESOLVED-CONCEPT-RELATIONSHIP"), $root || ": The concept root could not be resolved.")
 };
 
@@ -274,21 +363,30 @@ declare %private function resolution:convert-concept-relationship-node(
  : @param $network a network to expand.
  : @param $components a sequence of components.
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $concepts the concept objects (for inferring the labels)
  :
  : @return the converted structural nodes.
  :)
 declare %private function resolution:expand-concept-network(
     $network as object,
     $components as object*,
-    $parent-child-order as string?) as object*
+    $parent-child-order as string?,
+    $concepts as object*) as object*
 {
     let $concept := $network.Name
     let $default-hypercube := hypercubes:hypercubes-for-components($components, "xbrl:DefaultHypercube")
     let $concept-metadata := $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members.$concept[1]
+    let $label :=
+        resolution:labels(
+            $concept,
+            $components,
+            $concepts,
+            ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
+            ())
     return
     {|
         {
-            Labels: [ $network.Label],
+            Labels: [ $label ],
             ConstraintSets: {
                 "" : { "xbrl:Concept" : $concept }
             }
@@ -327,7 +425,8 @@ declare %private function resolution:expand-concept-network(
                 resolution:expand-concept-network(
                         $sub-network,
                         $components,
-                        $parent-child-order
+                        $parent-child-order,
+                        $concepts
                     ) 
         let $roll-up :=
             if($concept-metadata.IsAbstract)
@@ -355,6 +454,7 @@ declare %private function resolution:expand-concept-network(
  : @param $definition-node a definition node.
  : @param $components a sequence of components
  : @param $parent-child-order "parentFirst" or "childrenFirst"
+ : @param $concepts the concept objects (for inferring the labels)
  :
  : @error resolution:UNRESOLVED-CONCEPT-RELATIONSHIP if the root member
  : cannot be resolved.
@@ -364,7 +464,8 @@ declare %private function resolution:expand-concept-network(
 declare %private function resolution:convert-dimension-relationship-node(
     $definition-node as object,
     $components as object*,
-    $parent-child-order as string?) as object
+    $parent-child-order as string?,
+    $concepts as object*) as object
 {
     let $link-role := $definition-node.LinkRole
     let $dimension := $definition-node.Dimension
@@ -372,7 +473,7 @@ declare %private function resolution:convert-dimension-relationship-node(
     let $hypercubes as object* := hypercubes:hypercubes-for-components($components[$$.Role eq $link-role])
     let $subnetwork as object := descendant-objects($hypercubes.Aspects.$dimension)[$$.Name eq $root][1]
     return if(exists($subnetwork))
-    then resolution:expand-dimension-network($dimension, $subnetwork, $components, $parent-child-order)
+    then resolution:expand-dimension-network($dimension, $subnetwork, $components, $parent-child-order, $concepts)
     else error(QName("resolution:UNRESOLVED-DIMENSION-RELATIONSHIP"), $root || ": The dimension member root could not be resolved.")
 };
 
@@ -383,13 +484,21 @@ declare function resolution:expand-dimension-network(
     $dimension as string,
     $network as object,
     $components as object*,
-    $parent-child-order as string?) as object
+    $parent-child-order as string?,
+    $concepts as object*) as object
 {
     let $value := $network.Name
+    let $label :=
+        resolution:labels(
+            $value,
+            $components,
+            $concepts,
+            ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
+            ())
     return
     {|
         {
-            Labels: [ $network.Label],
+            Labels: [ $label],
             ConstraintSets: {
                 "" : { $dimension : $value }
             }
@@ -401,7 +510,8 @@ declare function resolution:expand-dimension-network(
                         $dimension,
                         $sub-network,
                         $components,
-                        $parent-child-order
+                        $parent-child-order,
+                        $concepts
                 ) 
         let $roll-up :={
             Labels: [],
@@ -516,12 +626,11 @@ declare function resolution:resolve(
  : @param $definition-model A definition mode, in 28msec's proprietary JSON format.
  : @param $component A component, in 28msec's proprietary JSON format.
  : @param $options Optional parameters among which 
- :  <ul>
- :    <li>Hypercube: override the components' hypercubes with the provided hypercube
+ : <ul>
+ :   <li>Hypercube: override the components' hypercubes with the provided hypercube
  :      (this will only affect the default values used later in the layout pipeline).</li>
- :      </ul>
- :    </li>
- :  </ul>
+ :    <li>Language: override the components' default language in the rendering.</li>
+ : </ul>
  :
  : @error resolution:UNFORESEEN-ERROR Something went wrong, contact us.
  : @error resolution:UNKNOWN-DEFINITION-NODE-KIND A definition node was not recognized.
@@ -539,6 +648,10 @@ declare function resolution:resolve(
     $components as object*,
     $options as object?) as object
 {
+    let $concepts as object* := concepts:concepts-for-components(
+        $concepts:ALL_CONCEPT_NAMES,
+        $components)
+    return
     {
         ModelKind: "StructuralModel",
         TableSetLabels: $definition-model.Labels,
@@ -549,7 +662,11 @@ declare function resolution:resolve(
                     return {
                         $axis: [
                             for $breakdown in $definition-model.Breakdowns.$axis[]
-                            return resolution:convert-breakdown($breakdown, $components, $definition-model.ParentChildOrder)
+                            return resolution:convert-breakdown($breakdown,
+                                                                $components, 
+                                                                $definition-model.ParentChildOrder,
+                                                                $concepts,
+                                                                $options)
                         ]
                     }
                 |}

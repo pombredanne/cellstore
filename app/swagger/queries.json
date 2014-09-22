@@ -1,7 +1,7 @@
 {
     "apiVersion": "1.0",
     "swaggerVersion": "1.2",
-    "basePath": "http://secxbrl.alpha.xbrl.io/v1/_queries/public/api",
+    "basePath": "http://secxbrl.28.io/v1/_queries/public/api",
     "resourcePath": "",
     "produces": [
         "application/json"
@@ -99,7 +99,7 @@
                         {
                             "title": "Retrieve a specific entity",
                             "description": "Retrieve information about a specific entity identified by its CIK. Return the result as JSON.",
-                            "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&cik=1412090",
+                            "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&cik=21344",
                             "response": ""
                         },
                         {
@@ -1495,7 +1495,7 @@
                             "description": "The name of the report element to return (e.g. us-gaap:Assets).",
                             "required": false,
                             "type": "string",
-                            "paramType": "query"
+                            "paramType": "body"
                         },
                         {
                             "name": "map",
@@ -1536,6 +1536,16 @@
                         {
                             "name": "_method",
                             "paramType": "query"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "description": "Content-Type of the request.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "header",
+                            "enum": [
+                                "application/x-www-form-urlencoded"
+                            ]
                         }
                     ],
                     "responseMessages": [
