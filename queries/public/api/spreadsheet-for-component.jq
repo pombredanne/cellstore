@@ -54,7 +54,7 @@ let $archive as object? := fiscal-core:filings(
 let $components  := sec-networks:components(
     $archive,
     $cid,
-    $reportElements,
+    $reportElement,
     $disclosure,
     $networkIdentifier,
     $label)

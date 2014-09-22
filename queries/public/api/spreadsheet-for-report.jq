@@ -48,7 +48,7 @@ let $report as object? := reports:reports($report)
 let $filter-override as object? := fiscal-core:filter-override(
     $entities,
     $fiscalYear,
-    $fiscalPeriods,
+    $fiscalPeriod,
     $aid)
 
 (: Fact resolution :)

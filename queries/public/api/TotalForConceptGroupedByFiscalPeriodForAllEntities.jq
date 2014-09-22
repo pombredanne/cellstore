@@ -1,3 +1,4 @@
+import module namespace util = "http://secxbrl.info/modules/util";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
