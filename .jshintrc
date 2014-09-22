@@ -21,7 +21,6 @@
     "jquery": true,
     "globals": {
       "angular": false,
-      "mktoMunchkinFunction": false,
-      "MunchkinHelper": false
+      "_": false
     }
 }
