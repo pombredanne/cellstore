@@ -474,9 +474,9 @@ module.exports = function (grunt) {
         },
         netdna : {
             options: {
-                companyAlias: '28msecinc',
-                consumerKey: 'e531373822fc0ec739057420a81c69c1052b0f904',
-                consumerSecret: 'bba9d959f51010249b9ac90742fac51c'
+                companyAlias: '<%= secxbrl.netdna.companyAlias %>',
+                consumerKey: '<%= secxbrl.netdna.consumerKey %>',
+                consumerSecret: '<%= secxbrl.netdna.consumerSecret %>'
             },
             test: {
                 zone: ''
@@ -485,7 +485,7 @@ module.exports = function (grunt) {
                 zone: ''
             },
             prod: {
-                zone: '150232'
+                zone: '<%= secxbrl.netdna.zone %>'
             }
         },
         xqlint: {
@@ -634,9 +634,10 @@ module.exports = function (grunt) {
         },
         shell: {
             encrypt: {
-                command: [ '[ "config.json" -nt "config.json.enc" ]',
-                    'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
-                ].join('&&'),
+                command: 'sh -c "if [ -z \"' + process.env.TRAVIS_SECRET_KEY + '\" ' +
+                                     '-o \"' + process.env.TRAVIS_SECRET_KEY + '\" = "undefined" ] ; then echo \'encrypt failed: env var TRAVIS_SECRET_KEY not set\'; exit 1; fi ; ' +
+                        'if [ config.json -nt config.json.enc ] ; ' +
+                        'then openssl aes-256-cbc -k ' + process.env.TRAVIS_SECRET_KEY + ' -in config.json -out config.json.enc; fi"',
                 options : {
                     failOnError : false
                 }
@@ -822,6 +823,7 @@ module.exports = function (grunt) {
             grunt.task.run([
                 'build:' + environment,
                 'aws_s3:setup',
+                'netdna',
                 'deployed-message:frontend'
             ]);
         } else {
