@@ -485,7 +485,7 @@ module.exports = function (grunt) {
                 zone: ''
             },
             prod: {
-                zone: '<%= secxbrl.netdna.zone %>'
+                zone: '<%= secxbrl.netdna.prod.zone %>'
             }
         },
         xqlint: {
@@ -823,7 +823,7 @@ module.exports = function (grunt) {
             grunt.task.run([
                 'build:' + environment,
                 'aws_s3:setup',
-                'netdna',
+                'netdna:prod',
                 'deployed-message:frontend'
             ]);
         } else {
