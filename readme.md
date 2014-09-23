@@ -19,6 +19,12 @@ grunt ngconstant:custom --build-id=myfeature
 grunt server
 ```
 
+Get the list of tasks:
+
+```bash
+grunt --usage
+```
+
 ## Deployment
 There are two scenarios for deploying this project on http://28.io. Using the 28msec account or your own account.
 

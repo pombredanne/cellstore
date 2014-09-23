@@ -898,7 +898,9 @@ module.exports = function (grunt) {
             environment = 'ci';
         }
 
-        if(environment === 'ci'){
+        if(getOptionParam('usage')){
+            usage();
+        } else if(environment === 'ci'){
             grunt.task.run([
                 'test:setup:' + environment,
                 'test:run:' + environment,
