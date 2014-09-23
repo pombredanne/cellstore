@@ -12,8 +12,8 @@ script:
 - grunt test:setup
 # run tests agains deployed version
 - grunt test:run
-after_script
-# teardown will work only for ci - not for prod or on master
+after_script:
+# teardown will work only for ci not for prod or on master
 - grunt test:teardown
 env:
   global:
