@@ -9,11 +9,11 @@ US Public Company Financial Information Repository. Built on top of http://28.io
 npm install
 bower install
 
-# set backend to secxbrl-myfeature:
-grunt ngconstant:custom --build-id=myfeature
-
-# deploy backend to secxbrl-myfeature:
+# deploy backend to secxbrl-myfeature.28.io and frontend to secxbrl-myfeature bucket on S3:
 grunt deploy:dev --build-id=myfeature
+
+# set backend to http://secxbrl-myfeature.28.io :
+grunt ngconstant:custom --build-id=myfeature
 
 # run server locally
 grunt server
