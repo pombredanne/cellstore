@@ -833,10 +833,13 @@ module.exports = function (grunt) {
         grunt.log.subhead('config (environment: ' + environment + ')');
 
         if(environment === 'prod' && isTravisAndMaster()) {
+            // ok, travis deploys master to prod
             setConfig('secxbrl', 'secxbrl', environment);
-        } else if(environment === 'prod'){
-            fatal('only travis is allowed to deploy to prod');
+        } else if(environment === 'prod' && !isTravisAndMaster()){
+            // either not travis or not on master
+            fatal('only travis is allowed to deploy from master to prod');
         } else if(environment === 'dev' && !isTravis()) {
+            // local development environment
             var project = getStringParam('project');
             var bucket= getStringParam('bucket');
             var buildId = getStringParam('build-id');
@@ -854,10 +857,14 @@ module.exports = function (grunt) {
             } else {
                 fatal('either define --build-id=myid or both: --project=anyproject and --bucket=anybucket');
             }
-        } else if(environment === 'dev'){
+        } else if(environment === 'dev' && isTravis()){
+            // development environment is not allowed for travis
             fatal('travis is not allowed to do anything in the dev environment (only prod and ci allowed).');
-        } else if(environment === 'ci'){
-            // automatic integration
+        } else if(environment === 'ci' && !isTravis()){
+            // local continuous integration not allowed
+            fatal('Only travis is allowed to do the continuuous integration. Choose a different environment.');
+        } else if(environment === 'ci' && isTravis()){
+            // continuous integration done by travis
             var buildIdCI = process.env.TRAVIS_JOB_NUMBER;
             var _isTravisAndMaster = isTravisAndMaster();
             if(_isTravisAndMaster) {
