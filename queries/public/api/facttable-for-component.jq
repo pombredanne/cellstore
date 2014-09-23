@@ -8,6 +8,7 @@ import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
+import module namespace rules = "http://28.io/modules/xbrl/rules";
 
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
@@ -31,13 +32,14 @@ let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYea
 let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod", "FY"))
 let $aids as string*          := distinct-values(request:param-values("aid"))
 let $roles as string*         := request:param-values("networkIdentifier")
-let $cids as string*       := request:param-values("cid")
+let $cids as string*          := request:param-values("cid")
 let $concepts as string*      := distinct-values(request:param-values("concept"))
 let $reportElements as string* := distinct-values(request:param-values("reportElement"))
 let $disclosures as string*   := request:param-values("disclosure")
 let $search as string*         := request:param-values("label")
 let $rollups as string*       := distinct-values(request:param-values("rollup"))
 let $map as string?           := request:param-values("map")
+let $additional-rules as string? := request:param-values("additional-rules")
 let $validate as string       := request:param-values("validate", "false")
 
 (: Post-processing :)
@@ -81,6 +83,7 @@ let $components  := sec-networks:components(
     $search)
 let $component as object? := $components[1] (: only one for know :)
 let $cid as string? := components:cid($component)
+let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
 
 (: Fact resolution :)
 let $facts :=
@@ -92,7 +95,8 @@ let $facts :=
                  "sec:FiscalYear" : { Type: "integer", Default: null },
                  "sec:FiscalPeriod" : { Type: "string", Default: null }
              })
-             let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive)
+             let $options as object? := if(exists($rules)) then { Rules: [ $rules ] } else ()
+             let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive, $options)
              let $map := concept-maps:concept-maps($map)
              let $concepts := 
                 if (not $map instance of null)
@@ -106,13 +110,18 @@ let $facts :=
              return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
          else components:facts(
             $component,
-            {
-                Validate: $validate,
-                FilterOverride : {
-                    "sec:FiscalPeriod" : { Type: "string", Default: null },
-                    "sec:FiscalYear" : { Type: "string", Default: null }
-                }
-            }
+            {|
+                {
+                    Validate: $validate,
+                    FilterOverride : {
+                        "sec:FiscalPeriod" : { Type: "string", Default: null },
+                        "sec:FiscalYear" : { Type: "string", Default: null }
+                    }
+                },
+                if(exists($rules))
+                then { Rules : [ $rules ] }
+                else ()
+            |}
         )
         
 let $facts := util:normalize-facts($facts)

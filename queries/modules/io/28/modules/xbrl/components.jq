@@ -358,9 +358,9 @@ as object*
     let $rules as array? := $component.Rules
     let $new-options as object :=
         {|
-            $options,
+            trim($options, "Rules"),
             {"ConceptMaps": $concept-map }[exists($concept-map)],
-            { "Rules": $rules }[exists($rules)],
+            { "Rules": [ ( flatten($rules[]), flatten($options.Rules) ) ] }[exists(($rules, $options.Rules))],
             {
                 Hypercube:
                     if(exists($options.FilterOverride))
