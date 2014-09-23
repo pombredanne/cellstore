@@ -33,18 +33,28 @@ module.exports = function (grunt) {
         grunt.log.subhead('General Usage:');
         grunt.log.writeln('grunt [test:<target>] [<task>:<env>] <options>');
 
+        grunt.log.subhead('Options (<options>):');
+        grunt.log.writeln(' "--redeploy" : in deployment tasks projects will not get deleted and ');
+        grunt.log.writeln('                recreated, but overwritten instead.');
+        grunt.log.writeln(' "--usage"    : print this help text');
+
+        grunt.log.subhead('Defined Environments (<env>):');
+        grunt.log.writeln(' "dev"  :');
+        grunt.log.writeln('          together with --build-id=mybuild will automatically assume');
+        grunt.log.writeln('          project and bucket secxbrl-mybuild.');
+        grunt.log.writeln(' "ci"   : travis will use this for integration into master.');
+        grunt.log.writeln(' "prod" : for deployment to production (secxbrl.28.io)');
+
         grunt.log.subhead('Examples:');
-        grunt.log.writeln(' deploy frontend:');
+        grunt.log.writeln(' deploy frontend to secxbrl-test bucket:');
         grunt.log.writeln('          grunt frontend:dev --build-id=test');
-        grunt.log.writeln('          grunt frontend:dev --bucket=mybucket --project=myproject');
         grunt.log.writeln('          grunt frontend:dev --build-id=test --redeploy');
-        grunt.log.writeln(' deploy backend:');
+        grunt.log.writeln(' deploy backend to secxbrl-test project:');
         grunt.log.writeln('          grunt backend:dev --build-id=test');
-        grunt.log.writeln('          grunt backend:dev --bucket=mybucket --project=myproject');
         grunt.log.writeln('          grunt backend:dev --build-id=test --redeploy');
         grunt.log.writeln(' deploy frontend and backend:');
-        grunt.log.writeln('          grunt deploy:dev --build-id=test');
-        grunt.log.writeln('          grunt deploy:dev --build-id=test --redeploy');
+        grunt.log.writeln('          grunt test:setup:dev --build-id=test');
+        grunt.log.writeln('          grunt test:setup:dev --build-id=test --redeploy');
         grunt.log.writeln(' run locally:');
         grunt.log.writeln('          grunt');
         grunt.log.writeln('          grunt server');
@@ -54,16 +64,6 @@ module.exports = function (grunt) {
         grunt.log.writeln('          grunt test:teardown');
         grunt.log.writeln(' build locally:');
         grunt.log.writeln('          grunt build --build-id=test');
-
-
-        grunt.log.subhead('Defined Environments (<env>):');
-        grunt.log.writeln(' "dev":');
-        grunt.log.writeln('          together with --build-id=mybuild will automatically assume');
-        grunt.log.writeln('          project and bucket secxbrl-mybuild.');
-        grunt.log.writeln('          Alternatively, define --project=myproject and --bucket=mybucket');
-        grunt.log.writeln('          to deploy to any project/bucket you\'d like.');
-        grunt.log.writeln(' "ci"   : travis will use this for integration into master.');
-        grunt.log.writeln(' "prod" : for deployment to production (secxbrl.28.io)');
         grunt.log.writeln('');
 
     };
@@ -654,17 +654,23 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('server', function (target) {
-        if (!grunt.file.exists(grunt.config('yeoman.app') + '/scripts/constants.js')) {
-            fatal('Unable to find file ' + grunt.config('yeoman.app') + '/scripts/constants.js.\nrun grunt ngconstant before.');
+    grunt.registerTask('server', function (target, environment) {
+        if(!isTravis()){
+            // enabling to run server locally as standalone task
+            if(environment === undefined){
+                environment = 'dev';
+                grunt.log.writeln('default environment: dev');
+            }
         }
 
         if (target === 'dist') {
-            return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+            return grunt.task.run(['build:dev', 'open', 'connect:dist:keepalive']);
         }
-        grunt.log.ok('Running against backend: ' + getCurrentConfiguredAPIURL());
         grunt.task.run([
+            'config:' + environment,
             'clean:server',
+            'ngconstant',
+            'run-message',
             'swagger-js-codegen',
             'recess',
             'concurrent:server',
@@ -717,62 +723,55 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.registerTask('run-message', function () {
+        grunt.log.ok('Running against backend: ' + getCurrentConfiguredAPIURL());
+    });
+
     grunt.registerTask('test', function (target, environment) {
-        if(!isTravis()){
-            if(environment === undefined){
-                environment = 'dev';
-                grunt.log.writeln('default environment: dev');
-            }
+        if(!isTravis() && environment === undefined){
+            environment = 'dev';
+        } else if(isTravisAndMaster() && environment === undefined){
+            environment = 'prod';
+        } else if(isTravis() && environment === undefined){
+            environment = 'ci';
         }
+        grunt.log.writeln('environment: ' + environment);
         grunt.task.run(['shell:decrypt', 'config:' + environment]);
 
-        if (target === 'setup' && environment !== 'prod') {
-            if(!isTravisAndMaster()) {
-                grunt.task.run([
-                    'build:' + environment,
-                    'setupS3Bucket:setup',
-                    'aws_s3:setup',
-                    '28:setup',
-                    '28:deploy',
-                    'deployed-message'
-                ]);
-            }
+        if (target === 'setup') {
+            grunt.task.run([
+                'frontend:' + environment,
+                'backend:' + environment,
+                'deployed-message'
+            ]);
+        } else if (target === 'run') {
+            grunt.task.run(['28:run']);
         } else if (target === 'teardown' && environment !== 'prod') {
-            if(!isTravisAndMaster()) {
+            if(!isTravis()) {
+                grunt.task.run(['ngconstant']);
+            }
+            // double check that teardown is not run for prod
+            if(!isTravisAndMaster() && grunt.config.get(['secxbrl'])['28'].project !== 'secxbrl') {
                 grunt.task.run([
                     '28:teardown',
                     'aws_s3:teardown',
                     'setupS3Bucket:teardown'
                 ]);
             }
-        } else if (target === 'run' && environment !== 'prod') {
-            grunt.task.run(['28:run']);
         } else if (environment === 'prod') {
             fatal('test tasks must never run against production: target: ' + target + ' environment: ' + environment);
         }else {
-            fatal('Unknown target for task test: ' + target);
-        }
-    });
-
-    grunt.registerTask('deploy', function (environment) {
-        grunt.task.run(['shell:decrypt', 'config:' + environment ]);
-
-        if(environment === 'dev' || environment === 'prod') {
-            grunt.task.run([
-                'backend:' + environment,
-                'frontend:' + environment,
-                'deployed-message'
-            ]);
-        } else {
-            failUnknownEnvironment('deploy', environment);
+            fatal('Unknown target for task test: ' + target + ' environment: ' + environment);
         }
     });
 
     grunt.registerTask('backend', function (environment) {
 
         if(environment === 'dev' ) {
-            grunt.task.run(['shell:decrypt', 'config:' + environment ]);
+            grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant' ]);
+        }
 
+        if(environment === 'dev' ) {
             if (isRedeploy()) {
                 grunt.task.run([
                     'reports',
@@ -787,7 +786,16 @@ module.exports = function (grunt) {
                     'deployed-message:backend'
                 ]);
             }
-        }else if(environment === 'prod' ) {
+        } else if(environment === 'ci' ) {
+            if(!isTravisAndMaster()) {
+                grunt.task.run([
+                    'reports',
+                    '28:setup',
+                    '28:deploy',
+                    'deployed-message:backend'
+                ]);
+            }
+        } else if(environment === 'prod' ) {
             grunt.task.run([
                 'reports',
                 '28:redeploy',
@@ -819,7 +827,15 @@ module.exports = function (grunt) {
                     'deployed-message:frontend'
                 ]);
             }
-        }else if(environment === 'prod' ) {
+        } else if(environment === 'ci' ) {
+            if(!isTravisAndMaster()) {
+                grunt.task.run([
+                    'build:' + environment,
+                    'setupS3Bucket:setup',
+                    'aws_s3:setup'
+                ]);
+            }
+        } else if(environment === 'prod' ) {
             grunt.task.run([
                 'build:' + environment,
                 'aws_s3:setup',
@@ -834,7 +850,10 @@ module.exports = function (grunt) {
     grunt.registerTask('config', function(environment) {
         grunt.log.subhead('config (environment: ' + environment + ')');
 
-        if(environment === 'prod' && isTravisAndMaster()) {
+        if(getOptionParam('usage')){
+            usage();
+            grunt.fatal('usage requested');
+        } else if(environment === 'prod' && isTravisAndMaster()) {
             // ok, travis deploys master to prod
             setConfig('secxbrl', 'secxbrl', environment);
         } else if(environment === 'prod' && !isTravisAndMaster()){
@@ -842,22 +861,18 @@ module.exports = function (grunt) {
             fatal('only travis is allowed to deploy from master to prod');
         } else if(environment === 'dev' && !isTravis()) {
             // local development environment
-            var project = getStringParam('project');
-            var bucket= getStringParam('bucket');
+            var project;
+            var bucket;
             var buildId = getStringParam('build-id');
             if(buildId) {
                 buildId = buildId.replace('.', '-');
-            }
-            if(project === undefined && buildId){
                 project = 'secxbrl-' + buildId;
-            }
-            if(bucket === undefined && buildId){
                 bucket = 'secxbrl-' + buildId;
             }
             if(bucket && project){
                 setConfig(project, bucket, environment);
             } else {
-                fatal('either define --build-id=myid or both: --project=anyproject and --bucket=anybucket');
+                fatal('define --build-id=myid');
             }
         } else if(environment === 'dev' && isTravis()){
             // development environment is not allowed for travis
@@ -890,29 +905,12 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('default', function() {
-        var environment = 'dev';
 
-        if(isTravisAndMaster()){
-            environment = 'prod';
-        } else if (isTravis()){
-            environment = 'ci';
-        }
-
-        if(getOptionParam('usage')){
-            usage();
-        } else if(environment === 'ci'){
+        if(isTravis()){
+            fatal('no default task implementation for ci or prod');
+        } else {
             grunt.task.run([
-                'test:setup:' + environment,
-                'test:run:' + environment,
-                'test:teardown:' + environment
-            ]);
-        } else if(environment === 'prod'){
-            grunt.task.run([
-                'deploy:prod'
-            ]);
-        } else if(environment === 'dev'){
-            grunt.task.run([
-                'server'
+                'server:dev:dev'
             ]);
         }
     });

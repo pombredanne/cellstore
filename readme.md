@@ -3,29 +3,56 @@
 
 US Public Company Financial Information Repository. Built on top of http://28.io.
 
-## Contributing
+## Development
+
+Setup environment:
 
 ```bash
 npm install
 bower install
-
-# deploy backend to secxbrl-myfeature.28.io and frontend to secxbrl-myfeature bucket on S3:
-grunt deploy:dev --build-id=myfeature
-
-# set backend to http://secxbrl-myfeature.28.io :
-grunt ngconstant:custom --build-id=myfeature
-
-# run server locally
-grunt server
 ```
 
-Get the list of tasks:
+Run frontend locally against current secxbrl-dev backend:
+
+```bash
+grunt --build-id=dev
+```
+
+Deploy backend to secxbrl-myfeature.28.io (will delete and create project secxbrl-myfeature) and run against it:
+
+```bash
+grunt backend:dev --build-id=myfeature
+# run against deployed backend:
+grunt --build-id=myfeature
+```
+
+Redeploy backend to secxbrl-myfeature.28.io (will not delete project, just overwrite queries) and run against it:
+
+```bash
+grunt backend:dev --build-id=myfeature --redeploy
+# run against deployed backend:
+grunt --build-id=myfeature
+```
+
+Deploy backend to secxbrl-myfeature.28.io and frontend (running against the deployed backend) to secxbrl-myfeature bucket on S3:
+
+```bash
+grunt test:setup --build-id=myfeature
+```
+
+Build project into /dist (for running against backend project secxbrl-myfeature):
+
+```bash
+grunt build --build-id=myfeature
+```
+
+Get help:
 
 ```bash
 grunt --usage
 ```
 
-## Deployment
+## Testing / Deployment / UAT
 There are two scenarios for deploying this project on http://28.io. Using the 28msec account or your own account.
 
 ### Using the 28msec account
@@ -87,7 +114,15 @@ This is the expected structure of the file:
                 }
             }
         ]
-    }
+    },
+     "netdna": {
+         "companyAlias": "<alias>",
+         "consumerKey": "<Consumer Key>",
+         "consumerSecret": "<Consumer Secret>",
+         "prod": {
+             "zone": "<zone>"
+         }
+     }
 }
 ```
 

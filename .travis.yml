@@ -8,8 +8,13 @@ before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 script:
-# run tests for ci or deploy to prod if on master
-- grunt
+# setup/deploy for ci or only deploy to prod if on master
+- grunt test:setup
+# run tests agains deployed version
+- grunt test:run
+after_script
+# teardown will work only for ci - not for prod or on master
+- grunt test:teardown
 env:
   global:
   - RANDOM_ID=$RANDOM
