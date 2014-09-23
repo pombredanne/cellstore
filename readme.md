@@ -8,7 +8,14 @@ US Public Company Financial Information Repository. Built on top of http://28.io
 ```bash
 npm install
 bower install
-grunt test:setup --build-id=myfeature
+
+# set backend to secxbrl-myfeature:
+grunt ngconstant:custom --build-id=myfeature
+
+# deploy backend to secxbrl-myfeature:
+grunt deploy:dev --build-id=myfeature
+
+# run server locally
 grunt server
 ```
 
