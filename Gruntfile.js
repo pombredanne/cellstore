@@ -764,7 +764,7 @@ module.exports = function (grunt) {
                 '28:download'
             ]);
         } else if(environment === 'ci' || environment === 'prod') {
-            fatal('download task only allowed in dev environment')
+            fatal('download task only allowed in dev environment');
         } else {
             failUnknownEnvironment('download', environment);
         }
@@ -777,9 +777,6 @@ module.exports = function (grunt) {
 
         if(environment === 'dev' ) {
             grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant' ]);
-        }
-
-        if(environment === 'dev' ) {
             grunt.task.run([
                 'reports',
                 '28:setup',
@@ -787,7 +784,7 @@ module.exports = function (grunt) {
                 'deployed-message:backend'
             ]);
         } else if(environment === 'ci' ) {
-            if(!isTravisAndMaster()) {
+            if(!isTravisAndMaster() && isTravis()) {
                 grunt.task.run([
                     'reports',
                     '28:setup',
@@ -796,11 +793,13 @@ module.exports = function (grunt) {
                 ]);
             }
         } else if(environment === 'prod' ) {
-            grunt.task.run([
-                'reports',
-                '28:deployMaster',
-                'deployed-message:backend'
-            ]);
+            if(isTravisAndMaster()) {
+                grunt.task.run([
+                    'reports',
+                    '28:deployMaster',
+                    'deployed-message:backend'
+                ]);
+            }
         } else {
             failUnknownEnvironment('backend', environment);
         }
@@ -814,25 +813,14 @@ module.exports = function (grunt) {
         grunt.task.run(['shell:decrypt', 'config:' + environment]);
 
         if(environment === 'dev' ) {
-
-            if(isRedeploy()) {
-                // assuming bucket already exists
-                grunt.task.run([
-                    'build:' + environment,
-                    'aws_s3:setup',
-                    'deployed-message:frontend'
-                ]);
-            } else {
-                // will also create bucket
-                grunt.task.run([
-                    'build:' + environment,
-                    'setupS3Bucket:setup',
-                    'aws_s3:setup',
-                    'deployed-message:frontend'
-                ]);
-            }
+            grunt.task.run([
+                'build:' + environment,
+                'setupS3Bucket:setup',
+                'aws_s3:setup',
+                'deployed-message:frontend'
+            ]);
         } else if(environment === 'ci' ) {
-            if(!isTravisAndMaster()) {
+            if(!isTravisAndMaster() && isTravis()) {
                 grunt.task.run([
                     'build:' + environment,
                     'setupS3Bucket:setup',
@@ -840,12 +828,14 @@ module.exports = function (grunt) {
                 ]);
             }
         } else if(environment === 'prod' ) {
-            grunt.task.run([
-                'build:' + environment,
-                'aws_s3:setup',
-                'netdna:prod',
-                'deployed-message:frontend'
-            ]);
+            if(isTravisAndMaster()) {
+                grunt.task.run([
+                        'build:' + environment,
+                    'aws_s3:setup',
+                    'netdna:prod',
+                    'deployed-message:frontend'
+                ]);
+            }
         } else {
             failUnknownEnvironment('frontend', environment);
         }
