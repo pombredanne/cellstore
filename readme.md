@@ -63,7 +63,7 @@ grunt build --build-id=myfeature
 ```
 
 ## Testing
-Deploy frontend/backend:
+Deploy frontend/backend (project secxbrl-mydemo.28.io / S3 bucket secxbrl-mydemo):
 
 ```bash
 grunt test:setup --build-id=mydemo
