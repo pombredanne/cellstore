@@ -5,6 +5,7 @@ import module namespace components = "http://28.io/modules/xbrl/components";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
+import module namespace rules = "http://28.io/modules/xbrl/rules";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
@@ -31,6 +32,7 @@ let $validate as string       := request:param-values("validate", "false")
 let $eliminate as string      := request:param-values("eliminate", "false")
 let $reportElements as string* := distinct-values(request:param-values("reportElement"))
 let $search as string*        := request:param-values("label")
+let $additional-rules as string? := request:param-values("additional-rules")
 
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
@@ -72,6 +74,8 @@ let $components  := sec-networks:components(
     $roles,
     $search)
 let $component as object? := $components[1] (: only one for know :)
+let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
+
 return if(empty($component)) then {
     response:status-code(404);
     response:content-type("application/json");
@@ -82,16 +86,21 @@ let $definition-model := sec-networks:standard-definition-models-for-components(
 let $spreadsheet as object? :=
     components:spreadsheet(
         $component,
-        {
-            FlattenRows: true,
-            Eliminate: $eliminate,
-            Validate: $validate,
-            DefinitionModel: $definition-model,
+        {|
+            {
+                FlattenRows: true,
+                Eliminate: $eliminate,
+                Validate: $validate,
+                DefinitionModel: $definition-model,
                 FilterOverride : {
                     "sec:FiscalPeriod" : { Type: "string", Default: null },
                     "sec:FiscalYear" : { Type: "string", Default: null }
                 }
-        })
+            },
+            if(exists($rules))
+            then { Rules : [ $rules ] }
+            else ()
+        |})
 
 let $results :=
         {
