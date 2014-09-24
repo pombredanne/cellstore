@@ -79,6 +79,12 @@ Once you are done:
 grunt test:teardown --build-id=mydemo
 ```
 
+All 3 steps can be done at once by simply running:
+```bash
+grunt --build-id=mydemo
+```
+
+
 ## Configuration
 There are two scenarios for deploying this project on http://28.io. Using the 28msec account or your own account.
 

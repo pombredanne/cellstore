@@ -830,7 +830,7 @@ module.exports = function (grunt) {
         } else if(environment === 'prod' ) {
             if(isTravisAndMaster()) {
                 grunt.task.run([
-                        'build:' + environment,
+                    'build:' + environment,
                     'aws_s3:setup',
                     'netdna:prod',
                     'deployed-message:frontend'
@@ -898,13 +898,20 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', function() {
+    grunt.registerTask('default', function(environment) {
+        if(!isTravis() && environment === undefined){
+            environment = 'dev';
+        }
 
         if(getOptionParam('usage')){
             usage();
             grunt.fatal('usage requested');
         } else {
-            fatal('no default task implementation');
+            grunt.task.run([
+                'test:setup:' + environment,
+                'test:run:' + environment,
+                'test:teardown:' + environment
+            ]);
         }
     });
 };
