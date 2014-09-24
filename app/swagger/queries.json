@@ -542,6 +542,17 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "additional-rules",
+                            "description": "The name of a report from which to use rules in addition to the component's rules (e.g. FundamentalAccountingConcepts)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "FundamentalAccountingConcepts",
+                                "null"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
                             "name": "_method",
                             "paramType": "query"
                         }
@@ -697,7 +708,7 @@
                         },
                         {
                             "name": "eliminate",
-                            "description": "Wwether to eliminate empty rows/colummns",
+                            "description": "Whether  to eliminate empty rows/columns",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -711,6 +722,17 @@
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
                             "required": false,
                             "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "additional-rules",
+                            "description": "The name of a report from which to use rules in addition to the component's rules (e.g. FundamentalAccountingConcepts)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "FundamentalAccountingConcepts",
+                                "null"
+                            ],
                             "paramType": "query"
                         },
                         {
@@ -1312,6 +1334,17 @@
                                 "FundamentalAccountingConcepts",
                                 "null"
                               ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "additional-rules",
+                            "description": "The name of a report from which to use rules in addition to a report's rules (e.g. FundamentalAccountingConcepts)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "FundamentalAccountingConcepts",
+                                "null"
+                            ],
                             "paramType": "query"
                         },
                         {

@@ -5,6 +5,7 @@ import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
+import module namespace rules = "http://28.io/modules/xbrl/rules";
 
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
@@ -114,6 +115,7 @@ let $aids as string*           := distinct-values(request:param-values("aid"))
 let $map as string?            := request:param-values("map") (: Backwards compatibility :)
 let $rules as string?          := request:param-values("rule") (: Backwards compatibility :)
 let $report as string?         := request:param-values("report")
+let $additional-rules as string? := request:param-values("additional-rules")
 let $validate as string        := request:param-values("validate", "false")
 
 (: Post-processing :)
@@ -153,9 +155,14 @@ let $map as item* :=
     then reports:concept-map($report)
     else $map
 let $rules as item* :=
-    if(exists($report))
-    then reports:rules($report)
-    else $rules
+    (
+        if(exists($report))
+        then reports:rules($report)
+        else rules:rules($rules),
+        if(exists($additional-rules)) 
+        then rules:rules($additional-rules) 
+        else ()
+    )
 
 let $hypercube := local:hypercube($entities, $fiscalPeriods, $fiscalYears, $aids)
 
