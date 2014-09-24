@@ -34,8 +34,6 @@ module.exports = function (grunt) {
         grunt.log.writeln('grunt [test:<target>] [<task>:<env>] <options>');
 
         grunt.log.subhead('Options (<options>):');
-        grunt.log.writeln(' "--redeploy" : in deployment tasks projects will not get deleted and ');
-        grunt.log.writeln('                recreated, but overwritten instead.');
         grunt.log.writeln(' "--usage"    : print this help text');
 
         grunt.log.subhead('Defined Environments (<env>):');
@@ -48,21 +46,19 @@ module.exports = function (grunt) {
         grunt.log.subhead('Examples:');
         grunt.log.writeln(' deploy frontend to secxbrl-test bucket:');
         grunt.log.writeln('          grunt frontend:dev --build-id=test');
-        grunt.log.writeln('          grunt frontend:dev --build-id=test --redeploy');
         grunt.log.writeln(' deploy backend to secxbrl-test project:');
         grunt.log.writeln('          grunt backend:dev --build-id=test');
-        grunt.log.writeln('          grunt backend:dev --build-id=test --redeploy');
         grunt.log.writeln(' deploy frontend and backend:');
         grunt.log.writeln('          grunt test:setup:dev --build-id=test');
-        grunt.log.writeln('          grunt test:setup:dev --build-id=test --redeploy');
-        grunt.log.writeln(' run locally:');
-        grunt.log.writeln('          grunt');
-        grunt.log.writeln('          grunt server');
-        grunt.log.writeln(' run tests locally:');
-        grunt.log.writeln('          grunt test:setup');
-        grunt.log.writeln('          grunt test:run');
-        grunt.log.writeln('          grunt test:teardown');
-        grunt.log.writeln(' build locally:');
+        grunt.log.writeln(' download backend from remote project secxbrl-test:');
+        grunt.log.writeln('          grunt download:dev --build-id=test');
+        grunt.log.writeln(' run server:');
+        grunt.log.writeln('          grunt server --build-id=test');
+        grunt.log.writeln(' run tests:');
+        grunt.log.writeln('          grunt test:setup --build-id=test');
+        grunt.log.writeln('          grunt test:run --build-id=test');
+        grunt.log.writeln('          grunt test:teardown --build-id=test');
+        grunt.log.writeln(' build:');
         grunt.log.writeln('          grunt build --build-id=test');
         grunt.log.writeln('');
 
@@ -113,21 +109,8 @@ module.exports = function (grunt) {
         return arg;
     };
 
-    var isRedeploy = function(environment){
-        var redeploy = getOptionParam('redeploy');
-        if(environment === 'prod'){
-            // never recreate for prod
-            redeploy = true;
-        }
-        return redeploy;
-    };
-
     var setConfig = function (projectName, bucket, environment){
         if(projectName && bucket && environment !== undefined) {
-            var redeploy = isRedeploy(environment);
-            if(projectName === 'secxbrl' && !redeploy){
-                fatal('project secxbrl must never be recreated! Project: ' + projectName + '  Environment: ' + environment + ' Redeploy: ' + redeploy);
-            }
             if(projectName === 'secxbrl' && environment !== 'prod') {
                 fatal('Only prod environment allowed for project secxbrl. Environment: ' + environment);
             }
@@ -145,7 +128,6 @@ module.exports = function (grunt) {
             grunt.log.ok('Project: ' + projectName);
             grunt.log.ok('Bucket: ' + bucket);
             grunt.log.ok('S3: ' + s3KeyType);
-            grunt.log.ok('Redeploy: ' + redeploy);
             grunt.config.set('secxbrl', config);
         } else {
             usage();
@@ -591,6 +573,12 @@ module.exports = function (grunt) {
                 },
                 create: {}
             },
+            download: {
+                project: '<%= secxbrl.28.project %>',
+                download: {
+                    projectPath: 'queries'
+                }
+            },
             deploy: {
                 project: '<%= secxbrl.28.project %>',
                 upload: {
@@ -604,7 +592,7 @@ module.exports = function (grunt) {
                 ]
 
             },
-            redeploy: {
+            deployMaster: {
                 project: '<%= secxbrl.28.project %>',
                 upload: {
                     projectPath: 'queries'
@@ -765,27 +753,39 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.registerTask('download', function (environment) {
+        if(!isTravis() && environment === undefined){
+            environment = 'dev';
+        }
+
+        if(environment === 'dev' ) {
+            grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant' ]);
+            grunt.task.run([
+                '28:download'
+            ]);
+        } else if(environment === 'ci' || environment === 'prod') {
+            fatal('download task only allowed in dev environment')
+        } else {
+            failUnknownEnvironment('download', environment);
+        }
+    });
+
     grunt.registerTask('backend', function (environment) {
+        if(!isTravis() && environment === undefined){
+            environment = 'dev';
+        }
 
         if(environment === 'dev' ) {
             grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant' ]);
         }
 
         if(environment === 'dev' ) {
-            if (isRedeploy()) {
-                grunt.task.run([
-                    'reports',
-                    '28:redeploy',
-                    'deployed-message:backend'
-                ]);
-            } else {
-                grunt.task.run([
-                    'reports',
-                    '28:setup',
-                    '28:deploy',
-                    'deployed-message:backend'
-                ]);
-            }
+            grunt.task.run([
+                'reports',
+                '28:setup',
+                '28:deploy',
+                'deployed-message:backend'
+            ]);
         } else if(environment === 'ci' ) {
             if(!isTravisAndMaster()) {
                 grunt.task.run([
@@ -798,7 +798,7 @@ module.exports = function (grunt) {
         } else if(environment === 'prod' ) {
             grunt.task.run([
                 'reports',
-                '28:redeploy',
+                '28:deployMaster',
                 'deployed-message:backend'
             ]);
         } else {
@@ -807,6 +807,10 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('frontend', function (environment) {
+        if(!isTravis() && environment === undefined){
+            environment = 'dev';
+        }
+
         grunt.task.run(['shell:decrypt', 'config:' + environment]);
 
         if(environment === 'dev' ) {
@@ -906,12 +910,11 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', function() {
 
-        if(isTravis()){
-            fatal('no default task implementation for ci or prod');
+        if(getOptionParam('usage')){
+            usage();
+            grunt.fatal('usage requested');
         } else {
-            grunt.task.run([
-                'server:dev:dev'
-            ]);
+            fatal('no default task implementation');
         }
     });
 };
