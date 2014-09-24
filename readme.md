@@ -12,27 +12,41 @@ npm install
 bower install
 ```
 
+Help available:
+
+```bash
+grunt --usage
+```
+
+Before running secxbrl.info for the first time you need to create the config.json (for example by exporting the environment variable `TRAVIS_SECRET_KEY`).
+At the bottom, we explain how to do that in detail.
+
+### Frontend Development
+
 Run frontend locally against current secxbrl-dev backend:
 
 ```bash
-grunt --build-id=dev
+grunt server --build-id=dev
 ```
+
+### Backend Development
 
 Deploy backend to secxbrl-myfeature.28.io (will delete and create project secxbrl-myfeature) and run against it:
 
 ```bash
 grunt backend:dev --build-id=myfeature
 # run against deployed backend:
-grunt --build-id=myfeature
+grunt server --build-id=myfeature
 ```
 
-Redeploy backend to secxbrl-myfeature.28.io (will not delete project, just overwrite queries) and run against it:
+Now, start developing the backend online on http://hq.28.io . Once, you are done with your implementation
+you can download the changes made (from secxbrl-myfeature.28.io):
 
 ```bash
-grunt backend:dev --build-id=myfeature --redeploy
-# run against deployed backend:
-grunt --build-id=myfeature
+grunt download:dev --build-id=myfeature
 ```
+
+### Deployment for UAT
 
 Deploy backend to secxbrl-myfeature.28.io and frontend (running against the deployed backend) to secxbrl-myfeature bucket on S3:
 
@@ -40,19 +54,15 @@ Deploy backend to secxbrl-myfeature.28.io and frontend (running against the depl
 grunt test:setup --build-id=myfeature
 ```
 
+### Build dist and do basic xqlint/jshint tests
+
 Build project into /dist (for running against backend project secxbrl-myfeature):
 
 ```bash
 grunt build --build-id=myfeature
 ```
 
-Get help:
-
-```bash
-grunt --usage
-```
-
-## Testing / Deployment / UAT
+## Testing
 There are two scenarios for deploying this project on http://28.io. Using the 28msec account or your own account.
 
 ### Using the 28msec account
@@ -72,6 +82,13 @@ Once you are done:
 ```bash
 grunt test:teardown --build-id=mydemo
 ```
+
+## Configuration
+There are two scenarios for deploying this project on http://28.io. Using the 28msec account or your own account.
+
+### Using the 28msec account
+To deploy a branch on the 28msec account, the following environment variable need to be set: `TRAVIS_SECRET_KEY`. The
+config.json will then automatically be created.
 
 ### Using your own account
 In the root of the repository, create a `config.json` file in the root of the repository.
