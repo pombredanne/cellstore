@@ -4,6 +4,7 @@ import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
@@ -27,6 +28,7 @@ let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPer
 let $aids as string*          := distinct-values(request:param-values("aid"))
 let $validate as string       := request:param-values("validate", "false")
 let $report as string?        := request:param-values("report")
+let $labels as string        := request:param-values("labels", "false")
 
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
@@ -45,6 +47,7 @@ let $fiscalPeriods as string* :=
            case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
            default return $fp
 let $validate as boolean := $validate = "true"
+let $labels as boolean := $labels = "true"
 
 (: Object resolution :)
 let $entities := 
@@ -64,6 +67,10 @@ let $filter-override as object? := fiscal-core:filter-override(
     $fiscalYears,
     $fiscalPeriods,
     $aids)
+let $concepts as object* := 
+    concepts:concepts-for-components(
+        $concepts:ALL_CONCEPT_NAMES,
+        $report)
 let $facts as object* :=
     let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
     let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
@@ -88,8 +95,11 @@ let $facts :=
     for $fact in $fact
     return
     {|
-        $fact,
-        { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName }
+        trim($fact, ("Labels", "EntityRegistrantName")),
+        { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
+        if($labels)
+        then { Labels : concepts:labels-for-facts($fact, $report, ()) }
+        else ()
     |}
 
 let $facts := util:normalize-facts($facts)
@@ -126,6 +136,7 @@ let $results :=
         {|
             { NetworkIdentifier : "http://secxbrl.info/facts" },
             { TableName : "xbrl:Facts" },
+            { Concepts : [ $concepts ] },
             { FactTable : [ $facts ] },
             session:comment("json", {
                     NumFacts : count($facts),

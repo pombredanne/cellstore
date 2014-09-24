@@ -23,14 +23,30 @@ declare function conversion:facts-to-csv(
            then string-join(
                 csv:serialize(
                     for $fact in $facts
-                    return {|
-                        $fact.Aspects,
-                        project($fact, $projection)
-                    |},
+                    return 
+                        {|
+                            if($fact.Labels)
+                            then
+                                for $aspect in keys($fact.Aspects)
+                                let $aspect-value := $fact.Aspects.($aspect)
+                                return
+                                    if($aspect-value instance of string and exists($fact.Labels.($aspect-value)))
+                                    then 
+                                        {
+                                            $aspect : $fact.Labels.($aspect-value)
+                                        }
+                                    else
+                                        {
+                                            $aspect : $aspect-value
+                                        }
+                            else
+                                $fact.Aspects,
+                            project($fact, $projection)
+                        |},
                     { serialize-null-as : "" }
                 )
             )
-    else ()
+            else ()
 };
 
 declare function conversion:facts-to-xml(
@@ -43,10 +59,16 @@ declare function conversion:facts-to-xml(
         <Fact>{
             <Aspects>{
                 for $aspect in keys($aspects)
+                let $aspect-value := $aspects.$aspect
                 return
                     <Aspect>
                         <Name>{$aspect}</Name>
-                        <Value>{$aspects.$aspect}</Value>
+                        <Value>{
+                            if($fact.Labels and $aspect-value instance of string and exists($fact.Labels.($aspect-value)))
+                            then attribute { "label" } { $fact.Labels.($aspect-value) } 
+                            else (), 
+                            $aspects.$aspect
+                        }</Value>
                     </Aspect>
             }</Aspects>,
             if($options.Caller eq "Report")

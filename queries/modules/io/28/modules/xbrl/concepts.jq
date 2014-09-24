@@ -106,8 +106,8 @@ declare function concepts:concepts-for-components($concept-names as string*,
  : @return the matching concepts.
  :) 
 declare function concepts:concepts(
-    $concept-names as string*, 
-    $archives as string*, 
+    $concept-names as string*,
+    $archives as string*,
     $component-roles as string*
   ) as object*
 {
@@ -218,6 +218,119 @@ declare function concepts:labels-for-components(
   let $components := components:components($component-or-ids)
     return concepts:labels($concept-names, $components.Archive[not $$ instance of null], $components.Role, 
       $label-role, $language, $concepts, $options)
+};
+
+(:~
+ : <p>Retrieves all the labels for all concepts used in the facts if 
+ : either found in the report or found in the list of concepts
+ : concepts. Concepts used in a fact includes not only those from the
+ : 'xbrl:Concept' aspect, but also Members of any custom axis.</p>
+ :
+ : <p>The set of concepts to search in is specified as a parameter.</p>
+ :
+ : @param $facts a sequence of facts.
+ : @param $report the report in which to search for concept labels.
+ : @param $concepts additional list of concepts in which the labels will be 
+ :                  searched.
+ : 
+ : @return an object with matching concepts as keys and labels as values.
+ :) 
+declare function concepts:labels-for-facts(
+    $facts as object*, 
+    $report as object?,
+    $concepts as object*
+  ) as object?
+{
+    let $concepts as object* := 
+        (
+            descendant-objects($report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains)[exists($$.Name)],
+            $concepts
+        )
+    let $concept-names as string* :=
+        distinct-values(
+            for $fact in $facts
+            return
+                keys($fact.Aspects)[string($fact.Aspects.($$)) = ($concepts.Name, "sec:DefaultLegalEntity")] ! $fact.Aspects.($$)
+        )
+    return 
+        {|
+            for $name in $concept-names
+            let $label as string? := 
+                if($name eq "sec:DefaultLegalEntity")
+                then "Default Legal Entity"
+                else $concepts[$$.Name eq $name][1].Label
+            where exists($label)
+            return 
+                {
+                    $name: $label
+                }       
+        |}
+};
+
+(:~
+ : <p>Retrieves all the labels with the given label role and language for
+ : all concepts used in the fact and matching a concept in the list of
+ : concepts. Concepts used in a fact includes not only those from the
+ : 'xbrl:Concept' aspect, but also Members of any custom axis.</p>
+ :
+ : <p>Matching concepts are those which:
+ :  - concept name matches a given one,
+ :  - archive number matches that of a given component,
+ :  - component role matches that of a given component or is the default 
+ :    component role.
+ : </p>
+ :
+ : <p>The set of concepts to search in is specified as a parameter.</p>
+ :
+ : <p>Language matching can either be exact, if no options are given,
+ : or approximated, if at least one of the following options is given:</p>
+ : <ul>
+ :   <li>MatchDown: whether to match a more specific language, e.g.:
+ :       "en" will match labels which language is "en" or "en-US".</li>
+ :   <li>MatchUp: whether to match a less specific language, e.g.:
+ :       "en-US" will match labels which language is "en-US" or "en".</li>
+ :   <li>MatchAnyVariant: whether to match a different variant of the same
+ :       language, e.g.: "en-US" will match labels which language is "en-US"
+ :       or "en-UK".</li>
+ : </ul>
+ :
+ : @param $facts a sequence of facts.
+ : @param $component-or-ids the CIDs or the components themselves.
+ : @param $label-role the label role.
+ : @param $language the label language.
+ : @param $concepts the concepts in which the labels will be 
+ :                  searched.
+ : @param $options optional parameters to control language matching.
+ : 
+ : @return an object with matching concepts as keys and labels as values.
+ :) 
+declare function concepts:labels-for-facts(
+    $facts as object*, 
+    $component-or-ids as item*, 
+    $label-role as string, 
+    $language as string, 
+    $concepts as object*, 
+    $options as object?
+  ) as object?
+{
+    let $components := components:components($component-or-ids)
+    let $concept-names as string* :=
+        distinct-values(
+            for $fact in $facts
+            return
+                keys($fact.Aspects)[string($fact.Aspects.($$)) = $concepts.Name] ! $fact.Aspects.($$)
+        )
+    let $archives := $facts.Aspects."sec:Archive"
+    return 
+        {|
+            for $name in $concept-names
+            return 
+                {
+                    $name: concepts:labels(
+                                $name, $archives, $components.Role,
+                                $label-role, $language, $concepts, $options)
+                }       
+        |}
 };
 
 (:~
@@ -359,9 +472,7 @@ declare %private function concepts:approximated-labels-match(
 
 declare %private function concepts:normalize-language($language as string) as string
 {
-  (: TODO Enable this when the DB has been reimported :)
-  (:replace(lower-case($language), "_", "-"):)
-  $language
+  replace(lower-case($language), "_", "-")
 };
 
 declare %private %an:strictlydeterministic function concepts:connection() as anyURI

@@ -8,6 +8,7 @@ import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
@@ -35,10 +36,11 @@ let $cids as string*       := request:param-values("cid")
 let $concepts as string*      := distinct-values(request:param-values("concept"))
 let $reportElements as string* := distinct-values(request:param-values("reportElement"))
 let $disclosures as string*   := request:param-values("disclosure")
-let $search as string*         := request:param-values("label")
+let $search as string*        := request:param-values("label")
 let $rollups as string*       := distinct-values(request:param-values("rollup"))
 let $map as string?           := request:param-values("map")
 let $validate as string       := request:param-values("validate", "false")
+let $labels as string         := request:param-values("labels", "false")
 
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
@@ -58,6 +60,7 @@ let $fiscalPeriods as string* :=
            default return $fp
 let $reportElements := ($reportElements, $concepts)
 let $validate as boolean := $validate = "true"
+let $labels as boolean := $labels = "true"
 
 (: Object resolution :)
 let $entities as object* := 
@@ -114,7 +117,23 @@ let $facts :=
                 }
             }
         )
-        
+      
+let $facts :=
+    if(not $labels)
+    then $facts
+    else 
+        (: if labels are requested by the labels=true parameter then also add labels for concepts :)
+        let $concepts as object* := 
+            concepts:concepts-for-components($concepts:ALL_CONCEPT_NAMES, $component)
+        for $fact in $facts
+        let $labels := 
+            concepts:labels-for-facts($fact, $component, $concepts:STANDARD_LABEL_ROLE,
+                "en-US", $concepts, ())
+        return 
+            {|
+                trim($fact, "Labels"),
+                { Labels : $labels }
+            |}
 let $facts := util:normalize-facts($facts)
 
 let $results :=

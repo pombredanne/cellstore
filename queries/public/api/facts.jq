@@ -5,6 +5,7 @@ import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
@@ -115,6 +116,7 @@ let $map as string?            := request:param-values("map") (: Backwards compa
 let $rules as string?          := request:param-values("rule") (: Backwards compatibility :)
 let $report as string?         := request:param-values("report")
 let $validate as string        := request:param-values("validate", "false")
+let $labels as string        := request:param-values("labels", "false")
 
 (: Post-processing :)
 let $format as string? := (: backwards compatibility, to be deprecated  :)
@@ -133,6 +135,7 @@ let $fiscalPeriods as string* :=
            case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
            default return $fp
 let $validate as boolean := $validate = "true"
+let $labels as boolean := $labels = "true"
 
 (: Object resolution :)
 let $entities as object* := 
@@ -163,7 +166,7 @@ let $facts :=
     if(empty($archives))
     then ()
     else 
-        for $fact in sec:facts-for(
+        let $facts := sec:facts-for(
             {|
                 {
                     Hypercube : $hypercube,
@@ -172,10 +175,17 @@ let $facts :=
                 { "ConceptMaps" : $map }[exists($map)],
                 { "Rules" : [ $rules ] }[exists($rules)]
             |}
-        )
+        ) 
+        let $concepts := 
+            concepts:concepts( 
+                distinct-values($facts.Aspects."xbrl:Concept"), $archives."_id", ())
+        for $fact in $facts
         return {|
             $fact,
-            { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName}
+            { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName},
+            if($labels)
+            then { Labels : concepts:labels-for-facts($fact, $report, $concepts) }
+            else ()
         |}
 
 let $facts := util:normalize-facts($facts)
