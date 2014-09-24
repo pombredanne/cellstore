@@ -54,7 +54,7 @@ Deploy backend to secxbrl-myfeature.28.io and frontend (running against the depl
 grunt test:setup --build-id=myfeature
 ```
 
-### Build dist and do basic xqlint/jshint tests
+### Build dist and run xqlint/jshint tests
 
 Build project into /dist (for running against backend project secxbrl-myfeature):
 
@@ -63,17 +63,13 @@ grunt build --build-id=myfeature
 ```
 
 ## Testing
-There are two scenarios for deploying this project on http://28.io. Using the 28msec account or your own account.
-
-### Using the 28msec account
-To deploy a branch on the 28msec account, the following environment variable need to be set: `TRAVIS_SECRET_KEY`.
-You can simply specify a build id like this:
+Deploy frontend/backend:
 
 ```bash
 grunt test:setup --build-id=mydemo
 ```
 
-And a test as follows:
+Run tests as follows:
 ```bash
 grunt test:run --build-id=mydemo
 ```
