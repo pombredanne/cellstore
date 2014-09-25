@@ -635,18 +635,19 @@ angular.module('main', [
         url: '/filings',
         templateUrl: '/views/comparison/filings.html',
         controller: 'ComparisonFilingsCtrl',
+        reloadOnSearch: false,
         resolve: {
-            filings: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+            filings: function($rootScope, $stateParams, $backend) {
                 return $backend.Queries.listFilings({
                     _method: 'POST',
-                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    cik: ($stateParams.cik ? $stateParams.cik : []),
+                    tag: ($stateParams.tag ? $stateParams.tag : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
+                    sic: ($stateParams.sic ? $stateParams.sic : []),
                     token: $rootScope.token
                 });
-            }]
+            }
         },
         data: {
             title: 'Filings',
@@ -659,18 +660,19 @@ angular.module('main', [
         url: '/filingss',
         templateUrl: '/views/comparison/filings.html',
         controller: 'ComparisonFilingsCtrl',
+        reloadOnSearch: false,
         resolve: {
-            filings: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
+            filings: function($rootScope, $stateParams, $backend) {
                 return $backend.Queries.listFilings({
                     _method: 'POST',
-                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    cik: ($stateParams.cik ? $stateParams.cik : []),
+                    tag: ($stateParams.tag ? $stateParams.tag : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
+                    sic: ($stateParams.sic ? $stateParams.sic : []),
                     token: $rootScope.token
                 });
-            }]
+            }
         },
         data: {
             title: 'Filings',
@@ -686,11 +688,11 @@ angular.module('main', [
             informations: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend) {
                 return $backend.Queries.listFilings({
                     _method: 'POST',
-                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    cik: ($stateParams.cik ? $stateParams.cik : []),
+                    tag: ($stateParams.tag ? $stateParams.tag : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
+                    sic: ($stateParams.sic ? $stateParams.sic : []),
                     token: $rootScope.token
                 })
                 .then(function(filings) {
@@ -706,7 +708,7 @@ angular.module('main', [
                                 _method: 'POST',
                                 aid: aid,
                                 report: 'FundamentalAccountingConcepts',
-                                fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                                fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
                                 'token' : $rootScope.token
                             },
                             cache: false
@@ -732,11 +734,11 @@ angular.module('main', [
             informations: ['$rootScope', '$stateParams', '$http', '$backend', function($rootScope, $stateParams, $http, $backend) {
                 return $backend.Queries.listFilings({
                     _method: 'POST',
-                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    cik: ($stateParams.cik ? $stateParams.cik : []),
+                    tag: ($stateParams.tag ? $stateParams.tag : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
+                    sic: ($stateParams.sic ? $stateParams.sic : []),
                     token: $rootScope.token
                 })
                 .then(function(filings) {
@@ -752,7 +754,7 @@ angular.module('main', [
                                 _method: 'POST',
                                 aid: aid,
                                 report: 'FundamentalAccountingConcepts',
-                                fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
+                                fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
                                 'token' : $rootScope.token
                             },
                             cache: false
@@ -799,11 +801,11 @@ angular.module('main', [
                     return $backend.Queries.listReportElements({
                             _method : 'POST',
                             onlyNames : true,
-                            cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                            tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                            fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                            fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                            sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                            cik: ($stateParams.cik ? $stateParams.cik : []),
+                            tag: ($stateParams.tag ? $stateParams.tag : []),
+                            fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear : []),
+                            fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
+                            sic: ($stateParams.sic ? $stateParams.sic : []),
                             token: $rootScope.token
                         })
                         .then(function(data) {
@@ -812,7 +814,7 @@ angular.module('main', [
                 }
             }],
             results: ['$rootScope', '$stateParams', '$location', '$backend', function($rootScope, $stateParams, $location, $backend) {
-                var concept = ($stateParams.concept ? $stateParams.concept.split(',') : []);
+                var concept = ($stateParams.concept ? $stateParams.concept : []);
                 if (concept.length !== 0) {
                     var dimensions = [];
                     var src = $location.search();
@@ -836,11 +838,11 @@ angular.module('main', [
 
                     var params = {
                         _method: 'POST',
-                        cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                        tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                        fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                        fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                        sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                        cik: ($stateParams.cik ? $stateParams.cik : []),
+                        tag: ($stateParams.tag ? $stateParams.tag : []),
+                        fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear : []),
+                        fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
+                        sic: ($stateParams.sic ? $stateParams.sic : []),
                         concept: concept,
                         map: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
                         rules: ($stateParams.map !== 'US-GAAP Taxonomy Concepts' ? $stateParams.map : null),
@@ -877,11 +879,11 @@ angular.module('main', [
                 return $backend.Queries.listReportElements({
                     _method : 'POST',
                     onlyNames : true,
-                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    cik: ($stateParams.cik ? $stateParams.cik : []),
+                    tag: ($stateParams.tag ? $stateParams.tag : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
+                    sic: ($stateParams.sic ? $stateParams.sic : []),
                     token: $rootScope.token
                 });
             }],
@@ -895,11 +897,11 @@ angular.module('main', [
                 if ($stateParams.disclosure || $stateParams.reportElement || $stateParams.label) {
                     return $backend.Queries.listComponents({
                         _method: 'POST',
-                        cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                        tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                        fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                        fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                        sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                        cik: ($stateParams.cik ? $stateParams.cik : []),
+                        tag: ($stateParams.tag ? $stateParams.tag : []),
+                        fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear : []),
+                        fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
+                        sic: ($stateParams.sic ? $stateParams.sic : []),
                         disclosure: $stateParams.disclosure,
                         reportElement: $stateParams.reportElement,
                         label: $stateParams.label,
@@ -926,11 +928,11 @@ angular.module('main', [
                 return $backend.Queries.listReportElements({
                     _method : 'POST',
                     onlyNames : true,
-                    cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                    tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                    sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                    cik: ($stateParams.cik ? $stateParams.cik : []),
+                    tag: ($stateParams.tag ? $stateParams.tag : []),
+                    fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear : []),
+                    fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
+                    sic: ($stateParams.sic ? $stateParams.sic : []),
                     token: $rootScope.token
                 });
             }],
@@ -938,11 +940,11 @@ angular.module('main', [
                 if ($stateParams.name || $stateParams.label) {
                     return $backend.Queries.listReportElements({
                         _method: 'POST',
-                        cik: ($stateParams.cik ? $stateParams.cik.split(',') : []),
-                        tag: ($stateParams.tag ? $stateParams.tag.split(',') : []),
-                        fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear.split(',') : []),
-                        fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod.split(',') : []),
-                        sic: ($stateParams.sic ? $stateParams.sic.split(',') : []),
+                        cik: ($stateParams.cik ? $stateParams.cik : []),
+                        tag: ($stateParams.tag ? $stateParams.tag : []),
+                        fiscalYear: ($stateParams.fiscalYear ? $stateParams.fiscalYear : []),
+                        fiscalPeriod: ($stateParams.fiscalPeriod ? $stateParams.fiscalPeriod : []),
+                        sic: ($stateParams.sic ? $stateParams.sic : []),
                         name: $stateParams.name,
                         label: $stateParams.label,
                         token: $rootScope.token

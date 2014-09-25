@@ -8,6 +8,7 @@ import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
+import module namespace rules = "http://28.io/modules/xbrl/rules";
 
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
@@ -36,6 +37,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $label              as 
 declare  %rest:case-insensitive %rest:distinct  variable $rollup             as string* external;
 declare  %rest:case-insensitive                 variable $map                as string? external;
 declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
+declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
 
 session:audit-call();
 
@@ -68,6 +70,7 @@ let $components  := sec-networks:components(
     $label)
 let $component as object? := $components[1] (: only one for know :)
 let $cid as string? := components:cid($component)
+let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
 
 (: Fact resolution :)
 let $facts :=
@@ -79,7 +82,8 @@ let $facts :=
                  "sec:FiscalYear" : { Type: "integer", Default: null },
                  "sec:FiscalPeriod" : { Type: "string", Default: null }
              })
-             let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive)
+             let $options as object? := if(exists($rules)) then { Rules: [ $rules ] } else ()
+             let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive, $options)
              let $map := concept-maps:concept-maps($map)
              let $concepts := 
                 if (not $map instance of null)
@@ -93,13 +97,18 @@ let $facts :=
              return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
          else components:facts(
             $component,
-            {
-                Validate: $validate,
-                FilterOverride : {
-                    "sec:FiscalPeriod" : { Type: "string", Default: null },
-                    "sec:FiscalYear" : { Type: "string", Default: null }
-                }
-            }
+            {|
+                {
+                    Validate: $validate,
+                    FilterOverride : {
+                        "sec:FiscalPeriod" : { Type: "string", Default: null },
+                        "sec:FiscalYear" : { Type: "string", Default: null }
+                    }
+                },
+                if(exists($rules))
+                then { Rules : [ $rules ] }
+                else ()
+            |}
         )
         
 let $facts := api:normalize-facts($facts)

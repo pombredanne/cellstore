@@ -44,7 +44,7 @@
     </div>
     
     <div>
-        <div ng-repeat="key in selection.concept">
+        <div ng-repeat="key in selection.concept track by $index">
             <a ng-click="deleteConceptKey(key)"><i class="fa fa-times"></i></a>
             <a popover="{{key}}" popover-position="top" popover-trigger="click">{{substring(key, 50)}}</a>
         </div>

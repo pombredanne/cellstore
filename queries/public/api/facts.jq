@@ -5,6 +5,7 @@ import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
+import module namespace rules = "http://28.io/modules/xbrl/rules";
 
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
@@ -112,6 +113,7 @@ declare  %rest:case-insensitive                 variable $map                as 
 declare  %rest:case-insensitive                 variable $rule               as string? external;
 declare  %rest:case-insensitive                 variable $report             as string? external;
 declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
+declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
 
 session:audit-call();
 
@@ -140,9 +142,14 @@ let $map as item* :=
     then reports:concept-map($report)
     else $map
 let $rule as item* :=
-    if(exists($report))
-    then reports:rules($report)
-    else $rule
+    (
+        if(exists($report))
+        then reports:rules($report)
+        else rules:rules($rule),
+        if(exists($additional-rules)) 
+        then rules:rules($additional-rules) 
+        else ()
+    )
 
 let $hypercube := local:hypercube($entities, $fiscalPeriod, $fiscalYear, $aid)
 
