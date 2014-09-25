@@ -46,7 +46,7 @@ Run frontend locally against current secxbrl-dev backend:
 grunt server --build-id=dev
 ```
 
-Run dist (ugglified etc.) frontend locally against current secxbrl-dev backend:
+Run dist (uglified etc.) frontend locally against current secxbrl-dev backend:
 
 ```bash
 grunt server:dist --build-id=dev
