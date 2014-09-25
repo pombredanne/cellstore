@@ -1,26 +1,26 @@
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
+import module namespace api = "http://apps.28.io/api";
 import module namespace user = "http://apps.28.io/user";
 import module namespace reports = "http://apps.28.io/reports";
 
-declare namespace api = "http://apps.28.io/api";
+declare  %rest:case-insensitive %rest:distinct  variable $_id                 as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $user                as string* external;
+declare  %rest:case-insensitive                 variable $public-read         as string? external := "false"; (: backward compatibility :)
+declare  %rest:case-insensitive                 variable $private             as string? external := "false"; (: backward compatibility :)
 
 try{
     (: ### INIT PARAMS :)
-    let $id := request:param-values("_id")
-    let $userids := request:param-values("user")
-    let $public-read := request:param-values("public-read")
-    let $private := request:param-values("private")
+    let $public-read as boolean := api:boolean($public-read)
+    let $private as boolean := api:boolean($private)
     
     let $authenticated-user := user:get-existing-by-id(session:validate())
-    let $users := for $email in $userids return user:get-existing-by-email($email)
-    
+    let $users := for $email in $user return user:get-existing-by-email($email)
     let $query := 
         {|
             switch(true)
-            case (exists($id)) return 
-                { "_id" :  if(count($id) gt 1 ) then { "$in" : [ $id ] } else $id }
+            case (exists($_id)) return 
+                { "_id" :  if(count($_id) gt 1 ) then { "$in" : [ $_id ] } else $_id }
             case $private return 
                 { "$or":
                     [ 
@@ -61,7 +61,7 @@ try{
         }
         
         (: ### BAD REQUEST HANDLING :)
-        case (empty($reports) and exists($id))
+        case (empty($reports) and exists($_id))
         return {
             response:status-code(404);
             session:error("report not found", "json")

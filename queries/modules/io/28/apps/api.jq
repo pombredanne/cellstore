@@ -87,6 +87,13 @@ as string
             else "Just Now"        
 };
 
+declare function api:boolean($value as string) as boolean
+{
+    if ($value eq "")
+    then true
+    else boolean($value)
+};
+
 declare function api:success() as object
 {
   { "success" : true }

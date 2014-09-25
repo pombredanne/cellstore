@@ -8,29 +8,30 @@ import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
 
 declare namespace api = "http://apps.28.io/api";
 
+declare  %rest:body-text                        variable $body                as string  external;
+declare  %rest:case-insensitive                 variable $validation-only     as string? external := "false"; (: backward compatibility :)
+declare  %rest:case-insensitive                 variable $public-read         as string? external := "false"; (: backward compatibility :)
+declare  %rest:case-insensitive                 variable $private             as string? external := "false"; (: backward compatibility :)
+
 try {
-    
+
     (: ### INIT PARAMS :)
-    let $validation-only := request:param-values("validation-only")
-    let $public-read := 
-      let $pr := request:param-values("public-read")
-      return ($pr eq "" or boolean($pr))
-    let $private := 
-      let $p := request:param-values("private")
-      return ($p eq "" or boolean($p))
+    let $validation-only as boolean := api:boolean($validation-only)
+    let $public-read as boolean := api:boolean($public-read)
+    let $private as boolean := api:boolean($private)
+    
+      
     let $authenticated-user := user:get-existing-by-id(session:validate())
-    let $report as object? := 
-       let $body := request:text-content()
-       return 
-            if(exists($body))
-            then 
-                let $r := parse-json($body)
-                return
-                    switch(true)
-                    case ($private) return reports:make-private-read($r)
-                    case ($public-read) return reports:make-public-read($r)
-                    default return $r
-            else ()
+    let $report as object? :=
+        if(exists($body))
+        then 
+            let $r := parse-json($body)
+            return
+                switch(true)
+                case ($private) return reports:make-private-read($r)
+                case ($public-read) return reports:make-public-read($r)
+                default return $r
+        else ()
     let $id as string? := 
         if(exists($report))
         then $report."_id"
@@ -51,7 +52,7 @@ try {
         
         (: ### AUTHORIZATION :)
         (: user authorized to validate report? :)
-        case (exists($validation-only) and not(session:valid("reports_validate"))) 
+        case ($validation-only and not(session:valid("reports_validate"))) 
         
         (: user authorized to update report? :)
         case (exists($id) and exists($existing-report) and 
@@ -80,7 +81,7 @@ try {
         
         (: ### MAIN WORK :)
         (: report validation :)
-        case (exists($validation-only) and ($validation-only eq "" or boolean($validation-only)))
+        case ($validation-only)
         return {
             response:content-type("application/json");
             response:serialization-parameters({"indent" : true});
