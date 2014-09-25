@@ -1,5 +1,3 @@
-jsoniq version "1.0";
-
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
@@ -8,7 +6,7 @@ import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/comp
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace api = "http://apps.28.io/api";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
@@ -138,10 +136,10 @@ declare  %rest:case-insensitive %rest:distinct  variable $label              as 
 session:audit-call();
 
 (: Post-processing :)
-let $format as string? := util:preprocess-format($format)
-let $fiscalYear as integer* := util:preprocess-fiscal-years($fiscalYear)
-let $fiscalPeriod as string* := util:preprocess-fiscal-periods($fiscalPeriod)
-let $tag as string* := util:preprocess-tags($tag)
+let $format as string? := api:preprocess-format($format)
+let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := api:preprocess-tags($tag)
 let $reportElement := ($reportElement, $concept)
 
 (: Object resolution :)
@@ -190,7 +188,7 @@ let $serializers := {
     to-csv : local:to-csv#1
 }
 return if (exists($component))
-    then util:serialize($result, $comment, $serializers, $format, "components")
+    then api:serialize($result, $comment, $serializers, $format, "components")
     else {
         response:status-code(404);
         response:content-type("application/json");

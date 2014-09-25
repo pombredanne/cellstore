@@ -16,7 +16,7 @@ import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/n
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
 import module namespace session = "http://apps.28.io/session";
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $format             as string? external;
@@ -40,10 +40,10 @@ declare  %rest:case-insensitive                 variable $validate           as 
 session:audit-call();
 
 (: Post-processing :)
-let $format as string? := util:preprocess-format($format)
-let $fiscalYear as integer* := util:preprocess-fiscal-years($fiscalYear)
-let $fiscalPeriod as string* := util:preprocess-fiscal-periods($fiscalPeriod)
-let $tag as string* := util:preprocess-tags($tag)
+let $format as string? := api:preprocess-format($format)
+let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := api:preprocess-tags($tag)
 let $reportElement := ($reportElement, $concept)
 
 (: Object resolution :)
@@ -102,7 +102,7 @@ let $facts :=
             }
         )
         
-let $facts := util:normalize-facts($facts)
+let $facts := api:normalize-facts($facts)
 
 let $results :=
     switch ($format)
@@ -168,4 +168,4 @@ let $results :=
             )
         |}
     }
-return util:check-and-return-results($entity, $results, $format)
+return api:check-and-return-results($entity, $results, $format)

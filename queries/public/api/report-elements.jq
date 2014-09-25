@@ -1,4 +1,4 @@
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace api = "http://apps.28.io/api";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
@@ -165,10 +165,10 @@ declare  %rest:case-insensitive %rest:distinct  variable $name               as 
 session:audit-call();
 
 (: Post-processing :)
-let $format as string? := util:preprocess-format($format)
-let $fiscalYear as integer* := util:preprocess-fiscal-years($fiscalYear)
-let $fiscalPeriod as string* := util:preprocess-fiscal-periods($fiscalPeriod)
-let $tag as string* := util:preprocess-tags($tag)
+let $format as string? := api:preprocess-format($format)
+let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
 let $entities as object* := 
@@ -248,6 +248,6 @@ let $serializers := {
         local:to-csv($res.ReportElements[], $onlyNames)
     }
 }
-let $results := util:serialize($result, $comment, $serializers, $format, "report-elements")
+let $results := api:serialize($result, $comment, $serializers, $format, "report-elements")
 return 
-    util:check-and-return-results($entities, $results, $format)
+    api:check-and-return-results($entities, $results, $format)

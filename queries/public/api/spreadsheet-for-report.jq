@@ -8,7 +8,7 @@ import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fi
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
 import module namespace session = "http://apps.28.io/session";
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $format             as string? external;
@@ -26,10 +26,10 @@ declare  %rest:case-insensitive                 variable $report             as 
 session:audit-call();
 
 (: Post-processing :)
-let $format as string? := util:preprocess-format($format)
-let $fiscalYear as integer* := util:preprocess-fiscal-years($fiscalYear)
-let $fiscalPeriod as string* := util:preprocess-fiscal-periods($fiscalPeriod)
-let $tag as string* := util:preprocess-tags($tag)
+let $format as string? := api:preprocess-format($format)
+let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
 let $entities := 
@@ -77,4 +77,4 @@ let $results :=
         $spreadsheet
     }
 return
-    util:check-and-return-results($entities, $results, $format)
+    api:check-and-return-results($entities, $results, $format)

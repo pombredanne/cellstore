@@ -1,4 +1,4 @@
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
@@ -48,7 +48,7 @@ declare  %rest:case-insensitive  variable $name    as string? external;
 session:audit-call();
 
 (: Post-processing :)
-let $format as string? := util:preprocess-format($format)
+let $format as string? := api:preprocess-format($format)
 
 (: Object resolution :)
 let $map := ($map, $name)
@@ -63,7 +63,7 @@ let $serializers := {
 
 return
     if (exists($map))
-    then util:serialize($map, $comment, $serializers, $format, "components")
+    then api:serialize($map, $comment, $serializers, $format, "components")
     else {
         response:status-code(404);
         response:content-type("application/json");

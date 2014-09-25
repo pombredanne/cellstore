@@ -1,4 +1,4 @@
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
@@ -116,10 +116,10 @@ declare  %rest:case-insensitive                 variable $validate           as 
 session:audit-call();
 
 (: Post-processing :)
-let $format as string? := util:preprocess-format($format)
-let $fiscalYear as integer* := util:preprocess-fiscal-years($fiscalYear)
-let $fiscalPeriod as string* := util:preprocess-fiscal-periods($fiscalPeriod)
-let $tag as string* := util:preprocess-tags($tag)
+let $format as string? := api:preprocess-format($format)
+let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
 let $entities as object* := 
@@ -165,7 +165,7 @@ let $facts :=
             { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName}
         |}
 
-let $facts := util:normalize-facts($facts)
+let $facts := api:normalize-facts($facts)
 
 let $result := {
     NetworkIdentifier : "http://bizql.io/facts",
@@ -197,5 +197,5 @@ return
         response:status-code(404);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
     }
-    else let $results := util:serialize($result, $comment, $serializers, $format, "facts")
-         return util:check-and-return-results($entities, $results, $format)
+    else let $results := api:serialize($result, $comment, $serializers, $format, "facts")
+         return api:check-and-return-results($entities, $results, $format)

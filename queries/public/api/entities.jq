@@ -1,4 +1,4 @@
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
@@ -13,8 +13,8 @@ declare  %rest:case-insensitive %rest:distinct  variable $sic                as 
 session:audit-call();
 
 (: Post-processing :)
-let $format as string? := util:preprocess-format($format)
-let $tag as string* := util:preprocess-tags($tag)
+let $format as string? := api:preprocess-format($format)
+let $tag as string* := api:preprocess-tags($tag)
 let $tag := if (exists(($cik, $tag, $ticker, $sic)))
              then $tag
              else "ALL"
@@ -45,4 +45,4 @@ let $serializers := {
         string-join(companies:to-csv($res.Entities[]))
     }
 }
-return util:serialize($result, $comment, $serializers, $format, "entities")
+return api:serialize($result, $comment, $serializers, $format, "entities")
