@@ -21,14 +21,6 @@ grunt --usage
 Before running secxbrl.info for the first time you need to create the config.json (for example by exporting the environment variable `TRAVIS_SECRET_KEY`).
 At the bottom, we explain how to do that in detail.
 
-### Frontend Development
-
-Run frontend locally against current secxbrl-dev backend:
-
-```bash
-grunt server --build-id=dev
-```
-
 ### Backend Development
 
 Deploy backend to secxbrl-myfeature.28.io (will delete and create project secxbrl-myfeature) and run against it:
@@ -44,6 +36,20 @@ you can download the changes made (from secxbrl-myfeature.28.io):
 
 ```bash
 grunt download:dev --build-id=myfeature
+```
+
+### Frontend Development
+
+Run frontend locally against current secxbrl-dev backend:
+
+```bash
+grunt server --build-id=dev
+```
+
+Run dist (ugglified etc.) frontend locally against current secxbrl-dev backend:
+
+```bash
+grunt server:dist --build-id=dev
 ```
 
 ### Deployment for UAT
