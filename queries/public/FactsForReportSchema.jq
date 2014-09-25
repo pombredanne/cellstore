@@ -6,20 +6,26 @@ import module namespace components = "http://28.io/modules/xbrl/components";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
+import module namespace api = "http://apps.28.io/api";
 
 import module namespace seq = "http://zorba.io/modules/sequence";
 
+(: Query parameters :)
+declare  %rest:case-insensitive                 variable $format             as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
+declare  %rest:case-insensitive                 variable $report             as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
+
 session:audit-call();
 
-let $format  := lower-case(request:param-values("format")[1])
-let $aids     := request:param-values("aid")
-let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod"))
-let $report   := request:param-values("report")[1]
-let $report-object   := reports:reports($report)
+(: Post-processing :)
+let $format as string? := api:preprocess-format($format)
+let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 
-let $archives := archives:archives(distinct-values($aids))
+(: Object resolution :)
+let $report-object   := reports:reports($report)
+let $archives := archives:archives(distinct-values($aid))
 let $entities := entities:entities($archives.Entity)
 return switch(true)
     case empty($archives) return {
@@ -78,7 +84,7 @@ return switch(true)
             if (exists($computed-archives))
             then db:insert("reportcache", $computed-archives);
             else ();
-            if(empty($fiscalPeriods))
+            if(empty($fiscalPeriod))
             then [ $cached-archives, $computed-archives ] 
             else [
                 for $archive in ($cached-archives, $computed-archives)
@@ -89,7 +95,7 @@ return switch(true)
                         where exists($objects.Facts)
                         let $factPositionsToRemove := 
                             for $f at $pos in $objects.Facts[]
-                            where not($f.Aspects."sec:FiscalPeriod" = $fiscalPeriods)
+                            where not($f.Aspects."sec:FiscalPeriod" = $fiscalPeriod)
                             return $pos
                         where exists($factPositionsToRemove)
                         return replace value of json $objects.Facts with [ $objects.Facts[][not position() = $factPositionsToRemove] ]

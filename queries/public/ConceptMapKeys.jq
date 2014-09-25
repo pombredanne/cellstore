@@ -1,18 +1,15 @@
-
 import module namespace reports = "http://28.io/modules/xbrl/reports";
-import module namespace req = "http://www.28msec.com/modules/http-request";
 
-variable $mapName := let $mapName := req:param-values("mapName","FundamentalAccountingConcepts")
-                     return if (empty($mapName))
-                            then error(QName("local:INVALID-REQUEST"), "mapName: mandatory parameter not found")
-                            else $mapName;
-                         
+(: Query parameters :)
+declare %rest:case-insensitive variable $mapName as string? external := "FundamentalAccountingConcepts";
+
+(: Post-processing :)
 variable $report := let $report := reports:reports($mapName)
                     return if (empty($report))
                         then error(QName("local:INVALID-REQUEST"), $mapName ||": no map defined with name ")
                         else $report;
-                        
-                        
+
+(: Object resolution :)
 let $map := reports:concept-map($report)
 let $keys := keys($map.Trees)
 

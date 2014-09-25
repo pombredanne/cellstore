@@ -3,17 +3,20 @@ import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/comp
 import module namespace sec-fiscal = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
+import module namespace api = "http://apps.28.io/api";
 
-variable $cik := let $cik := request:param-values("cik", "0000104169")
-                 return if (empty($cik))
-                        then error(QName("local:INVALID-REQUEST"), "cik: mandatory parameter not found")
-                        else if (empty(entities:entities(companies:eid($cik))))
-                             then error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
-                             else $cik;
-                             
-let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)                              
+(: Query parameters :)
+declare  %rest:case-insensitive  variable $format as string? external;
+declare  %rest:case-insensitive  variable $cik    as string? external := "0000104169";
+
+(: Post-processing :)
+let $cik := if (empty(entities:entities(companies:eid($cik))))
+            then error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
+            else $cik
+let $format as string? := api:preprocess-format($format)
+
+(: Object resolution :)
 let $entity := entities:entities(companies:eid($cik))
 let $latestFYFiling := sec-fiscal:latest-reported-fiscal-period($entity,"10-K")
 let $latestFQFiling := sec-fiscal:latest-reported-fiscal-period($entity,"10-Q")
