@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('main')
-.controller('ComparisonFilingsCtrl', function($rootScope, $scope, $backend, $stateParams, filings) {
+.controller('ComparisonFilingsCtrl', function($rootScope, $scope, $timeout, $backend, $stateParams, filings) {
     $scope.filings = null;
     $scope.error = false;
     $scope.errornoresults = false;
@@ -25,6 +25,9 @@ angular.module('main')
                 $scope.errornoresults = ($scope.filings.length === 0);
             });
     });
+
+    // make sure location search parameters are set correctly
+    $timeout(function(){$scope.checkSearch();},20);
 
     $scope.getExportURL = function(format) {
         return $backend.API_URL + '/_queries/public/api/filings.jq?_method=POST&fiscalPeriod=' + $scope.selection.fiscalPeriod + '&fiscalYear=' + $scope.selection.fiscalYear + '&tag=' + $scope.selection.tag + '&sic=' + $scope.selection.sic + '&format=' + format + '&token=' + $scope.token;

@@ -637,7 +637,7 @@ angular.module('main', [
         controller: 'ComparisonFilingsCtrl',
         reloadOnSearch: false,
         resolve: {
-            filings: function($rootScope, $stateParams, $backend) {
+            filings: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
                 return $backend.Queries.listFilings({
                     _method: 'POST',
                     cik: ($stateParams.cik ? $stateParams.cik : []),
@@ -647,7 +647,7 @@ angular.module('main', [
                     sic: ($stateParams.sic ? $stateParams.sic : []),
                     token: $rootScope.token
                 });
-            }
+            }]
         },
         data: {
             title: 'Filings',
@@ -662,7 +662,7 @@ angular.module('main', [
         controller: 'ComparisonFilingsCtrl',
         reloadOnSearch: false,
         resolve: {
-            filings: function($rootScope, $stateParams, $backend) {
+            filings: ['$rootScope', '$stateParams', '$backend', function($rootScope, $stateParams, $backend) {
                 return $backend.Queries.listFilings({
                     _method: 'POST',
                     cik: ($stateParams.cik ? $stateParams.cik : []),
@@ -672,7 +672,7 @@ angular.module('main', [
                     sic: ($stateParams.sic ? $stateParams.sic : []),
                     token: $rootScope.token
                 });
-            }
+            }]
         },
         data: {
             title: 'Filings',

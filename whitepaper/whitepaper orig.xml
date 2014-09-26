@@ -173,7 +173,7 @@ We finally explain the overall architecture and put it in perspective with moder
                 <title>Query 1</title>
 				<para>The following link (which you can also use) shows you the results of this query, in XML format,
                     exposed via a REST API.
-                    http://secxbrl.xbrl.io/v1/_queries/public/api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq?_method=POST&amp;concept=us-gaap:Assets&amp;period=FY&amp;format=xml</para>
+                    http://secxbrl.28.io/v1/_queries/public/api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq?_method=POST&amp;concept=us-gaap:Assets&amp;period=FY&amp;format=xml</para>
                 
                 <para>You can take a look at the results in a more human readable form at <link xlink:href="http://secxbrl.info/example/TotalAssets">http://secxbrl.info/example/TotalAssets </link>or in the following
                     screenshot. </para>
@@ -304,7 +304,7 @@ We finally explain the overall architecture and put it in perspective with moder
                 </itemizedlist></para>
             <sect3>
                 <title>Query 2</title>
-                <para><link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq?_method=POST&amp;concept=fac:LiabilitiesAndEquity&amp;period=FY&amp;map=FundamentalAccountingConcepts&amp;format=csv">http://secxbrl.xbrl.io/v1/_queries/public/api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq?_method=POST&amp;concept=fac:LiabilitiesAndEquity&amp;period=FY&amp;map=FundamentalAccountingConcepts&amp;format=csv</link></para>
+                <para><link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq?_method=POST&amp;concept=fac:LiabilitiesAndEquity&amp;period=FY&amp;map=FundamentalAccountingConcepts&amp;format=csv">http://secxbrl.28.io/v1/_queries/public/api/TotalForConceptGroupedByFiscalPeriodForAllEntities.jq?_method=POST&amp;concept=fac:LiabilitiesAndEquity&amp;period=FY&amp;map=FundamentalAccountingConcepts&amp;format=csv</link></para>
 				
 				<para>While the query above makes the point of why a mapping is necessary, having only two concepts involved in the mapping may lead you to believe that such mappings are not important.  If you consider that SEC XBRL financial filers use more than 45 different concepts to report “Revenues” you begin see the utility of built in mappings.  The prototype Public Company Financial Information system has built in mappings for 51 fundamental accounting concepts (see http://www.secxbrl.info/concept-map/FundamentalAccountingConcepts). Users of the system can also create their own mappings which are then leveraged by the query engine to give you the results you expect when running queries.</para>
 				
@@ -334,7 +334,7 @@ We finally explain the overall architecture and put it in perspective with moder
             </sect3>
             <sect3>
                 <title>Query 3</title>
-                <para><link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;concept=fac:ResearchAndDevelopment&amp;map=FundamentalAccountingConcepts&amp;fiacalPeriod=FY&amp;fiscalYear=2012&amp;tag=dow30">http://secxbrl.xbrl.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;concept=fac:ResearchAndDevelopment&amp;map=FundamentalAccountingConcepts&amp;fiacalPeriod=FY&amp;fiscalYear=2012&amp;tag=dow30</link></para>
+                <para><link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;concept=fac:ResearchAndDevelopment&amp;map=FundamentalAccountingConcepts&amp;fiacalPeriod=FY&amp;fiscalYear=2012&amp;tag=dow30">http://secxbrl.28.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;concept=fac:ResearchAndDevelopment&amp;map=FundamentalAccountingConcepts&amp;fiacalPeriod=FY&amp;fiscalYear=2012&amp;tag=dow30</link></para>
                 <para>Here is what it returns in human-readable form: </para>
                 <para><inlinemediaobject>
                         <imageobject>
@@ -365,7 +365,7 @@ We finally explain the overall architecture and put it in perspective with moder
             </sect3>
             <sect3>
                 <title>Query 4</title>
-                <para>http://secxbrl.xbrl.io/v1/_queries/public/api/facttable.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet</para>
+                <para>http://secxbrl.28.io/v1/_queries/public/api/facttable.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet</para>
                 <para>This is what the result looks like in a human readable form (subset of the
                     information): </para>
                 <para><inlinemediaobject>
@@ -380,7 +380,7 @@ We finally explain the overall architecture and put it in perspective with moder
             </sect3>
             <sect3>
                 <title>Query 5</title>
-                <para><link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/modelstructure.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet">http://secxbrl.xbrl.io/v1/_queries/public/api/modelstructure.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet
+                <para><link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/modelstructure.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet">http://secxbrl.28.io/v1/_queries/public/api/modelstructure.jq?_method=POST&amp;format=xml&amp;cik=21344&amp;fiscalPeriod=FY&amp;fiscalYear=2011&amp;disclosure=BalanceSheet
                     </link></para>
                 <para>which in a human readable format looks as follows:</para>
                 <para><inlinemediaobject>
@@ -459,7 +459,7 @@ We finally explain the overall architecture and put it in perspective with moder
                         <para>Those three things (concepts/presentation, mappings, and imputations)
                             can be put together in one descriptive file which we call a report. The
                             example report for the fundamental accounting concepts can be viewed at:
-                                <link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/report-schemas.jq?_method=POST&amp;name=FundamentalAccountingConcepts">http://secxbrl.xbrl.io/v1/_queries/public/api/report-schemas.jq?_method=POST&amp;name=FundamentalAccountingConcepts</link>.</para>
+                                <link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/report-schemas.jq?_method=POST&amp;name=FundamentalAccountingConcepts">http://secxbrl.28.io/v1/_queries/public/api/report-schemas.jq?_method=POST&amp;name=FundamentalAccountingConcepts</link>.</para>
                         <para>Having such a report uploaded into the system, it’s very simple to
                             execute it:</para>
                     </listitem>
@@ -467,7 +467,7 @@ We finally explain the overall architecture and put it in perspective with moder
             </variablelist>
             <sect3>
                 <title>Query 6</title>
-                <para><link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/facttable-for-report.jq?_method=POST&amp;report=FundamentalAccountingConcepts&amp;ticker=ko&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;format=xml">http://secxbrl.xbrl.io/v1/_queries/public/api/facttable-for-report.jq?_method=POST&amp;report=FundamentalAccountingConcepts&amp;ticker=ko&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;format=xml</link></para>
+                <para><link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/facttable-for-report.jq?_method=POST&amp;report=FundamentalAccountingConcepts&amp;ticker=ko&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;format=xml">http://secxbrl.28.io/v1/_queries/public/api/facttable-for-report.jq?_method=POST&amp;report=FundamentalAccountingConcepts&amp;ticker=ko&amp;fiscalYear=2012&amp;fiscalPeriod=FY&amp;format=xml</link></para>
                 <para>This REST call retrieves the fact table for the report named
                     FundamentalAccountingConcepts for Coca Cola’s 10-K of 2012. The result of the
                     query in a human readable form can be seen online at
@@ -539,30 +539,30 @@ We finally explain the overall architecture and put it in perspective with moder
                 it means that it issues requests over the HTTP protocol, for example:<itemizedlist>
                     <listitem>
                         <para>Getting information about an entity (by ticker symbol)</para>
-                        <para><link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/entities.jq?format=json&amp;_method=POST&amp;index=ko">http://secxbrl.xbrl.io/v1/_queries/public/api/entities.jq?format=json&amp;_method=POST&amp;index=ko</link></para>
+                        <para><link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/entities.jq?format=json&amp;_method=POST&amp;index=ko">http://secxbrl.28.io/v1/_queries/public/api/entities.jq?format=json&amp;_method=POST&amp;index=ko</link></para>
                     </listitem>
                     <listitem>
                         <para>Getting the list of the DOW30 entities (i.e. by tag) and return the data as CSV</para>
-                        <para><link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/entities.jq?format=csv&amp;_method=POST&amp;tag=DOW30">http://secxbrl.xbrl.io/v1/_queries/public/api/entities.jq?format=json&amp;_method=POST&amp;index=ko</link></para>
+                        <para><link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/entities.jq?format=csv&amp;_method=POST&amp;tag=DOW30">http://secxbrl.28.io/v1/_queries/public/api/entities.jq?format=json&amp;_method=POST&amp;index=ko</link></para>
                     </listitem>
                     <listitem>
                         <para>Getting a list of filings for one entity (by CIK)</para>
-                        <para><link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/filings.jq?format=json&amp;_method=POST&amp;cik=0000021344">http://secxbrl.xbrl.io/v1/_queries/public/api/filings.jq?format=json&amp;_method=POST&amp;cik=0000021344</link></para>
+                        <para><link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/filings.jq?format=json&amp;_method=POST&amp;cik=0000021344">http://secxbrl.28.io/v1/_queries/public/api/filings.jq?format=json&amp;_method=POST&amp;cik=0000021344</link></para>
                     </listitem>
                     <listitem>
                         <para>Getting a list of components (by accession number)</para>
-                        <para><link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/components.jq?format=json&amp;_method=POST&amp;aid=0000021344-13-000050">http://secxbrl.xbrl.io/v1/_queries/public/api/components.jq?format=json&amp;_method=POST&amp;aid=0000021344-13-000050</link></para>
+                        <para><link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/components.jq?format=json&amp;_method=POST&amp;aid=0000021344-13-000050">http://secxbrl.28.io/v1/_queries/public/api/components.jq?format=json&amp;_method=POST&amp;aid=0000021344-13-000050</link></para>
                     </listitem>
                     <listitem>
                         <para>Getting the fact table associated with a component
-                        <link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/facttable.jq?format=json&amp;_method=POST&amp;cid=d0abbc66-0aff-4b9a-b20a-a725cf1ba8f1">
-                            http://secxbrl.xbrl.io/v1/_queries/public/api/facttable.jq?format=json&amp;_method=POST&amp;cid=d0abbc66-0aff-4b9a-b20a-a725cf1ba8f1
+                        <link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/facttable.jq?format=json&amp;_method=POST&amp;cid=d0abbc66-0aff-4b9a-b20a-a725cf1ba8f1">
+                            http://secxbrl.28.io/v1/_queries/public/api/facttable.jq?format=json&amp;_method=POST&amp;cid=d0abbc66-0aff-4b9a-b20a-a725cf1ba8f1
                         </link></para>
                     </listitem>
                     <listitem>
                         <para>Getting a fact table in a customized way (specifying a list of aspects
                             to filter with: concept, filing entity, fiscal year, etc). </para>
-                        <para><link xlink:href="http://secxbrl.xbrl.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;concept=fac:ResearchAndDevelopment&amp;map=FundamentalAccountingConcepts&amp;fiacalPeriod=FY&amp;fiscalYear=2012&amp;tag=dow30">http://secxbrl.xbrl.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;concept=fac:ResearchAndDevelopment&amp;map=FundamentalAccountingConcepts&amp;fiacalPeriod=FY&amp;fiscalYear=2012&amp;tag=dow30</link></para>
+                        <para><link xlink:href="http://secxbrl.28.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;concept=fac:ResearchAndDevelopment&amp;map=FundamentalAccountingConcepts&amp;fiacalPeriod=FY&amp;fiscalYear=2012&amp;tag=dow30">http://secxbrl.28.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;concept=fac:ResearchAndDevelopment&amp;map=FundamentalAccountingConcepts&amp;fiacalPeriod=FY&amp;fiscalYear=2012&amp;tag=dow30</link></para>
                     </listitem>
                 </itemizedlist></para>
             <para>This API is very simple and generic, and can be reused by other front-ends. It can

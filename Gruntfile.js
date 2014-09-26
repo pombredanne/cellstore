@@ -1,8 +1,8 @@
-'use strict';
 
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var mountFolder = function (connect, dir) {
+    'use strict';
     return connect.static(require('path').resolve(dir));
 };
 
@@ -13,6 +13,8 @@ var mountFolder = function (connect, dir) {
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
+    'use strict';
+
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
     grunt.task.loadTasks('tasks');
@@ -26,13 +28,43 @@ module.exports = function (grunt) {
         queries: 'queries'
     };
 
+    var getStringParam = function(paramName) {
+        var _ = require('lodash');
+
+        var arg;
+        var param = '--' + paramName + '=';
+        var idx = _.findIndex(process.argv, function (val) {
+            return val.substring(0, param.length) === param;
+        });
+        arg = idx > -1 ? process.argv[idx].substring(param.length) : undefined;
+        return arg;
+    };
+
+    // the api url needs to be available also if the config task has not been run
+    // e.g. in case of grunt ngconstant --build-id=myproj
+    var getCustomAPIUrl = function(){
+        var url;
+        var project = getStringParam('project');
+        var buildId = getStringParam('build-id');
+        if(buildId) {
+            buildId = buildId.replace('.', '-');
+        }
+        if(project === undefined && buildId){
+            url = 'http://secxbrl-' + buildId + '.28.io/v1';
+        } else if(project) {
+            url = 'http://' + project + '.28.io/v1';
+        } else {
+            url = '<%= secxbrl.28.api.url %>';
+        }
+        return url;
+    };
+
     try {
         yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
     } catch (e) {}
 
     grunt.initConfig({
         yeoman: yeomanConfig,
-        api: grunt.file.readJSON('grunt-api.json'),
         watch: {
             recess: {
                 files:  ['<%= yeoman.app %>/styles/{,*/}*.less'],
@@ -306,13 +338,23 @@ module.exports = function (grunt) {
                     'DEBUG': true,
                     'RECURLY_KEY': process.env.RECURLY_KEY_DEV
                 }
+            },
+            custom: {
+                dest: '<%= yeoman.app %>/scripts/constants.js',
+                name: 'constants',
+                wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
+                constants: {
+                    'API_URL': getCustomAPIUrl(),
+                    'DEBUG': true,
+                    'RECURLY_KEY': process.env.RECURLY_KEY_DEV
+                }
             }
         },
         netdna : {
             options: {
-                companyAlias: '28msecinc',
-                consumerKey: 'e531373822fc0ec739057420a81c69c1052b0f904',
-                consumerSecret: 'bba9d959f51010249b9ac90742fac51c'
+                companyAlias: '<%= secxbrl.netdna.companyAlias %>',
+                consumerKey: '<%= secxbrl.netdna.consumerKey %>',
+                consumerSecret: '<%= secxbrl.netdna.consumerSecret %>'
             },
             test: {
                 zone: ''
@@ -321,7 +363,7 @@ module.exports = function (grunt) {
                 zone: ''
             },
             prod: {
-                zone: '150232'
+                zone: '<%= secxbrl.netdna.prod.zone %>'
             }
         },
         xqlint: {
@@ -427,8 +469,14 @@ module.exports = function (grunt) {
                 },
                 create: {}
             },
+            download: {
+                project: '<%= secxbrl.28.project %>',
+                download: {
+                    projectPath: 'queries'
+                }
+            },
             deploy: {
-                project: '<%= secxbrl.s3.bucket %>',
+                project: '<%= secxbrl.28.project %>',
                 upload: {
                     projectPath: 'queries'
                 },
@@ -441,7 +489,7 @@ module.exports = function (grunt) {
 
             },
             deployMaster: {
-                project: '<%= secxbrl.s3.bucket %>',
+                project: '<%= secxbrl.28.project %>',
                 upload: {
                     projectPath: 'queries'
                 },
@@ -452,14 +500,14 @@ module.exports = function (grunt) {
                 ]
             },
             run: {
-                project: '<%= secxbrl.s3.bucket %>',
+                project: '<%= secxbrl.28.project %>',
                 runQueries: [
                     'queries/public/test/*',
                     'queries/private/test/*'
                 ]
             },
             teardown: {
-                project: '<%= secxbrl.s3.bucket %>',
+                project: '<%= secxbrl.28.project %>',
                 delete: {}
             }
         },
@@ -470,9 +518,10 @@ module.exports = function (grunt) {
         },
         shell: {
             encrypt: {
-                command: [ '[ "config.json" -nt "config.json.enc" ]',
-                    'openssl aes-256-cbc -k "' + process.env.TRAVIS_SECRET_KEY + '" -in config.json -out config.json.enc'
-                ].join('&&'),
+                command: 'sh -c "if [ -z \"' + process.env.TRAVIS_SECRET_KEY + '\" ' +
+                                     '-o \"' + process.env.TRAVIS_SECRET_KEY + '\" = "undefined" ] ; then echo \'encrypt failed: env var TRAVIS_SECRET_KEY not set\'; exit 1; fi ; ' +
+                        'if [ config.json -nt config.json.enc ] ; ' +
+                        'then openssl aes-256-cbc -k ' + process.env.TRAVIS_SECRET_KEY + ' -in config.json -out config.json.enc; fi"',
                 options : {
                     failOnError : false
                 }
@@ -489,155 +538,5 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('server', function (target) {
-        if (!grunt.file.exists(grunt.config('yeoman.app') + '/scripts/constants.js')) {
-            grunt.fail.fatal('Unable to find file ' + grunt.config('yeoman.app') + '/scripts/constants.js.\nSetup the TRAVIS_SECRET_KEY env variable and run grunt test:setup --build-id=myfeature before.');
-        }
 
-        if (target === 'dist') {
-            return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
-        }
-        grunt.task.run([
-            'clean:server',
-            'swagger-js-codegen',
-            'recess',
-            'concurrent:server',
-            'connect:livereload',
-            'open',
-            'watch'
-        ]);
-    });
-
-    grunt.registerTask('build', function () {
-        grunt.config.requires(['secxbrl']);
-      
-        grunt.task.run([
-            'config',
-            'reports',
-            'xqlint',
-            'jsonlint',
-            'jshint',
-            'nggettext_default',
-            'nggettext_check',
-            'nggettext_compile',
-            'clean:dist',
-            'ngconstant',
-            'swagger-js-codegen:',
-            'useminPrepare',
-            'concurrent:dist',
-            'concat',
-            'copy',
-            'ngmin',
-            'cssmin',
-            'uglify',
-            'rev',
-            'usemin'
-        ]);
-    });
-
-    grunt.registerTask('deployed-message', function (target) {
-        grunt.config.requires(['secxbrl']);
-        if(!target || target === 'frontend') {
-            grunt.log.writeln('Frontend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.s3-website-us-east-1.amazonaws.com');
-        }
-        if(!target || target === 'backend') {
-            grunt.log.writeln('Backend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.28.io');
-        }
-    });
-
-    grunt.registerTask('test', function (target) {
-        grunt.task.run(['shell:decrypt', 'config']);
-        var isMaster = process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
-        if (target === 'setup') {
-            /*if(isMaster) {
-                grunt.task.run([
-                    'build',
-                    'aws_s3:setup',
-                    '28:deployMaster'
-                ]);
-            } else {*/
-            grunt.task.run([
-                'build',
-                'setupS3Bucket:setup',
-                'aws_s3:setup',
-                '28:setup',
-                '28:deploy',
-                'deployed-message'
-            ]);
-            //}
-        } else if (target === 'teardown') {
-            if(!isMaster) {
-                grunt.task.run([
-                    '28:teardown',
-                    'aws_s3:teardown',
-                    'setupS3Bucket:teardown'
-                ]);
-            }// else {
-            //    console.log('We\'re on master, no teardown.');
-            //}
-        } else if (target === 'run') {
-            grunt.task.run(['28:run']);
-        } else {
-            grunt.fail.fatal('Unknown target ' + target);
-        }
-    });
-
-    grunt.registerTask('backend', function () {
-        grunt.task.run(['shell:decrypt', 'config']);
-        grunt.task.run([
-            'reports',
-            '28:setup',
-            '28:deploy',
-            'deployed-message:backend'
-        ]);
-    });
-
-    grunt.registerTask('frontend', function () {
-        grunt.task.run(['shell:decrypt', 'config']);
-        grunt.task.run([
-            'build',
-            'setupS3Bucket:setup',
-            'aws_s3:setup',
-            'deployed-message:frontend'
-        ]);
-    });
-
-    grunt.registerTask('config', function() {
-        var _ = require('lodash');
-        var buildId = process.env.TRAVIS_JOB_NUMBER;
-        var isMaster = process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
-        if(isMaster) {
-            console.log('This is master we deploy on secxbrl-dev.28.io');
-        } else if(!buildId) {
-            var idx =_.findIndex(process.argv, function(val){ return val.substring(0, '--build-id='.length) === '--build-id='; });
-            buildId = idx > -1 ? process.argv[idx].substring('--build-id='.length) : undefined;
-        }
-        if(buildId) {
-            buildId = buildId.replace('.', '-');
-        } else if(!isMaster) {
-            grunt.fail.fatal('No build id found. Looked up the TRAVIS_JOB_NUMBER environment variable and --build-id argument');
-        }
-        var id = isMaster ? 'secxbrl-dev' : 'secxbrl-' + buildId;
-        if(process.env.RANDOM_ID && !isMaster){
-            id += '-' + process.env.RANDOM_ID;
-        }
-        grunt.log.writeln('Build ID: ' + id);
-        var config = grunt.file.readJSON('config.json');
-        config.s3.bucket = id;
-        config['28'].api = { url : 'http://' + id + '.28.io/v1' };
-        if(isMaster) {
-            config.s3.key = config.s3.production.key;
-            config.s3.secret = config.s3.production.secret;
-            config.s3.region = config.s3.production.region;
-        }
-        grunt.config.set('secxbrl', config);
-    });
-
-    grunt.registerTask('default', function() {
-        grunt.task.run([
-            'test:setup',
-            'test:run',
-            'test:teardown'
-        ]);
-    });
 };
