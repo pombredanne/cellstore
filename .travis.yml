@@ -10,7 +10,7 @@ before_script:
 script:
 # setup/deploy for ci or only deploy to prod if on master
 - grunt test:setup
-# run tests agains deployed version
+# run tests against deployed version
 - grunt test:run
 after_script:
 # teardown will work only for ci not for prod or on master
