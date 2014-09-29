@@ -71,7 +71,7 @@ module.exports = function (grunt) {
                 tasks: ['recess']
             },
             swagger: {
-                files: ['<%= yeoman.app %>/swagger/{,*/}*.json'],
+                files: ['swagger/{,*/}*.json'],
                 tasks: ['swagger-js-codegen']
             },
             nggettext: {
@@ -97,28 +97,28 @@ module.exports = function (grunt) {
                 dest: '<%= yeoman.app %>/scripts/swagger',
                 apis: [
                     {
-                        swagger: '<%= yeoman.app %>/swagger/queries.json',
+                        swagger: 'swagger/queries.json',
                         moduleName: 'queries-api',
                         className: 'QueriesAPI',
                         fileName: 'queries-api.js',
                         angularjs: true
                     },
                     {
-                        swagger: '<%= yeoman.app %>/swagger/session.json',
+                        swagger: 'swagger/session.json',
                         moduleName: 'session-api',
                         className: 'SessionAPI',
                         fileName: 'session-api.js',
                         angularjs: true
                     },
                     {
-                        swagger: '<%= yeoman.app %>/swagger/users.json',
+                        swagger: 'swagger/users.json',
                         moduleName: 'users-api',
                         className: 'UsersAPI',
                         fileName: 'users-api.js',
                         angularjs: true
                     },
                     {
-                        swagger: '<%= yeoman.app %>/swagger/billing.json',
+                        swagger: 'swagger/billing.json',
                         moduleName: 'billing-api',
                         className: 'BillingAPI',
                         fileName: 'billing-api.js',
