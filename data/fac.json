@@ -2210,10 +2210,6 @@
                                 "fac:SustainableGrowthRate" : {
                                     "Name" : "fac:SustainableGrowthRate",
                                     "Label" : "Sustainable Growth Rate (SGR)"
-                                },
-                                "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" : {
-                                    "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount",
-                                    "Label" : "Redeemable Noncontrolling Interest Equity Common Carrying Amount"
                                 }
                             }
                         }
