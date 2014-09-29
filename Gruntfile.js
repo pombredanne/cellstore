@@ -135,6 +135,11 @@ module.exports = function (grunt) {
             },
             all : {}
         },
+        credentials: {
+            options: {
+                dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+            }
+        },
         connect: {
             options: {
                 port: grunt.option('port') || 9000,
