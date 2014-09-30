@@ -150,32 +150,6 @@ module.exports = function(grunt) {
         ]);
     });
 
-    grunt.registerTask('credentials', function(environment) {
-        grunt.config.requires(['secxbrl']);
-        var Mustache = require('mustache');
-        var fs = require('fs');
-
-        var options = this.options();
-        var dest = options.dest;
-        var adminPwd;
-        var supportPwd;
-        if(environment === 'dev' || environment === 'ci'){
-            adminPwd = grunt.config.get(['secxbrl']).secxbrl.development['admin-password'];
-            supportPwd = grunt.config.get(['secxbrl']).secxbrl.development['support-password'];
-        } else if(environment === 'prod'){
-            adminPwd = grunt.config.get(['secxbrl']).secxbrl.production['admin-password'];
-            supportPwd = grunt.config.get(['secxbrl']).secxbrl.production['support-password'];
-        }
-        if(adminPwd && supportPwd) {
-            var tpl = fs.readFileSync(__dirname + '/credentials.mustache', 'utf-8');
-            var source = Mustache.render(tpl, { adminPassword: adminPwd, supportPassword: supportPwd });
-            fs.writeFileSync(dest, source);
-            grunt.log.ok('Created: ' + dest);
-        } else {
-            fatal('unknown password for support or admin in config.json');
-        }
-    });
-
     grunt.registerTask('build', function (environment) {
         if(!isTravis()){
             // enabling to run build locally as standalone task

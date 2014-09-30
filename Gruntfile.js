@@ -138,6 +138,14 @@ module.exports = function (grunt) {
         credentials: {
             options: {
                 dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+            },
+            prod : {
+                adminPassword: '<%= secxbrl.secxbrlInfo.prod.adminPassword %>',
+                supportPassword: '<%= secxbrl.secxbrlInfo.prod.supportPassword %>'
+            },
+            dev : {
+                adminPassword: '<%= secxbrl.secxbrlInfo.dev.adminPassword %>',
+                supportPassword: '<%= secxbrl.secxbrlInfo.dev.supportPassword %>'
             }
         },
         connect: {
