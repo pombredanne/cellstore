@@ -146,6 +146,10 @@ module.exports = function (grunt) {
             dev : {
                 adminPassword: '<%= secxbrl.secxbrlInfo.dev.adminPassword %>',
                 supportPassword: '<%= secxbrl.secxbrlInfo.dev.supportPassword %>'
+            },
+            ci : {
+                adminPassword: '<%= secxbrl.secxbrlInfo.dev.adminPassword %>',
+                supportPassword: '<%= secxbrl.secxbrlInfo.dev.supportPassword %>'
             }
         },
         connect: {
