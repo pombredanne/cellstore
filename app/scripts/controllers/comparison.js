@@ -45,18 +45,22 @@ angular.module('main')
         $timeout(function(){$scope.selectionChanged($scope.selection);},10);
     };
 
-    var search = $location.search();
+    $scope.checkSearch = function(){
+        var search = $location.search();
+        if (search.cik === undefined &&
+            search.tag === undefined &&
+            search.fiscalYear === undefined &&
+            search.fiscalPeriod === undefined &&
+            search.sic === undefined)
+        {
+            $scope.reset();
+        }
+    };
+
     if ($scope.selection.cik.length === 0 &&
         $scope.selection.tag.length === 0 &&
         $scope.selection.fiscalYear.length === 0 &&
         $scope.selection.fiscalPeriod.length === 0)
-    {
-        $scope.reset();
-    } else if (search.cik === undefined &&
-        search.tag === undefined &&
-        search.fiscalYear === undefined &&
-        search.fiscalPeriod === undefined &&
-        search.sic === undefined)
     {
         $scope.reset();
     }

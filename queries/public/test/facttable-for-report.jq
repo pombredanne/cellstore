@@ -1498,52 +1498,40 @@ declare %an:nondeterministic function local:test-values() as item*
                     "xbrl28:Type": "xbrl28:validation"
                 }, 
                 {
-                    "Aspects": {
-                        "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                        "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
-                        "sec:FiscalPeriod": "FY", 
-                        "sec:FiscalYear": 2013, 
-                        "xbrl:Concept": "fac:NetCashFlowFromOperatingActivitiesValidation", 
-                        "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                        "xbrl:Period": "2013-01-01/2013-12-31"
-                    }, 
-                    "AuditTrails": [
-                        {
-                            "Data": {
-                                "OutputConcept": "fac:NetCashFlowFromOperatingActivitiesValidation", 
-                                "ValidatedConcepts": [
-                                    "fac:NetCashFlowFromOperatingActivities"
-                                ], 
-                                "ValidatedFacts": [
-                                    "c690ddc3-38a4-49e0-9d09-6287531e91cc"
-                                ], 
-                                "ValidationPassed": true
-                            }, 
-                            "Id": "CF4", 
-                            "Label": "[CF4] NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued", 
-                            "Message": "fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] + NetCashFlowFromOperatingActivitiesDiscontinued[0]", 
-                            "Type": "xbrl28:validation"
+                    "Aspects" : {
+                        "sec:Archive" : "0000021344-14-000008",
+                        "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesValidation",
+                        "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
+                        "xbrl:Period" : "2013-01-01/2013-12-31",
+                        "sec:FiscalPeriod" : "FY",
+                        "sec:FiscalYear" : 2013,
+                        "sec:Accepted" : "20140227132423",
+                        "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+                    },
+                    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ],
+                    "Type" : "BooleanValue",
+                    "Value" : true,
+                    "Decimals" : -6,
+                    "Concept" : {
+                        "PeriodType" : "duration",
+                        "DataType" : "xbrli:monetaryItemType"
+                    },
+                    "AuditTrails" : [ {
+                        "Id" : "CF4",
+                        "Type" : "xbrl28:validation",
+                        "Label" : "[CF4] NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued",
+                        "Message" : "fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] + fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD]",
+                        "Data" : {
+                            "OutputConcept" : "fac:NetCashFlowFromOperatingActivitiesValidation",
+                            "ValidatedConcepts" : [ "fac:NetCashFlowFromOperatingActivities" ],
+                            "ValidatedFacts" : [ "c690ddc3-38a4-49e0-9d09-6287531e91cc" ],
+                            "ValidationPassed" : true
                         }
-                    ], 
-                    "Concept": {
-                        "DataType": "xbrli:monetaryItemType", 
-                        "PeriodType": "duration"
-                    }, 
-                    "Decimals": -6, 
-                    "EntityRegistrantName": "COCA COLA CO", 
-                    "KeyAspects": [
-                        "xbrl:Concept", 
-                        "xbrl:Entity", 
-                        "xbrl:Period", 
-                        "xbrl:Unit", 
-                        "sec:Accepted"
-                    ], 
-                    "Type": "BooleanValue", 
-                    "Unit": "iso4217:USD", 
-                    "Value": true, 
-                    "xbrl28:Type": "xbrl28:validation"
-                }, 
+                    } ],
+                    "xbrl28:Type" : "xbrl28:validation",
+                    "EntityRegistrantName" : "COCA COLA CO",
+                    "Unit" : "iso4217:USD"
+                },
                 {
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
@@ -1736,53 +1724,40 @@ declare %an:nondeterministic function local:test-values() as item*
                     "xbrl28:Type": "xbrl28:validation"
                 }, 
                 {
-                    "Aspects": {
-                        "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                        "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
-                        "sec:FiscalPeriod": "FY", 
-                        "sec:FiscalYear": 2013, 
-                        "xbrl:Concept": "fac:NetCashFlowDiscontinuedValidation", 
-                        "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                        "xbrl:Period": "2013-01-01/2013-12-31"
-                    }, 
-                    "AuditTrails": [
-                        {
-                            "Data": {
-                                "OutputConcept": "fac:NetCashFlowDiscontinuedValidation", 
-                                "ValidatedConcepts": [
-                                    "fac:NetCashFlowDiscontinued"
-                                ], 
-                                "ValidatedFacts": [
-                                    "5f02b3f0-4aee-4809-a105-9240cc6b02fa"
-                                ], 
-                                "ValidationPassed": true
-                            }, 
-                            "Id": "CF3", 
-                            "Label": "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued", 
-                            "Message": "fac:NetCashFlowDiscontinued[0 USD] = NetCashFlowFromOperatingActivitiesDiscontinued[0] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
-                            "Type": "xbrl28:validation"
+                    "Aspects" : {
+                        "sec:Archive" : "0000021344-14-000008",
+                        "xbrl:Concept" : "fac:NetCashFlowDiscontinuedValidation",
+                        "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
+                        "xbrl:Period" : "2013-01-01/2013-12-31",
+                        "sec:FiscalPeriod" : "FY",
+                        "sec:FiscalYear" : 2013,
+                        "sec:Accepted" : "20140227132423",
+                        "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+                    },
+                    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ],
+                    "Type" : "BooleanValue",
+                    "Value" : true,
+                    "Decimals" : -6,
+                    "Concept" : {
+                        "PeriodType" : "duration",
+                        "DataType" : "xbrli:monetaryItemType"
+                    },
+                    "AuditTrails" : [ {
+                        "Id" : "CF3",
+                        "Type" : "xbrl28:validation",
+                        "Label" : "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued",
+                        "Message" : "fac:NetCashFlowDiscontinued[0 USD] = fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]",
+                        "Data" : {
+                            "OutputConcept" : "fac:NetCashFlowDiscontinuedValidation",
+                            "ValidatedConcepts" : [ "fac:NetCashFlowDiscontinued" ],
+                            "ValidatedFacts" : [ "1353f200-766a-4426-b1b4-b981f425d364" ],
+                            "ValidationPassed" : true
                         }
-                    ], 
-                    "Concept": {
-                        "Balance": "DEBIT", 
-                        "DataType": "xbrli:monetaryItemType", 
-                        "PeriodType": "duration"
-                    }, 
-                    "Decimals": -6, 
-                    "EntityRegistrantName": "COCA COLA CO", 
-                    "KeyAspects": [
-                        "xbrl:Concept", 
-                        "xbrl:Entity", 
-                        "xbrl:Period", 
-                        "xbrl:Unit", 
-                        "sec:Accepted"
-                    ], 
-                    "Type": "BooleanValue", 
-                    "Unit": "iso4217:USD", 
-                    "Value": true, 
-                    "xbrl28:Type": "xbrl28:validation"
-                }, 
+                    } ],
+                    "xbrl28:Type" : "xbrl28:validation",
+                    "EntityRegistrantName" : "COCA COLA CO",
+                    "Unit" : "iso4217:USD"
+                },
                 {
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
@@ -3031,85 +3006,69 @@ declare %an:nondeterministic function local:test-values() as item*
                     "xbrl28:Type": "xbrl28:concept-maps"
                 }, 
                 {
-                    "Aspects": {
-                        "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                        "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
-                        "sec:FiscalPeriod": "FY", 
-                        "sec:FiscalYear": 2013, 
-                        "xbrl:Concept": "fac:NetCashFlowFromOperatingActivitiesContinuing", 
-                        "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                        "xbrl:Period": "2013-01-01/2013-12-31"
-                    }, 
-                    "AuditTrails": [
-                        {
-                            "Data": {
-                                "OutputConcept": "fac:NetCashFlowFromOperatingActivitiesContinuing"
-                            }, 
-                            "Id": "50a01bf0-30ab-4d46-8418-066173dd2e67", 
-                            "Label": "Net Cash Flow from Operating Activities, Continuing", 
-                            "Message": "fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] - NetCashFlowFromOperatingActivitiesDiscontinued[0]", 
-                            "Type": "xbrl28:formula"
+                    "Aspects" : {
+                        "sec:Archive" : "0000021344-14-000008",
+                        "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesContinuing",
+                        "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
+                        "xbrl:Period" : "2013-01-01/2013-12-31",
+                        "sec:FiscalPeriod" : "FY",
+                        "sec:FiscalYear" : 2013,
+                        "sec:Accepted" : "20140227132423",
+                        "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+                    },
+                    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ],
+                    "Type" : "NumericValue",
+                    "Value" : 10542000000,
+                    "Decimals" : -6,
+                    "Concept" : {
+                        "PeriodType" : "duration",
+                        "DataType" : "xbrli:monetaryItemType"
+                    },
+                    "AuditTrails" : [ {
+                        "Id" : "50a01bf0-30ab-4d46-8418-066173dd2e67",
+                        "Type" : "xbrl28:formula",
+                        "Label" : "Net Cash Flow from Operating Activities, Continuing",
+                        "Message" : "fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] - NetCashFlowFromOperatingActivitiesDiscontinued[0]",
+                        "Data" : {
+                            "OutputConcept" : "fac:NetCashFlowFromOperatingActivitiesContinuing"
                         }
-                    ], 
-                    "Concept": {
-                        "DataType": "xbrli:monetaryItemType", 
-                        "PeriodType": "duration"
-                    }, 
-                    "Decimals": -6, 
-                    "EntityRegistrantName": "COCA COLA CO", 
-                    "KeyAspects": [
-                        "xbrl:Concept", 
-                        "xbrl:Entity", 
-                        "xbrl:Period", 
-                        "xbrl:Unit", 
-                        "sec:Accepted"
-                    ], 
-                    "Type": "NumericValue", 
-                    "Unit": "iso4217:USD", 
-                    "Value": 10542000000, 
-                    "xbrl28:Type": "xbrl28:formula"
-                }, 
+                    } ],
+                    "xbrl28:Type" : "xbrl28:formula",
+                    "EntityRegistrantName" : "COCA COLA CO",
+                    "Unit" : "iso4217:USD"
+                },
                 {
-                    "Aspects": {
-                        "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                        "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
-                        "sec:FiscalPeriod": "FY", 
-                        "sec:FiscalYear": 2013, 
-                        "xbrl:Concept": "fac:NetCashFlowFromOperatingActivitiesDiscontinued", 
-                        "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                        "xbrl:Period": "2013-01-01/2013-12-31"
-                    }, 
-                    "AuditTrails": [
-                        {
-                            "Data": {
-                                "OutputConcept": "fac:NetCashFlowFromOperatingActivitiesDiscontinued"
-                            }, 
-                            "Label": "Default fact value", 
-                            "Message": "fac:NetCashFlowFromOperatingActivitiesDiscontinued = 0", 
-                            "Type": "xbrl28:default-fact-value"
+                    "Aspects" : {
+                        "sec:Archive" : "0000021344-14-000008",
+                        "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued",
+                        "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
+                        "xbrl:Period" : "2013-01-01/2013-12-31",
+                        "sec:FiscalPeriod" : "FY",
+                        "sec:FiscalYear" : 2013,
+                        "sec:Accepted" : "20140227132423",
+                        "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+                    },
+                    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ],
+                    "Type" : "NumericValue",
+                    "Value" : 0,
+                    "Decimals" : -6,
+                    "Concept" : {
+                        "PeriodType" : "duration",
+                        "DataType" : "xbrli:monetaryItemType"
+                    },
+                    "AuditTrails" : [ {
+                        "Id" : "e7f1c48e-4b36-429c-90cc-48634d543ab9",
+                        "Type" : "xbrl28:formula",
+                        "Label" : "Net Cash Flow from Operating Activities, Discontinued",
+                        "Message" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD] = 0",
+                        "Data" : {
+                            "OutputConcept" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued"
                         }
-                    ], 
-                    "Concept": {
-                        "Balance": "CREDIT", 
-                        "DataType": "xbrli:monetaryItemType", 
-                        "PeriodType": "duration"
-                    }, 
-                    "Decimals": 3, 
-                    "EntityRegistrantName": "COCA COLA CO", 
-                    "KeyAspects": [
-                        "xbrl:Concept", 
-                        "xbrl:Entity", 
-                        "xbrl:Period", 
-                        "xbrl:Unit", 
-                        "sec:Accepted"
-                    ], 
-                    "Type": "NumericValue", 
-                    "Unit": "iso4217:USD", 
-                    "Value": 0, 
-                    "xbrl28:Type": "xbrl28:concept-maps"
-                }, 
+                    } ],
+                    "xbrl28:Type" : "xbrl28:formula",
+                    "EntityRegistrantName" : "COCA COLA CO",
+                    "Unit" : "iso4217:USD"
+                },
                 {
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
@@ -4055,46 +4014,37 @@ declare %an:nondeterministic function local:test-values() as item*
                     "xbrl28:Type": "xbrl28:formula"
                 }, 
                 {
-                    "Aspects": {
-                        "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                        "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
-                        "sec:FiscalPeriod": "FY", 
-                        "sec:FiscalYear": 2013, 
-                        "xbrl:Concept": "fac:NetCashFlowDiscontinued", 
-                        "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                        "xbrl:Period": "2013-01-01/2013-12-31"
-                    }, 
-                    "AuditTrails": [
-                        {
-                            "Data": {
-                                "OutputConcept": "fac:NetCashFlowDiscontinued"
-                            }, 
-                            "Id": "260e6e0f-e6f4-48d2-8361-75cbfe04fe75", 
-                            "Label": "Net Cash Flow, Discontinued", 
-                            "Message": "fac:NetCashFlowDiscontinued[0 USD] = NetCashFlowFromOperatingActivitiesDiscontinued[0] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
-                            "Type": "xbrl28:formula"
+                    "Aspects" : {
+                        "sec:Archive" : "0000021344-14-000008",
+                        "xbrl:Concept" : "fac:NetCashFlowDiscontinued",
+                        "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
+                        "xbrl:Period" : "2013-01-01/2013-12-31",
+                        "sec:FiscalPeriod" : "FY",
+                        "sec:FiscalYear" : 2013,
+                        "sec:Accepted" : "20140227132423",
+                        "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+                    },
+                    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ],
+                    "Type" : "NumericValue",
+                    "Value" : 0,
+                    "Decimals" : -6,
+                    "Concept" : {
+                        "PeriodType" : "duration",
+                        "DataType" : "xbrli:monetaryItemType"
+                    },
+                    "AuditTrails" : [ {
+                        "Id" : "260e6e0f-e6f4-48d2-8361-75cbfe04fe75",
+                        "Type" : "xbrl28:formula",
+                        "Label" : "Net Cash Flow, Discontinued",
+                        "Message" : "fac:NetCashFlowDiscontinued[0 USD] = fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]",
+                        "Data" : {
+                            "OutputConcept" : "fac:NetCashFlowDiscontinued"
                         }
-                    ], 
-                    "Concept": {
-                        "Balance": "DEBIT", 
-                        "DataType": "xbrli:monetaryItemType", 
-                        "PeriodType": "duration"
-                    }, 
-                    "Decimals": -6, 
-                    "EntityRegistrantName": "COCA COLA CO", 
-                    "KeyAspects": [
-                        "xbrl:Concept", 
-                        "xbrl:Entity", 
-                        "xbrl:Period", 
-                        "xbrl:Unit", 
-                        "sec:Accepted"
-                    ], 
-                    "Type": "NumericValue", 
-                    "Unit": "iso4217:USD", 
-                    "Value": 0, 
-                    "xbrl28:Type": "xbrl28:formula"
-                }, 
+                    } ],
+                    "xbrl28:Type" : "xbrl28:formula",
+                    "EntityRegistrantName" : "COCA COLA CO",
+                    "Unit" : "iso4217:USD"
+                },
                 {
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
@@ -4605,47 +4555,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Unit": "pure", 
                     "Value": 0, 
                     "xbrl28:Type": "xbrl28:formula"
-                }, 
-                {
-                    "Aspects": {
-                        "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                        "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
-                        "sec:FiscalPeriod": "FY", 
-                        "sec:FiscalYear": 2013, 
-                        "xbrl:Concept": "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount", 
-                        "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                        "xbrl:Period": "2013-01-01/2013-12-31"
-                    }, 
-                    "AuditTrails": [
-                        {
-                            "Data": {
-                                "OutputConcept": "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount"
-                            }, 
-                            "Label": "Default fact value", 
-                            "Message": "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount = 0", 
-                            "Type": "xbrl28:default-fact-value"
-                        }
-                    ], 
-                    "Concept": {
-                        "Balance": "CREDIT", 
-                        "DataType": "xbrli:monetaryItemType", 
-                        "PeriodType": "duration"
-                    }, 
-                    "Decimals": 3, 
-                    "EntityRegistrantName": "COCA COLA CO", 
-                    "KeyAspects": [
-                        "xbrl:Concept", 
-                        "xbrl:Entity", 
-                        "xbrl:Period", 
-                        "xbrl:Unit", 
-                        "sec:Accepted"
-                    ], 
-                    "Type": "NumericValue", 
-                    "Unit": "iso4217:USD", 
-                    "Value": 0, 
-                    "xbrl28:Type": "xbrl28:concept-maps"
-                }, 
+                },
                 {
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
@@ -4701,11 +4611,11 @@ declare %an:nondeterministic function local:test-values() as item*
 };
 
 local:check({
-    cocacola: local:test-facttable(96, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalPeriod=Q1"),
-    aid: local:test-facttable(96, "&aid=0001193125-14-157120&report=FundamentalAccountingConcepts"),
-    aid2: local:test-facttable(97, "&aid=0000732717-14-000022&report=FundamentalAccountingConcepts"),
-    tickerrole: local:test-facttable(96, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
-    tickerfyfprole: local:test-facttable(193, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=2013&fiscalPeriod=FY"),
+    cocacola: local:test-facttable(95, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalPeriod=Q1"),
+    aid: local:test-facttable(95, "&aid=0001193125-14-157120&report=FundamentalAccountingConcepts"),
+    aid2: local:test-facttable(96, "&aid=0000732717-14-000022&report=FundamentalAccountingConcepts"),
+    tickerrole: local:test-facttable(95, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
+    tickerfyfprole: local:test-facttable(191, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=2013&fiscalPeriod=FY"),
     allvalues : local:test-values(),
     otheroperatingincometest: local:test-facttable-fact("fac:OtherOperatingIncomeExpenses",
                                                         local:expected-OtherOperatingIncomeExpenses-ATnT-2013(),

@@ -984,47 +984,38 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:NetCashFlowDiscontinued": {
                                                 "Facts": [
                                                     {
-                                                        "Aspects": {
-                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                                                            "sec:Accepted": "20140227132423", 
-                                                            "sec:Archive": "0000021344-14-000008", 
-                                                            "sec:FiscalPeriod": "FY", 
-                                                            "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowDiscontinued", 
-                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
-                                                            "xbrl:Unit": "iso4217:USD"
-                                                        }, 
-                                                        "AuditTrails": [
-                                                            {
-                                                                "Data": {
-                                                                    "OutputConcept": "fac:NetCashFlowDiscontinued"
-                                                                }, 
-                                                                "Id": "REMOVED", 
-                                                                "Label": "Net Cash Flow, Discontinued", 
-                                                                "Message": "fac:NetCashFlowDiscontinued[0 USD] = NetCashFlowFromOperatingActivitiesDiscontinued[0] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
-                                                                "Type": "xbrl28:formula"
+                                                        "_id" : "REMOVED",
+                                                        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ],
+                                                        "Aspects" : {
+                                                            "sec:Archive" : "0000021344-14-000008",
+                                                            "xbrl:Concept" : "fac:NetCashFlowDiscontinued",
+                                                            "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
+                                                            "xbrl:Period" : "2013-01-01/2013-12-31",
+                                                            "xbrl:Unit" : "iso4217:USD",
+                                                            "sec:FiscalPeriod" : "FY",
+                                                            "sec:FiscalYear" : 2013,
+                                                            "sec:Accepted" : "20140227132423",
+                                                            "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+                                                        },
+                                                        "Type" : "NumericValue",
+                                                        "Value" : 0,
+                                                        "Decimals" : -6,
+                                                        "Concept" : {
+                                                            "PeriodType" : "duration",
+                                                            "DataType" : "xbrli:monetaryItemType"
+                                                        },
+                                                        "AuditTrails" : [ {
+                                                            "Id" : "REMOVED",
+                                                            "Type" : "xbrl28:formula",
+                                                            "Label" : "Net Cash Flow, Discontinued",
+                                                            "Message" : "fac:NetCashFlowDiscontinued[0 USD] = fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]",
+                                                            "Data" : {
+                                                                "OutputConcept" : "fac:NetCashFlowDiscontinued"
                                                             }
-                                                        ], 
-                                                        "Concept": {
-                                                            "Balance": "DEBIT", 
-                                                            "DataType": "xbrli:monetaryItemType", 
-                                                            "PeriodType": "duration"
-                                                        }, 
-                                                        "Decimals": -6, 
-                                                        "KeyAspects": [
-                                                            "xbrl:Concept", 
-                                                            "xbrl:Entity", 
-                                                            "xbrl:Period", 
-                                                            "xbrl:Unit", 
-                                                            "sec:Accepted"
-                                                        ], 
-                                                        "Type": "NumericValue", 
-                                                        "Value": 0, 
-                                                        "_id": "REMOVED", 
-                                                        "xbrl28:Type": "xbrl28:formula"
+                                                        } ],
+                                                        "xbrl28:Type" : "xbrl28:formula"
                                                     }
-                                                ], 
+                                                ],
                                                 "Id": "REMOVED", 
                                                 "Label": "Net Cash Flow, Discontinued", 
                                                 "Name": "fac:NetCashFlowDiscontinued", 
@@ -1452,44 +1443,36 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:NetCashFlowFromOperatingActivitiesDiscontinued": {
                                                 "Facts": [
                                                     {
-                                                        "Aspects": {
-                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                                                            "sec:Accepted": "20140227132423", 
-                                                            "sec:Archive": "0000021344-14-000008", 
-                                                            "sec:FiscalPeriod": "FY", 
-                                                            "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowFromOperatingActivitiesDiscontinued", 
-                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
-                                                            "xbrl:Unit": "iso4217:USD"
-                                                        }, 
-                                                        "AuditTrails": [
-                                                            {
-                                                                "Data": {
-                                                                    "OutputConcept": "fac:NetCashFlowFromOperatingActivitiesDiscontinued"
-                                                                }, 
-                                                                "Label": "Default fact value", 
-                                                                "Message": "fac:NetCashFlowFromOperatingActivitiesDiscontinued = 0", 
-                                                                "Type": "xbrl28:default-fact-value"
+                                                        "_id" : "REMOVED",
+                                                        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ],
+                                                        "Aspects" : {
+                                                            "sec:Archive" : "0000021344-14-000008",
+                                                            "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued",
+                                                            "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
+                                                            "xbrl:Period" : "2013-01-01/2013-12-31",
+                                                            "xbrl:Unit" : "iso4217:USD",
+                                                            "sec:FiscalPeriod" : "FY",
+                                                            "sec:FiscalYear" : 2013,
+                                                            "sec:Accepted" : "20140227132423",
+                                                            "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+                                                        },
+                                                        "Type" : "NumericValue",
+                                                        "Value" : 0,
+                                                        "Decimals" : -6,
+                                                        "Concept" : {
+                                                            "PeriodType" : "duration",
+                                                            "DataType" : "xbrli:monetaryItemType"
+                                                        },
+                                                        "AuditTrails" : [ {
+                                                            "Id" : "REMOVED",
+                                                            "Type" : "xbrl28:formula",
+                                                            "Label" : "Net Cash Flow from Operating Activities, Discontinued",
+                                                            "Message" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD] = 0",
+                                                            "Data" : {
+                                                                "OutputConcept" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued"
                                                             }
-                                                        ], 
-                                                        "Concept": {
-                                                            "Balance": "CREDIT", 
-                                                            "DataType": "xbrli:monetaryItemType", 
-                                                            "PeriodType": "duration"
-                                                        }, 
-                                                        "Decimals": 3, 
-                                                        "KeyAspects": [
-                                                            "xbrl:Concept", 
-                                                            "xbrl:Entity", 
-                                                            "xbrl:Period", 
-                                                            "xbrl:Unit", 
-                                                            "sec:Accepted"
-                                                        ], 
-                                                        "Type": "NumericValue", 
-                                                        "Value": 0, 
-                                                        "_id": "REMOVED", 
-                                                        "xbrl28:Type": "xbrl28:concept-maps"
+                                                        } ],
+                                                        "xbrl28:Type" : "xbrl28:formula"
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
@@ -4809,50 +4792,39 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:NetCashFlowDiscontinuedValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Aspects": {
-                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                                                            "sec:Accepted": "20140227132423", 
-                                                            "sec:Archive": "0000021344-14-000008", 
-                                                            "sec:FiscalPeriod": "FY", 
-                                                            "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowDiscontinuedValidation", 
-                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
-                                                            "xbrl:Unit": "iso4217:USD"
-                                                        }, 
-                                                        "AuditTrails": [
-                                                            {
-                                                                "Data": {
-                                                                    "OutputConcept": "fac:NetCashFlowDiscontinuedValidation", 
-                                                                    "ValidatedConcepts": [
-                                                                        "fac:NetCashFlowDiscontinued"
-                                                                    ], 
-                                                                    "ValidatedFacts": "ARRAY of 1", 
-                                                                    "ValidationPassed": true
-                                                                }, 
-                                                                "Id": "REMOVED", 
-                                                                "Label": "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued", 
-                                                                "Message": "fac:NetCashFlowDiscontinued[0 USD] = NetCashFlowFromOperatingActivitiesDiscontinued[0] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
-                                                                "Type": "xbrl28:validation"
+                                                        "_id" : "REMOVED",
+                                                        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ],
+                                                        "Aspects" : {
+                                                            "sec:Archive" : "0000021344-14-000008",
+                                                            "xbrl:Concept" : "fac:NetCashFlowDiscontinuedValidation",
+                                                            "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
+                                                            "xbrl:Period" : "2013-01-01/2013-12-31",
+                                                            "xbrl:Unit" : "iso4217:USD",
+                                                            "sec:FiscalPeriod" : "FY",
+                                                            "sec:FiscalYear" : 2013,
+                                                            "sec:Accepted" : "20140227132423",
+                                                            "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+                                                        },
+                                                        "Type" : "BooleanValue",
+                                                        "Value" : true,
+                                                        "Decimals" : -6,
+                                                        "Concept" : {
+                                                            "PeriodType" : "duration",
+                                                            "DataType" : "xbrli:monetaryItemType"
+                                                        },
+                                                        "AuditTrails" : [ {
+                                                            "Id" : "REMOVED",
+                                                            "Type" : "xbrl28:validation",
+                                                            "Label" : "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued",
+                                                            "Message" : "fac:NetCashFlowDiscontinued[0 USD] = fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]",
+                                                            "Data" : {
+                                                                "OutputConcept" : "fac:NetCashFlowDiscontinuedValidation",
+                                                                "ValidatedConcepts" : [ "fac:NetCashFlowDiscontinued" ],
+                                                                "ValidatedFacts" : "ARRAY of 1",
+                                                                "ValidationPassed" : true
                                                             }
-                                                        ], 
-                                                        "Concept": {
-                                                            "Balance": "DEBIT", 
-                                                            "DataType": "xbrli:monetaryItemType", 
-                                                            "PeriodType": "duration"
-                                                        }, 
-                                                        "Decimals": -6, 
-                                                        "KeyAspects": [
-                                                            "xbrl:Concept", 
-                                                            "xbrl:Entity", 
-                                                            "xbrl:Period", 
-                                                            "xbrl:Unit", 
-                                                            "sec:Accepted"
-                                                        ], 
-                                                        "Type": "BooleanValue", 
-                                                        "Value": true, 
-                                                        "_id": "REMOVED", 
-                                                        "xbrl28:Type": "xbrl28:validation"
+                                                        } ],
+                                                        "xbrl28:Type" : "xbrl28:validation"
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
@@ -4971,49 +4943,39 @@ declare %an:sequential function local:test-values() as item*
                                             "fac:NetCashFlowFromOperatingActivitiesValidation": {
                                                 "Facts": [
                                                     {
-                                                        "Aspects": {
-                                                            "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
-                                                            "sec:Accepted": "20140227132423", 
-                                                            "sec:Archive": "0000021344-14-000008", 
-                                                            "sec:FiscalPeriod": "FY", 
-                                                            "sec:FiscalYear": 2013, 
-                                                            "xbrl:Concept": "fac:NetCashFlowFromOperatingActivitiesValidation", 
-                                                            "xbrl:Entity": "http://www.sec.gov/CIK 0000021344", 
-                                                            "xbrl:Period": "2013-01-01/2013-12-31", 
-                                                            "xbrl:Unit": "iso4217:USD"
-                                                        }, 
-                                                        "AuditTrails": [
-                                                            {
-                                                                "Data": {
-                                                                    "OutputConcept": "fac:NetCashFlowFromOperatingActivitiesValidation", 
-                                                                    "ValidatedConcepts": [
-                                                                        "fac:NetCashFlowFromOperatingActivities"
-                                                                    ], 
-                                                                    "ValidatedFacts": "ARRAY of 1", 
-                                                                    "ValidationPassed": true
-                                                                }, 
-                                                                "Id": "REMOVED", 
-                                                                "Label": "[CF4] NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued", 
-                                                                "Message": "fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] + NetCashFlowFromOperatingActivitiesDiscontinued[0]", 
-                                                                "Type": "xbrl28:validation"
+                                                        "_id" : "REMOVED",
+                                                        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ],
+                                                        "Aspects" : {
+                                                            "sec:Archive" : "0000021344-14-000008",
+                                                            "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesValidation",
+                                                            "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
+                                                            "xbrl:Period" : "2013-01-01/2013-12-31",
+                                                            "xbrl:Unit" : "iso4217:USD",
+                                                            "sec:FiscalPeriod" : "FY",
+                                                            "sec:FiscalYear" : 2013,
+                                                            "sec:Accepted" : "20140227132423",
+                                                            "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+                                                        },
+                                                        "Type" : "BooleanValue",
+                                                        "Value" : true,
+                                                        "Decimals" : -6,
+                                                        "Concept" : {
+                                                            "PeriodType" : "duration",
+                                                            "DataType" : "xbrli:monetaryItemType"
+                                                        },
+                                                        "AuditTrails" : [ {
+                                                            "Id" : "REMOVED",
+                                                            "Type" : "xbrl28:validation",
+                                                            "Label" : "[CF4] NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued",
+                                                            "Message" : "fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] + fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD]",
+                                                            "Data" : {
+                                                                "OutputConcept" : "fac:NetCashFlowFromOperatingActivitiesValidation",
+                                                                "ValidatedConcepts" : [ "fac:NetCashFlowFromOperatingActivities" ],
+                                                                "ValidatedFacts" : "ARRAY of 1",
+                                                                "ValidationPassed" : true
                                                             }
-                                                        ], 
-                                                        "Concept": {
-                                                            "DataType": "xbrli:monetaryItemType", 
-                                                            "PeriodType": "duration"
-                                                        }, 
-                                                        "Decimals": -6, 
-                                                        "KeyAspects": [
-                                                            "xbrl:Concept", 
-                                                            "xbrl:Entity", 
-                                                            "xbrl:Period", 
-                                                            "xbrl:Unit", 
-                                                            "sec:Accepted"
-                                                        ], 
-                                                        "Type": "BooleanValue", 
-                                                        "Value": true, 
-                                                        "_id": "REMOVED", 
-                                                        "xbrl28:Type": "xbrl28:validation"
+                                                        } ],
+                                                        "xbrl28:Type" : "xbrl28:validation"
                                                     }
                                                 ], 
                                                 "Id": "REMOVED", 
