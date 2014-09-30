@@ -67,7 +67,7 @@ declare variable $additionalRules :=
                                  modify (
                                      replace value of json $f.Decimals with 3,
                                      if(exists($f.AuditTrails))
-                                     then replace value of json $f.AuditTrails with [ $audit-trail ]
+                                     then append json $audit-trail into $f.AuditTrails
                                      else insert json { AuditTrails: [ $audit-trail ] } into $f
                                  )
                                  return $f

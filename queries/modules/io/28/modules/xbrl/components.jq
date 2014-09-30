@@ -276,7 +276,7 @@ as object*
   let $concept-map := networks:networks-for-components-and-short-names(
       $component,
       "ConceptMap")
-  let $rules := $component.Rules
+  let $rules := (flatten($component.Rules), flatten($options.Rules))
   let $overriden-hypercube as object? :=
         if(exists($options.Hypercube))
         then $options.Hypercube
@@ -291,7 +291,7 @@ as object*
   return hypercubes:facts(
           $hypercube,
           {|
-            $options,
+            trim($options, "Rules"),
             { "ConceptMaps": $concept-map }[exists($concept-map)],
             { "Rules": $rules }[exists($rules)]
           |}
