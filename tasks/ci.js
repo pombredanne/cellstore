@@ -344,7 +344,7 @@ module.exports = function(grunt) {
                 grunt.task.run([
                     'build:' + environment,
                     'aws_s3:setup',
-                    //'netdna:prod',
+                    'netdna:prod',
                     'deployed-message:frontend'
                 ]);
             }
