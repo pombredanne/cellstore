@@ -67,10 +67,6 @@ let $filter-override as object? := fiscal-core:filter-override(
     $fiscalYears,
     $fiscalPeriods,
     $aids)
-let $concepts as object* := 
-    concepts:concepts-for-components(
-        $concepts:ALL_CONCEPT_NAMES,
-        $report)
 let $facts as object* :=
     let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
     let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
@@ -87,6 +83,8 @@ let $facts as object* :=
                 |}
             )
 
+let $concepts as object* := 
+    reports:concepts($report)
 let $facts :=
     for $fact in $facts
     group by $archive := $fact.Aspects."sec:Archive"
@@ -98,7 +96,12 @@ let $facts :=
         trim($fact, ("Labels", "EntityRegistrantName")),
         { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
         if($labels)
-        then { Labels : concepts:labels-for-facts($fact, $report, ()) }
+        then
+            let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:DEFAULT_LANGUAGE )[1]
+            let $role as string := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )[1]
+            let $labels as object? := concepts:labels-for-facts($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ()) 
+            return 
+                { Labels : $labels }
         else ()
     |}
 
@@ -136,7 +139,6 @@ let $results :=
         {|
             { NetworkIdentifier : "http://secxbrl.info/facts" },
             { TableName : "xbrl:Facts" },
-            { Concepts : [ $concepts ] },
             { FactTable : [ $facts ] },
             session:comment("json", {
                     NumFacts : count($facts),

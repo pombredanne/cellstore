@@ -136,7 +136,7 @@ let $facts :=
             concepts:concepts-for-components($concepts:ALL_CONCEPT_NAMES, $component)
         for $fact in $facts
         let $labels := 
-            concepts:labels-for-facts($fact, $component, $concepts:STANDARD_LABEL_ROLE,
+            concepts:labels-for-facts($fact, $component.Role, $concepts:STANDARD_LABEL_ROLE,
                 "en-US", $concepts, ())
         return 
             {|

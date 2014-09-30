@@ -45,10 +45,21 @@ declare variable $concepts:NAME as xs:string := "Name";
 declare variable $concepts:LABELS as xs:string := "Labels";
 
 (:~
+ : A helper variable holding the default language ("en-US")
+ :)
+declare variable $concepts:DEFAULT_LANGUAGE as xs:string := "en-US";
+
+(:~
  : The default component link role.
  :)
 declare variable $concepts:DEFAULT_COMPONENT_LINK_ROLE as xs:string :=
     "http://www.xbrl.org/2003/role/link";
+
+(:~
+ : Allow any component link role
+ :)
+declare variable $concepts:ANY_COMPONENT_LINK_ROLE as xs:string :=
+    "*";
 
 (:~
  : The standard label role.
@@ -116,11 +127,16 @@ declare function concepts:concepts(
   return mongo:find($conn, $concepts:col, 
     {|
       {
-        $concepts:ARCHIVE : { "$in" : [ $archives ] },
-        $concepts:ROLE : { "$in" :
-          [ $component-roles, "http://www.xbrl.org/2003/role/link" ]
-        }
+        $concepts:ARCHIVE : { "$in" : [ $archives ] }
       },
+      if($component-roles = $concepts:ANY_COMPONENT_LINK_ROLE)
+      then ()
+      else 
+          {
+            $concepts:ROLE : { "$in" :
+              [ $component-roles, "http://www.xbrl.org/2003/role/link" ]
+            }
+          },
       {
         $concepts:NAME : { "$in" : [ $concept-names ] }
       }[not $concept-names = $concepts:ALL_CONCEPT_NAMES]
@@ -220,52 +236,6 @@ declare function concepts:labels-for-components(
       $label-role, $language, $concepts, $options)
 };
 
-(:~
- : <p>Retrieves all the labels for all concepts used in the facts if 
- : either found in the report or found in the list of concepts
- : concepts. Concepts used in a fact includes not only those from the
- : 'xbrl:Concept' aspect, but also Members of any custom axis.</p>
- :
- : <p>The set of concepts to search in is specified as a parameter.</p>
- :
- : @param $facts a sequence of facts.
- : @param $report the report in which to search for concept labels.
- : @param $concepts additional list of concepts in which the labels will be 
- :                  searched.
- : 
- : @return an object with matching concepts as keys and labels as values.
- :) 
-declare function concepts:labels-for-facts(
-    $facts as object*, 
-    $report as object?,
-    $concepts as object*
-  ) as object?
-{
-    let $concepts as object* := 
-        (
-            descendant-objects($report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains)[exists($$.Name)],
-            $concepts
-        )
-    let $concept-names as string* :=
-        distinct-values(
-            for $fact in $facts
-            return
-                keys($fact.Aspects)[string($fact.Aspects.($$)) = ($concepts.Name, "sec:DefaultLegalEntity")] ! $fact.Aspects.($$)
-        )
-    return 
-        {|
-            for $name in $concept-names
-            let $label as string? := 
-                if($name eq "sec:DefaultLegalEntity")
-                then "Default Legal Entity"
-                else $concepts[$$.Name eq $name][1].Label
-            where exists($label)
-            return 
-                {
-                    $name: $label
-                }       
-        |}
-};
 
 (:~
  : <p>Retrieves all the labels with the given label role and language for
@@ -306,15 +276,14 @@ declare function concepts:labels-for-facts(
  :) 
 declare function concepts:labels-for-facts(
     $facts as object*, 
-    $component-or-ids as item*, 
+    $component-roles as string*, 
     $label-role as string, 
     $language as string, 
     $concepts as object*, 
     $options as object?
   ) as object?
 {
-    let $components := components:components($component-or-ids)
-    let $concept-names as string* :=
+    let $concept-names as string* := 
         distinct-values(
             for $fact in $facts
             return
@@ -327,9 +296,18 @@ declare function concepts:labels-for-facts(
             return 
                 {
                     $name: concepts:labels(
-                                $name, $archives, $components.Role,
+                                $name, $archives, $component-roles,
                                 $label-role, $language, $concepts, $options)
-                }       
+                },
+            for $key in distinct-values(keys($facts.Aspects))
+            where not string($facts.Aspects.$key) = $concept-names
+            return 
+                switch (true)
+                case ($key eq "dei:LegalEntityAxis" and $facts.Aspects.$key eq "sec:DefaultLegalEntity")
+                  return { $facts.Aspects.$key : "Default Legal Entity" }
+                case $key eq "xbrl:Entity"
+                  return { $facts.Aspects.$key : "CIK: " || substring-after($facts.Aspects.$key, "http://www.sec.gov/CIK ") }
+                default return ()
         |}
 };
 
@@ -424,10 +402,20 @@ declare function concepts:labels(
   ) as string*
 {
   let $normalized-language := concepts:normalize-language($language)
-  let $concept-labels-groups-for-role :=$concepts[
-      $$($concepts:NAME)    = $concept-names and
-      $$($concepts:ARCHIVE) = $archives and
-      $$($concepts:ROLE)    = $component-roles]($concepts:LABELS)($label-role)
+  let $concept-labels-groups-for-role := (
+      (: concepts can be defined within an archive :)
+      $concepts[
+          $$($concepts:NAME)    = $concept-names and
+          $$($concepts:ARCHIVE) = $archives and
+          ($component-roles = $concepts:ANY_COMPONENT_LINK_ROLE
+           or $$($concepts:ROLE)    = $component-roles)],
+      (: or outside of an archive - e.g. in a taxonomy :)
+      $concepts[
+          $$($concepts:NAME)    = $concept-names and
+          empty($$($concepts:ARCHIVE)) and
+          ($component-roles = $concepts:ANY_COMPONENT_LINK_ROLE
+           or $$($concepts:ROLE)    = $component-roles)]
+      )[1]($concepts:LABELS)($label-role)
   for $concept-labels-group in $concept-labels-groups-for-role
   let $perfect-match := $concept-labels-group($normalized-language) 
   return 
@@ -470,7 +458,15 @@ declare %private function concepts:approximated-labels-match(
   else ()
 };
 
-declare %private function concepts:normalize-language($language as string) as string
+(:~
+ : <p>Normalizes the language code. This normalized language code can then
+ : be used to find the right labels in the concepts collection.</p>
+ :
+ : @param $language the language identifier.
+ : 
+ : @return the normalized language.
+ :)
+declare function concepts:normalize-language($language as string) as string
 {
   replace(lower-case($language), "_", "-")
 };
