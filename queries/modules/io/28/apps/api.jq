@@ -3,60 +3,32 @@ jsoniq version "1.0";
 module namespace api = "http://apps.28.io/api";
 
 import module namespace session    = "http://apps.28.io/session";
-import module namespace req        = "http://www.28msec.com/modules/http-request";
 import module namespace resp       = "http://www.28msec.com/modules/http-response";
 import module namespace sec-fiscal = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
-declare function api:parameter($name as string, $regexp as string, $default as string?)
-as string?
+declare function api:validate-regexp($name as string, $value as string?, $regexp as string)
+as ()
 {
-  variable $param := req:param-values($name);
-  if (exists($param) and not($param eq ""))
+  if (exists($value))
   then  
-    if (matches($param, "^" || $regexp || "$"))
-    then $param
-    else fn:error(xs:QName("api:bad-parameter"), "Provided parameter " || $name || " with value " || $param || " does not match reg. expression " || $regexp || ".")
-  else $default 
+    if (matches($value, "^" || $regexp || "$"))
+    then ();
+    else fn:error(xs:QName("api:bad-parameter"), "Provided parameter " || $name || " with value " || $value || " does not match reg. expression " || $regexp || ".");
+  else ();
 };
 
-declare function api:parameter-enum($name as string, $enum as string*, $default as string?)
-as string?
+declare function api:validate-enum($name as string, $value as string?, $enum as string*) 
+as ()
 {
-  variable $param := req:param-values($name);
-  if (exists($param) and not($param eq ""))
+  if (exists($value))
   then 
-    if ($param = $enum)
-    then $param
-    else fn:error(xs:QName("api:bad-parameter"), "Provided parameter " || $name || " with value " || $param || " is not one of these: " || string-join($enum,", ") || ".")
-  else $default 
+    if ($value = $enum)
+    then ();
+    else fn:error(xs:QName("api:bad-parameter"), "Provided parameter " || $name || " with value " || $value || " is not one of these: " || string-join($enum,", ") || ".");
+  else ();
 };
 
-declare function api:required-parameter-enum($name as string, $enum as string*)
-as string
-{
-  variable $param := api:parameter-enum($name, $enum, ());
-  if (exists($param))
-  then $param
-  else fn:error(xs:QName("api:missing-parameter"), "Missing required parameter " || $name)
-};
-
-declare function api:parameter-boolean($name as string, $default as boolean)
-as boolean
-{
-  boolean(api:parameter-enum($name, ("true","false"), if($default) then "true" else "false") eq "true")
-};
-
-
-declare function api:required-parameter($name as string, $regexp as string)
-as string
-{
-  variable $param := api:parameter($name, $regexp, ());
-  if (exists($param))
-  then $param
-  else fn:error(xs:QName("api:missing-parameter"), "Missing required parameter " || $name, { "parameter": $name })
-};
-
-declare %private function api:sgpl($count as integer, $singular as string, $plural as string)
+declare %private function api:sgpl($count as integer, $singular as string, $plural as string) 
 as string
 { 
     if ($count eq 1)
@@ -87,13 +59,6 @@ as string
             else "Just Now"        
 };
 
-declare function api:boolean($value as string) as boolean
-{
-    if ($value eq "")
-    then true
-    else boolean($value)
-};
-
 declare function api:success() as object
 {
   { "success" : true }
@@ -108,12 +73,13 @@ declare function api:success($data as object()) as object
 };
 
 declare %an:sequential function api:check-and-return-results(
+    $token as string?,
     $entities as object*,
     $results as item*,
     $format as string?
 ) as item*
 {
-    switch(session:check-access($entities, "data_sec"))
+    switch(session:check-access($token, $entities, "data_sec"))
     case $session:ACCESS-ALLOWED return
         $results
     case $session:ACCESS-DENIED return {
@@ -199,12 +165,21 @@ declare function api:preprocess-fiscal-periods($fiscal-periods as string*) as st
   )
 };
 
-declare function api:preprocess-format($format as string?) as string?
+declare function api:preprocess-format($format as string?, $request-uri as string) as string?
 {
-  lower-case(($format, substring-after(req:path(), ".jq."))[1])
+  let $request-path := tokenize($request-uri, "\\?")[1]
+  return lower-case(($format, substring-after($request-path, ".jq."))[1])
 };
 
 declare function api:preprocess-tags($tags as string*) as string*
 {
   distinct-values($tags ! upper-case($$))
+};
+
+declare function api:preprocess-boolean($name as string, $value as string)
+as boolean
+{
+  if ($value eq "")
+  then true
+  else api:validate-enum($name, lower-case($value), ("true", "false")) eq "true"
 };
