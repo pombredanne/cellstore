@@ -1,5 +1,6 @@
 import module namespace user = "http://apps.28.io/user";
 import module namespace session = "http://apps.28.io/session";
+import module namespace credentials = "http://secxbrl.info/modules/credentials";
 
 if (is-available-collection($user:collection))
 then ();
@@ -125,7 +126,7 @@ else ();
 variable $admin := user:get-by-email("admin@28.io");
 if(empty($admin))
 then {
-    $admin := user:new("admin@28.io", "System", "Administrator", "12345", {| |});
+    $admin := user:new("admin@28.io", "System", "Administrator", $credentials:admin-password, {| |});
     user:assign-role($admin, "admin", (), (), $admin);
   }
 else ();
