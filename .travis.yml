@@ -14,7 +14,7 @@ script:
 - grunt test:run
 after_script:
 # teardown will work only for ci not for prod or on master
-- grunt test:teardown
+- grunt test:teardown --verbose
 env:
   global:
   - RANDOM_ID=$RANDOM

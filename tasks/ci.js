@@ -91,6 +91,9 @@ module.exports = function(grunt) {
                 fatal('Only prod environment allowed for project secxbrl. Environment: ' + environment);
             }
             var config = grunt.file.readJSON('config.json');
+            if(!config){
+                fatal('Reading file config.json failed.');
+            }
             config.s3.bucket = bucket;
             config['28'].project = projectName;
             config['28'].api = { url: 'http://' + projectName + '.28.io/v1' };
@@ -207,7 +210,6 @@ module.exports = function(grunt) {
             environment = 'ci';
         }
         grunt.log.writeln('environment: ' + environment);
-        grunt.task.run(['shell:decrypt', 'config:' + environment]);
 
         if (target === 'setup') {
             grunt.task.run([
@@ -216,7 +218,10 @@ module.exports = function(grunt) {
                 'deployed-message'
             ]);
         } else if (target === 'run') {
-            grunt.task.run(['28:run']);
+            grunt.task.run([
+                'shell:decrypt',
+                'config:' + environment,
+                '28:run']);
         } else if (target === 'teardown' && environment !== 'prod') {
             if(!isTravis()) {
                 grunt.task.run(['ngconstant']);
@@ -224,6 +229,8 @@ module.exports = function(grunt) {
             // double check that teardown is not run for prod
             if(!isTravisAndMaster() && grunt.config.get(['secxbrl'])['28'].project !== 'secxbrl') {
                 grunt.task.run([
+                    'shell:decrypt',
+                    'config:' + environment,
                     '28:teardown',
                     'aws_s3:teardown',
                     'setupS3Bucket:teardown'
