@@ -96,7 +96,7 @@ declare function reports:concepts($reports-or-ids as item*) as object*
 {
   let $reports as object* := reports:reports($reports-or-ids)
   for $report in $reports
-  let $language as string := concepts:normalize-language(( $report.$components:DEFAULT-LANGUAGE , $concepts:DEFAULT_LANGUAGE )[1])
+  let $language as string := concepts:normalize-language(( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1])
   let $role as string := ( $report.Role, $concepts:DEFAULT_COMPONENT_LINK_ROLE )[1]
   let $report-concepts as object* := 
         (

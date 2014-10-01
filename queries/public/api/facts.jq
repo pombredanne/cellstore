@@ -196,7 +196,7 @@ let $facts :=
             { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName},
             if($labels)
             then
-                let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:DEFAULT_LANGUAGE )[1]
+                let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
                 let $roles as string* := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )
                 let $labels as object? := concepts:labels-for-facts($fact, $roles, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ()) 
                 return 

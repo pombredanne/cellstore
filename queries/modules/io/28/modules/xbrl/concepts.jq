@@ -47,7 +47,7 @@ declare variable $concepts:LABELS as xs:string := "Labels";
 (:~
  : A helper variable holding the default language ("en-US")
  :)
-declare variable $concepts:DEFAULT_LANGUAGE as xs:string := "en-US";
+declare variable $concepts:AMERICAN_ENGLISH as xs:string := "en-US";
 
 (:~
  : The default component link role.

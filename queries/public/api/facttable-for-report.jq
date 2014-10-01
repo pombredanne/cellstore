@@ -97,7 +97,7 @@ let $facts :=
         { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
         if($labels)
         then
-            let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:DEFAULT_LANGUAGE )[1]
+            let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
             let $role as string := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )[1]
             let $labels as object? := concepts:labels-for-facts($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ()) 
             return 
