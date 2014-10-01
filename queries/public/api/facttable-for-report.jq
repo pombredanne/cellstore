@@ -5,6 +5,7 @@ import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace components = "http://28.io/modules/xbrl/components";
 import module namespace concepts = "http://28.io/modules/xbrl/concepts";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
@@ -99,7 +100,7 @@ let $facts :=
         then
             let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
             let $role as string := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )[1]
-            let $labels as object? := concepts:labels-for-facts($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ()) 
+            let $labels as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
             return 
                 { Labels : $labels }
         else ()

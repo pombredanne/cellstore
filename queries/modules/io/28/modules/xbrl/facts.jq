@@ -106,6 +106,7 @@ import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace footnotes = "http://28.io/modules/xbrl/footnotes";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
@@ -586,6 +587,79 @@ declare function facts:populate-with-footnotes(
       then ()
       else { $facts:FOOTNOTES : [ $footnotes ] }
     |}
+};
+
+(:~
+ : <p>Retrieves all the labels with the given label role and language for
+ : all concepts used in the fact and matching a concept in the list of
+ : concepts. Concepts used in a fact include not only those from the
+ : 'xbrl:Concept' aspect, but also Members of any custom axis.</p>
+ :
+ : <p>Matching concepts are those which:
+ :  - concept name matches a given one,
+ :  - archive number matches that of a given component,
+ :  - component role matches that of a given component or is the default
+ :    component role.
+ : </p>
+ :
+ : <p>The set of concepts to search in is specified as a parameter.</p>
+ :
+ : <p>Language matching can either be exact, if no options are given,
+ : or approximated, if at least one of the following options is given:</p>
+ : <ul>
+ :   <li>MatchDown: whether to match a more specific language, e.g.:
+ :       "en" will match labels which language is "en" or "en-US".</li>
+ :   <li>MatchUp: whether to match a less specific language, e.g.:
+ :       "en-US" will match labels which language is "en-US" or "en".</li>
+ :   <li>MatchAnyVariant: whether to match a different variant of the same
+ :       language, e.g.: "en-US" will match labels which language is "en-US"
+ :       or "en-UK".</li>
+ : </ul>
+ :
+ : @param $facts a sequence of facts.
+ : @param $component-or-ids the CIDs or the components themselves.
+ : @param $label-role the label role.
+ : @param $language the label language.
+ : @param $concepts the concepts in which the labels will be
+ :                  searched.
+ : @param $options optional parameters to control language matching.
+ :
+ : @return an object with matching concepts as keys and labels as values.
+ :)
+declare function facts:labels(
+    $facts as object*,
+    $component-roles as string*,
+    $label-role as string,
+    $language as string,
+    $concepts as object*,
+    $options as object?
+  ) as object?
+{
+    let $concept-names as string* :=
+        distinct-values(
+            for $fact in $facts
+            return
+                keys($fact.Aspects)[string($fact.Aspects.($$)) = $concepts.Name] ! $fact.Aspects.($$)
+        )
+    let $archives := $facts.Aspects."sec:Archive"
+    return
+        {|
+            for $name in $concept-names
+            let $label as string? :=
+            return
+                {
+                    $name: concepts:labels(
+                                $name, $archives, $component-roles,
+                                $label-role, $language, $concepts, $options)
+                },
+            for $key in distinct-values(keys($facts.Aspects))
+            where not string($facts.Aspects.$key) = $concept-names
+            return
+                switch (true)
+                case ($key eq "dei:LegalEntityAxis" and $facts.Aspects.$key eq "sec:DefaultLegalEntity")
+                  return { $facts.Aspects.$key : "Default Legal Entity" }
+                default return ()
+        |}
 };
 
 (:~

@@ -6,6 +6,7 @@ import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace concepts = "http://28.io/modules/xbrl/concepts";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
 import module namespace components = "http://28.io/modules/xbrl/components";
 
@@ -198,7 +199,7 @@ let $facts :=
             then
                 let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
                 let $roles as string* := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )
-                let $labels as object? := concepts:labels-for-facts($fact, $roles, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ()) 
+                let $labels as object? := facts:labels($fact, $roles, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
                 return 
                     { Labels : $labels }
             else ()

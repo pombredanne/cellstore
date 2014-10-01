@@ -9,6 +9,7 @@ import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 import module namespace concepts = "http://28.io/modules/xbrl/concepts";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
 
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
@@ -136,8 +137,7 @@ let $facts :=
             concepts:concepts-for-components($concepts:ALL_CONCEPT_NAMES, $component)
         for $fact in $facts
         let $labels := 
-            concepts:labels-for-facts($fact, $component.Role, $concepts:STANDARD_LABEL_ROLE,
-                "en-US", $concepts, ())
+            facts:labels($fact, $component.Role, $concepts:STANDARD_LABEL_ROLE,$concepts:AMERICAN_ENGLISH, $concepts, ())
         return 
             {|
                 trim($fact, "Labels"),
