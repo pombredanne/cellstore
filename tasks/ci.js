@@ -103,6 +103,7 @@ module.exports = function(grunt) {
                 config.s3.secret = config.s3.production.secret;
                 config.s3.region = config.s3.production.region;
                 s3KeyType = 'production';
+                grunt.log.ok('Purging NetDNA Zone: ' + config.netdna.prod.zone);
             }
             grunt.log.ok('Project: ' + projectName);
             grunt.log.ok('Bucket: ' + bucket);
