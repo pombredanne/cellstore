@@ -14,21 +14,23 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
-declare  %rest:case-insensitive                 variable $format             as string? external;
-declare  %rest:case-insensitive %rest:distinct  variable $cik                as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $tag                as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $ticker             as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $sic                as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
-declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
-declare  %rest:case-insensitive                 variable $report             as string? external;
+declare  %rest:case-insensitive                 variable $token         as string? external;
+declare  (:%rest:env:)                          variable $request-uri   as string  external := ""; (: backward compatibility :)
+declare  %rest:case-insensitive                 variable $format        as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $cik           as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag           as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $ticker        as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $sic           as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear    as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $aid           as string* external;
+declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
+declare  %rest:case-insensitive                 variable $report        as string? external;
 
-session:audit-call();
+session:audit-call($token);
 
 (: Post-processing :)
-let $format as string? := api:preprocess-format($format)
+let $format as string? := api:preprocess-format($format, $request-uri)
 let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
 let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 let $tag as string* := api:preprocess-tags($tag)
@@ -122,5 +124,4 @@ let $results :=
                 })
         |}
     }
-return
-    api:check-and-return-results($entities, $results, $format)
+return api:check-and-return-results($token, $entities, $results, $format)

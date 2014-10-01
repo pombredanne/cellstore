@@ -41,14 +41,17 @@ declare function local:to-csv($c as object) as string
     )
 };
 
-declare  %rest:case-insensitive  variable $format  as string? external;
-declare  %rest:case-insensitive  variable $map     as string? external;
-declare  %rest:case-insensitive  variable $name    as string? external;
+(: Query parameters :)
+declare  %rest:case-insensitive  variable $token        as string? external;
+declare  (:%rest:env:)           variable $request-uri  as string  external := ""; (: backward compatibility :)
+declare  %rest:case-insensitive  variable $format       as string? external;
+declare  %rest:case-insensitive  variable $map          as string? external;
+declare  %rest:case-insensitive  variable $name         as string? external;
 
-session:audit-call();
+session:audit-call($token);
 
 (: Post-processing :)
-let $format as string? := api:preprocess-format($format)
+let $format as string? := api:preprocess-format($format, $request-uri)
 
 (: Object resolution :)
 let $map := ($map, $name)
