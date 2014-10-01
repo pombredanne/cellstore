@@ -63,6 +63,10 @@ module.exports = function (grunt) {
         yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
     } catch (e) {}
 
+    grunt.registerTask('credentials', function(target){
+        grunt.task.run(['mustache_render:' + target]);
+    });
+
     grunt.initConfig({
         yeoman: yeomanConfig,
         watch: {
@@ -134,6 +138,36 @@ module.exports = function (grunt) {
                 reports:  ['data/*.json']
             },
             all : {}
+        },
+        'mustache_render': {
+            options: {},
+            prod : {
+                files: [
+                    {
+                        data: '<%= secxbrl.secxbrlInfo.prod %>',
+                        template: 'tasks/credentials.mustache',
+                        dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+                    }
+                ]
+            },
+            dev : {
+                files: [
+                    {
+                        data: '<%= secxbrl.secxbrlInfo.dev %>',
+                        template: 'tasks/credentials.mustache',
+                        dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+                    }
+                ]
+            },
+            ci : {
+                files: [
+                    {
+                        data: '<%= secxbrl.secxbrlInfo.dev %>',
+                        template: 'tasks/credentials.mustache',
+                        dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+                    }
+                ]
+            }
         },
         connect: {
             options: {

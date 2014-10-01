@@ -91,6 +91,9 @@ module.exports = function(grunt) {
                 fatal('Only prod environment allowed for project secxbrl. Environment: ' + environment);
             }
             var config = grunt.file.readJSON('config.json');
+            if(!config){
+                fatal('Reading file config.json failed.');
+            }
             config.s3.bucket = bucket;
             config['28'].project = projectName;
             config['28'].api = { url: 'http://' + projectName + '.28.io/v1' };
@@ -100,6 +103,7 @@ module.exports = function(grunt) {
                 config.s3.secret = config.s3.production.secret;
                 config.s3.region = config.s3.production.region;
                 s3KeyType = 'production';
+                grunt.log.ok('Purging NetDNA Zone: ' + config.netdna.prod.zone);
             }
             grunt.log.ok('Project: ' + projectName);
             grunt.log.ok('Bucket: ' + bucket);
@@ -162,6 +166,7 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'reports',
+            'credentials:' + environment,
             'xqlint',
             'jsonlint',
             'jshint',
@@ -221,7 +226,7 @@ module.exports = function(grunt) {
                 grunt.task.run(['ngconstant']);
             }
             // double check that teardown is not run for prod
-            if(!isTravisAndMaster() && grunt.config.get(['secxbrl'])['28'].project !== 'secxbrl') {
+            if(!isTravisAndMaster()) {
                 grunt.task.run([
                     '28:teardown',
                     'aws_s3:teardown',
@@ -261,6 +266,7 @@ module.exports = function(grunt) {
             grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant' ]);
             grunt.task.run([
                 'reports',
+                'credentials:' + environment,
                 '28:setup',
                 '28:deploy',
                 'deployed-message:backend'
@@ -269,6 +275,7 @@ module.exports = function(grunt) {
             if(!isTravisAndMaster() && isTravis()) {
                 grunt.task.run([
                     'reports',
+                    'credentials:' + environment,
                     '28:setup',
                     '28:deploy',
                     'deployed-message:backend'
@@ -278,6 +285,7 @@ module.exports = function(grunt) {
             if(isTravisAndMaster()) {
                 grunt.task.run([
                     'reports',
+                    'credentials:' + environment,
                     '28:deployMaster',
                     'deployed-message:backend'
                 ]);
@@ -314,7 +322,7 @@ module.exports = function(grunt) {
                 grunt.task.run([
                     'build:' + environment,
                     'aws_s3:setup',
-                    //'netdna:prod',
+                    'netdna:prod',
                     'deployed-message:frontend'
                 ]);
             }
