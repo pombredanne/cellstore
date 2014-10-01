@@ -17,11 +17,13 @@ declare %an:sequential function local:filingPeriodInfo($archives as object*) as 
 };
 
 (: Query parameters :)
-declare  %rest:case-insensitive  variable $format  as string? external;
-declare  %rest:case-insensitive  variable $cik     as string? external := "0000354950";
+declare  %rest:case-insensitive  variable $token        as string? external;
+declare  (:%rest:env:)           variable $request-uri  as string  external := ""; (: backward compatibility :)
+declare  %rest:case-insensitive  variable $format       as string? external;
+declare  %rest:case-insensitive  variable $cik          as string? external := "0000354950";
 
 (: Post-processing :)
-let $format as string? := api:preprocess-format($format)
+let $format as string? := api:preprocess-format($format, $request-uri)
 let $cik := if (empty(entities:entities(companies:eid($cik))))
             then error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
             else $cik
@@ -30,7 +32,7 @@ let $cik := if (empty(entities:entities(companies:eid($cik))))
 let $entity := entities:entities(companies:eid($cik))
 let $archives :=  archives:archives-for-entities($entity)
 return  
-    switch(session:check-access($entity, "data_sec"))
+    switch(session:check-access($token, $entity, "data_sec"))
     case $session:ACCESS-ALLOWED return {
             cik: $cik,
             companyName: $entity.Profiles.SEC.CompanyName,

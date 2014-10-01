@@ -31,16 +31,18 @@ declare function local:to-xml($o as object*) as element()
 };
 
 (: Query parameters :)
+declare  %rest:case-insensitive        variable $token         as string? external;
+declare  (:%rest:env("REQUEST_URI"):)  variable $request-uri   as string  external := ""; (: backward compatibility :)
 declare  %rest:case-insensitive variable $format as string? external;
 
 (: Post-processing :)
-let $format as string? := api:preprocess-format($format)
+let $format as string? := api:preprocess-format($format, $request-uri)
 
 (: Object resolution :)
 return
-if (session:valid()) 
+if (session:valid($token)) 
 then {
-    variable $user-id := session:validate();
+    variable $user-id := session:validate($token);
 
     if (user:is-authorized($user-id, "statistics_usage"))
     then {

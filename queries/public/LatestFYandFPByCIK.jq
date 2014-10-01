@@ -7,6 +7,8 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
+declare  %rest:case-insensitive        variable $token         as string? external;
+declare  (:%rest:env("REQUEST_URI"):)  variable $request-uri   as string  external := ""; (: backward compatibility :)
 declare  %rest:case-insensitive  variable $format as string? external;
 declare  %rest:case-insensitive  variable $cik    as string? external := "0000104169";
 
@@ -14,7 +16,7 @@ declare  %rest:case-insensitive  variable $cik    as string? external := "000010
 let $cik := if (empty(entities:entities(companies:eid($cik))))
             then error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
             else $cik
-let $format as string? := api:preprocess-format($format)
+let $format as string? := api:preprocess-format($format, $request-uri)
 
 (: Object resolution :)
 let $entity := entities:entities(companies:eid($cik))
@@ -23,7 +25,7 @@ let $latestFQFiling := sec-fiscal:latest-reported-fiscal-period($entity,"10-Q")
 let $latestFYArchives := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity,$latestFYFiling.period,$latestFYFiling.year)
 let $latestFQArchives := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity,$latestFQFiling.period,$latestFQFiling.year)
 return  
-    switch(session:check-access($entity, "data_sec"))
+    switch(session:check-access($token, $entity, "data_sec"))
     case $session:ACCESS-ALLOWED return {
           cik: $cik,
           companyName: $entity.Profiles.SEC.CompanyName,

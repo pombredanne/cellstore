@@ -12,15 +12,17 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace seq = "http://zorba.io/modules/sequence";
 
 (: Query parameters :)
-declare  %rest:case-insensitive                 variable $format             as string? external;
-declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
-declare  %rest:case-insensitive                 variable $report             as string? external;
-declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
+declare  %rest:case-insensitive                 variable $token         as string? external;
+declare  (:%rest:env:)                          variable $request-uri   as string  external := ""; (: backward compatibility :)
+declare  %rest:case-insensitive                 variable $format        as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $aid           as string* external;
+declare  %rest:case-insensitive                 variable $report        as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string* external := "FY";
 
-session:audit-call();
+session:audit-call($token);
 
 (: Post-processing :)
-let $format as string? := api:preprocess-format($format)
+let $format as string? := api:preprocess-format($format, $request-uri)
 let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 
 (: Object resolution :)
@@ -37,7 +39,7 @@ return switch(true)
         session:error("report does not exist", $report)
     }
     default return
-      switch(session:check-access($entities, "data_sec"))
+      switch(session:check-access($token, $entities, "data_sec"))
       case $session:ACCESS-ALLOWED return {
         let $cached-archives := store:find("reportcache", { _id : { "$in" : [ $archives._id ! ($report || $$)]}})
         let $noncached-archives := seq:value-except($archives._id, $cached-archives._id ! substring-after($$, $report))
