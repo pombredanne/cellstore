@@ -210,6 +210,7 @@ module.exports = function(grunt) {
             environment = 'ci';
         }
         grunt.log.writeln('environment: ' + environment);
+        grunt.task.run(['shell:decrypt', 'config:' + environment]);
 
         if (target === 'setup') {
             grunt.task.run([
@@ -218,19 +219,14 @@ module.exports = function(grunt) {
                 'deployed-message'
             ]);
         } else if (target === 'run') {
-            grunt.task.run([
-                'shell:decrypt',
-                'config:' + environment,
-                '28:run']);
+            grunt.task.run(['28:run']);
         } else if (target === 'teardown' && environment !== 'prod') {
             if(!isTravis()) {
                 grunt.task.run(['ngconstant']);
             }
             // double check that teardown is not run for prod
-            if(!isTravisAndMaster() && grunt.config.get(['secxbrl'])['28'].project !== 'secxbrl') {
+            if(!isTravisAndMaster()) {
                 grunt.task.run([
-                    'shell:decrypt',
-                    'config:' + environment,
                     '28:teardown',
                     'aws_s3:teardown',
                     'setupS3Bucket:teardown'
