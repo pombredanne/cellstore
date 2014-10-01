@@ -118,6 +118,12 @@ angular.module('main', [
         }
     })
 
+    //Welcome IBM
+    .state('root.welcome', {
+        templateUrl: '/views/welcome-ibm.html',
+        url: '/welcome-ibm'
+    })
+
     //Blog
     .state('root.blog', {
         url: '/blog',
