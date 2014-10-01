@@ -646,11 +646,12 @@ declare function facts:labels(
         {|
             for $name in $concept-names
             let $label as string? :=
+                concepts:labels(
+                    $name, $archives, $component-roles,
+                    $label-role, $language, $concepts, $options)[1]
             return
                 {
-                    $name: concepts:labels(
-                                $name, $archives, $component-roles,
-                                $label-role, $language, $concepts, $options)
+                    $name: $label
                 },
             for $key in distinct-values(keys($facts.Aspects))
             where not string($facts.Aspects.$key) = $concept-names
