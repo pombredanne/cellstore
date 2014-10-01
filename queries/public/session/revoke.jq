@@ -3,7 +3,6 @@ jsoniq version "1.0";
 import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
@@ -22,13 +21,19 @@ declare function local:to-xml($o as object*) as element()
     }</result>
 };
 
+(: Query parameters :)
+declare               variable  $token        as string  external;
+declare               variable  $email        as string  external;
+declare               variable  $password     as string  external;
+declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
+declare               variable  $format       as string? external;
+
+(: Post-processing :)
+variable $format as string? := api:preprocess-format($format, $request-uri);
+
+(: Request processing :)
 variable $res := ();
 variable $status := ();
-
-variable $email := request:param-values("email");
-variable $password := request:param-values("password");
-variable $token := request:param-values("token");
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
 
 variable $user := try { user:login($email, $password) } catch * { () };
 
@@ -41,19 +46,9 @@ then {
             description : "invalid email or password"
         };
 } else {
-    if (empty($token))
-    then {
-        $status := 400;
-        $res :=
-            { 
-                success : false, 
-                description : "Token: parameter missing"
-            };
-    } else {
-        $status := 200;
-        session:terminate($token);
-        $res := api:success();
-    }
+    $status := 200;
+    session:terminate($token);
+    $res := api:success();
 }
 
 response:status-code($status);

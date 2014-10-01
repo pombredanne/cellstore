@@ -26,21 +26,27 @@ declare function local:to-xml($o as object*) as element()
     }</results>
 };
 
+(: Query parameters :)
+declare               variable  $token        as string  external;
+declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
+declare               variable  $format       as string? external;
+
+(: Post-processing :)
+variable $format as string? := api:preprocess-format($format, $request-uri);
+
+(: Request processing :)
 variable $res := ();
 variable $status := ();
 
-variable $token := request:param-values("token");
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
-
-variable $user-id := session:get($token);
+variable $user-id := session:validate($token);
 
 if (empty($user-id))
 then {
-      $status := 400;
+      $status := 403;
       $res :=
         {
             success : false,
-            description : "invalid or missing token"
+            description : "invalid token"
         };
 } else {
     $status := 200;

@@ -2,7 +2,6 @@ jsoniq version "1.0";
 
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
@@ -21,18 +20,17 @@ declare function local:to-xml($o as object*) as element()
     }</result>
 };
 
-variable $token := request:param-values("token");
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Query parameters :)
+declare               variable  $token        as string  external;
+declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
+declare               variable  $format       as string? external;
 
-response:status-code(if (empty($token)) then 400 else 200);
+(: Post-processing :)
+variable $format as string? := api:preprocess-format($format, $request-uri);
 
-let $res :=     if (empty($token))
-                then {
-                    { success : false, description : "token: parameter missing" }
-                } else {
-                    session:terminate($token);
-                    api:success()
-                }
+(: Request processing :)
+session:terminate($token);
+let $res := api:success()
 return
     switch ($format)
      case "xml" return {
