@@ -5,7 +5,6 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace recurly-api = "http://apps.28.io/recurly-rest-api";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:json-to-xml-elements($json as json-item()) as element()*
@@ -32,14 +31,20 @@ declare function local:to-xml($o as object*) as element()
     <result>{ local:json-to-xml-elements($o) }</result>
 };
 
-variable $recurly-token := api:required-parameter("recurlyToken", $recurly-api:VALID-TOKEN);
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Query parameters :)
+declare               variable  $token         as string  external;
+declare               variable  $recurlyToken  as string  external;
+declare (:%rest:env:) variable  $request-uri   as string  external := ""; (: backward compatibility :)
+declare               variable  $format        as string? external;
 
-variable $user-id := session:validate();
+(: Post-processing :)
+api:validate-regexp("recurlyToken", $recurlyToken, $recurly-api:VALID-TOKEN);
+variable $format as string? := api:preprocess-format($format, $request-uri);
 
+(: Request processing :)
+variable $user-id := session:validate($token);
 variable $user := user:get-by-id($user-id);
-
-let $info := recurly-api:set-billing-info($user, $recurly-token)
+let $info := recurly-api:set-billing-info($user, $recurlyToken)
 return
     switch ($format)
     case "xml" return {

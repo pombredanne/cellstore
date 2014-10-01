@@ -2,8 +2,8 @@ jsoniq version "1.0";
 
 import module namespace user = "http://apps.28.io/user";
 import module namespace session = "http://apps.28.io/session";
+import module namespace api = "http://apps.28.io/api";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace functx = "http://www.functx.com";
@@ -32,12 +32,17 @@ declare function local:to-xml($o as object*) as element()
     <result>{ local:json-to-xml-elements($o) }</result>
 };
 
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Query parameters :)
+declare               variable  $token        as string  external;
+declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
+declare               variable  $format       as string? external;
 
-variable $user-id := session:validate();
+(: Post-processing :)
+variable $format as string? := api:preprocess-format($format, $request-uri);
 
+(: Request processing :)
+variable $user-id := session:validate($token);
 variable $user := user:get-by-id($user-id);
-
 let $crt-date := current-dateTime()
 let $from-date := dateTime(functx:first-day-of-month($crt-date))
 let $to-date := $from-date + yearMonthDuration("P1M")
