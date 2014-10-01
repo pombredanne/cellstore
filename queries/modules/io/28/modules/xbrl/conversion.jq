@@ -4,6 +4,43 @@ module namespace conversion = "http://28.io/modules/xbrl/conversion";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
+declare %private variable $conversion:STANDARD_LABELS :=
+    {
+        "sec:Archive" : "Archive",
+        "xbrl:Concept" : "Concept",
+        "xbrl:Entity" : "Entity",
+        "xbrl:Period" : "Period",
+        "sec:FiscalPeriod" : "Fiscal Period",
+        "sec:FiscalYear" : "Fiscal Year",
+        "sec:Accepted" : "Accepted",
+        "xbrl:Unit": "Unit",
+        "dei:LegalEntityAxis": "Legal Entity"
+    };
+
+declare %private function conversion:aspect-label(
+    $aspect as string) as string
+{
+    switch(true)
+    case exists($conversion:STANDARD_LABELS.$aspect)
+      return $conversion:STANDARD_LABELS.$aspect
+    default return $aspect
+};
+
+declare %private function conversion:aspect-value-or-label(
+    $aspect as string,
+    $aspect-value as atomic,
+    $labels as object?) as atomic
+{
+    switch(true)
+    case ($aspect eq "xbrl:Entity" and starts-with($aspect-value, "http://www.sec.gov/CIK "))
+      return substring-after($aspect-value, "http://www.sec.gov/CIK ")
+    case ($aspect eq "xbrl:Unit" and starts-with($aspect-value, "iso4217:"))
+      return substring-after($aspect-value, "iso4217:")
+    case ($aspect-value instance of string and exists($labels.($aspect-value)))
+      return $labels.($aspect-value)
+    default return $aspect-value
+};
+
 declare function conversion:facts-to-csv(
     $facts as object*,
     $options as object?) as string? 
@@ -19,26 +56,22 @@ declare function conversion:facts-to-csv(
               "Value",
               "Type",
               "Decimals")
+    let $use-labels as boolean := exists($facts.Labels)
     return if (exists($facts)) (: bug in csv:serialize :)
            then string-join(
                 csv:serialize(
                     for $fact in $facts
                     return 
                         {|
-                            if($fact.Labels)
+                            if($use-labels)
                             then
                                 for $aspect in keys($fact.Aspects)
-                                let $aspect-value := $fact.Aspects.($aspect)
+                                let $aspect-label := conversion:aspect-label($aspect)
+                                let $aspect-value := conversion:aspect-value-or-label($aspect, $fact.Aspects.($aspect), $fact.Labels)
                                 return
-                                    if($aspect-value instance of string and exists($fact.Labels.($aspect-value)))
-                                    then 
-                                        {
-                                            $aspect : $fact.Labels.($aspect-value)
-                                        }
-                                    else
-                                        {
-                                            $aspect : $aspect-value
-                                        }
+                                    {
+                                        $aspect-label : $aspect-value
+                                    }
                             else
                                 $fact.Aspects,
                             project($fact, $projection)

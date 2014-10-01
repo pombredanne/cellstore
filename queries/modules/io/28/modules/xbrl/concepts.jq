@@ -305,8 +305,6 @@ declare function concepts:labels-for-facts(
                 switch (true)
                 case ($key eq "dei:LegalEntityAxis" and $facts.Aspects.$key eq "sec:DefaultLegalEntity")
                   return { $facts.Aspects.$key : "Default Legal Entity" }
-                case $key eq "xbrl:Entity"
-                  return { $facts.Aspects.$key : "CIK: " || substring-after($facts.Aspects.$key, "http://www.sec.gov/CIK ") }
                 default return ()
         |}
 };
