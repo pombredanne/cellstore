@@ -63,6 +63,10 @@ module.exports = function (grunt) {
         yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
     } catch (e) {}
 
+    grunt.registerTask('credentials', function(target){
+        grunt.task.run(['mustache_render:' + target]);
+    });
+
     grunt.initConfig({
         yeoman: yeomanConfig,
         watch: {
@@ -135,21 +139,34 @@ module.exports = function (grunt) {
             },
             all : {}
         },
-        credentials: {
-            options: {
-                dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
-            },
+        'mustache_render': {
+            options: {},
             prod : {
-                adminPassword: '<%= secxbrl.secxbrlInfo.prod.adminPassword %>',
-                supportPassword: '<%= secxbrl.secxbrlInfo.prod.supportPassword %>'
+                files: [
+                    {
+                        data: '<%= secxbrl.secxbrlInfo.prod %>',
+                        template: 'tasks/credentials.mustache',
+                        dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+                    }
+                ]
             },
             dev : {
-                adminPassword: '<%= secxbrl.secxbrlInfo.dev.adminPassword %>',
-                supportPassword: '<%= secxbrl.secxbrlInfo.dev.supportPassword %>'
+                files: [
+                    {
+                        data: '<%= secxbrl.secxbrlInfo.dev %>',
+                        template: 'tasks/credentials.mustache',
+                        dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+                    }
+                ]
             },
             ci : {
-                adminPassword: '<%= secxbrl.secxbrlInfo.dev.adminPassword %>',
-                supportPassword: '<%= secxbrl.secxbrlInfo.dev.supportPassword %>'
+                files: [
+                    {
+                        data: '<%= secxbrl.secxbrlInfo.dev %>',
+                        template: 'tasks/credentials.mustache',
+                        dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+                    }
+                ]
             }
         },
         connect: {
