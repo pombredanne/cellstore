@@ -140,6 +140,18 @@ This is the expected structure of the file:
             }
         ]
     },
+     "secxbrlInfo": {
+         "dev" :
+             {
+                 "adminPassword": "<dev admin user password>",
+                 "supportPassword": "<dev support user password>"
+             },
+         "prod" :
+             {
+                 "adminPassword": "<prod admin user password>",
+                 "supportPassword": "<prod support user password>"
+             }
+     },
      "netdna": {
          "companyAlias": "<alias>",
          "consumerKey": "<Consumer Key>",
