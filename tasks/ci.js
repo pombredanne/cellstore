@@ -5,19 +5,10 @@ module.exports = function(grunt) {
     var usage = function(){
         grunt.log.writeln('');
         grunt.log.subhead('General Usage:');
-        grunt.log.writeln('grunt [test:<target>] [<task>:<env>] <options>');
+        grunt.log.writeln('grunt [test:<target>] [<task>] <options>');
 
         grunt.log.subhead('Options (<options>):');
         grunt.log.writeln(' "--usage"    : print this help text');
-
-        grunt.log.subhead('Defined Environments (<env>):');
-        grunt.log.writeln(' "dev"  :');
-        grunt.log.writeln('          together with --build-id=mybuild will automatically assume');
-        grunt.log.writeln('          project and bucket secxbrl-mybuild.');
-        grunt.log.writeln(' "ci"   : travis will use this for integration into master.');
-        grunt.log.writeln('          (cannot be used in local development).');
-        grunt.log.writeln(' "prod" : travis will use this for deployment to production (secxbrl.28.io)');
-        grunt.log.writeln('          (cannot be used in local development).');
 
         grunt.log.subhead('Examples:');
         grunt.log.writeln(' deploy frontend to secxbrl-test bucket:');
@@ -363,7 +354,7 @@ module.exports = function(grunt) {
             fatal('travis is not allowed to do anything in the dev environment (only prod and ci allowed).');
         } else if(environment === 'ci' && !isTravis()){
             // local continuous integration not allowed
-            fatal('Only travis is allowed to do the continuuous integration. Choose a different environment.');
+            fatal('Only travis is allowed to do the continuous integration. Choose a different environment.');
         } else if(environment === 'ci' && isTravis()){
             // continuous integration done by travis
             var buildIdCI = process.env.TRAVIS_JOB_NUMBER;
