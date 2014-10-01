@@ -4,17 +4,19 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace user = "http://apps.28.io/user";
 import module namespace reports = "http://apps.28.io/reports";
 
-declare  %rest:case-insensitive %rest:distinct  variable $_id                 as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $user                as string* external;
-declare  %rest:case-insensitive                 variable $public-read         as string? external := "false"; (: backward compatibility :)
-declare  %rest:case-insensitive                 variable $private             as string? external := "false"; (: backward compatibility :)
+(: Query parameters :)
+declare  %rest:case-insensitive                 variable $token        as string  external;
+declare  %rest:case-insensitive %rest:distinct  variable $_id          as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $user         as string* external;
+declare  %rest:case-insensitive                 variable $public-read  as string? external := "false"; (: backward compatibility :)
+declare  %rest:case-insensitive                 variable $private      as string? external := "false"; (: backward compatibility :)
 
-try{
+try {
     (: ### INIT PARAMS :)
-    let $public-read as boolean := api:boolean($public-read)
-    let $private as boolean := api:boolean($private)
+    let $public-read as boolean := api:preprocess-boolean("public-read", $public-read) (: backward compatibility :)
+    let $private as boolean := api:preprocess-boolean("public-read", $private) (: backward compatibility :)
     
-    let $authenticated-user := user:get-existing-by-id(session:validate())
+    let $authenticated-user := user:get-existing-by-id(session:validate($token))
     let $users := for $email in $user return user:get-existing-by-email($email)
     let $query := 
         {|
@@ -48,14 +50,8 @@ try{
     return 
         switch (true)
         
-        (: ### AUTHENTICATION :)
-        case not(session:valid()) return {
-            response:status-code(401);
-            session:error("Unauthorized: Login required", "json")
-        }
-        
         (: ### AUTHORIZATION :)
-        case not(session:valid("reports_get")) return {
+        case not(session:valid($token, "reports_get")) return {
             response:status-code(403);
             session:error("Forbidden: You are not authorized to access the requested resource", "json")
         }

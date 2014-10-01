@@ -6,20 +6,20 @@ import module namespace api = "http://apps.28.io/api";
 
 import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
 
-declare  %rest:body-text                        variable $body                as string  external;
-declare  %rest:case-insensitive                 variable $validation-only     as string? external := "false"; (: backward compatibility :)
-declare  %rest:case-insensitive                 variable $public-read         as string? external := "false"; (: backward compatibility :)
-declare  %rest:case-insensitive                 variable $private             as string? external := "false"; (: backward compatibility :)
+(: Query parameters :)
+declare  %rest:body-text         variable $body             as string  external;
+declare  %rest:case-insensitive  variable $token            as string  external;
+declare  %rest:case-insensitive  variable $validation-only  as string? external := "false"; (: backward compatibility :)
+declare  %rest:case-insensitive  variable $public-read      as string? external := "false"; (: backward compatibility :)
+declare  %rest:case-insensitive  variable $private          as string? external := "false"; (: backward compatibility :)
 
 try {
-
     (: ### INIT PARAMS :)
-    let $validation-only as boolean := api:boolean($validation-only)
-    let $public-read as boolean := api:boolean($public-read)
-    let $private as boolean := api:boolean($private)
+    let $validation-only as boolean := api:preprocess-boolean("validation-only", $validation-only) (: backward compatibility :)
+    let $public-read as boolean := api:preprocess-boolean("public-read", $public-read) (: backward compatibility :)
+    let $private as boolean := api:preprocess-boolean("private", $private) (: backward compatibility :)
     
-      
-    let $authenticated-user := user:get-existing-by-id(session:validate())
+    let $authenticated-user := user:get-existing-by-id(session:validate($token))
     let $report as object? :=
         if(exists($body))
         then 
@@ -42,23 +42,17 @@ try {
     return 
         switch (true)
         
-        (: ### AUTHENTICATION :)
-        case not(session:valid()) return {
-            response:status-code(401);
-            session:error("Unauthorized: Login required", "json")
-        }
-        
         (: ### AUTHORIZATION :)
         (: user authorized to validate report? :)
-        case ($validation-only and not(session:valid("reports_validate"))) 
+        case ($validation-only and not(session:valid($token, "reports_validate"))) 
         
         (: user authorized to update report? :)
         case (exists($id) and exists($existing-report) and 
-            (not(session:valid("reports_edit")) or not(reports:has-report-access-permission($existing-report, $authenticated-user.email, "WRITE"))))
+            (not(session:valid($token, "reports_edit")) or not(reports:has-report-access-permission($existing-report, $authenticated-user.email, "WRITE"))))
         
         (: user authorized to create a report? :)
         case (exists($id) and empty($existing-report) and 
-              not(session:valid("reports_create")))
+              not(session:valid($token, "reports_create")))
         return {
             response:status-code(403);
             session:error("Forbidden: You are not authorized to access the requested resource", "json")
@@ -140,13 +134,6 @@ try {
         session:error("Unauthorized: Login required (session expired)", "json")
     }
 } catch api:missing-parameter {
-    if(exists($err:value) and $err:value.parameter eq "token")
-    then
-    {
-        response:status-code(401);
-        session:error("Unauthorized: Login required (token missing)", "json")
-    }
-    else 
     {
         response:status-code(400);
         session:error($err:description, "json")
