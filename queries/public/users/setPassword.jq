@@ -4,7 +4,6 @@ import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($o as object*) as string
@@ -21,15 +20,25 @@ declare function local:to-xml($o as object*) as element()
     }</result>
 };
 
-variable $email := api:required-parameter("email", $user:VALID_EMAIL);
-variable $password := api:required-parameter("password", $user:VALID_PASSWORD);
-variable $reset-token := api:required-parameter("resetToken", $session:VALID-TOKEN);
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Query parameters :)
+declare               variable  $token        as string  external;
+declare               variable  $resetToken   as string  external;
+declare               variable  $email        as string  external;
+declare               variable  $password     as string  external;
+declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
+declare               variable  $format       as string? external;
 
+(: Post-processing :)
+api:validate-regexp("resetToken", $resetToken, $session:VALID-TOKEN);
+api:validate-regexp("email", $email, $user:VALID_EMAIL);
+api:validate-regexp("password", $password, $user:VALID_PASSWORD);
+variable $format as string? := api:preprocess-format($format, $request-uri);
+
+(: Request processing :)
 variable $res := ();
 variable $status := ();
 
-variable $user := user:get-by-reset-token($email, $reset-token);
+variable $user := user:get-by-reset-token($email, $resetToken);
 
 if (empty($user)) 
 then {

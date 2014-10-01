@@ -21,20 +21,33 @@ declare function local:to-xml($o as object*) as element()
     }</result>
 };
 
-variable $user-id := session:validate();
+(: Query parameters :)
+declare               variable  $token        as string  external;
+declare               variable  $firstname    as string  external;
+declare               variable  $lastname     as string  external;
+declare               variable  $newemail     as string?  external;
+declare               variable  $email        as string?  external;
+declare               variable  $password     as string?  external;
+declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
+declare               variable  $format       as string? external;
 
-variable $firstname := api:required-parameter("firstname", $user:VALID_NAME);
-variable $lastname := api:required-parameter("lastname", $user:VALID_NAME);
-variable $newemail := request:param-values("newemail");
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Post-processing :)
+api:validate-regexp("firstname", $firstname, $user:VALID_NAME);
+api:validate-regexp("lastname", $lastname, $user:VALID_NAME);
+variable $format as string? := api:preprocess-format($format, $request-uri);
+
+(: Request processing :)
+variable $user-id := session:validate($token);
 
 variable $res := ();
 variable $status := ();
 if (not(empty($newemail))) 
 then {
-    variable $email := api:required-parameter("email", $user:VALID_EMAIL);
-    variable $password := api:required-parameter("password", $user:VALID_PASSWORD);
-
+    if (empty($email)) then fn:error(xs:QName("api:missing-parameter"), "Missing required parameter email"); else ();
+    if (empty($password)) then fn:error(xs:QName("api:missing-parameter"), "Missing required parameter password"); else ();
+    api:validate-regexp("email", $email, $user:VALID_EMAIL);
+    api:validate-regexp("password", $password, $user:VALID_PASSWORD);
+    
     variable $user := try { user:login($email, $password) } catch * { () };
 
     if (empty($user)) 

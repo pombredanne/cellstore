@@ -4,7 +4,6 @@ import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace sendmail = "http://apps.28.io/sendmail";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace random = "http://zorba.io/modules/random";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
@@ -18,9 +17,16 @@ declare function local:to-xml($o as object*) as element()
     <result success="{$o.success}"></result>
 };
 
-variable $email := api:required-parameter("email", $user:VALID_EMAIL);
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Query parameters :)
+declare               variable  $email        as string  external;
+declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
+declare               variable  $format       as string? external;
 
+(: Post-processing :)
+api:validate-regexp("email", $email, $user:VALID_EMAIL);
+variable $format as string? := api:preprocess-format($format, $request-uri);
+
+(: Request processing :)
 variable $user := user:get-by-email($email);
 
 if (empty($user)) 

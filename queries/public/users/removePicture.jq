@@ -2,10 +2,19 @@ import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
-variable $userid := api:required-parameter("userid", $user:VALID_USERID);
+(: Query parameters :)
+declare  variable  $token   as string   external;
+declare  variable  $userid  as string?  external;
 
-session:validate(
-     if (session:validate() eq $userid)
+(: Post-processing :)
+api:validate-regexp("userid", $userid,  $user:VALID_USERID);
+
+(: Request processing :)
+variable $self := session:validate($token);
+variable $userid := ($userid, $self)[1];
+
+session:validate($token,
+     if ($self eq $userid)
      then "users_remove_picture_self"
      else "users_remove_picture"
 );

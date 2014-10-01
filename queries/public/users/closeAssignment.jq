@@ -2,12 +2,19 @@ import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
-session:validate("users_close_assignment");
+(: Query parameters :)
+declare  variable  $token         as string     external;
+declare  variable  $userid        as string     external;
+declare  variable  $role          as string     external;
+declare  variable  $fromDateTime  as dateTime?  external;
 
-variable $user-id := api:required-parameter("userid", $user:VALID_USERID);
-variable $role-id := api:required-parameter("role", $user:VALID_ROLEID);
-variable $fromDateTime := dateTime(api:parameter("fromDateTime", $user:VALID_DATETIME, ()));
+(: Post-processing :)
+api:validate-regexp("userid", $userid, $user:VALID_USERID);
+api:validate-regexp("role", $role, $user:VALID_ROLEID);
 
-user:close-assignment($user-id, $role-id, $fromDateTime);
+(: Request processing :)
+session:validate($token, "users_close_assignment");
+
+user:close-assignment($userid, $role, $fromDateTime);
 
 api:success()

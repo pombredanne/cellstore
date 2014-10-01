@@ -21,13 +21,23 @@ declare function local:to-xml($o as object*) as element()
     }</result>
 };
 
-variable $user-id := session:validate();
+(: Query parameters :)
+declare               variable  $token        as string  external;
+declare               variable  $newpassword  as string  external;
+declare               variable  $email        as string  external;
+declare               variable  $password     as string  external;
+declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
+declare               variable  $format       as string? external;
 
-variable $newpassword := api:required-parameter("newpassword", $user:VALID_PASSWORD);
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Post-processing :)
+api:validate-regexp("newpassword", $newpassword, $user:VALID_PASSWORD);
+api:validate-regexp("email", $email, $user:VALID_EMAIL);
+api:validate-regexp("password", $password, $user:VALID_PASSWORD);
 
-variable $email := api:required-parameter("email", $user:VALID_EMAIL);
-variable $password := api:required-parameter("password", $user:VALID_PASSWORD);
+variable $format as string? := api:preprocess-format($format, $request-uri);
+
+(: Request processing :)
+variable $user-id := session:validate($token);
 variable $user := try { user:login($email, $password) } catch * { () };
 
 variable $res := ();

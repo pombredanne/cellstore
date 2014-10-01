@@ -3,10 +3,18 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace res = "http://www.28msec.com/modules/http-response";
 
-variable $self := session:validate();
-variable $userid := api:parameter("userid", $user:VALID_USERID, $self);
+(: Query parameters :)
+declare  variable  $token   as string   external;
+declare  variable  $userid  as string?  external;
 
-session:validate(
+(: Post-processing :)
+api:validate-regexp("userid", $userid,  $user:VALID_USERID);
+
+(: Request processing :)
+variable $self := session:validate($token);
+variable $userid := ($userid, $self)[1];
+
+session:validate($token,
      if ($self eq $userid)
      then "users_get_self"
      else "users_get"
