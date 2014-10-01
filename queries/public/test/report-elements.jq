@@ -17,6 +17,12 @@ declare %an:nondeterministic function local:test-concepts($expected as integer, 
             "false [Actual="||$actual||", Expected="||$expected ||"]"
 };
 
+declare %an:nondeterministic function local:test-200($params as string) as atomic
+{
+    let $res := http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/report-elements.jq?_method=POST" || $params)
+    return $res.status eq 200
+};
+
 declare %an:sequential function local:check($o as object) as object
 {
     if (not(every $k in (keys($o) ! $o.$$) satisfies ($k instance of boolean and $k)))
@@ -31,4 +37,5 @@ local:check({
     all: local:test-concepts(3, "&cik=4962&name=us-gaap:Assets"),
     onlyNames: local:test-concepts(16143, "&tag=DOW30&fiscalYear=2012&fiscalPeriod=FY&onlyNames=true"),
     disclosures: local:test-concepts(1855, "&ticker=ko&fiscalYear=2012&fiscalPeriod=FY&report=Disclosure&concept=disc:ConsolidationVariableInterestEntityPolicy")
+    reportWithNoFilter: local:test-200("report=Disclosures")
 })
