@@ -1,0 +1,477 @@
+'Version 2014-08-26
+'CSH001 - Commented out this impute rule
+
+
+'Get fundamental accounting concepts
+
+'Balance sheet
+	
+	GetReportedFactUsingConceptMap("Assets")    
+	GetReportedFactUsingConceptMap("CurrentAssets")    
+	GetReportedFactUsingConceptMap("NoncurrentAssets")    
+	GetReportedFactUsingConceptMap("LiabilitiesAndEquity")    
+	GetReportedFactUsingConceptMap("Liabilities")    
+	GetReportedFactUsingConceptMap("CurrentLiabilities")    
+	GetReportedFactUsingConceptMap("NoncurrentLiabilities")    
+	GetReportedFactUsingConceptMap("CommitmentsAndContingencies")    
+	GetReportedFactUsingConceptMap("TemporaryEquity")    
+	GetReportedFactUsingConceptMap("RedeemableNoncontrollingInterest")    
+	GetReportedFactUsingConceptMap("Equity")    
+	GetReportedFactUsingConceptMap("EquityAttributableToNoncontrollingInterest")    
+	GetReportedFactUsingConceptMap("EquityAttributableToParent")    
+
+    'Determine which statements are used
+    IsClassifiedBalanceSheet = CurrentAssets
+
+'Adjustments to balance sheet fundamental accounting concepts to impute values which were not reported but can be imputed:
+	
+    'BS-Impute-01: If Assets was not reported; and the balance sheet does not balance; then see if CurrentAssets was reported instead of Assets; make Assets the same value as CurrentAssets.
+    If Assets = 0 and NoncurrentAssets = 0 and Assets <> LiabilitiesAndEquity and CurrentAssets = LiabilitiesAndEquity Then
+        Assets = CurrentAssets
+    End If
+    
+    'BS-Impute-02: If Assets is 0 and LiabilitiesAndEquity is NOT 0 and CurrentAssets equals LiabilitiesAndEquity; then Assets must equal CurrentAssets
+    If Assets = 0 and LiabilitiesAndEquity <> 0 and CurrentAssets = LiabilitiesAndEquity Then
+        Assets = CurrentAssets
+    End If
+    
+    'BS-Impute-03: 
+    If Assets = 0 and NoncurrentAssets = 0 and LiabilitiesAndEquity <> 0 and (LiabilitiesAndEquity = Liabilities + Equity) Then
+        Assets = CurrentAssets
+    End If
+    
+    'BS-Impute-04: 
+    If Assets <> 0 and CurrentAssets <> 0 Then
+        NoncurrentAssets = Assets - CurrentAssets
+    End If
+    
+    'BS-Impute-05: 
+    If LiabilitiesAndEquity = 0 and Assets <> 0 Then
+        LiabilitiesAndEquity = Assets
+    End If
+    
+    'BS-Impute-06: If Equity was not reported but EquityAttributableToParent and EquityAttributableToNoncontrollingInterest were reported; then Equity must equal the parent plus noncontrolling interest
+    If Equity = 0 and EquityAttributableToNoncontrollingInterest <> 0 and EquityAttributableToParent <> 0 Then
+        Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest
+    End If
+    
+    'BS-Impute-07:
+    If Equity = 0 and EquityAttributableToNoncontrollingInterest = 0 and EquityAttributableToParent <> 0 Then
+        Equity = EquityAttributableToParent
+    End If
+    
+    'BS-Impute-08:
+    If Equity = 0 Then
+        Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest
+    End If
+    
+    'BS-Impute-09: Impute EquityAttributableToParent based on existence of EquityAttributableToNoncontrollingInterest.
+    If Equity <> 0 and EquityAttributableToNoncontrollingInterest <> 0 and EquityAttributableToParent = 0 Then
+        EquityAttributableToParent = Equity - EquityAttributableToNoncontrollingInterest
+    End If
+    
+    'BS-Impute-10: Impute EquityAttributableToParent based on existence of EquityAttributableToNoncontrollingInterest.
+    If Equity <> 0 and EquityAttributableToNoncontrollingInterest = 0 and EquityAttributableToParent = 0 Then
+        EquityAttributableToParent = Equity
+    End If
+    
+    'BS-Impute-11: If Liabilities was not reported; impute value based on LiabilitiesAndEquity
+    If Liabilities = 0 and (Equity <> 0) Then
+        Liabilities = LiabilitiesAndEquity - (CommitmentsAndContingencies + TemporaryEquity + Equity)
+    End If
+    
+    'BS-Impute-12:
+    If Liabilities <> 0 and CurrentLiabilities <> 0 Then
+        NoncurrentLiabilities = Liabilities - CurrentLiabilities
+    End If
+    
+    'BS-Impute-13:
+    If Liabilities = 0 and CurrentLiabilities <> 0 and NoncurrentLiabilities = 0 Then
+        Liabilities = CurrentLiabilities
+    End If
+    
+    
+'Verify relations between balance sheet fundamental accounting concepts:
+
+    BS1 = Equity_Foots
+    BS2 = BalanceSheet_Balances
+    BS3 = Assets_Foots
+    BS4 = Liabilities_Foots
+    BS5 = LiabilitiesAndEquity_Foots
+
+
+    BS1 = Equity - (EquityAttributableToParent + EquityAttributableToNoncontrollingInterest)
+    BS2 = Assets - LiabilitiesAndEquity
+
+    'IsClassifiedBalanceSheet = CurrentAssets = 0 and NoncurrentAssets = 0 and CurrentLiabilities = 0 and NoncurrentLiabilities = 0
+    If IsClassifiedBalanceSheet = 0 Then
+        'If current assets/liabilities are zero and noncurrent assets/liabilities; then don't do this test because the balance sheet is not classified
+        BS3 = 0
+        BS4 = 0
+    Else
+        'This is a classified balance sheet
+        BS3 = Assets - (CurrentAssets + NoncurrentAssets)
+        BS4 = Liabilities - (CurrentLiabilities + NoncurrentLiabilities)
+    End If
+    
+    BS5 = LiabilitiesAndEquity - (Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity)
+    
+        
+
+
+
+
+
+'Income statement:
+
+	GetReportedFactUsingConceptMap("Revenues")    
+	GetReportedFactUsingConceptMap("CostOfRevenue")    
+	GetReportedFactUsingConceptMap("GrossProfit")    
+	GetReportedFactUsingConceptMap("OperatingExpenses")    
+	GetReportedFactUsingConceptMap("CostsAndExpenses")    
+	GetReportedFactUsingConceptMap("OtherOperatingIncomeExpenses")    
+	GetReportedFactUsingConceptMap("OperatingIncomeLoss")    
+	GetReportedFactUsingConceptMap("NonoperatingIncomeLoss")    
+	GetReportedFactUsingConceptMap("InterestAndDebtExpense")    
+	GetReportedFactUsingConceptMap("IncomeLossBeforeEquityMethodInvestments")    
+	GetReportedFactUsingConceptMap("IncomeLossFromEquityMethodInvestments")    
+	GetReportedFactUsingConceptMap("IncomeLossFromContinuingOperationsBeforeTax")    
+	GetReportedFactUsingConceptMap("IncomeTaxExpenseBenefit")    
+	GetReportedFactUsingConceptMap("IncomeLossFromContinuingOperationsAfterTax")    
+	GetReportedFactUsingConceptMap("IncomeLossFromDiscontinuedOperationsNetOfTax")    
+	GetReportedFactUsingConceptMap("ExtraordinaryItemsOfIncomeExpenseNetOfTax")    
+	GetReportedFactUsingConceptMap("NetIncomeLoss")    
+	GetReportedFactUsingConceptMap("NetIncomeLossAvailableToCommonStockholdersBasic")    
+	GetReportedFactUsingConceptMap("PreferredStockDividendsAndOtherAdjustments")    
+	GetReportedFactUsingConceptMap("NetIncomeLossAttributableToNoncontrollingInterest")    
+	GetReportedFactUsingConceptMap("NetIncomeLossAttributableToParent")    
+	GetReportedFactUsingConceptMap("OtherComprehensiveIncomeLoss")    
+	GetReportedFactUsingConceptMap("ComprehensiveIncomeLoss")    
+	GetReportedFactUsingConceptMap("ComprehensiveIncomeLossAttributableToParent")    
+	GetReportedFactUsingConceptMap("ComprehensiveIncomeLossAttributableToNoncontrollingInterest")    
+
+
+
+    'Adjustments to income statement information
+    'IS-Impute-01: NonoperatingIncomeLossPlusInterestAndDebtExpense
+    NonoperatingIncomeLossPlusInterestAndDebtExpense = NonoperatingIncomeLoss - InterestAndDebtExpense
+    
+    'IS-Impute-03: NetIncomeLoss
+    If NetIncomeLoss <> 0 and IncomeLossFromContinuingOperationsAfterTax = 0 Then
+        IncomeLossFromContinuingOperationsAfterTax = NetIncomeLoss - IncomeLossFromDiscontinuedOperationsNetOfTax - ExtraordinaryItemsOfIncomeExpenseNetOfTax
+    End If
+
+    'IS-Impute-04: Net income attributable to parent if it does not exist
+    If NetIncomeLossAttributableToParent = 0 and NetIncomeLossAttributableToNoncontrollingInterest = 0 and NetIncomeLoss <> 0 Then
+        NetIncomeLossAttributableToParent = NetIncomeLoss
+    End If
+
+    'IS-Impute-02: Net income available to common stockholders  (if it does not exist)
+    If NetIncomeLossAvailableToCommonStockholdersBasic = 0 and PreferredStockDividendsAndOtherAdjustments = 0 and NetIncomeLossAttributableToParent <> 0 Then
+        NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeLossAttributableToParent
+    End If
+            
+    'IS-Impute-05: PreferredStockDividendsAndOtherAdjustments
+    If PreferredStockDividendsAndOtherAdjustments = 0 and NetIncomeLossAttributableToParent <> 0 and NetIncomeLossAvailableToCommonStockholdersBasic <> 0 Then
+        PreferredStockDividendsAndOtherAdjustments = NetIncomeLossAttributableToParent - NetIncomeLossAvailableToCommonStockholdersBasic
+    End If
+
+    'IS-Impute-06: comprehensive income
+    If ComprehensiveIncomeLossAttributableToParent = 0 and ComprehensiveIncomeLossAttributableToNoncontrollingInterest = 0 and ComprehensiveIncomeLoss = 0 and OtherComprehensiveIncomeLoss = 0 Then
+        ComprehensiveIncomeLoss = NetIncomeLoss
+    End If
+            
+    'IS-Impute-07: other comprehensive income
+    If ComprehensiveIncomeLoss <> 0 and OtherComprehensiveIncomeLoss = 0 Then
+        OtherComprehensiveIncomeLoss = ComprehensiveIncomeLoss - NetIncomeLoss
+    End If
+
+    'IS-Impute-08: comprehensive income attributable to parent if it does not exist
+    If ComprehensiveIncomeLossAttributableToParent = 0 and ComprehensiveIncomeLossAttributableToNoncontrollingInterest = 0 and ComprehensiveIncomeLoss <> 0 Then
+        ComprehensiveIncomeLossAttributableToParent = ComprehensiveIncomeLoss
+    End If
+
+    'IS-Impute-09: IncomeLossBeforeEquityMethodInvestments
+    If IncomeLossBeforeEquityMethodInvestments <> 0 and IncomeLossFromEquityMethodInvestments <> 0 and IncomeLossFromContinuingOperationsBeforeTax = 0 Then
+        IncomeLossFromContinuingOperationsBeforeTax = IncomeLossBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments
+    End If
+            
+    'IS-Impute-10: IncomeFromContinuingOperations*Before*Tax2 (if income before tax is missing)
+    If IncomeLossFromContinuingOperationsBeforeTax = 0 and IncomeLossFromContinuingOperationsAfterTax <> 0 Then
+        IncomeLossFromContinuingOperationsBeforeTax = IncomeLossFromContinuingOperationsAfterTax + IncomeTaxExpenseBenefit
+    End If
+            
+    'IS-Impute-11: IncomeFromContinuingOperations*After*Tax
+    If IncomeLossFromContinuingOperationsAfterTax = 0 and (IncomeTaxExpenseBenefit <> 0 Or IncomeTaxExpenseBenefit = 0 and IncomeLossFromContinuingOperationsBeforeTax <> 0) Then
+        IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit
+    End If
+            
+            
+    'IS-Impute-12: GrossProfit
+    If GrossProfit = 0 and (Revenues <> 0 and CostOfRevenue <> 0) Then
+        GrossProfit = Revenues - CostOfRevenue
+    End If
+            
+    'IS-Impute-13: GrossProfit (This is a DUPLICATE)
+    If GrossProfit = 0 and (Revenues <> 0 and CostOfRevenue <> 0) Then
+        GrossProfit = Revenues - CostOfRevenue
+    End If
+            
+    'IS-Impute-14: Revenues
+    If GrossProfit <> 0 and (Revenues = 0 and CostOfRevenue <> 0) Then
+        Revenues = GrossProfit + CostOfRevenue
+    End If
+            
+    'IS-Impute-15: CostOfRevenue
+    If GrossProfit <> 0 and (Revenues <> 0 and CostOfRevenue = 0) Then
+        CostOfRevenue = GrossProfit + Revenues
+    End If
+ 
+    'IS-Impute-16: CostsAndExpenses (would NEVER have costs and expenses IF has gross profit, gross profit is multi-step and costs and expenses is single-step)
+    If GrossProfit = 0 and CostsAndExpenses = 0 and (CostOfRevenue <> 0 and OperatingExpenses <> 0) Then
+        CostsAndExpenses = CostOfRevenue + OperatingExpenses
+    End If
+            
+    'IS-Impute-17: CostsAndExpenses based on existance of both costs of revenues and operating expenses
+    If CostsAndExpenses = 0 and OperatingExpenses <> 0 and (CostOfRevenue <> 0) Then
+        CostsAndExpenses = CostOfRevenue + OperatingExpenses
+    End If
+            
+    'IS-Impute-18: CostsAndExpenses
+    If GrossProfit = 0 and CostsAndExpenses = 0 and Revenues <> 0 and OperatingIncomeLoss <> 0 and OtherOperatingIncomeExpenses <> 0 Then
+        CostsAndExpenses = Revenues - OperatingIncomeLoss - OtherOperatingIncomeExpenses
+    End If
+            
+    'IS-Impute-19: OperatingExpenses based on existance of costs and expenses and cost of revenues
+    If CostOfRevenue <> 0 and CostsAndExpenses <> 0 and OperatingExpenses = 0 Then
+        OperatingExpenses = CostsAndExpenses - CostOfRevenue
+    End If
+            
+    'IS-Impute-20: CostOfRevenues single-step method
+    If Revenues <> 0 and GrossProfit = 0 and (Revenues - CostsAndExpenses = OperatingIncomeLoss and OperatingExpenses = 0 and OtherOperatingIncomeExpenses = 0) Then
+        CostOfRevenue = CostsAndExpenses - OperatingExpenses
+    End If
+
+    'IS-Impute-21: IncomeLossBeforeEquityMethodInvestments
+    If IncomeLossBeforeEquityMethodInvestments = 0 and IncomeLossFromContinuingOperationsBeforeTax <> 0 Then
+        IncomeLossBeforeEquityMethodInvestments = IncomeLossFromContinuingOperationsBeforeTax - IncomeLossFromEquityMethodInvestments
+    End If
+            
+    'IS-Impute-22: InterestAndDebtExpense
+    If OperatingIncomeLoss <> 0 and (NonoperatingIncomeLoss <> 0 and InterestAndDebtExpense = 0 and IncomeLossBeforeEquityMethodInvestments <> 0) Then
+        InterestAndDebtExpense = IncomeLossBeforeEquityMethodInvestments - (OperatingIncomeLoss + NonoperatingIncomeLoss)
+    End If
+    
+    'IS-Impute-23: OtherOperatingIncomeExpenses
+    If GrossProfit <> 0 and (OperatingExpenses <> 0 and OperatingIncomeLoss <> 0) Then
+        OtherOperatingIncomeExpenses = OperatingIncomeLoss - (GrossProfit - OperatingExpenses)
+    End If
+
+    'IS-Impute-24: Move IncomeLossFromEquityMethodInvestments
+    If IncomeLossFromEquityMethodInvestments <> 0 and IncomeLossBeforeEquityMethodInvestments <> 0 and IncomeLossBeforeEquityMethodInvestments <> IncomeLossFromContinuingOperationsBeforeTax Then
+        IncomeLossBeforeEquityMethodInvestments = IncomeLossFromContinuingOperationsBeforeTax - IncomeLossFromEquityMethodInvestments
+'CSH001        OperatingIncomeLoss = OperatingIncomeLoss - IncomeLossFromEquityMethodInvestments
+    End If
+    
+    'IS-Impute-25: OperatingIncomeLoss
+    'DANGEROUS!!  May need to turn off. IS3 had 2085 PASSES WITHOUT this imputing. If it is higher, then keep the test
+    If OperatingIncomeLoss = 0 and IncomeLossBeforeEquityMethodInvestments <> 0 Then
+        OperatingIncomeLoss = IncomeLossBeforeEquityMethodInvestments + NonoperatingIncomeLoss - InterestAndDebtExpense
+    End If
+            
+	 'IS-Impute-26: NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments
+    NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments = IncomeLossFromContinuingOperationsBeforeTax - OperatingIncomeLoss
+     
+	 'IS-Impute-27: NonoperatingIncomeLossPlusInterestAndDebtExpense
+    If NonoperatingIncomeLossPlusInterestAndDebtExpense = 0 and NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments <> 0 Then
+        NonoperatingIncomeLossPlusInterestAndDebtExpense = NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments - IncomeLossFromEquityMethodInvestments
+    End If
+ 
+ 'Validation checks (all these should equal 0)
+ 
+    IS1 = GrossProfit_Foots
+    IS2 = OperatingIncomeLoss_Foots
+    IS3 = IncomeBeforeEquityMethodInvest_Foots
+    IS4 = IncomeFromContOperBeforeTax_Foots
+    IS5 = IncomeFromContOperAfterTax_Foots
+    IS6 = NetIncomeLoss_Foots
+    IS7 = NetIncomeLoss_Attributable_Foots
+    IS8 = NetIncomeAvailableToCommon_Foots
+    IS9 = CompIncome_Attributable_Foots
+    IS10 = ComprehensiveIncomeLoss_Foots
+    IS11 = OperatingIncomeLoss_SingleStep_Foots
+ 
+
+    'Determine if income statement is multi-step or single-step
+    IsMultiStepIncomeStatement = GrossProfit
+
+    If IsMultiStepIncomeStatement = 0 Then
+        IS1 = 0
+        IS2 = 0
+    Else
+        'Multi-step only
+        IS1 = (Revenues - CostOfRevenue) - GrossProfit
+        IS2 = (GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses) - OperatingIncomeLoss
+    End If
+        
+    IS3 = (OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense) - IncomeLossBeforeEquityMethodInvestments
+    IS4 = (IncomeLossBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments) - IncomeLossFromContinuingOperationsBeforeTax
+    IS5 = (IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit) - IncomeLossFromContinuingOperationsAfterTax
+    IS6 = (IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetOfTax + ExtraordinaryItemsOfIncomeExpenseNetOfTax) - NetIncomeLoss
+    IS7 = (NetIncomeLossAttributableToParent + NetIncomeLossAttributableToNoncontrollingInterest) - NetIncomeLoss
+    IS8 = (NetIncomeLossAttributableToParent - PreferredStockDividendsAndOtherAdjustments) - NetIncomeLossAvailableToCommonStockholdersBasic
+    IS9 = (ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest) - ComprehensiveIncomeLoss
+    IS10 = (NetIncomeLoss + OtherComprehensiveIncomeLoss) - ComprehensiveIncomeLoss
+
+    If IsMultiStepIncomeStatement = 0 Then
+        'Single-step only
+        IS11 = (Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses) - OperatingIncomeLoss
+    Else
+        IS11 = 0
+    End If
+
+
+
+'Cash flow statement
+
+	GetReportedFactUsingConceptMap("NetCashFlow")    
+	GetReportedFactUsingConceptMap("NetCashFlowFromOperatingActivities")    
+	GetReportedFactUsingConceptMap("NetCashFlowFromInvestingActivities")    
+	GetReportedFactUsingConceptMap("NetCashFlowFromFinancingActivities")    
+	GetReportedFactUsingConceptMap("NetCashFlowFromOperatingActivitiesContinuing")    
+	GetReportedFactUsingConceptMap("NetCashFlowFromInvestingActivitiesContinuing")    
+	GetReportedFactUsingConceptMap("NetCashFlowFromFinancingActivitiesContinuing")    
+	GetReportedFactUsingConceptMap("NetCashFlowFromOperatingActivitiesDiscontinued")    
+	GetReportedFactUsingConceptMap("NetCashFlowFromInvestingActivitiesDiscontinued")    
+	GetReportedFactUsingConceptMap("NetCashFlowFromFinancingActivitiesDiscontinued")    
+	GetReportedFactUsingConceptMap("NetCashFlowContinuing")    
+	GetReportedFactUsingConceptMap("NetCashFlowDiscontinued")    
+	GetReportedFactUsingConceptMap("ExchangeGainsLosses")    
+
+
+'Adjustments
+    'CF-Impute-01: NetCashFlowDiscontinued if not reported
+    If NetCashFlowDiscontinued = 0 Then
+        NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued
+    End If
+
+    'CF-Impute-02: NetCashFlowFromOperatingActivitiesContinuing if not reported
+    If NetCashFlowFromOperatingActivities <> 0 and NetCashFlowFromOperatingActivitiesContinuing = 0 Then
+        NetCashFlowFromOperatingActivitiesContinuing = NetCashFlowFromOperatingActivities - NetCashFlowFromOperatingActivitiesDiscontinued
+    End If
+
+    'CF-Impute-03: NetCashFlowFromInvestingActivitiesContinuing if not reported
+    If NetCashFlowFromInvestingActivities <> 0 and NetCashFlowFromInvestingActivitiesContinuing = 0 Then
+        NetCashFlowFromInvestingActivitiesContinuing = NetCashFlowFromInvestingActivities - NetCashFlowFromInvestingActivitiesDiscontinued
+    End If
+
+    'CF-Impute-04: NetCashFlowFromFinancingActivitiesContinuing if not reported
+    If NetCashFlowFromFinancingActivities <> 0 and NetCashFlowFromFinancingActivitiesContinuing = 0 Then
+        NetCashFlowFromFinancingActivitiesContinuing = NetCashFlowFromFinancingActivities - NetCashFlowFromFinancingActivitiesDiscontinued
+    End If
+    
+    
+    'CF-Impute-05: NetCashFlowFromOperatingActivities if not reported
+    If NetCashFlowFromOperatingActivities = 0 and NetCashFlowFromOperatingActivitiesContinuing <> 0 and NetCashFlowFromOperatingActivitiesDiscontinued = 0 Then
+        NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing
+    End If
+
+    'CF-Impute-06: NetCashFlowFromInvestingActivities if not reported
+    If NetCashFlowFromInvestingActivities = 0 and NetCashFlowFromInvestingActivitiesContinuing <> 0 and NetCashFlowFromInvestingActivitiesDiscontinued = 0 Then
+        NetCashFlowFromInvestingActivities = NetCashFlowFromInvestingActivitiesContinuing
+    End If
+
+    'CF-Impute-07: NetCashFlowFromFinancingActivities if not reported
+    If NetCashFlowFromFinancingActivities = 0 and NetCashFlowFromFinancingActivitiesContinuing <> 0 and NetCashFlowFromFinancingActivitiesDiscontinued = 0 Then
+        NetCashFlowFromFinancingActivities = NetCashFlowFromFinancingActivitiesContinuing
+    End If
+    
+    
+    'CF-Impute-08: NetCashFlowContinuing if not reported
+    If NetCashFlowContinuing = 0 Then
+        NetCashFlowContinuing = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromFinancingActivitiesContinuing
+    End If
+    
+    'CF-Impute-09: NetCashFlow if not reported; If NetCashFlow is missing, then this tries to figure out the value by adding up the detail
+    If NetCashFlow = 0 and (NetCashFlowFromOperatingActivities <> 0 Or NetCashFlowFromInvestingActivities <> 0 Or NetCashFlowFromFinancingActivities <> 0) Then
+        NetCashFlow = NetCashFlowFromOperatingActivities + NetCashFlowFromInvestingActivities + NetCashFlowFromFinancingActivities + ExchangeGainsLosses
+    End If
+
+
+
+    'CF-Impute-10:  If total = continuing; then impute discontinued to be zero
+    If NetCashFlowFromOperatingActivitiesDiscontinued = 0 and NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing Then
+        NetCashFlowFromOperatingActivitiesDiscontinued = 0
+    End If
+    'CF-Impute-11:  If total = continuing; then impute discontinued to be zero
+    If NetCashFlowFromInvestingActivitiesDiscontinued = 0 and NetCashFlowFromInvestingActivities = NetCashFlowFromInvestingActivitiesContinuing Then
+        NetCashFlowFromInvestingActivitiesDiscontinued = 0
+    End If
+    'CF-Impute-12:  If total = continuing; then impute discontinued to be zero
+    If NetCashFlowFromFinancingActivitiesDiscontinued = 0 and NetCashFlowFromFinancingActivities = NetCashFlowFromFinancingActivitiesContinuing Then
+        NetCashFlowFromFinancingActivitiesDiscontinued = 0
+    End If
+
+
+    Debug.Print "Net Cash Flow: " & NetCashFlow
+    Debug.Print "Net Cash Flow, Operating: " & NetCashFlowFromOperatingActivities
+    Debug.Print "Net Cash Flow, Investing: " & NetCashFlowFromInvestingActivities
+    Debug.Print "Net Cash Flow, Financing: " & NetCashFlowFromFinancingActivities
+    Debug.Print "Net Cash Flow, Operating, Continuing: " & NetCashFlowFromOperatingActivitiesContinuing
+    Debug.Print "Net Cash Flow, Investing, Continuing: " & NetCashFlowFromInvestingActivitiesContinuing
+    Debug.Print "Net Cash Flow, Financing, Continuing: " & NetCashFlowFromFinancingActivitiesContinuing
+    Debug.Print "Net Cash Flow, Operating, Discontinued: " & NetCashFlowFromOperatingActivitiesDiscontinued
+    Debug.Print "Net Cash Flow, Investing, Discontinued: " & NetCashFlowFromInvestingActivitiesDiscontinued
+    Debug.Print "Net Cash Flow, Financing, Discontinued: " & NetCashFlowFromFinancingActivitiesDiscontinued
+    Debug.Print "Net Cash Flow, Continuing: " & NetCashFlowContinuing
+    Debug.Print "Net Cash Flow, Discontinued: " & NetCashFlowDiscontinued
+    Debug.Print "Exchange Gains (Losses): " & ExchangeGainsLosses
+
+
+'Validation checks
+
+    CF1 = NetCashFlow_Foots
+    CF2 = NetCashFlowContinuing_Foots
+    CF3 = NetCashFlowDiscontinued_Foots
+    CF4 = NetCashFlowFromOperatingActivities_Foots
+    CF5 = NetCashFlowFromInvestingActivities_Foots
+    CF6 = NetCashFlowFromFinancingActivities_Foots
+
+    
+    CF1 = NetCashFlow - (NetCashFlowFromOperatingActivities + NetCashFlowFromInvestingActivities + NetCashFlowFromFinancingActivities + ExchangeGainsLosses)
+    
+    If CF1 <> 0 and (NetCashFlow - (NetCashFlowFromOperatingActivities + NetCashFlowFromInvestingActivities + NetCashFlowFromFinancingActivities + ExchangeGainsLosses)) = (ExchangeGainsLosses * -1) Then
+      'NetCashFlow DOES NOT include ExchangeGainsLosses for about 128 SEC filers, it does for about 7040 SEC filers
+    	CF1 = NetCashFlow - (NetCashFlowFromOperatingActivities + NetCashFlowFromInvestingActivities + NetCashFlowFromFinancingActivities)
+
+    End If
+    
+    
+    CF2 = NetCashFlowContinuing - (NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromFinancingActivitiesContinuing)
+    CF3 = NetCashFlowDiscontinued - (NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued)
+    CF4 = NetCashFlowFromOperatingActivities - (NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued)
+    CF5 = NetCashFlowFromInvestingActivities - (NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromInvestingActivitiesDiscontinued)
+    CF6 = NetCashFlowFromFinancingActivities - (NetCashFlowFromFinancingActivitiesContinuing + NetCashFlowFromFinancingActivitiesDiscontinued)
+    
+    
+
+
+'Key ratios
+
+    If (Assets <> 0) and (Equity <> 0) and (Revenues <> 0) Then
+        SustainableGrowthRate = ((NetIncomeLoss / Revenues) * (1+((Assets - Equity) / Equity))) / ((1 / (Revenues / Assets))-(((NetIncomeLoss / Revenues) * (1+(((Assets - Equity) / Equity))))))
+    End If
+
+    If Assets <> 0 Then
+        ReturnOnAssets = NetIncomeLoss / Assets
+    End If
+
+    If Equity <> 0 Then
+	    'AfterTaxReturnOnEquityRatio
+        ReturnOnEquity = NetIncomeLoss / Equity
+    End If
+
+    If Revenues <> 0 Then
+	    'ProfitMarginRatio
+        ReturnOnSales = NetIncomeLoss / Revenues
+    End If
