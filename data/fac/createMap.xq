@@ -22,6 +22,7 @@ return
             for $arcs in $mapping/*:linkbase/*:definitionLink/*:definitionArc
             let $fromid := string($arcs/@*:from)
             group by $fromid
+            order by $fromid
             return
                 let $from := replace($fromid, "_", ":")
                 let $labelid := $fromid || "_lbl"
@@ -35,7 +36,6 @@ return
                             "Name": replace(string($arc/@*:to), "_", ":"),
                             "Order": $order
                         }
-                order by $from
                 return
                     if(empty($label))
                     then 
