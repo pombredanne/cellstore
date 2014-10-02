@@ -21,19 +21,19 @@ declare function local:to-xml($o as object*) as element()
 };
 
 (: Query parameters :)
-declare               variable  $token        as string  external;
-declare               variable  $newpassword  as string  external;
-declare               variable  $email        as string  external;
-declare               variable  $password     as string  external;
-declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
-declare               variable  $format       as string? external;
+declare %rest:case-insensitive variable  $token        as string  external;
+declare %rest:case-insensitive variable  $newpassword  as string  external;
+declare %rest:case-insensitive variable  $email        as string  external;
+declare %rest:case-insensitive variable  $password     as string  external;
+declare (:%rest:env:)          variable  $request-uri  as string  external := ""; (: wait till next release :)
+declare %rest:case-insensitive variable  $format       as string? external;
 
 (: Post-processing :)
 api:validate-regexp("newpassword", $newpassword, $user:VALID_PASSWORD);
 api:validate-regexp("email", $email, $user:VALID_EMAIL);
 api:validate-regexp("password", $password, $user:VALID_PASSWORD);
 
-$format := api:preprocess-format($format, $request-uri); (: backward compatibility :)
+$format := api:preprocess-format($format, $request-uri); (: xqlint workaround :)
 
 (: Request processing :)
 variable $user-id := session:ensure-valid($token);

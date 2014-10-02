@@ -32,14 +32,14 @@ declare function local:to-xml($o as object*) as element()
 };
 
 (: Query parameters :)
-declare               variable  $token          as string  external;
-declare               variable  $invoiceNumber  as string  external;
-declare (:%rest:env:) variable  $request-uri    as string  external := ""; (: backward compatibility :)
-declare               variable  $format         as string? external;
+declare %rest:case-insensitive variable  $token          as string  external;
+declare %rest:case-insensitive variable  $invoiceNumber  as string  external;
+declare (:%rest:env:)          variable  $request-uri    as string  external := ""; (: wait till next release :)
+declare %rest:case-insensitive variable  $format         as string? external;
 
 (: Post-processing :)
 api:validate-regexp("invoiceNumber", $invoiceNumber, $recurly-api:VALID-NUMBER);
-$format := api:preprocess-format($format, $request-uri);  (: backward compatibility :)
+$format := api:preprocess-format($format, $request-uri);  (: xqlint workaround :)
 
 (: Request processing :)
 variable $user-id := session:ensure-valid($token);

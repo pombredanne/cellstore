@@ -4,8 +4,8 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace res = "http://www.28msec.com/modules/http-response";
 
 (: Query parameters :)
-declare  variable  $token   as string   external;
-declare  variable  $userid  as string?  external;
+declare %rest:case-insensitive variable $token   as string   external;
+declare %rest:case-insensitive variable $userid  as string?  external;
 
 (: Post-processing :)
 api:validate-regexp("userid", $userid,  $user:VALID_USERID);

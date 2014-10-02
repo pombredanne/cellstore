@@ -2,6 +2,7 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace entities ="http://28.io/modules/xbrl/entities";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 
+(: Query parameters :)
 declare %rest:case-insensitive variable $parameter as string? external;
 
 let $parameter := lower-case($parameter)

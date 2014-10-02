@@ -27,7 +27,7 @@ declare function local:to-xml($o as object*) as element()
 
 (: Query parameters :)
 declare               variable  $token        as string  external;
-declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
+declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: wait till next release :)
 declare               variable  $format       as string? external;
 
 (: Post-processing :)

@@ -3,8 +3,8 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
-declare               variable  $token        as string  external;
-declare               variable  $role         as string  external;
+declare %rest:case-insensitive variable  $token  as string  external;
+declare %rest:case-insensitive variable  $role   as string  external;
 
 (: Post-processing :)
 api:validate-regexp("role", $role, $user:VALID_ROLEID);

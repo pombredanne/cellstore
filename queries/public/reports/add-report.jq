@@ -7,17 +7,17 @@ import module namespace api = "http://apps.28.io/api";
 import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
 
 (: Query parameters :)
-declare  %rest:body-text         variable $body             as string  external;
-declare  %rest:case-insensitive  variable $token            as string  external;
-declare  %rest:case-insensitive  variable $validation-only  as string? external := "false"; (: backward compatibility :)
-declare  %rest:case-insensitive  variable $public-read      as string? external := "false"; (: backward compatibility :)
-declare  %rest:case-insensitive  variable $private          as string? external := "false"; (: backward compatibility :)
+declare %rest:body-text        variable $body             as string  external;
+declare %rest:case-insensitive variable $token            as string  external;
+declare %rest:case-insensitive variable $validation-only  as string? external := "false"; (: wait till next release :)
+declare %rest:case-insensitive variable $public-read      as string? external := "false"; (: wait till next release :)
+declare %rest:case-insensitive variable $private          as string? external := "false"; (: wait till next release :)
 
 try {
     (: ### INIT PARAMS :)
-    let $validation-only as boolean := api:preprocess-boolean("validation-only", $validation-only) (: backward compatibility :)
-    let $public-read as boolean := api:preprocess-boolean("public-read", $public-read) (: backward compatibility :)
-    let $private as boolean := api:preprocess-boolean("private", $private) (: backward compatibility :)
+    let $validation-only as boolean := api:preprocess-boolean("validation-only", $validation-only) (: wait till next release :)
+    let $public-read as boolean := api:preprocess-boolean("public-read", $public-read) (: wait till next release :)
+    let $private as boolean := api:preprocess-boolean("private", $private) (: wait till next release :)
     
     let $authenticated-user := user:get-existing-by-id(session:ensure-valid($token))
     let $report as object? :=

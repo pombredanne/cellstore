@@ -6,8 +6,8 @@ import module namespace reports = "http://apps.28.io/reports";
 declare namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
-declare  %rest:case-insensitive                 variable $token  as string  external;
-declare  %rest:case-insensitive %rest:distinct  variable $_id    as string* external;
+declare %rest:case-insensitive                variable $token  as string  external;
+declare %rest:case-insensitive %rest:distinct variable $_id    as string* external;
 
 try{
     (: ### INIT PARAMS :)

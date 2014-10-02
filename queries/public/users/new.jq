@@ -2,10 +2,10 @@ import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
-declare  variable  $firstname  as string  external;
-declare  variable  $lastname   as string  external;
-declare  variable  $email      as string  external;
-declare  variable  $password   as string  external;
+declare %rest:case-insensitive variable $firstname  as string  external;
+declare %rest:case-insensitive variable $lastname   as string  external;
+declare %rest:case-insensitive variable $email      as string  external;
+declare %rest:case-insensitive variable $password   as string  external;
 
 (: Post-processing :)
 api:validate-regexp("firstname", $firstname, $user:VALID_NAME);

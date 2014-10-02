@@ -40,11 +40,11 @@ declare function local:to-xml($o as object*) as element()
 (: Query parameters :)
 declare               variable  $email        as string  external;
 declare               variable  $password     as string  external;
-declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: backward compatibility :)
+declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: wait till next release :)
 declare               variable  $format       as string? external;
 
 (: Post-processing :)
-$format := api:preprocess-format($format, $request-uri); (: backward compatibility :)
+$format := api:preprocess-format($format, $request-uri); (: wait till next release :)
 
 (: Request processing :)
 variable $res := ();
