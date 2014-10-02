@@ -2,9 +2,10 @@ import module namespace response = "http://www.28msec.com/modules/http-response"
 import module namespace session = "http://apps.28.io/session";
 import module namespace user = "http://apps.28.io/user";
 import module namespace reports = "http://apps.28.io/reports";
-import module namespace api = "http://apps.28.io/api";
 
 import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
+
+declare namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
 declare %rest:body-text        variable $body             as string  external;
