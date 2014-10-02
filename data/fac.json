@@ -669,7 +669,8 @@
                 "IsAbstract" : true
             }
         }
-    }, {
+    },
+    {
         "LinkName" : "link:definitionLink",
         "LinkRole" : "http://xbrl.io/fundamental-accounting-concepts",
         "ArcName" : "link:definitionArc",
@@ -678,1089 +679,1239 @@
         "ShortName" : "ConceptMap",
         "CyclesAllowed" : "undirected",
         "Trees" : {
-            "fac:PreferredStockDividendsAndOtherAdjustments" : {
-                "Name" : "fac:PreferredStockDividendsAndOtherAdjustments",
-                "Label" : "Preferred Stock Dividends and Other Adjustments",
-                "To" : {
-                    "us-gaap:PreferredStockDividendsAndOtherAdjustments" : {
-                        "Name" : "us-gaap:PreferredStockDividendsAndOtherAdjustments",
-                        "Id" : "07a67fb6-f09c-4d7a-8cd9-405db8bb447e"
-                    }
-                },
-                "Id" : "3947f39d-4a52-4aa9-b750-1e2c466a2ffb"
-            },
-            "fac:NoncurrentLiabilities" : {
-                "Name" : "fac:NoncurrentLiabilities",
-                "Label" : "Noncurrent Liabilities",
-                "To" : {
-                    "us-gaap:LiabilitiesNoncurrent" : {
-                        "Name" : "us-gaap:LiabilitiesNoncurrent",
-                        "Id" : "20d8f287-f6ab-411a-bee7-aeda9022da96"
-                    }
-                },
-                "Id" : "43aa816d-3602-4cd0-bbe3-80be9cc7c9b6"
-            },
-            "fac:EntityRegistrantName" : {
-                "Name" : "fac:EntityRegistrantName",
-                "Label" : "Entity Registrant Name",
-                "To" : {
-                    "dei:EntityRegistrantName" : {
-                        "Name" : "dei:EntityRegistrantName",
-                        "Id" : "40cdc89c-ed17-4fab-993e-9d7573369c47"
-                    }
-                },
-                "Id" : "cafbf475-357d-4d5a-a004-4f594fc90474"
-            },
-            "fac:Revenues" : {
-                "Name" : "fac:Revenues",
-                "Label" : "Revenues",
-                "To" : {
-                    "us-gaap:Revenues" : {
-                        "Name" : "us-gaap:Revenues",
-                        "Id" : "bb17a6b5-c881-4e32-82c9-f6208a15d9de"
-                    },
-                    "us-gaap:SalesRevenueNet" : {
-                        "Name" : "us-gaap:SalesRevenueNet",
-                        "Id" : "afbe39a6-9a62-40e2-9acb-4d0c45f5d1f2"
-                    },
-                    "us-gaap:SalesRevenueServicesNet" : {
-                        "Name" : "us-gaap:SalesRevenueServicesNet",
-                        "Id" : "80cbc877-b0f4-47fb-a44d-59d33302f724"
-                    },
-                    "us-gaap:SalesRevenueGoodsNet" : {
-                        "Name" : "us-gaap:SalesRevenueGoodsNet",
-                        "Id" : "e4d3bd39-4441-462b-b778-37b487415b97"
-                    },
-                    "us-gaap:RevenuesNetOfInterestExpense" : {
-                        "Name" : "us-gaap:RevenuesNetOfInterestExpense",
-                        "Id" : "206d16ea-7aa3-4357-892e-162635694f5b"
-                    },
-                    "us-gaap:HealthCareOrganizationRevenue" : {
-                        "Name" : "us-gaap:HealthCareOrganizationRevenue",
-                        "Id" : "fd8b327c-556d-4ea8-a06e-dca505bfe17a"
-                    },
-                    "us-gaap:InterestAndDividendIncomeOperating" : {
-                        "Name" : "us-gaap:InterestAndDividendIncomeOperating",
-                        "Id" : "d54ea5a3-0766-4284-83c1-885848c97c0f"
-                    },
-                    "us-gaap:RealEstateRevenueNet" : {
-                        "Name" : "us-gaap:RealEstateRevenueNet",
-                        "Id" : "b94f6393-f316-4017-bce6-b92cfe044c0d"
-                    },
-                    "us-gaap:RevenueMineralSales" : {
-                        "Name" : "us-gaap:RevenueMineralSales",
-                        "Id" : "428f6c42-b229-4005-936e-11d863459cff"
-                    },
-                    "us-gaap:OilAndGasRevenue" : {
-                        "Name" : "us-gaap:OilAndGasRevenue",
-                        "Id" : "8484103d-fd87-42c3-ac14-abf7a094a282"
-                    },
-                    "us-gaap:RegulatedAndUnregulatedOperatingRevenue" : {
-                        "Name" : "us-gaap:RegulatedAndUnregulatedOperatingRevenue",
-                        "Id" : "003c1b99-3074-4758-b81e-f37b418f9eac"
-                    },
-                    "us-gaap:FinancialServicesRevenue" : {
-                        "Name" : "us-gaap:FinancialServicesRevenue",
-                        "Id" : "43d3e84c-e06c-458a-87a0-ade7f98f452c"
-                    },
-                    "us-gaap:ShippingAndHandlingRevenue" : {
-                        "Name" : "us-gaap:ShippingAndHandlingRevenue",
-                        "Id" : "52ca1a52-0cce-4980-b3d6-d47551610d34"
-                    },
-                    "us-gaap:SalesRevenueFromEnergyCommoditiesAndServices" : {
-                        "Name" : "us-gaap:SalesRevenueFromEnergyCommoditiesAndServices",
-                        "Id" : "b002598a-c744-4554-b1f8-98824fb82d82"
-                    },
-                    "us-gaap:UtilityRevenue" : {
-                        "Name" : "us-gaap:UtilityRevenue",
-                        "Id" : "032bd095-8901-409e-8982-f1aac3681ad6"
-                    },
-                    "us-gaap:PhaseInPlanAmountOfCapitalizedCostsRecovered" : {
-                        "Name" : "us-gaap:PhaseInPlanAmountOfCapitalizedCostsRecovered",
-                        "Id" : "a5412af0-2583-4e33-8dfe-3dd5bd55e944"
-                    },
-                    "us-gaap:SecondaryProcessingRevenue" : {
-                        "Name" : "us-gaap:SecondaryProcessingRevenue",
-                        "Id" : "20da8d58-67c4-40db-ad37-9b96d72fb1b4"
-                    },
-                    "us-gaap:RevenueSteamProductsAndServices" : {
-                        "Name" : "us-gaap:RevenueSteamProductsAndServices",
-                        "Id" : "c77f9e01-44f2-4537-a0e1-de41dbc4de78"
-                    },
-                    "us-gaap:RevenueFromLeasedAndOwnedHotels" : {
-                        "Name" : "us-gaap:RevenueFromLeasedAndOwnedHotels",
-                        "Id" : "37c1dcfe-d982-450a-83e6-032f271fb75e"
-                    },
-                    "us-gaap:FranchisorRevenue" : {
-                        "Name" : "us-gaap:FranchisorRevenue",
-                        "Id" : "fff4d73b-c03f-4842-a0bc-ca5659df8200"
-                    },
-                    "us-gaap:SubscriptionRevenue" : {
-                        "Name" : "us-gaap:SubscriptionRevenue",
-                        "Id" : "887294e2-001b-420f-b700-b27194225335"
-                    },
-                    "us-gaap:AdvertisingRevenue" : {
-                        "Name" : "us-gaap:AdvertisingRevenue",
-                        "Id" : "5dc17ee0-1da6-481f-93bb-f05e776b6f54"
-                    },
-                    "us-gaap:AdmissionsRevenue" : {
-                        "Name" : "us-gaap:AdmissionsRevenue",
-                        "Id" : "5bc89800-986e-4c6d-b068-6a774184c1cd"
-                    },
-                    "us-gaap:RevenueFromEnrollmentAndRegistrationFeesExcludingHospitalityEnterprises" : {
-                        "Name" : "us-gaap:RevenueFromEnrollmentAndRegistrationFeesExcludingHospitalityEnterprises",
-                        "Id" : "046895b9-2f82-4009-8c47-f225a97cfef4"
-                    },
-                    "us-gaap:MembershipDuesRevenueOnGoing" : {
-                        "Name" : "us-gaap:MembershipDuesRevenueOnGoing",
-                        "Id" : "cfd58746-e2f0-4a4f-a666-d8ba73c99c7b"
-                    },
-                    "us-gaap:LicensesRevenue" : {
-                        "Name" : "us-gaap:LicensesRevenue",
-                        "Id" : "edf01b78-011a-45a0-ade3-14347f7b073f"
-                    },
-                    "us-gaap:RoyaltyRevenue" : {
-                        "Name" : "us-gaap:RoyaltyRevenue",
-                        "Id" : "d34686af-345a-4052-bcdf-44c77b3c26b9"
-                    },
-                    "us-gaap:SalesOfOilAndGasProspects" : {
-                        "Name" : "us-gaap:SalesOfOilAndGasProspects",
-                        "Id" : "89e34d89-8868-42dc-95e9-16a41ad1a75c"
-                    },
-                    "us-gaap:ClearingFeesRevenue" : {
-                        "Name" : "us-gaap:ClearingFeesRevenue",
-                        "Id" : "d730fb6b-1c61-411a-9a71-a818227a0699"
-                    },
-                    "us-gaap:ReimbursementRevenue" : {
-                        "Name" : "us-gaap:ReimbursementRevenue",
-                        "Id" : "6dc8d8da-40c5-4db7-9952-d1a4bf31638b"
-                    },
-                    "us-gaap:RevenueFromGrants" : {
-                        "Name" : "us-gaap:RevenueFromGrants",
-                        "Id" : "cdde62ba-b974-4939-b46a-2eb72ecc6177"
-                    },
-                    "us-gaap:RevenueOtherManufacturedProducts" : {
-                        "Name" : "us-gaap:RevenueOtherManufacturedProducts",
-                        "Id" : "8672b43f-8716-4ec2-a3cb-bed35ed6591e"
-                    },
-                    "us-gaap:ConstructionMaterialsRevenue" : {
-                        "Name" : "us-gaap:ConstructionMaterialsRevenue",
-                        "Id" : "3ff17025-aa04-47a2-a84b-d757330e20bb"
-                    },
-                    "us-gaap:TimberRevenue" : {
-                        "Name" : "us-gaap:TimberRevenue",
-                        "Id" : "5638565d-565a-4fb4-8c8a-89f099b6eb00"
-                    },
-                    "us-gaap:RecyclingRevenue" : {
-                        "Name" : "us-gaap:RecyclingRevenue",
-                        "Id" : "2d15a667-612e-4c59-bb28-3c82e97df038"
-                    },
-                    "us-gaap:OtherSalesRevenueNet" : {
-                        "Name" : "us-gaap:OtherSalesRevenueNet",
-                        "Id" : "cb036fbb-373b-45fa-b567-7b304f8feca3"
-                    },
-                    "us-gaap:SaleOfTrustAssetsToPayExpenses" : {
-                        "Name" : "us-gaap:SaleOfTrustAssetsToPayExpenses",
-                        "Id" : "f98f6df2-7c08-4f7a-9d56-96884e0e5d54"
-                    },
-                    "us-gaap:PassengerRevenue" : {
-                        "Name" : "us-gaap:PassengerRevenue",
-                        "Id" : "f894a241-19bf-431d-b271-fd866658fa66"
-                    },
-                    "us-gaap:VehicleTollRevenue" : {
-                        "Name" : "us-gaap:VehicleTollRevenue",
-                        "Id" : "07d81ec1-dd6a-44c6-9d22-3d6aa69d2ced"
-                    },
-                    "us-gaap:CargoAndFreightRevenue" : {
-                        "Name" : "us-gaap:CargoAndFreightRevenue",
-                        "Id" : "f4f07b9a-7e23-4a08-bf22-3cecd123e37c"
-                    },
-                    "us-gaap:NetInvestmentIncome" : {
-                        "Name" : "us-gaap:NetInvestmentIncome",
-                        "Id" : "cc9169e5-dbfa-49bf-9237-3e2a07687e0a"
-                    },
-                    "us-gaap:RevenuesExcludingInterestAndDividends" : {
-                        "Name" : "us-gaap:RevenuesExcludingInterestAndDividends",
-                        "Id" : "70fbf496-2fd1-4b1f-b838-bda9a2a21e72"
-                    },
-                    "us-gaap:InvestmentBankingRevenue" : {
-                        "Name" : "us-gaap:InvestmentBankingRevenue",
-                        "Id" : "d6204306-6101-407f-bb71-1ac7394eb818"
-                    },
-                    "us-gaap:UnderwritingIncomeLoss" : {
-                        "Name" : "us-gaap:UnderwritingIncomeLoss",
-                        "Id" : "f3b0fcdc-4c00-4f43-926b-286c786a31df"
-                    },
-                    "us-gaap:MarketDataRevenue" : {
-                        "Name" : "us-gaap:MarketDataRevenue",
-                        "Id" : "5a2c3012-c599-4cc3-8155-352f1cc5aff0"
-                    }
-                },
-                "Id" : "b7adfbd2-ee02-406c-84e2-2b1cadd396b1"
-            },
-            "fac:NetCashFlowContinuing" : {
-                "Name" : "fac:NetCashFlowContinuing",
-                "Label" : "Net Cash Flow, Continuing",
-                "To" : {
-                    "us-gaap:NetCashProvidedByUsedInContinuingOperations" : {
-                        "Name" : "us-gaap:NetCashProvidedByUsedInContinuingOperations",
-                        "Id" : "456ba8bf-7c9b-4019-95a8-2b90ac4084fc"
-                    }
-                },
-                "Id" : "47771240-291b-467f-999a-dd8539290a29"
-            },
             "fac:Assets" : {
+                "Id" : "2be4bad0-d112-469b-a981-966c60487ef2",
                 "Name" : "fac:Assets",
                 "Label" : "Assets",
                 "To" : {
                     "us-gaap:Assets" : {
-                        "Id" : "0ee2719f-96a9-4ba4-8c9e-0b361af69d2c",
+                        "Id" : "e24c24d9-66b8-4ef6-a8ab-c160ee12c5a5",
                         "Name" : "us-gaap:Assets",
                         "Order" : 1
                     },
                     "us-gaap:AssetsCurrent" : {
-                        "Id" : "131ad3b9-1ef5-49e8-810b-15dc32b8394a",
+                        "Id" : "0da547dc-740e-49ad-87ee-556c1fa093a3",
                         "Name" : "us-gaap:AssetsCurrent",
                         "Order" : 2
                     }
-                },
-                "Id" : "4ab5d61d-393d-4d9e-9b9f-6c7ae97d8db1"
-            },
-            "fac:EquityAttributableToParent" : {
-                "Name" : "fac:EquityAttributableToParent",
-                "Label" : "Equity Attributable to Parent",
-                "To" : {
-                    "us-gaap:StockholdersEquity" : {
-                        "Name" : "us-gaap:StockholdersEquity",
-                        "Id" : "131424be-7c97-4cda-b735-200ef2309844"
-                    },
-                    "us-gaap:PartnersCapital" : {
-                        "Name" : "us-gaap:PartnersCapital",
-                        "Id" : "9591c4c2-7c49-4bb2-95cd-5b6035df0c60"
-                    },
-                    "us-gaap:MemberEquity" : {
-                        "Name" : "us-gaap:MemberEquity",
-                        "Id" : "3dda6a8a-6dae-4209-9c85-6af499e26f68"
-                    }
-                },
-                "Id" : "080b29b1-98ff-4b1c-a520-9f50460b2545"
-            },
-            "fac:InterestAndDebtExpense" : {
-                "Name" : "fac:InterestAndDebtExpense",
-                "Label" : "Interest and Debt Expense",
-                "To" : {
-                    "us-gaap:InterestAndDebtExpense" : {
-                        "Name" : "us-gaap:InterestAndDebtExpense",
-                        "Id" : "01fe3c6b-3d0a-4010-a96a-a19da9bf8de7"
-                    }
-                },
-                "Id" : "f913dfa2-a0f3-4e92-ba89-94cc487c6749"
-            },
-            "fac:IncomeTaxExpenseBenefit" : {
-                "Name" : "fac:IncomeTaxExpenseBenefit",
-                "Label" : "Income Tax Expense (Benefit)",
-                "To" : {
-                    "us-gaap:IncomeTaxExpenseBenefit" : {
-                        "Name" : "us-gaap:IncomeTaxExpenseBenefit",
-                        "Id" : "bea18b1f-129c-448a-a9ee-c74b121057f6"
-                    },
-                    "us-gaap:IncomeTaxExpenseBenefitContinuingOperations" : {
-                        "Name" : "us-gaap:IncomeTaxExpenseBenefitContinuingOperations",
-                        "Id" : "18a9eaa4-5135-4917-8edb-ee1bf800f6b0"
-                    },
-                    "us-gaap:FederalHomeLoanBankAssessments" : {
-                        "Name" : "us-gaap:FederalHomeLoanBankAssessments",
-                        "Id" : "d72beb19-fcd2-4f8d-8a74-3daabf6c4df0"
-                    }
-                },
-                "Id" : "593c2099-f044-4e4d-853c-a2f5dbf66cc4"
-            },
-            "fac:EntityCentralIndexKey" : {
-                "Name" : "fac:EntityCentralIndexKey",
-                "Label" : "Central Index Key (CIK)",
-                "To" : {
-                    "dei:EntityCentralIndexKey" : {
-                        "Name" : "dei:EntityCentralIndexKey",
-                        "Id" : "042d8097-89a1-451d-8ee7-d81361db4c40"
-                    }
-                },
-                "Id" : "73c3ebbd-1861-4581-9633-e1debb503037"
-            },
-            "fac:NatureOfOperations" : {
-                "Name" : "fac:NatureOfOperations",
-                "Label" : "Nature of Operations",
-                "To" : {
-                    "us-gaap:NatureOfOperations" : {
-                        "Name" : "us-gaap:NatureOfOperations",
-                        "Id" : "d3c74b93-6595-4d0d-afef-bd0e5a3def6a"
-                    },
-                    "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock" : {
-                        "Name" : "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock",
-                        "Id" : "1c1a4021-690b-4278-b563-1a680264e916"
-                    },
-                    "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock" : {
-                        "Name" : "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock",
-                        "Id" : "718781e7-4faa-4ee3-9b65-f019c946f23e"
-                    },
-                    "us-gaap:OrganizationConsolidationBasisOfPresentationBusinessDescriptionAndAccountingPoliciesTextBlock" : {
-                        "Name" : "us-gaap:OrganizationConsolidationBasisOfPresentationBusinessDescriptionAndAccountingPoliciesTextBlock",
-                        "Id" : "415a27ba-96ba-4ea4-a56e-3ee68a7cd696"
-                    }
-                },
-                "Id" : "63b4557c-e54d-4b55-abfd-4f1638f8595a"
-            },
-            "fac:ResearchAndDevelopment" : {
-                "Name" : "fac:ResearchAndDevelopment",
-                "Label" : "Research and Development",
-                "To" : {
-                    "us-gaap:ResearchAndDevelopmentExpense" : {
-                        "Name" : "us-gaap:ResearchAndDevelopmentExpense",
-                        "Id" : "216f2594-0294-4fda-9366-61bcd0240385"
-                    },
-                    "us-gaap:ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost" : {
-                        "Name" : "us-gaap:ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost",
-                        "Id" : "da9322fc-1331-4dec-b5e5-94607cf385cd"
-                    },
-                    "us-gaap:ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost" : {
-                        "Name" : "us-gaap:ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost",
-                        "Id" : "fc62e94d-ec13-499e-bcfc-3f6e553f9dfb"
-                    },
-                    "us-gaap:ResearchAndDevelopmentInProcess" : {
-                        "Name" : "us-gaap:ResearchAndDevelopmentInProcess",
-                        "Id" : "6e5f5939-6b33-4872-afb4-ecacc5166828"
-                    },
-                    "us-gaap:ResearchAndDevelopmentAssetAcquiredOtherThanThroughBusinessCombinationWrittenOff" : {
-                        "Name" : "us-gaap:ResearchAndDevelopmentAssetAcquiredOtherThanThroughBusinessCombinationWrittenOff",
-                        "Id" : "0aabca20-300b-4cd6-8522-e936dfa91aa1"
-                    }
-                },
-                "Id" : "3dde3358-7168-4b01-9a96-034344ee7681"
-            },
-            "fac:OtherOperatingIncomeExpenses" : {
-                "Name" : "fac:OtherOperatingIncomeExpenses",
-                "Label" : "Other Operating Income (Expenses)",
-                "To" : {
-                    "us-gaap:OtherOperatingIncome" : {
-                        "Name" : "us-gaap:OtherOperatingIncome",
-                        "Id" : "4682eb68-4c28-44d5-bc9f-e50b0c36c4fc"
-                    }
-                },
-                "Id" : "bbb6ebda-c920-4d11-b71c-31738b5f4501"
-            },
-            "fac:NetCashFlowFromInvestingActivities" : {
-                "Name" : "fac:NetCashFlowFromInvestingActivities",
-                "Label" : "Net Cash Flow from Investing Activities",
-                "To" : {
-                    "us-gaap:NetCashProvidedByUsedInInvestingActivities" : {
-                        "Name" : "us-gaap:NetCashProvidedByUsedInInvestingActivities",
-                        "Id" : "27be0330-d36e-41dd-81e8-2a42b3a930e8"
-                    }
-                },
-                "Id" : "1daaeb76-c502-4e33-b139-465af8b9ea6b"
-            },
-            "fac:IncomeLossBeforeEquityMethodInvestments" : {
-                "Name" : "fac:IncomeLossBeforeEquityMethodInvestments",
-                "Label" : "Income (Loss) Before Equity Method Investments",
-                "To" : {
-                    "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments" : {
-                        "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments",
-                        "Id" : "d71ef5ab-0448-4a1e-ac46-eed1f191a9d8"
-                    }
-                },
-                "Id" : "7c5986ff-40a0-4f6e-a9d6-7c142fa6896b"
-            },
-            "fac:TradingSymbol" : {
-                "Name" : "fac:TradingSymbol",
-                "Label" : "Trading Symbol",
-                "To" : {
-                    "dei:TradingSymbol" : {
-                        "Name" : "dei:TradingSymbol",
-                        "Id" : "19d02c19-ea68-420b-8b92-c4208f34880c"
-                    }
-                },
-                "Id" : "8f5e2b02-d51d-473e-8c2a-4b01275d975c"
-            },
-            "fac:NetIncomeLossAvailableToCommonStockholdersBasic" : {
-                "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic",
-                "Label" : "Net Income (Loss) Available to Common Stockholders, Basic",
-                "To" : {
-                    "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic" : {
-                        "Name" : "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic",
-                        "Id" : "a5d316f3-9a21-4da6-9344-b5054b531e31"
-                    }
-                },
-                "Id" : "1588c523-1f20-43c0-95b5-926dd5e087d6"
-            },
-            "fac:EntityFilerCategory" : {
-                "Name" : "fac:EntityFilerCategory",
-                "Label" : "Entity Filer Category",
-                "To" : {
-                    "dei:EntityFilerCategory" : {
-                        "Name" : "dei:EntityFilerCategory",
-                        "Id" : "0d4a05e8-f64f-4fef-bb07-81108da1759d"
-                    }
-                },
-                "Id" : "939209d3-5434-4436-a636-66e36e372c98"
-            },
-            "fac:IncomeLossFromContinuingOperationsBeforeTax" : {
-                "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTax",
-                "Label" : "Income (Loss) from Continuing Operations Before Tax",
-                "To" : {
-                    "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest" : {
-                        "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
-                        "Id" : "2ab4dcbb-3f95-4c47-af72-c9972e5cf3d8"
-                    },
-                    "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments" : {
-                        "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments",
-                        "Id" : "50765905-a1ab-4593-a742-a84f7ce8fe10"
-                    }
-                },
-                "Id" : "aeddbae4-63a0-4982-bba7-f47763404186"
-            },
-            "fac:OperatingExpenses" : {
-                "Name" : "fac:OperatingExpenses",
-                "Label" : "Operating Expenses",
-                "To" : {
-                    "us-gaap:OperatingExpenses" : {
-                        "Name" : "us-gaap:OperatingExpenses",
-                        "Id" : "4bd413f0-2ee4-4852-b7e9-ce545e10e828"
-                    },
-                    "us-gaap:OperatingCostsAndExpenses" : {
-                        "Name" : "us-gaap:OperatingCostsAndExpenses",
-                        "Id" : "289e6457-3721-40f1-a9d7-98e14b5d0e65"
-                    }
-                },
-                "Id" : "8470e939-9745-48b3-8d5a-4da8cea3ca69"
-            },
-            "fac:NetCashFlowDiscontinued" : {
-                "Name" : "fac:NetCashFlowDiscontinued",
-                "Label" : "Net Cash Flow, Discontinued",
-                "To" : {
-                    "us-gaap:NetCashProvidedByUsedInDiscontinuedOperations" : {
-                        "Name" : "us-gaap:NetCashProvidedByUsedInDiscontinuedOperations",
-                        "Id" : "e8415a25-01fa-4f56-847d-e5147376fcca"
-                    }
-                },
-                "Id" : "77329c4a-d5f3-437d-9edc-77498e4a63b6"
-            },
-            "fac:Liabilities" : {
-                "Name" : "fac:Liabilities",
-                "Label" : "Liabilities",
-                "To" : {
-                    "us-gaap:Liabilities" : {
-                        "Name" : "us-gaap:Liabilities",
-                        "Id" : "4edf6ae7-0919-4756-9b93-dcb0637fd6d0"
-                    }
-                },
-                "Id" : "7083d81c-4851-47ad-a33f-5147d0fa5553"
-            },
-            "fac:ComprehensiveIncomeLossAttributableToParent" : {
-                "Name" : "fac:ComprehensiveIncomeLossAttributableToParent",
-                "Label" : "Comprehensive Income (Loss) Attributable to Parent",
-                "To" : {
-                    "us-gaap:ComprehensiveIncomeNetOfTax" : {
-                        "Name" : "us-gaap:ComprehensiveIncomeNetOfTax",
-                        "Id" : "6a1eb0d4-74d8-4fbd-b890-fe04d388fcaf"
-                    }
-                },
-                "Id" : "36e37b04-64bb-426d-a6c9-e2a82dc6f18c"
-            },
-            "fac:CostOfRevenue" : {
-                "Name" : "fac:CostOfRevenue",
-                "Label" : "Cost of Revenues",
-                "To" : {
-                    "us-gaap:CostOfRevenue" : {
-                        "Name" : "us-gaap:CostOfRevenue",
-                        "Id" : "be2cc426-3691-4feb-9a53-ad63cf85b843"
-                    },
-                    "us-gaap:CostOfGoodsAndServicesSold" : {
-                        "Name" : "us-gaap:CostOfGoodsAndServicesSold",
-                        "Id" : "b55a9135-ceae-42c6-b6c3-e38c970a7a78"
-                    },
-                    "us-gaap:CostOfServices" : {
-                        "Name" : "us-gaap:CostOfServices",
-                        "Id" : "7d25bb66-320f-4958-a942-90a3c2ff34a0"
-                    },
-                    "us-gaap:CostOfGoodsSold" : {
-                        "Name" : "us-gaap:CostOfGoodsSold",
-                        "Id" : "2b2d1a1c-d4f0-4fc4-8247-aebfb86f7778"
-                    }
-                },
-                "Id" : "da7d9535-dec2-48b7-a532-5fc2e59f7e10"
-            },
-            "fac:NetCashFlow" : {
-                "Name" : "fac:NetCashFlow",
-                "Label" : "Net Cash Flow",
-                "To" : {
-                    "us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease" : {
-                        "Name" : "us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease",
-                        "Id" : "306de736-7887-408e-a29b-488a03e93994"
-                    },
-                    "us-gaap:CashPeriodIncreaseDecrease" : {
-                        "Name" : "us-gaap:CashPeriodIncreaseDecrease",
-                        "Id" : "b0442974-a7f4-4764-b1ac-5b359ac3cef9"
-                    },
-                    "us-gaap:NetCashProvidedByUsedInContinuingOperations" : {
-                        "Name" : "us-gaap:NetCashProvidedByUsedInContinuingOperations",
-                        "Id" : "f2830469-9df9-4b86-8c66-2cf80162daff"
-                    }
-                },
-                "Id" : "03ced8bf-bfaf-4b2f-a099-0070660991d4"
-            },
-            "fac:NonoperatingIncomeLoss" : {
-                "Name" : "fac:NonoperatingIncomeLoss",
-                "Label" : "Nonoperating Income (Loss)",
-                "To" : {
-                    "us-gaap:NonoperatingIncomeExpense" : {
-                        "Name" : "us-gaap:NonoperatingIncomeExpense",
-                        "Id" : "96dd0fa2-4244-482e-aba9-75df3f0de85d"
-                    }
-                },
-                "Id" : "073a78d0-6f53-4715-8c52-5434dfe761aa"
-            },
-            "fac:NetCashFlowFromFinancingActivitiesContinuing" : {
-                "Name" : "fac:NetCashFlowFromFinancingActivitiesContinuing",
-                "Label" : "Net Cash Flow from Financing Activities, Continuing",
-                "To" : {
-                    "us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations" : {
-                        "Name" : "us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations",
-                        "Id" : "d59918e9-11b6-42a6-b3cc-cc194aa81cda"
-                    }
-                },
-                "Id" : "a69d5218-110d-4122-9b36-474f5b73c749"
-            },
-            "fac:IncomeLossFromContinuingOperationsAfterTax" : {
-                "Name" : "fac:IncomeLossFromContinuingOperationsAfterTax",
-                "Label" : "Income (Loss) from Continuing Operations After Tax",
-                "To" : {
-                    "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest" : {
-                        "Name" : "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest",
-                        "Id" : "74d61400-8e48-4ad9-a8bb-5891cc75f1b0"
-                    },
-                    "us-gaap:IncomeLossBeforeExtraordinaryItemsAndCumulativeEffectOfChangeInAccountingPrinciple" : {
-                        "Name" : "us-gaap:IncomeLossBeforeExtraordinaryItemsAndCumulativeEffectOfChangeInAccountingPrinciple",
-                        "Id" : "05bc52bd-ed84-4caf-9dcf-2bd7776dc241"
-                    },
-                    "us-gaap:IncomeLossFromContinuingOperations" : {
-                        "Name" : "us-gaap:IncomeLossFromContinuingOperations",
-                        "Id" : "7db2fec5-373f-4357-b8e3-61e7f5f4f8e0"
-                    }
-                },
-                "Id" : "b411d599-3024-4e91-a9fe-7a4c4f9332a1"
-            },
-            "fac:NetIncomeLossAttributableToParent" : {
-                "Name" : "fac:NetIncomeLossAttributableToParent",
-                "Label" : "Net Income Attributable to Parent",
-                "To" : {
-                    "us-gaap:NetIncomeLoss" : {
-                        "Name" : "us-gaap:NetIncomeLoss",
-                        "Id" : "472745ea-362d-484f-b85d-59222229c820"
-                    }
-                },
-                "Id" : "47a59d37-7cec-4815-90eb-c6809041e5e2"
-            },
-            "fac:CommitmentsAndContingencies" : {
-                "Name" : "fac:CommitmentsAndContingencies",
-                "Label" : "Commitments and Contingencies",
-                "To" : {
-                    "us-gaap:CommitmentsAndContingencies" : {
-                        "Name" : "us-gaap:CommitmentsAndContingencies",
-                        "Id" : "3311107e-61bc-431e-aa37-3b3784f113d3"
-                    }
-                },
-                "Id" : "f6dc2e49-451c-40cd-834b-4a5186c043b3"
-            },
-            "fac:NetCashFlowFromInvestingActivitiesDiscontinued" : {
-                "Name" : "fac:NetCashFlowFromInvestingActivitiesDiscontinued",
-                "Label" : "Net Cash Flow from Investing Activities, Discontinued",
-                "To" : {
-                    "us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations" : {
-                        "Name" : "us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations",
-                        "Id" : "dc316e40-dd3d-4432-86f2-cd7250da0c6e"
-                    }
-                },
-                "Id" : "ba4ce76b-05a7-46f1-ac81-d0a3ea052fb8"
-            },
-            "fac:NetCashFlowFromFinancingActivitiesDiscontinued" : {
-                "Name" : "fac:NetCashFlowFromFinancingActivitiesDiscontinued",
-                "Label" : "Net Cash Flow from Financing Activities, Discontinued",
-                "To" : {
-                    "us-gaap:CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations" : {
-                        "Name" : "us-gaap:CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations",
-                        "Id" : "99c3e1f0-4faf-4453-87e9-c2617b1b8d49"
-                    }
-                },
-                "Id" : "792e8053-1fd1-4052-80b7-c3647099daef"
-            },
-            "fac:NetIncomeLossAttributableToNoncontrollingInterest" : {
-                "Name" : "fac:NetIncomeLossAttributableToNoncontrollingInterest",
-                "Label" : "Net Income Attributable to Noncontrolling Interest",
-                "To" : {
-                    "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest" : {
-                        "Name" : "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest",
-                        "Id" : "d7f71c5c-a7ed-40a2-b592-1fc7d81006bf"
-                    }
-                },
-                "Id" : "c5832ad5-094f-4f12-9991-15303b56074b"
-            },
-            "fac:FiscalYearEnd" : {
-                "Name" : "fac:FiscalYearEnd",
-                "Label" : "Fiscal Year End",
-                "To" : {
-                    "dei:CurrentFiscalYearEndDate" : {
-                        "Name" : "dei:CurrentFiscalYearEndDate",
-                        "Id" : "5297ff3b-0d8b-4274-8b95-73fad1df2a03"
-                    }
-                },
-                "Id" : "e8db794e-17b0-4335-b288-6655e8ec0bca"
-            },
-            "fac:NoncurrentAssets" : {
-                "Name" : "fac:NoncurrentAssets",
-                "Label" : "Noncurrent Assets",
-                "To" : {
-                    "us-gaap:AssetsNoncurrent" : {
-                        "Name" : "us-gaap:AssetsNoncurrent",
-                        "Id" : "78a8aeb6-66b5-4de8-bd45-d147d045da63"
-                    }
-                },
-                "Id" : "4c882455-6e23-4398-9fa0-6ac12dd80b04"
-            },
-            "fac:FiscalPeriod" : {
-                "Name" : "fac:FiscalPeriod",
-                "Label" : "Fiscal Period",
-                "To" : {
-                    "dei:DocumentFiscalPeriodFocus" : {
-                        "Name" : "dei:DocumentFiscalPeriodFocus",
-                        "Id" : "b10919ff-b88a-407e-84ab-69c334824c13"
-                    }
-                },
-                "Id" : "357ac670-ac11-4ce2-803a-1fb7cbf12e1d"
-            },
-            "fac:FiscalYear" : {
-                "Name" : "fac:FiscalYear",
-                "Label" : "Fiscal Year",
-                "To" : {
-                    "dei:DocumentFiscalYearFocus" : {
-                        "Name" : "dei:DocumentFiscalYearFocus",
-                        "Id" : "ffeeaf3a-794c-4b6c-ba71-f73013ce612f"
-                    }
-                },
-                "Id" : "3155f4fa-fc35-4ec2-a667-a45b5cf226af"
-            },
-            "fac:NetIncomeLoss" : {
-                "Name" : "fac:NetIncomeLoss",
-                "Label" : "Net Income (Loss)",
-                "To" : {
-                    "us-gaap:ProfitLoss" : {
-                        "Name" : "us-gaap:ProfitLoss",
-                        "Id" : "60633ca0-4313-4407-8577-c5bb870bf9b0"
-                    },
-                    "us-gaap:NetIncomeLoss" : {
-                        "Name" : "us-gaap:NetIncomeLoss",
-                        "Id" : "22a47996-5cc3-48dd-93b3-f15ee6e6277e"
-                    },
-                    "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic" : {
-                        "Name" : "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic",
-                        "Id" : "4ac07caf-5443-4c8e-98c8-2b97095af197"
-                    },
-                    "us-gaap:IncomeLossFromContinuingOperations" : {
-                        "Name" : "us-gaap:IncomeLossFromContinuingOperations",
-                        "Id" : "9076ab5c-5c52-4086-b867-27292a53ae0f"
-                    },
-                    "us-gaap:IncomeLossAttributableToParent" : {
-                        "Name" : "us-gaap:IncomeLossAttributableToParent",
-                        "Id" : "f037c4da-08d7-47c8-8dae-9faf5bb35a59"
-                    },
-                    "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest" : {
-                        "Name" : "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest",
-                        "Id" : "fb683fe6-6175-4e4f-b455-f95ca20b6ed6"
-                    }
-                },
-                "Id" : "b5164267-d716-452e-aa19-e77922614ef2"
-            },
-            "fac:ExchangeGainsLosses" : {
-                "Name" : "fac:ExchangeGainsLosses",
-                "Label" : "Exchange Gains (Losses)",
-                "To" : {
-                    "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents" : {
-                        "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents",
-                        "Id" : "26df39ea-441a-46d9-8e40-98e4b188e1ce"
-                    },
-                    "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations" : {
-                        "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations",
-                        "Id" : "7f75fac8-fcda-4504-b5c2-e0a3b14536b5"
-                    },
-                    "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations" : {
-                        "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations",
-                        "Id" : "4c8c160d-3418-4485-af6f-f77f4c314a59"
-                    }
-                },
-                "Id" : "99cea5bd-1fee-4ccd-bc18-1d9cbd045bd7"
-            },
-            "fac:GrossProfit" : {
-                "Name" : "fac:GrossProfit",
-                "Label" : "Gross Profit",
-                "To" : {
-                    "us-gaap:GrossProfit" : {
-                        "Name" : "us-gaap:GrossProfit",
-                        "Id" : "632bc06e-34d2-4ed9-b9cb-c04667c51079"
-                    }
-                },
-                "Id" : "1b2165c5-9d51-4d3a-aa89-83bcb2b7d342"
-            },
-            "fac:EquityAttributableToNoncontrollingInterest" : {
-                "Name" : "fac:EquityAttributableToNoncontrollingInterest",
-                "Label" : "Equity Attributable to Noncontrolling Interest",
-                "To" : {
-                    "us-gaap:MinorityInterest" : {
-                        "Name" : "us-gaap:MinorityInterest",
-                        "Id" : "22c9ec20-42b4-4546-9a7f-1dd835d9d7af"
-                    },
-                    "us-gaap:PartnersCapitalAttributableToNoncontrollingInterest" : {
-                        "Name" : "us-gaap:PartnersCapitalAttributableToNoncontrollingInterest",
-                        "Id" : "f327ef02-45a2-4e8f-82b5-5027d67ff22b"
-                    },
-                    "us-gaap:MinorityInterestInLimitedPartnerships" : {
-                        "Name" : "us-gaap:MinorityInterestInLimitedPartnerships",
-                        "Id" : "19df2274-d288-4310-b091-7df23534ef90"
-                    },
-                    "us-gaap:MinorityInterestInOperatingPartnerships" : {
-                        "Name" : "us-gaap:MinorityInterestInOperatingPartnerships",
-                        "Id" : "703e568c-ce77-40b2-bc06-3b2fe947c4cc"
-                    },
-                    "us-gaap:MinorityInterestInPreferredUnitHolders" : {
-                        "Name" : "us-gaap:MinorityInterestInPreferredUnitHolders",
-                        "Id" : "ebe44195-4153-493a-9982-c1f00ac27512"
-                    },
-                    "us-gaap:MinorityInterestInJointVentures" : {
-                        "Name" : "us-gaap:MinorityInterestInJointVentures",
-                        "Id" : "b1da4617-01f6-4da3-a40f-2d44397a2cf9"
-                    },
-                    "us-gaap:OtherMinorityInterests" : {
-                        "Name" : "us-gaap:OtherMinorityInterests",
-                        "Id" : "7fcf84da-f1ca-4cc0-ba44-945831aee050"
-                    },
-                    "us-gaap:NonredeemableNoncontrollingInterest" : {
-                        "Name" : "us-gaap:NonredeemableNoncontrollingInterest",
-                        "Id" : "10199204-e6df-492b-a25c-160d1f4d17f3"
-                    },
-                    "us-gaap:NoncontrollingInterestInVariableInterestEntity" : {
-                        "Name" : "us-gaap:NoncontrollingInterestInVariableInterestEntity",
-                        "Id" : "77293bf4-3640-4210-ab73-f5436ff46dc4"
-                    }
-                },
-                "Id" : "1636709f-e87c-4a40-897f-d5986c9c356a"
-            },
-            "fac:CostsAndExpenses" : {
-                "Name" : "fac:CostsAndExpenses",
-                "Label" : "Costs and Expenses",
-                "To" : {
-                    "us-gaap:CostsAndExpenses" : {
-                        "Name" : "us-gaap:CostsAndExpenses",
-                        "Id" : "69657de5-aed4-4cb4-9ed0-d5db9bbdaa9c"
-                    },
-                    "us-gaap:BenefitsLossesAndExpenses" : {
-                        "Name" : "us-gaap:BenefitsLossesAndExpenses",
-                        "Id" : "016ee4fd-1ced-4c0b-9ea0-dd9b2b096f92"
-                    }
-                },
-                "Id" : "597781a3-83f9-4e99-82da-9972bbb7b22d"
-            },
-            "fac:CurrentLiabilities" : {
-                "Name" : "fac:CurrentLiabilities",
-                "Label" : "Current Liabilities",
-                "To" : {
-                    "us-gaap:LiabilitiesCurrent" : {
-                        "Name" : "us-gaap:LiabilitiesCurrent",
-                        "Id" : "1595b29a-6b6f-4cfc-8de2-adab5c8456d4"
-                    }
-                },
-                "Id" : "1e727def-6aa1-4831-854b-056b7ac7fae7"
-            },
-            "fac:NetCashFlowFromOperatingActivities" : {
-                "Name" : "fac:NetCashFlowFromOperatingActivities",
-                "Label" : "Net Cash Flow from Operating Activities",
-                "To" : {
-                    "us-gaap:NetCashProvidedByUsedInOperatingActivities" : {
-                        "Name" : "us-gaap:NetCashProvidedByUsedInOperatingActivities",
-                        "Id" : "fdcef487-dc84-49e4-bc6b-65a47a338704"
-                    }
-                },
-                "Id" : "8363034f-85c3-43d6-b79a-458ef80dbb33"
-            },
-            "fac:IncomeLossFromDiscontinuedOperationsNetOfTax" : {
-                "Name" : "fac:IncomeLossFromDiscontinuedOperationsNetOfTax",
-                "Label" : "Income (Loss) from Discontinued Operations, Net of Tax",
-                "To" : {
-                    "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTax" : {
-                        "Name" : "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTax",
-                        "Id" : "181316cc-b5f9-44c7-9c99-89f9122fdb64"
-                    },
-                    "us-gaap:DiscontinuedOperationGainLossOnDisposalOfDiscontinuedOperationNetOfTax" : {
-                        "Name" : "us-gaap:DiscontinuedOperationGainLossOnDisposalOfDiscontinuedOperationNetOfTax",
-                        "Id" : "0d532ea3-6f82-4843-aa2b-db331d1dee6e"
-                    },
-                    "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity" : {
-                        "Name" : "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity",
-                        "Id" : "05445a31-648b-4d17-adee-aa3f8adbea79"
-                    }
-                },
-                "Id" : "9abcb2f2-e290-45d4-8bd8-d3806b52e403"
-            },
-            "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax" : {
-                "Name" : "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax",
-                "Label" : "Extraordinary Items of Income (Expense), Net of Tax",
-                "To" : {
-                    "us-gaap:ExtraordinaryItemNetOfTax" : {
-                        "Name" : "us-gaap:ExtraordinaryItemNetOfTax",
-                        "Id" : "deedfae1-c498-46f0-b685-aa23dd5421fb"
-                    }
-                },
-                "Id" : "ee671db2-27af-4a5a-8457-64725c1e3050"
-            },
-            "fac:OperatingIncomeLoss" : {
-                "Name" : "fac:OperatingIncomeLoss",
-                "Label" : "Operating Income (Loss)",
-                "To" : {
-                    "us-gaap:OperatingIncomeLoss" : {
-                        "Name" : "us-gaap:OperatingIncomeLoss",
-                        "Id" : "7fbc4329-1e0f-492a-9cf6-d8dcd155c8a2"
-                    }
-                },
-                "Id" : "246e80e2-4fa6-4fe8-b58a-e5f0867de76d"
-            },
-            "fac:NetCashFlowFromOperatingActivitiesDiscontinued" : {
-                "Name" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued",
-                "Label" : "Net Cash Flow from Operating Activities, Discontinued",
-                "To" : {
-                    "us-gaap:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations" : {
-                        "Name" : "us-gaap:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations",
-                        "Id" : "a0f59d64-87c9-416e-a118-57151704c731"
-                    }
-                },
-                "Id" : "4a4d2947-511d-46c8-9d53-2c8cab3755a3"
-            },
-            "fac:OtherComprehensiveIncomeLoss" : {
-                "Name" : "fac:OtherComprehensiveIncomeLoss",
-                "Label" : "Other Comprehensive Income (Loss)",
-                "To" : {
-                    "us-gaap:OtherComprehensiveIncomeLossNetOfTax" : {
-                        "Name" : "us-gaap:OtherComprehensiveIncomeLossNetOfTax",
-                        "Id" : "31c04c0d-cb55-4f1e-8144-590de1f4cd57"
-                    }
-                },
-                "Id" : "d451751d-53eb-4486-9df0-019fe91b58d8"
-            },
-            "fac:NetCashFlowFromInvestingActivitiesContinuing" : {
-                "Name" : "fac:NetCashFlowFromInvestingActivitiesContinuing",
-                "Label" : "Net Cash Flow from Investing Activities, Continuing",
-                "To" : {
-                    "us-gaap:NetCashProvidedByUsedInInvestingActivitiesContinuingOperations" : {
-                        "Name" : "us-gaap:NetCashProvidedByUsedInInvestingActivitiesContinuingOperations",
-                        "Id" : "815599b0-f3ab-4d48-9bb0-99413bb93208"
-                    }
-                },
-                "Id" : "c0ce069d-b6c2-41db-9f92-bdce9a862c49"
+                }
             },
             "fac:BalanceSheetDate" : {
+                "Id" : "d7bb0fe0-f60d-4256-87f5-6f881b61bb8d",
                 "Name" : "fac:BalanceSheetDate",
                 "Label" : "Balance Sheet Date",
                 "To" : {
                     "dei:DocumentPeriodEndDate" : {
+                        "Id" : "62eb3b81-6dd4-40ca-99ee-d86523484824",
                         "Name" : "dei:DocumentPeriodEndDate",
-                        "Id" : "fc76f9b2-4f42-4f4f-818a-824924b45db2"
+                        "Order" : 1
                     }
-                },
-                "Id" : "df7711f4-da56-4905-a5a7-e6f302f928d2"
+                }
             },
-            "fac:LiabilitiesAndEquity" : {
-                "Name" : "fac:LiabilitiesAndEquity",
-                "Label" : "Liabilities and Equity",
+            "fac:CommitmentsAndContingencies" : {
+                "Id" : "255e7580-c9b0-4dec-8f40-ad54cbaeac75",
+                "Name" : "fac:CommitmentsAndContingencies",
+                "Label" : "Commitments and Contingencies",
                 "To" : {
-                    "us-gaap:LiabilitiesAndStockholdersEquity" : {
-                        "Name" : "us-gaap:LiabilitiesAndStockholdersEquity",
-                        "Id" : "9395f54e-c718-4cb0-ae32-292f90828132"
-                    },
-                    "us-gaap:LiabilitiesAndPartnersCapital" : {
-                        "Name" : "us-gaap:LiabilitiesAndPartnersCapital",
-                        "Id" : "9218d081-a9ba-4408-bee4-cc8b3ca579fe"
+                    "us-gaap:CommitmentsAndContingencies" : {
+                        "Id" : "187f050a-3c98-4ef3-afaa-c520f347401b",
+                        "Name" : "us-gaap:CommitmentsAndContingencies",
+                        "Order" : 1
                     }
-                },
-                "Id" : "9c69663a-83da-443f-b655-a97ef548a4af"
-            },
-            "fac:Equity" : {
-                "Name" : "fac:Equity",
-                "Label" : "Equity",
-                "To" : {
-                    "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest" : {
-                        "Name" : "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
-                        "Id" : "ca33c20d-690f-4614-ac2b-525f1b336eff"
-                    },
-                    "us-gaap:StockholdersEquity" : {
-                        "Name" : "us-gaap:StockholdersEquity",
-                        "Id" : "bf0635dc-e8c0-428f-b44e-78cec721179e"
-                    },
-                    "us-gaap:PartnersCapitalIncludingPortionAttributableToNoncontrollingInterest" : {
-                        "Name" : "us-gaap:PartnersCapitalIncludingPortionAttributableToNoncontrollingInterest",
-                        "Id" : "ead36051-7319-46cf-9520-80cbc6806318"
-                    },
-                    "us-gaap:PartnersCapital" : {
-                        "Name" : "us-gaap:PartnersCapital",
-                        "Id" : "86d10a99-c26a-49a1-b978-3f8cb08afc4b"
-                    },
-                    "us-gaap:CommonStockholdersEquity" : {
-                        "Name" : "us-gaap:CommonStockholdersEquity",
-                        "Id" : "2c4624e3-9840-4305-9c09-9ecffe10760a"
-                    },
-                    "us-gaap:MembersEquity" : {
-                        "Name" : "us-gaap:MembersEquity",
-                        "Id" : "cee8e0b9-bd28-4c0b-ad4c-dd5ee2f5daa0"
-                    },
-                    "us-gaap:AssetsNet" : {
-                        "Name" : "us-gaap:AssetsNet",
-                        "Id" : "f20bbcf1-31a7-4b23-87a9-9f232582b8cb"
-                    }
-                },
-                "Id" : "e8f74834-bdb0-48cf-9663-28a92e1f1127"
-            },
-            "fac:DocumentType" : {
-                "Name" : "fac:DocumentType",
-                "Label" : "Document Type",
-                "To" : {
-                    "dei:DocumentType" : {
-                        "Name" : "dei:DocumentType",
-                        "Id" : "db93a09a-7e44-47fa-a857-f22d6f2305d7"
-                    }
-                },
-                "Id" : "8f72ed83-0ae2-4191-aaf7-caaa09d54de6"
-            },
-            "fac:IncomeLossFromEquityMethodInvestments" : {
-                "Name" : "fac:IncomeLossFromEquityMethodInvestments",
-                "Label" : "Income (Loss) from Equity Method Investments",
-                "To" : {
-                    "us-gaap:IncomeLossFromEquityMethodInvestments" : {
-                        "Name" : "us-gaap:IncomeLossFromEquityMethodInvestments",
-                        "Id" : "c2fae18d-a1c6-45d1-9aec-d0f844ba78e7"
-                    }
-                },
-                "Id" : "9856be7e-52a8-403f-b686-d1ef542a947c"
+                }
             },
             "fac:ComprehensiveIncomeLoss" : {
+                "Id" : "ccdba21d-8f17-4265-8d30-d83be5718d3e",
                 "Name" : "fac:ComprehensiveIncomeLoss",
                 "Label" : "Comprehensive Income (Loss)",
                 "To" : {
                     "us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest" : {
+                        "Id" : "bca50722-aabc-4b1d-bf9c-fa8b96b5be1d",
                         "Name" : "us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest",
-                        "Id" : "01baa298-9848-41fc-ac2f-9df9dc7228e2"
+                        "Order" : 1
                     },
                     "us-gaap:ComprehensiveIncomeNetOfTax" : {
+                        "Id" : "45e9dde6-d58c-4938-a1f9-1b244cf1ad50",
                         "Name" : "us-gaap:ComprehensiveIncomeNetOfTax",
-                        "Id" : "077db573-fa7e-4cb3-aa9e-aa9cf04fb8eb"
+                        "Order" : 2
                     }
-                },
-                "Id" : "d5ec6aee-4064-4fec-8b38-0dc9c0e35999"
+                }
             },
             "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest" : {
+                "Id" : "73b04e1a-42f2-404b-ba5d-49993bdcf1b1",
                 "Name" : "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest",
                 "Label" : "Comprehensive Income (Loss) Attributable to Noncontrolling Interest",
                 "To" : {
                     "us-gaap:ComprehensiveIncomeNetOfTaxAttributableToNoncontrollingInterest" : {
+                        "Id" : "ec6906f0-4aff-491b-a134-1545c12b8a8b",
                         "Name" : "us-gaap:ComprehensiveIncomeNetOfTaxAttributableToNoncontrollingInterest",
-                        "Id" : "4a3f299a-8e79-451d-b408-1728a472d98e"
+                        "Order" : 2
                     }
-                },
-                "Id" : "035819d1-0c4b-48fb-8faa-ccc088f0224d"
+                }
+            },
+            "fac:ComprehensiveIncomeLossAttributableToParent" : {
+                "Id" : "318a0d50-4326-4cef-826f-fe1919bac635",
+                "Name" : "fac:ComprehensiveIncomeLossAttributableToParent",
+                "Label" : "Comprehensive Income (Loss) Attributable to Parent",
+                "To" : {
+                    "us-gaap:ComprehensiveIncomeNetOfTax" : {
+                        "Id" : "c25b1699-a8d3-400e-b359-6641153c3aff",
+                        "Name" : "us-gaap:ComprehensiveIncomeNetOfTax",
+                        "Order" : 2
+                    }
+                }
+            },
+            "fac:CostOfRevenue" : {
+                "Id" : "4143fc1c-0c50-4766-b0c3-05190037940e",
+                "Name" : "fac:CostOfRevenue",
+                "Label" : "Cost of Revenue",
+                "To" : {
+                    "us-gaap:CostOfRevenue" : {
+                        "Id" : "1a86aeb8-1988-41fe-869e-c29150859546",
+                        "Name" : "us-gaap:CostOfRevenue",
+                        "Order" : 1
+                    },
+                    "us-gaap:CostOfGoodsAndServicesSold" : {
+                        "Id" : "79288ccb-1442-4593-b9ca-39658d21093a",
+                        "Name" : "us-gaap:CostOfGoodsAndServicesSold",
+                        "Order" : 2
+                    },
+                    "us-gaap:CostOfServices" : {
+                        "Id" : "bb569261-a713-4a64-9d66-efb73942f25e",
+                        "Name" : "us-gaap:CostOfServices",
+                        "Order" : 3
+                    },
+                    "us-gaap:CostOfGoodsSold" : {
+                        "Id" : "e53009e2-6dd1-4e80-b2e4-9816112a83a9",
+                        "Name" : "us-gaap:CostOfGoodsSold",
+                        "Order" : 4
+                    }
+                }
+            },
+            "fac:CostsAndExpenses" : {
+                "Id" : "e71f463d-c9e4-460d-a087-d26b0f7dffc3",
+                "Name" : "fac:CostsAndExpenses",
+                "Label" : "Costs and Expenses",
+                "To" : {
+                    "us-gaap:CostsAndExpenses" : {
+                        "Id" : "887cfa51-5669-4e4f-b348-6c3164208e13",
+                        "Name" : "us-gaap:CostsAndExpenses",
+                        "Order" : 1
+                    },
+                    "us-gaap:BenefitsLossesAndExpenses" : {
+                        "Id" : "4eb8f2f8-b1df-483f-8beb-1b0bfaf317c6",
+                        "Name" : "us-gaap:BenefitsLossesAndExpenses",
+                        "Order" : 2
+                    }
+                }
             },
             "fac:CurrentAssets" : {
+                "Id" : "681528c9-6e27-4825-b665-e4403816f917",
                 "Name" : "fac:CurrentAssets",
                 "Label" : "Current Assets",
                 "To" : {
                     "us-gaap:AssetsCurrent" : {
+                        "Id" : "c6f161d2-6fc7-4d47-8a44-9498afa13ddb",
                         "Name" : "us-gaap:AssetsCurrent",
-                        "Id" : "fd39bfed-2bb6-49b9-9074-328311517a80"
+                        "Order" : 1
                     }
-                },
-                "Id" : "1f6d48e4-1d47-4d5b-8517-29b7764b9c9a"
+                }
             },
-            "fac:NetCashFlowFromOperatingActivitiesContinuing" : {
-                "Name" : "fac:NetCashFlowFromOperatingActivitiesContinuing",
-                "Label" : "Net Cash Flow from Operating Activities, Continuing",
+            "fac:CurrentLiabilities" : {
+                "Id" : "ee0dfdf2-e524-4a4d-b132-7fdc2749d984",
+                "Name" : "fac:CurrentLiabilities",
+                "Label" : "Current Liabilities",
                 "To" : {
-                    "us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations" : {
-                        "Name" : "us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
-                        "Id" : "48c92ff0-fe98-4dd5-b0d5-4e16b1902222"
+                    "us-gaap:LiabilitiesCurrent" : {
+                        "Id" : "90d4262a-fe73-4c56-93c5-9903036dca43",
+                        "Name" : "us-gaap:LiabilitiesCurrent",
+                        "Order" : 1
                     }
-                },
-                "Id" : "8c1990e3-92ee-495a-8f1b-16fafd601b7b"
+                }
+            },
+            "fac:DocumentType" : {
+                "Id" : "e57b2f16-e190-4d7d-9dc8-6bccce8413d4",
+                "Name" : "fac:DocumentType",
+                "Label" : "Document Type",
+                "To" : {
+                    "dei:DocumentType" : {
+                        "Id" : "62aba3cb-1881-433d-a124-a0f5cc577ad4",
+                        "Name" : "dei:DocumentType",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:EntityCentralIndexKey" : {
+                "Id" : "30ff319d-a138-4bed-874f-62f5d5bf39fd",
+                "Name" : "fac:EntityCentralIndexKey",
+                "Label" : "Entity Central Index Key",
+                "To" : {
+                    "dei:EntityCentralIndexKey" : {
+                        "Id" : "1797bb6b-d98e-4a94-ba22-9609fb204dfe",
+                        "Name" : "dei:EntityCentralIndexKey",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:EntityFilerCategory" : {
+                "Id" : "b8b5db35-ef10-442d-9777-ee2197947f30",
+                "Name" : "fac:EntityFilerCategory",
+                "Label" : "Entity Filer Category",
+                "To" : {
+                    "dei:EntityFilerCategory" : {
+                        "Id" : "b1e0db3f-1ee2-4db3-a44e-13fcbd1a1a25",
+                        "Name" : "dei:EntityFilerCategory",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:EntityRegistrantName" : {
+                "Id" : "1ecedf67-fb56-4dd5-a8c2-6233fe5cd59f",
+                "Name" : "fac:EntityRegistrantName",
+                "Label" : "Entity Registrant Name",
+                "To" : {
+                    "dei:EntityRegistrantName" : {
+                        "Id" : "de3645cf-fe69-4b65-b54d-ebe942de4c64",
+                        "Name" : "dei:EntityRegistrantName",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:Equity" : {
+                "Id" : "7b84c492-3835-4602-8308-c823fca7542d",
+                "Name" : "fac:Equity",
+                "Label" : "Equity",
+                "To" : {
+                    "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest" : {
+                        "Id" : "21b7e5f8-ea83-4850-9557-bda909937f15",
+                        "Name" : "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+                        "Order" : 1
+                    },
+                    "us-gaap:StockholdersEquity" : {
+                        "Id" : "33bec4ae-9eaf-44b8-b728-64d4a4a53c2b",
+                        "Name" : "us-gaap:StockholdersEquity",
+                        "Order" : 2
+                    },
+                    "us-gaap:PartnersCapitalIncludingPortionAttributableToNoncontrollingInterest" : {
+                        "Id" : "804b8a65-0693-4942-b0b4-cf8960fa41de",
+                        "Name" : "us-gaap:PartnersCapitalIncludingPortionAttributableToNoncontrollingInterest",
+                        "Order" : 3
+                    },
+                    "us-gaap:PartnersCapital" : {
+                        "Id" : "d73a09b1-58d7-48d9-91a6-ea9187a050b1",
+                        "Name" : "us-gaap:PartnersCapital",
+                        "Order" : 4
+                    },
+                    "us-gaap:CommonStockholdersEquity" : {
+                        "Id" : "d3fdb88f-d558-47d6-b3e6-a46f790b96f5",
+                        "Name" : "us-gaap:CommonStockholdersEquity",
+                        "Order" : 5
+                    },
+                    "us-gaap:MembersEquity" : {
+                        "Id" : "ccbbc960-c247-4d35-a333-4357ea50f12b",
+                        "Name" : "us-gaap:MembersEquity",
+                        "Order" : 6
+                    }
+                }
+            },
+            "fac:EquityAttributableToNoncontrollingInterest" : {
+                "Id" : "fc48a51a-14bf-4417-9228-cca2ddfbeadf",
+                "Name" : "fac:EquityAttributableToNoncontrollingInterest",
+                "Label" : "Equity Attributable to Noncontrolling Interest",
+                "To" : {
+                    "us-gaap:MinorityInterest" : {
+                        "Id" : "fb64ccaf-fd6a-417e-a55f-9a41defc8083",
+                        "Name" : "us-gaap:MinorityInterest",
+                        "Order" : 1
+                    },
+                    "us-gaap:PartnersCapitalAttributableToNoncontrollingInterest" : {
+                        "Id" : "e3e7184b-6d0d-4420-9222-5ee0c5364fbf",
+                        "Name" : "us-gaap:PartnersCapitalAttributableToNoncontrollingInterest",
+                        "Order" : 2
+                    },
+                    "us-gaap:MinorityInterestInLimitedPartnerships" : {
+                        "Id" : "3866b365-d85d-42cb-ad7a-be0b42caf0c6",
+                        "Name" : "us-gaap:MinorityInterestInLimitedPartnerships",
+                        "Order" : 3
+                    },
+                    "us-gaap:MinorityInterestInOperatingPartnerships" : {
+                        "Id" : "92eb441f-363c-4453-a805-3fe17accd935",
+                        "Name" : "us-gaap:MinorityInterestInOperatingPartnerships",
+                        "Order" : 4
+                    },
+                    "us-gaap:MinorityInterestInPreferredUnitHolders" : {
+                        "Id" : "64b7fd69-b641-4cbb-848d-cb9d425e5d53",
+                        "Name" : "us-gaap:MinorityInterestInPreferredUnitHolders",
+                        "Order" : 5
+                    },
+                    "us-gaap:MinorityInterestInJointVentures" : {
+                        "Id" : "bcb82f37-62df-4997-a19e-c7624b3e039b",
+                        "Name" : "us-gaap:MinorityInterestInJointVentures",
+                        "Order" : 6
+                    },
+                    "us-gaap:OtherMinorityInterests" : {
+                        "Id" : "d81e3e1a-6232-44a5-bdd0-1515b718ffa9",
+                        "Name" : "us-gaap:OtherMinorityInterests",
+                        "Order" : 7
+                    },
+                    "us-gaap:NonredeemableNoncontrollingInterest" : {
+                        "Id" : "733a1d0f-914e-4c42-9ba8-8a1e8528c4b6",
+                        "Name" : "us-gaap:NonredeemableNoncontrollingInterest",
+                        "Order" : 8
+                    },
+                    "us-gaap:NoncontrollingInterestInVariableInterestEntity" : {
+                        "Id" : "9c51f846-f4b0-46ca-a9b5-f66c27d5e30f",
+                        "Name" : "us-gaap:NoncontrollingInterestInVariableInterestEntity",
+                        "Order" : 9
+                    }
+                }
+            },
+            "fac:EquityAttributableToParent" : {
+                "Id" : "13a4e0fa-0c87-4367-b102-976b9cd09e9e",
+                "Name" : "fac:EquityAttributableToParent",
+                "Label" : "Equity Attributable to Parent",
+                "To" : {
+                    "us-gaap:StockholdersEquity" : {
+                        "Id" : "335c9ae3-2a40-488e-b832-d3725ab83393",
+                        "Name" : "us-gaap:StockholdersEquity",
+                        "Order" : 1
+                    },
+                    "us-gaap:PartnersCapital" : {
+                        "Id" : "8cb86fd8-24ae-42f4-b12d-a34c5ecd823c",
+                        "Name" : "us-gaap:PartnersCapital",
+                        "Order" : 2
+                    },
+                    "us-gaap:MembersEquity" : {
+                        "Id" : "06b69aa9-a78b-48b9-8164-a7cad50b6a12",
+                        "Name" : "us-gaap:MembersEquity",
+                        "Order" : 3
+                    }
+                }
+            },
+            "fac:ExchangeGainsLosses" : {
+                "Id" : "ae163f36-7161-4b5f-ae3f-82d614d5e8e6",
+                "Name" : "fac:ExchangeGainsLosses",
+                "Label" : "Exchange Gains (Losses)",
+                "To" : {
+                    "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents" : {
+                        "Id" : "77fb719c-a9d9-4201-8113-3c4242911b06",
+                        "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents",
+                        "Order" : 1
+                    },
+                    "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations" : {
+                        "Id" : "00854991-c5ff-4a0a-9ef3-5105bf5bf71d",
+                        "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations",
+                        "Order" : 2
+                    },
+                    "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations" : {
+                        "Id" : "b265f507-8807-4e54-81b5-9773a250ede6",
+                        "Name" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations",
+                        "Order" : 3
+                    }
+                }
+            },
+            "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax" : {
+                "Id" : "b9e7bdc5-36da-408d-b3fb-1f6b861b6334",
+                "Name" : "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax",
+                "Label" : "Extraordinary Items of Income (Expense), Net of Tax",
+                "To" : {
+                    "us-gaap:ExtraordinaryItemNetOfTax" : {
+                        "Id" : "da94d7b8-1669-4fbc-88a5-76769324d066",
+                        "Name" : "us-gaap:ExtraordinaryItemNetOfTax",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:FiscalPeriodFocus" : {
+                "Id" : "af124228-75aa-422c-81f0-8e0679909798",
+                "Name" : "fac:FiscalPeriodFocus",
+                "Label" : "Fiscal Period Focus",
+                "To" : {
+                    "dei:DocumentFiscalPeriodFocus" : {
+                        "Id" : "43a73cf0-0c3c-4471-b74a-ca838a3ed5cf",
+                        "Name" : "dei:DocumentFiscalPeriodFocus",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:FiscalYearEnd" : {
+                "Id" : "7fbed494-674f-4c82-9b5a-90c96b54c2f1",
+                "Name" : "fac:FiscalYearEnd",
+                "Label" : "Fiscal Year End",
+                "To" : {
+                    "dei:CurrentFiscalYearEndDate" : {
+                        "Id" : "39d79887-4c4a-420c-9929-574fbc92f07d",
+                        "Name" : "dei:CurrentFiscalYearEndDate",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:FiscalYearFocus" : {
+                "Id" : "043c2e41-7eb4-40bd-9e13-acc2d54c023a",
+                "Name" : "fac:FiscalYearFocus",
+                "Label" : "Fiscal Year Focus",
+                "To" : {
+                    "dei:DocumentFiscalYearFocus" : {
+                        "Id" : "1897f374-6329-49fa-aa9a-17bd00a38444",
+                        "Name" : "dei:DocumentFiscalYearFocus",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:GrossProfit" : {
+                "Id" : "26613711-5ccb-4200-9d89-e4106c5c338b",
+                "Name" : "fac:GrossProfit",
+                "Label" : "Gross Profit",
+                "To" : {
+                    "us-gaap:GrossProfit" : {
+                        "Id" : "e121afe5-e17e-45bf-beda-140c0c244c01",
+                        "Name" : "us-gaap:GrossProfit",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:IncomeLossBeforeEquityMethodInvestments" : {
+                "Id" : "f5e97ce9-62b4-4c42-9f78-a19e135589b6",
+                "Name" : "fac:IncomeLossBeforeEquityMethodInvestments",
+                "Label" : "Income (Loss) before Equity Method Investments",
+                "To" : {
+                    "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments" : {
+                        "Id" : "d6d9376f-0dce-4f0c-bd94-b6b28293d5d1",
+                        "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:IncomeLossFromContinuingOperationsAfterTax" : {
+                "Id" : "f3a8c13f-a27d-4b0e-9ef9-aceb9b76e294",
+                "Name" : "fac:IncomeLossFromContinuingOperationsAfterTax",
+                "Label" : "Income (Loss) from Continuing Operations After Tax",
+                "To" : {
+                    "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest" : {
+                        "Id" : "142ecc8c-e4ad-41cb-bde7-ac4f6d1629d7",
+                        "Name" : "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest",
+                        "Order" : 1
+                    },
+                    "us-gaap:IncomeLossBeforeExtraordinaryItemsAndCumulativeEffectOfChangeInAccountingPrinciple" : {
+                        "Id" : "ddc3478f-b979-470e-9913-40e813684412",
+                        "Name" : "us-gaap:IncomeLossBeforeExtraordinaryItemsAndCumulativeEffectOfChangeInAccountingPrinciple",
+                        "Order" : 2
+                    },
+                    "us-gaap:IncomeLossFromContinuingOperations" : {
+                        "Id" : "600c3f42-0457-42a4-ab77-1696757d6647",
+                        "Name" : "us-gaap:IncomeLossFromContinuingOperations",
+                        "Order" : 3
+                    }
+                }
+            },
+            "fac:IncomeLossFromContinuingOperationsBeforeTax" : {
+                "Id" : "2c34a7ad-e101-4169-8893-7cd192bc3f31",
+                "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTax",
+                "Label" : "Income (Loss) from Continuing Operations Before Tax",
+                "To" : {
+                    "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest" : {
+                        "Id" : "ed95a88a-17ec-4334-b87d-880a5c2c3b9d",
+                        "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+                        "Order" : 1
+                    },
+                    "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments" : {
+                        "Id" : "2ab5bd1e-bfff-451a-b14c-03288fc368ce",
+                        "Name" : "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:IncomeLossFromDiscontinuedOperationsNetOfTax" : {
+                "Id" : "e43df5c5-52d0-429b-ae0a-4c467c130d72",
+                "Name" : "fac:IncomeLossFromDiscontinuedOperationsNetOfTax",
+                "Label" : "Income (Loss) from Discontinued Operations, Net of Tax",
+                "To" : {
+                    "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTax" : {
+                        "Id" : "cb5b81e9-e7db-45b4-ac1d-9ad3477cc0ba",
+                        "Name" : "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTax",
+                        "Order" : 1
+                    },
+                    "us-gaap:DiscontinuedOperationGainLossOnDisposalOfDiscontinuedOperationNetOfTax" : {
+                        "Id" : "61e2f307-ae2b-44f3-bca7-063d6598d983",
+                        "Name" : "us-gaap:DiscontinuedOperationGainLossOnDisposalOfDiscontinuedOperationNetOfTax",
+                        "Order" : 2
+                    },
+                    "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity" : {
+                        "Id" : "b11c5a32-cc5b-4447-a8be-d1e9ab0d0082",
+                        "Name" : "us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity",
+                        "Order" : 3
+                    }
+                }
+            },
+            "fac:IncomeLossFromEquityMethodInvestments" : {
+                "Id" : "349bfcb0-a541-43c1-8bfe-4bb0c3cbe497",
+                "Name" : "fac:IncomeLossFromEquityMethodInvestments",
+                "Label" : "Income (Loss) from Equity Method Investments",
+                "To" : {
+                    "us-gaap:IncomeLossFromEquityMethodInvestments" : {
+                        "Id" : "21ea0c75-e150-4dcc-9f9b-639e73f36943",
+                        "Name" : "us-gaap:IncomeLossFromEquityMethodInvestments",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:IncomeTaxExpenseBenefit" : {
+                "Id" : "78ad966d-85ea-4e33-9dc6-6f941d178aab",
+                "Name" : "fac:IncomeTaxExpenseBenefit",
+                "Label" : "Income Tax Expense (Benefit)",
+                "To" : {
+                    "us-gaap:IncomeTaxExpenseBenefit" : {
+                        "Id" : "9fa40c46-e4b3-49d5-b3cc-e979157cc4f5",
+                        "Name" : "us-gaap:IncomeTaxExpenseBenefit",
+                        "Order" : 1
+                    },
+                    "us-gaap:IncomeTaxExpenseBenefitContinuingOperations" : {
+                        "Id" : "fcfcefa7-dd8d-4d90-86c9-09a507fe1fc3",
+                        "Name" : "us-gaap:IncomeTaxExpenseBenefitContinuingOperations",
+                        "Order" : 2
+                    },
+                    "us-gaap:FederalHomeLoanBankAssessments" : {
+                        "Id" : "5cc55306-1189-4cec-9c76-a970acd2019f",
+                        "Name" : "us-gaap:FederalHomeLoanBankAssessments",
+                        "Order" : 3
+                    }
+                }
+            },
+            "fac:InterestAndDebtExpense" : {
+                "Id" : "a1310596-5f61-4020-b014-703a603bedc7",
+                "Name" : "fac:InterestAndDebtExpense",
+                "Label" : "Interest and Debt Expense",
+                "To" : {
+                    "us-gaap:InterestAndDebtExpense" : {
+                        "Id" : "e4e31318-a334-453d-aa7c-eda99b9ebe80",
+                        "Name" : "us-gaap:InterestAndDebtExpense",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:Liabilities" : {
+                "Id" : "54bfc96e-3c28-44f7-bd50-b92b5416d166",
+                "Name" : "fac:Liabilities",
+                "Label" : "Liabilities",
+                "To" : {
+                    "us-gaap:Liabilities" : {
+                        "Id" : "a596e8f8-3e86-444e-92c3-bdbb0d4f0026",
+                        "Name" : "us-gaap:Liabilities",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:LiabilitiesAndEquity" : {
+                "Id" : "f4821732-407f-447a-8f67-7dc3b23f2fc3",
+                "Name" : "fac:LiabilitiesAndEquity",
+                "Label" : "Liabilities and Equity",
+                "To" : {
+                    "us-gaap:LiabilitiesAndPartnersCapital" : {
+                        "Id" : "dd76415a-23a0-48c1-815f-1b1c965e41d1",
+                        "Name" : "us-gaap:LiabilitiesAndPartnersCapital",
+                        "Order" : 2
+                    }
+                }
+            },
+            "fac:NatureOfOperations" : {
+                "Id" : "dadbc81d-264e-445e-b86f-2ce62b9f7bf8",
+                "Name" : "fac:NatureOfOperations",
+                "Label" : "Nature of Operations",
+                "To" : {
+                    "us-gaap:NatureOfOperations" : {
+                        "Id" : "1a04a812-1ef9-4b60-97f1-c01401083319",
+                        "Name" : "us-gaap:NatureOfOperations",
+                        "Order" : 1
+                    },
+                    "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock" : {
+                        "Id" : "8ed65204-3d72-44b0-9878-06466ffef95e",
+                        "Name" : "us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock",
+                        "Order" : 2
+                    },
+                    "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock" : {
+                        "Id" : "7bdef003-38ca-4e3e-a5f0-87de27f6a18d",
+                        "Name" : "us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock",
+                        "Order" : 3
+                    },
+                    "us-gaap:OrganizationConsolidationBasisOfPresentationBusinessDescriptionAndAccountingPoliciesTextBlock" : {
+                        "Id" : "fb910b16-bee2-47cf-8d0b-a8bc36d0f937",
+                        "Name" : "us-gaap:OrganizationConsolidationBasisOfPresentationBusinessDescriptionAndAccountingPoliciesTextBlock",
+                        "Order" : 4
+                    }
+                }
+            },
+            "fac:NetCashFlow" : {
+                "Id" : "2ccb1f3a-59f0-470e-98ce-af375113099e",
+                "Name" : "fac:NetCashFlow",
+                "Label" : "Net Cash Flow",
+                "To" : {
+                    "us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease" : {
+                        "Id" : "6ab8a108-31bd-4a4e-8d4a-608b75bbfa2e",
+                        "Name" : "us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease",
+                        "Order" : 1
+                    },
+                    "us-gaap:CashPeriodIncreaseDecrease" : {
+                        "Id" : "5b3b1389-febb-46bb-814f-f69e350ffe8b",
+                        "Name" : "us-gaap:CashPeriodIncreaseDecrease",
+                        "Order" : 2
+                    },
+                    "us-gaap:NetCashProvidedByUsedInContinuingOperations" : {
+                        "Id" : "9035d2a6-3913-4c53-b855-17f9c334b5ca",
+                        "Name" : "us-gaap:NetCashProvidedByUsedInContinuingOperations",
+                        "Order" : 3
+                    }
+                }
+            },
+            "fac:NetCashFlowContinuing" : {
+                "Id" : "2c68c6d9-20ab-4ed4-8a05-8f82cc430111",
+                "Name" : "fac:NetCashFlowContinuing",
+                "Label" : "Net Cash Flow, Continuing",
+                "To" : {
+                    "us-gaap:NetCashProvidedByUsedInContinuingOperations" : {
+                        "Id" : "3fd419c7-aed7-4542-88a9-13aa36f708ed",
+                        "Name" : "us-gaap:NetCashProvidedByUsedInContinuingOperations",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetCashFlowDiscontinued" : {
+                "Id" : "96fb7075-cf05-4574-a350-719cfe81544e",
+                "Name" : "fac:NetCashFlowDiscontinued",
+                "Label" : "Net Cash Flow, Discontinued",
+                "To" : {
+                    "us-gaap:NetCashProvidedByUsedInDiscontinuedOperations" : {
+                        "Id" : "a650c0f2-6a16-4005-8f75-7cdb020e40ce",
+                        "Name" : "us-gaap:NetCashProvidedByUsedInDiscontinuedOperations",
+                        "Order" : 1
+                    }
+                }
             },
             "fac:NetCashFlowFromFinancingActivities" : {
+                "Id" : "f23522dd-1105-4031-a2ed-5309f82c569c",
                 "Name" : "fac:NetCashFlowFromFinancingActivities",
                 "Label" : "Net Cash Flow from Financing Activities",
                 "To" : {
                     "us-gaap:NetCashProvidedByUsedInFinancingActivities" : {
+                        "Id" : "68cf754c-60e8-42e0-b1bd-91df70f8548e",
                         "Name" : "us-gaap:NetCashProvidedByUsedInFinancingActivities",
-                        "Id" : "62605fc8-42c1-4113-86d7-e79199b91b7f"
+                        "Order" : 1
                     }
-                },
-                "Id" : "46f4cf55-b374-4997-8485-b45a19923614"
+                }
+            },
+            "fac:NetCashFlowFromFinancingActivitiesContinuing" : {
+                "Id" : "7ef5f052-ea21-48cd-a8b4-d4a8346d29fb",
+                "Name" : "fac:NetCashFlowFromFinancingActivitiesContinuing",
+                "Label" : "Net Cash Flow from Financing Activities, Continuing",
+                "To" : {
+                    "us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations" : {
+                        "Id" : "1596b94b-8b1d-447e-adbf-705d215e58f6",
+                        "Name" : "us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetCashFlowFromFinancingActivitiesDiscontinued" : {
+                "Id" : "8f9008ed-6b81-4456-be31-48d34a65a11d",
+                "Name" : "fac:NetCashFlowFromFinancingActivitiesDiscontinued",
+                "Label" : "Net Cash Flow from Financing Activities, Discontinued",
+                "To" : {
+                    "us-gaap:CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations" : {
+                        "Id" : "10ef728a-2765-4c42-8dc9-2a358bd1b188",
+                        "Name" : "us-gaap:CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetCashFlowFromInvestingActivities" : {
+                "Id" : "79bae501-01af-461e-9e05-155b9452b160",
+                "Name" : "fac:NetCashFlowFromInvestingActivities",
+                "Label" : "Net Cash Flow  from Investing Activities",
+                "To" : {
+                    "us-gaap:NetCashProvidedByUsedInInvestingActivities" : {
+                        "Id" : "5ce1146a-5136-4af1-9233-db5851855951",
+                        "Name" : "us-gaap:NetCashProvidedByUsedInInvestingActivities",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetCashFlowFromInvestingActivitiesContinuing" : {
+                "Id" : "1219ae81-e14a-4db3-ab7b-71f53c7b0954",
+                "Name" : "fac:NetCashFlowFromInvestingActivitiesContinuing",
+                "Label" : "Net Cash Flow from Investing Activities, Continuing",
+                "To" : {
+                    "us-gaap:NetCashProvidedByUsedInInvestingActivitiesContinuingOperations" : {
+                        "Id" : "95d91f19-dd56-4b02-9061-81f1485f9943",
+                        "Name" : "us-gaap:NetCashProvidedByUsedInInvestingActivitiesContinuingOperations",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetCashFlowFromInvestingActivitiesDiscontinued" : {
+                "Id" : "2b5ffca0-f2f8-449c-9665-0f5ef561f259",
+                "Name" : "fac:NetCashFlowFromInvestingActivitiesDiscontinued",
+                "Label" : "Net Cash Flow from Investing Activities, Discontinued",
+                "To" : {
+                    "us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations" : {
+                        "Id" : "1e53f6da-e840-4509-a3c8-72d8166b962a",
+                        "Name" : "us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetCashFlowFromOperatingActivities" : {
+                "Id" : "2b903f34-7766-42f4-9294-26b2bbba98c1",
+                "Name" : "fac:NetCashFlowFromOperatingActivities",
+                "Label" : "Net Cash Flow from Operating Activities",
+                "To" : {
+                    "us-gaap:NetCashProvidedByUsedInOperatingActivities" : {
+                        "Id" : "31cd47a0-9aa3-4b26-ad7d-293b6240897d",
+                        "Name" : "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetCashFlowFromOperatingActivitiesContinuing" : {
+                "Id" : "b512a5d6-a6c3-4fe9-8014-50173cf2b110",
+                "Name" : "fac:NetCashFlowFromOperatingActivitiesContinuing",
+                "Label" : "Net Cash Flow from Operating Activities, Continuing",
+                "To" : {
+                    "us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations" : {
+                        "Id" : "caebb5a7-8a53-4431-87a9-1d82508630e8",
+                        "Name" : "us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetCashFlowFromOperatingActivitiesDiscontinued" : {
+                "Id" : "1731f1e8-f42e-4b00-a6c5-0d2b5d60a5e3",
+                "Name" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued",
+                "Label" : "Net Cash Flow from Operating Activities, Discontinued",
+                "To" : {
+                    "us-gaap:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations" : {
+                        "Id" : "d50d4f06-9961-4dbe-af83-234730b7ba93",
+                        "Name" : "us-gaap:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetIncomeLoss" : {
+                "Id" : "4530b8e7-395b-440f-80d3-0ed72d1354f8",
+                "Name" : "fac:NetIncomeLoss",
+                "Label" : "Net Income (Loss)",
+                "To" : {
+                    "us-gaap:ProfitLoss" : {
+                        "Id" : "0817d3a7-0ae1-406f-9d1f-6cc8afe57ae5",
+                        "Name" : "us-gaap:ProfitLoss",
+                        "Order" : 1
+                    },
+                    "us-gaap:NetIncomeLoss" : {
+                        "Id" : "d80006b3-e837-47b5-93d5-d552c7286f42",
+                        "Name" : "us-gaap:NetIncomeLoss",
+                        "Order" : 2
+                    },
+                    "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic" : {
+                        "Id" : "19726e5d-f66a-4f41-aeda-9c3bea2bd563",
+                        "Name" : "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic",
+                        "Order" : 3
+                    },
+                    "us-gaap:IncomeLossFromContinuingOperations" : {
+                        "Id" : "1d8aead5-f79b-4945-8bae-ea0b8fafda3e",
+                        "Name" : "us-gaap:IncomeLossFromContinuingOperations",
+                        "Order" : 4
+                    },
+                    "us-gaap:IncomeLossAttributableToParent" : {
+                        "Id" : "a24049c7-82d0-4e6e-90e3-236644a9fc55",
+                        "Name" : "us-gaap:IncomeLossAttributableToParent",
+                        "Order" : 5
+                    },
+                    "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest" : {
+                        "Id" : "22aac174-9dee-4fc6-ae52-1740a20633c9",
+                        "Name" : "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest",
+                        "Order" : 6
+                    }
+                }
+            },
+            "fac:NetIncomeLossAttributableToNoncontrollingInterest" : {
+                "Id" : "011aded4-2575-4280-b897-a4270f949f0f",
+                "Name" : "fac:NetIncomeLossAttributableToNoncontrollingInterest",
+                "Label" : "Net Income (Loss) Attributable to Noncontrolling Interest",
+                "To" : {
+                    "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest" : {
+                        "Id" : "e7f9950d-7e42-4aaa-9c1b-3f5f87ac9db5",
+                        "Name" : "us-gaap:NetIncomeLossAttributableToNoncontrollingInterest",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetIncomeLossAttributableToParent" : {
+                "Id" : "4e1beeee-11a0-47c7-a0eb-8839ff45fe9c",
+                "Name" : "fac:NetIncomeLossAttributableToParent",
+                "Label" : "Net Income (Loss) Attributable to Parent",
+                "To" : {
+                    "us-gaap:NetIncomeLoss" : {
+                        "Id" : "70fa4fba-47ba-4efa-88cb-255693e05f79",
+                        "Name" : "us-gaap:NetIncomeLoss",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NetIncomeLossAvailableToCommonStockholdersBasic" : {
+                "Id" : "37a0a074-6381-4c60-b519-d890ad9944ec",
+                "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic",
+                "Label" : "Net Income (Loss) Available to Common Stockholders, Basic",
+                "To" : {
+                    "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic" : {
+                        "Id" : "2f30e12a-7e10-4c7e-968d-4209c892a054",
+                        "Name" : "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NoncurrentAssets" : {
+                "Id" : "ed8e7c77-32ce-4ed4-ad6d-23c3cbca04a7",
+                "Name" : "fac:NoncurrentAssets",
+                "Label" : "Noncurrent Assets",
+                "To" : {
+                    "us-gaap:AssetsNoncurrent" : {
+                        "Id" : "f5c1f698-6df8-4cc0-a0c4-79b3d9552b60",
+                        "Name" : "us-gaap:AssetsNoncurrent",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NoncurrentLiabilities" : {
+                "Id" : "11e67c34-0145-4185-82ca-cde0ad810e96",
+                "Name" : "fac:NoncurrentLiabilities",
+                "Label" : "Noncurrent Liabilities",
+                "To" : {
+                    "us-gaap:LiabilitiesNoncurrent" : {
+                        "Id" : "bbde73c1-93df-4015-ab29-cf2d93aebe12",
+                        "Name" : "us-gaap:LiabilitiesNoncurrent",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:NonoperatingIncomeLoss" : {
+                "Id" : "cef4bf9a-1080-4c71-99c7-815454601583",
+                "Name" : "fac:NonoperatingIncomeLoss",
+                "Label" : "Nonoperating Income (Loss)",
+                "To" : {
+                    "us-gaap:NonoperatingIncomeExpense" : {
+                        "Id" : "7ba0755c-22ae-47aa-a585-ca8b471bc625",
+                        "Name" : "us-gaap:NonoperatingIncomeExpense",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:OperatingExpenses" : {
+                "Id" : "e9cb3906-0d4c-4d62-a6f4-f1e19ef0952b",
+                "Name" : "fac:OperatingExpenses",
+                "Label" : "Operating Expenses",
+                "To" : {
+                    "us-gaap:OperatingExpenses" : {
+                        "Id" : "4a28fd1b-6472-4684-9304-87c85f26e667",
+                        "Name" : "us-gaap:OperatingExpenses",
+                        "Order" : 1
+                    },
+                    "us-gaap:OperatingCostsAndExpenses" : {
+                        "Id" : "72cf6eaf-7af5-4d77-97fa-39772133060a",
+                        "Name" : "us-gaap:OperatingCostsAndExpenses",
+                        "Order" : 2
+                    }
+                }
+            },
+            "fac:OperatingIncomeLoss" : {
+                "Id" : "6bf91a93-2a54-47eb-a9ea-d1b81e61d5f3",
+                "Name" : "fac:OperatingIncomeLoss",
+                "Label" : "Operating Income (Loss)",
+                "To" : {
+                    "us-gaap:OperatingIncomeLoss" : {
+                        "Id" : "d335a0d1-be55-4d73-8a7a-f6f6f770291e",
+                        "Name" : "us-gaap:OperatingIncomeLoss",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:OtherComprehensiveIncomeLoss" : {
+                "Id" : "d49bd3dd-3187-46b0-8249-89f5cb7a4732",
+                "Name" : "fac:OtherComprehensiveIncomeLoss",
+                "Label" : "Other Comprehensive Income (Loss)",
+                "To" : {
+                    "us-gaap:OtherComprehensiveIncomeLossNetOfTax" : {
+                        "Id" : "8fdcc4f1-f455-48d2-91fb-fc4495e4987e",
+                        "Name" : "us-gaap:OtherComprehensiveIncomeLossNetOfTax",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:OtherOperatingIncomeExpenses" : {
+                "Id" : "c8854b3a-89d6-4958-9be9-8bd5a4691ab9",
+                "Name" : "fac:OtherOperatingIncomeExpenses",
+                "Label" : "Other Operating Income (Expenses)",
+                "To" : {
+                    "us-gaap:OtherOperatingIncome" : {
+                        "Id" : "0239190b-e139-4fae-83ce-cb51f8a315f1",
+                        "Name" : "us-gaap:OtherOperatingIncome",
+                        "Order" : 1
+                    }
+                }
+            },
+            "fac:PreferredStockDividendsAndOtherAdjustments" : {
+                "Id" : "fa3c5ee2-927c-4373-8ae8-0b5d73e2eb3a",
+                "Name" : "fac:PreferredStockDividendsAndOtherAdjustments",
+                "Label" : "Preferred Stock Dividends and Other Adjustments",
+                "To" : {
+                    "us-gaap:PreferredStockDividendsAndOtherAdjustments" : {
+                        "Id" : "47e97c31-e348-4196-9cb0-4bb5d20574d0",
+                        "Name" : "us-gaap:PreferredStockDividendsAndOtherAdjustments",
+                        "Order" : 1
+                    }
+                }
             },
             "fac:RedeemableNoncontrollingInterest" : {
+                "Id" : "81a61b16-c9a4-4dfb-a60d-15a1669aca49",
                 "Name" : "fac:RedeemableNoncontrollingInterest",
                 "Label" : "Redeemable Noncontrolling Interest",
                 "To" : {
                     "us-gaap:RedeemableNoncontrollingInterestEquityCarryingAmount" : {
+                        "Id" : "fdd764b2-3aea-48b9-9e28-1500ae790bb2",
                         "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCarryingAmount",
-                        "Id" : "ff83bd5e-452e-469c-8e3c-dfdad75c7e0a"
+                        "Order" : 1
                     },
                     "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount" : {
+                        "Id" : "389ade52-e20d-4f33-a7c7-75d80aeba219",
                         "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityCommonCarryingAmount",
-                        "Id" : "ff86b9b1-6c49-44bc-9221-442ba6dda242"
+                        "Order" : 2
                     },
                     "us-gaap:RedeemableNoncontrollingInterestEquityPreferredCarryingAmount" : {
+                        "Id" : "6673bafb-9b30-43d6-8ba3-fbd17e87d913",
                         "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityPreferredCarryingAmount",
-                        "Id" : "5414d30c-2f01-4d9a-b424-c6accd6abd86"
+                        "Order" : 3
                     },
                     "us-gaap:RedeemableNoncontrollingInterestEquityOtherCarryingAmount" : {
+                        "Id" : "74abd40d-18cb-4447-a342-3a027eb3d3ac",
                         "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityOtherCarryingAmount",
-                        "Id" : "3d65c847-f0cd-434c-9b16-64836775d2af"
+                        "Order" : 4
                     }
-                },
-                "Id" : "be981102-0b02-41d0-8868-6d3bf7d48553"
+                }
+            },
+            "fac:ResearchAndDevelopment" : {
+                "Id" : "a586729c-4d5f-4d1e-a921-9bc39c4e153a",
+                "Name" : "fac:ResearchAndDevelopment",
+                "Label" : "Research and Development",
+                "To" : {
+                    "us-gaap:ResearchAndDevelopmentExpense" : {
+                        "Id" : "25d0f630-0a44-4cbe-83dd-b6cec1ac4a4b",
+                        "Name" : "us-gaap:ResearchAndDevelopmentExpense",
+                        "Order" : 1
+                    },
+                    "us-gaap:ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost" : {
+                        "Id" : "dc15bb79-9363-4678-83b9-0102698ba9f5",
+                        "Name" : "us-gaap:ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost",
+                        "Order" : 2
+                    },
+                    "us-gaap:ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost" : {
+                        "Id" : "9697d689-770a-46e2-8dd2-bc8aa68631d7",
+                        "Name" : "us-gaap:ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost",
+                        "Order" : 3
+                    },
+                    "us-gaap:ResearchAndDevelopmentInProcess" : {
+                        "Id" : "6f208d6e-6df6-4c3f-baa2-62ecedb9d6f4",
+                        "Name" : "us-gaap:ResearchAndDevelopmentInProcess",
+                        "Order" : 4
+                    },
+                    "us-gaap:ResearchAndDevelopmentAssetAcquiredOtherThanThroughBusinessCombinationWrittenOff" : {
+                        "Id" : "5d5007d4-95b0-40d8-9788-7f9282b4be03",
+                        "Name" : "us-gaap:ResearchAndDevelopmentAssetAcquiredOtherThanThroughBusinessCombinationWrittenOff",
+                        "Order" : 5
+                    }
+                }
+            },
+            "fac:Revenues" : {
+                "Id" : "3aa1645a-ecd8-4afb-886f-18607b502195",
+                "Name" : "fac:Revenues",
+                "Label" : "Revenues",
+                "To" : {
+                    "us-gaap:Revenues" : {
+                        "Id" : "c870782b-d2a2-4acf-8ff7-677da05133e6",
+                        "Name" : "us-gaap:Revenues",
+                        "Order" : 1
+                    },
+                    "us-gaap:SalesRevenueNet" : {
+                        "Id" : "82065fbf-70e2-4a73-b647-259b76b4b2e3",
+                        "Name" : "us-gaap:SalesRevenueNet",
+                        "Order" : 2
+                    },
+                    "us-gaap:SalesRevenueServicesNet" : {
+                        "Id" : "47392b64-aa5c-4de4-bede-dcc82c491a08",
+                        "Name" : "us-gaap:SalesRevenueServicesNet",
+                        "Order" : 3
+                    },
+                    "us-gaap:SalesRevenueGoodsNet" : {
+                        "Id" : "0c17fcca-4a65-45b8-97ac-136eb0687d46",
+                        "Name" : "us-gaap:SalesRevenueGoodsNet",
+                        "Order" : 4
+                    },
+                    "us-gaap:RevenuesNetOfInterestExpense" : {
+                        "Id" : "5f61ad28-8d3c-430d-a46c-191ff2d2ce98",
+                        "Name" : "us-gaap:RevenuesNetOfInterestExpense",
+                        "Order" : 5
+                    },
+                    "us-gaap:HealthCareOrganizationRevenue" : {
+                        "Id" : "75320962-9517-4fe5-87d3-9f7a6892dcd6",
+                        "Name" : "us-gaap:HealthCareOrganizationRevenue",
+                        "Order" : 6
+                    },
+                    "us-gaap:InterestAndDividendIncomeOperating" : {
+                        "Id" : "e51ec116-3e34-413c-8d37-6e6613a2802c",
+                        "Name" : "us-gaap:InterestAndDividendIncomeOperating",
+                        "Order" : 7
+                    },
+                    "us-gaap:RealEstateRevenueNet" : {
+                        "Id" : "85b5920e-6b75-4dd2-aca2-b4268ae1ad2e",
+                        "Name" : "us-gaap:RealEstateRevenueNet",
+                        "Order" : 8
+                    },
+                    "us-gaap:RevenueMineralSales" : {
+                        "Id" : "70ca14d2-70c0-438e-ab92-3045c21f3650",
+                        "Name" : "us-gaap:RevenueMineralSales",
+                        "Order" : 9
+                    },
+                    "us-gaap:OilAndGasRevenue" : {
+                        "Id" : "d383accd-7556-4e5e-ac9e-26315e1809b5",
+                        "Name" : "us-gaap:OilAndGasRevenue",
+                        "Order" : 10
+                    },
+                    "us-gaap:FinancialServicesRevenue" : {
+                        "Id" : "1157edeb-2b96-472b-84c7-7d5599b2425d",
+                        "Name" : "us-gaap:FinancialServicesRevenue",
+                        "Order" : 11
+                    },
+                    "us-gaap:RegulatedAndUnregulatedOperatingRevenue" : {
+                        "Id" : "28849ae1-22b7-4e45-890d-3c4bcdfe6d3b",
+                        "Name" : "us-gaap:RegulatedAndUnregulatedOperatingRevenue",
+                        "Order" : 12
+                    },
+                    "us-gaap:ShippingAndHandlingRevenue" : {
+                        "Id" : "865c2565-a54a-4b8e-973c-cdf31822b345",
+                        "Name" : "us-gaap:ShippingAndHandlingRevenue",
+                        "Order" : 21
+                    },
+                    "us-gaap:SalesRevenueFromEnergyCommoditiesAndServices" : {
+                        "Id" : "8e0a7157-60df-4ea1-a20a-faf376836aad",
+                        "Name" : "us-gaap:SalesRevenueFromEnergyCommoditiesAndServices",
+                        "Order" : 23
+                    },
+                    "us-gaap:UtilityRevenue" : {
+                        "Id" : "1226b7c3-5cab-440e-81a9-a71fa1896437",
+                        "Name" : "us-gaap:UtilityRevenue",
+                        "Order" : 24
+                    },
+                    "us-gaap:PhaseInPlanAmountOfCapitalizedCostsRecovered" : {
+                        "Id" : "526e13a2-b2ae-4867-9647-451164dbc397",
+                        "Name" : "us-gaap:PhaseInPlanAmountOfCapitalizedCostsRecovered",
+                        "Order" : 25
+                    },
+                    "us-gaap:SecondaryProcessingRevenue" : {
+                        "Id" : "f8519e63-1bce-43b7-92d7-9a66f668750c",
+                        "Name" : "us-gaap:SecondaryProcessingRevenue",
+                        "Order" : 26
+                    },
+                    "us-gaap:RevenueSteamProductsAndServices" : {
+                        "Id" : "515452a6-71a1-41f4-8bdb-2872d1b301df",
+                        "Name" : "us-gaap:RevenueSteamProductsAndServices",
+                        "Order" : 27
+                    },
+                    "us-gaap:RevenueFromLeasedAndOwnedHotels" : {
+                        "Id" : "c6030dff-2b09-474e-81c0-4b0004427a32",
+                        "Name" : "us-gaap:RevenueFromLeasedAndOwnedHotels",
+                        "Order" : 30
+                    },
+                    "us-gaap:FranchisorRevenue" : {
+                        "Id" : "607006c5-1a43-4c2d-bb9c-57150fbcc157",
+                        "Name" : "us-gaap:FranchisorRevenue",
+                        "Order" : 31
+                    },
+                    "us-gaap:SubscriptionRevenue" : {
+                        "Id" : "78d8a5dc-0464-45bf-bc6d-4663c3c6050e",
+                        "Name" : "us-gaap:SubscriptionRevenue",
+                        "Order" : 32
+                    },
+                    "us-gaap:AdvertisingRevenue" : {
+                        "Id" : "3a6eb711-bbed-4f58-8245-5c4c3396c6ed",
+                        "Name" : "us-gaap:AdvertisingRevenue",
+                        "Order" : 33
+                    },
+                    "us-gaap:AdmissionsRevenue" : {
+                        "Id" : "313f6818-6e2d-4590-aa25-896a48bf8545",
+                        "Name" : "us-gaap:AdmissionsRevenue",
+                        "Order" : 34
+                    },
+                    "us-gaap:RevenueFromEnrollmentAndRegistrationFeesExcludingHospitalityEnterprises" : {
+                        "Id" : "df52ca7b-81d6-4b51-a094-c5bbdb7f5da0",
+                        "Name" : "us-gaap:RevenueFromEnrollmentAndRegistrationFeesExcludingHospitalityEnterprises",
+                        "Order" : 35
+                    },
+                    "us-gaap:MembershipDuesRevenueOnGoing" : {
+                        "Id" : "dda14b09-d4e8-4eb7-9303-eb0b335748f6",
+                        "Name" : "us-gaap:MembershipDuesRevenueOnGoing",
+                        "Order" : 36
+                    },
+                    "us-gaap:LicensesRevenue" : {
+                        "Id" : "5b9df3c8-e1c4-4bcd-868d-6d2415e97721",
+                        "Name" : "us-gaap:LicensesRevenue",
+                        "Order" : 37
+                    },
+                    "us-gaap:RoyaltyRevenue" : {
+                        "Id" : "03a2425e-61e2-4620-8abd-5c53d8425879",
+                        "Name" : "us-gaap:RoyaltyRevenue",
+                        "Order" : 38
+                    },
+                    "us-gaap:SalesOfOilAndGasProspects" : {
+                        "Id" : "451e54fb-0854-4a92-8b9d-90a4db9f6dfe",
+                        "Name" : "us-gaap:SalesOfOilAndGasProspects",
+                        "Order" : 39
+                    },
+                    "us-gaap:ClearingFeesRevenue" : {
+                        "Id" : "3caa71b8-8541-479c-bebb-8bfbf438f889",
+                        "Name" : "us-gaap:ClearingFeesRevenue",
+                        "Order" : 40
+                    },
+                    "us-gaap:ReimbursementRevenue" : {
+                        "Id" : "e322e37f-4d7c-46c2-9e4a-bf06de60cf81",
+                        "Name" : "us-gaap:ReimbursementRevenue",
+                        "Order" : 41
+                    },
+                    "us-gaap:RevenueFromGrants" : {
+                        "Id" : "268926f2-d8f9-499f-aa70-f92e96ed33f1",
+                        "Name" : "us-gaap:RevenueFromGrants",
+                        "Order" : 42
+                    },
+                    "us-gaap:RevenueOtherManufacturedProducts" : {
+                        "Id" : "6d01c8ab-5b83-4cdb-aa12-2b421f1be2ad",
+                        "Name" : "us-gaap:RevenueOtherManufacturedProducts",
+                        "Order" : 43
+                    },
+                    "us-gaap:ConstructionMaterialsRevenue" : {
+                        "Id" : "545f3d23-d85b-40f3-8456-7850f22f1b5d",
+                        "Name" : "us-gaap:ConstructionMaterialsRevenue",
+                        "Order" : 44
+                    },
+                    "us-gaap:TimberRevenue" : {
+                        "Id" : "19a83530-fead-4c47-8eb1-5e008163ec77",
+                        "Name" : "us-gaap:TimberRevenue",
+                        "Order" : 45
+                    },
+                    "us-gaap:RecyclingRevenue" : {
+                        "Id" : "fbb51e93-b36c-4c74-9bfe-314c38e09ae4",
+                        "Name" : "us-gaap:RecyclingRevenue",
+                        "Order" : 46
+                    },
+                    "us-gaap:OtherSalesRevenueNet" : {
+                        "Id" : "f5a85ef5-94a8-48e7-b4de-bd382a0c70d8",
+                        "Name" : "us-gaap:OtherSalesRevenueNet",
+                        "Order" : 47
+                    },
+                    "us-gaap:SaleOfTrustAssetsToPayExpenses" : {
+                        "Id" : "1ef03cee-92fa-482a-a51e-865b092f79c8",
+                        "Name" : "us-gaap:SaleOfTrustAssetsToPayExpenses",
+                        "Order" : 48
+                    },
+                    "us-gaap:PassengerRevenue" : {
+                        "Id" : "6da07002-5928-4031-94f1-0e99d935d4ec",
+                        "Name" : "us-gaap:PassengerRevenue",
+                        "Order" : 49
+                    },
+                    "us-gaap:VehicleTollRevenue" : {
+                        "Id" : "86ff09c9-1730-4c22-a3f5-787fde6a9e7e",
+                        "Name" : "us-gaap:VehicleTollRevenue",
+                        "Order" : 50
+                    },
+                    "us-gaap:CargoAndFreightRevenue" : {
+                        "Id" : "95649eac-5bbd-4fe9-a8dd-38b2c6e97ff8",
+                        "Name" : "us-gaap:CargoAndFreightRevenue",
+                        "Order" : 51
+                    },
+                    "us-gaap:NetInvestmentIncome" : {
+                        "Id" : "b264b2d4-c297-46b5-b635-589bf00ab3c4",
+                        "Name" : "us-gaap:NetInvestmentIncome",
+                        "Order" : 53
+                    },
+                    "us-gaap:RevenuesExcludingInterestAndDividends" : {
+                        "Id" : "059ffead-3b82-4941-a903-e8d9d3837bb6",
+                        "Name" : "us-gaap:RevenuesExcludingInterestAndDividends",
+                        "Order" : 54
+                    },
+                    "us-gaap:InvestmentBankingRevenue" : {
+                        "Id" : "bf911a5c-ff1e-4c05-a342-9c03259007c6",
+                        "Name" : "us-gaap:InvestmentBankingRevenue",
+                        "Order" : 55
+                    },
+                    "us-gaap:UnderwritingIncomeLoss" : {
+                        "Id" : "b1c65fe1-6432-447c-98fc-960e8b21fb04",
+                        "Name" : "us-gaap:UnderwritingIncomeLoss",
+                        "Order" : 56
+                    },
+                    "us-gaap:MarketDataRevenue" : {
+                        "Id" : "8d0f1d6d-0db9-45cb-9b4e-1296f7f56107",
+                        "Name" : "us-gaap:MarketDataRevenue",
+                        "Order" : 57
+                    }
+                }
             },
             "fac:TemporaryEquity" : {
+                "Id" : "29eda254-9c44-4467-bd17-b11531cb4ddf",
                 "Name" : "fac:TemporaryEquity",
                 "Label" : "Temporary Equity",
                 "To" : {
                     "us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests" : {
+                        "Id" : "52ea7f68-189c-44cb-b75f-99e693ead438",
                         "Name" : "us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests",
-                        "Id" : "099675a7-27f0-4ad1-bb08-cf778d02723b"
+                        "Order" : 1
                     },
                     "us-gaap:TemporaryEquityRedemptionValue" : {
+                        "Id" : "fe27a583-01b7-47bf-969f-763b821ab519",
                         "Name" : "us-gaap:TemporaryEquityRedemptionValue",
-                        "Id" : "6914f034-7469-4765-a382-4fda5d5f4214"
+                        "Order" : 2
                     },
                     "us-gaap:RedeemablePreferredStockCarryingAmount" : {
+                        "Id" : "6639a812-5150-46b5-96d0-a7ea5915a02d",
                         "Name" : "us-gaap:RedeemablePreferredStockCarryingAmount",
-                        "Id" : "fb628cc2-a11c-45bd-b05d-0150adcaba70"
+                        "Order" : 3
                     },
                     "us-gaap:TemporaryEquityCarryingAmount" : {
+                        "Id" : "95bcef83-3518-4688-9891-2acbc705ec1a",
                         "Name" : "us-gaap:TemporaryEquityCarryingAmount",
-                        "Id" : "7038aaea-9d86-4cc7-9dd1-6004004bd394"
+                        "Order" : 4
                     },
                     "us-gaap:TemporaryEquityValueExcludingAdditionalPaidInCapital" : {
+                        "Id" : "344acb2a-c262-4563-9695-569a14cdf629",
                         "Name" : "us-gaap:TemporaryEquityValueExcludingAdditionalPaidInCapital",
-                        "Id" : "03245243-7c9a-4040-aca5-cf801f0f1a0e"
+                        "Order" : 5
                     },
                     "us-gaap:RedeemableNoncontrollingInterestEquityFairValue" : {
+                        "Id" : "9d43c811-d52f-4dda-90b1-e5646200c082",
                         "Name" : "us-gaap:RedeemableNoncontrollingInterestEquityFairValue",
-                        "Id" : "ba6a7e75-42d4-4984-96b5-6af80f4f68f3"
+                        "Order" : 6
                     },
                     "us-gaap:TemporaryEquityCarryingAmountAttributableToParent" : {
+                        "Id" : "6c0484e8-8580-4138-89b5-5f5c11a3c5f7",
                         "Name" : "us-gaap:TemporaryEquityCarryingAmountAttributableToParent",
-                        "Id" : "88357649-2be2-4112-a366-95b12c76ed65"
+                        "Order" : 7
                     }
-                },
-                "Id" : "0dca4bc2-e289-4c90-8c30-429be9f72ce2"
+                }
+            },
+            "fac:TradingSymbol" : {
+                "Id" : "26492d18-6c8a-4ae9-9830-4599c6966f1b",
+                "Name" : "fac:TradingSymbol",
+                "Label" : "Trading Symbol",
+                "To" : {
+                    "dei:TradingSymbol" : {
+                        "Id" : "f549ebe2-974b-4050-bd78-2dd95d9a24ef",
+                        "Name" : "dei:TradingSymbol",
+                        "Order" : 1
+                    }
+                }
             }
         }
     } ],
