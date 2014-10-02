@@ -10,10 +10,10 @@ declare  variable  $userid  as string?  external;
 api:validate-regexp("userid", $userid,  $user:VALID_USERID);
 
 (: Request processing :)
-variable $self := session:validate($token);
+variable $self := session:ensure-valid($token);
 variable $userid := ($userid, $self)[1];
 
-session:validate($token,
+session:ensure-right($token,
      if ($self eq $userid)
      then "users_remove_picture_self"
      else "users_remove_picture"

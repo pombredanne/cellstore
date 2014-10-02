@@ -40,7 +40,7 @@ declare               variable  $format       as string? external;
 $format := api:preprocess-format($format, $request-uri);  (: backward compatibility :)
 
 (: Request processing :)
-variable $user-id := session:validate($token);
+variable $user-id := session:ensure-valid($token);
 variable $user := user:get-by-id($user-id);
 let $info := recurly-api:list-subscriptions($user)
 return

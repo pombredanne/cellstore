@@ -42,7 +42,7 @@ api:validate-regexp("recurlyToken", $recurlyToken, $recurly-api:VALID-TOKEN);
 $format := api:preprocess-format($format, $request-uri);  (: backward compatibility :)
 
 (: Request processing :)
-variable $user-id := session:validate($token);
+variable $user-id := session:ensure-valid($token);
 variable $user := user:get-by-id($user-id);
 let $info := recurly-api:set-billing-info($user, $recurlyToken)
 return

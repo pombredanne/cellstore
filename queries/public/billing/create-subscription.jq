@@ -33,7 +33,7 @@ api:validate-regexp("plan", $plan, $recurly-api:VALID-PLAN);
 $format := api:preprocess-format($format, $request-uri);  (: backward compatibility :)
 
 (: Request processing :)
-variable $user-id := session:validate($token);
+variable $user-id := session:ensure-valid($token);
 variable $user := user:get-by-id($user-id);
 variable $info := recurly-api:create-subscription($user, $plan, $quantity, $coupon-code);
 user:assign-role($user-id, $plan, current-dateTime(), (), $user-id);

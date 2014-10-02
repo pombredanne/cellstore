@@ -10,7 +10,7 @@ declare  variable  $userid  as string  external;
 api:validate-regexp("userid", $userid, $user:VALID_USERID);
 
 (: Request processing :)
-session:validate($token, "users_suspend");
+session:ensure-right($token, "users_suspend");
 
 user:suspend($userid);
 

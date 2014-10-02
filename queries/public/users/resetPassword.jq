@@ -36,7 +36,7 @@ api:validate-regexp("password", $password, $user:VALID_PASSWORD);
 $format := api:preprocess-format($format, $request-uri); (: backward compatibility :)
 
 (: Request processing :)
-variable $user-id := session:validate($token);
+variable $user-id := session:ensure-valid($token);
 variable $user := try { user:login($email, $password) } catch * { () };
 
 variable $res := ();

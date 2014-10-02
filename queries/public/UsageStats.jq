@@ -40,9 +40,9 @@ let $format as string? := api:preprocess-format($format, $request-uri)
 
 (: Object resolution :)
 return
-if (session:valid($token)) 
+if (session:is-valid($token)) 
 then {
-    variable $user-id := session:validate($token);
+    variable $user-id := session:get($token);
 
     if (user:is-authorized($user-id, "statistics_usage"))
     then {

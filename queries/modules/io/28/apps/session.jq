@@ -135,13 +135,13 @@ as empty-sequence()
     return db:delete($session);
 };
 
-declare function session:validate($token as string)
+declare function session:ensure-valid($token as string)
 as string
 {
     session:get($token) (: validates token :)
 };
 
-declare function session:valid($token as string?)
+declare function session:is-valid($token as string?)
 as boolean
 {
     if (exists($token))
@@ -149,7 +149,7 @@ as boolean
     else false
 };
 
-declare function session:validate($token as string, $right-id as string)
+declare function session:ensure-right($token as string, $right-id as string)
 as string
 {    
     variable $user-id := session:get($token); (: validates token :)
@@ -158,7 +158,7 @@ as string
     else fn:error(xs:QName("session:missing-authorization"), "User does not have required right " || $right-id)
 };
 
-declare function session:valid($token as string?, $right-id as string)
+declare function session:has-right($token as string?, $right-id as string)
 as boolean
 {
     variable $user-id := session:get($token); (: validates token :)
@@ -167,7 +167,7 @@ as boolean
     else false
 };
 
-declare function session:check-access($token as string?, $entities as object*, $right-id as string)
+declare function session:has-access($token as string?, $entities as object*, $right-id as string)
 as integer
 {
     if (session:only-dow30($entities))
@@ -177,8 +177,7 @@ as integer
             if (exists($token))
             then
             {
-              variable $user-id := session:validate($token); (: validates token :)
-              if (user:is-authorized($user-id, $right-id))
+              if (session:has-right($token, $right-id))
               then $session:ACCESS-ALLOWED
               else $session:ACCESS-DENIED
             }
@@ -217,7 +216,7 @@ declare %an:sequential function session:audit-call($token as string?) as empty-s
         KeyAspects : $dist-aspects,
         Aspects : {
             "xbrl:Concept" : "secxbrl:ClientIP",
-            "xbrl:Entity" : if (session:valid($token)) then user:get-by-id(session:validate($token)).email else "Anonymous",
+            "xbrl:Entity" : if (session:is-valid($token)) then user:get-by-id(session:get($token)).email else "Anonymous",
             "xbrl:Period" : string(fn:current-dateTime()),
             "xbrl:Unit" : "xbrl:NonNumeric",
             "secxbrl:Query" : req:path()

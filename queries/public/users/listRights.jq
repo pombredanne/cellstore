@@ -10,7 +10,7 @@ declare               variable  $role         as string  external;
 api:validate-regexp("role", $role, $user:VALID_ROLEID);
 
 (: Request processing :)
-session:validate($token, "roles_list");
+session:ensure-right($token, "roles_list");
 
 variable $results := 
   for $right in collection($user:rights)

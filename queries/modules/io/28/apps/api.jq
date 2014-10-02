@@ -79,7 +79,7 @@ declare %an:sequential function api:check-and-return-results(
     $format as string?
 ) as item*
 {
-    switch(session:check-access($token, $entities, "data_sec"))
+    switch(session:has-access($token, $entities, "data_sec"))
     case $session:ACCESS-ALLOWED return
         $results
     case $session:ACCESS-DENIED return {
@@ -181,5 +181,9 @@ as boolean
 {
   if ($value eq "")
   then true
-  else api:validate-enum($name, lower-case($value), ("true", "false")) eq "true"
+  else 
+  {
+      api:validate-enum($name, lower-case($value), ("true", "false"));
+      boolean($value)
+  }
 };

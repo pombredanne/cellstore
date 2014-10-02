@@ -39,7 +39,7 @@ return switch(true)
         session:error("report does not exist", $report)
     }
     default return
-      switch(session:check-access($token, $entities, "data_sec"))
+      switch(session:has-access($token, $entities, "data_sec"))
       case $session:ACCESS-ALLOWED return {
         let $cached-archives := store:find("reportcache", { _id : { "$in" : [ $archives._id ! ($report || $$)]}})
         let $noncached-archives := seq:value-except($archives._id, $cached-archives._id ! substring-after($$, $report))

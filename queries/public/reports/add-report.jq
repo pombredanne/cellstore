@@ -19,7 +19,7 @@ try {
     let $public-read as boolean := api:preprocess-boolean("public-read", $public-read) (: backward compatibility :)
     let $private as boolean := api:preprocess-boolean("private", $private) (: backward compatibility :)
     
-    let $authenticated-user := user:get-existing-by-id(session:validate($token))
+    let $authenticated-user := user:get-existing-by-id(session:ensure-valid($token))
     let $report as object? :=
         if(exists($body))
         then 
@@ -44,15 +44,15 @@ try {
         
         (: ### AUTHORIZATION :)
         (: user authorized to validate report? :)
-        case ($validation-only and not(session:valid($token, "reports_validate"))) 
+        case ($validation-only and not(session:has-right($token, "reports_validate"))) 
         
         (: user authorized to update report? :)
         case (exists($id) and exists($existing-report) and 
-            (not(session:valid($token, "reports_edit")) or not(reports:has-report-access-permission($existing-report, $authenticated-user.email, "WRITE"))))
+            (not(session:has-right($token, "reports_edit")) or not(reports:has-report-access-permission($existing-report, $authenticated-user.email, "WRITE"))))
         
         (: user authorized to create a report? :)
         case (exists($id) and empty($existing-report) and 
-              not(session:valid($token, "reports_create")))
+              not(session:has-right($token, "reports_create")))
         return {
             response:status-code(403);
             session:error("Forbidden: You are not authorized to access the requested resource", "json")

@@ -36,7 +36,7 @@ api:validate-regexp("lastname", $lastname, $user:VALID_NAME);
 $format := api:preprocess-format($format, $request-uri); (: backward compatibility :)
 
 (: Request processing :)
-variable $user-id := session:validate($token);
+variable $user-id := session:ensure-valid($token);
 
 variable $res := ();
 variable $status := ();

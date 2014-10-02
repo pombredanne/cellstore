@@ -37,7 +37,7 @@ $format := api:preprocess-format($format, $request-uri); (: backward compatibili
 variable $res := ();
 variable $status := ();
 
-variable $user-id := session:validate($token);
+variable $user-id := session:ensure-valid($token);
 
 if (empty($user-id))
 then {

@@ -11,13 +11,13 @@ declare  %rest:case-insensitive %rest:distinct  variable $_id    as string* exte
 
 try{
     (: ### INIT PARAMS :)
-    let $authenticated-user := user:get-existing-by-id(session:validate($token))
+    let $authenticated-user := user:get-existing-by-id(session:ensure-valid($token))
     let $reports as object* := find("reports",{ "_id" :  if(count($_id) gt 1 ) then { "$in" : [ $_id ] } else $_id })
     return 
         switch (true)
         
         (: ### AUTHORIZATION :)
-        case not(session:valid($token, "reports_remove") or ( $reports ! reports:has-report-access-permission($$, $authenticated-user.email, "FULL_CONTROL")) = false) return {
+        case not(session:has-right($token, "reports_remove") or ( $reports ! reports:has-report-access-permission($$, $authenticated-user.email, "FULL_CONTROL")) = false) return {
             response:status-code(403);
             session:error("Forbidden: You are not authorized to access the requested resource", "json")
         }

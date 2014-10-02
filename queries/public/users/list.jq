@@ -6,7 +6,7 @@ import module namespace api = "http://apps.28.io/api";
 declare  variable  $token  as string   external;
 
 (: Request processing :)
-session:validate($token, "users_list");
+session:ensure-right($token, "users_list");
 
 variable $results :=
   for $user in collection($user:collection)

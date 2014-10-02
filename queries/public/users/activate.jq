@@ -10,7 +10,7 @@ declare  variable  $userid  as string  external;
 api:validate-regexp("userid", $userid, $user:VALID_USERID);
 
 (: Request processing :)
-session:validate($token, "users_activate");
+session:ensure-right($token, "users_activate");
 variable $user := user:get-existing-by-id($userid);
 
 if ($user.status eq $user:STATUS_ACTIVE)

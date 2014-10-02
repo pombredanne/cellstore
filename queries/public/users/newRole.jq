@@ -12,7 +12,7 @@ api:validate-regexp("id", $id, $user:VALID_ROLEID);
 api:validate-regexp("name", $name, $user:VALID_ROLENAME);
 
 (: Request processing :)
-session:validate($token, "roles_new");
+session:ensure-right($token, "roles_new");
 
 user:new-role($id, $name);
 

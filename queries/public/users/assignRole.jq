@@ -14,8 +14,8 @@ api:validate-regexp("userid", $userid, $user:VALID_USERID);
 api:validate-regexp("role", $role, $user:VALID_ROLEID);
 
 (: Request processing :)
-session:validate($token, "roles_change_permissions");
-variable $assignedBy := session:validate($token, "users_assign_role");
+session:ensure-right($token, "roles_change_permissions");
+variable $assignedBy := session:ensure-right($token, "users_assign_role");
 
 user:assign-role($userid, $role, $fromDateTime, $toDateTime, $assignedBy);
 

@@ -16,7 +16,7 @@ try {
     let $public-read as boolean := api:preprocess-boolean("public-read", $public-read) (: backward compatibility :)
     let $private as boolean := api:preprocess-boolean("public-read", $private) (: backward compatibility :)
     
-    let $authenticated-user := user:get-existing-by-id(session:validate($token))
+    let $authenticated-user := user:get-existing-by-id(session:ensure-valid($token))
     let $users := for $email in $user return user:get-existing-by-email($email)
     let $query := 
         {|
@@ -51,7 +51,7 @@ try {
         switch (true)
         
         (: ### AUTHORIZATION :)
-        case not(session:valid($token, "reports_get")) return {
+        case not(session:has-right($token, "reports_get")) return {
             response:status-code(403);
             session:error("Forbidden: You are not authorized to access the requested resource", "json")
         }

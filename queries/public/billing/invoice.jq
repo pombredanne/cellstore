@@ -42,7 +42,7 @@ api:validate-regexp("invoiceNumber", $invoiceNumber, $recurly-api:VALID-NUMBER);
 $format := api:preprocess-format($format, $request-uri);  (: backward compatibility :)
 
 (: Request processing :)
-variable $user-id := session:validate($token);
+variable $user-id := session:ensure-valid($token);
 variable $user := user:get-by-id($user-id);
 if ($format = "pdf")
 then
