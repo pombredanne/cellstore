@@ -31,7 +31,7 @@ declare function local:tree($file as element(), $level as integer) as object*
 };
 
 (: Query parameters :)
-declare %rest:case-insensitive variable $output as string? external := "list";
+declare %rest:case-insensitive variable $output as string external := "list";
 
 (: Post-processing :)
 let $output as string? := lower-case($output)

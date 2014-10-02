@@ -17,7 +17,7 @@ declare  (:%rest:env:)                          variable $request-uri   as strin
 declare  %rest:case-insensitive                 variable $format        as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $aid           as string* external;
 declare  %rest:case-insensitive                 variable $report        as string? external;
-declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string+ external := "FY";
 
 session:audit-call($token);
 

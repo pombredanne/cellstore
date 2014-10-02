@@ -10,7 +10,7 @@ import module namespace api = "http://apps.28.io/api";
 declare  %rest:case-insensitive  variable $token         as string? external;
 declare  (:%rest:env:)           variable $request-uri   as string  external := ""; (: wait till next release :)
 declare  %rest:case-insensitive  variable $format        as string? external;
-declare  %rest:case-insensitive  variable $cik           as string? external := "0000104169";
+declare  %rest:case-insensitive  variable $cik           as string  external := "0000104169";
 
 (: Post-processing :)
 let $cik := if (empty(entities:entities(companies:eid($cik))))

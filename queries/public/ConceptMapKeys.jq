@@ -1,7 +1,7 @@
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 
 (: Query parameters :)
-declare %rest:case-insensitive variable $mapName as string? external := "FundamentalAccountingConcepts";
+declare %rest:case-insensitive variable $mapName as string external := "FundamentalAccountingConcepts";
 
 (: Post-processing :)
 variable $report := let $report := reports:reports($mapName)
