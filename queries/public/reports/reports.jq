@@ -3,8 +3,6 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace user = "http://apps.28.io/user";
 import module namespace reports = "http://apps.28.io/reports";
 
-declare namespace api = "http://apps.28.io/api";
-
 (: Query parameters :)
 declare %rest:case-insensitive                variable $token        as string  external;
 declare %rest:case-insensitive %rest:distinct variable $_id          as string* external;
@@ -73,10 +71,5 @@ try {
     {
         response:status-code(401);
         session:error("Unauthorized: Login required", "json")
-    }
-} catch api:missing-parameter {
-    {
-        response:status-code(400);
-        session:error($err:description, "json")
     }
 }
