@@ -8,14 +8,11 @@ import module namespace reports = "http://apps.28.io/reports";
 declare %rest:case-insensitive                variable $token        as string  external;
 declare %rest:case-insensitive %rest:distinct variable $_id          as string* external;
 declare %rest:case-insensitive %rest:distinct variable $user         as string* external;
-declare %rest:case-insensitive                variable $public-read  as string? external := "false"; (: wait till next release :)
-declare %rest:case-insensitive                variable $private      as string? external := "false"; (: wait till next release :)
+declare %rest:case-insensitive                variable $public-read  as boolean external := false;
+declare %rest:case-insensitive                variable $private      as boolean external := false;
 
 try {
     (: ### INIT PARAMS :)
-    let $public-read as boolean := api:preprocess-boolean("public-read", $public-read) (: wait till next release :)
-    let $private as boolean := api:preprocess-boolean("public-read", $private) (: wait till next release :)
-    
     let $authenticated-user := user:get-existing-by-id(session:ensure-valid($token))
     let $users := for $email in $user return user:get-existing-by-email($email)
     let $query := 

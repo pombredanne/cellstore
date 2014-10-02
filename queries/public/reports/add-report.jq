@@ -9,16 +9,12 @@ import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
 (: Query parameters :)
 declare %rest:body-text        variable $body             as string  external;
 declare %rest:case-insensitive variable $token            as string  external;
-declare %rest:case-insensitive variable $validation-only  as string? external := "false"; (: wait till next release :)
-declare %rest:case-insensitive variable $public-read      as string? external := "false"; (: wait till next release :)
-declare %rest:case-insensitive variable $private          as string? external := "false"; (: wait till next release :)
+declare %rest:case-insensitive variable $validation-only  as boolean external := false;
+declare %rest:case-insensitive variable $public-read      as boolean external := false;
+declare %rest:case-insensitive variable $private          as boolean external := false;
 
 try {
     (: ### INIT PARAMS :)
-    let $validation-only as boolean := api:preprocess-boolean("validation-only", $validation-only) (: wait till next release :)
-    let $public-read as boolean := api:preprocess-boolean("public-read", $public-read) (: wait till next release :)
-    let $private as boolean := api:preprocess-boolean("private", $private) (: wait till next release :)
-    
     let $authenticated-user := user:get-existing-by-id(session:ensure-valid($token))
     let $report as object? :=
         if(exists($body))
