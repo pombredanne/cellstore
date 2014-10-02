@@ -24,7 +24,7 @@ declare               variable  $format       as string? external;
 
 (: Post-processing :)
 api:validate-regexp("email", $email, $user:VALID_EMAIL);
-variable $format as string? := api:preprocess-format($format, $request-uri);
+$format := api:preprocess-format($format, $request-uri); (: backward compatibility :)
 
 (: Request processing :)
 variable $user := user:get-by-email($email);

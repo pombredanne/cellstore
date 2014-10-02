@@ -4,7 +4,6 @@ import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($o as object*) as string
@@ -34,7 +33,7 @@ api:validate-regexp("newpassword", $newpassword, $user:VALID_PASSWORD);
 api:validate-regexp("email", $email, $user:VALID_EMAIL);
 api:validate-regexp("password", $password, $user:VALID_PASSWORD);
 
-variable $format as string? := api:preprocess-format($format, $request-uri);
+$format := api:preprocess-format($format, $request-uri); (: backward compatibility :)
 
 (: Request processing :)
 variable $user-id := session:validate($token);

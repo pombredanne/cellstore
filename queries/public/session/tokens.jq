@@ -3,7 +3,6 @@ jsoniq version "1.0";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($o as object*) as string
@@ -32,7 +31,7 @@ declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: back
 declare               variable  $format       as string? external;
 
 (: Post-processing :)
-variable $format as string? := api:preprocess-format($format, $request-uri);
+$format := api:preprocess-format($format, $request-uri); (: backward compatibility :)
 
 (: Request processing :)
 variable $res := ();

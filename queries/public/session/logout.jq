@@ -26,7 +26,7 @@ declare (:%rest:env:) variable  $request-uri  as string  external := ""; (: back
 declare               variable  $format       as string? external;
 
 (: Post-processing :)
-variable $format as string? := api:preprocess-format($format, $request-uri);
+$format := api:preprocess-format($format, $request-uri); (: backward compatibility :)
 
 (: Request processing :)
 session:terminate($token);

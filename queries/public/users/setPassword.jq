@@ -21,7 +21,6 @@ declare function local:to-xml($o as object*) as element()
 };
 
 (: Query parameters :)
-declare               variable  $token        as string  external;
 declare               variable  $resetToken   as string  external;
 declare               variable  $email        as string  external;
 declare               variable  $password     as string  external;
@@ -32,7 +31,7 @@ declare               variable  $format       as string? external;
 api:validate-regexp("resetToken", $resetToken, $session:VALID-TOKEN);
 api:validate-regexp("email", $email, $user:VALID_EMAIL);
 api:validate-regexp("password", $password, $user:VALID_PASSWORD);
-variable $format as string? := api:preprocess-format($format, $request-uri);
+$format := api:preprocess-format($format, $request-uri); (: backward compatibility :)
 
 (: Request processing :)
 variable $res := ();

@@ -32,8 +32,8 @@ declare function local:to-xml($o as object*) as element()
 
 (: Query parameters :)
 declare  %rest:case-insensitive        variable $token         as string? external;
-declare  (:%rest:env("REQUEST_URI"):)  variable $request-uri   as string  external := ""; (: backward compatibility :)
-declare  %rest:case-insensitive variable $format as string? external;
+declare  (:%rest:env:)  variable $request-uri   as string  external := ""; (: backward compatibility :)
+declare  %rest:case-insensitive variable $format external;
 
 (: Post-processing :)
 let $format as string? := api:preprocess-format($format, $request-uri)

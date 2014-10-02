@@ -30,7 +30,7 @@ declare               variable  $format       as string? external;
 (: Post-processing :)
 api:validate-regexp("plan", $plan, $recurly-api:VALID-PLAN);
 api:validate-regexp("recurlyId", $recurlyId, $recurly-api:VALID-UUID);
-variable $format as string? := api:preprocess-format($format, $request-uri);
+$format := api:preprocess-format($format, $request-uri); (: backward compatibility :)
 
 (: Request processing :)
 variable $user-id := session:validate($token);

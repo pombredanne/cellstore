@@ -8,8 +8,8 @@ import module namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
 declare  %rest:case-insensitive        variable $token         as string? external;
-declare  (:%rest:env("REQUEST_URI"):)  variable $request-uri   as string  external := ""; (: backward compatibility :)
-declare  %rest:case-insensitive  variable $format as string? external;
+declare  (:%rest:env:)  variable $request-uri   as string  external := ""; (: backward compatibility :)
+declare  %rest:case-insensitive  variable $format external;
 declare  %rest:case-insensitive  variable $cik    as string? external := "0000104169";
 
 (: Post-processing :)
