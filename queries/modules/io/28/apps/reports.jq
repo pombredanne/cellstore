@@ -27,7 +27,7 @@ declare %private function reports:message(
   $context as string,
   $identifier as string,
   $message as string,
-  $details as string)
+  $details as item*)
 
 as object
 {
@@ -147,7 +147,7 @@ as object*
                     if(count($rules) gt 1)
                     then reports:message($reports:ERROR,
                                          $reports:CONTEXT-RULES,
-                                         ($rules.id),
+                                         ($rules.Id),
                                          "Concept: '" || $concept-name || "' is computable by multiple rules: " 
                                                       || string-join(($rules ! ("'" || $$.Label || "'")), ","),
                                          $rules)
@@ -156,7 +156,7 @@ as object*
                     then ()
                     else reports:message($reports:ERROR,
                                          $reports:CONTEXT-RULES,
-                                         ($rules.id),
+                                         ($rules.Id),
                                          "Concept is not in the hypercubes' value space: '" || $concept-name || "'",
                                          $rules)
                 ),
