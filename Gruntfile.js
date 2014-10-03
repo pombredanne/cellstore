@@ -363,26 +363,37 @@ module.exports = function (grunt) {
             options: {
                 space: '    '
             },
-            all: {
+            ci: {
                 dest: '<%= yeoman.app %>/scripts/constants.js',
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
                     'API_URL': '<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
-                    'RECURLY_KEY': process.env.RECURLY_KEY_DEV
+                    'RECURLY_KEY': '<%= secxbrl.recurly.dev.publickey %>'
                 }
             },
-            custom: {
+            dev: {
                 dest: '<%= yeoman.app %>/scripts/constants.js',
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
                     'API_URL': getCustomAPIUrl(),
                     'DEBUG': true,
-                    'RECURLY_KEY': process.env.RECURLY_KEY_DEV
+                    'RECURLY_KEY': '<%= secxbrl.recurly.dev.publickey %>'
                 }
-            }
+            },
+            prod: {
+                dest: '<%= yeoman.app %>/scripts/constants.js',
+                name: 'constants',
+                wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
+                constants: {
+                    'API_URL': '<%= secxbrl.28.api.url %>',
+                    'DEBUG': true,
+                    'RECURLY_KEY': '<%= secxbrl.recurly.prod.publickey %>'
+                }
+            },
+
         },
         netdna : {
             options: {

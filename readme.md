@@ -159,7 +159,15 @@ This is the expected structure of the file:
          "prod": {
              "zone": "<zone>"
          }
-     }
+     },
+      "recurly": {
+          "dev": {
+              "publickey": "<public dev recurly key>"
+          },
+          "prod": {
+              "publickey": "<public prod recurly key>"
+          }
+      }
 }
 ```
 
