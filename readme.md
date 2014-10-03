@@ -159,7 +159,16 @@ This is the expected structure of the file:
          "prod": {
              "zone": "<zone>"
          }
-     }
+     },
+      "sendmail":{
+          "host": "smtp.gmail.com:587/tls/novalidate-cert",
+          "user": "admin@example.com",
+          "password": "<password>",
+          "sender": {
+              "email": "hello@example.com",
+              "name": "SecXBRL.info"
+          }
+      }
 }
 ```
 

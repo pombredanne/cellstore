@@ -157,7 +157,7 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'reports',
-            'credentials:' + environment,
+            'mustache:' + environment,
             'xqlint',
             'jsonlint',
             'jshint',
@@ -257,7 +257,7 @@ module.exports = function(grunt) {
             grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant' ]);
             grunt.task.run([
                 'reports',
-                'credentials:' + environment,
+                'mustache:' + environment,
                 '28:setup',
                 '28:deploy',
                 'deployed-message:backend'
@@ -266,7 +266,7 @@ module.exports = function(grunt) {
             if(!isTravisAndMaster() && isTravis()) {
                 grunt.task.run([
                     'reports',
-                    'credentials:' + environment,
+                    'mustache:' + environment,
                     '28:setup',
                     '28:deploy',
                     'deployed-message:backend'
@@ -276,7 +276,7 @@ module.exports = function(grunt) {
             if(isTravisAndMaster()) {
                 grunt.task.run([
                     'reports',
-                    'credentials:' + environment,
+                    'mustache:' + environment,
                     '28:deployMaster',
                     'deployed-message:backend'
                 ]);
