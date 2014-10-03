@@ -162,13 +162,10 @@ This is the expected structure of the file:
      },
       "recurly": {
           "dev": {
-              "publickey": "<public recurly key>"
-          },
-          "ci": {
-              "publickey": "<public recurly key>"
+              "publickey": "<public dev recurly key>"
           },
           "prod": {
-              "publickey": "<public recurly key>"
+              "publickey": "<public prod recurly key>"
           }
       }
 }

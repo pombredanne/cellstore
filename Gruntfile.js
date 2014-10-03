@@ -370,7 +370,7 @@ module.exports = function (grunt) {
                 constants: {
                     'API_URL': '<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
-                    'RECURLY_KEY': '<%= secxbrl.recurly.ci.publickey %>'
+                    'RECURLY_KEY': '<%= secxbrl.recurly.dev.publickey %>'
                 }
             },
             dev: {
