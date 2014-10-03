@@ -5,8 +5,8 @@ import module namespace f = "http://expath.org/ns/file";
 
 declare namespace err = "http://www.w3.org/2005/xqt-errors";
 
-let $mappingFile as xs:string := "2014_07/fac-MAP-to-USGAAP2014-definition.xml"
-let $labelsFile as xs:string := "2014_07/fac-label.xml"
+let $mappingFile as xs:string := "2014_10/fac-MAP-to-US-GAAP-2014-A-definition.xml"
+let $labelsFile as xs:string := "2014_10/fac-label.xml"
 let $mapping := parse-xml(f:read-text($mappingFile))
 let $labels := parse-xml(f:read-text($labelsFile))
 return 
@@ -25,7 +25,12 @@ return
             order by $fromid
             return
                 let $from := replace($fromid, "_", ":")
-                let $labelid := $fromid || "_lbl"
+                let $labelid := 
+                  switch (true())
+                  (: in fac-labels.xml there is a naming convention abnormality: fac_RevenuesExcludingInterestDividends_lbl 
+                     for fac_RevenuesExcludingInterestAndDividends (missing the "And" in the label identifier) :)
+                  case $fromid eq "fac_RevenuesExcludingInterestAndDividends" return "fac_RevenuesExcludingInterestDividends_lbl"
+                  default return $fromid || "_lbl"
                 let $label := $labels/*:linkbase/*:labelLink/*:label[@*:label eq $labelid and @*:role eq "http://www.xbrl.org/2003/role/label"]/text()
                 let $to := 
                     for $arc in $arcs
@@ -49,7 +54,14 @@ return
                                     "Label": $label,
                                     "To": {|
                                         for $concept in distinct-values($to("Name"))
-                                        let $order as item() := distinct-values($to[.("Name") eq $concept]("Order"))
+                                        let $order as item() := 
+                                          let $order := distinct-values($to[.("Name") eq $concept]("Order"))
+                                          return
+                                            (: fac_IncomeLossFromEquityMethodInvestments is mapped twice to the same 
+                                               concept us-gaap_IncomeLossFromEquityMethodInvestments (order 61 and 62) :)
+                                            if($fromid eq "fac_IncomeLossFromEquityMethodInvestments")
+                                            then $order[1]
+                                            else $order
                                         return
                                             {
                                                 $concept : {
