@@ -168,6 +168,15 @@ This is the expected structure of the file:
               "publickey": "<public prod recurly key>"
           }
       }
+      "sendmail":{
+          "host": "smtp.gmail.com:587/tls/novalidate-cert",
+          "user": "admin@example.com",
+          "password": "<password>",
+          "sender": {
+              "email": "hello@example.com",
+              "name": "SecXBRL.info"
+          }
+      }
 }
 ```
 

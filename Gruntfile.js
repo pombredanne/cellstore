@@ -63,7 +63,8 @@ module.exports = function (grunt) {
         yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
     } catch (e) {}
 
-    grunt.registerTask('credentials', function(target){
+    grunt.registerTask('render_template_jq_files', function(target){
+        grunt.task.run(['mustache_render:all']);
         grunt.task.run(['mustache_render:' + target]);
     });
 
@@ -141,6 +142,15 @@ module.exports = function (grunt) {
         },
         'mustache_render': {
             options: {},
+            all: {
+                files: [
+                    {
+                        data: '<%= secxbrl.sendmail %>',
+                        template: 'tasks/sendmail.mustache',
+                        dest: '<%= yeoman.queries %>/modules/io/28/apps/sendmail.jq'
+                    }
+                ]
+            },
             prod : {
                 files: [
                     {
