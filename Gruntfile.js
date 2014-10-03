@@ -63,7 +63,7 @@ module.exports = function (grunt) {
         yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
     } catch (e) {}
 
-    grunt.registerTask('mustache', function(target){
+    grunt.registerTask('render_template_jq_files', function(target){
         grunt.task.run(['mustache_render:all']);
         grunt.task.run(['mustache_render:' + target]);
     });
