@@ -160,6 +160,14 @@ This is the expected structure of the file:
              "zone": "<zone>"
          }
      },
+      "recurly": {
+          "dev": {
+              "publickey": "<public dev recurly key>"
+          },
+          "prod": {
+              "publickey": "<public prod recurly key>"
+          }
+      }
       "sendmail":{
           "host": "smtp.gmail.com:587/tls/novalidate-cert",
           "user": "admin@example.com",
