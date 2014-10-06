@@ -63,8 +63,7 @@ module.exports = function (grunt) {
         yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
     } catch (e) {}
 
-    grunt.registerTask('render_template_jq_files', function(target){
-        grunt.task.run(['mustache_render:all']);
+    grunt.registerTask('render_credentials_jq', function(target){
         grunt.task.run(['mustache_render:' + target]);
     });
 
@@ -142,39 +141,42 @@ module.exports = function (grunt) {
         },
         'mustache_render': {
             options: {},
-            all: {
-                files: [
-                    {
-                        data: '<%= secxbrl.sendmail %>',
-                        template: 'tasks/sendmail.mustache',
-                        dest: '<%= yeoman.queries %>/modules/io/28/apps/sendmail.jq'
-                    }
-                ]
-            },
             prod : {
                 files: [
                     {
-                        data: '<%= secxbrl.secxbrlInfo.prod %>',
+                        data: {
+                            secxbrl: '<%= secxbrl.secxbrlInfo.prod %>',
+                            sendmail: '<%= secxbrl.sendmail %>',
+                            recurly: '<%= secxbrl.recurly.prod %>'
+                        },
                         template: 'tasks/credentials.mustache',
-                        dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+                        dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
                     }
                 ]
             },
             dev : {
                 files: [
                     {
-                        data: '<%= secxbrl.secxbrlInfo.dev %>',
+                        data: {
+                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            sendmail: '<%= secxbrl.sendmail %>',
+                            recurly: '<%= secxbrl.recurly.dev %>'
+                        },
                         template: 'tasks/credentials.mustache',
-                        dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+                        dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
                     }
                 ]
             },
             ci : {
                 files: [
                     {
-                        data: '<%= secxbrl.secxbrlInfo.dev %>',
+                        data: {
+                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            sendmail: '<%= secxbrl.sendmail %>',
+                            recurly: '<%= secxbrl.recurly.dev %>'
+                        },
                         template: 'tasks/credentials.mustache',
-                        dest: '<%= yeoman.queries %>/modules/info/secxbrl/modules/credentials.jq'
+                        dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
                     }
                 ]
             }

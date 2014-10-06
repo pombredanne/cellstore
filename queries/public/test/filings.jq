@@ -1,7 +1,7 @@
 import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace credentials = "http://secxbrl.info/modules/credentials";
+import module namespace credentials = "http://apps.28.io/credentials";
 
 declare variable $root-url := "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public";
 

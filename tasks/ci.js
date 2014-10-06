@@ -157,7 +157,7 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'reports',
-            'render_template_jq_files:' + environment,
+            'render_credentials_jq:' + environment,
             'xqlint',
             'jsonlint',
             'jshint',
@@ -257,7 +257,7 @@ module.exports = function(grunt) {
             grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant:' + environment ]);
             grunt.task.run([
                 'reports',
-                'render_template_jq_files:' + environment,
+                'render_credentials_jq:' + environment,
                 '28:setup',
                 '28:deploy',
                 'deployed-message:backend'
@@ -266,7 +266,7 @@ module.exports = function(grunt) {
             if(!isTravisAndMaster() && isTravis()) {
                 grunt.task.run([
                     'reports',
-                    'render_template_jq_files:' + environment,
+                    'render_credentials_jq:' + environment,
                     '28:setup',
                     '28:deploy',
                     'deployed-message:backend'
@@ -276,7 +276,7 @@ module.exports = function(grunt) {
             if(isTravisAndMaster()) {
                 grunt.task.run([
                     'reports',
-                    'render_template_jq_files:' + environment,
+                    'render_credentials_jq:' + environment,
                     '28:deployMaster',
                     'deployed-message:backend'
                 ]);

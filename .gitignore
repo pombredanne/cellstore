@@ -15,7 +15,6 @@ app/styles/*.css
 grunt-aws.json
 .project
 queries/private/UpdateReportSchema.jq
-queries/modules/info/secxbrl/modules/credentials.jq
-queries/modules/io/28/apps/sendmail.jq
+queries/modules/io/28/apps/credentials.jq
 config.json
 .c9
