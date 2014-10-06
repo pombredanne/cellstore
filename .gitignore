@@ -16,5 +16,6 @@ grunt-aws.json
 .project
 queries/private/UpdateReportSchema.jq
 queries/modules/info/secxbrl/modules/credentials.jq
+queries/modules/io/28/apps/sendmail.jq
 config.json
 .c9

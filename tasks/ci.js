@@ -134,7 +134,7 @@ module.exports = function(grunt) {
         grunt.task.run([
             'config:' + environment,
             'clean:server',
-            'ngconstant',
+            'ngconstant:' + environment,
             'run-message',
             'swagger-js-codegen',
             'recess',
@@ -157,7 +157,7 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'reports',
-            'credentials:' + environment,
+            'render_template_jq_files:' + environment,
             'xqlint',
             'jsonlint',
             'jshint',
@@ -165,7 +165,7 @@ module.exports = function(grunt) {
             'nggettext_check',
             'nggettext_compile',
             'clean:dist',
-            'ngconstant',
+            'ngconstant:' + environment,
             'swagger-js-codegen:',
             'useminPrepare',
             'concurrent:dist',
@@ -214,7 +214,7 @@ module.exports = function(grunt) {
             grunt.task.run(['28:run']);
         } else if (target === 'teardown' && environment !== 'prod') {
             if(!isTravis()) {
-                grunt.task.run(['ngconstant']);
+                grunt.task.run(['ngconstant:' + environment]);
             }
             // double check that teardown is not run for prod
             if(!isTravisAndMaster()) {
@@ -237,7 +237,7 @@ module.exports = function(grunt) {
         }
 
         if(environment === 'dev' ) {
-            grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant' ]);
+            grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant:' + environment ]);
             grunt.task.run([
                 '28:download'
             ]);
@@ -254,10 +254,10 @@ module.exports = function(grunt) {
         }
 
         if(environment === 'dev' ) {
-            grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant' ]);
+            grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant:' + environment ]);
             grunt.task.run([
                 'reports',
-                'credentials:' + environment,
+                'render_template_jq_files:' + environment,
                 '28:setup',
                 '28:deploy',
                 'deployed-message:backend'
@@ -266,7 +266,7 @@ module.exports = function(grunt) {
             if(!isTravisAndMaster() && isTravis()) {
                 grunt.task.run([
                     'reports',
-                    'credentials:' + environment,
+                    'render_template_jq_files:' + environment,
                     '28:setup',
                     '28:deploy',
                     'deployed-message:backend'
@@ -276,7 +276,7 @@ module.exports = function(grunt) {
             if(isTravisAndMaster()) {
                 grunt.task.run([
                     'reports',
-                    'credentials:' + environment,
+                    'render_template_jq_files:' + environment,
                     '28:deployMaster',
                     'deployed-message:backend'
                 ]);
