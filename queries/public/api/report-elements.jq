@@ -82,8 +82,8 @@ declare function local:concepts-for-archives($aids as string*, $projection as ob
 
 declare function local:concepts-for-archives($aids as string*, $names as string*, $map as object?) as object*
 {
-    let $conn as object :=   
-      let $credentials as object := credentials:credentials("MongoDB", "xbrl")
+    let $conn as anyURI :=   
+      let $credentials as object? := credentials:credentials("MongoDB", "xbrl")
       return
         try {
             mongo:connect($credentials)
