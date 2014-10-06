@@ -80,33 +80,32 @@ declare function local:concepts-for-archives($aids as string*, $projection as ob
         {})
 };
 
-declare function local:concepts-for-archives($aids as string*, $names as string*, $map as string?) as object*
+declare function local:concepts-for-archives($aids as string*, $names as string*, $map as object?) as object*
 {
-    let $conn :=   
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
+    let $conn as object :=   
+      let $credentials as object := credentials:credentials("MongoDB", "xbrl")
       return
         try {
             mongo:connect($credentials)
         } catch mongo:* {
             error(QName("concepts:CONNECTION-FAILED"), $err:description)
         }
-    let $map := if (exists($map)) then concept-maps:concept-maps($map) else ()
-    
+
     let $all-concepts-computable-by-maps as string* := keys($map.Trees)
 
     let $concepts-computable-by-maps as object* := 
         for $c in $names[$$ = $all-concepts-computable-by-maps] 
         return $map.Trees.$c
     
-    let $mapped-names := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
+    let $mapped-names as string* := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
         
     let $concepts-not-computable-by-maps as string* := seq:value-except($names, $mapped-names)
-    let $results-not-computed-by-maps := mongo:find($conn, "concepts", 
+    let $results-not-computed-by-maps as object* := mongo:find($conn, "concepts", 
         {
             "Name" : { "$in" : [ $concepts-not-computable-by-maps ] },
             "Archive": { "$in" : [ $aids ] }
         })
-    let $results-computed-by-maps := 
+    let $results-computed-by-maps as object* := 
         for $c in mongo:find($conn, "concepts", 
             {
                 "Name" : { "$in" : [ $mapped-names ] },
@@ -200,10 +199,10 @@ let $entities as object* :=
     where exists($not-found)
     return entities:entities($not-found))
 let $onlyNames   := let $o := request:param-values("onlyNames")[1] return if (exists($o)) then ($o cast as boolean) else false
-let $map as item* :=
+let $map as object? :=
     if(exists($report))
     then reports:concept-map($report)
-    else $map
+    else concept-maps:concept-maps($map)
 
 let $concepts := if (exists($names))
                   then local:concepts-for-archives($archives._id, $names, $map)
