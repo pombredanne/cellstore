@@ -61,27 +61,13 @@ declare function local:to-xml($concepts as item*, $onlyNames as boolean) as elem
         }</ReportElement>
 };
 
-declare function local:concepts-for-archives($aids as string*, $projection as object) as object*
+declare function local:concepts-for-archives(
+    $aids as string*,
+    $names as string*,
+    $map as object?,
+    $options as object?) as object*
 {
-    let $conn :=   
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return
-        try {
-            mongo:connect($credentials)
-        } catch mongo:* {
-            error(QName("concepts:CONNECTION-FAILED"), $err:description)
-        }
-    return
-        mongo:find($conn, "concepts", 
-        {
-            "Archive": { "$in" : [ $aids ] }
-        },
-        $projection,
-        {})
-};
-
-declare function local:concepts-for-archives($aids as string*, $names as string*, $map as object?) as object*
-{
+    let $projection as object := if($options.OnlyNames eq true) then { Name: 1 } else {}
     let $conn as anyURI :=   
       let $credentials as object? := credentials:credentials("MongoDB", "xbrl")
       return
@@ -99,33 +85,50 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
                 let $keys as string* := keys($map.Trees)
                 for $concept as string in $names[$$ = $keys]
                 return $map.Trees.$concept
-    
     let $mapped-names as string* := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
-        
     let $concepts-not-computable-by-maps as string* := seq:value-except($names, $mapped-names)
+
+    let $all-results as object* := mongo:find($conn, "concepts", 
+        {
+            "Archive": { "$in" : [ $aids ] }
+        },
+        $projection,
+        {})
     let $results-not-computed-by-maps as object* := mongo:find($conn, "concepts", 
         {
             "Name" : { "$in" : [ $concepts-not-computable-by-maps ] },
             "Archive": { "$in" : [ $aids ] }
-        })
+        },
+        $projection,
+        {})
     let $results-computed-by-maps as object* := 
-        for $c in mongo:find($conn, "concepts", 
+        let $all-results as object* := mongo:find($conn, "concepts", 
             {
                 "Name" : { "$in" : [ $mapped-names ] },
                 "Archive": { "$in" : [ $aids ] }
-            })
-        group by $c.Component
-        let $c := $c[1]
+            },
+            $projection,
+            {})
+        for $concept as object in $concepts-computable-by-maps
+        for $result as object in
+            for $candidate-concept in (keys($concept.To), $concept[].Name)
+            let $facts := $all-results[$$.Name = $candidate-concept]
+            where exists($facts)
+            count $c
+            where $c eq 1
+            return $facts
         let $map-concept := (for $candidate in $concepts-computable-by-maps
-                            where $c.Name = (keys($candidate.To), $candidate.To[].Name)
+                            where $result.Name = (keys($candidate.To), $candidate.To[].Name)
                             return $candidate)[1]
         return
-            copy $n := $c
+            copy $n := $result
             modify (
                 replace value of json $n.Name with $map-concept.Name,
-                insert json  { Origin : $c.Name } into $n)
+                insert json  { Origin : $result.Name } into $n)
             return $n
-    return ($results-not-computed-by-maps, $results-computed-by-maps)
+    return if(empty($map) and empty($names))
+           then $all-results
+           else ($results-not-computed-by-maps, $results-computed-by-maps)
 };
 
 declare function local:concepts-for-archives-and-labels($aids as string*, $labels as string) as object*
@@ -207,13 +210,10 @@ let $map as object? :=
     then reports:concept-map($report)
     else concept-maps:concept-maps($map)
 
-let $concepts := if (exists($names))
-                  then local:concepts-for-archives($archives._id, $names, $map)
-                  else if (exists($labels))
-                  then local:concepts-for-archives-and-labels($archives._id, $labels[1])
-                  else if($onlyNames)
-                  then local:concepts-for-archives($archives._id, { Name: 1 })
-                  else local:concepts-for-archives($archives._id, {})
+let $concepts := if (exists($labels))
+                 then local:concepts-for-archives-and-labels($archives._id, $labels[1])
+                 else local:concepts-for-archives($archives._id, $names, $map, { OnlyNames: $onlyNames })
+
 let $result := {
     ReportElements : [
         if ($onlyNames) 
