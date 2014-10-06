@@ -91,11 +91,14 @@ declare function local:concepts-for-archives($aids as string*, $names as string*
             error(QName("concepts:CONNECTION-FAILED"), $err:description)
         }
 
-    let $all-concepts-computable-by-maps as string* := keys($map.Trees)
-
     let $concepts-computable-by-maps as object* := 
-        for $c in $names[$$ = $all-concepts-computable-by-maps] 
-        return $map.Trees.$c
+        switch(true)
+            case not exists($map) return ()
+            case not exists($names) return values($map.Trees)
+            default return
+                let $keys as string* := keys($map.Trees)
+                for $concept as string in $names[$$ = $keys]
+                return $map.Trees.$concept
     
     let $mapped-names as string* := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
         
