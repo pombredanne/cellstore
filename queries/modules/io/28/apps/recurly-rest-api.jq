@@ -714,7 +714,7 @@ as xs:string
 declare %private %an:sequential function recurly-api:subdomain()
 as xs:string 
 {
-  "28msec-dev"
+  $credentials:recurly-subdomain
 };
 
 declare %private function recurly-api:billing-account($account as object)
