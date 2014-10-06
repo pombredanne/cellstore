@@ -51,8 +51,8 @@ local:check({
     all: local:test-concepts(3, "&cik=4962&name=us-gaap:Assets"),
     onlyNames: local:test-concepts(16143, "&tag=DOW30&fiscalYear=2012&fiscalPeriod=FY&onlyNames=true"),
     disclosures: local:test-concepts(1855, "&ticker=ko&fiscalYear=2012&fiscalPeriod=FY&report=Disclosure&concept=disc:ConsolidationVariableInterestEntityPolicy"),
-    reportWithNoFilter: local:test-200("report=Disclosures"),
-    reportWithNoFilter2: local:test-200("map=Disclosures"),
+    reportWithNoFilter: local:test-200("&report=Disclosures"),
+    reportWithNoFilter2: local:test-200("&map=Disclosures"),
     disclosures2: local:test-concepts(
         1855,
         "&ticker=ko&fiscalYear=2012&fiscalPeriod=FY&report=Disclosure&concept=disc:ConsolidationVariableInterestEntityPolicy",
