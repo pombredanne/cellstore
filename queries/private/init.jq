@@ -1,6 +1,6 @@
 import module namespace user = "http://apps.28.io/user";
 import module namespace session = "http://apps.28.io/session";
-import module namespace credentials = "http://secxbrl.info/modules/credentials";
+import module namespace credentials = "http://apps.28.io/credentials";
 
 if (is-available-collection($user:collection))
 then ();
