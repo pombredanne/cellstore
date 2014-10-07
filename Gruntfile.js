@@ -98,7 +98,7 @@ module.exports = function (grunt) {
         },
         'swagger-js-codegen': {
             options: {
-                dest: '<%= yeoman.app %>/scripts/swagger',
+                dest: '<%= yeoman.app %>/modules',
                 apis: [
                     {
                         swagger: 'swagger/queries.json',
@@ -376,7 +376,7 @@ module.exports = function (grunt) {
                 space: '    '
             },
             ci: {
-                dest: '<%= yeoman.app %>/scripts/constants.js',
+                dest: '<%= yeoman.app %>/constants.js',
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
@@ -439,7 +439,7 @@ module.exports = function (grunt) {
         'nggettext_compile': {
             all: {
                 files: {
-                    '<%= yeoman.app %>/scripts/modules/translations.js': ['po/*.po']
+                    '<%= yeoman.app %>/modules/translations.js': ['po/*.po']
                 }
             }
         },
