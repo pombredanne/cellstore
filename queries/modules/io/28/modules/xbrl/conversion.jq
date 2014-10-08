@@ -93,7 +93,6 @@ declare function conversion:facts-to-xml(
         <Fact>{
             <Aspects>{
                 for $aspect in keys($aspects)
-                let $aspect-value := $aspects.$aspect
                 return
                     <Aspect>
                         <Name>{$aspect}</Name>
