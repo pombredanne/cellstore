@@ -25,7 +25,7 @@ declare %rest:case-insensitive variable  $token        as string            exte
 declare %rest:case-insensitive variable  $plan         as string            external;
 declare %rest:case-insensitive variable  $quantity     as positiveInteger   external := 1;
 declare %rest:case-insensitive variable  $coupon-code  as string?           external;
-declare (:%rest:env:)          variable  $request-uri  as string            external := ""; (: wait till next release :)
+declare %rest:env              variable  $request-uri  as string            external;
 declare %rest:case-insensitive variable  $format       as string?           external;
 
 (: Post-processing :)

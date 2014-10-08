@@ -18,7 +18,7 @@ declare %an:sequential function local:filingPeriodInfo($archives as object*) as 
 
 (: Query parameters :)
 declare  %rest:case-insensitive  variable $token        as string? external;
-declare  (:%rest:env:)           variable $request-uri  as string  external := ""; (: wait till next release :)
+declare  %rest:env               variable $request-uri  as string  external;
 declare  %rest:case-insensitive  variable $format       as string? external;
 declare  %rest:case-insensitive  variable $cik          as string  external := "0000354950";
 

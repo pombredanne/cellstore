@@ -150,7 +150,7 @@ declare function local:concepts-for-archives-and-labels($aids as string*, $label
 
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $token         as string? external;
-declare  (:%rest:env:)                          variable $request-uri   as string  external := ""; (: wait till next release :)
+declare  %rest:env                              variable $request-uri   as string  external;
 declare  %rest:case-insensitive                 variable $format        as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $tag           as string* external;

@@ -43,7 +43,7 @@ declare function local:to-csv($c as object) as string
 
 (: Query parameters :)
 declare  %rest:case-insensitive  variable $token        as string? external;
-declare  (:%rest:env:)           variable $request-uri  as string  external := ""; (: wait till next release :)
+declare  %rest:env               variable $request-uri  as string  external;
 declare  %rest:case-insensitive  variable $format       as string? external;
 declare  %rest:case-insensitive  variable $map          as string? external;
 declare  %rest:case-insensitive  variable $name         as string? external;
