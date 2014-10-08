@@ -26,7 +26,7 @@ At the bottom, we explain how to do that in detail.
 Deploy backend to secxbrl-myfeature.28.io (will delete and create project secxbrl-myfeature) and run against it:
 
 ```bash
-grunt backend:dev --build-id=myfeature
+grunt backend --build-id=myfeature
 # run against deployed backend:
 grunt server --build-id=myfeature
 ```
@@ -35,7 +35,7 @@ Now, start developing the backend online on http://hq.28.io . Once, you are done
 you can download the changes made (from secxbrl-myfeature.28.io):
 
 ```bash
-grunt download:dev --build-id=myfeature
+grunt download --build-id=myfeature
 ```
 
 ### Frontend Development
@@ -140,6 +140,18 @@ This is the expected structure of the file:
             }
         ]
     },
+     "secxbrlInfo": {
+         "dev" :
+             {
+                 "adminPassword": "<dev admin user password>",
+                 "supportPassword": "<dev support user password>"
+             },
+         "prod" :
+             {
+                 "adminPassword": "<prod admin user password>",
+                 "supportPassword": "<prod support user password>"
+             }
+     },
      "netdna": {
          "companyAlias": "<alias>",
          "consumerKey": "<Consumer Key>",
@@ -147,7 +159,24 @@ This is the expected structure of the file:
          "prod": {
              "zone": "<zone>"
          }
-     }
+     },
+      "recurly": {
+          "dev": {
+              "publickey": "<public dev recurly key>"
+          },
+          "prod": {
+              "publickey": "<public prod recurly key>"
+          }
+      }
+      "sendmail":{
+          "host": "smtp.gmail.com:587/tls/novalidate-cert",
+          "user": "admin@example.com",
+          "password": "<password>",
+          "sender": {
+              "email": "hello@example.com",
+              "name": "SecXBRL.info"
+          }
+      }
 }
 ```
 
