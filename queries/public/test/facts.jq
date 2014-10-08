@@ -27,8 +27,23 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
+declare %an:nondeterministic function local:test-labels() as item
+{
+    let $res as object := http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facts.jq?_method=POST&concept=fac:Assets&concept=us-gaap:CashAndCashEquivalentsAtCarryingValue&report=FundamentalAccountingConcepts&format=csv&ticker=ko&fiscalYear=2013&fiscalPeriod=Q3&labels=true")
+    let $actual := $res.body.content
+    let $expectedLines := (
+        "Archive,Concept,Entity,Period,Fiscal Period,Fiscal Year,Accepted,Legal Entity,Value,Decimals,EntityRegistrantName,Unit",
+        "0000021344-13-000050,\"Cash and Cash Equivalents, at Carrying Value\",COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,11118000000,-6,COCA COLA CO,iso4217:USD",
+        "0000021344-13-000050,Assets,COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,89432000000,-6,COCA COLA CO,iso4217:USD"
+    )
+    return if($res.status eq 200 and (every $line in $expectedLines satisfies contains($actual,$line))) then true else {
+        unexpectedResponse: $res
+    }
+};
+
 local:check({
     cocacola: local:test-facttable(468, "&ticker=ko"),
+    cocacolaCSVLabels: local:test-labels(),
     tickerconcept: local:test-facttable(1, "&ticker=ko&concept=us-gaap:Assets"),
     tickerfyfprole: local:test-facttable(1, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&concept=us-gaap:Assets"),
     tagconcept: local:test-facttable(30, "&tag=DOW30&concept=us-gaap:Assets"),
