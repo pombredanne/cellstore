@@ -326,16 +326,16 @@ declare function concepts:labels(
   let $normalized-language := concepts:normalize-language($language)
   let $concept-labels-groups-for-role := ((
       $concepts[
-          $$.($concepts:NAME)    = $concept-names and
+          $$.$concepts:NAME    = $concept-names and
           (: concepts can be defined within an archive or outside of an archive - e.g. in a taxonomy :)
-          ($$.($concepts:ARCHIVE) = $archives or empty($$.($concepts:ARCHIVE)) ) and
-          $component-roles = ($concepts:ANY_COMPONENT_LINK_ROLE, $$.($concepts:ROLE))]
+          ($$.$concepts:ARCHIVE = $archives or empty($$.$concepts:ARCHIVE) ) and
+          $component-roles = ($concepts:ANY_COMPONENT_LINK_ROLE, $$.$concepts:ROLE)]
       )[1]).$concepts:LABELS.$label-role
   for $concept-labels-group in $concept-labels-groups-for-role
-  let $perfect-match := $concept-labels-group($normalized-language) 
+  let $perfect-match := $concept-labels-group.$normalized-language
   return 
     if ($perfect-match)
-    then $concept-labels-group($normalized-language)
+    then $concept-labels-group.$normalized-language
     else concepts:approximated-labels-match($concept-labels-group, $normalized-language, $options)
 };
 
