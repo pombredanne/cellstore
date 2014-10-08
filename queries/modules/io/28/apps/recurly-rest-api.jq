@@ -7,6 +7,7 @@ import module namespace random = "http://zorba.io/modules/random";
 import module namespace hmac = "http://zorba.io/modules/hmac";
 import module namespace functx = "http://www.functx.com";
 import module namespace string = "http://zorba.io/modules/string";
+import module namespace credentials = "http://apps.28.io/credentials";
 
 declare namespace jerr = "http://jsoniq.org/errors";
 declare variable $recurly-api:VALID-TOKEN := "[A-Za-z0-9_\\.\\-]+";
@@ -50,7 +51,7 @@ as object()
   |}
   else if ($response("status") eq 404)
   then $update-info
-  else fn:error(xs:QName("recurly-api:error"), "Cannot retrieve billing information")
+  else fn:error(xs:QName("recurly-api:error"), "Cannot retrieve billing information", $response)
 };
 
 (:
@@ -95,7 +96,7 @@ as object()
     { "billingData": recurly-api:object-result($response, ("first_six")) },
     $update-info
   |}
-  else fn:error(xs:QName("recurly-api:error"), "Cannot update billing information")
+  else fn:error(xs:QName("recurly-api:error"), "Cannot update billing information", $response)
 };
 
 (:
@@ -148,7 +149,7 @@ as object()
 
   if ($response("status") = (200, 201))
   then recurly-api:object-result($response, ("first_six"))
-  else fn:error(xs:QName("recurly-api:error"), "Cannot update billing information")
+  else fn:error(xs:QName("recurly-api:error"), "Cannot update billing information", $response)
 };
 
 (:
@@ -203,7 +204,7 @@ as xs:string
   } 
   else
   { 
-    fn:error(xs:QName("recurly-api:error"), "Cannot create recurly account");
+    fn:error(xs:QName("recurly-api:error"), "Cannot create recurly account", $response);
   }  
 };        
 
@@ -248,7 +249,7 @@ as empty-sequence()
   
   if ($response("status") eq 200)
   then ()
-  else fn:error(xs:QName("recurly-api:error"), "Cannot update recurly account")
+  else fn:error(xs:QName("recurly-api:error"), "Cannot update recurly account", $response)
 };
 
 declare %an:sequential function recurly-api:list-subscriptions($account as object)
@@ -279,7 +280,7 @@ as array()
       return $subscription
     ]
   else
-    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve subscription list")
+    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve subscription list", $response)
 };
 
 declare %an:sequential function recurly-api:create-subscription($account as object, 
@@ -339,7 +340,7 @@ as object()
   
   if ($response("status") eq 201)
   then recurly-api:object-result($response, ("a"))    
-  else fn:error(xs:QName("recurly-api:error"), "Cannot create recurly subscription")
+  else fn:error(xs:QName("recurly-api:error"), "Cannot create recurly subscription", $response)
 };
 
 declare %an:sequential function recurly-api:get-subscription($account as object, 
@@ -378,7 +379,7 @@ as object()
   then
     fn:error(xs:QName("recurly-api:error"), "Subscription not found")
   else
-    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve subscription")
+    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve subscription", $response)
 };
 
 declare %an:sequential function recurly-api:update-subscription($account as object, 
@@ -426,11 +427,11 @@ as object()
   else if ($response("status") eq 422)
   then
   {
-    fn:error(xs:QName("recurly-api:error"), "Cannot update recurly subscription"); 
+    fn:error(xs:QName("recurly-api:error"), "Cannot update recurly subscription", $response); 
   }
   else
   {
-    fn:error(xs:QName("recurly-api:error"), "Cannot update recurly subscription");
+    fn:error(xs:QName("recurly-api:error"), "Cannot update recurly subscription", $response);
   }
 };
 
@@ -475,11 +476,11 @@ declare %an:sequential %private function recurly-api:terminate-recurly-subscript
   else if ($response("status") eq 422)
   then
   {
-    fn:error(xs:QName("recurly-api:error"), "Cannot terminate recurly subscription"); 
+    fn:error(xs:QName("recurly-api:error"), "Cannot terminate recurly subscription", $response); 
   }
   else
   {
-    fn:error(xs:QName("recurly-api:error"), "Cannot terminate recurly subscription");
+    fn:error(xs:QName("recurly-api:error"), "Cannot terminate recurly subscription", $response);
   }
 };
  
@@ -528,7 +529,7 @@ as object()
         }
         catch *
         {{
-          fn:error(xs:QName("recurly-api:error"), "Cannot parse recurly response");    
+          fn:error(xs:QName("recurly-api:error"), "Cannot parse recurly response", $response);    
         }}
       else (),
       
@@ -540,7 +541,7 @@ as object()
   
   else
   {
-    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve invoices list");
+    fn:error(xs:QName("recurly-api:error"), "Cannot retrieve invoices list", $response);
   }
 };
 
@@ -598,7 +599,7 @@ as object()
   }
   else
   {
-     fn:error(xs:QName("recurly-api:error"), "Cannot retrieve JSON invoice");
+     fn:error(xs:QName("recurly-api:error"), "Cannot retrieve JSON invoice", $response);
   }  
 };
 
@@ -637,7 +638,7 @@ as xs:base64Binary
   }
   else
   {
-     fn:error(xs:QName("recurly-api:error"), "Cannot retrieve PDF invoice");
+     fn:error(xs:QName("recurly-api:error"), "Cannot retrieve PDF invoice", $response);
   }  
 };
 
@@ -682,7 +683,7 @@ as xs:string
 declare %private function recurly-api:api-key() 
 as xs:string 
 {
-  "a4c9a1f86444463b80173a5597250b63"
+  $credentials:recurly-api-key
 };
 
 (:
@@ -691,7 +692,7 @@ as xs:string
 declare %private function recurly-api:private-key()
 as xs:string 
 {
-  "63df972b12fe48dc862eb3aa55d19d66"
+  $credentials:recurly-private-key
 };
 
 (:
@@ -713,7 +714,7 @@ as xs:string
 declare %private %an:sequential function recurly-api:subdomain()
 as xs:string 
 {
-  "28msec-dev"
+  $credentials:recurly-subdomain
 };
 
 declare %private function recurly-api:billing-account($account as object)
@@ -857,7 +858,7 @@ declare %private %an:sequential function recurly-api:base64Binary-result($respon
       else
       {
         fn:error(xs:QName("recurly-api:error"), 
-          "Cannot parse recurly response, unexpected response format");
+          "Cannot parse recurly response, unexpected response format", $response);
       }
 };
 
@@ -942,6 +943,6 @@ as element()?
   }}
   catch * 
   {{
-    fn:error(xs:QName("recurly-api:error"), "The recurly answer cannot be parsed")
+    fn:error(xs:QName("recurly-api:error"), "The recurly answer cannot be parsed", $response)
   }}
 };
