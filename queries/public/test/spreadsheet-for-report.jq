@@ -12,15 +12,15 @@ declare %an:sequential function local:check($o as object) as object
 {
     if (not(every $k in (keys($o) ! $o.$$) satisfies ($k instance of boolean and $k)))
     then {
-            response:status-code(200);
+            response:status-code(500);
             $o
     } else
             $o
 };
 
 local:check({
-    cocacola: local:test-spreadsheet(85, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalPeriod=Q1"),
-    tickerrole: local:test-spreadsheet(85, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
-    tickerconcept: local:test-spreadsheet(416, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=ALL"),
-    tickerfyfprole: local:test-spreadsheet(173, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=2013&fiscalPeriod=FY&eliminate=true") 
+    cocacola: local:test-spreadsheet(96, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalPeriod=Q1"),
+    tickerrole: local:test-spreadsheet(96, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1"),
+    tickerconcept: local:test-spreadsheet(410, "&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2012&fiscalPeriod=ALL"),
+    tickerfyfprole: local:test-spreadsheet(193, "&report=FundamentalAccountingConcepts&ticker=ko&ticker=wmt&fiscalYear=2013&fiscalPeriod=FY&eliminate=true") 
 })
