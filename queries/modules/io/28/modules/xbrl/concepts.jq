@@ -129,14 +129,11 @@ declare function concepts:concepts(
       {
         $concepts:ARCHIVE : { "$in" : [ $archives ] }
       },
-      if($component-roles = $concepts:ANY_COMPONENT_LINK_ROLE)
-      then ()
-      else 
-          {
-            $concepts:ROLE : { "$in" :
-              [ $component-roles, "http://www.xbrl.org/2003/role/link" ]
-            }
-          },
+      {
+        $concepts:ROLE : { "$in" :
+          [ $component-roles, "http://www.xbrl.org/2003/role/link" ]
+        }
+      }[not $component-roles = $concepts:ANY_COMPONENT_LINK_ROLE],
       {
         $concepts:NAME : { "$in" : [ $concept-names ] }
       }[not $concept-names = $concepts:ALL_CONCEPT_NAMES]
@@ -327,13 +324,13 @@ declare function concepts:labels(
   ) as string*
 {
   let $normalized-language := concepts:normalize-language($language)
-  let $concept-labels-groups-for-role := (
+  let $concept-labels-groups-for-role := ((
       $concepts[
-          $$($concepts:NAME)    = $concept-names and
+          $$.($concepts:NAME)    = $concept-names and
           (: concepts can be defined within an archive or outside of an archive - e.g. in a taxonomy :)
-          ($$($concepts:ARCHIVE) = $archives or empty($$($concepts:ARCHIVE)) ) and
-          $component-roles = ($concepts:ANY_COMPONENT_LINK_ROLE, $$($concepts:ROLE))]
-      )[1]($concepts:LABELS)($label-role)
+          ($$.($concepts:ARCHIVE) = $archives or empty($$.($concepts:ARCHIVE)) ) and
+          $component-roles = ($concepts:ANY_COMPONENT_LINK_ROLE, $$.($concepts:ROLE))]
+      )[1]).$concepts:LABELS.$label-role
   for $concept-labels-group in $concept-labels-groups-for-role
   let $perfect-match := $concept-labels-group($normalized-language) 
   return 

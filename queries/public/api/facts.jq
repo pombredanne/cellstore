@@ -189,7 +189,7 @@ let $facts :=
         let $concepts := 
             (
                 concepts:concepts($concept-names, $archives."_id", $concepts:ANY_COMPONENT_LINK_ROLE),
-                ($report ! reports:concepts($$))[$$.Name = $concept-names]
+                (reports:concepts($report))[$$.Name = $concept-names]
             )
         for $fact in $facts
         return {|

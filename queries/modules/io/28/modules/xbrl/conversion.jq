@@ -20,25 +20,25 @@ declare %private variable $conversion:STANDARD_LABELS :=
 declare %private function conversion:aspect-label(
     $aspect as string) as string
 {
-    switch(true)
-    case exists($conversion:STANDARD_LABELS.$aspect)
-      return $conversion:STANDARD_LABELS.$aspect
-    default return $aspect
+    ($conversion:STANDARD_LABELS.$aspect, $aspect)[1]
 };
 
 declare %private function conversion:aspect-value-or-label(
     $aspect as string,
-    $aspect-value as atomic,
-    $labels as object?) as atomic
+    $fact as object) as atomic
 {
-    switch(true)
-    case ($aspect eq "xbrl:Entity" and starts-with($aspect-value, "http://www.sec.gov/CIK "))
-      return substring-after($aspect-value, "http://www.sec.gov/CIK ")
-    case ($aspect eq "xbrl:Unit" and starts-with($aspect-value, "iso4217:"))
-      return substring-after($aspect-value, "iso4217:")
-    case ($aspect-value instance of string and exists($labels.($aspect-value)))
-      return $labels.($aspect-value)
-    default return $aspect-value
+    let $aspect-value as atomic := $fact.Aspects.($aspect)
+    let $labels as object? := $fact.Labels
+    let $entityName as string? := $fact.EntityRegistrantName
+    return
+        switch(true)
+        case ($aspect eq "xbrl:Entity" and starts-with($aspect-value, "http://www.sec.gov/CIK "))
+          return ($entityName, substring-after($aspect-value, "http://www.sec.gov/CIK "))[1]
+        case ($aspect eq "xbrl:Unit" and starts-with($aspect-value, "iso4217:"))
+          return substring-after($aspect-value, "iso4217:")
+        case ($aspect-value instance of string and exists($labels.($aspect-value)))
+          return $labels.($aspect-value)
+        default return $aspect-value
 };
 
 declare function conversion:facts-to-csv(
@@ -67,7 +67,7 @@ declare function conversion:facts-to-csv(
                             then
                                 for $aspect as string in keys($fact.Aspects)
                                 let $aspect-label as string := conversion:aspect-label($aspect)
-                                let $aspect-value as atomic := conversion:aspect-value-or-label($aspect, $fact.Aspects.($aspect), $fact.Labels)
+                                let $aspect-value as atomic := conversion:aspect-value-or-label($aspect, $fact)
                                 return
                                     {
                                         $aspect-label : $aspect-value
@@ -88,6 +88,7 @@ declare function conversion:facts-to-xml(
 {
     for $fact in $facts
     let $aspects := $fact.Aspects
+    let $use-labels as boolean := exists($facts.Labels)
     return
         <Fact>{
             <Aspects>{
@@ -97,8 +98,8 @@ declare function conversion:facts-to-xml(
                     <Aspect>
                         <Name>{$aspect}</Name>
                         <Value>{
-                            if($fact.Labels and $aspect-value instance of string and exists($fact.Labels.($aspect-value)))
-                            then attribute { "label" } { $fact.Labels.($aspect-value) } 
+                            if($use-labels)
+                            then attribute { "label" } { conversion:aspect-value-or-label($aspect, $fact) }
                             else (), 
                             $aspects.$aspect
                         }</Value>

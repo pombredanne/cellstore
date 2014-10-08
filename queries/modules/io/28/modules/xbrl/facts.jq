@@ -636,11 +636,7 @@ declare function facts:labels(
   ) as object?
 {
     let $concept-names as string* :=
-        distinct-values(
-            for $fact in $facts
-            return
-                keys($fact.Aspects)[string($fact.Aspects.($$)) = $concepts.Name] ! $fact.Aspects.($$)
-        )
+        distinct-values(values($facts.Aspects)[string($$) = $concepts.Name])
     let $archives := $facts.Aspects."sec:Archive"
     return
         {|
@@ -656,10 +652,7 @@ declare function facts:labels(
             for $key in distinct-values(keys($facts.Aspects))
             where not string($facts.Aspects.$key) = $concept-names
             return
-                switch (true)
-                case ($key eq "dei:LegalEntityAxis" and $facts.Aspects.$key eq "sec:DefaultLegalEntity")
-                  return { $facts.Aspects.$key : "Default Legal Entity" }
-                default return ()
+                { $facts.Aspects.$key : "Default Legal Entity" }[$key eq "dei:LegalEntityAxis" and $facts.Aspects.$key eq "sec:DefaultLegalEntity"]
         |}
 };
 
