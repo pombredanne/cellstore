@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('report-editor', [
+angular.module('secxbrl', [
     'ui.router',
     'ui.bootstrap',
     'ngProgressLite',
