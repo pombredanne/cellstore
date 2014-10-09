@@ -1,6 +1,5 @@
 import module namespace api = "http://apps.28.io/api";
 
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace entities = "http://28.io/modules/xbrl/entities";
