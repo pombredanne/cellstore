@@ -1,10 +1,9 @@
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-xml($c as object) as node()*
@@ -42,16 +41,19 @@ declare function local:to-csv($c as object) as string
     )
 };
 
-session:audit-call();
-
 (: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $map as string?            := request:param-values("map")
-let $name as string?            := request:param-values("name")
+declare  %rest:case-insensitive  variable $token        as string? external;
+declare  %rest:env               variable $request-uri  as string  external;
+declare  %rest:case-insensitive  variable $format       as string? external;
+declare  %rest:case-insensitive  variable $map          as string? external;
+declare  %rest:case-insensitive  variable $name         as string? external;
+
+session:audit-call($token);
+
+(: Post-processing :)
+let $format as string? := api:preprocess-format($format, $request-uri)
 
 (: Object resolution :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
 let $map := ($map, $name)
 let $map := concept-maps:concept-maps($map)
 let $comment := {
@@ -64,7 +66,7 @@ let $serializers := {
 
 return
     if (exists($map))
-    then util:serialize($map, $comment, $serializers, $format, "components")
+    then api:serialize($map, $comment, $serializers, $format, "components")
     else {
         response:status-code(404);
         response:content-type("application/json");
