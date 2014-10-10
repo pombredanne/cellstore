@@ -102,6 +102,8 @@ as string
 declare function session:get($token as string)
 as string
 {
+    api:validate-regexp("token", $token, $session:VALID-TOKEN);
+    
     variable $session := find($session:tokens, { "_id" : $token });
     
     if (exists($session))
@@ -115,6 +117,8 @@ as string
 declare %an:sequential function session:terminate($token as string)
 as empty-sequence()
 {
+    api:validate-regexp("token", $token, $session:VALID-TOKEN);
+    
     variable $session := find($session:tokens, { "_id" : $token });
     
     if (exists($session))
@@ -131,52 +135,53 @@ as empty-sequence()
     return db:delete($session);
 };
 
-declare function session:validate()
+declare function session:ensure-valid($token as string)
 as string
 {
-    variable $token := api:required-parameter("token", $session:VALID-TOKEN);
-    session:get($token) 
+    session:get($token) (: validates token :)
 };
 
-declare function session:valid()
+declare function session:is-valid($token as string?)
 as boolean
 {
-    let $token := api:parameter("token", $session:VALID-TOKEN, ())
-    return
-      if (exists($token))
-      then try {{ session:get($token); true }} catch * {{ false }}
-      else false
+    if (exists($token))
+    then try {{ session:get($token); true }} catch * {{ false }} (: validates token :)
+    else false
 };
 
-declare function session:validate($right-id as string)
+declare function session:ensure-right($token as string, $right-id as string)
 as string
 {    
-    variable $user-id := session:validate();
+    variable $user-id := session:get($token); (: validates token :)
     if (user:is-authorized($user-id, $right-id))
     then $user-id
     else fn:error(xs:QName("session:missing-authorization"), "User does not have required right " || $right-id)
 };
 
-declare function session:valid($right-id as string)
+declare function session:has-right($token as string?, $right-id as string)
 as boolean
 {
-    variable $user-id := session:validate();
+    variable $user-id := session:get($token); (: validates token :)
     if (user:is-authorized($user-id, $right-id))
     then true
     else false
 };
 
-declare function session:check-access($entities as object*, $right-id as string)
+declare function session:has-access($token as string?, $entities as object*, $right-id as string)
 as integer
 {
     if (session:only-dow30($entities))
     then $session:ACCESS-ALLOWED
     else
         try {{ 
-            variable $user-id := session:validate();
-            if (user:is-authorized($user-id, $right-id))
-            then $session:ACCESS-ALLOWED
-            else $session:ACCESS-DENIED
+            if (exists($token))
+            then
+            {
+              if (session:has-right($token, $right-id))
+              then $session:ACCESS-ALLOWED
+              else $session:ACCESS-DENIED
+            }
+            else $session:ACCESS-AUTH-REQUIRED
         }}
         catch * {{
             $session:ACCESS-AUTH-REQUIRED
@@ -204,20 +209,14 @@ declare function session:error($msg as string, $format as string?) as item
 	}
 };
 
-declare %an:sequential function session:terminate()
-as empty-sequence()
-{
-   session:terminate(api:required-parameter("token", $session:VALID-TOKEN))
-};
-
-declare %an:sequential function session:audit-call() as empty-sequence()
+declare %an:sequential function session:audit-call($token as string?) as empty-sequence()
 {
     let $dist-aspects := [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period" ]
     let $facts := {
         KeyAspects : $dist-aspects,
         Aspects : {
             "xbrl:Concept" : "secxbrl:ClientIP",
-            "xbrl:Entity" : if (session:valid()) then user:get-by-id(session:validate()).email else "Anonymous",
+            "xbrl:Entity" : if (session:is-valid($token)) then user:get-by-id(session:get($token)).email else "Anonymous",
             "xbrl:Period" : string(fn:current-dateTime()),
             "xbrl:Unit" : "xbrl:NonNumeric",
             "secxbrl:Query" : req:path()

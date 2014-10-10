@@ -1,9 +1,7 @@
-jsoniq version "1.0";
-
 import module namespace user = "http://apps.28.io/user";
 import module namespace session = "http://apps.28.io/session";
+import module namespace api = "http://apps.28.io/api";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 import module namespace functx = "http://www.functx.com";
@@ -32,11 +30,19 @@ declare function local:to-xml($o as object*) as element()
     <result>{ local:json-to-xml-elements($o) }</result>
 };
 
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Query parameters :)
+declare  %rest:case-insensitive variable $token         as string? external;
+declare  %rest:env              variable $request-uri   as string  external;
+declare  %rest:case-insensitive variable $format        as string? external;
 
-if (session:valid()) 
+(: Post-processing :)
+let $format as string? := api:preprocess-format($format, $request-uri)
+
+(: Object resolution :)
+return
+if (session:is-valid($token)) 
 then {
-    variable $user-id := session:validate();
+    variable $user-id := session:get($token);
 
     if (user:is-authorized($user-id, "statistics_usage"))
     then {

@@ -1,36 +1,30 @@
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace user = "http://apps.28.io/user";
 import module namespace reports = "http://apps.28.io/reports";
 
 import schema namespace mongos = "http://www.28msec.com/modules/mongodb/types";
 
-declare namespace api = "http://apps.28.io/api";
+(: Query parameters :)
+declare %rest:body-text        variable $body             as string  external;
+declare %rest:case-insensitive variable $token            as string  external;
+declare %rest:case-insensitive variable $validation-only  as boolean external := false;
+declare %rest:case-insensitive variable $public-read      as boolean external := false;
+declare %rest:case-insensitive variable $private          as boolean external := false;
 
 try {
-    
     (: ### INIT PARAMS :)
-    let $validation-only := request:param-values("validation-only")
-    let $public-read := 
-      let $pr := request:param-values("public-read")
-      return ($pr eq "" or boolean($pr))
-    let $private := 
-      let $p := request:param-values("private")
-      return ($p eq "" or boolean($p))
-    let $authenticated-user := user:get-existing-by-id(session:validate())
-    let $report as object? := 
-       let $body := request:text-content()
-       return 
-            if(exists($body))
-            then 
-                let $r := parse-json($body)
-                return
-                    switch(true)
-                    case ($private) return reports:make-private-read($r)
-                    case ($public-read) return reports:make-public-read($r)
-                    default return $r
-            else ()
+    let $authenticated-user := user:get-existing-by-id(session:ensure-valid($token))
+    let $report as object? :=
+        if(exists($body))
+        then 
+            let $r := parse-json($body)
+            return
+                switch(true)
+                case ($private) return reports:make-private-read($r)
+                case ($public-read) return reports:make-public-read($r)
+                default return $r
+        else ()
     let $id as string? := 
         if(exists($report))
         then $report."_id"
@@ -43,23 +37,17 @@ try {
     return 
         switch (true)
         
-        (: ### AUTHENTICATION :)
-        case not(session:valid()) return {
-            response:status-code(401);
-            session:error("Unauthorized: Login required", "json")
-        }
-        
         (: ### AUTHORIZATION :)
         (: user authorized to validate report? :)
-        case (exists($validation-only) and not(session:valid("reports_validate"))) 
+        case ($validation-only and not(session:has-right($token, "reports_validate"))) 
         
         (: user authorized to update report? :)
         case (exists($id) and exists($existing-report) and 
-            (not(session:valid("reports_edit")) or not(reports:has-report-access-permission($existing-report, $authenticated-user.email, "WRITE"))))
+            (not(session:has-right($token, "reports_edit")) or not(reports:has-report-access-permission($existing-report, $authenticated-user.email, "WRITE"))))
         
         (: user authorized to create a report? :)
         case (exists($id) and empty($existing-report) and 
-              not(session:valid("reports_create")))
+              not(session:has-right($token, "reports_create")))
         return {
             response:status-code(403);
             session:error("Forbidden: You are not authorized to access the requested resource", "json")
@@ -80,7 +68,7 @@ try {
         
         (: ### MAIN WORK :)
         (: report validation :)
-        case (exists($validation-only) and ($validation-only eq "" or boolean($validation-only)))
+        case ($validation-only)
         return {
             response:content-type("application/json");
             response:serialization-parameters({"indent" : true});
@@ -139,17 +127,5 @@ try {
     {
         response:status-code(401);
         session:error("Unauthorized: Login required (session expired)", "json")
-    }
-} catch api:missing-parameter {
-    if(exists($err:value) and $err:value.parameter eq "token")
-    then
-    {
-        response:status-code(401);
-        session:error("Unauthorized: Login required (token missing)", "json")
-    }
-    else 
-    {
-        response:status-code(400);
-        session:error($err:description, "json")
     }
 }
