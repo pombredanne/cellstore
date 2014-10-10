@@ -112,7 +112,7 @@ module.exports = function(grunt) {
         try {
             appDir = require('./bower.json').appPath || 'app';
         } catch (e) {}
-        var constants = grunt.file.read(appDir + '/scripts/constants.js');
+        var constants = grunt.file.read(appDir + '/constants.js');
         var startFound = constants.indexOf('"API_URL", "') + 12;
         var endFound = constants.indexOf('/v1")') - startFound;
         var backendURL = constants.substr(startFound, endFound);

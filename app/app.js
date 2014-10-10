@@ -3,13 +3,16 @@
 angular.module('secxbrl', [
     'ui.router',
     'ui.bootstrap',
+    'jmdobry.angular-cache',
     'ngProgressLite',
     'flexyLayout',
     'constants',
     'api',
     'session-model',
-    'forms-ui',
-    'ngSanitize'
+    'users-api',
+    'billing-api',
+    'ngSanitize',
+    'angular.directives-round-progress' // round api calls widget on billing page
 ])
 
 .factory('ConnectionHandler', function($q, $rootScope, DEBUG){
@@ -69,6 +72,7 @@ angular.module('secxbrl', [
     });
 
     $rootScope.$on('auth', function() {
+        Session.logout();
         Session.redirectToLoginPage();
     });
     

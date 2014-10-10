@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-.module('report-editor')
+.module('secxbrl')
 .directive('apiStatus', function($rootScope, $timeout, $window){
     var code;
     var onBeforeUnloadHandler = function(event){

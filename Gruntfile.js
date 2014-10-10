@@ -71,7 +71,7 @@ module.exports = function (grunt) {
         yeoman: yeomanConfig,
         watch: {
             recess: {
-                files:  ['<%= yeoman.app %>/styles/{,*/}*.less'],
+                files:  ['<%= yeoman.app %>/**/*.less'],
                 tasks: ['recess']
             },
             swagger: {
@@ -88,10 +88,9 @@ module.exports = function (grunt) {
                     livereload: LIVERELOAD_PORT
                 },
                 files: [
-                    '<%= yeoman.app %>/*.html',
-                    '<%= yeoman.app %>/views/**/*.html',
-                    '{.tmp,<%= yeoman.app %>}/styles/**/*.css',
-                    '{.tmp,<%= yeoman.app %>}/scripts/**/*.js',
+                    '<%= yeoman.app %>/**/*.html',
+                    '{.tmp,<%= yeoman.app %>}/styles/*.css',
+                    '{.tmp,<%= yeoman.app %>}/**/*.js',
                     '<%= yeoman.app %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
@@ -194,7 +193,8 @@ module.exports = function (grunt) {
                             lrSnippet,
                             modRewrite(['!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg /index.html [L]']),
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, yeomanConfig.app)
+                            mountFolder(connect, yeomanConfig.app),
+                            mountFolder(connect, '')
                         ];
                     }
                 }
@@ -312,7 +312,7 @@ module.exports = function (grunt) {
                     ]
                 }, {
                     expand: true,
-                    cwd: '<%= yeoman.app %>/bower_components/font-awesome/fonts',
+                    cwd: 'bower_components/font-awesome/fonts',
                     dest: '<%= yeoman.dist %>/fonts',
                     src: ['*']
                 }, {
@@ -332,7 +332,7 @@ module.exports = function (grunt) {
                     src: ['*.json']
                 }, {
                     expand: true,
-                    cwd: '<%= yeoman.app %>/bower_components/angular-i18n',
+                    cwd: 'bower_components/angular-i18n',
                     dest: '<%= yeoman.dist %>/bower_components/angular-i18n',
                     src: ['angular-locale_en-us.js']
                 }]
@@ -380,31 +380,40 @@ module.exports = function (grunt) {
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
+                    'APPNAME': 'secxbrl',
                     'API_URL': '<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
-                    'RECURLY_KEY': '<%= secxbrl.recurly.dev.publickey %>'
+                    'RECURLY_KEY': '<%= secxbrl.recurly.dev.publickey %>',
+                    'ACCOUNT_URL': '/account/info',
+                    'REGISTRATION_URL': '/auth'
                 }
             },
             dev: {
-                dest: '<%= yeoman.app %>/scripts/constants.js',
+                dest: '<%= yeoman.app %>/constants.js',
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
+                    'APPNAME': 'secxbrl',
                     'API_URL': getCustomAPIUrl(),
                     'DEBUG': true,
-                    'RECURLY_KEY': '<%= secxbrl.recurly.dev.publickey %>'
+                    'RECURLY_KEY': '<%= secxbrl.recurly.dev.publickey %>',
+                    'ACCOUNT_URL': '/account/info',
+                    'REGISTRATION_URL': '/auth'
                 }
             },
             prod: {
-                dest: '<%= yeoman.app %>/scripts/constants.js',
+                dest: '<%= yeoman.app %>/constants.js',
                 name: 'constants',
                 wrap: '/*jshint quotmark:double */\n"use strict";\n\n<%= __ngModule %>',
                 constants: {
+                    'APPNAME': 'secxbrl',
                     'API_URL': '<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
-                    'RECURLY_KEY': '<%= secxbrl.recurly.prod.publickey %>'
+                    'RECURLY_KEY': '<%= secxbrl.recurly.prod.publickey %>',
+                    'ACCOUNT_URL': '/account/info',
+                    'REGISTRATION_URL': '/auth'
                 }
-            },
+            }
 
         },
         netdna : {

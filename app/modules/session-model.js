@@ -17,7 +17,7 @@ angular
                 {
                     p = p.substring(5);
                 }
-                $state.go('auth', { returnPage: p }, { reload: true });
+                $state.go('home.auth', { returnPage: p }, { reload: true });
             }
 
             function getCache(){
@@ -48,9 +48,9 @@ angular
                 getCache().put('token', ltoken);
             }
 
-            function getUser(){
+            function getUser(force){
                 var user = getCache().get('user');
-                if(user === undefined){
+                if(user === undefined && force){
                     redirectToLoginPage();
                 }
                 return user;
