@@ -19,7 +19,6 @@
     "angular-dynamic-locale": "~0.1.12",
     "layoutmodel-renderer-angular": "https://github.com/28msec/layoutmodel-renderer-angular.git",
     "lodash": "~2.4.1",
-    "flexy-layout": "git://github.com/lorenzofox3/flexy-layout.git",
     "moment": "~2.7.0"
   },
   "devDependencies": {},
