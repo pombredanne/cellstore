@@ -34,7 +34,7 @@
     "grunt-rev": "~0.1.0",
     "grunt-s3-bucket": "0.0.3",
     "grunt-shell": "~0.7.0",
-    "grunt-swagger-js-codegen": "~0.2.3",
+    "grunt-swagger-js-codegen": "~0.2.6",
     "grunt-usemin": "~0.1.11",
     "grunt-xqlint": "0.1.6",
     "jshint-stylish": "~0.1.3",

@@ -96,8 +96,8 @@ then {
             }
     }
     else {
-        response:status-code(401);
-        session:error("unauthorized access", $format)
+        response:status-code(403);
+        session:error("forbidden access", $format)
     }
 }
 else {
