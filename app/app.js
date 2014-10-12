@@ -1,11 +1,10 @@
 'use strict';
 
 angular.module('secxbrl', [
+    'jmdobry.angular-cache',
     'ui.router',
     'ui.bootstrap',
-    'jmdobry.angular-cache',
     'ngProgressLite',
-    'flexyLayout',
     'constants',
     'api',
     'session-model',
