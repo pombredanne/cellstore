@@ -262,14 +262,14 @@ module.exports = function (grunt) {
             }
         },
         useminPrepare: {
-            html: [ '<%= yeoman.app %>/*.html', '<%= yeoman.app %>/views/**/*.html' ],
+            html: [ '<%= yeoman.app %>/*.html', '<%= yeoman.app %>/**/*.html' ],
             css: '<%= yeoman.app %>/styles/**/*.css',
             options: {
                 dest: '<%= yeoman.dist %>'
             }
         },
         usemin: {
-            html: [ '<%= yeoman.dist %>/*.html', '<%= yeoman.dist %>/views/**/*.html' ],
+            html: [ '<%= yeoman.dist %>/*.html', '<%= yeoman.dist %>/**/*.html' ],
             css: '<%= yeoman.dist %>/styles/**/*.css',
             options: {
                 dirs: ['<%= yeoman.dist %>']
@@ -291,7 +291,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>',
-                    src: [ '*.html', 'views/**/*.html' ],
+                    src: [ '*.html', '**/*.html' ],
                     dest: '<%= yeoman.dist %>'
                 }]
             }
@@ -306,7 +306,6 @@ module.exports = function (grunt) {
                     dest: '<%= yeoman.dist %>',
                     src: [
                         '*.{ico,png,txt}',
-                        '.htaccess',
                         'images/**/*.{png,jpg,jpeg,gif,webp,svg}',
                         'blog/**/*'
                     ]
@@ -441,7 +440,7 @@ module.exports = function (grunt) {
         'nggettext_extract': {
             pot: {
                 files: {
-                    'po/template.pot': ['<%= yeoman.app %>/*.html', '<%= yeoman.app %>/views/**/*.html']
+                    'po/template.pot': ['<%= yeoman.app %>/**/*.html']
                 }
             }
         },
