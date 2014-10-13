@@ -44,19 +44,6 @@ angular.module('secxbrl')
                 .then(
                     function() {
                         //MunchkinHelper.associateLead({ Email: $scope.email, FirstName: $scope.firstname, LastName: $scope.lastname, Company: $scope.companyname, accountsecxbrlinfo: true });
-                        //update act-on
-                        $http({
-                            url: '//ci56.actonsoftware.com/acton/eform/9568/0001/d-ext-0001',
-                            method: 'POST',
-                            params: {
-                                'First Name': $scope.firstname,
-                                'Last Name': $scope.lastname,
-                                'Company': $scope.companyname,
-                                'Email': $scope.email,
-                                'Has secxbrl account': true,
-                                'submit': 'submit'
-                            }
-                        });
                         API.Session
                             .login({ email: $scope.email, password: $scope.password })
                             .then(function(data) {
