@@ -32,7 +32,7 @@ let $cik := if (empty(entities:entities(companies:eid($cik))))
 let $entity := entities:entities(companies:eid($cik))
 let $archives :=  archives:archives-for-entities($entity)
 return  
-    switch(session:has-access($token, $entity, "data_sec"))
+    switch(session:has-access($token, "data_sec"))
     case $session:ACCESS-ALLOWED return {
             cik: $cik,
             companyName: $entity.Profiles.SEC.CompanyName,
