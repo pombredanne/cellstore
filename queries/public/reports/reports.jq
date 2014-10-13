@@ -1,26 +1,24 @@
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
 import module namespace user = "http://apps.28.io/user";
 import module namespace reports = "http://apps.28.io/reports";
 
-declare namespace api = "http://apps.28.io/api";
+(: Query parameters :)
+declare %rest:case-insensitive                variable $token        as string  external;
+declare %rest:case-insensitive %rest:distinct variable $_id          as string* external;
+declare %rest:case-insensitive %rest:distinct variable $user         as string* external;
+declare %rest:case-insensitive                variable $public-read  as boolean external := false;
+declare %rest:case-insensitive                variable $private      as boolean external := false;
 
-try{
+try {
     (: ### INIT PARAMS :)
-    let $id := request:param-values("_id")
-    let $userids := request:param-values("user")
-    let $public-read := request:param-values("public-read")
-    let $private := request:param-values("private")
-    
-    let $authenticated-user := user:get-existing-by-id(session:validate())
-    let $users := for $email in $userids return user:get-existing-by-email($email)
-    
+    let $authenticated-user := user:get-existing-by-id(session:ensure-valid($token))
+    let $users := for $email in $user return user:get-existing-by-email($email)
     let $query := 
         {|
             switch(true)
-            case (exists($id)) return 
-                { "_id" :  if(count($id) gt 1 ) then { "$in" : [ $id ] } else $id }
+            case (exists($_id)) return 
+                { "_id" :  if(count($_id) gt 1 ) then { "$in" : [ $_id ] } else $_id }
             case $private return 
                 { "$or":
                     [ 
@@ -48,20 +46,14 @@ try{
     return 
         switch (true)
         
-        (: ### AUTHENTICATION :)
-        case not(session:valid()) return {
-            response:status-code(401);
-            session:error("Unauthorized: Login required", "json")
-        }
-        
         (: ### AUTHORIZATION :)
-        case not(session:valid("reports_get")) return {
+        case not(session:has-right($token, "reports_get")) return {
             response:status-code(403);
             session:error("Forbidden: You are not authorized to access the requested resource", "json")
         }
         
         (: ### BAD REQUEST HANDLING :)
-        case (empty($reports) and exists($id))
+        case (empty($reports) and exists($_id))
         return {
             response:status-code(404);
             session:error("report not found", "json")
@@ -79,17 +71,5 @@ try{
     {
         response:status-code(401);
         session:error("Unauthorized: Login required", "json")
-    }
-} catch api:missing-parameter {
-    if(exists($err:value) and $err:value.parameter eq "token")
-    then
-    {
-        response:status-code(401);
-        session:error("Unauthorized: Login required", "json")
-    }
-    else 
-    {
-        response:status-code(400);
-        session:error($err:description, "json")
     }
 }

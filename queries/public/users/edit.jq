@@ -4,7 +4,6 @@ import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($o as object*) as string
@@ -21,20 +20,33 @@ declare function local:to-xml($o as object*) as element()
     }</result>
 };
 
-variable $user-id := session:validate();
+(: Query parameters :)
+declare %rest:case-insensitive variable  $token        as string  external;
+declare %rest:case-insensitive variable  $firstname    as string  external;
+declare %rest:case-insensitive variable  $lastname     as string  external;
+declare %rest:case-insensitive variable  $newemail     as string? external;
+declare %rest:case-insensitive variable  $email        as string? external;
+declare %rest:case-insensitive variable  $password     as string? external;
+declare %rest:env              variable  $request-uri  as string  external;
+declare %rest:case-insensitive variable  $format       as string? external;
 
-variable $firstname := api:required-parameter("firstname", $user:VALID_NAME);
-variable $lastname := api:required-parameter("lastname", $user:VALID_NAME);
-variable $newemail := request:param-values("newemail");
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Post-processing :)
+api:validate-regexp("firstname", $firstname, $user:VALID_NAME);
+api:validate-regexp("lastname", $lastname, $user:VALID_NAME);
+$format := api:preprocess-format($format, $request-uri); (: xqlint workaround :)
+
+(: Request processing :)
+variable $user-id := session:ensure-valid($token);
 
 variable $res := ();
 variable $status := ();
 if (not(empty($newemail))) 
 then {
-    variable $email := api:required-parameter("email", $user:VALID_EMAIL);
-    variable $password := api:required-parameter("password", $user:VALID_PASSWORD);
-
+    if (empty($email)) then fn:error(xs:QName("api:missing-parameter"), "Missing required parameter email"); else ();
+    if (empty($password)) then fn:error(xs:QName("api:missing-parameter"), "Missing required parameter password"); else ();
+    api:validate-regexp("email", $email, $user:VALID_EMAIL);
+    api:validate-regexp("password", $password, $user:VALID_PASSWORD);
+    
     variable $user := try { user:login($email, $password) } catch * { () };
 
     if (empty($user)) 

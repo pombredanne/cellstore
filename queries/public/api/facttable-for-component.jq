@@ -14,80 +14,69 @@ import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fi
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
 import module namespace session = "http://apps.28.io/session";
-import module namespace util = "http://secxbrl.info/modules/util";
-
-session:audit-call();
+import module namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
-let $format as string?        := request:param-values("format")
-let $ciks as string*          := distinct-values(request:param-values("cik"))
-let $tags as string*          := distinct-values(request:param-values("tag"))
-let $tickers as string*       := distinct-values(request:param-values("ticker"))
-let $sics as string*          := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*   := distinct-values(request:param-values("fiscalYear", "LATEST"))
-let $fiscalPeriods as string* := distinct-values(request:param-values("fiscalPeriod", "FY"))
-let $aids as string*          := distinct-values(request:param-values("aid"))
-let $roles as string*         := request:param-values("networkIdentifier")
-let $cids as string*          := request:param-values("cid")
-let $concepts as string*      := distinct-values(request:param-values("concept"))
-let $reportElements as string* := distinct-values(request:param-values("reportElement"))
-let $disclosures as string*   := request:param-values("disclosure")
-let $search as string*         := request:param-values("label")
-let $rollups as string*       := distinct-values(request:param-values("rollup"))
-let $map as string?           := request:param-values("map")
-let $additional-rules as string? := request:param-values("additional-rules")
-let $validate as string       := request:param-values("validate", "false")
+declare  %rest:case-insensitive                 variable $token              as string? external;
+declare  %rest:env                              variable $request-uri        as string  external;
+declare  %rest:case-insensitive                 variable $format             as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $cik                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $ticker             as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $sic                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external := "LATEST";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $networkIdentifier  as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $cid                as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $concept            as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $reportElement      as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $disclosure         as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $label              as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $rollup             as string* external;
+declare  %rest:case-insensitive                 variable $map                as string? external;
+declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
+declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
+
+session:audit-call($token);
 
 (: Post-processing :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
-let $tags as string* := (: backwards compatibility, to be deprecated :)
-    distinct-values($tags ! upper-case($$))
-let $fiscalYears as integer* :=
-    for $fy in $fiscalYears ! upper-case($$)
-    return switch($fy)
-           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
-           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
-           default return if($fy castable as integer) then integer($fy) else ()
-let $fiscalPeriods as string* :=
-    for $fp in $fiscalPeriods ! upper-case($$)
-    return switch($fp)
-           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
-           default return $fp
-let $reportElements := ($reportElements, $concepts)
-let $validate as boolean := $validate = "true"
+let $format as string? := api:preprocess-format($format, $request-uri)
+let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := api:preprocess-tags($tag)
+let $reportElement := ($reportElement, $concept)
 
 (: Object resolution :)
 let $entities as object* := 
     companies:companies(
-        $ciks,
-        $tags,
-        $tickers,
-        $sics)
+        $cik,
+        $tag,
+        $ticker,
+        $sic)
 let $archive as object? := fiscal-core:filings(
     $entities,
-    $fiscalPeriods,
-    $fiscalYears,
-    $aids)
+    $fiscalPeriod,
+    $fiscalYear,
+    $aid)
 let $entity    := entities:entities($archive.Entity)
 let $components  := sec-networks:components(
     $archive,
-    $cids,
-    $reportElements,
-    $disclosures,
-    $roles,
-    $search)
+    $cid,
+    $reportElement,
+    $disclosure,
+    $networkIdentifier,
+    $label)
 let $component as object? := $components[1] (: only one for know :)
 let $cid as string? := components:cid($component)
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
 
 (: Fact resolution :)
 let $facts :=
-    if (exists($rollups))
+    if (exists($rollup))
          then 
              let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
              let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
@@ -101,11 +90,11 @@ let $facts :=
              let $concepts := 
                 if (not $map instance of null)
                 then
-                    for $d in $rollups[]
+                    for $d in $rollup[]
                     return
                         keys(descendant-objects($p)[$$.Name = keys($map.Trees($d).To)][1].To)
                 else
-                    for $d in $rollups[]
+                    for $d in $rollup[]
                     return ($d, keys(descendant-objects($p)[$$.Name eq $d].To))
              return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
          else components:facts(
@@ -124,7 +113,7 @@ let $facts :=
             |}
         )
         
-let $facts := util:normalize-facts($facts)
+let $facts := api:normalize-facts($facts)
 
 let $results :=
     switch ($format)
@@ -190,4 +179,4 @@ let $results :=
             )
         |}
     }
-return util:check-and-return-results($entity, $results, $format)
+return api:check-and-return-results($token, $entity, $results, $format)

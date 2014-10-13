@@ -5,7 +5,6 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace recurly-api = "http://apps.28.io/recurly-rest-api";
 import module namespace api = "http://apps.28.io/api";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($o as object*) as string
@@ -21,16 +20,22 @@ declare function local:to-xml($o as object*) as element()
     </result>
 };
 
-variable $plan := api:required-parameter("plan", $recurly-api:VALID-PLAN);
-variable $quantity := request:param-values("quantity", "1");
-variable $coupon-code := request:param-values("coupon");
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Query parameters :)
+declare %rest:case-insensitive variable  $token        as string            external;
+declare %rest:case-insensitive variable  $plan         as string            external;
+declare %rest:case-insensitive variable  $quantity     as positiveInteger   external := 1;
+declare %rest:case-insensitive variable  $coupon-code  as string?           external;
+declare %rest:env              variable  $request-uri  as string            external;
+declare %rest:case-insensitive variable  $format       as string?           external;
 
-variable $user-id := session:validate();
+(: Post-processing :)
+api:validate-regexp("plan", $plan, $recurly-api:VALID-PLAN);
+$format := api:preprocess-format($format, $request-uri);  (: xqlint workaround :)
 
+(: Request processing :)
+variable $user-id := session:ensure-valid($token);
 variable $user := user:get-by-id($user-id);
-
-variable $info := recurly-api:create-subscription($user, $plan, xs:positiveInteger($quantity), $coupon-code);
+variable $info := recurly-api:create-subscription($user, $plan, $quantity, $coupon-code);
 user:assign-role($user-id, $plan, current-dateTime(), (), $user-id);
 
 switch ($format)
