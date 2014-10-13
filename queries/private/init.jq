@@ -114,6 +114,19 @@ then {
   }
 else ();
 
+(: support@28.io user token for tests :)
+let $token :=
+{
+  "_id" : $credentials:support-token,
+  "user-id" : $user."_id",
+  "expiration-date" : xs:dateTime("2018-10-20T22:17:23.851315Z")
+}
+let $existing := db:collection("Tokens")[$$."user-id" eq $user."_id" and $$."_id" eq $token."_id"]
+return
+  if(exists($existing))
+  then ();
+  else db:insert("Tokens", $token);
+
 (: Disclosures Token :)
 let $token := collection("Tokens")[$$."expiration-date" eq xs:dateTime("2016-09-12T22:17:23.851315Z")
 and $$."user-id" eq $user."_id"]
