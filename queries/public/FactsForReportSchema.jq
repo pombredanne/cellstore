@@ -1,4 +1,3 @@
-import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
@@ -31,7 +30,7 @@ let $archives := archives:archives(distinct-values($aid))
 return switch(true)
     case empty($archives) return {
         response:status-code(404);
-        session:error("entities or archives not found (valid parameters: aid)", $format)
+        session:error("archives not found (valid parameters: aid)", $format)
     }
     case empty($report-object) return {
         response:status-code(404);
