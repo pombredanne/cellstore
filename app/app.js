@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('secxbrl', [
-    'jmdobry.angular-cache',
+    'angular-data.DS',
+    'angular-data.DSCacheFactory',
     'ui.router',
     'ui.bootstrap',
     'ngProgressLite',

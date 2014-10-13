@@ -158,9 +158,6 @@ module.exports = function(grunt) {
         grunt.task.run([
             'reports',
             'render_credentials_jq:' + environment,
-            'xqlint',
-            'jsonlint',
-            'jshint',
             'nggettext_default',
             'nggettext_check',
             'nggettext_compile',
@@ -211,7 +208,12 @@ module.exports = function(grunt) {
                 'deployed-message'
             ]);
         } else if (target === 'run') {
-            grunt.task.run(['28:run']);
+            grunt.task.run([
+                'xqlint',
+                'jsonlint',
+                'jshint',
+                '28:run'
+            ]);
         } else if (target === 'teardown' && environment !== 'prod') {
             if(!isTravis()) {
                 grunt.task.run(['ngconstant:' + environment]);
