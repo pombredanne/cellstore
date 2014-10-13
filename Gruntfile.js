@@ -144,7 +144,6 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            isProd: true,
                             secxbrl: '<%= secxbrl.secxbrlInfo.prod %>',
                             sendmail: '<%= secxbrl.sendmail %>',
                             recurly: '<%= secxbrl.recurly.prod %>'
@@ -158,7 +157,6 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            isProd: false,
                             secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
                             sendmail: '<%= secxbrl.sendmail %>',
                             recurly: '<%= secxbrl.recurly.dev %>'
@@ -172,7 +170,6 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            isProd: false,
                             secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
                             sendmail: '<%= secxbrl.sendmail %>',
                             recurly: '<%= secxbrl.recurly.dev %>'
