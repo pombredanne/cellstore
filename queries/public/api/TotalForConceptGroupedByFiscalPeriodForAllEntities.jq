@@ -1,9 +1,9 @@
+import module namespace api = "http://apps.28.io/api";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace sec-fiscal = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 import module namespace session = "http://apps.28.io/session";
@@ -62,36 +62,38 @@ declare function local:to-xml($o as object*) as node()*
             }</Fact>
     }</FactTable>)
 };
+
+
+(: Query parameters :)
+declare  %rest:case-insensitive                 variable $token         as string? external;
+declare  %rest:env                              variable $request-uri   as string  external;
+declare  %rest:case-insensitive                 variable $format        as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear    as string* external := "ALL";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $concept       as string  external := "us-gaap:Assets";
+declare  %rest:case-insensitive                 variable $map           as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag           as string* external;
+declare  %rest:case-insensitive                 variable $debug         as boolean external := false;
+
+session:audit-call($token);
+
+(: Post-processing :)
+let $format as string? := api:preprocess-format($format, $request-uri)
+let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := api:preprocess-tags($tag)
  
-session:audit-call(); 
- 
-let $format  := lower-case(request:param-values("format")[1])
-let $periods := let $period := upper-case(request:param-values("fiscalPeriod", "FY"))
-                return 
-                    if ($period = ("Q1", "Q2", "Q3", "FY", "ALL"))
-                    then distinct-values($period)
-                    else error(xs:QName("local:INVALID-PERIOD"),
-                               $period || ": fiscalPeriod value must be one of Q1, Q2, Q3, FY")
-let $years   := let $years := request:param-values("fiscalYear", "ALL")
-                return
-                    if ($years = "ALL")
-                    then $sec-fiscal:ALL_FISCAL_YEARS
-                    else $years ! $$ cast as integer
-let $concept := request:param-values("concept", "us-gaap:Assets")[1]
-let $map     := request:param-values("map")[1]
-let $tags    := request:param-values("tag")
-let $debug   := request:param-values("debug")
-                
+(: Object resolution :)
 let $json-result := 
     let $facts :=
         for $fact in sec-fiscal:facts-for-entities-and-concepts-and-fiscal-periods-and-years(
-            (if (exists($tags))
-                then companies:companies-for-tags(upper-case($tags))
+            (if (exists($tag))
+                then companies:companies-for-tags($tag)
                 else entities:entities()
             )[$$.Profiles.SEC.IsTrust eq false],
             $concept,
-            if ($periods = "ALL") then ("Q1", "Q2", "Q3", "FY") else $periods,
-            $years,
+            $fiscalPeriod,
+            $fiscalYear,
             {|
                 if (exists($map))
                 then { "concept-maps" : $map }
@@ -123,7 +125,7 @@ let $json-result :=
         { "Decimals"  : "INF" },
         { "NumReports" : count(distinct-values($fact.$facts:ASPECTS."sec:Archive")) },
 
-        if (exists($debug) and $debug)
+        if ($debug)
         then
             {
                 "Debug" : [ $fact ! 

@@ -1,176 +1,144 @@
 <!doctype html>
-<html class="no-js" prefix="og: http://ogp.me/ns#" ng-app="main">
-<head ng-controller="HeadCtrl">
+<html ng-app="secxbrl" resize>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    
-    <meta og-title property="og:title" content="secxbrl.info - US Public Company Financial Information Repository" />
-    <meta og-type property="og:type" content="website" />
-    <meta og-url property="og:url" content="http://secxbrl.info" />
-    <meta og-image property="og:image" content="/favico.png" />
-
-    <meta name="description" content="Complete database of U.S. public company financial information.">
+    <title>SecXBRL.info</title>
     <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link href="/apple-touch-icon.png" rel="apple-touch-icon">
-    <link href="/favicon.ico" rel="icon">
-    <!-- build:css({.tmp,app}) /styles/main.css -->
+    <!-- build:css({.tmp,app,.}) /styles/main.css -->
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="/bower_components/animate.css/animate.css">
     <link rel="stylesheet" href="/styles/index.css">
     <!-- endbuild -->
-    <script src="https://js.recurly.com/v3/recurly.js"></script>
-    <base href="/">
 </head>
 
 <body class="ng-cloak">
-    <!--[if lt IE 10]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+    <div api-status></div>
     <div ui-view></div>
 
-
-    <!-- build:js({.tmp,app}) /scripts/scripts.js -->
-    <script src="/bower_components/lodash/dist/lodash.js"></script>
-    <script src="/bower_components/accounting/accounting.js"></script>
+    <!-- build:js({.tmp,app,.}) /scripts/scripts.js -->
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/ngprogress-lite/ngprogress-lite.js"></script>
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js"></script>
     <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
-    <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
-    <script src="/bower_components/angulartics/src/angulartics.js"></script>
-    <script src="/bower_components/angulartics/src/angulartics-ga.js"></script>
-    <script src="/bower_components/angular-google-chart/ng-google-chart.js"></script>
     <script src="/bower_components/angular-round-progress-directive/angular-round-progress-directive.js"></script>
-    <script src="/bower_components/angular-gettext/dist/angular-gettext.js"></script>
-    <script src="/bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
-    <script src="/bower_components/layoutmodel-renderer-angular/app/directive/layoutmodel.js"></script>
-    <script src="/bower_components/layoutmodel-renderer-angular/app/directive/layoutmodeltemplate.js"></script>
-    
+    <script src="/bower_components/angular-cache/dist/angular-cache.js"></script>
+
+    <script src="/app.js"></script>
+
+    <!-- See https://github.com/angular-ui/ui-router/pull/927 -->
+    <script src="/modules/state-directives.js"></script>
+
+    <!-- Constants -->
+    <script src="/constants.js"></script>
+
+    <!-- Swagger Modules -->
+    <script src="/modules/session-api.js"></script>
+    <script src="/modules/users-api.js"></script>
+    <script src="/modules/billing-api.js"></script>
+
     <!-- Modules -->
-    <script src="/scripts/modules/sticky_footer.js"></script>
-    <script src="/scripts/modules/navbar_toggle.js"></script>
-    <script src="/scripts/modules/scroll-id.js"></script>
-    <script src="/scripts/modules/ng-enter.js"></script>
-    <script src="/scripts/modules/document-click.js"></script>
+    <script src="/modules/api.js"></script>
+    <script src="/modules/session-model.js"></script>
 
-    <script src="/scripts/autocomplete.js"></script>
-    <script src="/scripts/constants.js"></script>
+    <!-- UI Modules -->
+    <script src="/modules/ui/api-status.js"></script>
+    <script src="/modules/ui/account.js"></script>
+    <script src="/modules/ui/resize.js"></script>
 
-    <!-- Swagger generated APIs -->
-    <script src="/scripts/swagger/session-api.js"></script>
-    <script src="/scripts/swagger/queries-api.js"></script>
-    <script src="/scripts/swagger/users-api.js"></script>
-    <script src="/scripts/swagger/billing-api.js"></script>
+    <!-- Home -->
+    <script src="/home/config.js"></script>
+    <script src="/home/home.js"></script>
 
-    <script src="/scripts/app.js"></script>
+    <!-- Auth -->
+    <script src="/home/auth/config.js"></script>
+    <script src="/home/auth/auth.js"></script>
 
-    <!-- TODO: Shouldn't this module be decoupled with the main module? -->
-    <script src="/scripts/modules/backend.js"></script>
-    <script src="/scripts/modules/translator.js"></script>
-    <script src="/scripts/modules/translations.js"></script>
+    <!-- Start -->
+    <script src="/home/start/config.js"></script>
+    <script src="/home/start/start.js"></script>
 
-    <!-- Controllers -->
-    <script src="/scripts/controllers/root.js"></script>
-    <script src="/scripts/controllers/head.js"></script>
-    <script src="/scripts/controllers/api.js"></script>
-    <script src="/scripts/controllers/auth.js"></script>
-    <script src="/scripts/controllers/reset.js"></script>
-    <script src="/scripts/controllers/blog.js"></script>
-    
-    <!-- Account Controllers -->
-    <script src="/scripts/controllers/account/account.js"></script>
-    <script src="/scripts/controllers/account/info.js"></script>
-    <script src="/scripts/controllers/account/billing.js"></script>
-    <script src="/scripts/controllers/account/password.js"></script>
-    <script src="/scripts/controllers/account/tokens.js"></script>
-    
-    <!-- Admin Controllers -->
-    <script src="/scripts/controllers/admin/admin.js"></script>
-    <script src="/scripts/controllers/admin/usage.js"></script>
+    <!-- Pricing -->
+    <script src="/home/pricing/config.js"></script>
+    <script src="/home/pricing/pricing.js"></script>
 
-    <!-- Browse Controllers -->
-    <script src="/scripts/controllers/entity/entities.js"></script>
-    <script src="/scripts/controllers/entity/entity.js"></script>
-    <script src="/scripts/controllers/entity/filings.js"></script>
-    <script src="/scripts/controllers/entity/information.js"></script>
-    <script src="/scripts/controllers/entity/dashboard.js"></script>
-    <script src="/scripts/controllers/entity/filing.js"></script>
-    <script src="/scripts/controllers/entity/components.js"></script>
-    <script src="/scripts/controllers/entity/component.js"></script>
-    <script src="/scripts/controllers/entity/fact_table.js"></script>
-    <script src="/scripts/controllers/entity/spreadsheet.js"></script>
-    <script src="/scripts/controllers/entity/model_structure.js"></script>
-    
-    <script src="/scripts/controllers/entity_details.js"></script>
-    <script src="/scripts/controllers/concept_map.js"></script>
-    <script src="/scripts/controllers/example.js"></script>
-    <script src="/scripts/controllers/disclosures.js"></script>
-    
-    <script src="/scripts/controllers/comparison.js"></script>
-    <script src="/scripts/controllers/comparison/filings.js"></script>
-    <script src="/scripts/controllers/comparison/information.js"></script>
-    <script src="/scripts/controllers/comparison/search.js"></script>
-    <script src="/scripts/controllers/comparison/components.js"></script>
-    <script src="/scripts/controllers/comparison/validations_dashboard.js"></script>
-    <script src="/scripts/controllers/comparison/report_elements.js"></script>
+    <!-- API -->
+    <script src="/home/api/config.js"></script>
+    <script src="/home/api/api.js"></script>
+
+    <!-- Blog -->
+    <script src="/home/blog/config.js"></script>
+    <script src="/home/blog/blog.js"></script>
+    <script src="/home/blog/entries/config.js"></script>
+    <script src="/home/blog/entries/entries.js"></script>
+    <script src="/home/blog/entry/config.js"></script>
+    <script src="/home/blog/entry/entry.js"></script>
+
+    <!-- Logout -->
+    <script src="/home/logout/config.js"></script>
+    <script src="/home/logout/logout.js"></script>
+
+    <!-- Account -->
+    <script src="/home/account/config.js"></script>
+    <script src="/home/account/account.js"></script>
+    <script src="/home/account/profile/config.js"></script>
+    <script src="/home/account/profile/profile.js"></script>
+    <script src="/home/account/billing/config.js"></script>
+    <script src="/home/account/billing/billing.js"></script>
+    <script src="/home/account/password/config.js"></script>
+    <script src="/home/account/password/password.js"></script>
+    <script src="/home/account/tokens/config.js"></script>
+    <script src="/home/account/tokens/tokens.js"></script>
+    <script src="/home/account/statistics_usage/config.js"></script>
+    <script src="/home/account/statistics_usage/statistics_usage.js"></script>
+
+    <!-- 400 -->
+    <script src="/400.js"></script>
+
     <!-- endbuild -->
 
     <!-- Typekit -->
     <script type="text/javascript" src="//use.typekit.net/put7est.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <!-- end Typekit -->
 
     <!-- begin olark code -->
-<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
-f[z]=function(){
-(a.s=a.s||[]).push(arguments)};var a=f[z]._={
-},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
-f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
-0:+new Date};a.P=function(u){
-a.p[u]=new Date-a.p[0]};function s(){
-a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
-hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
-return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
-b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
-b.contentWindow[g].open()}catch(w){
-c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
-var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
-b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
-loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
-/* custom configuration goes here (www.olark.com/documentation) */
-olark.identify('1878-876-10-2235');/*]]>*/</script><noscript><a href="https://www.olark.com/site/1878-876-10-2235/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+    <script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/
+        window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+            f[z]=function(){
+                (a.s=a.s||[]).push(arguments)};var a=f[z]._={
+            },q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+                f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+                0:+new Date};a.P=function(u){
+                a.p[u]=new Date-a.p[0]};function s(){
+                a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+                hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+                return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+                b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+                b.contentWindow[g].open()}catch(w){
+                c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+                var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+                b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+            loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+        /* custom configuration goes here (www.olark.com/documentation) */
+        olark.identify('1878-876-10-2235');
+    /*]]>*/</script>
+    <noscript><a href="https://www.olark.com/site/1878-876-10-2235/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
     <!-- end olark code -->
-    
+
     <!-- Google Analytics -->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <script type='text/javascript'>/*<![CDATA[*/
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-49068040-1', 'secxbrl.info');
-  ga('send', 'pageview');
-
-</script>
-
-    <!-- ActOn Tracking -->
-<script type="text/javascript">
-  /* <![CDATA[ */
-  document.write (
-    '<img src="//ci56.actonsoftware.com/acton/bn/9568/visitor.gif?ts='+
-    new Date().getTime()+
-    '&ref='+escape(document.referrer) + '" style="display: none">'
-  );
-  var aoAccountId = '9568';
-  var aoCookieMode = 'STANDARD';
-  var aoCookieDomain = 'actonsoftware.com';
-  var aoServerContext = '//ci56.actonsoftware.com/acton';
-  /* ]]> */
-</script>
+        ga('create', 'UA-49068040-1', 'secxbrl.info');
+        ga('send', 'pageview');
+    /*]]>*/</script>
+    <!-- end Google Analytics -->
 
 </body>
-
 </html>

@@ -1,4 +1,4 @@
-import module namespace util = "http://secxbrl.info/modules/util";
+import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
@@ -19,8 +19,7 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 
 declare function local:contains-aspect($name as string) as boolean
 {
-  some $x in (request:param-names() ! starts-with($$, $name))
-  satisfies $x
+  exists(request:param-names()[starts-with($$, $name)])  
 };
 
 declare function local:cast-sequence($values as atomic*, $type as string) as atomic*
@@ -104,72 +103,61 @@ declare function local:hypercube(
     return hypercubes:user-defined-hypercube($main-hypercube-spec)
 };
 
-session:audit-call();
-
 (: Query parameters :)
-let $format as string?         := request:param-values("format")
-let $ciks as string*           := distinct-values(request:param-values("cik"))
-let $tags as string*           := distinct-values(request:param-values("tag"))
-let $tickers as string*        := distinct-values(request:param-values("ticker"))
-let $sics as string*           := distinct-values(request:param-values("sic"))
-let $fiscalYears as string*    := distinct-values(request:param-values("fiscalYear", "LATEST"))
-let $fiscalPeriods as string*  := distinct-values(request:param-values("fiscalPeriod", "FY"))
-let $aids as string*           := distinct-values(request:param-values("aid"))
-let $map as string?            := request:param-values("map") (: Backwards compatibility :)
-let $rules as string?          := request:param-values("rule") (: Backwards compatibility :)
-let $report as string?         := request:param-values("report")
-let $additional-rules as string? := request:param-values("additional-rules")
-let $validate as string        := request:param-values("validate", "false")
-let $labels as string        := request:param-values("labels", "false")
+declare  %rest:case-insensitive                 variable $token             as string? external;
+declare  %rest:env                              variable $request-uri       as string  external;
+declare  %rest:case-insensitive                 variable $format            as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $cik               as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag               as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $ticker            as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $sic               as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear        as string* external := "LATEST";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod      as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $aid               as string* external;
+declare  %rest:case-insensitive                 variable $map               as string? external;
+declare  %rest:case-insensitive                 variable $rule              as string? external;
+declare  %rest:case-insensitive                 variable $report            as string? external;
+declare  %rest:case-insensitive                 variable $validate          as boolean external := false;
+declare  %rest:case-insensitive                 variable $labels            as boolean external := false;
+declare  %rest:case-insensitive                 variable $additional-rules  as string? external;
+
+session:audit-call($token);
 
 (: Post-processing :)
-let $format as string? := (: backwards compatibility, to be deprecated  :)
-    lower-case(($format, substring-after(request:path(), ".jq."))[1])
-let $tags as string* := (: backwards compatibility, to be deprecated :)
-    distinct-values($tags ! upper-case($$))
-let $fiscalYears as integer* :=
-    for $fy in $fiscalYears ! upper-case($$)
-    return switch($fy)
-           case "LATEST" return $fiscal-core:LATEST_FISCAL_YEAR
-           case "ALL" return $fiscal-core:ALL_FISCAL_YEARS
-           default return if($fy castable as integer) then integer($fy) else ()
-let $fiscalPeriods as string* :=
-    for $fp in $fiscalPeriods ! upper-case($$)
-    return switch($fp)
-           case "ALL" return $fiscal-core:ALL_FISCAL_PERIODS
-           default return $fp
-let $validate as boolean := $validate = "true"
-let $labels as boolean := $labels = "true"
+let $format as string? := api:preprocess-format($format, $request-uri)
+let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
+let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
+let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
 let $entities as object* := 
     companies:companies(
-        $ciks,
-        $tags,
-        $tickers,
-        $sics)
+        $cik,
+        $tag,
+        $ticker,
+        $sic)
 let $archives as object* := fiscal-core:filings(
     $entities,
-    $fiscalPeriods,
-    $fiscalYears,
-    $aids)
+    $fiscalPeriod,
+    $fiscalYear,
+    $aid)
 let $entities := entities:entities($archives.Entity)
 let $report as object? := reports:reports($report)
 let $map as item* :=
     if(exists($report))
     then reports:concept-map($report)
     else $map
-let $rules as item* :=
+let $rule as item* :=
     (
         if(exists($report))
         then reports:rules($report)
-        else rules:rules($rules),
+        else rules:rules($rule),
         if(exists($additional-rules)) 
         then rules:rules($additional-rules) 
         else ()
     )
 
-let $hypercube := local:hypercube($entities, $fiscalPeriods, $fiscalYears, $aids)
+let $hypercube := local:hypercube($entities, $fiscalPeriod, $fiscalYear, $aid)
 
 let $facts :=
     if(empty($archives))
@@ -182,7 +170,7 @@ let $facts :=
                     Validate: $validate
                 },
                 { "ConceptMaps" : $map }[exists($map)],
-                { "Rules" : [ $rules ] }[exists($rules)]
+                { "Rules" : [ $rule ] }[exists($rule)]
             |}
         ) 
         let $concept-names := distinct-values($facts.Aspects."xbrl:Concept")
@@ -205,7 +193,7 @@ let $facts :=
             else ()
         |}
 
-let $facts := util:normalize-facts($facts)
+let $facts := api:normalize-facts($facts)
 
 let $result := {
     NetworkIdentifier : "http://bizql.io/facts",
@@ -232,10 +220,11 @@ let $serializers := {
 }
 
 return 
-    if(empty($archives) and (not(empty($aids)) or not(empty($ciks))))
-    then {
+    if(empty($archives) and (not(empty($aid)) or not(empty($cik))))
+    then 
+    {
         response:status-code(404);
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
     }
-    else let $results := util:serialize($result, $comment, $serializers, $format, "facts")
-         return util:check-and-return-results($entities, $results, $format)
+    else let $results := api:serialize($result, $comment, $serializers, $format, "facts")
+         return api:check-and-return-results($token, $entities, $results, $format)

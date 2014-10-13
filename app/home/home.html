@@ -1,0 +1,86 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" navbar-toggle>
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only" translate>Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">secxbrl.info</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <div>
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active2="active" ui-sref-active-includes="home.start"><a ui-sref2="home.start()" id="start-link" translate>Home</a></li>
+                    <li ui-sref-active2="active"><a ui-sref2="home.pricing()" id="pricing-link" translate>Pricing</a></li>
+                    <li ui-sref-active2="active"><a ui-sref2="home.api()" id="api-link" translate>API</a></li>
+                    <li ui-sref-active2="active"><a ui-sref2="home.blog.entries()" id="blog-link" translate>Blog</a></li>
+                    <li><a href="https://secxbrl.zendesk.com/" target="_blank" translate>Support</a></li>
+                </ul>
+            </div>
+            <account></account>
+            <!--<div class="pull-right hidden-sm hidden-xs">
+                <a class="btn btn-default btn-menu" ng-click="doAuth( $event )" ng-hide="user" translate>Login / Sign-Up</a>
+                <div ng-show="user" class="btn-group btn-menu">
+                    <a class="btn btn-default" href="/account/info" translate>{{user.firstname}} {{user.lastname}}</a>
+                    <a class="btn btn-default" ng-click="doLogout( $event )"><i class="fa fa-sign-out"></i></a>
+                </div>
+            </div>
+            <ul class="nav navbar-nav">
+                <li ng-class="{ active: active === 'home' }" class="hidden-sm hidden-xs">
+                    <a href="/" translate>Home</a>
+                </li>
+                <li ng-class="{ active: active === 'pricing' }">
+                    <a href="/pricing" translate>Pricing</a>
+                </li>
+                <li ng-class="{ active: active === 'browse' }">
+                    <a href="/entity" translate>Browse</a>
+                </li>
+                <li ng-class="{ active: active === 'compare' }">
+                    <a href="/comparison/filings?{{wwwFormUrlencoded(selection)}}" translate>Compare</a>
+                </li>
+                <li ng-class="{ active: active === 'search' }">
+                    <a href="/comparison/filingss?{{wwwFormUrlencoded(selection)}}" translate>Search</a>
+                </li>
+                <li ng-class="{ active: active === 'api' }">
+                    <a href="/api" translate>API</a>
+                </li>
+                <li ng-class="{ active: active === 'blog' }">
+                    <a href="/blog" translate>Blog</a>
+                </li>
+                <li>
+                    <a href="https://secxbrl.zendesk.com/" target="_blank" translate>Support</a>
+                </li>
+                <li class="visible-sm visible-xs">
+                    <a ng-click="doAuth( $event )" ng-show="!user" translate>Login / Sign-Up</a>
+                    <a href="/account/info" ng-show="user" class="pull-left" translate>{{user.firstname}} {{user.lastname}}</a>
+                    <a class="pull-left" ng-click="doLogout( $event )" ng-show="user"><i class="fa fa-sign-out"></i></a>
+                </li>
+            </ul>-->
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div class="wrapper">
+    <div ui-view></div>
+</div>
+<footer sticky-footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2 dropdown dropup" ng-show="langs.length > 1">
+                <a class="dropdown-toggle btn-language">{{lang.name}}</a>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="l in langs"><a ng-click="setLanguage(l)"><i class="fa fa-check pull-right" ng-show="(l.code === lang.code)"></i>{{l.name}}</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-10 copyright small">
+                <a href="/terms-of-use" translate>Terms of Use</a> - <a href="/privacy-policy" translate>Privacy Policy</a><br>
+                &copy; <span translate>2013 28msec Inc. All rights reserved.</span>
+            </div>
+        </div>
+    </div>
+</footer>

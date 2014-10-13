@@ -499,7 +499,7 @@ declare %private %an:strictlydeterministic function facts:facts-query-cached($qu
 {
   let $query as object := parse-json($query)
   let $conn := facts:connection()
-  return mongo:find($conn, $facts:col, $query)
+  return mongo:find($conn, $facts:col, { "$query": $query, "$hint": facts:mongo-hint($query) } )
 };
 
 (:~
@@ -510,7 +510,25 @@ declare %private %an:strictlydeterministic function facts:facts-query-cached($qu
 declare %private function facts:facts-query($query as object) as object*
 {
   let $conn := facts:connection()
-  return mongo:find($conn, $facts:col, $query)
+  return mongo:find($conn, $facts:col, { "$query": $query, "$hint": facts:mongo-hint($query) } )
+};
+
+(:~
+ : <p>Determines which index to use for a MongoDB query.</p>
+ : 
+ : @return index name.
+ :)
+declare %private function facts:mongo-hint($query as object) as string
+{
+    switch (true)
+    case (exists($query("_id")))
+        return "_id_"
+    case (exists($query("Aspects.xbrl:Concept")) and exists($query("Aspects.xbrl:Entity")) and exists($query("Aspects.sec:FiscalYear")) and exists($query("Aspects.sec:FiscalPeriod")))
+        return "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1"
+    case (exists($query("Aspects.sec:Archive")) and exists($query("Aspects.xbrl:Concept")))
+        return "Aspects.sec:Archive_1_Aspects.xbrl:Concept_1"
+    default
+        return "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1"
 };
 
 (:~

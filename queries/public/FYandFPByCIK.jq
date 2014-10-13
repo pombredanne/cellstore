@@ -1,12 +1,11 @@
-
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace sec-fiscal = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace session = "http://apps.28.io/session";
+import module namespace api = "http://apps.28.io/api";
 
 declare %an:sequential function local:filingPeriodInfo($archives as object*) as object*{
     for $archive in $archives
@@ -17,18 +16,23 @@ declare %an:sequential function local:filingPeriodInfo($archives as object*) as 
     }
 };
 
-variable $cik := let $cik := request:param-values("cik","0000354950")
-                 return if (empty($cik))
-                        then error(QName("local:INVALID-REQUEST"), "cik: mandatory parameter not found")
-                        else if (empty(entities:entities(companies:eid($cik))))
-                             then error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
-                             else $cik;
-                             
+(: Query parameters :)
+declare  %rest:case-insensitive  variable $token        as string? external;
+declare  %rest:env               variable $request-uri  as string  external;
+declare  %rest:case-insensitive  variable $format       as string? external;
+declare  %rest:case-insensitive  variable $cik          as string  external := "0000354950";
+
+(: Post-processing :)
+let $format as string? := api:preprocess-format($format, $request-uri)
+let $cik := if (empty(entities:entities(companies:eid($cik))))
+            then error(QName("local:INVALID-REQUEST"), "Given CIK:"||$cik|| " not found")
+            else $cik
+
+(: Object resolution :)
 let $entity := entities:entities(companies:eid($cik))
 let $archives :=  archives:archives-for-entities($entity)
-let $format  := lower-case(substring-after(request:path(), ".jq.")) (: text, xml, or json (default) :)
 return  
-    switch(session:check-access($entity, "data_sec"))
+    switch(session:has-access($token, $entity, "data_sec"))
     case $session:ACCESS-ALLOWED return {
             cik: $cik,
             companyName: $entity.Profiles.SEC.CompanyName,
