@@ -28,7 +28,6 @@ let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 (: Object resolution :)
 let $report-object   := reports:reports($report)
 let $archives := archives:archives(distinct-values($aid))
-let $entities := entities:entities($archives.Entity)
 return switch(true)
     case empty($archives) return {
         response:status-code(404);
@@ -39,7 +38,7 @@ return switch(true)
         session:error("report does not exist", $report)
     }
     default return
-      switch(session:has-access($token, $entities, "data_sec"))
+      switch(session:has-access($token, "data_sec"))
       case $session:ACCESS-ALLOWED return {
         let $cached-archives := store:find("reportcache", { _id : { "$in" : [ $archives._id ! ($report || $$)]}})
         let $noncached-archives := seq:value-except($archives._id, $cached-archives._id ! substring-after($$, $report))
