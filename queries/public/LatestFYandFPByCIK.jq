@@ -25,7 +25,7 @@ let $latestFQFiling := sec-fiscal:latest-reported-fiscal-period($entity,"10-Q")
 let $latestFYArchives := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity,$latestFYFiling.period,$latestFYFiling.year)
 let $latestFQArchives := sec-fiscal:filings-for-entities-and-fiscal-periods-and-years($entity,$latestFQFiling.period,$latestFQFiling.year)
 return  
-    switch(session:has-access($token, $entity, "data_sec"))
+    switch(session:has-access($token, "data_sec"))
     case $session:ACCESS-ALLOWED return {
           cik: $cik,
           companyName: $entity.Profiles.SEC.CompanyName,
