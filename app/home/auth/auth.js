@@ -44,10 +44,10 @@ angular.module('secxbrl')
                 .then(
                     function() {
                         //MunchkinHelper.associateLead({ Email: $scope.email, FirstName: $scope.firstname, LastName: $scope.lastname, Company: $scope.companyname, accountsecxbrlinfo: true });
-                        API.Session
-                            .login({ email: $scope.email, password: $scope.password })
-                            .then(function(data) {
-                                $scope.$emit('login', data.token, data._id, $scope.email, data.firstname, data.lastname, decodeURIComponent($scope.returnPage || '/'));
+                        Session
+                            .login($scope.email, $scope.password)
+                            .then(function() {
+                                $state.go('home.account.profile', { }, { reload: true });
                             },
                             function(response) { $scope.$emit('error', response.status, response.data); });
                     },
