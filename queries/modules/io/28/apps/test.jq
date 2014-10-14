@@ -40,7 +40,7 @@ declare %an:nondeterministic function test:invoke-public($endpoint as string, $p
 declare function test:assert-eq(
     $expected as atomic,
     $actual as atomic?,
-    $status as integer)
+    $status as integer) as item
 {
     switch(true)
     case $status ne 200 return { status: $status }
@@ -56,7 +56,7 @@ declare function test:assert-eq(
 declare function test:assert-deep-equal(
     $expected as json-item,
     $actual as json-item?,
-    $status as integer)
+    $status as integer) as item
 {
     switch(true)
     case $status ne 200 return { status: $status }
