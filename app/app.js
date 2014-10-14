@@ -48,6 +48,7 @@ angular.module('secxbrl', [
     };
 
     // Make trailing slash optional e.g. rewrite /account to /account/
+    // This requires that all urls in the config.js need to end with /
     $urlRouterProvider.rule(function ($injector, $location) {
         var path = $location.url();
 
