@@ -140,43 +140,49 @@ This is the expected structure of the file:
             }
         ]
     },
-     "secxbrlInfo": {
-         "dev" :
-             {
-                 "adminPassword": "<dev admin user password>",
-                 "supportPassword": "<dev support user password>"
-             },
-         "prod" :
-             {
-                 "adminPassword": "<prod admin user password>",
-                 "supportPassword": "<prod support user password>"
-             }
-     },
-     "netdna": {
-         "companyAlias": "<alias>",
-         "consumerKey": "<Consumer Key>",
-         "consumerSecret": "<Consumer Secret>",
-         "prod": {
-             "zone": "<zone>"
-         }
-     },
-      "recurly": {
-          "dev": {
-              "publickey": "<public dev recurly key>"
-          },
-          "prod": {
-              "publickey": "<public prod recurly key>"
-          }
-      }
-      "sendmail":{
-          "host": "smtp.gmail.com:587/tls/novalidate-cert",
-          "user": "admin@example.com",
-          "password": "<password>",
-          "sender": {
-              "email": "hello@example.com",
-              "name": "SecXBRL.info"
-          }
-      }
+    "secxbrlInfo": {
+        "dev" :
+            {
+                "adminPassword": "<dev admin user password>",
+                "supportPassword": "<dev support user password>"
+            },
+        "prod" :
+            {
+                "adminPassword": "<prod admin user password>",
+                "supportPassword": "<prod support user password>"
+            }
+    },
+    "netdna": {
+        "companyAlias": "<alias>",
+        "consumerKey": "<Consumer Key>",
+        "consumerSecret": "<Consumer Secret>",
+        "prod": {
+            "zone": "<zone>"
+        }
+    },
+    "recurly": {
+        "dev": {
+            "publickey": "<public dev recurly key>",
+            "apikey": "<dev api recurly key>",
+            "privatekey": "<private dev key>",
+            "subdomain": "<recurly dev subdomain>"
+        },
+        "prod": {
+            "publickey": "<public prod recurly key>",
+            "apikey": "<prod api recurly key>",
+            "privatekey": "<private prod key>",
+            "subdomain": "<recurly prod subdomain>"
+        }
+    }
+    "sendmail":{
+        "host": "smtp.gmail.com:587/tls/novalidate-cert",
+        "user": "admin@example.com",
+        "password": "<password>",
+        "sender": {
+            "email": "hello@example.com",
+            "name": "SecXBRL.info"
+        }
+    }
 }
 ```
 

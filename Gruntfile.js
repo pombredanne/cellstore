@@ -424,7 +424,6 @@ module.exports = function (grunt) {
                     'APPNAME': 'secxbrl',
                     'API_URL': '<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
-                    'RECURLY_KEY': '<%= secxbrl.recurly.dev.publickey %>',
                     'ACCOUNT_URL': '/account/info',
                     'REGISTRATION_URL': '/auth'
                 }
@@ -437,7 +436,6 @@ module.exports = function (grunt) {
                     'APPNAME': 'secxbrl',
                     'API_URL': getCustomAPIUrl(),
                     'DEBUG': true,
-                    'RECURLY_KEY': '<%= secxbrl.recurly.dev.publickey %>',
                     'ACCOUNT_URL': '/account/info',
                     'REGISTRATION_URL': '/auth'
                 }
@@ -450,7 +448,6 @@ module.exports = function (grunt) {
                     'APPNAME': 'secxbrl',
                     'API_URL': '<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
-                    'RECURLY_KEY': '<%= secxbrl.recurly.prod.publickey %>',
                     'ACCOUNT_URL': '/account/info',
                     'REGISTRATION_URL': '/auth'
                 }
