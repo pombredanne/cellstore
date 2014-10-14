@@ -106,7 +106,7 @@ user:allow("sec_enterprise", "data_sec");
 user:allow("anybody", "data_sec_dow30");
 
 (: Pro user :)
-variable $user-id as string := user:get-by-email("support@28.io")._id;
+variable $user-id as string? := user:get-by-email("support@28.io")._id;
 if(empty($user-id))
 then {
     $user-id := user:new("support@28.io", "System", "Administrator", "foobar", {| |});
