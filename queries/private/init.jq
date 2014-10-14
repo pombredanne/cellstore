@@ -106,11 +106,11 @@ user:allow("sec_enterprise", "data_sec");
 user:allow("anybody", "data_sec_dow30");
 
 (: Pro user :)
-variable $user := user:get-by-email("support@28.io");
-if(empty($user))
+variable $user-id as string := user:get-by-email("support@28.io")._id;
+if(empty($user-id))
 then {
-    $user := user:new("support@28.io", "System", "Administrator", "foobar", {| |});
-    user:assign-role($user, "sec_pro", (), (), $user);
+    $user-id := user:new("support@28.io", "System", "Administrator", "foobar", {| |});
+    user:assign-role($user-id, "sec_pro", (), (), $user-id);
   }
 else ();
 
@@ -118,10 +118,10 @@ else ();
 let $token :=
 {
   "_id" : $credentials:support-token,
-  "user-id" : $user."_id",
+  "user-id" : $user-id,
   "expiration-date" : xs:dateTime("2018-10-20T22:17:23.851315Z")
 }
-let $existing := db:collection("Tokens")[$$."user-id" eq $user."_id" and $$."_id" eq $token."_id"]
+let $existing := db:collection("Tokens")[$$."user-id" eq $user-id and $$."_id" eq $token."_id"]
 return
   if(exists($existing))
   then ();
@@ -129,10 +129,10 @@ return
 
 (: Disclosures Token :)
 let $token := collection("Tokens")[$$."expiration-date" eq xs:dateTime("2016-09-12T22:17:23.851315Z")
-and $$."user-id" eq $user."_id"]
+and $$."user-id" eq $user-id]
 return 
 if(empty($token))
-then session:start($user, xs:dateTime("2016-09-12T22:17:23.851315Z"));
+then session:start($user-id, xs:dateTime("2016-09-12T22:17:23.851315Z"));
 else ();
 
 (: Admin user :)
