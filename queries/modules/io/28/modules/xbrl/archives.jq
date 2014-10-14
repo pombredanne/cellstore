@@ -303,6 +303,8 @@ declare %private function archives:hinted-query($query as object) as object
   switch (true)
     case (exists($query("_id")))
       return { "$query": $query, "$hint": "_id_" }
+    case (exists($query("Entity")))
+      return { "$query": $query, "$hint": "Entity_hashed" }
     default
       return $query
 };

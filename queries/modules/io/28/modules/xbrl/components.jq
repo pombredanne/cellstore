@@ -533,6 +533,12 @@ declare %private function components:hinted-query($query as object) as object
   switch (true)
     case (exists($query("_id")))
       return { "$query": $query, "$hint": "_id_" }
+    case (exists($query("Archive")))
+      return { "$query": $query, "$hint": "Archive_hashed" }
+    case (exists($query("Profiles.SEC.Disclosure")))
+      return { "$query": $query, "$hint": "Profiles.SEC.Disclosure_hashed" }
+    case (exists($query("Role")))
+      return { "$query": $query, "$hint": "Role_hashed" }  
     default
       return $query
 };

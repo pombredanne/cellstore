@@ -214,7 +214,11 @@ declare %private function footnotes:hinted-query($query as object) as object
 {
     switch (true)
     case (exists($query("_id")))
-        return { "$query": $query, "$hint": "_id_" }    
+      return { "$query": $query, "$hint": "_id_" }    
+    case (exists($query("Archive")))
+      return { "$query": $query, "$hint": "Archive_hashed" }
+    case (exists($query("Facts._id")) and exists($query("Lang")))
+      return { "$query": $query, "$hint": "Facts._id_1_Lang_1" }
     default
         return $query
 };

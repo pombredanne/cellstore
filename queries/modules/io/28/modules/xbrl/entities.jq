@@ -118,6 +118,16 @@ declare %private function entities:hinted-query($query as object) as object
   switch (true)
     case (exists($query("_id")))
       return { "$query": $query, "$hint": "_id_" }
+    case (exists($query("Profiles.SEC.CompanyType")))
+      return { "$query": $query, "$hint": "Profiles.SEC.CompanyType_hashed" }
+    case (exists($query("Profiles.SEC.SIC")))
+      return { "$query": $query, "$hint": "Profiles.SEC.SIC_hashed" }
+    case (exists($query("Profiles.SEC.Sector")))
+      return { "$query": $query, "$hint": "Profiles.SEC.Sector_hashed" }
+    case (exists($query("Profiles.SEC.Tags")))
+      return { "$query": $query, "$hint": "Profiles.SEC.Tags_1" }
+    case (exists($query("Profiles.SEC.Tickers")))
+      return { "$query": $query, "$hint": "Profiles.SEC.Tickers_1" }
     default
       return $query
 };
