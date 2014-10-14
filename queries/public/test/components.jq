@@ -2124,7 +2124,7 @@ declare %an:nondeterministic function local:test-example2() as item
 };
 
 
-declare %an:nondeterministic function local:test-acceptance-date($expected as string, $params as object) as atomic
+declare %an:nondeterministic function local:test-acceptance-date($expected as string, $params as object) as item
 {
     let $request := test:invoke("components", $params)
     let $actual as string := $request[2].Archives[].AcceptanceDatetime
@@ -2132,7 +2132,7 @@ declare %an:nondeterministic function local:test-acceptance-date($expected as st
     return test:assert-eq($expected, $actual, $status)
 };
 
-declare %an:nondeterministic function local:test-components($expected as integer, $params as object) as atomic
+declare %an:nondeterministic function local:test-components($expected as integer, $params as object) as item
 {
     let $request := test:invoke("components", $params)
     let $actual as integer := count($request[2].Archives[].Components[])

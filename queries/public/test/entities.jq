@@ -32,7 +32,7 @@ declare %an:nondeterministic function local:test-example1() as item
 
 declare %an:nondeterministic function local:test-entities(
     $expected as integer,
-    $params as object) as atomic
+    $params as object) as item
 {
     let $request := test:invoke("entities", $params)
     let $actual as integer := count($request[2].Entities[])

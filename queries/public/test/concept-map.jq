@@ -1,7 +1,7 @@
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace test = "http://apps.28.io/test";
 
-declare %an:nondeterministic function local:test-map($expected as integer, $params as object) as atomic
+declare %an:nondeterministic function local:test-map($expected as integer, $params as object) as item
 {
     let $request := test:invoke("concept-map", $params)
     let $actual as integer := count($request[2].Trees[])
