@@ -351,7 +351,7 @@ fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
             { "$in" : [ $fiscal-year-focus ] }
         }
     |}
-  return mongo:find($conn, $archives:col, $query)
+  return archives:find($conn, $query)
 };
 
 (:~

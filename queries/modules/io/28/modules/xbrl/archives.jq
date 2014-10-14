@@ -53,7 +53,7 @@ declare variable $archives:ENTITY as string:= "Entity";
 declare function archives:archives() as object*
 {
   let $conn := archives:connection()
-  return mongo:find($conn, $archives:col, {})
+  return archives:find($conn, {})
 };
 
 (:~
@@ -81,7 +81,7 @@ declare function archives:archives($archive-or-ids as item*) as object*
       if (exists($ids))
       then
         let $conn := archives:connection()
-        return mongo:find($conn, $archives:col, { "_id" : { "$in" : [ archives:aid($ids) ] } })
+        return archives:find($conn, { "_id" : { "$in" : [ archives:aid($ids) ] } })
       else ()
     )
 };
@@ -113,7 +113,7 @@ declare function archives:archives-for-entities($entities-or-ids as item*) as ob
   let $conn := archives:connection()
   for $cik-or-entity in $entities-or-ids
   let $eid as xs:string := entities:eid($cik-or-entity)
-  return mongo:find($conn, $archives:col, { $archives:ENTITY : $eid })
+  return archives:find($conn, { $archives:ENTITY : $eid })
 };
 
 (:~
@@ -291,6 +291,20 @@ declare function archives:aid($archives-or-ids as item*) as atomic*
       QName("archives:INVALID_PARAMETER"),
       "Invalid archive or AID (must be an object or an atomic): "
       || serialize($archive-or-id))
+};
+
+declare function archives:find($conn as anyURI, $query as object) as object()*
+{
+  mongo:find($conn, $archives:col, archives:hinted-query($query))
+};
+
+declare %private function archives:hinted-query($query as object) as object
+{
+  switch (true)
+    case (exists($query("_id")))
+      return { "$query": $query, "$hint": "_id_" }
+    default
+      return $query
 };
 
 (:~

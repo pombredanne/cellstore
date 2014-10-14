@@ -21,6 +21,7 @@ jsoniq version "1.0";
 module namespace components = "http://28.io/modules/xbrl/components";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace resolution = "http://28.io/modules/xbrl/resolution";
 import module namespace layout = "http://28.io/modules/xbrl/layout";
@@ -62,7 +63,7 @@ declare variable $components:DEFAULT-LANGUAGE as xs:string := "DefaultLanguage";
 declare function components:components() as object*
 {
   let $conn := components:connection()
-  return mongo:find($conn, $components:col, {})
+  return components:find($conn, {})
 };
 
 (:~
@@ -88,7 +89,7 @@ declare function components:components($component-or-ids as item*) as object*
       if (exists($ids))
       then
         let $conn := components:connection()
-        return mongo:find($conn, $components:col, { "_id" : { "$in" : [ $ids ! components:cid($$) ] } })
+        return components:find($conn, { "_id" : { "$in" : [ $ids ! components:cid($$) ] } })
       else ()
     )
 };
@@ -104,7 +105,7 @@ declare function components:components-for-archives($archive-or-ids as item*) as
 {
   let $conn := components:connection()
   for $archive-or-id in $archive-or-ids
-  return mongo:find($conn, $components:col, { $components:ARCHIVE: archives:aid($archive-or-id) })
+  return components:find($conn, { $components:ARCHIVE: archives:aid($archive-or-id) })
 };
 
 (:~
@@ -129,7 +130,7 @@ declare function components:components-for-archives-and-roles(
             error(QName("components:CONNECTION-FAILED"), $err:description)
         }
     return
-        mongo:find($conn, "components", 
+        components:find($conn, 
         {
             $components:ARCHIVE: { "$in" : [ $aids ] },
             "Role": { "$in" : [ $roles ] }
@@ -157,7 +158,7 @@ declare function components:components-for-archives-and-concepts(
         } catch mongo:* {
             error(QName("components:CONNECTION-FAILED"), $err:description)
         }
-    let $concepts := mongo:find($conn, "concepts", 
+    let $concepts := concepts:find($conn, 
         {| 
             (
                 { "Name" : { "$in" : [ $concepts ] } },
@@ -520,6 +521,20 @@ declare function components:cid($component-or-id as item) as atomic
       QName("components:INVALID_PARAMETER"),
       "Invalid component or id (must be an object or an atomic): "
       || serialize($component-or-id))
+};
+
+declare function components:find($conn as anyURI, $query as object) as object()*
+{
+  mongo:find($conn, $components:col, components:hinted-query($query))
+};
+
+declare %private function components:hinted-query($query as object) as object
+{
+  switch (true)
+    case (exists($query("_id")))
+      return { "$query": $query, "$hint": "_id_" }
+    default
+      return $query
 };
 
 (:~

@@ -69,7 +69,7 @@ declare variable $concepts:ALL_CONCEPT_NAMES as xs:string := "";
 declare function concepts:concepts() as object*
 {
   let $conn := concepts:connection()
-  return mongo:find($conn, $concepts:col, {})
+  return concepts:find($conn, {})
 };
 
 (:~
@@ -113,7 +113,7 @@ declare function concepts:concepts(
 {
   let $conn := concepts:connection()
   where exists($archives)
-  return mongo:find($conn, $concepts:col, 
+  return concepts:find($conn, 
     {|
       {
         $concepts:ARCHIVE : { "$in" : [ $archives ] },
@@ -362,6 +362,25 @@ declare %private function concepts:normalize-language($language as string) as st
   (: TODO Enable this when the DB has been reimported :)
   (:replace(lower-case($language), "_", "-"):)
   $language
+};
+
+declare function concepts:find($conn as anyURI, $query as object) as object()*
+{
+  mongo:find($conn, $concepts:col, concepts:hinted-query($query))
+};
+
+declare function concepts:find($conn as anyURI, $query as object, $projection as object) as object()*
+{
+  mongo:find($conn, $concepts:col, concepts:hinted-query($query), $projection)
+};
+
+declare %private function concepts:hinted-query($query as object) as object
+{
+  switch (true)
+    case (exists($query("_id")))
+      return { "$query": $query, "$hint": "_id_" }
+    default
+      return $query
 };
 
 declare %private %an:strictlydeterministic function concepts:connection() as anyURI

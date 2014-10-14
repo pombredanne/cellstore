@@ -46,7 +46,7 @@ declare variable $entities:col as string := "entities";
 declare function entities:entities() as object*
 {
   let $conn := entities:connection()
-  return mongo:find($conn, $entities:col, {})
+  return entities:find($conn, {})
 };
 
 (:~
@@ -74,7 +74,7 @@ declare function entities:entities($entities-or-ids as item*) as object*
       if (exists($ids))
       then
         let $conn := entities:connection()
-        return mongo:find($conn, $entities:col, { "_id" : { "$in" : [ $ids ! entities:eid($$) ] } })
+        return entities:find($conn, { "_id" : { "$in" : [ $ids ! entities:eid($$) ] } })
       else ()
     )
 };
@@ -106,6 +106,20 @@ declare function entities:eid($entities-or-ids as item*) as atomic*
       QName("entities:INVALID_PARAMETER"),
       "Invalid entity or id (must be an object or an atomic): "
       || serialize($entity-or-id))
+};
+
+declare function entities:find($conn as anyURI, $query as object) as object()*
+{
+  mongo:find($conn, $entities:col, entities:hinted-query($query))
+};
+
+declare %private function entities:hinted-query($query as object) as object
+{
+  switch (true)
+    case (exists($query("_id")))
+      return { "$query": $query, "$hint": "_id_" }
+    default
+      return $query
 };
 
 (:~

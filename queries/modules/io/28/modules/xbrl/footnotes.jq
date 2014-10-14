@@ -207,6 +207,14 @@ declare %private %an:strictlydeterministic function footnotes:connection() as an
 declare %private function footnotes:footnotes-query($query as object) as object*
 {
   let $conn := footnotes:connection()
-  return mongo:find($conn, $footnotes:col, $query)
+  return mongo:find($conn, $footnotes:col, footnotes:hinted-query($query))
 };
 
+declare %private function footnotes:hinted-query($query as object) as object
+{
+    switch (true)
+    case (exists($query("_id")))
+        return { "$query": $query, "$hint": "_id_" }    
+    default
+        return $query
+};

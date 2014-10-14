@@ -498,7 +498,7 @@ declare %private %an:strictlydeterministic function facts:facts-query-cached($qu
 {
   let $query as object := parse-json($query)
   let $conn := facts:connection()
-  return mongo:find($conn, $facts:col, { "$query": $query, "$hint": facts:mongo-hint($query) } )
+  return mongo:find($conn, $facts:col, facts:hinted-query($query) )
 };
 
 (:~
@@ -509,7 +509,7 @@ declare %private %an:strictlydeterministic function facts:facts-query-cached($qu
 declare %private function facts:facts-query($query as object) as object*
 {
   let $conn := facts:connection()
-  return mongo:find($conn, $facts:col, { "$query": $query, "$hint": facts:mongo-hint($query) } )
+  return mongo:find($conn, $facts:col, facts:hinted-query($query) )
 };
 
 (:~
@@ -517,17 +517,20 @@ declare %private function facts:facts-query($query as object) as object*
  : 
  : @return index name.
  :)
-declare %private function facts:mongo-hint($query as object) as string
+declare %private function facts:hinted-query($query as object) as object
 {
     switch (true)
     case (exists($query("_id")))
-        return "_id_"
-    case (exists($query("Aspects.xbrl:Concept")) and exists($query("Aspects.xbrl:Entity")) and exists($query("Aspects.sec:FiscalYear")) and exists($query("Aspects.sec:FiscalPeriod")))
-        return "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1"
+        return { "$query": $query, "$hint": "_id_" }
+    case (exists($query("Aspects.xbrl:Concept")) and 
+          exists($query("Aspects.xbrl:Entity")) and 
+          exists($query("Aspects.sec:FiscalYear")) and 
+          exists($query("Aspects.sec:FiscalPeriod")))
+        return { "$query": $query, "$hint": "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1" }
     case (exists($query("Aspects.sec:Archive")) and exists($query("Aspects.xbrl:Concept")))
-        return "Aspects.sec:Archive_1_Aspects.xbrl:Concept_1"
+        return { "$query": $query, "$hint": "Aspects.sec:Archive_1_Aspects.xbrl:Concept_1" }
     default
-        return "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1"
+        return $query
 };
 
 (:~

@@ -66,7 +66,7 @@ declare function companies:companies($companies-or-ids as item*) as object*
       if (exists($ids))
       then
         let $conn := companies:connection()
-        return mongo:find($conn, $entities:col, { "_id" : { "$in" : [ $ids ! companies:eid($$) ] } })
+        return entities:find($conn, { "_id" : { "$in" : [ $ids ! companies:eid($$) ] } })
       else ()
     )
 };
@@ -165,7 +165,7 @@ declare function companies:companies-for-sectors($sectors as string*) as object*
 {
   let $conn := companies:connection()
   for $s in $sectors
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Sector" : $s })
+  return entities:find($conn, { "Profiles.SEC.Sector" : $s })
 };
 
 (:~
@@ -179,7 +179,7 @@ declare function companies:companies-for-sectors($sectors as string*) as object*
 declare function companies:companies-for-sic($sic-codes as string*) as object*
 {
   let $conn := companies:connection()
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.SIC" : [ $sic-codes ] })
+  return entities:find($conn, { "Profiles.SEC.SIC" : [ $sic-codes ] })
 };
 
 (:~
@@ -195,7 +195,7 @@ declare function companies:companies-for-SIC($sic-codes as string*) as object*
 {
   let $conn := companies:connection()
   for $s in $sic-codes
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.SIC" : $s })
+  return entities:find($conn, { "Profiles.SEC.SIC" : $s })
 };
 
 (:~
@@ -228,7 +228,7 @@ declare function companies:companies-for-types($company-types as string*) as obj
     
   let $conn := companies:connection()
   for $t in $company-types
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.CompanyType" : $t })
+  return entities:find($conn, { "Profiles.SEC.CompanyType" : $t })
 };
 
 (:~
@@ -241,7 +241,7 @@ declare function companies:companies-for-tags($tags as string*) as object*
 {
   let $conn := companies:connection()
   for $tag in $tags
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Tags" : $tag })
+  return entities:find($conn, { "Profiles.SEC.Tags" : $tag })
 };
 
 (:~
@@ -257,7 +257,7 @@ declare function companies:companies-for-tickers(
 {
   let $conn := companies:connection()
   for $ticker in $tickers
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Tickers" : lower-case($ticker) })
+  return entities:find($conn, { "Profiles.SEC.Tickers" : lower-case($ticker) })
 };
 
 (:~

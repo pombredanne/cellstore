@@ -26,6 +26,7 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
@@ -106,7 +107,7 @@ declare function sec-networks:networks-for-disclosures(
 {
   let $conn := sec-networks:connection()
   for $disclosure in $disclosures
-  return mongo:find($conn, $components:col, { "Profiles.SEC.Disclosure": $disclosure })
+  return components:find($conn, { "Profiles.SEC.Disclosure": $disclosure })
 };
 
 (:~
@@ -124,7 +125,7 @@ declare function sec-networks:networks-for-filings-and-disclosures(
     $disclosures as string*) as object*
 {
   let $conn := sec-networks:connection()
-  return mongo:find($conn, $components:col, {
+  return components:find($conn, {
     $components:ARCHIVE: { "$in" : [ $archive-or-ids ! archives:aid($$) ] },
     "Profiles.SEC.Disclosure": { "$in" : [ $disclosures ] }
   })
@@ -151,7 +152,7 @@ declare function sec-networks:networks-for-filings-and-categories(
   for $aid_or_archive in $archive-or-ids
   let $aid as atomic := archives:aid($aid_or_archive)
   for $category in $categories
-  return mongo:find($conn, $components:col, {
+  return components:find($conn, {
     $components:ARCHIVE: $aid,
     "Profiles.SEC.Category": $category
   })
@@ -172,7 +173,7 @@ declare function sec-networks:networks-for-filings-and-roles(
     $roles as string*) as object*
 {
   let $conn := sec-networks:connection()
-  return mongo:find($conn, $components:col, {
+  return components:find($conn, {
     $components:ARCHIVE: { "$in" : [ $archive-or-ids ! archives:aid($$) ] },
     "Role": { "$in" : [ $roles ] }
   })
@@ -193,7 +194,7 @@ declare function sec-networks:networks-for-filings-and-reportElements(
     $report-elements as string*) as object*
 {
   let $conn := sec-networks:connection()
-  let $ids := mongo:find($conn, "concepts", 
+  let $ids := concepts:find($conn, 
       {
          $components:ARCHIVE: { "$in" : [ $archive-or-ids ! archives:aid($$) ] },
          "Name" : { "$in" : [ $report-elements ] }
