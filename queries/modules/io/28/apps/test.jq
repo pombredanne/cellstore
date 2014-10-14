@@ -18,6 +18,19 @@ declare %an:nondeterministic function test:invoke($endpoint as string, $paramete
 };
 
 
+declare %an:nondeterministic function test:invoke-raw($endpoint as string, $parameters as object) as object
+{
+  let $url as string:=
+    "http://" || request:server-name() || ":" || request:server-port() ||
+    "/v1/_queries/public/api/"||$endpoint||".jq?_method=POST&token="||$credentials:support-token||"&"||
+    string-join(for $key in keys($parameters)
+                for $value as string in flatten($parameters.$key)
+                return ($key||"="||$value),
+                "&")
+  return http-client:get($url)
+};
+
+
 declare %an:nondeterministic function test:invoke-public($endpoint as string, $parameters as object) as item*
 {
   let $url as string:=
