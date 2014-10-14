@@ -408,7 +408,7 @@ module.exports = function (grunt) {
             }
         },
         protractor: {
-            prod: 'tests/e2e/config/protractor-travis-nosaucelabs-master-conf.js',
+            prod: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
             ci: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
             dev: 'tests/e2e/config/protractor-conf.js'
         },
