@@ -2,6 +2,7 @@ import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace schema = "http://zorba.io/modules/schema";
+import module namespace credentials = "http://apps.28.io/credentials";
 
 declare %an:sequential function local:check($o as object) as object
 {
@@ -67,7 +68,7 @@ declare %an:sequential function local:filter($items as item()*, $replace-value-l
 
 declare %an:sequential function local:test-values() as item*
 {
-  variable $actual := parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/FactsForReportSchema.jq?_method=POST&aid=0000021344-14-000008&report=FundamentalAccountingConcepts").body.content);
+  variable $actual := parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/FactsForReportSchema.jq?_method=POST&aid=0000021344-14-000008&report=FundamentalAccountingConcepts&token=" || $credentials:support-token).body.content);
   (: To produce meaningfull diffs for the json object below, use curl -X POST http://secxbrl-dbv5.28.io/v1/_queries/public/test/facts-for-report-schema.jq | python -m json.tool | kate -i and cut a portion of the file without changing it :)
   variable $expected := 
  [
