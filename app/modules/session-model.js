@@ -39,7 +39,7 @@ angular
             function getToken(){
                 var token = getCache().get('token');
                 if(token === undefined){
-                    redirectToLoginPage();
+                    throw new Error('AuthError');
                 }
                 return token;
             }
@@ -51,7 +51,7 @@ angular
             function getUser(force){
                 var user = getCache().get('user');
                 if(user === undefined && force){
-                    redirectToLoginPage();
+                    throw new Error('AuthError');
                 }
                 return user;
             }
