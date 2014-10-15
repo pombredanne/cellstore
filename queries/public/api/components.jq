@@ -140,4 +140,4 @@ let $serializers := {
 }
 
 let $results := api:serialize($result, $comment, $serializers, $format, "components")
-return api:check-and-return-results($token, $entities, $results, $format)
+return api:check-and-return-results($token, $results, $format)

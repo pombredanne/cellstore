@@ -167,34 +167,22 @@ as boolean
     else false
 };
 
-declare function session:has-access($token as string?, $entities as object*, $right-id as string)
+declare function session:has-access($token as string?, $right-id as string)
 as integer
 {
-    if (session:only-dow30($entities))
-    then $session:ACCESS-ALLOWED
-    else
-        try {{ 
-            if (exists($token))
-            then
-            {
-              if (session:has-right($token, $right-id))
-              then $session:ACCESS-ALLOWED
-              else $session:ACCESS-DENIED
-            }
-            else $session:ACCESS-AUTH-REQUIRED
-        }}
-        catch * {{
-            $session:ACCESS-AUTH-REQUIRED
-        }}
-};
-
-declare %private function session:only-dow30($entities as object*)
-as boolean
-{
-    count(
-        for $e in $entities
-        where count($e.Profiles.SEC.Tags[]) gt 0 and $e.Profiles.SEC.Tags[] = "DOW30"
-        return $e) eq count($entities)
+	try {{ 
+	    if (exists($token))
+	    then
+	    {
+	      if (session:has-right($token, $right-id))
+	      then $session:ACCESS-ALLOWED
+	      else $session:ACCESS-DENIED
+	    }
+	    else $session:ACCESS-AUTH-REQUIRED
+	}}
+	catch * {{
+	    $session:ACCESS-AUTH-REQUIRED
+	}}
 };
 
 declare function session:error($msg as string, $format as string?) as item

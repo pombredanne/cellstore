@@ -39,7 +39,6 @@ let $archives as object* := fiscal-core:filings(
     $fiscalPeriod,
     $fiscalYear,
     $aid)
-let $entities as object* := companies:companies($archives.Entity)
 let $summaries := for $f in filings:summaries($archives) 
                   order by $f.Accepted descending
                   return $f
@@ -62,4 +61,4 @@ let $serializers := {
 }
 
 let $results := api:serialize($result, $comment, $serializers, $format, "filings")
-return api:check-and-return-results($token, $entities, $results, $format)
+return api:check-and-return-results($token, $results, $format)

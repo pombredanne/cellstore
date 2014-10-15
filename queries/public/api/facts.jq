@@ -229,4 +229,4 @@ return
         session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
     }
     else let $results := api:serialize($result, $comment, $serializers, $format, "facts")
-         return api:check-and-return-results($token, $entities, $results, $format)
+         return api:check-and-return-results($token, $results, $format)
