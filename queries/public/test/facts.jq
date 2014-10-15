@@ -30,7 +30,16 @@ declare %an:sequential function local:check($o as object) as object
 
 declare %an:nondeterministic function local:test-labels() as item
 {
-    let $res as object := http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facts.jq?_method=POST&concept=fac:Assets&concept=us-gaap:CashAndCashEquivalentsAtCarryingValue&report=FundamentalAccountingConcepts&format=csv&ticker=ko&fiscalYear=2013&fiscalPeriod=Q3&labels=true")
+    let $params := {
+        concept: ["fac:Assets", "us-gaap:CashAndCashEquivalentsAtCarryingValue"],
+        report: "FundamentalAccountingConcepts",
+        format: "csv",
+        ticker: "ko",
+        fiscalYear: 2013,
+        fiscalPeriod: "Q3",
+        labels: true
+    }
+    let $res as object := test:invoke-raw("facts", $params)
     let $actual := $res.body.content
     let $expectedLines := (
         "Archive,Concept,Entity,Period,Fiscal Period,Fiscal Year,Accepted,Legal Entity,Value,Decimals,EntityRegistrantName,Unit",
@@ -46,6 +55,7 @@ local:check({
     cocacola: local:test-facttable(468, {
         ticker:"ko"
     }),
+    cocacolaCSVLabels: local:test-labels(),
     tickerconcept: local:test-facttable(1, {
         ticker:"ko",
         concept:"us-gaap:Assets"
