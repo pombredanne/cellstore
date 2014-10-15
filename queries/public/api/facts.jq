@@ -180,16 +180,18 @@ let $facts :=
                 (reports:concepts($report))[$$.Name = $concept-names]
             )
         for $fact in $facts
+        let $entityName as string := $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName
         return {|
             $fact,
-            { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName},
-            if($labels)
+            { "EntityRegistrantName" : $entityName},
+            if($labels) 
             then
                 let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
                 let $roles as string* := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )
-                let $labels as object? := facts:labels($fact, $roles, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
+                let $concept-labels as object? := facts:labels($fact, $roles, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
+                let $standard-labels as object := conversion:get-standard-labels($fact, $entityName)
                 return 
-                    { Labels : $labels }
+                    { Labels : {| $concept-labels, $standard-labels |} } 
             else ()
         |}
 

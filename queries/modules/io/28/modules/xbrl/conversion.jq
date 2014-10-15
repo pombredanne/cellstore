@@ -6,7 +6,7 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare %private variable $conversion:STANDARD_LABELS :=
     {
-        "sec:Archive" : "Archive",
+        "sec:Archive" : "Accession Number",
         "xbrl:Concept" : "Concept",
         "xbrl:Entity" : "Entity",
         "xbrl:Period" : "Period",
@@ -29,16 +29,41 @@ declare %private function conversion:aspect-value-or-label(
 {
     let $aspect-value as atomic := $fact.Aspects.($aspect)
     let $labels as object? := $fact.Labels
-    let $entityName as string? := $fact.EntityRegistrantName
     return
         switch(true)
-        case ($aspect eq "xbrl:Entity" and starts-with($aspect-value, "http://www.sec.gov/CIK "))
-          return ($entityName, substring-after($aspect-value, "http://www.sec.gov/CIK "))[1]
-        case ($aspect eq "xbrl:Unit" and starts-with($aspect-value, "iso4217:"))
-          return substring-after($aspect-value, "iso4217:")
         case ($aspect-value instance of string and exists($labels.($aspect-value)))
           return $labels.($aspect-value)
         default return $aspect-value
+};
+
+declare function conversion:get-standard-labels($fact as object, $entityName as string?) as object {
+    {|
+        for $aspect as string in keys($fact.Aspects)
+        let $aspect-label as string := conversion:aspect-label($aspect)
+        let $aspect-value as atomic := conversion:aspect-value-or-label($aspect, $fact)
+        return
+            (
+                {
+                    $aspect : $aspect-label
+                },
+                switch(true)
+                case ($aspect eq "xbrl:Entity" and starts-with($aspect-value, "http://www.sec.gov/CIK "))
+                  return {
+                      $aspect-value : ($entityName, substring-after($aspect-value, "http://www.sec.gov/CIK "))[1]
+                  }
+                case ($aspect eq "xbrl:Unit" and starts-with($aspect-value, "iso4217:"))
+                  return {
+                      $aspect-value : substring-after($aspect-value, "iso4217:")
+                  }
+                default return ()
+            ),
+        if(exists($fact.Unit) and starts-with($fact.Unit, "iso4217:"))
+        then
+            {
+                $fact.Unit : substring-after($fact.Unit, "iso4217:")
+            }
+        else ()
+    |}
 };
 
 declare function conversion:facts-to-csv(
@@ -48,12 +73,10 @@ declare function conversion:facts-to-csv(
     let $projection :=
         if($options.Caller eq "Report")
         then ("Value",
-              "Unit",
               "Decimals",
               "EntityRegistrantName",
               "ReportedConcept")
-        else ("Unit",
-              "Value",
+        else ("Value",
               "Type",
               "Decimals")
     let $use-labels as boolean := exists($facts.Labels)
@@ -74,6 +97,12 @@ declare function conversion:facts-to-csv(
                                     }
                             else
                                 $fact.Aspects,
+                            {
+                                "Unit": 
+                                    if(starts-with($fact.Unit, "iso4217:"))
+                                    then substring-after($fact.Unit, "iso4217:")
+                                    else $fact.Unit
+                            }[exists($fact.Unit)],
                             project($fact, $projection)
                         |},
                     { serialize-null-as : "" }
@@ -95,7 +124,12 @@ declare function conversion:facts-to-xml(
                 for $aspect in keys($aspects)
                 return
                     <Aspect>
-                        <Name>{$aspect}</Name>
+                        <Name>{
+                            if($use-labels)
+                            then attribute { "label" } { conversion:aspect-label($aspect) }
+                            else (), 
+                            $aspect
+                        }</Name>
                         <Value>{
                             if($use-labels)
                             then attribute { "label" } { conversion:aspect-value-or-label($aspect, $fact) }
