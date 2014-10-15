@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('secxbrl')
-    .factory('BlogAPI', function($http, $angularCacheFactory){
-        var blogCache = $angularCacheFactory('BlogCache', {
+    .factory('BlogAPI', function($http, DSCacheFactory){
+        var blogCache = DSCacheFactory('BlogCache', {
             maxAge: 24 * 60 * 60 * 1000,
             recycleFreq: 60000,
             verifyIntegrity: true
