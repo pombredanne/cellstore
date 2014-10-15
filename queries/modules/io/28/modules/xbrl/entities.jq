@@ -27,8 +27,7 @@ jsoniq version "1.0";
  :)
 module namespace entities = "http://28.io/modules/xbrl/entities";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -45,8 +44,7 @@ declare variable $entities:col as string := "entities";
  :) 
 declare function entities:entities() as object*
 {
-  let $conn := entities:connection()
-  return entities:find($conn, {})
+  mw:find($entities:col, {})
 };
 
 (:~
@@ -72,9 +70,7 @@ declare function entities:entities($entities-or-ids as item*) as object*
     (
       $entities,
       if (exists($ids))
-      then
-        let $conn := entities:connection()
-        return entities:find($conn, { "_id" : { "$in" : [ $ids ! entities:eid($$) ] } })
+      then mw:find($entities:col, { "_id" : { "$in" : [ $ids ! entities:eid($$) ] } })
       else ()
     )
 };
@@ -106,45 +102,4 @@ declare function entities:eid($entities-or-ids as item*) as atomic*
       QName("entities:INVALID_PARAMETER"),
       "Invalid entity or id (must be an object or an atomic): "
       || serialize($entity-or-id))
-};
-
-declare function entities:find($conn as anyURI, $query as object) as object()*
-{
-  mongo:find($conn, $entities:col, entities:hinted-query($query))
-};
-
-declare %private function entities:hinted-query($query as object) as object
-{
-  switch (true)
-    case (exists($query("_id")))
-      return { "$query": $query, "$hint": "_id_" }
-    case (exists($query("Profiles.SEC.CompanyType")))
-      return { "$query": $query, "$hint": "Profiles.SEC.CompanyType_hashed" }
-    case (exists($query("Profiles.SEC.SIC")))
-      return { "$query": $query, "$hint": "Profiles.SEC.SIC_hashed" }
-    case (exists($query("Profiles.SEC.Sector")))
-      return { "$query": $query, "$hint": "Profiles.SEC.Sector_hashed" }
-    case (exists($query("Profiles.SEC.Tags")))
-      return { "$query": $query, "$hint": "Profiles.SEC.Tags_1" }
-    case (exists($query("Profiles.SEC.Tickers")))
-      return { "$query": $query, "$hint": "Profiles.SEC.Tickers_1" }
-    default
-      return $query
-};
-
-(:~
- :)
-declare %private %an:strictlydeterministic function entities:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("entities:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("entities:CONNECTION-FAILED"), $err:description)
-    }
 };

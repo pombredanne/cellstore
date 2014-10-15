@@ -100,15 +100,14 @@ jsoniq version "1.0";
  :)
 module namespace facts = "http://28.io/modules/xbrl/facts";
 
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
+
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace footnotes = "http://28.io/modules/xbrl/footnotes";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
-
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
 
 import module namespace string = "http://zorba.io/modules/string";
 import module namespace seq = "http://zorba.io/modules/sequence";
@@ -435,13 +434,11 @@ declare function facts:prefix-from-fact-concept(
  :)
 declare function facts:facts-search($search as string) as object*
 {
-  let $conn := facts:connection()
-  return mongo:run-cmd-deterministic(
-           $conn, 
-           {
-             "text" : "facts",
-             "search" : $search
-           }).results[].obj
+  mw:run-cmd-deterministic(
+	{
+      "text" : "facts",
+      "search" : $search
+    }).results[].obj
 };
 
 (:~
@@ -473,23 +470,6 @@ declare function facts:fid($facts-or-ids as item*) as atomic*
 };
 
 (:~
- :)
-declare %private %an:strictlydeterministic function facts:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("facts:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("facts:CONNECTION-FAILED"), $err:description)
-    }
-};
-
-(:~
  : <p>Queries MongoDB with a MongoDB query.</p>
  : 
  : @return all facts returned by this query.
@@ -497,8 +477,7 @@ declare %private %an:strictlydeterministic function facts:connection() as anyURI
 declare %private %an:strictlydeterministic function facts:facts-query-cached($query as string) as object*
 {
   let $query as object := parse-json($query)
-  let $conn := facts:connection()
-  return mongo:find($conn, $facts:col, facts:hinted-query($query) )
+  return mw:find($facts:col, $query)
 };
 
 (:~
@@ -508,29 +487,7 @@ declare %private %an:strictlydeterministic function facts:facts-query-cached($qu
  :) 
 declare %private function facts:facts-query($query as object) as object*
 {
-  let $conn := facts:connection()
-  return mongo:find($conn, $facts:col, facts:hinted-query($query) )
-};
-
-(:~
- : <p>Determines which index to use for a MongoDB query.</p>
- : 
- : @return index name.
- :)
-declare %private function facts:hinted-query($query as object) as object
-{
-    switch (true)
-    case (exists($query("_id")))
-        return { "$query": $query, "$hint": "_id_" }
-    case (exists($query("Aspects.xbrl:Concept")) and 
-          exists($query("Aspects.xbrl:Entity")) and 
-          exists($query("Aspects.sec:FiscalYear")) and 
-          exists($query("Aspects.sec:FiscalPeriod")))
-        return { "$query": $query, "$hint": "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1" }
-    case (exists($query("Aspects.sec:Archive")) and exists($query("Aspects.xbrl:Concept")))
-        return { "$query": $query, "$hint": "Aspects.sec:Archive_1_Aspects.xbrl:Concept_1" }
-    default
-        return $query
+  mw:find($facts:col, $query)
 };
 
 (:~
@@ -1020,7 +977,7 @@ declare %private function facts:facts-for-concepts-and-rules(
            after finishing the evaled query. To prevent this we create the
            connection here outside of eval. :)
         if (empty(facts:from-options("debug", $options)))
-        then { "debug": { "connection": string(facts:connection()) }} 
+        then { "debug": { "connection": string(mw:connection()) }} 
         else ()
       |}
   let $default-rules as object* := $rules[empty(jn:flatten($$.ComputableConcepts))]

@@ -27,10 +27,9 @@ jsoniq version "1.0";
  :)
 module namespace archives = "http://28.io/modules/xbrl/archives";
 
-import module namespace entities = "http://28.io/modules/xbrl/entities";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -52,8 +51,7 @@ declare variable $archives:ENTITY as string:= "Entity";
  :) 
 declare function archives:archives() as object*
 {
-  let $conn := archives:connection()
-  return archives:find($conn, {})
+  mw:find($archives:col,{})
 };
 
 (:~
@@ -79,9 +77,7 @@ declare function archives:archives($archive-or-ids as item*) as object*
     (
       $archives,
       if (exists($ids))
-      then
-        let $conn := archives:connection()
-        return archives:find($conn, { "_id" : { "$in" : [ archives:aid($ids) ] } })
+      then mw:find($archives:col,{ "_id" : { "$in" : [ archives:aid($ids) ] } })
       else ()
     )
 };
@@ -110,10 +106,9 @@ declare function archives:entities($archives-or-ids as item*) as object*
  :) 
 declare function archives:archives-for-entities($entities-or-ids as item*) as object*
 {
-  let $conn := archives:connection()
   for $cik-or-entity in $entities-or-ids
   let $eid as xs:string := entities:eid($cik-or-entity)
-  return archives:find($conn, { $archives:ENTITY : $eid })
+  return mw:find($archives:col,{ $archives:ENTITY : $eid })
 };
 
 (:~
@@ -291,37 +286,4 @@ declare function archives:aid($archives-or-ids as item*) as atomic*
       QName("archives:INVALID_PARAMETER"),
       "Invalid archive or AID (must be an object or an atomic): "
       || serialize($archive-or-id))
-};
-
-declare function archives:find($conn as anyURI, $query as object) as object()*
-{
-  mongo:find($conn, $archives:col, archives:hinted-query($query))
-};
-
-declare %private function archives:hinted-query($query as object) as object
-{
-  switch (true)
-    case (exists($query("_id")))
-      return { "$query": $query, "$hint": "_id_" }
-    case (exists($query("Entity")))
-      return { "$query": $query, "$hint": "Entity_hashed" }
-    default
-      return $query
-};
-
-(:~
- :)
-declare %private %an:strictlydeterministic function archives:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("archives:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("archives:CONNECTION-FAILED"), $err:description)
-    }
 };

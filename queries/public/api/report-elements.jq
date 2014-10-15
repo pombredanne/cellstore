@@ -12,8 +12,7 @@ import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
  
 import module namespace csv = "http://zorba.io/modules/json-csv";
 import module namespace seq = "http://zorba.io/modules/sequence";
@@ -67,15 +66,6 @@ declare function local:concepts-for-archives(
     $options as object?) as object*
 {
     let $projection as object := if($options.OnlyNames eq true) then { Name: 1 } else {}
-    let $conn as anyURI :=   
-      let $credentials as object? := credentials:credentials("MongoDB", "xbrl")
-      return
-        try {
-            mongo:connect($credentials)
-        } catch mongo:* {
-            error(QName("concepts:CONNECTION-FAILED"), $err:description)
-        }
-
     let $concepts-computable-by-maps as object* := 
         switch(true)
             case not exists($map) return ()
@@ -87,19 +77,19 @@ declare function local:concepts-for-archives(
     let $mapped-names as string* := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
     let $concepts-not-computable-by-maps as string* := seq:value-except($names, $mapped-names)
 
-    let $all-results as object* := concepts:find($conn, 
+    let $all-results as object* := mw:find($concepts:col, 
         {
             "Archive": { "$in" : [ $aids ] }
         },
         $projection)
-    let $results-not-computed-by-maps as object* := concepts:find($conn, 
+    let $results-not-computed-by-maps as object* := mw:find($concepts:col, 
         {
             "Name" : { "$in" : [ $concepts-not-computable-by-maps ] },
             "Archive": { "$in" : [ $aids ] }
         },
         $projection)
     let $results-computed-by-maps as object* := 
-        let $all-results as object* := concepts:find($conn, 
+        let $all-results as object* := mw:find($concepts:col, 
             {
                 "Name" : { "$in" : [ $mapped-names ] },
                 "Archive": { "$in" : [ $aids ] }
@@ -129,24 +119,15 @@ declare function local:concepts-for-archives(
 
 declare function local:concepts-for-archives-and-labels($aids as string*, $labels as string) as object*
 {
-    let $conn :=
-        let $credentials := credentials:credentials("MongoDB", "xbrl")
-        return
-            try {
-                mongo:connect($credentials)
-            } catch mongo:* {
-                error(QName("components:CONNECTION-FAILED"), $err:description)
-            }
-    return mongo:run-cmd-deterministic(
-        $conn,
-        {
-            "text" : "concepts",
-            "filter" : { "Archive" : { "$in" : [ $aids ] } },
-            "search" : $labels,
-            "limit" : 100,
-            "score" : { "$meta" : "textScore" },
-            "sort" : { score: { "$meta" : "textScore" } }
-        }).results[].obj
+   mw:run-cmd-deterministic(
+      {
+        "text" : "concepts",
+        "filter" : { "Archive" : { "$in" : [ $aids ] } },
+        "search" : $labels,
+        "limit" : 100,
+        "score" : { "$meta" : "textScore" },
+        "sort" : { score: { "$meta" : "textScore" } }
+      }).results[].obj
 }; 
 
 (: Query parameters :)
