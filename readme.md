@@ -75,7 +75,13 @@ Deploy frontend/backend (project secxbrl-mydemo.28.io / S3 bucket secxbrl-mydemo
 grunt test:setup --build-id=mydemo
 ```
 
-Run tests as follows:
+Run UI tests only:
+```bash
+grunt e2e-dev --build-id=mydemo
+grunt e2e --specs=tests/e2e/website-scenario.js --build-id=mydemo
+```
+
+Run all tests as follows:
 ```bash
 grunt test:run --build-id=mydemo
 ```
@@ -85,7 +91,7 @@ Once you are done:
 grunt test:teardown --build-id=mydemo
 ```
 
-All 3 steps can be done at once by simply running:
+All steps can be done at once by simply running:
 ```bash
 grunt --build-id=mydemo
 ```

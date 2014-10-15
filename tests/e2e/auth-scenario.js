@@ -11,7 +11,6 @@ describe('Authentication', function(){
     it('should have been redirected to the auth page', function() {
         auth.logout();
         auth.getCurrentUrl().then(function(url){
-            console.log(url);
             expect(url.substring(url.length - '/'.length)).toBe('/');
         });
     });
@@ -25,7 +24,6 @@ describe('Authentication', function(){
     it('should login', function(){
         auth.login('support@28.io', 'foobar');
         auth.getCurrentUrl().then(function(url) {
-            console.log(url);
             expect(url.substring(url.length - '/account/'.length)).toBe('/account/');
         });
     });
