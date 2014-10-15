@@ -20,6 +20,9 @@ module.exports = function (grunt) {
     grunt.task.loadTasks('tasks');
    
     var modRewrite = require('connect-modrewrite');
+    var rewriteRules = [
+        '!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg /index.html [L]'
+    ];
 
     // configurable paths
     var yeomanConfig = {
@@ -62,10 +65,6 @@ module.exports = function (grunt) {
     try {
         yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
     } catch (e) {}
-
-    grunt.registerTask('render_credentials_jq', function(target){
-        grunt.task.run(['mustache_render:' + target]);
-    });
 
     grunt.initConfig({
         yeoman: yeomanConfig,
@@ -144,6 +143,13 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
+                            secxbrl: '<%= secxbrl.secxbrlInfo.prod %>'
+                        },
+                        template: 'tasks/credentials_js.mustache',
+                        dest: 'tests/e2e/config/credentials.js'
+                    },
+                    {
+                        data: {
                             secxbrl: '<%= secxbrl.secxbrlInfo.prod %>',
                             sendmail: '<%= secxbrl.sendmail %>',
                             recurly: '<%= secxbrl.recurly.prod %>'
@@ -157,6 +163,13 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
+                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>'
+                        },
+                        template: 'tasks/credentials_js.mustache',
+                        dest: 'tests/e2e/config/credentials.js'
+                    },
+                    {
+                        data: {
                             secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
                             sendmail: '<%= secxbrl.sendmail %>',
                             recurly: '<%= secxbrl.recurly.dev %>'
@@ -168,6 +181,13 @@ module.exports = function (grunt) {
             },
             ci : {
                 files: [
+                    {
+                        data: {
+                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>'
+                        },
+                        template: 'tasks/credentials_js.mustache',
+                        dest: 'tests/e2e/config/credentials.js'
+                    },
                     {
                         data: {
                             secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
@@ -191,7 +211,7 @@ module.exports = function (grunt) {
                     middleware: function (connect) {
                         return [
                             lrSnippet,
-                            modRewrite(['!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg /index.html [L]']),
+                            modRewrite(rewriteRules),
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, yeomanConfig.app),
                             mountFolder(connect, '')
@@ -209,10 +229,27 @@ module.exports = function (grunt) {
                     }
                 }
             },
-            dist: {
+            'dist-dev': {
                 options: {
+                    keepalive: false,
                     middleware: function (connect) {
                         return [
+                            lrSnippet,
+                            modRewrite(rewriteRules),
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, yeomanConfig.app),
+                            mountFolder(connect, '')
+                        ];
+                    }
+                }
+            },
+            dist: {
+                options: {
+                    keepalive: false,
+                    middleware: function (connect) {
+                        return [
+                            lrSnippet,
+                            modRewrite(rewriteRules),
                             mountFolder(connect, yeomanConfig.dist)
                         ];
                     }
@@ -369,6 +406,11 @@ module.exports = function (grunt) {
                     '<%= yeoman.dist %>/scripts/scripts.js': ['<%= yeoman.dist %>/scripts/scripts.js']
                 }
             }
+        },
+        protractor: {
+            prod: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
+            ci: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
+            dev: 'tests/e2e/config/protractor-conf.js'
         },
         ngconstant: {
             options: {

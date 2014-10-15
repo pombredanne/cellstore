@@ -2,7 +2,7 @@
 
 angular
     .module('session-model', ['constants', 'api'])
-    .factory('Session', function($state, $location, $angularCacheFactory, API, APPNAME){
+    .factory('Session', function($state, $location, DSCacheFactory, API, APPNAME){
 
         return (function() {
 
@@ -22,11 +22,11 @@ angular
 
             function getCache(){
                 if(cache === undefined){
-                    cache = $angularCacheFactory.get(APPNAME);
+                    cache = DSCacheFactory.get(APPNAME);
                 }
                 if(cache === undefined){
                     // default settings
-                    cache = $angularCacheFactory(APPNAME, {
+                    cache = DSCacheFactory(APPNAME, {
                         maxAge: null, // no max age
                         recycleFreq: 60 * 1000,
                         deleteOnExpire: 'aggressive',
