@@ -119,6 +119,34 @@ module.exports = function(grunt) {
         return backendURL;
     };
 
+    // - Checks that the environment is one of prod, ci, or dev.
+    // - If the environment is not set it will be derived from the
+    //   system settings and branch. 
+    // - Prevents using the prod environment in ci etc.
+    var normalizeAndCheckEnvironment = function(environment){
+        if(environment === undefined && !isTravis()){
+            environment = 'dev';
+            grunt.log.writeln('default environment: ' + environment);
+        } else if(environment === undefined && isTravisAndMaster()){
+            environment = 'prod';
+            grunt.log.writeln('default environment: ' + environment);
+        } else if(environment === undefined && isTravis()){
+            environment = 'ci';
+            grunt.log.writeln('default environment: ' + environment);
+        } else if(
+            (environment === 'dev' && !isTravis()) ||
+            (environment === 'prod' && isTravisAndMaster()) ||
+            (environment === 'ci' && isTravis() && !isTravisAndMaster())){
+            return environment;
+        } else {
+            fatal('The environment ' + environment +
+                ' does not match the current system settings (' +
+                'Travis: ' + isTravis() + ', TravisAndMaster: ' +
+                isTravisAndMaster() + ')');
+        }
+        return environment;
+    };
+
     grunt.registerTask('server', function (target, environment) {
         if(!isTravis()){
             // enabling to run server locally as standalone task
@@ -129,7 +157,12 @@ module.exports = function(grunt) {
         }
 
         if (target === 'dist') {
-            return grunt.task.run(['build:dev', 'open', 'connect:dist:keepalive']);
+            return grunt.task.run([
+                'build:dev',
+                'run-message',
+                'open',
+                'connect:dist:keepalive'
+            ]);
         }
         grunt.task.run([
             'config:' + environment,
@@ -157,10 +190,7 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'reports',
-            'render_credentials_jq:' + environment,
-            'xqlint',
-            'jsonlint',
-            'jshint',
+            'mustache_render:' + environment,
             'nggettext_default',
             'nggettext_check',
             'nggettext_compile',
@@ -193,6 +223,44 @@ module.exports = function(grunt) {
         grunt.log.ok('Running against backend: ' + getCurrentConfiguredAPIURL());
     });
 
+    grunt.registerTask('e2e-dev', function(environment){
+        environment = normalizeAndCheckEnvironment(environment);
+
+        if(environment === 'dev'){
+            grunt.task.run([
+                'shell:decrypt',
+                'config:' + environment,
+                'ngconstant:' + environment,
+                'swagger-js-codegen',
+                'mustache_render:' + environment,
+                'webdriver',
+                'connect:dist-dev',
+                'protractor:' + environment
+            ]);
+        } else {
+            fatal('e2e-dev must never run in environment: ' + environment);
+        }
+    });
+
+    grunt.registerTask('e2e', function(environment){
+        environment = normalizeAndCheckEnvironment(environment);
+
+        if(environment === 'dev'){
+            grunt.task.run([
+                'shell:decrypt',
+                'config:' + environment,
+                'build:' + environment
+            ]);
+        }
+
+        grunt.task.run([
+            'webdriver',
+            'connect:dist',
+            'run-message',
+            'protractor:' + environment
+        ]);
+    });
+
     grunt.registerTask('test', function (target, environment) {
         if(!isTravis() && environment === undefined){
             environment = 'dev';
@@ -211,7 +279,13 @@ module.exports = function(grunt) {
                 'deployed-message'
             ]);
         } else if (target === 'run') {
-            grunt.task.run(['28:run']);
+            grunt.task.run([
+                'xqlint',
+                'jsonlint',
+                'jshint',
+                '28:run',
+                'e2e:' + environment
+            ]);
         } else if (target === 'teardown' && environment !== 'prod') {
             if(!isTravis()) {
                 grunt.task.run(['ngconstant:' + environment]);
@@ -257,7 +331,7 @@ module.exports = function(grunt) {
             grunt.task.run(['shell:decrypt', 'config:' + environment, 'ngconstant:' + environment ]);
             grunt.task.run([
                 'reports',
-                'render_credentials_jq:' + environment,
+                'mustache_render:' + environment,
                 '28:setup',
                 '28:deploy',
                 'deployed-message:backend'
@@ -266,7 +340,7 @@ module.exports = function(grunt) {
             if(!isTravisAndMaster() && isTravis()) {
                 grunt.task.run([
                     'reports',
-                    'render_credentials_jq:' + environment,
+                    'mustache_render:' + environment,
                     '28:setup',
                     '28:deploy',
                     'deployed-message:backend'
@@ -276,7 +350,7 @@ module.exports = function(grunt) {
             if(isTravisAndMaster()) {
                 grunt.task.run([
                     'reports',
-                    'render_credentials_jq:' + environment,
+                    'mustache_render:' + environment,
                     '28:deployMaster',
                     'deployed-message:backend'
                 ]);

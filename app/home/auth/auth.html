@@ -27,7 +27,7 @@
 					<span class="text-danger" ng-show="loginForm.loginPassword.$error.required && loginAttempted" translate>
 						Password is required.
 					</span>
-					<span class="text-danger" ng-show="loginForm.loginPassword.$error.unauthorized && loginAttempted" translate>
+					<span id="wrong-combination" class="text-danger" ng-show="loginForm.loginPassword.$error.unauthorized && loginAttempted" translate>
 						Email and Password do not match our records.
 					</span>
 				</div>
