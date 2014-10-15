@@ -24,14 +24,14 @@ declare variable $mw:ENTITIES-PROFILES_SEC_TAGS as string := "Profiles.SEC.Tags_
 declare variable $mw:ENTITIES-PROFILES_SEC_TICKERS as string := "Profiles.SEC.Tickers_1";
 
 declare variable $mw:FACTS-ID as string := "_id_";
-declare variable $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP as object := "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1";
-declare variable $mw:FACTS-ASARCHIVE_AXCONCEPT as object := "Aspects.sec:Archive_1_Aspects.xbrl:Concept_1";
+declare variable $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP as string := "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1";
+declare variable $mw:FACTS-ASARCHIVE_AXCONCEPT as string := "Aspects.sec:Archive_1_Aspects.xbrl:Concept_1";
 
 declare variable $mw:FOOTNOTES-ID as string := "_id_";
 declare variable $mw:FOOTNOTES-ARCHIVE as string := "Archive_hashed";
 declare variable $mw:FOOTNOTES-FACTS-LANG as string := "Facts._id_1_Lang_1";
 
-declare variable $mw:ALL-INDEXES :=
+declare variable $mw:ALL-INDEXES as object :=
 {
   "archives" : [ $mw:ARCHIVES-ID, $mw:ARCHIVES-ENTITY ], 
   "components": [ $mw:COMPONENTS-ID, $mw:COMPONENTS-ARCHIVE, $mw:COMPONENTS-PROFILE_SEC_DISCLOSURE, $mw:COMPONENTS-ROLE ],
