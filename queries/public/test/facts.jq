@@ -31,7 +31,7 @@ declare %an:sequential function local:check($o as object) as object
 declare %an:nondeterministic function local:test-labels() as item
 {
     let $params := {
-        concept: ["fac:Assets", "us-gaap:CashAndCashEquivalentsAtCarryingValue"],
+        concept: [ "fac:Assets", "us-gaap:CashAndCashEquivalentsAtCarryingValue" ],
         report: "FundamentalAccountingConcepts",
         format: "csv",
         ticker: "ko",
