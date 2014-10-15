@@ -175,9 +175,15 @@ replace value of json $report.DefinitionModels[1].Breakdowns.y[1].BreakdownTrees
 
 (: adapt default_zero rule :)
 let $defaultZeroRule := $report.Rules[][$$.Id eq "default_zero"]
+(: add concepts to the list of $numeric-instant-concepts :)
 let $formula := replace($defaultZeroRule.Formula,
                         "\"fac:LiabilitiesAndEquity\"\\)",
                         "\"fac:LiabilitiesAndEquity\", \"fac:CommonStockSharesAuthorized\", \"fac:CommonStockSharesIssued\", \"fac:CommonStockSharesOutstanding\")"
+                       )
+(: add concepts to the list of $concepts-in-report :)
+let $formula := replace($formula,
+                        "\"fac:Validations\"\\)",
+                        "\"fac:Validations\", \"fac:CommonStockSharesAuthorized\", \"fac:CommonStockSharesIssued\", \"fac:CommonStockSharesOutstanding\")"
                        )
 return
   {
