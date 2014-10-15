@@ -379,7 +379,7 @@ declare %private function concepts:hinted-query($query as object) as object
   switch (true)
     case (exists($query("_id")))
       return { "$query": $query, "$hint": "_id_" }
-    case (exists($query("Archive")) and exists($query("Role")) and exists($query("Name")))
+    case (exists($query("Archive")) and exists($query("Role")))
       return { "$query": $query, "$hint": "Archive_1_Role_1_Name_1" }
     case (exists($query("Archive")) and exists($query("Name")))
       return { "$query": $query, "$hint": "Name_1_Archive_1" }
