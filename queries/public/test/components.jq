@@ -1,8 +1,5 @@
-import module namespace http-client = "http://zorba.io/modules/http-client";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-
-declare variable $base-url := "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/components.jq?_method=POST";
+import module namespace test = "http://apps.28.io/test";
 
 declare %an:nondeterministic function local:test-example1() as item
 {
@@ -758,16 +755,10 @@ declare %an:nondeterministic function local:test-example1() as item
       "Abstracts" : 3
     } ]
   } ]
-  let $url := $base-url || "&aid=0000021344-13-000039"
-  let $actual := parse-json(http-client:get($url).body.content).Archives
-  return 
-        if (deep-equal($expected, $actual))
-        then true
-        else 
-        {
-            "expected": $expected,
-            "actual": $actual
-        }
+  let $params := {aid:"0000021344-13-000039"}
+  let $request := test:invoke("components", $params)
+  let $actual := $request[2].Archives
+  return test:assert-deep-equal($expected, $actual, $request[1])
 };
 
 declare %an:nondeterministic function local:test-example2() as item
@@ -2126,29 +2117,27 @@ declare %an:nondeterministic function local:test-example2() as item
       "Abstracts" : 2
     } ]
   } ]
-  let $url := $base-url || "&ticker=ko"
-  let $actual := parse-json(http-client:get($url).body.content).Archives
-  return 
-        if (deep-equal($expected, $actual))
-        then true
-        else 
-        {
-            "expected": $expected,
-            "actual": $actual
-        }
+  let $params := {ticker:"ko"}
+  let $request := test:invoke("components", $params)
+  let $actual := $request[2].Archives
+  return test:assert-deep-equal($expected, $actual, $request[1])
 };
 
 
-declare %an:nondeterministic function local:test-acceptance-date($expected as string, $params as string) as atomic
+declare %an:nondeterministic function local:test-acceptance-date($expected as string, $params as object) as item
 {
-    let $actual as string := parse-json(http-client:get($base-url || $params).body.content).Archives[].AcceptanceDatetime
-    return if ($actual eq $expected) then true else "false [Actual="||$actual||", Expected="||$expected ||"]"
+    let $request := test:invoke("components", $params)
+    let $actual as string := $request[2].Archives[].AcceptanceDatetime
+    let $status as integer := $request[1]
+    return test:assert-eq($expected, $actual, $status)
 };
 
-declare %an:nondeterministic function local:test-components($expected as integer, $params as string) as atomic
+declare %an:nondeterministic function local:test-components($expected as integer, $params as object) as item
 {
-    let $actual as integer := count(parse-json(http-client:get($base-url || $params).body.content).Archives[].Components[])
-    return if ($actual eq $expected) then true else "false [Actual="||$actual||", Expected="||$expected ||"]"
+    let $request := test:invoke("components", $params)
+    let $actual as integer := count($request[2].Archives[].Components[])
+    let $status as integer := $request[1]
+    return test:assert-eq($expected, $actual, $status)
 };
 
 
@@ -2163,12 +2152,32 @@ declare %an:sequential function local:check($o as object) as object
 };
 
 local:check({
-    cocacola: local:test-components(96, "&ticker=ko"),
-    cocacolaincome: local:test-components(1, "&ticker=ko&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
-    byconcept: local:test-components(116, "&tag=DOW30&concept=us-gaap:NetIncomeLoss"),
-    byfyfp: local:test-components(1, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets"),
-    byfyfplowercase: local:test-components(1, "&ticker=ko&fiscalYear=2012&fiscalPeriod=q2&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets"),
-    acceptance: local:test-acceptance-date("2014-07-30T15:44:58Z", "&aid=0000021344-14-000029"),
+    cocacola: local:test-components(96, {
+        ticker:"ko"
+    }),
+    cocacolaincome: local:test-components(1, {
+        ticker:"ko",
+        networkIdentifier:"http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"
+    }),
+    byconcept: local:test-components(116, {
+        tag:"DOW30",
+        concept:"us-gaap:NetIncomeLoss"
+    }),
+    byfyfp: local:test-components(1, {
+        ticker:"ko",
+        fiscalYear:"2012",
+        fiscalPeriod:"Q1",
+        networkIdentifier:"http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets"
+    }),
+    byfyfplowercase: local:test-components(1, {
+        ticker:"ko",
+        fiscalYear:"2012",
+        fiscalPeriod:"q2",
+        networkIdentifier:"http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets"
+    }),
+    acceptance: local:test-acceptance-date("2014-07-30T15:44:58Z", {
+        aid:"0000021344-14-000029"
+    }),
     example1: local:test-example1(),
     example2: local:test-example2()
 })

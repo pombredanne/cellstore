@@ -74,12 +74,11 @@ declare function api:success($data as object()) as object
 
 declare %an:sequential function api:check-and-return-results(
     $token as string?,
-    $entities as object*,
     $results as item*,
     $format as string?
 ) as item*
 {
-    switch(session:has-access($token, $entities, "data_sec"))
+    switch(session:has-access($token, "data_sec"))
     case $session:ACCESS-ALLOWED return
         $results
     case $session:ACCESS-DENIED return {
