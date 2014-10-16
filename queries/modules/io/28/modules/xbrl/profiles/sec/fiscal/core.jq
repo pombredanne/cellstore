@@ -98,6 +98,7 @@ declare function fiscal-core:filter-override(
     $archives-or-aids as item*
 ) as object?
 {
+    let $eids := entities:eid($entities-or-eids)
     let $entities := entities:entities($entities-or-eids)
     let $aids := archives:aid($archives-or-aids)
     let $latest-filings := fiscal-core:latest-filings($entities, $fiscal-periods)
@@ -133,13 +134,13 @@ declare function fiscal-core:filter-override(
             }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS))]
         |}
     }
-    case exists(($entities, $fiscal-years, $fiscal-periods))
+    case exists(($eids, $fiscal-years, $fiscal-periods))
     return {
         "xbrl:Entity" : {|
             {
                 Type: "string",
-                Domain: [ $entities._id ]
-            }[exists($entities)]
+                Domain: [ $eids ]
+            }[exists($eids)]
         |},
         "sec:FiscalYear" :
             let $fiscal-years as integer* :=
