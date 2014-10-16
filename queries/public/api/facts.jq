@@ -2,7 +2,6 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
-import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
