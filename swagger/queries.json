@@ -68,7 +68,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         },
@@ -211,7 +211,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         },
@@ -377,7 +377,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         },
@@ -537,7 +537,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         },
@@ -720,7 +720,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         },
@@ -878,7 +878,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         },
@@ -1029,6 +1029,13 @@
                         {
                             "name": "_method",
                             "paramType": "query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session (if accessing entities beyond DOW30)",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "query"
                         }
                     ],
                     "responseMessages": [
@@ -1174,6 +1181,13 @@
                                 "true",
                                 "false"
                               ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session (if accessing entities beyond DOW30)",
+                            "required": true,
+                            "type": "string",
                             "paramType": "query"
                         }
                     ],
@@ -1366,7 +1380,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         },
@@ -1562,7 +1576,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         },
