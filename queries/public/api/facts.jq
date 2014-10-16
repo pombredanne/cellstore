@@ -166,10 +166,11 @@ let $facts :=
 let $facts :=
     if(empty(($cik,$tag,$ticker,$sic)) or exists($entities))
     then
+        let $archives as string* := distinct-values($facts.Aspects."sec:Archive")
         let $concept-names := distinct-values($facts.Aspects."xbrl:Concept")
         let $concepts :=
             (
-                concepts:concepts($concept-names, $archives."_id", $concepts:ANY_COMPONENT_LINK_ROLE),
+                concepts:concepts($concept-names, $archives, $concepts:ANY_COMPONENT_LINK_ROLE),
                 (reports:concepts($report))[$$.Name = $concept-names]
             )
         for $fact in $facts
