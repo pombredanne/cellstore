@@ -197,7 +197,7 @@ declare %private function mw:is-selective($query as object, $field as string) as
 {
     exists($query($field)) and 
       (
-        not($query($field) instance of object) or (: Equality :)
+        not($query($field) instance of object) or (: Equality checks are of type atomic - not object - other kinds are disallowed :)
         exists($query($field)("$in")) (: $in operator :)
       )
 };
