@@ -39,7 +39,7 @@ declare variable $mw:ALL-INDEXES as object :=
   "entities": [ $mw:ENTITIES-ID, $mw:ENTITIES-PROFILES_SEC_COMPANYTYPE, $mw:ENTITIES-PROFILES_SEC_SIC, 
                $mw:ENTITIES-PROFILES_SEC_SECTOR, $mw:ENTITIES-PROFILES_SEC_TAGS, $mw:ENTITIES-PROFILES_SEC_TICKERS ],
   "facts": [ $mw:FACTS-ID, $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP, $mw:FACTS-ASARCHIVE_AXCONCEPT ],
-  "footnotes": [ $mw:FOOTNOTES-ID, $mw:FOOTNOTES-ARCHIVE, $mw:FOOTNOTES-FACTS-LANG ]
+  "footnotes": [ $mw:FOOTNOTES-ID, $mw:FOOTNOTES-ARCHIVE, $mw:FOOTNOTES-FACTS_ID-LANG ]
 };
 
 declare %an:strictlydeterministic function mw:connection() as anyURI
