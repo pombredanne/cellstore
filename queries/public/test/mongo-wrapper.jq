@@ -1,6 +1,9 @@
 import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 
+(:
+  Given an index name returns the name of the index first field
+:)
 declare function local:first-index-field($index as string) as string
 {
   if (starts-with($index, "_"))
