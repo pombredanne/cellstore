@@ -156,23 +156,16 @@ let $rule as item* :=
 let $hypercube := local:hypercube($entities, $fiscalPeriod, $fiscalYear, $aid)
 
 let $facts :=
-    if(empty($archives))
-    then ()
-    else 
-        for $fact in sec:facts-for(
-            {|
-                {
-                    Hypercube : $hypercube,
-                    Validate: $validate
-                },
-                { "ConceptMaps" : $map }[exists($map)],
-                { "Rules" : [ $rule ] }[exists($rule)]
-            |}
-        )
-        return {|
-            $fact,
-            { "EntityRegistrantName" : $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName}
-        |}
+  sec:facts-for(
+    {|
+      {
+        Hypercube : $hypercube,
+        Validate: $validate
+      },
+      { "ConceptMaps" : $map }[exists($map)],
+      { "Rules" : [ $rule ] }[exists($rule)]
+    |}
+  )
 
 let $facts := api:normalize-facts($facts)
 
@@ -200,12 +193,5 @@ let $serializers := {
     }
 }
 
-return 
-    if(empty($archives) and (not(empty($aid)) or not(empty($cik))))
-    then 
-    {
-        response:status-code(404);
-        session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
-    }
-    else let $results := api:serialize($result, $comment, $serializers, $format, "facts")
-         return api:check-and-return-results($token, $results, $format)
+let $results := api:serialize($result, $comment, $serializers, $format, "facts")
+return api:check-and-return-results($token, $results, $format)
