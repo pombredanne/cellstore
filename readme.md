@@ -168,20 +168,6 @@ This is the expected structure of the file:
             "zone": "<zone>"
         }
     },
-    "recurly": {
-        "dev": {
-            "publickey": "<public dev recurly key>",
-            "apikey": "<dev api recurly key>",
-            "privatekey": "<private dev key>",
-            "subdomain": "<recurly dev subdomain>"
-        },
-        "prod": {
-            "publickey": "<public prod recurly key>",
-            "apikey": "<prod api recurly key>",
-            "privatekey": "<private prod key>",
-            "subdomain": "<recurly prod subdomain>"
-        }
-    }
     "sendmail":{
         "host": "smtp.gmail.com:587/tls/novalidate-cert",
         "user": "admin@example.com",
