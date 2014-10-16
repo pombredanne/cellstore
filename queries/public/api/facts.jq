@@ -158,6 +158,8 @@ let $facts :=
       { "Rules" : [ $rule ] }[exists($rule)]
     |}
   )
+  
+let $facts := if(empty(($cik,$tag,$ticker,$sic)) or exists($entities)) then $facts else ()
 
 let $facts := api:normalize-facts($facts)
 
