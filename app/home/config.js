@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('home', {
-        url: '/',
+        url: '',
         abstract: true,
         templateUrl: '/home/home.html',
         controller: 'HomeCtrl'

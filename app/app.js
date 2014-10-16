@@ -47,21 +47,22 @@ angular.module('secxbrl', [
         }
     };
 
-    // Make trailing slash optional e.g. rewrite /account to /account/
-    // This requires that all urls in the config.js need to end with /
+    // Allow trailing slash e.g. rewrite /account/ to /account
+    // This requires that all urls in the config.js must not end with /
     $urlRouterProvider.rule(function ($injector, $location) {
         var path = $location.url();
 
-        // check to see if the path already has a slash where it should be
-        if (path[path.length - 1] === '/' || path.indexOf('/?') > -1) {
-            return;
+        // remove trailing slash
+        if (path[path.length - 1] === '/') {
+            return path.substring(0, path.length - 1);
         }
 
-        if (path.indexOf('?') > -1) {
-            return path.replace('?', '/?');
+        // remove slash before query
+        if (path.indexOf('/?') > -1) {
+            return path.replace('/?', '?');
         }
-        console.log(path);
-        return path + '/';
+
+        return;
     });
 
     $httpProvider.interceptors.push('ConnectionHandler');
