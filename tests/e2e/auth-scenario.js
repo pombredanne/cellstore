@@ -12,7 +12,7 @@ describe('Authentication', function(){
         auth.logout();
         auth.getCurrentUrl().then(function(url){
             console.log(url);
-            expect(url.substring(url.length - '/'.length)).toBe('/');
+            expect(url).toBe('/auth');
         });
     });
 
@@ -26,7 +26,7 @@ describe('Authentication', function(){
         auth.login('support@28.io', 'foobar');
         auth.getCurrentUrl().then(function(url) {
             console.log(url);
-            expect(url.substring(url.length - '/account/'.length)).toBe('/account/');
+            expect(url).toBe('/account');
         });
     });
 });
