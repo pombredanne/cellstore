@@ -179,4 +179,4 @@ let $results :=
             )
         |}
     }
-return api:check-and-return-results($token, $entity, $results, $format)
+return api:check-and-return-results($token, $results, $format)
