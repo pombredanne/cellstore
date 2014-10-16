@@ -2,7 +2,6 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
-import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace concepts = "http://28.io/modules/xbrl/concepts";
@@ -14,7 +13,6 @@ import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
-import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 
 declare function local:contains-aspect($name as string) as boolean
@@ -136,12 +134,6 @@ let $entities as object* :=
         $tag,
         $ticker,
         $sic)
-let $archives as object* := fiscal-core:filings(
-    $entities,
-    $fiscalPeriod,
-    $fiscalYear,
-    $aid)
-let $entities := entities:entities($archives.Entity)
 let $report as object? := reports:reports($report)
 let $map as item* :=
     if(exists($report))
@@ -160,21 +152,22 @@ let $rule as item* :=
 let $hypercube := local:hypercube($entities, $fiscalPeriod, $fiscalYear, $aid)
 
 let $facts :=
-    if(empty($archives))
-    then ()
-    else 
-        let $facts := sec:facts-for(
-            {|
-                {
-                    Hypercube : $hypercube,
-                    Validate: $validate
-                },
-                { "ConceptMaps" : $map }[exists($map)],
-                { "Rules" : [ $rule ] }[exists($rule)]
-            |}
-        ) 
+  sec:facts-for(
+    {|
+      {
+        Hypercube : $hypercube,
+        Validate: $validate
+      },
+      { "ConceptMaps" : $map }[exists($map)],
+      { "Rules" : [ $rule ] }[exists($rule)]
+    |}
+  )
+  
+let $facts :=
+    if(empty(($cik,$tag,$ticker,$sic)) or exists($entities))
+    then
         let $concept-names := distinct-values($facts.Aspects."xbrl:Concept")
-        let $concepts := 
+        let $concepts :=
             (
                 concepts:concepts($concept-names, $archives."_id", $concepts:ANY_COMPONENT_LINK_ROLE),
                 (reports:concepts($report))[$$.Name = $concept-names]
@@ -184,16 +177,17 @@ let $facts :=
         return {|
             $fact,
             { "EntityRegistrantName" : $entityName},
-            if($labels) 
+            if($labels)
             then
                 let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
                 let $roles as string* := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )
                 let $concept-labels as object? := facts:labels($fact, $roles, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
                 let $standard-labels as object := conversion:get-standard-labels($fact, $entityName)
-                return 
-                    { Labels : {| $concept-labels, $standard-labels |} } 
+                return
+                    { Labels : {| $concept-labels, $standard-labels |} }
             else ()
         |}
+    else ()
 
 let $facts := api:normalize-facts($facts)
 
@@ -221,12 +215,5 @@ let $serializers := {
     }
 }
 
-return 
-    if(empty($archives) and (not(empty($aid)) or not(empty($cik))))
-    then 
-    {
-        response:status-code(404);
-        session:error("entities or archives not found (valid parameters: cik, ticker, tag, sic, aid)", $format)
-    }
-    else let $results := api:serialize($result, $comment, $serializers, $format, "facts")
-         return api:check-and-return-results($token, $results, $format)
+let $results := api:serialize($result, $comment, $serializers, $format, "facts")
+return api:check-and-return-results($token, $results, $format)
