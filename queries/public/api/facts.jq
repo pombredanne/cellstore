@@ -132,12 +132,6 @@ let $entities as object* :=
         $tag,
         $ticker,
         $sic)
-let $archives as object* := fiscal-core:filings(
-    $entities,
-    $fiscalPeriod,
-    $fiscalYear,
-    $aid)
-let $entities := entities:entities($archives.Entity)
 let $report as object? := reports:reports($report)
 let $map as item* :=
     if(exists($report))
