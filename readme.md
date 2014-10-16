@@ -144,12 +144,14 @@ This is the expected structure of the file:
          "dev" :
              {
                  "adminPassword": "<dev admin user password>",
-                 "supportPassword": "<dev support user password>"
+                 "supportPassword": "<dev support user password>",
+                 "supportToken": "<dev support user token for testing>"
              },
          "prod" :
              {
                  "adminPassword": "<prod admin user password>",
-                 "supportPassword": "<prod support user password>"
+                 "supportPassword": "<prod support user password>",
+                 "supportToken": "<prod support user token for testing>"
              }
      },
      "netdna": {
