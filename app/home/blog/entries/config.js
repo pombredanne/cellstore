@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('home.blog.entries', {
-        url: '/',
+        url: '',
         templateUrl: '/home/blog/entries/entries.html',
         controller: 'EntriesCtrl'
     });

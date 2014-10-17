@@ -15,7 +15,7 @@ AuthPage.prototype = _.create(AppPage.prototype);
 
 AuthPage.prototype.visitPage = function(){
     browser.get('/');
-    return browser.get('/auth/');
+    return browser.get('/auth');
     // return element(by.css('.account-sign-in')).click();
 };
 

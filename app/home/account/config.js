@@ -14,7 +14,7 @@ angular
 
     $stateProvider
     .state('home.account', {
-        url: 'account/',
+        url: '/account',
         abstract: true,
         templateUrl: '/home/account/account.html',
         controller: 'AccountCtrl',

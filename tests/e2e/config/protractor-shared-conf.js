@@ -26,7 +26,7 @@ exports.config = {
         });
 
         //Login
-        var credentials = require('./credentials');
+        var credentials = require('./credentials').credentials;
         var Auth = require('../../../app/home/auth/auth-page');
         var auth = new Auth();
         auth.visitPage();

@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('home.account.statistics_usage', {
-        url: 'statistics_usage/',
+        url: '/statistics_usage',
         templateUrl: '/home/account/statistics_usage/statistics_usage.html',
         controller: 'StatisticsUsageCtrl',
         resolve: {

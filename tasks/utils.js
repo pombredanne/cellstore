@@ -100,14 +100,26 @@ module.exports = {
             args.push('--browser=' + browser);
         }
 
-
-        var p = spawn('node', args);
-        p.stdout.pipe(process.stdout);
-        p.stderr.pipe(process.stderr);
-        p.on('exit', function(code) {
-            if (code !== 0) { grunt.fail.warn('Protractor test(s) failed. Exit code: ' + code); }
+        var runProtractor = function(args, exitCB, trycount) {
+            var p = spawn('node', args);
+            p.stdout.pipe(process.stdout);
+            p.stderr.pipe(process.stderr);
+            p.on('exit', function(code){
+                grunt.log.writeln('exit: ' + code);
+                exitCB(code, trycount);
+            });
+        };
+        var onExit = function(code, count) {
+            // retry on timeout
+            if(code === 8 && count < 5){
+                grunt.log.writeln(count + ' starting protractor timed out. Trying again: ' + count);
+                runProtractor(args, onExit, count+1);
+            } else if (code !== 0) {
+                grunt.fail.warn('Protractor test(s) failed. Exit code: ' + code);
+            }
             done();
-        });
+        };
+        runProtractor(args, onExit, 1);
     },
 
 
