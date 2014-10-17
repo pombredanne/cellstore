@@ -28,10 +28,34 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
+declare %an:nondeterministic function local:test-labels() as item
+{
+    let $params := {
+        concept: [ "fac:Assets", "us-gaap:CashAndCashEquivalentsAtCarryingValue" ],
+        report: "FundamentalAccountingConcepts",
+        format: "csv",
+        ticker: "ko",
+        fiscalYear: 2013,
+        fiscalPeriod: "Q3",
+        labels: true
+    }
+    let $res as object := test:invoke-raw("facts", $params)
+    let $actual := $res.body.content
+    let $expectedLines := (
+        "Accession Number,Concept,Entity,Period,Fiscal Period,Fiscal Year,Accepted,Legal Entity,Unit,Value,Decimals",
+        "0000021344-13-000050,\"Cash and Cash Equivalents, at Carrying Value\",COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,USD,11118000000,-6",
+        "0000021344-13-000050,Assets,COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,USD,89432000000,-6"
+    )
+    return if($res.status eq 200 and (every $line in $expectedLines satisfies contains($actual,$line))) then true else {
+        unexpectedResponse: $res
+    }
+};
+
 local:check({
     cocacola: local:test-facttable(468, {
         ticker:"ko"
     }),
+    cocacolaCSVLabels: local:test-labels(),
     tickerconcept: local:test-facttable(1, {
         ticker:"ko",
         concept:"us-gaap:Assets"
