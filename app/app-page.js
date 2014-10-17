@@ -1,8 +1,9 @@
 /*global browser:false  */
 'use strict';
 
+
 function AppPage(){
-    
+
 }
 
 AppPage.prototype.getTitle = function(){
