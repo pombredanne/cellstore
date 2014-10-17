@@ -4,15 +4,20 @@ import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace credentials = "http://apps.28.io/credentials";
 
-declare %an:nondeterministic function test:invoke($endpoint as string, $parameters as object) as item*
+declare %private function test:url($endpoint as string, $parameters as object) as string
 {
-  let $url as string:=
     "http://" || request:server-name() || ":" || request:server-port() ||
     "/v1/_queries/public/api/"||$endpoint||".jq?_method=POST&token="||$credentials:support-token||"&"||
-    string-join(for $key in keys($parameters)
-                for $value as string in flatten($parameters.$key)
-                return ($key||"="||$value),
-                "&")
+    string-join(
+        for $key in keys($parameters)
+        for $value as string in (flatten($parameters.$key) ! string($$))
+        return ($key||"="||$value),
+        "&")
+};
+
+declare %an:nondeterministic function test:invoke($endpoint as string, $parameters as object) as item*
+{
+  let $url as string:= test:url($endpoint, $parameters)
   let $response as object := http-client:get($url)
   return ($response.status, parse-json($response.body.content))
 };
@@ -20,13 +25,7 @@ declare %an:nondeterministic function test:invoke($endpoint as string, $paramete
 
 declare %an:sequential function test:invoke-body($endpoint as string, $parameters as object, $body as string) as item*
 {
-  let $url as string:=
-    "http://" || request:server-name() || ":" || request:server-port() ||
-    "/v1/_queries/public/api/"||$endpoint||".jq?_method=POST&token="||$credentials:support-token||"&"||
-    string-join(for $key in keys($parameters)
-                for $value as string in flatten($parameters.$key)
-                return ($key||"="||$value),
-                "&")
+  let $url as string:= test:url($endpoint, $parameters)
   let $response as object := http-client:post($url, $body, "application/x-www-form-urlencoded")
   return ($response.status, parse-json($response.body.content))
 };
@@ -34,26 +33,14 @@ declare %an:sequential function test:invoke-body($endpoint as string, $parameter
 
 declare %an:nondeterministic function test:invoke-raw($endpoint as string, $parameters as object) as object
 {
-  let $url as string:=
-    "http://" || request:server-name() || ":" || request:server-port() ||
-    "/v1/_queries/public/api/"||$endpoint||".jq?_method=POST&token="||$credentials:support-token||"&"||
-    string-join(for $key in keys($parameters)
-                for $value as string in flatten($parameters.$key)
-                return ($key||"="||$value),
-                "&")
+  let $url as string:= test:url($endpoint, $parameters)
   return http-client:get($url)
 };
 
 
 declare %an:nondeterministic function test:invoke-public($endpoint as string, $parameters as object) as item*
 {
-  let $url as string:=
-    "http://" || request:server-name() || ":" || request:server-port() ||
-    "/v1/_queries/public/"||$endpoint||".jq?_method=POST&token="||$credentials:support-token||"&"||
-    string-join(for $key in keys($parameters)
-                for $value as string in flatten($parameters.$key)
-                return ($key||"="||$value),
-                "&")
+  let $url as string:= test:url($endpoint, $parameters)
   let $response as object := http-client:get($url)
   return ($response.status, parse-json($response.body.content))
 };
