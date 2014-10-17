@@ -83,7 +83,7 @@ declare %an:sequential function api:check-and-return-results(
         $results
     case $session:ACCESS-DENIED return {
           resp:status-code(403);
-          session:error("accessing filings of an entity that is not in the DOW30", $format)
+          session:error("access denied", $format)
        }
     case $session:ACCESS-AUTH-REQUIRED return {
           resp:status-code(401);
