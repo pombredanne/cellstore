@@ -5,7 +5,8 @@ US Public Company Financial Information Repository. Built on top of http://28.io
 
 ## Windows Users
 
-We advice you to run any commands in the Git Bash. Otherwise, the decryption of config.json won't work.
+We advice you to run any commands in the Git Bash.
+Otherwise, the decryption of config.json won't work and you will have to setup the config.json manually.
 
 ## Development
 
