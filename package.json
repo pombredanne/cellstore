@@ -48,7 +48,8 @@
     "protractor-screenshot-reporter": "0.0.5",
     "q": "~1.0.1",
     "request": "~2.33.0",
-    "time-grunt": "~0.1.1"
+    "time-grunt": "~0.1.1",
+    "travis-ci": "^1.2.0"
   },
   "engines": {
     "node": ">=0.8.0"
