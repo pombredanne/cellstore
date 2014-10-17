@@ -15,8 +15,7 @@ jsoniq version "1.0";
  :)
 module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
@@ -25,6 +24,7 @@ import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/comp
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
+
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -318,8 +318,7 @@ fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
     case $fiscal-period-focus eq "YTD1" return "Q1"
     case $fiscal-period-focus eq "YTD2" return "Q2"
     case $fiscal-period-focus eq "YTD3" return "Q3"
-    default return $fiscal-period-focus
-  let $conn := fiscal-core:connection()
+    default return $fiscal-period-focus  
   for $cik-or-entity in $entities-or-ids
   let $entity-id as xs:string := companies:eid($cik-or-entity)
   let $query := {|
@@ -352,7 +351,7 @@ fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
             { "$in" : [ $fiscal-year-focus ] }
         }
     |}
-  return mongo:find($conn, $archives:col, $query)
+  return mw:find($archives:col, $query)
 };
 
 (:~
@@ -597,21 +596,3 @@ declare function fiscal-core:latest-reported-fiscal-period(
       default return () }
   )[1]
 };
-
-(:~
- :)
-declare %private %an:strictlydeterministic function fiscal-core:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("fiscal-core:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("fiscal-core:CONNECTION-FAILED"), $err:description)
-    }
-};
-

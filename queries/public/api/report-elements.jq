@@ -5,19 +5,18 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
  
 import module namespace csv = "http://zorba.io/modules/json-csv";
 import module namespace seq = "http://zorba.io/modules/sequence";
 
-declare namespace concepts = "http://www.28msec.com/modules/bizql/concepts";
 
 declare function local:to-csv($concepts as item*, $onlyNames as boolean) as string
 {
@@ -67,15 +66,6 @@ declare function local:concepts-for-archives(
     $options as object?) as object*
 {
     let $projection as object := if($options.OnlyNames eq true) then { Name: 1 } else {}
-    let $conn as anyURI :=   
-      let $credentials as object? := credentials:credentials("MongoDB", "xbrl")
-      return
-        try {
-            mongo:connect($credentials)
-        } catch mongo:* {
-            error(QName("concepts:CONNECTION-FAILED"), $err:description)
-        }
-
     let $concepts-computable-by-maps as object* := 
         switch(true)
             case not exists($map) return ()
@@ -87,27 +77,24 @@ declare function local:concepts-for-archives(
     let $mapped-names as string* := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
     let $concepts-not-computable-by-maps as string* := seq:value-except($names, $mapped-names)
 
-    let $all-results as object* := mongo:find($conn, "concepts", 
+    let $all-results as object* := mw:find($concepts:col, 
         {
             "Archive": { "$in" : [ $aids ] }
         },
-        $projection,
-        {})
-    let $results-not-computed-by-maps as object* := mongo:find($conn, "concepts", 
+        $projection)
+    let $results-not-computed-by-maps as object* := mw:find($concepts:col, 
         {
             "Name" : { "$in" : [ $concepts-not-computable-by-maps ] },
             "Archive": { "$in" : [ $aids ] }
         },
-        $projection,
-        {})
+        $projection)
     let $results-computed-by-maps as object* := 
-        let $all-results as object* := mongo:find($conn, "concepts", 
+        let $all-results as object* := mw:find($concepts:col, 
             {
                 "Name" : { "$in" : [ $mapped-names ] },
                 "Archive": { "$in" : [ $aids ] }
             },
-            $projection,
-            {})
+            $projection)
         for $concept as object in $concepts-computable-by-maps
         for $result as object in
             for $candidate-concept in (keys($concept.To), $concept[].Name)
@@ -132,24 +119,15 @@ declare function local:concepts-for-archives(
 
 declare function local:concepts-for-archives-and-labels($aids as string*, $labels as string) as object*
 {
-    let $conn :=
-        let $credentials := credentials:credentials("MongoDB", "xbrl")
-        return
-            try {
-                mongo:connect($credentials)
-            } catch mongo:* {
-                error(QName("components:CONNECTION-FAILED"), $err:description)
-            }
-    return mongo:run-cmd-deterministic(
-        $conn,
-        {
-            "text" : "concepts",
-            "filter" : { "Archive" : { "$in" : [ $aids ] } },
-            "search" : $labels,
-            "limit" : 100,
-            "score" : { "$meta" : "textScore" },
-            "sort" : { score: { "$meta" : "textScore" } }
-        }).results[].obj
+   mw:run-cmd-deterministic(
+      {
+        "text" : "concepts",
+        "filter" : { "Archive" : { "$in" : [ $aids ] } },
+        "search" : $labels,
+        "limit" : 100,
+        "score" : { "$meta" : "textScore" },
+        "sort" : { score: { "$meta" : "textScore" } }
+      }).results[].obj
 }; 
 
 (: Query parameters :)
