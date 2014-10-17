@@ -42,9 +42,9 @@ declare %an:nondeterministic function local:test-labels() as item
     let $res as object := test:invoke-raw("facts", $params)
     let $actual := $res.body.content
     let $expectedLines := (
-        "Accession Number,Concept,Entity,Period,Fiscal Period,Fiscal Year,Accepted,Legal Entity,Unit,Value,Decimals,EntityRegistrantName",
-        "0000021344-13-000050,\"Cash and Cash Equivalents, at Carrying Value\",COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,USD,11118000000,-6,COCA COLA CO",
-        "0000021344-13-000050,Assets,COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,USD,89432000000,-6,COCA COLA CO"
+        "Accession Number,Concept,Entity,Period,Fiscal Period,Fiscal Year,Accepted,Legal Entity,Unit,Value,Decimals",
+        "0000021344-13-000050,\"Cash and Cash Equivalents, at Carrying Value\",COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,USD,11118000000,-6",
+        "0000021344-13-000050,Assets,COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,USD,89432000000,-6"
     )
     return if($res.status eq 200 and (every $line in $expectedLines satisfies contains($actual,$line))) then true else {
         unexpectedResponse: $res
