@@ -103,7 +103,7 @@ user:allow("reports-admin", "reports");
 user:allow("sec_pro", "data_sec");
 user:allow("sec_pro", "reports");
 user:allow("sec_enterprise", "data_sec");
-user:allow("anybody", "data_sec_dow30");
+user:allow("anybody", "data_sec");
 
 (: Pro user :)
 variable $user-id as string? := user:get-by-email("support@28.io")._id;
