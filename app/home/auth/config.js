@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('home.auth', {
-        url: 'auth/',
+        url: '/auth',
         templateUrl: '/home/auth/auth.html',
         controller: 'AuthCtrl'
     });

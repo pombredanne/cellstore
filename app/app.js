@@ -47,6 +47,24 @@ angular.module('secxbrl', [
         }
     };
 
+    // Allow trailing slash e.g. rewrite /account/ to /account
+    // This requires that all urls in the config.js must not end with /
+    $urlRouterProvider.rule(function ($injector, $location) {
+        var path = $location.url();
+
+        // remove trailing slash
+        if (path[path.length - 1] === '/') {
+            return path.substring(0, path.length - 1);
+        }
+
+        // remove slash before query
+        if (path.indexOf('/?') > -1) {
+            return path.replace('/?', '?');
+        }
+
+        return;
+    });
+
     $httpProvider.interceptors.push('ConnectionHandler');
 
     $locationProvider.html5Mode(true);
@@ -56,7 +74,7 @@ angular.module('secxbrl', [
     });
 })
 
-.run(function($rootScope, ngProgressLite, $state, $location, $modal, API, Session) {
+.run(function($rootScope, ngProgressLite, $state, $location, $modal, API, Session, DEBUG, $log) {
 
     $rootScope.$on('$stateChangeStart', function() {
         ngProgressLite.start();
@@ -67,7 +85,19 @@ angular.module('secxbrl', [
     });
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-        console.error(error);
+        if(DEBUG){
+            var desc;
+            if (error.status){
+                desc = error.status + ' - ' + JSON.stringify(error.data);
+            } else {
+                desc = error.message;
+            }
+            var msg = 'StateChangeError: from "' + fromState.name + '" to "' + toState.name + '": ' + desc;
+            $log.error(msg);
+        }
+        if(error.message === 'AuthError') {
+            Session.redirectToLoginPage();
+        }
         ngProgressLite.done();
     });
 

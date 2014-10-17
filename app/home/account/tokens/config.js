@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('home.account.tokens', {
-        url: 'tokens/',
+        url: '/tokens',
         templateUrl: '/home/account/tokens/tokens.html',
         controller: 'TokensCtrl',
         data: {
