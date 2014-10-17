@@ -11,10 +11,9 @@ jsoniq version "1.0";
  :)
 module namespace concepts = "http://28.io/modules/xbrl/concepts";
 
-import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace components = "http://28.io/modules/xbrl/components";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -68,8 +67,7 @@ declare variable $concepts:ALL_CONCEPT_NAMES as xs:string := "";
  :) 
 declare function concepts:concepts() as object*
 {
-  let $conn := concepts:connection()
-  return mongo:find($conn, $concepts:col, {})
+  mw:find($concepts:col,{})
 };
 
 (:~
@@ -111,9 +109,8 @@ declare function concepts:concepts(
     $component-roles as string*
   ) as object*
 {
-  let $conn := concepts:connection()
-  where exists($archives)
-  return mongo:find($conn, $concepts:col, 
+  if (exists($archives))
+  then mw:find($concepts:col, 
     {|
       {
         $concepts:ARCHIVE : { "$in" : [ $archives ] },
@@ -126,6 +123,7 @@ declare function concepts:concepts(
       }[not $concept-names = $concepts:ALL_CONCEPT_NAMES]
     |}
   )
+  else ()
 };
 
 
@@ -362,19 +360,4 @@ declare %private function concepts:normalize-language($language as string) as st
   (: TODO Enable this when the DB has been reimported :)
   (:replace(lower-case($language), "_", "-"):)
   $language
-};
-
-declare %private %an:strictlydeterministic function concepts:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("components:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("components:CONNECTION-FAILED"), $err:description)
-    }
 };

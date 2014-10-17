@@ -20,16 +20,16 @@ jsoniq version "1.0";
  :)
 module namespace components = "http://28.io/modules/xbrl/components";
 
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
+
 import module namespace archives = "http://28.io/modules/xbrl/archives";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace resolution = "http://28.io/modules/xbrl/resolution";
 import module namespace layout = "http://28.io/modules/xbrl/layout";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 
 import module namespace accountant = "http://28.io/modules/xbrl/profiles/accountant/converter";
-
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -61,8 +61,7 @@ declare variable $components:DEFAULT-LANGUAGE as xs:string := "DefaultLanguage";
  :) 
 declare function components:components() as object*
 {
-  let $conn := components:connection()
-  return mongo:find($conn, $components:col, {})
+  mw:find($components:col,{})
 };
 
 (:~
@@ -86,9 +85,7 @@ declare function components:components($component-or-ids as item*) as object*
     (
       $components,
       if (exists($ids))
-      then
-        let $conn := components:connection()
-        return mongo:find($conn, $components:col, { "_id" : { "$in" : [ $ids ! components:cid($$) ] } })
+      then mw:find($components:col,{ "_id" : { "$in" : [ $ids ! components:cid($$) ] } })
       else ()
     )
 };
@@ -102,9 +99,8 @@ declare function components:components($component-or-ids as item*) as object*
  :) 
 declare function components:components-for-archives($archive-or-ids as item*) as object*
 {
-  let $conn := components:connection()
   for $archive-or-id in $archive-or-ids
-  return mongo:find($conn, $components:col, { $components:ARCHIVE: archives:aid($archive-or-id) })
+  return mw:find($components:col,{ $components:ARCHIVE: archives:aid($archive-or-id) })
 };
 
 (:~
@@ -120,16 +116,8 @@ declare function components:components-for-archives-and-roles(
     $roles as string*) as object*
 {
     let $aids := archives:aid($archives-or-ids)
-    let $conn :=   
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return
-        try {
-            mongo:connect($credentials)
-        } catch mongo:* {
-            error(QName("components:CONNECTION-FAILED"), $err:description)
-        }
     return
-        mongo:find($conn, "components", 
+        mw:find($components:col, 
         {
             $components:ARCHIVE: { "$in" : [ $aids ] },
             "Role": { "$in" : [ $roles ] }
@@ -149,15 +137,7 @@ declare function components:components-for-archives-and-concepts(
     $concepts as string*) as object*
 {
     let $aids as string* := archives:aid($archives-or-ids)
-    let $conn :=   
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return
-        try {
-            mongo:connect($credentials)
-        } catch mongo:* {
-            error(QName("components:CONNECTION-FAILED"), $err:description)
-        }
-    let $concepts := mongo:find($conn, "concepts", 
+    let $concepts := mw:find($concepts:col, 
         {| 
             (
                 { "Name" : { "$in" : [ $concepts ] } },
@@ -521,21 +501,3 @@ declare function components:cid($component-or-id as item) as atomic
       "Invalid component or id (must be an object or an atomic): "
       || serialize($component-or-id))
 };
-
-(:~
- :)
-declare %private %an:strictlydeterministic function components:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("components:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("components:CONNECTION-FAILED"), $err:description)
-    }
-};
-
