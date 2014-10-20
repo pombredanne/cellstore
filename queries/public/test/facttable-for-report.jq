@@ -4617,7 +4617,7 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2013",
-        fiscalPeriod:"Q1"}),
+        fiscalPeriod:["Q1", "YTD1"]}),
     aid: local:test-facttable(95, {
         aid:"0001193125-14-157120",
         report:"FundamentalAccountingConcepts"}),
@@ -4628,12 +4628,12 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
-        fiscalPeriod:"Q1"}),
+        fiscalPeriod:["Q1", "YTD1"]}),
     tickerfyfprole: local:test-facttable(191, {
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
-        fiscalPeriod:"FY"}),
+        fiscalPeriod:["FY", "YTD4"]}),
     allvalues : local:test-values(),
     otheroperatingincometest: local:test-facttable-fact("fac:OtherOperatingIncomeExpenses",
                                                         local:expected-OtherOperatingIncomeExpenses-ATnT-2013(),
@@ -4641,5 +4641,5 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"t",
         fiscalYear:"2013",
-        fiscalPeriod:"FY"})
+        fiscalPeriod:["FY", "YTD4"]})
 })
