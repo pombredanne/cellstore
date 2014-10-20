@@ -165,13 +165,14 @@ declare function api:preprocess-fiscal-periods($fiscal-periods as string*) as st
            case "QTD3"
            case "YTD3"
            case "FY"
+           case "QTD4"
            case "YTD4"
              return $fp
            case "ALL"
              return $sec-fiscal:ALL_FISCAL_PERIODS
            default
              return error(xs:QName("local:INVALID-PERIOD"),
-               $fp || ": fiscalPeriod values must be one or more of Q1, YTD1, Q2, QTD2, YTD2, Q3, QTD3, YTD3, FY, YTD4, ALL")
+               $fp || ": fiscalPeriod values must be one or more of Q1, YTD1, Q2, QTD2, YTD2, Q3, QTD3, YTD3, FY, QTD4, YTD4, ALL")
   )
 };
 
