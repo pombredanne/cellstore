@@ -137,6 +137,17 @@ module.exports = function (grunt) {
             },
             all : {}
         },
+        'travisRestartBuild': {
+            options: {
+                repository_id: '2318203',
+                //githubToken: '<%= secxbrl.travis.githubToken %>',
+                event_type: 'push',
+                owner_name: '28msec',
+                name: 'nolap-report-editor',
+                branch: 'master'
+            },
+            all : {}
+        },
         'mustache_render': {
             options: {},
             prod : {
