@@ -52,7 +52,11 @@ declare %an:nondeterministic function local:test-labels() as item
 };
 
 local:check({
-    cocacola: local:test-facttable(468, {
+    cocacola-fy-ytd4: local:test-facttable(468, {
+        ticker:"ko",
+        fiscalPeriod: [ "FY", "YTD4" ]
+    }),
+    cocacola-fy: local:test-facttable(163, {
         ticker:"ko"
     }),
     cocacolaCSVLabels: local:test-labels(),
