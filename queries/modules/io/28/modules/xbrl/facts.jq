@@ -1644,7 +1644,7 @@ declare function facts:canonical-grouping-key(
   for $fact in $facts
   return string-join(
     let $aspects as object := $fact.Aspects
-    for $non-covered-key-aspect as string in ("sec:FiscalPeriod", $fact.KeyAspects[][not $$ = $covered-aspects])
+    for $non-covered-key-aspect as string in $fact.KeyAspects[][not $$ = $covered-aspects]
     order by $non-covered-key-aspect
     return ($non-covered-key-aspect, string($aspects.$non-covered-key-aspect))
   , "|")
