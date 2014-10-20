@@ -155,12 +155,23 @@ declare function api:preprocess-fiscal-periods($fiscal-periods as string*) as st
 {
   distinct-values(
     for $fp in $fiscal-periods ! upper-case($$)
-    return if ($fp = ("Q1", "Q2", "Q3", "FY"))
-           then $fp
-           else if ($fp eq "ALL")
-           then $sec-fiscal:ALL_FISCAL_PERIODS
-           else error(xs:QName("local:INVALID-PERIOD"),
-                      $fp || ": fiscalPeriod values must be one or more of Q1, Q2, Q3, FY, ALL")
+    return switch($fp)
+           case "Q1"
+           case "YTD1"
+           case "Q2"
+           case "QTD2"
+           case "YTD2"
+           case "Q3"
+           case "QTD3"
+           case "YTD3"
+           case "FY"
+           case "YTD4"
+             return $fp
+           case "ALL"
+             return $sec-fiscal:ALL_FISCAL_PERIODS
+           default
+             return error(xs:QName("local:INVALID-PERIOD"),
+               $fp || ": fiscalPeriod values must be one or more of Q1, YTD1, Q2, QTD2, YTD2, Q3, QTD3, YTD3, FY, YTD4, ALL")
   )
 };
 
