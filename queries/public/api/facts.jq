@@ -177,7 +177,7 @@ let $facts :=
   for $fact as object in $facts
   let $entityName as string := $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName
   return
-    if(empty($labels))
+    if(not $labels)
     then $fact
     else {|
       $fact,
