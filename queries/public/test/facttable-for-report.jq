@@ -4633,7 +4633,7 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
-        fiscalPeriod:["FY", "YTD4"]}),
+        fiscalPeriod:["FY", "QTD4", "YTD4"]}),
     allvalues : local:test-values(),
     otheroperatingincometest: local:test-facttable-fact("fac:OtherOperatingIncomeExpenses",
                                                         local:expected-OtherOperatingIncomeExpenses-ATnT-2013(),
@@ -4641,5 +4641,5 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"t",
         fiscalYear:"2013",
-        fiscalPeriod:["FY", "YTD4"]})
+        fiscalPeriod:["FY", "QTD4", "YTD4"]})
 })
