@@ -61,10 +61,10 @@ return local:check({
     all: local:test-filings(1, {ticker:"ko"}),
     dow30: local:test-filings(30, {tag:"DOW30"}),
     cik: local:test-filings(1, {cik:"4962"}),
-    ticker: local:test-filings(switch($db) case "all-dow30" return 4 default return 4, {ticker:"wmt",fiscalYear:"ALL"}),
+    ticker: local:test-filings(4, {ticker:"wmt",fiscalYear:"ALL"}),
     fpall: local:test-filings(4, {ticker:"wmt",fiscalYear:"2012",fiscalPeriod:"ALL"}) ,
     fyfp: local:test-filings(1, {ticker:"wmt",fiscalYear:"2012",fiscalPeriod:"Q1"}),
-    several: local:test-filings(switch($db) case "all-dow30" return 18 default return 18, {cik:"0000021344",fiscalPeriod:"ALL",fiscalYear:"ALL"}),
-    sic: local:test-filings(70, {sic:"4813"}),
+    several: local:test-filings(18, {cik:"0000021344",fiscalPeriod:"ALL",fiscalYear:"ALL"}),
+    sic: local:test-filings(switch($db) case "all-dow30" return 2 default return 70, {sic:"4813"}),
     example: local:test-example1()
 })
