@@ -24,12 +24,12 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2013",
-        fiscalPeriod:"Q1"}),
+        fiscalPeriod:["Q1","YTD1"]}),
     tickerrole: local:test-spreadsheet(96, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
-        fiscalPeriod:"Q1"}),
+        fiscalPeriod:["Q1","YTD1"]}),
     tickerconcept: local:test-spreadsheet(410, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
@@ -39,6 +39,6 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
-        fiscalPeriod:"FY",
+        fiscalPeriod:["FY","YTD4","QTD4"],
         eliminate:"true"}) 
 })
