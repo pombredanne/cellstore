@@ -8,7 +8,7 @@ function AccountPage(){
 }
 
 AccountPage.prototype.visitPage = function(){
-    return browser.get('/account/');
+    return browser.get('/account');
 };
 
 module.exports = AccountPage;
