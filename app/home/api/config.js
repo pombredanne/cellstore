@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('home.api', {
-        url: 'api/',
+        url: '/api',
         templateUrl: '/home/api/api.html',
         controller: 'APICtrl'
     });

@@ -25,6 +25,8 @@ module.exports = function(grunt) {
         grunt.log.writeln('          grunt test:setup --build-id=test');
         grunt.log.writeln('          grunt test:run --build-id=test');
         grunt.log.writeln('          grunt test:teardown --build-id=test');
+        grunt.log.writeln('          grunt e2e-dev --build-id=test');
+        grunt.log.writeln('          grunt e2e --specs=tests/e2e/website-scenario.js --build-id=test');
         grunt.log.writeln(' build:');
         grunt.log.writeln('          grunt build --build-id=test');
         grunt.log.writeln('');

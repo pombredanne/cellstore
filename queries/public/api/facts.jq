@@ -4,7 +4,10 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
+import module namespace components = "http://28.io/modules/xbrl/components";
 
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
@@ -113,6 +116,7 @@ declare  %rest:case-insensitive                 variable $map               as s
 declare  %rest:case-insensitive                 variable $rule              as string? external;
 declare  %rest:case-insensitive                 variable $report            as string? external;
 declare  %rest:case-insensitive                 variable $validate          as boolean external := false;
+declare  %rest:case-insensitive                 variable $labels            as boolean external := false;
 declare  %rest:case-insensitive                 variable $additional-rules  as string? external;
 
 session:audit-call($token);
@@ -159,7 +163,28 @@ let $facts :=
     |}
   )
   
-let $facts := if(empty(($cik,$tag,$ticker,$sic)) or exists($entities)) then $facts else ()
+let $facts :=
+  let $archives as string* := distinct-values($facts.Aspects."sec:Archive")
+  let $concept-names as string* := distinct-values($facts.Aspects."xbrl:Concept")
+  let $concepts as object* :=
+      (
+          concepts:concepts($concept-names, $archives, $concepts:ANY_COMPONENT_LINK_ROLE),
+          (reports:concepts($report))[$$.Name = $concept-names]
+      )
+  let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
+  let $roles as string* := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )
+  where empty(($cik,$tag,$ticker,$sic)) or exists($entities)
+  for $fact as object in $facts
+  let $entityName as string := $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName
+  return
+    if(empty($labels))
+    then $fact
+    else {|
+      $fact,
+      let $concept-labels as object? := facts:labels($fact, $roles, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
+      let $standard-labels as object := conversion:get-standard-labels($fact, $entityName)
+      return { Labels : {| $concept-labels, $standard-labels |} }
+    |}
 
 let $facts := api:normalize-facts($facts)
 

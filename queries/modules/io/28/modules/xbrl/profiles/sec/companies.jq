@@ -21,8 +21,8 @@ jsoniq version "1.0";
  :)
 module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
+
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 import module namespace entities = "http://28.io/modules/xbrl/entities";
@@ -64,9 +64,7 @@ declare function companies:companies($companies-or-ids as item*) as object*
     (
       $companies,
       if (exists($ids))
-      then
-        let $conn := companies:connection()
-        return mongo:find($conn, $entities:col, { "_id" : { "$in" : [ $ids ! companies:eid($$) ] } })
+      then mw:find($entities:col, { "_id" : { "$in" : [ $ids ! companies:eid($$) ] } })
       else ()
     )
 };
@@ -163,9 +161,8 @@ declare function companies:companies-for-sector($sectors as string*) as object*
  :) 
 declare function companies:companies-for-sectors($sectors as string*) as object*
 {
-  let $conn := companies:connection()
   for $s in $sectors
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Sector" : $s })
+  return mw:find($entities:col, { "Profiles.SEC.Sector" : $s })
 };
 
 (:~
@@ -178,8 +175,7 @@ declare function companies:companies-for-sectors($sectors as string*) as object*
  :) 
 declare function companies:companies-for-sic($sic-codes as string*) as object*
 {
-  let $conn := companies:connection()
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.SIC" : [ $sic-codes ] })
+  mw:find($entities:col, { "Profiles.SEC.SIC" : [ $sic-codes ] })
 };
 
 (:~
@@ -193,9 +189,8 @@ declare function companies:companies-for-sic($sic-codes as string*) as object*
  :) 
 declare function companies:companies-for-SIC($sic-codes as string*) as object*
 {
-  let $conn := companies:connection()
   for $s in $sic-codes
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.SIC" : $s })
+  return mw:find($entities:col, { "Profiles.SEC.SIC" : $s })
 };
 
 (:~
@@ -226,9 +221,8 @@ declare function companies:companies-for-types($company-types as string*) as obj
     then (); 
     else error(QName("companies:UNKNOWN-COMPANY-TYPE"), $t || ": Unknown company type. Allowed values: \"Corporation\", \"Partnership\", or \"unknown\".");
     
-  let $conn := companies:connection()
   for $t in $company-types
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.CompanyType" : $t })
+  return mw:find($entities:col, { "Profiles.SEC.CompanyType" : $t })
 };
 
 (:~
@@ -239,9 +233,8 @@ declare function companies:companies-for-types($company-types as string*) as obj
  :) 
 declare function companies:companies-for-tags($tags as string*) as object*
 {
-  let $conn := companies:connection()
   for $tag in $tags
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Tags" : $tag })
+  return mw:find($entities:col, { "Profiles.SEC.Tags" : $tag })
 };
 
 (:~
@@ -255,9 +248,8 @@ declare function companies:companies-for-tags($tags as string*) as object*
 declare function companies:companies-for-tickers(
   $tickers as  string*) as object*
 {
-  let $conn := companies:connection()
   for $ticker in $tickers
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Tickers" : lower-case($ticker) })
+  return mw:find($entities:col, { "Profiles.SEC.Tickers" : lower-case($ticker) })
 };
 
 (:~
@@ -426,21 +418,4 @@ declare function companies:eid($companies-or-eids-or-ciks as item*) as string*
              QName("sec:INVALID_PARAMETER"),
              "Invalid entity or CIK (must be an object or a string): "
              || serialize($companies-or-eids-or-ciks))
-};
-
-(:~
- :)
-declare %private %an:strictlydeterministic function companies:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("companies:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("companies:CONNECTION-FAILED"), $err:description)
-    }
 };

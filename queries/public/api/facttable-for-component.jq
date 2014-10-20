@@ -8,6 +8,8 @@ import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
+import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
 
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
@@ -39,6 +41,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $label              as 
 declare  %rest:case-insensitive %rest:distinct  variable $rollup             as string* external;
 declare  %rest:case-insensitive                 variable $map                as string? external;
 declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
+declare  %rest:case-insensitive                 variable $labels             as boolean external := false;
 declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
 
 session:audit-call($token);
@@ -112,7 +115,22 @@ let $facts :=
                 else ()
             |}
         )
-        
+
+let $facts :=
+    if(not $labels)
+    then $facts
+    else
+        (: if labels are requested by the labels=true parameter then also add labels for concepts :)
+        let $concepts as object* :=
+            concepts:concepts-for-components($concepts:ALL_CONCEPT_NAMES, $component)
+        for $fact in $facts
+        let $labels :=
+            facts:labels($fact, $component.Role, $concepts:STANDARD_LABEL_ROLE,$concepts:AMERICAN_ENGLISH, $concepts, ())
+        return
+            {|
+                trim($fact, "Labels"),
+                { Labels : $labels }
+            |}
 let $facts := api:normalize-facts($facts)
 
 let $results :=

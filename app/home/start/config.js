@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('home.start', {
-        url: '',
+        url: '/',
         templateUrl: '/home/start/start.html',
         controller: 'StartCtrl'
     });

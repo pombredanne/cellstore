@@ -3,6 +3,11 @@
 
 US Public Company Financial Information Repository. Built on top of http://28.io.
 
+## Windows Users
+
+We advice you to run any commands in the Git Bash.
+Otherwise, the decryption of config.json won't work and you will have to setup the config.json manually.
+
 ## Development
 
 Setup environment:
@@ -75,7 +80,13 @@ Deploy frontend/backend (project secxbrl-mydemo.28.io / S3 bucket secxbrl-mydemo
 grunt test:setup --build-id=mydemo
 ```
 
-Run tests as follows:
+Run UI tests only:
+```bash
+grunt e2e-dev --build-id=mydemo
+grunt e2e --specs=tests/e2e/website-scenario.js --build-id=mydemo
+```
+
+Run all tests as follows:
 ```bash
 grunt test:run --build-id=mydemo
 ```
@@ -85,7 +96,7 @@ Once you are done:
 grunt test:teardown --build-id=mydemo
 ```
 
-All 3 steps can be done at once by simply running:
+All steps can be done at once by simply running:
 ```bash
 grunt --build-id=mydemo
 ```
@@ -140,45 +151,37 @@ This is the expected structure of the file:
             }
         ]
     },
-     "secxbrlInfo": {
-         "dev" :
-             {
-                 "adminPassword": "<dev admin user password>",
-                 "supportPassword": "<dev support user password>",
-                 "supportToken": "<dev support user token for testing>"
-             },
-         "prod" :
-             {
-                 "adminPassword": "<prod admin user password>",
-                 "supportPassword": "<prod support user password>",
-                 "supportToken": "<prod support user token for testing>"
-             }
-     },
-     "netdna": {
-         "companyAlias": "<alias>",
-         "consumerKey": "<Consumer Key>",
-         "consumerSecret": "<Consumer Secret>",
-         "prod": {
-             "zone": "<zone>"
-         }
-     },
-      "recurly": {
-          "dev": {
-              "publickey": "<public dev recurly key>"
-          },
-          "prod": {
-              "publickey": "<public prod recurly key>"
-          }
-      }
-      "sendmail":{
-          "host": "smtp.gmail.com:587/tls/novalidate-cert",
-          "user": "admin@example.com",
-          "password": "<password>",
-          "sender": {
-              "email": "hello@example.com",
-              "name": "SecXBRL.info"
-          }
-      }
+    "secxbrlInfo": {
+        "dev" :
+            {
+                "adminPassword": "<dev admin user password>",
+                "supportPassword": "<dev support user password>",
+                "supportToken": "<dev support user token for testing>"
+            },
+        "prod" :
+            {
+                "adminPassword": "<prod admin user password>",
+                "supportPassword": "<prod support user password>",
+                "supportToken": "<prod support user token for testing>"
+            }
+    },
+    "netdna": {
+        "companyAlias": "<alias>",
+        "consumerKey": "<Consumer Key>",
+        "consumerSecret": "<Consumer Secret>",
+        "prod": {
+            "zone": "<zone>"
+        }
+    },
+    "sendmail":{
+        "host": "smtp.gmail.com:587/tls/novalidate-cert",
+        "user": "admin@example.com",
+        "password": "<password>",
+        "sender": {
+            "email": "hello@example.com",
+            "name": "SecXBRL.info"
+        }
+    }
 }
 ```
 

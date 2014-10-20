@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('home.account.password', {
-        url: 'password/',
+        url: '/password',
         templateUrl: '/home/account/password/password.html',
         controller: 'PasswordCtrl',
         data: {

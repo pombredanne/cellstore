@@ -20,15 +20,17 @@ jsoniq version "1.0";
  :)
 module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
+
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+
 
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 
@@ -104,9 +106,8 @@ declare function sec-networks:networks-for-filings(
 declare function sec-networks:networks-for-disclosures(
     $disclosures as string*) as object*
 {
-  let $conn := sec-networks:connection()
   for $disclosure in $disclosures
-  return mongo:find($conn, $components:col, { "Profiles.SEC.Disclosure": $disclosure })
+  return mw:find($components:col,{ "Profiles.SEC.Disclosure": $disclosure })
 };
 
 (:~
@@ -123,8 +124,8 @@ declare function sec-networks:networks-for-filings-and-disclosures(
     $archive-or-ids as item*,
     $disclosures as string*) as object*
 {
-  let $conn := sec-networks:connection()
-  return mongo:find($conn, $components:col, {
+  mw:find($components:col,
+  {
     $components:ARCHIVE: { "$in" : [ $archive-or-ids ! archives:aid($$) ] },
     "Profiles.SEC.Disclosure": { "$in" : [ $disclosures ] }
   })
@@ -147,11 +148,11 @@ declare function sec-networks:networks-for-filings-and-categories(
     $archive-or-ids as item*,
     $categories as string*) as object*
 {
-  let $conn := sec-networks:connection()
   for $aid_or_archive in $archive-or-ids
   let $aid as atomic := archives:aid($aid_or_archive)
   for $category in $categories
-  return mongo:find($conn, $components:col, {
+  return mw:find($components:col,
+  {
     $components:ARCHIVE: $aid,
     "Profiles.SEC.Category": $category
   })
@@ -171,8 +172,8 @@ declare function sec-networks:networks-for-filings-and-roles(
     $archive-or-ids as item*,
     $roles as string*) as object*
 {
-  let $conn := sec-networks:connection()
-  return mongo:find($conn, $components:col, {
+  mw:find($components:col,
+  {
     $components:ARCHIVE: { "$in" : [ $archive-or-ids ! archives:aid($$) ] },
     "Role": { "$in" : [ $roles ] }
   })
@@ -192,8 +193,7 @@ declare function sec-networks:networks-for-filings-and-reportElements(
     $archive-or-ids as item*,
     $report-elements as string*) as object*
 {
-  let $conn := sec-networks:connection()
-  let $ids := mongo:find($conn, "concepts", 
+  let $ids := mw:find($concepts:col, 
       {
          $components:ARCHIVE: { "$in" : [ $archive-or-ids ! archives:aid($$) ] },
          "Name" : { "$in" : [ $report-elements ] }
@@ -240,8 +240,8 @@ declare function sec-networks:networks-for-filings-and-label(
     $label-search-term as string*,
     $limit as integer) as object*
 {
-  let $conn := sec-networks:connection()
-  return mongo:run-cmd-deterministic($conn, {
+  mw:run-cmd-deterministic(
+  {
     "text" : $components:col,
     "filter" : { "Archive" : { "$in" : [ $archive-or-ids ! archives:aid($$) ] } },
     "search" : $label-search-term,
@@ -1147,23 +1147,5 @@ declare %private function sec-networks:standard-concept-breakdown(
                 RollUpAgainstCalculationNetwork: false
             }
         ]
-    }
-};
-
-
-(:~
- :)
-declare %private %an:strictlydeterministic function sec-networks:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("sec-networks:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("sec-networks:CONNECTION-FAILED"), $err:description)
     }
 };

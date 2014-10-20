@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('home.logout', {
-        url: 'logout/',
+        url: '/logout',
         templateUrl: '/home/logout/logout.html',
         controller: 'LogoutCtrl'
     });

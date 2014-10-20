@@ -80,13 +80,10 @@ user:new-right("reports_remove", "Remove Report", "reports_edit", 2);
 (: RIGHTS: Data :)
 user:new-right("data", "Data Access", (), 1);
 user:new-right("data_sec", "SEC data access", "data", 1);
-user:new-right("data_sec_dow30", "SEC data access to DOW30", "data_sec", 2);
 
 (: ROLES :)
 user:new-role("admin", "Administrator");
 user:new-role("anybody", "All Users");
-user:new-role("reports-admin", "Users Allowed to edit reports");
-user:new-role("sec_pro", "Paid users (SEC Pro)");
 user:new-role("sec_enterprise", "Paid users (SEC Enterprise)");
 
 flush();
@@ -99,18 +96,15 @@ user:allow("anybody", "users_reset_password_self");
 user:allow("anybody", "users_upload_picture_self");
 user:allow("anybody", "users_edit_self");
 user:allow("anybody", "users_remove_picture_self");
-user:allow("reports-admin", "reports");
-user:allow("sec_pro", "data_sec");
-user:allow("sec_pro", "reports");
+user:allow("anybody", "reports");
 user:allow("sec_enterprise", "data_sec");
-user:allow("anybody", "data_sec_dow30");
+user:allow("anybody", "data_sec");
 
 (: Pro user :)
 variable $user-id as string? := user:get-by-email("support@28.io")._id;
 if(empty($user-id))
 then {
     $user-id := user:new("support@28.io", "System", "Administrator", "foobar", {| |});
-    user:assign-role($user-id, "sec_pro", (), (), $user-id);
   }
 else ();
 

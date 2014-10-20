@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('home.account.billing', {
-        url: 'billing/',
+        url: '/billing',
         templateUrl: '/home/account/billing/billing.html',
         controller: 'BillingCtrl',
         resolve: {
