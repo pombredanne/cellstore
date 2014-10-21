@@ -9,6 +9,13 @@ declare %an:nondeterministic function local:test-spreadsheet($expected as intege
     return test:assert-eq($expected, $actual, $status)
 };
 
+declare %an:nondeterministic function local:test-report-does-not-exist($params as object) as item
+{
+    let $request := test:invoke("spreadsheet-for-report", $params)
+    let $status as integer := $request[1]
+    return if ($status eq 404) then true else { unexpectedResponse: $request[2] }
+};
+
 declare %an:sequential function local:check($o as object) as object
 {
     if (not(every $k in (keys($o) ! $o.$$) satisfies ($k instance of boolean and $k)))
@@ -40,5 +47,10 @@ local:check({
         ticker:["ko","wmt"],
         fiscalYear:"2013",
         fiscalPeriod:"FY",
-        eliminate:"true"}) 
+        eliminate:"true"}),
+    reportDoesntExist: local:test-report-does-not-exist({
+        report:"report-not-found",
+        ticker:"MSFT",
+        fiscalYear:"ALL",
+        fiscalPeriod:"FY"})
 })
