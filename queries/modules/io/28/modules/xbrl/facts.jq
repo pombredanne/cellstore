@@ -676,7 +676,7 @@ as atomic?
  :
  : @return the instance period, or the empty sequence if it is not instant.
  :)
-declare function facts:instant-for-fact($fact-or-id as item, $options as object?)
+declare function facts:instant-for-fact($fact-or-id as item)
 as atomic?
 {
   facts:instant-for-fact($fact-or-id, ())
