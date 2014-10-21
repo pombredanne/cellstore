@@ -7,7 +7,7 @@ function BillingPage(){
 }
 
 BillingPage.prototype.visitPage = function(){
-    return browser.get('/account/billing/');
+    return browser.get('/account/billing');
 };
 
 module.exports = BillingPage;
