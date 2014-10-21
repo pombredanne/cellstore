@@ -87,5 +87,20 @@ local:check({
         sic:"5052",
         fiscalYear:"2010",
         fiscalPeriod:"Q3"
+    }),
+    quartersfact: local:test-facttable(0, { (: this fact is not reported in the raw XML filing :)
+        aid: "0000051143-13-000007",
+        concept: "disc:AssetRetirementObligationsPolicy",
+        fiscalPeriod: "Q3",
+        fiscalYear: "2013",
+        map: "Disclosures"                        
+    }),
+    quartersfact2: local:test-facttable(1, {
+        aid: "0001193125-12-207154",
+        concept: "disc:CashFlowOperatingCapitalTableTextBlock",
+        fiscalPeriod: "Q1",
+        fiscalYear: "2012",
+        map: "Disclosures"
     })
+         
 })
