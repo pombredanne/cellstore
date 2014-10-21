@@ -7,7 +7,7 @@ function PricingPage(){
 }
 
 PricingPage.prototype.visitPage = function(){
-    return browser.get('/pricing/');
+    return browser.get('/pricing');
 };
 
 module.exports = PricingPage;
