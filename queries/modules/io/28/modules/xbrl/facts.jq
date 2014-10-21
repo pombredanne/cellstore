@@ -651,16 +651,64 @@ as string
  : <p>Retrieves the instant period for which a fact was reported.</p>
  :
  : @param $fact-or-id a fact or its FID.
+ : @param $options Some options among which:
+ : <ul>
+ :  <li>Typed: true to cast to date or dateTime (default), false to return strings.</li>
+ : </ul>
+ :
+ : @return the instance period, or the empty sequence if it is not instant.
+ :)
+declare function facts:instant-for-fact($fact-or-id as item, $options as object?)
+as atomic?
+{
+  let $str := facts:facts($fact-or-id).$facts:ASPECTS.$facts:PERIOD
+  return switch(true)
+         case $options.Typed eq false return $str
+         case $str castable as xs:date return xs:date($str)
+         case $str castable as xs:dateTime return xs:dateTime($str)
+         default return ()
+};
+
+(:~
+ : <p>Retrieves the instant period for which a fact was reported.</p>
+ :
+ : @param $fact-or-id a fact or its FID.
  :
  : @return the instance period, or the empty sequence if it is not instant.
  :)
 declare function facts:instant-for-fact($fact-or-id as item)
 as atomic?
 {
+  facts:instant-for-fact($fact-or-id, ())
+};
+
+(:~
+ : <p>Retrieves the duration period for which a fact was reported.</p>
+ :
+ : @param $fact-or-id a fact or its FID.
+ : @param $options Some options among which:
+ : <ul>
+ :  <li>Typed: true to cast to date or dateTime (default), false to return strings.</li>
+ : </ul>
+ :
+ :
+ : @return the duration period as an object with Start and End, or the empty sequence if it is not instant.
+ :)
+declare function facts:duration-for-fact($fact-or-id as item, $options as object?)
+as object?
+{
   let $str := facts:facts($fact-or-id).$facts:ASPECTS.$facts:PERIOD
-  return if ($str castable as xs:date) then xs:date($str)
-         else if ($str castable as xs:dateTime) then xs:dateTime($str)
-         else ()
+  let $tokens := string:split($str, "/")
+  where count($tokens) eq 2
+  let $cast := for $i in 1 to 2
+               let $str := $tokens[$i]
+               return switch(true)
+	              case $options.Typed eq false return $str
+	              case $str castable as xs:date return xs:date($str)
+	              case $str castable as xs:dateTime return xs:dateTime($str)
+	              default return ()
+  where count($cast) eq 2
+  return { Start: $cast[1], End: $cast[2] }
 };
 
 (:~
@@ -673,15 +721,7 @@ as atomic?
 declare function facts:duration-for-fact($fact-or-id as item)
 as object?
 {
-  let $str := facts:facts($fact-or-id).$facts:ASPECTS.$facts:PERIOD
-  let $tokens := string:split($str, "/")
-  where count($tokens) eq 2
-  let $cast := for $i in 1 to 2
-               return if ($tokens[$i] castable as xs:date) then xs:date($tokens[$i])
-                      else if ($tokens[$i] castable as xs:dateTime) then xs:dateTime($tokens[$i])
-                      else ()
-  where count($cast) eq 2
-  return { Start: $cast[1], End: $cast[2] }
+  facts:duration-for-fact($fact-or-id, ())
 };
 
 (:~
