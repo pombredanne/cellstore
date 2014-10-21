@@ -694,7 +694,7 @@ as atomic?
  :
  : @return the duration period as an object with Start and End, or the empty sequence if it is not instant.
  :)
-declare function facts:duration-for-fact($fact-or-id as item)
+declare function facts:duration-for-fact($fact-or-id as item, $options as object?)
 as object?
 {
   let $str := facts:facts($fact-or-id).$facts:ASPECTS.$facts:PERIOD
