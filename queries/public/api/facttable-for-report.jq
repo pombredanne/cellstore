@@ -1,5 +1,3 @@
-import module namespace archives = "http://28.io/modules/xbrl/archives";
-import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
@@ -29,6 +27,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $aid           as strin
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $labels        as boolean external := false;
 declare  %rest:case-insensitive                 variable $report        as string? external;
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
 
 session:audit-call($token);
 
@@ -55,7 +54,7 @@ let $filter-override as object? := fiscal-core:filter-override(
     $entities,
     $fiscalYear,
     $fiscalPeriod,
-    $aid)
+    $aid)[$profile-name eq "sec"]
 let $facts as object* :=
     let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
     let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
@@ -76,14 +75,9 @@ let $concepts as object* :=
     reports:concepts($report)
 let $facts :=
     for $fact in $facts
-    group by $archive := $fact.Aspects."sec:Archive"
-    let $archive := archives:archives($archive)
-    let $entity := entities:entities($archive.Entity)
-    for $fact in $fact
     return
     {|
-        trim($fact, ("Labels", "EntityRegistrantName")),
-        { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
+        trim($fact, "Labels"),
         if($labels)
         then
             let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
@@ -94,7 +88,9 @@ let $facts :=
         else ()
     |}
 
-let $facts := api:normalize-facts($facts)
+let $facts := if($profile-name eq "sec")
+              then api:normalize-facts($facts)
+              else $facts
 
 let $results :=
     switch ($format)

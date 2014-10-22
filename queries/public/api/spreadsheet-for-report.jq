@@ -24,6 +24,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $aid           as strin
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate     as boolean external := false;
 declare  %rest:case-insensitive                 variable $report        as string? external;
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
 
 session:audit-call($token);
 
@@ -50,7 +51,7 @@ let $filter-override as object? := fiscal-core:filter-override(
     $entities,
     $fiscalYear,
     $fiscalPeriod,
-    $aid)
+    $aid)[$profile-name eq "sec"]
 
 (: Fact resolution :)
 let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
