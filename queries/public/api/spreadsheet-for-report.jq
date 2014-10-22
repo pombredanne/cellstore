@@ -24,7 +24,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $aid           as strin
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate     as boolean external := false;
 declare  %rest:case-insensitive                 variable $report        as string? external;
-declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
 
 session:audit-call($token);
 
