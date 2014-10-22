@@ -12,9 +12,10 @@ declare %an:nondeterministic function local:test-spreadsheet($expected as intege
 
 declare %an:nondeterministic function local:test-report-does-not-exist($params as object) as item
 {
-    let $request := test:invoke("spreadsheet-for-report", $params)
+    let $endpoint := "spreadsheet-for-report"
+    let $request := test:invoke($endpoint, $params)
     let $status as integer := $request[1]
-    return if ($status eq 404) then true else { unexpectedResponse: $request[2] }
+    return if ($status eq 404) then true else { url: test:url($endpoint, $params), unexpectedResponse: $request[2] }
 };
 
 declare %an:sequential function local:check($o as object) as object

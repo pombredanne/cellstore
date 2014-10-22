@@ -218,9 +218,10 @@ declare %an:nondeterministic function local:test-facttable-fact($concept as stri
 
 declare %an:nondeterministic function local:test-report-does-not-exist($params as object) as item
 {
-    let $request := test:invoke("facttable-for-report", $params)
+    let $endpoint := "facttable-for-report"
+    let $request := test:invoke($endpoint, $params)
     let $status as integer := $request[1]
-    return if ($status eq 404) then true else { unexpectedResponse: $request[2] }
+    return if ($status eq 404) then true else { url: test:url($endpoint, $params), unexpectedResponse: $request[2] }
 };
 
 declare %an:sequential function local:check($o as object) as object
