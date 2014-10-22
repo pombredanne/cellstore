@@ -66,6 +66,7 @@ declare function local:param-names() as string*
         "sec:FiscalPeriod"[$profile-name eq "sec" and $names = "fiscalPeriod"],
         "sec:FiscalYear"[$profile-name eq "sec" and $names = "fiscalYear"],
         "xbrl:Concept"[$names = "concept"],
+        "xbrl:Entity"[$names = ("cik", "tag", "ticker", "sic")],
         "sec:DefaultLegalEntity"[$profile-name eq "sec"]))
 };
 
@@ -120,7 +121,7 @@ declare function local:hypercube() as object
 
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $token             as string? external;
-declare  %rest:case-insensitive                 variable $profile-name      as string  external := "generic";
+declare  %rest:case-insensitive                 variable $profile-name      as string  external := "sec";
 declare  %rest:env                              variable $request-uri       as string  external;
 declare  %rest:case-insensitive                 variable $format            as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik               as string* external;
@@ -207,6 +208,7 @@ let $facts := api:normalize-facts($facts)
 let $result := {
     NetworkIdentifier : "http://bizql.io/facts",
     TableName : "xbrl:Facts",
+    Hypercube: $hypercube,
     FactTable : [ $facts ]
 }
 let $comment :=
