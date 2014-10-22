@@ -3,10 +3,11 @@ import module namespace test = "http://apps.28.io/test";
 
 declare %an:nondeterministic function local:test-map($expected as integer, $params as object) as item
 {
-    let $request := test:invoke("concept-map", $params)
+    let $endpoint := "concept-map"
+    let $request := test:invoke($endpoint, $params)
     let $actual as integer := count($request[2].Trees[])
     let $status as integer := $request[1]
-    return test:assert-eq($expected, $actual, $status)
+    return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 

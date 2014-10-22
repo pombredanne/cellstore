@@ -4,33 +4,36 @@ import module namespace test = "http://apps.28.io/test";
 
 declare %an:nondeterministic function local:test-concepts($expected as integer, $params as object) as item
 {
-    let $request := test:invoke("report-elements", $params)
+    let $endpoint := "report-elements"
+    let $request := test:invoke($endpoint, $params)
     let $actual as item* := $request[2].ReportElements[]
     let $status as integer := $request[1]
     let $duplicates := for $element in $actual where $element.CIK instance of array return $element
     let $actual := count($actual)
     return if (exists($duplicates)) then
              "false [CIK " || serialize($duplicates[1].CIK, ()) || " is not unique]"
-           else test:assert-eq($expected, $actual, $status)
+           else test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 declare %an:sequential function local:test-concepts($expected as integer, $params as object, $body as string) as item
 {
-    let $request := test:invoke-body("report-elements", $params, $body)
+    let $endpoint := "report-elements"
+    let $request := test:invoke-body($endpoint, $params, $body)
     let $actual as item* := $request[2].ReportElements[]
     let $status as integer := $request[1]
     let $duplicates := for $element in $actual where $element.CIK instance of array return $element
     let $actual := count($actual)
     return if (exists($duplicates)) then
              "false [CIK " || serialize($duplicates[1].CIK, ()) || " is not unique]"
-           else test:assert-eq($expected, $actual, $status)
+           else test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 declare %an:nondeterministic function local:test-200($params as object) as item
 {
-    let $request := test:invoke("report-elements", $params)
+    let $endpoint := "report-elements"
+    let $request := test:invoke($endpoint, $params)
     let $status as integer := $request[1]
-    return test:assert-eq(0, 0, $status)
+    return test:assert-eq(0, 0, $status, test:url($endpoint, $params))
 };
 
 declare %an:sequential function local:check($o as object) as object

@@ -3,10 +3,11 @@ import module namespace test = "http://apps.28.io/test";
 
 declare %an:nondeterministic function local:test-spreadsheet($expected as integer, $params as object) as item
 {
-    let $request := test:invoke("spreadsheet-for-report", $params)
+    let $endpoint := "spreadsheet-for-report"
+    let $request := test:invoke($endpoint, $params)
     let $actual as integer := count($request[2].TableSet[].TableCells.Facts[][].Value)
     let $status as integer := $request[1]
-    return test:assert-eq($expected, $actual, $status)
+    return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 declare %an:nondeterministic function local:test-report-does-not-exist($params as object) as item
