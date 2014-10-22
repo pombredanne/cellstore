@@ -4,16 +4,19 @@ import module namespace test = "http://apps.28.io/test";
 
 declare %an:nondeterministic function local:test-facttable($expected as integer, $params as object) as item
 {
-    let $request := test:invoke("facts", $params)
+    let $endpoint := "facts"
+    let $request := test:invoke($endpoint, $params)
     let $actual as integer := count($request[2].FactTable[])
     let $status as integer := $request[1]
-    return test:assert-eq($expected, $actual, $status)
+    return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 declare %an:nondeterministic function local:test-empty($params as object) as item
 {
-    let $res as object := test:invoke-raw("facts", $params)
+    let $endpoint := "facts"
+    let $res as object := test:invoke-raw($endpoint, $params)
     return if($res.status eq 200 and $res.headers."Content-Length" eq "0") then true else {
+        url: test:url($endpoint, $params),
         unexpectedResponse: $res
     }
 };
@@ -30,6 +33,7 @@ declare %an:sequential function local:check($o as object) as object
 
 declare %an:nondeterministic function local:test-labels() as item
 {
+    let $endpoint := "facts"
     let $params := {
         concept: [ "fac:Assets", "us-gaap:CashAndCashEquivalentsAtCarryingValue" ],
         report: "FundamentalAccountingConcepts",
@@ -39,7 +43,7 @@ declare %an:nondeterministic function local:test-labels() as item
         fiscalPeriod: "Q3",
         labels: true
     }
-    let $res as object := test:invoke-raw("facts", $params)
+    let $res as object := test:invoke-raw($endpoint, $params)
     let $actual := $res.body.content
     let $expectedLines := (
         "Accession Number,Concept,Entity,Period,Fiscal Period,Fiscal Year,Accepted,Legal Entity,Unit,Value,Decimals",
@@ -47,6 +51,7 @@ declare %an:nondeterministic function local:test-labels() as item
         "0000021344-13-000050,Assets,COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,USD,89432000000,-6"
     )
     return if($res.status eq 200 and (every $line in $expectedLines satisfies contains($actual,$line))) then true else {
+        url: test:url($endpoint, $params),
         unexpectedResponse: $res
     }
 };
