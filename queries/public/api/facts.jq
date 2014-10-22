@@ -15,25 +15,6 @@ import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fi
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 
-(: Query parameters :)
-declare  %rest:case-insensitive                 variable $token             as string? external;
-declare  %rest:case-insensitive                 variable $profile-name      as string  external := "generic";
-declare  %rest:env                              variable $request-uri       as string  external;
-declare  %rest:case-insensitive                 variable $format            as string? external;
-declare  %rest:case-insensitive %rest:distinct  variable $cik               as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $tag               as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $ticker            as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $sic               as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear        as string* external := "LATEST";
-declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod      as string* external := "FY";
-declare  %rest:case-insensitive %rest:distinct  variable $aid               as string* external;
-declare  %rest:case-insensitive                 variable $map               as string? external;
-declare  %rest:case-insensitive                 variable $rule              as string? external;
-declare  %rest:case-insensitive                 variable $report            as string? external;
-declare  %rest:case-insensitive                 variable $validate          as boolean external := false;
-declare  %rest:case-insensitive                 variable $labels            as boolean external := false;
-declare  %rest:case-insensitive                 variable $additional-rules  as string? external;
-
 declare function local:param-values($name as string) as string*
 {
     switch(true)
@@ -136,6 +117,25 @@ declare function local:hypercube() as object
     |}
     return hypercubes:user-defined-hypercube($hypercube-spec)
 };
+
+(: Query parameters :)
+declare  %rest:case-insensitive                 variable $token             as string? external;
+declare  %rest:case-insensitive                 variable $profile-name      as string  external := "generic";
+declare  %rest:env                              variable $request-uri       as string  external;
+declare  %rest:case-insensitive                 variable $format            as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $cik               as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $tag               as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $ticker            as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $sic               as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear        as string* external := "LATEST";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod      as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $aid               as string* external;
+declare  %rest:case-insensitive                 variable $map               as string? external;
+declare  %rest:case-insensitive                 variable $rule              as string? external;
+declare  %rest:case-insensitive                 variable $report            as string? external;
+declare  %rest:case-insensitive                 variable $validate          as boolean external := false;
+declare  %rest:case-insensitive                 variable $labels            as boolean external := false;
+declare  %rest:case-insensitive                 variable $additional-rules  as string? external;
 
 session:audit-call($token);
 
