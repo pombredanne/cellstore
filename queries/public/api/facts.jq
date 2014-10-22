@@ -74,7 +74,7 @@ declare function local:param-names() as string*
         "xbrl:Entity"[$profile-name eq "sec" and $names = ("cik", "tag", "ticker", "sic")],
         "dei:LegalEntityAxis"[$profile-name eq "sec"],
         "dei:LegalEntityAxis::default"[$profile-name eq "sec"],
-        "sec:Archive"[$profile-name eq "sec" and ($fiscalYear, request:param-values("sec:FiscalYear")) = "LATEST"]))
+        "sec:Archive"[$profile-name eq "sec"]))
 };
 
 declare function local:cast-sequence($values as atomic*, $type as string) as atomic*
