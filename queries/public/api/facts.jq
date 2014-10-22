@@ -3,6 +3,7 @@ import module namespace session = "http://apps.28.io/session";
 
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
@@ -20,10 +21,11 @@ declare function local:param-values($name as string) as string*
     switch(true)
      case $name eq "xbrl:Concept"
         return (request:param-values("concept"), request:param-values("xbrl:Concept"))
+
      case $name eq "sec:FiscalYear" and $profile-name eq "sec"
-        return string(api:preprocess-fiscal-years(($fiscalYear, request:param-values("sec:FiscalYear"))))
+        return ($fiscalYear, request:param-values("sec:FiscalYear"))[$$ ne "LATEST"]
      case $name eq "sec:FiscalPeriod" and $profile-name eq "sec"
-        return api:preprocess-fiscal-periods(($fiscalPeriod, request:param-values("sec:FiscalPeriod")))
+        return ($fiscalPeriod, request:param-values("sec:FiscalPeriod"))
      case $name eq "dei:LegalEntityAxis" and $profile-name eq "sec"
         return
          if(empty((request:param-values("sec:LegalEntityAxis"), request:param-values("sec:LegalEntityAxis::default"))))
@@ -44,12 +46,12 @@ declare function local:param-values($name as string) as string*
                else "dummy",
         request:param-values("xbrl:Entity"))
      case $name eq "sec:Archive" and $profile-name eq "sec" return (
-            let $fiscalYears := local:param-values("sec:FiscalYear")
+            let $fiscalYears := ($fiscalYear, request:param-values("sec:FiscalYear"))
             let $fiscalPeriods := local:param-values("sec:FiscalPeriod")
-            let $entities := local:param-values("xbrl:Entity")
+            let $entities := entities:entities(local:param-values("xbrl:Entity"))
             return 
                 if($fiscalYears = "LATEST")
-                then fiscal-core:latest-filings($entities, $fiscalPeriods)
+                then fiscal-core:latest-filings($entities, $fiscalPeriods)._id
                 else (),
             $aid,
             request:param-values("sec:Archive")
@@ -62,12 +64,15 @@ declare function local:param-names() as string*
     let $names := request:param-names()
     return distinct-values((
         $names[contains($$, ":")],
-        "sec:Accepted"[$profile-name eq "sec"],
-        "sec:FiscalPeriod"[$profile-name eq "sec" and $names = "fiscalPeriod"],
-        "sec:FiscalYear"[$profile-name eq "sec" and $names = "fiscalYear"],
         "xbrl:Concept"[$names = "concept"],
-        "xbrl:Entity"[$names = ("cik", "tag", "ticker", "sic")],
-        "sec:DefaultLegalEntity"[$profile-name eq "sec"]))
+
+        "sec:Accepted"[$profile-name eq "sec"],
+        "sec:FiscalPeriod"[$profile-name eq "sec"],
+        "sec:FiscalYear"[$profile-name eq "sec"],
+        "xbrl:Entity"[$profile-name eq "sec" and $names = ("cik", "tag", "ticker", "sic")],
+        "dei:LegalEntityAxis"[$profile-name eq "sec"],
+        "dei:LegalEntityAxis::default"[$profile-name eq "sec"],
+        "sec:Archive"[$profile-name eq "sec" and ($fiscalYear, request:param-values("sec:FiscalYear")) = "LATEST"]))
 };
 
 declare function local:cast-sequence($values as atomic*, $type as string) as atomic*
