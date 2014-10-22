@@ -8,6 +8,96 @@ US Public Company Financial Information Repository. Built on top of http://28.io
 We advice you to run any commands in the Git Bash.
 Otherwise, the decryption of config.json won't work and you will have to setup the config.json manually.
 
+## Configuration
+There are two scenarios for deploying this project on http://28.io. Using the 28msec account or your own account.
+
+### Using the 28msec account
+To deploy a branch on the 28msec account, the following environment variable need to be set: `TRAVIS_SECRET_KEY`. The
+config.json will then automatically be created.
+
+### Using your own account
+In the root of the repository, create a `config.json` file in the root of the repository.
+This is the expected structure of the file:
+```json
+{
+    "s3": {
+        "key": "AWS S3 Access Key",
+        "secret": "AWS S3 Secret Key",
+        "region": "us-east-1",
+        "website": {
+            "ErrorDocument": {
+                "Key": "index.html"
+            },
+            "IndexDocument": {
+                "Suffix": "index.html"
+            },
+            "RoutingRules": [{
+                "Redirect": {
+                    "ReplaceKeyPrefixWith": "#"
+                },
+                "Condition": {
+                    "HttpErrorCodeReturnedEquals": "403"
+                }
+            }]
+        }
+    },
+    "28": {
+        "email": "28.io account email",
+        "password": "password",
+        "datasources": [
+            {
+                "category": "MongoDB",
+                "name": "xbrl",
+                "credentials": {
+                    "conn-string": "<hostname>:<port>",
+                    "db": "sec-databasename",
+                    "user": "username",
+                    "pass": "password"
+                }
+            }
+        ]
+    },
+    "secxbrlInfo": {
+        "dev" :
+            {
+                "adminPassword": "<dev admin user password>",
+                "supportPassword": "<dev support user password>",
+                "supportToken": "<dev support user token for testing>"
+            },
+        "prod" :
+            {
+                "adminPassword": "<prod admin user password>",
+                "supportPassword": "<prod support user password>",
+                "supportToken": "<prod support user token for testing>"
+            }
+    },
+    "netdna": {
+        "companyAlias": "<alias>",
+        "consumerKey": "<Consumer Key>",
+        "consumerSecret": "<Consumer Secret>",
+        "prod": {
+            "zone": "<zone>"
+        }
+    },
+    "sendmail":{
+        "host": "smtp.gmail.com:587/tls/novalidate-cert",
+        "user": "admin@example.com",
+        "password": "<password>",
+        "sender": {
+            "email": "hello@example.com",
+            "name": "SecXBRL.info"
+        }
+    }
+}
+```
+
+### Update config.json
+If you would like to update the `config.json` file into the repo, you need the following environment variable need to be set: `TRAVIS_SECRET_KEY`.
+Simply run:
+```bash
+grunt shell:encrypt
+```
+
 ## Development
 
 Setup environment:
@@ -99,95 +189,4 @@ grunt test:teardown --build-id=mydemo
 All steps can be done at once by simply running:
 ```bash
 grunt --build-id=mydemo
-```
-
-
-## Configuration
-There are two scenarios for deploying this project on http://28.io. Using the 28msec account or your own account.
-
-### Using the 28msec account
-To deploy a branch on the 28msec account, the following environment variable need to be set: `TRAVIS_SECRET_KEY`. The
-config.json will then automatically be created.
-
-### Using your own account
-In the root of the repository, create a `config.json` file in the root of the repository.
-This is the expected structure of the file:
-```json
-{
-    "s3": {
-        "key": "AWS S3 Access Key",
-        "secret": "AWS S3 Secret Key",
-        "region": "us-east-1",
-        "website": {
-            "ErrorDocument": {
-                "Key": "index.html"
-            },
-            "IndexDocument": {
-                "Suffix": "index.html"
-            },
-            "RoutingRules": [{
-                "Redirect": {
-                    "ReplaceKeyPrefixWith": "#"
-                },
-                "Condition": {
-                    "HttpErrorCodeReturnedEquals": "403"
-                }
-            }]
-        }
-    },
-    "28": {
-        "email": "28.io account email",
-        "password": "password",
-        "datasources": [
-            {
-                "category": "MongoDB",
-                "name": "xbrl",
-                "credentials": {
-                    "conn-string": "<hostname>:<port>",
-                    "db": "sec-databasename",
-                    "user": "username",
-                    "pass": "password"
-                }
-            }
-        ]
-    },
-    "secxbrlInfo": {
-        "dev" :
-            {
-                "adminPassword": "<dev admin user password>",
-                "supportPassword": "<dev support user password>",
-                "supportToken": "<dev support user token for testing>"
-            },
-        "prod" :
-            {
-                "adminPassword": "<prod admin user password>",
-                "supportPassword": "<prod support user password>",
-                "supportToken": "<prod support user token for testing>"
-            }
-    },
-    "netdna": {
-        "companyAlias": "<alias>",
-        "consumerKey": "<Consumer Key>",
-        "consumerSecret": "<Consumer Secret>",
-        "prod": {
-            "zone": "<zone>"
-        }
-    },
-    "sendmail":{
-        "host": "smtp.gmail.com:587/tls/novalidate-cert",
-        "user": "admin@example.com",
-        "password": "<password>",
-        "sender": {
-            "email": "hello@example.com",
-            "name": "SecXBRL.info"
-        }
-    }
-}
-```
-
-## Update config.json
-If you would like to update the `config.json` file into the repo, you need the following environment variable need to be set: `TRAVIS_SECRET_KEY`.
-Simply run:
-```bash
-grunt shell:encrypt
 ```
