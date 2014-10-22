@@ -24,6 +24,8 @@ declare function local:param-values($name as string) as string*
 
      case $name eq "sec:FiscalYear" and $profile-name eq "sec"
         return ($fiscalYear, request:param-values("sec:FiscalYear"))[$$ ne "LATEST"]
+     case $name eq "sec:FiscalYear::type" and $profile-name eq "sec"
+        return "integer"
      case $name eq "sec:FiscalPeriod" and $profile-name eq "sec"
         return ($fiscalPeriod, request:param-values("sec:FiscalPeriod"))
      case $name eq "dei:LegalEntityAxis" and $profile-name eq "sec"
