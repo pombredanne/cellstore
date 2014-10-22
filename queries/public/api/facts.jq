@@ -207,7 +207,6 @@ let $facts := api:normalize-facts($facts)
 let $result := {
     NetworkIdentifier : "http://bizql.io/facts",
     TableName : "xbrl:Facts",
-    Hypercube: $hypercube,
     FactTable : [ $facts ]
 }
 let $comment :=
