@@ -76,7 +76,7 @@ let $concepts as object* :=
     reports:concepts($report)
 let $facts :=
     for $fact in $facts
-    group by $archive := $fact.Aspects."sec:Archive"
+    group by $archive := $fact.Aspects."xbrl28:Archive"
     let $archive := archives:archives($archive)
     let $entity := entities:entities($archive.Entity)
     for $fact in $fact

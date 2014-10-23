@@ -5,7 +5,7 @@ import module namespace test = "http://apps.28.io/test";
 declare function local:expected-OtherOperatingIncomeExpenses-ATnT-2013() as object {
     {
         "Aspects": {
-            "sec:Archive": "0000732717-14-000010",
+            "xbrl28:Archive": "0000732717-14-000010",
             "xbrl:Concept": "fac:OtherOperatingIncomeExpenses",
             "xbrl:Entity": "http://www.sec.gov/CIK 0000732717",
             "xbrl:Period": "2013-01-01/2013-12-31",
@@ -162,7 +162,7 @@ declare function local:compare-fact-tables($fact-table-expected as object, $fact
             let $act := $actual-facts[$$.Aspects."xbrl:Concept" eq $exp.Aspects."xbrl:Concept"
                                       and $$.Aspects."xbrl:Entity" eq $exp.Aspects."xbrl:Entity"
                                       and $$.Aspects."xbrl:Period" eq $exp.Aspects."xbrl:Period"
-                                      and $$.Aspects."sec:Archive" eq $exp.Aspects."sec:Archive"]
+                                      and $$.Aspects."xbrl28:Archive" eq $exp.Aspects."xbrl28:Archive"]
             let $errors as object* := local:diff-facts($exp, $act)
             return 
                 if(empty($errors))
@@ -177,7 +177,7 @@ declare function local:compare-fact-tables($fact-table-expected as object, $fact
             let $exp := $expected-facts[$$.Aspects."xbrl:Concept" eq $act.Aspects."xbrl:Concept"
                                       and $$.Aspects."xbrl:Entity" eq $act.Aspects."xbrl:Entity"
                                       and $$.Aspects."xbrl:Period" eq $act.Aspects."xbrl:Period"
-                                      and $$.Aspects."sec:Archive" eq $act.Aspects."sec:Archive"]
+                                      and $$.Aspects."xbrl28:Archive" eq $act.Aspects."xbrl28:Archive"]
             where empty($exp)
             return 
                 {
@@ -238,7 +238,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:AssetsValidation", 
@@ -286,7 +286,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:LiabilitiesValidation", 
@@ -334,7 +334,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:AssetsValidation2", 
@@ -382,7 +382,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:EquityValidation", 
@@ -430,7 +430,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:LiabilitiesAndEquityValidation", 
@@ -478,7 +478,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:TradingSymbol", 
@@ -519,7 +519,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:Assets", 
@@ -570,7 +570,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:Equity", 
@@ -621,7 +621,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:CurrentLiabilities", 
@@ -672,7 +672,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:LiabilitiesAndEquity", 
@@ -723,7 +723,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:TemporaryEquity", 
@@ -763,7 +763,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NoncurrentLiabilities", 
@@ -804,7 +804,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NoncurrentAssets", 
@@ -845,7 +845,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:CurrentAssets", 
@@ -896,7 +896,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:Liabilities", 
@@ -937,7 +937,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:EquityAttributableToNoncontrollingInterest", 
@@ -988,7 +988,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:EquityAttributableToParent", 
@@ -1039,7 +1039,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:CommitmentsAndContingencies", 
@@ -1079,7 +1079,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:RedeemableNoncontrollingInterest", 
@@ -1119,7 +1119,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", 
@@ -1167,7 +1167,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation", 
@@ -1215,7 +1215,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeLossBeforeEquityMethodInvestmentsValidation", 
@@ -1263,7 +1263,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:GrossProfitValidation", 
@@ -1311,7 +1311,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ComprehensiveIncomeLossValidation", 
@@ -1359,7 +1359,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ComprehensiveIncomeLossValidation2", 
@@ -1407,7 +1407,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowFromFinancingActivitiesValidation", 
@@ -1455,7 +1455,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowFromInvestingActivitiesValidation", 
@@ -1501,7 +1501,7 @@ declare %an:nondeterministic function local:test-values() as item*
                 }, 
                 {
                     "Aspects" : {
-                        "sec:Archive" : "0000021344-14-000008",
+                        "xbrl28:Archive" : "0000021344-14-000008",
                         "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesValidation",
                         "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
                         "xbrl:Period" : "2013-01-01/2013-12-31",
@@ -1538,7 +1538,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetIncomeLossValidation2", 
@@ -1586,7 +1586,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
@@ -1634,7 +1634,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowContinuingValidation", 
@@ -1681,7 +1681,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetIncomeLossValidation", 
@@ -1727,7 +1727,7 @@ declare %an:nondeterministic function local:test-values() as item*
                 }, 
                 {
                     "Aspects" : {
-                        "sec:Archive" : "0000021344-14-000008",
+                        "xbrl28:Archive" : "0000021344-14-000008",
                         "xbrl:Concept" : "fac:NetCashFlowDiscontinuedValidation",
                         "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
                         "xbrl:Period" : "2013-01-01/2013-12-31",
@@ -1764,7 +1764,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:OperatingIncomeLossValidation", 
@@ -1812,7 +1812,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:OperatingIncomeLossValidation2", 
@@ -1860,7 +1860,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowValidation", 
@@ -1908,7 +1908,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeStatementFormat", 
@@ -1949,7 +1949,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:BalanceSheetFormat", 
@@ -1987,7 +1987,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeStatementStartPeriodYearToDate", 
@@ -2028,7 +2028,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:DocumentType", 
@@ -2086,7 +2086,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:FiscalYearEnd", 
@@ -2144,7 +2144,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:EntityRegistrantName", 
@@ -2202,7 +2202,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:EntityCentralIndexKey", 
@@ -2260,7 +2260,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:EntityFilerCategory", 
@@ -2318,7 +2318,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:FiscalYear", 
@@ -2376,7 +2376,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:FiscalPeriod", 
@@ -2434,7 +2434,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:BalanceSheetDate", 
@@ -2492,7 +2492,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetIncomeLoss", 
@@ -2543,7 +2543,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:OperatingIncomeLoss", 
@@ -2594,7 +2594,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:Revenues", 
@@ -2645,7 +2645,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:GrossProfit", 
@@ -2696,7 +2696,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:CostOfRevenue", 
@@ -2747,7 +2747,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowFromInvestingActivities", 
@@ -2798,7 +2798,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeLossBeforeEquityMethodInvestments", 
@@ -2839,7 +2839,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowFromInvestingActivitiesContinuing", 
@@ -2880,7 +2880,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:OperatingExpenses", 
@@ -2920,7 +2920,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowFromFinancingActivities", 
@@ -2971,7 +2971,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowFromInvestingActivitiesDiscontinued", 
@@ -3009,7 +3009,7 @@ declare %an:nondeterministic function local:test-values() as item*
                 }, 
                 {
                     "Aspects" : {
-                        "sec:Archive" : "0000021344-14-000008",
+                        "xbrl28:Archive" : "0000021344-14-000008",
                         "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesContinuing",
                         "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
                         "xbrl:Period" : "2013-01-01/2013-12-31",
@@ -3041,7 +3041,7 @@ declare %an:nondeterministic function local:test-values() as item*
                 },
                 {
                     "Aspects" : {
-                        "sec:Archive" : "0000021344-14-000008",
+                        "xbrl28:Archive" : "0000021344-14-000008",
                         "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued",
                         "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
                         "xbrl:Period" : "2013-01-01/2013-12-31",
@@ -3075,7 +3075,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowFromOperatingActivities", 
@@ -3125,7 +3125,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:OtherOperatingIncomeExpenses", 
@@ -3165,7 +3165,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowFromFinancingActivitiesDiscontinued", 
@@ -3206,7 +3206,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeLossFromEquityMethodInvestments", 
@@ -3257,7 +3257,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeLossFromContinuingOperationsBeforeTax", 
@@ -3308,7 +3308,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetIncomeLossAttributableToParent", 
@@ -3359,7 +3359,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowFromFinancingActivitiesContinuing", 
@@ -3400,7 +3400,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ComprehensiveIncomeLoss", 
@@ -3451,7 +3451,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:CostsAndExpenses", 
@@ -3491,7 +3491,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NonoperatingIncomeLoss", 
@@ -3531,7 +3531,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:InterestAndDebtExpense", 
@@ -3571,7 +3571,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
@@ -3622,7 +3622,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetIncomeLossAvailableToCommonStockholdersBasic", 
@@ -3663,7 +3663,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:OtherComprehensiveIncomeLoss", 
@@ -3704,7 +3704,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeLossFromContinuingOperationsAfterTax", 
@@ -3745,7 +3745,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ComprehensiveIncomeLossAttributableToParent", 
@@ -3796,7 +3796,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetIncomeLossAttributableToNoncontrollingInterest", 
@@ -3847,7 +3847,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax", 
@@ -3887,7 +3887,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeLossFromDiscontinuedOperationsNetOfTax", 
@@ -3927,7 +3927,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ExchangeGainsLosses", 
@@ -3978,7 +3978,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:PreferredStockDividendsAndOtherAdjustments", 
@@ -4017,7 +4017,7 @@ declare %an:nondeterministic function local:test-values() as item*
                 }, 
                 {
                     "Aspects" : {
-                        "sec:Archive" : "0000021344-14-000008",
+                        "xbrl28:Archive" : "0000021344-14-000008",
                         "xbrl:Concept" : "fac:NetCashFlowDiscontinued",
                         "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
                         "xbrl:Period" : "2013-01-01/2013-12-31",
@@ -4051,7 +4051,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlowContinuing", 
@@ -4091,7 +4091,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense", 
@@ -4132,7 +4132,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NetCashFlow", 
@@ -4183,7 +4183,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments", 
@@ -4224,7 +4224,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:IncomeTaxExpenseBenefit", 
@@ -4275,7 +4275,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ReturnOnEquity", 
@@ -4316,7 +4316,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ReturnOnAssets", 
@@ -4357,7 +4357,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ReturnOnSales", 
@@ -4398,7 +4398,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:SustainableGrowthRate", 
@@ -4439,7 +4439,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:PassedValidations", 
@@ -4480,7 +4480,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:FailedValidations", 
@@ -4521,7 +4521,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:NotApplicableValidations", 
@@ -4562,7 +4562,7 @@ declare %an:nondeterministic function local:test-values() as item*
                     "Aspects": {
                         "dei:LegalEntityAxis": "sec:DefaultLegalEntity", 
                         "sec:Accepted": "20140227132423", 
-                        "sec:Archive": "0000021344-14-000008", 
+                        "xbrl28:Archive": "0000021344-14-000008", 
                         "sec:FiscalPeriod": "FY", 
                         "sec:FiscalYear": 2013, 
                         "xbrl:Concept": "fac:ResearchAndDevelopment", 

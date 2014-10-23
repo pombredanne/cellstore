@@ -164,7 +164,7 @@ let $facts :=
   )
   
 let $facts :=
-  let $archives as string* := distinct-values($facts.Aspects."sec:Archive")
+  let $archives as string* := distinct-values($facts.Aspects."xbrl28:Archive")
   let $concept-names as string* := distinct-values($facts.Aspects."xbrl:Concept")
   let $concepts as object* :=
       (
