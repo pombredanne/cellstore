@@ -73,20 +73,32 @@ let $facts as object* :=
 
 let $concepts as object* := 
     reports:concepts($report)
+let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
+let $role as string := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )[1]
 let $facts :=
-    for $fact in $facts
-    return
-    {|
-        trim($fact, "Labels"),
-        if($labels)
-        then
-            let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
-            let $role as string := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )[1]
-            let $labels as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
-            return 
-                { Labels : $labels }
-        else ()
-    |}
+    if($profile-name eq "sec")
+    then
+        for $fact in $facts
+        group by $archive := $fact.Aspects."sec:Archive"		
+        let $archive := archives:archives($archive)		
+        let $entity := entities:entities($archive.Entity)		
+        for $fact in $fact
+        let $labels as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
+        return
+        {|
+            trim($fact, ("Labels", "EntityRegistrantName")),
+            { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
+            { Labels : $labels }[exists($labels)]
+        |}
+    else
+        for $fact in $facts
+        let $labels as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
+        return
+        {|
+            trim($fact, "Labels"),
+            { Labels : $labels }[exists($labels)]
+        |}
+
 
 let $facts := if($profile-name eq "sec")
               then api:normalize-facts($facts)
