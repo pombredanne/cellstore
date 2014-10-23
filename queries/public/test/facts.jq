@@ -56,11 +56,34 @@ declare %an:nondeterministic function local:test-labels() as item
     }
 };
 
+declare %an:nondeterministic function local:test-labels-aids() as item
+{
+    let $endpoint := "facts"
+    let $params := {
+        concept: "disc:AdvertisingCostsPolicyTextBlock",
+        map: "Disclosures",
+        format: "json",
+        fiscalYear: 2014,
+        fiscalPeriod: "FY",
+        labels: true,
+        aid: "0000858877-14-000029"
+    }
+    let $res := test:invoke($endpoint, $params)
+    let $actual := [
+            for $labels in $res[2].FactTable[].Labels
+            return (keys($labels) ! $labels.$$)
+        ]
+    let $expected := [ "Default Legal Entity", "Accession Number", "Concept", "Entity", "CISCO SYSTEMS, INC.", "Period", "Fiscal Period", "Fiscal Year", "Accepted", "Unit", "Legal Entity" ]
+    let $status as integer := $res[1]
+    return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
+};
+
 local:check({
     cocacola: local:test-facttable(468, {
         ticker:"ko"
     }),
     cocacolaCSVLabels: local:test-labels(),
+    ciscoLabelsByAid: local:test-labels-aids(),
     tickerconcept: local:test-facttable(1, {
         ticker:"ko",
         concept:"us-gaap:Assets"
