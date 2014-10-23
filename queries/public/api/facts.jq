@@ -210,7 +210,7 @@ let $facts :=
       return { Labels : {| $concept-labels, $standard-labels |} }
     |}
 
-let $facts := api:normalize-facts($facts)
+let $facts := if($profile-name eq "sec") then api:normalize-facts($facts) else $facts
 
 let $result := {
     NetworkIdentifier : "http://bizql.io/facts",
