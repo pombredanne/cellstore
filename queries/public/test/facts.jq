@@ -103,13 +103,10 @@ local:check({
         fiscalYear: "2012",
         map: "Disclosures"
     }),
-    cocacola-generic: local:test-facttable(468, {
-        ticker:"ko",
-        profile: "generic"
-    }),
-    tickerconcept-generic: local:test-facttable(1, {
-        ticker:"ko",
+    generic: local:test-facttable(2, {
+        "xbrl:Entity":"http://www.sec.gov/CIK 0000021344",
+        "sec:Accepted":"20140227132423",
         concept:"us-gaap:Assets",
-        profile: "generic"
+        profile-name: "generic"
     })
 })
