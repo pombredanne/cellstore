@@ -25,7 +25,7 @@ declare variable $mw:ENTITIES-PROFILES_SEC_TICKERS as string := "Profiles.SEC.Ti
 
 declare variable $mw:FACTS-ID as string := "_id_";
 declare variable $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP as string := "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1";
-declare variable $mw:FACTS-ASARCHIVE_AXCONCEPT as string := "Aspects.sec:Archive_1_Aspects.xbrl:Concept_1";
+declare variable $mw:FACTS-AXARCHIVE_AXCONCEPT as string := "Aspects.xbrl28:Archive_1_Aspects.xbrl:Concept_1";
 
 declare variable $mw:FOOTNOTES-ID as string := "_id_";
 declare variable $mw:FOOTNOTES-ARCHIVE as string := "Archive_hashed";
@@ -38,7 +38,7 @@ declare variable $mw:ALL-INDEXES as object :=
   "concepts": [ $mw:CONCEPTS-ID, $mw:CONCEPTS-ARCHIVE-ROLE-NAME, $mw:CONCEPTS-NAME-ARCHIVE ],  
   "entities": [ $mw:ENTITIES-ID, $mw:ENTITIES-PROFILES_SEC_COMPANYTYPE, $mw:ENTITIES-PROFILES_SEC_SIC, 
                $mw:ENTITIES-PROFILES_SEC_SECTOR, $mw:ENTITIES-PROFILES_SEC_TAGS, $mw:ENTITIES-PROFILES_SEC_TICKERS ],
-  "facts": [ $mw:FACTS-ID, $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP, $mw:FACTS-ASARCHIVE_AXCONCEPT ],
+  "facts": [ $mw:FACTS-ID, $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP, $mw:FACTS-AXARCHIVE_AXCONCEPT ],
   "footnotes": [ $mw:FOOTNOTES-ID, $mw:FOOTNOTES-ARCHIVE, $mw:FOOTNOTES-FACTS_ID-LANG ]
 };
 
@@ -170,8 +170,8 @@ declare %private function mw:facts-hint($query as object) as object
     case (mw:is-selective($query, "Aspects.xbrl:Concept") and 
           mw:is-selective($query, "Aspects.xbrl:Entity"))
       return { "$query": $query, "$hint": $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP }
-    case (mw:is-selective($query, "Aspects.sec:Archive"))
-      return { "$query": $query, "$hint": $mw:FACTS-ASARCHIVE_AXCONCEPT }
+    case (mw:is-selective($query, "Aspects.xbrl28:Archive"))
+      return { "$query": $query, "$hint": $mw:FACTS-AXARCHIVE_AXCONCEPT }
     default
       return $query
 };
