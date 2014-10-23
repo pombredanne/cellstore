@@ -1,3 +1,5 @@
+import module namespace archives = "http://28.io/modules/xbrl/archives";		
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
