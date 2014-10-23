@@ -102,6 +102,14 @@ local:check({
         fiscalPeriod: "Q1",
         fiscalYear: "2012",
         map: "Disclosures"
+    }),
+    cocacola-generic: local:test-facttable(468, {
+        ticker:"ko",
+        profile: "generic"
+    }),
+    tickerconcept-generic: local:test-facttable(1, {
+        ticker:"ko",
+        concept:"us-gaap:Assets",
+        profile: "generic"
     })
-         
 })
