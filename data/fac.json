@@ -2254,8 +2254,8 @@
           "Name" : "sec:Accepted", 
           "Label" : "Acceptance Date"
         }, 
-        "sec:Archive" : {
-          "Name" : "sec:Archive", 
+        "xbrl28:Archive" : {
+          "Name" : "xbrl28:Archive", 
           "Label" : "Archive ID"
         }, 
         "sec:FiscalYear" : {
