@@ -157,7 +157,8 @@ let $entities as object* :=
         $cik,
         $tag,
         $ticker,
-        $sic)
+        $sic,
+        $aid)
 let $report as object? := reports:reports($report)
 let $map as item* :=
     if(exists($report))

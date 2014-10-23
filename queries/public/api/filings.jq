@@ -33,7 +33,8 @@ let $entities :=
         $cik,
         $tag,
         $ticker,
-        $sic)
+        $sic,
+        $aid)
 let $archives as object* := fiscal-core:filings(
     $entities,
     $fiscalPeriod,

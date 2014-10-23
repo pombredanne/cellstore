@@ -40,7 +40,8 @@ let $entities :=
             $cik,
             $tag,
             $ticker,
-            $sic)
+            $sic,
+            $aid)
     order by $entity.Profiles.SEC.CompanyName
     return $entity
 let $report-id as string? := $report

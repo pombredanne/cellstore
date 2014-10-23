@@ -46,7 +46,8 @@ let $entities as object* :=
         $cik,
         $tag,
         $ticker,
-        $sic)
+        $sic,
+        $aid)
 let $archive as object? := fiscal-core:filings(
     $entities,
     $fiscalPeriod,
