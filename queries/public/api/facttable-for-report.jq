@@ -85,12 +85,12 @@ let $facts :=
         let $archive := archives:archives($archive)		
         let $entity := entities:entities($archive.Entity)		
         for $fact in $fact
-        let $labels as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
+        let $labels-object as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
         return
         {|
             trim($fact, ("Labels", "EntityRegistrantName")),
             { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
-            { Labels : $labels }[exists($labels)]
+            { Labels : $labels-object }[$labels]
         |}
     else
         for $fact in $facts
