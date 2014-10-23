@@ -12,7 +12,7 @@ angular.module('secxbrl', [
     'users-api',
     'billing-api',
     'ngSanitize',
-    'angular.directives-round-progress' // round api calls widget on billing page
+    'angular.directives-round-progress' // round api calls widget on stats page
 ])
 
 .factory('ConnectionHandler', function($q, $rootScope, DEBUG){

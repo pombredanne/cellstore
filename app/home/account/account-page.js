@@ -1,10 +1,10 @@
 /*global browser:false  */
 'use strict';
 
-var BillingPage = require('./billing/billing-page');
+var StatsPage = require('./stats/stats-page');
 
 function AccountPage(){
-    this.billing  = new BillingPage();
+    this.stats  = new StatsPage();
 }
 
 AccountPage.prototype.visitPage = function(){

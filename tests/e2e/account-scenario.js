@@ -7,13 +7,13 @@ describe('Private Account Page', function(){
 
     var HomePage = require('../../app/home/home-page');
     var home = new HomePage();
-    var billing = home.account.billing;
+    var stats = home.account.stats;
 
     it('should have free package descriptions on billing page', function() {
-        billing.visitPage();
-        expect(billing.packageDescriptions.count()).toBe(1);
+        stats.visitPage();
+        expect(stats.packageDescriptions.count()).toBe(1);
         // number of features of Free package
-        expect(billing.packageFeatures.count()).toBe(3);
+        expect(stats.packageFeatures.count()).toBe(3);
     });
 
 });

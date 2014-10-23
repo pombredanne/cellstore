@@ -1,15 +1,15 @@
 /*global browser:false  */
 'use strict';
 
-function BillingPage(){
+function StatsPage(){
    this.packageDescriptions = element.all(by.binding('package.description'));
    this.packageFeatures = element.all(by.binding('include'));
 }
 
-BillingPage.prototype.visitPage = function(){
-    return browser.get('/account/billing');
+StatsPage.prototype.visitPage = function(){
+    return browser.get('/account/stats');
 };
 
-module.exports = BillingPage;
+module.exports = StatsPage;
 
 
