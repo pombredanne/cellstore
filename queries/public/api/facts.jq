@@ -189,28 +189,32 @@ let $facts :=
     else facts:facts-for($options)
 
 let $facts :=
-  let $archives as string* := distinct-values($facts.Aspects."sec:Archive")
-  let $concept-names as string* := distinct-values($facts.Aspects."xbrl:Concept")
-  let $concepts as object* :=
+  if(not $labels)
+  then $facts
+  else
+    let $archives as string* := distinct-values($facts.Aspects."sec:Archive")
+    let $concept-names as string* := distinct-values($facts.Aspects."xbrl:Concept")
+    let $concepts as object* :=
       (
           concepts:concepts($concept-names, $archives, $concepts:ANY_COMPONENT_LINK_ROLE),
           (reports:concepts($report))[$$.Name = $concept-names]
       )
-  let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
-  let $roles as string* := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )
-  for $fact as object in $facts
-  let $entityName as string := $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName
-  return
-    if(not $labels)
-    then $fact
-    else {|
+    let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
+    let $roles as string* := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )
+    for $fact as object in $facts
+    let $entityName as string := $entities[$$._id eq $fact.Aspects."xbrl:Entity"].Profiles.SEC.CompanyName
+    return
+    {|
       $fact,
       let $concept-labels as object? := facts:labels($fact, $roles, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
       let $standard-labels as object := conversion:get-standard-labels($fact, $entityName)
       return { Labels : {| $concept-labels, $standard-labels |} }
     |}
 
-let $facts := if($profile-name eq "sec") then api:normalize-facts($facts) else $facts
+let $facts :=
+  if($profile-name eq "sec")
+  then api:normalize-facts($facts)
+  else $facts
 
 let $result := {
     NetworkIdentifier : "http://bizql.io/facts",
