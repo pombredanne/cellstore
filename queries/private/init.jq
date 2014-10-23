@@ -126,7 +126,7 @@ let $token := collection("Tokens")[$$."expiration-date" eq xs:dateTime("2016-09-
 and $$."user-id" eq $user-id]
 return 
 if(empty($token))
-then session:start($user-id, xs:dateTime("2016-09-12T22:17:23.851315Z"));
+then session:start($user-id, xs:dateTime("2016-09-12T22:17:23.851315Z"), $session:TOKEN-TYPE-APP);
 else ();
 
 (: Admin user :)

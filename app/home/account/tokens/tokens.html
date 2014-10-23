@@ -52,13 +52,19 @@
         <table class="table">
             <thead>
             <th translate>Token</th>
+            <th>Countdown (Seconds)</th>
             <th translate>Expires on</th>
             <th translate>Action</th>
             </thead>
             <tbody>
-            <tr ng-repeat="t in tokens track by $index">
+            <tr ng-repeat="t in tokens | orderBy: 'countdown' track by $index" ng-class="{warning : (t.countdown < 86400)}">
                 <td>
                     {{t.token}}
+                </td>
+                <td>
+                    <span ng-if="t.countdown < 86400">&lt; 1 Day</span>
+                    <span ng-if="t.countdown >= 86400">{{(t.countdown / 60 / 60 / 24) | number:0 }} Days</span>
+
                 </td>
                 <td>
                     {{t.expiration | date : 'dd-MMM-yyyy hh:mm:ss a'}}
