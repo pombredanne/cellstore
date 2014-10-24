@@ -78,7 +78,7 @@ declare function reports:reports($reports-or-ids as item*) as object*
       $schemas,
       if (exists($ids))
       then find($reports:col, 
-                { "_id" : { "$in" : [ $ids ! reports:rid($$) ] } } )
+                { "_id" : { "$in" : [ distinct-values($ids) ! reports:rid($$) ] } } )
       else ()
     )
 };
@@ -114,6 +114,7 @@ declare function reports:concepts($reports-or-ids as item*) as object*
       }
     }
 };
+
 
 (:~
  : <p>Adds the given report to the database.</p>
