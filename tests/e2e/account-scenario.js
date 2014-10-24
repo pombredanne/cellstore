@@ -42,16 +42,16 @@ describe('Private Account Page', function(){
         var incorrectPwd = 'incorrectPwd';
 
         password.changePassword(credentials.testPassword, 'foo', '');
-        expect(auth.form.errors.passwordTooShort.isDisplayed()).toBe(true);
-        expect(auth.form.errors.passwordsDontMatch.isDisplayed()).toBe(true);
+        expect(password.form.errors.passwordTooShort.isDisplayed()).toBe(true);
+        expect(password.form.errors.passwordsDontMatch.isDisplayed()).toBe(true);
 
         password.changePassword('', '', '');
-        expect(auth.form.errors.oldPasswordRequired.isDisplayed()).toBe(true);
-        expect(auth.form.errors.passwordRequired.isDisplayed()).toBe(true);
-        expect(auth.form.errors.confirmationRequired.isDisplayed()).toBe(true);
+        expect(password.form.errors.oldPasswordRequired.isDisplayed()).toBe(true);
+        expect(password.form.errors.passwordRequired.isDisplayed()).toBe(true);
+        expect(password.form.errors.confirmationRequired.isDisplayed()).toBe(true);
 
         password.changePassword(incorrectPwd, newPwd, newPwd);
-        expect(auth.form.errors.oldPasswordIncorrect.isDisplayed()).toBe(true);
+        expect(password.form.errors.oldPasswordIncorrect.isDisplayed()).toBe(true);
 
         password.changePassword(credentials.testPassword, newPwd, newPwd);
         expect(home.alert.header.getText()).toBe('Success');
@@ -64,9 +64,25 @@ describe('Private Account Page', function(){
 
     it('should be able to manage tokens on tokens page', function() {
         tokens.visitPage();
-        //expect(stats.packageDescriptions.count()).toBe(1);
-        // number of features of Free package
-        //expect(stats.packageFeatures.count()).toBe(3);
+        // test token and disclosure app token should be there
+        expect(tokens.tokens.count()).toBe(2);
+
+        // expiration: tomorrow minus one second
+        var date = new Date();
+        date.setDate(date.getDate() + 1);
+        date.setMinutes(date.getMinutes() - 1);
+        tokens.createToken(date.getFullYear(), 
+                           date.getMonth()+1, // date month start with 0 for January
+                           date.getDate(),
+                           date.getHours(),
+                           date.getMinutes(),
+                           credentials.testPassword);
+        expect(tokens.tokens.count()).toBe(3);
+
+        // we created an expiring token (< 1 Day)
+        // now, lets revoke it again:
+        tokens.revokeExpiring(credentials.testPassword);
+        expect(tokens.tokens.count()).toBe(2);
     });
 
 });
