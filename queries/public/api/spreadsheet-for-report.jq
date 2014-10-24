@@ -24,7 +24,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $aid           as strin
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate     as boolean external := false;
 declare  %rest:case-insensitive                 variable $report        as string? external;
-declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
 
 session:audit-call($token);
 
@@ -48,7 +48,6 @@ let $entities :=
 let $report-id as string? := $report
 let $report as object? := reports:reports($report)
 
-<<<<<<< HEAD
 return
 if(empty($report))
 then
@@ -56,21 +55,13 @@ then
       response:status-code(404);
       session:error("report with id '" || $report-id || "' does not exist.", $format)
 } else
-=======
-(: Fact resolution :)
-let $filter-override as object? := fiscal-core:filter-override(
-    $entities,
-    $fiscalYear,
-    $fiscalPeriod,
-    $aid)[$profile-name eq "sec"]
->>>>>>> 5b6698076e538b4f55e07231f2bb290bd0e6322a
 
     (: Fact resolution :)
     let $filter-override as object? := fiscal-core:filter-override(
         $entities,
         $fiscalYear,
         $fiscalPeriod,
-        $aid)
+        $aid)[$profile-name eq "sec"]
     
     (: Fact resolution :)
     let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
