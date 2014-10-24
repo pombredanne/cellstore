@@ -9,7 +9,7 @@ describe('Private Account Page', function(){
     var home = new HomePage();
     var stats = home.account.stats;
 
-    it('should have free package descriptions on billing page', function() {
+    it('should have stats on stats page', function() {
         stats.visitPage();
         expect(stats.packageDescriptions.count()).toBe(1);
         // number of features of Free package
