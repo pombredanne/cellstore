@@ -198,7 +198,7 @@ let $facts :=
     let $concepts as object* :=
       (
           concepts:concepts($concept-names, $archives, $concepts:ANY_COMPONENT_LINK_ROLE),
-          (reports:concepts($report))[$$.Name = $concept-names]
+          (reports:concepts(($report,$map)))[$$.Name = $concept-names]
       )
     let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
     let $roles as string* := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )
