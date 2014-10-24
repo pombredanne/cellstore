@@ -108,7 +108,7 @@ angular.module('secxbrl', [
     
     $rootScope.$on('alert', function(event, title, message){
         $modal.open( {
-            template: '<div class="modal-header"><span ng-bind-html="object.title"></span><a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
+            template: '<div class="modal-header"><span ng-bind-html="object.title" id="alert-header"></span><a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message" id="alert-body"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
             controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
                 $scope.object = object;
                 $scope.cancel = function () {
