@@ -2,8 +2,9 @@
 'use strict';
 
 function StatsPage(){
-   this.packageDescriptions = element.all(by.binding('package.description'));
-   this.packageFeatures = element.all(by.binding('include'));
+   this.statsWidget = {};
+   this.statsWidget.header = element(by.id('stats-widget-header'));
+   this.statsWidget.details = element(by.id('stats-widget-details'));
 }
 
 StatsPage.prototype.visitPage = function(){
