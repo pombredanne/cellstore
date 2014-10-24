@@ -422,7 +422,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
         "xbrl:Period",
         "xbrl:Unit",
         "xbrl:Entity",
-        "sec:Archive",
+        "xbrl28:Archive",
         "sec:FiscalYear",
         "sec:FiscalPeriod",
         $auto-slice-dimensions,
@@ -469,7 +469,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
                    then { $d : $options.Slicers.$d }
                    else { $d : $values-by-dimension.$d[] },
             if (not $auto-slice)
-            then { "sec:Archive" : $component.Archive }
+            then { "xbrl28:Archive" : $component.Archive }
             else ()
         |}
     }
