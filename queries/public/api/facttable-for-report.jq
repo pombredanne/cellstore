@@ -111,7 +111,7 @@ then
         let $labels-object as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
         return
         {|
-            trim($fact, "Labels")
+            trim($fact, "Labels"),
             { Labels : $labels-object }[exists($labels)]
         |}
     
