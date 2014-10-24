@@ -128,7 +128,7 @@ declare function local:hypercube() as object
 
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $token             as string? external;
-declare  %rest:case-insensitive                 variable $profile-name      as string  external := "sec";
+declare  %rest:case-insensitive                 variable $profile-name      as string  external := "generic";
 declare  %rest:env                              variable $request-uri       as string  external;
 declare  %rest:case-insensitive                 variable $format            as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik               as string* external;
