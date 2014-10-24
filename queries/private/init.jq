@@ -113,7 +113,8 @@ let $token :=
 {
   "_id" : $credentials:support-token,
   "user-id" : $user-id,
-  "expiration-date" : xs:dateTime("2018-10-20T22:17:23.851315Z")
+  "expiration-date" : xs:dateTime("2018-10-20T22:17:23.851315Z"),
+  "token-type": $session:TOKEN-TYPE-APP
 }
 let $existing := db:collection("Tokens")[$$."user-id" eq $user-id and $$."_id" eq $token."_id"]
 return
