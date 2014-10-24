@@ -216,6 +216,13 @@ declare %an:nondeterministic function local:test-facttable-fact($concept as stri
     return if (empty($diff)) then true else { url: test:url($endpoint, $params), factDiffErrors: [ $diff ], expectedFact: $expected, actualFact: $actual }
 };
 
+declare %an:nondeterministic function local:test-report-does-not-exist($params as object) as item
+{
+    let $endpoint := "facttable-for-report"
+    let $request := test:invoke($endpoint, $params)
+    let $status as integer := $request[1]
+    return if ($status eq 404) then true else { url: test:url($endpoint, $params), unexpectedResponse: $request[2] }
+};
 
 declare %an:sequential function local:check($o as object) as object
 {
@@ -4644,5 +4651,10 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"t",
         fiscalYear:"2013",
+        fiscalPeriod:"FY"}),
+    reportDoesntExist: local:test-report-does-not-exist({
+        report:"report-not-found",
+        ticker:"MSFT",
+        fiscalYear:"ALL",
         fiscalPeriod:"FY"})
 })
