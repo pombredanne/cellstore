@@ -125,6 +125,11 @@ local:check({
         fiscalPeriod: "Q1",
         fiscalYear: "2012",
         map: "Disclosures"
+    }),
+    generic: local:test-facttable(2, {
+        "xbrl:Entity":"http://www.sec.gov/CIK%200000021344",
+        "sec:Accepted":"20140227132423",
+        concept:"us-gaap:Assets",
+        profile-name: "generic"
     })
-         
 })
