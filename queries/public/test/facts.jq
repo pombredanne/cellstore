@@ -73,7 +73,7 @@ declare %an:nondeterministic function local:test-labels-aids() as item
             for $labels in $res[2].FactTable[].Labels
             return (keys($labels) ! $labels.$$)
         ]
-    let $expected := [ "Default Legal Entity", "Accession Number", "Concept", "Entity", "CISCO SYSTEMS, INC.", "Period", "Fiscal Period", "Fiscal Year", "Accepted", "Unit", "Legal Entity" ]
+    let $expected := [ "Advertising Costs, Policy", "Default Legal Entity", "Accession Number", "Concept", "Entity", "CISCO SYSTEMS, INC.", "Period", "Fiscal Period", "Fiscal Year", "Accepted", "Unit", "Legal Entity" ]
     let $status as integer := $res[1]
     return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
 };
