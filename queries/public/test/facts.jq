@@ -73,7 +73,7 @@ declare %an:nondeterministic function local:test-labels-aids() as item
             for $labels in $res[2].FactTable[].Labels
             return (keys($labels) ! $labels.$$)
         ]
-    let $expected := [ "Default Legal Entity", "Accession Number", "Concept", "Entity", "CISCO SYSTEMS, INC.", "Period", "Fiscal Period", "Fiscal Year", "Accepted", "Unit", "Legal Entity" ]
+    let $expected := [ "Advertising Costs, Policy", "Default Legal Entity", "Accession Number", "Concept", "Entity", "CISCO SYSTEMS, INC.", "Period", "Fiscal Period", "Fiscal Year", "Accepted", "Unit", "Legal Entity" ]
     let $status as integer := $res[1]
     return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
 };
@@ -125,6 +125,11 @@ local:check({
         fiscalPeriod: "Q1",
         fiscalYear: "2012",
         map: "Disclosures"
+    }),
+    generic: local:test-facttable(2, {
+        "xbrl:Entity":"http://www.sec.gov/CIK%200000021344",
+        "sec:Accepted":"20140227132423",
+        concept:"us-gaap:Assets",
+        profile-name: "generic"
     })
-         
 })

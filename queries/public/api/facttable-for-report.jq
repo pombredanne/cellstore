@@ -1,4 +1,4 @@
-import module namespace archives = "http://28.io/modules/xbrl/archives";
+import module namespace archives = "http://28.io/modules/xbrl/archives";		
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
@@ -29,6 +29,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $aid           as strin
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $labels        as boolean external := false;
 declare  %rest:case-insensitive                 variable $report        as string? external;
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
 
 session:audit-call($token);
 
@@ -65,7 +66,7 @@ then
         $entities,
         $fiscalYear,
         $fiscalPeriod,
-        $aid)
+        $aid)[$profile-name eq "sec"]
     let $facts as object* :=
         let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
         let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
@@ -84,7 +85,11 @@ then
     
     let $concepts as object* := 
         reports:concepts($report)
+    let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
+    let $role as string := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )[1]
     let $facts :=
+      if($profile-name eq "sec")
+      then
         for $fact in $facts
         group by $archive := $fact.Aspects."sec:Archive"
         let $archive := archives:archives($archive)
@@ -96,12 +101,18 @@ then
             { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
             if($labels)
             then
-                let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
-                let $role as string := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )[1]
                 let $labels as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
                 return 
                     { Labels : $labels }
             else ()
+        |}
+      else
+        for $fact in $facts
+        let $labels-object as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
+        return
+        {|
+            trim($fact, "Labels"),
+            { Labels : $labels-object }[exists($labels)]
         |}
     
     let $facts := api:normalize-facts($facts)
