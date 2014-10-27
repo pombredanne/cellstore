@@ -107,7 +107,7 @@ declare function fiscal-core:filter-override(
     case count($aids) gt 0 return {
         "xbrl:Entity" : {
         },
-        "xbrl28:Archive" : {
+        "sec:Archive" : {
             Type: "string",
             Domain : [ $aids ]
         },
@@ -123,7 +123,7 @@ declare function fiscal-core:filter-override(
     }
     case exists(index-of($fiscal-years, $fiscal-core:LATEST_FISCAL_YEAR))
     return {
-        "xbrl28:Archive" : {
+        "sec:Archive" : {
             Type: "string",
             Domain : [archives:aid($latest-filings)]
         },
@@ -157,7 +157,7 @@ declare function fiscal-core:filter-override(
                 Domain: [ $fiscal-periods ]
             }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS))]
         |},
-        "xbrl28:Archive" : {}
+        "sec:Archive" : {}
     }
     default return ()
 };

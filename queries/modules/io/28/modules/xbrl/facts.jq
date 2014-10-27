@@ -615,7 +615,7 @@ declare function facts:labels(
 {
     let $concept-names as string* :=
         distinct-values(values($facts.Aspects)[string($$) = $concepts.Name])
-    let $archives := $facts.Aspects."xbrl28:Archive"
+    let $archives := $facts.Aspects."sec:Archive"
     return
         {|
             for $name in $concept-names
@@ -747,7 +747,7 @@ as boolean
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
  : @error facts:FILTER-TOO-GENERIC The filter object must have at least one of the 
- :        fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
+ :        fields Aspects.sec:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
  :        Aspects.xbrl:Entity.
  : @return all facts satisfying the filter and options.
  :) 
@@ -870,7 +870,7 @@ declare %private function facts:validate(
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
  : @error facts:FILTER-TOO-GENERIC The filter object must have at least one of the 
- :        fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
+ :        fields Aspects.sec:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
  :        Aspects.xbrl:Entity.
  : @return all facts satisfying the filter and options.
  :) 
@@ -1714,7 +1714,7 @@ declare function facts:canonically-serialize-object(
          $object.$facts:ACCEPTED instance of string
         return facts:canonical-grouping-key(
             {
-                KeyAspects: [ keys($object)[not $$ = ("xbrl28:Archive", "sec:FiscalYear", "sec:FiscalPeriod", "sec:IsExtension")]],
+                KeyAspects: [ keys($object)[not $$ = ("sec:Archive", "sec:FiscalYear", "sec:FiscalPeriod", "sec:IsExtension")]],
                 Aspects: $object
             }, $exclude-fields)
     case exists($object.Aspects) and exists($object.KeyAspects)

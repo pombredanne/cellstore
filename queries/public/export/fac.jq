@@ -74,12 +74,12 @@ then
 else ();
 
 (: remove archives filter :)
-for $arch in $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl28:Archive"
+for $arch in $report.Hypercubes."xbrl:DefaultHypercube".Aspects."sec:Archive"
 where exists($arch.DomainRestriction)
 return
-    replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl28:Archive" with
+    replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Aspects."sec:Archive" with
     {
-        "Name": "xbrl28:Archive",
+        "Name": "sec:Archive",
         "Label": "Archive ID"
     };
 

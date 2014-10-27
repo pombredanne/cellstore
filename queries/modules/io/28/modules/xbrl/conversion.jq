@@ -6,7 +6,7 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare %private variable $conversion:STANDARD_LABELS :=
     {
-        "xbrl28:Archive" : "Accession Number",
+        "sec:Archive" : "Accession Number",
         "xbrl:Concept" : "Concept",
         "xbrl:Entity" : "Entity",
         "xbrl:Period" : "Period",

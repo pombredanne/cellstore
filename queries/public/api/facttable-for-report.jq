@@ -91,7 +91,7 @@ then
       if($profile-name eq "sec")
       then
         for $fact in $facts
-        group by $archive := $fact.Aspects."xbrl28:Archive"
+        group by $archive := $fact.Aspects."sec:Archive"
         let $archive := archives:archives($archive)
         let $entity := entities:entities($archive.Entity)
         for $fact in $fact

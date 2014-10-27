@@ -684,7 +684,7 @@ declare function components:standard-definition-models-for-components($component
         "xbrl:Period",
         "xbrl:Unit",
         "xbrl:Entity",
-        "xbrl28:Archive",
+        "sec:Archive",
         $auto-slice-dimensions,
         $user-slice-dimensions)]
     
@@ -725,7 +725,7 @@ declare function components:standard-definition-models-for-components($component
                    then { $d : $options.Slicers.$d }
                    else { $d : $values-by-dimension.$d[] },
             if (not $auto-slice)
-            then { "xbrl28:Archive" : $component.Archive }
+            then { "sec:Archive" : $component.Archive }
             else ()
         |}
     }
