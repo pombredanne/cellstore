@@ -106,18 +106,19 @@ module.exports = {
             p.stderr.pipe(process.stderr);
             p.on('exit', function(code){
                 grunt.log.writeln('exit: ' + code);
-                exitCB(code, trycount);
+                exitCB(args, code, trycount);
             });
         };
-        var onExit = function(code, count) {
+        var onExit = function(args, code, count) {
             // retry on timeout
             if(code === 8 && count < 5){
                 grunt.log.writeln(count + ' starting protractor timed out. Trying again: ' + count);
                 runProtractor(args, onExit, count+1);
             } else if (code !== 0) {
                 grunt.fail.warn('Protractor test(s) failed. Exit code: ' + code);
+            } else {
+                done();
             }
-            done();
         };
         runProtractor(args, onExit, 1);
     },

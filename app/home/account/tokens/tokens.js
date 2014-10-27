@@ -8,7 +8,14 @@ angular.module('secxbrl')
             API.Session.tokens({ _method: 'POST', token: $scope.token, $refresh: true })
                 .then(
                 function(data) {
-                    $scope.tokens = data.results;
+                    $scope.tokens = [];
+                    angular.forEach(data.results, function(token){
+                        if(token['token-type'] !== 'ui-login') {
+                            console.log(JSON.stringify(token));
+                            $scope.tokens.push(token);
+                        }
+                    })
+                    //$scope.tokens = data.results;
                 },
                 function(response) {
                     $scope.$emit('error', response.status, response.data);
