@@ -24,6 +24,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $aid           as strin
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate     as boolean external := false;
 declare  %rest:case-insensitive                 variable $report        as string? external;
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
 
 session:audit-call($token);
 
@@ -40,42 +41,52 @@ let $entities :=
             $cik,
             $tag,
             $ticker,
-            $sic)
+            $sic,
+            $aid)
     order by $entity.Profiles.SEC.CompanyName
     return $entity
+let $report-id as string? := $report
 let $report as object? := reports:reports($report)
 
-(: Fact resolution :)
-let $filter-override as object? := fiscal-core:filter-override(
-    $entities,
-    $fiscalYear,
-    $fiscalPeriod,
-    $aid)
+return
+if(empty($report))
+then
+{
+      response:status-code(404);
+      session:error("report with id '" || $report-id || "' does not exist.", $format)
+} else
 
-(: Fact resolution :)
-let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
-let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
-let $spreadsheet as object? :=
-    if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
-    then {
-          response:status-code(403);
-          session:error("The report filters are too weak, which leads to too big an output.", $format)
-    } else
-        components:spreadsheet(
-            $report,
-            {|
-                { FilterOverride: $filter-override}[exists($filter-override)],
-                {
-                    FlattenRows: true,
-                    Eliminate: $eliminate,
-                    Validate: $validate
-                }
-            |}
-        )
-let $results :=
-    {
-        response:content-type("application/json");
-        response:serialization-parameters({"indent" : true});
-        $spreadsheet
-    }
-return api:check-and-return-results($token, $results, $format)
+    (: Fact resolution :)
+    let $filter-override as object? := fiscal-core:filter-override(
+        $entities,
+        $fiscalYear,
+        $fiscalPeriod,
+        $aid)[$profile-name eq "sec"]
+    
+    (: Fact resolution :)
+    let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
+    let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
+    let $spreadsheet as object? :=
+        if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
+        then {
+              response:status-code(403);
+              session:error("The report filters are too weak, which leads to too big an output.", $format)
+        } else
+            components:spreadsheet(
+                $report,
+                {|
+                    { FilterOverride: $filter-override}[exists($filter-override)],
+                    {
+                        FlattenRows: true,
+                        Eliminate: $eliminate,
+                        Validate: $validate
+                    }
+                |}
+            )
+    let $results :=
+        {
+            response:content-type("application/json");
+            response:serialization-parameters({"indent" : true});
+            $spreadsheet
+        }
+    return api:check-and-return-results($token, $results, $format)

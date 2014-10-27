@@ -2,12 +2,26 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace test = "http://apps.28.io/test";
 
-declare %an:sequential function local:test-filings($expected as integer, $params as object) as item
+declare variable $local:expected as object :=
+    {
+      "all" : [ "0000021344-14-000008" ],
+      "dow30" : [ "0000858877-14-000029", "0000080424-14-000057", "0001193125-14-289961", "0000320187-14-000097", "0000732717-14-000022", "0000354950-14-000008", "0000104169-14-000019", "0000078003-14-000018", "0001193125-14-073792", "0000310158-14-000009", "0000040554-14-000023", "0001193125-14-073266", "0000021344-14-000008", "0000034088-14-000012", "0001047469-14-001302", "0001193125-14-066777", "0000063908-14-000019", "0000200406-14-000033", "0000093410-14-000011", "0000019617-14-000289", "0000018230-14-000058", "0000012927-14-000004", "0000050863-14-000020", "0001104659-14-009773", "0001047469-14-000854", "0000731766-14-000008", "0000101829-14-000006", "0000030554-14-000002", "0001403161-13-000011", "0001001039-13-000164" ],
+      "cik" : [ "0001193125-14-066777" ],
+      "ticker" : [ "0000104169-14-000019", "0000104169-13-000011", "0001193125-12-134679", "0001193125-11-083157" ],
+      "fpall" : [ "0001193125-12-134679", "0001193125-11-335177", "0001193125-11-238857", "0001193125-11-158587" ],
+      "fyfp" : [ "0001193125-11-158587" ],
+      "several" : [ "0000021344-14-000029", "0000021344-14-000016", "0000021344-14-000008", "0000021344-13-000050", "0000021344-13-000039", "0000021344-13-000017", "0000021344-13-000007", "0000021344-12-000051", "0000021344-12-000037", "0000021344-12-000023", "0000021344-12-000007", "0000021344-11-000011", "0001047469-11-006790", "0001047469-11-004348", "0001047469-11-001506", "0001047469-10-008993", "0001047469-10-006835", "0001047469-10-004416" ],
+      "sic" : [ "0001213900-14-007233", "0001502756-14-000032", "0001017386-14-000238", "0001445866-14-000811", "0001136261-14-000239", "0000101830-14-000030", "0000732717-14-000022", "0001144204-14-026525", "0001185185-14-001000", "0001144204-14-022698", "0001354488-14-001846", "0001102624-14-000525", "0001554795-14-000253", "0001144204-14-019632", "0001193125-14-124108", "0001393905-14-000158", "0001354488-14-001490", "0001104358-14-000004", "0001144204-14-018970", "0001104659-14-024110", "0001193125-14-116933", "0000075679-14-000015", "0000808461-14-000061", "0001019687-14-001015", "0001315255-14-000013", "0001205727-14-000007", "0001047469-14-002518", "0001571049-14-000825", "0001513162-14-000151", "0001178913-14-000922", "0001193125-14-093913", "0001445305-14-000932", "0001520744-14-000007", "0000766561-14-000013", "0000746210-14-000016", "0001062613-14-000012", "0001104659-14-016384", "0001140361-14-010365", "0001193125-14-076710", "0001051512-14-000011", "0001445305-14-000677", "0001193125-14-073266", "0000716133-14-000009", "0000794323-14-000005", "0001282266-14-000008", "0001445305-14-000656", "0000020520-14-000017", "0000101830-14-000012", "0001457737-14-000003", "0001057758-14-000007", "0001272830-14-000020", "0001019687-14-000156", "0000721748-13-000966", "0001477932-13-006109", "0001354488-13-006891", "0001144204-13-060627", "0001445866-13-001079", "0001104659-13-040170", "0001445305-13-000757", "0001144204-13-018946", "0001047469-13-002604", "0001102541-13-000009", "0001270400-13-000015", "0001213900-12-003812", "0001471242-12-000634", "0001494733-12-000064", "0001047469-12-002078", "0001494733-11-000082", "0001144204-11-069441" ],
+      "sic-dow30" : [ "0000732717-14-000022", "0001193125-14-073266" ]
+    };
+
+declare %an:sequential function local:test-filings($expected as array, $params as object) as item
 {
-    let $request := test:invoke("filings", $params)
-    let $actual as integer := count($request[2].Archives[])
+    let $endpoint := "filings"
+    let $request := test:invoke($endpoint, $params)
+    let $actual as array := [ $request[2].Archives[].AccessionNumber ]
     let $status as integer := $request[1]
-    return test:assert-eq($expected, $actual, $status)
+    return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 declare %an:nondeterministic function local:test-example1() as item
@@ -40,10 +54,12 @@ declare %an:nondeterministic function local:test-example1() as item
             "ExtensionAbstracts": 164
         }
     ]
-    let $request := test:invoke("filings", {cik:"66740"})
+    let $endpoint := "filings"
+    let $params := {cik:"66740"}
+    let $request := test:invoke($endpoint, $params)
     let $actual as array := $request[2].Archives
     let $status as integer := $request[1]
-    return test:assert-deep-equal($expected, $actual, $status)
+    return test:assert-deep-equal($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 declare %an:sequential function local:check($o as object) as object
@@ -58,13 +74,13 @@ declare %an:sequential function local:check($o as object) as object
 
 let $db := request:param-values("db", "all-sec-filings")
 return local:check({
-    all: local:test-filings(1, {ticker:"ko"}),
-    dow30: local:test-filings(30, {tag:"DOW30"}),
-    cik: local:test-filings(1, {cik:"4962"}),
-    ticker: local:test-filings(4, {ticker:"wmt",fiscalYear:"ALL"}),
-    fpall: local:test-filings(4, {ticker:"wmt",fiscalYear:"2012",fiscalPeriod:"ALL"}) ,
-    fyfp: local:test-filings(1, {ticker:"wmt",fiscalYear:"2012",fiscalPeriod:"Q1"}),
-    several: local:test-filings(18, {cik:"0000021344",fiscalPeriod:"ALL",fiscalYear:"ALL"}),
-    sic: local:test-filings(switch($db) case "all-dow30" return 2 default return 70, {sic:"4813"}),
+    all: local:test-filings($local:expected.all, {ticker:"ko"}),
+    dow30: local:test-filings($local:expected.dow30, {tag:"DOW30"}),
+    cik: local:test-filings($local:expected.cik, {cik:"4962"}),
+    ticker: local:test-filings($local:expected.ticker, {ticker:"wmt",fiscalYear:"ALL"}),
+    fpall: local:test-filings($local:expected.fpall, {ticker:"wmt",fiscalYear:"2012",fiscalPeriod:"ALL"}) ,
+    fyfp: local:test-filings($local:expected.fyfp, {ticker:"wmt",fiscalYear:"2012",fiscalPeriod:"Q1"}),
+    several: local:test-filings($local:expected.several, {cik:"0000021344",fiscalPeriod:"ALL",fiscalYear:"ALL"}),
+    sic: local:test-filings(switch($db) case "all-dow30" return $local:expected.sic-dow30 default return $local:expected.sic, {sic:"4813"}),
     example: local:test-example1()
 })

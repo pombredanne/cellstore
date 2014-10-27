@@ -3,7 +3,7 @@
 /*globals recurly*/
 
 angular.module('secxbrl')
-    .controller('BillingCtrl', function($scope, $modal, API, apiStatistics) {
+    .controller('StatsCtrl', function($scope, $modal, API, apiStatistics) {
         $scope.calls = {
             label: apiStatistics.calls,
             percentage: (apiStatistics.calls / 1000),

@@ -27,6 +27,7 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
+import module namespace archives = "http://28.io/modules/xbrl/archives";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -86,6 +87,28 @@ declare function companies:companies(
     $tickers as string*,
     $sics as string*) as object*
 {
+    companies:companies($ciks, $tags, $tickers, $sics, ())
+};
+
+(:~
+ : <p>Return a distinct set of companies identified by either
+ :   CIKs, tags, tickers, sics, or aids.</p>
+ : 
+ : @param $ciks a set of CIKs.
+ : @param $tags a set of tags (ALL retrieves all companies).
+ : @param $tickers a set of tickers.
+ : @param $sics a set of SIC codes.
+ : @param $aids a set of archive IDs.
+ :
+ : @return the companies with the given identifiers, tags, tickers, sic codes, or archive IDs.
+ :)
+declare function companies:companies(
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $aids as string*) as object*
+{
     if ($tags = "ALL")
     then companies:companies()
     else
@@ -93,7 +116,8 @@ declare function companies:companies(
             companies:companies($ciks),
             companies:companies-for-tags($tags),
             companies:companies-for-tickers($tickers),
-            companies:companies-for-SIC($sics)
+            companies:companies-for-SIC($sics),
+            companies:companies-for-archives($aids)
         )
         group by $c._id
         return $c[1]
@@ -137,6 +161,22 @@ declare function companies:types($companies-or-ciks as item*) as string*
 {
   let $companies := companies:companies($companies-or-ciks)
   return $companies.Profiles.SEC.CompanyType
+};
+
+(:~
+ : <p>Retrieves all companies for the given archives.</p>
+ : 
+ : @param $archives a sequence of archive objects or ids.
+ :
+ : @return all companies for the given archives.
+ :) 
+declare function companies:companies-for-archives($aids as string*) as object*
+{
+    if(empty($aids))
+    then ()
+    else
+        let $entities := mw:find($archives:col, { "_id" : { "$in" : [ $aids ] }}, { "Entity" : 1 })
+        return entities:entities(distinct-values($entities.Entity))
 };
 
 (:~

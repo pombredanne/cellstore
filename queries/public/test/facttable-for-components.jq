@@ -3,10 +3,11 @@ import module namespace test = "http://apps.28.io/test";
 
 declare %an:nondeterministic function local:test-facttable($expected as integer, $params as object) as item
 {
-    let $request := test:invoke("facttable-for-component", $params)
+    let $endpoint := "facttable-for-component"
+    let $request := test:invoke($endpoint, $params)
     let $actual as integer := count($request[2].FactTable[])
     let $status as integer := $request[1]
-    return test:assert-eq($expected, $actual, $status)
+    return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 

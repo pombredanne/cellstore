@@ -756,9 +756,10 @@ declare %an:nondeterministic function local:test-example1() as item
     } ]
   } ]
   let $params := {aid:"0000021344-13-000039"}
-  let $request := test:invoke("components", $params)
+  let $endpoint := "components"
+  let $request := test:invoke($endpoint, $params)
   let $actual := $request[2].Archives
-  return test:assert-deep-equal($expected, $actual, $request[1])
+  return test:assert-deep-equal($expected, $actual, $request[1], test:url($endpoint, $params)) 
 };
 
 declare %an:nondeterministic function local:test-example2() as item
@@ -2118,26 +2119,29 @@ declare %an:nondeterministic function local:test-example2() as item
     } ]
   } ]
   let $params := {ticker:"ko"}
-  let $request := test:invoke("components", $params)
+  let $endpoint := "components"
+  let $request := test:invoke($endpoint, $params)
   let $actual := $request[2].Archives
-  return test:assert-deep-equal($expected, $actual, $request[1])
+  return test:assert-deep-equal($expected, $actual, $request[1], test:url($endpoint, $params))
 };
 
 
 declare %an:nondeterministic function local:test-acceptance-date($expected as string, $params as object) as item
 {
-    let $request := test:invoke("components", $params)
+    let $endpoint := "components"
+    let $request := test:invoke($endpoint, $params)
     let $actual as string := $request[2].Archives[].AcceptanceDatetime
     let $status as integer := $request[1]
-    return test:assert-eq($expected, $actual, $status)
+    return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 declare %an:nondeterministic function local:test-components($expected as integer, $params as object) as item
 {
-    let $request := test:invoke("components", $params)
+    let $endpoint := "components"
+    let $request := test:invoke($endpoint, $params)
     let $actual as integer := count($request[2].Archives[].Components[])
     let $status as integer := $request[1]
-    return test:assert-eq($expected, $actual, $status)
+    return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 

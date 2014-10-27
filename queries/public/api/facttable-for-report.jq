@@ -1,4 +1,4 @@
-import module namespace archives = "http://28.io/modules/xbrl/archives";
+import module namespace archives = "http://28.io/modules/xbrl/archives";		
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
@@ -29,6 +29,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $aid           as strin
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $labels        as boolean external := false;
 declare  %rest:case-insensitive                 variable $report        as string? external;
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
 
 session:audit-call($token);
 
@@ -45,96 +46,116 @@ let $entities :=
             $cik,
             $tag,
             $ticker,
-            $sic)
+            $sic,
+            $aid)
     order by $entity.Profiles.SEC.CompanyName
     return $entity
-let $report as object? := reports:reports($report)
+let $report-id as string? := $report
+let $report as object? := reports:reports($report-id)
 
-(: Fact resolution :)
-let $filter-override as object? := fiscal-core:filter-override(
-    $entities,
-    $fiscalYear,
-    $fiscalPeriod,
-    $aid)
-let $facts as object* :=
-    let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
-    let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
-    return if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
-    then {
-          response:status-code(403);
-          session:error("The report filters are too weak, which leads to too big an output.", $format)
-    } else
-        components:facts(
-                $report,
-                {|
-                    { FilterOverride: $filter-override }[exists($filter-override)],
-                    { Validate: $validate }
-                |}
-            )
-
-let $concepts as object* := 
-    reports:concepts($report)
-let $facts :=
-    for $fact in $facts
-    group by $archive := $fact.Aspects."xbrl28:Archive"
-    let $archive := archives:archives($archive)
-    let $entity := entities:entities($archive.Entity)
-    for $fact in $fact
-    return
-    {|
-        trim($fact, ("Labels", "EntityRegistrantName")),
-        { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
-        if($labels)
-        then
-            let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
-            let $role as string := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )[1]
-            let $labels as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
-            return 
-                { Labels : $labels }
-        else ()
-    |}
-
-let $facts := api:normalize-facts($facts)
-
-let $results :=
-    switch ($format)
-    case "xml" return {
-        response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-        session:comment("xml",
-        {
-            NumFacts : count($facts),
-            TotalNumFacts: session:num-facts(),
-            TotalNumArchives: session:num-archives(),
-            TotalNumEntities: session:num-entities()
-        }),
-        <FactTable NetworkIdentifier="http://bizql.io/facttable-for-report"
-                TableName="xbrl:FactTableForReport">{
-            conversion:facts-to-xml($facts, { Caller: "Report" })
-        }</FactTable>
-    }
-    case "text" case "csv" return {
-        response:content-type("text/csv");
-        response:header("Content-Disposition", "attachment; filename=facts.csv");
-        conversion:facts-to-csv($facts, { Caller: "Report"})
-    }
-    case "excel" return {
-        response:content-type("application/vnd.ms-excel");
-        response:header("Content-Disposition", "attachment; filename=fact.csv");
-        conversion:facts-to-csv($facts, { Caller: "Report"})
-    }
-    default return {
-        response:content-type("application/json");
-        response:serialization-parameters({"indent" : true});
+return
+if(empty($report))
+then
+{
+      response:status-code(404);
+      session:error("report with id '" || $report-id || "' does not exist.", $format)
+} else
+    
+    (: Fact resolution :)
+    let $filter-override as object? := fiscal-core:filter-override(
+        $entities,
+        $fiscalYear,
+        $fiscalPeriod,
+        $aid)[$profile-name eq "sec"]
+    let $facts as object* :=
+        let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
+        let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
+        return if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
+        then {
+              response:status-code(403);
+              session:error("The report filters are too weak, which leads to too big an output.", $format)
+        } else
+            components:facts(
+                    $report,
+                    {|
+                        { FilterOverride: $filter-override }[exists($filter-override)],
+                        { Validate: $validate }
+                    |}
+                )
+    
+    let $concepts as object* := 
+        reports:concepts($report)
+    let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
+    let $role as string := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )[1]
+    let $facts :=
+      if($profile-name eq "sec")
+      then
+        for $fact in $facts
+        group by $archive := $fact.Aspects."xbrl28:Archive"
+        let $archive := archives:archives($archive)
+        let $entity := entities:entities($archive.Entity)
+        for $fact in $fact
+        return
         {|
-            { NetworkIdentifier : "http://secxbrl.info/facts" },
-            { TableName : "xbrl:Facts" },
-            { FactTable : [ $facts ] },
-            session:comment("json", {
-                    NumFacts : count($facts),
-                    TotalNumFacts: session:num-facts(),
-                    TotalNumArchives: session:num-archives(),
-                    TotalNumEntities: session:num-entities()
-                })
+            trim($fact, ("Labels", "EntityRegistrantName")),
+            { "EntityRegistrantName" : $entity.Profiles.SEC.CompanyName },
+            if($labels)
+            then
+                let $labels as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
+                return 
+                    { Labels : $labels }
+            else ()
         |}
-    }
-return api:check-and-return-results($token, $results, $format)
+      else
+        for $fact in $facts
+        let $labels-object as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
+        return
+        {|
+            trim($fact, "Labels"),
+            { Labels : $labels-object }[exists($labels)]
+        |}
+    
+    let $facts := api:normalize-facts($facts)
+    
+    let $results :=
+        switch ($format)
+        case "xml" return {
+            response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
+            session:comment("xml",
+            {
+                NumFacts : count($facts),
+                TotalNumFacts: session:num-facts(),
+                TotalNumArchives: session:num-archives(),
+                TotalNumEntities: session:num-entities()
+            }),
+            <FactTable NetworkIdentifier="http://bizql.io/facttable-for-report"
+                    TableName="xbrl:FactTableForReport">{
+                conversion:facts-to-xml($facts, { Caller: "Report" })
+            }</FactTable>
+        }
+        case "text" case "csv" return {
+            response:content-type("text/csv");
+            response:header("Content-Disposition", "attachment; filename=facts.csv");
+            conversion:facts-to-csv($facts, { Caller: "Report"})
+        }
+        case "excel" return {
+            response:content-type("application/vnd.ms-excel");
+            response:header("Content-Disposition", "attachment; filename=fact.csv");
+            conversion:facts-to-csv($facts, { Caller: "Report"})
+        }
+        default return {
+            response:content-type("application/json");
+            response:serialization-parameters({"indent" : true});
+            {|
+                { NetworkIdentifier : "http://secxbrl.info/facts" },
+                { TableName : "xbrl:Facts" },
+                { FactTable : [ $facts ] },
+                session:comment("json", {
+                        NumFacts : count($facts),
+                        TotalNumFacts: session:num-facts(),
+                        TotalNumArchives: session:num-archives(),
+                        TotalNumEntities: session:num-entities()
+                    })
+            |}
+        }
+    return api:check-and-return-results($token, $results, $format)

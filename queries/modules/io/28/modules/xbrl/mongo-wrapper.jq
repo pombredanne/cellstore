@@ -66,7 +66,7 @@ declare function mw:find($collection as string, $query as object) as object()*
 declare function mw:find($collection as string, $query as object, $projection as object) as object()*
 {
   let $conn := mw:connection()
-  return mongo:find($conn, $collection, mw:hint($collection, $query), $projection)
+  return mongo:find($conn, $collection, mw:hint($collection, $query), $projection, {})
 };
 
 declare function mw:run-cmd-deterministic($command as object) as object*

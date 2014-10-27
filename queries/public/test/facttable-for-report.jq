@@ -198,22 +198,31 @@ declare function local:compare-fact-tables($fact-table-expected as object, $fact
 
 declare %an:nondeterministic function local:test-facttable($expected as integer, $params as object) as item
 {
-    let $request := test:invoke("facttable-for-report", $params)
+    let $endpoint := "facttable-for-report"
+    let $request := test:invoke($endpoint, $params)
     let $actual as integer := count($request[2].FactTable[])
     let $status as integer := $request[1]
-    return test:assert-eq($expected, $actual, $status)
+    return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 declare %an:nondeterministic function local:test-facttable-fact($concept as string, $expected as object, $params as object) as item
 {
-    let $request := test:invoke("facttable-for-report", $params)
+    let $endpoint := "facttable-for-report"
+    let $request := test:invoke($endpoint, $params)
     let $facts as object* := $request[2].FactTable[]
     let $actual := $facts[$$.Aspects."xbrl:Concept" eq $concept]
     let $diff := 
       for $f in $actual return local:diff-facts($expected, $f)
-    return if (empty($diff)) then true else { factDiffErrors: [ $diff ], expectedFact: $expected, actualFact: $actual }
+    return if (empty($diff)) then true else { url: test:url($endpoint, $params), factDiffErrors: [ $diff ], expectedFact: $expected, actualFact: $actual }
 };
 
+declare %an:nondeterministic function local:test-report-does-not-exist($params as object) as item
+{
+    let $endpoint := "facttable-for-report"
+    let $request := test:invoke($endpoint, $params)
+    let $status as integer := $request[1]
+    return if ($status eq 404) then true else { url: test:url($endpoint, $params), unexpectedResponse: $request[2] }
+};
 
 declare %an:sequential function local:check($o as object) as object
 {
@@ -227,8 +236,9 @@ declare %an:sequential function local:check($o as object) as object
 
 declare %an:nondeterministic function local:test-values() as item*
 {
+    let $endpoint := "facttable-for-report"
     let $params := {ticker:"ko",fiscalYear:"2013",fiscalPeriod:["FY", "YTD4", "QTD4"],report:"FundamentalAccountingConcepts"}
-    let $request := test:invoke("facttable-for-report", $params)
+    let $request := test:invoke($endpoint, $params)
     let $actual as object := $request[2]
     let $expected := 
   {
@@ -4609,7 +4619,7 @@ declare %an:nondeterministic function local:test-values() as item*
             "TableName": "xbrl:Facts"
         }
   let $diff := local:compare-fact-tables($expected, $actual)
-  return if (empty($diff)) then true else { factTableDiff: [ ({ params : $params },$diff) ], expectedFactTable: $expected, actualFactTable: $actual }
+  return if (empty($diff)) then true else { url: test:url($endpoint, $params), factTableDiff: [ ({ params : $params },$diff) ], expectedFactTable: $expected, actualFactTable: $actual }
 };
 
 local:check({
@@ -4641,5 +4651,10 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"t",
         fiscalYear:"2013",
-        fiscalPeriod:["FY", "QTD4", "YTD4"]})
+        fiscalPeriod:["FY", "QTD4", "YTD4"]}),
+    reportDoesntExist: local:test-report-does-not-exist({
+        report:"report-not-found",
+        ticker:"MSFT",
+        fiscalYear:"ALL",
+        fiscalPeriod:"FY"})
 })
