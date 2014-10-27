@@ -30,6 +30,8 @@ declare  %rest:case-insensitive                 variable $eliminate          as 
 declare  %rest:case-insensitive %rest:distinct  variable $reportElement      as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $label              as string* external;
 declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $role               as string* external;
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
 
 session:audit-call($token);
 
@@ -39,6 +41,7 @@ let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
 let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 let $tag as string* := api:preprocess-tags($tag)
 let $reportElement := ($reportElement, $concept)
+let $networkIdentifier := distinct-values(($networkIdentifier, $role))
 
 (: Object resolution :)
 let $entities as object* := 
@@ -52,13 +55,23 @@ let $archive as object? := fiscal-core:filings(
     $fiscalPeriod,
     $fiscalYear,
     $aid)
-let $components  := sec-networks:components(
-    $archive,
-    $cid,
-    $reportElement,
-    $disclosure,
-    $networkIdentifier,
-    $label)
+let $components  :=
+    switch($profile-name)
+    case "sec" return sec-networks:components(
+        $archive,
+        $cid,
+        $reportElement,
+        $disclosure,
+        $networkIdentifier,
+        $label)
+    default return
+        switch(true)
+        case (exists($networkIdentifier) and exists($aid))
+        return components:components-for-archives-and-roles($aid, $networkIdentifier)
+        case exists($aid)
+        return components:components-for-archives($aid)
+        default
+        return components:components()
 let $component as object? := $components[1] (: only one for know :)
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
 
@@ -68,7 +81,10 @@ return if(empty($component)) then {
     session:error("component not found", "json")
 } else 
 (: Fact resolution :)
-let $definition-model := sec-networks:standard-definition-models-for-components($component, {})
+let $definition-model :=
+switch($profile-name)
+case "sec" return sec-networks:standard-definition-models-for-components($component, {})
+default return components:standard-definition-models-for-components($component, {})
 let $spreadsheet as object? :=
     components:spreadsheet(
         $component,
@@ -77,12 +93,14 @@ let $spreadsheet as object? :=
                 FlattenRows: true,
                 Eliminate: $eliminate,
                 Validate: $validate,
-                DefinitionModel: $definition-model,
+                DefinitionModel: $definition-model
+            },
+            {
                 FilterOverride : {
                     "sec:FiscalPeriod" : { Type: "string", Default: null },
                     "sec:FiscalYear" : { Type: "string", Default: null }
                 }
-            },
+            }[$profile-name eq "sec"],
             if(exists($rules))
             then { Rules : [ $rules ] }
             else ()

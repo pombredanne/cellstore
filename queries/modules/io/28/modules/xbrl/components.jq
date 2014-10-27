@@ -501,3 +501,234 @@ declare function components:cid($component-or-id as item) as atomic
       "Invalid component or id (must be an object or an atomic): "
       || serialize($component-or-id))
 };
+
+(:~
+ : <p>Returns the standard period breakdown.</p>
+ :
+ : @return the period breakdown.
+ :)
+declare %private function components:standard-period-breakdown() as object
+{
+    {
+        BreakdownLabels: [ "Period breakdown" ],
+        BreakdownTrees: [
+            {
+                Kind: "Rule",
+                Abstract: true,
+                Labels: [ "Period [Axis]" ],
+                Children: [ {
+                    Kind: "Aspect",
+                    Aspect: "xbrl:Period"
+                } ]
+            }
+        ]
+    }
+};
+
+declare %private function components:standard-typed-dimension-breakdown($dimension-name as string, $dimension-values as atomic*) as object
+{
+    {
+        BreakdownLabels: [ $dimension-name || " breakdown" ],
+        BreakdownTrees: [
+            {
+                Kind: "Rule",
+                Labels: [ $dimension-name || " [Axis]" ],
+                Children: [
+                    for $value in $dimension-values
+                    return {
+                        Kind: "Rule",
+                        Labels: [ $value ],
+                        AspectRulesSet: { "" : { $dimension-name : $value } }
+                    }
+                ]
+            }
+        ]
+    }
+};
+
+declare %private function components:standard-explicit-dimension-breakdown(
+    $dimension-name as string,
+    $dimension-label as string,
+    $domain-names as string*,
+    $role as string) as object
+{
+    {
+        BreakdownLabels: [ "Dimension Breakdown" ],
+        BreakdownTrees: [
+            {
+                Kind: "Rule",
+                Abstract: true,
+                Labels: [ $dimension-label ],
+                Children: [
+                    for $domain as string in $domain-names
+                    return {
+                        Kind: "DimensionRelationship",
+                        LinkRole: $role,
+                        Dimension: $dimension-name,
+                        RelationshipSource: $domain,
+                        FormulaAxis: "descendant",
+                        Generations: 0
+                    }
+                ]
+            }
+        ]
+    }
+};
+
+declare %private function components:standard-entity-breakdown() as object
+{
+    {
+        BreakdownLabels: [ "Entity breakdown" ],
+        BreakdownTrees: [
+            {
+                Kind: "Rule",
+                Abstract: true,
+                Labels: [ "Reporting Entity [Axis]" ],
+                ConstraintSets: { "" : {} },
+                Children: [ {
+                    Kind: "Aspect",
+                    Aspect: "xbrl:Entity"
+                } ]
+            }
+        ]
+    }
+};
+
+declare %private function components:standard-concept-breakdown(
+    $line-items-elements as string*,
+    $role as string) as object
+{
+    {
+        BreakdownLabels: [ "Breakdown on concepts" ],
+        BreakdownTrees: [
+            for $lineitems as string in $line-items-elements
+            return {
+                Kind: "ConceptRelationship",
+                LinkName: "link:presentationLink",
+                LinkRole: $role,
+                ArcName: "link:presentationArc", 
+                ArcRole: "http://www.xbrl.org/2003/arcrole/parent-child",
+                RelationshipSource: $lineitems,
+                FormulaAxis: "descendant",
+                Generations: 0,
+                RollUpAgainstCalculationNetwork: false
+            }
+        ]
+    }
+};
+
+(:~
+ : <p>Builds a standard definition model out of the specified component.</p>
+ : <p>The concepts will be put on the y axis according to the presentation network.</p>
+ : <p>The other dimensions are put on the x axis, with one breakdown for each.</p>
+ : <p>Explicit dimensions are organized according to the dimension hierarchy from the domain-member network.</p>
+ : <p>Typed dimensions are organized according to the actual values.</p>
+ :
+ : <p>One of the non-default hypercubes will be arbitrarily chosen. If none is available, the default hypercube will be picked.</p>
+ : <p>Auto slicing will be performed against the fact table
+ : 
+ : @param $component a component object.
+ :
+ : @return a definition model
+ :)
+declare function components:standard-definition-models-for-components($components as object*) as object
+{
+    components:standard-definition-models-for-components($components, ())
+};
+
+
+(:~
+ : <p>Builds a standard definition model out of the specified component.</p>
+ : <p>The concepts will be put on the y axis according to the presentation network.</p>
+ : <p>The other dimensions are put on the x axis, with one breakdown for each.</p>
+ : <p>Explicit dimensions are organized according to the dimension hierarchy from the domain-member network.</p>
+ : <p>Typed dimensions are organized according to the actual values.</p>
+ :
+ : @param $component a component object.
+ : @param $options <p>some optional parameters, including:</p>
+ : <ul>
+ :  <li>HypercubeName: a string specifying which hypercube to use. By default, one of the non-default hypercubes will be arbitrarily chosen. If none
+ :  is available, the default hypercube will be picked.</li>
+ :  <li>AutoSlice: a boolean specifying whether or not slicing should be done automatically, looking at the fact table. Deactivating auto slicing will
+ :  lead to better performance, but a more verbose table. If AutoSlice is active, dimensions with only one value in the fact pool will become
+ : global filters rather than breakdowns on the x axis.</li>
+ :  <li>Slicers: an object with forced slicers.</li>
+ : </ul>
+ :
+ : @error components:HYPERCUBE-DOES-NOT-EXIST if the specified hypercube is not found.
+ : @return a definition model
+ :)
+declare function components:standard-definition-models-for-components($components as object*, $options as object?) as object
+{
+    for $component in $components
+    let $implicit-table as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+    let $table as object := components:select-table($component, $options)
+
+    let $auto-slice as boolean := empty($options.AutoSlice) or $options.AutoSlice
+    let $facts as object*:=
+        if($auto-slice)
+        then hypercubes:facts($table)
+        else ()
+    let $dimensions as string*:= keys($table.Aspects)
+    let $values-by-dimension as object := {|
+        for $d in $dimensions
+        return { $d : [ distinct-values($facts.Aspects.$d) ] }
+    |}
+    let $auto-slice-dimensions as string* :=
+        keys($values-by-dimension)[size($values-by-dimension.$$) eq 1 and not ($$ = ("xbrl:Period", "sec:FiscalYear",  "sec:FiscalPeriod") ) ]
+    let $user-slice-dimensions as string* :=
+        keys($options.Slicers)
+
+    let $column-dimensions as string* := keys($values-by-dimension)[not $$ =
+        ("xbrl:Concept",
+        "xbrl:Period",
+        "xbrl:Unit",
+        "xbrl:Entity",
+        "xbrl28:Archive",
+        $auto-slice-dimensions,
+        $user-slice-dimensions)]
+    
+    let $x-breakdowns as object* := (
+        components:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
+        for $d as string in $column-dimensions
+        let $metadata as object? := descendant-objects($implicit-table)[$$.Name eq $d]
+        return
+            components:standard-explicit-dimension-breakdown(
+                $d,
+                $metadata.Label,
+                keys($table.Aspects.$d.Domains),
+                $component.Role),
+        components:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
+    )
+
+    let $lineitems as string* := ()
+    let $presentation-network as object? := networks:networks-for-components-and-short-names($component, "Presentation")
+    let $roots as string* := keys($presentation-network.Trees)
+    let $lineitems as string* := if(exists($lineitems)) then $lineitems else $roots
+    let $y-breakdowns as object := components:standard-concept-breakdown($lineitems, $component.Role)
+
+    return {
+        ModelKind: "DefinitionModel",
+        Labels: [$component.Label],
+        Parameters: {},
+        Breakdowns: {
+            "x" : [
+                $x-breakdowns
+            ],
+            "y": [
+                $y-breakdowns
+            ]
+        },
+        TableFilters: {|
+            for $d as string in distinct-values(($auto-slice-dimensions, $user-slice-dimensions))
+            return if($d = $user-slice-dimensions)
+                   then { $d : $options.Slicers.$d }
+                   else { $d : $values-by-dimension.$d[] },
+            if (not $auto-slice)
+            then { "xbrl28:Archive" : $component.Archive }
+            else ()
+        |}
+    }
+};
+
+

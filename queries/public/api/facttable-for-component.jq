@@ -43,6 +43,8 @@ declare  %rest:case-insensitive                 variable $map                as 
 declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
 declare  %rest:case-insensitive                 variable $labels             as boolean external := false;
 declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
+declare  %rest:case-insensitive %rest:distinct  variable $role               as string* external;
 
 session:audit-call($token);
 
@@ -52,6 +54,7 @@ let $fiscalYear as integer* := api:preprocess-fiscal-years($fiscalYear)
 let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 let $tag as string* := api:preprocess-tags($tag)
 let $reportElement := ($reportElement, $concept)
+let $networkIdentifier := distinct-values(($networkIdentifier, $role))
 
 (: Object resolution :)
 let $entities as object* := 
@@ -66,20 +69,30 @@ let $archive as object? := fiscal-core:filings(
     $fiscalYear,
     $aid)
 let $entity    := entities:entities($archive.Entity)
-let $components  := sec-networks:components(
-    $archive,
-    $cid,
-    $reportElement,
-    $disclosure,
-    $networkIdentifier,
-    $label)
+let $components  := 
+    switch($profile-name)
+    case "sec" return sec-networks:components(
+        $archive,
+        $cid,
+        $reportElement,
+        $disclosure,
+        $networkIdentifier,
+        $label)
+    default return
+        switch(true)
+        case (exists($networkIdentifier) and exists($aid))
+        return components:components-for-archives-and-roles($aid, $networkIdentifier)
+        case exists($aid)
+        return components:components-for-archives($aid)
+        default
+        return components:components()
 let $component as object? := $components[1] (: only one for know :)
 let $cid as string? := components:cid($component)
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
 
 (: Fact resolution :)
 let $facts :=
-    if (exists($rollup))
+    if (exists($rollup) and $profile-name eq "sec")
          then 
              let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
              let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
@@ -104,11 +117,13 @@ let $facts :=
             $component,
             {|
                 {
-                    Validate: $validate,
                     FilterOverride : {
                         "sec:FiscalPeriod" : { Type: "string", Default: null },
                         "sec:FiscalYear" : { Type: "string", Default: null }
                     }
+                }[$profile-name eq "sec"],
+                {
+                    Validate: $validate
                 },
                 if(exists($rules))
                 then { Rules : [ $rules ] }
@@ -143,7 +158,8 @@ let $results :=
                     TotalNumArchives: session:num-archives(),
                     TotalNumEntities: session:num-entities()
                 }),
-        <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
+        switch($profile-name)
+        case "sec" return <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
             cik="{$entity._id}"
             tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
             label="{$component.Label}"
@@ -154,6 +170,14 @@ let $results :=
             fiscalYear="{$archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus}" 
             acceptanceDatetime="{filings:acceptance-dateTimes($archive)}"
             disclosure="{$component.Profiles.SEC.Disclosure}"
+            >{
+            conversion:facts-to-xml($facts, { Caller: "Component" })
+        }</FactTable>
+        default return <FactTable
+            tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
+            label="{$component.Label}"
+            archive="{$component.Archive}"
+            role="{$component.Role}"
             >{
             conversion:facts-to-xml($facts, { Caller: "Component" })
         }</FactTable>)
@@ -185,7 +209,14 @@ let $results :=
                 NetworkIdentifier: $component.Role,
                 Disclosure : $component.Profiles.SEC.Disclosure,
                 FactTable : [ $facts ]
-            },
+            }[$profile-name eq "sec"],
+            {
+                Archive : $component.Archive,
+                Role: $component.Role,
+                TableName : keys($component.Hypercubes),
+                Label : $component.Label,
+                FactTable : [ $facts ]
+            }[$profile-name ne "sec"],
             session:comment(
                 "json",
                 {
