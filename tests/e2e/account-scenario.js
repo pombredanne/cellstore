@@ -64,27 +64,28 @@ describe('Private Account Page', function(){
 
     it('should be able to manage tokens on tokens page', function() {
         tokens.visitPage();
-        var numTokens = tokens.tokens.count();
+        
+        tokens.tokens.count().then(function(numTokens) {
+            // at least test token and disclosure app token should be there
+            expect(numTokens).toBeGreaterThan(1);
 
-        // at least test token and disclosure app token should be there
-        expect(numTokens).toBeGreaterThan(1);
+            // expiration: tomorrow minus one second
+            var date = new Date();
+            date.setDate(date.getDate() + 1);
+            date.setMinutes(date.getMinutes() - 1);
+            tokens.createToken(date.getFullYear(),
+                    date.getMonth() + 1, // date month start with 0 for January
+                date.getDate(),
+                date.getHours(),
+                date.getMinutes(),
+                credentials.testPassword);
+            expect(tokens.tokens.count()).toBe(numTokens + 1);
 
-        // expiration: tomorrow minus one second
-        var date = new Date();
-        date.setDate(date.getDate() + 1);
-        date.setMinutes(date.getMinutes() - 1);
-        tokens.createToken(date.getFullYear(), 
-                           date.getMonth()+1, // date month start with 0 for January
-                           date.getDate(),
-                           date.getHours(),
-                           date.getMinutes(),
-                           credentials.testPassword);
-        expect(tokens.tokens.count()).toBe(numTokens + 1);
-
-        // we created an expiring token (< 1 Day)
-        // now, lets revoke it again:
-        tokens.revokeExpiring(credentials.testPassword);
-        expect(tokens.tokens.count()).toBeGreaterThan(1);
+            // we created an expiring token (< 1 Day)
+            // now, lets revoke it again:
+            tokens.revokeExpiring(credentials.testPassword);
+            expect(tokens.tokens.count()).toBeGreaterThan(1);
+        });
     });
 
 });
