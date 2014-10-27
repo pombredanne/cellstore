@@ -64,8 +64,10 @@ describe('Private Account Page', function(){
 
     it('should be able to manage tokens on tokens page', function() {
         tokens.visitPage();
-        // test token and disclosure app token should be there
-        expect(tokens.tokens.count()).toBe(2);
+        var numTokens = tokens.tokens.count();
+
+        // at least test token and disclosure app token should be there
+        expect(numTokens).toBeGreaterThan(1);
 
         // expiration: tomorrow minus one second
         var date = new Date();
@@ -77,12 +79,12 @@ describe('Private Account Page', function(){
                            date.getHours(),
                            date.getMinutes(),
                            credentials.testPassword);
-        expect(tokens.tokens.count()).toBe(3);
+        expect(tokens.tokens.count()).toBe(numTokens + 1);
 
         // we created an expiring token (< 1 Day)
         // now, lets revoke it again:
         tokens.revokeExpiring(credentials.testPassword);
-        expect(tokens.tokens.count()).toBe(2);
+        expect(tokens.tokens.count()).toBeGreaterThan(1);
     });
 
 });
