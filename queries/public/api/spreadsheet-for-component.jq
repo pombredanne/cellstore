@@ -31,7 +31,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $reportElement      as 
 declare  %rest:case-insensitive %rest:distinct  variable $label              as string* external;
 declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $role               as string* external;
-declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
 
 session:audit-call($token);
 
