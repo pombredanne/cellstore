@@ -11,11 +11,9 @@ angular.module('secxbrl')
                     $scope.tokens = [];
                     angular.forEach(data.results, function(token){
                         if(token['token-type'] !== 'ui-login') {
-                            console.log(JSON.stringify(token));
                             $scope.tokens.push(token);
                         }
                     })
-                    //$scope.tokens = data.results;
                 },
                 function(response) {
                     $scope.$emit('error', response.status, response.data);
