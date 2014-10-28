@@ -97,8 +97,8 @@ let $archives as object* := fiscal-core:filings(
     $fiscalPeriod,
     $fiscalYear,
     $aid)
-let $entities    := entities:entities($archives.Entity)
-let $components  :=
+let $entities as object*  := entities:entities($archives.Entity)
+let $components as object* :=
     switch($profile-name)
     case "sec" return sec-networks:components(
         $archives,
@@ -114,8 +114,8 @@ let $components  :=
         case exists($aid)
         return components:components-for-archives($aid)
         default
-        return components:components()
-let $res         := 
+        return ()
+let $res as object* := 
     switch($profile-name)
     case "sec" return
         for $r in $components
