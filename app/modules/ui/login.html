@@ -1,0 +1,43 @@
+<div>
+    <form ng-show="!showForgot" role="form" class="white-box" name="loginForm" ng-submit="login()" novalidate spellcheck="false" autocomplete="on">
+        <h3>Login</h3>
+        <div class="form-group">
+            <input type="email" class="form-control" name="loginEmail" ng-model="loginEmail" placeholder="Email" required autocomplete="on" />
+            <span class="text-danger" ng-show="loginForm.loginEmail.$error.required && loginAttempted">
+                Email is required.
+            </span>
+            <span class="text-danger" ng-show="loginForm.loginEmail.$error.email && loginAttempted">
+                Email is invalid.
+            </span>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="loginPassword" ng-model="loginPassword" placeholder="Password" required autocomplete="on" />
+            <span class="text-danger" ng-show="loginForm.loginPassword.$error.required && loginAttempted">
+                Password is required.
+            </span>
+            <span id="wrong-combination" class="text-danger" ng-show="loginForm.loginPassword.$error.unauthorized && loginAttempted">
+                Email and Password do not match our records.
+            </span>
+        </div>
+        <div class="form-group text-right">
+            <span class="pull-left"><a class="navbar" ng-click="showForgot=true">Forgot password?</a></span>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+    <form ng-show="showForgot" role="form" class="white-box" name="forgotForm" ng-submit="forgot()" novalidate spellcheck="false" autocomplete="on">
+        <h4 class="highlight3" translate>Forgot Password</h4>
+        <div class="form-group">
+            <input type="email" class="form-control" name="forgotEmail" ng-model="forgotEmail" placeholder="Email" required autocomplete="on">
+                        <span class="text-danger" ng-show="forgotForm.forgotEmail.$error.required && forgotAttempted" translate>
+                            Email is required.
+                        </span>
+                        <span class="text-danger" ng-show="forgotForm.forgotEmail.$error.email && forgotAttempted" translate>
+                            Email is invalid.
+                        </span>
+        </div>
+        <div class="form-group text-right">
+            <span class="pull-left"><a class="navbar" ng-click="showForgot=false" translate>Nevermind, I remembered!</a></span>
+            <button type="submit" class="btn btn-primary" translate>Send me help</button>
+        </div>
+    </form>
+</div>
