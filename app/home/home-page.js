@@ -1,6 +1,7 @@
 /*global browser:false  */
 'use strict';
 
+var StartPage = require('./start/start-page');
 var PricingPage = require('./pricing/pricing-page');
 var AccountPage = require('./account/account-page');
 
@@ -11,10 +12,7 @@ function HomePage(){
 
     this.pricing  = new PricingPage();
     this.account = new AccountPage();
+    this.start = new StartPage();
 }
-
-HomePage.prototype.visitPage = function(){
-    return browser.get('/');
-};
 
 module.exports = HomePage;

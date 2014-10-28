@@ -5,7 +5,7 @@ angular
 .directive('register', function($state, API, Session){
     return {
         restrict: 'E',
-        templateUrl: '/modules/ui/register.html',
+        templateUrl: '/modules/ui/registration.html',
         replace: true,
         scope: {
             'class': '@'

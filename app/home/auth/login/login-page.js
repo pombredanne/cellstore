@@ -1,8 +1,6 @@
 /*global browser:false, element:false, by:false */
 'use strict';
 
-var _ = require('lodash');
-
 function LoginPage(){
     this.form = element(by.name('loginForm'));
     this.loginEmail = element(by.model('loginEmail'));
@@ -10,9 +8,7 @@ function LoginPage(){
 }
 
 LoginPage.prototype.visitPage = function(){
-    browser.get('/');
     return browser.get('/auth');
-    // return element(by.css('.account-sign-in')).click();
 };
 
 LoginPage.prototype.login = function(email, password){
@@ -21,10 +17,6 @@ LoginPage.prototype.login = function(email, password){
     this.password.clear();
     this.password.sendKeys(password);
     this.form.submit();
-};
-
-LoginPage.prototype.logout = function(){
-    return browser.get('/logout/');
 };
 
 LoginPage.prototype.wrongCombinationMessage = function(){

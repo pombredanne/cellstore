@@ -28,9 +28,9 @@ exports.config = {
         //Login
         var credentials = require('./credentials').credentials;
         var Auth = require('../../../app/home/auth/auth-page');
-        var auth = new Auth();
-        auth.visitPage();
-        auth.login('support@28.io', credentials.testPassword);
+        var login = new Auth().login;
+        login.visitPage();
+        login.login('support@28.io', credentials.testPassword);
         browser.waitForAngular();
     },
 

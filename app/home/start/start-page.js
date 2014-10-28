@@ -1,8 +1,10 @@
 /*global browser:false  */
 'use strict';
 
+var RegistrationModule = require('../../modules/ui/registration-page');
+
 function StartPage(){
-   this.register = element(by.id('register'));
+    this.registration = new RegistrationModule();
 }
 
 StartPage.prototype.visitPage = function(){
