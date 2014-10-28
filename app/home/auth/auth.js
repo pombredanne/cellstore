@@ -1,10 +1,6 @@
 'use strict';
 
 angular.module('secxbrl')
-.controller('AuthCtrl', function($scope, $state, $stateParams, $location, $http, $window) {
-    $scope.returnPage = $stateParams.returnPage;
+.controller('AuthCtrl', function() {
 
-    $scope.back = function() {
-        setTimeout(function() { $window.history.back(); }, 100);
-    };
 });

@@ -4,35 +4,18 @@
 var _ = require('lodash');
 
 var AppPage = require('../../app-page.js').AppPage;
+var LoginPage = require('./login/login-page');
+var LogoutPage = require('./logout/logout-page');
 
 function AuthPage(){
     AppPage.call(this);
-    this.form = element(by.name('loginForm'));
-    this.loginEmail = element(by.model('loginEmail'));
-    this.password = element(by.model('loginPassword'));
+    this.login  = new LoginPage();
+    this.logout  = new LogoutPage();
 }
 AuthPage.prototype = _.create(AppPage.prototype);
 
-AuthPage.prototype.visitPage = function(){
-    browser.get('/');
-    return browser.get('/auth');
-    // return element(by.css('.account-sign-in')).click();
-};
-
-AuthPage.prototype.login = function(email, password){
-    this.loginEmail.clear();
-    this.loginEmail.sendKeys(email);
-    this.password.clear();
-    this.password.sendKeys(password);
-    this.form.submit();
-};
-
-AuthPage.prototype.logout = function(){
-    return browser.get('/logout/');
-};
-
-AuthPage.prototype.wrongCombinationMessage = function(){
-      return element(by.id('wrong-combination'));
+AuthPage.prototype.doLogout = function(){
+    return this.logout.visitPage();
 };
 
 module.exports = AuthPage;

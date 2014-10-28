@@ -6,7 +6,8 @@ angular
     $stateProvider
     .state('home.auth', {
         url: '/auth',
-        templateUrl: '/home/auth/auth.html',
+        abstract: true,
+        template: '<div ui-view></div>',
         controller: 'AuthCtrl'
     });
 })
