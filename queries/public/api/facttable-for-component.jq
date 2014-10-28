@@ -116,18 +116,8 @@ let $facts :=
          else components:facts(
             $component,
             {|
-                {
-                    FilterOverride : {
-                        "sec:FiscalPeriod" : { Type: "string", Default: null },
-                        "sec:FiscalYear" : { Type: "string", Default: null }
-                    }
-                }[$profile-name eq "sec"],
-                {
-                    Validate: $validate
-                },
-                if(exists($rules))
-                then { Rules : [ $rules ] }
-                else ()
+                { Validate: $validate },
+                { Rules : [ $rules ] }[exists($rules)]
             |}
         )
 
