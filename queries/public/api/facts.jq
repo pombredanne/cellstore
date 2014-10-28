@@ -47,7 +47,7 @@ declare function local:param-values($name as string) as string*
                then $companies
                else "dummy",
         request:param-values("xbrl:Entity"))
-     case $name eq "sec:Archive" and $profile-name eq "sec" return (
+     case $name eq "xbrl28:Archive" and $profile-name eq "sec" return (
             let $fiscalYears := ($fiscalYear, request:param-values("sec:FiscalYear"))
             let $fiscalPeriods := local:param-values("sec:FiscalPeriod")
             let $entities := entities:entities(local:param-values("xbrl:Entity"))
@@ -56,7 +56,7 @@ declare function local:param-values($name as string) as string*
                 then fiscal-core:latest-filings($entities, $fiscalPeriods)._id
                 else (),
             $aid,
-            request:param-values("sec:Archive")
+            request:param-values("xbrl28:Archive")
         )
      default return request:param-values($name)
 };
@@ -74,7 +74,7 @@ declare function local:param-names() as string*
         "xbrl:Entity"[$profile-name eq "sec" and $names = ("cik", "tag", "ticker", "sic")],
         "dei:LegalEntityAxis"[$profile-name eq "sec"],
         "dei:LegalEntityAxis::default"[$profile-name eq "sec"],
-        "sec:Archive"[$profile-name eq "sec"]))
+        "xbrl28:Archive"[$profile-name eq "sec"]))
 };
 
 declare function local:cast-sequence($values as atomic*, $type as string) as atomic*
