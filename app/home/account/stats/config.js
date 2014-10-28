@@ -4,10 +4,10 @@ angular
 .module('secxbrl')
 .config(function ($stateProvider) {
     $stateProvider
-    .state('home.account.billing', {
-        url: '/billing',
-        templateUrl: '/home/account/billing/billing.html',
-        controller: 'BillingCtrl',
+    .state('home.account.stats', {
+        url: '/stats',
+        templateUrl: '/home/account/stats/stats.html',
+        controller: 'StatsCtrl',
         resolve: {
             apiStatistics: ['Session', 'API', function(Session, API) {
                 return API.Billing.usage({
@@ -18,8 +18,8 @@ angular
             }]
         },
         data: {
-            subActive: 'billing',
-            title: 'Billing Information'
+            subActive: 'stats',
+            title: 'Statistics'
         }
     });
 })

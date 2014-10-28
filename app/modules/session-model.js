@@ -79,6 +79,7 @@ angular
                 login: login,
                 logout: logout,
                 getUser: getUser,
+                setUser: setUser,
                 getToken: getToken
             };
         })();

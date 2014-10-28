@@ -45,7 +45,7 @@ then {
             description : "invalid email or password"
         };
 } else {
-    variable $token := session:start($user._id, $expiration);
+    variable $token := session:start($user._id, $expiration, $session:TOKEN-TYPE-APP);
     
     $status := 200;
     
