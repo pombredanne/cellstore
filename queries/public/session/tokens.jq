@@ -54,10 +54,17 @@ then {
         for $session in collection($session:tokens)
             where $session.user-id eq $user-id and $session.expiration-date gt current-dateTime()
             return 
-            {
-                token: $session._id,
-                expiration: $session.expiration-date
-            };
+                {|
+                    {
+                        token: $session._id,
+                        expiration: $session.expiration-date,
+                        (: seconds till expiration :)
+                        countdown: xs:integer(($session.expiration-date - current-dateTime()) div xs:dayTimeDuration("PT1S"))
+                    },
+                    {
+                        token-type: $session.token-type   
+                    }[$session.token-type]
+                |};
     $res := api:success({ results : [ $results ]});
 }
 

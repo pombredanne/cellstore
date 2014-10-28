@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('secxbrl')
-    .controller('ProfileCtrl', function($scope, API) {
+    .controller('ProfileCtrl', function($scope, API, Session) {
         $scope.attempted = false;
         $scope.firstname = $scope.user.firstname;
         $scope.lastname = $scope.user.lastname;
@@ -17,6 +17,7 @@ angular.module('secxbrl')
                     .then(
                     function() {
                         $scope.$emit('alert', 'Success', 'Your profile information has been updated.');
+                        Session.setUser($scope.user.id, $scope.user.email, $scope.firstname, $scope.lastname);
                         $scope.user.firstname = $scope.firstname;
                         $scope.user.lastname = $scope.lastname;
                         $scope.attempted = false;
