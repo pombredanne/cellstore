@@ -131,10 +131,6 @@ let $res as object* :=
         let $e := $entities[$$._id eq $archive.Entity]
         return
             {
-               Archive: $r.Archive,
-               Role: $r.Role,
-               NumRules: size($r.Rules),
-               NumNetworks: size($r.Networks),
                AccessionNumber : $archive._id,
                EntityRegistrantName : $e.Profiles.SEC.CompanyName,
                CIK : $e._id,
