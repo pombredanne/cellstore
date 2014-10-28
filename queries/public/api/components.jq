@@ -17,6 +17,10 @@ declare function local:to-csv($res as object*) as string*
         for $a in $res
         for $c in $a.Components[]
         return { 
+            Archive: $a.Archive,
+            Role: $a.Role,
+            NumRules: $a.NumRules,
+            NumNetworks: $a.NumNetworks,
             AcessionNumber : $a.AccessionNumber,
             EntityRegistrantName : $a.EntityRegistrantName,
             CIK : $a.CIK,
@@ -127,6 +131,10 @@ let $res as object* :=
         let $e := $entities[$$._id eq $archive.Entity]
         return
             {
+               Archive: $r.Archive,
+               Role: $r.Role,
+               NumRules: size($r.Rules),
+               NumNetworks: size($r.Networks),
                AccessionNumber : $archive._id,
                EntityRegistrantName : $e.Profiles.SEC.CompanyName,
                CIK : $e._id,
