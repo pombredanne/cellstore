@@ -71,7 +71,7 @@ let $components  :=
         case exists($aid)
         return components:components-for-archives($aid)
         default
-        return components:components()
+        return ()
 let $component as object? := $components[1] (: only one for know :)
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
 
