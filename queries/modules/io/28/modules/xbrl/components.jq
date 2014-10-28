@@ -532,6 +532,7 @@ declare %private function components:standard-typed-dimension-breakdown($dimensi
         BreakdownTrees: [
             {
                 Kind: "Rule",
+                Abstract: true,
                 Labels: [ $dimension-name || " [Axis]" ],
                 Children: [
                     for $value in $dimension-values
@@ -553,7 +554,7 @@ declare %private function components:standard-explicit-dimension-breakdown(
     $role as string) as object
 {
     {
-        BreakdownLabels: [ "Dimension Breakdown" ],
+        BreakdownLabels: [ $dimension-label || " breakdown" ],
         BreakdownTrees: [
             {
                 Kind: "Rule",
@@ -583,7 +584,7 @@ declare %private function components:standard-entity-breakdown() as object
             {
                 Kind: "Rule",
                 Abstract: true,
-                Labels: [ "Reporting Entity [Axis]" ],
+                Labels: [ "Entity [Axis]" ],
                 ConstraintSets: { "" : {} },
                 Children: [ {
                     Kind: "Aspect",
