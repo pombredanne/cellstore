@@ -6,12 +6,23 @@
 describe('Registration process and similar', function(){
 
     var HomePage = require('../../app/home/home-page');
+    var AuthPage = require('../../app/home/auth/auth-page');
     var home = new HomePage();
+    var auth = new AuthPage();
     var start = home.start;
 
     it('should be able to update password on password page', function() {
+
         start.visitPage();
         var registrationForm = start.registration;
+
+        // we are logged in
+        expect(registrationForm.register.isDisplayed()).toBe(false);
+        auth.doLogout();
+        start.visitPage();
+
+        // we are logged in
+        expect(registrationForm.register.isDisplayed()).toBe(true);
 
         registrationForm.register('', '', '', '', '', '');
         expect(password.form.errors.firstnameRequired.isDisplayed()).toBe(true);
