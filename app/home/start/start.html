@@ -1,11 +1,14 @@
-<div id="home">
+<div id="start">
     <div class="jumbotron">
         <div class="container">
             <div class="row">
-                <div>
+                <div class="col-md-4 teaser">
                     <h1 translate>Query, Search,<br> and Compare SEC Data</h1>
                     <!--p class="subtitle" translate>Powered by <a href="http://28.io/xbrl">28.io</a></p-->
-                    <a ui-sref2="home.auth()" class="btn btn-primary btn-lg" translate>Sign Up</a>
+                    <a ng-show="authenticated" ui-sref2="home.api()" class="btn btn-primary btn-lg">Learn about the API</a>
+                </div>
+                <div class="col-md-8" ng-show="!authenticated">
+                    <register />
                 </div>
             </div>
         </div>
