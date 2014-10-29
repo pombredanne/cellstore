@@ -130,6 +130,8 @@ angular.module('secxbrl', [
                             msg.push('Error Code: ' + code);
                         } else if(typeof errorMsg === 'string'){
                             msg.push('' + errorMsg);
+                        } else if(status === 403){
+                            msg.push('Forbidden (Possible reason: Invalid password)');
                         }
                         msg.push('Status: ' + status)
                     }
