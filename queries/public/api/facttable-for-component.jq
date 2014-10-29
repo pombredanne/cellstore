@@ -43,7 +43,7 @@ declare  %rest:case-insensitive                 variable $map                as 
 declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
 declare  %rest:case-insensitive                 variable $labels             as boolean external := false;
 declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
-declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
 declare  %rest:case-insensitive %rest:distinct  variable $role               as string* external;
 
 session:audit-call($token);
