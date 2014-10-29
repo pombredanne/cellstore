@@ -2183,12 +2183,12 @@ local:check({
         aid:"0000021344-14-000029"
     }),
     generic: local:test-components(1, {
-      profile-name: generic,
+      profile-name: "generic",
       aid: "0000021344-14-000008",
       role: "http://www.thecocacolacompany.com/role/DocumentAndEntityInformationDocument"
     }),
     generic-aid: local:test-components(97, {
-      profile-name: generic,
+      profile-name: "generic",
       aid: "0000021344-14-000008"
     }),
     example1: local:test-example1(),
