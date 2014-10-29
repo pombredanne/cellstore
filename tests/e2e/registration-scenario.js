@@ -12,6 +12,7 @@ describe('Registration process and similar', function(){
     var auth = new AuthPage();
     var start = home.start;
     var login = auth.login;
+    var reset = auth.reset;
     var profile = home.account.profile;
     var registrationForm = start.registration;
 
@@ -65,6 +66,37 @@ describe('Registration process and similar', function(){
         expect(registrationForm.isDisplayed()).toBe(true);
         registrationForm.register('Test', 'User', 'admin+test@28msec.com', credentials.testPassword, credentials.testPassword);
         expect(registrationForm.form.errors.emailInUse.isDisplayed()).toBe(true);
+    });
+
+    it('should be able to request password reset', function() {
+        login.visitPage();
+        login.showPasswordReset();
+        expect(login.formForgotPassword.isDisplayed()).toBe(true);
+
+        login.requestResetPassword('');
+        expect(this.form.errors.forgotEmailRequired.isDisplayed()).toBe(true);
+
+        login.requestResetPassword('admin+test28msec.com');
+        expect(this.form.errors.forgotEmailInvalid.isDisplayed()).toBe(true);
+
+        login.requestResetPassword('admin+test@28msec.com');
+        expect(home.alert.header.getText()).toBe('Help on the way!');
+
+        reset.visitPage('admin+test@28msec.com','84736f6d-4c70-4a69-8ef8-2444f4ee4646');
+        expect(reset.changeForm.isDisplayed()).toBe(true);
+
+        reset.resetPassword('', '');
+        expect(reset.form.errors.passwordRequired.isDisplayed()).toBe(true);
+        expect(reset.form.errors.passwordRepeatRequired.isDisplayed()).toBe(true);
+
+        reset.resetPassword('123', '123');
+        expect(reset.form.errors.passwordMinLength.isDisplayed()).toBe(true);
+
+        reset.resetPassword('12345', '123');
+        expect(reset.form.errors.passwordRepeatDoesntMatch.isDisplayed()).toBe(true);
+
+        reset.resetPassword('12345', '12345');
+        expect(home.error.header.getText()).toBe('Error'); // token is not valid
     });
 
     // reset
