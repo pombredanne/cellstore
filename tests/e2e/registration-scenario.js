@@ -18,36 +18,36 @@ describe('Registration process and similar', function(){
         start.visitPage();
 
         // we are logged in
-        expect(registrationForm.register.isDisplayed()).toBe(false);
+        expect(registrationForm.isDisplayed()).toBe(false);
         auth.doLogout();
         start.visitPage();
 
         // we are logged out now
-        expect(registrationForm.register.isDisplayed()).toBe(true);
+        expect(registrationForm.isDisplayed()).toBe(true);
     });
 
     it('should fail to register', function() {
         registrationForm.register('', '', '', '', '', '');
-        expect(password.form.errors.firstnameRequired.isDisplayed()).toBe(true);
-        expect(password.form.errors.lastnameRequired.isDisplayed()).toBe(true);
-        expect(password.form.errors.companynameRequired.isDisplayed()).toBe(true);
-        expect(password.form.errors.emailRequired.isDisplayed()).toBe(true);
-        expect(password.form.errors.passwordRequired.isDisplayed()).toBe(true);
-        expect(password.form.errors.confirmationRequired.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.firstnameRequired.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.lastnameRequired.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.companynameRequired.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.emailRequired.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.passwordRequired.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.confirmationRequired.isDisplayed()).toBe(true);
 
         registrationForm.register('Test', 'User', 'My Company', 'admin+test@28msec.com', '', '');
-        expect(password.form.errors.passwordTooShort.isDisplayed()).toBe(true);
-        expect(password.form.errors.confirmationRequired.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.passwordRequired.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.confirmationRequired.isDisplayed()).toBe(true);
 
-        registrationForm.register('Test', 'User', 'My Company', 'admin+test@28msec.com', '', '123');
-        expect(password.form.errors.passwordRequired.isDisplayed()).toBe(true);
-        expect(password.form.errors.passwordsDontMatch.isDisplayed()).toBe(true);
+        registrationForm.register('Test', 'User', 'My Company', 'admin+test@28msec.com', '123', '1234');
+        expect(registrationForm.form.errors.passwordTooShort.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.passwordsDontMatch.isDisplayed()).toBe(true);
 
         registrationForm.register('Test', 'User', 'My Company', 'admin+test@28msec.com', '123', '123');
-        expect(password.form.errors.passwordTooShort.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.passwordTooShort.isDisplayed()).toBe(true);
 
         registrationForm.register('Test', 'User', 'My Company', 'admin+test28msec.com', 'abc123', 'abc123');
-        expect(password.form.errors.emailInvalid.isDisplayed()).toBe(true);
+        expect(registrationForm.form.errors.emailInvalid.isDisplayed()).toBe(true);
     });
 
     it('should be able to register', function() {
@@ -57,7 +57,7 @@ describe('Registration process and similar', function(){
         });
 
         start.visitPage();
-        expect(registrationForm.register.isDisplayed()).toBe(false);
+        expect(registrationForm.isDisplayed()).toBe(false);
     });
 
     // reset

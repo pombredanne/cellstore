@@ -3,7 +3,6 @@
 
 function RegistrationModule(){
 
-    this.register = element(by.id('register'));
     this.form = element(by.name('registerForm'));
 
     this.firstname = element(by.model('firstname'));
@@ -28,6 +27,10 @@ function RegistrationModule(){
 var input = function(formElement, value){
     formElement.clear();
     formElement.sendKeys(value);
+};
+
+RegistrationModule.prototype.isDisplayed = function(){
+    return element(by.id('register')).isDisplayed();
 };
 
 RegistrationModule.prototype.register = function(firstname, lastname, companyname, email, password, passwordRepeat){
