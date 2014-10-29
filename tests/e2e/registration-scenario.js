@@ -39,8 +39,7 @@ describe('Registration process and similar', function(){
         expect(registrationForm.form.errors.passwordRequired.isDisplayed()).toBe(true);
         expect(registrationForm.form.errors.confirmationRequired.isDisplayed()).toBe(true);
 
-        registrationForm.register('Test', 'User', 'admin+test@28msec.com', '123', '1234');
-        expect(registrationForm.form.errors.passwordTooShort.isDisplayed()).toBe(true);
+        registrationForm.register('Test', 'User', 'admin+test@28msec.com', '12345', '1234');
         expect(registrationForm.form.errors.passwordsDontMatch.isDisplayed()).toBe(true);
 
         registrationForm.register('Test', 'User', 'admin+test@28msec.com', '123', '123');
@@ -52,7 +51,7 @@ describe('Registration process and similar', function(){
 
     it('should be able to register', function() {
         registrationForm.register('Test', 'User', 'admin+test@28msec.com', credentials.testPassword, credentials.testPassword);
-        expect(registrationForm.form.errors.emailInUse.isDisplayed()).toBe(false);
+        expect(registrationForm.form.errors.emailInUse.isPresent()).toBe(false);
         // should have automatically logged us in
         expect(profile.form.isDisplayed()).toBe(true);
 
