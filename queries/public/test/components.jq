@@ -2144,6 +2144,15 @@ declare %an:nondeterministic function local:test-components($expected as integer
     return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
+declare %an:nondeterministic function local:test-generic-components($expected as integer, $params as object) as item
+{
+    let $endpoint := "components"
+    let $request := test:invoke($endpoint, $params)
+    let $actual as integer := count($request[2].Components[])
+    let $status as integer := $request[1]
+    return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
+};
+
 
 declare %an:sequential function local:check($o as object) as object
 {
@@ -2182,12 +2191,12 @@ local:check({
     acceptance: local:test-acceptance-date("2014-07-30T15:44:58Z", {
         aid:"0000021344-14-000029"
     }),
-    generic: local:test-components(1, {
+    generic: local:test-generic-components(1, {
       profile-name: "generic",
       aid: "0000021344-14-000008",
       role: "http://www.thecocacolacompany.com/role/DocumentAndEntityInformationDocument"
     }),
-    generic-aid: local:test-components(97, {
+    generic-aid: local:test-generic-components(97, {
       profile-name: "generic",
       aid: "0000021344-14-000008"
     }),
