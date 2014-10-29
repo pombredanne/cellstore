@@ -64,7 +64,7 @@ declare %an:nondeterministic function local:test-labels-aids() as item
         map: "Disclosures",
         format: "json",
         fiscalYear: 2014,
-        fiscalPeriod: "FY",
+        fiscalPeriod: "YTD4",
         labels: true,
         aid: "0000858877-14-000029"
     }
@@ -126,7 +126,7 @@ local:check({
     quartersfact2: local:test-facttable(1, {
         aid: "0001193125-12-207154",
         concept: "disc:CashFlowOperatingCapitalTableTextBlock",
-        fiscalPeriod: "Q1",
+        fiscalPeriod: "YTD1",
         fiscalYear: "2012",
         map: "Disclosures"
     }),
