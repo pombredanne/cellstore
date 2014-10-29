@@ -70,7 +70,7 @@ then
     let $facts as object* :=
         let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
         let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
-        return if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
+        return if(false)
         then {
               response:status-code(403);
               session:error("The report filters are too weak, which leads to too big an output.", $format)
