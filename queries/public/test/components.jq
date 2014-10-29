@@ -2182,6 +2182,15 @@ local:check({
     acceptance: local:test-acceptance-date("2014-07-30T15:44:58Z", {
         aid:"0000021344-14-000029"
     }),
+    generic: local:test-components(1, {
+      profile-name: generic,
+      aid: "0000021344-14-000008",
+      role: "http://www.thecocacolacompany.com/role/DocumentAndEntityInformationDocument"
+    }),
+    generic-aid: local:test-components(97, {
+      profile-name: generic,
+      aid: "0000021344-14-000008"
+    }),
     example1: local:test-example1(),
     example2: local:test-example2()
 })
