@@ -151,7 +151,11 @@ module.exports = function (grunt) {
                     {
                         data: {
                             secxbrl: '<%= secxbrl.secxbrlInfo.prod %>',
-                            sendmail: '<%= secxbrl.sendmail %>'
+                            sendmail: '<%= secxbrl.sendmail %>',
+                            frontend: {
+                                project: 'app',
+                                domain: '.secxbrl.info'
+                            }
                         },
                         template: 'tasks/credentials.mustache',
                         dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
@@ -170,7 +174,11 @@ module.exports = function (grunt) {
                     {
                         data: {
                             secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
-                            sendmail: '<%= secxbrl.sendmail %>'
+                            sendmail: '<%= secxbrl.sendmail %>',
+                            frontend: {
+                                project: '<%= secxbrl.28.project %>',
+                                domain: '.s3-website-us-east-1.amazonaws.com'
+                            }
                         },
                         template: 'tasks/credentials.mustache',
                         dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
@@ -189,7 +197,11 @@ module.exports = function (grunt) {
                     {
                         data: {
                             secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
-                            sendmail: '<%= secxbrl.sendmail %>'
+                            sendmail: '<%= secxbrl.sendmail %>',
+                            frontend: {
+                                project: '<%= secxbrl.28.project %>',
+                                domain: '.s3-website-us-east-1.amazonaws.com'
+                            }
                         },
                         template: 'tasks/credentials.mustache',
                         dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'

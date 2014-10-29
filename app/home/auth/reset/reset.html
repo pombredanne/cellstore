@@ -1,0 +1,37 @@
+<div id="reset">
+    <div class="container">
+        <h2>Hello {{email}}</h2><br>
+        <h4>You are about to change your password.</h4>
+        <div class="row">
+            <div class="col-md-6 col-offset-md-3">
+                <form role="form" class="white-box" name="changeForm" ng-submit="change()" novalidate spellcheck="false" autocomplete="on">
+                    <h3>Choose password</h3>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" ng-model="password" placeholder="Password" required autocomplete="on" ng-minlength="5" />
+                        <span id="password-required" class="text-danger" ng-show="changeForm.password.$error.required && changeAttempted">
+                            Password is required.
+                        </span>
+                        <span id="password-minlength" class="text-danger" ng-show="changeForm.password.$error.minlength && changeAttempted">
+                            Password must exceed 5 characters.
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" ng-model="passwordRepeat" placeholder="Confirm Password" required autocomplete="on" equals="{{password}}" />
+                        <span id="password-repeat-required" class="text-danger" ng-show="changeForm.passwordRepeat.$error.required && changeAttempted">
+                            Password confirmation is required.
+                        </span>
+                        <span id="password-repeat-doesnt-match" class="text-danger" ng-show="!changeForm.password.$error.minlength && !changeForm.passwordRepeat.$error.required && changeForm.passwordRepeat.$error.equals && changeAttempted">
+                            Password confirmation doesn't match.
+                        </span>
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-primary" ng-class="{ disabled: loading }">
+                            <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span>Changing Password...</span></span>
+                            <span ng-show="!loading">Change Password</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,24 +20,24 @@
             </span>
         </div>
         <div class="form-group text-right">
-            <span class="pull-left"><a class="navbar" ng-click="showForgot=true">Forgot password?</a></span>
+            <span class="pull-left"><a class="navbar" id="show-forgot-password-link" ng-click="showForgot=true">Forgot password?</a></span>
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
     </form>
     <form ng-show="showForgot" role="form" class="white-box" name="forgotForm" ng-submit="forgot()" novalidate spellcheck="false" autocomplete="on">
-        <h4 class="highlight3" translate>Forgot Password</h4>
+        <h4 class="highlight3">Forgot Password</h4>
         <div class="form-group">
-            <input type="email" class="form-control" name="forgotEmail" ng-model="forgotEmail" placeholder="Email" required autocomplete="on">
-                        <span class="text-danger" ng-show="forgotForm.forgotEmail.$error.required && forgotAttempted" translate>
-                            Email is required.
-                        </span>
-                        <span class="text-danger" ng-show="forgotForm.forgotEmail.$error.email && forgotAttempted" translate>
-                            Email is invalid.
-                        </span>
+            <input type="email" class="form-control" name="forgotEmail" ng-model="forgotEmail" placeholder="Email" required autocomplete="on" />
+            <span id="forgot-email-required" class="text-danger" ng-show="forgotForm.forgotEmail.$error.required && forgotAttempted">
+                Email is required.
+            </span>
+            <span id="forgot-email-invalid" class="text-danger" ng-show="forgotForm.forgotEmail.$error.email && forgotAttempted">
+                Email is invalid.
+            </span>
         </div>
         <div class="form-group text-right">
-            <span class="pull-left"><a class="navbar" ng-click="showForgot=false" translate>Nevermind, I remembered!</a></span>
-            <button type="submit" class="btn btn-primary" translate>Send me help</button>
+            <span class="pull-left"><a class="navbar" ng-click="showForgot=false">Nevermind, I remembered!</a></span>
+            <button type="submit" class="btn btn-primary">Send me help</button>
         </div>
     </form>
 </div>

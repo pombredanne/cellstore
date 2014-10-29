@@ -10,6 +10,10 @@ function HomePage(){
     this.alert.header = element(by.id('alert-header'));
     this.alert.body = element(by.id('alert-body'));
 
+    this.error = {};
+    this.error.header = element(by.id('error-header'));
+    this.error.body = element(by.id('error-body'));
+
     this.pricing  = new PricingPage();
     this.account = new AccountPage();
     this.start = new StartPage();

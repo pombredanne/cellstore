@@ -3,7 +3,7 @@
 
 function RegistrationModule(){
 
-    this.form = element(by.name('registerForm'));
+    this.registerForm = element(by.name('registerForm'));
 
     this.firstname = element(by.model('firstname'));
     this.lastname = element(by.model('lastname'));
@@ -11,6 +11,7 @@ function RegistrationModule(){
     this.password = element(by.model('password'));
     this.passwordRepeat = element(by.model('passwordRepeat'));
 
+    this.form = {};
     this.form.errors = {};
     this.form.errors.firstnameRequired = element(by.id('firstname-required'));
     this.form.errors.lastnameRequired = element(by.id('lastname-required'));
@@ -38,7 +39,7 @@ RegistrationModule.prototype.register = function(firstname, lastname, email, pas
     input(this.email, email);
     input(this.password, password);
     input(this.passwordRepeat, passwordRepeat);
-    this.form.submit();
+    this.registerForm.submit();
 };
 
 module.exports = RegistrationModule;
