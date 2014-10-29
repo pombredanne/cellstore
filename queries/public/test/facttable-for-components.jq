@@ -40,5 +40,9 @@ local:check({
         fiscalYear:"2012",
         fiscalPeriod:"Q1",
         networkIdentifier:"http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets"
-    }) 
+    }),
+    generic: local:test-facttable(36, {
+        aid: "0000021344-14-000008",
+        role: "http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets"
+    })
 })
