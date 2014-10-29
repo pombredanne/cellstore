@@ -24,7 +24,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $aid           as strin
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate     as boolean external := false;
 declare  %rest:case-insensitive                 variable $report        as string? external;
-declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
 
 session:audit-call($token);
 
@@ -67,7 +67,7 @@ then
     let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
     let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
     let $spreadsheet as object? :=
-        if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
+        if(false)
         then {
               response:status-code(403);
               session:error("The report filters are too weak, which leads to too big an output.", $format)
