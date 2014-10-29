@@ -24,7 +24,7 @@ angular.module('secxbrl')
                         $scope.loading = false;
                     },
                     function(response) {
-                        $scope.$emit('error', response.status, response.data);
+                        $scope.$emit('error', 'Error', response);
                         $scope.loading = false;
                     });
             }

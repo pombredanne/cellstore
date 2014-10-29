@@ -15,13 +15,10 @@
             </span>
         </div>
         <div class="form-group col-md-12">
-            <input type="text" class="form-control" name="companyname" ng-model="companyname" placeholder="Company Name" required autocomplete="on" />
-            <span id="companyname-required" class="text-danger" ng-show="registerForm.companyname.$error.required && registerAttempted">
-                Company Name is required.
+            <input type="email" class="form-control" name="email" ng-model="email" placeholder="Email" required autocomplete="on" ng-change="registerForm.email.$setValidity('inuse', true);" />
+            <span id="email-in-use" class="text-danger" ng-show="registerForm.email.$error.inuse && registerAttempted">
+                A user with the same email address is already registered.
             </span>
-        </div>
-        <div class="form-group col-md-12">
-            <input type="email" class="form-control" name="email" ng-model="email" placeholder="Email" required autocomplete="on" />
             <span id="email-required" class="text-danger" ng-show="registerForm.email.$error.required && registerAttempted">
                 Email is required.
             </span>

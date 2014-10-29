@@ -50,7 +50,9 @@ angular
                             $scope.$emit('alert', 'Help on the way!', 'Please check your email, if you are registered on or system we sent you a link that allows you to change your password.<br><br>The link is valid for 24 hours.');
                             $scope.showForgot = false;
                         },
-                        function(response) { $scope.$emit('error', response.status, response.data); });
+                        function(response) {
+                            $scope.$emit('error', 'Error', response);
+                        });
                 }
             };
         }

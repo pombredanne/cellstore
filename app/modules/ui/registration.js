@@ -31,11 +31,15 @@ angular
                                     $state.go('home.account.profile', { }, { reload: true });
                                 },
                                 function (response) {
-                                    $scope.$emit('error', response.status, response.data);
+                                    $scope.$emit('error', 'Error', response);
                                 });
                         },
                         function (response) {
-                            $scope.$emit('error', response.status, response.data);
+                            if(response.status === 500 && typeof response.body === 'object' && response.body.code === 'exists') {
+                                $scope.registerForm.email.$setValidity('inuse', false);
+                            } else {
+                                $scope.$emit('error', 'Error', response);
+                            }
                         });
                 }
             };
