@@ -42,6 +42,7 @@ local:check({
         networkIdentifier:"http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets"
     }),
     generic: local:test-facttable(36, {
+        profile-name: "generic",
         aid: "0000021344-14-000008",
         role: "http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets"
     })
