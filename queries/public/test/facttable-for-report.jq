@@ -278,7 +278,7 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"t",
         fiscalYear:"2013",
-        fiscalPeriod:["FY", "QTD4", "YTD4"]}),
+        fiscalPeriod:["YTD4"]}),
     reportDoesntExist: local:test-report-does-not-exist({
         report:"report-not-found",
         ticker:"MSFT",
