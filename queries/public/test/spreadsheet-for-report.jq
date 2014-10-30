@@ -44,7 +44,7 @@ local:check({
         ticker:"ko",
         fiscalYear:"2012",
         fiscalPeriod:"ALL"}),
-    tickerfyfprole: local:test-spreadsheet(193, {
+    tickerfyfprole: local:test-spreadsheet(249, {
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
