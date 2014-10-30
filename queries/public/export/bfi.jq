@@ -14,34 +14,77 @@ declare variable $additionalRules :=
         "Type" : "xbrl28:formula",
         "Label" : "CommonStockSharesOutstanding imputation",
         "Formula" : "(: workaround for bug: https://github.com/28msec/xbrl-infosetgenerator/issues/7 :)
-                     let $aligned-filter := trim($aligned-filter, (\"Profiles.SEC.Fiscal\"))
-                     for $facts in  facts:facts-for-internal((
-                             \"fac:CommonStockSharesOutstanding\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)
-                     group by $canonical-filter-string :=
-                                 facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))
-                     for $CommonStockSharesOutstandingByArchive in $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommonStockSharesOutstanding\"]
-                     group by $CommonStockSharesOutstandingByArchive.Archive
-                     return
-                         let $source-fact :=
-                             (
-                                 for $CommonStockSharesOutstanding in $CommonStockSharesOutstandingByArchive
-                                 order by $CommonStockSharesOutstanding.$facts:ASPECTS.$facts:PERIOD descending
-                                 return $CommonStockSharesOutstanding
-                             )[1]
-                         let $value := rules:decimal-value($source-fact)
-                         let $original-concept := $source-fact.AuditTrails[][$$.Type eq \"xbrl28:concept-maps\"].Data.OriginalConcept
-                         let $audit-trail-message :=
-                            rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : \"shares\", \"xbrl:Concept\" : $original-concept }, Value: $value }) || \" (as of latest practicable date: \" || $source-fact.$facts:ASPECTS.$facts:PERIOD
-                            || \")\"
-                         return
-                             rules:create-computed-fact(
-                                 $source-fact,
-                                 \"fac:CommonStockSharesOutstanding\",
-                                 $value,
-                                 $rule,
-                                 $audit-trail-message,
-                                 $source-fact,
-                                 $options)",
+                     let $aligned-filter-no-fiscal as object := 
+    copy $new := $aligned-filter 
+    modify (
+	  if($new.Aspects.\"sec:FiscalPeriod\") then delete json $new.Aspects.\"sec:FiscalPeriod\" else (),
+	  if($new.Aspects.\"sec:FiscalYear\") then delete json $new.Aspects.\"sec:FiscalYear\" else ()
+	)
+	return $new
+for $facts in (facts:facts-for-internal((
+      \"fac:CommonStockSharesOutstanding\"
+    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options),
+	facts:facts-for-internal((
+      \"dei:EntityCommonStockSharesOutstanding\"
+    ), $hypercube, $aligned-filter-no-fiscal, $concept-maps, $rules, $cache, $options)
+	)
+let $aligned-period := year-from-date(xs:date(( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts))[1]))
+group by $canonical-filter-string := 
+  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD))
+  , $aligned-period
+let $warnings as string* := ()
+let $CommonStockSharesOutstanding as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommonStockSharesOutstanding\"]
+let $EntityCommonStockSharesOutstanding as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"dei:EntityCommonStockSharesOutstanding\"]
+let $warnings := ($warnings, if(count($CommonStockSharesOutstanding) gt 1)
+                             then if(count(distinct-values($CommonStockSharesOutstanding.Value)) gt 1)
+                                  then \"Cell collision with conflicting values for concept CommonStockSharesOutstanding.\"
+                                  else \"Cell collision with consistent values for concept CommonStockSharesOutstanding.\"
+                             else (),
+							 if(count($EntityCommonStockSharesOutstanding) gt 1)
+                             then if(count(distinct-values($EntityCommonStockSharesOutstanding.Value)) gt 1)
+                                  then \"Cell collision with conflicting values for concept EntityCommonStockSharesOutstanding.\"
+                                  else \"Cell collision with consistent values for concept EntityCommonStockSharesOutstanding.\"
+                             else ())
+let $CommonStockSharesOutstanding as object? := $CommonStockSharesOutstanding[1]
+let $EntityCommonStockSharesOutstanding as object? := $EntityCommonStockSharesOutstanding[1]
+let $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]
+return
+  switch (true)
+  case exists($CommonStockSharesOutstanding) return $CommonStockSharesOutstanding
+  case (exists($EntityCommonStockSharesOutstanding) and true)
+  return
+    let $computed-value := rules:decimal-value($EntityCommonStockSharesOutstanding)
+    let $audit-trail-message as string* := 
+      rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : $_unit, \"xbrl:Concept\" : \"fac:CommonStockSharesOutstanding\" }, Value: $computed-value }) || \" = \" || 
+         rules:fact-trail($EntityCommonStockSharesOutstanding, \"EntityCommonStockSharesOutstanding\") || \" [\" || (facts:duration-for-fact($facts).End, facts:instant-for-fact($facts)) || \"]\"
+    let $audit-trail-message as string* := ($audit-trail-message, $warnings)
+    let $source-facts as object* := ($EntityCommonStockSharesOutstanding)
+    return
+      if(string(number($computed-value)) != \"NaN\" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))
+      then
+        copy $newfact :=
+          rules:create-computed-fact(
+            $EntityCommonStockSharesOutstanding,
+            \"fac:CommonStockSharesOutstanding\",
+            $computed-value,
+            $rule,
+            $audit-trail-message,
+            $source-facts,
+            $options)
+        modify (
+            replace value of json $newfact(\"Decimals\") with 2
+          )
+        return $newfact
+      else
+        rules:create-computed-fact(
+          $EntityCommonStockSharesOutstanding,
+          \"fac:CommonStockSharesOutstanding\",
+          $computed-value,
+          $rule,
+          $audit-trail-message,
+          $source-facts,
+            $options)
+  default return ()",
         "ComputableConcepts" : [ "fac:CommonStockSharesOutstanding" ]
       },
       {
@@ -158,7 +201,13 @@ let $mappings :=
         "To" : {
           "dei:EntityCommonStockSharesOutstanding": {
             "Name" : "dei:EntityCommonStockSharesOutstanding",
-            "Id" : "b8d27670-5caa-411f-8305-860c0613c31f"
+            "Id" : "b8d27670-5caa-411f-8305-860c0613c31f", 
+            "Order" : 1
+          },
+          "us-gaap:CommonStockSharesOutstanding" : {
+            "Id" : "a91849bd-0aa2-4f1c-8dcb-c85537bf36a8", 
+            "Name" : "us-gaap:CommonStockSharesOutstanding", 
+            "Order" : 2
           }
         },
         "Id" : "91b87448-a8dd-4739-9cdf-2cdaef6a4ff6"
@@ -173,22 +222,8 @@ return
 (: DefinitionModel :)
 replace value of json $report.DefinitionModels[1].Breakdowns.y[1].BreakdownTrees[1].LinkRole with $role;
 
-(: adapt default_zero rule :)
-let $defaultZeroRule := $report.Rules[][$$.Id eq "default_zero"]
-(: add concepts to the list of $numeric-instant-concepts :)
-let $formula := replace($defaultZeroRule.Formula,
-                        "\"fac:LiabilitiesAndEquity\"\\)",
-                        "\"fac:LiabilitiesAndEquity\", \"fac:CommonStockSharesAuthorized\", \"fac:CommonStockSharesIssued\", \"fac:CommonStockSharesOutstanding\")"
-                       )
-(: add concepts to the list of $concepts-in-report :)
-let $formula := replace($formula,
-                        "\"fac:Validations\"\\)",
-                        "\"fac:Validations\", \"fac:CommonStockSharesAuthorized\", \"fac:CommonStockSharesIssued\", \"fac:CommonStockSharesOutstanding\")"
-                       )
-return
-  {
-    replace value of json $defaultZeroRule.Formula with $formula;
-  }
+(: remove default_zero rule :)
+replace value of json $report.Rules with [ $report.Rules[][$$.Id ne "default_zero"] ];
 
 { "_id": $id,
   Archive: null,
