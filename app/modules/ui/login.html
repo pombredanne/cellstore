@@ -1,7 +1,7 @@
 <div class="modal-dialog inlined-modal">
     <form ng-show="!showForgot" role="form" class="white-box" name="loginForm" ng-submit="login()" novalidate spellcheck="false" autocomplete="on">
         <div class="modal-body">
-            <h3>Login</h3>
+            <h3 class="text-center">Login</h3>
             <div class="form-group">
                 <input type="email" class="form-control" name="loginEmail" ng-model="loginEmail" placeholder="Email" required autocomplete="on" />
                 <span class="text-danger" ng-show="loginForm.loginEmail.$error.required && loginAttempted">
@@ -21,11 +21,14 @@
                 </span>
             </div>
             <div class="form-group text-right">
-                <span class="pull-left">
+                <span class="pull-left text-left">
                     <a id="show-forgot-password-link" ng-click="showForgot=true">Forgot password?</a><br/>
                     <a ui-sref2="auth.register()" id="create-account-link">Create an Account</a>
                 </span>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary" ng-class="{ disabled: loading }">
+                    <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span>Signing in ...</span></span>
+                    <span ng-show="!loading">Login</span>
+                </button>
             </div>
         </div>
     </form>
@@ -43,7 +46,10 @@
             </div>
             <div class="form-group text-right">
                 <span class="pull-left"><a class="navbar" ng-click="showForgot=false">Nevermind, I remembered!</a></span>
-                <button type="submit" class="btn btn-primary">Send me help</button>
+                <button type="submit" class="btn btn-primary" ng-class="{ disabled: loading }">
+                    <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span>Resolving the Issue ...</span></span>
+                    <span ng-show="!loading">Send me help</span>
+                </button>
             </div>
          </div>
     </form>

@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('secxbrl')
-    .controller('RegisterCtrl', function($scope, $state, $stateParams, $location, $http, $window) {
+    .controller('RegisterCtrl', function($scope, $stateParams) {
         $scope.returnPage = $stateParams.returnPage;
-        $scope.showCreateAccount = false;
     });

@@ -15,6 +15,7 @@ angular
 
             $scope.loginAttempted = false;
             $scope.forgotAttempted = false;
+            $scope.loading = false;
 
             $scope.login = function(){
                 $scope.loginAttempted = true;
@@ -23,6 +24,7 @@ angular
                 $scope.$broadcast('autocomplete:update');
                 $scope.loginForm.loginPassword.$setValidity('unauthorized', true);
                 if(!$scope.loginForm.$invalid) {
+                    $scope.loading = true;
                     Session
                         .login($scope.loginEmail, $scope.loginPassword)
                         .then(function() {
@@ -33,6 +35,7 @@ angular
                                 $state.go('home.account.profile', { }, { reload: true });
                             }
                         }, function() {
+                            $scope.loading = false;
                             $scope.loginForm.loginPassword.$setValidity('unauthorized', false);
                         });
                 }
@@ -44,13 +47,16 @@ angular
 
                 $scope.$broadcast('autocomplete:update');
                 if(!$scope.forgotForm.$invalid) {
+                    $scope.loading = true;
                     API.Users
                         .forgotPassword({ email: $scope.forgotEmail })
                         .then(function() {
+                            $scope.loading = false;
                             $scope.$emit('alert', 'Help on the way!', 'Please check your email, if you are registered on or system we sent you a link that allows you to change your password.<br><br>The link is valid for 24 hours.');
                             $scope.showForgot = false;
                         },
                         function(response) {
+                            $scope.loading = false;
                             $scope.$emit('error', 'Error', response);
                         });
                 }

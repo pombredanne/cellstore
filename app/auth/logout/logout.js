@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('secxbrl')
-    .controller('LogoutCtrl', function(Session) {
+    .controller('LogoutCtrl', function(Session, $state) {
         Session.logout();
-        Session.redirectToLoginPage('/');
+        $state.go('home.start', { }, { reload: true });
     });
