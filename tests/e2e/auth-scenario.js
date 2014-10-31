@@ -13,7 +13,7 @@ describe('Authentication', function(){
     it('should have been redirected to the auth page', function() {
         auth.doLogout();
         auth.getCurrentUrl().then(function(url){
-            expect(url.substring(url.length - '/auth'.length)).toBe('/auth');
+            expect(url.substring(url.length - '/'.length)).toBe('/');
         });
     });
 
