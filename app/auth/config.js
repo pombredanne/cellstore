@@ -7,7 +7,7 @@ angular
     .state('auth', {
         url: '/auth',
         abstract: true,
-        template: '<div ui-view></div>',
+        templateUrl: '/auth/auth.html',
         controller: 'AuthCtrl'
     });
 })

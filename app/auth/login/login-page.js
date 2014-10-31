@@ -3,7 +3,7 @@
 
 var _ = require('lodash');
 
-var AppPage = require('../../../app-page.js').AppPage;
+var AppPage = require('../../app-page.js').AppPage;
 
 function LoginPage(){
     AppPage.call(this);

@@ -5,7 +5,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('auth.register', {
-        url: '',
+        url: '/sign-up',
         templateUrl: '/auth/register/register.html',
         controller: 'RegisterCtrl'
     });

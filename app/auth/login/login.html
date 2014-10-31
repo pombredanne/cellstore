@@ -1,28 +1,5 @@
 <div id="login">
-<div class="container">
-	<div class="text-center header-info">
-		<p>Enter your credentials below. If you do not have an account, you can also <a ng-click="showCreateAccount=true">create one</a>.</p>
-	</div>
-	<div class="row">
-
-        <!-- Login -->
-        <div ng-show="showCreateAccount" class="col-md-6 login text-center">
-            <h2>Do you already have an account?</h2>
-            <button type="submit" class="btn" ng-click="showCreateAccount=false">Login</button>
-        </div>
-        <div ng-show="!showCreateAccount" class="col-md-6">
-            <login return-page="returnPage" />
-		</div>
-
-        <!-- Register -->
-        <div ng-show="showCreateAccount" class="col-md-6">
-            <register />
-		</div>
-        <div ng-show="!showCreateAccount" class="col-md-6 create-account text-center">
-            <h2>Don't have an account?</h2>
-            <p>Get an account in less than 2 minutes</p>
-            <button type="submit" class="btn" ng-click="showCreateAccount=true">Create an account</button>
-        </div>
+    <div class="modal-animation">
+        <login return-page="returnPage" />
     </div>
-</div>
 </div>

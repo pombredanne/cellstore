@@ -3,7 +3,7 @@
 
 var _ = require('lodash');
 
-var AppPage = require('../../app-page.js').AppPage;
+var AppPage = require('../app-page.js').AppPage;
 var LoginPage = require('./login/login-page');
 var LogoutPage = require('./logout/logout-page');
 var ResetPage = require('./reset/reset-page');
