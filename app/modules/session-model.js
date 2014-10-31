@@ -17,7 +17,7 @@ angular
                 {
                     p = p.substring(5);
                 }
-                $state.go('home.auth.login', { returnPage: p }, { reload: true });
+                $state.go('auth.login', { returnPage: p }, { reload: true });
             }
 
             function getCache(){
