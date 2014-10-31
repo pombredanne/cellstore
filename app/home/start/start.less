@@ -57,6 +57,28 @@
     border-top: 1px solid @clouds;
     padding-top: 1.5em;
     padding-bottom: 1.5em;
+
+    p {
+      color: @concrete;
+
+      .btn-default {
+        border: 2px solid @brand-primary;
+        font-size: @font-size-large;
+        color: @brand-primary;
+        &:hover {
+          color: white;
+          background-color: @brand-primary;
+        }
+      }
+    }
+
+    >div.picto {
+      text-align: center;
+      img {
+        height: 200px;
+        width: auto;
+      }
+    }
   }
 
   blockquote {
