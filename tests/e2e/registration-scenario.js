@@ -75,13 +75,13 @@ describe('Registration process and similar', function(){
     it('should be able to request password reset', function() {
         login.visitPage();
         login.showPasswordReset();
-        expect(login.formForgotPassword.isDisplayed()).toBe(true);
+        expect(login.forgotForm.isDisplayed()).toBe(true);
 
         login.requestResetPassword('');
-        expect(this.form.errors.forgotEmailRequired.isDisplayed()).toBe(true);
+        expect(login.form.errors.forgotEmailRequired.isDisplayed()).toBe(true);
 
         login.requestResetPassword('admin+test28msec.com');
-        expect(this.form.errors.forgotEmailInvalid.isDisplayed()).toBe(true);
+        expect(login.form.errors.forgotEmailInvalid.isDisplayed()).toBe(true);
 
         login.requestResetPassword('admin+test@28msec.com');
         expect(home.alert.header.getText()).toBe('Help on the way!');
