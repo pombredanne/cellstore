@@ -6,7 +6,7 @@
 describe('Registration process and similar', function(){
 
     var HomePage = require('../../app/home/home-page');
-    var AuthPage = require('../../app/home/auth/auth-page');
+    var AuthPage = require('../../app/auth/auth-page');
     var credentials = require('./config/credentials').credentials;
     var home = new HomePage();
     var auth = new AuthPage();
@@ -55,6 +55,7 @@ describe('Registration process and similar', function(){
 
     it('should be able to register', function() {
         start.visitPage();
+        expect(homeRegistrationForm.isDisplayed()).toBe(true);
         homeRegistrationForm.register('Test', 'User', 'admin+test@28msec.com', credentials.testPassword, credentials.testPassword);
         expect(homeRegistrationForm.form.errors.emailInUse.isPresent()).toBe(false);
         // should have automatically logged us in

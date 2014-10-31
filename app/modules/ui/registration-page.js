@@ -30,7 +30,7 @@ var input = function(formElement, value){
 };
 
 RegistrationModule.prototype.isDisplayed = function(){
-    return element(by.id('register')).isDisplayed();
+    return element(by.id('registration')).isDisplayed();
 };
 
 RegistrationModule.prototype.register = function(firstname, lastname, email, password, passwordRepeat){

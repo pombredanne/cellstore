@@ -5,7 +5,7 @@
 
 describe('Authentication', function(){
 
-    var AuthPage = require('../../app/home/auth/auth-page');
+    var AuthPage = require('../../app/auth/auth-page');
     var auth = new AuthPage();
     var login = auth.login;
     var credentials = require('./config/credentials').credentials;
