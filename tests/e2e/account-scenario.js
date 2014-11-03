@@ -79,7 +79,9 @@ describe('Private Account Page', function(){
                 date.getHours(),
                 date.getMinutes(),
                 credentials.testPassword);
-            expect(home.error.body.text()).toBeUndefined();
+            home.error.messages.then(function(messages) {
+                expect(messages.length).toBe(0);
+            });
             expect(tokens.tokens.count()).toBe(numTokens + 1);
 
             // we created an expiring token (< 1 Day)
