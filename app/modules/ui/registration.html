@@ -46,10 +46,10 @@
                     </span>
                 </div>
                 <div class="form-group text-right col-md-12">
-                    <span class="pull-left">
+                    <span class="pull-left" ng-show="hideAlreadyHaveAnAccount !== 'true'">
                         <a ui-sref2="auth.login()" id="login-link">Already have an Account?</a>
                     </span>
-                    <button type="submit" class="btn btn-primary" ng-class="{ disabled: loading }">
+                    <button type="submit" class="btn btn-primary pull-right" ng-class="{ disabled: loading }">
                         <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span>Signing up ...</span></span>
                         <span ng-show="!loading">Register</span>
                     </button>

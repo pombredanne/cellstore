@@ -8,7 +8,8 @@ angular
         templateUrl: '/modules/ui/registration.html',
         replace: true,
         scope: {
-            'class': '@'
+            'class': '@',
+            'hideAlreadyHaveAnAccount': '@'
         },
         link: function($scope) {
 
