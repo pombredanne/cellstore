@@ -13,7 +13,7 @@ function HomePage(){
     this.error = {};
     this.error.header = element(by.id('error-header'));
     this.error.body = element(by.id('error-body'));
-    this.error.messages = element(by.id('error-body')).all(by.repeater('message in object.message'));
+    this.error.messages = element.all(by.repeater('message in errorObject.message'));
 
     this.pricing  = new PricingPage();
     this.account = new AccountPage();
