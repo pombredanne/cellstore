@@ -19,7 +19,6 @@ function TokensPage(){
 
 TokensPage.prototype.createToken = function(year, month, day, hours, minutes, pwd){
     var expiration = '' + year + '-' + month + '-' + day;
-    console.log("creating token expiring: " + expiration + " " + hours + ":" + minutes);
     this.buttons.create.click();
     this.expiration.clear();
     this.expiration.sendKeys(expiration);
@@ -29,8 +28,7 @@ TokensPage.prototype.createToken = function(year, month, day, hours, minutes, pw
     this.minutes.sendKeys('' + minutes);
     this.password.clear();
     this.password.sendKeys(pwd);
-    this.createTokenForm.submit();
-    return browser.waitForAngular();
+    return this.createTokenForm.submit();
 };
 
 TokensPage.prototype.revokeExpiring = function(pwd){
