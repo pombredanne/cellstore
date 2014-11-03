@@ -18,19 +18,10 @@
   }
 
   .jumbotron {
-    //height: 566px;
-    background-image: url(/images/bg.jpg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+    background-color: @brand-primary;
 
-    padding-top: 1em;
-    padding-bottom: 1em;
-
-    .teaser {
-      margin-top: 6.5em;
-      margin-bottom: 6.5em;
-    }
+    padding-top: 4em;
+    padding-bottom: 4em;
 
     h1 {
       color: white;
@@ -44,6 +35,25 @@
 
     a, a:hover {
       color: white !important;
+    }
+
+    .btn-primary {
+      border-color: white;
+
+      &:hover {
+        background-color: white;
+        color: @brand-primary !important;
+      }
+    }
+
+    .row > div:last-child {
+      text-align: center;
+    }
+
+    img {
+      height: 300px;
+      width: auto;
+
     }
   }
 
@@ -60,69 +70,28 @@
     padding-top: 1.5em;
     padding-bottom: 1.5em;
 
-    .pictogram {
-      margin-top: 22px;
-      height: 150px;
-      width: auto;
-      padding: 5px 10px 10px 10px;
-    }
-  }
-
-  .section {
-    li {
-      color: @asbestos;
-    }
     p {
-      color: @asbestos;
-    }
-    p.example {
-      color: @text-color;
-      background-color: #eaecec;
-      margin-top: 25px;
-      padding: 15px;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-      -moz-background-clip: padding-box;
-      -webkit-background-clip: padding-box;
-      background-clip: padding-box;
+      color: @concrete;
 
-      .header {
-        font-size: 20px;
-        font-family: inherit;
-        font-weight: 500;
-        line-height: 1.1;
-        color: @asbestos;
-        margin-bottom: 5px;
-        display: block;
+      .btn-default {
+        border: 2px solid @brand-primary;
+        font-size: @font-size-large;
+        color: @brand-primary;
+        &:hover {
+          color: white;
+          background-color: @brand-primary;
+        }
+      }
+    }
+
+    >div.picto {
+      text-align: center;
+      img {
+        height: 200px;
+        width: auto;
       }
     }
   }
-
-  section.cell-big {
-
-    h2 {
-      font-size: 42px;
-      font-weight: 500;
-      margin-bottom: .4em;
-    }
-
-    .pictogram {
-      margin-top: 22px;
-      height: 222px;
-      width: auto;
-    }
-  }
-
-  .section {
-    p {
-      color: @asbestos;
-    }
-    p.example {
-      color: @text-color;
-    }
-  }
-
 
   blockquote {
     margin: 1.5em 10px;
@@ -154,7 +123,7 @@
 
   .users {
     a {
-      height: 100px;      /* equals max image height */
+      height: 100px; /* equals max image height */
       width: 260px;
       text-align: center;
       display: block;
@@ -184,7 +153,7 @@
 
       img {
         vertical-align: middle;
-        max-height: 100px;      /* equals max image height */
+        max-height: 100px; /* equals max image height */
         max-width: 260px;
       }
     }
