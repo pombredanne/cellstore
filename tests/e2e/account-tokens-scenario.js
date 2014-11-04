@@ -41,8 +41,8 @@ describe('Private Account Tokens Page', function(){
             date.getHours(),
             date.getMinutes(),
             config.testPassword);
-        expect(tokens.hours.getText()).toBe('' + date.getHours());
-        expect(tokens.minutes.getText()).toBe('' + date.getMinutes());
+        expect(tokens.hours.getAttribute('value')).toBe('' + date.getHours());
+        expect(tokens.minutes.getAttribute('value')).toBe('' + date.getMinutes());
     });
 
     it('should create a short lived token', function() {

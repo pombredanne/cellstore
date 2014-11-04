@@ -14,6 +14,7 @@ function TokensPage(){
 
    this.buttons = {};
    this.buttons.create = element(by.id('btn-create'));
+   this.buttons.createTokenButton = element(by.id('btn-createTokenButton'));
    this.buttons.revokeExpiring = element(by.xpath('//tr[contains(@ng-repeat, "t in tokens") and contains(@class, "warning")]/td/button'));
 }
 
@@ -35,7 +36,7 @@ TokensPage.prototype.fillInCreateTokenForm = function(year, month, day, hours, m
 };
 
 TokensPage.prototype.submitCreateToken = function(){
-    return this.createTokenForm.submit();
+    return this.buttons.createTokenButton.click();
 };
 
 TokensPage.prototype.showRevokeExpiring = function(){
