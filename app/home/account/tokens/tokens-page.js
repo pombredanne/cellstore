@@ -19,6 +19,7 @@ function TokensPage(){
 
 TokensPage.prototype.createToken = function(year, month, day, hours, minutes, pwd){
     var expiration = '' + year + '-' + month + '-' + day;
+    console.log("expiration: " + expiration + " " + hours + ":" + minutes);
     this.buttons.create.click();
     this.expiration.clear();
     this.expiration.sendKeys(expiration);

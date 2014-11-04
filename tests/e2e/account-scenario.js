@@ -70,7 +70,7 @@ describe('Private Account Page', function(){
             expect(numTokens).toBeGreaterThan(1);
 
             // expiration: tomorrow minus one minute
-            var date = new Date();
+            /*var date = new Date();
             console.log("Now: " + date.getFullYear() + "-" + (date.getMonth()+1 ) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes());
             date.setDate(date.getDate() + 1);
             date.setMinutes(date.getMinutes() - 1);
@@ -88,7 +88,7 @@ describe('Private Account Page', function(){
             // we created an expiring token (< 1 Day)
             // now, lets revoke it again:
             tokens.revokeExpiring(credentials.testPassword);
-            expect(tokens.tokens.count()).toBeGreaterThan(1);
+            expect(tokens.tokens.count()).toBeGreaterThan(1);*/
         });
     });
 
