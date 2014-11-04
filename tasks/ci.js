@@ -259,13 +259,15 @@ module.exports = function(grunt) {
         var testHasPassed = hasTravisTestPassed();
 
         if((environment === 'ci' || environment === 'prod') &&
-            testHasPassed){
+            !testHasPassed){
             grunt.log.ok('e2e reports uploading to Frontend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.s3-website-us-east-1.amazonaws.com');
             grunt.task.run([
                 'aws_s3:uploadReports',
                 'e2e-report-message:' + environment
             ]);
-        } else {
+        } else if (testHasPassed){
+            grunt.log.writeln('Not uploading e2e reports because tests have passed.');
+        }else {
             grunt.log.writeln('Not uploading e2e reports for environment: ' + environment);
         }
     });
