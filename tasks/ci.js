@@ -249,8 +249,8 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('e2e-report-message', function(environment){
-        var url = 'http://' + grunt.config.get(['secxbrl']).s3.reportsBucket + '.s3-website-us-east-1.amazonaws.com/' + grunt.config.get(['secxbrl'])['28'].project + "/report.html";
+    grunt.registerTask('e2e-report-message', function(){
+        var url = 'http://' + grunt.config.get(['secxbrl']).s3.reportsBucket + '.s3-website-us-east-1.amazonaws.com/' + grunt.config.get(['secxbrl'])['28'].project + '/report.html';
         grunt.log.ok('e2e reports uploaded to: ' + url);
     });
 
