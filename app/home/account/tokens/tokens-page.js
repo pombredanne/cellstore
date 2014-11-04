@@ -17,9 +17,12 @@ function TokensPage(){
    this.buttons.revokeExpiring = element(by.xpath('//tr[contains(@ng-repeat, "t in tokens") and contains(@class, "warning")]/td/button'));
 }
 
+TokensPage.prototype.showCreateToken = function() {
+    return this.buttons.create.click();
+};
+
 TokensPage.prototype.createToken = function(year, month, day, hours, minutes, pwd){
     var expiration = '' + year + '-' + month + '-' + day;
-    this.buttons.create.click();
     this.expiration.clear();
     this.expiration.sendKeys(expiration);
     this.hours.clear();
@@ -31,8 +34,11 @@ TokensPage.prototype.createToken = function(year, month, day, hours, minutes, pw
     return this.createTokenForm.submit();
 };
 
+TokensPage.prototype.showRevokeExpiring = function(){
+    return this.buttons.revokeExpiring.click();
+};
+
 TokensPage.prototype.revokeExpiring = function(pwd){
-    this.buttons.revokeExpiring.click();
     this.password.clear();
     this.password.sendKeys(pwd);
     return this.revokeTokenForm.submit();
