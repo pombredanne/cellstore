@@ -256,16 +256,15 @@ module.exports = function(grunt) {
 
     grunt.registerTask('e2e-report', function(environment){
         environment = normalizeAndCheckEnvironment(environment);
-        var testHasPassed = hasTravisTestPassed();
+        var testsHavePassed = hasTravisTestPassed();
 
-        if((environment === 'ci' || environment === 'prod') &&
-            !testHasPassed){
-            grunt.log.ok('e2e reports uploading to Frontend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.s3-website-us-east-1.amazonaws.com');
+        if((environment === 'ci' || environment === 'prod' || environment === 'dev') &&
+            !testsHavePassed){
             grunt.task.run([
                 'aws_s3:uploadReports',
                 'e2e-report-message:' + environment
             ]);
-        } else if (testHasPassed){
+        } else if (testsHavePassed){
             grunt.log.writeln('Not uploading e2e reports because tests have passed.');
         }else {
             grunt.log.writeln('Not uploading e2e reports for environment: ' + environment);

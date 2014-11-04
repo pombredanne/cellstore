@@ -555,7 +555,7 @@ module.exports = function (grunt) {
                     bucket: '<%= secxbrl.s3.reportsBucket %>'
                 },
                 files: [
-                    { 'action': 'upload', expand: true, cwd: '<%= yeoman.e2eReportsDir %>', dest: '<%= secxbrl.28.project %>/', src: ['**'] }
+                    { 'action': 'upload', expand: true, cwd: '<%= yeoman.e2eReportsDir %>', dest: '<%= secxbrl.28.project %>', src: ['**'] }
                 ]
             }
         },
