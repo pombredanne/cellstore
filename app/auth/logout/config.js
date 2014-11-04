@@ -4,9 +4,9 @@ angular
 .module('secxbrl')
 .config(function ($stateProvider) {
     $stateProvider
-    .state('home.logout', {
+    .state('auth.logout', {
         url: '/logout',
-        templateUrl: '/home/logout/logout.html',
+        templateUrl: '/auth/logout/logout.html',
         controller: 'LogoutCtrl'
     });
 })

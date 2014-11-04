@@ -138,3 +138,9 @@ then {
     user:assign-role($admin, "admin", (), (), $admin);
   }
 else ();
+
+(: remove user that is created in the e2e registration-scenario tests. :)
+variable $testUser := user:get-by-email("admin+test@28msec.com");
+if(empty($testUser))
+then ();
+else db:delete($testUser);

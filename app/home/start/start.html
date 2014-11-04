@@ -1,12 +1,26 @@
-<div id="home">
+<div id="start">
     <div class="jumbotron">
         <div class="container">
-            <div class="row">
+            <div class="row" ng-show="!authenticated">
+                <div class="col-lg-12">
+                    <h1>Query, Search, and Compare SEC Data</h1>
+                </div>
+            </div>
+            <div class="row" ng-show="!authenticated">
+            <div class="col-lg-6">
+                    <register hide-already-have-an-account="true" />
+                </div>
+                <div  class="col-lg-6 hero-image">
+                    <img src="/images/herounit.svg">
+                </div>
+            </div>
+            <div class="row" ng-show="authenticated">
                 <div class="col-lg-6">
                     <h1 translate>Query, Search,<br> and Compare SEC Data</h1>
-                    <a ui-sref2="home.auth()" class="btn btn-primary btn-lg" translate>Sign Up</a>
+                    <a ng-show="authenticated" ui-sref2="home.api()" class="btn btn-primary btn-lg">Learn about the API</a>
+                    <!--<a ui-sref2="home.auth()" class="btn btn-primary btn-lg" translate>Sign Up</a>-->
                 </div>
-                <div class="col-lg-6">
+                <div  class="col-lg-6">
                     <img src="/images/herounit.svg">
                 </div>
             </div>

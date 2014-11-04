@@ -23,6 +23,7 @@ TokensPage.prototype.showCreateToken = function() {
 
 TokensPage.prototype.fillInCreateTokenForm = function(year, month, day, hours, minutes, pwd){
     var expiration = '' + year + '-' + month + '-' + day;
+    console.log("expiration: " + expiration + " " + hours + ":" + minutes);
     this.expiration.clear();
     this.expiration.sendKeys(expiration);
     this.hours.clear();
