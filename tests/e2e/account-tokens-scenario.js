@@ -39,6 +39,7 @@ describe('Private Account Tokens Page', function(){
          date.getHours(),
          date.getMinutes(),
          config.testPassword);
+        tokens.visitPage();
         expect(tokens.tokens.count()).toBe(numTokens + 1);
         expect(tokens.createTokenForm.isPresent()).toBe(false);
     });
@@ -52,7 +53,7 @@ describe('Private Account Tokens Page', function(){
         // we created an expiring token (< 1 Day)
         // now, lets revoke it again:
         tokens.revokeExpiring(config.testPassword);
-        expect(tokens.tokens.count()).toBeLessThan(numTokens);
+        expect(tokens.tokens.count()).toBeLessThan(numTokens+1);
         expect(tokens.tokens.count()).toBeGreaterThan(1);
     });
 
