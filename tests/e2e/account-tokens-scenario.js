@@ -30,7 +30,7 @@ describe('Private Account Tokens Page', function(){
     it('should fill in the create-token form', function() {
         // expiration: tomorrow minus one minute
         var date = new Date();
-        
+
         date.setDate(date.getDate() + 1);
         date.setMinutes(date.getMinutes() - 1);
 

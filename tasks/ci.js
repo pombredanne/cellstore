@@ -51,7 +51,8 @@ module.exports = function(grunt) {
     };
 
     var hasTravisTestPassed = function(){
-        return process.env.TRAVIS_TEST_RESULT === 0;
+        grunt.log.writeln('TRAVIS_TEST_RESULT: ' + process.env.TRAVIS_TEST_RESULT);
+        return process.env.TRAVIS_TEST_RESULT === '0';
     };
 
     var isTravisAndMaster = function() {
