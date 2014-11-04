@@ -11,7 +11,7 @@ describe('Private Account Page', function(){
     var stats = home.account.stats;
     var password = home.account.password;
     var tokens = home.account.tokens;
-    var credentials = require('./config/credentials').credentials;
+    var config = require('./config/config').config;
 
     it('should be able to check and update profile information on profile page', function() {
         profile.visitPage();
@@ -41,7 +41,7 @@ describe('Private Account Page', function(){
         var newPwd = '123abc';
         var incorrectPwd = 'incorrectPwd';
 
-        password.changePassword(credentials.testPassword, 'foo', '');
+        password.changePassword(config.testPassword, 'foo', '');
         expect(password.form.errors.passwordTooShort.isDisplayed()).toBe(true);
         expect(password.form.errors.passwordsDontMatch.isDisplayed()).toBe(true);
 
@@ -53,12 +53,12 @@ describe('Private Account Page', function(){
         password.changePassword(incorrectPwd, newPwd, newPwd);
         expect(password.form.errors.oldPasswordIncorrect.isDisplayed()).toBe(true);
 
-        password.changePassword(credentials.testPassword, newPwd, newPwd);
+        password.changePassword(config.testPassword, newPwd, newPwd);
         expect(home.alert.header.getText()).toBe('Success');
 
         // reset
         password.visitPage();
-        password.changePassword(newPwd, credentials.testPassword, credentials.testPassword);
+        password.changePassword(newPwd, config.testPassword, config.testPassword);
         expect(home.alert.header.getText()).toBe('Success');
     });
 
@@ -78,12 +78,12 @@ describe('Private Account Page', function(){
                 date.getDate(),
                 date.getHours(),
                 date.getMinutes(),
-                credentials.testPassword);
+                config.testPassword);
             expect(tokens.tokens.count()).toBe(numTokens + 1);
 
             // we created an expiring token (< 1 Day)
             // now, lets revoke it again:
-            tokens.revokeExpiring(credentials.testPassword);
+            tokens.revokeExpiring(config.testPassword);
             expect(tokens.tokens.count()).toBeGreaterThan(1);*/
         });
     });

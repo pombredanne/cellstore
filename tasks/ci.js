@@ -50,6 +50,10 @@ module.exports = function(grunt) {
         return process.env.TRAVIS_BUILD_ID !== undefined;
     };
 
+    var hasTravisTestPassed = function(){
+        return process.env.TRAVIS_TEST_RESULT === 0;
+    };
+
     var isTravisAndMaster = function() {
         return isTravis() && process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
     };
@@ -95,6 +99,7 @@ module.exports = function(grunt) {
                 config.s3.key = config.s3.production.key;
                 config.s3.secret = config.s3.production.secret;
                 config.s3.region = config.s3.production.region;
+                config.s3.reportsBucket = config.s3.production.reportsBucket;
                 s3KeyType = 'production';
                 grunt.log.ok('Purging NetDNA Zone: ' + config.netdna.prod.zone);
             }
@@ -244,6 +249,27 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.registerTask('e2e-report-message', function(environment){
+        var url = 'http://' + grunt.config.get(['secxbrl']).s3.reportsBucket + '.s3-website-us-east-1.amazonaws.com/' + grunt.config.get(['secxbrl'])['28'].project + "/report.html";
+        grunt.log.ok('e2e reports uploaded to: ' + url);
+    });
+
+    grunt.registerTask('e2e-report', function(environment){
+        environment = normalizeAndCheckEnvironment(environment);
+        var testHasPassed = hasTravisTestPassed();
+
+        if((environment === 'ci' || environment === 'prod') &&
+            testHasPassed){
+            grunt.log.ok('e2e reports uploading to Frontend deployed to: http://' + grunt.config.get(['secxbrl']).s3.bucket + '.s3-website-us-east-1.amazonaws.com');
+            grunt.task.run([
+                'aws_s3:uploadReports',
+                'e2e-report-message:' + environment
+            ]);
+        } else {
+            grunt.log.writeln('Not uploading e2e reports for environment: ' + environment);
+        }
+    });
+
     grunt.registerTask('e2e', function(environment){
         environment = normalizeAndCheckEnvironment(environment);
 
@@ -292,6 +318,7 @@ module.exports = function(grunt) {
             if(!isTravis()) {
                 grunt.task.run(['ngconstant:' + environment]);
             }
+            grunt.task.run(['e2e-report:' + environment]);
             // double check that teardown is not run for prod
             if(!isTravisAndMaster()) {
                 grunt.task.run([
