@@ -33,7 +33,6 @@ TokensPage.prototype.fillInCreateTokenForm = function(year, month, day, hours, m
         dayString = '0' + dayString;
     }
     var expiration = '' + yearString + '-' + monthString + '-' + dayString;
-    console.log("expiration: " + expiration + " " + hours + ":" + minutes);
     this.expiration.clear();
     this.expiration.sendKeys(expiration);
     this.hours.clear();
