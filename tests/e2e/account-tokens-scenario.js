@@ -27,18 +27,24 @@ describe('Private Account Tokens Page', function(){
         expect(tokens.createTokenForm.isDisplayed()).toBe(true);
     });
 
-    it('should create a short lived token', function() {
+    it('should fill in the create-token form', function() {
         // expiration: tomorrow minus one minute
         var date = new Date();
         date.setDate(date.getDate() + 1);
         date.setMinutes(date.getMinutes() - 1);
 
-        tokens.createToken(date.getFullYear(),
-         date.getMonth() + 1, // date month start with 0 for January
-         date.getDate(),
-         date.getHours(),
-         date.getMinutes(),
-         config.testPassword);
+        tokens.fillInCreateTokenForm(date.getFullYear(),
+                date.getMonth() + 1, // date month start with 0 for January
+            date.getDate(),
+            date.getHours(),
+            date.getMinutes(),
+            config.testPassword);
+        expect(tokens.hours.getText()).toBe('' + date.getHours());
+        expect(tokens.minutes.getText()).toBe('' + date.getMinutes());
+    });
+
+    it('should create a short lived token', function() {
+        tokens.submitCreateToken();
         tokens.visitPage();
         expect(tokens.tokens.count()).toBe(numTokens + 1);
         expect(tokens.createTokenForm.isPresent()).toBe(false);

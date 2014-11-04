@@ -21,7 +21,7 @@ TokensPage.prototype.showCreateToken = function() {
     return this.buttons.create.click();
 };
 
-TokensPage.prototype.createToken = function(year, month, day, hours, minutes, pwd){
+TokensPage.prototype.fillInCreateTokenForm = function(year, month, day, hours, minutes, pwd){
     var expiration = '' + year + '-' + month + '-' + day;
     this.expiration.clear();
     this.expiration.sendKeys(expiration);
@@ -30,7 +30,10 @@ TokensPage.prototype.createToken = function(year, month, day, hours, minutes, pw
     this.minutes.clear();
     this.minutes.sendKeys('' + minutes);
     this.password.clear();
-    this.password.sendKeys(pwd);
+    return this.password.sendKeys(pwd);
+};
+
+TokensPage.prototype.submitCreateToken = function(){
     return this.createTokenForm.submit();
 };
 
