@@ -23,7 +23,16 @@ TokensPage.prototype.showCreateToken = function() {
 };
 
 TokensPage.prototype.fillInCreateTokenForm = function(year, month, day, hours, minutes, pwd){
-    var expiration = '' + year + '-' + month + '-' + day;
+    var yearString = '' + year;
+    var monthString = '' + month;
+    var dayString = '' + day;
+    if(monthString.length === 1){
+        monthString = '0' + monthString;
+    }
+    if(dayString.length === 1){
+        dayString = '0' + dayString;
+    }
+    var expiration = '' + yearString + '-' + monthString + '-' + dayString;
     console.log("expiration: " + expiration + " " + hours + ":" + minutes);
     this.expiration.clear();
     this.expiration.sendKeys(expiration);

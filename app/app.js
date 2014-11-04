@@ -118,8 +118,6 @@ angular.module('secxbrl', [
             resolve: {
                 errorObject: function() {
                     var msg = [ message ];
-                    console.log(JSON.stringify(title));
-                    console.log(JSON.stringify(message));
                     if(typeof message === 'object' && message.status && message.body){
                         var status = message.status;
                         var code = message.body.code;
