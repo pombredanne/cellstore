@@ -47,6 +47,10 @@ describe('Private Account Tokens Page', function(){
 
     it('should create a short lived token', function() {
         tokens.submitCreateToken();
+        expect(home.error.messages.count()).toBe(0);
+    });
+
+    it('should list the newly created token', function() {
         tokens.visitPage();
         expect(tokens.tokens.count()).toBe(numTokens + 1);
         expect(tokens.createTokenForm.isPresent()).toBe(false);
