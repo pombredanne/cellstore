@@ -14,13 +14,25 @@ function TokensPage(){
 
    this.buttons = {};
    this.buttons.create = element(by.id('btn-create'));
+   this.buttons.createTokenButton = element(by.id('btn-createTokenButton'));
    this.buttons.revokeExpiring = element(by.xpath('//tr[contains(@ng-repeat, "t in tokens") and contains(@class, "warning")]/td/button'));
 }
 
-TokensPage.prototype.createToken = function(year, month, day, hours, minutes, pwd){
-    var expiration = '' + year + '-' + month + '-' + day;
-    console.log("expiration: " + expiration + " " + hours + ":" + minutes);
-    this.buttons.create.click();
+TokensPage.prototype.showCreateToken = function() {
+    return this.buttons.create.click();
+};
+
+TokensPage.prototype.fillInCreateTokenForm = function(year, month, day, hours, minutes, pwd){
+    var yearString = '' + year;
+    var monthString = '' + month;
+    var dayString = '' + day;
+    if(monthString.length === 1){
+        monthString = '0' + monthString;
+    }
+    if(dayString.length === 1){
+        dayString = '0' + dayString;
+    }
+    var expiration = '' + yearString + '-' + monthString + '-' + dayString;
     this.expiration.clear();
     this.expiration.sendKeys(expiration);
     this.hours.clear();
@@ -28,12 +40,18 @@ TokensPage.prototype.createToken = function(year, month, day, hours, minutes, pw
     this.minutes.clear();
     this.minutes.sendKeys('' + minutes);
     this.password.clear();
-    this.password.sendKeys(pwd);
-    return this.createTokenForm.submit();
+    return this.password.sendKeys(pwd);
+};
+
+TokensPage.prototype.submitCreateToken = function(){
+    return this.buttons.createTokenButton.click();
+};
+
+TokensPage.prototype.showRevokeExpiring = function(){
+    return this.buttons.revokeExpiring.click();
 };
 
 TokensPage.prototype.revokeExpiring = function(pwd){
-    this.buttons.revokeExpiring.click();
     this.password.clear();
     this.password.sendKeys(pwd);
     return this.revokeTokenForm.submit();

@@ -117,7 +117,7 @@ angular.module('secxbrl', [
             }],
             resolve: {
                 errorObject: function() {
-                    var msg = message;
+                    var msg = [ message ];
                     if(typeof message === 'object' && message.status && message.body){
                         var status = message.status;
                         var code = message.body.code;

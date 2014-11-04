@@ -8,7 +8,7 @@ describe('Authentication', function(){
     var AuthPage = require('../../app/auth/auth-page');
     var auth = new AuthPage();
     var login = auth.login;
-    var credentials = require('./config/credentials').credentials;
+    var config = require('./config/config').config;
 
     it('should have been redirected to the auth page', function() {
         auth.doLogout();
@@ -24,7 +24,7 @@ describe('Authentication', function(){
     });
     
     it('should login', function(){
-        login.login('support@28.io', credentials.testPassword);
+        login.login('support@28.io', config.testPassword);
         login.getCurrentUrl().then(function(url) {
             expect(url.substring(url.length - '/account'.length)).toBe('/account');
         });
