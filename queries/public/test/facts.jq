@@ -64,7 +64,7 @@ declare %an:nondeterministic function local:test-labels-aids() as item
         map: "Disclosures",
         format: "json",
         fiscalYear: 2014,
-        fiscalPeriod: "YTD4",
+        fiscalPeriod: "FY",
         labels: true,
         aid: "0000858877-14-000029"
     }
