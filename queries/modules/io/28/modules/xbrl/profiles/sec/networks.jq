@@ -413,7 +413,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
         return { $d : [ distinct-values($facts.Aspects.$d) ] }
     |}
     let $auto-slice-dimensions as string* :=
-        keys($values-by-dimension)[size($values-by-dimension.$$) eq 1 and not ($$ = ("xbrl:Period", "sec:FiscalYear",  "sec:FiscalPeriod") ) ]
+        keys($values-by-dimension)[size($values-by-dimension.$$) eq 1 and not ($$ = ("xbrl:Period", "sec:FiscalYear",  "sec:FiscalPeriod",  "sec:FiscalPeriodType") ) ]
     let $user-slice-dimensions as string* :=
         keys($options.Slicers)
 
@@ -425,6 +425,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
         "xbrl28:Archive",
         "sec:FiscalYear",
         "sec:FiscalPeriod",
+        "sec:FiscalPeriodType",
         $auto-slice-dimensions,
         $user-slice-dimensions)]
     
@@ -433,7 +434,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
         for $d as string in $column-dimensions
         let $metadata as object? := descendant-objects($implicit-table)[$$.Name eq $d]
         return
-            if($d = ("sec:Accepted", "sec:FiscalYear", "sec:FiscalPeriod"))
+            if($d = ("sec:Accepted", "sec:FiscalYear", "sec:FiscalPeriod", "sec:FiscalPeriodType"))
             then sec-networks:standard-typed-dimension-breakdown(
                 $d,
                 $values-by-dimension.$d[])
