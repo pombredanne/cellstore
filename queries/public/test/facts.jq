@@ -79,13 +79,28 @@ declare %an:nondeterministic function local:test-labels-aids() as item
 };
 
 local:check({
-    cocacola-fy-ytd-qtd: local:test-facttable(468, {
+    cocacola: local:test-facttable(468, {
+        ticker:"ko"
+    }),
+    cocacola-all: local:test-facttable(468, {
         ticker:"ko",
         fiscalPeriod: [ "FY" ],
         fiscalPeriodType: [ "instant", "YTD", "QTD" ]
     }),
-    cocacola-fy: local:test-facttable(163, {
-        ticker:"ko"
+    cocacola-instant: local:test-facttable(468, {
+        ticker:"ko",
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "instant" ]
+    }),
+    cocacola-ytd: local:test-facttable(468, {
+        ticker:"ko",
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "YTD" ]
+    }),
+    cocacola-qtd: local:test-facttable(468, {
+        ticker:"ko",
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "QTD" ]
     }),
     cocacolaCSVLabels: local:test-labels(),
     ciscoLabelsByAid: local:test-labels-aids(),
