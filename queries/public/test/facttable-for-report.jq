@@ -11,7 +11,8 @@ declare function local:expected-OtherOperatingIncomeExpenses-ATnT-2013() as obje
             "xbrl:Concept": "fac:OtherOperatingIncomeExpenses",
             "xbrl:Entity": "http://www.sec.gov/CIK 0000732717",
             "xbrl:Period": "2013-01-01/2013-12-31",
-            "sec:FiscalPeriod": "YTD4",
+            "sec:FiscalPeriod": "FY",
+            "sec:FiscalPeriodType": "YTD",
             "sec:FiscalYear": 2013,
             "sec:Accepted": "20140221162554",
             "dei:LegalEntityAxis": "sec:DefaultLegalEntity"
@@ -254,7 +255,7 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2013",
-        fiscalPeriod:["Q1", "YTD1"]}),
+        fiscalPeriod:"Q1"}),
     aid: local:test-facttable(95, {
         aid:"0001193125-14-157120",
         report:"FundamentalAccountingConcepts"}),
@@ -265,12 +266,14 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
-        fiscalPeriod:["Q1", "YTD1"]}),
+        fiscalPeriod:"Q1"}),
     tickerfyfprole: local:test-facttable(246, {
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
-        fiscalPeriod:["FY", "QTD4", "YTD4"]}),
+        fiscalPeriod:"FY",
+        fiscalPeriodType:["instant", "QTD"]
+    }),
     allvalues : local:test-values(),
     otheroperatingincometest: local:test-facttable-fact("fac:OtherOperatingIncomeExpenses",
                                                         local:expected-OtherOperatingIncomeExpenses-ATnT-2013(),
@@ -278,7 +281,7 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"t",
         fiscalYear:"2013",
-        fiscalPeriod:["YTD4"]}),
+        fiscalPeriod:["FY"]}),
     reportDoesntExist: local:test-report-does-not-exist({
         report:"report-not-found",
         ticker:"MSFT",
