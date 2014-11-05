@@ -79,9 +79,10 @@ declare %an:nondeterministic function local:test-labels-aids() as item
 };
 
 local:check({
-    cocacola-fy-ytd4: local:test-facttable(468, {
+    cocacola-fy-ytd-qtd: local:test-facttable(468, {
         ticker:"ko",
-        fiscalPeriod: [ "FY", "QTD4", "YTD4" ]
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "instant", "YTD", "QTD" ]
     }),
     cocacola-fy: local:test-facttable(163, {
         ticker:"ko"
@@ -126,7 +127,7 @@ local:check({
     quartersfact2: local:test-facttable(1, {
         aid: "0001193125-12-207154",
         concept: "disc:CashFlowOperatingCapitalTableTextBlock",
-        fiscalPeriod: "YTD1",
+        fiscalPeriod: "Q1",
         fiscalYear: "2012",
         map: "Disclosures"
     }),
