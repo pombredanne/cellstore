@@ -174,7 +174,7 @@ declare function api:preprocess-fiscal-period-types($fiscal-period-types as stri
   distinct-values(
     for $fpt in $fiscal-period-types ! upper-case($$)
     return switch($fpt)
-           case "instant"
+           case "INSTANT"
            case "QTD"
            case "YTD"
              return $fpt
