@@ -25,7 +25,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $ticker        as strin
 declare  %rest:case-insensitive %rest:distinct  variable $sic           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear    as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriodType  as string* external = ("instant", "YTD");
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriodType  as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $aid           as string* external;
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $labels        as boolean external := false;
