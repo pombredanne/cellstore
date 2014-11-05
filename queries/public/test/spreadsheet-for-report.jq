@@ -33,12 +33,12 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2013",
-        fiscalPeriod:["Q1","YTD1"]}),
+        fiscalPeriod:["Q1"]}),
     tickerrole: local:test-spreadsheet(96, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
-        fiscalPeriod:["Q1","YTD1"]}),
+        fiscalPeriod:["Q1"]}),
     tickerconcept: local:test-spreadsheet(508, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
@@ -48,11 +48,11 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
-        fiscalPeriod:["FY", "YTD4", "QTD4"],
+        fiscalPeriod:["FY"],
         eliminate:"true"}),
     reportDoesntExist: local:test-report-does-not-exist({
         report:"report-not-found",
         ticker:"MSFT",
         fiscalYear:"ALL",
-        fiscalPeriod:["FY", "YTD4","QTD4"]})
+        fiscalPeriod:["FY"]})
 })
