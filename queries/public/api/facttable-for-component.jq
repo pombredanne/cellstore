@@ -123,7 +123,8 @@ let $facts :=
                 {
                     FilterOverride : {
                         "sec:FiscalPeriod" : { Type: "string", Default: null },
-                        "sec:FiscalYear" : { Type: "string", Default: null }
+                        "sec:FiscalYear" : { Type: "string", Default: null },
+                        "sec:FiscalPeriodType" : { Type: "string", Default: null }
                     }
                 }[$profile-name eq "sec"],
                 { Validate: $validate },
