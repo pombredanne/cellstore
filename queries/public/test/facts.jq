@@ -64,7 +64,7 @@ declare %an:nondeterministic function local:test-labels-aids() as item
         map: "Disclosures",
         format: "json",
         fiscalYear: 2014,
-        fiscalPeriod: "YTD4",
+        fiscalPeriod: "FY",
         labels: true,
         aid: "0000858877-14-000029"
     }
@@ -79,12 +79,28 @@ declare %an:nondeterministic function local:test-labels-aids() as item
 };
 
 local:check({
-    cocacola-fy-ytd4: local:test-facttable(468, {
-        ticker:"ko",
-        fiscalPeriod: [ "FY", "QTD4", "YTD4" ]
-    }),
-    cocacola-fy: local:test-facttable(163, {
+    cocacola: local:test-facttable(468, {
         ticker:"ko"
+    }),
+    cocacola-all: local:test-facttable(468, {
+        ticker:"ko",
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "instant", "YTD", "QTD" ]
+    }),
+    cocacola-instant: local:test-facttable(468, {
+        ticker:"ko",
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "instant" ]
+    }),
+    cocacola-ytd: local:test-facttable(468, {
+        ticker:"ko",
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "YTD" ]
+    }),
+    cocacola-qtd: local:test-facttable(468, {
+        ticker:"ko",
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "QTD" ]
     }),
     cocacolaCSVLabels: local:test-labels(),
     ciscoLabelsByAid: local:test-labels-aids(),
@@ -126,7 +142,7 @@ local:check({
     quartersfact2: local:test-facttable(1, {
         aid: "0001193125-12-207154",
         concept: "disc:CashFlowOperatingCapitalTableTextBlock",
-        fiscalPeriod: "YTD1",
+        fiscalPeriod: "Q1",
         fiscalYear: "2012",
         map: "Disclosures"
     }),

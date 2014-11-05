@@ -28,6 +28,8 @@ declare function local:param-values($name as string) as string*
         return "integer"
      case $name eq "sec:FiscalPeriod" and $profile-name eq "sec"
         return ($fiscalPeriod, request:param-values("sec:FiscalPeriod"))
+     case $name eq "sec:FiscalPeriodType" and $profile-name eq "sec"
+        return ($fiscalPeriodType, request:param-values("sec:FiscalPeriodType"))
      case $name eq "dei:LegalEntityAxis" and $profile-name eq "sec"
         return
          if(empty((request:param-values("sec:LegalEntityAxis"), request:param-values("sec:LegalEntityAxis::default"))))
@@ -70,6 +72,7 @@ declare function local:param-names() as string*
 
         "sec:Accepted"[$profile-name eq "sec"],
         "sec:FiscalPeriod"[$profile-name eq "sec"],
+        "sec:FiscalPeriodType"[$profile-name eq "sec"],
         "sec:FiscalYear"[$profile-name eq "sec"],
         "xbrl:Entity"[$profile-name eq "sec" and $names = ("cik", "tag", "ticker", "sic")],
         "dei:LegalEntityAxis"[$profile-name eq "sec"],
@@ -137,6 +140,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $ticker            as s
 declare  %rest:case-insensitive %rest:distinct  variable $sic               as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear        as string* external := "LATEST";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod      as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriodType  as string* external := ("instant", "YTD");
 declare  %rest:case-insensitive %rest:distinct  variable $aid               as string* external;
 declare  %rest:case-insensitive                 variable $map               as string? external;
 declare  %rest:case-insensitive                 variable $rule              as string? external;
