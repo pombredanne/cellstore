@@ -30,9 +30,9 @@ declare function local:param-values($name as string) as string*
         return ($fiscalPeriod, request:param-values("sec:FiscalPeriod"))
      case $name eq "sec:FiscalPeriodType" and $profile-name eq "sec"
         return
-         if(empty(request:param-values("sec:FiscalPeriodType"))
+         if(empty((request:param-values("sec:FiscalPeriodType"), request:param-values("sec:FiscalPeriodType::default"))))
          then ("instant", "YTD")
-         else request:param-values("sec:FiscalPeriodType"))
+         else request:param-values("sec:FiscalPeriodType")
      case $name eq "dei:LegalEntityAxis" and $profile-name eq "sec"
         return
          if(empty((request:param-values("sec:LegalEntityAxis"), request:param-values("sec:LegalEntityAxis::default"))))
