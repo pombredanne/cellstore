@@ -115,7 +115,7 @@ declare function fiscal-core:filter-override(
     let $fiscal-periods := if(exists(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS)))
                            then ()
                            else $fiscal-periods
-    let $fiscal-period-types := if(exists(index-of($fiscal-periods-types, $fiscal-core:ALL_FISCAL_PERIOD_TYPES)))
+    let $fiscal-period-types := if(exists(index-of($fiscal-period-types, $fiscal-core:ALL_FISCAL_PERIOD_TYPES)))
                                 then ()
                                 else $fiscal-periods-types
     return
