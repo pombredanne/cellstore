@@ -169,6 +169,23 @@ declare function api:preprocess-fiscal-periods($fiscal-periods as string*) as st
   )
 };
 
+declare function api:preprocess-fiscal-period-types($fiscal-period-types as string*) as string*
+{
+  distinct-values(
+    for $fpt in $fiscal-period-types ! upper-case($$)
+    return switch($fpt)
+           case "instant"
+           case "QTD"
+           case "YTD"
+             return $fpt
+           case "ALL"
+             return $sec-fiscal:ALL_FISCAL_PERIOD_TYPES
+           default
+             return error(xs:QName("local:INVALID-PERIOD-TYPE"),
+               $fpt || ": fiscalPeriodType values must be one or more of instant, YTD, QTD")
+  )
+};
+
 declare function api:preprocess-format($format as string?, $request-uri as string) as string?
 {
   let $request-path := tokenize($request-uri, "\\?")[1]
