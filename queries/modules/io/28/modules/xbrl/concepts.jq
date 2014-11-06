@@ -321,6 +321,7 @@ declare function concepts:labels(
     $options as object?
   ) as string*
 {
+  let $label-role := replace($label-role, "\\.", "\uff0e")
   let $normalized-language := concepts:normalize-language($language)
   let $concept-labels-groups-for-role := ((
       $concepts[
