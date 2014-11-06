@@ -84,22 +84,26 @@ local:check({
     }),
     cocacola-all: local:test-facttable(468, {
         ticker:"ko",
+        fiscalYear: 2013,
         fiscalPeriod: [ "FY" ],
         fiscalPeriodType: [ "instant", "YTD", "QTD" ]
     }),
-    cocacola-instant: local:test-facttable(468, {
+    cocacola-instant: local:test-facttable(163, {
         ticker:"ko",
+        fiscalYear: 2013,
         fiscalPeriod: [ "FY" ],
         fiscalPeriodType: [ "instant" ]
     }),
-    cocacola-ytd: local:test-facttable(468, {
+    cocacola-ytd: local:test-facttable(305, {
         ticker:"ko",
+        fiscalYear: 2013,
         fiscalPeriod: [ "FY" ],
         fiscalPeriodType: [ "YTD" ]
     }),
-    cocacola-qtd: local:test-facttable(468, {
+    cocacola-qtd: local:test-facttable(0, {
         ticker:"ko",
-        fiscalPeriod: [ "FY" ],
+        fiscalYear: 2013,
+        fiscalPeriod: [ "Q2" ],
         fiscalPeriodType: [ "QTD" ]
     }),
     cocacolaCSVLabels: local:test-labels(),
