@@ -104,6 +104,8 @@ declare function fiscal-core:filter-override(
     $archives-or-aids as item*
 ) as object?
 {
+    let $override := exists(($entities-or-eids, $fiscal-years, $fiscal-periods, $fiscal-period-types, $archives-or-aids))
+    where $override
     let $eids := entities:eid($entities-or-eids)
     let $entities := entities:entities($entities-or-eids)
     let $aids := archives:aid($archives-or-aids)
@@ -115,46 +117,40 @@ declare function fiscal-core:filter-override(
     let $fiscal-periods := if(exists(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS)))
                            then ()
                            else $fiscal-periods
+    let $override-fiscal-period-types := exists($fiscal-period-types)
     let $fiscal-period-types := if(exists(index-of($fiscal-period-types, $fiscal-core:ALL_FISCAL_PERIOD_TYPES)))
                                 then ()
                                 else $fiscal-period-types
     return
-     {|
-        {
-          "xbrl:Entity" : {
-            Type: "string",
-            Domain: [ $eids ]
-          }
-        }[exists($eids)],
+     {
+        "xbrl:Entity" : {|
+          { Type: "string" },
+          { Domain: [ $eids ] }[exists($eids)]
+        |},
 
-        {
-          "xbrl28:Archive" : {
-            Type: "string",
-            Domain : [ if($is-latest) then archives:aid($latest-filings) else $aids ]
-          }
-        }[$is-latest or exists($aids)],
-
-        {
-          "sec:FiscalYear" : {|
-            { Type: "integer" },
-            { Domain: [ $fiscal-years ] }[exists($fiscal-years)]
-          |}
-        }[$is-latest or exists($fiscal-years) or exists($aids)],
-
-        {
-          "sec:FiscalPeriod" : {|
-            { Type: "string" },
-            { Domain: [ $fiscal-periods ] }[exists($fiscal-periods)]
-          |}
-        }[$is-latest or exists($fiscal-periods) or exists($aids)],
-
-        {
-          "sec:FiscalPeriodType" : {
-            Type: "string",
-            Domain: [ $fiscal-period-types ]
-          }
-        }[exists($fiscal-period-types)]
-    |}
+        "xbrl28:Archive" : {|
+          { Type: "string" },
+          { Domain : [ if($is-latest) then archives:aid($latest-filings) else $aids ] }
+          [exists(if($is-latest) then archives:aid($latest-filings) else $aids)]
+        |},
+        
+        "sec:FiscalYear" : {|
+          { Type: "integer" },
+          { Domain: [ $fiscal-years ] }[exists($fiscal-years)]
+        |},
+        
+        "sec:FiscalPeriod" : {|
+          { Type: "string" },
+          { Domain: [ $fiscal-periods ] }[exists($fiscal-periods)]
+        |},
+        
+        "sec:FiscalPeriodType" : {|
+          { Type: "string" },
+          if($override-fiscal-period-types)
+          then { Domain: [ $fiscal-period-types ]}[exists($fiscal-period-types)]
+          else { Domain: [ "instant", "YTD" ] }
+        |}
+    }
 };
 
 (:~
