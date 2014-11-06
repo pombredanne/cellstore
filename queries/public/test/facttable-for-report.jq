@@ -278,7 +278,7 @@ local:check({
         ticker:["ko","wmt"],
         fiscalYear:"2013",
         fiscalPeriod:"FY",
-        fiscalPeriodType:["instant", "QTD"]
+        fiscalPeriodType:["instant", "QTD", "YTD"]
     }),
     allvalues : local:test-values(),
     otheroperatingincometest: local:test-facttable-fact("fac:OtherOperatingIncomeExpenses",
