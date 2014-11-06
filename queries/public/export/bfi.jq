@@ -18,6 +18,7 @@ declare variable $additionalRules :=
 let $aligned-filter-no-fiscal as object := 
     copy $new := $aligned-filter 
     modify (
+	if($new.Aspects.\"sec:FiscalPeriodType\") then delete json $new.Aspects.\"sec:FiscalPeriodType\" else (),
     if($new.Aspects.\"sec:FiscalPeriod\") then delete json $new.Aspects.\"sec:FiscalPeriod\" else (),
     if($new.Aspects.\"sec:FiscalYear\") then delete json $new.Aspects.\"sec:FiscalYear\" else ()
   )
@@ -31,8 +32,8 @@ for $facts in (facts:facts-for-internal((
     ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)
   )
 let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]
-group by $canonical-filter-string := 
-  facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD, $facts:UNIT))
+group by $canonical-filter-string :=
+  facts:canonical-grouping-key($facts, ($facts:CONCEPT, $facts:UNIT, $facts:PERIOD))
   , $aligned-period
 let $archive as string := distinct-values($facts.$facts:ASPECTS.$facts:ARCHIVE)
 let $warnings as string* := ()
