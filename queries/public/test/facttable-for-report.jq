@@ -260,9 +260,14 @@ local:check({
     aid: local:test-facttable(if($dow30) then 0 else 95, {
         aid:"0001193125-14-157120",
         report:"FundamentalAccountingConcepts"}),
-    aid2: local:test-facttable(96, {
+    aid2: local:test-facttable(19, {
         aid:"0000732717-14-000022",
         report:"FundamentalAccountingConcepts"}),
+    aid2-qtd: local:test-facttable(96, {
+        aid:"0000732717-14-000022",
+        report:"FundamentalAccountingConcepts",
+        fiscalPeriodType: [ "instant", "QTD" ]
+    }),
     tickerrole: local:test-facttable(95, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
