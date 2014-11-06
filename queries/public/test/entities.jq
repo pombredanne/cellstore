@@ -1,4 +1,3 @@
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace test = "http://apps.28.io/test";
 
@@ -65,13 +64,13 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
-let $db := request:param-values("db", "all-sec-filings")
+let $dow30 := test:is-dow30()
 return local:check({
     dow30: local:test-entities($local:expected.dow30, {tag:"DOW30"}),
     cik: local:test-entities($local:expected.cik, {cik:"4962"}),
     ticker: local:test-entities($local:expected.ticker, {ticker:"wmt"}),
     ticker2: local:test-entities($local:expected.ticker2, {ticker:["wmt","ko"]}),
-    sic: local:test-entities(switch($db) case "all-dow30" return $local:expected.sic-dow30 default return $local:expected.sic, {sic:"4813"}),
-    mixed: local:test-entities(switch($db) case "all-dow30" return $local:expected.mixed-dow30 default return $local:expected.mixed, {cik:"4962", sic:"4813", ticker:[ "wmt", "ko" ]}),
+    sic: local:test-entities(if($dow30) then $local:expected.sic-dow30 else $local:expected.sic, {sic:"4813"}),
+    mixed: local:test-entities(if($dow30) then $local:expected.mixed-dow30 else $local:expected.mixed, {cik:"4962", sic:"4813", ticker:[ "wmt", "ko" ]}),
     example1: local:test-example1()
 })
