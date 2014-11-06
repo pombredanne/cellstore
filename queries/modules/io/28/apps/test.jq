@@ -3,6 +3,11 @@ module namespace test = "http://apps.28.io/test";
 import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace credentials = "http://apps.28.io/credentials";
+import module namespace credentials28 = "http://www.28msec.com/modules/credentials";
+
+declare function test:is-dow30() as boolean{
+  contains(credentials28:credentials("MongoDB", "xbrl").db, "dow30")  
+};
 
 declare function test:url($endpoint as string, $parameters as object) as string
 {
