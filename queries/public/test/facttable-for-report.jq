@@ -240,7 +240,7 @@ declare %an:sequential function local:check($o as object) as object
 declare %an:nondeterministic function local:test-values() as item*
 {
     let $endpoint := "facttable-for-report"
-    let $params := {ticker:"ko",fiscalYear:"2013",fiscalPeriod:["FY", "YTD4", "QTD4"],report:"FundamentalAccountingConcepts"}
+    let $params := {ticker:"ko",fiscalYear:"2013",fiscalPeriod:"FY",fiscalPeriodType: ["instant", "YTD", "QTD"],report:"FundamentalAccountingConcepts"}
     let $request := test:invoke($endpoint, $params)
     let $actual as object := $request[2]
     let $expected := parse-json(
