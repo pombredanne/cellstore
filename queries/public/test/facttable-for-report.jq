@@ -250,13 +250,14 @@ declare %an:nondeterministic function local:test-values() as item*
     return if (empty($diff)) then true else { url: test:url($endpoint, $params), factTableDiff: [ ({ params : $params },$diff) ], expectedFactTable: $expected, actualFactTable: $actual }
 };
 
+let $dow30 := test:is-dow30()
 local:check({
     cocacola: local:test-facttable(95, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2013",
         fiscalPeriod:"Q1"}),
-    aid: local:test-facttable(95, {
+    aid: local:test-facttable(if($dow30) then 0 else 95, {
         aid:"0001193125-14-157120",
         report:"FundamentalAccountingConcepts"}),
     aid2: local:test-facttable(96, {
