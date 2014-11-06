@@ -12,7 +12,7 @@
         "Grantee" : "http://28.io/groups/AllUsers",
         "Permission" : "READ"
     } ],
-    "LastModified" : "2014-11-06T13:15:30.344005Z",
+    "LastModified" : "2014-11-06T14:45:07.89921Z",
     "Networks" : [ {
         "LinkName" : "link:presentationLink",
         "LinkRole" : "http://xbrl.io/fundamental-accounting-concepts",
@@ -2255,8 +2255,8 @@
                     "Name" : "sec:Accepted",
                     "Label" : "Acceptance Date"
                 },
-                "sec:Archive" : {
-                    "Name" : "sec:Archive",
+                "xbrl28:Archive" : {
+                    "Name" : "xbrl28:Archive",
                     "Label" : "Archive ID"
                 },
                 "sec:FiscalYear" : {

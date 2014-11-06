@@ -34,10 +34,10 @@ let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-
 group by $canonical-filter-string := 
   facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\", $facts:PERIOD, $facts:UNIT))
   , $aligned-period
-let $archive as string := distinct-values($facts.$facts:ASPECTS.\"sec:Archive\")
+let $archive as string := distinct-values($facts.$facts:ASPECTS.$facts:ARCHIVE)
 let $warnings as string* := ()
 let $CommonStockSharesOutstanding as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommonStockSharesOutstanding\"]
-let $EntityCommonStockSharesOutstanding as object* := $AllEntityCommonStockSharesOutstanding[$$.$facts:ASPECTS.\"sec:Archive\" eq $archive]
+let $EntityCommonStockSharesOutstanding as object* := $AllEntityCommonStockSharesOutstanding[$$.$facts:ASPECTS.$facts:ARCHIVE eq $archive]
 let $Assets as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]
 let $warnings := ($warnings, if(count($Assets) gt 1)
                              then if(count(distinct-values($Assets.Value)) gt 1)
