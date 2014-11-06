@@ -321,15 +321,19 @@ declare function concepts:labels(
     $options as object?
   ) as string*
 {
-  let $label-role := replace($label-role, "\\.", "\uff0e")
+  let $label-role-translated := replace($label-role, "\\.", "\uff0e")
   let $normalized-language := concepts:normalize-language($language)
-  let $concept-labels-groups-for-role := ((
+  let $concepts as object* := ((
       $concepts[
           $$.$concepts:NAME    = $concept-names and
           (: concepts can be defined within an archive or outside of an archive - e.g. in a taxonomy :)
           ($$.$concepts:ARCHIVE = $archives or empty($$.$concepts:ARCHIVE) ) and
           $component-roles = ($concepts:ANY_COMPONENT_LINK_ROLE, $$.$concepts:ROLE)]
-      )[1]).$concepts:LABELS.$label-role
+      )[1])
+  let $concept-labels-groups-for-role as object* := (
+      $concepts.$concepts:LABELS.$label-role,
+      $concepts.$concepts:LABELS.$label-role-translated
+  )
   for $concept-labels-group in $concept-labels-groups-for-role
   let $perfect-match := $concept-labels-group.$normalized-language
   return 
