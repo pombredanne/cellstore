@@ -172,9 +172,9 @@ declare function api:preprocess-fiscal-periods($fiscal-periods as string*) as st
 declare function api:preprocess-fiscal-period-types($fiscal-period-types as string*) as string*
 {
   distinct-values(
-    for $fpt in $fiscal-period-types ! upper-case($$)
+    for $fpt in $fiscal-period-types
     return switch($fpt)
-           case "INSTANT"
+           case "instant"
            case "QTD"
            case "YTD"
              return $fpt
