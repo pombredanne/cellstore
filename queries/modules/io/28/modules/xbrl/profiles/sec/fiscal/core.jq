@@ -135,18 +135,18 @@ declare function fiscal-core:filter-override(
         }[$is-latest or exists($aids)],
 
         {
-          "sec:FiscalYear" : {
-            Type: "integer",
-            Domain: [ $fiscal-years ]
-          }
-        }[exists($fiscal-years)],
+          "sec:FiscalYear" : {|
+            { Type: "integer" },
+            { Domain: [ $fiscal-years ] }[exists($fiscal-years)]
+          |}
+        }[$is-latest or exists($fiscal-years) or exists($aids)],
 
         {
-          "sec:FiscalPeriod" : {
-            Type: "string",
-            Domain: [ $fiscal-periods ]
-          }
-        }[exists($fiscal-periods)],
+          "sec:FiscalPeriod" : {|
+            { Type: "string" },
+            { Domain: [ $fiscal-periods ] }[exists($fiscal-periods)]
+          |}
+        }[$is-latest or exists($fiscal-periods) or exists($aids)],
 
         {
           "sec:FiscalPeriodType" : {
