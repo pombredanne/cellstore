@@ -250,18 +250,24 @@ declare %an:nondeterministic function local:test-values() as item*
     return if (empty($diff)) then true else { url: test:url($endpoint, $params), factTableDiff: [ ({ params : $params },$diff) ], expectedFactTable: $expected, actualFactTable: $actual }
 };
 
-local:check({
+let $dow30 := test:is-dow30()
+return local:check({
     cocacola: local:test-facttable(95, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2013",
         fiscalPeriod:"Q1"}),
-    aid: local:test-facttable(95, {
+    aid: local:test-facttable(if($dow30) then 0 else 95, {
         aid:"0001193125-14-157120",
         report:"FundamentalAccountingConcepts"}),
-    aid2: local:test-facttable(96, {
+    aid2: local:test-facttable(19, {
         aid:"0000732717-14-000022",
         report:"FundamentalAccountingConcepts"}),
+    aid2-qtd: local:test-facttable(96, {
+        aid:"0000732717-14-000022",
+        report:"FundamentalAccountingConcepts",
+        fiscalPeriodType: [ "instant", "QTD" ]
+    }),
     tickerrole: local:test-facttable(95, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
@@ -272,7 +278,7 @@ local:check({
         ticker:["ko","wmt"],
         fiscalYear:"2013",
         fiscalPeriod:"FY",
-        fiscalPeriodType:["instant", "QTD"]
+        fiscalPeriodType:["instant", "QTD", "YTD"]
     }),
     allvalues : local:test-values(),
     otheroperatingincometest: local:test-facttable-fact("fac:OtherOperatingIncomeExpenses",
