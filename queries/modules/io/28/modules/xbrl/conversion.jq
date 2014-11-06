@@ -12,6 +12,7 @@ declare %private variable $conversion:STANDARD_LABELS :=
         "xbrl:Period" : "Period",
         "sec:FiscalPeriod" : "Fiscal Period",
         "sec:FiscalYear" : "Fiscal Year",
+        "sec:FiscalPeriodType" : "Fiscal Period Type",
         "sec:Accepted" : "Accepted",
         "xbrl:Unit": "Unit",
         "dei:LegalEntityAxis": "Legal Entity"
