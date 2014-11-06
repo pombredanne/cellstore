@@ -41,7 +41,7 @@ local:check({
         fiscalPeriod:"Q1",
         networkIdentifier:"http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets"
     }),
-    generic: local:test-facttable(36, {
+    generic: local:test-facttable(76, {
         profile-name: "generic",
         aid: "0000021344-14-000008",
         role: "http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets"
