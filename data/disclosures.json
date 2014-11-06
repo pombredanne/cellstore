@@ -21223,6 +21223,10 @@
                     "Name": "sec:FiscalPeriod",
                     "Label": "Fiscal Period"
                 },
+                "sec:FiscalPeriodType": {
+                    "Name": "sec:FiscalPeriodType",
+                    "Label": "Fiscal Period Type"
+                },
                 "dei:LegalEntityAxis": {
                     "Name": "dei:LegalEntityAxis",
                     "Label": "Legal Entity",
