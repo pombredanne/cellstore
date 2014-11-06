@@ -28,14 +28,14 @@ TokensPage.prototype.createToken = function(year, month, day, hours, minutes, pw
     this.minutes.sendKeys('' + minutes);
     this.password.clear();
     this.password.sendKeys(pwd);
-    this.createTokenForm.submit();
+    return this.createTokenForm.submit();
 };
 
 TokensPage.prototype.revokeExpiring = function(pwd){
     this.buttons.revokeExpiring.click();
     this.password.clear();
     this.password.sendKeys(pwd);
-    this.revokeTokenForm.submit();
+    return this.revokeTokenForm.submit();
 };
 
 TokensPage.prototype.visitPage = function(){

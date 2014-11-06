@@ -4,6 +4,7 @@
 @import "api-scheduler-status.less";
 
 @import "../home/home.less";
+@import "../home/start/start.less";
 @import "../home/auth/auth.less";
 @import "../home/pricing/pricing.less";
 @import "../home/api/api.less";
@@ -45,9 +46,36 @@ a {
 
 footer {
   background-color: @clouds;
+  color: darken(@clouds, 20%);
+  font-weight: 300;
+  padding-top: 2em;
+  margin-bottom: -2em;
   z-index: 100;
   position: relative;
 }
+
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+  color: darken(@clouds, 50%);
+}
+
+footer a {
+}
+
+footer a:hover {
+}
+
+footer .fa-twitter, footer .fa-github {
+  font-size: 4em;
+}
+
+footer .fa-twitter:hover, footer .fa-github:hover {
+  text-decoration: none;
+}
+
+footer .copyright {
+  margin-top: 2em;
+}
+
 
 //std margin, padding, bg
 .std-padding {
