@@ -413,7 +413,19 @@ declare function sec-networks:standard-definition-models-for-components($compone
         return { $d : [ distinct-values($facts.Aspects.$d) ] }
     |}
     let $auto-slice-dimensions as string* :=
-        keys($values-by-dimension)[size($values-by-dimension.$$) eq 1 and not ($$ = ("xbrl:Period", "sec:FiscalYear",  "sec:FiscalPeriod",  "sec:FiscalPeriodType") ) ]
+    (
+        "xbrl:Entity"[size($values-by-dimension."xbrl:Entity") eq 1],
+        keys($values-by-dimension)[
+            size($values-by-dimension.$$) eq 1 and
+            not $$ = ("xbrl:Entity",
+                      "xbrl:Period",
+                      "xbrl28:Archive",
+                      "sec:Accepted",
+                      "sec:FiscalYear",
+                      "sec:FiscalPeriod",
+                      "sec:FiscalPeriodType") ]
+    )
+
     let $user-slice-dimensions as string* :=
         keys($options.Slicers)
 
@@ -422,6 +434,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
         "xbrl:Period",
         "xbrl:Unit",
         "xbrl:Entity",
+        "sec:Accepted",
         "xbrl28:Archive",
         "sec:FiscalYear",
         "sec:FiscalPeriod",
@@ -430,27 +443,27 @@ declare function sec-networks:standard-definition-models-for-components($compone
         $user-slice-dimensions)]
     
     let $x-breakdowns as object* := (
-        sec-networks:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
+        components:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
         for $d as string in $column-dimensions
         let $metadata as object? := descendant-objects($implicit-table)[$$.Name eq $d]
         return
             if($d = ("sec:Accepted", "sec:FiscalYear", "sec:FiscalPeriod", "sec:FiscalPeriodType"))
-            then sec-networks:standard-typed-dimension-breakdown(
+            then components:standard-typed-dimension-breakdown(
                 $d,
                 $values-by-dimension.$d[])
-            else sec-networks:standard-explicit-dimension-breakdown(
+            else components:standard-explicit-dimension-breakdown(
                 $d,
                 $metadata.Label,
                 keys($table.Aspects.$d.Domains),
                 $component.Role),
-        sec-networks:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
+        components:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
     )
 
     let $lineitems as string* := sec-networks:line-items-report-elements($component).Name
     let $presentation-network as object? := networks:networks-for-components-and-short-names($component, "Presentation")
     let $roots as string* := keys($presentation-network.Trees)
     let $lineitems as string* := if(exists($lineitems)) then $lineitems else $roots
-    let $y-breakdowns as object := sec-networks:standard-concept-breakdown($lineitems, $component.Role)
+    let $y-breakdowns as object := components:standard-concept-breakdown($lineitems, $component.Role)
 
     return {
         ModelKind: "DefinitionModel",
@@ -1036,117 +1049,3 @@ declare function sec-networks:summaries-to-csv($summaries as object*) as string*
   csv:serialize($summaries, { serialize-null-as : "" })
 };
 
-(:~
- : <p>Returns the standard period breakdown.</p>
- :
- : @return the period breakdown.
- :)
-declare %private function sec-networks:standard-period-breakdown() as object
-{
-    {
-        BreakdownLabels: [ "Period breakdown" ],
-        BreakdownTrees: [
-            {
-                Kind: "Rule",
-                Abstract: true,
-                Labels: [ "Period [Axis]" ],
-                Children: [ {
-                    Kind: "Aspect",
-                    Aspect: "xbrl:Period"
-                } ]
-            }
-        ]
-    }
-};
-
-declare %private function sec-networks:standard-typed-dimension-breakdown($dimension-name as string, $dimension-values as atomic*) as object
-{
-    {
-        BreakdownLabels: [ $dimension-name || " breakdown" ],
-        BreakdownTrees: [
-            {
-                Kind: "Rule",
-                Labels: [ $dimension-name || " [Axis]" ],
-                Children: [
-                    for $value in $dimension-values
-                    return {
-                        Kind: "Rule",
-                        Labels: [ $value ],
-                        AspectRulesSet: { "" : { $dimension-name : $value } }
-                    }
-                ]
-            }
-        ]
-    }
-};
-
-declare %private function sec-networks:standard-explicit-dimension-breakdown(
-    $dimension-name as string,
-    $dimension-label as string,
-    $domain-names as string*,
-    $role as string) as object
-{
-    {
-        BreakdownLabels: [ "Dimension Breakdown" ],
-        BreakdownTrees: [
-            {
-                Kind: "Rule",
-                Abstract: true,
-                Labels: [ $dimension-label ],
-                Children: [
-                    for $domain as string in $domain-names
-                    return {
-                        Kind: "DimensionRelationship",
-                        LinkRole: $role,
-                        Dimension: $dimension-name,
-                        RelationshipSource: $domain,
-                        FormulaAxis: "descendant",
-                        Generations: 0
-                    }
-                ]
-            }
-        ]
-    }
-};
-
-declare %private function sec-networks:standard-entity-breakdown() as object
-{
-    {
-        BreakdownLabels: [ "Entity breakdown" ],
-        BreakdownTrees: [
-            {
-                Kind: "Rule",
-                Abstract: true,
-                Labels: [ "Reporting Entity [Axis]" ],
-                ConstraintSets: { "" : {} },
-                Children: [ {
-                    Kind: "Aspect",
-                    Aspect: "xbrl:Entity"
-                } ]
-            }
-        ]
-    }
-};
-
-declare %private function sec-networks:standard-concept-breakdown(
-    $line-items-elements as string*,
-    $role as string) as object
-{
-    {
-        BreakdownLabels: [ "Breakdown on concepts" ],
-        BreakdownTrees: [
-            for $lineitems as string in $line-items-elements
-            return {
-                Kind: "ConceptRelationship",
-                LinkName: "link:presentationLink",
-                LinkRole: $role,
-                ArcName: "link:presentationArc", 
-                ArcRole: "http://www.xbrl.org/2003/arcrole/parent-child",
-                RelationshipSource: $lineitems,
-                FormulaAxis: "descendant",
-                Generations: 0,
-                RollUpAgainstCalculationNetwork: false
-            }
-        ]
-    }
-};
