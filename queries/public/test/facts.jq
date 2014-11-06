@@ -100,7 +100,7 @@ local:check({
         fiscalPeriod: [ "FY" ],
         fiscalPeriodType: [ "YTD" ]
     }),
-    cocacola-qtd: local:test-facttable(0, {
+    cocacola-qtd: local:test-facttable(90, {
         ticker:"ko",
         fiscalYear: 2013,
         fiscalPeriod: [ "Q2" ],
