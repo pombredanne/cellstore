@@ -49,28 +49,6 @@ describe('Registration process and similar', function(){
         expect(signUpRegistrationForm.form.errors.emailInvalid.isDisplayed()).toBe(true);
     });
 
-    it('should be able to register', function() {
-        start.visitPage();
-        expect(homeRegistrationForm.isDisplayed()).toBe(true);
-        homeRegistrationForm.register('Test', 'User', 'admin+test@28msec.com', config.testPassword, config.testPassword);
-        expect(homeRegistrationForm.form.errors.emailInUse.isPresent()).toBe(false);
-        // should have automatically logged us in
-        expect(profile.form.isDisplayed()).toBe(true);
-    });
-
-    it('should not display the registration form', function() {
-            start.visitPage();
-        expect(homeRegistrationForm.isDisplayed()).toBe(false);
-    });
-
-    it('should not be able to register again', function() {
-        auth.doLogout();
-        start.visitPage();
-        expect(homeRegistrationForm.isDisplayed()).toBe(true);
-        homeRegistrationForm.register('Test', 'User', 'admin+test@28msec.com', config.testPassword, config.testPassword);
-        expect(homeRegistrationForm.form.errors.emailInUse.isDisplayed()).toBe(true);
-    });
-
     it('should fail to request password reset 1', function() {
         login.visitPage();
         login.showPasswordReset();
