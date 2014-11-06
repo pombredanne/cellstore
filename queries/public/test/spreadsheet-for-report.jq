@@ -43,12 +43,15 @@ local:check({
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
-        fiscalPeriod:"ALL"}),
+        fiscalPeriod:"ALL",
+        fiscalPeriodType:"ALL"
+    }),
     tickerfyfprole: local:test-spreadsheet(193, {
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
         fiscalPeriod:"FY",
+        fiscalPeriodType:"ALL",
         eliminate:"true"}),
     reportDoesntExist: local:test-report-does-not-exist({
         report:"report-not-found",
