@@ -18,21 +18,6 @@ describe('Registration process and similar', function(){
     var homeRegistrationForm = start.registration;
     var signUpRegistrationForm = register.registration;
 
-    it('should not display the registration form', function() {
-        start.visitPage();
-
-        // we are logged in
-        expect(homeRegistrationForm.isDisplayed()).toBe(false);
-    });
-
-    it('should display the registration form', function() {
-        auth.doLogout();
-        start.visitPage();
-
-        // we are logged out now
-        expect(homeRegistrationForm.isDisplayed()).toBe(true);
-    });
-
     it('should fail to register 1', function() {
         register.visitPage();
         signUpRegistrationForm.register('', '', '', '', '', '');
