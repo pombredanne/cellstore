@@ -251,7 +251,7 @@ declare %an:nondeterministic function local:test-values() as item*
 };
 
 let $dow30 := test:is-dow30()
-local:check({
+return local:check({
     cocacola: local:test-facttable(95, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
