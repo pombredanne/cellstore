@@ -278,7 +278,7 @@ return local:check({
         ticker:"ko",
         fiscalYear:"2012",
         fiscalPeriod:"Q1"}),
-    tickerfyfprole: local:test-facttable(246, {
+    tickerfyfprole: local:test-facttable(247, {
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",

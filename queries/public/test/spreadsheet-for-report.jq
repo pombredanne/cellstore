@@ -46,7 +46,7 @@ local:check({
         fiscalPeriod:"ALL",
         fiscalPeriodType:["instant", "YTD"]
     }),
-    tickerconcept-qtd: local:test-spreadsheet(196, {
+    tickerconcept-qtd: local:test-spreadsheet(198, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
