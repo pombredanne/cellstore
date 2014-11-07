@@ -94,7 +94,11 @@ module.exports = function(grunt) {
             }
             config.s3.bucket = bucket;
             config['28'].project = projectName;
-            config['28'].api = { url: 'http://' + projectName + '.28.io/v1' };
+            if(projectName === 'secxbrl' && environment === 'prod') {
+                config['28'].api = { url: 'https://secxbrl.28.io/v1' };
+            } else {
+                config['28'].api = { url: 'http://' + projectName + '.28.io/v1' };
+            }
             var s3KeyType = 'development';
             if (isTravisAndMaster()) {
                 config.s3.key = config.s3.production.key;
