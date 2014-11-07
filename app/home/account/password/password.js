@@ -24,7 +24,7 @@ angular.module('secxbrl')
                         {
                             $scope.resetForm.password.$setValidity('equals', false);
                         } else {
-                            $scope.$emit('error', response.status, response.data);
+                            $scope.$emit('error', 'Error', response);
                         }
                         $scope.loading = false;
                     });

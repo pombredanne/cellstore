@@ -34,7 +34,6 @@
     "grunt-rev": "~0.1.0",
     "grunt-s3-bucket": "0.0.3",
     "grunt-shell": "~0.7.0",
-    "shelljs": "~0.3.0",
     "grunt-swagger-js-codegen": "~0.2.6",
     "grunt-usemin": "~0.1.11",
     "grunt-xqlint": "0.1.6",
@@ -45,9 +44,11 @@
     "mustache": "^0.8.2",
     "netdna": "~0.0.6",
     "protractor": "~1.0.0",
+    "protractor-html-screenshot-reporter": "0.0.17",
     "protractor-screenshot-reporter": "0.0.5",
     "q": "~1.0.1",
     "request": "~2.33.0",
+    "shelljs": "~0.3.0",
     "time-grunt": "~0.1.1"
   },
   "engines": {

@@ -16,7 +16,7 @@ angular.module('secxbrl')
                     })
                 },
                 function(response) {
-                    $scope.$emit('error', response.status, response.data);
+                    $scope.$emit('error', 'Error', response);
                 }
             );
         };
@@ -51,7 +51,7 @@ angular.module('secxbrl')
                             }
                         },
                         function(response) {
-                            $scope.$emit('error', response.status, response.data);
+                            $scope.$emit('error', 'Error', response);
                         }
                     );
                 });
@@ -76,7 +76,7 @@ angular.module('secxbrl')
                         }
                         else
                         {
-                            $scope.$emit('error', '', { description: 'Invalid date!' });
+                            $scope.$emit('error', 'Error', 'Invalid date!');
                         }
                     };
                     $scope.open = function($event) {
@@ -93,7 +93,7 @@ angular.module('secxbrl')
                             $scope.getData();
                         },
                         function(response) {
-                            $scope.$emit('error', response.status, response.data);
+                            $scope.$emit('error', 'Error', response);
                         }
                     );
                 });
