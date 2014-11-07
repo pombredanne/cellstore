@@ -333,9 +333,10 @@ module.exports = function(grunt) {
                     'setupS3Bucket:teardown'
                 ]);
             }
-        } else if (environment === 'prod') {
-            fatal('test tasks must never run against production: target: ' + target + ' environment: ' + environment);
-        }else {
+        } else if (target === 'teardown' && environment === 'prod') {
+            grunt.log.writeln('skipping teardown for prod');
+            grunt.task.run(['e2e-report:' + environment]);
+        } else {
             fatal('Unknown target for task test: ' + target + ' environment: ' + environment);
         }
     });
