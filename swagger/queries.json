@@ -391,7 +391,7 @@
                             "enum": [
                                 "SEC",
                                 "generic"
-                            ],,
+                            ],
                             "paramType": "query"
                         },
                         {
@@ -599,7 +599,7 @@
                             "enum": [
                                 "SEC",
                                 "generic"
-                            ],,
+                            ],
                             "paramType": "query"
                         },
                         {
@@ -801,7 +801,7 @@
                             "enum": [
                                 "SEC",
                                 "generic"
-                            ],,
+                            ],
                             "paramType": "query"
                         },
                         {
@@ -1127,7 +1127,7 @@
                             "enum": [
                                 "SEC",
                                 "generic"
-                            ],,
+                            ],
                             "paramType": "query"
                         },
                         {
@@ -1308,7 +1308,7 @@
                             "enum": [
                                 "SEC",
                                 "generic"
-                            ],,
+                            ],
                             "paramType": "query"
                         },
                         {
@@ -1521,7 +1521,7 @@
                             "enum": [
                                 "SEC",
                                 "generic"
-                            ],,
+                            ],
                             "paramType": "query"
                         },
                         {
