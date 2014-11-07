@@ -521,6 +521,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "role",
+                            "description": "The role of a particular component",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "fiscalYear",
                             "description": "[SEC profile] The fiscal year of the filing",
                             "required": false,
@@ -711,6 +718,13 @@
                         {
                             "name": "networkIdentifier",
                             "description": "[SEC profile] The network identifier (=role) of a particular component",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "role",
+                            "description": "The role of a particular component",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
