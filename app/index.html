@@ -15,49 +15,6 @@
 <body class="ng-cloak">
     <div api-status></div>
     <div ui-view></div>
-    <footer sticky-footer="">
-        <div class="container">
-            <ul class="row list-unstyled">
-                <li class="col-sm-6">
-                    <h4>Get in touch</h4>
-                    <h4><a href="mailto:hello@28.io">hello@28.io</a></h4>
-                </li>
-                <li class="col-sm-3">
-                    <h4>Platform</h4>
-                    <ul>
-                        <li>
-                            <a href="http://28.io" target="_blank">28.io</a>
-                        </li>
-                    </ul>
-                    <h4>Open Source</h4>
-                    <ul class="footer-links">
-                        <li>
-                            <a href="http://www.jsoniq.org/" target="_blank">JSONiq</a>
-                        </li>
-                        <li>
-                            <a href="http://zorba.io/" target="_blank">Zorba Query Processor</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="col-sm-3">
-                    <h4>Follow Us</h4>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="https://github.com/28msec"><i class="fa fa-github"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://twitter.com/28msec"><i class="fa fa-twitter"></i></a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <p class="text-center copyright">
-                <small>
-                    ©&nbsp;2013 28msec. All rights reserved.
-                </small>
-            </p>
-        </div>
-    </footer>
 
     <!-- build:js({.tmp,app,.}) /scripts/scripts.js -->
     <script src="/bower_components/angular/angular.js"></script>
@@ -92,14 +49,24 @@
     <script src="/modules/ui/account.js"></script>
     <script src="/modules/ui/resize.js"></script>
     <script src="/modules/ui/package.js"></script>
+    <script src="/modules/ui/registration.js"></script>
+    <script src="/modules/ui/login.js"></script>
 
     <!-- Home -->
     <script src="/home/config.js"></script>
     <script src="/home/home.js"></script>
 
     <!-- Auth -->
-    <script src="/home/auth/config.js"></script>
-    <script src="/home/auth/auth.js"></script>
+    <script src="/auth/config.js"></script>
+    <script src="/auth/auth.js"></script>
+    <script src="/auth/login/config.js"></script>
+    <script src="/auth/login/login.js"></script>
+    <script src="/auth/register/config.js"></script>
+    <script src="/auth/register/register.js"></script>
+    <script src="/auth/logout/config.js"></script>
+    <script src="/auth/logout/logout.js"></script>
+    <script src="/auth/reset/config.js"></script>
+    <script src="/auth/reset/reset.js"></script>
 
     <!-- Start -->
     <script src="/home/start/config.js"></script>
@@ -120,10 +87,6 @@
     <script src="/home/blog/entries/entries.js"></script>
     <script src="/home/blog/entry/config.js"></script>
     <script src="/home/blog/entry/entry.js"></script>
-
-    <!-- Logout -->
-    <script src="/home/logout/config.js"></script>
-    <script src="/home/logout/logout.js"></script>
 
     <!-- Account -->
     <script src="/home/account/config.js"></script>

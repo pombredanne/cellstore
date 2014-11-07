@@ -4,9 +4,10 @@ angular
 .module('secxbrl')
 .config(function ($stateProvider) {
     $stateProvider
-    .state('home.auth', {
+    .state('auth', {
         url: '/auth',
-        templateUrl: '/home/auth/auth.html',
+        abstract: true,
+        templateUrl: '/auth/auth.html',
         controller: 'AuthCtrl'
     });
 })

@@ -183,37 +183,35 @@
     "Unit" : "iso4217:USD"
   }, {
     "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:TradingSymbol", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "instant", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
+      "xbrl28:Archive" : "0000021344-14-000008",
+      "xbrl:Concept" : "fac:TradingSymbol",
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344",
+      "xbrl:Period" : "2013-01-01/2013-12-31",
+      "sec:FiscalPeriod" : "FY",
+      "sec:FiscalPeriodType" : "YTD",
+      "sec:FiscalYear" : 2013,
+      "sec:Accepted" : "20140227132423",
       "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    },
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ],
     "Concept" : {
-      "Balance" : "DEBIT", 
-      "PeriodType" : "instant", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NonNumericValue", 
-    "Value" : "ko", 
-    "Decimals" : -6, 
+      "PeriodType" : "duration",
+      "DataType" : "xbrli:dateItemType"
+    },
+    "Type" : "NonNumericValue",
+    "Value" : "ko",
     "AuditTrails" : [ {
-      "Id" : "gi_TradingSymbol", 
-      "Type" : "xbrl28:formula", 
-      "Label" : "TradingSymbol imputation", 
-      "Message" : "fac:TradingSymbol[0 USD] = external source", 
+      "Id" : "gi_TradingSymbol",
+      "Type" : "xbrl28:formula",
+      "Label" : "TradingSymbol imputation",
+      "Message" : "fac:TradingSymbol['ko'] = entity(http://www.sec.gov/CIK 0000021344).Profiles.SEC.Tickers",
       "Data" : {
         "OutputConcept" : "fac:TradingSymbol"
       }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
+    } ],
+    "xbrl28:Type" : "xbrl28:formula",
+    "EntityRegistrantName" : "COCA COLA CO",
+    "Unit" : "xbrl:NonNumeric"
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
