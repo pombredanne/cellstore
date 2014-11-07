@@ -12,7 +12,7 @@ describe('Public SecXBRL.info Website', function(){
 
     it('should have working sign up buttons on start page', function() {
         start.visitPage();
-        start.buttons.each(function(button) {
+        start.signUpButtons.each(function(button) {
             button.click();
             expect(start.jumbotron.isPresent()).toBe(false);
             start.visitPage();
