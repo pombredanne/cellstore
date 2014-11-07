@@ -8,6 +8,17 @@ describe('Public SecXBRL.info Website', function(){
     var HomePage = require('../../app/home/home-page');
     var home = new HomePage();
     var pricing = home.pricing;
+    var start = home.start;
+
+    it('should have working sign up buttons on start page', function() {
+        start.visitPage();
+        start.buttons.each(function(button) {
+            button.click();
+            expect(start.jumbotron.isPresent()).toBe(false);
+            start.visitPage();
+            expect(start.jumbotron.isPresent()).toBe(true);
+        });
+    });
 
     it('should have free and enterprice package descriptions on pricing page', function() {
         pricing.visitPage();

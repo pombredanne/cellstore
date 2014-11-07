@@ -7,6 +7,8 @@ var AppPage = require('../../app-page.js').AppPage;
 
 function StartPage(){
     AppPage.call(this);
+    this.buttons = element.all(by.css('.btn'));
+    this.jumbotron =  element(by.css('.jumbotron'));
 }
 StartPage.prototype = _.create(AppPage.prototype);
 
