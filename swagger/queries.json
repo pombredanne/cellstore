@@ -1358,21 +1358,21 @@
                         },
                         {
                             "name": "cik",
-                            "description": "The CIK of the entity",
+                            "description": "[SEC profile] The CIK of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "ticker",
-                            "description": "The ticker of the entity",
+                            "description": "[SEC profile] The ticker of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "tag",
-                            "description": "The tag to filter entities",
+                            "description": "[SEC profile] The tag to filter entities",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -1387,7 +1387,7 @@
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -1401,7 +1401,7 @@
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the fact to retrieve (default: LATEST)",
+                            "description": "[SEC profile] The fiscal year of the fact to retrieve (default: LATEST)",
                             "required": false,
                             "type": "string",
                             "paramType": "query",
@@ -1420,7 +1420,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the fact to retrieve (default: FY)",
+                            "description": "[SEC profile] The fiscal period of the fact to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -1434,7 +1434,7 @@
                         },
                         {
                             "name": "fiscalPeriodType",
-                            "description": "The fiscal period type of the fact to retrieve (default: instant+YTD). Can select multiple.",
+                            "description": "[SEC profile] The fiscal period type of the fact to retrieve (default: instant+YTD). Can select multiple.",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -1497,6 +1497,17 @@
                                 "true",
                                 "false"
                             ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "profile-name",
+                            "description": "Specifies which profile to use. The default depends on the underlying repository.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "SEC",
+                                "generic"
+                            ],,
                             "paramType": "query"
                         },
                         {
@@ -1598,7 +1609,7 @@
                         },
                         {
                             "name": "tag",
-                            "description": "A tag to filter entities",
+                            "description": "[SEC profile] A tag to filter entities",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -1613,28 +1624,28 @@
                         },
                         {
                             "name": "cik",
-                            "description": "A CIK number",
+                            "description": "[SEC profile] A CIK number",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "ticker",
-                            "description": "A ticker symbols",
+                            "description": "[SEC profile] A ticker symbols",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year focus of the component to retrieve (default: ALL)",
+                            "description": "[SEC profile] The fiscal year focus of the component to retrieve (default: ALL)",
                             "required": false,
                             "type": "string",
                             "paramType": "query",
@@ -1646,7 +1657,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period focus of the component to retrieve (default: FY)",
+                            "description": "[SEC profile] The fiscal period focus of the component to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
                             "enum": [
