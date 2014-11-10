@@ -603,11 +603,15 @@ declare function layout:layout(
                 }
             }
         ],
-        GlobalConstraints: $structural-model.GlobalConstraintSet,
-        GlobalConstraintLabels: $structural-model.GlobalConstraintLabels,
+        GlobalConstraints: [
+          let $filters := $structural-model.GlobalConstraintSet
+          for $key in keys($filters)
+          return project($filters, $key)
+        ],
+        GlobalConstraintLabels: $structural-model.GlobalConstraintLabels (:),
         DebugInfo: {
             Hypercube: $hypercube,
             OriginalHypercube: $original-hypercube
-        }
+        }:)
     }
 };
