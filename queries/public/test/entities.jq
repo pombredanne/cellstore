@@ -30,7 +30,7 @@ declare %an:nondeterministic function local:test-example1() as item
         "Taxonomy" : "ci", 
         "Sector" : "Food/Kindred Products", 
         "Tickers" : [ "ko" ], 
-        "Tags" : [ "DOW30", "SP500", "FORTUNE100" ], 
+        "Tags" : [ "FORTUNE100", "DOW30", "RUSSELL1000", "SP500" ], 
         "IsTrust" : false
       }
     }
