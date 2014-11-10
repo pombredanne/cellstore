@@ -1137,7 +1137,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session (if accessing entities beyond DOW30)",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         }
