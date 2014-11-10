@@ -15,7 +15,7 @@ declare %an:nondeterministic function local:test-empty($params as object) as ite
 {
     let $endpoint := "facts"
     let $res as object := test:invoke-raw($endpoint, $params)
-    return if($res.status eq 200 and $res.headers."Content-Length" eq "0") then true else {
+    return if($res.status eq 200 and ($res.headers."Content-Length" eq "0" or empty($res.body.content))) then true else {
         url: test:url($endpoint, $params),
         unexpectedResponse: $res
     }
