@@ -43,6 +43,18 @@ TokensPage.prototype.fillInCreateTokenForm = function(year, month, day, hours, m
     return this.password.sendKeys(pwd);
 };
 
+var getIntegerValueFromInput = function(element){
+    return element.getAttribute('value').then(function(value){return parseInt(value, 10);});
+};
+
+TokensPage.prototype.getHoursFromCreateTokeForm = function(){
+    return getIntegerValueFromInput(this.hours);
+};
+
+TokensPage.prototype.getMinutesFromCreateTokeForm = function(){
+    return getIntegerValueFromInput(this.minutes);
+};
+
 TokensPage.prototype.submitCreateToken = function(){
     return this.buttons.createTokenButton.click();
 };
