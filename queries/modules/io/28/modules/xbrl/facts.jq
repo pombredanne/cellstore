@@ -1410,10 +1410,6 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
               if(exists($new.Hypercube.Aspects.$facts:CONCEPT.Domains)) 
               then delete json $new.Hypercube.Aspects.$facts:CONCEPT.Domains 
               else (),
-              (: will be re-added in facts-for-archives-and-concepts(...) :)
-              if(exists($new.Filter.Aspects.$facts:ARCHIVE))
-              then delete json $new.Filter.Aspects.$facts:ARCHIVE
-              else (),
               insert json { "cache-control" : "no-cache" } into $new
             )
       return $new
