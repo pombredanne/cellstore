@@ -94,7 +94,11 @@ module.exports = function(grunt) {
             }
             config.s3.bucket = bucket;
             config['28'].project = projectName;
-            config['28'].api = { url: 'http://' + projectName + '.28.io/v1' };
+            if(projectName === 'secxbrl' && environment === 'prod') {
+                config['28'].api = { url: 'https://secxbrl.28.io/v1' };
+            } else {
+                config['28'].api = { url: 'http://' + projectName + '.28.io/v1' };
+            }
             var s3KeyType = 'development';
             if (isTravisAndMaster()) {
                 config.s3.key = config.s3.production.key;
@@ -329,9 +333,10 @@ module.exports = function(grunt) {
                     'setupS3Bucket:teardown'
                 ]);
             }
-        } else if (environment === 'prod') {
-            fatal('test tasks must never run against production: target: ' + target + ' environment: ' + environment);
-        }else {
+        } else if (target === 'teardown' && environment === 'prod') {
+            grunt.log.writeln('skipping teardown for prod');
+            grunt.task.run(['e2e-report:' + environment]);
+        } else {
             fatal('Unknown target for task test: ' + target + ' environment: ' + environment);
         }
     });
