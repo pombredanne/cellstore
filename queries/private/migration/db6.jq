@@ -6,7 +6,7 @@ let $filters as object? := $report.Filters
 let $record := find("reports", { "_id" : $report."_id" })
 return
     {
-        if($hypercubeAspects.$fiscalPeriodType)
+        if(not(empty($hypercubeAspects.$fiscalPeriodType)))
         then ();
         else insert json {
             $fiscalPeriodType: {
@@ -22,11 +22,11 @@ return
             }
         } into $hypercubeAspects;
 
-        if($filters.fiscalPeriodType)
+        if(empty($filters) or not(empty($filters.fiscalPeriodType)))
         then ();
         else insert json { "fiscalPeriodType" : [ "instant", "YTD" ] } into $filters;
 
-        if($hypercubeAspects."sec:Archive" and not $hypercubeAspects."xbrl28:Archive")
+        if(not(empty($hypercubeAspects."sec:Archive")) and empty($hypercubeAspects."xbrl28:Archive"))
         then
             let $newArchive :=
               copy $new := $hypercubeAspects."sec:Archive"
@@ -38,7 +38,7 @@ return
                 } into $hypercubeAspects;
         else ();
 
-        if($hypercubeAspects."sec:Archive")
+        if(not(empty($hypercubeAspects."sec:Archive")))
         then
             delete json $hypercubeAspects."sec:Archive";
         else ();
