@@ -2,6 +2,7 @@ let $fiscalPeriodType as string := "sec:FiscalPeriodType"
 
 for $report in db:collection("reports")
 let $hypercubeAspects as object := $report.Hypercubes."xbrl:DefaultHypercube".Aspects
+let $filters as object? := $report.Filters
 let $record := find("reports", { "_id" : $report."_id" })
 return
     {
@@ -20,6 +21,10 @@ return
               }
             }
         } into $hypercubeAspects;
+
+        if($filters.fiscalPeriodType)
+        then ();
+        else insert json { "fiscalPeriodType" : [ "instant", "YTD" ] } into $filters;
 
         if($hypercubeAspects."sec:Archive" and not $hypercubeAspects."xbrl28:Archive")
         then

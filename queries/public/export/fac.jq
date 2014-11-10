@@ -135,6 +135,7 @@ local:convert(
         tag: [ "DOW30" ],
         fiscalYear : [ 2013 ],
         fiscalPeriod : [ "FY" ],
+        fiscalPeriodType : [ "instant", "YTD" ],
         sic : [  ]
       }
     }
