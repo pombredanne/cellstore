@@ -658,10 +658,17 @@ declare function resolution:resolve(
     let $concepts as object* := concepts:concepts-for-components(
         $concepts:ALL_CONCEPT_NAMES,
         $components)
-    return
-    {
+    let $hypercubes as object* :=
+        if(exists($options.Hypercube))
+        then $options.Hypercube
+        else values($components.Hypercubes)
+    return {
         ModelKind: "StructuralModel",
         TableSetLabels: $definition-model.Labels,
+        Component: {
+            Role: $components.Role[1],
+            Label: $components.Label[1]
+        },
         TableSet : [
             {
                 Breakdowns: {|
@@ -690,10 +697,6 @@ declare function resolution:resolve(
             }
         |},
         DimensionDefaults: {|
-            let $hypercubes as object* :=
-                if(exists($options.Hypercube))
-                then $options.Hypercube
-                else values($components.Hypercubes)
             for $dimension as string in keys($hypercubes.Aspects)
             let $hypercube-default as atomic? := $hypercubes.Aspects.$dimension.Default[1]
             where exists($hypercube-default)

@@ -510,6 +510,13 @@ declare function layout:layout(
     |}
     return {
         ModelKind: "LayoutModel",
+        ComponentAndHypercubeInformation: {
+            Component: $structural-model.Component,
+            Hypercube: {
+                Name: $hypercube.Name[1],
+                Label: $hypercube.Label[1]
+            }
+        },
         TableSetLabels: $structural-model.TableSetLabels,
         TableSet: [
             for $table in $structural-model.TableSet[]

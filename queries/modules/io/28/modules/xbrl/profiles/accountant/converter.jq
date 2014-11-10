@@ -16,10 +16,17 @@ declare function accountant-converter:flatten-row-headers($layout-model as objec
     for $table in $l.TableSet[]
     let $breakdown := $table.TableHeaders.y[]
     let $headers as array := $breakdown.GroupCells
+    let $first-header as array := $headers[[1]]
+    let $other-headers as array := [ $headers[][position() gt 1] ]
     let $cells as array := $table.TableCells.Facts
-    let $result := accountant-converter:flatten-headers({ Headers: $headers, Cells: $cells}, 1)
+    let $result := accountant-converter:flatten-headers({ Headers: $other-headers, Cells: $cells}, 1)
 (:    return insert json { Debug: $result } into $breakdown:)
-    return (replace value of json $breakdown.GroupCells with $result.Headers,
+    return (replace value of json $breakdown.GroupCells with [
+                copy $f := $first-header
+                modify replace value of json $f[[1]].CellSpan with size($result.Headers[])
+                return $f,
+                $result.Headers[]
+            ],
             replace value of json $table.TableCells.Facts with $result.Cells)
   return $l
 };
