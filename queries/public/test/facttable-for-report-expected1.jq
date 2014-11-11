@@ -1,3 +1,4 @@
+
 {
   "NetworkIdentifier" : "http://secxbrl.info/facts", 
   "TableName" : "xbrl:Facts", 
@@ -11,7 +12,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -47,7 +49,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -66,7 +69,7 @@
       "Data" : {
         "OutputConcept" : "fac:LiabilitiesValidation", 
         "ValidatedConcepts" : [ "fac:Liabilities" ], 
-        "ValidatedFacts" : [ "4ef08b09-77a6-41c7-ade4-de397d8f5223" ], 
+        "ValidatedFacts" : [ "75dfffc9-b114-45ce-a2f4-ea93581326bd" ], 
         "ValidationPassed" : true
       }
     } ], 
@@ -83,7 +86,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -119,7 +123,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -155,7 +160,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -184,39 +190,6 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:TradingSymbol", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "instant", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "DEBIT", 
-      "PeriodType" : "instant", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NonNumericValue", 
-    "Value" : "ko", 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "gi_TradingSymbol", 
-      "Type" : "xbrl28:formula", 
-      "Label" : "TradingSymbol imputation", 
-      "Message" : "fac:TradingSymbol[0 USD] = external source", 
-      "Data" : {
-        "OutputConcept" : "fac:TradingSymbol"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:Assets", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-12-31", 
@@ -224,7 +197,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -266,7 +240,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -308,7 +283,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -350,7 +326,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -392,7 +369,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -424,7 +402,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -457,7 +436,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -490,7 +470,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -532,7 +513,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -565,7 +547,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -607,7 +590,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -649,7 +633,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -681,7 +666,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -706,78 +692,6 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:ComprehensiveIncomeLossValidation", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "BooleanValue", 
-    "Value" : true, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "IS9", 
-      "Type" : "xbrl28:validation", 
-      "Label" : "[IS9] ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
-      "Message" : "fac:ComprehensiveIncomeLoss[8,576,000,000 USD] = fac:ComprehensiveIncomeLossAttributableToParent[8,537,000,000 USD] + fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest[39,000,000 USD]", 
-      "Data" : {
-        "OutputConcept" : "fac:ComprehensiveIncomeLossValidation", 
-        "ValidatedConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
-        "ValidatedFacts" : [ "0f646c41-82b3-452d-889b-0db1d660504e" ], 
-        "ValidationPassed" : true
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:validation", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetCashFlowFromFinancingActivitiesValidation", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "DEBIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "BooleanValue", 
-    "Value" : true, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "CF6", 
-      "Type" : "xbrl28:validation", 
-      "Label" : "[CF6] NetCashFlowFromFinancingActivities = NetCashFlowFromFinancingActivitiesContinuing + NetCashFlowFromFinancingActivitiesDiscontinued", 
-      "Message" : "fac:NetCashFlowFromFinancingActivities[-3,745,000,000 USD] = fac:NetCashFlowFromFinancingActivitiesContinuing[-3,745,000,000 USD] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
-      "Data" : {
-        "OutputConcept" : "fac:NetCashFlowFromFinancingActivitiesValidation", 
-        "ValidatedConcepts" : [ "fac:NetCashFlowFromFinancingActivities" ], 
-        "ValidatedFacts" : [ "0731665a-9227-4c1b-bd6a-fdc8c49ade1b" ], 
-        "ValidationPassed" : true
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:validation", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:ComprehensiveIncomeLossValidation2", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -785,7 +699,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -814,6 +729,43 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NetCashFlowFromInvestingActivitiesValidation", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "DEBIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "BooleanValue", 
+    "Value" : true, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "CF5", 
+      "Type" : "xbrl28:validation", 
+      "Label" : "[CF5] NetCashFlowFromInvestingActivities = NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromInvestingActivitiesDiscontinued", 
+      "Message" : "fac:NetCashFlowFromInvestingActivities[-4,214,000,000 USD] = fac:NetCashFlowFromInvestingActivitiesContinuing[-4,214,000,000 USD] + NetCashFlowFromInvestingActivitiesDiscontinued[0]", 
+      "Data" : {
+        "OutputConcept" : "fac:NetCashFlowFromInvestingActivitiesValidation", 
+        "ValidatedConcepts" : [ "fac:NetCashFlowFromInvestingActivities" ], 
+        "ValidatedFacts" : [ "e82574e9-b189-418f-aaf6-ff1287a20448" ], 
+        "ValidationPassed" : true
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:validation", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesValidation", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -821,7 +773,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -835,11 +788,48 @@
       "Id" : "CF4", 
       "Type" : "xbrl28:validation", 
       "Label" : "[CF4] NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued", 
-      "Message" : "fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] + fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD]", 
+      "Message" : "fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] + NetCashFlowFromOperatingActivitiesDiscontinued[0]", 
       "Data" : {
         "OutputConcept" : "fac:NetCashFlowFromOperatingActivitiesValidation", 
         "ValidatedConcepts" : [ "fac:NetCashFlowFromOperatingActivities" ], 
         "ValidatedFacts" : [ "fc769871-ba7c-4ccb-b4f9-3a332e320982" ], 
+        "ValidationPassed" : true
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:validation", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "BooleanValue", 
+    "Value" : true, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "IS8", 
+      "Type" : "xbrl28:validation", 
+      "Label" : "[IS8] NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeLossAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
+      "Message" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic[8,584,000,000 USD] = fac:NetIncomeLossAttributableToParent[8,584,000,000 USD] - fac:PreferredStockDividendsAndOtherAdjustments[0 USD]", 
+      "Data" : {
+        "OutputConcept" : "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
+        "ValidatedConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ], 
+        "ValidatedFacts" : [ "6070bbde-6679-4527-8215-24475731d7bb" ], 
         "ValidationPassed" : true
       }
     } ], 
@@ -856,7 +846,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -892,7 +883,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -911,7 +903,7 @@
       "Data" : {
         "OutputConcept" : "fac:IncomeLossFromContinuingOperationsAfterTaxValidation", 
         "ValidatedConcepts" : [ "fac:IncomeLossFromContinuingOperationsAfterTax" ], 
-        "ValidatedFacts" : [ "a1777c49-c42f-4d12-aa0f-b607b6c9d7a2" ], 
+        "ValidatedFacts" : [ "7dfd281e-fec5-48f7-a279-223454807473" ], 
         "ValidationPassed" : true
       }
     } ], 
@@ -928,7 +920,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -964,7 +957,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -983,7 +977,7 @@
       "Data" : {
         "OutputConcept" : "fac:IncomeLossBeforeEquityMethodInvestmentsValidation", 
         "ValidatedConcepts" : [ "fac:IncomeLossBeforeEquityMethodInvestments" ], 
-        "ValidatedFacts" : [ "eb3906f1-00a4-44e0-8add-566d57d0c0d9" ], 
+        "ValidatedFacts" : [ "8fb2c076-7161-4bf8-ba3e-e6e9a865bd0e" ], 
         "ValidationPassed" : true
       }
     } ], 
@@ -1000,7 +994,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1029,14 +1024,15 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetCashFlowFromInvestingActivitiesValidation", 
+      "xbrl:Concept" : "fac:NetCashFlowFromFinancingActivitiesValidation", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
       "sec:FiscalPeriod" : "FY", 
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1048,14 +1044,14 @@
     "Value" : true, 
     "Decimals" : -6, 
     "AuditTrails" : [ {
-      "Id" : "CF5", 
+      "Id" : "CF6", 
       "Type" : "xbrl28:validation", 
-      "Label" : "[CF5] NetCashFlowFromInvestingActivities = NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromInvestingActivitiesDiscontinued", 
-      "Message" : "fac:NetCashFlowFromInvestingActivities[-4,214,000,000 USD] = fac:NetCashFlowFromInvestingActivitiesContinuing[-4,214,000,000 USD] + NetCashFlowFromInvestingActivitiesDiscontinued[0]", 
+      "Label" : "[CF6] NetCashFlowFromFinancingActivities = NetCashFlowFromFinancingActivitiesContinuing + NetCashFlowFromFinancingActivitiesDiscontinued", 
+      "Message" : "fac:NetCashFlowFromFinancingActivities[-3,745,000,000 USD] = fac:NetCashFlowFromFinancingActivitiesContinuing[-3,745,000,000 USD] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
       "Data" : {
-        "OutputConcept" : "fac:NetCashFlowFromInvestingActivitiesValidation", 
-        "ValidatedConcepts" : [ "fac:NetCashFlowFromInvestingActivities" ], 
-        "ValidatedFacts" : [ "e82574e9-b189-418f-aaf6-ff1287a20448" ], 
+        "OutputConcept" : "fac:NetCashFlowFromFinancingActivitiesValidation", 
+        "ValidatedConcepts" : [ "fac:NetCashFlowFromFinancingActivities" ], 
+        "ValidatedFacts" : [ "0731665a-9227-4c1b-bd6a-fdc8c49ade1b" ], 
         "ValidationPassed" : true
       }
     } ], 
@@ -1065,14 +1061,15 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
+      "xbrl:Concept" : "fac:ComprehensiveIncomeLossValidation", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
       "sec:FiscalPeriod" : "FY", 
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1084,86 +1081,15 @@
     "Value" : true, 
     "Decimals" : -6, 
     "AuditTrails" : [ {
-      "Id" : "IS8", 
+      "Id" : "IS9", 
       "Type" : "xbrl28:validation", 
-      "Label" : "[IS8] NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeLossAttributableToParent - PreferredStockDividendsAndOtherAdjustments", 
-      "Message" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic[8,584,000,000 USD] = fac:NetIncomeLossAttributableToParent[8,584,000,000 USD] - fac:PreferredStockDividendsAndOtherAdjustments[0 USD]", 
+      "Label" : "[IS9] ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest", 
+      "Message" : "fac:ComprehensiveIncomeLoss[8,576,000,000 USD] = fac:ComprehensiveIncomeLossAttributableToParent[8,537,000,000 USD] + fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest[39,000,000 USD]", 
       "Data" : {
-        "OutputConcept" : "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation", 
-        "ValidatedConcepts" : [ "fac:NetIncomeLossAvailableToCommonStockholdersBasic" ], 
-        "ValidatedFacts" : [ "e1b36614-7c8a-44d3-b1c4-153aa9f114db" ], 
+        "OutputConcept" : "fac:ComprehensiveIncomeLossValidation", 
+        "ValidatedConcepts" : [ "fac:ComprehensiveIncomeLoss" ], 
+        "ValidatedFacts" : [ "0f646c41-82b3-452d-889b-0db1d660504e" ], 
         "ValidationPassed" : true
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:validation", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetCashFlowDiscontinuedValidation", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "BooleanValue", 
-    "Value" : true, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "CF3", 
-      "Type" : "xbrl28:validation", 
-      "Label" : "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued", 
-      "Message" : "fac:NetCashFlowDiscontinued[0 USD] = fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
-      "Data" : {
-        "OutputConcept" : "fac:NetCashFlowDiscontinuedValidation", 
-        "ValidatedConcepts" : [ "fac:NetCashFlowDiscontinued" ], 
-        "ValidatedFacts" : [ "bd445e63-6a18-4b0a-81a9-188bd2c902de" ], 
-        "ValidationPassed" : true
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:validation", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:OperatingIncomeLossValidation", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "BooleanValue", 
-    "Value" : false, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "IS2", 
-      "Type" : "xbrl28:validation", 
-      "Label" : "[IS2] OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
-      "Message" : "fac:OperatingIncomeLoss[10,228,000,000 USD] = fac:GrossProfit[28,433,000,000 USD] - OperatingExpenses[0] + OtherOperatingIncomeExpenses[0]", 
-      "Data" : {
-        "OutputConcept" : "fac:OperatingIncomeLossValidation", 
-        "ValidatedConcepts" : [ "fac:OperatingIncomeLoss" ], 
-        "ValidatedFacts" : [ "97884527-190c-4e02-b5d5-cd99b9c32aca" ], 
-        "ValidationPassed" : false
       }
     } ], 
     "xbrl28:Type" : "xbrl28:validation", 
@@ -1179,7 +1105,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1197,43 +1124,7 @@
       "Data" : {
         "OutputConcept" : "fac:NetCashFlowContinuingValidation", 
         "ValidatedConcepts" : [ "fac:NetCashFlowContinuing" ], 
-        "ValidatedFacts" : [ "b936323f-97c4-4a7e-aad8-223e18ab19ae" ], 
-        "ValidationPassed" : true
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:validation", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetIncomeLossValidation", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "BooleanValue", 
-    "Value" : true, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "IS6", 
-      "Type" : "xbrl28:validation", 
-      "Label" : "[IS6] NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetOfTax + ExtraordinaryItemsOfIncomeExpenseNetOfTax", 
-      "Message" : "fac:NetIncomeLoss[8,626,000,000 USD] = fac:IncomeLossFromContinuingOperationsAfterTax[8,626,000,000 USD] + IncomeLossFromDiscontinuedOperationsNetOfTax[0] + ExtraordinaryItemsOfIncomeExpenseNetOfTax[0]", 
-      "Data" : {
-        "OutputConcept" : "fac:NetIncomeLossValidation", 
-        "ValidatedConcepts" : [ "fac:NetIncomeLoss" ], 
-        "ValidatedFacts" : [ "9b3e910e-1eea-4040-b4b3-09b70e5b9e14" ], 
+        "ValidatedFacts" : [ "748fb1a7-f323-420b-86da-f05bd55d7f94" ], 
         "ValidationPassed" : true
       }
     } ], 
@@ -1250,7 +1141,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1279,6 +1171,117 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NetIncomeLossValidation", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "BooleanValue", 
+    "Value" : true, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "IS6", 
+      "Type" : "xbrl28:validation", 
+      "Label" : "[IS6] NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetOfTax + ExtraordinaryItemsOfIncomeExpenseNetOfTax", 
+      "Message" : "fac:NetIncomeLoss[8,626,000,000 USD] = fac:IncomeLossFromContinuingOperationsAfterTax[8,626,000,000 USD] + IncomeLossFromDiscontinuedOperationsNetOfTax[0] + ExtraordinaryItemsOfIncomeExpenseNetOfTax[0]", 
+      "Data" : {
+        "OutputConcept" : "fac:NetIncomeLossValidation", 
+        "ValidatedConcepts" : [ "fac:NetIncomeLoss" ], 
+        "ValidatedFacts" : [ "9b3e910e-1eea-4040-b4b3-09b70e5b9e14" ], 
+        "ValidationPassed" : true
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:validation", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NetCashFlowDiscontinuedValidation", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "DEBIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "BooleanValue", 
+    "Value" : true, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "CF3", 
+      "Type" : "xbrl28:validation", 
+      "Label" : "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued", 
+      "Message" : "fac:NetCashFlowDiscontinued[0 USD] = NetCashFlowFromOperatingActivitiesDiscontinued[0] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
+      "Data" : {
+        "OutputConcept" : "fac:NetCashFlowDiscontinuedValidation", 
+        "ValidatedConcepts" : [ "fac:NetCashFlowDiscontinued" ], 
+        "ValidatedFacts" : [ "bc51d106-55e5-4689-b931-b20f2bc5c165" ], 
+        "ValidationPassed" : true
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:validation", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:OperatingIncomeLossValidation", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "BooleanValue", 
+    "Value" : false, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "IS2", 
+      "Type" : "xbrl28:validation", 
+      "Label" : "[IS2] OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses", 
+      "Message" : "fac:OperatingIncomeLoss[10,228,000,000 USD] = fac:GrossProfit[28,433,000,000 USD] - OperatingExpenses[0] + OtherOperatingIncomeExpenses[0]", 
+      "Data" : {
+        "OutputConcept" : "fac:OperatingIncomeLossValidation", 
+        "ValidatedConcepts" : [ "fac:OperatingIncomeLoss" ], 
+        "ValidatedFacts" : [ "97884527-190c-4e02-b5d5-cd99b9c32aca" ], 
+        "ValidationPassed" : false
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:validation", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:NetCashFlowValidation", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -1286,7 +1289,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1315,6 +1319,38 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:TradingSymbol", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
+    "Concept" : {
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:dateItemType"
+    }, 
+    "Type" : "NonNumericValue", 
+    "Value" : "ko", 
+    "AuditTrails" : [ {
+      "Id" : "gi_TradingSymbol", 
+      "Type" : "xbrl28:formula", 
+      "Label" : "TradingSymbol imputation", 
+      "Message" : "fac:TradingSymbol['ko'] = entity(http://www.sec.gov/CIK 0000021344).Profiles.SEC.Tickers", 
+      "Data" : {
+        "OutputConcept" : "fac:TradingSymbol"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:formula", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "xbrl:NonNumeric"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:IncomeStatementFormat", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -1322,7 +1358,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1355,7 +1392,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1386,7 +1424,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1401,7 +1440,7 @@
       "Id" : "gi_IncomeStatementStartPeriod", 
       "Type" : "xbrl28:formula", 
       "Label" : "Income Statement Start Period imputation", 
-      "Message" : "fac:IncomeStatementStartPeriodYearToDate[2013-01-01] = facts:duration-for-fact(fac:OperatingIncomeLoss[10,228,000,000 USD]).Start", 
+      "Message" : "fac:IncomeStatementStartPeriodYearToDate[2013-01-01] = facts:duration-for-fact(fac:Revenues[46,854,000,000 USD]).Start", 
       "Data" : {
         "OutputConcept" : "fac:IncomeStatementStartPeriodYearToDate"
       }
@@ -1419,7 +1458,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1461,22 +1501,23 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:EntityFilerCategory", 
+      "xbrl:Concept" : "fac:BalanceSheetDate", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
       "sec:FiscalPeriod" : "FY", 
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
       "PeriodType" : "duration", 
-      "DataType" : "dei:filerCategoryItemType"
+      "DataType" : "xbrli:dateItemType"
     }, 
     "Type" : "NonNumericValue", 
-    "Value" : "Large Accelerated Filer", 
+    "Value" : "2013-12-31", 
     "AuditTrails" : [ {
       "Type" : "xbrl28:dimension-default", 
       "Label" : "Default dimension value", 
@@ -1484,7 +1525,7 @@
       "Data" : {
         "Dimension" : "xbrl:Unit", 
         "Member" : "xbrl:NonNumeric", 
-        "OutputConcept" : "dei:EntityFilerCategory"
+        "OutputConcept" : "dei:DocumentPeriodEndDate"
       }
     }, {
       "Type" : "xbrl28:dimension-default", 
@@ -1493,64 +1534,15 @@
       "Data" : {
         "Dimension" : "dei:LegalEntityAxis", 
         "Member" : "sec:DefaultLegalEntity", 
-        "OutputConcept" : "dei:EntityFilerCategory"
+        "OutputConcept" : "dei:DocumentPeriodEndDate"
       }
     }, {
       "Type" : "xbrl28:concept-maps", 
       "Label" : "Concept map", 
-      "Message" : "fac:EntityFilerCategory -> dei:EntityFilerCategory", 
+      "Message" : "fac:BalanceSheetDate -> dei:DocumentPeriodEndDate", 
       "Data" : {
-        "OriginalConcept" : "dei:EntityFilerCategory", 
-        "OutputConcept" : "fac:EntityFilerCategory"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:concept-maps", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "xbrl:NonNumeric"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:EntityRegistrantName", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
-    "Concept" : {
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:normalizedStringItemType"
-    }, 
-    "Type" : "NonNumericValue", 
-    "Value" : "COCA COLA CO", 
-    "AuditTrails" : [ {
-      "Type" : "xbrl28:dimension-default", 
-      "Label" : "Default dimension value", 
-      "Message" : "xbrl:Unit.Default = \"xbrl:NonNumeric\"", 
-      "Data" : {
-        "Dimension" : "xbrl:Unit", 
-        "Member" : "xbrl:NonNumeric", 
-        "OutputConcept" : "dei:EntityRegistrantName"
-      }
-    }, {
-      "Type" : "xbrl28:dimension-default", 
-      "Label" : "Default dimension value", 
-      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-      "Data" : {
-        "Dimension" : "dei:LegalEntityAxis", 
-        "Member" : "sec:DefaultLegalEntity", 
-        "OutputConcept" : "dei:EntityRegistrantName"
-      }
-    }, {
-      "Type" : "xbrl28:concept-maps", 
-      "Label" : "Concept map", 
-      "Message" : "fac:EntityRegistrantName -> dei:EntityRegistrantName", 
-      "Data" : {
-        "OriginalConcept" : "dei:EntityRegistrantName", 
-        "OutputConcept" : "fac:EntityRegistrantName"
+        "OriginalConcept" : "dei:DocumentPeriodEndDate", 
+        "OutputConcept" : "fac:BalanceSheetDate"
       }
     } ], 
     "xbrl28:Type" : "xbrl28:concept-maps", 
@@ -1566,7 +1558,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1608,6 +1601,106 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:EntityRegistrantName", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
+    "Concept" : {
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:normalizedStringItemType"
+    }, 
+    "Type" : "NonNumericValue", 
+    "Value" : "COCA COLA CO", 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:dimension-default", 
+      "Label" : "Default dimension value", 
+      "Message" : "xbrl:Unit.Default = \"xbrl:NonNumeric\"", 
+      "Data" : {
+        "Dimension" : "xbrl:Unit", 
+        "Member" : "xbrl:NonNumeric", 
+        "OutputConcept" : "dei:EntityRegistrantName"
+      }
+    }, {
+      "Type" : "xbrl28:dimension-default", 
+      "Label" : "Default dimension value", 
+      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
+      "Data" : {
+        "Dimension" : "dei:LegalEntityAxis", 
+        "Member" : "sec:DefaultLegalEntity", 
+        "OutputConcept" : "dei:EntityRegistrantName"
+      }
+    }, {
+      "Type" : "xbrl28:concept-maps", 
+      "Label" : "Concept map", 
+      "Message" : "fac:EntityRegistrantName -> dei:EntityRegistrantName", 
+      "Data" : {
+        "OriginalConcept" : "dei:EntityRegistrantName", 
+        "OutputConcept" : "fac:EntityRegistrantName"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:concept-maps", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "xbrl:NonNumeric"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:EntityFilerCategory", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
+    "Concept" : {
+      "PeriodType" : "duration", 
+      "DataType" : "dei:filerCategoryItemType"
+    }, 
+    "Type" : "NonNumericValue", 
+    "Value" : "Large Accelerated Filer", 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:dimension-default", 
+      "Label" : "Default dimension value", 
+      "Message" : "xbrl:Unit.Default = \"xbrl:NonNumeric\"", 
+      "Data" : {
+        "Dimension" : "xbrl:Unit", 
+        "Member" : "xbrl:NonNumeric", 
+        "OutputConcept" : "dei:EntityFilerCategory"
+      }
+    }, {
+      "Type" : "xbrl28:dimension-default", 
+      "Label" : "Default dimension value", 
+      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
+      "Data" : {
+        "Dimension" : "dei:LegalEntityAxis", 
+        "Member" : "sec:DefaultLegalEntity", 
+        "OutputConcept" : "dei:EntityFilerCategory"
+      }
+    }, {
+      "Type" : "xbrl28:concept-maps", 
+      "Label" : "Concept map", 
+      "Message" : "fac:EntityFilerCategory -> dei:EntityFilerCategory", 
+      "Data" : {
+        "OriginalConcept" : "dei:EntityFilerCategory", 
+        "OutputConcept" : "fac:EntityFilerCategory"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:concept-maps", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "xbrl:NonNumeric"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:FiscalYearEnd", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -1615,7 +1708,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1664,7 +1758,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1713,7 +1808,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1755,55 +1851,6 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:BalanceSheetDate", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
-    "Concept" : {
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:dateItemType"
-    }, 
-    "Type" : "NonNumericValue", 
-    "Value" : "2013-12-31", 
-    "AuditTrails" : [ {
-      "Type" : "xbrl28:dimension-default", 
-      "Label" : "Default dimension value", 
-      "Message" : "xbrl:Unit.Default = \"xbrl:NonNumeric\"", 
-      "Data" : {
-        "Dimension" : "xbrl:Unit", 
-        "Member" : "xbrl:NonNumeric", 
-        "OutputConcept" : "dei:DocumentPeriodEndDate"
-      }
-    }, {
-      "Type" : "xbrl28:dimension-default", 
-      "Label" : "Default dimension value", 
-      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-      "Data" : {
-        "Dimension" : "dei:LegalEntityAxis", 
-        "Member" : "sec:DefaultLegalEntity", 
-        "OutputConcept" : "dei:DocumentPeriodEndDate"
-      }
-    }, {
-      "Type" : "xbrl28:concept-maps", 
-      "Label" : "Concept map", 
-      "Message" : "fac:BalanceSheetDate -> dei:DocumentPeriodEndDate", 
-      "Data" : {
-        "OriginalConcept" : "dei:DocumentPeriodEndDate", 
-        "OutputConcept" : "fac:BalanceSheetDate"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:concept-maps", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "xbrl:NonNumeric"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:NetIncomeLoss", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -1811,7 +1858,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1846,6 +1894,49 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:Revenues", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : 46854000000, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:dimension-default", 
+      "Label" : "Default dimension value", 
+      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
+      "Data" : {
+        "Dimension" : "dei:LegalEntityAxis", 
+        "Member" : "sec:DefaultLegalEntity", 
+        "OutputConcept" : "us-gaap:SalesRevenueGoodsNet"
+      }
+    }, {
+      "Type" : "xbrl28:concept-maps", 
+      "Label" : "Concept map", 
+      "Message" : "fac:Revenues -> us-gaap:SalesRevenueGoodsNet", 
+      "Data" : {
+        "OriginalConcept" : "us-gaap:SalesRevenueGoodsNet", 
+        "OutputConcept" : "fac:Revenues"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:concept-maps", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:OperatingIncomeLoss", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -1853,7 +1944,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1895,7 +1987,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1930,48 +2023,6 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:Revenues", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : 46854000000, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Type" : "xbrl28:dimension-default", 
-      "Label" : "Default dimension value", 
-      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-      "Data" : {
-        "Dimension" : "dei:LegalEntityAxis", 
-        "Member" : "sec:DefaultLegalEntity", 
-        "OutputConcept" : "us-gaap:SalesRevenueGoodsNet"
-      }
-    }, {
-      "Type" : "xbrl28:concept-maps", 
-      "Label" : "Concept map", 
-      "Message" : "fac:Revenues -> us-gaap:SalesRevenueGoodsNet", 
-      "Data" : {
-        "OriginalConcept" : "us-gaap:SalesRevenueGoodsNet", 
-        "OutputConcept" : "fac:Revenues"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:concept-maps", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:CostOfRevenue", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -1979,7 +2030,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2014,6 +2066,74 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:IncomeLossBeforeEquityMethodInvestments", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : 10875000000, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "0cf36e1f-fa8d-4007-b083-008c9a2bd589", 
+      "Type" : "xbrl28:formula", 
+      "Label" : "Income (Loss) Before Equity Method Investments", 
+      "Message" : "fac:IncomeLossBeforeEquityMethodInvestments[10,875,000,000 USD] = fac:IncomeLossFromContinuingOperationsBeforeTax[11,477,000,000 USD] - fac:IncomeLossFromEquityMethodInvestments[602,000,000 USD]", 
+      "Data" : {
+        "OutputConcept" : "fac:IncomeLossBeforeEquityMethodInvestments"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:formula", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NetCashFlowFromInvestingActivitiesContinuing", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "DEBIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : -4214000000, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "bc4dacb2-95d1-45e7-8594-2ad4e7f9f8d9", 
+      "Type" : "xbrl28:formula", 
+      "Label" : "Net Cash Flow from Investing Activities, Continuing", 
+      "Message" : "fac:NetCashFlowFromInvestingActivitiesContinuing[-4,214,000,000 USD] = fac:NetCashFlowFromInvestingActivities[-4,214,000,000 USD] - NetCashFlowFromInvestingActivitiesDiscontinued[0]", 
+      "Data" : {
+        "OutputConcept" : "fac:NetCashFlowFromInvestingActivitiesContinuing"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:formula", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:NetCashFlowFromInvestingActivities", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -2021,7 +2141,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2056,209 +2177,6 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:IncomeLossBeforeEquityMethodInvestments", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : 10875000000, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "0cf36e1f-fa8d-4007-b083-008c9a2bd589", 
-      "Type" : "xbrl28:formula", 
-      "Label" : "Income (Loss) Before Equity Method Investments", 
-      "Message" : "fac:IncomeLossBeforeEquityMethodInvestments[10,875,000,000 USD] = fac:IncomeLossFromContinuingOperationsBeforeTax[11,477,000,000 USD] - fac:IncomeLossFromEquityMethodInvestments[602,000,000 USD]", 
-      "Data" : {
-        "OutputConcept" : "fac:IncomeLossBeforeEquityMethodInvestments"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetCashFlowFromInvestingActivitiesContinuing", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "DEBIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : -4214000000, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "bc4dacb2-95d1-45e7-8594-2ad4e7f9f8d9", 
-      "Type" : "xbrl28:formula", 
-      "Label" : "Net Cash Flow from Investing Activities, Continuing", 
-      "Message" : "fac:NetCashFlowFromInvestingActivitiesContinuing[-4,214,000,000 USD] = fac:NetCashFlowFromInvestingActivities[-4,214,000,000 USD] - NetCashFlowFromInvestingActivitiesDiscontinued[0]", 
-      "Data" : {
-        "OutputConcept" : "fac:NetCashFlowFromInvestingActivitiesContinuing"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : 0, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "e7f1c48e-4b36-429c-90cc-48634d543ab9", 
-      "Type" : "xbrl28:formula", 
-      "Label" : "Net Cash Flow from Operating Activities, Discontinued", 
-      "Message" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD] = 0", 
-      "Data" : {
-        "OutputConcept" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesContinuing", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : 10542000000, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "50a01bf0-30ab-4d46-8418-066173dd2e67", 
-      "Type" : "xbrl28:formula", 
-      "Label" : "Net Cash Flow from Operating Activities, Continuing", 
-      "Message" : "fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] - NetCashFlowFromOperatingActivitiesDiscontinued[0]", 
-      "Data" : {
-        "OutputConcept" : "fac:NetCashFlowFromOperatingActivitiesContinuing"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivities", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : 10542000000, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Type" : "xbrl28:dimension-default", 
-      "Label" : "Default dimension value", 
-      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-      "Data" : {
-        "Dimension" : "dei:LegalEntityAxis", 
-        "Member" : "sec:DefaultLegalEntity", 
-        "OutputConcept" : "us-gaap:NetCashProvidedByUsedInOperatingActivities"
-      }
-    }, {
-      "Type" : "xbrl28:concept-maps", 
-      "Label" : "Concept map", 
-      "Message" : "fac:NetCashFlowFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-      "Data" : {
-        "OriginalConcept" : "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
-        "OutputConcept" : "fac:NetCashFlowFromOperatingActivities"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:concept-maps", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:OperatingExpenses", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : 0, 
-    "Decimals" : 3, 
-    "AuditTrails" : [ {
-      "Type" : "xbrl28:default-fact-value", 
-      "Label" : "Default fact value", 
-      "Message" : "fac:OperatingExpenses = 0", 
-      "Data" : {
-        "OutputConcept" : "fac:OperatingExpenses"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:concept-maps", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:NetCashFlowFromFinancingActivities", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -2266,7 +2184,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2308,7 +2227,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2333,6 +2253,147 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:OperatingExpenses", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : 0, 
+    "Decimals" : 3, 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:default-fact-value", 
+      "Label" : "Default fact value", 
+      "Message" : "fac:OperatingExpenses = 0", 
+      "Data" : {
+        "OutputConcept" : "fac:OperatingExpenses"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:concept-maps", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesContinuing", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : 10542000000, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "50a01bf0-30ab-4d46-8418-066173dd2e67", 
+      "Type" : "xbrl28:formula", 
+      "Label" : "Net Cash Flow from Operating Activities, Continuing", 
+      "Message" : "fac:NetCashFlowFromOperatingActivitiesContinuing[10,542,000,000 USD] = fac:NetCashFlowFromOperatingActivities[10,542,000,000 USD] - NetCashFlowFromOperatingActivitiesDiscontinued[0]", 
+      "Data" : {
+        "OutputConcept" : "fac:NetCashFlowFromOperatingActivitiesContinuing"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:formula", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : 0, 
+    "Decimals" : 3, 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:default-fact-value", 
+      "Label" : "Default fact value", 
+      "Message" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued = 0", 
+      "Data" : {
+        "OutputConcept" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:concept-maps", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NetCashFlowFromOperatingActivities", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : 10542000000, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:dimension-default", 
+      "Label" : "Default dimension value", 
+      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
+      "Data" : {
+        "Dimension" : "dei:LegalEntityAxis", 
+        "Member" : "sec:DefaultLegalEntity", 
+        "OutputConcept" : "us-gaap:NetCashProvidedByUsedInOperatingActivities"
+      }
+    }, {
+      "Type" : "xbrl28:concept-maps", 
+      "Label" : "Concept map", 
+      "Message" : "fac:NetCashFlowFromOperatingActivities -> us-gaap:NetCashProvidedByUsedInOperatingActivities", 
+      "Data" : {
+        "OriginalConcept" : "us-gaap:NetCashProvidedByUsedInOperatingActivities", 
+        "OutputConcept" : "fac:NetCashFlowFromOperatingActivities"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:concept-maps", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:NetCashFlowFromFinancingActivitiesDiscontinued", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -2340,7 +2401,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2373,7 +2435,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2405,7 +2468,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2440,39 +2504,6 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetCashFlowFromFinancingActivitiesContinuing", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "DEBIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : -3745000000, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "74a3bfc8-8ac4-483a-9325-a27fcb1342d6", 
-      "Type" : "xbrl28:formula", 
-      "Label" : "Net Cash Flow from Financing Activities, Continuing", 
-      "Message" : "fac:NetCashFlowFromFinancingActivitiesContinuing[-3,745,000,000 USD] = fac:NetCashFlowFromFinancingActivities[-3,745,000,000 USD] - fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
-      "Data" : {
-        "OutputConcept" : "fac:NetCashFlowFromFinancingActivitiesContinuing"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:IncomeLossFromContinuingOperationsBeforeTax", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -2480,7 +2511,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2522,7 +2554,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2557,6 +2590,40 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NetCashFlowFromFinancingActivitiesContinuing", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "DEBIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : -3745000000, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "74a3bfc8-8ac4-483a-9325-a27fcb1342d6", 
+      "Type" : "xbrl28:formula", 
+      "Label" : "Net Cash Flow from Financing Activities, Continuing", 
+      "Message" : "fac:NetCashFlowFromFinancingActivitiesContinuing[-3,745,000,000 USD] = fac:NetCashFlowFromFinancingActivities[-3,745,000,000 USD] - fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
+      "Data" : {
+        "OutputConcept" : "fac:NetCashFlowFromFinancingActivitiesContinuing"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:formula", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:ComprehensiveIncomeLoss", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -2564,7 +2631,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2606,7 +2674,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2638,7 +2707,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2670,7 +2740,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2702,7 +2773,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2744,7 +2816,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2777,7 +2850,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2810,7 +2884,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2843,7 +2918,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2878,112 +2954,6 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:IncomeLossFromDiscontinuedOperationsNetOfTax", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : 0, 
-    "Decimals" : 3, 
-    "AuditTrails" : [ {
-      "Type" : "xbrl28:default-fact-value", 
-      "Label" : "Default fact value", 
-      "Message" : "fac:IncomeLossFromDiscontinuedOperationsNetOfTax = 0", 
-      "Data" : {
-        "OutputConcept" : "fac:IncomeLossFromDiscontinuedOperationsNetOfTax"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:concept-maps", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:ExchangeGainsLosses", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "DEBIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : -611000000, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Type" : "xbrl28:dimension-default", 
-      "Label" : "Default dimension value", 
-      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
-      "Data" : {
-        "Dimension" : "dei:LegalEntityAxis", 
-        "Member" : "sec:DefaultLegalEntity", 
-        "OutputConcept" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents"
-      }
-    }, {
-      "Type" : "xbrl28:concept-maps", 
-      "Label" : "Concept map", 
-      "Message" : "fac:ExchangeGainsLosses -> us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents", 
-      "Data" : {
-        "OriginalConcept" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents", 
-        "OutputConcept" : "fac:ExchangeGainsLosses"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:concept-maps", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : 0, 
-    "Decimals" : 3, 
-    "AuditTrails" : [ {
-      "Type" : "xbrl28:default-fact-value", 
-      "Label" : "Default fact value", 
-      "Message" : "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax = 0", 
-      "Data" : {
-        "OutputConcept" : "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:concept-maps", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:NetIncomeLossAttributableToNoncontrollingInterest", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -2991,7 +2961,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3026,6 +2997,115 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : 0, 
+    "Decimals" : 3, 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:default-fact-value", 
+      "Label" : "Default fact value", 
+      "Message" : "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax = 0", 
+      "Data" : {
+        "OutputConcept" : "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:concept-maps", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:IncomeLossFromDiscontinuedOperationsNetOfTax", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : 0, 
+    "Decimals" : 3, 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:default-fact-value", 
+      "Label" : "Default fact value", 
+      "Message" : "fac:IncomeLossFromDiscontinuedOperationsNetOfTax = 0", 
+      "Data" : {
+        "OutputConcept" : "fac:IncomeLossFromDiscontinuedOperationsNetOfTax"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:concept-maps", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:ExchangeGainsLosses", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "DEBIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : -611000000, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:dimension-default", 
+      "Label" : "Default dimension value", 
+      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
+      "Data" : {
+        "Dimension" : "dei:LegalEntityAxis", 
+        "Member" : "sec:DefaultLegalEntity", 
+        "OutputConcept" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents"
+      }
+    }, {
+      "Type" : "xbrl28:concept-maps", 
+      "Label" : "Concept map", 
+      "Message" : "fac:ExchangeGainsLosses -> us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents", 
+      "Data" : {
+        "OriginalConcept" : "us-gaap:EffectOfExchangeRateOnCashAndCashEquivalents", 
+        "OutputConcept" : "fac:ExchangeGainsLosses"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:concept-maps", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:PreferredStockDividendsAndOtherAdjustments", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -3033,7 +3113,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3059,6 +3140,40 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NetCashFlowDiscontinued", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "DEBIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : 0, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "260e6e0f-e6f4-48d2-8361-75cbfe04fe75", 
+      "Type" : "xbrl28:formula", 
+      "Label" : "Net Cash Flow, Discontinued", 
+      "Message" : "fac:NetCashFlowDiscontinued[0 USD] = NetCashFlowFromOperatingActivitiesDiscontinued[0] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
+      "Data" : {
+        "OutputConcept" : "fac:NetCashFlowDiscontinued"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:formula", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:NetCashFlowContinuing", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -3066,7 +3181,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3091,71 +3207,6 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NetCashFlowDiscontinued", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : 0, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "260e6e0f-e6f4-48d2-8361-75cbfe04fe75", 
-      "Type" : "xbrl28:formula", 
-      "Label" : "Net Cash Flow, Discontinued", 
-      "Message" : "fac:NetCashFlowDiscontinued[0 USD] = fac:NetCashFlowFromOperatingActivitiesDiscontinued[0 USD] + NetCashFlowFromInvestingActivitiesDiscontinued[0] + fac:NetCashFlowFromFinancingActivitiesDiscontinued[0 USD]", 
-      "Data" : {
-        "OutputConcept" : "fac:NetCashFlowDiscontinued"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "Type" : "NumericValue", 
-    "Value" : 647000000, 
-    "Decimals" : -6, 
-    "AuditTrails" : [ {
-      "Id" : "ee2117cd-9220-4ee2-a982-33f4074c1ebc", 
-      "Type" : "xbrl28:formula", 
-      "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense", 
-      "Message" : "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense[647,000,000 USD] = fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments[1,249,000,000 USD] - fac:IncomeLossFromEquityMethodInvestments[602,000,000 USD]", 
-      "Data" : {
-        "OutputConcept" : "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "iso4217:USD"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:NetCashFlow", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -3163,7 +3214,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3198,6 +3250,40 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-01-01/2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "YTD", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "duration", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "Type" : "NumericValue", 
+    "Value" : 647000000, 
+    "Decimals" : -6, 
+    "AuditTrails" : [ {
+      "Id" : "ee2117cd-9220-4ee2-a982-33f4074c1ebc", 
+      "Type" : "xbrl28:formula", 
+      "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense", 
+      "Message" : "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense[647,000,000 USD] = fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments[1,249,000,000 USD] - fac:IncomeLossFromEquityMethodInvestments[602,000,000 USD]", 
+      "Data" : {
+        "OutputConcept" : "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:formula", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -3205,7 +3291,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3238,7 +3325,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3280,7 +3368,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3313,7 +3402,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3346,7 +3436,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3379,7 +3470,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3412,7 +3504,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3445,7 +3538,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3478,7 +3572,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3511,7 +3606,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3534,7 +3630,7 @@
     "EntityRegistrantName" : "COCA COLA CO", 
     "Unit" : "iso4217:USD"
   } ], 
-  "Comment" : "Generated by 28.io, for more information see http://www.28.io/xbrl (2014-11-06T09:51:13.690435Z)", 
+  "Comment" : "Generated by 28.io, for more information see http://www.28.io/xbrl (2014-11-07T12:21:12.907174Z)", 
   "Statistics" : {
     "NumFacts" : 95, 
     "TotalNumFacts" : 939732, 

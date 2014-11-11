@@ -15,7 +15,8 @@ declare function local:expected-OtherOperatingIncomeExpenses-ATnT-2013() as obje
             "sec:FiscalPeriodType": "YTD",
             "sec:FiscalYear": 2013,
             "sec:Accepted": "20140221162554",
-            "dei:LegalEntityAxis": "sec:DefaultLegalEntity"
+            "dei:LegalEntityAxis": "sec:DefaultLegalEntity",
+            "sec:Archive" : "0000732717-14-000010"
         },
         "KeyAspects": [
             "xbrl:Concept",
@@ -260,7 +261,12 @@ return local:check({
     aid: local:test-facttable(if($dow30) then 0 else 95, {
         aid:"0001193125-14-157120",
         report:"FundamentalAccountingConcepts"}),
-    aid2: local:test-facttable(19, {
+    aid2: local:test-facttable(
+        (:
+          its only 18 here because they filed a 10-Q with a fiscalPeriod focus of FY
+          http://www.sec.gov/cgi-bin/viewer?action=view&cik=732717&accession_number=0000732717-14-000022&xbrl_type=v
+        :)
+        18, {
         aid:"0000732717-14-000022",
         report:"FundamentalAccountingConcepts"}),
     aid2-qtd: local:test-facttable(96, {
@@ -273,7 +279,7 @@ return local:check({
         ticker:"ko",
         fiscalYear:"2012",
         fiscalPeriod:"Q1"}),
-    tickerfyfprole: local:test-facttable(246, {
+    tickerfyfprole: local:test-facttable(247, {
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",

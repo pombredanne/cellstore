@@ -178,7 +178,7 @@ as item* (: object* :)
         facts:merge-objects(
           {
             Hypercube: $hypercube,
-            Filter: { Archive: [ archives:aid($archives) ] }
+            Filter: { $facts:ASPECTS : { $facts:ARCHIVE : [ archives:aid($archives) ] }}
           },
           $options,
           true (: parameter has higher priority than option :)

@@ -89,7 +89,7 @@ declare function conversion:facts-to-csv(
                         {|
                             if($use-labels)
                             then
-                                for $aspect as string in keys($fact.Aspects)
+                                for $aspect as string in keys($fact.Aspects)[$$ ne "sec:Archive"]
                                 let $aspect-label as string := conversion:aspect-label($aspect)
                                 let $aspect-value as atomic := conversion:aspect-value-or-label($aspect, $fact)
                                 return
