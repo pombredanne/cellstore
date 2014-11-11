@@ -99,7 +99,8 @@ declare function api:normalize-facts(
     return {|
         {
             "Aspects" : {|
-                trim($fact.Aspects, ("xbrl:Unit"))
+                trim($fact.Aspects, ("xbrl:Unit")),
+                { "sec:Archive" : $fact.Aspects."xbrl28:Archive" }[exists($fact.Aspects."xbrl28:Archive")]
             |}
         },
         trim($fact, ("Aspects", "_id")),
