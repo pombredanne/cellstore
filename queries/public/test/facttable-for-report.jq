@@ -15,7 +15,8 @@ declare function local:expected-OtherOperatingIncomeExpenses-ATnT-2013() as obje
             "sec:FiscalPeriodType": "YTD",
             "sec:FiscalYear": 2013,
             "sec:Accepted": "20140221162554",
-            "dei:LegalEntityAxis": "sec:DefaultLegalEntity"
+            "dei:LegalEntityAxis": "sec:DefaultLegalEntity",
+            "sec:Archive" : "0000732717-14-000010"
         },
         "KeyAspects": [
             "xbrl:Concept",

@@ -52,7 +52,8 @@ declare %an:nondeterministic function local:test-labels() as item
     )
     return if($res.status eq 200 and (every $line in $expectedLines satisfies contains($actual,$line))) then true else {
         url: test:url($endpoint, $params),
-        unexpectedResponse: $res
+        unexpectedResponse: $res,
+        expected: $expectedLines
     }
 };
 

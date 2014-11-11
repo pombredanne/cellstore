@@ -12,7 +12,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -48,7 +49,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -84,7 +86,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -120,7 +123,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -156,7 +160,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -192,7 +197,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -234,7 +240,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -276,7 +283,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -318,7 +326,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -360,7 +369,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -392,7 +402,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -425,7 +436,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -458,7 +470,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -500,7 +513,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -533,7 +547,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -575,7 +590,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -617,7 +633,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -649,7 +666,8 @@
       "sec:FiscalPeriodType" : "instant", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -681,7 +699,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -717,7 +736,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -753,7 +773,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -788,7 +809,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -824,7 +846,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -860,7 +883,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -896,7 +920,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -932,7 +957,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -968,7 +994,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1004,7 +1031,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1040,7 +1068,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1076,7 +1105,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1111,7 +1141,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1147,7 +1178,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1183,7 +1215,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1219,7 +1252,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1255,7 +1289,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1291,7 +1326,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1322,7 +1358,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1355,7 +1392,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1386,7 +1424,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1419,7 +1458,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1468,7 +1508,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1517,7 +1558,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1566,7 +1608,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1615,7 +1658,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1664,7 +1708,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1713,7 +1758,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1762,7 +1808,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "sec:Accepted" ], 
     "Concept" : {
@@ -1811,7 +1858,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1853,7 +1901,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1895,7 +1944,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1937,7 +1987,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -1979,7 +2030,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2021,7 +2073,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2054,7 +2107,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2087,7 +2141,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2129,7 +2184,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2171,7 +2227,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2203,7 +2260,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2235,7 +2293,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2267,7 +2326,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2299,7 +2359,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2340,7 +2401,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2373,7 +2435,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2405,7 +2468,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2447,7 +2511,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2489,7 +2554,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2531,7 +2597,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2564,7 +2631,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2606,7 +2674,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2638,7 +2707,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2670,7 +2740,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2702,7 +2773,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2744,7 +2816,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2777,7 +2850,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2810,7 +2884,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2843,7 +2918,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2885,7 +2961,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2927,7 +3004,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2959,7 +3037,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -2991,7 +3070,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3033,7 +3113,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3066,7 +3147,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3099,7 +3181,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3131,7 +3214,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3173,7 +3257,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3206,7 +3291,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3239,7 +3325,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3281,7 +3368,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3314,7 +3402,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3347,7 +3436,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3380,7 +3470,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3413,7 +3504,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3446,7 +3538,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3479,7 +3572,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
@@ -3512,7 +3606,8 @@
       "sec:FiscalPeriodType" : "YTD", 
       "sec:FiscalYear" : 2013, 
       "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity"
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity",
+      "sec:Archive" : "0000021344-14-000008"
     }, 
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Concept" : {
