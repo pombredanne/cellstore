@@ -13,7 +13,7 @@ angular.module('secxbrl')
                         if(token['token-type'] !== 'ui-login') {
                             $scope.tokens.push(token);
                         }
-                    })
+                    });
                 },
                 function(response) {
                     $scope.$emit('error', 'Error', response);

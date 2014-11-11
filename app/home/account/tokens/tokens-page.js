@@ -1,21 +1,21 @@
-/*global browser:false  */
+/*global browser:false, element:false, by:false  */
 'use strict';
 
 function TokensPage(){
-   this.tokens = element.all(by.repeater('t in tokens'));
-
-   this.createTokenForm = element(by.name('createTokenForm'));
-   this.revokeTokenForm = element(by.name('revokeTokenForm'));
-
-   this.password = element(by.name('password'));
-   this.expiration = element(by.id('expiration-date'));
-   this.hours = element(by.model('hours'));
-   this.minutes = element(by.model('minutes'));
-
-   this.buttons = {};
-   this.buttons.create = element(by.id('btn-create'));
-   this.buttons.createTokenButton = element(by.id('btn-createTokenButton'));
-   this.buttons.revokeExpiring = element(by.xpath('//tr[contains(@ng-repeat, "t in tokens") and contains(@class, "warning")]/td/button'));
+    this.tokens = element.all(by.repeater('t in tokens'));
+ 
+    this.createTokenForm = element(by.name('createTokenForm'));
+    this.revokeTokenForm = element(by.name('revokeTokenForm'));
+ 
+    this.password = element(by.name('password'));
+    this.expiration = element(by.id('expiration-date'));
+    this.hours = element(by.model('hours'));
+    this.minutes = element(by.model('minutes'));
+ 
+    this.buttons = {};
+    this.buttons.create = element(by.id('btn-create'));
+    this.buttons.createTokenButton = element(by.id('btn-createTokenButton'));
+    this.buttons.revokeExpiring = element(by.xpath('//tr[contains(@ng-repeat, "t in tokens") and contains(@class, "warning")]/td/button'));
 }
 
 TokensPage.prototype.showCreateToken = function() {
