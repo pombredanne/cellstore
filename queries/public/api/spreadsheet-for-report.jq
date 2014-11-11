@@ -24,6 +24,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriodType  as s
 declare  %rest:case-insensitive %rest:distinct  variable $aid           as string* external;
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate     as boolean external := false;
+declare  %rest:case-insensitive                 variable $elimination-threshold as integer external := 0;
 declare  %rest:case-insensitive                 variable $report        as string? external;
 declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
 
@@ -82,6 +83,7 @@ then
                     {
                         FlattenRows: true,
                         Eliminate: $eliminate,
+                        EliminationThreshold: double($elimination-threshold) div 100,
                         Validate: $validate
                     }
                 |}

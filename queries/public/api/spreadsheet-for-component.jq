@@ -27,6 +27,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $concept            as 
 declare  %rest:case-insensitive %rest:distinct  variable $disclosure         as string* external;
 declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate          as boolean external := false;
+declare  %rest:case-insensitive                 variable $elimination-threshold as integer external := 0;
 declare  %rest:case-insensitive %rest:distinct  variable $reportElement      as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $label              as string* external;
 declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
@@ -95,6 +96,7 @@ let $spreadsheet as object? :=
             {
                 FlattenRows: true,
                 Eliminate: $eliminate,
+                EliminationThreshold: double($elimination-threshold) div 100,
                 Validate: $validate,
                 DefinitionModel: $definition-model
             },
