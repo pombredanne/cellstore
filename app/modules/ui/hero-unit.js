@@ -1,0 +1,27 @@
+'use strict';
+
+angular
+.module('secxbrl')
+.directive('heroUnit', function($window){
+    return function($scope, $element){
+        var w = angular.element($window);
+
+        $scope.getWindowDimensions = function () {
+            var a = $window.document.documentElement.clientHeight;
+            var b = $window.innerHeight;
+            return a < b ? b : a;
+        };
+
+        $scope.$watch($scope.getWindowDimensions, function (newValue, oldValue) {
+            $element[0].style.height = newValue + 'px';
+        });
+
+        w.bind('resize', function () {
+            $scope.$apply();
+        });
+
+
+    };
+})
+;
+

@@ -34,14 +34,35 @@
       }
     }
 
-    .row > div:last-child {
-      text-align: center;
-    }
+    //.row > div:last-child {
+    //  text-align: center;
+    //}
 
     img {
       height: 300px;
       width: auto;
 
+    }
+
+    a.scrolldown {
+      color: white;
+      border-bottom: none;
+      background: rgba(22,25,29,0.6);
+      display: block;
+      width: 5rem;
+      height: 5rem;
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      margin-left: -2.5rem;
+      border-radius: 50%;
+      -webkit-transition: .25s;
+      transition: .25s;
+      cursor: s-resize;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 
