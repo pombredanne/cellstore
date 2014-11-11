@@ -28,6 +28,8 @@ declare function local:param-values($name as string) as string*
         return "integer"
      case $name eq "sec:FiscalPeriod" and $profile-name eq "sec"
         return ($fiscalPeriod, request:param-values("sec:FiscalPeriod"))
+     case $name eq "sec:FiscalPeriodType" and $profile-name eq "sec"
+        return ($fiscalPeriodType, request:param-values("sec:FiscalPeriodType"))
      case $name eq "dei:LegalEntityAxis" and $profile-name eq "sec"
         return
          if(empty((request:param-values("sec:LegalEntityAxis"), request:param-values("sec:LegalEntityAxis::default"))))
@@ -47,7 +49,7 @@ declare function local:param-values($name as string) as string*
                then $companies
                else "dummy",
         request:param-values("xbrl:Entity"))
-     case $name eq "sec:Archive" and $profile-name eq "sec" return (
+     case $name eq "xbrl28:Archive" and $profile-name eq "sec" return (
             let $fiscalYears := ($fiscalYear, request:param-values("sec:FiscalYear"))
             let $fiscalPeriods := local:param-values("sec:FiscalPeriod")
             let $entities := entities:entities(local:param-values("xbrl:Entity"))
@@ -56,7 +58,7 @@ declare function local:param-values($name as string) as string*
                 then fiscal-core:latest-filings($entities, $fiscalPeriods)._id
                 else (),
             $aid,
-            request:param-values("sec:Archive")
+            request:param-values("xbrl28:Archive")
         )
      default return request:param-values($name)
 };
@@ -70,11 +72,12 @@ declare function local:param-names() as string*
 
         "sec:Accepted"[$profile-name eq "sec"],
         "sec:FiscalPeriod"[$profile-name eq "sec"],
+        "sec:FiscalPeriodType"[$profile-name eq "sec"],
         "sec:FiscalYear"[$profile-name eq "sec"],
         "xbrl:Entity"[$profile-name eq "sec" and $names = ("cik", "tag", "ticker", "sic")],
         "dei:LegalEntityAxis"[$profile-name eq "sec"],
         "dei:LegalEntityAxis::default"[$profile-name eq "sec"],
-        "sec:Archive"[$profile-name eq "sec"]))
+        "xbrl28:Archive"[$profile-name eq "sec"]))
 };
 
 declare function local:cast-sequence($values as atomic*, $type as string) as atomic*
@@ -108,7 +111,7 @@ declare function local:hypercube() as object
             (local:param-values($dimension-name || "::type"), local:param-values($dimension-name || ":type"))[1]
 
         let $values := local:param-values($dimension-name)
-        let $typed-values := if (exists($type)) then local:cast-sequence($values, $type) else $values
+        let $typed-values := if (exists($type)) then local:cast-sequence($values[$$ ne "ALL"], $type) else $values
 
         let $has-default := ($parameter = $dimension-name || "::default") or ($parameter = $dimension-name || ":default")
         let $default-value := (local:param-values($dimension-name || "::default"), local:param-values($dimension-name || ":default"))[1]
@@ -118,7 +121,9 @@ declare function local:hypercube() as object
         {
             $dimension-name : {|
                 { "Type" : $type }[exists($type)],
-                { "Domain" : [ $typed-values ] }[(exists($typed-values) and not($all))],
+                if(not($all))
+                then { "Domain" : [ $typed-values ] }[exists($typed-values)]
+                else (),
                 { "Default" : $typed-default-value }[$has-default]
             |}
         }
@@ -137,6 +142,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $ticker            as s
 declare  %rest:case-insensitive %rest:distinct  variable $sic               as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear        as string* external := "LATEST";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod      as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriodType  as string* external := ("instant", "YTD");
 declare  %rest:case-insensitive %rest:distinct  variable $aid               as string* external;
 declare  %rest:case-insensitive                 variable $map               as string? external;
 declare  %rest:case-insensitive                 variable $rule              as string? external;
@@ -193,7 +199,7 @@ let $facts :=
   if(not $labels)
   then $facts
   else
-    let $archives as string* := distinct-values($facts.Aspects."sec:Archive")
+    let $archives as string* := distinct-values($facts.Aspects."xbrl28:Archive")
     let $concept-names as string* := distinct-values($facts.Aspects."xbrl:Concept")
     let $concepts as object* :=
       (

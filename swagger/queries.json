@@ -14,7 +14,7 @@
             "operations": [
                 {
                     "method": "POST",
-                    "summary": "Retrieve information about all or a selection of entities",
+                    "summary": "[SEC profile] Retrieve information about all or a selection of entities",
                     "nickname": "listEntities",
                     "parameters": [
                         {
@@ -38,6 +38,7 @@
                             "enum": [
                                 "DOW30",
                                 "SP500",
+                                "RUSSEL1000",
                                 "FORTUNE100",
                                 "PJI",
                                 "ALL"
@@ -124,7 +125,7 @@
             "operations": [
                 {
                     "method": "POST",
-                    "summary": "Retrieve the filings of a particular entity",
+                    "summary": "[SEC profile] Retrieve the filings of a particular entity",
                     "nickname": "listFilings",
                     "parameters": [
                         {
@@ -184,7 +185,7 @@
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the fact to retrieve (default: LATEST)",
+                            "description": "The fiscal year focus of the filings to retrieve (default: LATEST)",
                             "required": false,
                             "type": "string",
                             "paramType": "query",
@@ -196,7 +197,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the fact to retrieve (default: FY)",
+                            "description": "The fiscal period focus of the filings to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -273,19 +274,20 @@
                         },
                         {
                             "name": "ticker",
-                            "description": "The ticker of the entity",
+                            "description": "[SEC profile] The ticker of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "tag",
-                            "description": "The tag to filter entities",
+                            "description": "[SEC profile] The tag to filter entities",
                             "required": false,
                             "type": "string",
                             "enum": [
                                 "DOW30",
                                 "SP500",
+                                "RUSSEL1000",
                                 "FORTUNE100",
                                 "PJI",
                                 "ALL"
@@ -294,21 +296,21 @@
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "cik",
-                            "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
+                            "description": "[SEC profile] The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the fact to retrieve (default: ALL)",
+                            "description": "[SEC profile] The fiscal year focus of the components to retrieve (default: ALL)",
                             "required": false,
                             "type": "string",
                             "paramType": "query",
@@ -320,7 +322,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the fact to retrieve (default: ALL)",
+                            "description": "[SEC profile] The fiscal period focus of the components to retrieve (default: ALL)",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -334,28 +336,35 @@
                         },
                         {
                             "name": "aid",
-                            "description": "The id of the filing",
+                            "description": "The id of the filings for which to retrieve components",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "cid",
-                            "description": "The id of a particular component",
+                            "description": "[Deprecated] The id of a particular component",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "networkIdentifier",
-                            "description": "The network identifier of a particular component",
+                            "description": "[SEC profile] The network identifier (=role) of a particular component",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "role",
+                            "description": "The role of a particular component",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "disclosure",
-                            "description": "The disclosure to search for (e.g. BalanceSheet)",
+                            "description": "[SEC profile] The disclosure to search for (e.g. BalanceSheet)",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -372,6 +381,17 @@
                             "description": "A search term to search in the labels of components (e.g. stock)",
                             "required": false,
                             "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "profile-name",
+                            "description": "Specifies which profile to use. The default depends on the underlying repository.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "SEC",
+                                "generic"
+                            ],
                             "paramType": "query"
                         },
                         {
@@ -445,7 +465,7 @@
                         },
                         {
                             "name": "cid",
-                            "description": "The id of the component",
+                            "description": "[Deprecated] The id of the component",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -459,26 +479,27 @@
                         },
                         {
                             "name": "cik",
-                            "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
+                            "description": "[SEC profile] The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "ticker",
-                            "description": "The ticker of the entity",
+                            "description": "[SEC profile] The ticker of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "tag",
-                            "description": "A tag to filter",
+                            "description": "[SEC profile] A tag to filter",
                             "required": false,
                             "type": "string",
                             "enum": [
                                 "DOW30",
                                 "SP500",
+                                "RUSSEL1000",
                                 "FORTUNE100",
                                 "PJI",
                                 "ALL"
@@ -487,35 +508,42 @@
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "networkIdentifier",
-                            "description": "The network identifier of a particular component",
+                            "description": "[SEC profile] The network identifier (=role) of a particular component",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "role",
+                            "description": "The role of a particular component",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the filing",
+                            "description": "[SEC profile] The fiscal year of the filing",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the filing",
+                            "description": "[SEC profile] The fiscal period of the filing",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "disclosure",
-                            "description": "The disclosure of the component (e.g. BalanceSheet)",
+                            "description": "[SEC profile] The disclosure of the component (e.g. BalanceSheet)",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -560,6 +588,17 @@
                             "enum": [
                                 "true",
                                 "false"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "profile-name",
+                            "description": "Specifies which profile to use. The default depends on the underlying repository.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "SEC",
+                                "generic"
                             ],
                             "paramType": "query"
                         },
@@ -628,7 +667,7 @@
                         },
                         {
                             "name": "cid",
-                            "description": "The id of the component",
+                            "description": "[Deprecated] The id of the component",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -642,26 +681,27 @@
                         },
                         {
                             "name": "cik",
-                            "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
+                            "description": "[SEC profile] The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "ticker",
-                            "description": "The ticker of the entity",
+                            "description": "[SEC profile] The ticker of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "tag",
-                            "description": "A tag to filter",
+                            "description": "[SEC profile] A tag to filter",
                             "required": false,
                             "type": "string",
                             "enum": [
                                 "DOW30",
                                 "SP500",
+                                "RUSSEL1000",
                                 "FORTUNE100",
                                 "PJI",
                                 "ALL"
@@ -670,35 +710,42 @@
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "networkIdentifier",
-                            "description": "The network identifier of a particular component",
+                            "description": "[SEC profile] The network identifier (=role) of a particular component",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "role",
+                            "description": "The role of a particular component",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the filing",
+                            "description": "[SEC profile] The fiscal year of the filing",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the filing",
+                            "description": "[SEC profile] The fiscal period of the filing",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "disclosure",
-                            "description": "The disclosure of the component (e.g. BalanceSheet)",
+                            "description": "[SEC profile] The disclosure of the component (e.g. BalanceSheet)",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -743,6 +790,17 @@
                             "enum": [
                                 "FundamentalAccountingConcepts",
                                 "null"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "profile-name",
+                            "description": "Specifies which profile to use. The default depends on the underlying repository.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "SEC",
+                                "generic"
                             ],
                             "paramType": "query"
                         },
@@ -793,7 +851,7 @@
             "operations": [
                 {
                     "method": "POST",
-                    "summary": "Retrieve the model structure for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).",
+                    "summary": "[SEC profile] Retrieve the model structure for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).",
                     "nickname": "listModelStructure",
                     "parameters": [
                         {
@@ -811,7 +869,7 @@
                         },
                         {
                             "name": "cid",
-                            "description": "The id of the component",
+                            "description": "[Deprecated] The id of the component",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -957,26 +1015,27 @@
                         },
                         {
                             "name": "cik",
-                            "description": "The CIK of the entity",
+                            "description": "[SEC profile] The CIK of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "ticker",
-                            "description": "The ticker of the entity",
+                            "description": "[SEC profile] The ticker of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "tag",
-                            "description": "The tag to filter entities",
+                            "description": "[SEC profile] The tag to filter entities",
                             "required": false,
                             "type": "string",
                             "enum": [
                                 "DOW30",
                                 "SP500",
+                                "RUSSEL1000",
                                 "FORTUNE100",
                                 "PJI",
                                 "ALL"
@@ -985,14 +1044,14 @@
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the fact to retrieve (default: LATEST)",
+                            "description": "[SEC profile] The fiscal year of the fact to retrieve (default: LATEST)",
                             "required": false,
                             "type": "string",
                             "paramType": "query",
@@ -1004,7 +1063,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the fact to retrieve (default: FY)",
+                            "description": "[SEC profile] The fiscal period of the fact to retrieve (default: FY). Can select multiple.",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -1013,6 +1072,18 @@
                                 "Q3",
                                 "FY",
                                 "ALL"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "fiscalPeriodType",
+                            "description": "[SEC profile] The fiscal period type of the fact to retrieve (default: instant+YTD). Can select multiple.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "instant",
+                                "YTD",
+                                "QTD"
                             ],
                             "paramType": "query"
                         },
@@ -1045,6 +1116,17 @@
                             "enum": [
                                 "true",
                                 "false"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "profile-name",
+                            "description": "Specifies which profile to use. The default depends on the underlying repository.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "SEC",
+                                "generic"
                             ],
                             "paramType": "query"
                         },
@@ -1113,26 +1195,27 @@
                         },
                         {
                             "name": "cik",
-                            "description": "The CIK of the entity",
+                            "description": "[SEC profile] The CIK of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "ticker",
-                            "description": "The ticker of the entity",
+                            "description": "[SEC profile] The ticker of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "tag",
-                            "description": "The tag to filter entities",
+                            "description": "[SEC profile] The tag to filter entities",
                             "required": false,
                             "type": "string",
                             "enum": [
                                 "DOW30",
                                 "SP500",
+                                "RUSSEL1000",
                                 "FORTUNE100",
                                 "PJI",
                                 "ALL"
@@ -1141,14 +1224,14 @@
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the fact to retrieve (default: LATEST)",
+                            "description": "[SEC profile] The fiscal year of the fact to retrieve (default: LATEST)",
                             "required": false,
                             "type": "string",
                             "paramType": "query",
@@ -1160,7 +1243,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the fact to retrieve (default: FY)",
+                            "description": "[SEC profile] The fiscal period of the fact to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -1169,6 +1252,18 @@
                                 "Q3",
                                 "FY",
                                 "ALL"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "fiscalPeriodType",
+                            "description": "[SEC profile] The fiscal period type of the fact to retrieve (default: instant+YTD). Can select multiple, but preferably not both YTD and QTD.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "instant",
+                                "YTD",
+                                "QTD"
                             ],
                             "paramType": "query"
                         },
@@ -1203,6 +1298,17 @@
                                 "true",
                                 "false"
                               ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "profile-name",
+                            "description": "Specifies which profile to use. The default depends on the underlying repository.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "SEC",
+                                "generic"
+                            ],
                             "paramType": "query"
                         },
                         {
@@ -1266,26 +1372,27 @@
                         },
                         {
                             "name": "cik",
-                            "description": "The CIK of the entity",
+                            "description": "[SEC profile] The CIK of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "ticker",
-                            "description": "The ticker of the entity",
+                            "description": "[SEC profile] The ticker of the entity",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "tag",
-                            "description": "The tag to filter entities",
+                            "description": "[SEC profile] The tag to filter entities",
                             "required": false,
                             "type": "string",
                             "enum": [
                                 "DOW30",
                                 "SP500",
+                                "RUSSEL1000",
                                 "FORTUNE100",
                                 "PJI",
                                 "ALL"
@@ -1294,7 +1401,7 @@
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -1308,7 +1415,7 @@
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the fact to retrieve (default: LATEST)",
+                            "description": "[SEC profile] The fiscal year of the fact to retrieve (default: LATEST)",
                             "required": false,
                             "type": "string",
                             "paramType": "query",
@@ -1327,7 +1434,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the fact to retrieve (default: FY)",
+                            "description": "[SEC profile] The fiscal period of the fact to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -1336,6 +1443,18 @@
                                 "Q3",
                                 "FY",
                                 "ALL"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "fiscalPeriodType",
+                            "description": "[SEC profile] The fiscal period type of the fact to retrieve (default: instant+YTD). Can select multiple.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "instant",
+                                "YTD",
+                                "QTD"
                             ],
                             "paramType": "query"
                         },
@@ -1391,6 +1510,17 @@
                             "enum": [
                                 "true",
                                 "false"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "profile-name",
+                            "description": "Specifies which profile to use. The default depends on the underlying repository.",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "SEC",
+                                "generic"
                             ],
                             "paramType": "query"
                         },
@@ -1493,12 +1623,13 @@
                         },
                         {
                             "name": "tag",
-                            "description": "A tag to filter",
+                            "description": "[SEC profile] A tag to filter entities",
                             "required": false,
                             "type": "string",
                             "enum": [
                                 "DOW30",
                                 "SP500",
+                                "RUSSEL1000",
                                 "FORTUNE100",
                                 "PJI",
                                 "ALL"
@@ -1507,28 +1638,28 @@
                         },
                         {
                             "name": "cik",
-                            "description": "A CIK number",
+                            "description": "[SEC profile] A CIK number",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "ticker",
-                            "description": "A ticker symbols",
+                            "description": "[SEC profile] A ticker symbols",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year of the fact to retrieve (default: ALL)",
+                            "description": "[SEC profile] The fiscal year focus of the component to retrieve (default: ALL)",
                             "required": false,
                             "type": "string",
                             "paramType": "query",
@@ -1540,7 +1671,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period of the fact to retrieve (default: FY)",
+                            "description": "[SEC profile] The fiscal period focus of the component to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
                             "enum": [
