@@ -206,7 +206,11 @@ declare function layout:build-hypercube(
                         else ()
                     |}
                 }
-            |}
+            |},
+            {
+                Name: $hypercube.Name,
+                Label: $hypercube.Label
+            }[exists($hypercube)]
         )
 };
 

@@ -405,9 +405,30 @@ declare function hypercubes:dimensionless-hypercube($options as object?) as obje
  :)
 declare function hypercubes:user-defined-hypercube($dimensions as object?) as object
 {
+    hypercubes:user-defined-hypercube($dimensions, ())
+};
+
+(:~
+ : <p>Returns an instantiation of a Hypercube containing the specified dimensions.
+ :    The four basic characteristics (xbrl:Concept, xbrl:Period, xbrl:Entity, and xbrl:Unit)
+ :    are always added, but can be overriden. For each of those included aspects the value space is,
+ :    by default, not limited, and only xbrl:Unit has a default value.</p>
+ :
+ : @return the hypercube instantiation.
+ : @param $dimensions: an object with pairs of (dimension name, object with dimension information). These 
+ : dimension information subobjects
+ : may have two (optional) fields: Default (a string) and Domain (an array of strings).
+ : @param $options: an object with two options: Name (default: xbrl:UserDefinedHypercube) and Label
+ : (default: User-defined Hypercube).
+ :
+ : @error hypercubes:invalid-type if a member of a typed dimension does not match the expected type
+ : @error hypercubes:invalid-type if a member of an explicit dimension is not of type string
+ :)
+declare function hypercubes:user-defined-hypercube($dimensions as object?, $options as object?) as object
+{
   {
-    "Name" : "xbrl:UserDefinedHypercube", 
-    "Label" : "User-defined Hypercube",
+    "Name" : ($options.Name, "xbrl:UserDefinedHypercube")[1], 
+    "Label" : ($options.Label, "User-defined Hypercube")[1],
     "Aspects" : {|
       for $dimension-name as string in distinct-values((
           "xbrl:Concept",
@@ -550,7 +571,13 @@ declare function hypercubes:modify-hypercube(
             |}
         }
     |}
-    return hypercubes:user-defined-hypercube($options)
+    return hypercubes:user-defined-hypercube(
+        $options,
+        {
+            Name: $hypercube.Name,
+            Label: $hypercube.Label || " (with filter overrides)"
+        }
+    )
 };
 
 declare function hypercubes:merge($hypercubes as object*) as object

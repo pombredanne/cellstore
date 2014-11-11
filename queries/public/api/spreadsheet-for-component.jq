@@ -98,13 +98,6 @@ let $spreadsheet as object? :=
                 Validate: $validate,
                 DefinitionModel: $definition-model
             },
-            {
-                FilterOverride : {
-                    "sec:FiscalPeriod" : { Type: "string", Default: null },
-                    "sec:FiscalYear" : { Type: "string", Default: null },
-                    "sec:FiscalPeriodType" : { Type: "string", Default: null }
-                }
-            }[$profile-name eq "sec"],
             if(exists($rules))
             then { Rules : [ $rules ] }
             else ()
