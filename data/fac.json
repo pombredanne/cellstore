@@ -1767,7 +1767,7 @@
     "Hypercubes" : {
         "xbrl:DefaultHypercube" : {
             "Name" : "xbrl:DefaultHypercube",
-            "Label" : "XBRL Implicit non-dimensional Hypercube",
+            "Label" : "Fundamental Accounting Concepts [Table]",
             "Aspects" : {
                 "xbrl:Concept" : {
                     "Name" : "xbrl:Concept",

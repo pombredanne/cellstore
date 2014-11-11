@@ -4,6 +4,7 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 
 declare variable $id := "BasicFinancialInformation";
 declare variable $report := parse-json(http:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/export/fac.jq?_method=POST").body.content);
+declare variable $label := "Basic Financial Information";
 declare variable $desc :=
   "This report extends the fundamental accounting concepts report. Documentation about the fundamental accounting concepts defined in this report can be found at http://fundamentalaccountingconcepts.wikispaces.com/home";
 declare variable $role := "http://xbrl.io/basic-financial-information";
@@ -150,6 +151,8 @@ return
   }
 
 (: Hypercube :)
+replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Label with ( $label || " [Table]" );
+
 let $conceptsDomain := $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain"
 let $concepts :=
     {
@@ -231,7 +234,7 @@ replace value of json $report.Rules with [ $report.Rules[][$$.Id ne "default_zer
 
 { "_id": $id,
   Archive: null,
-  Label: "Basic Financial Information",
+  Label: $label,
   Description: $desc,
   Prefix: "fac",
   Role: $role,
