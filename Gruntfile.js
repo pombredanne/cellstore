@@ -618,7 +618,8 @@ module.exports = function (grunt) {
                 runQueries: [
                     'queries/private/InitAuditCollection.jq',
                     'queries/private/init.jq',
-                    'queries/private/UpdateReportSchema.jq'
+                    'queries/private/UpdateReportSchema.jq',
+                    'queries/private/migration/db6.jq'
                 ]
 
             },
@@ -630,7 +631,8 @@ module.exports = function (grunt) {
                 runQueries: [
                     'queries/private/InitAuditCollection.jq',
                     'queries/private/init.jq',
-                    'queries/private/UpdateReportSchema.jq'
+                    'queries/private/UpdateReportSchema.jq',
+                    'queries/private/migration/db6.jq'
                 ]
             },
             run: {

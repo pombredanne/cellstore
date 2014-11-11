@@ -70,6 +70,18 @@ then
                 "Enumeration": [ "FY" ]
               }
             };
+        replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Aspects."sec:FiscalPeriodType" with
+                    {
+                      "Name": "sec:FiscalPeriodType",
+                      "Label": "Fiscal Period Type",
+                      "Kind": "TypedDimension",
+                      "Type": "string",
+                      "DomainRestriction": {
+                        "Name": "sec:FiscalPeriodTypeDomain",
+                        "Label": "Fiscal Period Type Domain",
+                        "Enumeration": [ "instant", "YTD" ]
+                      }
+                    };
     }
 else ();
 
@@ -123,6 +135,7 @@ local:convert(
         tag: [ "DOW30" ],
         fiscalYear : [ 2013 ],
         fiscalPeriod : [ "FY" ],
+        fiscalPeriodType : [ "instant", "YTD" ],
         sic : [  ]
       }
     }

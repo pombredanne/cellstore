@@ -15,7 +15,7 @@ declare %an:nondeterministic function local:test-empty($params as object) as ite
 {
     let $endpoint := "facts"
     let $res as object := test:invoke-raw($endpoint, $params)
-    return if($res.status eq 200 and $res.headers."Content-Length" eq "0") then true else {
+    return if($res.status eq 200 and ($res.headers."Content-Length" eq "0" or empty($res.body.content))) then true else {
         url: test:url($endpoint, $params),
         unexpectedResponse: $res
     }
@@ -52,7 +52,8 @@ declare %an:nondeterministic function local:test-labels() as item
     )
     return if($res.status eq 200 and (every $line in $expectedLines satisfies contains($actual,$line))) then true else {
         url: test:url($endpoint, $params),
-        unexpectedResponse: $res
+        unexpectedResponse: $res,
+        expected: $expectedLines
     }
 };
 
@@ -79,13 +80,22 @@ declare %an:nondeterministic function local:test-labels-aids() as item
 };
 
 local:check({
-    cocacola: local:test-facttable(468, {
+    cocacola-latest:
+    (: this test will fail and needs to be updated if a newer report has been filed.
+       current latest filing: 2013 :)
+    local:test-facttable(468, {
         ticker:"ko"
     }),
     cocacola-all: local:test-facttable(468, {
         ticker:"ko",
         fiscalYear: 2013,
         fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "instant", "YTD", "QTD" ]
+    }),
+    cocacola-all-q3: local:test-facttable(341, {
+        ticker:"ko",
+        fiscalYear: 2014,
+        fiscalPeriod: [ "Q3" ],
         fiscalPeriodType: [ "instant", "YTD", "QTD" ]
     }),
     cocacola-instant: local:test-facttable(163, {

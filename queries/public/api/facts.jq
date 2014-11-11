@@ -111,7 +111,7 @@ declare function local:hypercube() as object
             (local:param-values($dimension-name || "::type"), local:param-values($dimension-name || ":type"))[1]
 
         let $values := local:param-values($dimension-name)
-        let $typed-values := if (exists($type)) then local:cast-sequence($values, $type) else $values
+        let $typed-values := if (exists($type)) then local:cast-sequence($values[$$ ne "ALL"], $type) else $values
 
         let $has-default := ($parameter = $dimension-name || "::default") or ($parameter = $dimension-name || ":default")
         let $default-value := (local:param-values($dimension-name || "::default"), local:param-values($dimension-name || ":default"))[1]
@@ -121,7 +121,9 @@ declare function local:hypercube() as object
         {
             $dimension-name : {|
                 { "Type" : $type }[exists($type)],
-                { "Domain" : [ $typed-values ] }[(exists($typed-values) and not($all))],
+                if(not($all))
+                then { "Domain" : [ $typed-values ] }[exists($typed-values)]
+                else (),
                 { "Default" : $typed-default-value }[$has-default]
             |}
         }
