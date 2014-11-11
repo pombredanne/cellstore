@@ -80,7 +80,10 @@ declare %an:nondeterministic function local:test-labels-aids() as item
 };
 
 local:check({
-    cocacola: local:test-facttable(468, {
+    cocacola-latest:
+    (: this test will fail and needs to be updated if a newer report has been filed.
+       current latest filing: 2013 :)
+    local:test-facttable(468, {
         ticker:"ko"
     }),
     cocacola-all: local:test-facttable(468, {
