@@ -89,6 +89,12 @@ local:check({
         fiscalPeriod: [ "FY" ],
         fiscalPeriodType: [ "instant", "YTD", "QTD" ]
     }),
+    cocacola-all-q3: local:test-facttable(341, {
+        ticker:"ko",
+        fiscalYear: 2014,
+        fiscalPeriod: [ "Q3" ],
+        fiscalPeriodType: [ "instant", "YTD", "QTD" ]
+    }),
     cocacola-instant: local:test-facttable(163, {
         ticker:"ko",
         fiscalYear: 2013,
