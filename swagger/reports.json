@@ -46,6 +46,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "export",
+                            "description": "If set to true a report will be retrieved in a binary format. Only a single report can be exported at once.",
+                            "required": false,
+                            "type": "boolean",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "token",
                             "description": "The token of the current session",
                             "required": false,
