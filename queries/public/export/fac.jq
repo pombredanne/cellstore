@@ -12,7 +12,7 @@ declare variable $acl :=
           "Permission": "READ"
        }
     ];
-
+syntax error
 declare function local:convert($item as item) as item*
 {
     typeswitch($item)
