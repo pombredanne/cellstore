@@ -24,8 +24,10 @@ declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriodType  as s
 declare  %rest:case-insensitive %rest:distinct  variable $aid           as string* external;
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate     as boolean external := false;
+declare  %rest:case-insensitive                 variable $elimination-threshold as integer external := 0;
 declare  %rest:case-insensitive                 variable $report        as string? external;
 declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
+declare  %rest:case-insensitive                 variable $debug         as boolean external := false;
 
 session:audit-call($token);
 
@@ -82,7 +84,9 @@ then
                     {
                         FlattenRows: true,
                         Eliminate: $eliminate,
-                        Validate: $validate
+                        EliminationThreshold: double($elimination-threshold) div 100,
+                        Validate: $validate,
+                        Debug: $debug
                     }
                 |}
             )

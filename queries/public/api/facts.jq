@@ -150,6 +150,7 @@ declare  %rest:case-insensitive                 variable $report            as s
 declare  %rest:case-insensitive                 variable $validate          as boolean external := false;
 declare  %rest:case-insensitive                 variable $labels            as boolean external := false;
 declare  %rest:case-insensitive                 variable $additional-rules  as string? external;
+declare  %rest:case-insensitive                 variable $debug             as boolean external := false;
 
 session:audit-call($token);
 
@@ -235,6 +236,13 @@ let $comment :=
     TotalNumArchives: session:num-archives(),
     TotalNumEntities: session:num-entities()
 }
+let $comment :=
+    if($debug)
+    then {|
+        $comment,
+        { DebugInfo: { Hypercube: $hypercube } }
+    |}
+    else $comment
 let $serializers := {
     to-xml : function($res as object) as node()* {
            <FactTable NetworkIdentifier="http://bizql.io/facts"
