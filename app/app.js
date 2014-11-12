@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('secxbrl', [
+    'angular-parallax',
     'angular-data.DS',
     'angular-data.DSCacheFactory',
     'ui.router',
