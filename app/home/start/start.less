@@ -9,13 +9,12 @@
 
     background-image: url(/images/hero-unit.jpg);
     background-repeat: no-repeat;
-    //background-position: center center;
     background-attachment: fixed;
     background-size: cover;
 
     h1 {
       color: white;
-      text-shadow: 0 2px 3px rgba(0,0,0,.4);
+      //text-shadow: 0 2px 3px rgba(0,0,0,.4);
       font-size: 76px;
       font-weight: 100;
       margin-top: 0;
@@ -70,33 +69,41 @@
     padding-top: @navbar-height;
   }
 
-  section.row {
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    border-top: 1px solid @clouds;
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
+  section {
 
-    p {
-      color: @concrete;
+    border-bottom: 2px solid lighten(@concrete, 30%);
+    padding-top: 6em;
+    padding-bottom: 6em;
 
-      .btn-default {
-        border: 2px solid @brand-primary;
-        font-size: @font-size-large;
+    >.container > .row {
+
+      h2 {
         color: @brand-primary;
-        &:hover {
-          color: white;
-          background-color: @brand-primary;
+      }
+
+      p {
+        color: @concrete;
+        font-weight: 100;
+
+        .btn-default {
+          border: 2px solid @brand-primary;
+          font-size: @font-size-large;
+          color: @brand-primary;
+          &:hover {
+            color: white;
+            background-color: @brand-primary;
+          }
         }
       }
-    }
 
-    >div.picto {
-      text-align: center;
-      img {
-        height: 350px;
-        width: auto;
+      >div.picto {
+        text-align: center;
+        img {
+          height: 350px;
+          width: auto;
+        }
       }
+
     }
   }
 
