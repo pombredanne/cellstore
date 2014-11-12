@@ -271,12 +271,17 @@ module.exports = function(grunt) {
         var testsHavePassed = hasTravisTestPassed();
         var e2eReportAvailable = hasE2eReport();
 
-        if((environment === 'ci' || environment === 'prod' || environment === 'dev') &&
+        if((environment === 'ci' || environment === 'prod') &&
             !testsHavePassed && e2eReportAvailable){
             grunt.task.run([
                 'aws_s3:uploadReports',
                 'e2e-report-message:' + environment
             ]);
+        } else if (environment === 'dev') {
+            if(e2eReportAvailable){
+                var reportDir = grunt.config.get(['yeoman']).e2eReportsDir;
+                grunt.log.writeln('Not uploading e2e reports in dev environment. E2E test report available here: ' + reportDir);
+            }
         } else if (testsHavePassed) {
             grunt.log.writeln('Not uploading e2e reports because tests have passed.');
         } else if(!e2eReportAvailable){
@@ -318,19 +323,23 @@ module.exports = function(grunt) {
 
         if (target === 'setup') {
             grunt.task.run([
+                'xqlint',
+                'jsonlint',
+                'jshint',
                 'frontend:' + environment,
                 'backend:' + environment,
                 'deployed-message'
             ]);
         } else if (target === 'run') {
-            hasTravisTestPassed();
-            grunt.task.run([
-                'xqlint',
-                'jsonlint',
-                'jshint',
-                '28:run',
-                'e2e:' + environment
-            ]);
+            var hasSetupBeenSuccessful = hasTravisTestPassed(); // in dev environm. this is always false
+            if(environment === 'dev' || hasSetupBeenSuccessful){
+                grunt.task.run([
+                    '28:run',
+                    'e2e:' + environment
+                ]);
+            } else {
+                grunt.log.writeln('Not running tests because setup failed: ' + environment);
+            }
         } else if (target === 'teardown' && environment !== 'prod') {
             if(!isTravis()) {
                 grunt.task.run(['ngconstant:' + environment]);
