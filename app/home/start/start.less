@@ -2,7 +2,7 @@
   font-size: @font-size-large;
 
   .jumbotron {
-    background-color: @brand-primary;
+    background-color: @clouds;
 
     padding-top: 0;
     padding-bottom: 4em;
@@ -168,7 +168,9 @@
       img {
         vertical-align: middle;
         max-height: 100px; /* equals max image height */
-        max-width: 260px;
+        max-width: 255px;
+        //https://bugs.webkit.org/show_bug.cgi?id=93471
+        -webkit-transform: translateZ(0);
       }
     }
   }
