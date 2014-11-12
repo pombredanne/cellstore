@@ -331,11 +331,15 @@ module.exports = function(grunt) {
                 'deployed-message'
             ]);
         } else if (target === 'run') {
-            hasTravisTestPassed();
-            grunt.task.run([
-                '28:run',
-                'e2e:' + environment
-            ]);
+            var hasSetupBeenSuccessful = hasTravisTestPassed(); // in dev environm. this is always false
+            if(environment === 'dev' || hasSetupBeenSuccessful){
+                grunt.task.run([
+                    '28:run',
+                    'e2e:' + environment
+                ]);
+            } else {
+                grunt.log.writeln('Not running tests because setup failed: ' + environment);
+            }
         } else if (target === 'teardown' && environment !== 'prod') {
             if(!isTravis()) {
                 grunt.task.run(['ngconstant:' + environment]);
