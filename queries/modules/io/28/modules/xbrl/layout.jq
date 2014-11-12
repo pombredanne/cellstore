@@ -513,7 +513,7 @@ declare function layout:layout(
         where exists($default)
         return { $aspect : $default }
     |}
-    return {
+    let $spreadsheet := {
         ModelKind: "LayoutModel",
         ComponentAndHypercubeInformation: {
             Component: $structural-model.Component,
@@ -613,10 +613,17 @@ declare function layout:layout(
           for $key in keys($filters)
           return project($filters, $key)
         ],
-        GlobalConstraintLabels: $structural-model.GlobalConstraintLabels, T: $threshold (:),
-        DebugInfo: {
-            Hypercube: $hypercube,
-            OriginalHypercube: $original-hypercube
-        }:)
+        GlobalConstraintLabels: $structural-model.GlobalConstraintLabels
     }
+    return if($options.Debug)
+    then {|
+        $spreadsheet,
+        {
+            DebugInfo: {
+                Hypercube: $hypercube,
+                OriginalHypercube: $original-hypercube
+            }
+        }
+    |}
+    else $spreadsheet
 };
