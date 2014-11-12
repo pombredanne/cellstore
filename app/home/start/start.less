@@ -1,20 +1,21 @@
 #home {
   font-size: @font-size-large;
 
-  h1 {
-    font-weight: 300;
-  }
-
   .jumbotron {
     background-color: @brand-primary;
 
-    padding-top: 4em;
+    padding-top: 0;
     padding-bottom: 4em;
+
+    background-image: url(/images/hero-unit.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 
     h1 {
       color: white;
-      font-size: 46px;
+      font-size: 76px;
       font-weight: 100;
+      margin-top: 0;
     }
 
     p {
@@ -26,22 +27,15 @@
     }
 
     .btn-primary {
+      font-size: 24px;
+      font-weight: 100;
       border-color: white;
+      background-color: transparent;
 
       &:hover {
         background-color: white;
         color: @brand-primary !important;
       }
-    }
-
-    //.row > div:last-child {
-    //  text-align: center;
-    //}
-
-    img {
-      height: 300px;
-      width: auto;
-
     }
 
     a.scrolldown {
@@ -59,6 +53,7 @@
       -webkit-transition: .25s;
       transition: .25s;
       cursor: s-resize;
+      text-align: center;
 
       &:hover {
         text-decoration: none;

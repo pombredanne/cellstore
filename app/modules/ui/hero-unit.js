@@ -14,6 +14,9 @@ angular
 
         $scope.$watch($scope.getWindowDimensions, function (newValue, oldValue) {
             $element[0].style.height = newValue + 'px';
+            var title = document.querySelector('.title');
+            var titleH = title.getBoundingClientRect().height;
+            title.style.marginTop = ((newValue - titleH) / 2) + 'px';
         });
 
         w.bind('resize', function () {

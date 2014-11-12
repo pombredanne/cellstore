@@ -43,7 +43,8 @@ angular.module('secxbrl')
 
             function elmYPosition(eID) {
                 var elm = document.getElementById(eID);
-                var y = elm.offsetTop;
+                //50px of the top bar
+                var y = elm.offsetTop - 50;
                 var node = elm;
                 while (node.offsetParent && node.offsetParent != document.body) {
                     node = node.offsetParent;
