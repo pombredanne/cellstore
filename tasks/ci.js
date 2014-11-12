@@ -55,6 +55,13 @@ module.exports = function(grunt) {
         return process.env.TRAVIS_TEST_RESULT === '0';
     };
 
+    var hasE2eReport = function(){
+        var reportDir = grunt.config.get(['yeoman']).e2eReportsDir;
+        var files = grunt.file.expand({ filter: 'isFile'}, [ reportDir + '/**/*' ]);
+        grunt.log.writeln('E2E Report files: ' + files.length);
+        return files.length > 0;
+    };
+
     var isTravisAndMaster = function() {
         return isTravis() && process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
     };
@@ -262,15 +269,18 @@ module.exports = function(grunt) {
     grunt.registerTask('e2e-report', function(environment){
         environment = normalizeAndCheckEnvironment(environment);
         var testsHavePassed = hasTravisTestPassed();
+        var e2eReportAvailable = hasE2eReport();
 
         if((environment === 'ci' || environment === 'prod' || environment === 'dev') &&
-            !testsHavePassed){
+            !testsHavePassed && e2eReportAvailable){
             grunt.task.run([
                 'aws_s3:uploadReports',
                 'e2e-report-message:' + environment
             ]);
-        } else if (testsHavePassed){
+        } else if (testsHavePassed) {
             grunt.log.writeln('Not uploading e2e reports because tests have passed.');
+        } else if(!e2eReportAvailable){
+            grunt.log.writeln('Not uploading e2e reports because there are no files.');
         }else {
             grunt.log.writeln('Not uploading e2e reports for environment: ' + environment);
         }
@@ -313,6 +323,7 @@ module.exports = function(grunt) {
                 'deployed-message'
             ]);
         } else if (target === 'run') {
+            hasTravisTestPassed();
             grunt.task.run([
                 'xqlint',
                 'jsonlint',
