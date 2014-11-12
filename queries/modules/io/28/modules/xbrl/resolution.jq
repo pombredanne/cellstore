@@ -658,10 +658,17 @@ declare function resolution:resolve(
     let $concepts as object* := concepts:concepts-for-components(
         $concepts:ALL_CONCEPT_NAMES,
         $components)
-    return
-    {
+    let $hypercubes as object* :=
+        if(exists($options.Hypercube))
+        then $options.Hypercube
+        else values($components.Hypercubes)
+    return {
         ModelKind: "StructuralModel",
         TableSetLabels: $definition-model.Labels,
+        Component: {
+            Role: $components.Role[1],
+            Label: $components.Label[1]
+        },
         TableSet : [
             {
                 Breakdowns: {|
@@ -682,18 +689,14 @@ declare function resolution:resolve(
         GlobalConstraintSet: $definition-model.TableFilters,
         GlobalConstraintLabels: {|
             for $dimension in keys($definition-model.TableFilters)
+            let $dimension-label as string* := resolution:metadata($components, $dimension).Label[1]
             let $value := $definition-model.TableFilters.$dimension
-            return { $dimension: {
-                    DimensionLabels: [ resolution:metadata($components, $dimension).Label, $dimension ],
-                    ValueLabels: [ if($value instance of string) then resolution:metadata($components, $value).Label else (), $value ]
-                }
-            }
+            let $value-label as string* := if($value instance of string) then resolution:metadata($components, $value).Label else ()
+            return ({ $dimension: $dimension-label[1] }[exists($dimension-label)],
+                    { $value: $value-label[1] }[exists($value-label)]
+                    )
         |},
         DimensionDefaults: {|
-            let $hypercubes as object* :=
-                if(exists($options.Hypercube))
-                then $options.Hypercube
-                else values($components.Hypercubes)
             for $dimension as string in keys($hypercubes.Aspects)
             let $hypercube-default as atomic? := $hypercubes.Aspects.$dimension.Default[1]
             where exists($hypercube-default)
