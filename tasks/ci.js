@@ -278,10 +278,9 @@ module.exports = function(grunt) {
                 'e2e-report-message:' + environment
             ]);
         } else if (environment === 'dev') {
-            grunt.log.writeln('Not uploading e2e reports in dev environment.');
             if(e2eReportAvailable){
                 var reportDir = grunt.config.get(['yeoman']).e2eReportsDir;
-                grunt.log.writeln('E2E test report available here: ' + reportDir);
+                grunt.log.writeln('Not uploading e2e reports in dev environment. E2E test report available here: ' + reportDir);
             }
         } else if (testsHavePassed) {
             grunt.log.writeln('Not uploading e2e reports because tests have passed.');
