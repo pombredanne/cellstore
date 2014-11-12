@@ -25,10 +25,10 @@ let $sics :=
     let $c := mongo:connect("xbrl", {})
     return 
         for $s in mongo:find($c, "sics")
-        group by $s.ID
+        group by $s."_id"
         let $s := $s[1]
         return {
-            ID: $s.ID,
+            ID: $s."_id",
             Description: $s.Description,
             Sector: $s.Sector
         }

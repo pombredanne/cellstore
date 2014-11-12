@@ -105,7 +105,8 @@ declare %private function resolution:convert-definition-nodes(
           $definition-node,
           $components,
           $parent-child-order,
-          $concepts)
+          $concepts,
+          $options)
       case "DimensionRelationship" return resolution:convert-dimension-relationship-node(
           $definition-node,
           $components,
@@ -338,7 +339,8 @@ declare %private function resolution:convert-concept-relationship-node(
     $definition-node as object,
     $components as object*,
     $parent-child-order as string?,
-    $concepts as object*) as object
+    $concepts as object*,
+    $options as object?) as object
 {
     let $link-role := $definition-node.LinkRole
     let $link-name := $definition-node.LinkName
@@ -353,7 +355,7 @@ declare %private function resolution:convert-concept-relationship-node(
     ]
     let $subnetwork := descendant-objects($network.Trees)[$$.Name eq $root]
     return if(exists($subnetwork))
-    then resolution:expand-concept-network($subnetwork, $components, $parent-child-order, $concepts)
+    then resolution:expand-concept-network($subnetwork, $components, $parent-child-order, $concepts, $options)
     else error(QName("resolution:UNRESOLVED-CONCEPT-RELATIONSHIP"), $root || ": The concept root could not be resolved.")
 };
 
@@ -371,12 +373,16 @@ declare %private function resolution:expand-concept-network(
     $network as object,
     $components as object*,
     $parent-child-order as string?,
-    $concepts as object*) as object*
+    $concepts as object*,
+    $options as object?) as object*
 {
     let $concept := $network.Name
     let $default-hypercube := hypercubes:hypercubes-for-components($components, "xbrl:DefaultHypercube")
     let $concept-metadata := $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members.$concept[1]
     let $label :=
+        if(not $options.Language != $components.$components:DEFAULT-LANGUAGE)
+        then $network.Label
+        else
         resolution:labels(
             $concept,
             $components,
@@ -426,7 +432,8 @@ declare %private function resolution:expand-concept-network(
                         $sub-network,
                         $components,
                         $parent-child-order,
-                        $concepts
+                        $concepts,
+                        $options
                     ) 
         let $roll-up :=
             if($concept-metadata.IsAbstract)
@@ -651,10 +658,17 @@ declare function resolution:resolve(
     let $concepts as object* := concepts:concepts-for-components(
         $concepts:ALL_CONCEPT_NAMES,
         $components)
-    return
-    {
+    let $hypercubes as object* :=
+        if(exists($options.Hypercube))
+        then $options.Hypercube
+        else values($components.Hypercubes)
+    return {
         ModelKind: "StructuralModel",
         TableSetLabels: $definition-model.Labels,
+        Component: {
+            Role: $components.Role[1],
+            Label: $components.Label[1]
+        },
         TableSet : [
             {
                 Breakdowns: {|
@@ -675,18 +689,14 @@ declare function resolution:resolve(
         GlobalConstraintSet: $definition-model.TableFilters,
         GlobalConstraintLabels: {|
             for $dimension in keys($definition-model.TableFilters)
+            let $dimension-label as string* := resolution:metadata($components, $dimension).Label[1]
             let $value := $definition-model.TableFilters.$dimension
-            return { $dimension: {
-                    DimensionLabels: [ resolution:metadata($components, $dimension).Label, $dimension ],
-                    ValueLabels: [ if($value instance of string) then resolution:metadata($components, $value).Label else (), $value ]
-                }
-            }
+            let $value-label as string* := if($value instance of string) then resolution:metadata($components, $value).Label else ()
+            return ({ $dimension: $dimension-label[1] }[exists($dimension-label)],
+                    { $value: $value-label[1] }[exists($value-label)]
+                    )
         |},
         DimensionDefaults: {|
-            let $hypercubes as object* :=
-                if(exists($options.Hypercube))
-                then $options.Hypercube
-                else values($components.Hypercubes)
             for $dimension as string in keys($hypercubes.Aspects)
             let $hypercube-default as atomic? := $hypercubes.Aspects.$dimension.Default[1]
             where exists($hypercube-default)

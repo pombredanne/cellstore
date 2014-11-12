@@ -15,7 +15,7 @@ declare %an:nondeterministic function local:test-empty($params as object) as ite
 {
     let $endpoint := "facts"
     let $res as object := test:invoke-raw($endpoint, $params)
-    return if($res.status eq 200 and $res.headers."Content-Length" eq "0") then true else {
+    return if($res.status eq 200 and ($res.headers."Content-Length" eq "0" or empty($res.body.content))) then true else {
         url: test:url($endpoint, $params),
         unexpectedResponse: $res
     }
@@ -46,13 +46,14 @@ declare %an:nondeterministic function local:test-labels() as item
     let $res as object := test:invoke-raw($endpoint, $params)
     let $actual := $res.body.content
     let $expectedLines := (
-        "Accession Number,Concept,Entity,Period,Fiscal Period,Fiscal Year,Accepted,Legal Entity,Unit,Value,Decimals",
-        "0000021344-13-000050,\"Cash and Cash Equivalents, at Carrying Value\",COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,USD,11118000000,-6",
-        "0000021344-13-000050,Assets,COCA COLA CO,2013-09-27,Q3,2013,20131024121047,Default Legal Entity,USD,89432000000,-6"
+        "Accession Number,Concept,Entity,Period,Fiscal Period,Fiscal Period Type,Fiscal Year,Accepted,Legal Entity,Unit,Value,Decimals",
+        "0000021344-13-000050,\"Cash and Cash Equivalents, at Carrying Value\",COCA COLA CO,2013-09-27,Q3,instant,2013,20131024121047,Default Legal Entity,USD,11118000000,-6",
+        "0000021344-13-000050,Assets,COCA COLA CO,2013-09-27,Q3,instant,2013,20131024121047,Default Legal Entity,USD,89432000000,-6"
     )
     return if($res.status eq 200 and (every $line in $expectedLines satisfies contains($actual,$line))) then true else {
         url: test:url($endpoint, $params),
-        unexpectedResponse: $res
+        unexpectedResponse: $res,
+        expected: $expectedLines
     }
 };
 
@@ -73,14 +74,47 @@ declare %an:nondeterministic function local:test-labels-aids() as item
             for $labels in $res[2].FactTable[].Labels
             return (keys($labels) ! $labels.$$)
         ]
-    let $expected := [ "Advertising Costs, Policy", "Default Legal Entity", "Accession Number", "Concept", "Entity", "CISCO SYSTEMS, INC.", "Period", "Fiscal Period", "Fiscal Year", "Accepted", "Unit", "Legal Entity" ]
+    let $expected := [ "Advertising Costs, Policy", "Default Legal Entity", "Accession Number", "Concept", "Entity", "CISCO SYSTEMS, INC.", "Period", "Fiscal Period", "Fiscal Period Type", "Fiscal Year", "Accepted", "Unit", "Legal Entity" ]
     let $status as integer := $res[1]
     return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 local:check({
-    cocacola: local:test-facttable(468, {
+    cocacola-latest:
+    (: this test will fail and needs to be updated if a newer report has been filed.
+       current latest filing: 2013 :)
+    local:test-facttable(468, {
         ticker:"ko"
+    }),
+    cocacola-all: local:test-facttable(468, {
+        ticker:"ko",
+        fiscalYear: 2013,
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "instant", "YTD", "QTD" ]
+    }),
+    cocacola-all-q3: local:test-facttable(341, {
+        ticker:"ko",
+        fiscalYear: 2014,
+        fiscalPeriod: [ "Q3" ],
+        fiscalPeriodType: [ "instant", "YTD", "QTD" ]
+    }),
+    cocacola-instant: local:test-facttable(163, {
+        ticker:"ko",
+        fiscalYear: 2013,
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "instant" ]
+    }),
+    cocacola-ytd: local:test-facttable(305, {
+        ticker:"ko",
+        fiscalYear: 2013,
+        fiscalPeriod: [ "FY" ],
+        fiscalPeriodType: [ "YTD" ]
+    }),
+    cocacola-qtd: local:test-facttable(90, {
+        ticker:"ko",
+        fiscalYear: 2013,
+        fiscalPeriod: [ "Q2" ],
+        fiscalPeriodType: [ "QTD" ]
     }),
     cocacolaCSVLabels: local:test-labels(),
     ciscoLabelsByAid: local:test-labels-aids(),

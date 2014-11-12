@@ -306,7 +306,7 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            all: ['Gruntfile.js', '<%= yeoman.app %>/scripts/**/*.js', 'tasks/**/*.js']
+            all: ['Gruntfile.js', '<%= yeoman.app %>/**/*.js', 'tasks/**/*.js']
         },
         rev: {
             dist: {
@@ -618,7 +618,8 @@ module.exports = function (grunt) {
                 runQueries: [
                     'queries/private/InitAuditCollection.jq',
                     'queries/private/init.jq',
-                    'queries/private/UpdateReportSchema.jq'
+                    'queries/private/UpdateReportSchema.jq',
+                    'queries/private/migration/db6.jq'
                 ]
 
             },
@@ -630,7 +631,8 @@ module.exports = function (grunt) {
                 runQueries: [
                     'queries/private/InitAuditCollection.jq',
                     'queries/private/init.jq',
-                    'queries/private/UpdateReportSchema.jq'
+                    'queries/private/UpdateReportSchema.jq',
+                    'queries/private/migration/db6.jq'
                 ]
             },
             run: {

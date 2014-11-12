@@ -25,7 +25,7 @@ declare variable $mw:ENTITIES-PROFILES_SEC_TICKERS as string := "Profiles.SEC.Ti
 
 declare variable $mw:FACTS-ID as string := "_id_";
 declare variable $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP as string := "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1";
-declare variable $mw:FACTS-ASARCHIVE_AXCONCEPT as string := "Aspects.sec:Archive_1_Aspects.xbrl:Concept_1";
+declare variable $mw:FACTS-ASARCHIVE_AXCONCEPT as string := "Aspects.xbrl28:Archive_1_Aspects.xbrl:Concept_1";
 
 declare variable $mw:FOOTNOTES-ID as string := "_id_";
 declare variable $mw:FOOTNOTES-ARCHIVE as string := "Archive_hashed";
@@ -170,7 +170,7 @@ declare %private function mw:facts-hint($query as object) as object
     case (mw:is-selective($query, "Aspects.xbrl:Concept") and 
           mw:is-selective($query, "Aspects.xbrl:Entity"))
       return { "$query": $query, "$hint": $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP }
-    case (mw:is-selective($query, "Aspects.sec:Archive"))
+    case (mw:is-selective($query, "Aspects.xbrl28:Archive"))
       return { "$query": $query, "$hint": $mw:FACTS-ASARCHIVE_AXCONCEPT }
     default
       return $query

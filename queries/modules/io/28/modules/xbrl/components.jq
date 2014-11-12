@@ -507,7 +507,7 @@ declare function components:cid($component-or-id as item) as atomic
  :
  : @return the period breakdown.
  :)
-declare %private function components:standard-period-breakdown() as object
+declare function components:standard-period-breakdown() as object
 {
     {
         BreakdownLabels: [ "Period breakdown" ],
@@ -525,7 +525,7 @@ declare %private function components:standard-period-breakdown() as object
     }
 };
 
-declare %private function components:standard-typed-dimension-breakdown($dimension-name as string, $dimension-values as atomic*) as object
+declare function components:standard-typed-dimension-breakdown($dimension-name as string, $dimension-values as atomic*) as object
 {
     {
         BreakdownLabels: [ $dimension-name || " breakdown" ],
@@ -547,7 +547,7 @@ declare %private function components:standard-typed-dimension-breakdown($dimensi
     }
 };
 
-declare %private function components:standard-explicit-dimension-breakdown(
+declare function components:standard-explicit-dimension-breakdown(
     $dimension-name as string,
     $dimension-label as string,
     $domain-names as string*,
@@ -576,7 +576,7 @@ declare %private function components:standard-explicit-dimension-breakdown(
     }
 };
 
-declare %private function components:standard-entity-breakdown() as object
+declare function components:standard-entity-breakdown() as object
 {
     {
         BreakdownLabels: [ "Entity breakdown" ],
@@ -595,7 +595,7 @@ declare %private function components:standard-entity-breakdown() as object
     }
 };
 
-declare %private function components:standard-concept-breakdown(
+declare function components:standard-concept-breakdown(
     $line-items-elements as string*,
     $role as string) as object
 {
@@ -685,7 +685,7 @@ declare function components:standard-definition-models-for-components($component
         "xbrl:Period",
         "xbrl:Unit",
         "xbrl:Entity",
-        "sec:Archive",
+        "xbrl28:Archive",
         $auto-slice-dimensions,
         $user-slice-dimensions)]
     
@@ -726,7 +726,7 @@ declare function components:standard-definition-models-for-components($component
                    then { $d : $options.Slicers.$d }
                    else { $d : $values-by-dimension.$d[] },
             if (not $auto-slice)
-            then { "sec:Archive" : $component.Archive }
+            then { "xbrl28:Archive" : $component.Archive }
             else ()
         |}
     }
