@@ -1,8 +1,7 @@
-/*global browser:false, element:false, by:false */
+/*global browser:false */
 'use strict';
 
-function LogoutPage(){
-}
+function LogoutPage(){}
 
 LogoutPage.prototype.visitPage = function(){
     return browser.get('/auth/logout');

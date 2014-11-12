@@ -133,7 +133,7 @@ angular.module('secxbrl', [
                         } else if(status === 403){
                             msg.push('Forbidden (Possible reason: Invalid password)');
                         }
-                        msg.push('Status: ' + status)
+                        msg.push('Status: ' + status);
                     }
                     return { title: title, message: msg };
                 }

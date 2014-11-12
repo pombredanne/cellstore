@@ -1,4 +1,3 @@
-/*global browser:false, element:false, by:false */
 'use strict';
 
 var _ = require('lodash');

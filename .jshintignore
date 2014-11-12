@@ -1,2 +1,3 @@
 app/scripts/swagger/*.js
 app/scripts/modules/translations.js
+app/modules/state-directives.js
