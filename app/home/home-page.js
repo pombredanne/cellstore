@@ -2,6 +2,7 @@
 'use strict';
 
 var StartPage = require('./start/start-page');
+var APIPage = require('./api/api-page');
 var PricingPage = require('./pricing/pricing-page');
 var AccountPage = require('./account/account-page');
 
@@ -18,6 +19,7 @@ function HomePage(){
     this.pricing  = new PricingPage();
     this.account = new AccountPage();
     this.start = new StartPage();
+    this.api = new APIPage();
 }
 
 module.exports = HomePage;

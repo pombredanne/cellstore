@@ -10,11 +10,11 @@
         <br>
         <p class="pull-right"><span translate>View as</span> <a href="/swagger/{{name}}.json" target="_blank" translate>JSON</a>.</p>
         <h1 translate>Description</h1>
-        <div ng-bind-html="content.description"></div>
+        <div ng-bind-html="content.description" id="description"></div>
         <h1 translate>Resource Overview</h1>
-        <div ng-repeat="api in content.apis">
+        <div ng-repeat="a in content.apis">
             <ul>
-                <li><a ng-click="gotoId(api.description)">{{api.path}}: {{api.description}}</a></li>
+                <li><a ng-click="gotoId(a.description)">{{a.path}}: {{a.description}}</a></li>
             </ul>
         </div>
         <div ng-repeat="api in content.apis">
