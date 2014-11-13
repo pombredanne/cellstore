@@ -15,7 +15,7 @@
     h1 {
       color: white;
       //text-shadow: 0 2px 3px rgba(0,0,0,.4);
-      font-size: 76px;
+      font-size: @font-size-h1 * 2;
       font-weight: 100;
       margin-top: 0;
     }
@@ -29,7 +29,7 @@
     }
 
     .btn-primary {
-      font-size: 24px;
+      font-size: @font-size-h3;
       font-weight: 100;
       border-color: white;
       background-color: transparent;
@@ -109,8 +109,13 @@
 
   .quote {
     p {
-      font-size: 24px;
-      font-weight: 300;
+      font-size: @font-size-h2;
+      font-weight: 100;
+
+      a.btn-lg {
+        font-size: @font-size-h2;
+        font-weight: 100;
+      }
     }
   }
 
