@@ -17,6 +17,17 @@ angular
             var title = document.querySelector('.title');
             var titleH = title.getBoundingClientRect().height;
             title.style.marginTop = ((newValue - titleH) / 2) + 'px';
+
+        });
+
+        angular.element($window).bind("scroll", function() {
+            var top = document.body.getBoundingClientRect().top;
+            console.log(top);
+            if(top >= 0) {
+                document.querySelector('nav.navbar').classList.add('transparent');
+            } else {
+                document.querySelector('nav.navbar').classList.remove('transparent');
+            }
         });
 
         w.bind('resize', function () {

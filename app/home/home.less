@@ -1,0 +1,36 @@
+nav {
+  -webkit-transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -ms-transition: background-color .5s ease-in-out;
+  -o-transition: background-color .5s ease-in-out;
+  transition: background-color .5s ease-in-out;
+
+  a {
+    -webkit-transition: color .5s ease-in-out;
+    -moz-transition: color .5s ease-in-out;
+    -ms-transition: color .5s ease-in-out;
+    -o-transition: color .5s ease-in-out;
+    transition: color .5s ease-in-out;
+
+    &.btn {
+      -webkit-transition: background-color .5s ease-in-out;
+      -moz-transition: background-color .5s ease-in-out;
+      -ms-transition: background-color .5s ease-in-out;
+      -o-transition: background-color .5s ease-in-out;
+      transition: background-color .5s ease-in-out;
+    }
+  }
+
+  &.transparent {
+    background-color: transparent !important;
+
+    a {
+      color: white !important;
+
+      &.btn {
+        background-color: transparent;
+        border: 1px solid white;
+      }
+    }
+  }
+}
