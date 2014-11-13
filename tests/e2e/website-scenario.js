@@ -32,8 +32,8 @@ describe('Public SecXBRL.info Website', function(){
         api.visitPage();
         expect(api.description.getText()).not.toBe('');
         expect(api.description.getText()).toBeDefined();
-        expect(api.apiLinks.count()).toBeGreaterThan(10);
-        expect(api.apiDetails.count()).toBeGreaterThan(10);
+        expect(api.apiLinks.count()).toBeGreaterThan(9);
+        expect(api.apiDetails.count()).toBeGreaterThan(9);
     });
 
 });
