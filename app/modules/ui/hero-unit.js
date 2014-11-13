@@ -12,7 +12,7 @@ angular
             return a < b ? b : a;
         };
 
-        $scope.$watch($scope.getWindowDimensions, function (newValue, oldValue) {
+        $scope.$watch($scope.getWindowDimensions, function (newValue) {
             $element[0].style.height = newValue + 'px';
             var title = document.querySelector('.title');
             var titleH = title.getBoundingClientRect().height;
