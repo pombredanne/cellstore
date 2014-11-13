@@ -1,4 +1,4 @@
-/*global browser:false  */
+/*global element:false, by:false  */
 'use strict';
 
 function RegistrationModule(){
