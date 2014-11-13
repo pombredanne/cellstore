@@ -7,7 +7,7 @@
     padding-top: 0;
     padding-bottom: 4em;
 
-//    background-image: url(/images/hero-unit.jpg);
+    //background-image: url(/images/hero-unit.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -107,10 +107,18 @@
     }
   }
 
+  .quote {
+    p {
+      font-size: 24px;
+      font-weight: 300;
+    }
+  }
+
   blockquote {
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
     quotes: "\201C""\201D""\2018""\2019";
+    border-left: none;
+    margin: 0;
+    padding: 0;
   }
 
   blockquote:before {
@@ -174,23 +182,4 @@
       }
     }
   }
-}
-
-#hoffman {
-  background-image: url(/images/advisors/hoffman.png);
-  display: block;
-  width: 100px;
-  height: 100px;
-  padding: 2px;
-  margin-right: auto;
-  margin-left: auto;
-  background: #fcfcfc;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 100px 100px;
-  border: 4px solid #ecf0f1;
-  border-radius: 50%;
-  -webkit-box-shadow: 0 1px 3px #666;
-  -moz-box-shadow: 0 1px 3px #666;
-  box-shadow: 0 1px 3px #666;
 }
