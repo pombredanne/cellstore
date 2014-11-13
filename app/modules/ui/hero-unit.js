@@ -2,7 +2,21 @@
 
 angular
 .module('secxbrl')
-.directive('heroUnit', function($window){
+.directive('heroUnit', function($window, $rootScope){
+
+        var onScroll = function(event, toState) {
+            var top = document.body.getBoundingClientRect().top;
+            if(top >= 0 && ((document.getElementById('home') !== null && !toState) || (toState && toState.name === 'home.start'))) {
+                document.querySelector('nav.navbar').classList.add('transparent');
+            } else {
+                document.querySelector('nav.navbar').classList.remove('transparent');
+            }
+        };
+
+        angular.element($window).bind("scroll", onScroll);
+        onScroll();
+        $rootScope.$on('$stateChangeSuccess', onScroll);
+
     return function($scope, $element){
         var w = angular.element($window);
 
@@ -19,17 +33,7 @@ angular
             title.style.marginTop = ((newValue - titleH) / 2) + 'px';
 
         });
-/*
-        angular.element($window).bind("scroll", function() {
-            var top = document.body.getBoundingClientRect().top;
-            console.log(top);
-            if(top >= 0) {
-                document.querySelector('nav.navbar').classList.add('transparent');
-            } else {
-                document.querySelector('nav.navbar').classList.remove('transparent');
-            }
-        });
-*/
+
         w.bind('resize', function () {
             $scope.$apply();
         });
