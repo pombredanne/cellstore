@@ -1,111 +1,125 @@
 <div id="home">
-    <div class="jumbotron">
-        <div class="container">
+    <div class="jumbotron" parallax-ratio="0.7" rn-lazy-background="'http://i.imgur.com/T0cDf1w.jpg'" parallax-background hero-unit>
             <div class="row">
-                <div class="col-lg-6">
-                    <h1>Query, Search,<br> and Compare SEC Data</h1>
+                <div class="col-xs-7">
+
+                </div>
+                <div class="col-xs-5 title">
+                    <h1>Query, Search,<br> and Compare <br> SEC Data</h1>
                     <a ui-sref2="auth.register()" class="btn btn-primary btn-lg sign-up">Sign Up</a>
                 </div>
-                <div class="col-lg-6">
-                    <img src="/images/herounit.svg">
-                </div>
+            </div>
+        <div class="container">
+            <div class="row">
+                <a class="scrolldown" ng-click="goTo('features')">
+                    <i class="fa fa-chevron-down"></i>
+                </a>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-2">
-                <div id="hoffman"></div>
-                <h4 class="text-center">Charles Hoffman</h4>
-            </div>
-            <div class="col-lg-10">
-                <blockquote>
-                    <p>The SEC XBRL financial filing guessing game is over! You can do this for any concept, any axis.<br>Point... click... ship.</p>
-                </blockquote>
-            </div>
-        </div>
-        <section class="row">
-            <div class="col-lg-6">
-                <h2>Build Your Own Apps & Services</h2>
-                <p>
-                    secxbrl.info exposes SEC fiscal reports to developers via a powerful REST API.
-                    Build your financial applications and services on top, at any scale.
-                    Perform truly interactive data analysis.
-                    Get answers to your wildest queries in real-time.
-                </p>
-                <p>
-                    <a ui-sref2="auth.register()" class="btn btn-default sign-up">Sign Up</a>
-                </p>
-            </div>
-            <div class="col-lg-6 picto">
-                <img src="/images/apps.svg">
-            </div>
-        </section>
-        <section class="row">
-            <div class="col-lg-6 picto">
-                <img src="/images/taxonomy.svg">
-            </div>
-            <div class="col-lg-6">
-                <h2>Build Your Own Taxonomy</h2>
-                <p>
-                    Using our taxonomy editor, you can define your own domain-specific vocabulary to query and compare the data.
-                    Add aggregates, ratios, or external information.
-                    Create your own validation or verification rules.
-                    Compare across competitors or sectors.
-                </p>
-                <p>
-                    <a ui-sref2="auth.register()" class="btn btn-default sign-up">Sign Up</a>
-                </p>
-            </div>
-        </section>
-        <section class="row">
-            <div class="col-lg-6">
-                <h2>Build Your Own Repository</h2>
-                <p>
-                    The technology powering secxbrl.info is a new database paradigm called cell store.
-                    Its first implementation was made on top the 28.io platform.
-                    XBRL is stored in a way highly optimized for querying.
-                    Unlike OLAP's rigid hypercubes,
-                    cell stores support on-the-fly hypercube queries on top of a single, large pool of facts.
-                    Schedule a call with us now so we can show you how you can put your own dimensional data on steroids.
-                </p>
-                <p>
-                    <a ui-sref2="auth.register()" class="btn btn-default sign-up">Sign Up</a>
-                </p>
-            </div>
-            <div class="col-lg-6 picto">
-                <img src="/images/28msec.svg">
-            </div>
-        </section>
-        <section class="row">
+    <div id="features">
+        <section>
+            <div class="container">
             <div class="row">
-                <h2 class="text-center" translate>Featured Users</h2>
+                <div class="col-lg-6">
+                    <h2>Your Wildest Queries &mdash; In Real-time</h2>
+                    <p>
+                        Using our taxonomy editor, you can define your own domain-specific vocabulary to query and compare the data.
+                        Create your own validation or verification rules.
+                        Compare across competitors or sectors.
+                    </p>
+                    <p>
+                        <a ui-sref2="auth.register()" class="btn btn-default sign-up">Sign Up</a>
+                    </p>
+                </div>
+                <div class="col-lg-6 picto">
+                    <img src="/images/graph.svg">
+                </div>
             </div>
-            <div class="row users">
-                <div class="col-lg-3">
-                    <a href="http://www.columbia.edu" target="_blank">
-                        <span class="helper"></span>
-                        <img src="/images/users/columbia.png">
-                    </a>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+            <div class="row">
+                <div class="col-lg-6 picto">
+                    <img src="/images/apps.svg">
                 </div>
-                <div class="col-lg-3">
-                    <a href="http://www.prudena.com" target="_blank">
-                        <span class="helper"></span>
-                        <img src="/images/users/prudena.png">
-                    </a>
+                <div class="col-lg-6">
+                    <h2>Connect Your Apps & Services</h2>
+                    <p>
+                        secxbrl.info exposes SEC fiscal reports to developers via a powerful REST API.
+                        Build your financial applications and services on top, at any scale.
+                        Perform truly interactive data analysis.
+                    </p>
+                    <p>
+                        <a ui-sref2="auth.register()" class="btn btn-default sign-up">Sign Up</a>
+                    </p>
                 </div>
-                <div class="col-lg-3">
-                    <a href="http://rivetsoftware.com" target="_blank">
-                        <span class="helper"></span>
-                        <img src="/images/users/rivet.png">
-                    </a>
+            </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Beyond SEC filings</h2>
+                    <p>
+                        This repository is powered by the <a href="http://28.io">28.io platform</a>.
+                        28.io can import XBRL filings from any taxonomy and store them in a way that is highly optimized for querying.
+                        This technology is called <a href="http://arxiv.org/pdf/1410.0600.pdf">Cell Store</a>.
+                    </p>
+                    <p>
+                        <a href="mailto:hello@28.io" class="btn btn-default">Contact Us</a>
+                    </p>
                 </div>
-                <div class="col-lg-3">
-                    <a href="https://www.rutgers.edu" target="_blank">
-                        <span class="helper"></span>
-                        <img src="/images/users/rutgers.png">
-                    </a>
+                <div class="col-lg-6 picto">
+                    <img src="/images/server.svg">
                 </div>
+            </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <h2 class="text-center" translate>Featured Users</h2>
+                </div>
+                <div class="row users">
+                    <div class="col-lg-3">
+                        <a href="http://www.columbia.edu" target="_blank">
+                            <span class="helper"></span>
+                            <img src="/images/users/columbia.svg">
+                        </a>
+                    </div>
+                    <div class="col-lg-3">
+                        <a href="http://www.prudena.com" target="_blank">
+                            <span class="helper"></span>
+                            <img src="/images/users/prudena.png">
+                        </a>
+                    </div>
+                    <div class="col-lg-3">
+                        <a href="http://rivetsoftware.com" target="_blank">
+                            <span class="helper"></span>
+                            <img src="/images/users/rivet.png">
+                        </a>
+                    </div>
+                    <div class="col-lg-3">
+                        <a href="https://www.rutgers.edu" target="_blank">
+                            <span class="helper"></span>
+                            <img src="/images/users/rutgers.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container quote">
+                <blockquote>
+                    <p>The SEC XBRL financial filing guessing game is over! You can do this for any concept, any axis. Point... click... ship.</p>
+                </blockquote>
+                <p class="text-right">&mdash; Charles Hoffman</p>
+                <p class="text-center">
+                    <a ui-sref2="auth.register()" class="btn btn-lg btn-primary sign-up">Sign Up</a>
+                </p>
             </div>
         </section>
     </div>

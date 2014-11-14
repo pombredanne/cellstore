@@ -1,20 +1,24 @@
 #home {
   font-size: @font-size-large;
-
-  h1 {
-    font-weight: 300;
-  }
+  margin-top: -@navbar-height;
 
   .jumbotron {
     background-color: @brand-primary;
 
-    padding-top: 4em;
+    padding-top: 0;
     padding-bottom: 4em;
+
+    //background-image: url(/images/hero-unit.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 
     h1 {
       color: white;
-      font-size: 46px;
+      //text-shadow: 0 2px 3px rgba(0,0,0,.4);
+      font-size: @font-size-h1 * 2;
       font-weight: 100;
+      margin-top: 0;
     }
 
     p {
@@ -26,7 +30,10 @@
     }
 
     .btn-primary {
+      font-size: @font-size-h3;
+      font-weight: 100;
       border-color: white;
+      background-color: transparent;
 
       &:hover {
         background-color: white;
@@ -34,14 +41,26 @@
       }
     }
 
-    .row > div:last-child {
+    a.scrolldown {
+      color: white;
+      border-bottom: none;
+      background: rgba(22,25,29,0.6);
+      display: block;
+      width: 5rem;
+      height: 5rem;
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      margin-left: -2.5rem;
+      border-radius: 50%;
+      -webkit-transition: .25s;
+      transition: .25s;
+      //cursor: s-resize;
       text-align: center;
-    }
 
-    img {
-      height: 300px;
-      width: auto;
-
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 
@@ -51,40 +70,61 @@
     padding-top: @navbar-height;
   }
 
-  section.row {
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    border-top: 1px solid @clouds;
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
+  section {
 
-    p {
-      color: @concrete;
+    border-bottom: 2px solid lighten(@concrete, 30%);
+    padding-top: 6em;
+    padding-bottom: 6em;
 
-      .btn-default {
-        border: 2px solid @brand-primary;
-        font-size: @font-size-large;
+    >.container > .row {
+
+      h2 {
         color: @brand-primary;
-        &:hover {
-          color: white;
-          background-color: @brand-primary;
+      }
+
+      p {
+        color: @concrete;
+        font-weight: 100;
+
+        .btn-default {
+          border: 2px solid @brand-primary;
+          font-size: @font-size-large;
+          color: @brand-primary;
+          &:hover {
+            color: white;
+            background-color: @brand-primary;
+          }
         }
       }
-    }
 
-    >div.picto {
-      text-align: center;
-      img {
-        height: 200px;
-        width: auto;
+      >div.picto {
+        text-align: center;
+        img {
+          height: 350px;
+          width: auto;
+        }
+      }
+
+    }
+  }
+
+  .quote {
+    p {
+      font-size: @font-size-h2;
+      font-weight: 100;
+
+      a.btn-lg {
+        font-size: @font-size-h2;
+        font-weight: 100;
       }
     }
   }
 
   blockquote {
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
     quotes: "\201C""\201D""\2018""\2019";
+    border-left: none;
+    margin: 0;
+    padding: 0;
   }
 
   blockquote:before {
@@ -142,27 +182,10 @@
       img {
         vertical-align: middle;
         max-height: 100px; /* equals max image height */
-        max-width: 260px;
+        max-width: 255px;
+        //https://bugs.webkit.org/show_bug.cgi?id=93471
+        -webkit-transform: translateZ(0);
       }
     }
   }
-}
-
-#hoffman {
-  background-image: url(/images/advisors/hoffman.png);
-  display: block;
-  width: 100px;
-  height: 100px;
-  padding: 2px;
-  margin-right: auto;
-  margin-left: auto;
-  background: #fcfcfc;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 100px 100px;
-  border: 4px solid #ecf0f1;
-  border-radius: 50%;
-  -webkit-box-shadow: 0 1px 3px #666;
-  -moz-box-shadow: 0 1px 3px #666;
-  box-shadow: 0 1px 3px #666;
 }

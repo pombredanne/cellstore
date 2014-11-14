@@ -385,7 +385,7 @@ module.exports = function (grunt) {
                     src: ['*.pdf']
                 }, {
                     expand: true,
-                    cwd: '<%= yeoman.app %>/swagger',
+                    cwd: 'swagger',
                     dest: '<%= yeoman.dist %>/swagger',
                     src: ['*.json']
                 }, {
@@ -534,7 +534,7 @@ module.exports = function (grunt) {
             all: {
                 src: [
                     '*.json',
-                    'app/swagger/*.json'
+                    'swagger/*.json'
                 ]
             }
         },

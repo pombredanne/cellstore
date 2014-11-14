@@ -1,6 +1,8 @@
 'use strict';
 
 angular.module('secxbrl', [
+    'rn-lazy',
+    'angular-parallax',
     'angular-data.DS',
     'angular-data.DSCacheFactory',
     'ui.router',

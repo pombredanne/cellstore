@@ -6,11 +6,8 @@
     "angular-sanitize": "~1.2.10",
     "angular-ui-bootstrap-bower": "~0.11.0",
     "font-awesome": "~4.1.0",
-    "animate.css": "~3.0.0",
     "bootstrap": "~3.0.3",
     "ngprogress-lite": "~1.0.4",
-    "angulartics": "~0.14.15",
-    "angular-google-chart": "~0.0.8",
     "angular-ui-router": "~0.2.11",
     "angular-round-progress-directive": "git://github.com/angular-directives/angular-round-progress-directive.git",
     "angular-gettext": "~0.2.9",
@@ -18,7 +15,12 @@
     "angular-dynamic-locale": "~0.1.12",
     "lodash": "~2.4.1",
     "angular-cache": "~3.1.1",
-    "angular-data": "~1.0.1"
+    "angular-data": "~1.0.1",
+    "angular-parallax": "~0.0.1",
+    "rn-lazy": "*"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "resolutions": {
+    "angular": "~1.2.x"
+  }
 }
