@@ -13,7 +13,7 @@ angular.module('secxbrl')
         console.log(elementPosition);
         var result = {};
         if(elementPosition.scrollY > 0) {
-            result['backgroundPosition'] = 'center ' + elementPosition.elemY/10 + 'px';
+            result.backgroundPosition = 'center ' + elementPosition.elemY/10 + 'px';
         }
         return result;
     };
