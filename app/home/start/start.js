@@ -10,7 +10,6 @@ angular.module('secxbrl')
     };
 
     $scope.parallax = function(elementPosition) {
-        console.log(elementPosition);
         var result = {};
         if(elementPosition.scrollY > 0) {
             result.backgroundPosition = 'center ' + elementPosition.elemY/10 + 'px';
