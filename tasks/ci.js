@@ -189,7 +189,7 @@ module.exports = function(grunt) {
             'ngconstant:' + environment,
             'run-message',
             'swagger-js-codegen',
-            'recess',
+            'less',
             'concurrent:server',
             'connect:livereload',
             'open',
