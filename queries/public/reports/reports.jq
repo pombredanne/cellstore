@@ -79,7 +79,9 @@ try {
             let $report as object := 
                 copy $rep := $reports[1]
                 modify (
-                        replace value of json $rep.ACL with [],
+                        if(exists($rep.ACL))
+                        then replace value of json $rep.ACL with []
+                        else insert json { "ACL": [] } into $rep,
                         replace value of json $rep.Owner with ""
                     )
                 return $rep

@@ -267,21 +267,23 @@ declare function reports:validate-and-update-report-properties($report as object
         then replace value of json $r.Owner with $authenticated-user-email
         else (),
         
-        (: user authorized to change owner? :)
-        if($r.Owner ne $existing-report.Owner)
-        then error(xs:QName("reports:UNAUTHORIZED"), "changing the owner from " || $existing-report.Owner || " to " || $r.Owner || " is not allowed.")
-        else (),
-        
+        if(exists($report.LastModified))
+        then replace value of json $r.LastModified with string(current-dateTime())
+        else insert json { "LastModified": string(current-dateTime()) } into $r
+    )
+    return (
         (: user authorized to update ACL? :)
         if(exists($existing-report) and not(deep-equal($r.ACL, $existing-report.ACL)) and not(reports:has-report-access-permission($report, $authenticated-user-email, "FULL_CONTROL")))
         then error(xs:QName("reports:UNAUTHORIZED"), "changing ACL requires FULL_CONTROL access right or being the owner.")
         else (),
         
-        if(exists($report.LastModified))
-        then replace value of json $r.LastModified with string(current-dateTime())
-        else insert json { "LastModified": string(current-dateTime()) } into $r
+        (: user authorized to change owner? :)
+        if($r.Owner ne $existing-report.Owner)
+        then error(xs:QName("reports:UNAUTHORIZED"), "changing the owner from " || $existing-report.Owner || " to " || $r.Owner || " is not allowed.")
+        else (),
+        
+        $r
     )
-    return $r
 };
 
 
