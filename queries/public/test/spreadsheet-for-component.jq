@@ -1,12 +1,14 @@
-import module namespace http-client = "http://zorba.io/modules/http-client";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace test = "http://apps.28.io/test";
 
 
-declare %an:nondeterministic function local:test-spreadsheet($expected as integer, $params as string) as atomic
+declare %an:nondeterministic function local:test-spreadsheet($expected as integer, $params as object) as item
 {
-    let $actual as integer := count(parse-json(http-client:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/spreadsheet-for-component.jq?_method=POST" || $params).body.content).TableSet[].TableCells.Facts[][].Value)
-    return if ($actual eq $expected) then true else "false [Actual="||$actual||", Expected="||$expected ||"]"
+    let $endpoint := "spreadsheet-for-component"
+    let $request := test:invoke($endpoint, $params)
+    let $actual as integer := count($request[2].TableSet[].TableCells.Facts[][].Value)
+    let $status as integer := $request[1]
+    return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
 
 declare %an:sequential function local:check($o as object) as object
@@ -20,8 +22,27 @@ declare %an:sequential function local:check($o as object) as object
 };
 
 local:check({
-    cocacola: local:test-spreadsheet(1, "&ticker=ko"),
-    tickerrole: local:test-spreadsheet(60, "&ticker=ko&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"),
-    tickerconcept: local:test-spreadsheet(76, "&ticker=ko&fiscalYear=2013&concept=us-gaap:Assets"),
-    tickerfyfprole: local:test-spreadsheet(70, "&ticker=ko&fiscalYear=2012&fiscalPeriod=Q1&networkIdentifier=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets") 
+    cocacola: local:test-spreadsheet(1, {
+        ticker:"ko"
+    }),
+    tickerrole: local:test-spreadsheet(60, {
+        ticker:"ko",
+        networkIdentifier:"http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome"
+    }),
+    tickerconcept: local:test-spreadsheet(76, {
+        ticker:"ko",
+        fiscalYear:"2013",
+        concept:"us-gaap:Assets"
+    }),
+    tickerfyfprole: local:test-spreadsheet(70, {
+        ticker:"ko",
+        fiscalYear:"2012",
+        fiscalPeriod:"Q1",
+        networkIdentifier:"http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets"
+    }),
+    generic: local:test-spreadsheet(76, {
+        profile-name: "generic",
+        aid: "0000021344-14-000008",
+        role:"http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets"
+    }) 
 })

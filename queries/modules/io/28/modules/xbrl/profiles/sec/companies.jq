@@ -21,12 +21,13 @@ jsoniq version "1.0";
  :)
 module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
+
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
+import module namespace archives = "http://28.io/modules/xbrl/archives";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -64,9 +65,7 @@ declare function companies:companies($companies-or-ids as item*) as object*
     (
       $companies,
       if (exists($ids))
-      then
-        let $conn := companies:connection()
-        return mongo:find($conn, $entities:col, { "_id" : { "$in" : [ $ids ! companies:eid($$) ] } })
+      then mw:find($entities:col, { "_id" : { "$in" : [ $ids ! companies:eid($$) ] } })
       else ()
     )
 };
@@ -88,6 +87,28 @@ declare function companies:companies(
     $tickers as string*,
     $sics as string*) as object*
 {
+    companies:companies($ciks, $tags, $tickers, $sics, ())
+};
+
+(:~
+ : <p>Return a distinct set of companies identified by either
+ :   CIKs, tags, tickers, sics, or aids.</p>
+ : 
+ : @param $ciks a set of CIKs.
+ : @param $tags a set of tags (ALL retrieves all companies).
+ : @param $tickers a set of tickers.
+ : @param $sics a set of SIC codes.
+ : @param $aids a set of archive IDs.
+ :
+ : @return the companies with the given identifiers, tags, tickers, sic codes, or archive IDs.
+ :)
+declare function companies:companies(
+    $ciks as string*,
+    $tags as string*,
+    $tickers as string*,
+    $sics as string*,
+    $aids as string*) as object*
+{
     if ($tags = "ALL")
     then companies:companies()
     else
@@ -95,7 +116,8 @@ declare function companies:companies(
             companies:companies($ciks),
             companies:companies-for-tags($tags),
             companies:companies-for-tickers($tickers),
-            companies:companies-for-SIC($sics)
+            companies:companies-for-SIC($sics),
+            companies:companies-for-archives($aids)
         )
         group by $c._id
         return $c[1]
@@ -142,6 +164,22 @@ declare function companies:types($companies-or-ciks as item*) as string*
 };
 
 (:~
+ : <p>Retrieves all companies for the given archives.</p>
+ : 
+ : @param $archives a sequence of archive objects or ids.
+ :
+ : @return all companies for the given archives.
+ :) 
+declare function companies:companies-for-archives($aids as string*) as object*
+{
+    if(empty($aids))
+    then ()
+    else
+        let $entities := mw:find($archives:col, { "_id" : { "$in" : [ $aids ] }}, { "Entity" : 1 })
+        return entities:entities(distinct-values($entities.Entity))
+};
+
+(:~
  : <p>Retrieves all companies in the given sectors.</p>
  : 
  : @deprecated please use companies:companies-for-sectors#1
@@ -163,9 +201,8 @@ declare function companies:companies-for-sector($sectors as string*) as object*
  :) 
 declare function companies:companies-for-sectors($sectors as string*) as object*
 {
-  let $conn := companies:connection()
   for $s in $sectors
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Sector" : $s })
+  return mw:find($entities:col, { "Profiles.SEC.Sector" : $s })
 };
 
 (:~
@@ -178,8 +215,7 @@ declare function companies:companies-for-sectors($sectors as string*) as object*
  :) 
 declare function companies:companies-for-sic($sic-codes as string*) as object*
 {
-  let $conn := companies:connection()
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.SIC" : [ $sic-codes ] })
+  mw:find($entities:col, { "Profiles.SEC.SIC" : [ $sic-codes ] })
 };
 
 (:~
@@ -193,9 +229,8 @@ declare function companies:companies-for-sic($sic-codes as string*) as object*
  :) 
 declare function companies:companies-for-SIC($sic-codes as string*) as object*
 {
-  let $conn := companies:connection()
   for $s in $sic-codes
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.SIC" : $s })
+  return mw:find($entities:col, { "Profiles.SEC.SIC" : $s })
 };
 
 (:~
@@ -226,9 +261,8 @@ declare function companies:companies-for-types($company-types as string*) as obj
     then (); 
     else error(QName("companies:UNKNOWN-COMPANY-TYPE"), $t || ": Unknown company type. Allowed values: \"Corporation\", \"Partnership\", or \"unknown\".");
     
-  let $conn := companies:connection()
   for $t in $company-types
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.CompanyType" : $t })
+  return mw:find($entities:col, { "Profiles.SEC.CompanyType" : $t })
 };
 
 (:~
@@ -239,9 +273,8 @@ declare function companies:companies-for-types($company-types as string*) as obj
  :) 
 declare function companies:companies-for-tags($tags as string*) as object*
 {
-  let $conn := companies:connection()
   for $tag in $tags
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Tags" : $tag })
+  return mw:find($entities:col, { "Profiles.SEC.Tags" : $tag })
 };
 
 (:~
@@ -255,9 +288,8 @@ declare function companies:companies-for-tags($tags as string*) as object*
 declare function companies:companies-for-tickers(
   $tickers as  string*) as object*
 {
-  let $conn := companies:connection()
   for $ticker in $tickers
-  return mongo:find($conn, $entities:col, { "Profiles.SEC.Tickers" : lower-case($ticker) })
+  return mw:find($entities:col, { "Profiles.SEC.Tickers" : lower-case($ticker) })
 };
 
 (:~
@@ -426,21 +458,4 @@ declare function companies:eid($companies-or-eids-or-ciks as item*) as string*
              QName("sec:INVALID_PARAMETER"),
              "Invalid entity or CIK (must be an object or a string): "
              || serialize($companies-or-eids-or-ciks))
-};
-
-(:~
- :)
-declare %private %an:strictlydeterministic function companies:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("companies:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("companies:CONNECTION-FAILED"), $err:description)
-    }
 };

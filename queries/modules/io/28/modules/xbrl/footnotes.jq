@@ -19,8 +19,7 @@ module namespace footnotes = "http://28.io/modules/xbrl/footnotes";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
 import schema namespace m = "http://www.28msec.com/modules/mongodb/types";
 
@@ -146,13 +145,11 @@ declare function footnotes:footnotes-for-facts(
  :)
 declare function footnotes:footnotes-search($search as string) as object*
 {
-  let $conn := footnotes:connection()
-  return mongo:run-cmd-deterministic(
-           $conn, 
-           {
-             "text" : "footnotes",
-             "search" : $search
-           }).results[].obj
+  mw:run-cmd-deterministic(
+	{
+	  "text" : "footnotes",
+      "search" : $search
+    }).results[].obj
 };
 
 (:~
@@ -183,30 +180,11 @@ declare function footnotes:fnid($footnote-or-id as item) as atomic
 };
 
 (:~
- :)
-declare %private %an:strictlydeterministic function footnotes:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("footnotes:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("footnotes:CONNECTION-FAILED"), $err:description)
-    }
-};
-
-(:~
  : <p>Queries MongoDB with a MongoDB query.</p>
  : 
  : @return all footnotes returned by this query.
  :) 
 declare %private function footnotes:footnotes-query($query as object) as object*
 {
-  let $conn := footnotes:connection()
-  return mongo:find($conn, $footnotes:col, $query)
+  mw:find($footnotes:col, $query)
 };
-

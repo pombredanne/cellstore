@@ -2,11 +2,11 @@ node_modules
 dist
 .tmp
 .sass-cache
-app/bower_components
+bower_components
 .idea
-app/scripts/swagger/*.js
-app/scripts/constants.js
-app/scripts/modules/translations.js
+app/modules/*-api.js
+app/constants.js
+app/modules/translations.js
 app/styles/*.css
 .DS_Store
 *~
@@ -15,5 +15,7 @@ app/styles/*.css
 grunt-aws.json
 .project
 queries/private/UpdateReportSchema.jq
+queries/modules/io/28/apps/credentials.jq
+tests/e2e/config/config.js
 config.json
 .c9

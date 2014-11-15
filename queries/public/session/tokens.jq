@@ -3,7 +3,6 @@ jsoniq version "1.0";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($o as object*) as string
@@ -26,21 +25,27 @@ declare function local:to-xml($o as object*) as element()
     }</results>
 };
 
+(: Query parameters :)
+declare %rest:case-insensitive variable  $token        as string  external;
+declare %rest:env              variable  $request-uri  as string  external;
+declare %rest:case-insensitive variable  $format       as string? external;
+
+(: Post-processing :)
+$format := api:preprocess-format($format, $request-uri);
+
+(: Request processing :)
 variable $res := ();
 variable $status := ();
 
-variable $token := request:param-values("token");
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
-
-variable $user-id := session:get($token);
+variable $user-id := session:ensure-valid($token);
 
 if (empty($user-id))
 then {
-      $status := 400;
+      $status := 403;
       $res :=
         {
             success : false,
-            description : "invalid or missing token"
+            description : "invalid token"
         };
 } else {
     $status := 200;
@@ -49,10 +54,17 @@ then {
         for $session in collection($session:tokens)
             where $session.user-id eq $user-id and $session.expiration-date gt current-dateTime()
             return 
-            {
-                token: $session._id,
-                expiration: $session.expiration-date
-            };
+                {|
+                    {
+                        token: $session._id,
+                        expiration: $session.expiration-date,
+                        (: seconds till expiration :)
+                        countdown: xs:integer(($session.expiration-date - current-dateTime()) div xs:dayTimeDuration("PT1S"))
+                    },
+                    {
+                        token-type: $session.token-type   
+                    }[$session.token-type]
+                |};
     $res := api:success({ results : [ $results ]});
 }
 

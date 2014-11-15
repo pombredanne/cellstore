@@ -1,5 +1,6 @@
 import module namespace user = "http://apps.28.io/user";
 import module namespace session = "http://apps.28.io/session";
+import module namespace credentials = "http://apps.28.io/credentials";
 
 if (is-available-collection($user:collection))
 then ();
@@ -79,13 +80,10 @@ user:new-right("reports_remove", "Remove Report", "reports_edit", 2);
 (: RIGHTS: Data :)
 user:new-right("data", "Data Access", (), 1);
 user:new-right("data_sec", "SEC data access", "data", 1);
-user:new-right("data_sec_dow30", "SEC data access to DOW30", "data_sec", 2);
 
 (: ROLES :)
 user:new-role("admin", "Administrator");
 user:new-role("anybody", "All Users");
-user:new-role("reports-admin", "Users Allowed to edit reports");
-user:new-role("sec_pro", "Paid users (SEC Pro)");
 user:new-role("sec_enterprise", "Paid users (SEC Enterprise)");
 
 flush();
@@ -98,34 +96,51 @@ user:allow("anybody", "users_reset_password_self");
 user:allow("anybody", "users_upload_picture_self");
 user:allow("anybody", "users_edit_self");
 user:allow("anybody", "users_remove_picture_self");
-user:allow("reports-admin", "reports");
-user:allow("sec_pro", "data_sec");
-user:allow("sec_pro", "reports");
+user:allow("anybody", "reports");
 user:allow("sec_enterprise", "data_sec");
-user:allow("anybody", "data_sec_dow30");
+user:allow("anybody", "data_sec");
 
 (: Pro user :)
-variable $user := user:get-by-email("support@28.io");
-if(empty($user))
+variable $user-id as string? := user:get-by-email("support@28.io")._id;
+if(empty($user-id))
 then {
-    $user := user:new("support@28.io", "System", "Administrator", "foobar", {| |});
-    user:assign-role($user, "sec_pro", (), (), $user);
+    $user-id := user:new("support@28.io", "System", "Administrator", "foobar", {| |});
   }
 else ();
 
+(: support@28.io user token for tests :)
+let $token :=
+{
+  "_id" : $credentials:support-token,
+  "user-id" : $user-id,
+  "expiration-date" : xs:dateTime("2018-10-20T22:17:23.851315Z"),
+  "token-type": $session:TOKEN-TYPE-APP
+}
+let $existing := db:collection("Tokens")[$$."user-id" eq $user-id and $$."_id" eq $token."_id"]
+return
+  if(exists($existing))
+  then ();
+  else db:insert("Tokens", $token);
+
 (: Disclosures Token :)
 let $token := collection("Tokens")[$$."expiration-date" eq xs:dateTime("2016-09-12T22:17:23.851315Z")
-and $$."user-id" eq $user."_id"]
+and $$."user-id" eq $user-id]
 return 
 if(empty($token))
-then session:start($user, xs:dateTime("2016-09-12T22:17:23.851315Z"));
+then session:start($user-id, xs:dateTime("2016-09-12T22:17:23.851315Z"), $session:TOKEN-TYPE-APP);
 else ();
 
 (: Admin user :)
 variable $admin := user:get-by-email("admin@28.io");
 if(empty($admin))
 then {
-    $admin := user:new("admin@28.io", "System", "Administrator", "12345", {| |});
+    $admin := user:new("admin@28.io", "System", "Administrator", $credentials:admin-password, {| |});
     user:assign-role($admin, "admin", (), (), $admin);
   }
 else ();
+
+(: remove user that is created in the e2e registration-scenario tests. :)
+variable $testUser := user:get-by-email("admin+test@28msec.com");
+if(empty($testUser))
+then ();
+else db:delete($testUser);

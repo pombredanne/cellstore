@@ -4,6 +4,7 @@ import module namespace request = "http://www.28msec.com/modules/http-request";
 
 declare variable $id := "BasicFinancialInformation";
 declare variable $report := parse-json(http:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/export/fac.jq?_method=POST").body.content);
+declare variable $label := "Basic Financial Information";
 declare variable $desc :=
   "This report extends the fundamental accounting concepts report. Documentation about the fundamental accounting concepts defined in this report can be found at http://fundamentalaccountingconcepts.wikispaces.com/home";
 declare variable $role := "http://xbrl.io/basic-financial-information";
@@ -13,35 +14,82 @@ declare variable $additionalRules :=
         "Id" : "gi_CommonStockSharesOutstanding",
         "Type" : "xbrl28:formula",
         "Label" : "CommonStockSharesOutstanding imputation",
+        "DependsOn" : [ "fac:Assets" ],
         "Formula" : "(: workaround for bug: https://github.com/28msec/xbrl-infosetgenerator/issues/7 :)
-                     let $aligned-filter := trim($aligned-filter, (\"Profiles.SEC.Fiscal\"))
-                     for $facts in  facts:facts-for-internal((
-                             \"fac:CommonStockSharesOutstanding\"), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)
-                     group by $canonical-filter-string :=
-                                 facts:canonically-serialize-object($facts, ($facts:CONCEPT, \"_id\", \"IsInDefaultHypercube\", \"Type\", \"Value\", \"Decimals\", \"AuditTrails\", \"xbrl28:Type\", \"Balance\"))
-                     for $CommonStockSharesOutstandingByArchive in $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommonStockSharesOutstanding\"]
-                     group by $CommonStockSharesOutstandingByArchive.Archive
-                     return
-                         let $source-fact :=
-                             (
-                                 for $CommonStockSharesOutstanding in $CommonStockSharesOutstandingByArchive
-                                 order by $CommonStockSharesOutstanding.$facts:ASPECTS.$facts:PERIOD descending
-                                 return $CommonStockSharesOutstanding
-                             )[1]
-                         let $value := rules:decimal-value($source-fact)
-                         let $original-concept := $source-fact.AuditTrails[][$$.Type eq \"xbrl28:concept-maps\"].Data.OriginalConcept
-                         let $audit-trail-message :=
-                            rules:fact-trail({ \"Aspects\" : { \"xbrl:Unit\" : \"shares\", \"xbrl:Concept\" : $original-concept }, Value: $value }) || \" (as of latest practicable date: \" || $source-fact.$facts:ASPECTS.$facts:PERIOD
-                            || \")\"
-                         return
-                             rules:create-computed-fact(
-                                 $source-fact,
-                                 \"fac:CommonStockSharesOutstanding\",
-                                 $value,
-                                 $rule,
-                                 $audit-trail-message,
-                                 $source-fact,
-                                 $options)",
+let $aligned-filter-no-fiscal as object := 
+    copy $new := $aligned-filter 
+    modify (
+	if($new.Aspects.\"sec:FiscalPeriodType\") then delete json $new.Aspects.\"sec:FiscalPeriodType\" else (),
+    if($new.Aspects.\"sec:FiscalPeriod\") then delete json $new.Aspects.\"sec:FiscalPeriod\" else (),
+    if($new.Aspects.\"sec:FiscalYear\") then delete json $new.Aspects.\"sec:FiscalYear\" else ()
+  )
+  return $new
+let $AllEntityCommonStockSharesOutstanding as object* := 
+	facts:facts-for-internal((
+      \"dei:EntityCommonStockSharesOutstanding\"
+    ), $hypercube, $aligned-filter-no-fiscal, $concept-maps, $rules, $cache, $options)
+for $facts in (facts:facts-for-internal((
+      \"fac:CommonStockSharesOutstanding\", \"fac:Assets\"
+    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)
+  )
+let $aligned-period := ( facts:duration-for-fact($facts).End, facts:instant-for-fact($facts), \"forever\")[1]
+group by $canonical-filter-string :=
+  facts:canonical-grouping-key($facts, ($facts:CONCEPT, $facts:UNIT, $facts:PERIOD))
+  , $aligned-period
+let $archive as string := distinct-values($facts.$facts:ASPECTS.$facts:ARCHIVE)
+let $warnings as string* := ()
+let $CommonStockSharesOutstanding as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:CommonStockSharesOutstanding\"]
+let $EntityCommonStockSharesOutstanding as object* := $AllEntityCommonStockSharesOutstanding[$$.$facts:ASPECTS.$facts:ARCHIVE eq $archive]
+let $Assets as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq \"fac:Assets\"]
+let $warnings := ($warnings, if(count($Assets) gt 1)
+                             then if(count(distinct-values($Assets.Value)) gt 1)
+                                  then \"Cell collision with conflicting values for concept Assets.\"
+                                  else \"Cell collision with consistent values for concept Assets.\"
+                             else (),
+                             if(count($CommonStockSharesOutstanding) gt 1)
+                             then if(count(distinct-values($CommonStockSharesOutstanding.Value)) gt 1)
+                                  then \"Cell collision with conflicting values for concept CommonStockSharesOutstanding.\"
+                                  else \"Cell collision with consistent values for concept CommonStockSharesOutstanding.\"
+                             else (),
+							 if(count($EntityCommonStockSharesOutstanding) gt 1)
+                             then if(count(distinct-values($EntityCommonStockSharesOutstanding.Value)) gt 1)
+                                  then \"Cell collision with conflicting values for concept EntityCommonStockSharesOutstanding.\"
+                                  else \"Cell collision with consistent values for concept EntityCommonStockSharesOutstanding.\"
+                             else ())
+let $CommonStockSharesOutstanding as object? := $CommonStockSharesOutstanding[1]
+let $EntityCommonStockSharesOutstanding as object? := $EntityCommonStockSharesOutstanding[1]
+let $Assets as object? := $Assets[1]
+return
+  switch (true)
+  case exists($CommonStockSharesOutstanding) return $CommonStockSharesOutstanding
+  case (exists($EntityCommonStockSharesOutstanding) and exists($Assets))
+  return
+    let $computed-value := rules:decimal-value($EntityCommonStockSharesOutstanding)
+    let $audit-trail-message as string* := 
+      rules:fact-trail({\"Aspects\": { \"xbrl:Unit\" : \"xbrli:shares\", \"xbrl:Concept\" : \"fac:CommonStockSharesOutstanding\" }, Value: $computed-value }) || \" = \" || 
+         rules:fact-trail($EntityCommonStockSharesOutstanding, \"EntityCommonStockSharesOutstanding\") || \" [\" || (facts:duration-for-fact($EntityCommonStockSharesOutstanding).End, facts:instant-for-fact($EntityCommonStockSharesOutstanding)) || \"]\"
+    let $audit-trail-message as string* := ($audit-trail-message, $warnings)
+    let $source-facts as object* := ($EntityCommonStockSharesOutstanding)
+    return
+		copy $newfact :=
+		  rules:create-computed-fact(
+			$Assets,
+			\"fac:CommonStockSharesOutstanding\",
+			$computed-value,
+			$rule,
+			$audit-trail-message,
+			$source-facts,
+			$options)
+		modify (
+			if($newfact(\"Unit\")) 
+			then replace value of json $newfact(\"Unit\") with \"xbrli:shares\"
+			else insert json { \"Unit\": \"xbrli:shares\" } into $newfact,
+			if($newfact.$facts:ASPECTS.$facts:UNIT) 
+			then replace value of json $newfact.$facts:ASPECTS.$facts:UNIT with \"xbrli:shares\"
+			else insert json { $facts:UNIT: \"xbrli:shares\" } into $newfact.$facts:ASPECTS
+		  )
+		return $newfact
+  default return ()",
         "ComputableConcepts" : [ "fac:CommonStockSharesOutstanding" ]
       },
       {
@@ -67,7 +115,7 @@ declare variable $additionalRules :=
                                  modify (
                                      replace value of json $f.Decimals with 3,
                                      if(exists($f.AuditTrails))
-                                     then replace value of json $f.AuditTrails with [ $audit-trail ]
+                                     then append json $audit-trail into $f.AuditTrails
                                      else insert json { AuditTrails: [ $audit-trail ] } into $f
                                  )
                                  return $f
@@ -103,6 +151,8 @@ return
   }
 
 (: Hypercube :)
+replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Label with ( $label || " [Table]" );
+
 let $conceptsDomain := $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain"
 let $concepts :=
     {
@@ -158,7 +208,13 @@ let $mappings :=
         "To" : {
           "dei:EntityCommonStockSharesOutstanding": {
             "Name" : "dei:EntityCommonStockSharesOutstanding",
-            "Id" : "b8d27670-5caa-411f-8305-860c0613c31f"
+            "Id" : "b8d27670-5caa-411f-8305-860c0613c31f",
+            "Order" : 1
+          },
+          "us-gaap:CommonStockSharesOutstanding" : {
+            "Id" : "a91849bd-0aa2-4f1c-8dcb-c85537bf36a8",
+            "Name" : "us-gaap:CommonStockSharesOutstanding",
+            "Order" : 2
           }
         },
         "Id" : "91b87448-a8dd-4739-9cdf-2cdaef6a4ff6"
@@ -171,22 +227,14 @@ return
   }
 
 (: DefinitionModel :)
-replace value of json $report.DefinitionModels[1].Breakdowns.y[1].BreakdownTrees[1].LinkRole with $role;
+replace value of json $report.DefinitionModels[][1].Breakdowns.y[][1].BreakdownTrees[][1].LinkRole with $role;
 
-(: adapt default_zero rule :)
-let $defaultZeroRule := $report.Rules[][$$.Id eq "default_zero"]
-let $formula := replace($defaultZeroRule.Formula,
-                        "\"fac:LiabilitiesAndEquity\"\\)",
-                        "\"fac:LiabilitiesAndEquity\", \"fac:CommonStockSharesAuthorized\", \"fac:CommonStockSharesIssued\", \"fac:CommonStockSharesOutstanding\")"
-                       )
-return
-  {
-    replace value of json $defaultZeroRule.Formula with $formula;
-  }
+(: remove default_zero rule :)
+replace value of json $report.Rules with [ $report.Rules[][$$.Id ne "default_zero"] ];
 
 { "_id": $id,
   Archive: null,
-  Label: "Basic Financial Information",
+  Label: $label,
   Description: $desc,
   Prefix: "fac",
   Role: $role,

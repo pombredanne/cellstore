@@ -206,7 +206,11 @@ declare function layout:build-hypercube(
                         else ()
                     |}
                 }
-            |}
+            |},
+            {
+                Name: $hypercube.Name,
+                Label: $hypercube.Label
+            }[exists($hypercube)]
         )
 };
 
@@ -380,19 +384,19 @@ declare function layout:duplicate-header-rows($header-rows-group as object, $fac
 (:
    Returns the numbers of empty rows and columns
 :)
-declare function layout:empty-rows-and-columns($cells as array) as object
+declare function layout:empty-rows-and-columns($cells as array, $threshold as double?) as object
 {
     {
         Rows: [
             for $i in 1 to size($cells)
             let $row := ($cells[[$i]])[]
-            where every $cell in $row satisfies empty($cell.Value)
+            where count($row.Value) le count($row) * $threshold
             return $i
         ],
         Columns: [
             for $j in 1 to size($cells[[1]])
             let $column := $cells[][[$j]]
-            where every $cell in $column satisfies empty($cell.Value)
+            where count($column.Value) lt count($column) * $threshold
             return $j
         ]
     }
@@ -484,6 +488,7 @@ declare function layout:layout(
 ) as object
 {
     let $elimination as boolean := ($options.Eliminate, false)[1]
+    let $threshold as double := ($options.EliminationThreshold, 0)[1]
     let $original-hypercube :=
         if($options.Hypercube instance of null)
         then ()
@@ -508,8 +513,15 @@ declare function layout:layout(
         where exists($default)
         return { $aspect : $default }
     |}
-    return {
+    let $spreadsheet := {
         ModelKind: "LayoutModel",
+        ComponentAndHypercubeInformation: {
+            Component: $structural-model.Component,
+            Hypercube: {
+                Name: $hypercube.Name[1],
+                Label: $hypercube.Label[1]
+            }
+        },
         TableSetLabels: $structural-model.TableSetLabels,
         TableSet: [
             for $table in $structural-model.TableSet[]
@@ -580,7 +592,7 @@ declare function layout:layout(
                            }
                 ]
             ]
-            let $empty-rows-and-columns := layout:empty-rows-and-columns($cells)
+            let $empty-rows-and-columns := layout:empty-rows-and-columns($cells, $threshold)
             let $table-headers := if($elimination)
                                   then layout:eliminate-table-headers($table-headers, $empty-rows-and-columns)
                                   else $table-headers
@@ -596,11 +608,22 @@ declare function layout:layout(
                 }
             }
         ],
-        GlobalConstraints: $structural-model.GlobalConstraintSet,
-        GlobalConstraintLabels: $structural-model.GlobalConstraintLabels,
-        DebugInfo: {
-            Hypercube: $hypercube,
-            OriginalHypercube: $original-hypercube
-        }
+        GlobalConstraints: [
+          let $filters := $structural-model.GlobalConstraintSet
+          for $key in keys($filters)
+          return project($filters, $key)
+        ],
+        GlobalConstraintLabels: $structural-model.GlobalConstraintLabels
     }
+    return if($options.Debug)
+    then {|
+        $spreadsheet,
+        {
+            DebugInfo: {
+                Hypercube: $hypercube,
+                OriginalHypercube: $original-hypercube
+            }
+        }
+    |}
+    else $spreadsheet
 };

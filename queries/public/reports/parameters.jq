@@ -1,11 +1,11 @@
-jsoniq version "1.0";
-
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace entities ="http://28.io/modules/xbrl/entities";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 
-let $param := lower-case(request:param-values("parameter"))
+(: Query parameters :)
+declare %rest:case-insensitive variable $parameter as string? external;
+
+let $parameter := lower-case($parameter)
 
 let $years :=
     (
@@ -25,10 +25,10 @@ let $sics :=
     let $c := mongo:connect("xbrl", {})
     return 
         for $s in mongo:find($c, "sics")
-        group by $s.ID
+        group by $s."_id"
         let $s := $s[1]
         return {
-            ID: $s.ID,
+            ID: $s."_id",
             Description: $s.Description,
             Sector: $s.Sector
         }
@@ -51,27 +51,27 @@ return
         response:serialization-parameters({"indent" : true});
         
         switch (true)
-        case $param eq "years"
+        case $parameter eq "years"
         return 
             { 
                 years: [ $years ]
             }
-        case $param eq "periods"
+        case $parameter eq "periods"
         return 
             { 
                 periods: [ $periods ]
             }
-        case $param eq "sics"
+        case $parameter eq "sics"
         return 
             { 
                 sics: [ $sics ]
             }
-        case $param eq "tags"
+        case $parameter eq "tags"
         return 
             { 
                 tags: [ $tags ]
             }
-        case $param eq "entities"
+        case $parameter eq "entities"
         return 
             { 
                 entities: [ $entities ]

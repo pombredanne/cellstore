@@ -2,13 +2,21 @@ import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
-variable $assignedBy := session:validate("users_assign_role");
+(: Query parameters :)
+declare %rest:case-insensitive variable $token         as string     external;
+declare %rest:case-insensitive variable $userid        as string     external;
+declare %rest:case-insensitive variable $role          as string     external;
+declare %rest:case-insensitive variable $fromDateTime  as dateTime?  external;
+declare %rest:case-insensitive variable $toDateTime    as dateTime?  external;
 
-variable $user-id := api:required-parameter("userid", $user:VALID_USERID);
-variable $role-id := api:required-parameter("role", $user:VALID_ROLEID);
-variable $fromDateTime := dateTime(api:parameter("fromDateTime", $user:VALID_DATETIME, ()));
-variable $toDateTime := dateTime(api:parameter("toDateTime", $user:VALID_DATETIME, ()));
+(: Post-processing :)
+api:validate-regexp("userid", $userid, $user:VALID_USERID);
+api:validate-regexp("role", $role, $user:VALID_ROLEID);
 
-user:assign-role($user-id, $role-id, $fromDateTime, $toDateTime, $assignedBy);
+(: Request processing :)
+session:ensure-right($token, "roles_change_permissions");
+variable $assignedBy := session:ensure-right($token, "users_assign_role");
+
+user:assign-role($userid, $role, $fromDateTime, $toDateTime, $assignedBy);
 
 api:success()

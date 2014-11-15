@@ -2,7 +2,11 @@ import module namespace user = "http://apps.28.io/user";
 import module namespace session = "http://apps.28.io/session";
 import module namespace api = "http://apps.28.io/api";
 
-session:validate("roles_list");
+(: Query parameters :)
+declare %rest:case-insensitive variable $token as string external;
+
+(: Request processing :)
+session:ensure-right($token, "roles_list");
 
 variable $results :=
   for $role in collection($user:roles)

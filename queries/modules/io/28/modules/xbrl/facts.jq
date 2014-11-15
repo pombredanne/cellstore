@@ -41,9 +41,9 @@ jsoniq version "1.0";
  :   {
  :     Filter: 
  :       { 
- :         Archive: "0000034088-13-000011",
  :         Aspects:
  :         {
+ :           "xbrl28:Archive": "0000034088-13-000011",
  :           "us-gaap:DefinedBenefitPlansDisclosuresDefinedBenefitPlansAxis" : 
  :             "us-gaap:ForeignPensionPlansDefinedBenefitMember"
  :         },
@@ -57,7 +57,7 @@ jsoniq version "1.0";
  :       }
  :   }
  :   </pre>
- :   A filter must contain at least on of the fields Archive, Aspects.xbrl:Concept, 
+ :   A filter must contain at least on of the fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept,
  :   Aspects.xbrl:Period, or Aspects.xbrl:Entity.</li>
  : <li><b>ConceptMaps</b>: 
  :   <ol><li>a string which is a name of a report schema that is stored in the 
@@ -100,15 +100,15 @@ jsoniq version "1.0";
  :)
 module namespace facts = "http://28.io/modules/xbrl/facts";
 
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
+
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace footnotes = "http://28.io/modules/xbrl/footnotes";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
-
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 
 import module namespace string = "http://zorba.io/modules/string";
 import module namespace seq = "http://zorba.io/modules/sequence";
@@ -129,14 +129,14 @@ declare variable $facts:col as string := "facts";
 declare variable $facts:ID as string := "_id";
 
 (:~
- : Name of the field that points to the archive.
- :)
-declare variable $facts:ARCHIVE as string := "Archive";
-
-(:~
  : Name of the field that stores the aspects.
  :)
 declare variable $facts:ASPECTS as string := "Aspects";
+
+(:~
+ : Name of the field that points to the archive.
+ :)
+declare variable $facts:ARCHIVE as string := "xbrl28:Archive";
 
 (:~
  : Name of the concept aspect.
@@ -199,23 +199,34 @@ declare function facts:facts($fact-or-ids as item*) as object*
     )
 };
 
+(:~
+ : <p>Return all facts reported within given archives.</p>
+ :
+ : @param $archives-or-ids a sequence of archives or AIDs to filter.
+ :
+ : @return all facts reported in these archives.
+ :)
+declare function facts:facts-for-archives(
+  $archives-or-ids as item*) as object*
+{
+  facts:facts-for-archives($archives-or-ids, ())
+};
 
 (:~
  : <p>Return all facts reported within a given archive.</p>
  :
  : @param $archives-or-ids a sequence of archives or AIDs to filter.
- :
+ : @param $options <a href="#standard_options">standard fact retrieving options</a>.
  : @return all facts reported in these archives.
  :) 
 declare function facts:facts-for-archives(
-  $archives-or-ids as item*) as object*
+  $archives-or-ids as item*,
+  $options as object?) as object*
 {
-  let $filter as object := {
-    "Filter" : {
-      $facts:ARCHIVE: [ archives:aid($archives-or-ids) ]
-    }
-  }
-  return facts:facts-for($filter)
+  facts:facts-for-aspects(
+    { $facts:ARCHIVE : [ archives:aid($archives-or-ids) ] },
+    $options
+  )
 };
 
 (:~
@@ -351,12 +362,15 @@ declare function facts:facts-for-archives-and-aspects(
   let $filter as object := 
     {
       "Filter" :
-        {|
-          if (not deep-equal($archives-or-ids, $facts:ALL_OF_THEM))
-          then { $facts:ARCHIVE: [ archives:aid($archives-or-ids) ] }
-          else (),
-          { $facts:ASPECTS : $aspects }
-        |}
+        {
+          $facts:ASPECTS :
+            {|
+              if (not deep-equal($archives-or-ids, $facts:ALL_OF_THEM))
+              then { $facts:ARCHIVE: [ archives:aid($archives-or-ids) ] }
+              else (),
+              $aspects
+            |}
+        }
     }
   return 
     facts:facts-for(
@@ -435,13 +449,11 @@ declare function facts:prefix-from-fact-concept(
  :)
 declare function facts:facts-search($search as string) as object*
 {
-  let $conn := facts:connection()
-  return mongo:run-cmd-deterministic(
-           $conn, 
-           {
-             "text" : "facts",
-             "search" : $search
-           }).results[].obj
+  mw:run-cmd-deterministic(
+	{
+      "text" : "facts",
+      "search" : $search
+    }).results[].obj
 };
 
 (:~
@@ -473,23 +485,6 @@ declare function facts:fid($facts-or-ids as item*) as atomic*
 };
 
 (:~
- :)
-declare %private %an:strictlydeterministic function facts:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("facts:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("facts:CONNECTION-FAILED"), $err:description)
-    }
-};
-
-(:~
  : <p>Queries MongoDB with a MongoDB query.</p>
  : 
  : @return all facts returned by this query.
@@ -497,8 +492,7 @@ declare %private %an:strictlydeterministic function facts:connection() as anyURI
 declare %private %an:strictlydeterministic function facts:facts-query-cached($query as string) as object*
 {
   let $query as object := parse-json($query)
-  let $conn := facts:connection()
-  return mongo:find($conn, $facts:col, $query)
+  return mw:find($facts:col, $query)
 };
 
 (:~
@@ -508,8 +502,7 @@ declare %private %an:strictlydeterministic function facts:facts-query-cached($qu
  :) 
 declare %private function facts:facts-query($query as object) as object*
 {
-  let $conn := facts:connection()
-  return mongo:find($conn, $facts:col, $query)
+  mw:find($facts:col, $query)
 };
 
 (:~
@@ -589,6 +582,73 @@ declare function facts:populate-with-footnotes(
 };
 
 (:~
+ : <p>Retrieves all the labels with the given label role and language for
+ : all concepts used in the fact and matching a concept in the list of
+ : concepts. Concepts used in a fact include not only those from the
+ : 'xbrl:Concept' aspect, but also Members of any custom axis.</p>
+ :
+ : <p>Matching concepts are those which:
+ :  - concept name matches a given one,
+ :  - archive number matches that of a given component,
+ :  - component role matches that of a given component or is the default
+ :    component role.
+ : </p>
+ :
+ : <p>The set of concepts to search in is specified as a parameter.</p>
+ :
+ : <p>Language matching can either be exact, if no options are given,
+ : or approximated, if at least one of the following options is given:</p>
+ : <ul>
+ :   <li>MatchDown: whether to match a more specific language, e.g.:
+ :       "en" will match labels which language is "en" or "en-US".</li>
+ :   <li>MatchUp: whether to match a less specific language, e.g.:
+ :       "en-US" will match labels which language is "en-US" or "en".</li>
+ :   <li>MatchAnyVariant: whether to match a different variant of the same
+ :       language, e.g.: "en-US" will match labels which language is "en-US"
+ :       or "en-UK".</li>
+ : </ul>
+ :
+ : @param $facts a sequence of facts.
+ : @param $component-or-ids the CIDs or the components themselves.
+ : @param $label-role the label role.
+ : @param $language the label language.
+ : @param $concepts the concepts in which the labels will be
+ :                  searched.
+ : @param $options optional parameters to control language matching.
+ :
+ : @return an object with matching concepts as keys and labels as values.
+ :)
+declare function facts:labels(
+    $facts as object*,
+    $component-roles as string*,
+    $label-role as string,
+    $language as string,
+    $concepts as object*,
+    $options as object?
+  ) as object?
+{
+    let $concept-names as string* :=
+        distinct-values(values($facts.Aspects)[string($$) = $concepts.Name])
+    let $archives := $facts.Aspects.$facts:ARCHIVE
+    return
+        {|
+            for $name in $concept-names
+            let $label as string? :=
+                concepts:labels(
+                    $name, $archives, $component-roles,
+                    $label-role, $language, $concepts, $options)[1]
+            return
+                {
+                    $name: $label
+                },
+            for $key in distinct-values(keys($facts.Aspects))
+            where not string($facts.Aspects.$key) = $concept-names
+            return
+                { $facts.Aspects.$key : "Default Legal Entity" }[$key eq "dei:LegalEntityAxis" and $facts.Aspects.$key eq "sec:DefaultLegalEntity"]
+        |}
+};
+
+(:~
  : <p>Retrieves the eid of the entity who reported a fact.</p>
  :
  : @param $fact-or-id a fact or its FID.
@@ -605,16 +665,64 @@ as string
  : <p>Retrieves the instant period for which a fact was reported.</p>
  :
  : @param $fact-or-id a fact or its FID.
+ : @param $options Some options among which:
+ : <ul>
+ :  <li>Typed: true to cast to date or dateTime (default), false to return strings.</li>
+ : </ul>
+ :
+ : @return the instance period, or the empty sequence if it is not instant.
+ :)
+declare function facts:instant-for-fact($fact-or-id as item, $options as object?)
+as atomic?
+{
+  let $str := facts:facts($fact-or-id).$facts:ASPECTS.$facts:PERIOD
+  return switch(true)
+         case $options.Typed eq false return $str
+         case $str castable as xs:date return xs:date($str)
+         case $str castable as xs:dateTime return xs:dateTime($str)
+         default return ()
+};
+
+(:~
+ : <p>Retrieves the instant period for which a fact was reported.</p>
+ :
+ : @param $fact-or-id a fact or its FID.
  :
  : @return the instance period, or the empty sequence if it is not instant.
  :)
 declare function facts:instant-for-fact($fact-or-id as item)
 as atomic?
 {
+  facts:instant-for-fact($fact-or-id, ())
+};
+
+(:~
+ : <p>Retrieves the duration period for which a fact was reported.</p>
+ :
+ : @param $fact-or-id a fact or its FID.
+ : @param $options Some options among which:
+ : <ul>
+ :  <li>Typed: true to cast to date or dateTime (default), false to return strings.</li>
+ : </ul>
+ :
+ :
+ : @return the duration period as an object with Start and End, or the empty sequence if it is not instant.
+ :)
+declare function facts:duration-for-fact($fact-or-id as item, $options as object?)
+as object?
+{
   let $str := facts:facts($fact-or-id).$facts:ASPECTS.$facts:PERIOD
-  return if ($str castable as xs:date) then xs:date($str)
-         else if ($str castable as xs:dateTime) then xs:dateTime($str)
-         else ()
+  let $tokens := string:split($str, "/")
+  where count($tokens) eq 2
+  let $cast := for $i in 1 to 2
+               let $str := $tokens[$i]
+               return switch(true)
+	              case $options.Typed eq false return $str
+	              case $str castable as xs:date return xs:date($str)
+	              case $str castable as xs:dateTime return xs:dateTime($str)
+	              default return ()
+  where count($cast) eq 2
+  return { Start: $cast[1], End: $cast[2] }
 };
 
 (:~
@@ -627,15 +735,7 @@ as atomic?
 declare function facts:duration-for-fact($fact-or-id as item)
 as object?
 {
-  let $str := facts:facts($fact-or-id).$facts:ASPECTS.$facts:PERIOD
-  let $tokens := string:split($str, "/")
-  where count($tokens) eq 2
-  let $cast := for $i in 1 to 2
-               return if ($tokens[$i] castable as xs:date) then xs:date($tokens[$i])
-                      else if ($tokens[$i] castable as xs:dateTime) then xs:dateTime($tokens[$i])
-                      else ()
-  where count($cast) eq 2
-  return { Start: $cast[1], End: $cast[2] }
+  facts:duration-for-fact($fact-or-id, ())
 };
 
 (:~
@@ -661,7 +761,7 @@ as boolean
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
  : @error facts:FILTER-TOO-GENERIC The filter object must have at least one of the 
- :        fields Aspects.sec:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
+ :        fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
  :        Aspects.xbrl:Entity.
  : @return all facts satisfying the filter and options.
  :) 
@@ -784,7 +884,7 @@ declare %private function facts:validate(
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
  : @error facts:FILTER-TOO-GENERIC The filter object must have at least one of the 
- :        fields Aspects.sec:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
+ :        fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
  :        Aspects.xbrl:Entity.
  : @return all facts satisfying the filter and options.
  :) 
@@ -999,7 +1099,7 @@ declare %private function facts:facts-for-concepts-and-rules(
            after finishing the evaled query. To prevent this we create the
            connection here outside of eval. :)
         if (empty(facts:from-options("debug", $options)))
-        then { "debug": { "connection": string(facts:connection()) }} 
+        then { "debug": { "connection": string(mw:connection()) }} 
         else ()
       |}
   let $default-rules as object* := $rules[empty(jn:flatten($$.ComputableConcepts))]
@@ -1264,8 +1364,8 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
     ()
   else
     let $archive-or-ids := 
-      if (exists( $filter.$facts:ARCHIVE ))
-      then jn:flatten( $filter.$facts:ARCHIVE )
+      if (exists( $filter.$facts:ASPECTS.$facts:ARCHIVE ))
+      then jn:flatten( $filter.$facts:ASPECTS.$facts:ARCHIVE )
       else $facts:ALL_OF_THEM
     let $facts-for-archives-and-concepts :=
         if (exists($options.facts-for-archives-and-concepts))
@@ -1284,7 +1384,7 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
 
     let $new-options as object* :=
       (: @TODO: why do we remove concept-maps here? :)
-      copy $new := trim($options, ($facts:ARCHIVE, "concept-maps", "ConceptMaps", "cache-control"))
+      copy $new := trim($options, ("concept-maps", "ConceptMaps", "cache-control"))
       modify (switch(true)
               case exists($new.Filter.Aspects.$facts:CONCEPT)
                   return 
@@ -1408,13 +1508,13 @@ declare %private function facts:align-filter-to-hypercube(
       else $filter 
   return
     if (empty((
-        $aligned-filter.$facts:ARCHIVE,
+        $aligned-filter.$facts:ASPECTS.$facts:ARCHIVE,
         $aligned-filter.$facts:ASPECTS.$facts:CONCEPT,
         $aligned-filter.$facts:ASPECTS.$facts:PERIOD,
         $aligned-filter.$facts:ASPECTS.$facts:ENTITY
     )))
     then error(QName("facts:FILTER-TOO-GENERIC"), 
-                 "The filter object must have at least one of the fields "
+                 "The filter object must have at least one of the fields "  || $facts:ASPECTS || "."
                  || $facts:ARCHIVE || ", " || $facts:ASPECTS || "." || $facts:CONCEPT 
                  || ", " || $facts:ASPECTS || "." || $facts:PERIOD || ", " 
                  || "or " || $facts:ASPECTS || "." || $facts:ENTITY 
@@ -1598,7 +1698,7 @@ declare function facts:canonical-grouping-key(
   for $fact in $facts
   return string-join(
     let $aspects as object := $fact.Aspects
-    for $non-covered-key-aspect as string in ("sec:FiscalPeriod", $fact.KeyAspects[][not $$ = $covered-aspects])
+    for $non-covered-key-aspect as string in $fact.KeyAspects[][not $$ = $covered-aspects]
     order by $non-covered-key-aspect
     return ($non-covered-key-aspect, string($aspects.$non-covered-key-aspect))
   , "|")
@@ -1628,7 +1728,7 @@ declare function facts:canonically-serialize-object(
          $object.$facts:ACCEPTED instance of string
         return facts:canonical-grouping-key(
             {
-                KeyAspects: [ keys($object)[not $$ = ("sec:Archive", "sec:FiscalYear", "sec:FiscalPeriod", "sec:IsExtension")]],
+                KeyAspects: [ keys($object)[not $$ = ($facts:ARCHIVE, "sec:FiscalYear", "sec:FiscalPeriod", "sec:FiscalPeriodType", "sec:IsExtension")]],
                 Aspects: $object
             }, $exclude-fields)
     case exists($object.Aspects) and exists($object.KeyAspects)

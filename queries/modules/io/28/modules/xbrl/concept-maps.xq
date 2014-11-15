@@ -107,21 +107,21 @@ declare function concept-maps:facts-for-archives-and-concepts(
   let $new-options as object? :=
     facts:merge-objects(
       {
-        Filter: 
-          {|
-            if (not deep-equal($archive-or-ids, $concept-maps:ALL_OF_THEM)) 
-            then { Archive: archives:aid($archive-or-ids) }
-            else (),
-            if (not deep-equal($concepts, $concept-maps:ALL_OF_THEM))
-            then { 
-                   Aspects: { "xbrl:Concept": $concepts }
-                 }
-            else ()
-          |},
+        Filter:
+          {
+            Aspects:
+              {|
+                if (not deep-equal($archive-or-ids, $concept-maps:ALL_OF_THEM))
+                then { $facts:ARCHIVE : archives:aid($archive-or-ids) }
+                else (),
+                if (not deep-equal($concepts, $concept-maps:ALL_OF_THEM))
+                then  { $facts:CONCEPT : $concepts }
+                else ()
+              |}
+          },
         concept-maps: $concept-maps
       },
       $options,
       true (: giving parameters higher priority :))
   return facts:facts-for($new-options)
 };
-

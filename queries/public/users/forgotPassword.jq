@@ -4,9 +4,9 @@ import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace sendmail = "http://apps.28.io/sendmail";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace random = "http://zorba.io/modules/random";
 import module namespace csv = "http://zorba.io/modules/json-csv";
+import module namespace credentials = "http://apps.28.io/credentials";
 
 declare function local:to-csv($o as object*) as string
 {
@@ -18,9 +18,16 @@ declare function local:to-xml($o as object*) as element()
     <result success="{$o.success}"></result>
 };
 
-variable $email := api:required-parameter("email", $user:VALID_EMAIL);
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
+(: Query parameters :)
+declare %rest:case-insensitive variable $email        as string  external;
+declare %rest:env              variable $request-uri  as string  external;
+declare %rest:case-insensitive variable $format       as string? external;
 
+(: Post-processing :)
+api:validate-regexp("email", $email, $user:VALID_EMAIL);
+$format := api:preprocess-format($format, $request-uri); (: xqlint workaround :)
+
+(: Request processing :)
 variable $user := user:get-by-email($email);
 
 if (empty($user)) 
@@ -41,7 +48,8 @@ else
             insert json { resetDate : current-dateTime() } into $user;
 
         sendmail:send($email, "Reset your password", 
-                "To reset your password, please click this link:\nhttp://www.secxbrl.info/reset?email=" || $email || "&resetToken=" || $resetToken || 
+                "To reset your password, please click this link:\n" || $credentials:frontend-url ||
+                "/auth/reset?email=" || encode-for-uri($email) || "&resetToken=" || encode-for-uri($resetToken) || 
                 "\n\nThe link is valid for one day.\nIf you did not ask for this, please ignore the message.\n\nSecXBRL.info");
     }
 }

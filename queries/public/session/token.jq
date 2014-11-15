@@ -3,9 +3,7 @@ jsoniq version "1.0";
 import module namespace user = "http://apps.28.io/user";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
-import module namespace dt = "http://zorba.io/modules/datetime";
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($o as object*) as string
@@ -22,13 +20,19 @@ declare function local:to-xml($o as object*) as element()
     }</result>
 };
 
+(: Query parameters :)
+declare %rest:case-insensitive variable  $email        as string    external;
+declare %rest:case-insensitive variable  $password     as string    external;
+declare %rest:case-insensitive variable  $expiration   as dateTime  external;
+declare %rest:env              variable  $request-uri  as string    external;
+declare %rest:case-insensitive variable  $format       as string?   external;
+
+(: Post-processing :)
+$format := api:preprocess-format($format, $request-uri);
+
+(: Request processing :)
 variable $res := ();
 variable $status := ();
-
-variable $email := api:required-parameter("email", $user:VALID_EMAIL);
-variable $password := api:required-parameter("password", $user:VALID_PASSWORD);
-variable $expiration := dt:parse-dateTime(request:param-values("expiration"), "%Y-%m-%dT%H:%M:%S");
-variable $format  := lower-case((request:param-values("format"), substring-after(request:path(), ".jq."))[1]);
 
 variable $user := try { user:login($email, $password) } catch * { () };
 
@@ -41,7 +45,7 @@ then {
             description : "invalid email or password"
         };
 } else {
-    variable $token := session:start($user._id, $expiration);
+    variable $token := session:start($user._id, $expiration, $session:TOKEN-TYPE-APP);
     
     $status := 200;
     

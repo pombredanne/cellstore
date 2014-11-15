@@ -15,8 +15,7 @@ jsoniq version "1.0";
  :)
 module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
@@ -26,6 +25,7 @@ import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 
+
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
 
@@ -33,6 +33,11 @@ declare option ver:module-version "1.0";
  : Joker for all fiscal periods.
  :)
 declare variable $fiscal-core:ALL_FISCAL_PERIODS as string := "ALL";
+
+(:~
+ : Joker for all fiscal period types.
+ :)
+declare variable $fiscal-core:ALL_FISCAL_PERIOD_TYPES as string := "ALL";
 
 (:~
  : Joker for all fiscal years.
@@ -95,70 +100,57 @@ declare function fiscal-core:filter-override(
     $entities-or-eids as item*,
     $fiscal-years as integer*,
     $fiscal-periods as string*,
+    $fiscal-period-types as string*,
     $archives-or-aids as item*
 ) as object?
 {
+    let $override := exists(($entities-or-eids, $fiscal-years, $fiscal-periods, $fiscal-period-types, $archives-or-aids))
+    where $override
+    let $eids := entities:eid($entities-or-eids)
     let $entities := entities:entities($entities-or-eids)
     let $aids := archives:aid($archives-or-aids)
     let $latest-filings := fiscal-core:latest-filings($entities, $fiscal-periods)
+    let $is-latest := exists(index-of($fiscal-years, $fiscal-core:LATEST_FISCAL_YEAR))
+    let $fiscal-years := if(exists(index-of($fiscal-years, $fiscal-core:ALL_FISCAL_YEARS)))
+                         then ()
+                         else $fiscal-years[$$ ne  $fiscal-core:LATEST_FISCAL_YEAR]
+    let $fiscal-periods := if(exists(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS)))
+                           then ()
+                           else $fiscal-periods
+    let $override-fiscal-period-types := exists($fiscal-period-types)
+    let $fiscal-period-types := if(exists(index-of($fiscal-period-types, $fiscal-core:ALL_FISCAL_PERIOD_TYPES)))
+                                then ()
+                                else $fiscal-period-types
     return
-    switch(true)
-    case count($aids) gt 0 return {
-        "xbrl:Entity" : {
-        },
-        "sec:Archive" : {
-            Type: "string",
-            Domain : [ $aids ]
-        },
-        "sec:FiscalYear" : {
-            Type: "integer"
-        },
-        "sec:FiscalPeriod" : {|
-            {
-                Type: "string",
-                Domain: [ $fiscal-periods ]
-            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS))]
-        |}
-    }
-    case exists(index-of($fiscal-years, $fiscal-core:LATEST_FISCAL_YEAR))
-    return {
-        "sec:Archive" : {
-            Type: "string",
-            Domain : [archives:aid($latest-filings)]
-        },
-        "sec:FiscalPeriod" : {|
-            {
-                Type: "string",
-                Domain: [ $fiscal-periods ]
-            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS))]
-        |}
-    }
-    case exists(($entities, $fiscal-years, $fiscal-periods))
-    return {
+     {
         "xbrl:Entity" : {|
-            {
-                Type: "string",
-                Domain: [ $entities._id ]
-            }[exists($entities)]
+          { Type: "string" },
+          { Domain: [ $eids ] }[exists($eids)]
         |},
-        "sec:FiscalYear" :
-            let $fiscal-years as integer* :=
-                $fiscal-years[$$ ne $fiscal-core:LATEST_FISCAL_YEAR]
-            return {|
-                {
-                    Type: "integer",
-                    Domain: [ $fiscal-years ]
-                }[exists($fiscal-years) and empty(index-of($fiscal-years, $fiscal-core:ALL_FISCAL_YEARS))]
-            |},
+
+        "xbrl28:Archive" : {|
+          { Type: "string" },
+          { Domain : [ if($is-latest) then archives:aid($latest-filings) else $aids ] }
+          [exists(if($is-latest) then archives:aid($latest-filings) else $aids)]
+        |},
+        
+        "sec:FiscalYear" : {|
+          { Type: "integer" },
+          { Domain: [ $fiscal-years ] }[exists($fiscal-years)]
+        |},
+        
         "sec:FiscalPeriod" : {|
-            {
-                Type: "string",
-                Domain: [ $fiscal-periods ]
-            }[exists($fiscal-periods) and empty(index-of($fiscal-periods, $fiscal-core:ALL_FISCAL_PERIODS))]
+          { Type: "string" },
+          { Domain: [ $fiscal-periods ] }[exists($fiscal-periods)]
         |},
-        "sec:Archive" : {}
+        
+        "sec:FiscalPeriodType" : {|
+          { Type: "string" },
+          if($override-fiscal-period-types)
+          then { Domain: [ $fiscal-period-types ]}[exists($fiscal-period-types)]
+          else { Domain: [ "instant", "YTD" ] }
+        |}
     }
-    default return ()
 };
 
 (:~
@@ -317,8 +309,7 @@ fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
     case $fiscal-period-focus eq "YTD1" return "Q1"
     case $fiscal-period-focus eq "YTD2" return "Q2"
     case $fiscal-period-focus eq "YTD3" return "Q3"
-    default return $fiscal-period-focus
-  let $conn := fiscal-core:connection()
+    default return $fiscal-period-focus  
   for $cik-or-entity in $entities-or-ids
   let $entity-id as xs:string := companies:eid($cik-or-entity)
   let $query := {|
@@ -351,7 +342,7 @@ fiscal-core:filings-for-entities-and-fiscal-periods-and-years(
             { "$in" : [ $fiscal-year-focus ] }
         }
     |}
-  return mongo:find($conn, $archives:col, $query)
+  return mw:find($archives:col, $query)
 };
 
 (:~
@@ -596,21 +587,3 @@ declare function fiscal-core:latest-reported-fiscal-period(
       default return () }
   )[1]
 };
-
-(:~
- :)
-declare %private %an:strictlydeterministic function fiscal-core:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("fiscal-core:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("fiscal-core:CONNECTION-FAILED"), $err:description)
-    }
-};
-

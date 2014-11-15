@@ -11,10 +11,9 @@ jsoniq version "1.0";
  :)
 module namespace concepts = "http://28.io/modules/xbrl/concepts";
 
-import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace components = "http://28.io/modules/xbrl/components";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -45,10 +44,21 @@ declare variable $concepts:NAME as xs:string := "Name";
 declare variable $concepts:LABELS as xs:string := "Labels";
 
 (:~
+ : A helper variable holding the default language ("en-US")
+ :)
+declare variable $concepts:AMERICAN_ENGLISH as xs:string := "en-US";
+
+(:~
  : The default component link role.
  :)
 declare variable $concepts:DEFAULT_COMPONENT_LINK_ROLE as xs:string :=
     "http://www.xbrl.org/2003/role/link";
+
+(:~
+ : Allow any component link role
+ :)
+declare variable $concepts:ANY_COMPONENT_LINK_ROLE as xs:string :=
+    "*";
 
 (:~
  : The standard label role.
@@ -68,8 +78,7 @@ declare variable $concepts:ALL_CONCEPT_NAMES as xs:string := "";
  :) 
 declare function concepts:concepts() as object*
 {
-  let $conn := concepts:connection()
-  return mongo:find($conn, $concepts:col, {})
+  mw:find($concepts:col,{})
 };
 
 (:~
@@ -106,26 +115,28 @@ declare function concepts:concepts-for-components($concept-names as string*,
  : @return the matching concepts.
  :) 
 declare function concepts:concepts(
-    $concept-names as string*, 
-    $archives as string*, 
+    $concept-names as string*,
+    $archives as string*,
     $component-roles as string*
   ) as object*
 {
-  let $conn := concepts:connection()
-  where exists($archives)
-  return mongo:find($conn, $concepts:col, 
+  if (exists($archives))
+  then mw:find($concepts:col, 
     {|
       {
-        $concepts:ARCHIVE : { "$in" : [ $archives ] },
+        $concepts:ARCHIVE : { "$in" : [ $archives ] }
+      },
+      {
         $concepts:ROLE : { "$in" :
           [ $component-roles, "http://www.xbrl.org/2003/role/link" ]
         }
-      },
+      }[not $component-roles = $concepts:ANY_COMPONENT_LINK_ROLE],
       {
         $concepts:NAME : { "$in" : [ $concept-names ] }
       }[not $concept-names = $concepts:ALL_CONCEPT_NAMES]
     |}
   )
+  else ()
 };
 
 
@@ -310,16 +321,24 @@ declare function concepts:labels(
     $options as object?
   ) as string*
 {
+  let $label-role-translated := replace($label-role, "\\.", "\uff0e")
   let $normalized-language := concepts:normalize-language($language)
-  let $concept-labels-groups-for-role :=$concepts[
-      $$($concepts:NAME)    = $concept-names and
-      $$($concepts:ARCHIVE) = $archives and
-      $$($concepts:ROLE)    = $component-roles]($concepts:LABELS)($label-role)
+  let $concepts as object* := ((
+      $concepts[
+          $$.$concepts:NAME    = $concept-names and
+          (: concepts can be defined within an archive or outside of an archive - e.g. in a taxonomy :)
+          ($$.$concepts:ARCHIVE = $archives or empty($$.$concepts:ARCHIVE) ) and
+          $component-roles = ($concepts:ANY_COMPONENT_LINK_ROLE, $$.$concepts:ROLE)]
+      )[1])
+  let $concept-labels-groups-for-role as object* := (
+      $concepts.$concepts:LABELS.$label-role,
+      $concepts.$concepts:LABELS.$label-role-translated
+  )
   for $concept-labels-group in $concept-labels-groups-for-role
-  let $perfect-match := $concept-labels-group($normalized-language) 
+  let $perfect-match := $concept-labels-group.$normalized-language
   return 
     if ($perfect-match)
-    then $concept-labels-group($normalized-language)
+    then $concept-labels-group.$normalized-language
     else concepts:approximated-labels-match($concept-labels-group, $normalized-language, $options)
 };
 
@@ -357,24 +376,15 @@ declare %private function concepts:approximated-labels-match(
   else ()
 };
 
-declare %private function concepts:normalize-language($language as string) as string
+(:~
+ : <p>Normalizes the language code. This normalized language code can then
+ : be used to find the right labels in the concepts collection.</p>
+ :
+ : @param $language the language identifier.
+ : 
+ : @return the normalized language.
+ :)
+declare function concepts:normalize-language($language as string) as string
 {
-  (: TODO Enable this when the DB has been reimported :)
-  (:replace(lower-case($language), "_", "-"):)
-  $language
-};
-
-declare %private %an:strictlydeterministic function concepts:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("components:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("components:CONNECTION-FAILED"), $err:description)
-    }
+  replace(lower-case($language), "_", "-")
 };

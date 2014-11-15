@@ -32,6 +32,8 @@ jsoniq version "1.0";
 module namespace reports = "http://28.io/modules/xbrl/reports";
 
 import module namespace networks = "http://28.io/modules/xbrl/networks";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
+import module namespace components = "http://28.io/modules/xbrl/components";
 
 declare namespace ver = "http://zorba.io/options/versioning";
 declare option ver:module-version "1.0";
@@ -76,10 +78,43 @@ declare function reports:reports($reports-or-ids as item*) as object*
       $schemas,
       if (exists($ids))
       then find($reports:col, 
-                { "_id" : { "$in" : [ $ids ! reports:rid($$) ] } } )
+                { "_id" : { "$in" : [ distinct-values($ids) ! reports:rid($$) ] } } )
       else ()
     )
 };
+
+(:~
+ : <p>Return the concepts contained in reports.</p>
+ :
+ : @param $reports-or-ids the report ids (RIDs) or the
+ : reports themselves.
+ : 
+ : @return the concepts from the reports in the same layout 
+ : as the concepts module would provide
+ :) 
+declare function reports:concepts($reports-or-ids as item*) as object*
+{
+  let $reports as object* := reports:reports($reports-or-ids)
+  for $report in $reports
+  let $language as string := concepts:normalize-language(( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1])
+  let $role as string := ( $report.Role, $concepts:DEFAULT_COMPONENT_LINK_ROLE )[1]
+  let $report-concepts as object* := 
+        (
+            descendant-objects($report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains)[exists($$.Name)]
+        )
+  for $report-concept in $report-concepts
+  return
+    {
+      Role: $role,
+      Name: $report-concept.Name,
+      Labels: {
+        $concepts:STANDARD_LABEL_ROLE: {
+          $language: $report-concept.Label
+        }
+      }
+    }
+};
+
 
 (:~
  : <p>Adds the given report to the database.</p>

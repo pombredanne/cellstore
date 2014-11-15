@@ -148,7 +148,7 @@
                     is also accessible through a web service API. In fact, the SECXBRL.info website
                     uses exactly this API to retrieve the data from the repository. For this
                     example, the API call would be </para>
-                <para>http://secxbrl.xbrl.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;</para>
+                <para>http://secxbrl.28.io/v1/_queries/public/api/facts.jq?_method=POST&amp;format=xml&amp;</para>
                 <itemizedlist>
                     <listitem>
                         <para>concept=fac:ResearchAndDevelopment&amp;</para>
@@ -197,7 +197,7 @@
                         </imageobject>
                     </inlinemediaobject></para>
                 <para>The API call for this example would be </para>
-                <para>http://secxbrl.xbrl.io/v1/_queries/public/api/facttable-for-component.jq?_method=POST&amp;format=xml&amp;</para>
+                <para>http://secxbrl.28.io/v1/_queries/public/api/facttable-for-component.jq?_method=POST&amp;format=xml&amp;</para>
                 <itemizedlist>
                     <listitem>
                         <para>ticker=ko&amp;</para>
@@ -225,7 +225,7 @@
                         </imageobject>
                     </inlinemediaobject></para>
                 <para>The API call for this example would be</para>
-                <para>http://secxbrl.xbrl.io/v1/_queries/public/api/modestructure-for-component.jq?_method=POST&amp;format=xml&amp;</para>
+                <para>http://secxbrl.28.io/v1/_queries/public/api/modestructure-for-component.jq?_method=POST&amp;format=xml&amp;</para>
                 <itemizedlist>
                     <listitem>
                         <para>ticker=ko&amp;</para>
@@ -328,7 +328,7 @@
                     </inlinemediaobject></para>
                 <para>This API call returns the fact table for the report named
                     FundamentalAccountingConcepts for Coca Cola’s 2013 10-K: </para>
-                <para>http://secxbrl.xbrl.io/v1/_queries/public/api/facttable-for-report.jq?_method=POST&amp;format=xml&amp;</para>
+                <para>http://secxbrl.28.io/v1/_queries/public/api/facttable-for-report.jq?_method=POST&amp;format=xml&amp;</para>
                 <itemizedlist>
                     <listitem>
                         <para>report=FundamentalAccountingConcepts&amp;</para>

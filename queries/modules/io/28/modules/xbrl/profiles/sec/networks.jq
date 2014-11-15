@@ -20,15 +20,17 @@ jsoniq version "1.0";
  :)
 module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 
-import module namespace mongo = "http://www.28msec.com/modules/mongodb";
-import module namespace credentials = "http://www.28msec.com/modules/credentials";
+import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
+
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace components = "http://28.io/modules/xbrl/components";
+import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
+
 
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 
@@ -104,9 +106,8 @@ declare function sec-networks:networks-for-filings(
 declare function sec-networks:networks-for-disclosures(
     $disclosures as string*) as object*
 {
-  let $conn := sec-networks:connection()
   for $disclosure in $disclosures
-  return mongo:find($conn, $components:col, { "Profiles.SEC.Disclosure": $disclosure })
+  return mw:find($components:col,{ "Profiles.SEC.Disclosure": $disclosure })
 };
 
 (:~
@@ -123,8 +124,8 @@ declare function sec-networks:networks-for-filings-and-disclosures(
     $archive-or-ids as item*,
     $disclosures as string*) as object*
 {
-  let $conn := sec-networks:connection()
-  return mongo:find($conn, $components:col, {
+  mw:find($components:col,
+  {
     $components:ARCHIVE: { "$in" : [ $archive-or-ids ! archives:aid($$) ] },
     "Profiles.SEC.Disclosure": { "$in" : [ $disclosures ] }
   })
@@ -147,11 +148,11 @@ declare function sec-networks:networks-for-filings-and-categories(
     $archive-or-ids as item*,
     $categories as string*) as object*
 {
-  let $conn := sec-networks:connection()
   for $aid_or_archive in $archive-or-ids
   let $aid as atomic := archives:aid($aid_or_archive)
   for $category in $categories
-  return mongo:find($conn, $components:col, {
+  return mw:find($components:col,
+  {
     $components:ARCHIVE: $aid,
     "Profiles.SEC.Category": $category
   })
@@ -171,8 +172,8 @@ declare function sec-networks:networks-for-filings-and-roles(
     $archive-or-ids as item*,
     $roles as string*) as object*
 {
-  let $conn := sec-networks:connection()
-  return mongo:find($conn, $components:col, {
+  mw:find($components:col,
+  {
     $components:ARCHIVE: { "$in" : [ $archive-or-ids ! archives:aid($$) ] },
     "Role": { "$in" : [ $roles ] }
   })
@@ -192,8 +193,7 @@ declare function sec-networks:networks-for-filings-and-reportElements(
     $archive-or-ids as item*,
     $report-elements as string*) as object*
 {
-  let $conn := sec-networks:connection()
-  let $ids := mongo:find($conn, "concepts", 
+  let $ids := mw:find($concepts:col, 
       {
          $components:ARCHIVE: { "$in" : [ $archive-or-ids ! archives:aid($$) ] },
          "Name" : { "$in" : [ $report-elements ] }
@@ -240,8 +240,8 @@ declare function sec-networks:networks-for-filings-and-label(
     $label-search-term as string*,
     $limit as integer) as object*
 {
-  let $conn := sec-networks:connection()
-  return mongo:run-cmd-deterministic($conn, {
+  mw:run-cmd-deterministic(
+  {
     "text" : $components:col,
     "filter" : { "Archive" : { "$in" : [ $archive-or-ids ! archives:aid($$) ] } },
     "search" : $label-search-term,
@@ -413,7 +413,19 @@ declare function sec-networks:standard-definition-models-for-components($compone
         return { $d : [ distinct-values($facts.Aspects.$d) ] }
     |}
     let $auto-slice-dimensions as string* :=
-        keys($values-by-dimension)[size($values-by-dimension.$$) eq 1 and not ($$ = ("xbrl:Period", "sec:FiscalYear",  "sec:FiscalPeriod") ) ]
+    (
+        "xbrl:Entity"[size($values-by-dimension."xbrl:Entity") eq 1],
+        keys($values-by-dimension)[
+            size($values-by-dimension.$$) eq 1 and
+            not $$ = ("xbrl:Entity",
+                      "xbrl:Period",
+                      "xbrl28:Archive",
+                      "sec:Accepted",
+                      "sec:FiscalYear",
+                      "sec:FiscalPeriod",
+                      "sec:FiscalPeriodType") ]
+    )
+
     let $user-slice-dimensions as string* :=
         keys($options.Slicers)
 
@@ -422,34 +434,36 @@ declare function sec-networks:standard-definition-models-for-components($compone
         "xbrl:Period",
         "xbrl:Unit",
         "xbrl:Entity",
-        "sec:Archive",
+        "sec:Accepted",
+        "xbrl28:Archive",
         "sec:FiscalYear",
         "sec:FiscalPeriod",
+        "sec:FiscalPeriodType",
         $auto-slice-dimensions,
         $user-slice-dimensions)]
     
     let $x-breakdowns as object* := (
-        sec-networks:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
+        components:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
         for $d as string in $column-dimensions
         let $metadata as object? := descendant-objects($implicit-table)[$$.Name eq $d]
         return
-            if($d = ("sec:Accepted", "sec:FiscalYear", "sec:FiscalPeriod"))
-            then sec-networks:standard-typed-dimension-breakdown(
+            if($d = ("sec:Accepted", "sec:FiscalYear", "sec:FiscalPeriod", "sec:FiscalPeriodType"))
+            then components:standard-typed-dimension-breakdown(
                 $d,
                 $values-by-dimension.$d[])
-            else sec-networks:standard-explicit-dimension-breakdown(
+            else components:standard-explicit-dimension-breakdown(
                 $d,
                 $metadata.Label,
                 keys($table.Aspects.$d.Domains),
                 $component.Role),
-        sec-networks:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
+        components:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
     )
 
     let $lineitems as string* := sec-networks:line-items-report-elements($component).Name
     let $presentation-network as object? := networks:networks-for-components-and-short-names($component, "Presentation")
     let $roots as string* := keys($presentation-network.Trees)
     let $lineitems as string* := if(exists($lineitems)) then $lineitems else $roots
-    let $y-breakdowns as object := sec-networks:standard-concept-breakdown($lineitems, $component.Role)
+    let $y-breakdowns as object := components:standard-concept-breakdown($lineitems, $component.Role)
 
     return {
         ModelKind: "DefinitionModel",
@@ -469,7 +483,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
                    then { $d : $options.Slicers.$d }
                    else { $d : $values-by-dimension.$d[] },
             if (not $auto-slice)
-            then { "sec:Archive" : $component.Archive }
+            then { "xbrl28:Archive" : $component.Archive }
             else ()
         |}
     }
@@ -1035,135 +1049,3 @@ declare function sec-networks:summaries-to-csv($summaries as object*) as string*
   csv:serialize($summaries, { serialize-null-as : "" })
 };
 
-(:~
- : <p>Returns the standard period breakdown.</p>
- :
- : @return the period breakdown.
- :)
-declare %private function sec-networks:standard-period-breakdown() as object
-{
-    {
-        BreakdownLabels: [ "Period breakdown" ],
-        BreakdownTrees: [
-            {
-                Kind: "Rule",
-                Abstract: true,
-                Labels: [ "Period [Axis]" ],
-                Children: [ {
-                    Kind: "Aspect",
-                    Aspect: "xbrl:Period"
-                } ]
-            }
-        ]
-    }
-};
-
-declare %private function sec-networks:standard-typed-dimension-breakdown($dimension-name as string, $dimension-values as atomic*) as object
-{
-    {
-        BreakdownLabels: [ $dimension-name || " breakdown" ],
-        BreakdownTrees: [
-            {
-                Kind: "Rule",
-                Labels: [ $dimension-name || " [Axis]" ],
-                Children: [
-                    for $value in $dimension-values
-                    return {
-                        Kind: "Rule",
-                        Labels: [ $value ],
-                        AspectRulesSet: { "" : { $dimension-name : $value } }
-                    }
-                ]
-            }
-        ]
-    }
-};
-
-declare %private function sec-networks:standard-explicit-dimension-breakdown(
-    $dimension-name as string,
-    $dimension-label as string,
-    $domain-names as string*,
-    $role as string) as object
-{
-    {
-        BreakdownLabels: [ "Dimension Breakdown" ],
-        BreakdownTrees: [
-            {
-                Kind: "Rule",
-                Abstract: true,
-                Labels: [ $dimension-label ],
-                Children: [
-                    for $domain as string in $domain-names
-                    return {
-                        Kind: "DimensionRelationship",
-                        LinkRole: $role,
-                        Dimension: $dimension-name,
-                        RelationshipSource: $domain,
-                        FormulaAxis: "descendant",
-                        Generations: 0
-                    }
-                ]
-            }
-        ]
-    }
-};
-
-declare %private function sec-networks:standard-entity-breakdown() as object
-{
-    {
-        BreakdownLabels: [ "Entity breakdown" ],
-        BreakdownTrees: [
-            {
-                Kind: "Rule",
-                Abstract: true,
-                Labels: [ "Reporting Entity [Axis]" ],
-                ConstraintSets: { "" : {} },
-                Children: [ {
-                    Kind: "Aspect",
-                    Aspect: "xbrl:Entity"
-                } ]
-            }
-        ]
-    }
-};
-
-declare %private function sec-networks:standard-concept-breakdown(
-    $line-items-elements as string*,
-    $role as string) as object
-{
-    {
-        BreakdownLabels: [ "Breakdown on concepts" ],
-        BreakdownTrees: [
-            for $lineitems as string in $line-items-elements
-            return {
-                Kind: "ConceptRelationship",
-                LinkName: "link:presentationLink",
-                LinkRole: $role,
-                ArcName: "link:presentationArc", 
-                ArcRole: "http://www.xbrl.org/2003/arcrole/parent-child",
-                RelationshipSource: $lineitems,
-                FormulaAxis: "descendant",
-                Generations: 0,
-                RollUpAgainstCalculationNetwork: false
-            }
-        ]
-    }
-};
-
-
-(:~
- :)
-declare %private %an:strictlydeterministic function sec-networks:connection() as anyURI
-{
-  let $credentials :=
-      let $credentials := credentials:credentials("MongoDB", "xbrl")
-      return if (empty($credentials))
-             then error(QName("sec-networks:CONNECTION-FAILED"), "no xbrl MongoDB configured")
-             else $credentials
-  return
-    try {
-      mongo:connect($credentials)
-    } catch mongo:* {
-      error(QName("sec-networks:CONNECTION-FAILED"), $err:description)
-    }
-};
