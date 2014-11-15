@@ -1728,11 +1728,7 @@ declare function facts:canonically-serialize-object(
          $object.$facts:ACCEPTED instance of string
         return facts:canonical-grouping-key(
             {
-<<<<<<< HEAD
-                KeyAspects: [ keys($object)[not $$ = ("xbrl28:Archive", "sec:FiscalYear", "sec:FiscalPeriod", "sec:IsExtension")]],
-=======
                 KeyAspects: [ keys($object)[not $$ = ($facts:ARCHIVE, "sec:FiscalYear", "sec:FiscalPeriod", "sec:FiscalPeriodType", "sec:IsExtension")]],
->>>>>>> master
                 Aspects: $object
             }, $exclude-fields)
     case exists($object.Aspects) and exists($object.KeyAspects)

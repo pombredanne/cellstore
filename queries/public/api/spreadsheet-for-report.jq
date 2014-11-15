@@ -1,4 +1,3 @@
-import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace components = "http://28.io/modules/xbrl/components";
 
@@ -69,8 +68,6 @@ then
         $aid)[$profile-name eq "sec"]
     
     (: Fact resolution :)
-    let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
-    let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
     let $spreadsheet as object? :=
         if(false)
         then {

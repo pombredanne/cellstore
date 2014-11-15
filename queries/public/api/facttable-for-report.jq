@@ -1,6 +1,5 @@
 import module namespace archives = "http://28.io/modules/xbrl/archives";		
 import module namespace entities = "http://28.io/modules/xbrl/entities";
-import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace components = "http://28.io/modules/xbrl/components";
@@ -71,9 +70,7 @@ then
         $fiscalPeriodType,
         $aid)[$profile-name eq "sec"]
     let $facts as object* :=
-        let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
-        let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
-        return if(false)
+        if(false)
         then {
               response:status-code(403);
               session:error("The report filters are too weak, which leads to too big an output.", $format)
