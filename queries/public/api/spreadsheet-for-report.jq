@@ -24,6 +24,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $aid           as strin
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate     as boolean external := false;
 declare  %rest:case-insensitive                 variable $report        as string? external;
+declare  %rest:case-insensitive                 variable $language      as string  external := "en-US";
 declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
 
 session:audit-call($token);
@@ -79,7 +80,8 @@ then
                     {
                         FlattenRows: true,
                         Eliminate: $eliminate,
-                        Validate: $validate
+                        Validate: $validate,
+                        Language: $language
                     }
                 |}
             )

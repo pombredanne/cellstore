@@ -32,6 +32,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $label              as 
 declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $role               as string* external;
 declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
+declare  %rest:case-insensitive                 variable $language           as string  external := "en-US";
 
 session:audit-call($token);
 
@@ -96,7 +97,8 @@ let $spreadsheet as object? :=
                 FlattenRows: true,
                 Eliminate: $eliminate,
                 Validate: $validate,
-                DefinitionModel: $definition-model
+                DefinitionModel: $definition-model,
+                Language: $language
             },
             {
                 FilterOverride : {
