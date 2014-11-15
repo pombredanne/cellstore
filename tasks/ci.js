@@ -184,6 +184,7 @@ module.exports = function(grunt) {
             ]);
         }
         grunt.task.run([
+            'jsonlint',
             'config:' + environment,
             'clean:server',
             'ngconstant:' + environment,
@@ -208,6 +209,7 @@ module.exports = function(grunt) {
         }
 
         grunt.task.run([
+            'jsonlint',
             'reports',
             'mustache_render:' + environment,
             'nggettext_default',
