@@ -316,7 +316,7 @@ as object*
  :)
 declare function components:spreadsheet(
     $component as object,
-    $options as object?
+    $options as object
 )
 as object*
 {
