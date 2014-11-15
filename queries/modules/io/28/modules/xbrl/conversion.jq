@@ -12,6 +12,7 @@ declare %private variable $conversion:STANDARD_LABELS :=
         "xbrl:Period" : "Period",
         "sec:FiscalPeriod" : "Fiscal Period",
         "sec:FiscalYear" : "Fiscal Year",
+        "sec:FiscalPeriodType" : "Fiscal Period Type",
         "sec:Accepted" : "Accepted",
         "xbrl:Unit": "Unit",
         "dei:LegalEntityAxis": "Legal Entity"
@@ -88,7 +89,7 @@ declare function conversion:facts-to-csv(
                         {|
                             if($use-labels)
                             then
-                                for $aspect as string in keys($fact.Aspects)
+                                for $aspect as string in keys($fact.Aspects)[$$ ne "sec:Archive"]
                                 let $aspect-label as string := conversion:aspect-label($aspect)
                                 let $aspect-value as atomic := conversion:aspect-value-or-label($aspect, $fact)
                                 return

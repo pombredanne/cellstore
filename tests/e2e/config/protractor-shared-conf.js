@@ -1,6 +1,8 @@
 /*global browser:false */
 'use strict';
 
+var HtmlReporter = require('protractor-html-screenshot-reporter');
+
 exports.config = {
     allScriptsTimeout: 30000,
 
@@ -26,12 +28,19 @@ exports.config = {
         });
 
         //Login
-        var credentials = require('./credentials').credentials;
-        var Auth = require('../../../app/home/auth/auth-page');
-        var auth = new Auth();
-        auth.visitPage();
-        auth.login('support@28.io', credentials.testPassword);
+        var config = require('./config').config;
+        var Auth = require('../../../app/auth/auth-page');
+        var login = new Auth().login;
+        login.visitPage();
+        login.login('support@28.io', config.testPassword);
         browser.waitForAngular();
+
+        if(config.environment === 'ci' || config.environment === 'prod') {
+            // Add a screenshot reporter and store screenshots to config.e2eReportsDir:
+            jasmine.getEnv().addReporter(new HtmlReporter({
+                baseDirectory: config.e2eReportsDir
+            }));
+        }
     },
 
     jasmineNodeOpts: {

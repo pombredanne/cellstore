@@ -41,9 +41,9 @@ jsoniq version "1.0";
  :   {
  :     Filter: 
  :       { 
- :         Archive: "0000034088-13-000011",
  :         Aspects:
  :         {
+ :           "xbrl28:Archive": "0000034088-13-000011",
  :           "us-gaap:DefinedBenefitPlansDisclosuresDefinedBenefitPlansAxis" : 
  :             "us-gaap:ForeignPensionPlansDefinedBenefitMember"
  :         },
@@ -57,7 +57,7 @@ jsoniq version "1.0";
  :       }
  :   }
  :   </pre>
- :   A filter must contain at least on of the fields Archive, Aspects.xbrl:Concept, 
+ :   A filter must contain at least on of the fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept,
  :   Aspects.xbrl:Period, or Aspects.xbrl:Entity.</li>
  : <li><b>ConceptMaps</b>: 
  :   <ol><li>a string which is a name of a report schema that is stored in the 
@@ -129,14 +129,14 @@ declare variable $facts:col as string := "facts";
 declare variable $facts:ID as string := "_id";
 
 (:~
- : Name of the field that points to the archive.
- :)
-declare variable $facts:ARCHIVE as string := "Archive";
-
-(:~
  : Name of the field that stores the aspects.
  :)
 declare variable $facts:ASPECTS as string := "Aspects";
+
+(:~
+ : Name of the field that points to the archive.
+ :)
+declare variable $facts:ARCHIVE as string := "xbrl28:Archive";
 
 (:~
  : Name of the concept aspect.
@@ -199,23 +199,34 @@ declare function facts:facts($fact-or-ids as item*) as object*
     )
 };
 
+(:~
+ : <p>Return all facts reported within given archives.</p>
+ :
+ : @param $archives-or-ids a sequence of archives or AIDs to filter.
+ :
+ : @return all facts reported in these archives.
+ :)
+declare function facts:facts-for-archives(
+  $archives-or-ids as item*) as object*
+{
+  facts:facts-for-archives($archives-or-ids, ())
+};
 
 (:~
  : <p>Return all facts reported within a given archive.</p>
  :
  : @param $archives-or-ids a sequence of archives or AIDs to filter.
- :
+ : @param $options <a href="#standard_options">standard fact retrieving options</a>.
  : @return all facts reported in these archives.
  :) 
 declare function facts:facts-for-archives(
-  $archives-or-ids as item*) as object*
+  $archives-or-ids as item*,
+  $options as object?) as object*
 {
-  let $filter as object := {
-    "Filter" : {
-      $facts:ARCHIVE: [ archives:aid($archives-or-ids) ]
-    }
-  }
-  return facts:facts-for($filter)
+  facts:facts-for-aspects(
+    { $facts:ARCHIVE : [ archives:aid($archives-or-ids) ] },
+    $options
+  )
 };
 
 (:~
@@ -351,12 +362,15 @@ declare function facts:facts-for-archives-and-aspects(
   let $filter as object := 
     {
       "Filter" :
-        {|
-          if (not deep-equal($archives-or-ids, $facts:ALL_OF_THEM))
-          then { $facts:ARCHIVE: [ archives:aid($archives-or-ids) ] }
-          else (),
-          { $facts:ASPECTS : $aspects }
-        |}
+        {
+          $facts:ASPECTS :
+            {|
+              if (not deep-equal($archives-or-ids, $facts:ALL_OF_THEM))
+              then { $facts:ARCHIVE: [ archives:aid($archives-or-ids) ] }
+              else (),
+              $aspects
+            |}
+        }
     }
   return 
     facts:facts-for(
@@ -615,7 +629,7 @@ declare function facts:labels(
 {
     let $concept-names as string* :=
         distinct-values(values($facts.Aspects)[string($$) = $concepts.Name])
-    let $archives := $facts.Aspects."xbrl28:Archive"
+    let $archives := $facts.Aspects.$facts:ARCHIVE
     return
         {|
             for $name in $concept-names
@@ -1350,8 +1364,8 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
     ()
   else
     let $archive-or-ids := 
-      if (exists( $filter.$facts:ARCHIVE ))
-      then jn:flatten( $filter.$facts:ARCHIVE )
+      if (exists( $filter.$facts:ASPECTS.$facts:ARCHIVE ))
+      then jn:flatten( $filter.$facts:ASPECTS.$facts:ARCHIVE )
       else $facts:ALL_OF_THEM
     let $facts-for-archives-and-concepts :=
         if (exists($options.facts-for-archives-and-concepts))
@@ -1370,7 +1384,7 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
 
     let $new-options as object* :=
       (: @TODO: why do we remove concept-maps here? :)
-      copy $new := trim($options, ($facts:ARCHIVE, "concept-maps", "ConceptMaps", "cache-control"))
+      copy $new := trim($options, ("concept-maps", "ConceptMaps", "cache-control"))
       modify (switch(true)
               case exists($new.Filter.Aspects.$facts:CONCEPT)
                   return 
@@ -1494,13 +1508,13 @@ declare %private function facts:align-filter-to-hypercube(
       else $filter 
   return
     if (empty((
-        $aligned-filter.$facts:ARCHIVE,
+        $aligned-filter.$facts:ASPECTS.$facts:ARCHIVE,
         $aligned-filter.$facts:ASPECTS.$facts:CONCEPT,
         $aligned-filter.$facts:ASPECTS.$facts:PERIOD,
         $aligned-filter.$facts:ASPECTS.$facts:ENTITY
     )))
     then error(QName("facts:FILTER-TOO-GENERIC"), 
-                 "The filter object must have at least one of the fields "
+                 "The filter object must have at least one of the fields "  || $facts:ASPECTS || "."
                  || $facts:ARCHIVE || ", " || $facts:ASPECTS || "." || $facts:CONCEPT 
                  || ", " || $facts:ASPECTS || "." || $facts:PERIOD || ", " 
                  || "or " || $facts:ASPECTS || "." || $facts:ENTITY 
@@ -1684,7 +1698,7 @@ declare function facts:canonical-grouping-key(
   for $fact in $facts
   return string-join(
     let $aspects as object := $fact.Aspects
-    for $non-covered-key-aspect as string in ("sec:FiscalPeriod", $fact.KeyAspects[][not $$ = $covered-aspects])
+    for $non-covered-key-aspect as string in $fact.KeyAspects[][not $$ = $covered-aspects]
     order by $non-covered-key-aspect
     return ($non-covered-key-aspect, string($aspects.$non-covered-key-aspect))
   , "|")
@@ -1714,7 +1728,11 @@ declare function facts:canonically-serialize-object(
          $object.$facts:ACCEPTED instance of string
         return facts:canonical-grouping-key(
             {
+<<<<<<< HEAD
                 KeyAspects: [ keys($object)[not $$ = ("xbrl28:Archive", "sec:FiscalYear", "sec:FiscalPeriod", "sec:IsExtension")]],
+=======
+                KeyAspects: [ keys($object)[not $$ = ($facts:ARCHIVE, "sec:FiscalYear", "sec:FiscalPeriod", "sec:FiscalPeriodType", "sec:IsExtension")]],
+>>>>>>> master
                 Aspects: $object
             }, $exclude-fields)
     case exists($object.Aspects) and exists($object.KeyAspects)

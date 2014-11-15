@@ -39,16 +39,26 @@ local:check({
         ticker:"ko",
         fiscalYear:"2012",
         fiscalPeriod:"Q1"}),
-    tickerconcept: local:test-spreadsheet(410, {
+    tickerconcept: local:test-spreadsheet(384, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
-        fiscalPeriod:"ALL"}),
+        fiscalPeriod:"ALL",
+        fiscalPeriodType:["instant", "YTD"]
+    }),
+    tickerconcept-qtd: local:test-spreadsheet(198, {
+        report:"FundamentalAccountingConcepts",
+        ticker:"ko",
+        fiscalYear:"2012",
+        fiscalPeriod:"ALL",
+        fiscalPeriodType:["instant", "QTD"]
+    }),
     tickerfyfprole: local:test-spreadsheet(193, {
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
         fiscalPeriod:"FY",
+        fiscalPeriodType:["instant", "YTD"],
         eliminate:"true"}),
     reportDoesntExist: local:test-report-does-not-exist({
         report:"report-not-found",

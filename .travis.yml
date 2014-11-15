@@ -7,9 +7,9 @@ before_script:
 - npm install -g grunt-cli
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
+script:
 # setup/deploy for ci or only deploy to prod if on master
 - grunt test:setup
-script:
 # run tests against deployed version
 - grunt test:run
 after_script:

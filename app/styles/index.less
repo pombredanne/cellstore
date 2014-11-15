@@ -1,17 +1,20 @@
 @import "bootstrap.less";
-@import "flexbox.less";
 @import "ng-progress-lite.less";
-@import "api-scheduler-status.less";
 
 @import "../home/home.less";
-@import "../home/auth/auth.less";
+@import "../home/start/start.less";
 @import "../home/pricing/pricing.less";
 @import "../home/api/api.less";
 @import "../home/blog/blog.less";
 
+@import "../auth/auth.less";
+@import "../auth/login/login.less";
+
 @import "../home/account/account.less";
 
+@import "../modules/ui/account.less";
 @import "../modules/ui/package.less";
+@import "../modules/ui/registration.less";
 
 @preview-main-header-bg: @brand-primary;
 @preview-second-header-bg: #f4f4ff;
@@ -45,9 +48,36 @@ a {
 
 footer {
   background-color: @clouds;
+  color: darken(@clouds, 20%);
+  font-weight: 300;
+  padding-top: 2em;
+  margin-bottom: -2em;
   z-index: 100;
   position: relative;
 }
+
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+  color: darken(@clouds, 50%);
+}
+
+footer a {
+}
+
+footer a:hover {
+}
+
+footer .fa-twitter, footer .fa-github {
+  font-size: 4em;
+}
+
+footer .fa-twitter:hover, footer .fa-github:hover {
+  text-decoration: none;
+}
+
+footer .copyright {
+  margin-top: 2em;
+}
+
 
 //std margin, padding, bg
 .std-padding {
