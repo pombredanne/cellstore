@@ -6,7 +6,7 @@
     background-color: @brand-primary;
 
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 2em;
 
     background: url(/images/hero-unit.jpg);
 
@@ -76,7 +76,7 @@
     padding-top: 6em;
     padding-bottom: 6em;
 
-    >.container > .row {
+    >.container-fluid > .row {
 
       h2 {
         color: @brand-primary;
@@ -162,11 +162,13 @@
   }
 
   .users {
+    text-align: center;
+
     a {
       height: 100px; /* equals max image height */
       width: 260px;
       text-align: center;
-      display: block;
+      display: inline-block;
       -webkit-filter: grayscale(1);
       -webkit-filter: grayscale(100%);
       -moz-filter: grayscale(100%);
