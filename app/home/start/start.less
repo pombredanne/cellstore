@@ -6,16 +6,16 @@
     background-color: @brand-primary;
 
     padding-top: 0;
-    padding-bottom: 4em;
+    padding-bottom: 2em;
 
-    background-image: url(/images/hero-unit.jpg);
+    background: url(/images/hero-unit.jpg);
+
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover;
 
     h1 {
       color: white;
-      //text-shadow: 0 2px 3px rgba(0,0,0,.4);
       font-size: @font-size-h1 * 2;
       font-weight: 100;
       margin-top: 0;
@@ -162,11 +162,13 @@
   }
 
   .users {
+    text-align: center;
+
     a {
       height: 100px; /* equals max image height */
       width: 260px;
       text-align: center;
-      display: block;
+      display: inline-block;
       -webkit-filter: grayscale(1);
       -webkit-filter: grayscale(100%);
       -moz-filter: grayscale(100%);
@@ -221,3 +223,15 @@
 //  -moz-box-shadow: 0 1px 3px #666;
 //  box-shadow: 0 1px 3px #666;
 //}
+
+@media (max-width: @screen-md-min) {
+  #home {
+    .jumbotron {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/hero-unit.jpg);
+      text-align: center;
+      h1 {
+        color: white;
+      }
+    }
+  }
+}
