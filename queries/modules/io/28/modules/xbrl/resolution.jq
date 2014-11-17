@@ -504,7 +504,7 @@ declare function resolution:expand-dimension-network(
             $components,
             $concepts,
             ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
-            $options
+            $options)
     return
     {|
         {
