@@ -388,7 +388,7 @@ declare %private function resolution:expand-concept-network(
             $components,
             $concepts,
             ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
-            ())
+            $options)
     return
     {|
         {
@@ -496,12 +496,15 @@ declare function resolution:expand-dimension-network(
 {
     let $value := $network.Name
     let $label :=
-        resolution:labels(
+          if(not $options.Language != $components.$components:DEFAULT-LANGUAGE)
+          then $network.Label
+          else
+          resolution:labels(
             $value,
             $components,
             $concepts,
             ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
-            ())
+            $options
     return
     {|
         {
