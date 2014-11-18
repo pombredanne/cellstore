@@ -286,6 +286,13 @@ return local:check({
         fiscalPeriod:"FY",
         fiscalPeriodType:["instant", "QTD", "YTD"]
     }),
+    bfiXOMUnits: local:test-facttable(401, {
+        report:"supportBasicFinancialInformation",
+        ticker:["xom"],
+        fiscalYear:"ALL",
+        fiscalPeriod:"FY",
+        fiscalPeriodType:["instant", "YTD"]
+    }),
     allvalues : local:test-values(),
     otheroperatingincometest: local:test-facttable-fact("fac:OtherOperatingIncomeExpenses",
                                                         local:expected-OtherOperatingIncomeExpenses-ATnT-2013(),
