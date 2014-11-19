@@ -9,7 +9,7 @@ declare %rest:case-insensitive %rest:distinct variable $_id          as string* 
 declare %rest:case-insensitive %rest:distinct variable $user         as string* external;
 declare %rest:case-insensitive                variable $public-read  as boolean external := false;
 declare %rest:case-insensitive                variable $private      as boolean external := false;
-declare %rest:case-insensitive                variable $onlyNames    as boolean? external := false;
+declare %rest:case-insensitive                variable $onlyMetadata as boolean? external := false;
 
 try {
     (: ### INIT PARAMS :)
@@ -67,7 +67,7 @@ try {
             response:serialization-parameters({"indent" : true});
             
             [
-                if($onlyNames)
+                if($onlyMetadata)
                 then
                     for $report in $reports
                     return {

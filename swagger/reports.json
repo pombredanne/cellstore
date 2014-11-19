@@ -53,6 +53,17 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "onlyMetadata",
+                            "description": "If set to true will return only the metadata of reports instead of the complete reports. (default: false)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "true",
+                                "false"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
                             "name": "_method",
                             "type": "string",
                             "paramType": "query",
