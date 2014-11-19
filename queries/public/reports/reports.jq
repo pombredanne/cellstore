@@ -10,6 +10,7 @@ declare %rest:case-insensitive %rest:distinct variable $_id          as string* 
 declare %rest:case-insensitive %rest:distinct variable $user         as string* external;
 declare %rest:case-insensitive                variable $public-read  as boolean external := false;
 declare %rest:case-insensitive                variable $private      as boolean external := false;
+declare %rest:case-insensitive                variable $onlyMetadata as boolean? external := false;
 declare %rest:case-insensitive                variable $export       as boolean external := false;
 
 try {
@@ -109,7 +110,18 @@ try {
             response:content-type("application/json");
             response:serialization-parameters({"indent" : true});
             
-            [ $reports ]
+            [
+                if($onlyMetadata)
+                then
+                    for $report in $reports
+                    return {
+                        _id: $report._id,
+                        Label: $report.Label,
+                        Description: $report.Description,
+                        LastModified: $report.LastModified
+                    }
+                else $reports
+            ]
         }
 } catch session:expired {
     {
