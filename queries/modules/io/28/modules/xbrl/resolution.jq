@@ -143,7 +143,10 @@ declare %private function resolution:labels(
     $options as object?) as string*
 {
     let $components-with-the-language-as-default :=
-        $components[not $$.$components:DEFAULT-LANGUAGE ne $options.Language]
+        for $component in $components
+        let $default-language := ($component.DefaultLanguage, "en-US")[1]
+        where not $default-language ne $options.Language
+        return $component
 
     let $labels-from-local-metadata as string* :=
         let $default-hypercubes as object* :=
@@ -376,11 +379,13 @@ declare %private function resolution:expand-concept-network(
     $concepts as object*,
     $options as object?) as object*
 {
-    let $concept := $network.Name
+    let $concept as string := $network.Name
+    let $default-languages as string* := $components.$components:DEFAULT-LANGUAGE
+    let $default-languages := if(exists($default-languages)) then $default-languages else "en-US"
     let $default-hypercube := hypercubes:hypercubes-for-components($components, "xbrl:DefaultHypercube")
     let $concept-metadata := $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members.$concept[1]
     let $label :=
-        if(not $options.Language != $components.$components:DEFAULT-LANGUAGE)
+        if(every $language in $default-languages satisfies $language eq $options.Language)
         then $network.Label
         else
         resolution:labels(
