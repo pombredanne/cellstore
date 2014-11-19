@@ -27,10 +27,15 @@ angular
         };
 
         $scope.$watch($scope.getWindowDimensions, function (newValue) {
-            $element[0].style.height = newValue + 'px';
             var title = document.querySelector('.title');
             var titleH = title.getBoundingClientRect().height;
-            title.style.marginTop = ((newValue - titleH) / 2) + 'px';
+            var val = ((newValue - titleH) / 2);
+            if(val > 50) {
+                title.style.marginTop = val + 'px';
+            }
+            if(newValue > (titleH + 50)) {
+                $element[0].style.height = newValue + 'px';
+            }
 
         });
 

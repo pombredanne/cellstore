@@ -143,6 +143,7 @@ declare function fiscal-core:filter-override(
           { Type: "string" },
           { Domain: [ $fiscal-periods ] }[exists($fiscal-periods)]
         |},
+        
         "sec:FiscalPeriodType" : {|
           { Type: "string" },
           if($override-fiscal-period-types)
