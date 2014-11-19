@@ -56,11 +56,7 @@
                             "name": "onlyMetadata",
                             "description": "If set to true will return only the metadata of reports instead of the complete reports. (default: false)",
                             "required": false,
-                            "type": "string",
-                            "enum": [
-                                "true",
-                                "false"
-                            ],
+                            "type": "boolean",
                             "paramType": "query"
                         },
                         {
