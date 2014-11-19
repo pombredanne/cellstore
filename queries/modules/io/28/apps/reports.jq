@@ -27,8 +27,7 @@ declare %private function reports:message(
   $context as string,
   $identifier as string,
   $message as string,
-  $details as string)
-
+  $details as item*)
 as object
 {
     {|
@@ -59,7 +58,7 @@ as object*
         case(empty($labels))
         return reports:message($reports:WARNING, 
                                $reports:CONTEXT-REPORT, 
-                               $concept[1].Name, 
+                               $concept[1].Name,
                                "No Label for '" || $concept[1].Name || "'")
         
         case(count($labels) gt 1)
@@ -147,7 +146,7 @@ as object*
                     if(count($rules) gt 1)
                     then reports:message($reports:ERROR,
                                          $reports:CONTEXT-RULES,
-                                         ($rules.id),
+                                         ($rules._id),
                                          "Concept: '" || $concept-name || "' is computable by multiple rules: " 
                                                       || string-join(($rules ! ("'" || $$.Label || "'")), ","),
                                          $rules)
@@ -156,10 +155,10 @@ as object*
                     then ()
                     else reports:message($reports:ERROR,
                                          $reports:CONTEXT-RULES,
-                                         ($rules.id),
-                                         "Concept is not in the hypercubes' value space: '" || $concept-name || "'",
+                                         ($concept-name),
+                                         "Concept is computable, but not in the hypercubes' value space: '" || $concept-name || "'",
                                          $rules)
-                ),
+                )(:,
             
             let $map-concepts := 
                 keys($report.Networks[][$$.ShortName eq "ConceptMap"].Trees)
@@ -173,7 +172,7 @@ as object*
                                          $reports:CONTEXT-NETWORKS-CONCEPTMAP,
                                          $concept-name, 
                                          "Concept is not in the hypercubes' value space: '" || $concept-name || "'")
-                )
+                ):)
         )
 };
 
@@ -259,24 +258,32 @@ declare function reports:validate-and-update-report-properties($report as object
         else (),
         :)
         
-        (: user authorized to change owner? :)
+        (: fix Owner if needed :)
         if(empty($r.Owner))
         then insert json { "Owner": $authenticated-user-email } into $r
-        else 
-            if($r.Owner ne $existing-report.Owner)
-            then error(xs:QName("reports:UNAUTHORIZED"), "changing the owner from " || $existing-report.Owner || " to " || $r.Owner || " is not allowed.")
-            else (),
-        
-        (: user authorized to update ACL? :)
-        if(exists($existing-report) and not(deep-equal($r.ACL, $existing-report.ACL)) and not(reports:has-report-access-permission($report, $authenticated-user-email, "FULL_CONTROL")))
-        then error(xs:QName("reports:UNAUTHORIZED"), "changing ACL requires FULL_CONTROL access right or being the owner.")
+        else (),
+        if($r.Owner eq "" or
+          (empty($existing-report) and $r.Owner ne $authenticated-user-email))
+        then replace value of json $r.Owner with $authenticated-user-email
         else (),
         
         if(exists($report.LastModified))
         then replace value of json $r.LastModified with string(current-dateTime())
         else insert json { "LastModified": string(current-dateTime()) } into $r
     )
-    return $r
+    return (
+        (: user authorized to update ACL? :)
+        if(exists($existing-report) and not(deep-equal($r.ACL, $existing-report.ACL)) and not(reports:has-report-access-permission($report, $authenticated-user-email, "FULL_CONTROL")))
+        then error(xs:QName("reports:UNAUTHORIZED"), "changing ACL requires FULL_CONTROL access right or being the owner.")
+        else (),
+        
+        (: user authorized to change owner? :)
+        if($r.Owner ne $existing-report.Owner)
+        then error(xs:QName("reports:UNAUTHORIZED"), "changing the owner from " || $existing-report.Owner || " to " || $r.Owner || " is not allowed.")
+        else (),
+        
+        $r
+    )
 };
 
 
