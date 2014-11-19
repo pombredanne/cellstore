@@ -50,6 +50,18 @@ module.exports = function(grunt) {
         return process.env.TRAVIS_BUILD_ID !== undefined;
     };
 
+    var hasTravisTestPassed = function(){
+        grunt.log.writeln('TRAVIS_TEST_RESULT: ' + process.env.TRAVIS_TEST_RESULT);
+        return process.env.TRAVIS_TEST_RESULT === '0';
+    };
+
+    var hasE2eReport = function(){
+        var reportDir = grunt.config.get(['yeoman']).e2eReportsDir;
+        var files = grunt.file.expand({ filter: 'isFile'}, [ reportDir + '/**/*' ]);
+        grunt.log.writeln('E2E Report files: ' + files.length);
+        return files.length > 0;
+    };
+
     var isTravisAndMaster = function() {
         return isTravis() && process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
     };
@@ -89,12 +101,17 @@ module.exports = function(grunt) {
             }
             config.s3.bucket = bucket;
             config['28'].project = projectName;
-            config['28'].api = { url: 'http://' + projectName + '.28.io/v1' };
+            if(projectName === 'secxbrl' && environment === 'prod') {
+                config['28'].api = { url: 'https://secxbrl.28.io/v1' };
+            } else {
+                config['28'].api = { url: 'http://' + projectName + '.28.io/v1' };
+            }
             var s3KeyType = 'development';
             if (isTravisAndMaster()) {
                 config.s3.key = config.s3.production.key;
                 config.s3.secret = config.s3.production.secret;
                 config.s3.region = config.s3.production.region;
+                config.s3.reportsBucket = config.s3.production.reportsBucket;
                 s3KeyType = 'production';
                 grunt.log.ok('Purging NetDNA Zone: ' + config.netdna.prod.zone);
             }
@@ -167,12 +184,13 @@ module.exports = function(grunt) {
             ]);
         }
         grunt.task.run([
+            'jsonlint',
             'config:' + environment,
             'clean:server',
             'ngconstant:' + environment,
             'run-message',
             'swagger-js-codegen',
-            'recess',
+            'less',
             'concurrent:server',
             'connect:livereload',
             'open',
@@ -191,6 +209,7 @@ module.exports = function(grunt) {
         }
 
         grunt.task.run([
+            'jsonlint',
             'reports',
             'mustache_render:' + environment,
             'nggettext_default',
@@ -244,6 +263,36 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.registerTask('e2e-report-message', function(){
+        var url = 'http://' + grunt.config.get(['secxbrl']).s3.reportsBucket + '.s3-website-us-east-1.amazonaws.com/' + grunt.config.get(['secxbrl'])['28'].project + '/report.html';
+        grunt.log.ok('e2e reports uploaded to: ' + url);
+    });
+
+    grunt.registerTask('e2e-report', function(environment){
+        environment = normalizeAndCheckEnvironment(environment);
+        var testsHavePassed = hasTravisTestPassed();
+        var e2eReportAvailable = hasE2eReport();
+
+        if((environment === 'ci' || environment === 'prod') &&
+            !testsHavePassed && e2eReportAvailable){
+            grunt.task.run([
+                'aws_s3:uploadReports',
+                'e2e-report-message:' + environment
+            ]);
+        } else if (environment === 'dev') {
+            if(e2eReportAvailable){
+                var reportDir = grunt.config.get(['yeoman']).e2eReportsDir;
+                grunt.log.writeln('Not uploading e2e reports in dev environment. E2E test report available here: ' + reportDir);
+            }
+        } else if (testsHavePassed) {
+            grunt.log.writeln('Not uploading e2e reports because tests have passed.');
+        } else if(!e2eReportAvailable){
+            grunt.log.writeln('Not uploading e2e reports because there are no files.');
+        }else {
+            grunt.log.writeln('Not uploading e2e reports for environment: ' + environment);
+        }
+    });
+
     grunt.registerTask('e2e', function(environment){
         environment = normalizeAndCheckEnvironment(environment);
 
@@ -276,22 +325,28 @@ module.exports = function(grunt) {
 
         if (target === 'setup') {
             grunt.task.run([
+                'xqlint',
+                'jsonlint',
+                'jshint',
                 'frontend:' + environment,
                 'backend:' + environment,
                 'deployed-message'
             ]);
         } else if (target === 'run') {
-            grunt.task.run([
-                'xqlint',
-                'jsonlint',
-                'jshint',
-                '28:run',
-                'e2e:' + environment
-            ]);
+            var hasSetupBeenSuccessful = hasTravisTestPassed(); // in dev environm. this is always false
+            if(environment === 'dev' || hasSetupBeenSuccessful){
+                grunt.task.run([
+                    '28:run',
+                    'e2e:' + environment
+                ]);
+            } else {
+                grunt.log.writeln('Not running tests because setup failed: ' + environment);
+            }
         } else if (target === 'teardown' && environment !== 'prod') {
             if(!isTravis()) {
                 grunt.task.run(['ngconstant:' + environment]);
             }
+            grunt.task.run(['e2e-report:' + environment]);
             // double check that teardown is not run for prod
             if(!isTravisAndMaster()) {
                 grunt.task.run([
@@ -300,9 +355,10 @@ module.exports = function(grunt) {
                     'setupS3Bucket:teardown'
                 ]);
             }
-        } else if (environment === 'prod') {
-            fatal('test tasks must never run against production: target: ' + target + ' environment: ' + environment);
-        }else {
+        } else if (target === 'teardown' && environment === 'prod') {
+            grunt.log.writeln('skipping teardown for prod');
+            grunt.task.run(['e2e-report:' + environment]);
+        } else {
             fatal('Unknown target for task test: ' + target + ' environment: ' + environment);
         }
     });

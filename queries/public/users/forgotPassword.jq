@@ -6,6 +6,7 @@ import module namespace sendmail = "http://apps.28.io/sendmail";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace random = "http://zorba.io/modules/random";
 import module namespace csv = "http://zorba.io/modules/json-csv";
+import module namespace credentials = "http://apps.28.io/credentials";
 
 declare function local:to-csv($o as object*) as string
 {
@@ -47,7 +48,8 @@ else
             insert json { resetDate : current-dateTime() } into $user;
 
         sendmail:send($email, "Reset your password", 
-                "To reset your password, please click this link:\nhttp://www.secxbrl.info/reset?email=" || $email || "&resetToken=" || $resetToken || 
+                "To reset your password, please click this link:\n" || $credentials:frontend-url ||
+                "/auth/reset?email=" || encode-for-uri($email) || "&resetToken=" || encode-for-uri($resetToken) || 
                 "\n\nThe link is valid for one day.\nIf you did not ask for this, please ignore the message.\n\nSecXBRL.info");
     }
 }

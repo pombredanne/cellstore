@@ -1,6 +1,9 @@
 'use strict';
 
 angular.module('secxbrl', [
+    'rn-lazy',
+    'duScroll',
+    'duParallax',
     'angular-data.DS',
     'angular-data.DSCacheFactory',
     'ui.router',
@@ -105,7 +108,42 @@ angular.module('secxbrl', [
         Session.logout();
         Session.redirectToLoginPage();
     });
-    
+
+    $rootScope.$on('error', function(event, title, message){
+        $modal.open( {
+            template: '<div class="modal-header alert-danger"><span ng-bind-html="errorObject.title" id="error-header"></span><a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" id="error-body"><div ng-repeat="message in errorObject.message" ng-bind-html="message"></div> </div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
+            controller: ['$scope', '$modalInstance', 'errorObject',  function ($scope, $modalInstance, errorObject) {
+                $scope.errorObject = errorObject;
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }],
+            resolve: {
+                errorObject: function() {
+                    var msg = [ message ];
+                    if(typeof message === 'object' && message.status && message.body){
+                        var status = message.status;
+                        var code = message.body.code;
+                        var description = message.body.description;
+                        var errorMsg = message.body.message;
+
+                        msg = [];
+                        if(typeof code === 'string' && typeof description === 'string'){
+                            msg.push('' + description);
+                            msg.push('Error Code: ' + code);
+                        } else if(typeof errorMsg === 'string'){
+                            msg.push('' + errorMsg);
+                        } else if(status === 403){
+                            msg.push('Forbidden (Possible reason: Invalid password)');
+                        }
+                        msg.push('Status: ' + status);
+                    }
+                    return { title: title, message: msg };
+                }
+            }
+        });
+    });
+
     $rootScope.$on('alert', function(event, title, message){
         $modal.open( {
             template: '<div class="modal-header"><span ng-bind-html="object.title" id="alert-header"></span><a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message" id="alert-body"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',

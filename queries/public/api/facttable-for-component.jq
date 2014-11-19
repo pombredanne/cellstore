@@ -101,7 +101,8 @@ let $facts :=
              let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
              let $hc := hypercubes:modify-hypercube($hc, {
                  "sec:FiscalYear" : { Type: "integer", Default: null },
-                 "sec:FiscalPeriod" : { Type: "string", Default: null }
+                 "sec:FiscalPeriod" : { Type: "string", Default: null },
+                 "sec:FiscalPeriodType" : { Type: "string", Default: null }
              })
              let $options as object? := if(exists($rules)) then { Rules: [ $rules ] } else ()
              let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive, $options)
@@ -122,7 +123,8 @@ let $facts :=
                 {
                     FilterOverride : {
                         "sec:FiscalPeriod" : { Type: "string", Default: null },
-                        "sec:FiscalYear" : { Type: "string", Default: null }
+                        "sec:FiscalYear" : { Type: "string", Default: null },
+                        "sec:FiscalPeriodType" : { Type: "string", Default: null }
                     }
                 }[$profile-name eq "sec"],
                 { Validate: $validate },

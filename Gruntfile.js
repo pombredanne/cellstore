@@ -28,7 +28,8 @@ module.exports = function (grunt) {
     var yeomanConfig = {
         app: 'app',
         dist: 'dist',
-        queries: 'queries'
+        queries: 'queries',
+        e2eReportsDir: '/tmp/e2e-reports'
     };
 
     var getStringParam = function(paramName) {
@@ -69,9 +70,9 @@ module.exports = function (grunt) {
     grunt.initConfig({
         yeoman: yeomanConfig,
         watch: {
-            recess: {
+            less: {
                 files:  ['<%= yeoman.app %>/**/*.less'],
-                tasks: ['recess']
+                tasks: ['less']
             },
             swagger: {
                 files: ['swagger/{,*/}*.json'],
@@ -143,15 +144,23 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.prod %>'
+                            secxbrl: '<%= secxbrl.secxbrlInfo.prod %>',
+                            staging: {
+                                environment: 'prod',
+                                e2eReportsDir: '<%= yeoman.e2eReportsDir %>'
+                            }
                         },
-                        template: 'tasks/credentials_js.mustache',
-                        dest: 'tests/e2e/config/credentials.js'
+                        template: 'tasks/config_js.mustache',
+                        dest: 'tests/e2e/config/config.js'
                     },
                     {
                         data: {
                             secxbrl: '<%= secxbrl.secxbrlInfo.prod %>',
-                            sendmail: '<%= secxbrl.sendmail %>'
+                            sendmail: '<%= secxbrl.sendmail %>',
+                            frontend: {
+                                project: 'app',
+                                domain: '.secxbrl.info'
+                            }
                         },
                         template: 'tasks/credentials.mustache',
                         dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
@@ -162,15 +171,23 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>'
+                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            staging: {
+                                environment: 'dev',
+                                e2eReportsDir: '<%= yeoman.e2eReportsDir %>'
+                            }
                         },
-                        template: 'tasks/credentials_js.mustache',
-                        dest: 'tests/e2e/config/credentials.js'
+                        template: 'tasks/config_js.mustache',
+                        dest: 'tests/e2e/config/config.js'
                     },
                     {
                         data: {
                             secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
-                            sendmail: '<%= secxbrl.sendmail %>'
+                            sendmail: '<%= secxbrl.sendmail %>',
+                            frontend: {
+                                project: '<%= secxbrl.28.project %>',
+                                domain: '.s3-website-us-east-1.amazonaws.com'
+                            }
                         },
                         template: 'tasks/credentials.mustache',
                         dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
@@ -181,15 +198,23 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>'
+                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            staging: {
+                                environment: 'ci',
+                                e2eReportsDir: '<%= yeoman.e2eReportsDir %>'
+                            }
                         },
-                        template: 'tasks/credentials_js.mustache',
-                        dest: 'tests/e2e/config/credentials.js'
+                        template: 'tasks/config_js.mustache',
+                        dest: 'tests/e2e/config/config.js'
                     },
                     {
                         data: {
                             secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
-                            sendmail: '<%= secxbrl.sendmail %>'
+                            sendmail: '<%= secxbrl.sendmail %>',
+                            frontend: {
+                                project: '<%= secxbrl.28.project %>',
+                                domain: '.s3-website-us-east-1.amazonaws.com'
+                            }
                         },
                         template: 'tasks/credentials.mustache',
                         dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
@@ -267,7 +292,7 @@ module.exports = function (grunt) {
             },
             server: '.tmp'
         },
-        recess: {
+        less: {
             dist: {
                 options: {
                     compile: true
@@ -281,7 +306,7 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            all: ['Gruntfile.js', '<%= yeoman.app %>/scripts/**/*.js', 'tasks/**/*.js']
+            all: ['Gruntfile.js', '<%= yeoman.app %>/**/*.js', 'tasks/**/*.js']
         },
         rev: {
             dist: {
@@ -360,7 +385,7 @@ module.exports = function (grunt) {
                     src: ['*.pdf']
                 }, {
                     expand: true,
-                    cwd: '<%= yeoman.app %>/swagger',
+                    cwd: 'swagger',
                     dest: '<%= yeoman.dist %>/swagger',
                     src: ['*.json']
                 }, {
@@ -378,7 +403,7 @@ module.exports = function (grunt) {
             test: [],
             dist: [
                 'nggettext_compile',
-                'recess',
+                'less',
                 'imagemin',
                 'htmlmin'
             ]
@@ -509,7 +534,7 @@ module.exports = function (grunt) {
             all: {
                 src: [
                     '*.json',
-                    'app/swagger/*.json'
+                    'swagger/*.json'
                 ]
             }
         },
@@ -535,6 +560,14 @@ module.exports = function (grunt) {
                 },
                 files: [
                     { 'action': 'delete', dest: '/' }
+                ]
+            },
+            uploadReports: {
+                options: {
+                    bucket: '<%= secxbrl.s3.reportsBucket %>'
+                },
+                files: [
+                    { 'action': 'upload', expand: true, cwd: '<%= yeoman.e2eReportsDir %>', dest: '<%= secxbrl.28.project %>', src: ['**'] }
                 ]
             }
         },
@@ -585,7 +618,8 @@ module.exports = function (grunt) {
                 runQueries: [
                     'queries/private/InitAuditCollection.jq',
                     'queries/private/init.jq',
-                    'queries/private/UpdateReportSchema.jq'
+                    'queries/private/UpdateReportSchema.jq',
+                    'queries/private/migration/db6.jq'
                 ]
 
             },
@@ -597,7 +631,8 @@ module.exports = function (grunt) {
                 runQueries: [
                     'queries/private/InitAuditCollection.jq',
                     'queries/private/init.jq',
-                    'queries/private/UpdateReportSchema.jq'
+                    'queries/private/UpdateReportSchema.jq',
+                    'queries/private/migration/db6.jq'
                 ]
             },
             run: {
