@@ -111,7 +111,8 @@ declare %private function resolution:convert-definition-nodes(
           $definition-node,
           $components,
           $parent-child-order,
-          $concepts)
+          $concepts,
+          $options)
       default return error(
           QName("resolution:UNKNOWN-DEFINITION-NODE-KIND"),
           "Unknown definition node kind: $definition-node.Kind")
@@ -477,7 +478,8 @@ declare %private function resolution:convert-dimension-relationship-node(
     $definition-node as object,
     $components as object*,
     $parent-child-order as string?,
-    $concepts as object*) as object
+    $concepts as object*,
+    $options as object?) as object
 {
     let $link-role := $definition-node.LinkRole
     let $dimension := $definition-node.Dimension
@@ -485,7 +487,7 @@ declare %private function resolution:convert-dimension-relationship-node(
     let $hypercubes as object* := hypercubes:hypercubes-for-components($components[$$.Role eq $link-role])
     let $subnetwork as object := descendant-objects($hypercubes.Aspects.$dimension)[$$.Name eq $root][1]
     return if(exists($subnetwork))
-    then resolution:expand-dimension-network($dimension, $subnetwork, $components, $parent-child-order, $concepts)
+    then resolution:expand-dimension-network($dimension, $subnetwork, $components, $parent-child-order, $concepts, $options)
     else error(QName("resolution:UNRESOLVED-DIMENSION-RELATIONSHIP"), $root || ": The dimension member root could not be resolved.")
 };
 
@@ -497,7 +499,8 @@ declare function resolution:expand-dimension-network(
     $network as object,
     $components as object*,
     $parent-child-order as string?,
-    $concepts as object*) as object
+    $concepts as object*,
+    $options as object?) as object
 {
     let $value := $network.Name
     let $label :=
@@ -526,7 +529,8 @@ declare function resolution:expand-dimension-network(
                         $sub-network,
                         $components,
                         $parent-child-order,
-                        $concepts
+                        $concepts,
+                        $options
                 ) 
         let $roll-up :={
             Labels: [],
