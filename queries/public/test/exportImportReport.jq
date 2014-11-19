@@ -1,9 +1,7 @@
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace test = "http://apps.28.io/test";
 import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace credentials = "http://apps.28.io/credentials";
 import module namespace request = "http://www.28msec.com/modules/http-request";
-import module namespace string = "http://zorba.io/modules/string";
 import module namespace random = "http://zorba.io/modules/random";
 
 declare variable $newId as string := random:uuid();
