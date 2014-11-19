@@ -27,6 +27,7 @@ declare  %rest:case-insensitive                 variable $eliminate     as boole
 declare  %rest:case-insensitive                 variable $elimination-threshold as integer external := 0;
 declare  %rest:case-insensitive                 variable $report        as string? external;
 declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
+declare  %rest:case-insensitive                 variable $language      as string  external := "en-US";
 declare  %rest:case-insensitive                 variable $debug         as boolean external := false;
 
 session:audit-call($token);
@@ -86,6 +87,7 @@ then
                         Eliminate: $eliminate,
                         EliminationThreshold: double($elimination-threshold) div 100,
                         Validate: $validate,
+                        Language: $language,
                         Debug: $debug
                     }
                 |}
