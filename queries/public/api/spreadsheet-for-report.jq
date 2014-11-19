@@ -69,7 +69,7 @@ then
     
     (: Fact resolution :)
     let $spreadsheet as object? :=
-        if(false)
+        if(count($filtered-aspects) lt 0 and not exists(($filter-override)))
         then {
               response:status-code(403);
               session:error("The report filters are too weak, which leads to too big an output.", $format)
