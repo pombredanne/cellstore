@@ -111,7 +111,8 @@ declare %private function resolution:convert-definition-nodes(
           $definition-node,
           $components,
           $parent-child-order,
-          $concepts)
+          $concepts,
+          $options)
       default return error(
           QName("resolution:UNKNOWN-DEFINITION-NODE-KIND"),
           "Unknown definition node kind: $definition-node.Kind")
@@ -143,7 +144,10 @@ declare %private function resolution:labels(
     $options as object?) as string*
 {
     let $components-with-the-language-as-default :=
-        $components[not $$.$components:DEFAULT-LANGUAGE ne $options.Language]
+        for $component in $components
+        let $default-language := ($component.DefaultLanguage, "en-US")[1]
+        where not $default-language ne $options.Language
+        return $component
 
     let $labels-from-local-metadata as string* :=
         let $default-hypercubes as object* :=
@@ -376,11 +380,13 @@ declare %private function resolution:expand-concept-network(
     $concepts as object*,
     $options as object?) as object*
 {
-    let $concept := $network.Name
+    let $concept as string := $network.Name
+    let $default-languages as string* := $components.$components:DEFAULT-LANGUAGE
+    let $default-languages := if(exists($default-languages)) then $default-languages else "en-US"
     let $default-hypercube := hypercubes:hypercubes-for-components($components, "xbrl:DefaultHypercube")
     let $concept-metadata := $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members.$concept[1]
     let $label :=
-        if(not $options.Language != $components.$components:DEFAULT-LANGUAGE)
+        if(every $language in $default-languages satisfies $language eq $options.Language)
         then $network.Label
         else
         resolution:labels(
@@ -388,7 +394,7 @@ declare %private function resolution:expand-concept-network(
             $components,
             $concepts,
             ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
-            ())
+            $options)
     return
     {|
         {
@@ -472,7 +478,8 @@ declare %private function resolution:convert-dimension-relationship-node(
     $definition-node as object,
     $components as object*,
     $parent-child-order as string?,
-    $concepts as object*) as object
+    $concepts as object*,
+    $options as object?) as object
 {
     let $link-role := $definition-node.LinkRole
     let $dimension := $definition-node.Dimension
@@ -480,7 +487,7 @@ declare %private function resolution:convert-dimension-relationship-node(
     let $hypercubes as object* := hypercubes:hypercubes-for-components($components[$$.Role eq $link-role])
     let $subnetwork as object := descendant-objects($hypercubes.Aspects.$dimension)[$$.Name eq $root][1]
     return if(exists($subnetwork))
-    then resolution:expand-dimension-network($dimension, $subnetwork, $components, $parent-child-order, $concepts)
+    then resolution:expand-dimension-network($dimension, $subnetwork, $components, $parent-child-order, $concepts, $options)
     else error(QName("resolution:UNRESOLVED-DIMENSION-RELATIONSHIP"), $root || ": The dimension member root could not be resolved.")
 };
 
@@ -492,16 +499,20 @@ declare function resolution:expand-dimension-network(
     $network as object,
     $components as object*,
     $parent-child-order as string?,
-    $concepts as object*) as object
+    $concepts as object*,
+    $options as object?) as object
 {
     let $value := $network.Name
     let $label :=
-        resolution:labels(
+          if(not $options.Language != $components.$components:DEFAULT-LANGUAGE)
+          then $network.Label
+          else
+          resolution:labels(
             $value,
             $components,
             $concepts,
             ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
-            ())
+            $options)
     return
     {|
         {
@@ -518,7 +529,8 @@ declare function resolution:expand-dimension-network(
                         $sub-network,
                         $components,
                         $parent-child-order,
-                        $concepts
+                        $concepts,
+                        $options
                 ) 
         let $roll-up :={
             Labels: [],

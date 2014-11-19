@@ -46,6 +46,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "export",
+                            "description": "If set to true a report will be retrieved in a binary format. Only a single report can be exported at once.",
+                            "required": false,
+                            "type": "boolean",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "token",
                             "description": "The token of the current session",
                             "required": false,
@@ -137,10 +144,38 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "private",
+                            "description": "Will make this report private (not readable for others; default for newly created reports).",
+                            "required": false,
+                            "type": "boolean",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "validation-only",
                             "description": "This parameter is either given without any value (means: on) or absent (means: off) or its value is castable to a boolean. Turns validation-only mode on or off.",
                             "required": false,
                             "type": "boolean",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "import",
+                            "description": "If set to true, the body of the request will be treated as binary report and imported into the users account.",
+                            "required": false,
+                            "type": "boolean",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "_id",
+                            "description": "A report id (e.g. FundamentalAccountingConcepts). For example, when importing a report the id can be provided to create a new report.",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "label",
+                            "description": "A report label (e.g. 'Key Value Indicators'). Will overwrite the Label of the report given in the body (binary report as well as json report).",
+                            "required": true,
+                            "type": "string",
                             "paramType": "query"
                         },
                         {
