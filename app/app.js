@@ -2,7 +2,8 @@
 
 angular.module('secxbrl', [
     'rn-lazy',
-    'angular-parallax',
+    'duScroll',
+    'duParallax',
     'angular-data.DS',
     'angular-data.DSCacheFactory',
     'ui.router',

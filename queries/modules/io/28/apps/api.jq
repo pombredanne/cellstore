@@ -104,7 +104,7 @@ declare function api:normalize-facts(
             |}
         },
         trim($fact, ("Aspects", "_id")),
-        { Unit: $fact.Aspects."xbrl:Unit" }[exists($fact.Aspects."xbrl:Unit")]
+        { Unit: $fact.Aspects."xbrl:Unit" }[exists($fact.Aspects."xbrl:Unit") and not exists($fact.Unit)]
     |}
 };
 

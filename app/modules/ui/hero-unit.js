@@ -2,7 +2,21 @@
 
 angular
 .module('secxbrl')
-.directive('heroUnit', function($window){
+.directive('heroUnit', function($window, $rootScope){
+
+    var onScroll = function(event, toState) {
+        var top = document.body.getBoundingClientRect().top;
+        if(top >= 0 && ((document.getElementById('home') !== null && !toState) || (toState && toState.name === 'home.start'))) {
+            document.querySelector('nav.navbar').classList.add('transparent');
+        } else {
+            document.querySelector('nav.navbar').classList.remove('transparent');
+        }
+    };
+
+    angular.element($window).bind('scroll', onScroll);
+    onScroll();
+    $rootScope.$on('$stateChangeSuccess', onScroll);
+
     return function($scope, $element){
         var w = angular.element($window);
 
@@ -13,23 +27,18 @@ angular
         };
 
         $scope.$watch($scope.getWindowDimensions, function (newValue) {
-            $element[0].style.height = newValue + 'px';
             var title = document.querySelector('.title');
             var titleH = title.getBoundingClientRect().height;
-            title.style.marginTop = ((newValue - titleH) / 2) + 'px';
+            var val = ((newValue - titleH) / 2);
+            if(val > 50) {
+                title.style.marginTop = val + 'px';
+            }
+            if(newValue > (titleH + 50)) {
+                $element[0].style.height = newValue + 'px';
+            }
 
         });
-/*
-        angular.element($window).bind("scroll", function() {
-            var top = document.body.getBoundingClientRect().top;
-            console.log(top);
-            if(top >= 0) {
-                document.querySelector('nav.navbar').classList.add('transparent');
-            } else {
-                document.querySelector('nav.navbar').classList.remove('transparent');
-            }
-        });
-*/
+
         w.bind('resize', function () {
             $scope.$apply();
         });

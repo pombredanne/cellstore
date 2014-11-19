@@ -6,16 +6,16 @@
     background-color: @brand-primary;
 
     padding-top: 0;
-    padding-bottom: 4em;
+    padding-bottom: 2em;
 
-    //background-image: url(/images/hero-unit.jpg);
+    background: url(/images/hero-unit.jpg);
+
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover;
 
     h1 {
       color: white;
-      //text-shadow: 0 2px 3px rgba(0,0,0,.4);
       font-size: @font-size-h1 * 2;
       font-weight: 100;
       margin-top: 0;
@@ -108,7 +108,14 @@
     }
   }
 
+  .no-border {
+    border: none;
+  }
+
   .quote {
+    background-color: @brand-primary;
+    color: white;
+
     p {
       font-size: @font-size-h2;
       font-weight: 100;
@@ -116,6 +123,11 @@
       a.btn-lg {
         font-size: @font-size-h2;
         font-weight: 100;
+        border: 1px solid white;
+        &:hover {
+          background-color: white;
+          color: @brand-primary;
+        }
       }
     }
   }
@@ -128,7 +140,7 @@
   }
 
   blockquote:before {
-    color: #ccc;
+    color: white;
     content: open-quote;
     font-size: 4em;
     line-height: 0.1em;
@@ -137,7 +149,7 @@
   }
 
   blockquote:after {
-    color: #ccc;
+    color: white;
     content: close-quote;
     font-size: 4em;
     line-height: 0.1em;
@@ -150,11 +162,13 @@
   }
 
   .users {
+    text-align: center;
+
     a {
       height: 100px; /* equals max image height */
       width: 260px;
       text-align: center;
-      display: block;
+      display: inline-block;
       -webkit-filter: grayscale(1);
       -webkit-filter: grayscale(100%);
       -moz-filter: grayscale(100%);
@@ -185,6 +199,38 @@
         max-width: 255px;
         //https://bugs.webkit.org/show_bug.cgi?id=93471
         -webkit-transform: translateZ(0);
+      }
+    }
+  }
+}
+
+//<div id="hoffman"></div>
+//#hoffman {
+//  background-image: url(/images/advisors/hoffman.png);
+//  display: inline-block;
+//  width: 100px;
+//  height: 100px;
+//  padding: 2px;
+//  //margin-right: auto;
+//  //margin-left: auto;
+//  background: #fcfcfc;
+//  background-position: center center;
+//  background-repeat: no-repeat;
+//  background-size: 100px 100px;
+//  border: 4px solid #ecf0f1;
+//  border-radius: 50%;
+//  -webkit-box-shadow: 0 1px 3px #666;
+//  -moz-box-shadow: 0 1px 3px #666;
+//  box-shadow: 0 1px 3px #666;
+//}
+
+@media (max-width: @screen-md-min) {
+  #home {
+    .jumbotron {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/hero-unit.jpg);
+      text-align: center;
+      h1 {
+        color: white;
       }
     }
   }

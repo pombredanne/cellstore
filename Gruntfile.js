@@ -70,9 +70,9 @@ module.exports = function (grunt) {
     grunt.initConfig({
         yeoman: yeomanConfig,
         watch: {
-            recess: {
+            less: {
                 files:  ['<%= yeoman.app %>/**/*.less'],
-                tasks: ['recess']
+                tasks: ['less']
             },
             swagger: {
                 files: ['swagger/{,*/}*.json'],
@@ -292,7 +292,7 @@ module.exports = function (grunt) {
             },
             server: '.tmp'
         },
-        recess: {
+        less: {
             dist: {
                 options: {
                     compile: true
@@ -403,7 +403,7 @@ module.exports = function (grunt) {
             test: [],
             dist: [
                 'nggettext_compile',
-                'recess',
+                'less',
                 'imagemin',
                 'htmlmin'
             ]
