@@ -167,21 +167,21 @@
                         {
                             "name": "_id",
                             "description": "A report id (e.g. FundamentalAccountingConcepts). For example, when importing a report the id can be provided to create a new report.",
-                            "required": true,
+                            "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "label",
                             "description": "A report label (e.g. 'Key Value Indicators'). Will overwrite the Label of the report given in the body (binary report as well as json report).",
-                            "required": true,
+                            "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "token",
                             "description": "The token of the current session",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         }
@@ -254,7 +254,7 @@
                         {
                             "name": "token",
                             "description": "The token of the current session",
-                            "required": false,
+                            "required": true,
                             "type": "string",
                             "paramType": "query"
                         }
