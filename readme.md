@@ -64,7 +64,8 @@ This is the expected structure of the file:
                 "adminPassword": "<dev admin user password>",
                 "supportUser": "support@example.io",
                 "supportPassword": "<dev support user password>",
-                "supportToken": "<dev support user token for testing>"
+                "supportToken": "<dev support user token for testing>",
+                "allowRegistration": "true" // users can register
             },
         "prod" :
             {
@@ -72,7 +73,8 @@ This is the expected structure of the file:
                 "adminPassword": "<prod admin user password>",
                 "supportUser": "support@example.io",
                 "supportPassword": "<prod support user password>",
-                "supportToken": "<prod support user token for testing>"
+                "supportToken": "<prod support user token for testing>",
+                "allowRegistration": "true" // users can register
             }
     },
     "netdna": {
@@ -91,7 +93,9 @@ This is the expected structure of the file:
             "email": "hello@example.com",
             "name": "SecXBRL.info"
         }
-    }
+    },
+     "profile": "sec", // alternatively : "generic"
+     "filteredAspects": "2"
 }
 ```
 
