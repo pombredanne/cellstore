@@ -18,7 +18,7 @@ module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
     grunt.task.loadTasks('tasks');
-   
+
     var modRewrite = require('connect-modrewrite');
     var rewriteRules = [
         '!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg /index.html [L]'
@@ -160,7 +160,9 @@ module.exports = function (grunt) {
                             frontend: {
                                 project: 'app',
                                 domain: '.secxbrl.info'
-                            }
+                            },
+                            profile: '<%= secxbrl.profile %>',
+                            filteredAspects: '<%= secxbrl.filteredAspects %>'
                         },
                         template: 'tasks/config_jq.mustache',
                         dest: '<%= yeoman.queries %>/modules/io/28/apps/config.jq'
@@ -187,7 +189,9 @@ module.exports = function (grunt) {
                             frontend: {
                                 project: '<%= secxbrl.28.project %>',
                                 domain: '.s3-website-us-east-1.amazonaws.com'
-                            }
+                            },
+                            profile: '<%= secxbrl.profile %>',
+                            filteredAspects: '<%= secxbrl.filteredAspects %>'
                         },
                         template: 'tasks/config_jq.mustache',
                         dest: '<%= yeoman.queries %>/modules/io/28/apps/config.jq'
