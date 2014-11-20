@@ -18,7 +18,7 @@ import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/n
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
-import module namespace credentials = "http://apps.28.io/credentials";
+import module namespace config = "http://apps.28.io/config";
 import module namespace session = "http://apps.28.io/session";
 import module namespace api = "http://apps.28.io/api";
 
@@ -44,7 +44,7 @@ declare  %rest:case-insensitive                 variable $map                as 
 declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
 declare  %rest:case-insensitive                 variable $labels             as boolean external := false;
 declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
-declare  %rest:case-insensitive                 variable $profile-name       as string  external := $credentials:profile-name;
+declare  %rest:case-insensitive                 variable $profile-name       as string  external := $config:profile-name;
 declare  %rest:case-insensitive %rest:distinct  variable $role               as string* external;
 
 session:audit-call($token);

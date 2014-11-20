@@ -1,4 +1,4 @@
-import module namespace credentials = "http://apps.28.io/credentials";
+import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
@@ -80,7 +80,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $reportElement      as 
 declare  %rest:case-insensitive %rest:distinct  variable $concept            as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $disclosure         as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $label              as string* external;
-declare  %rest:case-insensitive                 variable $profile-name       as string  external := $credentials:profile-name;
+declare  %rest:case-insensitive                 variable $profile-name       as string  external := $config:profile-name;
 
 session:audit-call($token);
 

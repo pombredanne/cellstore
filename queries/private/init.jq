@@ -101,10 +101,10 @@ user:allow("sec_enterprise", "data_sec");
 user:allow("anybody", "data_sec");
 
 (: Pro user :)
-variable $user-id as string? := user:get-by-email($credentials:support-user)._id;
+variable $user-id as string? := user:get-by-email($config:support-user)._id;
 if(empty($user-id))
 then {
-    $user-id := user:new($credentials:support-user, "System", "Administrator", $credentials:support-password, {| |});
+    $user-id := user:new($config:support-user, "System", "Administrator", $config:support-password, {| |});
   }
 else ();
 

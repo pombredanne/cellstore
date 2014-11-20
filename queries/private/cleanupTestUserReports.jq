@@ -4,6 +4,6 @@
 :)
 import module namespace config = "http://apps.28.io/config";
 
-for $report in db:collection("reports")[$$.Owner eq $credentials:support-user]
+for $report in db:collection("reports")[$$.Owner eq $config:support-user]
 where $report.Label = ("Import test", "Add test")
 return db:delete($report)
