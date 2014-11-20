@@ -350,7 +350,7 @@ module.exports = function(grunt) {
             // double check that teardown is not run for prod
             if(!isTravisAndMaster()) {
                 grunt.task.run([
-                    '28:teardown',
+                    //'28:teardown',
                     'aws_s3:teardown',
                     'setupS3Bucket:teardown'
                 ]);
