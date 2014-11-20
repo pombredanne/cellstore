@@ -7,12 +7,12 @@ module namespace config = "http://apps.28.io/config";
 
 declare variable $config:frontend-url as string := "http://{{{frontend.project}}}{{{frontend.domain}}}";
 
-declare variable $config:allow-registration as boolean := {{secxbrl.allowRegistration}};
-declare variable $config:admin-user as string := "{{secxbrl.adminUser}}";
-declare variable $config:admin-password as string := "{{secxbrl.adminPassword}}";
-declare variable $config:support-user as string := "{{secxbrl.supportUser}}";
-declare variable $config:support-password as string := "{{secxbrl.supportPassword}}";
-declare variable $config:support-token as string := "{{secxbrl.supportToken}}";
+declare variable $config:allow-registration as boolean := {{secxbrl.config.allowRegistration}};
+declare variable $config:admin-user as string := "{{secxbrl.config.adminUser}}";
+declare variable $config:admin-password as string := "{{secxbrl.credentials.adminPassword}}";
+declare variable $config:support-user as string := "{{secxbrl.config.supportUser}}";
+declare variable $config:support-password as string := "{{secxbrl.credentials.supportPassword}}";
+declare variable $config:support-token as string := "{{secxbrl.credentials.supportToken}}";
 
 declare variable $config:sendmail-host as string := "{{{sendmail.host}}}";
 declare variable $config:sendmail-user as string := "{{{sendmail.user}}}";
@@ -20,5 +20,5 @@ declare variable $config:sendmail-password as string := "{{{sendmail.password}}}
 declare variable $config:sendmail-sender-email as string := "{{sendmail.sender.email}}";
 declare variable $config:sendmail-sender-name as string := "{{sendmail.sender.name}}";
 
-declare variable $config:profile-name as string := "{{profile}}";
-declare variable $config:filtered-aspects as integer := {{filteredAspects}};
+declare variable $config:profile-name as string := "{{secxbrl.config.profile}}";
+declare variable $config:filtered-aspects as integer := {{secxbrl.config.filteredAspects}};

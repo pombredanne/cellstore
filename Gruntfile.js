@@ -144,7 +144,10 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.prod %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.prod %>'
+                            },
                             staging: {
                                 environment: 'prod',
                                 e2eReportsDir: '<%= yeoman.e2eReportsDir %>'
@@ -155,7 +158,10 @@ module.exports = function (grunt) {
                     },
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.prod %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.prod %>'
+                            },
                             sendmail: '<%= secxbrl.sendmail %>',
                             frontend: {
                                 project: 'app',
@@ -173,7 +179,10 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.dev %>'
+                            },
                             staging: {
                                 environment: 'dev',
                                 e2eReportsDir: '<%= yeoman.e2eReportsDir %>'
@@ -184,7 +193,10 @@ module.exports = function (grunt) {
                     },
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.dev %>'
+                            },
                             sendmail: '<%= secxbrl.sendmail %>',
                             frontend: {
                                 project: '<%= secxbrl.28.project %>',
@@ -202,7 +214,10 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.dev %>'
+                            },
                             staging: {
                                 environment: 'ci',
                                 e2eReportsDir: '<%= yeoman.e2eReportsDir %>'
@@ -213,7 +228,10 @@ module.exports = function (grunt) {
                     },
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.dev %>'
+                            },
                             sendmail: '<%= secxbrl.sendmail %>',
                             frontend: {
                                 project: '<%= secxbrl.28.project %>',
