@@ -1,6 +1,6 @@
 import module namespace user = "http://apps.28.io/user";
 import module namespace session = "http://apps.28.io/session";
-import module namespace credentials = "http://apps.28.io/credentials";
+import module namespace config = "http://apps.28.io/config";
 
 if (is-available-collection($user:collection))
 then ();
@@ -101,17 +101,17 @@ user:allow("sec_enterprise", "data_sec");
 user:allow("anybody", "data_sec");
 
 (: Pro user :)
-variable $user-id as string? := user:get-by-email("support@28.io")._id;
+variable $user-id as string? := user:get-by-email($credentials:support-user)._id;
 if(empty($user-id))
 then {
-    $user-id := user:new("support@28.io", "System", "Administrator", "foobar", {| |});
+    $user-id := user:new($credentials:support-user, "System", "Administrator", $credentials:support-password, {| |});
   }
 else ();
 
-(: support@28.io user token for tests :)
+(: test user token for tests :)
 let $token :=
 {
-  "_id" : $credentials:support-token,
+  "_id" : $config:support-token,
   "user-id" : $user-id,
   "expiration-date" : xs:dateTime("2018-10-20T22:17:23.851315Z"),
   "token-type": $session:TOKEN-TYPE-APP
@@ -131,10 +131,10 @@ then session:start($user-id, xs:dateTime("2016-09-12T22:17:23.851315Z"), $sessio
 else ();
 
 (: Admin user :)
-variable $admin := user:get-by-email("admin@28.io");
+variable $admin := user:get-by-email($config:admin-user);
 if(empty($admin))
 then {
-    $admin := user:new("admin@28.io", "System", "Administrator", $credentials:admin-password, {| |});
+    $admin := user:new($config:admin-user, "System", "Administrator", $config:admin-password, {| |});
     user:assign-role($admin, "admin", (), (), $admin);
   }
 else ();

@@ -60,13 +60,17 @@ This is the expected structure of the file:
     "secxbrlInfo": {
         "dev" :
             {
+                "adminUser": "admin@example.io",
                 "adminPassword": "<dev admin user password>",
+                "supportUser": "support@example.io",
                 "supportPassword": "<dev support user password>",
                 "supportToken": "<dev support user token for testing>"
             },
         "prod" :
             {
+                "adminUser": "admin@example.io",
                 "adminPassword": "<prod admin user password>",
+                "supportUser": "support@example.io",
                 "supportPassword": "<prod support user password>",
                 "supportToken": "<prod support user token for testing>"
             }

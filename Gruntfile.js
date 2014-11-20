@@ -162,8 +162,8 @@ module.exports = function (grunt) {
                                 domain: '.secxbrl.info'
                             }
                         },
-                        template: 'tasks/credentials.mustache',
-                        dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
+                        template: 'tasks/config_jq.mustache',
+                        dest: '<%= yeoman.queries %>/modules/io/28/apps/config.jq'
                     }
                 ]
             },
@@ -189,8 +189,8 @@ module.exports = function (grunt) {
                                 domain: '.s3-website-us-east-1.amazonaws.com'
                             }
                         },
-                        template: 'tasks/credentials.mustache',
-                        dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
+                        template: 'tasks/config_jq.mustache',
+                        dest: '<%= yeoman.queries %>/modules/io/28/apps/config.jq'
                     }
                 ]
             },
@@ -216,8 +216,8 @@ module.exports = function (grunt) {
                                 domain: '.s3-website-us-east-1.amazonaws.com'
                             }
                         },
-                        template: 'tasks/credentials.mustache',
-                        dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
+                        template: 'tasks/config_jq.mustache',
+                        dest: '<%= yeoman.queries %>/modules/io/28/apps/config.jq'
                     }
                 ]
             }
