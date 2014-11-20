@@ -7,6 +7,7 @@ import module namespace rules = "http://28.io/modules/xbrl/rules";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
+import module namespace credentials = "http://apps.28.io/credentials";
 import module namespace session = "http://apps.28.io/session";
 import module namespace api = "http://apps.28.io/api";
 
@@ -32,7 +33,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $reportElement      as 
 declare  %rest:case-insensitive %rest:distinct  variable $label              as string* external;
 declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $role               as string* external;
-declare  %rest:case-insensitive                 variable $profile-name       as string  external := "sec";
+declare  %rest:case-insensitive                 variable $profile-name       as string  external := $credentials:profile-name;
 declare  %rest:case-insensitive                 variable $language           as string  external := "en-US";
 
 session:audit-call($token);
