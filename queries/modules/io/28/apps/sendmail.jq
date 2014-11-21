@@ -4,17 +4,17 @@ module namespace sendmail = "http://apps.28.io/sendmail";
 
 import module namespace smtp = 'http://www.zorba-xquery.com/modules/email/smtp';
 import schema namespace email = 'http://www.zorba-xquery.com/modules/email';
-import module namespace credentials = "http://apps.28.io/credentials";
+import module namespace config = "http://apps.28.io/config";
 
 declare variable $sendmail:CONFIG := 
     <config>
-        <host>{$credentials:sendmail-host}</host>
-        <user>{$credentials:sendmail-user}</user>
-        <password>{$credentials:sendmail-password}</password>
+        <host>{$config:sendmail-host}</host>
+        <user>{$config:sendmail-user}</user>
+        <password>{$config:sendmail-password}</password>
         <!-- IMPORTANT: this email address needs to be registered in the gmail
                         account (Settings->Accounts and Import->Send mail as)! -->
-        <sender-email>{$credentials:sendmail-sender-email}</sender-email>
-        <sender-name>{$credentials:sendmail-sender-name}</sender-name>
+        <sender-email>{$config:sendmail-sender-email}</sender-email>
+        <sender-name>{$config:sendmail-sender-name}</sender-name>
     </config>;
 
 declare %an:sequential function sendmail:send(
