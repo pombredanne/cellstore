@@ -101,19 +101,27 @@ declare function test:assert-eq-array(
     $status as integer,
     $url as string) as item
 {
-    let $diff := try {(
-            for $a in flatten($actual)
-            where not($a = flatten($expected))
-            return $a,
-            for $e in flatten($expected)
-            where not($e = flatten($actual))
-            return $e
-        )} catch * { "error: " || $err:description }
+    let $diff := try {
+            {
+                actual: [ 
+                    for $a in flatten($actual)
+                    where not($a = flatten($expected))
+                    return $a ],
+                actualDuplicates: [ 
+                    for $a in flatten($actual)
+                    where $a = flatten($expected) and count(flatten($actual)[$$ eq $a]) ne count(flatten($expected)[$$ eq $a])
+                    return $a ],
+                expected: [
+                    for $e in flatten($expected)
+                    where not($e = flatten($actual))
+                    return $e ]
+            }
+        } catch * { "error: " || $err:description }
       
     return
         switch(true)
         case $status ne 200 return { "url": $url, status: $status }
-        case empty($diff) return true
+        case empty(($diff.actual[],$diff.actualDuplicates[],$diff.expected[])) return true
         default return
         {
             "url": $url,
