@@ -101,17 +101,17 @@ user:allow("sec_enterprise", "data_sec");
 user:allow("anybody", "data_sec");
 
 (: Pro user :)
-variable $user-id as string? := user:get-by-email($config:support-user)._id;
+variable $user-id as string? := user:get-by-email($config:test-user)._id;
 if(empty($user-id))
 then {
-    $user-id := user:new($config:support-user, "System", "Administrator", $config:support-password, {| |});
+    $user-id := user:new($config:test-user, "System", "Administrator", $config:test-password, {| |});
   }
 else ();
 
 (: test user token for tests :)
 let $token :=
 {
-  "_id" : $config:support-token,
+  "_id" : $config:test-token,
   "user-id" : $user-id,
   "expiration-date" : xs:dateTime("2018-10-20T22:17:23.851315Z"),
   "token-type": $session:TOKEN-TYPE-APP

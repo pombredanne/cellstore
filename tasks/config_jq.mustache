@@ -10,9 +10,9 @@ declare variable $config:frontend-url as string := "http://{{{frontend.project}}
 declare variable $config:allow-registration as boolean := {{secxbrl.config.allowRegistration}};
 declare variable $config:admin-user as string := "{{secxbrl.config.adminUser}}";
 declare variable $config:admin-password as string := "{{secxbrl.credentials.adminPassword}}";
-declare variable $config:support-user as string := "{{secxbrl.config.supportUser}}";
-declare variable $config:support-password as string := "{{secxbrl.credentials.supportPassword}}";
-declare variable $config:support-token as string := "{{secxbrl.credentials.supportToken}}";
+declare variable $config:test-user as string := "{{secxbrl.config.testUser}}";
+declare variable $config:test-password as string := "{{secxbrl.credentials.testPassword}}";
+declare variable $config:test-token as string := "{{secxbrl.credentials.testToken}}";
 
 declare variable $config:sendmail-host as string := "{{{sendmail.host}}}";
 declare variable $config:sendmail-user as string := "{{{sendmail.user}}}";

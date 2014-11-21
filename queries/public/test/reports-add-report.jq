@@ -71,7 +71,7 @@ declare variable $newReport as object :=
 declare %private function local:url($parameters as object?, $endpoint as string, $includeToken as boolean) as string
 {
     "http://" || request:server-name() || ":" || request:server-port() ||
-    "/v1/_queries/public/reports/" || $endpoint || ".jq?_method=POST&token=" || (if($includeToken) then $config:support-token else "{{token}}") || "&"||
+    "/v1/_queries/public/reports/" || $endpoint || ".jq?_method=POST&token=" || (if($includeToken) then $config:test-token else "{{token}}") || "&"||
     string-join(
         for $key in keys($parameters)
         for $value as string in (flatten($parameters.$key) ! string($$))
