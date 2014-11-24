@@ -356,7 +356,6 @@ module.exports = function(grunt) {
             }
             grunt.task.run(['e2e-report:' + environment]);
             // double check that teardown is not run for prod or UAT
-            grunt.config.requires(['secxbrl']);
             if(!isTravisAndMaster() && !grunt.config.get(['secxbrl']).cellstore.all.uat) {
                 grunt.task.run([
                     '28:teardown',
