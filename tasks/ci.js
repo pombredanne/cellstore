@@ -355,8 +355,9 @@ module.exports = function(grunt) {
                 grunt.task.run(['ngconstant:' + environment]);
             }
             grunt.task.run(['e2e-report:' + environment]);
-            // double check that teardown is not run for prod
-            if(!isTravisAndMaster()) {
+            // double check that teardown is not run for prod or UAT
+            grunt.config.requires(['secxbrl']);
+            if(!isTravisAndMaster() && !grunt.config.get(['secxbrl']).cellstore.all.uat) {
                 grunt.task.run([
                     '28:teardown',
                     'aws_s3:teardown',
@@ -490,6 +491,8 @@ module.exports = function(grunt) {
                 if(config.cellstore.all.project !== undefined && config.cellstore.all.uat) {
                     project = 'secxbrl-' + config.cellstore.all.project;
                     bucket = 'secxbrl-' + config.cellstore.all.project;
+                } else if(config.cellstore.all.uat) {
+                    grunt.fatal('using cellstore.all.uat=true, but no config.cellstore.all.project found');
                 }
             }
             if(bucket && project){
