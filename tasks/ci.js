@@ -356,7 +356,8 @@ module.exports = function(grunt) {
             }
             grunt.task.run(['e2e-report:' + environment]);
             // double check that teardown is not run for prod or UAT
-            if(!isTravisAndMaster() && !grunt.config.get(['secxbrl']).cellstore.all.uat) {
+            var config = getConfigJson();
+            if(!isTravisAndMaster() && config && config.cellstore && config.cellstore.all && !config.cellstore.all.uat) {
                 grunt.task.run([
                     '28:teardown',
                     'aws_s3:teardown',
@@ -483,16 +484,6 @@ module.exports = function(grunt) {
                 buildId = buildId.replace('.', '-');
                 project = 'secxbrl-' + buildId;
                 bucket = 'secxbrl-' + buildId;
-            } else {
-                // setting the project in the config.json can be used to deploy for UAT
-                // as continuous integration will automatically deploy to this specific backend
-                var config = getConfigJson();
-                if(config.cellstore.all.project !== undefined && config.cellstore.all.uat) {
-                    project = 'secxbrl-' + config.cellstore.all.project;
-                    bucket = 'secxbrl-' + config.cellstore.all.project;
-                } else if(config.cellstore.all.uat) {
-                    grunt.fatal('using cellstore.all.uat=true, but no config.cellstore.all.project found');
-                }
             }
             if(bucket && project){
                 setConfig(project, bucket, environment);
@@ -511,8 +502,14 @@ module.exports = function(grunt) {
             var _isTravisAndMaster = isTravisAndMaster();
             if(_isTravisAndMaster) {
                 fatal('master is not allowed for ci environment');
-            } else if(!buildIdCI) {
-                buildIdCI = getStringParam('build-id');
+            }
+            // setting the project in the config.json can be used to deploy for UAT
+            // as continuous integration will automatically deploy to this specific backend
+            var config = getConfigJson();
+            if(config.cellstore !== undefined && config.cellstore.all !== undefined && config.cellstore.all.project !== undefined && config.cellstore.all.uat) {
+                buildIdCI = config.cellstore.all.project;
+            } else if(config.cellstore.all.uat) {
+                grunt.fatal('using cellstore.all.uat=true, but no config.cellstore.all.project found');
             }
             if(buildIdCI) {
                 buildIdCI = buildIdCI.replace('.', '-');
