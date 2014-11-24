@@ -90,15 +90,23 @@ module.exports = function(grunt) {
         return arg;
     };
 
+    var _configJson;
+    var getConfigJson = function(){
+        if(_configJson === undefined){
+            _configJson = grunt.file.readJSON('config.json');
+            if(!_configJson){
+                fatal('Reading file config.json failed.');
+            }
+        }
+        return _configJson;
+    };
+
     var setConfig = function (projectName, bucket, environment){
         if(projectName && bucket && environment !== undefined) {
             if(projectName === 'secxbrl' && environment !== 'prod') {
                 fatal('Only prod environment allowed for project secxbrl. Environment: ' + environment);
             }
-            var config = grunt.file.readJSON('config.json');
-            if(!config){
-                fatal('Reading file config.json failed.');
-            }
+            var config = getConfigJson();
             config.s3.bucket = bucket;
             config['28'].project = projectName;
             if(projectName === 'secxbrl' && environment === 'prod') {
@@ -475,11 +483,19 @@ module.exports = function(grunt) {
                 buildId = buildId.replace('.', '-');
                 project = 'secxbrl-' + buildId;
                 bucket = 'secxbrl-' + buildId;
+            } else {
+                // setting the project in the config.json can be used to deploy for UAT
+                // as continuous integration will automatically deploy to this specific backend
+                var config = getConfigJson();
+                if(config.cellstore.all.project !== undefined && config.cellstore.all.uat) {
+                    project = 'secxbrl-' + config.cellstore.all.project;
+                    bucket = 'secxbrl-' + config.cellstore.all.project;
+                }
             }
             if(bucket && project){
                 setConfig(project, bucket, environment);
             } else {
-                fatal('define --build-id=myid');
+                fatal('define --build-id=myid or set 28.project in config.json');
             }
         } else if(environment === 'dev' && isTravis()){
             // development environment is not allowed for travis

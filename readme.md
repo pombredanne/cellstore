@@ -59,9 +59,11 @@ This is the expected structure of the file:
     },
     "cellstore": {
         "all": {
-            "profile": "sec", // alternatively generic
-            "filteredAspects": "2",
-            "allowRegistration": "true", // users can register
+            "project": "uat-test-project", /* optional for UAT testing; Has the same effect as setting the build-id */
+            "uat": true, /* optional for UAT testing; Project will not be deleted in the ci process */
+            "profile": "sec", /* alternatively generic */
+            "filteredAspects": 2,
+            "allowRegistration": "true", /* if set to true: users can register */
             "adminUser": "admin@example.io",
             "testUser": "test@example.io"
         }
