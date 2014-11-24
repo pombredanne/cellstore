@@ -502,6 +502,8 @@ module.exports = function(grunt) {
             var _isTravisAndMaster = isTravisAndMaster();
             if(_isTravisAndMaster) {
                 fatal('master is not allowed for ci environment');
+            } else if(process.env.RANDOM_ID){
+                buildIdCI += '-' + process.env.RANDOM_ID;
             }
             // setting the project in the config.json can be used to deploy for UAT
             // as continuous integration will automatically deploy to this specific backend
@@ -510,15 +512,12 @@ module.exports = function(grunt) {
                 buildIdCI = config.cellstore.all.project;
             } else if(config.cellstore.all.uat) {
                 grunt.fatal('using cellstore.all.uat=true, but no config.cellstore.all.project found');
-            } else if(process.env.RANDOM_ID && !_isTravisAndMaster){
-                buildIdCI += '-' + process.env.RANDOM_ID;
             }
-            if(buildIdCI) {
-                buildIdCI = buildIdCI.replace('.', '-');
-            } else if(!_isTravisAndMaster) {
+            if(!buildIdCI) {
                 grunt.fail.fatal('No build id found. Looked up the TRAVIS_JOB_NUMBER environment variable and --build-id argument');
             }
-            var id = _isTravisAndMaster ? 'secxbrl-dev' : 'secxbrl-' + buildIdCI;
+            buildIdCI = buildIdCI.replace('.', '-');
+            var id = 'secxbrl-' + buildIdCI;
             setConfig(id, id, environment);
         } else {
             failUnknownEnvironment('config', environment);
