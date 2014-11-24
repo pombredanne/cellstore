@@ -510,6 +510,8 @@ module.exports = function(grunt) {
                 buildIdCI = config.cellstore.all.project;
             } else if(config.cellstore.all.uat) {
                 grunt.fatal('using cellstore.all.uat=true, but no config.cellstore.all.project found');
+            } else if(process.env.RANDOM_ID && !_isTravisAndMaster){
+                buildIdCI += '-' + process.env.RANDOM_ID;
             }
             if(buildIdCI) {
                 buildIdCI = buildIdCI.replace('.', '-');
@@ -517,9 +519,6 @@ module.exports = function(grunt) {
                 grunt.fail.fatal('No build id found. Looked up the TRAVIS_JOB_NUMBER environment variable and --build-id argument');
             }
             var id = _isTravisAndMaster ? 'secxbrl-dev' : 'secxbrl-' + buildIdCI;
-            if(process.env.RANDOM_ID && !_isTravisAndMaster){
-                id += '-' + process.env.RANDOM_ID;
-            }
             setConfig(id, id, environment);
         } else {
             failUnknownEnvironment('config', environment);
