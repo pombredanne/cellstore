@@ -1,5 +1,5 @@
 
-var LIVERELOAD_PORT = 35799;
+var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var mountFolder = function (connect, dir) {
     'use strict';
@@ -126,13 +126,6 @@ module.exports = function (grunt) {
                         className: 'BillingAPI',
                         fileName: 'billing-api.js',
                         angularjs: true
-                    },
-                    {
-                        swagger: 'swagger/archives.json',
-                        moduleName: 'archives-api',
-                        className: 'ArchivesAPI',
-                        fileName: 'archives-api.js',
-                        angularjs: true
                     }
                 ]
             },
@@ -253,7 +246,7 @@ module.exports = function (grunt) {
         },
         connect: {
             options: {
-                port: grunt.option('port') || 9099,
+                port: grunt.option('port') || 9000,
                 // Change this to '0.0.0.0' to access the server from outside.
                 hostname: '0.0.0.0'
             },
