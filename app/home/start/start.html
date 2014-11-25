@@ -1,10 +1,7 @@
 <div id="home">
     <div class="jumbotron" du-parallax custom="parallax" hero-unit>
-            <div class="row">
-                <div class="col-md-7 col-xs-0">
-
-                </div>
-                <div class="col-md-5 col-xs-12 title">
+            <div class="row" style="margin-left:0; margin-right: 0;">
+                <div class="col-md-5 col-md-offset-7 col-xs-12 title">
                     <h1>Query, Search,<br> and Compare <br> SEC Data</h1>
                     <a ui-sref2="auth.register()" class="btn btn-primary btn-lg sign-up">Sign Up</a>
                 </div>
@@ -21,7 +18,10 @@
         <section>
             <div class="container">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 picto col-sm-push-6">
+                    <img src="/images/graph.svg">
+                </div>
+                <div class="col-sm-6 col-sm-pull-6">
                     <h2>Your Wildest Queries &mdash; In Real-time</h2>
                     <p>
                         Using our taxonomy editor, you can define your own domain-specific vocabulary to query and compare the data.
@@ -32,9 +32,6 @@
                         <a ui-sref2="auth.register()" class="btn btn-default sign-up">Sign Up</a>
                     </p>
                 </div>
-                <div class="col-sm-6 picto">
-                    <img src="/images/graph.svg" class="hidden-xs">
-                </div>
             </div>
             </div>
         </section>
@@ -42,7 +39,7 @@
             <div class="container">
             <div class="row">
                 <div class="picto col-sm-6">
-                    <img src="/images/apps.svg" class="hidden-xs">
+                    <img src="/images/apps.svg">
                 </div>
                 <div class="col-sm-6">
                     <h2>Connect Your Apps & Services</h2>
@@ -61,7 +58,10 @@
         <section class="no-border">
             <div class="container">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 picto col-sm-push-6">
+                    <img src="/images/server.svg">
+                </div>
+                <div class="col-sm-6 col-sm-pull-6">
                     <h2>Beyond SEC filings</h2>
                     <p>
                         This repository is powered by the <a href="http://28.io">28.io platform</a>.
@@ -71,9 +71,6 @@
                     <p>
                         <a href="mailto:hello@28.io" class="btn btn-default">Contact Us</a>
                     </p>
-                </div>
-                <div class="col-sm-6 picto">
-                    <img src="/images/server.svg" class="hidden-xs">
                 </div>
             </div>
             </div>

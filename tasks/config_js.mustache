@@ -1,8 +1,9 @@
 'use strict';
 
 exports.config = {
-    testUser: 'support@28.io',
-    testPassword: '{{secxbrl.supportPassword}}',
+    testUser: '{{secxbrl.config.testUser}}',
+    testPassword: '{{secxbrl.credentials.testPassword}}',
     environment: '{{staging.environment}}',
-    e2eReportsDir: '{{{staging.e2eReportsDir}}}'
+    e2eReportsDir: '{{{staging.e2eReportsDir}}}',
+    allowRegistration: {{secxbrl.config.allowRegistration}}
 };

@@ -15,7 +15,7 @@ app/styles/*.css
 grunt-aws.json
 .project
 queries/private/UpdateReportSchema.jq
-queries/modules/io/28/apps/credentials.jq
+queries/modules/io/28/apps/config.jq
 tests/e2e/config/config.js
 config.json
 .c9

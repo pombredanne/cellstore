@@ -7,6 +7,7 @@ import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fi
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
+import module namespace config = "http://apps.28.io/config";
 import module namespace session = "http://apps.28.io/session";
 import module namespace api = "http://apps.28.io/api";
 
@@ -26,7 +27,7 @@ declare  %rest:case-insensitive                 variable $validate      as boole
 declare  %rest:case-insensitive                 variable $eliminate     as boolean external := false;
 declare  %rest:case-insensitive                 variable $elimination-threshold as integer external := 0;
 declare  %rest:case-insensitive                 variable $report        as string? external;
-declare  %rest:case-insensitive                 variable $profile-name  as string  external := "sec";
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := $config:profile-name;
 declare  %rest:case-insensitive                 variable $language      as string  external := "en-US";
 declare  %rest:case-insensitive                 variable $debug         as boolean external := false;
 
@@ -73,7 +74,7 @@ then
     let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
     let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
     let $spreadsheet as object? :=
-        if(count($filtered-aspects) lt 2 and not exists(($filter-override)))
+        if(count($filtered-aspects) lt $config:filtered-aspects and not exists(($filter-override)))
         then {
               response:status-code(403);
               session:error("The report filters are too weak, which leads to too big an output.", $format)

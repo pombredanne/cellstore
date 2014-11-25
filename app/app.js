@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('secxbrl', [
-    'rn-lazy',
     'duScroll',
     'duParallax',
     'angular-data.DS',
