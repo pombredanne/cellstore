@@ -1,8 +1,9 @@
-(:import module namespace api = "http://apps.28.io/api";:)
 import module namespace random = "http://zorba.io/modules/random";
 import module namespace archive = "http://zorba.io/modules/archive";
 import module namespace http = "http://zorba.io/modules/http-client";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
+
+declare namespace api = "http://apps.28.io/api";
 
 (: Query parameters :)
 declare %rest:case-insensitive  variable $archiveId     as string       external := random:uuid();
@@ -80,7 +81,7 @@ declare %an:sequential function local:import-from-url() as object
   return 
       if ($processed-filing("status") eq 200)
       then local:import-filing($processed-filing("body")("content"))
-      else error(xs:QName("api:PROCESSOR"), $processed-filing("body")("content"))
+      else error(QName("api:PROCESSOR"), $processed-filing("body")("content"))
 };
 
 declare %an:sequential function local:import-from-xml() as object
@@ -97,7 +98,7 @@ declare %an:sequential function local:import-from-archive() as object
 variable $profileName := upper-case($profileName);
 
 if (not($profileName = ("SEC", "SVS", "UK", "DUTCH", "NOPROFILE")))
-then error(xs:QName("api:PROFILE"), $profileName || ": unsupported profile, allowed profiles are: SEC, SVS, UK, DUTCH, and NOPROFILE");
+then error(QName("api:PROFILE"), $profileName || ": unsupported profile, allowed profiles are: SEC, SVS, UK, DUTCH, and NOPROFILE");
 else ();
 
 if (not($overwrite))
@@ -108,4 +109,4 @@ switch ($content-type)
   case "text/plain" return local:import-from-url()
   case "application/xml" return local:import-from-xml()
   case "application/zip" return local:import-from-archive()
-  default return error(xs:QName("api:ARCHIVE"), $content-type || ": unsupported archive format, allowed content-types are: text/plain, application/xml and application/zip")
+  default return error(QName("api:ARCHIVE"), $content-type || ": unsupported archive format, allowed content-types are: text/plain, application/xml and application/zip")
