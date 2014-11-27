@@ -1,20 +1,18 @@
 language: node_js
 node_js:
 - '0.10'
+addons:
+  firefox: '31.0'
 before_script:
-- npm install -g bower
+- npm install -g bower gulp
 - bower install
-- npm install -g grunt-cli
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 script:
-# setup/deploy for ci or only deploy to prod if on master
-- grunt test:setup
-# run tests against deployed version
-- grunt test:run
+- gulp setup
 after_script:
 # teardown will work only for ci not for prod or on master
-- grunt test:teardown
+- gulp teardown
 env:
   global:
   - RANDOM_ID=$RANDOM

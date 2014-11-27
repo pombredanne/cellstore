@@ -1,3 +1,5 @@
 app/modules/*-api.js
-app/modules/translations.js
+app/modules/state-directives.js
+app/modules/formula-parser.js
+app/modules/excel-parser.js
 app/modules/state-directives.js
