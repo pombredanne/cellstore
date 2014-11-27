@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-.module('secxbrl')
+.module('report-editor')
 .config(function ($urlRouterProvider, $stateProvider) {
     $stateProvider
     .state('404', {

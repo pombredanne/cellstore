@@ -5,8 +5,8 @@ dist
 bower_components
 .idea
 app/modules/*-api.js
+app/modules/formula-parser.js
 app/constants.js
-app/modules/translations.js
 app/styles/*.css
 .DS_Store
 *~

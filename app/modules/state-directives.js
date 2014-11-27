@@ -112,8 +112,6 @@ function $StateRefActiveDirective($state, $stateParams, $interpolate) {
           return $state.$current.self === state && matchesParams();
         } else if(typeof $attrs.uiSrefActiveIncludes !== 'undefined') {
           return $state.includes($attrs.uiSrefActiveIncludes) && matchesParams();
-        } else if(state === undefined || state === null) {
-          return false;
         } else {
           return $state.includes(state.name) && matchesParams();
         }

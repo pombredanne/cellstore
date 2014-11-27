@@ -1,14 +1,18 @@
 'use strict';
 
 angular
-.module('secxbrl')
+.module('report-editor')
 .config(function ($stateProvider) {
     $stateProvider
+    //Auth
     .state('auth', {
-        url: '/auth',
-        abstract: true,
+        url: '/auth{returnPage:.*}',
         templateUrl: '/auth/auth.html',
         controller: 'AuthCtrl'
+    })
+    .state('logout', {
+        url: '/logout',
+        controller: 'LogoutCtrl'
     });
 })
 ;

@@ -2,7 +2,7 @@
 
 angular
     .module('session-model', ['constants', 'api'])
-    .factory('Session', function($state, $location, DSCacheFactory, API, APPNAME){
+    .factory('Session', function($state, $location, $angularCacheFactory, API, APPNAME){
 
         return (function() {
 
@@ -17,16 +17,16 @@ angular
                 {
                     p = p.substring(5);
                 }
-                $state.go('auth.login', { returnPage: p }, { reload: true });
+                $state.go('auth', { returnPage: p }, { reload: true });
             }
 
             function getCache(){
                 if(cache === undefined){
-                    cache = DSCacheFactory.get(APPNAME);
+                    cache = $angularCacheFactory.get(APPNAME);
                 }
                 if(cache === undefined){
                     // default settings
-                    cache = DSCacheFactory(APPNAME, {
+                    cache = $angularCacheFactory(APPNAME, {
                         maxAge: null, // no max age
                         recycleFreq: 60 * 1000,
                         deleteOnExpire: 'aggressive',
@@ -48,10 +48,10 @@ angular
                 getCache().put('token', ltoken);
             }
 
-            function getUser(force){
+            function getUser(){
                 var user = getCache().get('user');
-                if(user === undefined && force){
-                    throw new Error('AuthError');
+                if(user === undefined){
+                    redirectToLoginPage();
                 }
                 return user;
             }
@@ -79,7 +79,6 @@ angular
                 login: login,
                 logout: logout,
                 getUser: getUser,
-                setUser: setUser,
                 getToken: getToken
             };
         })();
