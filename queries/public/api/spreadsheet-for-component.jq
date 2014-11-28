@@ -34,6 +34,7 @@ declare  %rest:case-insensitive                 variable $additional-rules   as 
 declare  %rest:case-insensitive %rest:distinct  variable $role               as string* external;
 declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
 declare  %rest:case-insensitive                 variable $language           as string  external := "en-US";
+declare  %rest:case-insensitive                 variable $debug         as boolean external := false;
 
 session:audit-call($token);
 
@@ -100,7 +101,8 @@ let $spreadsheet as object? :=
                 EliminationThreshold: double($elimination-threshold) div 100,
                 Validate: $validate,
                 DefinitionModel: $definition-model,
-                Language: $language
+                Language: $language,
+                Debug: $debug
             },
             if(exists($rules))
             then { Rules : [ $rules ] }

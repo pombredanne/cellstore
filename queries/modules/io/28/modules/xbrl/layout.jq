@@ -254,8 +254,13 @@ declare function layout:matches-aspects(
     (
         every $aspect in keys($aspect-constraints)
         satisfies
+            let $default-value := $defaults.$aspect
             let $allowed-value := $aspect-constraints.$aspect
-            return $fact.Aspects.$aspect eq $allowed-value
+            return (
+                $allowed-value eq $default-value
+                or
+                $fact.Aspects.$aspect eq $allowed-value
+            )
     )
 };
 

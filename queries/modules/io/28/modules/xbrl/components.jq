@@ -357,10 +357,16 @@ as object*
         $new-options)
     let $layout-model as object := layout:layout($structural-model, $new-options)
     let $accountant-model as object := accountant:flatten-row-headers($layout-model)
+    let $result := if($options.FlattenRows) then $accountant-model else $layout-model
     return
-        if($options.FlattenRows)
-        then $accountant-model
-        else $layout-model
+        if($options.Debug)
+        then copy $r := $result
+             modify (
+                 insert json { Definition: $definition-model } into $r,
+                 insert json { Structural: $structural-model } into $r
+             )
+             return $r
+        else $result
 };
 
 (:~
