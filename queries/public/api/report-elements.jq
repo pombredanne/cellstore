@@ -8,6 +8,7 @@ import module namespace components = "http://28.io/modules/xbrl/components";
 import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
+import module namespace config = "http://apps.28.io/config";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
@@ -132,7 +133,7 @@ declare function local:concepts-for-archives-and-labels($aids as string*, $label
 
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $token         as string?  external;
-declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := $config:profile-name;
 declare  %rest:env                              variable $request-uri   as string   external;
 declare  %rest:case-insensitive                 variable $format        as string?  external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik           as string*  external;
