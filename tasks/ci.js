@@ -459,7 +459,7 @@ module.exports = function(grunt) {
             grunt.fatal('usage requested');
         } else if(environment === 'prod' && isTravisAndMaster()) {
             // ok, travis deploys master to prod
-            setConfig('secxbrl', 'secxbrl', environment);
+            setConfig('secxbrl', 'hq.secxbrl.info', environment);
         } else if(environment === 'prod' && !isTravisAndMaster()){
             // either not travis or not on master
             fatal('only travis is allowed to deploy from master to prod');
@@ -471,7 +471,7 @@ module.exports = function(grunt) {
             if(buildId) {
                 buildId = buildId.replace('.', '-');
                 project = 'secxbrl-' + buildId;
-                bucket = 'secxbrl-' + buildId;
+                bucket = 'hq-' + buildId;
             }
             if(bucket && project){
                 setConfig(project, bucket, environment);
@@ -486,23 +486,21 @@ module.exports = function(grunt) {
             fatal('Only travis is allowed to do the continuous integration. Choose a different environment.');
         } else if(environment === 'ci' && isTravis()){
             // continuous integration done by travis
-            var buildIdCI = process.env.TRAVIS_JOB_NUMBER;
-            var _isTravisAndMaster = isTravisAndMaster();
-            if(_isTravisAndMaster) {
+            var buildId = process.env.TRAVIS_JOB_NUMBER;
+            // ci must not run on master
+            if(isTravisAndMaster()) {
                 fatal('master is not allowed for ci environment');
-            } else if(!buildIdCI) {
-                buildIdCI = getStringParam('build-id');
             }
-            if(buildIdCI) {
-                buildIdCI = buildIdCI.replace('.', '-');
-            } else if(!_isTravisAndMaster) {
-                grunt.fail.fatal('No build id found. Looked up the TRAVIS_JOB_NUMBER environment variable and --build-id argument');
+            if(!buildId) {
+                fatal('TRAVIS_JOB_NUMBER not available in environment');
             }
-            var id = _isTravisAndMaster ? 'secxbrl-dev' : 'secxbrl-' + buildIdCI;
-            if(process.env.RANDOM_ID && !_isTravisAndMaster){
-                id += '-' + process.env.RANDOM_ID;
+            buildId = buildId.replace('.', '-');
+            if(process.env.RANDOM_ID){
+                buildId += '-' + process.env.RANDOM_ID;
             }
-            setConfig(id, id, environment);
+            var project = 'secxbrl-' + buildId;
+            var bucket = 'hq-' + buildId;
+            setConfig(project, bucket, environment);
         } else {
             failUnknownEnvironment('config', environment);
         }
