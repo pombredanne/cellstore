@@ -7,26 +7,24 @@ describe('Authentication', function(){
 
     var AuthPage = require('../../app/auth/auth-page');
     var auth = new AuthPage();
-    var login = auth.login;
     var config = require('./config/config').config;
 
     it('should have been redirected to the auth page', function() {
-        auth.doLogout();
+        auth.logout();
         auth.getCurrentUrl().then(function(url){
-            expect(url.substring(url.length - '/'.length)).toBe('/');
+            expect(url.substring(url.length - '/auth'.length)).toBe('/auth');
         });
     });
 
     it('shouldn\'t login', function(){
-        login.visitPage();
-        login.login('support@28.io', 'hello');
-        expect(login.wrongCombinationMessage().isDisplayed()).toBe(true);
+        auth.login(config.testUser, 'hello');
+        expect(auth.wrongCombinasionMessage().isDisplayed()).toBe(true);
     });
     
     it('should login', function(){
-        login.login('support@28.io', config.testPassword);
-        login.getCurrentUrl().then(function(url) {
-            expect(url.substring(url.length - '/account'.length)).toBe('/account');
+        auth.login(config.testUser, config.testPassword);
+        auth.getCurrentUrl().then(function(url) {
+            expect(url.substring(url.length - 1)).toBe('/');
         });
     });
 });
