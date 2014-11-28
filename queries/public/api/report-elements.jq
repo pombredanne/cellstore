@@ -132,6 +132,7 @@ declare function local:concepts-for-archives-and-labels($aids as string*, $label
 
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $token         as string?  external;
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := "generic";
 declare  %rest:env                              variable $request-uri   as string   external;
 declare  %rest:case-insensitive                 variable $format        as string?  external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik           as string*  external;
@@ -176,44 +177,83 @@ let $map as object? :=
     if(exists($report))
     then reports:concept-map($report)
     else concept-maps:concept-maps($map)
-let $concepts := if (exists($label))
-                 then local:concepts-for-archives-and-labels($archives._id, $label[1])
-                 else local:concepts-for-archives($archives._id, $name, $map, { OnlyNames: $onlyNames })
+let $concepts :=
+    if($profile-name eq "sec")
+    then
+        if (exists($label))
+            then local:concepts-for-archives-and-labels($archives._id, $label[1])
+            else local:concepts-for-archives($archives._id, $name, $map, { OnlyNames: $onlyNames })
+    else
+        if (exists($label))
+            then local:concepts-for-archives-and-labels($aid, $label[1])
+            else local:concepts-for-archives($aid, $name, $map, { OnlyNames: $onlyNames })
 
-let $result := {
-    ReportElements : [
-        if ($onlyNames) 
-        then distinct-values($concepts.Name)
-        else
-            let $all-aids := $concepts.Archive
-            let $roles := $concepts.Role
-            let $components := components:components-for-archives-and-roles($all-aids, $roles)
-            return
-            for $concept in $concepts
-            group by $archive := $concept.Archive,  $role := $concept.Role
-            let $component as object := $components[$$.Archive eq $archive and $$.Role eq $role]
-            let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-            let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
-            let $archive as object := $archives[$$._id eq $archive]
-            let $entity as object := $entities[$$._id eq $archive.Entity]
-            let $metadata := {
-                ComponentRole : $component.Role,
-                ComponentLabel : $component.Label,
-                AccessionNumber : $archive._id,
-                CIK : $entity._id,
-                EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
-                FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
-                FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
-            }
-            for $concept in $concept
-            let $original-name := ($concept.Origin, $concept.Name)[1]
-            return {|
-                project($concept, ("Name", "Origin")),
-                trim($members.$original-name, "Name"),
-                $metadata
-            |}
-    ]
-}
+let $result :=
+    if($profile-name eq "sec")
+    then {
+        ReportElements : [
+            if ($onlyNames)
+            then distinct-values($concepts.Name)
+            else
+                let $all-aids := $concepts.Archive
+                let $roles := $concepts.Role
+                let $components := components:components-for-archives-and-roles($all-aids, $roles)
+                return
+                for $concept in $concepts
+                group by $archive := $concept.Archive,  $role := $concept.Role
+                let $component as object := $components[$$.Archive eq $archive and $$.Role eq $role]
+                let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+                let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+                let $archive as object := $archives[$$._id eq $archive]
+                let $entity as object := $entities[$$._id eq $archive.Entity]
+                let $metadata := {
+                    ComponentRole : $component.Role,
+                    ComponentLabel : $component.Label,
+                    AccessionNumber : $archive._id,
+                    CIK : $entity._id,
+                    EntityRegistrantName : $entity.Profiles.SEC.CompanyName,
+                    FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
+                    FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
+                }
+                for $concept in $concept
+                let $original-name := ($concept.Origin, $concept.Name)[1]
+                return {|
+                    project($concept, ("Name", "Origin")),
+                    trim($members.$original-name, "Name"),
+                    $metadata
+                |}
+        ]
+    }
+    else {
+        ReportElements : [
+            if ($onlyNames)
+            then distinct-values($concepts.Name)
+            else
+                let $all-aids := $concepts.Archive
+                let $roles := $concepts.Role
+                let $components := components:components-for-archives-and-roles($all-aids, $roles)
+                return
+                for $concept in $concepts
+                group by $archive := $concept.Archive,  $role := $concept.Role
+                let $component as object := $components[$$.Archive eq $archive and $$.Role eq $role]
+                let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+                let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+                let $metadata := {
+                    ComponentRole : $component.Role,
+                    ComponentLabel : $component.Label,
+                    AccessionNumber : $archive._id,
+                    FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
+                    FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
+                }
+                for $concept in $concept
+                let $original-name := ($concept.Origin, $concept.Name)[1]
+                return {|
+                    project($concept, ("Name", "Origin")),
+                    trim($members.$original-name, "Name"),
+                    $metadata
+                |}
+        ]
+    }
 let $comment := {
     NumConcepts: count($concepts),
     TotalNumConcepts: session:num-concepts()
