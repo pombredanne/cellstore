@@ -9,7 +9,7 @@ angular
             angular.element($window).bind('resize', function () {
                 $scope.$apply();
             });
-        }    
+        }
     };
 })
 ;

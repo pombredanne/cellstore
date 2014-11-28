@@ -115,7 +115,7 @@ angular
             }
         }
     };
-    
+
     var ensureRuleType = function(ruleType, paramName, functionName) {
         ensureParameter(ruleType, paramName, 'string', functionName, /^(xbrl28:validation)|(xbrl28:formula)$/g,
             'rule type "' + ruleType + '" is not a valid type (allowed types: xbrl28:validation, xbrl28:formula)');
@@ -192,7 +192,7 @@ angular
         ensureConceptName(name, 'oname', 'addConcept');
         ensureParameter(label, 'label', 'string', 'addConcept');
         ensureParameter(abstract, 'abstract', 'boolean', 'addConcept');
-        
+
         if(this.existsConcept(name)) {
             throw new Error('addConcept: concept with name "' + name + '" already exists.');
         }
@@ -207,9 +207,9 @@ angular
                 'IsNillable': false,
                 'PeriodType': duration,
                 'SubstitutionGroup': 'xbrl:item',
-                'DataType' : 'nonnum:textBlockItemType', 
-                'BaseType' : 'xs:string', 
-                'ClosestSchemaBuiltinType' : 'xs:string', 
+                'DataType' : 'nonnum:textBlockItemType',
+                'BaseType' : 'xs:string',
+                'ClosestSchemaBuiltinType' : 'xs:string',
                 'IsTextBlock' : true
                 */
             };
@@ -228,7 +228,7 @@ angular
         if(!this.existsConcept(name)) {
             throw new Error('updateConcept: cannot update concept with name "' + name + '" because it doesn\'t exist.');
         }
-       
+
         var concept = this.getConcept(name);
         if(concept.IsAbstract !== abstract && !abstract) {
             // a concept can only be non-abstract if it has no children in presentation
@@ -441,7 +441,7 @@ angular
      **********************/
     AbstractReport.prototype.getNetwork = function(networkShortName) {
         ensureNetworkShortName(networkShortName, 'networkShortName', 'getNetwork');
-        
+
         var model = this.getModel();
         if(model === null || model === undefined) {
             return null;
@@ -463,7 +463,7 @@ angular
 
     AbstractReport.prototype.listTrees = function(networkShortName) {
         ensureNetworkShortName(networkShortName, 'networkShortName', 'listTrees');
-        
+
         var result = [];
         var network = this.getNetwork(networkShortName);
         if(network === null || network === undefined) {
@@ -506,7 +506,7 @@ angular
         var conceptName = this.alignConceptPrefix(oconceptName);
         ensureConceptName(conceptName, 'oconceptName', 'findInTree');
         ensureNetworkShortName(networkShortName, 'networkShortName', 'findInTree');
-        
+
         var network = this.getNetwork(networkShortName);
         var result = [];
         var children = network.Trees;
@@ -538,7 +538,7 @@ angular
     AbstractReport.prototype.getElementFromTree = function(networkShortName, elementID) {
         ensureNetworkShortName(networkShortName, 'networkShortName', 'getElementFromTree');
         ensureParameter(elementID, 'elementID', 'string', 'getElementFromTree');
-        
+
         var network = this.getNetwork(networkShortName);
         var element = null;
         var children = network.Trees;
@@ -630,7 +630,7 @@ angular
     AbstractReport.prototype.getParentElementFromTree = function(networkShortName, elementID) {
         ensureNetworkShortName(networkShortName, 'networkShortName', 'getParentElementFromTree');
         ensureParameter(elementID, 'elementID', 'string', 'getParentElementFromTree');
-        
+
         var network = this.getNetwork(networkShortName);
         var parent = null;
         var children = network.Trees;
@@ -648,7 +648,7 @@ angular
     AbstractReport.prototype.existsElementInTree = function(networkShortName, elementID) {
         ensureNetworkShortName(networkShortName, 'networkShortName', 'existsElementInTree');
         ensureParameter(elementID, 'elementID', 'string', 'existsElementInTree');
-        
+
         var element = this.getElementFromTree(networkShortName, elementID);
         if(element !== null && typeof element === 'object') {
             return true;
@@ -814,8 +814,8 @@ angular
             var network = this.getNetwork(networkShortName);
             network.Trees[conceptName] = element;
             return element;
-        } 
-        
+        }
+
         var parent;
         if(parentElementID === undefined || parentElementID === null){
             parent = rootElem;
@@ -902,7 +902,7 @@ angular
         if(network === null || network === undefined || network.Trees === null || network.Trees === undefined) {
             return null;
         }
- 
+
         var map = network.Trees[conceptName];
         if(map === null || map === undefined) {
             return null;
@@ -946,7 +946,7 @@ angular
         if(network === null || network === undefined || network.Trees === null || network.Trees === undefined) {
             return result;
         }
-        
+
         for (var conceptname in network.Trees) {
             var map = network.Trees[conceptname];
             result.push(map);
@@ -1009,7 +1009,7 @@ angular
     AbstractReport.prototype.findInConceptMap = function(oconceptName) {
         var conceptName = this.alignConceptPrefix(oconceptName);
         ensureConceptName(conceptName, 'oconceptName', 'findInConceptMap');
-        
+
         var result = {
             SynonymOf: [],
             Maps: []
@@ -1036,7 +1036,7 @@ angular
     AbstractReport.prototype.removeConceptMap = function(oconceptName) {
         var conceptName = this.alignConceptPrefix(oconceptName);
         ensureConceptName(conceptName, 'oconceptName', 'removeConceptMap');
-        
+
         var conceptMap = this.getConceptMap(conceptName);
         ensureExists(conceptMap, 'object', 'removeConceptMap', 'No concept map exists for concept with name "' + conceptName + '".');
 
@@ -1222,7 +1222,7 @@ angular
         if(computableConceptsArray.length === 0) {
             throw new Error('createNewRule: rule of type "' + type + '" must have at least one computable concept. Function createNewRule was called with empty computableConceptsArray.');
         }
-        
+
         var rule = {
             'Id': id,
             'Label': label,
@@ -1711,9 +1711,9 @@ angular
     return AbstractReport;
 })
 .factory('Report', function(GenericReport, SECReport, PROFILE) {
-   if(PROFILE === 'sec'){
-       return SECReport;
-   }
-   return GenericReport;
+    if(PROFILE === 'sec'){
+        return SECReport;
+    }
+    return GenericReport;
 });
 

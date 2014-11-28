@@ -8,7 +8,7 @@ var Synonyms = function(id, conceptName){
 };
 
 Synonyms.prototype.visitPage = function(){
-    browser.get('/' + this.id + '/concept/' + this.conceptName + '/synonyms');  
+    browser.get('/' + this.id + '/concept/' + this.conceptName + '/synonyms');
 };
 
 Synonyms.prototype.addSynonym = function(synonym){

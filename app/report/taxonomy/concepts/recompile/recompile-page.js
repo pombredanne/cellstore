@@ -4,10 +4,10 @@
 function Recompile(reportId){
     this.reportId = reportId;
     this.recompileBtn = element(by.id('btn-recompile'));
-    this.errorMessages = 
+    this.errorMessages =
         element.all(
             by.xpath('//div[contains(@class, "recompile-message") and contains(@class, "bg-danger")]'));
-    this.successMessages = 
+    this.successMessages =
         element.all(
             by.xpath('//div[contains(@class, "recompile-message") and contains(@class, "bg-success")]'));
 }

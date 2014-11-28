@@ -1,3 +1,4 @@
+/*global describe:false, inject:false, beforeEach:false, it:false, expect:false */
 describe('Check Concept updating ', function () {
     'use strict';
 
@@ -17,7 +18,7 @@ describe('Check Concept updating ', function () {
             });
         };
     }));
-    
+
 
     it('Basic checks on the Overview controller.', function(){
         //Controller instanciate smoothly

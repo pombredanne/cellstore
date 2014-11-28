@@ -1,7 +1,8 @@
+/*global describe:false, inject:false, beforeEach:false, it:false, expect:false */
 describe('Check Presentation Tree Processing ', function () {
     'use strict';
 
-    var scope, rootScope, createController; 
+    var scope, rootScope, createController;
 
     beforeEach(inject(function($rootScope, $controller, Report) {
         rootScope = $rootScope;
@@ -13,7 +14,7 @@ describe('Check Presentation Tree Processing ', function () {
             });
         };
     }));
-    
+
 
     it('Creates a presentation tree with a non abstract element.', function(){
         createController();

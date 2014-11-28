@@ -78,11 +78,6 @@ module.exports = function (grunt) {
                 files: ['swagger/{,*/}*.json'],
                 tasks: ['swagger-js-codegen']
             },
-            nggettext: {
-                failIfOffline: false,
-                files: ['po/*.po'],
-                tasks: ['nggettext_compile']
-            },
             livereload: {
                 options: {
                     livereload: LIVERELOAD_PORT
@@ -420,11 +415,9 @@ module.exports = function (grunt) {
         },
         concurrent: {
             server: [
-                'nggettext_compile'
             ],
             test: [],
             dist: [
-                'nggettext_compile',
                 'less',
                 'imagemin',
                 'htmlmin'
@@ -469,7 +462,8 @@ module.exports = function (grunt) {
                     'API_URL': '<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
                     'ACCOUNT_URL': '/account/info',
-                    'REGISTRATION_URL': '/auth'
+                    'REGISTRATION_URL': '/auth',
+                    'PROFILE': 'sec'
                 }
             },
             dev: {
@@ -481,7 +475,8 @@ module.exports = function (grunt) {
                     'API_URL': getCustomAPIUrl(),
                     'DEBUG': true,
                     'ACCOUNT_URL': '/account/info',
-                    'REGISTRATION_URL': '/auth'
+                    'REGISTRATION_URL': '/auth',
+                    'PROFILE': 'sec'
                 }
             },
             prod: {
@@ -493,7 +488,8 @@ module.exports = function (grunt) {
                     'API_URL': '<%= secxbrl.28.api.url %>',
                     'DEBUG': true,
                     'ACCOUNT_URL': '/account/info',
-                    'REGISTRATION_URL': '/auth'
+                    'REGISTRATION_URL': '/auth',
+                    'PROFILE': 'sec'
                 }
             }
 
@@ -519,38 +515,6 @@ module.exports = function (grunt) {
                 src: '<%= yeoman.queries %>'
             },
             dist: {}
-        },
-        'nggettext_extract': {
-            pot: {
-                files: {
-                    'po/template.pot': ['<%= yeoman.app %>/**/*.html']
-                }
-            }
-        },
-        'nggettext_compile': {
-            all: {
-                files: {
-                    '<%= yeoman.app %>/modules/translations.js': ['po/*.po']
-                }
-            }
-        },
-        'nggettext_default': {
-            all: {
-                langfiles: [ 'po/en-US.po' ],
-                template: 'po/template.pot'
-            }
-        },
-        'nggettext_check': {
-            all: {
-                langfiles: [ 'po/*.po' ],
-                template: 'po/template.pot'
-            }
-        },
-        'nggettext_merge': {
-            all: {
-                langfiles: [ 'po/*.po' ],
-                template: 'po/template.pot'
-            }
         },
         jsonlint: {
             all: {

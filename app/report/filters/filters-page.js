@@ -120,11 +120,11 @@ var clickFiltersSelectors = function(list, value){
 };
 
 Filters.prototype.clickFiltersYear = function(year){
-    return clickFiltersSelectors(this.setFilters.fiscalYears, year); 
+    return clickFiltersSelectors(this.setFilters.fiscalYears, year);
 };
 
 Filters.prototype.clickFiltersPeriod = function(period){
-    return clickFiltersSelectors(this.setFilters.fiscalPeriods, period); 
+    return clickFiltersSelectors(this.setFilters.fiscalPeriods, period);
 };
 
 module.exports = Filters;

@@ -6,7 +6,7 @@ function Facts(id){
 }
 
 Facts.prototype.visitPage = function(){
-    return browser.get('/' + this.id + '/facts'); 
+    return browser.get('/' + this.id + '/facts');
 };
 
 Facts.prototype.lineCount = function(){

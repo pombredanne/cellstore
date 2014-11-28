@@ -8,7 +8,7 @@ function Spreadsheet(id){
 }
 
 Spreadsheet.prototype.visitPage = function(){
-    return browser.get('/' + this.id + '/spreadsheet');  
+    return browser.get('/' + this.id + '/spreadsheet');
 };
 
 Spreadsheet.prototype.getValueTDsByHeaderContainingText = function(containedText){

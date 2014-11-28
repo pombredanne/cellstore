@@ -1,3 +1,4 @@
+/*global describe:false, it:false, expect:false */
 describe('Rules Model API Tests', function () {
     'use strict';
 
@@ -38,14 +39,14 @@ describe('Rules Model API Tests', function () {
         alt1.SourceFact = [ 'LiabilitiesAndEquity' ];
         alt1.PrereqSrc = 'CurrentAssets = LiabilitiesAndEquity';
         alt1.BodySrc = 'CurrentAssets';
-        
+
         rule.addAlternative();
         expect(model.Formulae.length).toEqual(2);
         var alt2 = model.Formulae[1];
         alt2.SourceFact = [ 'LiabilitiesAndEquity' ];
         alt2.PrereqSrc = 'and(isblank(NoncurrentAssets),LiabilitiesAndEquity=Equity+Liabilities)';
         alt2.BodySrc = 'CurrentAssets';
-           
+
         // dependent concepts missing
         rule.compile();
         expect(rule.validate('Create')).toEqual(false);

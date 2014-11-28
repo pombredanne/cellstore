@@ -5,7 +5,7 @@
 angular.module('report-editor')
 .controller('FactsCtrl', function($scope, $timeout, $modal, Session, API, report, API_URL) {
     $scope.columns = [];
-    $scope.data = null; 
+    $scope.data = null;
     $scope.loading = false;
     $scope.dynamic = 0;
     $scope.max = 0;
@@ -33,7 +33,7 @@ angular.module('report-editor')
 		var params = { report: report.model._id, token: Session.getToken(), $method: 'POST' };
         //params.aik = "0000021344-14-000008";
 
-        $scope.data = null;     
+        $scope.data = null;
 
         if(report.hasSufficientFilters()) {
             $scope.loading = true;
@@ -68,17 +68,17 @@ angular.module('report-editor')
                         }
                     });
                 }
-                
+
             })
             .finally(
                 function () {
-                    $scope.loading = false;                  
+                    $scope.loading = false;
                 });
         }
     };
-	  
+
 	$scope.reload();
-	   
+
     $scope.showText = function(html) {
         $scope.$emit('alert', 'Text Details', html);
     };
@@ -110,5 +110,5 @@ angular.module('report-editor')
     $scope.getExportURL = function(format) {
         return API_URL + '/_queries/public/api/facttable-for-report.jq?_method=POST&format=' + format + '&report=' + encodeURIComponent(report.model._id) + '&token=' + Session.getToken();
     };
-       
+
 });

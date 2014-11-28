@@ -10,7 +10,7 @@ angular.module('report-editor')
     }
 
     var lastSavedModel;
-    
+
     var inProgress, isWaiting;
 
     var save = function(reportModel){
@@ -39,7 +39,7 @@ angular.module('report-editor')
                 inProgress = undefined;
             }
         });
-    };    
+    };
 
     $scope.$watch('report.model', function(newReportModel, oldReportModel){
         if(oldReportModel === undefined) {

@@ -89,9 +89,9 @@ Reports.prototype.selectReport = function(reportName){
 };
 
 Reports.prototype.deleteReport = function(reportName){
-  this.selectReport(reportName);
-  this.deleteBtn.click();
-  return element(by.id('confirm-delete-reports')).click();
+    this.selectReport(reportName);
+    this.deleteBtn.click();
+    return element(by.id('confirm-delete-reports')).click();
 };
 
 

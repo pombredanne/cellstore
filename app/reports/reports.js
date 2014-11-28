@@ -132,7 +132,7 @@ angular.module('report-editor')
     reports.forEach(function(report){
         if(reportIdsToDelete.indexOf(report._id) !== -1){
             $scope.names.push(report.Label);
-        } 
+        }
     });
 
     $scope.ok = function(){

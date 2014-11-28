@@ -1,3 +1,4 @@
+/*global describe:false, it:false, expect:false */
 describe('Concepts Model API Tests', function () {
     'use strict';
 
@@ -29,7 +30,7 @@ describe('Concepts Model API Tests', function () {
         var name = 'us-gaap:PensionAndOtherPostretirementBenefitsDisclosureTextBlock';
         var label = 'Pension and Other Postretirement Benefits Disclosure [Text Block]';
         report.addConcept(name, label, false);
-                         
+
         expect(report.existsConcept(name)).toBe(true);
         expect(report.getConcept(name).Name).toBe(name);
         expect(report.getConcept(name).Label).toBe(label);
@@ -41,7 +42,7 @@ describe('Concepts Model API Tests', function () {
         var name = 'fac:Test';
         var label = 'A Test Concept';
         report.addConcept(name, label, true);
-                         
+
         expect(report.existsConcept(name)).toBe(true);
         expect(report.getConcept(name).Name).toBe(name);
         expect(report.getConcept(name).Label).toBe(label);
@@ -53,7 +54,7 @@ describe('Concepts Model API Tests', function () {
         var name = 'fac:Leaf';
         var label = 'A reportable Concept';
         report.addConcept(name, label, false);
-                         
+
         expect(report.existsConcept(name)).toBe(true);
         expect(report.getConcept(name).Name).toBe(name);
         expect(report.getConcept(name).Label).toBe(label);
@@ -65,7 +66,7 @@ describe('Concepts Model API Tests', function () {
         var name = 'us-gaap:PensionAndOtherPostretirementBenefitsDisclosureTextBlock';
         var label = 'Pensions';
         report.updateConcept(name, label, true);
-                         
+
         expect(report.existsConcept(name)).toBe(true);
         expect(report.getConcept(name).Name).toBe(name);
         expect(report.getConcept(name).Label).toBe(label);
@@ -76,14 +77,14 @@ describe('Concepts Model API Tests', function () {
         expect(report).not.toBeNull();
         var name = 'us-gaap:PensionAndOtherPostretirementBenefitsDisclosureTextBlock';
         report.removeConcept(name);
-                         
+
         expect(report.existsConcept(name)).toBe(false);
     });
 
     it('List concepts', function () {
         expect(report).not.toBeNull();
         var concepts = report.listConcepts();
-                         
+
         expect(concepts.length).toBe(3);
     });
 
@@ -94,7 +95,7 @@ describe('Concepts Model API Tests', function () {
         var offset = 0;
         var element = report.createNewElement(name);
         var newElement = report.addElement('Presentation', element, offset);
-                      
+
         expect(element).not.toBeNull();
         expect(element.Id).not.toBeNull();
         expect(element.Id).toBeDefined();
@@ -109,7 +110,7 @@ describe('Concepts Model API Tests', function () {
         var offset = 0;
         var element = report.createNewElement(report.getConcept(name));
         var newElement = report.addElement('Presentation', element, offset, parentID[0]);
-                      
+
         expect(element).not.toBeNull();
         expect(element.Id).not.toBeNull();
         expect(element.Id).toBeDefined();
@@ -122,7 +123,7 @@ describe('Concepts Model API Tests', function () {
         var name = 'fac:Test';
         var parentID = report.findInTree('Presentation','fac:Test');
         var element = report.addElement('Presentation', name, 1, parentID[0]);
-                      
+
         expect(element).not.toBeNull();
         expect(element.Id).not.toBeNull();
         expect(element.Id).toBeDefined();

@@ -14,10 +14,10 @@ angular
     $scope.messages =[];
 
     var addMessage = function(type, msg){
-      $scope.messages.push({
-        'Type': type,
-        'Message': msg      
-      });
+        $scope.messages.push({
+            'Type': type,
+            'Message': msg
+        });
     };
 
     var addCompiledRule = function(rule){
