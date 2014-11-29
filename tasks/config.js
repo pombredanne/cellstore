@@ -20,7 +20,8 @@ module.exports = {
         less: ['app/**/*.less'],
         fonts: ['app/**/*.ttf', 'app/**/*.woff'],
         tasks: ['gulpfile.js', 'tasks/*.js'],
-        credentials: 'config.json'
+        credentials: 'config.json',
+        queries: ['queries/**/*.{xq,jq}']
     },
     credentials: {}
 };

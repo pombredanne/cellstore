@@ -14,6 +14,7 @@ require('./tasks/swagger');
 require('./tasks/s3');
 require('./tasks/tests');
 require('./tasks/ci');
+require('./tasks/28');
 
 gulp.task('watch', function() {
   return gulp.watch(Config.paths.less, ['less']);
