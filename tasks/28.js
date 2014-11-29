@@ -76,6 +76,46 @@ var upload = function(projectName){
     });
 };
 
+var runQueries = function(projectName, runQueries) {
+    var Queries = $28.api.Queries(projectName);
+    runQueries.forEach(function(queries){
+        queries = grunt.file.expand(queries);
+        var batch = [];
+        queries.forEach(function(query){
+            var queryPath = query.substring(opt.src.length + 1);
+            batch.push(function(credentials) {
+                var projectToken = credentials.project_tokens['project_' + projectName];
+                return Queries.executeQuery({
+                    accept: 'application/28.io+json',
+                    queryPath: queryPath,
+                    format: '',
+                    token: projectToken
+                }).then(function (data) {
+                    $.util.log(('✓ '.green) + queryPath + ' returned with status code: ' + data.response.statusCode);
+                    return credentials;
+                }).catch(function (error) {
+                    $.util.log(error.body);
+                    $.util.log(('✗ '.red) + queryPath + ' returned with status code: ' + error.response.statusCode);
+                    throw error;
+                });
+            });
+        });
+
+        var promises = [];
+        batch.forEach(function(unit){
+            promises.push(unit(credentials));
+        });
+        return Q.allSettled(promises).then(function(results){
+            results.forEach(function (result) {
+                if (result.state !== 'fulfilled') {
+                    throw new Error('Some queries failed.');
+                }
+            });
+            return credentials;
+        });
+    });
+};
+
 gulp.task('28:login', function(){
     return login(Config.credentials['28'].email, Config.credentials['28'].password).catch(throwError);
 });
@@ -93,9 +133,18 @@ gulp.task('28:upload', function(){
 });
 
 gulp.task('28:init', function(){
-
+    return runQueries(Config.projectName, [
+        'queries/private/InitAuditCollection.jq',
+        'queries/private/init.jq',
+        'queries/private/UpdateReportSchema.jq',
+        'queries/private/cleanupTestUserReports.jq',
+        'queries/private/migration/db6.jq'
+    ]).catch(throwError);
 });
 
 gulp.task('28:test', function(){
-
+    return runQueries(Config.projectName, [
+        'queries/public/test/*',
+        'queries/private/test/*'
+    ]).catch(throwError);
 });
