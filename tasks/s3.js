@@ -8,23 +8,16 @@ var Q = require('q');
 var AWS = require('aws-sdk');
 var awspublish = require('gulp-awspublish');
 var parallelize = require('concurrent-transform');
-var minimist = require('minimist');
-
-var knownOptions = {
-    string: 'build-id',
-    default: { 'build-id': process.env.RANDOM_ID }
-};
 
 var Config = require('./config');
 
-var s3, key, secret, region, bucketName, config, publisher, buildId;
+var s3, key, secret, region, config, publisher, bucketName;
 
 var init = function() {
-    buildId = minimist(process.argv.slice(2), knownOptions)['build-id'];
     key = Config.isOnProduction ?  Config.credentials.s3.prod.key : Config.credentials.s3.dev.key;
     secret = Config.isOnProduction ?  Config.credentials.s3.prod.secret : Config.credentials.s3.dev.secret;
     region = Config.credentials.s3.region;
-    bucketName = Config.isOnProduction ? 'hq.secxbrl.info' : 'hq.secxbrl.info-' + buildId;
+    bucketName = Config.bucketName;
     $.util.log('Bucket Name: ' + bucketName);
     config = {
         accessKeyId: key,

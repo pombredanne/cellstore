@@ -85,7 +85,7 @@ gulp.task('setup', function(done){
 });
 
 gulp.task('28:setup', ['load-config'], function(done){
-    return $.runSequence('28:login', done);
+    return $.runSequence('28:login', '28:remove-project', '28:create-project', '28:upload', done);
 });
 
 gulp.task('teardown', ['load-config'], function(){

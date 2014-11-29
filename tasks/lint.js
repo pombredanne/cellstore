@@ -27,7 +27,7 @@ gulp.task('jsonlint', function(){
 });
 
 gulp.task('xqlint', function(){
-    return gulp.src(Config.paths.queries)
+    return gulp.src(Config.paths.jsoniq)
         .pipe($.xqlint())
         .pipe($.xqlint.failReporter());
 });
