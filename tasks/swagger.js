@@ -32,6 +32,11 @@ gulp.task('swagger', function(done){
           swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/billing.json',
           moduleName: 'billing-api',
           className: 'BillingAPI'
+        },
+        {
+            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/reports.json',
+            moduleName: 'report-api',
+            className: 'ReportAPI'
         }
     ];
     var dest = 'app/modules';
