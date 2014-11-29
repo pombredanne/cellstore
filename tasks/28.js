@@ -1,5 +1,5 @@
 'use strict';
-/*
+
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var $28 = new (require('28').$28)('http://portal.28.io/api');
@@ -43,4 +43,3 @@ gulp.task('28:upload', function(){
 gulp.task('28:test', function(){
 
 });
-*/

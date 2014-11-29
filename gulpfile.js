@@ -84,6 +84,10 @@ gulp.task('setup', function(done){
   $.runSequence('build', 'server:dist', 'test:e2e', 's3-setup', 'server:stop', done);
 });
 
+gulp.task('28:setup', ['load-config'], function(done){
+    return $.runSequence('28:login', done);
+});
+
 gulp.task('teardown', ['load-config'], function(){
   return gulp.start('s3-teardown');
 });
