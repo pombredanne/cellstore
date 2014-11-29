@@ -1,6 +1,9 @@
 'use strict';
 
+//var _ = require('lodash');
 var Q = require('q');
+var expand = require('glob-expand');
+
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var $28 = new (require('28').$28)('http://portal.28.io/api');
@@ -45,6 +48,7 @@ var removeProject = function(projectName, isIdempotent){
             defered.resolve(credentials);
         }
     });
+    return defered.promise;
 };
 
 var createProject = function(projectName){
@@ -77,14 +81,17 @@ var upload = function(projectName){
 };
 
 var runQueries = function(projectName, runQueries) {
+    var sequence = [];
     var Queries = $28.api.Queries(projectName);
+    /*jshint camelcase:false */
+    var projectToken = credentials.project_tokens['project_' + projectName];
     runQueries.forEach(function(queries){
-        queries = grunt.file.expand(queries);
+        queries = expand(queries);
         var batch = [];
         queries.forEach(function(query){
-            var queryPath = query.substring(opt.src.length + 1);
+            var queryPath = query.substring(Config.paths.queries.length + 1);
             batch.push(function(credentials) {
-                var projectToken = credentials.project_tokens['project_' + projectName];
+                /*jshint camelcase:false */
                 return Queries.executeQuery({
                     accept: 'application/28.io+json',
                     queryPath: queryPath,
@@ -101,18 +108,32 @@ var runQueries = function(projectName, runQueries) {
             });
         });
 
-        var promises = [];
-        batch.forEach(function(unit){
-            promises.push(unit(credentials));
-        });
-        return Q.allSettled(promises).then(function(results){
-            results.forEach(function (result) {
-                if (result.state !== 'fulfilled') {
-                    throw new Error('Some queries failed.');
-                }
+        sequence.push(function(credentials){
+            var promises = [];
+            batch.forEach(function(unit){
+                promises.push(unit(credentials));
             });
-            return credentials;
+            return Q.allSettled(promises).then(function(results){
+                results.forEach(function (result) {
+                    if (result.state !== 'fulfilled') {
+                        throw new Error('Some queries failed.');
+                    }
+                });
+                return credentials;
+            });
         });
+    });
+    return sequence.reduce(Q.when, Q());
+};
+
+var createDatasource = function(projectName, datasource){
+    $.util.log('Creating datasource ' + datasource.name);
+    var difault = datasource.default ? datasource.default : false;
+    /*jshint camelcase:false */
+    var projectToken = credentials.project_tokens['project_' + projectName];
+    return $28.createDatasource(projectName, datasource.category, datasource.name, projectToken, difault, JSON.stringify(datasource.credentials)).then(function(){
+        $.util.log(datasource.name + ' created');
+        return credentials;
     });
 };
 
@@ -130,6 +151,14 @@ gulp.task('28:remove-project', function(){
 
 gulp.task('28:upload', function(){
     return upload(Config.projectName).catch(throwError);
+});
+
+gulp.task('28:setup-datasource', function(){
+    var promises = [];
+    Config.credentials['28'].datasources.forEach(function(datasource){
+        promises.push(createDatasource(Config.projectName, datasource).catch(throwError));
+    });
+    return Q.all(promises);
 });
 
 gulp.task('28:init', function(){
