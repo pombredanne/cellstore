@@ -14,8 +14,8 @@ var Config = require('./config');
 var s3, key, secret, region, config, publisher, bucketName;
 
 var init = function() {
-    key = Config.isOnProduction ?  Config.credentials.s3.prod.key : Config.credentials.s3.dev.key;
-    secret = Config.isOnProduction ?  Config.credentials.s3.prod.secret : Config.credentials.s3.dev.secret;
+    key = Config.isOnProduction ?  Config.credentials.s3.production.key : Config.credentials.s3.key;
+    secret = Config.isOnProduction ?  Config.credentials.s3.production.secret : Config.credentials.s3.secret;
     region = Config.credentials.s3.region;
     bucketName = Config.bucketName;
     $.util.log('Bucket Name: ' + bucketName);
