@@ -453,7 +453,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('config', function(environment) {
         grunt.log.subhead('config (environment: ' + environment + ')');
-
+        var buildId, project, bucket;
         if(getOptionParam('usage')){
             usage();
             grunt.fatal('usage requested');
@@ -465,9 +465,7 @@ module.exports = function(grunt) {
             fatal('only travis is allowed to deploy from master to prod');
         } else if(environment === 'dev' && !isTravis()) {
             // local development environment
-            var project;
-            var bucket;
-            var buildId = getStringParam('build-id');
+            buildId = getStringParam('build-id');
             if(buildId) {
                 buildId = buildId.replace('.', '-');
                 project = 'secxbrl-' + buildId;
@@ -486,7 +484,7 @@ module.exports = function(grunt) {
             fatal('Only travis is allowed to do the continuous integration. Choose a different environment.');
         } else if(environment === 'ci' && isTravis()){
             // continuous integration done by travis
-            var buildId = process.env.TRAVIS_JOB_NUMBER;
+            buildId = process.env.TRAVIS_JOB_NUMBER;
             // ci must not run on master
             if(isTravisAndMaster()) {
                 fatal('master is not allowed for ci environment');
@@ -498,8 +496,8 @@ module.exports = function(grunt) {
             if(process.env.RANDOM_ID){
                 buildId += '-' + process.env.RANDOM_ID;
             }
-            var project = 'secxbrl-' + buildId;
-            var bucket = 'hq-' + buildId;
+            project = 'secxbrl-' + buildId;
+            bucket = 'hq-' + buildId;
             setConfig(project, bucket, environment);
         } else {
             failUnknownEnvironment('config', environment);
