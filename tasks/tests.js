@@ -81,3 +81,11 @@ gulp.task('test:e2e', ['webdriver:update'], function() {
       process.exit(1);
     });
 });
+
+gulp.task('test:unit', function (done) {
+    var karma = require('karma').server;
+    karma.start({
+        configFile: __dirname + '/../karma.conf.js',
+        singleRun: true
+    }, done);
+});
