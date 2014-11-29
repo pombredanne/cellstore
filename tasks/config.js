@@ -25,7 +25,10 @@ module.exports = {
         tmp: '.tmp',
         queries: 'queries',
 
-        //Assets
+        //Reports
+        reports: 'data/*.json',
+
+        //Static Assets
         json: ['*.json'],
         js: ['app/**/*.js'],
         css: ['app/**/*.css'],
