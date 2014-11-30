@@ -49,6 +49,10 @@ gulp.task('encrypt-force', ['env-check'], $.shell.task(cmds.encrypt));
 gulp.task('decrypt-force', ['env-check'], $.shell.task(cmds.decrypt));
 
 gulp.task('load-config', ['decrypt'], function(){
+    if(!_.isEmpty(Config.credentials)){
+        return;
+    }
+
     var Mustache = require('mustache');
     var expand = require('glob-expand');
     Config.credentials = JSON.parse(fs.readFileSync(Config.paths.credentials, 'utf-8'));

@@ -44,7 +44,7 @@
     "map-stream": "0.0.5",
     "minimist": "^1.1.0",
     "mustache": "^0.8.2",
-    "netdna": "~0.0.6",
+    "netdna": "0.0.6",
     "protractor": "~1.0.0",
     "protractor-html-screenshot-reporter": "0.0.17",
     "protractor-screenshot-reporter": "0.0.5",
