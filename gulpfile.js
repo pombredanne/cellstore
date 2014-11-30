@@ -15,6 +15,8 @@ require('./tasks/s3');
 require('./tasks/tests');
 require('./tasks/ci');
 require('./tasks/28');
+require('./tasks/netdna');
+
 
 gulp.task('watch', function() {
   return gulp.watch(Config.paths.less, ['less']);
