@@ -65,16 +65,20 @@ gulp.task('webdriver:update', webdriverUpdate);
 // Run e2e tests using protractor, make sure serve task is running.
 gulp.task('test:e2e', ['webdriver:update'], function() {
   var configs = {
-    prod: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
-    ci: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
-    dev: 'tests/e2e/config/protractor-conf.js'
+    travis: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
+    local: 'tests/e2e/config/protractor-conf.js'
   };
 
-  var configFile = Config.isOnTravis ? configs.prod : configs.dev;
-
+  var configFile = Config.isOnTravis ? configs.travis : configs.local;
+  var args = [];
+  if(Config.isOnTravis) {
+      args.push('--baseUrl');
+      args.push('http://' + Config.bucketName + '.s3-website-us-east-1.amazonaws.com');
+  }
   return gulp.src(protractorConfig.config.specs)
     .pipe($.protractor.protractor({
-      configFile: configFile
+      configFile: configFile,
+          args: args
     }))
     .on('error', function(e) {
       console.error(e);
