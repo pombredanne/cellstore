@@ -35,19 +35,24 @@ var login = function(email, password){
 
 var removeProject = function(projectName, isIdempotent){
     /*jshint camelcase:false */
-    var token = credentials.access_token;
-    $.util.log('Deleting project ' + projectName);
     var defered = Q.defer();
-    $28.deleteProject(projectName, token).then(function(){
-        $.util.log('Project deleted.');
-        defered.resolve(credentials);
-    }).catch(function(error){
-        if(!isIdempotent) {
-            defered.reject(error);
-        } else {
+    if(!Config.isOnProduction) {
+        var token = credentials.access_token;
+        $.util.log('Deleting project ' + projectName);
+        $28.deleteProject(projectName, token).then(function () {
+            $.util.log('Project deleted.');
             defered.resolve(credentials);
-        }
-    });
+        }).catch(function (error) {
+            if (!isIdempotent) {
+                defered.reject(error);
+            } else {
+                defered.resolve(credentials);
+            }
+        });
+    } else {
+        $.util.log('Skipping project deletion for production: ' + projectName);
+        defered.resolve(credentials);
+    }
     return defered.promise;
 };
 
@@ -55,11 +60,18 @@ var createProject = function(projectName){
     /*jshint camelcase:false */
     var token = credentials.access_token;
     $.util.log('Creating project ' + projectName);
-    return $28.createProject(projectName, token).then(function(response) {
+    return $28.createProject(projectName, token).then(function (response) {
         $.util.log('Project created.');
         /*jshint camelcase:false */
         credentials.project_tokens['project_' + projectName] = response.body.projectToken;
         return credentials;
+    }).catch(function (error) {
+        $.util.log('Project creation failed: ' + error);
+        if (!Config.isOnProduction) {
+            throwError(error);
+        } else {
+            return credentials;
+        }
     });
 };
 
@@ -131,10 +143,19 @@ var createDatasource = function(projectName, datasource){
     var difault = datasource.default ? datasource.default : false;
     /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
-    return $28.createDatasource(projectName, datasource.category, datasource.name, projectToken, difault, JSON.stringify(datasource.credentials)).then(function(){
-        $.util.log(datasource.name + ' created');
-        return credentials;
-    });
+    return $28.createDatasource(projectName, datasource.category, datasource.name, projectToken, difault, JSON.stringify(datasource.credentials))
+        .then(function(){
+            $.util.log(datasource.name + ' created');
+            return credentials;
+        })
+        .catch(function (error) {
+            $.util.log('datasource creation failed: ' + error);
+            if (!Config.isOnProduction) {
+                throwError(error);
+            } else {
+                return credentials;
+            }
+        });
 };
 
 gulp.task('28:login', function(){
