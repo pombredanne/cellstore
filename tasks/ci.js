@@ -53,6 +53,10 @@ gulp.task('load-config', ['decrypt'], function(){
         return;
     }
 
+    if(Config.buildId === undefined || Config.buildId === ''){
+        throw 'no buildId available. Please, set it using command line argument --build-id';
+    }
+
     var Mustache = require('mustache');
     var expand = require('glob-expand');
     Config.credentials = JSON.parse(fs.readFileSync(Config.paths.credentials, 'utf-8'));

@@ -16,6 +16,7 @@ var projectName = isOnTravisAndMaster ? 'secxbrl' : 'secxbrl-' + buildId;
 module.exports = {
     isOnTravis: isOnTravis,
     isOnProduction: isOnTravisAndMaster,
+    buildId: buildId,
     bucketName: bucketName,
     projectName: projectName,
     paths: {

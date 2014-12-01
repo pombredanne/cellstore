@@ -68,7 +68,7 @@ gulp.task('build', ['clean', 'swagger'], function(done){
   $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
-gulp.task('server', ['less', 'swagger', 'decrypt'], function(){
+gulp.task('server', ['load-config', 'less', 'swagger', 'decrypt'], function(){
   $.runSequence('server:dev');
 });
 
