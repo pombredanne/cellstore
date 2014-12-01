@@ -18,7 +18,7 @@ module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
     grunt.task.loadTasks('tasks');
-   
+
     var modRewrite = require('connect-modrewrite');
     var rewriteRules = [
         '!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg /index.html [L]'
@@ -144,7 +144,10 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.prod %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.prod %>'
+                            },
                             staging: {
                                 environment: 'prod',
                                 e2eReportsDir: '<%= yeoman.e2eReportsDir %>'
@@ -155,15 +158,20 @@ module.exports = function (grunt) {
                     },
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.prod %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.prod %>'
+                            },
                             sendmail: '<%= secxbrl.sendmail %>',
                             frontend: {
                                 project: 'app',
                                 domain: '.secxbrl.info'
-                            }
+                            },
+                            profile: '<%= secxbrl.profile %>',
+                            filteredAspects: '<%= secxbrl.filteredAspects %>'
                         },
-                        template: 'tasks/credentials.mustache',
-                        dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
+                        template: 'tasks/config_jq.mustache',
+                        dest: '<%= yeoman.queries %>/modules/io/28/apps/config.jq'
                     }
                 ]
             },
@@ -171,7 +179,10 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.dev %>'
+                            },
                             staging: {
                                 environment: 'dev',
                                 e2eReportsDir: '<%= yeoman.e2eReportsDir %>'
@@ -182,15 +193,20 @@ module.exports = function (grunt) {
                     },
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.dev %>'
+                            },
                             sendmail: '<%= secxbrl.sendmail %>',
                             frontend: {
                                 project: '<%= secxbrl.28.project %>',
                                 domain: '.s3-website-us-east-1.amazonaws.com'
-                            }
+                            },
+                            profile: '<%= secxbrl.profile %>',
+                            filteredAspects: '<%= secxbrl.filteredAspects %>'
                         },
-                        template: 'tasks/credentials.mustache',
-                        dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
+                        template: 'tasks/config_jq.mustache',
+                        dest: '<%= yeoman.queries %>/modules/io/28/apps/config.jq'
                     }
                 ]
             },
@@ -198,7 +214,10 @@ module.exports = function (grunt) {
                 files: [
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.dev %>'
+                            },
                             staging: {
                                 environment: 'ci',
                                 e2eReportsDir: '<%= yeoman.e2eReportsDir %>'
@@ -209,15 +228,18 @@ module.exports = function (grunt) {
                     },
                     {
                         data: {
-                            secxbrl: '<%= secxbrl.secxbrlInfo.dev %>',
+                            secxbrl: {
+                                config: '<%= secxbrl.cellstore.all %>',
+                                credentials: '<%= secxbrl.cellstore.dev %>'
+                            },
                             sendmail: '<%= secxbrl.sendmail %>',
                             frontend: {
                                 project: '<%= secxbrl.28.project %>',
                                 domain: '.s3-website-us-east-1.amazonaws.com'
                             }
                         },
-                        template: 'tasks/credentials.mustache',
-                        dest: '<%= yeoman.queries %>/modules/io/28/apps/credentials.jq'
+                        template: 'tasks/config_jq.mustache',
+                        dest: '<%= yeoman.queries %>/modules/io/28/apps/config.jq'
                     }
                 ]
             }

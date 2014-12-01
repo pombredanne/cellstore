@@ -1,3 +1,4 @@
+import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
@@ -133,7 +134,7 @@ declare function local:hypercube() as object
 
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $token             as string? external;
-declare  %rest:case-insensitive                 variable $profile-name      as string  external := "generic";
+declare  %rest:case-insensitive                 variable $profile-name      as string  external := $config:profile-name;
 declare  %rest:env                              variable $request-uri       as string  external;
 declare  %rest:case-insensitive                 variable $format            as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik               as string* external;

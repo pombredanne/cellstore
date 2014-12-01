@@ -197,7 +197,7 @@
       img {
         vertical-align: middle;
         max-height: 100px; /* equals max image height */
-        max-width: 255px;
+        max-width: 240px;
         //https://bugs.webkit.org/show_bug.cgi?id=93471
         -webkit-transform: translateZ(0);
       }
@@ -228,11 +228,18 @@
 @media (max-width: @screen-md-min) {
   #home {
     .jumbotron {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/hero-unit.jpg);
-      text-align: center;
-      h1 {
-        color: white;
-      }
+        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/hero-unit.jpg);
+        text-align: center;
+        h1 {
+            color: white;
+        }
     }
+
+      .picto {
+          img {
+              height: 200px !important;
+              margin-bottom: 30px;
+          }
+      }
   }
 }

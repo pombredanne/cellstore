@@ -57,18 +57,25 @@ This is the expected structure of the file:
             }
         ]
     },
-    "secxbrlInfo": {
+    "cellstore": {
+        "all": {
+            "profile": "sec", // alternatively generic
+            "filteredAspects": "2",
+            "allowRegistration": "true", // users can register
+            "adminUser": "admin@example.io",
+            "testUser": "test@example.io"
+        }
         "dev" :
             {
                 "adminPassword": "<dev admin user password>",
-                "supportPassword": "<dev support user password>",
-                "supportToken": "<dev support user token for testing>"
+                "testPassword": "<dev support user password>",
+                "testToken": "<dev support user token for testing>"
             },
         "prod" :
             {
                 "adminPassword": "<prod admin user password>",
-                "supportPassword": "<prod support user password>",
-                "supportToken": "<prod support user token for testing>"
+                "testPassword": "<prod support user password>",
+                "testToken": "<prod support user token for testing>"
             }
     },
     "netdna": {

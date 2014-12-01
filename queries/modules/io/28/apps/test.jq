@@ -2,11 +2,11 @@ jsoniq version "1.0";
 module namespace test = "http://apps.28.io/test";
 import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
-import module namespace credentials = "http://apps.28.io/credentials";
-import module namespace credentials28 = "http://www.28msec.com/modules/credentials";
+import module namespace config = "http://apps.28.io/config";
+import module namespace credentials = "http://www.28msec.com/modules/credentials";
 
 declare function test:is-dow30() as boolean{
-  contains(credentials28:credentials("MongoDB", "xbrl").db, "dow30")  
+  contains(credentials:credentials("MongoDB", "xbrl").db, "dow30")  
 };
 
 declare function test:url($endpoint as string, $parameters as object) as string
@@ -17,7 +17,7 @@ declare function test:url($endpoint as string, $parameters as object) as string
 declare %private function test:url($endpoint as string, $parameters as object, $includeToken as boolean) as string
 {
     "http://" || request:server-name() || ":" || request:server-port() ||
-    "/v1/_queries/public/api/"||$endpoint||".jq?_method=POST&token=" || (if($includeToken) then $credentials:support-token else "{{token}}") || "&"||
+    "/v1/_queries/public/api/"||$endpoint||".jq?_method=POST&token=" || (if($includeToken) then $config:test-token else "{{token}}") || "&"||
     string-join(
         for $key in keys($parameters)
         for $value as string in (flatten($parameters.$key) ! string($$))
@@ -101,19 +101,27 @@ declare function test:assert-eq-array(
     $status as integer,
     $url as string) as item
 {
-    let $diff := try {(
-            for $a in flatten($actual)
-            where not($a = flatten($expected))
-            return $a,
-            for $e in flatten($expected)
-            where not($e = flatten($actual))
-            return $e
-        )} catch * { "error: " || $err:description }
+    let $diff := try {
+            {
+                actual: [ 
+                    for $a in flatten($actual)
+                    where not($a = flatten($expected))
+                    return $a ],
+                actualDuplicates: [ 
+                    for $a in flatten($actual)
+                    where $a = flatten($expected) and count(flatten($actual)[$$ eq $a]) ne count(flatten($expected)[$$ eq $a])
+                    return $a ],
+                expected: [
+                    for $e in flatten($expected)
+                    where not($e = flatten($actual))
+                    return $e ]
+            }
+        } catch * { "error: " || $err:description }
       
     return
         switch(true)
         case $status ne 200 return { "url": $url, status: $status }
-        case empty($diff) return true
+        case empty(($diff.actual[],$diff.actualDuplicates[],$diff.expected[])) return true
         default return
         {
             "url": $url,

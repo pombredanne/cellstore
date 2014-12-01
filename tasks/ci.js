@@ -140,7 +140,7 @@ module.exports = function(grunt) {
 
     // - Checks that the environment is one of prod, ci, or dev.
     // - If the environment is not set it will be derived from the
-    //   system settings and branch. 
+    //   system settings and branch.
     // - Prevents using the prod environment in ci etc.
     var normalizeAndCheckEnvironment = function(environment){
         if(environment === undefined && !isTravis()){
