@@ -747,7 +747,6 @@ declare function components:filter-override(
     let $override := exists(($entities-or-eids, $archives-or-aids))
     where $override
     let $eids := entities:eid($entities-or-eids)
-    let $entities := entities:entities($entities-or-eids)
     let $aids := archives:aid($archives-or-aids)
     return
      {
