@@ -58,21 +58,24 @@ var removeProject = function(projectName, isIdempotent){
 
 var createProject = function(projectName){
     /*jshint camelcase:false */
-    var token = credentials.access_token;
-    $.util.log('Creating project ' + projectName);
-    return $28.createProject(projectName, token).then(function (response) {
-        $.util.log('Project created.');
-        /*jshint camelcase:false */
-        credentials.project_tokens['project_' + projectName] = response.body.projectToken;
-        return credentials;
-    }).catch(function (error) {
-        $.util.log('Project creation failed: ' + error);
-        if (!Config.isOnProduction) {
-            throwError(error);
-        } else {
-            return credentials;
-        }
-    });
+    var defered = Q.defer();
+    if(!Config.isOnProduction) {
+        var token = credentials.access_token;
+        $.util.log('Creating project ' + projectName);
+        $28.createProject(projectName, token).then(function (response) {
+            $.util.log('Project  ' + projectName + ' created.');
+            /*jshint camelcase:false */
+            credentials.project_tokens['project_' + projectName] = response.body.projectToken;
+            defered.resolve(credentials);
+        }).catch(function (error) {
+            $.util.log('Project creation failed: ' + error);
+            defered.reject(error);
+        });
+    } else {
+        $.util.log('Skipping project creation on production: ' + projectName);
+        defered.resolve(credentials);
+    }
+    return defered.promise;
 };
 
 var upload = function(projectName){
@@ -139,23 +142,26 @@ var runQueries = function(projectName, runQueries) {
 };
 
 var createDatasource = function(projectName, datasource){
-    $.util.log('Creating datasource ' + datasource.name);
-    var difault = datasource.default ? datasource.default : false;
-    /*jshint camelcase:false */
-    var projectToken = credentials.project_tokens['project_' + projectName];
-    return $28.createDatasource(projectName, datasource.category, datasource.name, projectToken, difault, JSON.stringify(datasource.credentials))
+    var defered = Q.defer();
+    if(!Config.isOnProduction) {
+        $.util.log('Creating datasource ' + datasource.name);
+        var difault = datasource.default ? datasource.default : false;
+        /*jshint camelcase:false */
+        var projectToken = credentials.project_tokens['project_' + projectName];
+        $28.createDatasource(projectName, datasource.category, datasource.name, projectToken, difault, JSON.stringify(datasource.credentials))
         .then(function(){
             $.util.log(datasource.name + ' created');
-            return credentials;
+            defered.resolve(credentials);
         })
         .catch(function (error) {
             $.util.log('datasource creation failed: ' + error);
-            if (!Config.isOnProduction) {
-                throwError(error);
-            } else {
-                return credentials;
-            }
+                defered.reject(error);
         });
+    } else {
+        $.util.log('Skipping data source creation on production: ' + datasource.name);
+        defered.resolve(credentials);
+    }
+    return defered.promise;
 };
 
 gulp.task('28:login', function(){
