@@ -9,7 +9,7 @@ gulp.task('netdna', ['load-config'], function(done) {
     var ca = Config.credentials.netdna.companyAlias,
         ck = Config.credentials.netdna.consumerKey,
         cs = Config.credentials.netdna.consumerSecret,
-        zone = Config.isOnProduction ? Config.credentials.netdna.prod.zone : '';
+        zone = Config.credentials.netdna.zone;
     var netdna = require('netdna')({ companyAlias: ca, consumerKey: ck, consumerSecret: cs });
 
     function callback(err, response) {
@@ -28,7 +28,7 @@ gulp.task('netdna', ['load-config'], function(done) {
         done();
     }
 
-    if (zone) {
+    if (zone && zone !== 'none') {
         netdna.delete('zones/pull.json/' + zone + '/cache', callback);
     } else {
         $.util.log('zone id missing or not a string'.yellow);

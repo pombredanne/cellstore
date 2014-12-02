@@ -7,6 +7,28 @@ var _ = require('lodash');
 
 var Config = require('./config');
 
+gulp.task('config-template', [], function(){
+
+    var Mustache = require('mustache');
+    var expand = require('glob-expand');
+
+    //Fetch credentials
+    $.util.log('loading credentials from: ' + Config.paths.credentials);
+    var rawCredentials = JSON.parse(fs.readFileSync(Config.paths.credentials, 'utf-8'));
+    var credentials = rawCredentials.all;
+    if(Config.isOnProduction){
+        _.extend(credentials, rawCredentials.prod)
+    } else {
+        _.extend(credentials, rawCredentials.dev)
+    }
+    var data = { credentials: credentials };
+
+    var src = fs.readFileSync('tasks/templates/config.json.mustache', 'utf-8');
+    var result = Mustache.render(src, data);
+    fs.writeFileSync(Config.paths.config, result, 'utf-8');
+    $.util.log('created ' + Config.paths.config);
+});
+
 gulp.task('templates', ['load-config'], function(){
 
     var Mustache = require('mustache');
@@ -23,10 +45,7 @@ gulp.task('templates', ['load-config'], function(){
         {
             src: 'tasks/templates/config.js.mustache',
             data: {
-                secxbrl: {
-                    config: Config.credentials.cellstore.all,
-                    credentials: Config.isOnProduction ? Config.credentials.cellstore.prod : Config.credentials.cellstore.dev
-                },
+                cellstore: Config.credentials.cellstore,
                 staging: {
                     environment: Config.isOnProduction ? 'prod' : 'dev',
                     e2eReportsDir: '/tmp/e2e-reports'
@@ -37,17 +56,12 @@ gulp.task('templates', ['load-config'], function(){
         {
             src: 'tasks/templates/config.jq.mustache',
             data: {
-                secxbrl: {
-                    config: Config.credentials.cellstore.all,
-                    credentials: Config.isOnProduction ? Config.credentials.cellstore.prod : Config.credentials.cellstore.dev
-                },
+                cellstore: Config.credentials.cellstore,
                 sendmail: Config.credentials.sendmail,
                 frontend: {
                     project: 'app',
                     domain: '.secxbrl.info'
-                },
-                profile: Config.credentials.cellstore.all.profile,
-                filteredAspects: Config.credentials.cellstore.all.filteredAspects
+                }
             },
             dest: Config.paths.queries + '/modules/io/28/apps/config.jq'
         },
@@ -66,7 +80,7 @@ gulp.task('templates', ['load-config'], function(){
                 DEBUG: false,
                 ACCOUNT_URL: '/account/info',
                 REGISTRATION_URL: '/auth',
-                PROFILE: Config.credentials.cellstore.all.profile
+                PROFILE: Config.credentials.cellstore.profile
             },
             dest: Config.paths.app + '/constants.js'
         }
@@ -76,5 +90,6 @@ gulp.task('templates', ['load-config'], function(){
         var src = fs.readFileSync(tpl.src, 'utf-8');
         var result = Mustache.render(src, tpl.data);
         fs.writeFileSync(tpl.dest, result, 'utf-8');
+        $.util.log('created template: ' + tpl.dest);
     });
 });

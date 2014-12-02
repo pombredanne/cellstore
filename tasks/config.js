@@ -60,6 +60,7 @@ var config =
 
         //Crypted config
         credentials: 'config/' + configId + '.json',
+        config: 'config.json',
 
         //Queries
         jsoniq: ['queries/**/*.{xq,jq}']
@@ -67,13 +68,17 @@ var config =
     credentials: {}
 };
 
-gulp.task('load-config', ['decrypt'], function(){
+gulp.task('load-config', ['decrypt', 'config-template'], function(done){
     if(!_.isEmpty(config.credentials)){
         return;
     }
 
-    config.credentials = JSON.parse(fs.readFileSync(config.paths.credentials, 'utf-8'));
+    if(!fs.existsSync(config.paths.config)){
+        done('no ' + config.paths.config + ' found.');
+    } else {
+        config.credentials = JSON.parse(fs.readFileSync(config.paths.config, 'utf-8'));
+        done();
+    }
 });
 
-$.util.log('Config file: ' + config.paths.credentials);
 module.exports = config;
