@@ -28,7 +28,7 @@ gulp.task('env-check', function(done){
   }
 });
 
-gulp.task('encrypt', ['env-check'], function(){
+gulp.task('encrypt', ['env-check'], function(done){
   if(fs.existsSync(file)) {
     $.runSequence('encrypt-force');
   } else {
@@ -37,11 +37,18 @@ gulp.task('encrypt', ['env-check'], function(){
   }
 });
 
-gulp.task('decrypt', ['env-check'], function(){
+gulp.task('decrypt', ['env-check'], function(done){
   if(!fs.existsSync(file)) {
-    $.runSequence('decrypt-force');
+      var encFile = file + '.enc';
+      if(fs.existsSync(encFile)){
+          $.runSequence('decrypt-force');
+          return done();
+      } else {
+          return done('file does not exist: ' + encFile);
+      }
   } else {
-    $.util.log(msgs.alreadyExists);
+      $.util.log(msgs.alreadyExists);
+      done();
   }
 });
 

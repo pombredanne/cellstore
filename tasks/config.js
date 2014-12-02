@@ -1,12 +1,19 @@
 'use script';
 
 var minimist = require('minimist');
+var fs = require('fs');
+var $ = require('gulp-load-plugins')();
 
 var knownOptions = {
-    string: 'build-id',
-    default: { 'build-id': process.env.RANDOM_ID }
+    string: [ 'build-id', 'config' ],
+    default: {
+        'build-id': process.env.RANDOM_ID,
+        'config': ( process.env.TRAVIS_BRANCH === undefined || !fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc') ) ? 'default' : process.env.TRAVIS_BRANCH
+    }
 };
-var buildId = minimist(process.argv.slice(2), knownOptions)['build-id'];
+var args = minimist(process.argv.slice(2), knownOptions);
+var buildId = args['build-id'];
+var config = args['config'];
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
 var isOnTravisAndMaster = isOnTravis && process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
 
@@ -17,6 +24,7 @@ module.exports = {
     isOnTravis: isOnTravis,
     isOnProduction: isOnTravisAndMaster,
     buildId: buildId,
+    config: config,
     bucketName: bucketName,
     projectName: projectName,
     paths: {
@@ -44,10 +52,11 @@ module.exports = {
         tasks: ['gulpfile.js', 'tasks/*.js'],
 
         //Crypted config
-        credentials: 'config.json',
+        credentials: 'config/' + config + '.json',
 
         //Queries
         jsoniq: ['queries/**/*.{xq,jq}']
     },
     credentials: {}
 };
+$.util.log('Config file: ' + module.exports.paths.credentials);
