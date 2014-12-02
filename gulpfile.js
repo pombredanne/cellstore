@@ -13,7 +13,7 @@ require('./tasks/images');
 require('./tasks/swagger');
 require('./tasks/s3');
 require('./tasks/tests');
-require('./tasks/ci');
+require('./tasks/crypt');
 require('./tasks/28');
 require('./tasks/netdna');
 
