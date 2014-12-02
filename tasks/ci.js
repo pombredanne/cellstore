@@ -8,11 +8,14 @@ var _ = require('lodash');
 var Config = require('./config');
 
 var file = Config.paths.credentials;
-var tplParam = { file: file };
+var encryptedFile = file + '.enc';
+var tplParam = { file: file, encryptedFile: encryptedFile };
 
 var msgs = {
-  notFound: _.template('<%= file %> is not found.')(tplParam),
-  alreadyExists: _.template('<%= file %> exists already, do nothing.')(tplParam)
+    fileNotFound: _.template('<%= file %> is not found.')(tplParam),
+    encyptedFileNotFound: _.template('<%= encryptedFile %> is not found.')(tplParam),
+    alreadyExists: _.template('<%= file %> exists already, do nothing.')(tplParam),
+    secretKeyNotSet: 'environment variable TRAVIS_SECRET_KEY is not set.'
 };
 
 var cmds = {
@@ -22,7 +25,7 @@ var cmds = {
 
 gulp.task('env-check', function(done){
   if(process.env.TRAVIS_SECRET_KEY === undefined) {
-      done('environment variable TRAVIS_SECRET_KEY is not set.');
+      done(msgs.secretKeyNotSet);
   }else {
       done();
   }
@@ -30,21 +33,20 @@ gulp.task('env-check', function(done){
 
 gulp.task('encrypt', ['env-check'], function(done){
   if(fs.existsSync(file)) {
-    $.runSequence('encrypt-force');
+      $.runSequence('encrypt-force');
+      done();
   } else {
-    console.error(msgs.notFound);
-    process.exit(1);
+      done(msgs.fileNotFound);
   }
 });
 
 gulp.task('decrypt', ['env-check'], function(done){
   if(!fs.existsSync(file)) {
-      var encFile = file + '.enc';
-      if(fs.existsSync(encFile)){
+      if(fs.existsSync(encryptedFile)){
           $.runSequence('decrypt-force');
           return done();
       } else {
-          return done('file does not exist: ' + encFile);
+          return done(msgs.encyptedFileNotFound);
       }
   } else {
       $.util.log(msgs.alreadyExists);
