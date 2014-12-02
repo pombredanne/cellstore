@@ -121,10 +121,10 @@ let $components as object* :=
         case exists($aid)
         return components:components-for-archives($aid)
         default
-        return {
+        return if($profile-name eq "sec") then {
           response:status-code(400);
           session:error("Archive ID missing.", $format)
-        }
+        } else components:components()
 let $res as object* := 
     switch($profile-name)
     case "sec" return
