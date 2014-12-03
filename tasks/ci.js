@@ -23,14 +23,14 @@ var cmds = {
 gulp.task('env-check', function(done){
   if(process.env.TRAVIS_SECRET_KEY === undefined) {
       done('environment variable TRAVIS_SECRET_KEY is not set.');
-  }else {
+  } else {
       done();
   }
 });
 
 gulp.task('encrypt', ['env-check'], function(){
   if(fs.existsSync(file)) {
-    $.runSequence('encrypt-force');
+    return $.runSequence('encrypt-force');
   } else {
     console.error(msgs.notFound);
     process.exit(1);
@@ -39,7 +39,7 @@ gulp.task('encrypt', ['env-check'], function(){
 
 gulp.task('decrypt', ['env-check'], function(){
   if(!fs.existsSync(file)) {
-    $.runSequence('decrypt-force');
+    return $.runSequence('decrypt-force');
   } else {
     $.util.log(msgs.alreadyExists);
   }
