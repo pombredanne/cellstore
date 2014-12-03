@@ -91,5 +91,5 @@ gulp.task('28:setup', ['load-config'], function(done){
 });
 
 gulp.task('teardown', ['load-config'], function(){
-  return gulp.start('s3-teardown');
+  return $.runSequence(['28:remove-project', 's3-teardown']);
 });
