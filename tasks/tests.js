@@ -71,7 +71,7 @@ gulp.task('test:e2e', ['webdriver:update'], function() {
 
   var configFile = Config.isOnTravis ? configs.travis : configs.local;
   var args = [];
-  if(Config.isOnTravis) {
+  if(Config.isOnTravis && !Config.isOnProduction) {
       args.push('--baseUrl');
       args.push('http://' + Config.bucketName + '.s3-website-us-east-1.amazonaws.com');
   }
