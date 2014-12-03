@@ -189,9 +189,9 @@ gulp.task('28:setup-datasource', function(){
 });
 
 gulp.task('28:init', function(){
-    return runQueries(Config.projectName, Config.initQueries).catch(throwError);
+    return runQueries(Config.projectName, Config.paths.initQueries).catch(throwError);
 });
 
 gulp.task('28:test', function(){
-    return runQueries(Config.projectName, Config.apiTestQueries).catch(throwError);
+    return runQueries(Config.projectName, Config.paths.apiTestQueries).catch(throwError);
 });
