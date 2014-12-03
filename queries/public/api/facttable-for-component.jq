@@ -43,6 +43,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $rollup             as 
 declare  %rest:case-insensitive                 variable $map                as string? external;
 declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
 declare  %rest:case-insensitive                 variable $labels             as boolean external := false;
+declare  %rest:case-insensitive                 variable $merge              as boolean external := false;
 declare  %rest:case-insensitive                 variable $additional-rules   as string? external;
 declare  %rest:case-insensitive                 variable $profile-name       as string  external := $config:profile-name;
 declare  %rest:case-insensitive %rest:distinct  variable $role               as string* external;
@@ -90,7 +91,7 @@ let $components  :=
           response:status-code(400);
           session:error("Archive ID missing.", $format)
         }
-let $component as object? := $components[1] (: only one for know :)
+let $component as object? := if($merge) then components:merge($components) else $components[1]
 let $cid as string? := components:cid($component)
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
 
