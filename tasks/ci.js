@@ -42,6 +42,7 @@ gulp.task('decrypt', ['env-check'], function(done){
     $.runSequence('decrypt-force', done);
   } else {
     $.util.log(msgs.alreadyExists);
+      done();
   }
 });
 
