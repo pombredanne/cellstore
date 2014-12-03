@@ -13,7 +13,14 @@ script:
 after_script:
 # teardown will work only for ci not for prod or on master
 - gulp teardown
+matrix:
+  fast_finish: true
+  allow_failures:
+  - CELLSTORE_CONFIG=edinet
 env:
+  matrix:
+  - CELLSTORE_CONFIG=sec
+  - CELLSTORE_CONFIG=edinet
   global:
   - RANDOM_ID=$RANDOM
   #TRAVIS_SECRET_KEY

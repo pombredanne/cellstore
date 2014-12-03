@@ -10,7 +10,7 @@ var knownOptions = {
     string: [ 'build-id', 'config' ],
     default: {
         'build-id': process.env.RANDOM_ID,
-        'config': ( process.env.TRAVIS_BRANCH === undefined || !fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc') ) ? 'default' : process.env.TRAVIS_BRANCH
+        'config': ( process.env.TRAVIS_BRANCH !== undefined && fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc') ) ? process.env.TRAVIS_BRANCH : process.env.CELLSTORE_CONFIG
     }
 };
 var args = minimist(process.argv.slice(2), knownOptions);
