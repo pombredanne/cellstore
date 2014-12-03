@@ -5,51 +5,35 @@ var $ = require('gulp-load-plugins')();
 
 var Config = require('./config');
 
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
-
-var modRewrite = require('connect-modrewrite');
-var rewriteRules = [
-  '!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg|\\.map /index.html [L]'
-];
-
 gulp.task('server:dist', function() {
-  browserSync({
-    port: 9000,
-    notify: false,
-    logPrefix: 'www.secxbrl.info',
-    open: false,
-    server: {
-      baseDir: ['dist'],
-      middleware: [
-        modRewrite(rewriteRules)
-      ]
-    }
-  });
+    gulp.src(Config.paths.dist).pipe($.webserver({
+        port: 9000,
+        fallback: 'index.html'
+    }));
 });
 
-//run the server after having built generated files, and watch for changes
+var con;
+
 gulp.task('server:dev', function() {
-  browserSync({
-    port: 9000,
-    notify: false,
-    logPrefix: 'www.secxbrl.info',
-    server: {
-      baseDir: ['.', Config.paths.app],
-      middleware: [
-        modRewrite(rewriteRules)
-      ]
-    },
-    browser: 'default'
-  });
-
-  gulp.watch(Config.paths.html, reload);
-  gulp.watch(Config.less, ['less', reload]);
-  gulp.watch(Config.paths.js, reload);
-  gulp.watch(Config.paths.json, ['jsonlint']);
+    gulp.src(['.', Config.paths.app]).pipe($.webserver({
+        port: 9000,
+        fallback: 'index.html',
+        livereload: {
+            enable: true,
+            filter: function(fileName) {
+                return fileName.match(/\.(html|less|js|json)$/);
+            }
+        }
+    }));
 });
 
-gulp.task('server:stop', browserSync.exit);
+gulp.task('server:stop', function(){
+    if(con) {
+        con.emit('kill');
+    } else {
+        $.util.log('No webserver found.');
+    }
+});
 
 /* jshint camelcase:false*/
 //var webdriverStandalone = require('gulp-protractor').webdriver_standalone;
