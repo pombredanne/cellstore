@@ -1,20 +1,25 @@
 'use strict';
 
-angular.module('secxbrl', [
-    'duScroll',
-    'duParallax',
-    'angular-data.DS',
-    'angular-data.DSCacheFactory',
+angular.module('report-editor', [
+    'lodash',
     'ui.router',
     'ui.bootstrap',
+    'ui.tree',
+    'jmdobry.angular-cache',
     'ngProgressLite',
+    'flexyLayout',
     'constants',
     'api',
     'session-model',
-    'users-api',
-    'billing-api',
+    'report-model',
+    'filter-model',
+    'rules-model',
+    'excel-parser',
+    'formula-parser',
+    'forms-ui',
+    'layoutmodel',
     'ngSanitize',
-    'angular.directives-round-progress' // round api calls widget on stats page
+    'angularFileUpload'
 ])
 
 .factory('ConnectionHandler', function($q, $rootScope, DEBUG){
@@ -49,24 +54,6 @@ angular.module('secxbrl', [
         }
     };
 
-    // Allow trailing slash e.g. rewrite /account/ to /account
-    // This requires that all urls in the config.js must not end with /
-    $urlRouterProvider.rule(function ($injector, $location) {
-        var path = $location.url();
-
-        // remove trailing slash
-        if (path[path.length - 1] === '/') {
-            return path.substring(0, path.length - 1);
-        }
-
-        // remove slash before query
-        if (path.indexOf('/?') > -1) {
-            return path.replace('/?', '?');
-        }
-
-        return;
-    });
-
     $httpProvider.interceptors.push('ConnectionHandler');
 
     $locationProvider.html5Mode(true);
@@ -76,7 +63,7 @@ angular.module('secxbrl', [
     });
 })
 
-.run(function($rootScope, ngProgressLite, $state, $location, $modal, API, Session, DEBUG, $log) {
+.run(function($rootScope, ngProgressLite, $state, $location, $modal, API, Session) {
 
     $rootScope.$on('$stateChangeStart', function() {
         ngProgressLite.start();
@@ -87,16 +74,6 @@ angular.module('secxbrl', [
     });
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-        if(DEBUG){
-            var desc;
-            if (error.status){
-                desc = error.status + ' - ' + JSON.stringify(error.data);
-            } else {
-                desc = error.message;
-            }
-            var msg = 'StateChangeError: from "' + fromState.name + '" to "' + toState.name + '": ' + desc;
-            $log.error(msg);
-        }
         if(error.message === 'AuthError') {
             Session.redirectToLoginPage();
         }
@@ -104,48 +81,12 @@ angular.module('secxbrl', [
     });
 
     $rootScope.$on('auth', function() {
-        Session.logout();
         Session.redirectToLoginPage();
     });
-
-    $rootScope.$on('error', function(event, title, message){
-        $modal.open( {
-            template: '<div class="modal-header alert-danger"><span ng-bind-html="errorObject.title" id="error-header"></span><a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" id="error-body"><div ng-repeat="message in errorObject.message" ng-bind-html="message"></div> </div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
-            controller: ['$scope', '$modalInstance', 'errorObject',  function ($scope, $modalInstance, errorObject) {
-                $scope.errorObject = errorObject;
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
-            }],
-            resolve: {
-                errorObject: function() {
-                    var msg = [ message ];
-                    if(typeof message === 'object' && message.status && message.body){
-                        var status = message.status;
-                        var code = message.body.code;
-                        var description = message.body.description;
-                        var errorMsg = message.body.message;
-
-                        msg = [];
-                        if(typeof code === 'string' && typeof description === 'string'){
-                            msg.push('' + description);
-                            msg.push('Error Code: ' + code);
-                        } else if(typeof errorMsg === 'string'){
-                            msg.push('' + errorMsg);
-                        } else if(status === 403){
-                            msg.push('Forbidden (Possible reason: Invalid password)');
-                        }
-                        msg.push('Status: ' + status);
-                    }
-                    return { title: title, message: msg };
-                }
-            }
-        });
-    });
-
+    
     $rootScope.$on('alert', function(event, title, message){
         $modal.open( {
-            template: '<div class="modal-header"><span ng-bind-html="object.title" id="alert-header"></span><a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message" id="alert-body"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
+            template: '<div class="modal-header"><span ng-bind-html="object.title"></span><a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
             controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
                 $scope.object = object;
                 $scope.cancel = function () {
