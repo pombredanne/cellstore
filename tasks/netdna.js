@@ -35,5 +35,3 @@ gulp.task('netdna', ['load-config'], function(done) {
         $.util.log('zone id missing or not a string'.yellow);
     }
 });
-
-

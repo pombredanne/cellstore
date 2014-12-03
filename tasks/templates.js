@@ -1,5 +1,7 @@
 'use strict';
 
+require('./crypt');
+
 var fs = require('fs');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
