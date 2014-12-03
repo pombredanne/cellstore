@@ -5,7 +5,7 @@ module namespace config = "http://apps.28.io/config";
     Edit this file in tasks/config_jq.mustache
 :)
 
-declare variable $config:frontend-url as string := "http://{{{frontend.project}}}{{{frontend.domain}}}";
+declare variable $config:frontend-url as string := "http://{{{frontend.url}}}";
 
 declare variable $config:allow-registration as boolean := {{cellstore.allowRegistration}};
 declare variable $config:admin-user as string := "{{cellstore.adminUser}}";

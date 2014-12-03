@@ -23,17 +23,14 @@ var configId = args.config;
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
 var isOnTravisAndMaster = isOnTravis && process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
 
-var bucketName = isOnTravisAndMaster ? 'hq.secxbrl.info' : 'hq.secxbrl.info-' + buildId;
-var projectName = isOnTravisAndMaster ? 'secxbrl' : 'secxbrl-' + buildId;
-
 var config =
 {
     isOnTravis: isOnTravis,
     isOnProduction: isOnTravisAndMaster,
     buildId: buildId,
     configId: configId,
-    bucketName: bucketName,
-    projectName: projectName,
+    bucketName: '',
+    projectName: '',
     paths: {
         //src and build folders
         app: 'app',
@@ -69,6 +66,8 @@ var config =
 };
 
 gulp.task('load-config', ['config-template'], function(done){
+    'use script';
+
     if(!_.isEmpty(config.credentials)){
         return;
     }
@@ -78,6 +77,14 @@ gulp.task('load-config', ['config-template'], function(done){
     } else {
         $.util.log('loading config: ' + config.paths.config);
         config.credentials = JSON.parse(fs.readFileSync(config.paths.config, 'utf-8'));
+
+        config.bucketName = config.isOnProduction ? config.credentials.s3.bucketPrefix : config.credentials.s3.bucketPrefix + '-' + config.buildId;
+        config.projectName = config.isOnProduction ? config.credentials['28'].projectPrefix : config.credentials['28'].projectPrefix + '-' + buildId;
+
+        $.util.log('Bucket: ' + $.util.colors.green(config.bucketName));
+        $.util.log('Project: ' + $.util.colors.green(config.projectName));
+        $.util.log('Profile: ' + $.util.colors.green(config.credentials.cellstore.profile));
+
         done();
     }
 });

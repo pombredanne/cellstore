@@ -59,8 +59,7 @@ gulp.task('templates', ['load-config'], function(){
                 cellstore: Config.credentials.cellstore,
                 sendmail: Config.credentials.sendmail,
                 frontend: {
-                    project: 'app',
-                    domain: '.secxbrl.info'
+                    url: Config.bucketName
                 }
             },
             dest: Config.paths.queries + '/modules/io/28/apps/config.jq'
@@ -75,7 +74,7 @@ gulp.task('templates', ['load-config'], function(){
         {
             src: 'tasks/templates/constants.js.mustache',
             data: {
-                APPNAME: 'secxbrl',
+                APPNAME: Config.projectName,
                 API_URL: 'http://' + Config.projectName + '.28.io/v1',
                 DEBUG: false,
                 ACCOUNT_URL: '/account/info',
