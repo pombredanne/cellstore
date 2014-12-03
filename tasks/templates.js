@@ -9,7 +9,7 @@ var _ = require('lodash');
 
 var Config = require('./config');
 
-gulp.task('config-template', [ 'decrypt' ], function(){
+gulp.task('config-template', [ 'decrypt' ], function(done){
     var Mustache = require('mustache');
 
     //Fetch credentials
@@ -27,9 +27,10 @@ gulp.task('config-template', [ 'decrypt' ], function(){
     var result = Mustache.render(src, data);
     fs.writeFileSync(Config.paths.config, result, 'utf-8');
     $.util.log('created ' + Config.paths.config);
+    done();
 });
 
-gulp.task('templates', ['load-config'], function(){
+gulp.task('templates', ['load-config'], function(done){
 
     var Mustache = require('mustache');
     var expand = require('glob-expand');
@@ -91,4 +92,5 @@ gulp.task('templates', ['load-config'], function(){
         fs.writeFileSync(tpl.dest, result, 'utf-8');
         $.util.log('created template: ' + tpl.dest);
     });
+    done();
 });
