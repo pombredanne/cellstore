@@ -12,7 +12,7 @@ var Config = require('./config');
 
 var credentials;
 
-var  Options = {
+var Options = {
     OVERWRITE_ALWAYS: 0,
     OVERWRITE_NEVER: 1,
     OVERWRITE_ASK: 2,
