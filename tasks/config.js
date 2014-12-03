@@ -13,13 +13,25 @@ var knownOptions = {
         'config': ( process.env.TRAVIS_BRANCH !== undefined && fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc') ) ? process.env.TRAVIS_BRANCH : process.env.CELLSTORE_CONFIG
     }
 };
+var throwError = function(msg){
+    $.util.log($.util.colors.red('ERROR ') + msg);
+    throw 'terminating';
+};
 var args = minimist(process.argv.slice(2), knownOptions);
 var buildId = args['build-id'];
 if(buildId === undefined || buildId === ''){
-    throw 'no buildId available. Please, set it using command line argument --build-id';
+    throwError('no buildId available. ' + $.util.colors.red('Command line argument --build-id missing.'));
 }
 
 var configId = args.config;
+if(configId === undefined || configId === ''){
+    throwError('no configId available. ' + $.util.colors.red('Command line argument --config or env variable CELLSTORE_CONFIG missing.'));
+}
+var configFile = 'config/' + configId + '.json';
+if(!fs.existsSync(configFile + '.enc')){
+    throwError('Invalid --config command line argument. ' + $.util.colors.red('Config file ' + configFile + '.enc does not exist.'));
+}
+
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
 // if a config/<branch>.json.enc exists we are on a production deployment branch
 var isProd = process.env.TRAVIS_BRANCH === 'master' || fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc');
@@ -58,11 +70,21 @@ var config =
         tasks: ['gulpfile.js', 'tasks/*.js'],
 
         //Crypted config
-        credentials: 'config/' + configId + '.json',
+        credentials: configFile,
         config: 'config.json',
 
         //Queries
-        jsoniq: ['queries/**/*.{xq,jq}']
+        jsoniq: ['queries/**/*.{xq,jq}'],
+        initQueries: [
+            'queries/private/InitAuditCollection.jq',
+            'queries/private/init.jq',
+            'queries/private/UpdateReportSchema.jq',
+            'queries/private/cleanupTestUserReports.jq',
+            'queries/private/migration/db6.jq'
+        ],
+        apiTestQueries: [
+            'queries/public/test/' + configId + '/*'
+        ]
     },
     credentials: {}
 };
