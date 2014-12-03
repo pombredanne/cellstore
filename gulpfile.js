@@ -19,7 +19,7 @@ require('./tasks/netdna');
 
 
 gulp.task('watch', function() {
-  return gulp.watch(Config.paths.less, ['less']);
+    return gulp.watch(Config.paths.less, ['less']);
 });
 
 gulp.task('install', ['git-check'], function() {
@@ -43,41 +43,41 @@ gulp.task('git-check', function(done) {
 });
 
 gulp.task('fonts', function(){
-  return gulp.src('bower_components/font-awesome/fonts/*', { dot: true }).pipe(gulp.dest(Config.paths.dist + '/fonts'));
+    return gulp.src('bower_components/font-awesome/fonts/*', { dot: true }).pipe(gulp.dest(Config.paths.dist + '/fonts'));
 });
 
 gulp.task('copy-swagger', function(){
-  return gulp.src('swagger/*', { dot: true }).pipe(gulp.dest(Config.paths.dist + '/swagger'));
+    return gulp.src('swagger/*', { dot: true }).pipe(gulp.dest(Config.paths.dist + '/swagger'));
 });
 
 gulp.task('copy-svg', function(){
-  return gulp.src(Config.paths.svgs, { dot: true }).pipe(gulp.dest(Config.paths.dist + '/images'));
+    return gulp.src(Config.paths.svgs, { dot: true }).pipe(gulp.dest(Config.paths.dist + '/images'));
 });
 
 gulp.task('extras', function () {
-  var extras = Config.paths.html.concat(Config.paths.fonts);
-  return gulp.src(extras, { dot: true })
-    .pipe(gulp.dest(Config.paths.dist));
+    var extras = Config.paths.html.concat(Config.paths.fonts);
+    return gulp.src(extras, { dot: true })
+        .pipe(gulp.dest(Config.paths.dist));
 });
 
 gulp.task('clean', function () {
-  return gulp.src([Config.paths.tmp, Config.paths.dist], { read: false }).pipe($.clean());
+    return gulp.src([Config.paths.tmp, Config.paths.dist], { read: false }).pipe($.clean());
 });
 
 gulp.task('build', ['clean', 'swagger'], function(){
-  return $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras']);
+    return $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras']);
 });
 
 gulp.task('server', ['less', 'swagger', 'decrypt'], function(){
-  return $.runSequence('server:dev');
+    return $.runSequence('server:dev');
 });
 
 gulp.task('server:prod', ['build'], function(){
-  return $.runSequence('server:dist');
+    return $.runSequence('server:dist');
 });
 
 gulp.task('test', ['server:prod'], function () {
-  return $.runSequence('test:e2e');
+    return $.runSequence('test:e2e');
 });
 
 gulp.task('default', ['build']);
@@ -91,5 +91,5 @@ gulp.task('28:setup', ['load-config'], function(){
 });
 
 gulp.task('teardown', ['load-config'], function(){
-  return $.runSequence(['28:remove-project', 's3-teardown']);
+    return $.runSequence('28:login', '28:remove-project', 's3-teardown');
 });
