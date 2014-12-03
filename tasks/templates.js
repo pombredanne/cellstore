@@ -8,7 +8,6 @@ var _ = require('lodash');
 var Config = require('./config');
 
 gulp.task('config-template', [], function(){
-
     var Mustache = require('mustache');
     var expand = require('glob-expand');
 

@@ -22,6 +22,7 @@ module namespace components = "http://28.io/modules/xbrl/components";
 
 import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
@@ -734,6 +735,29 @@ declare function components:standard-definition-models-for-components($component
             if (not $auto-slice)
             then { "xbrl28:Archive" : $component.Archive }
             else ()
+        |}
+    }
+};
+
+declare function components:filter-override(
+    $entities-or-eids as item*,
+    $archives-or-aids as item*
+) as object?
+{
+    let $override := exists(($entities-or-eids, $archives-or-aids))
+    where $override
+    let $eids := entities:eid($entities-or-eids)
+    let $aids := archives:aid($archives-or-aids)
+    return
+     {
+        "xbrl:Entity" : {|
+          { Type: "string" },
+          { Domain: [ $eids ] }[exists($eids)]
+        |},
+
+        "xbrl28:Archive" : {|
+          { Type: "string" },
+          { Domain : [ $aids ] }[exists($aids)]
         |}
     }
 };

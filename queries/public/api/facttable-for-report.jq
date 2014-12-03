@@ -27,6 +27,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $sic           as strin
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear    as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriodType  as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $eid           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $aid           as string* external;
 declare  %rest:case-insensitive                 variable $validate      as boolean external := false;
 declare  %rest:case-insensitive                 variable $labels        as boolean external := false;
@@ -43,16 +44,19 @@ let $fiscalPeriodType as string* := api:preprocess-fiscal-period-types($fiscalPe
 let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
-let $entities := 
-    for $entity in 
-        companies:companies(
-            $cik,
-            $tag,
-            $ticker,
-            $sic,
-            $aid)
-    order by $entity.Profiles.SEC.CompanyName
-    return $entity
+let $entities := ($eid,
+    if($profile-name eq "sec")
+    then
+        for $entity in 
+            companies:companies(
+                $cik,
+                $tag,
+                $ticker,
+                $sic,
+                $aid)
+        order by $entity.Profiles.SEC.CompanyName
+        return $entity
+    else ())
 let $report-id as string? := $report
 let $report as object? := reports:reports($report-id)
 
@@ -65,12 +69,15 @@ then
 } else
     
     (: Fact resolution :)
-    let $filter-override as object? := fiscal-core:filter-override(
-        $entities,
-        $fiscalYear,
-        $fiscalPeriod,
-        $fiscalPeriodType,
-        $aid)[$profile-name eq "sec"]
+    let $filter-override as object? :=
+        if($profile-name eq "sec")
+        then fiscal-core:filter-override(
+            $entities,
+            $fiscalYear,
+            $fiscalPeriod,
+            $fiscalPeriodType,
+            $aid)
+        else components:filter-override($entities, $aid)
     let $facts as object* :=
         let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
         let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
