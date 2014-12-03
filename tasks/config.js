@@ -19,7 +19,7 @@ if(buildId === undefined || buildId === ''){
     throw 'no buildId available. Please, set it using command line argument --build-id';
 }
 
-var configId = args['config'];
+var configId = args.config;
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
 var isOnTravisAndMaster = isOnTravis && process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
 
@@ -76,6 +76,7 @@ gulp.task('load-config', ['config-template'], function(done){
     if(!fs.existsSync(config.paths.config)){
         done('no ' + config.paths.config + ' found.');
     } else {
+        $.util.log('loading config: ' + config.paths.config);
         config.credentials = JSON.parse(fs.readFileSync(config.paths.config, 'utf-8'));
         done();
     }

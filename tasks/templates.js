@@ -11,16 +11,15 @@ var Config = require('./config');
 
 gulp.task('config-template', [ 'decrypt' ], function(){
     var Mustache = require('mustache');
-    var expand = require('glob-expand');
 
     //Fetch credentials
     $.util.log('loading credentials from: ' + Config.paths.credentials);
     var rawCredentials = JSON.parse(fs.readFileSync(Config.paths.credentials, 'utf-8'));
     var credentials = rawCredentials.all;
     if(Config.isOnProduction){
-        _.extend(credentials, rawCredentials.prod)
+        _.extend(credentials, rawCredentials.prod);
     } else {
-        _.extend(credentials, rawCredentials.dev)
+        _.extend(credentials, rawCredentials.dev);
     }
     var data = { credentials: credentials };
 
