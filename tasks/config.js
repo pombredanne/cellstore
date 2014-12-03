@@ -69,6 +69,7 @@ var config =
 
 gulp.task('load-config', ['config-template'], function(done){
     if(!_.isEmpty(config.credentials)){
+        done();
         return;
     }
 
