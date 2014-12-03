@@ -7,7 +7,7 @@ var _ = require('lodash');
 
 var Config = require('./config');
 
-gulp.task('config-template', [], function(){
+gulp.task('config-template', [ 'decrypt' ], function(){
     var Mustache = require('mustache');
     var expand = require('glob-expand');
 

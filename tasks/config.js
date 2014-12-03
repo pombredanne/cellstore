@@ -68,7 +68,7 @@ var config =
     credentials: {}
 };
 
-gulp.task('load-config', ['decrypt', 'config-template'], function(done){
+gulp.task('load-config', ['config-template'], function(done){
     if(!_.isEmpty(config.credentials)){
         return;
     }

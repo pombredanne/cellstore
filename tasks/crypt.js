@@ -33,8 +33,7 @@ gulp.task('env-check', function(done){
 
 gulp.task('encrypt', ['env-check'], function(done){
   if(fs.existsSync(file)) {
-      $.runSequence('encrypt-force');
-      done();
+      $.runSequence('encrypt-force', done);
   } else {
       done(msgs.fileNotFound);
   }
@@ -43,10 +42,9 @@ gulp.task('encrypt', ['env-check'], function(done){
 gulp.task('decrypt', ['env-check'], function(done){
   if(!fs.existsSync(file)) {
       if(fs.existsSync(encryptedFile)){
-          $.runSequence('decrypt-force');
-          return done();
+          $.runSequence('decrypt-force', done);
       } else {
-          return done(msgs.encyptedFileNotFound);
+          done(msgs.encyptedFileNotFound);
       }
   } else {
       $.util.log(msgs.alreadyExists);
