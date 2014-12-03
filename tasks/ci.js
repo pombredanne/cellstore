@@ -28,18 +28,18 @@ gulp.task('env-check', function(done){
   }
 });
 
-gulp.task('encrypt', ['env-check'], function(){
+gulp.task('encrypt', ['env-check'], function(done){
   if(fs.existsSync(file)) {
-    return $.runSequence('encrypt-force');
+    $.runSequence('encrypt-force', done);
   } else {
     console.error(msgs.notFound);
     process.exit(1);
   }
 });
 
-gulp.task('decrypt', ['env-check'], function(){
+gulp.task('decrypt', ['env-check'], function(done){
   if(!fs.existsSync(file)) {
-    return $.runSequence('decrypt-force');
+    $.runSequence('decrypt-force', done);
   } else {
     $.util.log(msgs.alreadyExists);
   }
