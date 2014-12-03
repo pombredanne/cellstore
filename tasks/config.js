@@ -21,7 +21,9 @@ if(buildId === undefined || buildId === ''){
 
 var configId = args.config;
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
-var isOnTravisAndMaster = isOnTravis && process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
+// if a config/<branch>.json.enc exists we are on a production deployment branch
+var isProd = process.env.TRAVIS_BRANCH === 'master' || fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc');
+var isOnTravisAndMaster = isOnTravis && isProd && process.env.TRAVIS_PULL_REQUEST === 'false';
 
 var config =
 {
@@ -39,7 +41,7 @@ var config =
         queries: 'queries',
 
         //Reports
-        reports: 'data/*.json',
+        reports: 'data/' + configId + '/*.json',
 
         //Static Assets
         json: ['*.json'],
