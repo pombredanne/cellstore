@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var _ = require('lodash');
 
 var Config = require('./config');
 
@@ -28,7 +29,7 @@ gulp.task('netdna', ['load-config'], function(done) {
         done();
     }
 
-    if (zone && zone !== 'none') {
+    if (_.isString(zone) && zone !== 'none') {
         netdna.delete('zones/pull.json/' + zone + '/cache', callback);
     } else {
         $.util.log('zone id missing or not a string'.yellow);
