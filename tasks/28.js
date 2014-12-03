@@ -189,18 +189,9 @@ gulp.task('28:setup-datasource', function(){
 });
 
 gulp.task('28:init', function(){
-    return runQueries(Config.projectName, [
-        'queries/private/InitAuditCollection.jq',
-        'queries/private/init.jq',
-        'queries/private/UpdateReportSchema.jq',
-        'queries/private/cleanupTestUserReports.jq',
-        'queries/private/migration/db6.jq'
-    ]).catch(throwError);
+    return runQueries(Config.projectName, Config.initQueries).catch(throwError);
 });
 
 gulp.task('28:test', function(){
-    return runQueries(Config.projectName, [
-        'queries/public/test/*',
-        'queries/private/test/*'
-    ]).catch(throwError);
+    return runQueries(Config.projectName, Config.apiTestQueries).catch(throwError);
 });
