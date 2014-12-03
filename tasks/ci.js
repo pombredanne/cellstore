@@ -23,25 +23,26 @@ var cmds = {
 gulp.task('env-check', function(done){
   if(process.env.TRAVIS_SECRET_KEY === undefined) {
       done('environment variable TRAVIS_SECRET_KEY is not set.');
-  }else {
+  } else {
       done();
   }
 });
 
-gulp.task('encrypt', ['env-check'], function(){
+gulp.task('encrypt', ['env-check'], function(done){
   if(fs.existsSync(file)) {
-    $.runSequence('encrypt-force');
+    $.runSequence('encrypt-force', done);
   } else {
     console.error(msgs.notFound);
     process.exit(1);
   }
 });
 
-gulp.task('decrypt', ['env-check'], function(){
+gulp.task('decrypt', ['env-check'], function(done){
   if(!fs.existsSync(file)) {
-    $.runSequence('decrypt-force');
+    $.runSequence('decrypt-force', done);
   } else {
     $.util.log(msgs.alreadyExists);
+      done();
   }
 });
 
