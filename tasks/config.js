@@ -1,4 +1,4 @@
-'use script';
+'use strict';
 
 var minimist = require('minimist');
 var fs = require('fs');
@@ -66,8 +66,6 @@ var config =
 };
 
 gulp.task('load-config', ['config-template'], function(done){
-    'use script';
-
     if(!_.isEmpty(config.credentials)){
         return;
     }
