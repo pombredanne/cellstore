@@ -65,7 +65,7 @@ let $entities as object* :=
         $tag,
         $ticker,
         $sic)
-let $archive as object? := fiscal-core:filings(
+let $archive as object* := fiscal-core:filings(
     $entities,
     $fiscalPeriod,
     $fiscalYear,
@@ -92,7 +92,7 @@ let $components  :=
           session:error("Archive ID missing.", $format)
         }
 let $component as object? := if($merge) then components:merge($components) else $components[1]
-let $cid as string? := components:cid($component)
+let $cid as string? := string-join($components ! components:cid($$), "--")
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
 
 (: Fact resolution :)
