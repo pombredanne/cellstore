@@ -11,7 +11,7 @@ declare %rest:case-insensitive  variable $profileName   as string       external
 declare %rest:case-insensitive  variable $overwrite     as boolean      external := false();
 declare %rest:header            variable $content-type  as string       external := "text/plain";
 declare %rest:body-text         variable $body-text     as string       external;
-(:declare %rest:body-binary       variable $body-binary   as base64Binary external;:)
+declare %rest:body-binary       variable $body-binary   as base64Binary external;
 
 declare variable $INFOSET-ENDPOINT := "http://infoset-generator.28.io/cgi-bin/v6/";
 declare variable $TOKEN := "foo";
@@ -84,9 +84,9 @@ declare %an:sequential function local:import-from-url() as object
       else error(QName("api:PROCESSOR"), $processed-filing("body")("content"))
 };
 
-declare %an:sequential function local:import-from-xml() as object
+declare %an:sequential function local:import-from-xbrl-filing() as object
 {
-  {}  
+  {}
 };
 
 declare %an:sequential function local:import-from-archive() as object
@@ -107,6 +107,6 @@ else ();
 
 switch ($content-type)
   case "text/plain" return local:import-from-url()
-  case "application/xml" return local:import-from-xml()
+  case "application/xml" return local:import-from-xbrl-filing()
   case "application/zip" return local:import-from-archive()
   default return error(QName("api:ARCHIVE"), $content-type || ": unsupported archive format, allowed content-types are: text/plain, application/xml and application/zip")

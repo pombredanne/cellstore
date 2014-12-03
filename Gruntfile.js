@@ -126,6 +126,13 @@ module.exports = function (grunt) {
                         className: 'BillingAPI',
                         fileName: 'billing-api.js',
                         angularjs: true
+                    },
+                    {
+                        swagger: 'swagger/archives.json',
+                        moduleName: 'archives-api',
+                        className: 'ArchivesAPI',
+                        fileName: 'archives-api.js',
+                        angularjs: true
                     }
                 ]
             },

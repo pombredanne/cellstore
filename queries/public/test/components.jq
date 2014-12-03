@@ -2217,3 +2217,4 @@ local:check({
     example1: local:test-example1(),
     example2: local:test-example2()
 })
+s
