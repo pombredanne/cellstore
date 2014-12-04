@@ -1,0 +1,81 @@
+{
+    "travis": {
+        "githubToken": "{{{credentials.githubToken}}}"
+    },
+    "s3": {
+        "key": "{{{credentials.s3-key}}}",
+        "secret": "{{{credentials.s3-secret}}}",
+        "region": "{{{credentials.s3-region}}}",
+        "bucketPrefix": "{{{credentials.s3-bucketPrefix}}}",
+        "reportsBucket": "{{{credentials.s3-reportsBucket}}}",
+        "website": {
+            "ErrorDocument": {
+                "Key": "index.html"
+            },
+            "IndexDocument": {
+               "Suffix": "index.html"
+            },
+            "RoutingRules": [
+                {
+                    "Redirect": {
+                        "ReplaceKeyPrefixWith": "#"
+                    },
+                    "Condition": {
+                        "HttpErrorCodeReturnedEquals": "403"
+                    }
+                },
+                {
+                    "Redirect": {
+                        "HostName": "www.28.io",
+                        "ReplaceKeyPrefixWith": "welcome-ibm"
+                    },
+                    "Condition": {
+                        "KeyPrefixEquals": "welcome-ibm"
+                    }
+                }
+            ]
+        }
+    },
+    "28": {
+        "projectPrefix": "{{{credentials.28-projectPrefix}}}",
+        "email": "{{{credentials.28-email}}}",
+        "password": "{{{credentials.28-password}}}",
+        "datasources": [
+            {
+                "category": "MongoDB",
+                "name": "xbrl",
+                "credentials": {
+                    "conn-string": "{{{credentials.28-datasource-conn}}}",
+                    "db": "{{{credentials.28-datasource-db}}}",
+                    "user": "{{{credentials.28-datasource-user}}}",
+                    "pass": "{{{credentials.28-datasource-pass}}}"
+                }
+            }
+        ]
+    },
+    "cellstore": {
+        "profile": "{{{credentials.cellstore-profile}}}",
+        "filteredAspects": "{{{credentials.cellstore-filteredAspects}}}",
+        "allowRegistration": "{{{credentials.cellstore-allowRegistration}}}",
+        "adminUser": "{{{credentials.cellstore-adminUser}}}",
+        "adminPassword": "{{{credentials.cellstore-adminPassword}}}",
+        "testUser": "{{{credentials.cellstore-testUser}}}",
+        "testPassword": "{{{credentials.cellstore-testPassword}}}",
+        "testToken": "{{{credentials.cellstore-testToken}}}"
+    },
+    "netdna": {
+        "companyAlias": "{{{credentials.netdna-companyAlias}}}",
+        "consumerKey": "{{{credentials.netdna-consumerKey}}}",
+        "consumerSecret": "{{{credentials.netdna-consumerSecret}}}",
+        "zone": "{{{credentials.netdna-zone}}}"
+    },
+    "sendmail": {
+        "host": "{{{credentials.sendmail-host}}}",
+        "user": "{{{credentials.sendmail-user}}}",
+        "password": "{{{credentials.sendmail-password}}}",
+        "sender": {
+            "email": "{{{credentials.sendmail-sender-email}}}",
+            "name": "{{{credentials.sendmail-sender-name}}}"
+        }
+    }
+}

@@ -11,10 +11,9 @@ require('./tasks/images');
 require('./tasks/swagger');
 require('./tasks/s3');
 require('./tasks/tests');
-require('./tasks/ci');
 require('./tasks/28');
 require('./tasks/netdna');
-
+require('./tasks/templates');
 
 gulp.task('watch', function() {
     return gulp.watch(Config.paths.less, ['less']);
@@ -43,11 +42,11 @@ gulp.task('clean', function () {
 });
 
 gulp.task('build', ['clean', 'swagger'], function(done){
-    $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
+  $.runSequence(['templates', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
-gulp.task('server', ['less', 'swagger', 'decrypt'], function(done){
-    $.runSequence('server:dev', done);
+gulp.task('server', ['templates', 'less', 'swagger'], function(done){
+  $.runSequence('server:dev', done);
 });
 
 gulp.task('server:prod', ['build'], function(done){
@@ -60,8 +59,8 @@ gulp.task('test', ['server:prod'], function (done) {
 
 gulp.task('default', ['build']);
 
-gulp.task('setup', function(done){
-    $.runSequence('build', 's3-setup', '28:setup', 'server:dist', 'test:unit', 'test:e2e', 'server:stop', done);
+gulp.task('setup', ['load-config'], function(done){
+    $.runSequence('build', [ 's3-setup', '28:setup' ], 'server:dist', 'test:unit', 'test:e2e', 'server:stop', done);
 });
 
 gulp.task('28:setup', ['load-config'], function(done){

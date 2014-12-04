@@ -246,7 +246,7 @@ declare %an:nondeterministic function local:test-values() as item*
     let $actual as object := $request[2]
     let $expected := parse-json(
         http-client:get("http://" || request:server-name() || ":" || request:server-port() ||
-                        "/test/facttable-for-report-expected1.jq").body.content)
+                        "/test/sec/facttable-for-report-expected1.jq").body.content)
     let $diff := local:compare-fact-tables($expected, $actual)
     return if (empty($diff)) then true else { url: test:url($endpoint, $params), factTableDiff: [ ({ params : $params },$diff) ], expectedFactTable: $expected, actualFactTable: $actual }
 };

@@ -1,9 +1,9 @@
 'use strict';
 
 exports.config = {
-    testUser: '{{secxbrl.config.testUser}}',
-    testPassword: '{{secxbrl.credentials.testPassword}}',
+    testUser: '{{cellstore.testUser}}',
+    testPassword: '{{cellstore.testPassword}}',
     environment: '{{staging.environment}}',
     e2eReportsDir: '{{{staging.e2eReportsDir}}}',
-    allowRegistration: {{secxbrl.config.allowRegistration}}
+    allowRegistration: {{cellstore.allowRegistration}}
 };

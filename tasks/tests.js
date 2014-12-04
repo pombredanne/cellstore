@@ -17,7 +17,7 @@ gulp.task('server:dist', function() {
   browserSync({
     port: 9000,
     notify: false,
-    logPrefix: 'www.secxbrl.info',
+    logPrefix: Config.bucketName,
     open: false,
     server: {
       baseDir: ['dist'],
@@ -33,7 +33,7 @@ gulp.task('server:dev', function() {
   browserSync({
     port: 9000,
     notify: false,
-    logPrefix: 'www.secxbrl.info',
+    logPrefix: Config.bucketName,
     server: {
       baseDir: ['.', Config.paths.app],
       middleware: [
