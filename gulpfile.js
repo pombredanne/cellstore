@@ -2,7 +2,6 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var sh = require('shelljs');
 
 var Config = require('./tasks/config');
 
