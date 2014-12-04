@@ -28,7 +28,11 @@ gulp.task('swagger', function(done){
             swagger: 'swagger/reports.json',
             moduleName: 'report-api',
             className: 'ReportAPI'
-        }
+        },{
+            swagger: 'swagger/archives.json',
+            moduleName: 'archives-api',
+            className: 'ArchivesAPI'
+}
     ];
     var dest = 'app/modules';
     apis.forEach(function(api){
