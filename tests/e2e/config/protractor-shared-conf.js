@@ -36,7 +36,7 @@ exports.config = {
         if(Config.environment === 'ci' || Config.environment === 'prod') {
             // Add a screenshot reporter and store screenshots to config.e2eReportsDir:
             jasmine.getEnv().addReporter(new HtmlReporter({
-                baseDirectory: config.e2eReportsDir
+                baseDirectory: Config.e2eReportsDir
             }));
         }
     },
