@@ -18,7 +18,7 @@ matrix:
   - env: CELLSTORE_CONFIG=edinet
 env:
   matrix:
-  - CELLSTORE_CONFIG=sec
+  - CELLSTORE_CONFIG=secxbrl
   - CELLSTORE_CONFIG=edinet
   global:
   - RANDOM_ID=$RANDOM

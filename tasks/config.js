@@ -36,12 +36,18 @@ if(!fs.existsSync(encryptedConfigFile)){
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
 // if a config/<branch>.json.enc exists we are on a production deployment branch
 var isProd = fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc');
-var isOnTravisAndMaster = isOnTravis && isProd && process.env.TRAVIS_PULL_REQUEST === 'false';
+var isOnTravisAndProd = isOnTravis && isProd && process.env.TRAVIS_PULL_REQUEST === 'false';
+
+var skipDeployment = false;
+if(isOnTravisAndProd && process.env.TRAVIS_BRANCH !== process.env.CELLSTORE_CONFIG){
+    skipDeployment = true;
+}
 
 var config =
 {
     isOnTravis: isOnTravis,
-    isOnProduction: isOnTravisAndMaster,
+    isOnProduction: isOnTravisAndProd,
+    skipDeployment: skipDeployment,
     buildId: buildId,
     configId: configId,
     bucketName: '',
