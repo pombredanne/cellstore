@@ -104,12 +104,6 @@ declare %private function accountant-converter:flatten-headers(
                                            return $n
         
         return {
-            (:OriginalCells: $cells,
-            CellsToTheRight: $cells-to-the-right,
-            RollUpPosition: $roll-up-position,
-            RollUpSpan: $roll-up-span,
-            CellsToTheRightNoRollUp: $cells-to-the-right-no-rollup,
-            ChildrenCells: $children-cells,:)
             Headers: [
                 [
                     $new-first-header[$roll-up-position = (0, 1)],
