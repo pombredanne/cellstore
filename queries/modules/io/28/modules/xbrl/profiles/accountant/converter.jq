@@ -62,7 +62,7 @@ declare %private function accountant-converter:flatten-headers(
         let $has-rollup := exists($first-column-of-cells-to-the-right.RollUp[$$])
         let $roll-up-position as integer? :=
             for tumbling window $cells in $first-column-of-cells-to-the-right
-            start $s at $i when $i eq 1
+            start at $i when $i eq 1
             end $e when $e.Rollup
             return sum($cells.CellSpan)
         let $roll-up-position as integer := if($has-rollup) then $roll-up-position else 0
