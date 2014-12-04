@@ -28,14 +28,12 @@ gulp.task('server:dev', function() {
     gulp.src(['.', Config.paths.app]).pipe(webserver);
 });
 
-gulp.task('server:stop', function(done){
+gulp.task('server:stop', function(){
     if(webserver) {
-        webserver.emit('kill').on('end', function(){
-            done();
-        });
+        webserver.emit('kill');
+        webserver = undefined;
     } else {
         $.util.log('No webserver found.');
-        done();
     }
 });
 
