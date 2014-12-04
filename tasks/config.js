@@ -57,7 +57,7 @@ var config =
         reports: 'data/' + configId + '/*.json',
 
         //Static Assets
-        json: ['*.json', '../tasks/templates/*.json.mustache', 'swagger/*.json', 'data/**/*.json' ],
+        json: ['*.json', 'tasks/templates/*.json.mustache', 'swagger/*.json', 'data/**/*.json' ],
         js: ['app/**/*.js'],
         css: ['app/**/*.css'],
         index: 'app/*.html',
