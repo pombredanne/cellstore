@@ -44,5 +44,12 @@ local:check({
         profile-name: "generic",
         aid: "0000021344-14-000008",
         role:"http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets"
-    }) 
+    }),
+    merge: local:test-spreadsheet(73, {
+        ticker: "ko",
+        fiscalYear: [ "2012", "2013" ],
+        fiscalPeriod: "FY",
+        disclosure: "BalanceSheet",
+        merge: "true"
+    })
 })
