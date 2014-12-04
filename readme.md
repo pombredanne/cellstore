@@ -12,6 +12,10 @@ http://arxiv.org/pdf/1410.0600.pdf
 We advice you to run any commands in the Git Bash.
 Otherwise, the decryption of config.json won't work and you will have to setup the config.json manually.
 
+*Prerequisite*
+* [node.js & npm (>= 0.10)](http://nodejs.org/)
+* [gulp](http://gulpjs.com/): `npm install gulp -g`
+
 ```bash
 $ npm install && bower install
 ```
