@@ -20,13 +20,6 @@ gulp.task('watch', function() {
     return gulp.watch(Config.paths.less, ['less']);
 });
 
-gulp.task('install', function() {
-  return bower.commands.install()
-    .on('log', function(data) {
-      $.gutil.log('bower', $.gutil.colors.cyan(data.id), data.message);
-    });
-});
-
 gulp.task('fonts', function(){
     return gulp.src('bower_components/font-awesome/fonts/*', { dot: true }).pipe(gulp.dest(Config.paths.dist + '/fonts'));
 });
