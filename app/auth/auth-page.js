@@ -1,24 +1,36 @@
+/*global browser:false, element:false, by:false */
 'use strict';
 
 var _ = require('lodash');
 
 var AppPage = require('../app-page.js').AppPage;
-var LoginPage = require('./login/login-page');
-var RegisterPage = require('./register/register-page');
-var LogoutPage = require('./logout/logout-page');
-var ResetPage = require('./reset/reset-page');
 
 function AuthPage(){
     AppPage.call(this);
-    this.login  = new LoginPage();
-    this.logout  = new LogoutPage();
-    this.reset = new ResetPage();
-    this.register = new RegisterPage();
+    this.form = element(by.name('loginForm'));
+    this.loginEmail = element(by.model('loginEmail'));
+    this.password = element(by.model('loginPassword'));
 }
 AuthPage.prototype = _.create(AppPage.prototype);
 
-AuthPage.prototype.doLogout = function(){
-    return this.logout.visitPage();
+AuthPage.prototype.visitPage = function(){
+    return browser.get('/');
+};
+
+AuthPage.prototype.login = function(email, password){
+    this.loginEmail.clear();
+    this.loginEmail.sendKeys(email);
+    this.password.clear();
+    this.password.sendKeys(password);
+    this.form.submit();
+};
+
+AuthPage.prototype.logout = function(){
+    return element(by.css('.account-sign-out')).click();
+};
+
+AuthPage.prototype.wrongCombinasionMessage = function(){
+    return element(by.id('wrong-combinasion'));
 };
 
 module.exports = AuthPage;

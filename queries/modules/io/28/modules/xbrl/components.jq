@@ -22,6 +22,7 @@ module namespace components = "http://28.io/modules/xbrl/components";
 
 import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
@@ -357,10 +358,16 @@ as object*
         $new-options)
     let $layout-model as object := layout:layout($structural-model, $new-options)
     let $accountant-model as object := accountant:flatten-row-headers($layout-model)
+    let $result := if($options.FlattenRows) then $accountant-model else $layout-model
     return
-        if($options.FlattenRows)
-        then $accountant-model
-        else $layout-model
+        if($options.Debug)
+        then copy $r := $result
+             modify (
+                 insert json { Definition: $definition-model } into $r,
+                 insert json { Structural: $structural-model } into $r
+             )
+             return $r
+        else $result
 };
 
 (:~
@@ -732,4 +739,72 @@ declare function components:standard-definition-models-for-components($component
     }
 };
 
+declare function components:filter-override(
+    $entities-or-eids as item*,
+    $archives-or-aids as item*
+) as object?
+{
+    let $override := exists(($entities-or-eids, $archives-or-aids))
+    where $override
+    let $eids := entities:eid($entities-or-eids)
+    let $aids := archives:aid($archives-or-aids)
+    return
+     {
+        "xbrl:Entity" : {|
+          { Type: "string" },
+          { Domain: [ $eids ] }[exists($eids)]
+        |},
+
+        "xbrl28:Archive" : {|
+          { Type: "string" },
+          { Domain : [ $aids ] }[exists($aids)]
+        |}
+    }
+};
+
+
+(:~
+: <p>Merges the supplied components, grouping networks by arc/link name/role
+: and merging all hypercubes into a single one.</p>
+:
+: @param $components the input components.
+:
+: @return the merged component.
+:)
+declare function components:merge($components as object*) as object
+{
+    {
+        Archive: null,
+        Role: $components.Role[1],
+        Label: $components.Label[1],
+        Networks: [
+            networks:merge($components.Networks[])
+        ],
+        Hypercubes: {|
+            let $merged := hypercubes:merge(values($components.Hypercubes))
+            return { $merged.Name: $merged },
+            { "xbrl:DefaultHypercube" : {
+                Name: "xbrl:DefaultHypercube",
+                Label:$components.Hypercubes."xbrl:DefaultHypercube"[1].Label,
+                Aspects: {
+                    "xbrl:Concept" : {
+                        Name: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Name,
+                        Label: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Label,
+                        Domains: {
+                            "xbrl:ConceptDomain" : {
+                                Name: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Name,
+                                Label: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Label,
+                                Members: {|
+                                    for $member in values($components.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members)
+                                    group by $name := $member.Name
+                                    return { $name: $member }
+                                |}
+                            }
+                        }
+                    }
+                }
+            } }
+        |}
+    }
+};
 

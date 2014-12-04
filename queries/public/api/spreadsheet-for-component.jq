@@ -28,6 +28,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $concept            as 
 declare  %rest:case-insensitive %rest:distinct  variable $disclosure         as string* external;
 declare  %rest:case-insensitive                 variable $validate           as boolean external := false;
 declare  %rest:case-insensitive                 variable $eliminate          as boolean external := false;
+declare  %rest:case-insensitive                 variable $merge              as boolean external := false;
 declare  %rest:case-insensitive                 variable $elimination-threshold as integer external := 0;
 declare  %rest:case-insensitive %rest:distinct  variable $reportElement      as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $label              as string* external;
@@ -35,6 +36,7 @@ declare  %rest:case-insensitive                 variable $additional-rules   as 
 declare  %rest:case-insensitive %rest:distinct  variable $role               as string* external;
 declare  %rest:case-insensitive                 variable $profile-name       as string  external := $config:profile-name;
 declare  %rest:case-insensitive                 variable $language           as string  external := "en-US";
+declare  %rest:case-insensitive                 variable $debug         as boolean external := false;
 
 session:audit-call($token);
 
@@ -78,7 +80,7 @@ let $components  :=
           response:status-code(400);
           session:error("Archive ID missing.", $format)
         }
-let $component as object? := $components[1] (: only one for know :)
+let $component as object? := if($merge) then components:merge($components) else $components[1]
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
 
 return if(empty($component)) then {
@@ -101,7 +103,8 @@ let $spreadsheet as object? :=
                 EliminationThreshold: double($elimination-threshold) div 100,
                 Validate: $validate,
                 DefinitionModel: $definition-model,
-                Language: $language
+                Language: $language,
+                Debug: $debug
             },
             if(exists($rules))
             then { Rules : [ $rules ] }

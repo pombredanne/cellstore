@@ -1,10 +1,10 @@
-angular.module('api', ['session-api', 'users-api', 'billing-api', 'constants'])
-.factory('API', function(SessionAPI, UsersAPI, BillingAPI, API_URL) {
+angular.module('api', ['report-api', 'session-api', 'queries-api', 'constants'])
+.factory('API', function(ReportAPI, SessionAPI, QueriesAPI, API_URL) {
     'use strict';
 
     return {
+        Report: new ReportAPI(API_URL + '/_queries/public/reports'),
         Session: new SessionAPI(API_URL + '/_queries/public'),
-        Users: new UsersAPI(API_URL + '/_queries/public'),
-        Billing: new BillingAPI(API_URL + '/_queries/public')
+        Queries: new QueriesAPI(API_URL + '/_queries/public/api')
     };
 });

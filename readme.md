@@ -1,5 +1,5 @@
-#secxbrl.info
-[![Build Status](http://img.shields.io/travis/28msec/secxbrl.info/master.svg?style=flat)](https://travis-ci.org/28msec/secxbrl.info) [![Code Climate](http://img.shields.io/codeclimate/github/28msec/secxbrl.info.svg?style=flat)](https://codeclimate.com/github/28msec/secxbrl.info)
+# CellStore
+[![Build Status](http://img.shields.io/travis/28msec/cellstore/master.svg?style=flat)](https://travis-ci.org/28msec/cellstore) [![Code Climate](http://img.shields.io/codeclimate/github/28msec/cellstore.svg?style=flat)](https://codeclimate.com/github/28msec/cellstore)
 
 US Public Company Financial Information Repository. Built on top of http://28.io.
 
@@ -102,7 +102,7 @@ This is the expected structure of the file:
 If you would like to update the `config.json` file into the repo, you need the following environment variable need to be set: `TRAVIS_SECRET_KEY`.
 Simply run:
 ```bash
-grunt shell:encrypt
+$ gulp encrypt
 ```
 
 ## Development
@@ -110,34 +110,23 @@ grunt shell:encrypt
 Setup environment:
 
 ```bash
-npm install
-bower install
+$ npm install && bower install
 ```
-
-Help available:
-
-```bash
-grunt --usage
-```
-
-Before running secxbrl.info for the first time you need to create the config.json (for example by exporting the environment variable `TRAVIS_SECRET_KEY`).
-At the bottom, we explain how to do that in detail.
 
 ### Backend Development
 
 Deploy backend to secxbrl-myfeature.28.io (will delete and create project secxbrl-myfeature) and run against it:
 
 ```bash
-grunt backend --build-id=myfeature
-# run against deployed backend:
-grunt server --build-id=myfeature
+$ gulp 28:setup --build-id=myfeature
+$ gulp server
 ```
 
 Now, start developing the backend online on http://hq.28.io . Once, you are done with your implementation
 you can download the changes made (from secxbrl-myfeature.28.io):
 
 ```bash
-grunt download --build-id=myfeature
+$ gulp 28:setup --build-id=myfeature
 ```
 
 ### Frontend Development
@@ -145,13 +134,13 @@ grunt download --build-id=myfeature
 Run frontend locally against current secxbrl-dev backend:
 
 ```bash
-grunt server --build-id=dev
+$ gulp load-config --build-id=dev #or gulp 28:setup --build-id=myfeature
+$ gulp server
 ```
 
-Run dist (uglified etc.) frontend locally against current secxbrl-dev backend:
-
+Run the built version (uglified etc.)
 ```bash
-grunt server:dist --build-id=dev
+gulp server:prod
 ```
 
 ### Deployment for UAT
@@ -159,7 +148,7 @@ grunt server:dist --build-id=dev
 Deploy backend to secxbrl-myfeature.28.io and frontend (running against the deployed backend) to secxbrl-myfeature bucket on S3:
 
 ```bash
-grunt test:setup --build-id=myfeature
+gulp setup --build-id=myfeature
 ```
 
 ### Build dist and run xqlint/jshint tests
@@ -167,30 +156,24 @@ grunt test:setup --build-id=myfeature
 Build project into /dist (for running against backend project secxbrl-myfeature):
 
 ```bash
-grunt build --build-id=myfeature
+gulp build --build-id=myfeature
 ```
 
 ## Testing
-Deploy frontend/backend (project secxbrl-mydemo.28.io / S3 bucket secxbrl-mydemo):
-
-```bash
-grunt test:setup --build-id=mydemo
-```
 
 Run UI tests only:
 ```bash
-grunt e2e-dev --build-id=mydemo
-grunt e2e --specs=tests/e2e/website-scenario.js --build-id=mydemo
+gulp test --build-id=mydemo
 ```
 
-Run all tests as follows:
+Run unit test:
 ```bash
-grunt test:run --build-id=mydemo
+gulp test:unit
 ```
 
 Once you are done:
 ```bash
-grunt test:teardown --build-id=mydemo
+gulp teardown --build-id=mydemo
 ```
 
 All steps can be done at once by simply running:
