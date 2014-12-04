@@ -59,8 +59,8 @@ gulp.task('test', ['server:prod'], function (done) {
 
 gulp.task('default', ['build']);
 
-gulp.task('setup', function(done){
-    $.runSequence('build', 's3-setup', '28:setup', 'server:dist', 'test:unit', 'test:e2e', 'server:stop', done);
+gulp.task('setup', ['load-config'], function(done){
+    $.runSequence('build', [ 's3-setup', '28:setup' ], 'server:dist', 'test:unit', 'test:e2e', 'server:stop', done);
 });
 
 gulp.task('28:setup', ['load-config'], function(done){
