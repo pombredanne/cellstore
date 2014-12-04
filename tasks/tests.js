@@ -62,7 +62,7 @@ gulp.task('webdriver:update', webdriverUpdate);
 
 // Run e2e tests using protractor, make sure serve task is running.
 gulp.task('test:e2e', ['webdriver:update'], function() {
-  var configFile = Config.isOnTravis ? configs.protractorConfigTravis : configs.protractorConfigLocal;
+  var configFile = Config.isOnTravis ? Config.paths.protractorConfigTravis : Config.paths.protractorConfigLocal;
   var args = [];
   if(Config.isOnTravis && !Config.isOnProduction) {
       args.push('--baseUrl');
