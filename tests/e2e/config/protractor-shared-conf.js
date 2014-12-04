@@ -2,7 +2,6 @@
 'use strict';
 
 var HtmlReporter = require('protractor-html-screenshot-reporter');
-var Config = require('./config').config;
 
 exports.config = {
     allScriptsTimeout: 30000,
@@ -10,8 +9,6 @@ exports.config = {
     baseUrl: 'http://localhost:9000',
 
     framework: 'jasmine',
-
-    specs: ['../' + Config.configId + '/*-scenario.js'],
 
     onPrepare: function() {
         // Disable animations so e2e tests run more quickly
@@ -29,6 +26,7 @@ exports.config = {
         });
 
         //Login
+        var Config = require('./config').config;
         var Auth = require('../../../app/auth/auth-page');
         var auth = new Auth();
         auth.visitPage();

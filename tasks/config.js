@@ -96,7 +96,8 @@ var config =
 
         //tests
         protractorConfigLocal: 'tests/e2e/config/protractor-conf.js',
-        protractorConfigTravis: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js'
+        protractorConfigTravis: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
+        e2eSpecs: [ 'tests/e2e/' + configId + '/*-scenario.js' ]
     },
     credentials: {}
 };
