@@ -35,7 +35,7 @@ if(!fs.existsSync(encryptedConfigFile)){
 
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
 // if a config/<branch>.json.enc exists we are on a production deployment branch
-var isProd = process.env.TRAVIS_BRANCH === 'master' || fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc');
+var isProd = fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc');
 var isOnTravisAndMaster = isOnTravis && isProd && process.env.TRAVIS_PULL_REQUEST === 'false';
 
 var config =
@@ -86,7 +86,11 @@ var config =
         ],
         apiTestQueries: [
             'queries/public/test/' + configId + '/*'
-        ]
+        ],
+
+        //tests
+        protractorConfigLocal: 'tests/e2e/config/protractor-conf.js',
+        protractorConfigTravis: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js'
     },
     credentials: {}
 };
