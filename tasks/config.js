@@ -27,9 +27,10 @@ var configId = args.config;
 if(configId === undefined || configId === ''){
     throwError('no configId available. ' + $.util.colors.red('Command line argument --config or env variable CELLSTORE_CONFIG missing.'));
 }
-var configFile = 'config/' + configId + '.json';
-if(!fs.existsSync(configFile + '.enc')){
-    throwError('Invalid --config command line argument. ' + $.util.colors.red('Config file ' + configFile + '.enc does not exist.'));
+var unencryptedConfigFile = 'config/' + configId + '.json';
+var encryptedConfigFile = unencryptedConfigFile + '.enc';
+if(!fs.existsSync(encryptedConfigFile)){
+    throwError('Invalid --config command line argument. ' + $.util.colors.red('Config file ' + encryptedConfigFile + ' does not exist.'));
 }
 
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
@@ -56,7 +57,7 @@ var config =
         reports: 'data/' + configId + '/*.json',
 
         //Static Assets
-        json: ['*.json'],
+        json: ['*.json', 'tasks/templates/*.json.mustache', 'data/**/*.json' ],
         js: ['app/**/*.js'],
         css: ['app/**/*.css'],
         index: 'app/*.html',
@@ -70,7 +71,8 @@ var config =
         tasks: ['gulpfile.js', 'tasks/*.js'],
 
         //Crypted config
-        credentials: configFile,
+        encryptedConfigFile: encryptedConfigFile,
+        unencryptedConfigFile: unencryptedConfigFile,
         config: 'config.json',
 
         //Queries
