@@ -9,23 +9,30 @@ var _ = require('lodash');
 
 var Config = require('./config');
 
-gulp.task('config-template', [ 'decrypt' ], function(done){
-    var Mustache = require('mustache');
-
-    //Fetch credentials
+var loadCredentials = function(){
     $.util.log('loading credentials from: ' + Config.paths.unencryptedConfigFile);
     var rawCredentials = JSON.parse(fs.readFileSync(Config.paths.unencryptedConfigFile, 'utf-8'));
     var credentials = rawCredentials.all;
+    // fill up/overwrite with either prod or dev credentials
     if(Config.isOnProduction){
         _.extend(credentials, rawCredentials.prod);
     } else {
         _.extend(credentials, rawCredentials.dev);
     }
-    var data = { credentials: credentials };
+    return credentials;
+};
 
+gulp.task('config-template', [ 'decrypt' ], function(done){
+    var Mustache = require('mustache');
+
+    //Fetch credentials
+    var data = { credentials: loadCredentials() };
+
+    //create config.json
     var src = fs.readFileSync('tasks/templates/config.json.mustache', 'utf-8');
     var result = Mustache.render(src, data);
     fs.writeFileSync(Config.paths.config, result, 'utf-8');
+
     $.util.log('created ' + Config.paths.config);
     done();
 });
