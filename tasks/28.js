@@ -116,7 +116,7 @@ var runQueries = function(projectName, runQueries) {
                     $.util.log(('✓ '.green) + queryPath + ' returned with status code: ' + data.response.statusCode);
                     return credentials;
                 }).catch(function (error) {
-                    $.util.log(error.body);
+                    $.util.log(error.response.request.href.red);
                     $.util.log(('✗ '.red) + queryPath + ' returned with status code: ' + error.response.statusCode);
                     throw error;
                 });
@@ -155,7 +155,7 @@ var createDatasource = function(projectName, datasource){
         })
         .catch(function (error) {
             $.util.log('datasource creation failed: ' + error);
-                defered.reject(error);
+            defered.reject(error);
         });
     } else {
         $.util.log('Skipping data source creation on production: ' + datasource.name);
