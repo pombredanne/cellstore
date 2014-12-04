@@ -12,10 +12,10 @@ gulp.task('server:dist', function() {
     }));
 });
 
-var con;
+var webserver;
 
 gulp.task('server:dev', function() {
-    gulp.src(['.', Config.paths.app]).pipe($.webserver({
+    webserver = $.webserver({
         port: 9000,
         fallback: 'index.html',
         livereload: {
@@ -24,14 +24,18 @@ gulp.task('server:dev', function() {
                 return fileName.match(/\.(html|less|js|json)$/);
             }
         }
-    }));
+    });
+    gulp.src(['.', Config.paths.app]).pipe(webserver);
 });
 
-gulp.task('server:stop', function(){
-    if(con) {
-        con.emit('kill');
+gulp.task('server:stop', function(done){
+    if(webserver) {
+        webserver.emit('kill').on('end', function(){
+            done();
+        });
     } else {
         $.util.log('No webserver found.');
+        done();
     }
 });
 
