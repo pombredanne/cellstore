@@ -11,7 +11,7 @@ declare function local:first-index-field($index as string) as string
   else substring-before($index, "_")
 };
 
-declare function local:check-index($conn as anyURI, $coll as string, $index as string) as object
+declare function local:check-index($conn as anyURI, $coll as string, $index as string) as object?
 {
   let $field := local:first-index-field($index)
   return subsequence(mongo:find($conn, $coll, {"$query": {$field: {"$exists": true}} , "$hint": $index}, {$field: 1}),1,1)

@@ -7,8 +7,8 @@ var _ = require('lodash');
 
 var Config = require('./config');
 
-var file = Config.paths.credentials;
-var encryptedFile = file + '.enc';
+var file = Config.paths.unencryptedConfigFile;
+var encryptedFile = Config.paths.encryptedConfigFile;
 var tplParam = { file: file, encryptedFile: encryptedFile };
 
 var msgs = {
@@ -19,8 +19,8 @@ var msgs = {
 };
 
 var cmds = {
-  encrypt: _.template('sh -c "openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in <%= file %> -out <%= file %>.enc"')(tplParam),
-  decrypt: _.template('sh -c "openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in <%= file %>.enc -out <%= file %> -d"')(tplParam)
+  encrypt: _.template('sh -c "openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in <%= file %> -out <%= encryptedFile %>"')(tplParam),
+  decrypt: _.template('sh -c "openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in <%= encryptedFile %> -out <%= file %> -d"')(tplParam)
 };
 
 gulp.task('env-check', function(done){

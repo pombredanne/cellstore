@@ -763,3 +763,48 @@ declare function components:filter-override(
 };
 
 
+(:~
+: <p>Merges the supplied components, grouping networks by arc/link name/role
+: and merging all hypercubes into a single one.</p>
+:
+: @param $components the input components.
+:
+: @return the merged component.
+:)
+declare function components:merge($components as object*) as object
+{
+    {
+        Archive: null,
+        Role: $components.Role[1],
+        Label: $components.Label[1],
+        Networks: [
+            networks:merge($components.Networks[])
+        ],
+        Hypercubes: {|
+            let $merged := hypercubes:merge(values($components.Hypercubes))
+            return { $merged.Name: $merged },
+            { "xbrl:DefaultHypercube" : {
+                Name: "xbrl:DefaultHypercube",
+                Label:$components.Hypercubes."xbrl:DefaultHypercube"[1].Label,
+                Aspects: {
+                    "xbrl:Concept" : {
+                        Name: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Name,
+                        Label: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Label,
+                        Domains: {
+                            "xbrl:ConceptDomain" : {
+                                Name: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Name,
+                                Label: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Label,
+                                Members: {|
+                                    for $member in values($components.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members)
+                                    group by $name := $member.Name
+                                    return { $name: $member[1] }
+                                |}
+                            }
+                        }
+                    }
+                }
+            } }
+        |}
+    }
+};
+

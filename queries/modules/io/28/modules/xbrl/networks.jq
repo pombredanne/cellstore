@@ -89,3 +89,63 @@ declare function networks:networks-for-components-and-short-names(
 {
     $components.Networks[][$$.ShortName = $short-name]
 };
+
+(:~
+: <p>Merges the supplied networks, grouping by arc/link name/role.</p>
+:
+: @param $networks the input networks.
+:
+: @return the merged networks.
+:)
+declare function networks:merge($networks as object*) as object*
+{
+    for $networks in $networks
+    group by
+      $linkName := $networks.LinkName,
+      $arcName := $networks.ArcName,
+      $linkRole := $networks.LinkRole,
+      $arcRole := $networks.ArcRole
+    return {
+        LinkName: $linkName,
+        LinkRole: $linkRole,
+        ArcName: $arcName,
+        ArcRole: $arcRole,
+        Kind: $networks[1].Kind,
+        ShortName: $networks[1].ShortName,
+        CyclesAllowed: $networks[1].CyclesAllowed,
+        Trees: {|
+          for $root in keys($networks.Trees)
+          return {
+              $root : {
+                Name: $networks.Trees.$root[1].Name,
+                Label: $networks.Trees.$root[1].Label,
+                To: [ networks:merge-trees($networks.Trees.$root.To[]) ]
+              }
+          }
+        |}
+    } 
+};
+
+declare %private function networks:merge-trees($trees as object*) as object*
+{
+    for $trees in $trees
+    group by $name := $trees.Name
+    let $order :=
+        if($trees.PreferredLabelRole = "http://www.xbrl.org/2003/role/totalLabel")
+        then 1000000
+        else min($trees.Order)
+    order by $order
+    count $count
+    return {|
+        trim($trees[1], ("To", "Order")),
+        {
+            Order :$count
+        },
+        let $to := $trees.To[]
+        where exists($to)
+        return
+        { To: [ networks:merge-trees($to) ] }
+    |}
+};
+
+
