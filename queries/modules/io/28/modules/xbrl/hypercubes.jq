@@ -165,8 +165,8 @@ as item* (: object* :)
           true (: parameter has higher priority than option :)
         )
       let $facts-for-archives-and-concepts := $options.facts-for-archives-and-concepts
-      let $concepts :=
-          keys($hypercube.Aspects.$facts:CONCEPT.Domains."xbrl:ConceptDomain".Members)
+      let $concepts as string* :=
+          distinct-values(descendant-objects($hypercube.Aspects.$facts:CONCEPT.Members).Name)
       let $concepts := if (exists($concepts))
                    then $concepts
                    else $facts:ALL_OF_THEM
@@ -491,26 +491,12 @@ declare function hypercubes:user-defined-hypercube($dimensions as object?, $opti
           if (empty($dimension-type))
           then
           {
-            "Domains" : {
-              $domain-name : {
-                "Name" : $domain-name,
-                "Label" :
-                  switch($dimension-name)
-                  case "xbrl:Concept" return "XBRL Concept Domain"
-                  case "xbrl:Entity" return "XBRL Entity Domain"
-                  case "xbrl:Period" return "XBRL Period Domain"
-                  case "xbrl:Unit" return "XBRL Unit Domain"
-                  default return $dimension-name || " Domain",
-                "Members" : {|
-                  for $dimension-member in distinct-values($dimension-domain[])
-                  return {
-                    $dimension-member: {
-                      Name: hypercubes:check-type-and-return($dimension-member, "string")
-                    }
-                  } 
-                |}
+            "Members" : [
+              for $dimension-member in distinct-values($dimension-domain[])
+              return {
+                  Name: hypercubes:check-type-and-return($dimension-member, "string")
               }
-            }
+            ]
           }[exists($dimension-domain)]
           else {
             "DomainRestriction" : {
@@ -560,7 +546,7 @@ declare function hypercubes:modify-hypercube(
                 { Type : $hypercube.Aspects.$dimension.Type }[$hypercube-metadata.Kind eq "TypedDimension"],
                 let $hypercube-domain := 
                   (
-                     descendant-objects(values($hypercube-metadata.Domains)).Name,
+                     descendant-objects($hypercube-metadata.Members).Name,
                      jn:flatten($hypercube-metadata.DomainRestriction.Enumeration)
                   )
                 where exists($hypercube-domain)
@@ -585,7 +571,7 @@ declare function hypercubes:merge($hypercubes as object*) as object
     hypercubes:user-defined-hypercube({|
         for $aspect in keys($hypercubes.Aspects)
         let $default := distinct-values($hypercubes.Aspects.$aspect.Default)
-        let $domain := distinct-values((descendant-objects($hypercubes.Aspects.$aspect.Domains).Name))
+        let $domain := distinct-values(descendant-objects($hypercubes.Aspects.$aspect.Members).Name)
         return {
             $aspect : {|
                 { Default: $default}[exists($default)],

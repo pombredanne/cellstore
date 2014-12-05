@@ -1408,8 +1408,8 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
                           { "Aspects" : 
                             { "xbrl:Concept" : [ $all-mapped-concepts ] } } }
                       into $new,
-              if(exists($new.Hypercube.Aspects.$facts:CONCEPT.Domains)) 
-              then delete json $new.Hypercube.Aspects.$facts:CONCEPT.Domains 
+              if(exists($new.Hypercube.Aspects.$facts:CONCEPT.Members)) 
+              then delete json $new.Hypercube.Aspects.$facts:CONCEPT.Members 
               else (),
               insert json { "cache-control" : "no-cache" } into $new
             )
@@ -1536,15 +1536,15 @@ declare %private function facts:align-aspects(
     (: handling explicit and typed dimensions (but only those restricted by an enumeration here :)
     let $dimension as object := $hypercube-aspects.$dimension-name
     let $typed-dimension as boolean := $dimension.Kind = "TypedDimension"
-    let $hypercube-domains  :=
+    let $hypercube-domains :=
       if ($typed-dimension)
       then $dimension.DomainRestriction.Enumeration
-      else $dimension.Domains
+      else $dimension.Members[]
     let $hypercube-restricts := exists($hypercube-domains)
     let $hypercube-members as atomic* :=
       if ($typed-dimension)
       then flatten($hypercube-domains)
-      else descendant-objects($hypercube-domains).Name
+      else $hypercube-domains.Name
     let $hypercube-default as atomic? := $dimension.Default
     let $hypercube-has-default as boolean := exists($hypercube-default)
 

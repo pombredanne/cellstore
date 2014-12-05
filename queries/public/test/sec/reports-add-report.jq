@@ -39,19 +39,13 @@ declare variable $newReport as object :=
                     "xbrl:Concept" : {
                         "Name" : "xbrl:Concept",
                         "Label" : "Concept",
-                        "Domains" : {
-                            "xbrl:ConceptDomain" : {
-                                "Name" : "xbrl:ConceptDomain",
-                                "Label" : "Implicit XBRL Concept Domain",
-                                "Members" : {
-                                    "t:ReportLineItems" : {
-                                        "Name" : "t:ReportLineItems",
-                                        "Label" : "test",
-                                        "IsAbstract" : true
-                                    }
-                                }
+                        "Members" : [
+                            {
+                                "Name" : "t:ReportLineItems",
+                                "Label" : "test",
+                                "IsAbstract" : true
                             }
-                        }
+                        ]
                     }
                 }
             }

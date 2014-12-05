@@ -79,7 +79,7 @@ then
     
     (: Fact resolution :)
     let $hypercube := hypercubes:hypercubes-for-components($report)[1]
-    let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
+    let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Members, $$.DomainRestriction))]
     let $spreadsheet as object? :=
         if(count($filtered-aspects) lt $config:filtered-aspects and not exists(($filter-override)))
         then {

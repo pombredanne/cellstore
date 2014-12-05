@@ -80,7 +80,7 @@ then
         else components:filter-override($entities, $aid)
     let $facts as object* :=
         let $hypercube := hypercubes:hypercubes-for-components($report)[1]
-        let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
+        let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Members, $$.DomainRestriction))]
         return if(count($filtered-aspects) lt $config:filtered-aspects and not exists(($filter-override)))
         then {
               response:status-code(403);
