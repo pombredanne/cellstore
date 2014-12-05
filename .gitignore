@@ -20,3 +20,4 @@ tests/e2e/config/config.js
 config.json
 .c9
 coverage
+config/*.json

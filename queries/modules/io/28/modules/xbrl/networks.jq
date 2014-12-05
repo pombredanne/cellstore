@@ -130,15 +130,15 @@ declare %private function networks:merge-trees($trees as object*) as object*
 {
     for $trees in $trees
     group by $name := $trees.Name
-    let $order := min($trees.Order)
+    let $order :=
+        if($trees.PreferredLabelRole = "http://www.xbrl.org/2003/role/totalLabel")
+        then 1000000
+        else min($trees.Order)
     order by $order
     count $count
     return {|
+        trim($trees[1], ("To", "Order")),
         {
-            Name: $name,
-            Label: $trees[1].Label,
-            Use: $trees[1].Use,
-            Priority: $trees[1].Priority,
             Order :$count
         },
         let $to := $trees.To[]

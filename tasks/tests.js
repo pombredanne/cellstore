@@ -17,7 +17,7 @@ gulp.task('server:dist', function() {
   browserSync({
     port: 9000,
     notify: false,
-    logPrefix: 'www.secxbrl.info',
+    logPrefix: Config.bucketName,
     open: false,
     server: {
       baseDir: ['dist'],
@@ -33,7 +33,7 @@ gulp.task('server:dev', function() {
   browserSync({
     port: 9000,
     notify: false,
-    logPrefix: 'www.secxbrl.info',
+    logPrefix: Config.bucketName,
     server: {
       baseDir: ['.', Config.paths.app],
       middleware: [
@@ -57,25 +57,18 @@ var webdriverUpdate = require('gulp-protractor').webdriver_update;
 
 var Config = require('./config');
 
-var protractorConfig = require('../tests/e2e/config/protractor-shared-conf.js');
-
 //update webdriver if necessary, this task will be used by e2e task
 gulp.task('webdriver:update', webdriverUpdate);
 
 // Run e2e tests using protractor, make sure serve task is running.
 gulp.task('test:e2e', ['webdriver:update'], function() {
-  var configs = {
-    travis: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
-    local: 'tests/e2e/config/protractor-conf.js'
-  };
-
-  var configFile = Config.isOnTravis ? configs.travis : configs.local;
+  var configFile = Config.isOnTravis ? Config.paths.protractorConfigTravis : Config.paths.protractorConfigLocal;
   var args = [];
   if(Config.isOnTravis && !Config.isOnProduction) {
       args.push('--baseUrl');
       args.push('http://' + Config.bucketName + '.s3-website-us-east-1.amazonaws.com');
   }
-  return gulp.src(protractorConfig.config.specs)
+  return gulp.src(Config.paths.e2eSpecs)
     .pipe($.protractor.protractor({
       configFile: configFile,
           args: args

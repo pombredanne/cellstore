@@ -116,7 +116,7 @@ var runQueries = function(projectName, runQueries) {
                     $.util.log(('✓ '.green) + queryPath + ' returned with status code: ' + data.response.statusCode);
                     return credentials;
                 }).catch(function (error) {
-                    $.util.log(error.body);
+                    $.util.log(error.response.request.href.red);
                     $.util.log(('✗ '.red) + queryPath + ' returned with status code: ' + error.response.statusCode);
                     throw error;
                 });
@@ -155,7 +155,7 @@ var createDatasource = function(projectName, datasource){
         })
         .catch(function (error) {
             $.util.log('datasource creation failed: ' + error);
-                defered.reject(error);
+            defered.reject(error);
         });
     } else {
         $.util.log('Skipping data source creation on production: ' + datasource.name);
@@ -189,18 +189,9 @@ gulp.task('28:setup-datasource', function(){
 });
 
 gulp.task('28:init', function(){
-    return runQueries(Config.projectName, [
-        'queries/private/InitAuditCollection.jq',
-        'queries/private/init.jq',
-        'queries/private/UpdateReportSchema.jq',
-        'queries/private/cleanupTestUserReports.jq',
-        'queries/private/migration/db6.jq'
-    ]).catch(throwError);
+    return runQueries(Config.projectName, Config.paths.initQueries).catch(throwError);
 });
 
 gulp.task('28:test', function(){
-    return runQueries(Config.projectName, [
-        'queries/public/test/*',
-        'queries/private/test/*'
-    ]).catch(throwError);
+    return runQueries(Config.projectName, Config.paths.apiTestQueries).catch(throwError);
 });

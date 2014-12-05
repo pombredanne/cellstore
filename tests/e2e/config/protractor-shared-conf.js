@@ -10,8 +10,6 @@ exports.config = {
 
     framework: 'jasmine',
 
-    specs: ['../*-scenario.js'], 
-
     onPrepare: function() {
         // Disable animations so e2e tests run more quickly
         var disableNgAnimate = function() {
@@ -28,17 +26,17 @@ exports.config = {
         });
 
         //Login
-        var config = require('./config').config;
+        var Config = require('./config').config;
         var Auth = require('../../../app/auth/auth-page');
         var auth = new Auth();
         auth.visitPage();
-        auth.login(config.testUser, config.testPassword);
+        auth.login(Config.testUser, Config.testPassword);
         browser.waitForAngular();
 
-        if(config.environment === 'ci' || config.environment === 'prod') {
+        if(Config.environment === 'ci' || Config.environment === 'prod') {
             // Add a screenshot reporter and store screenshots to config.e2eReportsDir:
             jasmine.getEnv().addReporter(new HtmlReporter({
-                baseDirectory: config.e2eReportsDir
+                baseDirectory: Config.e2eReportsDir
             }));
         }
     },
