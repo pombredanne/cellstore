@@ -28,6 +28,7 @@ import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace networks = "http://28.io/modules/xbrl/networks";
 import module namespace resolution = "http://28.io/modules/xbrl/resolution";
 import module namespace layout = "http://28.io/modules/xbrl/layout";
+import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 
 import module namespace accountant = "http://28.io/modules/xbrl/profiles/accountant/converter";
 
@@ -206,7 +207,7 @@ declare function components:select-table(
             return $user-chosen-table
         case exists($non-implicit-table)
             return $non-implicit-table
-        default error(QName("components:HYPERCUBE-DOES-NOT-EXIST"), "Components does not contain any hypercube.")
+        default return error(QName("components:HYPERCUBE-DOES-NOT-EXIST"), "Components does not contain any hypercube.")
 };
 
 (:~
