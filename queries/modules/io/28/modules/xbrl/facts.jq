@@ -1380,7 +1380,7 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
         return
           if (exists($children))
           then $children.Name
-          else $concept
+          else $object.Name
       )
 
     let $new-options as object* :=
@@ -1435,6 +1435,7 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
     return
     for $object in $concept-maps.Trees[]
     where $object.Name = $concepts
+    let $concept := $object.Name
     let $children as object* := $object.To[]
     for $fact as object in
           for $candidate-concept in $children.Name
@@ -1868,6 +1869,7 @@ declare %private function facts:flatten-concept-maps(
 {
     for $concept in $concept-maps.Trees[]
     where $concept.Name = $concepts
+    let $key := $concept.Name
     let $val as object* := $concept.To[].Name
     where exists($val)
     return {$key:[$val]}
