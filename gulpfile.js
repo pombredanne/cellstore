@@ -60,25 +60,13 @@ gulp.task('test', ['server:prod'], function (done) {
 gulp.task('default', ['build']);
 
 gulp.task('setup', ['load-config'], function(done){
-    if(!Config.skipDeployment) {
-        $.runSequence('build', [ 's3-setup', '28:setup' ], 'server:dist', 'test:unit', 'test:e2e', 'server:stop', done);
-    } else {
-        done();
-    }
+    $.runSequence('build', [ 's3-setup', '28:setup' ], 'server:dist', 'test:unit', 'test:e2e', 'server:stop', done);
 });
 
 gulp.task('28:setup', ['load-config'], function(done){
-    if(!Config.skipDeployment) {
-        $.runSequence('28:login', '28:remove-project', '28:create-project', '28:setup-datasource', '28:upload', '28:init', '28:test', done);
-    } else {
-        done();
-    }
+    $.runSequence('28:login', '28:remove-project', '28:create-project', '28:setup-datasource', '28:upload', '28:init', '28:test', done);
 });
 
 gulp.task('teardown', ['load-config'], function(done){
-    if(!Config.isOnProduction && !Config.skipDeployment) {
-        $.runSequence('28:login', '28:remove-project', 's3-teardown', done);
-    } else {
-        done();
-    }
+    $.runSequence('28:login', '28:remove-project', 's3-teardown', done);
 });
