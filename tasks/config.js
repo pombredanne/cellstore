@@ -13,24 +13,27 @@ var knownOptions = {
         'config': ( process.env.TRAVIS_BRANCH !== undefined && fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc') ) ? process.env.TRAVIS_BRANCH : process.env.CELLSTORE_CONFIG
     }
 };
-var throwError = function(msg){
-    $.util.log($.util.colors.red('ERROR ') + msg);
-    throw 'terminating';
-};
+
 var args = minimist(process.argv.slice(2), knownOptions);
 var buildId = args['build-id'];
 if(buildId === undefined || buildId === ''){
-    throwError('no buildId available. ' + $.util.colors.red('Command line argument --build-id missing.'));
+    var msg = 'no buildId available. ' + $.util.colors.red('Command line argument --build-id missing.');
+    $.util.log(msg);
+    throw new Error(msg);
 }
 
 var configId = args.config;
 if(configId === undefined || configId === ''){
-    throwError('no configId available. ' + $.util.colors.red('Command line argument --config or env variable CELLSTORE_CONFIG missing.'));
+    var msg = 'no configId available. ' + $.util.colors.red('Command line argument --config or env variable CELLSTORE_CONFIG missing.');
+    $.util.log(msg);
+    throw new Error(msg);
 }
 var unencryptedConfigFile = 'config/' + configId + '.json';
 var encryptedConfigFile = unencryptedConfigFile + '.enc';
 if(!fs.existsSync(encryptedConfigFile)){
-    throwError('Invalid --config command line argument. ' + $.util.colors.red('Config file ' + encryptedConfigFile + ' does not exist.'));
+    var msg = 'Invalid --config command line argument. ' + $.util.colors.red('Config file ' + encryptedConfigFile + ' does not exist.');
+    $.util.log(msg);
+    throw new Error(msg);
 }
 
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
