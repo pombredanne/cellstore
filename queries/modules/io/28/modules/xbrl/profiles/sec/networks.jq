@@ -504,7 +504,7 @@ declare function sec-networks:tables($networks as object*, $options as object?) 
                                            then $options("IncludeImpliedTable")
                                            else false
   for $sec-network in $networks
-  let $hypercube-metadata as object* := ($networks.Concepts[])[$$.SubstitutionGroup eq "xbrldt:hypercubeItem"]
+  let $hypercube-metadata as object* := ($sec-network.Concepts[])[$$.SubstitutionGroup eq "xbrldt:hypercubeItem"]
   return if (exists($hypercube-metadata) or not $include-implied-table)
          then $hypercube-metadata
          else {
@@ -620,7 +620,7 @@ declare function sec-networks:line-items-report-elements($networks-or-ids as ite
 declare function sec-networks:abstracts($networks as object*) as object*
 {
   for $sec-network in $networks
-  let $abstract-metadata as object* := ($networks.Concepts[])
+  let $abstract-metadata as object* := ($sec-network.Concepts[])
     [not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem")][$$.IsAbstract]
   let $tables := sec-networks:tables($sec-network)
   let $presentation-network := networks:networks-for-components-and-short-names(
@@ -957,7 +957,7 @@ declare function sec-networks:categories($networks as object*) as string*
 declare function sec-networks:sub-categories($networks as object*) as string*
 {
   for $network in $networks
-  let $is-text-blocks as boolean* := ($networks.Concepts[])
+  let $is-text-blocks as boolean* := ($network.Concepts[])
     [not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem") and not $$.IsAbstract].IsTextBlock
   let $exists-text-blocks as boolean := exists($is-text-blocks[$$])
   let $exists-non-text-blocks as boolean := exists($is-text-blocks[not $$])
