@@ -783,7 +783,7 @@ declare function components:merge($components as object*) as object
             return { $merged.Name: $merged },
         Concepts: [
             for $concept in $components.Concepts[]
-            group by $name := $member.Name
+            group by $name := $concept.Name
             return $concept[1]
         ]
     }
