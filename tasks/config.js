@@ -9,7 +9,7 @@ var _ = require('lodash');
 var knownOptions = {
     string: [ 'build-id', 'config' ],
     default: {
-        'build-id': process.env.RANDOM_ID,
+        'build-id': process.env.CELLSTORE_BUILD_ID !== undefined ? process.env.CELLSTORE_BUILD_ID : process.env.RANDOM_ID,
         'config': ( process.env.TRAVIS_BRANCH !== undefined && fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc') ) ? process.env.TRAVIS_BRANCH : process.env.CELLSTORE_CONFIG
     }
 };
