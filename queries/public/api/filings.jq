@@ -1,11 +1,14 @@
+import module namespace config = "http://apps.28.io/config";
+import module namespace api = "http://apps.28.io/api";
+import module namespace session = "http://apps.28.io/session";
+
+import module namespace entities = "http://28.io/modules/xbrl/entities";
+import module namespace archives = "http://28.io/modules/xbrl/archives";
+
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
-
-import module namespace api = "http://apps.28.io/api";
-
-import module namespace session = "http://apps.28.io/session";
 
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $token         as string? external;
@@ -18,6 +21,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $sic           as strin
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear    as string* external := "LATEST";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string* external := "FY";
 declare  %rest:case-insensitive %rest:distinct  variable $aid           as string* external;
+declare  %rest:case-insensitive                 variable $profile-name  as string  external := $config:profile-name;
 
 session:audit-call($token);
 
@@ -28,20 +32,29 @@ let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
-let $entities := 
-    companies:companies(
+let $entities :=
+    switch($profile-name)
+    case "sec" return companies:companies(
         $cik,
         $tag,
         $ticker,
         $sic)
-let $archives as object* := fiscal-core:filings(
-    $entities,
-    $fiscalPeriod,
-    $fiscalYear,
-    $aid)
-let $summaries := for $f in filings:summaries($archives) 
-                  order by $f.Accepted descending
-                  return $f
+    default return entities:entities()
+let $archives as object* :=
+    switch($profile-name)
+    case "sec" return fiscal-core:filings(
+        $entities,
+        $fiscalPeriod,
+        $fiscalYear,
+        $aid)
+    default return archives:archives()
+let $summaries :=
+    switch($profile-name)
+    case "sec" return
+        for $f in filings:summaries($archives) 
+        order by $f.Accepted descending
+        return $f
+    default return project($archives, ("_id", "Entity"))
 let $result := { "Archives" : [ $summaries ] }
 let $comment :=
 {
