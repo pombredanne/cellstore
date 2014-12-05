@@ -3,7 +3,6 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace entities = "http://28.io/modules/xbrl/entities";
-import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace components = "http://28.io/modules/xbrl/components";
 import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
