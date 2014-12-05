@@ -5,7 +5,7 @@
 describe('Reports', function(){
 
     var id = 'supportFundamentalAccountingConcepts';
-    var Report = require('../../app/report/report-page');
+    var Report = require('../../../app/report/report-page');
 
     it('Should throw an exception if we reloading while saving the report', function(){
         var report = new Report(id);

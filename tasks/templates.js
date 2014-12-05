@@ -55,8 +55,9 @@ gulp.task('templates', ['load-config'], function(done){
             data: {
                 cellstore: Config.credentials.cellstore,
                 staging: {
-                    environment: Config.isOnProduction ? 'prod' : 'dev',
-                    e2eReportsDir: '/tmp/e2e-reports'
+                    environment: Config.isOnProduction ? 'prod' : Config.isOnTravis ? 'ci' : 'dev',
+                    e2eReportsDir: '/tmp/e2e-reports',
+                    configId: Config.configId
                 }
             },
             dest: 'tests/e2e/config/config.js'
