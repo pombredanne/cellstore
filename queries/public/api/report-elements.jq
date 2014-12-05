@@ -203,8 +203,7 @@ let $result :=
                 for $concept in $concepts
                 group by $archive := $concept.Archive,  $role := $concept.Role
                 let $component as object := $components[$$.Archive eq $archive and $$.Role eq $role]
-                let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-                let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+                let $members as object* := $components.Concepts[]
                 let $archive as object := $archives[$$._id eq $archive]
                 let $entity as object := $entities[$$._id eq $archive.Entity]
                 let $metadata := {
@@ -237,8 +236,7 @@ let $result :=
                 for $concept in $concepts
                 group by $archive := $concept.Archive,  $role := $concept.Role
                 let $component as object := $components[$$.Archive eq $archive and $$.Role eq $role]
-                let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-                let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+                let $members as object* := $components.Concepts[]
                 let $metadata := {
                     ComponentRole : $component.Role,
                     ComponentLabel : $component.Label,

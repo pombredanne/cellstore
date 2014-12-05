@@ -198,8 +198,7 @@ declare function components:select-table(
     $options as object?) as object
 {
     let $user-chosen-table as object? := hypercubes:hypercubes-for-components($component, $options.HypercubeName)
-    let $non-implicit-table as object? := hypercubes:hypercubes-for-components($component)[$$.Name ne "xbrl:DefaultHypercube"][1]
-    let $implicit-table as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+    let $non-implicit-table as object? := hypercubes:hypercubes-for-components($component)[1]
     return
         switch(true)
         case exists($options.HypercubeName) and empty($user-chosen-table)
@@ -208,7 +207,7 @@ declare function components:select-table(
             return $user-chosen-table
         case exists($non-implicit-table)
             return $non-implicit-table
-        default return $implicit-table
+        default error(QName("components:HYPERCUBE-DOES-NOT-EXIST"), "Components does not contain any hypercube.")
 };
 
 (:~
@@ -243,7 +242,7 @@ as object*
  : <ul>
  :   <li>FilterOverride: hypercube dimension specs (as defined as hypercubes:user-defined-hypercube)
  :   to override filters in the report's hypercube.</li>
- :   <li>HypercubeName: picks a different hypercube than the default one (xbrl:DefaultHypercube).</li>
+ :   <li>HypercubeName: picks a different hypercube than the default one.</li>
  : </ul>
  :
  : @return a sequence of facts with populated dimension values.
@@ -307,7 +306,7 @@ as object*
  : <ul>
  :   <li>FilterOverride: hypercube dimension specs (as defined as hypercubes:user-defined-hypercube)
  :   to override filters in the report's hypercube.</li>
- :   <li>HypercubeName: picks a different hypercube than the default one (xbrl:DefaultHypercube).</li>
+ :   <li>HypercubeName: picks a different hypercube than the default one.</li>
  : </ul>
  :
  : 
@@ -669,7 +668,6 @@ declare function components:standard-definition-models-for-components($component
 declare function components:standard-definition-models-for-components($components as object*, $options as object?) as object
 {
     for $component in $components
-    let $implicit-table as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
     let $table as object := components:select-table($component, $options)
 
     let $auto-slice as boolean := empty($options.AutoSlice) or $options.AutoSlice
@@ -699,7 +697,7 @@ declare function components:standard-definition-models-for-components($component
     let $x-breakdowns as object* := (
         components:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
         for $d as string in $column-dimensions
-        let $metadata as object? := descendant-objects($implicit-table)[$$.Name eq $d]
+        let $metadata as object? := ($component.Concepts[])[$$.Name eq $d]
         return
             components:standard-explicit-dimension-breakdown(
                 $d,
@@ -780,31 +778,14 @@ declare function components:merge($components as object*) as object
         Networks: [
             networks:merge($components.Networks[])
         ],
-        Hypercubes: {|
+        Hypercubes:
             let $merged := hypercubes:merge(values($components.Hypercubes))
             return { $merged.Name: $merged },
-            { "xbrl:DefaultHypercube" : {
-                Name: "xbrl:DefaultHypercube",
-                Label:$components.Hypercubes."xbrl:DefaultHypercube"[1].Label,
-                Aspects: {
-                    "xbrl:Concept" : {
-                        Name: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Name,
-                        Label: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Label,
-                        Domains: {
-                            "xbrl:ConceptDomain" : {
-                                Name: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Name,
-                                Label: $components.Hypercubes."xbrl:DefaultHypercube"[1].Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Label,
-                                Members: {|
-                                    for $member in values($components.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members)
-                                    group by $name := $member.Name
-                                    return { $name: $member[1] }
-                                |}
-                            }
-                        }
-                    }
-                }
-            } }
-        |}
+        Concepts: [
+            for $concept in $components.Concepts[]
+            group by $name := $member.Name
+            return $concept[1]
+        ]
     }
 };
 

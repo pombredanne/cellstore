@@ -91,7 +91,7 @@ as object*
         ),
     
     (: check whether all used concepts are in the hypercube :)
-    let $hypercube-concepts := keys($report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members)
+    let $hypercube-concepts as string* := distinct-values(values($report.Hypercubes).Aspects."xbrl:Concept".Members[].Name)
     return
         (
             let $pres-concepts := 

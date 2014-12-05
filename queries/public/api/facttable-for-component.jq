@@ -100,7 +100,7 @@ let $facts :=
     if (exists($rollup) and $profile-name eq "sec")
          then 
              let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
-             let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
+             let $hc := hypercubes:hypercubes-for-components($component)[]
              let $hc := hypercubes:modify-hypercube($hc, {
                  "sec:FiscalYear" : { Type: "integer", Default: null },
                  "sec:FiscalPeriod" : { Type: "string", Default: null },

@@ -98,10 +98,7 @@ declare function reports:concepts($reports-or-ids as item*) as object*
   for $report in $reports
   let $language as string := concepts:normalize-language(( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1])
   let $role as string := ( $report.Role, $concepts:DEFAULT_COMPONENT_LINK_ROLE )[1]
-  let $report-concepts as object* := 
-        (
-            descendant-objects($report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains)[exists($$.Name)]
-        )
+  let $report-concepts as object* := $report.Concepts[]
   for $report-concept in $report-concepts
   return
     {

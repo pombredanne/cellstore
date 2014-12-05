@@ -236,12 +236,11 @@ as object*
   let $hypercube :=
     if(exists($options.Hypercube))
     then $options.Hypercube
-    else hypercubes:hypercubes-for-components(
+    else if(exists($options.HypercubeName))
+         then hypercubes:hypercubes-for-components(
              $schema,
-             if (exists($options.HypercubeName))
-             then $options.HypercubeName
-             else "xbrl:DefaultHypercube"
-    )
+             $options.HypercubeName)
+         else hypercubes:hypercubes-for-components($schema)
   return hypercubes:facts-for-hypercube(
       $hypercube,
       $archives,
@@ -302,12 +301,11 @@ declare function report-schemas:fact-table(
   let $hypercube :=
     if(exists($options.Hypercube))
     then $options.Hypercube
-    else hypercubes:hypercubes-for-components(
+    else if(exists($options.HypercubeName))
+         then hypercubes:hypercubes-for-components(
              $schema,
-             if (exists($options.HypercubeName))
-             then $options.HypercubeName
-             else "xbrl:DefaultHypercube"
-    )
+             $options.HypercubeName)
+         else hypercubes:hypercubes-for-components($schema)
   let $facts := report-schemas:facts($schema, $archives, $options)
   return hypercubes:fact-table-for-hypercube-and-facts($hypercube, $facts)
 };
