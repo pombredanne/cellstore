@@ -6,10 +6,10 @@ describe('Report', function() {
 
     var reportName, filters;
 
-    var Reports = require('../../app/reports/reports-page');
+    var Reports = require('../../../app/reports/reports-page');
     var reports;
 
-    var Report = require('../../app/report/report-page');
+    var Report = require('../../../app/report/report-page');
     var report;
 
     it('Create an fac report', function(){

@@ -4,8 +4,8 @@
 describe('Report', function(){
     var _ = require('lodash');
 
-    var Reports = require('../../app/reports/reports-page');
-    var Report = require('../../app/report/report-page');
+    var Reports = require('../../../app/reports/reports-page');
+    var Report = require('../../../app/report/report-page');
     var reports = new Reports();
     var report, reportName, conceptName;
 
