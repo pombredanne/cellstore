@@ -19,7 +19,7 @@ matrix:
   - env: CELLSTORE_CONFIG=nl
 env:
   matrix:
-  - CELLSTORE_CONFIG=sec
+  - CELLSTORE_CONFIG=secxbrl
   - CELLSTORE_CONFIG=edinet
   - CELLSTORE_CONFIG=nl
   global:

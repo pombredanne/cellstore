@@ -3,12 +3,12 @@
 //GetAttribute() returns "boolean" values and will return either "true" or null
 describe('Import-Export', function(){
 
-    var Reports = require('../../app/reports/reports-page');
+    var Reports = require('../../../app/reports/reports-page');
     var reports = new Reports();
 
     var path = require('path');
-    var invalidReportFile = path.resolve(__dirname, './data/invalid-report.json');
-    var validReportFile = path.resolve(__dirname, './data/Fundamental_Accounting_Concepts.xbrlb');
+    var invalidReportFile = path.resolve(__dirname, '../data/invalid-report.json');
+    var validReportFile = path.resolve(__dirname, '../data/Fundamental_Accounting_Concepts.xbrlb');
     var reportsCount;
     //var reportName = 'Import test';
 

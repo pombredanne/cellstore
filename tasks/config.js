@@ -38,13 +38,20 @@ if(!fs.existsSync(encryptedConfigFile)){
 
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
 // if a config/<branch>.json.enc exists we are on a production deployment branch
-var isProd = process.env.TRAVIS_BRANCH === 'master' || fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc');
-var isOnTravisAndMaster = isOnTravis && isProd && process.env.TRAVIS_PULL_REQUEST === 'false';
+var isProd = fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc');
+var isOnTravisAndProd = isOnTravis && isProd && process.env.TRAVIS_PULL_REQUEST === 'false';
+
+if(isOnTravisAndProd && process.env.TRAVIS_BRANCH !== process.env.CELLSTORE_CONFIG){
+    $.util.log('We are on Travis and on a Production branch.');
+    $.util.log('Current production branch "' + process.env.TRAVIS_BRANCH + '" doesn\'t match cellstore configuration "' + process.env.CELLSTORE_CONFIG + '"');
+    $.util.log($.util.colors.green('Nothing to do!'));
+    process.exit(0);
+}
 
 var config =
 {
     isOnTravis: isOnTravis,
-    isOnProduction: isOnTravisAndMaster,
+    isOnProduction: isOnTravisAndProd,
     buildId: buildId,
     configId: configId,
     bucketName: '',
@@ -89,7 +96,12 @@ var config =
         ],
         apiTestQueries: [
             'queries/public/test/' + configId + '/*'
-        ]
+        ],
+
+        //tests
+        protractorConfigLocal: 'tests/e2e/config/protractor-conf.js',
+        protractorConfigTravis: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
+        e2eSpecs: [ 'tests/e2e/' + configId + '/*-scenario.js' ]
     },
     credentials: {}
 };
