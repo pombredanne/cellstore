@@ -13,13 +13,13 @@ declare function accountant-converter:flatten-row-headers($layout-model as objec
 {
   copy $l := $layout-model
   modify
-    for $table in $l.TableSet[]
-    let $breakdown := $table.TableHeaders.y[]
+    for $table as object in $l.TableSet[]
+    let $breakdown as object := $table.TableHeaders.y[]
     let $headers as array := $breakdown.GroupCells
     let $first-header as array := $headers[[1]]
     let $other-headers as array := [ $headers[][position() gt 1] ]
     let $cells as array := $table.TableCells.Facts
-    let $result := accountant-converter:flatten-headers({ Headers: $other-headers, Cells: $cells}, 1)
+    let $result as object := accountant-converter:flatten-headers({ Headers: $other-headers, Cells: $cells}, 1)
     return (replace value of json $breakdown.GroupCells with [
                 copy $f := $first-header
                 modify replace value of json $f[[1]].CellSpan with size($result.Headers[])
@@ -57,13 +57,18 @@ declare %private function accountant-converter:flatten-headers(
         let $span as integer* := $first-header.CellSpan
         let $is-rightmost as boolean := size($headers) eq 1
 
-        let $cells-to-the-right := accountant-converter:take-span([$headers[][position() gt 1]], $span)
-        let $roll-up-position := (for $cell at $i in ($cells-to-the-right[[1]])[]
-                                  where $cell.RollUp
-                                  return $i, 0)[1]
-        let $roll-up-span := for $cell in ($cells-to-the-right[[1]])[]
-                             where $cell.RollUp
-                             return $cell.CellSpan
+        let $cells-to-the-right as array := accountant-converter:take-span([$headers[][position() gt 1]], $span)
+        let $first-column-of-cells-to-the-right as object* := ($cells-to-the-right[[1]])[]
+        let $has-rollup := exists($first-column-of-cells-to-the-right.RollUp[$$])
+        let $roll-up-position as integer? :=
+            switch(true)
+            case not $has-rollup return 0
+            case $first-column-of-cells-to-the-right[1].RollUp return 1
+            default return $span
+        let $roll-up-span as integer? :=
+            for $cell in $first-column-of-cells-to-the-right
+            where $cell.RollUp
+            return $cell.CellSpan
         let $cells-to-the-right-no-rollup:= switch($roll-up-position)
                                             case 1 return accountant-converter:remove-span($cells-to-the-right, $roll-up-span)
                                             case $span return accountant-converter:take-span($cells-to-the-right, $span - $roll-up-span)
@@ -99,21 +104,11 @@ declare %private function accountant-converter:flatten-headers(
                                            return $n
         
         return {
-            (:OriginalCells: $cells,
-            CellsToTheRight: $cells-to-the-right,
-            RollUpPosition: $roll-up-position,
-            RollUpSpan: $roll-up-span,
-            CellsToTheRightNoRollUp: $cells-to-the-right-no-rollup,
-            ChildrenCells: $children-cells,:)
             Headers: [
                 [
-                    if($roll-up-position = (0, 1))
-                    then $new-first-header
-                    else (),
+                    $new-first-header[$roll-up-position = (0, 1)],
                     $converted-children.Headers[][],
-                    if($roll-up-position eq $span and $roll-up-position ne 1)
-                    then $new-first-header
-                    else (),
+                    $new-first-header[not $roll-up-position = (0, 1)],
                     $converted-bottom.Headers[][]
                 ]
             ],

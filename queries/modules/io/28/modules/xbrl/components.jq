@@ -797,7 +797,7 @@ declare function components:merge($components as object*) as object
                                 Members: {|
                                     for $member in values($components.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members)
                                     group by $name := $member.Name
-                                    return { $name: $member }
+                                    return { $name: $member[1] }
                                 |}
                             }
                         }
