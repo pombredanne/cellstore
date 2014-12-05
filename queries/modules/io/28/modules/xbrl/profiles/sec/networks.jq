@@ -645,7 +645,7 @@ declare function sec-networks:abstracts($networks as object*) as object*
 declare function sec-networks:concepts($networks as object*) as object*
 {
   for $sec-network in $networks
-  let $concept-metadata as object* := ($networks.Concepts[])
+  let $concept-metadata as object* := ($sec-network.Concepts[])
     [not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem")][not $$.IsAbstract]
   return $concept-metadata
 };
