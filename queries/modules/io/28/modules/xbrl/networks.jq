@@ -121,6 +121,7 @@ declare function networks:merge($networks as object*) as object*
             Label: $concept[1].Label,
             To: [ networks:merge-trees($concept.To[]) ]
           }
+        ]
     } 
 };
 
