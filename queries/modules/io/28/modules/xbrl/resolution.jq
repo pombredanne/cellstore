@@ -143,12 +143,6 @@ declare %private function resolution:labels(
     $label-role as string,
     $options as object?) as string*
 {
-    let $components-with-the-language-as-default :=
-        for $component in $components
-        let $default-language := ($component.DefaultLanguage, "en-US")[1]
-        where not $default-language ne $options.Language
-        return $component
-
     let $labels-from-local-metadata as string* :=
         for $local-metadata as object in $components.Concepts[]
         let $local-metadata-name := $local-metadata.Name
