@@ -18,10 +18,84 @@ $ npm install && bower install
 ```
 
 ## Configuration
-<Add missing text here>
+To create a CellStore deployment `<name>` you need to add a config file `config/<name>.json` with the following example structure:
+```json
+{
+    "all": {
+        "githubToken": "oiifwjro984t834toaihzg9riejloi",
+
+        "s3-region": "us-east-1",
+        "s3-bucketPrefix": "csms.example.com",
+        "s3-key": "ADUREIGMKODJAEO43SAJ3",
+        "s3-secret": "lkhsohqDFhsasdhaAFjaFajajfdWEhDFHAjhud4e4",
+        "s3-reportsBucket": "e2eFailureTestReportBucket",
+
+        "28-projectPrefix": "example-project",
+        "28-email": "user@example.com",
+        "28-password": "<password>",
+        "28-datasource-conn": "set-lskjdfaoieurlkajpoidgja/db.example.com:27017,db.example.com:27017",
+        "28-datasource-db": "db",
+        "28-datasource-user": "dbuser",
+        "28-datasource-pass": "<password>",
+
+        "cellstore-profile": "generic",
+        "cellstore-filteredAspects": "2",
+        "cellstore-allowRegistration": "true",
+        "cellstore-adminUser": "admin@example.com",
+        "cellstore-testUser": "testuser@example.com",
+
+        "netdna-companyAlias": "mycompanyalias",
+        "netdna-consumerKey": "klsjfoaoiqje8ahofdkgjoeqiutjae",
+        "netdna-consumerSecret": "lskajforeiwutjgheqoiajejkweasdf",
+
+        "sendmail-host": "smtp.example.com:995/tls/novalidate-cert",
+        "sendmail-user": "admin@example.com",
+        "sendmail-password": "<password>",
+        "sendmail-sender-email": "hello@example.com",
+        "sendmail-sender-name": "CellStore Example Setup"
+    },
+    "dev": {
+        "cellstore-adminPassword": "<password>",
+        "cellstore-testPassword": "<password>",
+        "cellstore-testToken": "secret",
+
+        "netdna-zone": "none"
+    },
+    "prod": {
+        "cellstore-adminPassword": "<password>",
+        "cellstore-testPassword": "<password>",
+        "cellstore-testToken": "cdjfalsk-slke-4dkd-73jd-kjsdhfakhjde",
+
+        "netdna-zone": "189474"
+    }
+}
+```
+
+Encrypt your config file and add the encrypted `config/<name>.json.enc` to the repo:
+```bash
+$ export TRAVIS_SECRET_KEY=<secret>
+$ gulp encrypt --build-id=test --config=<name>
+$ git add config/<name>.json.enc
+```
+
+On github create a branch called `test`. With the matching config file name you have then created a production branch
+which automatically deploys to your production s3 bucket and 28.io project as defined in your configuration.
+
+Optionally:
+- add reports for your deployment to `data/<name>/`
+- add API tests to `queries/public/test/<name>/`
+- add e2e tests to `tests/e2e/<name>`
+
+## Environment Variables
+You might want to set the following environment variables for convenience:
+```bash
+$ export TRAVIS_SECRET_KEY=<secret> # to decrypt / encrypt config files
+$ export CELLSTORE_BUILD_ID=<mybuild-id> # default build-id if --build-id=xyz is not provided
+$ export CELLSTORE_CONFIG=<name> # default config if --config=xyz is not provided
+```
 
 ## Deployment
-Create a CellStore deployment called test using the `sec.json` configuration.
+Create a CellStore deployment called test using the encrypted configuration in `config/sec.json.enc`.
 ```bash
 $ gulp 28:setup --build-id=test --config=sec
 ```
@@ -49,10 +123,10 @@ gulp server:prod --config=sec
 
 Run UI tests only:
 ```bash
-gulp test --build-id=mydemo
+gulp test --build-id=mydemo --config=sec
 ```
 
 Run unit test:
 ```bash
-gulp test:unit
+gulp test:unit --build-id=mydemo --config=sec
 ```
