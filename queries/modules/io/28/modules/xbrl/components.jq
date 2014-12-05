@@ -711,7 +711,7 @@ declare function components:standard-definition-models-for-components($component
 
     let $lineitems as string* := ()
     let $presentation-network as object? := networks:networks-for-components-and-short-names($component, "Presentation")
-    let $roots as string* := keys($presentation-network.Trees)
+    let $roots as string* := $presentation-network.Trees[].Name
     let $lineitems as string* := if(exists($lineitems)) then $lineitems else $roots
     let $y-breakdowns as object := components:standard-concept-breakdown($lineitems, $component.Role)
 

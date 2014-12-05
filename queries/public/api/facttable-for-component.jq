@@ -114,7 +114,7 @@ let $facts :=
                 then
                     for $d in $rollup[]
                     return
-                        keys(descendant-objects($p)[$$.Name = keys($map.Trees($d).To)][1].To)
+                        descendant-objects($p)[$$.Name = ($map.Trees[])[$$.Name eq $d].To[].Name][1].To[].Name
                 else
                     for $d in $rollup[]
                     return ($d, keys(descendant-objects($p)[$$.Name eq $d].To))

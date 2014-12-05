@@ -314,7 +314,7 @@ declare function sec-networks:model-structures($networks as object*) as object*
       $networks:PRESENTATION_NETWORK)
   return sec-networks:model-structures-recursive(
       $sec-network,
-      values($presentation-network.Trees),
+      $presentation-network.Trees[],
       "None",
       1)
 };
@@ -461,7 +461,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
 
     let $lineitems as string* := sec-networks:line-items-report-elements($component).Name
     let $presentation-network as object? := networks:networks-for-components-and-short-names($component, "Presentation")
-    let $roots as string* := keys($presentation-network.Trees)
+    let $roots as string* := distinct-values($presentation-network.Trees[].Name)
     let $lineitems as string* := if(exists($lineitems)) then $lineitems else $roots
     let $y-breakdowns as object := components:standard-concept-breakdown($lineitems, $component.Role)
 

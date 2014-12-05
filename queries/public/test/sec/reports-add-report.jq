@@ -22,14 +22,14 @@ declare variable $newReport as object :=
             "Kind" : "InterConceptTreeNetwork",
             "ShortName" : "Presentation",
             "CyclesAllowed" : "undirected",
-            "Trees" : {
-                "t:ReportLineItems" : {
+            "Trees" : [
+                {
                     "Id" : "3ef962e3-a913-464e-94be-f78a689d15ae",
                     "Name" : "t:ReportLineItems",
                     "Label" : "test",
                     "Order" : 1
                 }
-            }
+            ]
         } ],
         "Hypercubes" : {
             "xbrl:DefaultHypercube" : {

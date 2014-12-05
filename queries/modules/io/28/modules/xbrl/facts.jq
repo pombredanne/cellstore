@@ -922,7 +922,7 @@ declare function facts:facts-for-internal(
       else 
           (: default rules are applied to every concept :)
           $concepts
-  let $all-concepts-computable-by-maps as string* := keys($concept-maps.Trees)
+  let $all-concepts-computable-by-maps as string* := $concept-maps.Trees[].Name
 
   (: determine concepts that should be computed with the cache :)
   let $concepts-in-cache as string* := $concepts[$concepts-from-cache = $$]
@@ -1372,13 +1372,14 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
         then $options.facts-for-archives-and-concepts
         else facts:facts-for-archives-and-concepts#3
 
-    let $all-mapped-concepts := 
+    let $all-mapped-concepts as string* := 
       distinct-values(
-        for $concept in $concepts 
-        let $children := $concept-maps.Trees.$concept.To
+        for $object in $concept-maps.Trees[]
+        where $object.Name = $concepts
+        let $children as object* := $object.To[]
         return
           if (exists($children))
-          then (keys($children), $children[].Name)
+          then $children.Name
           else $concept
       )
 
@@ -1432,10 +1433,11 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
     group by $uncovered-filter :=
         facts:canonical-grouping-key($facts, $facts:CONCEPT)
     return
-    for $concept in $concepts
-    let $children := $concept-maps.Trees.$concept.To
+    for $object in $concept-maps.Trees[]
+    where $object.Name = $concepts
+    let $children as object* := $object.To[]
     for $fact as object in
-          for $candidate-concept in (keys($children), $children[].Name)
+          for $candidate-concept in $children.Name
           let $facts := $facts[$$.Aspects.$facts:CONCEPT = $candidate-concept]
           where exists($facts)
           count $c
@@ -1851,7 +1853,7 @@ declare %private function facts:flatten-concept-maps(
   $concept-maps as object*
 ) as object*
 {
-  facts:flatten-concept-maps($concept-maps, keys($concept-maps.Trees))
+  facts:flatten-concept-maps($concept-maps, $concept-maps.Trees[].Name)
 };
 
 (:~
@@ -1864,9 +1866,9 @@ declare %private function facts:flatten-concept-maps(
   $concepts as string*
 ) as object*
 {
-    for $key in $concepts
-    let $children := $concept-maps.Trees.$key.To
-    let $val := (keys($children), $children[].Name)
+    for $concept in $concept-maps.Trees[]
+    where $concept.Name = $concepts
+    let $val as object* := $concept.To[].Name
     where exists($val)
     return {$key:[$val]}
 };

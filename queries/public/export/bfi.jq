@@ -125,29 +125,29 @@ return
 
 (: Presentation :)
 let $presentation := $report.Networks[][$$.ShortName eq "Presentation"]
-let $concepts :=
-    {
-      "fac:CommonStockSharesAuthorized": {
+let $concepts as array :=
+    [
+      {
         "Name" : "fac:CommonStockSharesAuthorized",
         "Label" : "Common Stock Shares (authorized)",
         "Id" : "e7c449eb-4e1b-4d20-af35-b783cfdab03e"
       },
-      "fac:CommonStockSharesIssued": {
+      {
         "Name" : "fac:CommonStockSharesIssued",
         "Label" : "Common Stock Shares (issued)",
         "Id" : "a8a4ae32-0424-437e-a645-428398f95f9c"
       },
-      "fac:CommonStockSharesOutstanding": {
+      {
         "Name" : "fac:CommonStockSharesOutstanding",
         "Label" : "Common Stock Shares (outstanding)",
         "Id" : "f51e72c7-a3ce-4639-99b0-47ca36d54a7b"
       }
-    }
-let $genInfo := $presentation.Trees."fac:FundamentalAccountingConceptsLineItems".To."fac:FundamentalAccountingConceptsHierarchy".To."fac:GeneralInformationHierarchy"
+    ]
+let $genInfo := $presentation.Trees[$$.Name eq "fac:FundamentalAccountingConceptsLineItems"].To[$$.Name eq "fac:FundamentalAccountingConceptsHierarchy"].To[$$.Name eq "fac:GeneralInformationHierarchy"]
 return
   {
     replace value of json $presentation.LinkRole with $role;
-    replace value of json $genInfo.To with {| ( $genInfo.To, $concepts ) |};
+    replace value of json $genInfo.To with [ ( $genInfo.To[], $concepts ) ];
   }
 
 (: Hypercube :)
@@ -177,9 +177,9 @@ return
 
 (: ConceptMap :)
 let $conceptMap := $report.Networks[][$$.ShortName eq "ConceptMap"]
-let $mappings :=
-    {
-      "fac:CommonStockSharesAuthorized" : {
+let $mappings as array :=
+    [
+      {
         "Name" : "fac:CommonStockSharesAuthorized",
         "Label" : "Common Stock Shares (authorized)",
         "To" : {
@@ -191,7 +191,7 @@ let $mappings :=
         "Id" : "372f39c9-c8ed-4654-a424-6f033bb0ddd2"
 
       },
-      "fac:CommonStockSharesIssued" : {
+      {
         "Name" : "fac:CommonStockSharesIssued",
         "Label" : "Common Stock Shares (issued)",
         "To" : {
@@ -202,7 +202,7 @@ let $mappings :=
         },
         "Id" : "66226139-512f-4edd-8c18-6d7e307a1f66"
       },
-      "fac:CommonStockSharesOutstanding" : {
+      {
         "Name" : "fac:CommonStockSharesOutstanding",
         "Label" : "Common Stock Shares (outstanding)",
         "To" : {
@@ -219,11 +219,11 @@ let $mappings :=
         },
         "Id" : "91b87448-a8dd-4739-9cdf-2cdaef6a4ff6"
       }
-    }
+    ]
 return
   {
     replace value of json $conceptMap.LinkRole with $role;
-    replace value of json $conceptMap.Trees with {| $conceptMap.Trees, $mappings |};
+    replace value of json $conceptMap.Trees with [ $conceptMap.Trees[], $mappings ];
   }
 
 (: DefinitionModel :)

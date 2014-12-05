@@ -337,7 +337,7 @@ declare function hypercubes:populate-networks-with-retrieved-facts(
   return
     copy $result := $networks
     modify
-      for $concept in descendant-objects(values($result.Trees))[exists($$.Name)]
+      for $concept in descendant-objects($result.Trees)[exists($$.Name)]
       let $name := $concept.Name
       return insert json { "Facts" : $fact-table-by-concepts.$name } into $concept
     return $result

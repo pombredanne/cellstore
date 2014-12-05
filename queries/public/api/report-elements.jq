@@ -70,11 +70,11 @@ declare function local:concepts-for-archives(
     let $concepts-computable-by-maps as object* := 
         switch(true)
             case not exists($map) return ()
-            case not exists($names) return values($map.Trees)
+            case not exists($names) return $map.Trees[]
             default return
-                let $keys as string* := keys($map.Trees)
+                let $keys as string* := $map.Trees[].Name
                 for $concept as string in $names[$$ = $keys]
-                return $map.Trees.$concept
+                return ($map.Trees[])[$$.Name eq $concept]
     let $mapped-names as string* := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
     let $concepts-not-computable-by-maps as string* := seq:value-except($names, $mapped-names)
 
