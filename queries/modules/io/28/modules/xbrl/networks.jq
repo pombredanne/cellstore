@@ -117,8 +117,8 @@ declare function networks:merge($networks as object*) as object*
           for $concept in $networks.Trees[]
           group by $name := $concept.Name
           return {
-            Name: $name
-            Label: $concept[1].Label
+            Name: $name,
+            Label: $concept[1].Label,
             To: [ networks:merge-trees($concept.To[]) ]
           }
     } 
