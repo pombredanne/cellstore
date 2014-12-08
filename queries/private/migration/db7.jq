@@ -15,7 +15,7 @@ return (
   for $object in descendant-objects(
     $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
   )
-  return for $key in $object
+  return for $key in keys($object)
          where not $key = ("Name", "Value", "PreferredLabelRole")
          return delete json $object.$key,
 
