@@ -18,7 +18,7 @@ $ npm install && bower install
 ```
 
 ## Configuration
-To create a CellStore deployment `<name>` you need to add a config file `config/<name>.json` with the following [example structure](configuration-example).
+To create a CellStore deployment `<name>` you need to add a config file `config/<name>.json` with the following [example structure](#configuration-example).
 
 Encrypt your config file and add the encrypted `config/<name>.json.enc` to the repo:
 ```bash
