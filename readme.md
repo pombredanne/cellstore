@@ -18,7 +18,69 @@ $ npm install && bower install
 ```
 
 ## Configuration
-To create a CellStore deployment `<name>` you need to add a config file `config/<name>.json` with the following example structure:
+To create a CellStore deployment `<name>` you need to add a config file `config/<name>.json` with the following [example structure](#configuration-example).
+
+Encrypt your config file and add the encrypted `config/<name>.json.enc` to the repo:
+```bash
+$ export TRAVIS_SECRET_KEY=<secret>
+$ gulp encrypt --build-id=test --config=<name>
+$ git add config/<name>.json.enc
+```
+
+On github create a branch called `test`. With the matching config file name you have then created a production branch
+which automatically deploys to your production s3 bucket and 28.io project as defined in your configuration.
+
+Optionally:
+- add reports for your deployment to `data/<name>/`
+- add API tests to `queries/public/test/<name>/`
+- add e2e tests to `tests/e2e/<name>`
+
+## Environment Variables
+You might want to set the following environment variables for convenience:
+```bash
+$ export TRAVIS_SECRET_KEY=<secret> # to decrypt / encrypt config files
+$ export CELLSTORE_BUILD_ID=<mybuild-id> # default build-id if --build-id=xyz is not provided
+$ export CELLSTORE_CONFIG=<name> # default config if --config=xyz is not provided
+```
+
+## Deployment
+Create a CellStore deployment called test using the encrypted configuration in `config/sec.json.enc`.
+```bash
+$ gulp 28:setup --build-id=test --config=sec
+```
+
+To remove a deployment:
+Once you are done:
+```bash
+$ gulp teardown --build-id=test --config=sec
+```
+
+## Frontend Development
+
+Runs the frontend locally using the `sec.json` configuration:
+
+```bash
+$ gulp server --build-id=mydemo --config=sec
+```
+
+Run the built version (uglified etc.)
+```bash
+gulp server:prod --build-id=mydemo --config=sec
+```
+
+## Testing
+
+Run UI tests only:
+```bash
+gulp test --build-id=mydemo --config=sec
+```
+
+Run unit test:
+```bash
+gulp test:unit --build-id=mydemo --config=sec
+```
+
+## Configuration Example
 ```json
 {
     "all": {
@@ -69,64 +131,4 @@ To create a CellStore deployment `<name>` you need to add a config file `config/
         "netdna-zone": "189474"
     }
 }
-```
-
-Encrypt your config file and add the encrypted `config/<name>.json.enc` to the repo:
-```bash
-$ export TRAVIS_SECRET_KEY=<secret>
-$ gulp encrypt --build-id=test --config=<name>
-$ git add config/<name>.json.enc
-```
-
-On github create a branch called `test`. With the matching config file name you have then created a production branch
-which automatically deploys to your production s3 bucket and 28.io project as defined in your configuration.
-
-Optionally:
-- add reports for your deployment to `data/<name>/`
-- add API tests to `queries/public/test/<name>/`
-- add e2e tests to `tests/e2e/<name>`
-
-## Environment Variables
-You might want to set the following environment variables for convenience:
-```bash
-$ export TRAVIS_SECRET_KEY=<secret> # to decrypt / encrypt config files
-$ export CELLSTORE_BUILD_ID=<mybuild-id> # default build-id if --build-id=xyz is not provided
-$ export CELLSTORE_CONFIG=<name> # default config if --config=xyz is not provided
-```
-
-## Deployment
-Create a CellStore deployment called test using the encrypted configuration in `config/sec.json.enc`.
-```bash
-$ gulp 28:setup --build-id=test --config=sec
-```
-
-To remove a deployment:
-Once you are done:
-```bash
-$ gulp teardown --build-id=test --config=sec
-```
-
-### Frontend Development
-
-Runs the frontend locally using the `sec.json` configuration:
-
-```bash
-$ gulp server --config=sec
-```
-
-Run the built version (uglified etc.)
-```bash
-gulp server:prod --config=sec
-```
-
-## Testing
-
-Run UI tests only:
-```bash
-gulp test --build-id=mydemo --config=sec
-```
-
-Run unit test:
-```bash
-gulp test:unit --build-id=mydemo --config=sec
 ```
