@@ -19,21 +19,21 @@ var buildId = args['build-id'];
 if(buildId === undefined || buildId === ''){
     var msg = 'no buildId available. ' + $.util.colors.red('Command line argument --build-id missing.');
     $.util.log(msg);
-    throw new Error(msg);
+    throw new $.util.PluginError('tasks/config.js', msg);
 }
 
 var configId = args.config;
 if(configId === undefined || configId === ''){
     var msg = 'no configId available. ' + $.util.colors.red('Command line argument --config or env variable CELLSTORE_CONFIG missing.');
     $.util.log(msg);
-    throw new Error(msg);
+    throw new $.util.PluginError('tasks/config.js', msg);
 }
 var unencryptedConfigFile = 'config/' + configId + '.json';
 var encryptedConfigFile = unencryptedConfigFile + '.enc';
 if(!fs.existsSync(encryptedConfigFile)){
     var msg = 'Invalid --config command line argument. ' + $.util.colors.red('Config file ' + encryptedConfigFile + ' does not exist.');
     $.util.log(msg);
-    throw new Error(msg);
+    throw new $.util.PluginError('tasks/config.js', msg);
 }
 
 var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;

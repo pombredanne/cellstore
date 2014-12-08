@@ -19,10 +19,14 @@ var Options = {
     OVERWRITE_IF_NEWER: 3
 };
 
-var throwError = function(error) {
-    throw error;
+var throwError = function (error) {
+    var message = JSON.stringify(error);
+    if(error.body){
+        message = JSON.stringify(error.body, null, '\t');
+    }
+    var pluginError = new $.util.PluginError('tasks/28.js', message);
+    return Q.reject(pluginError);
 };
-
 
 var login = function(email, password){
     $.util.log('Logging in as ' + email);
@@ -95,50 +99,37 @@ var upload = function(projectName){
     });
 };
 
-var runQueries = function(projectName, runQueries) {
-    var sequence = [];
+var runQueries = function(projectName, queriesToRun) {
+    var sequenceOfQueries = [];
+    queriesToRun.forEach(function(queries){
+        queries = expand(queries);
+        queries.forEach(function(query) {
+            var queryPath = query.substring(Config.paths.queries.length + 1);
+            sequenceOfQueries.push(queryPath);
+        });
+    });
+
     var Queries = $28.api.Queries(projectName);
     /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
-    runQueries.forEach(function(queries){
-        queries = expand(queries);
-        var batch = [];
-        queries.forEach(function(query){
-            var queryPath = query.substring(Config.paths.queries.length + 1);
-            batch.push(function(credentials) {
-                /*jshint camelcase:false */
-                return Queries.executeQuery({
-                    accept: 'application/28.io+json',
-                    queryPath: queryPath,
-                    format: '',
-                    token: projectToken
-                }).then(function (data) {
-                    $.util.log(('✓ '.green) + queryPath + ' returned with status code: ' + data.response.statusCode);
-                    return credentials;
-                }).catch(function (error) {
-                    $.util.log(error.response.request.href.red);
-                    $.util.log(('✗ '.red) + queryPath + ' returned with status code: ' + error.response.statusCode);
-                    throw error;
-                });
-            });
-        });
-
-        sequence.push(function(credentials){
-            var promises = [];
-            batch.forEach(function(unit){
-                promises.push(unit(credentials));
-            });
-            return Q.allSettled(promises).then(function(results){
-                results.forEach(function (result) {
-                    if (result.state !== 'fulfilled') {
-                        throw new Error('Some queries failed.');
-                    }
-                });
+    return sequenceOfQueries.reduce(function(previousPromise, nextQuery){
+        return previousPromise.then(function(){
+            return Queries.executeQuery({
+                accept: 'application/28.io+json',
+                queryPath: nextQuery,
+                format: '',
+                token: projectToken
+            }).then(function (data) {
+                $.util.log(('✓ '.green) + nextQuery + ' returned with status code: ' + data.response.statusCode);
                 return credentials;
+            }).catch(function (error) {
+                var requestUri = error.response.request.uri;
+                var href = requestUri.host + requestUri.pathname;
+                $.util.log(('✗ '.red) + href + ' returned with status code: ' + $.util.colors.red(error.response.statusCode));
+                throw error;
             });
         });
-    });
-    return sequence.reduce(Q.when, Q());
+    }, /* init: */ Q.resolve());
 };
 
 var createDatasource = function(projectName, datasource){
@@ -154,7 +145,7 @@ var createDatasource = function(projectName, datasource){
             defered.resolve(credentials);
         })
         .catch(function (error) {
-            $.util.log('datasource creation failed: ' + error);
+            $.util.log('datasource creation failed: ' + datasource.name);
             defered.reject(error);
         });
     } else {
