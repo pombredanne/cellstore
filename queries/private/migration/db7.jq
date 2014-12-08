@@ -1,6 +1,5 @@
-import module namespace config = "http://apps.28.io/config";
-
 for $report in collection("reports")
+where empty($report.Concepts)
 return (
   for $object in descendant-objects($report)
   where exists($object.Trees)
