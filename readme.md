@@ -18,7 +18,7 @@ $ npm install && bower install
 ```
 
 ## Configuration
-To create a CellStore deployment `<name>` you need to add a config file `config/<name>.json` with the following [example structure](https://github.com/28msec/cellstore/tree/master/sample.json).
+To create a CellStore deployment `<name>` you need to add a config file `config/<name>.json` with the following [example structure](configuration-example).
 
 Encrypt your config file and add the encrypted `config/<name>.json.enc` to the repo:
 ```bash
@@ -80,7 +80,7 @@ Run unit test:
 gulp test:unit --build-id=mydemo --config=sec
 ```
 
-## Configuration example
+## Configuration Example
 ```json
 {
     "all": {
