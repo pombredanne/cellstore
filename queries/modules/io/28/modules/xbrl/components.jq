@@ -555,17 +555,18 @@ declare function components:standard-typed-dimension-breakdown($dimension-name a
 
 declare function components:standard-explicit-dimension-breakdown(
     $dimension-name as string,
-    $dimension-label as string,
+    $dimension-label as string?,
     $domain-names as string*,
     $role as string) as object
 {
-    {
-        BreakdownLabels: [ $dimension-label || " breakdown" ],
+    let $label := ($dimension-label, $dimension-name)[1]
+    return {
+        BreakdownLabels: [ $label || " breakdown" ],
         BreakdownTrees: [
             {
                 Kind: "Rule",
                 Abstract: true,
-                Labels: [ $dimension-label ],
+                Labels: [ $label ],
                 Children: [
                     for $domain as string in $domain-names
                     return {
