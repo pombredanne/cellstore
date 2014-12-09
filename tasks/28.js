@@ -108,6 +108,11 @@ var runQueries = function(projectName, queriesToRun) {
         });
     });
 
+    if (sequenceOfQueries.length === 0){
+        $.util.log('At least 1 query to init and for the API tests need to be provided.'.red);
+        throw new Error('No queries to run for: ' + JSON.stringify(queriesToRun));
+    }
+
     var Queries = $28.api.Queries(projectName);
     /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
