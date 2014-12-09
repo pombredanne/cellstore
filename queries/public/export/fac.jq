@@ -1,5 +1,7 @@
 jsoniq version "1.0";
 
+import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
+
 declare variable $id := "FundamentalAccountingConcepts";
 declare variable $report := find("reports",{ "_id" :  $id });
 declare variable $desc :=
@@ -20,7 +22,7 @@ declare function local:convert($item as item) as item*
         for $key in keys($object)
         return
             switch($key)
-            (:case "To" return { $key : [ (values($object.$key)) ! (local:convert($$)) ] }:)
+            case "To" return { $key : [ (values($object.$key)) ! (local:convert($$)) ] }
             case "children" return ()
             case "expanded" return ()
             case "$$hashKey" return ()
@@ -34,51 +36,51 @@ declare function local:convert($item as item) as item*
 if($id eq "FundamentalAccountingConcepts")
 then
     {
-        replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Entity" with
+        replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."xbrl:Entity" with
             {
               "Name": "xbrl:Entity",
-              "Label": "Reporting Entity",
+              "Label": "Reporting Entity [Axis]",
               "Kind": "TypedDimension",
               "Type": "string",
               "DomainRestriction": {
                 "Name": "xbrl:EntityDomain",
-                "Label": "Entity Domain",
-                "Enumeration": [ "http://www.sec.gov/CIK 0001403161","http://www.sec.gov/CIK 0000004962","http://www.sec.gov/CIK 0000019617","http://www.sec.gov/CIK 0000030554","http://www.sec.gov/CIK 0000034088","http://www.sec.gov/CIK 0000040545","http://www.sec.gov/CIK 0000066740","http://www.sec.gov/CIK 0000078003","http://www.sec.gov/CIK 0000080424","http://www.sec.gov/CIK 0000093410","http://www.sec.gov/CIK 0000101829","http://www.sec.gov/CIK 0000310158","http://www.sec.gov/CIK 0000320187","http://www.sec.gov/CIK 0000354950","http://www.sec.gov/CIK 0000732712","http://www.sec.gov/CIK 0000732717","http://www.sec.gov/CIK 0000789019","http://www.sec.gov/CIK 0000858877","http://www.sec.gov/CIK 0000886982","http://www.sec.gov/CIK 0001001039","http://www.sec.gov/CIK 0000012927","http://www.sec.gov/CIK 0000018230","http://www.sec.gov/CIK 0000021344","http://www.sec.gov/CIK 0000050863","http://www.sec.gov/CIK 0000051143","http://www.sec.gov/CIK 0000063908","http://www.sec.gov/CIK 0000086312","http://www.sec.gov/CIK 0000104169","http://www.sec.gov/CIK 0000200406","http://www.sec.gov/CIK 0000731766" ]
+                "Label": "Reporting Entity [Domain]",
+                "Enumeration": [ companies:companies-for-tags("DOW30")."_id" ]
               }
             };
-        replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Aspects."sec:FiscalYear" with
+        replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."sec:FiscalYear" with
             {
               "Name": "sec:FiscalYear",
-              "Label": "Fiscal Year",
+              "Label": "Fiscal Year [Axis]",
               "Kind": "TypedDimension",
               "Type": "integer",
               "DomainRestriction": {
                 "Name": "sec:FiscalYearDomain",
-                "Label": "Fiscal Year Domain",
+                "Label": "Fiscal Year [Domain]",
                 "Enumeration": [ 2013 ]
               }
             };
-        replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Aspects."sec:FiscalPeriod" with
+        replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."sec:FiscalPeriod" with
             {
               "Name": "sec:FiscalPeriod",
-              "Label": "Fiscal Period",
+              "Label": "Fiscal Period [Axis]",
               "Kind": "TypedDimension",
               "Type": "string",
               "DomainRestriction": {
                 "Name": "sec:FiscalPeriodDomain",
-                "Label": "Fiscal Period Domain",
+                "Label": "Fiscal Period [Domain]",
                 "Enumeration": [ "FY" ]
               }
             };
-        replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Aspects."sec:FiscalPeriodType" with
+        replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."sec:FiscalPeriodType" with
                     {
                       "Name": "sec:FiscalPeriodType",
-                      "Label": "Fiscal Period Type",
+                      "Label": "Fiscal Period Type [Axis]",
                       "Kind": "TypedDimension",
                       "Type": "string",
                       "DomainRestriction": {
                         "Name": "sec:FiscalPeriodTypeDomain",
-                        "Label": "Fiscal Period Type Domain",
+                        "Label": "Fiscal Period Type [Domain]",
                         "Enumeration": [ "instant", "YTD" ]
                       }
                     };
@@ -86,13 +88,15 @@ then
 else ();
 
 (: remove archives filter :)
-for $arch in $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl28:Archive"
+for $arch in $report.Hypercubes."xbrl28:ImpliedTable".Aspects."xbrl28:Archive"
 where exists($arch.DomainRestriction)
 return
-    replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl28:Archive" with
+    replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."xbrl28:Archive" with
     {
         "Name": "xbrl28:Archive",
-        "Label": "Archive ID"
+        "Label": "Archive ID",
+        "Kind": "TypedDimension",
+        "Type": "string"
     };
 
 for $rule in $report.Rules[]
@@ -130,6 +134,7 @@ local:convert(
       Rules: [ for $rule in $report.Rules[]
                order by $rule.ComputableConcepts[][1], $rule.Id descending empty least
                return $rule ],
+      Concepts: $report.Concepts,
       Filters: {
         cik: [  ],
         tag: [ "DOW30" ],

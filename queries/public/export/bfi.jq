@@ -1,6 +1,25 @@
 jsoniq version "1.0";
 import module namespace http = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace random = "http://zorba.io/modules/random";
+
+declare %an:nondeterministic function local:concepts(){
+  {
+    "Name" : "fac:CommonStockSharesAuthorized",
+    "Label" : "Common Stock Shares (authorized)",
+    "Id" : random:uuid()
+  },
+  {
+    "Name" : "fac:CommonStockSharesIssued",
+    "Label" : "Common Stock Shares (issued)",
+    "Id" : random:uuid()
+  },
+  {
+    "Name" : "fac:CommonStockSharesOutstanding",
+    "Label" : "Common Stock Shares (outstanding)",
+    "Id" : random:uuid()
+  }
+};
 
 declare variable $id := "BasicFinancialInformation";
 declare variable $report := parse-json(http:get("http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/export/fac.jq?_method=POST").body.content);
@@ -125,101 +144,63 @@ return
 
 (: Presentation :)
 let $presentation := $report.Networks[][$$.ShortName eq "Presentation"]
-let $concepts as array :=
-    [
-      {
-        "Name" : "fac:CommonStockSharesAuthorized",
-        "Label" : "Common Stock Shares (authorized)",
-        "Id" : "e7c449eb-4e1b-4d20-af35-b783cfdab03e"
-      },
-      {
-        "Name" : "fac:CommonStockSharesIssued",
-        "Label" : "Common Stock Shares (issued)",
-        "Id" : "a8a4ae32-0424-437e-a645-428398f95f9c"
-      },
-      {
-        "Name" : "fac:CommonStockSharesOutstanding",
-        "Label" : "Common Stock Shares (outstanding)",
-        "Id" : "f51e72c7-a3ce-4639-99b0-47ca36d54a7b"
-      }
-    ]
-let $genInfo := $presentation.Trees[$$.Name eq "fac:FundamentalAccountingConceptsLineItems"].To[$$.Name eq "fac:FundamentalAccountingConceptsHierarchy"].To[$$.Name eq "fac:GeneralInformationHierarchy"]
+let $genInfo := $presentation.Trees[][$$.Name eq "fac:FundamentalAccountingConceptsLineItems"].To[][$$.Name eq "fac:FundamentalAccountingConceptsHierarchy"].To[][$$.Name eq "fac:GeneralInformationHierarchy"]
 return
   {
     replace value of json $presentation.LinkRole with $role;
-    replace value of json $genInfo.To with [ ( $genInfo.To[], $concepts ) ];
+    replace value of json $genInfo.To with [ ( $genInfo.To[], local:concepts() ) ];
   }
 
 (: Hypercube :)
-replace value of json $report.Hypercubes."xbrl:DefaultHypercube".Label with ( $label || " [Table]" );
-
-let $conceptsDomain := $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain"
-let $concepts :=
-    {
-      "fac:CommonStockSharesAuthorized": {
-        "Name" : "fac:CommonStockSharesAuthorized",
-        "Label" : "Common Stock Shares (authorized)",
-        "Id" : "e7c449eb-4e1b-4d20-af35-b783cfdab03e"
-      },
-      "fac:CommonStockSharesIssued": {
-        "Name" : "fac:CommonStockSharesIssued",
-        "Label" : "Common Stock Shares (issued)",
-        "Id" : "a8a4ae32-0424-437e-a645-428398f95f9c"
-      },
-      "fac:CommonStockSharesOutstanding": {
-        "Name" : "fac:CommonStockSharesOutstanding",
-        "Label" : "Common Stock Shares (outstanding)",
-        "Id" : "f51e72c7-a3ce-4639-99b0-47ca36d54a7b"
-      }
-    }
+let $concepts := $report.Hypercubes."xbrl28:ImpliedTable".Aspects."xbrl:Concept"
 return
-  replace value of json $conceptsDomain.Members with {| $conceptsDomain.Members, $concepts |};
+  replace value of json $concepts.Members with [ $concepts.Members, local:concepts() ];
 
 (: ConceptMap :)
 let $conceptMap := $report.Networks[][$$.ShortName eq "ConceptMap"]
-let $mappings as array :=
-    [
+let $mappings as object* :=
+    (
       {
         "Name" : "fac:CommonStockSharesAuthorized",
         "Label" : "Common Stock Shares (authorized)",
-        "To" : {
-          "us-gaap:CommonStockSharesAuthorized": {
+        "To" : [
+          {
             "Name" : "us-gaap:CommonStockSharesAuthorized",
-            "Id" : "8ed0a312-9891-4d3d-b459-67604dce2124"
+            "Id" : random:uuid()
           }
-        },
-        "Id" : "372f39c9-c8ed-4654-a424-6f033bb0ddd2"
-
+        ],
+        "Id" : random:uuid()
+    
       },
       {
         "Name" : "fac:CommonStockSharesIssued",
         "Label" : "Common Stock Shares (issued)",
-        "To" : {
-          "us-gaap:CommonStockSharesIssued": {
+        "To" : [
+          {
             "Name" : "us-gaap:CommonStockSharesIssued",
-            "Id" : "1359b87e-5f75-49f3-849b-d410cc399b50"
+            "Id" : random:uuid()
           }
-        },
-        "Id" : "66226139-512f-4edd-8c18-6d7e307a1f66"
+        ],
+        "Id" : random:uuid()
       },
       {
         "Name" : "fac:CommonStockSharesOutstanding",
         "Label" : "Common Stock Shares (outstanding)",
-        "To" : {
-          "dei:EntityCommonStockSharesOutstanding": {
+        "To" : [
+          {
             "Name" : "dei:EntityCommonStockSharesOutstanding",
-            "Id" : "b8d27670-5caa-411f-8305-860c0613c31f",
+            "Id" : random:uuid(),
             "Order" : 1
           },
-          "us-gaap:CommonStockSharesOutstanding" : {
-            "Id" : "a91849bd-0aa2-4f1c-8dcb-c85537bf36a8",
+          {
+            "Id" : random:uuid(),
             "Name" : "us-gaap:CommonStockSharesOutstanding",
             "Order" : 2
           }
-        },
-        "Id" : "91b87448-a8dd-4739-9cdf-2cdaef6a4ff6"
+        ],
+        "Id" : random:uuid()
       }
-    ]
+  )
 return
   {
     replace value of json $conceptMap.LinkRole with $role;
@@ -247,6 +228,7 @@ replace value of json $report.Rules with [ $report.Rules[][$$.Id ne "default_zer
   Rules: [ for $rule in ($report.Rules[], $additionalRules)
            order by $rule.ComputableConcepts[][1], $rule.Id descending empty least
            return $rule ],
+  Concepts: [ $report.Concepts[], local:concepts() ],
   Filters: {
     cik: [  ],
     tag: [ "DOW30" ],
