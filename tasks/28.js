@@ -22,9 +22,71 @@ var Options = {
 var throwError = function (error) {
     var message = JSON.stringify(error);
     if(error.body){
-        message = JSON.stringify(error.body, null, '\t');
+        var body = error.body;
+        if(typeof body === 'string'){
+            try {
+                body = JSON.parse(body);
+            } catch (e) {
+
+            }
+        }
+        message = JSON.stringify(body, null, '\t');
+    }
+    if(error.message){
+        message = error.message;
+    }
+    if(message.length > 500){
+        message = message.substring(0, 500) + ' ... (truncated)';
     }
     throw new $.util.PluginError(__filename, message);
+};
+
+var castToJson = function(obj){
+    var result = obj;
+    if(typeof obj === 'string'){
+        try {
+            result = JSON.parse(obj);
+        } catch (e) {
+
+        }
+    }
+    return result;
+};
+
+var summarizeTestError = function(error){
+    var hasError = false;
+    if(error.body) {
+        var body = castToJson(error.body);
+        if(typeof body.items === 'object' && body.items.length > 0){
+            body = castToJson(body.items[0]);
+        }
+        if(body.content){
+            body = castToJson(body.content);
+        }
+        for (var testName in body) {
+            if (body.hasOwnProperty(testName)){
+                var testResult = body[testName];
+                if (typeof testResult === 'object') {
+                    $.util.log(testName.red + ': ' + testResult.url);
+                    if (testResult.expectedFactTable && testResult.expectedFactTable.error === true) {
+                        $.util.log(testName.red + ': ' + JSON.stringify(testResult.expectedFactTable, null, '\t'));
+                    }
+                    if (testResult.factTableDiff) {
+                        for (var diff in testResult.factTableDiff) {
+                            if (diff.expectedNumberOfFacts) {
+                                $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
+                            }
+                        }
+                        hasError = true;
+                    }
+                }
+            }
+        }
+        if (hasError) {
+            return new Error('some test queries failed');
+        }
+    }
+    return error;
 };
 
 var login = function(email, password){
@@ -128,8 +190,10 @@ var runQueries = function(projectName, queriesToRun) {
                 return credentials;
             }).catch(function (error) {
                 var requestUri = error.response.request.uri;
-                var href = requestUri.host + requestUri.pathname;
+                var isTestQuery = (requestUri.pathname.lastIndexOf('/v1/_queries/public/test', 0) === 0);
+                var href = isTestQuery ? requestUri.host + requestUri.pathname.substring('/v1/_queries/public'.length + 1) : requestUri.host + requestUri.pathname;
                 $.util.log(('✗ '.red) + href + ' returned with status code: ' + $.util.colors.red(error.response.statusCode));
+                error = isTestQuery ? summarizeTestError(error) : error;
                 throw error;
             });
         });
