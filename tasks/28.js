@@ -24,8 +24,7 @@ var throwError = function (error) {
     if(error.body){
         message = JSON.stringify(error.body, null, '\t');
     }
-    var pluginError = new $.util.PluginError('tasks/28.js', message);
-    return Q.reject(pluginError);
+    throw new $.util.PluginError(__filename, message);
 };
 
 var login = function(email, password){
