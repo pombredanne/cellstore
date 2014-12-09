@@ -23,6 +23,6 @@ let $indexes:=
   for $index in members($mw:ALL-INDEXES($coll))
   return local:check-index($conn, $coll, $index)
 return 
-  if (count($indexes) eq 14)
+  if (count($indexes) eq 15)
   then "OK"
-  else error(QName("mw:TEST-FAIL"), "Expected 21 indexes, got " || count($indexes))
+  else error(QName("mw:TEST-FAIL"), "Expected 15 indexes, got " || count($indexes))
