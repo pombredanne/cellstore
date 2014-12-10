@@ -14,18 +14,19 @@ return {
   else ();
 
   (: remove concept properties from hypercube :)
-  for $object in descendant-objects(
-    $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
-  )
-  return for $key in keys($object)
-         where not $key = ("Name", "Value", "Id")
-         return delete json $object.$key;
+    for $object in descendant-objects(
+      $report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+    )
+    where exists($object.Name)
+    return for $key in keys($object)
+           where not $key = ("Name", "Label", "Id")
+           return delete json $object.$key;
 
   (: Domains is renamed to Members + ConceptDomain removed :)
   for $object in descendant-objects($report)
   where exists($object.Domains)
-  let $domains := values($object.Domains)
-  let $members := descendant-objects($domains.Members)[exists($$.Name)]
+  let $conceptMembers := values($object.Domains."xbrl:ConceptDomain".Members)
+  let $members := if(exists($conceptMembers)) then $conceptMembers else values($object.Domains)
   return (delete json $object.Domains,
           insert json { Members : [ $members ] } into $object);
 
