@@ -1,6 +1,7 @@
 jsoniq version "1.0";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
+import module namespace export = "http://apps.28.io/reports-export";
 
 declare variable $id := "FundamentalAccountingConcepts";
 declare variable $report := find("reports",{ "_id" :  $id });
@@ -15,77 +16,54 @@ declare variable $acl :=
        }
     ];
 
-declare function local:convert($item as item) as item*
-{
-    typeswitch($item)
-    case $object as object return {|
-        for $key in keys($object)
-        return
-            switch($key)
-            case "To" return { $key : [ (values($object.$key)) ! (local:convert($$)) ] }
-            case "children" return ()
-            case "expanded" return ()
-            case "$$hashKey" return ()
-            default return { $key : local:convert($object.$key) }
-    |}
-    case $array as array return [ ($array[]) ! (local:convert($$)) ]
-    default return $item
-};
-
-
-if($id eq "FundamentalAccountingConcepts")
-then
+replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."xbrl:Entity" with
     {
-        replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."xbrl:Entity" with
-            {
-              "Name": "xbrl:Entity",
-              "Label": "Reporting Entity [Axis]",
-              "Kind": "TypedDimension",
-              "Type": "string",
-              "DomainRestriction": {
-                "Name": "xbrl:EntityDomain",
-                "Label": "Reporting Entity [Domain]",
-                "Enumeration": [ companies:companies-for-tags("DOW30")."_id" ]
-              }
-            };
-        replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."sec:FiscalYear" with
-            {
-              "Name": "sec:FiscalYear",
-              "Label": "Fiscal Year [Axis]",
-              "Kind": "TypedDimension",
-              "Type": "integer",
-              "DomainRestriction": {
-                "Name": "sec:FiscalYearDomain",
-                "Label": "Fiscal Year [Domain]",
-                "Enumeration": [ 2013 ]
-              }
-            };
-        replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."sec:FiscalPeriod" with
-            {
-              "Name": "sec:FiscalPeriod",
-              "Label": "Fiscal Period [Axis]",
-              "Kind": "TypedDimension",
-              "Type": "string",
-              "DomainRestriction": {
-                "Name": "sec:FiscalPeriodDomain",
-                "Label": "Fiscal Period [Domain]",
-                "Enumeration": [ "FY" ]
-              }
-            };
-        replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."sec:FiscalPeriodType" with
-                    {
-                      "Name": "sec:FiscalPeriodType",
-                      "Label": "Fiscal Period Type [Axis]",
-                      "Kind": "TypedDimension",
-                      "Type": "string",
-                      "DomainRestriction": {
-                        "Name": "sec:FiscalPeriodTypeDomain",
-                        "Label": "Fiscal Period Type [Domain]",
-                        "Enumeration": [ "instant", "YTD" ]
-                      }
-                    };
-    }
-else ();
+      "Name": "xbrl:Entity",
+      "Label": "Reporting Entity [Axis]",
+      "Kind": "TypedDimension",
+      "Type": "string",
+      "DomainRestriction": {
+        "Name": "xbrl:EntityDomain",
+        "Label": "Reporting Entity [Domain]",
+        "Enumeration": [ companies:companies-for-tags("DOW30")."_id" ]
+      }
+    };
+replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."sec:FiscalYear" with
+    {
+      "Name": "sec:FiscalYear",
+      "Label": "Fiscal Year [Axis]",
+      "Kind": "TypedDimension",
+      "Type": "integer",
+      "DomainRestriction": {
+        "Name": "sec:FiscalYearDomain",
+        "Label": "Fiscal Year [Domain]",
+        "Enumeration": [ 2013 ]
+      }
+    };
+replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."sec:FiscalPeriod" with
+    {
+      "Name": "sec:FiscalPeriod",
+      "Label": "Fiscal Period [Axis]",
+      "Kind": "TypedDimension",
+      "Type": "string",
+      "DomainRestriction": {
+        "Name": "sec:FiscalPeriodDomain",
+        "Label": "Fiscal Period [Domain]",
+        "Enumeration": [ "FY" ]
+      }
+    };
+replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."sec:FiscalPeriodType" with
+    {
+      "Name": "sec:FiscalPeriodType",
+      "Label": "Fiscal Period Type [Axis]",
+      "Kind": "TypedDimension",
+      "Type": "string",
+      "DomainRestriction": {
+        "Name": "sec:FiscalPeriodTypeDomain",
+        "Label": "Fiscal Period Type [Domain]",
+        "Enumeration": [ "instant", "YTD" ]
+      }
+    };
 
 (: remove archives filter :)
 for $arch in $report.Hypercubes."xbrl28:ImpliedTable".Aspects."xbrl28:Archive"
@@ -118,7 +96,7 @@ return
         else ();
     }
 
-local:convert(
+export:cleanup(
     { "_id": $id,
       Archive: null,
       Label: "Fundamental Accounting Concepts",

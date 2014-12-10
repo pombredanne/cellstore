@@ -1,23 +1,20 @@
 jsoniq version "1.0";
 import module namespace http = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
-import module namespace random = "http://zorba.io/modules/random";
+import module namespace export = "http://apps.28.io/reports-export";
 
 declare %an:nondeterministic function local:concepts(){
   {
     "Name" : "fac:CommonStockSharesAuthorized",
-    "Label" : "Common Stock Shares (authorized)",
-    "Id" : random:uuid()
+    "Label" : "Common Stock Shares (authorized)"
   },
   {
     "Name" : "fac:CommonStockSharesIssued",
-    "Label" : "Common Stock Shares (issued)",
-    "Id" : random:uuid()
+    "Label" : "Common Stock Shares (issued)"
   },
   {
     "Name" : "fac:CommonStockSharesOutstanding",
-    "Label" : "Common Stock Shares (outstanding)",
-    "Id" : random:uuid()
+    "Label" : "Common Stock Shares (outstanding)"
   }
 };
 
@@ -154,7 +151,7 @@ return
 (: Hypercube :)
 let $concepts := $report.Hypercubes."xbrl28:ImpliedTable".Aspects."xbrl:Concept"
 return
-  replace value of json $concepts.Members with [ $concepts.Members, local:concepts() ];
+  replace value of json $concepts.Members with [ $concepts.Members[], local:concepts() ];
 
 (: ConceptMap :)
 let $conceptMap := $report.Networks[][$$.ShortName eq "ConceptMap"]
@@ -165,23 +162,18 @@ let $mappings as object* :=
         "Label" : "Common Stock Shares (authorized)",
         "To" : [
           {
-            "Name" : "us-gaap:CommonStockSharesAuthorized",
-            "Id" : random:uuid()
+            "Name" : "us-gaap:CommonStockSharesAuthorized"
           }
-        ],
-        "Id" : random:uuid()
-    
+        ]
       },
       {
         "Name" : "fac:CommonStockSharesIssued",
         "Label" : "Common Stock Shares (issued)",
         "To" : [
           {
-            "Name" : "us-gaap:CommonStockSharesIssued",
-            "Id" : random:uuid()
+            "Name" : "us-gaap:CommonStockSharesIssued"
           }
-        ],
-        "Id" : random:uuid()
+        ]
       },
       {
         "Name" : "fac:CommonStockSharesOutstanding",
@@ -189,16 +181,13 @@ let $mappings as object* :=
         "To" : [
           {
             "Name" : "dei:EntityCommonStockSharesOutstanding",
-            "Id" : random:uuid(),
             "Order" : 1
           },
           {
-            "Id" : random:uuid(),
             "Name" : "us-gaap:CommonStockSharesOutstanding",
             "Order" : 2
           }
-        ],
-        "Id" : random:uuid()
+        ]
       }
   )
 return
@@ -213,27 +202,29 @@ replace value of json $report.DefinitionModels[][1].Breakdowns.y[][1].BreakdownT
 (: remove default_zero rule :)
 replace value of json $report.Rules with [ $report.Rules[][$$.Id ne "default_zero"] ];
 
-{ "_id": $id,
-  Archive: null,
-  Label: $label,
-  Description: $desc,
-  Prefix: "fac",
-  Role: $role,
-  Owner: "charlie@prudena.com",
-  LastModified: string(current-dateTime()),
-  ACL: [],
-  Networks: $report.Networks,
-  Hypercubes: $report.Hypercubes,
-  DefinitionModels: $report.DefinitionModels,
-  Rules: [ for $rule in ($report.Rules[], $additionalRules)
-           order by $rule.ComputableConcepts[][1], $rule.Id descending empty least
-           return $rule ],
-  Concepts: [ $report.Concepts[], local:concepts() ],
-  Filters: {
-    cik: [  ],
-    tag: [ "DOW30" ],
-    fiscalYear : [ 2013 ],
-    fiscalPeriod : [ "FY" ],
-    sic : [  ]
-  }
-}
+export:cleanup(
+    { "_id": $id,
+      Archive: null,
+      Label: $label,
+      Description: $desc,
+      Prefix: "fac",
+      Role: $role,
+      Owner: "charlie@prudena.com",
+      LastModified: string(current-dateTime()),
+      ACL: [],
+      Networks: $report.Networks,
+      Hypercubes: $report.Hypercubes,
+      DefinitionModels: $report.DefinitionModels,
+      Rules: [ for $rule in ($report.Rules[], $additionalRules)
+               order by $rule.ComputableConcepts[][1], $rule.Id descending empty least
+               return $rule ],
+      Concepts: [ $report.Concepts[], local:concepts() ],
+      Filters: {
+        cik: [  ],
+        tag: [ "DOW30" ],
+        fiscalYear : [ 2013 ],
+        fiscalPeriod : [ "FY" ],
+        sic : [  ]
+      }
+    }
+)
