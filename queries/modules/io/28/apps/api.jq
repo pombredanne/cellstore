@@ -126,6 +126,28 @@ declare %an:sequential function api:serialize(
         resp:header("Content-Disposition", "attachment; filename=" || $file-name || ".csv");
         $serializers.to-csv($result)
     }
+    case "html" return {
+        resp:content-type("text/html");
+        let $csv as string* := $serializers.to-csv($result)
+        return <html xmlns="http://w3.org/1999/xhtml">
+          <head>
+            <title>Cell Store REST API</title>
+          </head>
+          <body>
+            <table>
+              {
+                for $row as string in tokenize($csv, "\n")
+                return <tr>
+                  {
+                    for $cell as string in tokenize($row, ",")
+                    return <td>{$cell}</td>
+                  }
+                </tr>
+              }
+            </table>
+          </body>
+        </html>
+    }
     case "excel" return {
         resp:content-type("application/vnd.ms-excel");
         resp:header("Content-Disposition", "attachment; filename=" || $file-name || ".csv");
