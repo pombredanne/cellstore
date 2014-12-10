@@ -67,17 +67,19 @@ var summarizeTestError = function(error){
             if (body.hasOwnProperty(testName)){
                 var testResult = body[testName];
                 if (typeof testResult === 'object') {
+                    hasError = true;
                     $.util.log(testName.red + ': ' + testResult.url);
                     if (testResult.expectedFactTable && testResult.expectedFactTable.error === true) {
                         $.util.log(testName.red + ': ' + JSON.stringify(testResult.expectedFactTable, null, '\t'));
                     }
                     if (testResult.factTableDiff) {
                         for (var diff in testResult.factTableDiff) {
-                            if (diff.expectedNumberOfFacts) {
-                                $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
+                            if (testResult.factTableDiff.hasOwnProperty(diff)) {
+                                if (diff.expectedNumberOfFacts) {
+                                    $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
+                                }
                             }
                         }
-                        hasError = true;
                     }
                 }
             }
