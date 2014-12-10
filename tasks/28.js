@@ -19,10 +19,75 @@ var Options = {
     OVERWRITE_IF_NEWER: 3
 };
 
-var throwError = function(error) {
-    throw error;
+var throwError = function (error) {
+    var message = JSON.stringify(error);
+    if(error.body){
+        var body = error.body;
+        if(typeof body === 'string'){
+            try {
+                body = JSON.parse(body);
+            } catch (e) {
+
+            }
+        }
+        message = JSON.stringify(body, null, '\t');
+    }
+    if(error.message){
+        message = error.message;
+    }
+    if(message.length > 500){
+        message = message.substring(0, 500) + ' ... (truncated)';
+    }
+    throw new $.util.PluginError(__filename, message);
 };
 
+var castToJson = function(obj){
+    var result = obj;
+    if(typeof obj === 'string'){
+        try {
+            result = JSON.parse(obj);
+        } catch (e) {
+
+        }
+    }
+    return result;
+};
+
+var summarizeTestError = function(error){
+    var hasError = false;
+    if(error.body) {
+        var body = castToJson(error.body);
+        if(typeof body.items === 'object' && body.items.length > 0){
+            body = castToJson(body.items[0]);
+        }
+        if(body.content){
+            body = castToJson(body.content);
+        }
+        for (var testName in body) {
+            if (body.hasOwnProperty(testName)){
+                var testResult = body[testName];
+                if (typeof testResult === 'object') {
+                    $.util.log(testName.red + ': ' + testResult.url);
+                    if (testResult.expectedFactTable && testResult.expectedFactTable.error === true) {
+                        $.util.log(testName.red + ': ' + JSON.stringify(testResult.expectedFactTable, null, '\t'));
+                    }
+                    if (testResult.factTableDiff) {
+                        for (var diff in testResult.factTableDiff) {
+                            if (diff.expectedNumberOfFacts) {
+                                $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
+                            }
+                        }
+                        hasError = true;
+                    }
+                }
+            }
+        }
+        if (hasError) {
+            return new Error('some test queries failed');
+        }
+    }
+    return error;
+};
 
 var login = function(email, password){
     $.util.log('Logging in as ' + email);
@@ -112,50 +177,44 @@ var download = function(projectName){
     });
 };
 
-var runQueries = function(projectName, runQueries) {
-    var sequence = [];
+var runQueries = function(projectName, queriesToRun) {
+    var sequenceOfQueries = [];
+    queriesToRun.forEach(function(queries){
+        queries = expand(queries);
+        queries.forEach(function(query) {
+            var queryPath = query.substring(Config.paths.queries.length + 1);
+            sequenceOfQueries.push(queryPath);
+        });
+    });
+
+    if (sequenceOfQueries.length === 0){
+        $.util.log('At least 1 query to init and for the API tests need to be provided.'.red);
+        throw new Error('No queries to run for: ' + JSON.stringify(queriesToRun));
+    }
+
     var Queries = $28.api.Queries(projectName);
     /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
-    runQueries.forEach(function(queries){
-        queries = expand(queries);
-        var batch = [];
-        queries.forEach(function(query){
-            var queryPath = query.substring(Config.paths.queries.length + 1);
-            batch.push(function(credentials) {
-                /*jshint camelcase:false */
-                return Queries.executeQuery({
-                    accept: 'application/28.io+json',
-                    queryPath: queryPath,
-                    format: '',
-                    token: projectToken
-                }).then(function (data) {
-                    $.util.log(('✓ '.green) + queryPath + ' returned with status code: ' + data.response.statusCode);
-                    return credentials;
-                }).catch(function (error) {
-                    $.util.log(error.response.request.href.red);
-                    $.util.log(('✗ '.red) + queryPath + ' returned with status code: ' + error.response.statusCode);
-                    throw error;
-                });
-            });
-        });
-
-        sequence.push(function(credentials){
-            var promises = [];
-            batch.forEach(function(unit){
-                promises.push(unit(credentials));
-            });
-            return Q.allSettled(promises).then(function(results){
-                results.forEach(function (result) {
-                    if (result.state !== 'fulfilled') {
-                        throw new Error('Some queries failed.');
-                    }
-                });
+    return sequenceOfQueries.reduce(function(previousPromise, nextQuery){
+        return previousPromise.then(function(){
+            return Queries.executeQuery({
+                accept: 'application/28.io+json',
+                queryPath: nextQuery,
+                format: '',
+                token: projectToken
+            }).then(function (data) {
+                $.util.log(('✓ '.green) + nextQuery + ' returned with status code: ' + data.response.statusCode);
                 return credentials;
+            }).catch(function (error) {
+                var requestUri = error.response.request.uri;
+                var isTestQuery = (requestUri.pathname.lastIndexOf('/v1/_queries/public/test', 0) === 0);
+                var href = isTestQuery ? requestUri.host + requestUri.pathname.substring('/v1/_queries/public'.length + 1) : requestUri.host + requestUri.pathname;
+                $.util.log(('✗ '.red) + href + ' returned with status code: ' + $.util.colors.red(error.response.statusCode));
+                error = isTestQuery ? summarizeTestError(error) : error;
+                throw error;
             });
         });
-    });
-    return sequence.reduce(Q.when, Q());
+    }, /* init: */ Q.resolve());
 };
 
 var createDatasource = function(projectName, datasource){
@@ -171,7 +230,7 @@ var createDatasource = function(projectName, datasource){
             defered.resolve(credentials);
         })
         .catch(function (error) {
-            $.util.log('datasource creation failed: ' + error);
+            $.util.log('datasource creation failed: ' + datasource.name);
             defered.reject(error);
         });
     } else {

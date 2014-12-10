@@ -19,7 +19,7 @@ gulp.task('netdna', ['load-config'], function(done) {
             if (response) {
                 $.util.log(JSON.stringify(response));
             }
-            throw err;
+            done(JSON.stringify(err));
         } else {
             $.util.log('Purged cache for zone ' + zone);
             if (response) {
