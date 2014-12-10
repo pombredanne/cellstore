@@ -11,7 +11,7 @@
         "Grantee" : "http://28.io/groups/AllUsers",
         "Permission" : "READ"
     } ],
-    "LastModified" : "2014-12-10T16:08:01.228925Z",
+    "LastModified" : "2014-12-10T17:16:23.364758Z",
     "Networks" : [ {
         "LinkName" : "link:presentationLink",
         "LinkRole" : "http://xbrl.io/fundamental-accounting-concepts",
@@ -1366,13 +1366,437 @@
                 "xbrl:Concept" : {
                     "Name" : "xbrl:Concept",
                     "Label" : "Implicit XBRL Concept Dimension",
-                    "Members" : [  ],
-                    "Id" : "6351ca80-0631-4a2b-b12d-2578d7b632df"
+                    "Members" : [ {
+                        "Name" : "fac:ValidationStatistics",
+                        "Label" : "Validation Rule Statistics [Hierarchy]",
+                        "Id" : "944265ed-9ea0-464e-9f97-757daf1b073d"
+                    }, {
+                        "Name" : "fac:PassedValidations",
+                        "Label" : "Passed Validations",
+                        "Id" : "3e918643-9ea6-4c03-a8c2-14e9f8be6b9f"
+                    }, {
+                        "Name" : "fac:FailedValidations",
+                        "Label" : "Failing Validations",
+                        "Id" : "7b0fd2ed-00aa-46ee-9161-04c5afcc34ad"
+                    }, {
+                        "Name" : "fac:NotApplicableValidations",
+                        "Label" : "Skipped Validations (unmet preconditions)",
+                        "Id" : "74dd7e9c-2cae-43c3-b65b-a0e33bf3b20d"
+                    }, {
+                        "Name" : "fac:GrossProfitValidation",
+                        "Label" : "[IS1] GrossProfit = Revenues - CostOfRevenue",
+                        "Id" : "4cdfe4ec-79d3-4efa-8627-afba96c6f9e2"
+                    }, {
+                        "Name" : "fac:IncomeLossBeforeEquityMethodInvestmentsValidation",
+                        "Label" : "[IS3] IncomeLossBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense",
+                        "Id" : "70be6b2a-4cb8-4e4b-a028-65b9ebaed0de"
+                    }, {
+                        "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation",
+                        "Label" : "[IS4] IncomeLossFromContinuingOperationsBeforeTax = IncomeLossBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments",
+                        "Id" : "802358c4-06ec-4645-8b0a-9787577b7b07"
+                    }, {
+                        "Name" : "fac:IncomeLossFromContinuingOperationsAfterTaxValidation",
+                        "Label" : "[IS5] IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit",
+                        "Id" : "74d36e9e-5b54-4eee-ae7c-9456f01e5e85"
+                    }, {
+                        "Name" : "fac:NetIncomeLossValidation",
+                        "Label" : "[IS6] NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetOfTax + ExtraordinaryItemsOfIncomeExpenseNetOfTax",
+                        "Id" : "4f055410-a48d-4f14-b268-29313fde2bbf"
+                    }, {
+                        "Name" : "fac:NetIncomeLossValidation2",
+                        "Label" : "[IS7] NetIncomeLoss = NetIncomeLossAttributableToParent + NetIncomeLossAttributableToNoncontrollingInterest",
+                        "Id" : "345be103-d8b4-4012-a883-a43d17f98297"
+                    }, {
+                        "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation",
+                        "Label" : "[IS8] NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeLossAttributableToParent - PreferredStockDividendsAndOtherAdjustments",
+                        "Id" : "140992a8-e4ad-4106-9581-d32ef9c9399b"
+                    }, {
+                        "Name" : "fac:ComprehensiveIncomeLossValidation",
+                        "Label" : "[IS9] ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest",
+                        "Id" : "1e77d0e1-60ec-45f8-9c23-585ca7f1f2a9"
+                    }, {
+                        "Name" : "fac:ComprehensiveIncomeLossValidation2",
+                        "Label" : "[IS10] ComprehensiveIncomeLoss= NetIncomeLoss + OtherComprehensiveIncomeLoss",
+                        "Id" : "4bdc4a50-9710-471f-83c1-fa32a9072a17"
+                    }, {
+                        "Name" : "fac:OperatingIncomeLossValidation",
+                        "Label" : "[IS2] OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses",
+                        "Id" : "bbb85a84-b2e2-422f-8881-0209d31fa90e"
+                    }, {
+                        "Name" : "fac:OperatingIncomeLossValidation2",
+                        "Label" : "[IS11] OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses",
+                        "Id" : "e25d8fef-a8d3-4022-9d8f-c2cc8cb1e76f"
+                    }, {
+                        "Name" : "fac:Validations",
+                        "Label" : "Fact Validation Rule Results [Hierarchy]",
+                        "Id" : "ad8855c6-f9c9-44f0-8c46-45fad10723d1"
+                    }, {
+                        "Name" : "fac:LiabilitiesAndEquityValidation",
+                        "Label" : "[BS5] LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity",
+                        "Id" : "8166efbc-138a-4b63-b218-5567b78e1d8e"
+                    }, {
+                        "Name" : "fac:LiabilitiesValidation",
+                        "Label" : "[BS4] Liabilities = CurrentLiabilities + NoncurrentLiabilities",
+                        "Id" : "5ff73b3e-b2be-47f7-b13e-9b23a0ce9987"
+                    }, {
+                        "Name" : "fac:AssetsValidation2",
+                        "Label" : "[BS3] Assets = CurrentAssets + NoncurrentAssets",
+                        "Id" : "87b4d286-f2b8-4378-916c-43c8c5365ba7"
+                    }, {
+                        "Name" : "fac:AssetsValidation",
+                        "Label" : "[BS2] Assets = LiabilitiesAndEquity",
+                        "Id" : "65b3d9c2-1d7c-482e-8dec-e16047ae1688"
+                    }, {
+                        "Name" : "fac:EquityValidation",
+                        "Label" : "[BS1] Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest",
+                        "Id" : "061c9348-ad8b-4106-a876-c068e588558d"
+                    }, {
+                        "Name" : "fac:NetCashFlowValidation",
+                        "Label" : "[CF1] NetCashFlow = NetCashFlowFromOperatingActivities + NetCashFlowFromInvestingActivities + NetCashFlowFromFinancingActivities [+ ExchangeGainsLosses]",
+                        "Id" : "da3d3450-39b8-4c7e-b516-e90ca6272f0d"
+                    }, {
+                        "Name" : "fac:NetCashFlowContinuingValidation",
+                        "Label" : "[CF2] NetCashFlowContinuing = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromFinancingActivitiesContinuing",
+                        "Id" : "b335787f-d6b9-483a-832f-dc9649d848b0"
+                    }, {
+                        "Name" : "fac:NetCashFlowDiscontinuedValidation",
+                        "Label" : "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued",
+                        "Id" : "ceecd7ff-f05d-4e08-b73c-6ff6f74e7653"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromOperatingActivitiesValidation",
+                        "Label" : "[CF4] NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued",
+                        "Id" : "b0658562-013b-43b8-abe3-8ed86c9301ff"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromInvestingActivitiesValidation",
+                        "Label" : "[CF5] NetCashFlowFromInvestingActivities = NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromInvestingActivitiesDiscontinued",
+                        "Id" : "452ae50d-3f60-4346-93dd-e01abb41c1d7"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromFinancingActivitiesValidation",
+                        "Label" : "[CF6] NetCashFlowFromFinancingActivities = NetCashFlowFromFinancingActivitiesContinuing + NetCashFlowFromFinancingActivitiesDiscontinued",
+                        "Id" : "d4d25b0d-6a77-45d6-8752-794ad284a639"
+                    }, {
+                        "Name" : "fac:FundamentalAccountingConceptsLineItems",
+                        "Label" : "Fundamental Accounting Concepts [Line Items]",
+                        "Id" : "81894708-289a-49be-8711-be973aa4353f"
+                    }, {
+                        "Name" : "fac:FundamentalAccountingConceptsHierarchy",
+                        "Label" : "Fundamental Accounting Concepts [Hierarchy]",
+                        "Id" : "84ee5f5d-c9e2-4f41-977b-d84dd5a15cec"
+                    }, {
+                        "Name" : "fac:GeneralInformationHierarchy",
+                        "Label" : "General Information [Hierarchy]",
+                        "Id" : "27a6960e-9aa7-47b8-8377-bca7adde2a32"
+                    }, {
+                        "Name" : "fac:EntityRegistrantName",
+                        "Label" : "Entity Registrant Name",
+                        "Id" : "b3afdc5f-28ec-4cfd-bb2e-531ed434f25e"
+                    }, {
+                        "Name" : "fac:EntityCentralIndexKey",
+                        "Label" : "Central Index Key (CIK)",
+                        "Id" : "6fb350cc-8f17-4166-90dc-418f8b8213e6"
+                    }, {
+                        "Name" : "fac:EntityFilerCategory",
+                        "Label" : "Entity Filer Category",
+                        "Id" : "8298388f-e4c5-440f-93ed-1a03be62bb04"
+                    }, {
+                        "Name" : "fac:TradingSymbol",
+                        "Label" : "Trading Symbol",
+                        "Id" : "97cb8762-a68a-47a8-a646-bad16d84f31b"
+                    }, {
+                        "Name" : "fac:FiscalYearEnd",
+                        "Label" : "Fiscal Year End",
+                        "Id" : "048850ca-cefd-4096-8717-68ca9e241359"
+                    }, {
+                        "Name" : "fac:FiscalYear",
+                        "Label" : "Fiscal Year",
+                        "Id" : "49492fa2-f3dd-435a-9e9b-6d414c951f77"
+                    }, {
+                        "Name" : "fac:FiscalPeriod",
+                        "Label" : "Fiscal Period",
+                        "Id" : "46acee9e-5678-4ba9-9d05-67d5c44a82fe"
+                    }, {
+                        "Name" : "fac:DocumentType",
+                        "Label" : "Document Type",
+                        "Id" : "19f359d0-678d-41b9-bbf5-b50cf3c0fb1b"
+                    }, {
+                        "Name" : "fac:BalanceSheetDate",
+                        "Label" : "Balance Sheet Date",
+                        "Id" : "70345973-37a1-4a92-9a38-773faa152e66"
+                    }, {
+                        "Name" : "fac:IncomeStatementStartPeriodYearToDate",
+                        "Label" : "Income Statement Start of Period",
+                        "Id" : "34ee6d22-a1eb-4469-b78d-753a3736f9a5"
+                    }, {
+                        "Name" : "fac:BalanceSheetFormat",
+                        "Label" : "Balance Sheet Format",
+                        "Id" : "757e675d-5842-4bd2-abbb-6a68043f5570"
+                    }, {
+                        "Name" : "fac:IncomeStatementFormat",
+                        "Label" : "Income Statement Format",
+                        "Id" : "d431eba4-a174-4d84-93cc-1e48a275850c"
+                    }, {
+                        "Name" : "fac:NatureOfOperations",
+                        "Label" : "Nature of Operations",
+                        "Id" : "dca105ec-e1fb-4bfc-b62d-5b22a287b759"
+                    }, {
+                        "Name" : "fac:BalanceSheetHierarchy",
+                        "Label" : "Balance Sheet [Hierarchy]",
+                        "Id" : "28550f2f-4423-4b73-bd26-dab78fad2428"
+                    }, {
+                        "Name" : "fac:CurrentAssets",
+                        "Label" : "Current Assets",
+                        "Id" : "3e9f93f8-b832-4b44-a92f-2f095570ac6f"
+                    }, {
+                        "Name" : "fac:NoncurrentAssets",
+                        "Label" : "Noncurrent Assets",
+                        "Id" : "ec8ccec8-e6f1-4934-bbcd-3aa974703e7b"
+                    }, {
+                        "Name" : "fac:Assets",
+                        "Label" : "Assets",
+                        "Id" : "11a16fe5-cd2b-460b-9b05-de887687656e"
+                    }, {
+                        "Name" : "fac:NoncurrentLiabilities",
+                        "Label" : "Noncurrent Liabilities",
+                        "Id" : "9d314acb-c1f8-43f2-8db8-633f7782f2a2"
+                    }, {
+                        "Name" : "fac:CurrentLiabilities",
+                        "Label" : "Current Liabilities",
+                        "Id" : "d3200c54-9868-435e-9152-3ae243f92b75"
+                    }, {
+                        "Name" : "fac:Liabilities",
+                        "Label" : "Liabilities",
+                        "Id" : "c5250fff-d0ab-4870-9fa3-edb5026afa8d"
+                    }, {
+                        "Name" : "fac:CommitmentsAndContingencies",
+                        "Label" : "Commitments and Contingencies",
+                        "Id" : "5504dff7-cb1e-433e-8082-eefc14fdceaf"
+                    }, {
+                        "Name" : "fac:TemporaryEquity",
+                        "Label" : "Temporary Equity",
+                        "Id" : "b538e1ac-be4d-451d-ac44-18b86a08cb8f"
+                    }, {
+                        "Name" : "fac:EquityAttributableToParent",
+                        "Label" : "Equity Attributable to Parent",
+                        "Id" : "12212ce4-0990-4744-b17d-26232d52ac40"
+                    }, {
+                        "Name" : "fac:EquityAttributableToNoncontrollingInterest",
+                        "Label" : "Equity Attributable to Noncontrolling Interest",
+                        "Id" : "de849883-6d34-46f4-b7d5-51985a0779cf"
+                    }, {
+                        "Name" : "fac:RedeemableNoncontrollingInterest",
+                        "Label" : "Redeemable Noncontrolling Interest",
+                        "Id" : "584c604b-0b0d-4e53-bfe4-f0bf544a91d3"
+                    }, {
+                        "Name" : "fac:Equity",
+                        "Label" : "Equity",
+                        "Id" : "e34294bf-49b7-45b1-afc0-677acff4c89d"
+                    }, {
+                        "Name" : "fac:LiabilitiesAndEquity",
+                        "Label" : "Liabilities and Equity",
+                        "Id" : "2c11d651-e503-4bf9-b0b8-49533cdfd507"
+                    }, {
+                        "Name" : "fac:IncomeStatementHierarchy",
+                        "Label" : "Income Statement [Hierarchy]",
+                        "Id" : "4de1e9dc-e829-4cf7-b71d-38617d79536b"
+                    }, {
+                        "Name" : "fac:Revenues",
+                        "Label" : "Revenues",
+                        "Id" : "116937e5-569c-4f9b-90fa-db4164a5c031"
+                    }, {
+                        "Name" : "fac:CostOfRevenue",
+                        "Label" : "Cost of Revenues",
+                        "Id" : "5d5a40c4-be40-41f1-a5d0-8512cbc7d898"
+                    }, {
+                        "Name" : "fac:GrossProfit",
+                        "Label" : "Gross Profit",
+                        "Id" : "c7c336f1-72ee-484b-b350-545be8de72a5"
+                    }, {
+                        "Name" : "fac:OperatingExpenses",
+                        "Label" : "Operating Expenses",
+                        "Id" : "c4343933-3f3f-4dc1-8efa-29c4a27a5883"
+                    }, {
+                        "Name" : "fac:CostsAndExpenses",
+                        "Label" : "Costs and Expenses",
+                        "Id" : "33d15801-cc93-438c-9a5c-502e44c1d9fc"
+                    }, {
+                        "Name" : "fac:OtherOperatingIncomeExpenses",
+                        "Label" : "Other Operating Income (Expenses)",
+                        "Id" : "25e962f9-2f52-4a63-a2ba-e041eac80e4b"
+                    }, {
+                        "Name" : "fac:ResearchAndDevelopment",
+                        "Label" : "Research and Development",
+                        "Id" : "b224b30c-e2fc-4a84-9824-65d6b20c47bb"
+                    }, {
+                        "Name" : "fac:OperatingIncomeLoss",
+                        "Label" : "Operating Income (Loss)",
+                        "Id" : "9609a9fd-caad-4f1b-ac7b-c296743181b3"
+                    }, {
+                        "Name" : "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense",
+                        "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense",
+                        "Id" : "1f48fcba-0ba3-4c4d-bd42-80b953345505"
+                    }, {
+                        "Name" : "fac:NonoperatingIncomeLoss",
+                        "Label" : "Nonoperating Income (Loss)",
+                        "Id" : "64a70694-541f-4aa0-a230-f9e45e57eed1"
+                    }, {
+                        "Name" : "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments",
+                        "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense + Income (Loss) from Equity Method Investments",
+                        "Id" : "8aacccb7-504e-42f4-95e1-7e31659bebe9"
+                    }, {
+                        "Name" : "fac:InterestAndDebtExpense",
+                        "Label" : "Interest and Debt Expense",
+                        "Id" : "29a10e02-d034-4adc-9fa7-589fa9afa72b"
+                    }, {
+                        "Name" : "fac:IncomeLossBeforeEquityMethodInvestments",
+                        "Label" : "Income (Loss) Before Equity Method Investments",
+                        "Id" : "45d01230-69ab-4ca2-92a2-e57bceba3605"
+                    }, {
+                        "Name" : "fac:IncomeLossFromEquityMethodInvestments",
+                        "Label" : "Income (Loss) from Equity Method Investments",
+                        "Id" : "1a3eff68-7bb1-47c0-a7fd-d60f6ae8322b"
+                    }, {
+                        "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTax",
+                        "Label" : "Income (Loss) from Continuing Operations Before Tax",
+                        "Id" : "073848fa-8c7c-4f64-9805-777ba9a594d3"
+                    }, {
+                        "Name" : "fac:IncomeTaxExpenseBenefit",
+                        "Label" : "Income Tax Expense (Benefit)",
+                        "Id" : "fbfa55f0-42c2-4ae2-8a26-fdba5b45eaad"
+                    }, {
+                        "Name" : "fac:IncomeLossFromContinuingOperationsAfterTax",
+                        "Label" : "Income (Loss) from Continuing Operations After Tax",
+                        "Id" : "a363bd5e-30f5-4f25-b890-231041a6a84f"
+                    }, {
+                        "Name" : "fac:IncomeLossFromDiscontinuedOperationsNetOfTax",
+                        "Label" : "Income (Loss) from Discontinued Operations, Net of Tax",
+                        "Id" : "dfc890a1-001a-4712-8651-f58c56543bf9"
+                    }, {
+                        "Name" : "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax",
+                        "Label" : "Extraordinary Items of Income (Expense), Net of Tax",
+                        "Id" : "a34089f3-d96e-4ca4-96bc-a50520500c4e"
+                    }, {
+                        "Name" : "fac:NetIncomeLoss",
+                        "Label" : "Net Income (Loss)",
+                        "Id" : "35b6d19d-6758-4291-b706-2d7c4db6050a"
+                    }, {
+                        "Name" : "fac:NetIncomeLossAttributableToParent",
+                        "Label" : "Net Income Attributable to Parent",
+                        "Id" : "ff020c1d-7a95-4e34-b5b9-b94dfd573634"
+                    }, {
+                        "Name" : "fac:NetIncomeLossAttributableToNoncontrollingInterest",
+                        "Label" : "Net Income Attributable to Noncontrolling Interest",
+                        "Id" : "ee32fbc4-9e3c-4f57-b248-21478027256e"
+                    }, {
+                        "Name" : "fac:PreferredStockDividendsAndOtherAdjustments",
+                        "Label" : "Preferred Stock Dividends and Other Adjustments",
+                        "Id" : "a3e13046-53e3-4b6b-9fd0-20161de747a4"
+                    }, {
+                        "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic",
+                        "Label" : "Net Income (Loss) Available to Common Stockholders, Basic",
+                        "Id" : "6ba29561-91c4-497e-992f-3fef3ccdd085"
+                    }, {
+                        "Name" : "fac:StatementComprehensiveIncomeHierarchy",
+                        "Label" : "Statement of Comprehensive Income [Hierarchy]",
+                        "Id" : "1182ce3e-8220-4406-a6c9-28c8d4f590e4"
+                    }, {
+                        "Name" : "fac:OtherComprehensiveIncomeLoss",
+                        "Label" : "Other Comprehensive Income (Loss)",
+                        "Id" : "09d8f2ad-4c19-4a47-b899-3344b2d6bfa1"
+                    }, {
+                        "Name" : "fac:ComprehensiveIncomeLoss",
+                        "Label" : "Comprehensive Income (Loss)",
+                        "Id" : "c1baea34-4e7c-4940-910b-ab09091610c5"
+                    }, {
+                        "Name" : "fac:ComprehensiveIncomeLossAttributableToParent",
+                        "Label" : "Comprehensive Income (Loss) Attributable to Parent",
+                        "Id" : "47d98ec6-59ab-47fe-a8ca-a05f58b4218a"
+                    }, {
+                        "Name" : "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest",
+                        "Label" : "Comprehensive Income (Loss) Attributable to Noncontrolling Interest",
+                        "Id" : "1418a3aa-4750-46e4-9fc2-100d335f7726"
+                    }, {
+                        "Name" : "fac:CashFlowStatementHierarchy",
+                        "Label" : "Cash Flow Statement [Hierarchy]",
+                        "Id" : "9dd06754-6c7c-485a-b580-d298220d2cda"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromOperatingActivitiesContinuing",
+                        "Label" : "Net Cash Flow from Operating Activities, Continuing",
+                        "Id" : "eb1d0229-2996-4f8c-b40b-28ff49428fde"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued",
+                        "Label" : "Net Cash Flow from Operating Activities, Discontinued",
+                        "Id" : "69702889-6c52-4d8d-9d17-e946cc0ba6f2"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromOperatingActivities",
+                        "Label" : "Net Cash Flow from Operating Activities",
+                        "Id" : "09f87d7d-0464-4ecb-9907-c339c9a942c1"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromInvestingActivitiesContinuing",
+                        "Label" : "Net Cash Flow from Investing Activities, Continuing",
+                        "Id" : "f3f07489-e8e2-46c5-b50d-51aa77372955"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromInvestingActivitiesDiscontinued",
+                        "Label" : "Net Cash Flow from Investing Activities, Discontinued",
+                        "Id" : "a9bb5aff-4242-4341-8838-36f17026a10a"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromInvestingActivities",
+                        "Label" : "Net Cash Flow from Investing Activities",
+                        "Id" : "a3a29bed-b986-422d-a423-02e39caa3fdc"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromFinancingActivitiesContinuing",
+                        "Label" : "Net Cash Flow from Financing Activities, Continuing",
+                        "Id" : "4b734136-eb65-4417-a238-e1a6db5eccbf"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromFinancingActivitiesDiscontinued",
+                        "Label" : "Net Cash Flow from Financing Activities, Discontinued",
+                        "Id" : "4f5e25df-8ec5-48a0-a348-a764a4d350a0"
+                    }, {
+                        "Name" : "fac:NetCashFlowFromFinancingActivities",
+                        "Label" : "Net Cash Flow from Financing Activities",
+                        "Id" : "8bf33499-0467-4df7-b365-9616ec64cc21"
+                    }, {
+                        "Name" : "fac:ExchangeGainsLosses",
+                        "Label" : "Exchange Gains (Losses)",
+                        "Id" : "3179f5ee-08a9-4e7e-8eee-658c579c6bad"
+                    }, {
+                        "Name" : "fac:NetCashFlow",
+                        "Label" : "Net Cash Flow",
+                        "Id" : "9d34da8b-f0fe-4276-af97-371d77803136"
+                    }, {
+                        "Name" : "fac:NetCashFlowContinuing",
+                        "Label" : "Net Cash Flow, Continuing",
+                        "Id" : "a28f3692-4fd7-4540-8047-29339c054d36"
+                    }, {
+                        "Name" : "fac:NetCashFlowDiscontinued",
+                        "Label" : "Net Cash Flow, Discontinued",
+                        "Id" : "b21e9b88-3aff-420f-81c2-962cbc5addde"
+                    }, {
+                        "Name" : "fac:KeyRatiosHierarchy",
+                        "Label" : "Key Ratios [Hierarchy]",
+                        "Id" : "c8f815ee-ba5e-4361-a957-2d6db1849d59"
+                    }, {
+                        "Name" : "fac:ReturnOnEquity",
+                        "Label" : "Return on Equity (ROE)",
+                        "Id" : "a9094ac4-9a65-4381-beaa-e844e545d6a0"
+                    }, {
+                        "Name" : "fac:ReturnOnAssets",
+                        "Label" : "Return on Assets (ROA)",
+                        "Id" : "ae1ded2a-91f7-4dde-8fa9-ef1acb9dfbd8"
+                    }, {
+                        "Name" : "fac:ReturnOnSales",
+                        "Label" : "Return on Sales (ROS)",
+                        "Id" : "5dbe422c-9ab0-4de6-b1ee-bde87cb56526"
+                    }, {
+                        "Name" : "fac:SustainableGrowthRate",
+                        "Label" : "Sustainable Growth Rate (SGR)",
+                        "Id" : "23095b5b-2908-4a99-ba92-31ad035ba90d"
+                    } ],
+                    "Id" : "fdb26c35-d8f4-4005-a5e5-7692bcec5265"
                 },
                 "xbrl:Period" : {
                     "Name" : "xbrl:Period",
                     "Label" : "Implicit XBRL Period Dimension",
-                    "Id" : "a7fd5bc6-2311-4213-b973-d055769846aa"
+                    "Id" : "10fcc78c-6ee3-42a2-9923-2c31887c148a"
                 },
                 "xbrl:Entity" : {
                     "Name" : "xbrl:Entity",
@@ -1383,35 +1807,42 @@
                         "Name" : "xbrl:EntityDomain",
                         "Label" : "Reporting Entity [Domain]",
                         "Enumeration" : [ "http://www.sec.gov/CIK 0000004962", "http://www.sec.gov/CIK 0000019617", "http://www.sec.gov/CIK 0000012927", "http://www.sec.gov/CIK 0000018230", "http://www.sec.gov/CIK 0000034088", "http://www.sec.gov/CIK 0000021344", "http://www.sec.gov/CIK 0000040545", "http://www.sec.gov/CIK 0000030554", "http://www.sec.gov/CIK 0000050863", "http://www.sec.gov/CIK 0000063908", "http://www.sec.gov/CIK 0000051143", "http://www.sec.gov/CIK 0000080424", "http://www.sec.gov/CIK 0000066740", "http://www.sec.gov/CIK 0000086312", "http://www.sec.gov/CIK 0000078003", "http://www.sec.gov/CIK 0000093410", "http://www.sec.gov/CIK 0000310158", "http://www.sec.gov/CIK 0000104169", "http://www.sec.gov/CIK 0000101829", "http://www.sec.gov/CIK 0000200406", "http://www.sec.gov/CIK 0000320187", "http://www.sec.gov/CIK 0000731766", "http://www.sec.gov/CIK 0000354950", "http://www.sec.gov/CIK 0000732712", "http://www.sec.gov/CIK 0000789019", "http://www.sec.gov/CIK 0000858877", "http://www.sec.gov/CIK 0001001039", "http://www.sec.gov/CIK 0000886982", "http://www.sec.gov/CIK 0000732717", "http://www.sec.gov/CIK 0001403161" ],
-                        "Id" : "33f20bb4-25f9-4b28-953d-ddc3b5b095cc"
+                        "Id" : "7c908cb9-b35e-4ebb-b885-d1a25a376c5e"
                     },
-                    "Id" : "7e0773c1-247d-41a5-be6e-1c4948ffe531"
+                    "Id" : "183a0447-e559-4f00-b777-8a2a01c4e3b3"
                 },
                 "dei:LegalEntityAxis" : {
                     "Name" : "dei:LegalEntityAxis",
                     "Label" : "Legal Entity Dimension",
                     "Default" : "sec:DefaultLegalEntity",
                     "Members" : [ {
-                        "Name" : "sec:DefaultLegalEntity",
-                        "Id" : "ed302e5e-bec9-4948-93d0-d0267e4350a8"
+                        "Name" : "dei:LegalEntityAxisDomain",
+                        "Label" : "Implicit dei:LegalEntityAxis Domain",
+                        "Members" : {
+                            "sec:DefaultLegalEntity" : {
+                                "Name" : "sec:DefaultLegalEntity",
+                                "Id" : "0ec96526-b85b-415c-b450-beb9253bc3d8"
+                            }
+                        },
+                        "Id" : "5ed16bb6-a4e3-4913-8140-576d5caaf702"
                     } ],
-                    "Id" : "faaffdf8-8656-432f-8f7c-4f3a90b52deb"
+                    "Id" : "d6597dde-812c-451a-9994-9c281afcdff2"
                 },
                 "xbrl:Unit" : {
                     "Name" : "xbrl:Unit",
                     "Label" : "Unit",
                     "Default" : "xbrl:NonNumeric",
-                    "Id" : "42611244-74dc-48fb-8d58-31c662ccdced"
+                    "Id" : "e650daa0-ea76-4d26-aadb-47b145ec631f"
                 },
                 "sec:Accepted" : {
                     "Name" : "sec:Accepted",
                     "Label" : "Acceptance Date",
-                    "Id" : "1b3c27aa-1deb-456a-a19f-a99ee7062ec9"
+                    "Id" : "73ff06cc-313f-4156-a968-693b176b14a6"
                 },
                 "xbrl28:Archive" : {
                     "Name" : "xbrl28:Archive",
                     "Label" : "Archive ID",
-                    "Id" : "fc88cec4-367b-481a-b7f8-05bd597c9946"
+                    "Id" : "3ec015c3-04f5-45b9-a206-42698de1921a"
                 },
                 "sec:FiscalYear" : {
                     "Name" : "sec:FiscalYear",
@@ -1422,9 +1853,9 @@
                         "Name" : "sec:FiscalYearDomain",
                         "Label" : "Fiscal Year [Domain]",
                         "Enumeration" : [ 2013 ],
-                        "Id" : "84ad3917-0224-457c-a4ec-cf2c414e57aa"
+                        "Id" : "077e3fd4-ff3c-4d83-83ab-4a971b8848f6"
                     },
-                    "Id" : "e8213bd0-a3d6-4ea1-93d1-5de876266c7e"
+                    "Id" : "bb762d97-cfb0-4387-a38b-3742e09c6972"
                 },
                 "sec:FiscalPeriod" : {
                     "Name" : "sec:FiscalPeriod",
@@ -1435,9 +1866,9 @@
                         "Name" : "sec:FiscalPeriodDomain",
                         "Label" : "Fiscal Period [Domain]",
                         "Enumeration" : [ "FY" ],
-                        "Id" : "83e9336c-ab04-4bda-b5cd-50c6b589eff0"
+                        "Id" : "1cdb9f33-5722-4fa2-895a-99c991b082e8"
                     },
-                    "Id" : "dd05fc50-0928-4ae7-8c6e-ab2a26305b2f"
+                    "Id" : "35e2f96c-f3ca-4188-b2ed-c4bf7722daf6"
                 },
                 "sec:FiscalPeriodType" : {
                     "Name" : "sec:FiscalPeriodType",
@@ -1448,12 +1879,12 @@
                         "Name" : "sec:FiscalPeriodTypeDomain",
                         "Label" : "Fiscal Period Type [Domain]",
                         "Enumeration" : [ "instant", "YTD" ],
-                        "Id" : "ca4a8c53-c3da-40c7-86b6-56e3d3fabc49"
+                        "Id" : "49b1ff41-3acb-43a5-a62c-5404895192d7"
                     },
-                    "Id" : "4e265bfa-3fe1-4fa6-902a-a43e2fbf92d7"
+                    "Id" : "747d189b-6f6f-45c6-ac05-088e0614b193"
                 }
             },
-            "Id" : "591e9ea1-d58b-42b3-a0d8-e130c43a52a5"
+            "Id" : "2d53e188-7097-4975-b527-d5b582a91949"
         }
     },
     "DefinitionModels" : [ {
@@ -2739,436 +3170,436 @@
         "Name" : "fac:ValidationStatistics",
         "Label" : "Validation Rule Statistics [Hierarchy]",
         "IsAbstract" : true,
-        "Id" : "29bfbff0-892f-4553-bb39-e3c8ac511bcc"
+        "Id" : "f6d8d2ac-4455-4aa5-b669-0b9ee68df7ec"
     }, {
         "Name" : "fac:PassedValidations",
         "Label" : "Passed Validations",
-        "Id" : "2740d8e7-5133-4a95-b308-caaa0e9dc38f"
+        "Id" : "89939917-c48f-4c10-b34c-3c2a469f2389"
     }, {
         "Name" : "fac:FailedValidations",
         "Label" : "Failing Validations",
-        "Id" : "62205076-052a-4d2e-892e-29a4cf27d705"
+        "Id" : "64bae13d-25f6-4fc3-8984-ea46b6c36ba0"
     }, {
         "Name" : "fac:NotApplicableValidations",
         "Label" : "Skipped Validations (unmet preconditions)",
-        "Id" : "90df68c0-62a7-45a3-ad87-0179bbbb317a"
+        "Id" : "e4549394-b7a2-41a2-9e22-53bc61e79c25"
     }, {
         "Name" : "fac:GrossProfitValidation",
         "Label" : "[IS1] GrossProfit = Revenues - CostOfRevenue",
-        "Id" : "25bac276-e7d2-46e3-b35a-cb08dc0da70b"
+        "Id" : "25381047-4b61-4de8-a959-bba256b27397"
     }, {
         "Name" : "fac:IncomeLossBeforeEquityMethodInvestmentsValidation",
         "Label" : "[IS3] IncomeLossBeforeEquityMethodInvestments = OperatingIncomeLoss + NonoperatingIncomeLossPlusInterestAndDebtExpense",
-        "Id" : "e9447e09-b7c8-406d-81b8-af5f8b67a608"
+        "Id" : "2cc3feeb-d9d3-498f-afcf-d2f5f3e35910"
     }, {
         "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTaxValidation",
         "Label" : "[IS4] IncomeLossFromContinuingOperationsBeforeTax = IncomeLossBeforeEquityMethodInvestments + IncomeLossFromEquityMethodInvestments",
-        "Id" : "e6548802-9808-45a2-8b8b-28e48b9f4af8"
+        "Id" : "7493e91c-fe67-41b2-8c75-aab5429a46b0"
     }, {
         "Name" : "fac:IncomeLossFromContinuingOperationsAfterTaxValidation",
         "Label" : "[IS5] IncomeLossFromContinuingOperationsAfterTax = IncomeLossFromContinuingOperationsBeforeTax - IncomeTaxExpenseBenefit",
-        "Id" : "1a8b73a6-0a96-4fcf-bbd5-e1b91a5605b7"
+        "Id" : "44d83261-890a-4ed4-ada6-5b974eeff7b3"
     }, {
         "Name" : "fac:NetIncomeLossValidation",
         "Label" : "[IS6] NetIncomeLoss = IncomeLossFromContinuingOperationsAfterTax + IncomeLossFromDiscontinuedOperationsNetOfTax + ExtraordinaryItemsOfIncomeExpenseNetOfTax",
-        "Id" : "7b25b0d7-6fbf-4750-aa67-8a6b94834d0b"
+        "Id" : "d67bcd86-caa4-44a1-a3e9-52ba5c7dca32"
     }, {
         "Name" : "fac:NetIncomeLossValidation2",
         "Label" : "[IS7] NetIncomeLoss = NetIncomeLossAttributableToParent + NetIncomeLossAttributableToNoncontrollingInterest",
-        "Id" : "eb3e3c1d-2a43-4e03-8b8f-742759036cb6"
+        "Id" : "84338638-f6fa-40bb-8613-6d713993af94"
     }, {
         "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation",
         "Label" : "[IS8] NetIncomeLossAvailableToCommonStockholdersBasic = NetIncomeLossAttributableToParent - PreferredStockDividendsAndOtherAdjustments",
-        "Id" : "7e9b4d1c-2eb3-495d-9ad1-ff02158af49b"
+        "Id" : "4ae780c8-addb-47af-96e6-bef2c3b688ea"
     }, {
         "Name" : "fac:ComprehensiveIncomeLossValidation",
         "Label" : "[IS9] ComprehensiveIncomeLoss = ComprehensiveIncomeLossAttributableToParent + ComprehensiveIncomeLossAttributableToNoncontrollingInterest",
-        "Id" : "b5f359af-f839-44bb-8eac-237a929daade"
+        "Id" : "a0958798-134a-4048-8330-69f6c085501c"
     }, {
         "Name" : "fac:ComprehensiveIncomeLossValidation2",
         "Label" : "[IS10] ComprehensiveIncomeLoss= NetIncomeLoss + OtherComprehensiveIncomeLoss",
-        "Id" : "338ed478-9b1e-4961-b1a4-ee2be0ea678c"
+        "Id" : "e7535d62-5717-4dec-af78-22e1c4381588"
     }, {
         "Name" : "fac:OperatingIncomeLossValidation",
         "Label" : "[IS2] OperatingIncomeLoss = GrossProfit - OperatingExpenses + OtherOperatingIncomeExpenses",
-        "Id" : "fdec4dbe-a740-4702-9169-bac3e86a2935"
+        "Id" : "057c8af1-d8ff-48f3-a9f7-d169731c4227"
     }, {
         "Name" : "fac:OperatingIncomeLossValidation2",
         "Label" : "[IS11] OperatingIncomeLoss = Revenues - CostsAndExpenses + OtherOperatingIncomeExpenses",
-        "Id" : "047179db-d5c2-4d96-87bf-d296d934c529"
+        "Id" : "2e5ea4e9-5434-4d6d-aed8-e7980d09c530"
     }, {
         "Name" : "fac:Validations",
         "Label" : "Fact Validation Rule Results [Hierarchy]",
         "IsAbstract" : true,
-        "Id" : "18cdb692-4831-4296-9910-20040cce584f"
+        "Id" : "f32c830a-6c31-485b-9ed8-1adfd4e49026"
     }, {
         "Name" : "fac:LiabilitiesAndEquityValidation",
         "Label" : "[BS5] LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity",
-        "Id" : "5656ab3f-5b22-4c34-aaec-9f991373e302"
+        "Id" : "eb1db7d4-f6ca-4d51-908d-8f9a59758f45"
     }, {
         "Name" : "fac:LiabilitiesValidation",
         "Label" : "[BS4] Liabilities = CurrentLiabilities + NoncurrentLiabilities",
-        "Id" : "aff47df2-235e-4b50-9a5e-5a7a60cdd0a6"
+        "Id" : "9522be45-bfb7-4aac-9347-640d38f4dd3c"
     }, {
         "Name" : "fac:AssetsValidation2",
         "Label" : "[BS3] Assets = CurrentAssets + NoncurrentAssets",
-        "Id" : "8990459e-3099-4c27-8c6f-637756e88b29"
+        "Id" : "32e8bb87-716d-4e81-ab0b-5bfc014b6d04"
     }, {
         "Name" : "fac:AssetsValidation",
         "Label" : "[BS2] Assets = LiabilitiesAndEquity",
-        "Id" : "00b00513-f6c3-4fb0-91b7-2bd7d4cce2e9"
+        "Id" : "065f7208-918d-4deb-a3ae-bc98ed0fceba"
     }, {
         "Name" : "fac:EquityValidation",
         "Label" : "[BS1] Equity = EquityAttributableToParent + EquityAttributableToNoncontrollingInterest",
-        "Id" : "a4acd906-a5e5-4836-b484-696a402bdf53"
+        "Id" : "7e27b022-e0bc-4a05-8b46-47c8eb1e9f06"
     }, {
         "Name" : "fac:NetCashFlowValidation",
         "Label" : "[CF1] NetCashFlow = NetCashFlowFromOperatingActivities + NetCashFlowFromInvestingActivities + NetCashFlowFromFinancingActivities [+ ExchangeGainsLosses]",
-        "Id" : "519d0b4c-d8d2-4b65-aca4-d66fa8c00300"
+        "Id" : "495ae35d-bede-4db0-8686-ef51d24ad507"
     }, {
         "Name" : "fac:NetCashFlowContinuingValidation",
         "Label" : "[CF2] NetCashFlowContinuing = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromFinancingActivitiesContinuing",
-        "Id" : "a4af9f09-6730-406f-a22c-413dd3b47737"
+        "Id" : "5dc6698a-e423-4492-ac70-0168c427d906"
     }, {
         "Name" : "fac:NetCashFlowDiscontinuedValidation",
         "Label" : "[CF3] NetCashFlowDiscontinued = NetCashFlowFromOperatingActivitiesDiscontinued + NetCashFlowFromInvestingActivitiesDiscontinued + NetCashFlowFromFinancingActivitiesDiscontinued",
-        "Id" : "a1e29b59-4f20-4b50-89bd-367b52569506"
+        "Id" : "320c6134-5b0a-4726-92ba-e0a813e555d0"
     }, {
         "Name" : "fac:NetCashFlowFromOperatingActivitiesValidation",
         "Label" : "[CF4] NetCashFlowFromOperatingActivities = NetCashFlowFromOperatingActivitiesContinuing + NetCashFlowFromOperatingActivitiesDiscontinued",
-        "Id" : "b8d5afb8-8018-46c6-93d3-33c7acdf63c3"
+        "Id" : "9e4a21ae-c98f-4d7b-8f50-f6076b5ebf03"
     }, {
         "Name" : "fac:NetCashFlowFromInvestingActivitiesValidation",
         "Label" : "[CF5] NetCashFlowFromInvestingActivities = NetCashFlowFromInvestingActivitiesContinuing + NetCashFlowFromInvestingActivitiesDiscontinued",
-        "Id" : "4ddcb577-b82b-471f-a8d5-cf6dfe163598"
+        "Id" : "342d2950-8ab2-4e74-96c4-abe1fb93cd36"
     }, {
         "Name" : "fac:NetCashFlowFromFinancingActivitiesValidation",
         "Label" : "[CF6] NetCashFlowFromFinancingActivities = NetCashFlowFromFinancingActivitiesContinuing + NetCashFlowFromFinancingActivitiesDiscontinued",
-        "Id" : "676e5a20-7116-4129-887a-cd779ee03769"
+        "Id" : "6fcaed50-de0e-48d1-89d2-e83a6d4759cb"
     }, {
         "Name" : "fac:FundamentalAccountingConceptsLineItems",
         "Label" : "Fundamental Accounting Concepts [Line Items]",
         "IsAbstract" : true,
-        "Id" : "d46f30e8-f6ed-42b1-9dbb-77f93a5d000d"
+        "Id" : "d40f10bb-f1e1-4d36-b8c6-f3d07b8301ba"
     }, {
         "Name" : "fac:FundamentalAccountingConceptsHierarchy",
         "Label" : "Fundamental Accounting Concepts [Hierarchy]",
         "IsAbstract" : true,
-        "Id" : "8ac10684-27cd-4ae4-b4dd-d1727c627fe2"
+        "Id" : "85ef681f-0bec-4afe-874f-1bdca72acd38"
     }, {
         "Name" : "fac:GeneralInformationHierarchy",
         "Label" : "General Information [Hierarchy]",
         "IsAbstract" : true,
-        "Id" : "0358cca3-d3a1-43dd-bb6d-6d7b0339ba8c"
+        "Id" : "d0238aa2-8f68-43ca-b3aa-9e94e58770c4"
     }, {
         "Name" : "fac:EntityRegistrantName",
         "Label" : "Entity Registrant Name",
-        "Id" : "3b51ea1a-2102-4fc2-bbfe-f4102cbd9fe4"
+        "Id" : "e117f053-1527-4db7-9060-31ad904d155d"
     }, {
         "Name" : "fac:EntityCentralIndexKey",
         "Label" : "Central Index Key (CIK)",
-        "Id" : "55cc2da7-55a2-4a95-b11d-8f248face85e"
+        "Id" : "43f943ee-a3b6-4b85-8b2e-3f76de83c4b6"
     }, {
         "Name" : "fac:EntityFilerCategory",
         "Label" : "Entity Filer Category",
-        "Id" : "0ad38a7c-65e1-4095-bb7c-97ec9604e91e"
+        "Id" : "c96519ec-8a1b-4a4e-9e00-084785dd0ac2"
     }, {
         "Name" : "fac:TradingSymbol",
         "Label" : "Trading Symbol",
-        "Id" : "7cbe712f-b826-4247-955a-0eb7be3bbec3"
+        "Id" : "a39c3981-917a-4052-80a9-02794043248c"
     }, {
         "Name" : "fac:FiscalYearEnd",
         "Label" : "Fiscal Year End",
-        "Id" : "684ea3a1-14fc-4679-a98c-4fc57c79fcdb"
+        "Id" : "1996ea96-c793-4f1e-b8a5-67e912adabf6"
     }, {
         "Name" : "fac:FiscalYear",
         "Label" : "Fiscal Year",
-        "Id" : "ffa07c03-21f4-4b86-a140-11a2efcace12"
+        "Id" : "d1c11991-e53d-4367-b87e-9733c686b550"
     }, {
         "Name" : "fac:FiscalPeriod",
         "Label" : "Fiscal Period",
-        "Id" : "4e1d64e9-64bd-4f2e-81c9-013cc82a36b5"
+        "Id" : "3c81fcf5-0c06-4b27-be86-5ec89b8aefe4"
     }, {
         "Name" : "fac:DocumentType",
         "Label" : "Document Type",
-        "Id" : "3e4ff884-74aa-4460-9096-40af6434eec3"
+        "Id" : "9f2298eb-9938-43a9-8a2a-478b8dc3ca69"
     }, {
         "Name" : "fac:BalanceSheetDate",
         "Label" : "Balance Sheet Date",
-        "Id" : "049defcc-6ef2-4d05-89ad-8c6a6339b8cf"
+        "Id" : "38081fa9-c6ad-4a5a-8c72-6b2b51709029"
     }, {
         "Name" : "fac:IncomeStatementStartPeriodYearToDate",
         "Label" : "Income Statement Start of Period",
-        "Id" : "af1b1d79-22c4-4e2c-a601-9e94f856f1b5"
+        "Id" : "3e7f5e38-69e4-4e6a-8d42-246f660e88dd"
     }, {
         "Name" : "fac:BalanceSheetFormat",
         "Label" : "Balance Sheet Format",
-        "Id" : "59fec96f-55ad-41e2-b967-8bf708d8e175"
+        "Id" : "985efb1b-aab1-4c74-811f-bd27939806cd"
     }, {
         "Name" : "fac:IncomeStatementFormat",
         "Label" : "Income Statement Format",
-        "Id" : "a1bf6e38-5dab-4051-935f-5336fe3b1e09"
+        "Id" : "8b548c5d-ecb1-4eb8-bfb1-04034406a276"
     }, {
         "Name" : "fac:NatureOfOperations",
         "Label" : "Nature of Operations",
-        "Id" : "9ee9a3c8-e3b1-4e21-a510-e5708641cc57"
+        "Id" : "7c504cd7-923c-48d2-bc7f-35d91d6311bc"
     }, {
         "Name" : "fac:BalanceSheetHierarchy",
         "Label" : "Balance Sheet [Hierarchy]",
         "IsAbstract" : true,
-        "Id" : "a5124e7f-fdef-4cc4-adf4-40049625abc8"
+        "Id" : "8418a153-9c8d-442f-8111-88c1ab1178d1"
     }, {
         "Name" : "fac:CurrentAssets",
         "Label" : "Current Assets",
-        "Id" : "090b7754-6b9d-4190-99bd-91ac900a913a"
+        "Id" : "3aaf7b31-e38e-4b04-ac0e-2870e894fc60"
     }, {
         "Name" : "fac:NoncurrentAssets",
         "Label" : "Noncurrent Assets",
-        "Id" : "399151b5-3665-447c-a01a-8d3232450938"
+        "Id" : "e8a162bb-eb95-41a4-b49f-7364d5e9cd69"
     }, {
         "Name" : "fac:Assets",
         "Label" : "Assets",
-        "Id" : "f114d6d7-b544-41f3-bcc4-6a729f5d34a6"
+        "Id" : "42c24d5b-43fa-49e2-bc3b-e74520d7fa20"
     }, {
         "Name" : "fac:NoncurrentLiabilities",
         "Label" : "Noncurrent Liabilities",
-        "Id" : "08a43baf-abc4-4323-8fe1-d7988f594f08"
+        "Id" : "75bfd412-ce7f-4358-9294-1a79c7ad03c4"
     }, {
         "Name" : "fac:CurrentLiabilities",
         "Label" : "Current Liabilities",
-        "Id" : "2cbbc6c9-9e7f-461c-a002-f4a69cb7cc94"
+        "Id" : "be05e46e-459e-46df-a988-2501f9e08382"
     }, {
         "Name" : "fac:Liabilities",
         "Label" : "Liabilities",
-        "Id" : "c93f3098-c39d-4060-8e3c-57f817fb39cc"
+        "Id" : "90aa3705-b0de-4c8f-a615-2462dbd7fa5e"
     }, {
         "Name" : "fac:CommitmentsAndContingencies",
         "Label" : "Commitments and Contingencies",
-        "Id" : "2dbc32fa-5e96-4a8b-b00b-3c9b9c3a63a4"
+        "Id" : "d87ea269-587c-4eff-9a0f-4f2ddc9b121c"
     }, {
         "Name" : "fac:TemporaryEquity",
         "Label" : "Temporary Equity",
-        "Id" : "06a15124-79e5-4b4d-bf1a-ffb5f063fbd3"
+        "Id" : "6ea78026-187a-491c-9580-1f496e6fff5d"
     }, {
         "Name" : "fac:EquityAttributableToParent",
         "Label" : "Equity Attributable to Parent",
-        "Id" : "e87141c9-ed19-4355-98de-22526938ab1c"
+        "Id" : "a81bd0e4-9598-48b3-b3a3-044132f91165"
     }, {
         "Name" : "fac:EquityAttributableToNoncontrollingInterest",
         "Label" : "Equity Attributable to Noncontrolling Interest",
-        "Id" : "55dff576-296d-41b3-a2e0-129d23da58f6"
+        "Id" : "3baae071-7ead-414d-b1c1-36659c2eae78"
     }, {
         "Name" : "fac:RedeemableNoncontrollingInterest",
         "Label" : "Redeemable Noncontrolling Interest",
-        "Id" : "cbc55e60-e08e-4678-9c97-338a4ea6e5a1"
+        "Id" : "db5c3621-1e73-4751-af21-bbf1eefe581c"
     }, {
         "Name" : "fac:Equity",
         "Label" : "Equity",
-        "Id" : "a0f7df33-3cc0-4d6c-b846-52c9a5282a2d"
+        "Id" : "78ff4a4d-321f-495c-87d5-4366f463d835"
     }, {
         "Name" : "fac:LiabilitiesAndEquity",
         "Label" : "Liabilities and Equity",
-        "Id" : "ce41018c-3b47-464a-b650-1740dadedd7b"
+        "Id" : "c2258d34-670b-4e55-ad2c-b20d98c20d92"
     }, {
         "Name" : "fac:IncomeStatementHierarchy",
         "Label" : "Income Statement [Hierarchy]",
         "IsAbstract" : true,
-        "Id" : "c9713d97-0e99-41b8-9004-da2ba9ec828f"
+        "Id" : "5026786f-88a9-41f5-8e7e-3155ba4d3422"
     }, {
         "Name" : "fac:Revenues",
         "Label" : "Revenues",
-        "Id" : "77a4195c-52eb-4b97-aaae-3746bf65f277"
+        "Id" : "8ec36da5-8475-499c-a7a5-04dcdc3bf9b5"
     }, {
         "Name" : "fac:CostOfRevenue",
         "Label" : "Cost of Revenues",
-        "Id" : "992c0b69-6782-4f80-b17b-a8e689be9a39"
+        "Id" : "b57ecab1-c95e-4ec1-a315-01a27acb26fa"
     }, {
         "Name" : "fac:GrossProfit",
         "Label" : "Gross Profit",
-        "Id" : "02dfe7a7-01d6-40e0-9b27-9d8cc880c257"
+        "Id" : "ef83cd67-6698-4643-bd7a-f7a0a2176623"
     }, {
         "Name" : "fac:OperatingExpenses",
         "Label" : "Operating Expenses",
-        "Id" : "20c0285e-4b21-4b49-9501-adb849faffd2"
+        "Id" : "fc36a6ac-4360-4052-bbcb-d48f61b48f2a"
     }, {
         "Name" : "fac:CostsAndExpenses",
         "Label" : "Costs and Expenses",
-        "Id" : "166748a8-98bd-42f7-b29b-16e72a69f464"
+        "Id" : "fef38db2-26e7-4ee8-bc9d-b21be0906c3e"
     }, {
         "Name" : "fac:OtherOperatingIncomeExpenses",
         "Label" : "Other Operating Income (Expenses)",
-        "Id" : "5a3f7417-aaa5-42a8-a29a-3347ef23f9d0"
+        "Id" : "e9d1a991-3a20-498e-bd0e-803dbd550368"
     }, {
         "Name" : "fac:ResearchAndDevelopment",
         "Label" : "Research and Development",
-        "Id" : "f5765d4a-da67-4930-8260-fda4d4cf1f2a"
+        "Id" : "1fe266aa-daf4-450f-bbf4-ee723e3810ca"
     }, {
         "Name" : "fac:OperatingIncomeLoss",
         "Label" : "Operating Income (Loss)",
-        "Id" : "721afa8a-8512-466b-a2b1-733c4aa07bf1"
+        "Id" : "ede3aa87-e3a0-4e8d-8314-ea5911b7cc49"
     }, {
         "Name" : "fac:NonoperatingIncomeLossPlusInterestAndDebtExpense",
         "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense",
-        "Id" : "f6fe8af4-6d2f-40e9-9929-b47aeb0128d2"
+        "Id" : "6197b751-99b5-4b27-a64d-e3cc4b30f85b"
     }, {
         "Name" : "fac:NonoperatingIncomeLoss",
         "Label" : "Nonoperating Income (Loss)",
-        "Id" : "3d911d6d-a5cb-4a6e-b584-f863be7537b4"
+        "Id" : "b9424f79-c484-4d8e-9747-b6a2eb9056f4"
     }, {
         "Name" : "fac:NonoperatingIncomePlusInterestAndDebtExpensePlusIncomeFromEquityMethodInvestments",
         "Label" : "Nonoperating Income (Loss) + Interest and Debt Expense + Income (Loss) from Equity Method Investments",
-        "Id" : "3e2cb484-3648-43d7-bad5-0331ed2fd5f3"
+        "Id" : "547f7cef-c4a3-424c-b181-f9ba14e79af9"
     }, {
         "Name" : "fac:InterestAndDebtExpense",
         "Label" : "Interest and Debt Expense",
-        "Id" : "a8b64edc-d2be-4153-a644-45ceb8f67051"
+        "Id" : "bc38fba3-de61-4be5-b3c9-44889014ca69"
     }, {
         "Name" : "fac:IncomeLossBeforeEquityMethodInvestments",
         "Label" : "Income (Loss) Before Equity Method Investments",
-        "Id" : "e52fb01c-1978-430f-9c13-eebdf619b93b"
+        "Id" : "d5734fc4-2872-4e3b-a998-4af30b4f12d3"
     }, {
         "Name" : "fac:IncomeLossFromEquityMethodInvestments",
         "Label" : "Income (Loss) from Equity Method Investments",
-        "Id" : "34706d85-e13d-4a6d-8fd0-36ecda1e4e35"
+        "Id" : "28fcaad5-6da0-4ef0-baaa-64c82daf8934"
     }, {
         "Name" : "fac:IncomeLossFromContinuingOperationsBeforeTax",
         "Label" : "Income (Loss) from Continuing Operations Before Tax",
-        "Id" : "781e6c4b-a7c5-4182-bb0e-49c10170f927"
+        "Id" : "a6608188-222e-4e23-8a3f-de52b4499eb9"
     }, {
         "Name" : "fac:IncomeTaxExpenseBenefit",
         "Label" : "Income Tax Expense (Benefit)",
-        "Id" : "79216ec2-0f26-49e8-a336-35b63638a893"
+        "Id" : "100106f7-a203-4c1e-bc98-20855d4fc62c"
     }, {
         "Name" : "fac:IncomeLossFromContinuingOperationsAfterTax",
         "Label" : "Income (Loss) from Continuing Operations After Tax",
-        "Id" : "b4fa422a-6391-43f0-88d4-16d9483a4dbf"
+        "Id" : "c8132a66-4b84-4a52-bc8e-9777c750cb6e"
     }, {
         "Name" : "fac:IncomeLossFromDiscontinuedOperationsNetOfTax",
         "Label" : "Income (Loss) from Discontinued Operations, Net of Tax",
-        "Id" : "d1ff278f-ffe0-45b9-80ad-d50bb3c09c8f"
+        "Id" : "cda3d44c-f487-4dcd-ada3-14f735964043"
     }, {
         "Name" : "fac:ExtraordinaryItemsOfIncomeExpenseNetOfTax",
         "Label" : "Extraordinary Items of Income (Expense), Net of Tax",
-        "Id" : "cd6a90de-2b63-4321-8990-ff5995f629c0"
+        "Id" : "e227b740-0e08-4182-a372-d9134b3828a5"
     }, {
         "Name" : "fac:NetIncomeLoss",
         "Label" : "Net Income (Loss)",
-        "Id" : "acb8ca47-e75c-43be-971f-81a1161141e5"
+        "Id" : "b79061c5-3301-4b6d-ab6a-3196f2de1118"
     }, {
         "Name" : "fac:NetIncomeLossAttributableToParent",
         "Label" : "Net Income Attributable to Parent",
-        "Id" : "d1eaf8b1-5e41-41c1-943a-b360c4aa2d3e"
+        "Id" : "74ee901e-1aab-4a49-b721-b8618d5812e6"
     }, {
         "Name" : "fac:NetIncomeLossAttributableToNoncontrollingInterest",
         "Label" : "Net Income Attributable to Noncontrolling Interest",
-        "Id" : "63e53d21-d28a-4b5e-8032-63884e8cb3c1"
+        "Id" : "19f3a765-1ef3-4418-95e6-d4676937c359"
     }, {
         "Name" : "fac:PreferredStockDividendsAndOtherAdjustments",
         "Label" : "Preferred Stock Dividends and Other Adjustments",
-        "Id" : "f92577e5-db53-4035-8d3f-b63b92999be9"
+        "Id" : "3913a57b-3ccf-4256-9eea-de7c3452e2b0"
     }, {
         "Name" : "fac:NetIncomeLossAvailableToCommonStockholdersBasic",
         "Label" : "Net Income (Loss) Available to Common Stockholders, Basic",
-        "Id" : "2f6db639-58dc-4ea7-9c5e-ec020e442774"
+        "Id" : "29e8999b-289f-4e5f-90eb-aba355dca2b7"
     }, {
         "Name" : "fac:StatementComprehensiveIncomeHierarchy",
         "Label" : "Statement of Comprehensive Income [Hierarchy]",
         "IsAbstract" : true,
-        "Id" : "8e68387d-d56d-4eca-8b2d-2b32079ae754"
+        "Id" : "bf56830c-e8f8-435f-9cd4-fe61c29cc9bf"
     }, {
         "Name" : "fac:OtherComprehensiveIncomeLoss",
         "Label" : "Other Comprehensive Income (Loss)",
-        "Id" : "1f67472f-e9a5-46a4-a03b-9e7f72c5a1ea"
+        "Id" : "2f9ee402-6be4-43b8-9119-792aed3d07a7"
     }, {
         "Name" : "fac:ComprehensiveIncomeLoss",
         "Label" : "Comprehensive Income (Loss)",
-        "Id" : "89688aaf-c145-4692-b08e-91dfbaa70794"
+        "Id" : "c994d072-f5cc-4ced-9591-fe7793d5671a"
     }, {
         "Name" : "fac:ComprehensiveIncomeLossAttributableToParent",
         "Label" : "Comprehensive Income (Loss) Attributable to Parent",
-        "Id" : "dda5b66f-e6e5-4817-b61e-83af1a51fc11"
+        "Id" : "9473f5f3-5622-4550-9b38-45e5f915f08e"
     }, {
         "Name" : "fac:ComprehensiveIncomeLossAttributableToNoncontrollingInterest",
         "Label" : "Comprehensive Income (Loss) Attributable to Noncontrolling Interest",
-        "Id" : "ee767a51-f6f4-4d8e-a9dc-52978c33fe05"
+        "Id" : "324a9949-6585-4f64-a110-4a99ef124ed9"
     }, {
         "Name" : "fac:CashFlowStatementHierarchy",
         "Label" : "Cash Flow Statement [Hierarchy]",
         "IsAbstract" : true,
-        "Id" : "ae904576-14ae-49b0-8676-c2b20db574e4"
+        "Id" : "0742a561-d3c6-43ae-92e0-37e6771088aa"
     }, {
         "Name" : "fac:NetCashFlowFromOperatingActivitiesContinuing",
         "Label" : "Net Cash Flow from Operating Activities, Continuing",
-        "Id" : "a346eb56-becc-48bb-bf6b-af05ebd54787"
+        "Id" : "098a497b-5d15-4c6a-b510-08f20c03ea2f"
     }, {
         "Name" : "fac:NetCashFlowFromOperatingActivitiesDiscontinued",
         "Label" : "Net Cash Flow from Operating Activities, Discontinued",
-        "Id" : "7010dc9b-a73d-4b95-a4fc-3aa3eade5d99"
+        "Id" : "e228eba9-eda0-4034-93c1-f4592675c165"
     }, {
         "Name" : "fac:NetCashFlowFromOperatingActivities",
         "Label" : "Net Cash Flow from Operating Activities",
-        "Id" : "44647585-adcf-4473-805b-d9e123db7261"
+        "Id" : "2560a0bb-1cfe-48e1-8259-829ac90f9d09"
     }, {
         "Name" : "fac:NetCashFlowFromInvestingActivitiesContinuing",
         "Label" : "Net Cash Flow from Investing Activities, Continuing",
-        "Id" : "d7488325-1382-4be4-b7b2-43fedc103313"
+        "Id" : "339465fe-077f-4b22-b225-f84283494fa3"
     }, {
         "Name" : "fac:NetCashFlowFromInvestingActivitiesDiscontinued",
         "Label" : "Net Cash Flow from Investing Activities, Discontinued",
-        "Id" : "122e759a-d808-42f5-9c95-83546805febf"
+        "Id" : "ed0256a7-838b-4dc9-a0cb-d277c32b8142"
     }, {
         "Name" : "fac:NetCashFlowFromInvestingActivities",
         "Label" : "Net Cash Flow from Investing Activities",
-        "Id" : "db1e1a35-2b37-4cbb-b551-84d32c8b44d1"
+        "Id" : "457416ec-88bf-489c-bcd1-26859c141970"
     }, {
         "Name" : "fac:NetCashFlowFromFinancingActivitiesContinuing",
         "Label" : "Net Cash Flow from Financing Activities, Continuing",
-        "Id" : "fcd9f178-026c-4de4-9354-3ee210c88845"
+        "Id" : "58b8e674-bcb6-4536-bbe9-b8c0b820ea61"
     }, {
         "Name" : "fac:NetCashFlowFromFinancingActivitiesDiscontinued",
         "Label" : "Net Cash Flow from Financing Activities, Discontinued",
-        "Id" : "9cd358c5-43d1-473c-86d7-5e6a15809589"
+        "Id" : "8d992ef9-f9b2-43de-a689-cc62fb876095"
     }, {
         "Name" : "fac:NetCashFlowFromFinancingActivities",
         "Label" : "Net Cash Flow from Financing Activities",
-        "Id" : "4131f830-d843-4d5e-a9e9-efbcebf8d6ec"
+        "Id" : "fe3849e6-7ad4-4f08-8f4c-4c1426000769"
     }, {
         "Name" : "fac:ExchangeGainsLosses",
         "Label" : "Exchange Gains (Losses)",
-        "Id" : "8650875a-7f97-4b89-9c72-db0cdff4bb38"
+        "Id" : "7706af08-7227-45f2-9687-093c1bc985ef"
     }, {
         "Name" : "fac:NetCashFlow",
         "Label" : "Net Cash Flow",
-        "Id" : "a4d33243-4170-46a4-b2ae-677f9fad3cb3"
+        "Id" : "91d7c208-e306-4730-b491-342d83ac53d4"
     }, {
         "Name" : "fac:NetCashFlowContinuing",
         "Label" : "Net Cash Flow, Continuing",
-        "Id" : "80791787-14e0-4e5c-b34b-2b5f63c594c1"
+        "Id" : "1514f57b-888a-44b8-a63c-38cc1b1b6280"
     }, {
         "Name" : "fac:NetCashFlowDiscontinued",
         "Label" : "Net Cash Flow, Discontinued",
-        "Id" : "1a73b7ed-53f7-4857-a428-96954f53e08e"
+        "Id" : "e26611c8-fdc7-4099-ae71-35a71f67d226"
     }, {
         "Name" : "fac:KeyRatiosHierarchy",
         "Label" : "Key Ratios [Hierarchy]",
         "IsAbstract" : true,
-        "Id" : "bc25a559-32c8-45b6-93ff-902db8b4d556"
+        "Id" : "d3f8f59f-41c1-43ac-be0e-3622f68fa03f"
     }, {
         "Name" : "fac:ReturnOnEquity",
         "Label" : "Return on Equity (ROE)",
-        "Id" : "b0f99d8e-8564-410b-8082-9e508121b11c"
+        "Id" : "9cbe7856-5d61-464f-93ee-96a757f6bdfb"
     }, {
         "Name" : "fac:ReturnOnAssets",
         "Label" : "Return on Assets (ROA)",
-        "Id" : "188b376b-b82c-434a-86c8-85a5fdbd467b"
+        "Id" : "0b852162-8b6d-4aff-8f28-6138088c4861"
     }, {
         "Name" : "fac:ReturnOnSales",
         "Label" : "Return on Sales (ROS)",
-        "Id" : "a7b22ca4-7b59-45bf-9053-743b77f0e440"
+        "Id" : "fab38c9f-130e-43fd-bfd3-09c049882737"
     }, {
         "Name" : "fac:SustainableGrowthRate",
         "Label" : "Sustainable Growth Rate (SGR)",
-        "Id" : "953386be-8f24-457f-8d37-01a0aa25cdca"
+        "Id" : "7e90641a-0e3d-4f09-8334-5fb226769b2c"
     } ],
     "Filters" : {
         "cik" : [  ],
