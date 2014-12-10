@@ -31,6 +31,10 @@ var throwError = function (error) {
             }
         }
         message = JSON.stringify(body, null, '\t');
+        if(typeof body === 'object' && (( body.length && body[0].context ) || body.context)){
+            $.util.log(message);
+            message = 'Compilation error';
+        }
     }
     if(error.message){
         message = error.message;
@@ -210,7 +214,7 @@ var runQueries = function(projectName, queriesToRun) {
             }).catch(function (error) {
                 var requestUri = error.response.request.uri;
                 var isTestQuery = (requestUri.pathname.lastIndexOf('/v1/_queries/public/test', 0) === 0);
-                var href = isTestQuery ? requestUri.host + requestUri.pathname.substring('/v1/_queries/public'.length + 1) : requestUri.host + requestUri.pathname;
+                var href = isTestQuery ? requestUri.host + requestUri.pathname.substring('/v1/_queries/public'.length) : requestUri.host + requestUri.pathname;
                 $.util.log(('✗ '.red) + href + ' returned with status code: ' + $.util.colors.red(error.response.statusCode));
                 error = isTestQuery ? summarizeTestError(error) : error;
                 throw error;
