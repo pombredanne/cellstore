@@ -1,6 +1,7 @@
+import module namespace http-client = "http://zorba.io/modules/http-client";
+import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace test = "http://apps.28.io/test";
-import module namespace http-client = "http://zorba.io/modules/http-client";
 
 declare variable $local:expected as object :=
     {
