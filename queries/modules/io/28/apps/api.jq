@@ -172,7 +172,7 @@ declare %an:sequential function api:csv-to-html(
                 start $start at $i when true
                 only end $end at $j when not contains($start, "\"") or ($j gt $i and contains($end, "\""))
                 let $cell := replace(string-join($cells, ","), "\"", "")
-                return if(contains($cell, "http://") and not contains($cell, "http://www.sec.gov/CIK"))
+                return if(contains($cell, "http://") and (contains($cell, "28.io") or contains($cell, "rendering.secxbrl.info")))
                        then <td><a href="{$cell}">Link</a></td>
                        else <td>{$cell}</td>
               }

@@ -42,7 +42,8 @@ declare function local:to-csv($res as object*) as string*
             LineItems : $c.LineItems,
             Concepts : $c.Concepts,
             Abstracts : $c.Abstracts,
-            FactTable: $c.FactTable
+            FactTable: $c.FactTable,
+            SpreadSheet: $c.SpreadSheet
         },
     { serialize-null-as : "" }) 
 };
@@ -57,7 +58,8 @@ declare function local:to-csv-generic($res as object*) as string*
             NumRules: $a.NumRules,
             NumNetworks: $a.NumNetworks,
             NumHypercubes: size($a.Hypercubes),
-            FactTable: $a.FactTable
+            FactTable: $a.FactTable,
+            SpreadSheet: $a.SpreadSheet
         },
     { serialize-null-as : "" }) 
 };
@@ -152,7 +154,13 @@ let $res as object* :=
                         "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid="||$archive._id ||
                         "&format=html&role=" || $component.NetworkIdentifier ||
                         "&profile-name=" || $profile-name ||
-                        "&token=" || http-request:parameter-values("token")
+                        "&token=" || http-request:parameter-values("token"),
+                        SpreadSheet: "http://rendering.secxbrl.info/#?url=" || encode-for-uri(
+                        "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+                        "/v1/_queries/public/api/spreadsheet-for-component.jq?_method=POST&aid="||$archive._id ||
+                        "&format=html&role=" || $component.NetworkIdentifier ||
+                        "&profile-name=" || $profile-name ||
+                        "&token=" || http-request:parameter-values("token"))
                     } into $c
                     return $c
                ]
@@ -169,7 +177,13 @@ let $res as object* :=
                         "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid="||$r.Archive ||
                         "&format=html&role=" || $r.Role ||
                         "&profile-name=" || $profile-name ||
-                        "&token=" || http-request:parameter-values("token")
+                        "&token=" || http-request:parameter-values("token"),
+            SpreadSheet: "http://rendering.secxbrl.info/#?url=" || encode-for-uri(
+                        "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+                        "/v1/_queries/public/api/spreadsheet-for-component.jq?_method=POST&aid="||$r.Archive ||
+                        "&role=" || $r.Role ||
+                        "&profile-name=" || $profile-name ||
+                        "&token=" || http-request:parameter-values("token"))
         }
 let $result := switch($profile-name) case "sec" return { Archives: [ $res ] } default return { Components : [ $res ] }
 let $comment :=
