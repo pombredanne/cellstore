@@ -61,7 +61,12 @@ let $summaries :=
         for $f in filings:summaries($archives) 
         order by $f.Accepted descending
         return $f
-    default return project($archives, ("_id", "Entity"))
+    default return
+        for $a in $archives
+        return {
+            AID: $a._id,
+            Entity: $a.Entity
+        }
 let $result := { "Archives" : [ $summaries ] }
 let $comment :=
 {
@@ -80,7 +85,7 @@ let $serializers := {
             <Archives>{
                 for $a in $res.Archives[]
                 return <Archive>
-                    <AID>{$a._id}</AID>
+                    <AID>{$a.AID}</AID>
                     <Entity>{$a.Entity}</Entity>
                 </Archive>
             }
@@ -92,13 +97,8 @@ let $serializers := {
             string-join(filings:summaries-to-csv($res.Archives[]))
         default return
             string-join(
-                csv:serialize(
-                    for $a in $res.Archives[]
-                    return { 
-                        AID: $a._id,
-                        Entity: $a.Entity
-                    },
-            { serialize-null-as : "" }),
+                csv:serialize($res.Archives[], { serialize-null-as : "" }
+            ),
         "")
     }
 }

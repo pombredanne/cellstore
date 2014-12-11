@@ -40,8 +40,12 @@ let $entities :=
         order by $entity.Profiles.SEC.CompanyName
         return $entity
     default return
-        if(exists($entity)) then entities:entities($entity)
-                            else entities:entities()
+        for $entity in
+            if(exists($entity)) then entities:entities($entity)
+                                else entities:entities()
+        return {
+            EID: $entity._id
+        }
 let $comment :=
 {
     NumEntities: count($entities),
@@ -57,7 +61,7 @@ let $serializers := {
         }</Entities>
         default return <Entities>
             {
-                for $id in $res.Entities[]._id
+                for $id in $res.Entities[].EID
                 return <EID>{$id}</EID>
             }
         </Entities>
@@ -68,12 +72,7 @@ let $serializers := {
         return string-join(companies:to-csv($res.Entities[]))
         default return
             string-join(
-                csv:serialize(
-                    for $e in $res.Entities[]
-                    return { 
-                        EID: $e._id
-                    },
-            { serialize-null-as : "" }),
+                csv:serialize($res.Entities[], { serialize-null-as : "" }),
         "")
     }
 }
