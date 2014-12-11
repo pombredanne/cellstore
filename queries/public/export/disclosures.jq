@@ -1,6 +1,5 @@
 jsoniq version "1.0";
 
-import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace export = "http://apps.28.io/reports-export";
 
 declare variable $id := "Disclosures";

@@ -3,7 +3,7 @@ import module namespace http = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace export = "http://apps.28.io/reports-export";
 
-declare %an:nondeterministic function local:concepts(){
+declare %an:nondeterministic function local:concepts() as object*{
   {
     "Name" : "fac:CommonStockSharesAuthorized",
     "Label" : "Common Stock Shares (authorized)"
