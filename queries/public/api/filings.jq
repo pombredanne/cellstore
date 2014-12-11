@@ -4,7 +4,6 @@ import module namespace session = "http://apps.28.io/session";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
-import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
