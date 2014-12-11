@@ -128,25 +128,8 @@ declare %an:sequential function api:serialize(
     }
     case "html" return {
         resp:content-type("text/html");
-        let $csv as string* := $serializers.to-csv($result)
-        return <html xmlns="http://w3.org/1999/xhtml">
-          <head>
-            <title>Cell Store REST API</title>
-          </head>
-          <body>
-            <table>
-              {
-                for $row as string in tokenize($csv, "\n")
-                return <tr>
-                  {
-                    for $cell as string in tokenize($row, ",")
-                    return <td>{$cell}</td>
-                  }
-                </tr>
-              }
-            </table>
-          </body>
-        </html>
+        let $csv as string := $serializers.to-csv($result)
+        return api:csv-to-html($csv)
     }
     case "excel" return {
         resp:content-type("application/vnd.ms-excel");
@@ -161,6 +144,43 @@ declare %an:sequential function api:serialize(
             $result
         |}
     }
+};
+
+declare %an:sequential function api:csv-to-html(
+    $csv as string) as item*
+{
+    let $csv as string* := $csv
+    return <html xmlns="http://w3.org/1999/xhtml">
+      <head>
+        <title>Cell Store REST API</title>
+        <style>
+            table {{
+                border-collapse: collapse
+            }}
+            table, th, td {{
+                border: solid
+            }}
+        </style>
+      </head>
+      <body>
+        <table>
+          {
+            for $row as string in tokenize($csv, "\n")
+            return <tr>
+              {
+                for tumbling window $cells as string* in tokenize($row, ",")
+                start $start at $i when true
+                only end $end at $j when not contains($start, "\"") or ($j gt $i and contains($end, "\""))
+                let $cell := replace(string-join($cells, ","), "\"", "")
+                return if(contains($cell, "http://") and not contains($cell, "http://www.sec.gov/CIK"))
+                       then <td><a href="{$cell}">Link</a></td>
+                       else <td>{$cell}</td>
+              }
+            </tr>
+          }
+        </table>
+      </body>
+    </html>
 };
 
 declare function api:preprocess-fiscal-years($fiscal-years as string*) as integer*

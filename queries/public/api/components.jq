@@ -10,6 +10,8 @@ import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/n
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
+import module namespace http-request = "http://www.28msec.com/modules/http/request";
+
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
@@ -20,10 +22,6 @@ declare function local:to-csv($res as object*) as string*
         for $a in $res
         for $c in $a.Components[]
         return { 
-            Archive: $a.Archive,
-            Role: $a.Role,
-            NumRules: $a.NumRules,
-            NumNetworks: $a.NumNetworks,
             AcessionNumber : $a.AccessionNumber,
             EntityRegistrantName : $a.EntityRegistrantName,
             CIK : $a.CIK,
@@ -32,7 +30,7 @@ declare function local:to-csv($res as object*) as string*
             AcceptanceDateTime : $a.AcceptanceDatetime,
             FormType : $a.FormType,
             NetworkLabel : $c.NetworkLabel,
-            NetworkIdentifier : $c.NetworkRole,
+            NetworkIdentifier : $c.NetworkIdentifier,
             Category : $c.Category,
             SubCategory : $c.SubCategory,
             Table : flatten($c.Table),
@@ -43,7 +41,8 @@ declare function local:to-csv($res as object*) as string*
             Members : $c.Members,
             LineItems : $c.LineItems,
             Concepts : $c.Concepts,
-            Abstracts : $c.Abstracts
+            Abstracts : $c.Abstracts,
+            FactTable: $c.FactTable
         },
     { serialize-null-as : "" }) 
 };
@@ -57,7 +56,8 @@ declare function local:to-csv-generic($res as object*) as string*
             Role: $a.Role,
             NumRules: $a.NumRules,
             NumNetworks: $a.NumNetworks,
-            NumHypercubes: size($a.Hypercubes)
+            NumHypercubes: size($a.Hypercubes),
+            FactTable: $a.FactTable
         },
     { serialize-null-as : "" }) 
 };
@@ -145,7 +145,16 @@ let $res as object* :=
                AcceptanceDatetime : sec-filings:acceptance-dateTimes($archive),
                FormType : $archive.Profiles.SEC.FormType,
                Components : [ 
-                   sec-networks:summaries($r)
+                    for $component in sec-networks:summaries($r)
+                    return copy $c := $component
+                    modify insert json {
+                        FactTable: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+                        "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid="||$archive._id ||
+                        "&format=html&role=" || $component.NetworkIdentifier ||
+                        "&profile-name=" || $profile-name ||
+                        "&token=" || http-request:parameter-values("token")
+                    } into $c
+                    return $c
                ]
            }
     default return
@@ -155,7 +164,12 @@ let $res as object* :=
             Role: $r.Role,
             NumRules: size($r.Rules),
             NumNetworks: size($r.Networks),
-            Hypercubes: [ keys($r.Hypercubes) ]
+            Hypercubes: [ keys($r.Hypercubes) ],
+            FactTable: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+                        "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid="||$r.Archive ||
+                        "&format=html&role=" || $r.Role ||
+                        "&profile-name=" || $profile-name ||
+                        "&token=" || http-request:parameter-values("token")
         }
 let $result := switch($profile-name) case "sec" return { Archives: [ $res ] } default return { Components : [ $res ] }
 let $comment :=

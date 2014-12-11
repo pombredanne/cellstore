@@ -338,7 +338,8 @@ declare function companies:to-csv($companies-or-ids as item*) as string*
       Sector : $e.Profiles.SEC.Sector,
       IsTrust : $e.Profiles.SEC.IsTrust,
       Tickers : string-join($e.Profiles.SEC.Tickers[], " "),
-      Tags : string-join($e.Profiles.SEC.Tags[], " ")
+      Tags : string-join($e.Profiles.SEC.Tags[], " "),
+      Archives: $e.Archives
     },
     { serialize-null-as : "" }
   )

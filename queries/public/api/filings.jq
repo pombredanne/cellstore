@@ -1,3 +1,6 @@
+import module namespace http-request = "http://www.28msec.com/modules/http/request";
+
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 
@@ -11,6 +14,7 @@ import module namespace session = "http://apps.28.io/session";
 declare  %rest:case-insensitive                 variable $token         as string? external;
 declare  %rest:env                              variable $request-uri   as string  external;
 declare  %rest:case-insensitive                 variable $format        as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $entity        as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $tag           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $ticker        as string* external;
@@ -28,12 +32,14 @@ let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
-let $entities := 
+let $entities := (
     companies:companies(
         $cik,
         $tag,
         $ticker,
-        $sic)
+        $sic),
+    entities:entities($entity)
+)
 let $archives as object* := fiscal-core:filings(
     $entities,
     $fiscalPeriod,
@@ -42,6 +48,16 @@ let $archives as object* := fiscal-core:filings(
 let $summaries := for $f in filings:summaries($archives) 
                   order by $f.Accepted descending
                   return $f
+let $summaries :=
+    for $archive in $summaries
+    return copy $a := $archive
+    modify insert json {
+        Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+        "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($a.AccessionNumber) ||
+        "&format=html" ||
+        "&token=" || http-request:parameter-values("token")
+    } into $a
+    return $a
 let $result := { "Archives" : [ $summaries ] }
 let $comment :=
 {
