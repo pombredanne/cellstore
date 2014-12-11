@@ -17,7 +17,7 @@ declare  %rest:case-insensitive                 variable $token         as strin
 declare  %rest:env                              variable $request-uri   as string  external;
 declare  %rest:case-insensitive                 variable $format        as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik           as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $entity        as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $eid           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $tag           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $ticker        as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $sic           as string* external;
@@ -42,9 +42,7 @@ let $entities :=
         $tag,
         $ticker,
         $sic)
-    default return
-        if(exists($entity)) then entities:entities($entity)
-                            else entities:entities()
+    default return ()
 let $archives as object* :=
     switch($profile-name)
     case "sec" return fiscal-core:filings(
@@ -53,8 +51,8 @@ let $archives as object* :=
         $fiscalYear,
         $aid)
     default return
-        if(exists($entity)) then archives:archives-for-entities($entity)
-                            else archives:archives()
+        if(exists($eid)) then archives:archives-for-entities($eid)
+                              else archives:archives()
 let $summaries :=
     switch($profile-name)
     case "sec" return

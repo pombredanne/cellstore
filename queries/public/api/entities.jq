@@ -12,7 +12,7 @@ import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/comp
 declare  %rest:case-insensitive                 variable $token        as string? external;
 declare  %rest:env                              variable $request-uri  as string  external;
 declare  %rest:case-insensitive                 variable $format       as string? external;
-declare  %rest:case-insensitive %rest:distinct  variable $entity       as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $eid          as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik          as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $tag          as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $ticker       as string* external;
@@ -41,7 +41,7 @@ let $entities :=
         return $entity
     default return
         for $entity in
-            if(exists($entity)) then entities:entities($entity)
+            if(exists($eid)) then entities:entities($eid)
                                 else entities:entities()
         return {
             EID: $entity._id
