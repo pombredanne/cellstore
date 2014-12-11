@@ -21,7 +21,7 @@ declare %private function test:url($endpoint as string, $parameters as object, $
     string-join(
         for $key in keys($parameters)
         for $value as string in (flatten($parameters.$key) ! string($$))
-        return ($key||"="||encode-for-uri($value)),
+        return ($key||"="||$value),
         "&")
 };
 
