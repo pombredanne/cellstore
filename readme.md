@@ -1,182 +1,134 @@
 # CellStore
 [![Build Status](http://img.shields.io/travis/28msec/cellstore/master.svg?style=flat)](https://travis-ci.org/28msec/cellstore) [![Code Climate](http://img.shields.io/codeclimate/github/28msec/cellstore.svg?style=flat)](https://codeclimate.com/github/28msec/cellstore)
 
-US Public Company Financial Information Repository. Built on top of http://28.io.
+Modern Data Warehousing and Enterprise Information Management. Built on top of http://28.io.
 
-## Windows Users
+## Whitepaper
+http://arxiv.org/pdf/1410.0600.pdf
 
+## Installation
+
+*Windows Users*:
 We advice you to run any commands in the Git Bash.
 Otherwise, the decryption of config.json won't work and you will have to setup the config.json manually.
 
-## Configuration
-There are two scenarios for deploying this project on http://28.io. Using the 28msec account or your own account.
-
-### Using the 28msec account
-To deploy a branch on the 28msec account, the following environment variable need to be set: `TRAVIS_SECRET_KEY`. The
-config.json will then automatically be created.
-
-### Using your own account
-In the root of the repository, create a `config.json` file in the root of the repository.
-This is the expected structure of the file:
-```json
-{
-    "s3": {
-        "key": "AWS S3 Access Key",
-        "secret": "AWS S3 Secret Key",
-        "region": "us-east-1",
-        "website": {
-            "ErrorDocument": {
-                "Key": "index.html"
-            },
-            "IndexDocument": {
-                "Suffix": "index.html"
-            },
-            "RoutingRules": [{
-                "Redirect": {
-                    "ReplaceKeyPrefixWith": "#"
-                },
-                "Condition": {
-                    "HttpErrorCodeReturnedEquals": "403"
-                }
-            }]
-        }
-    },
-    "28": {
-        "email": "28.io account email",
-        "password": "password",
-        "datasources": [
-            {
-                "category": "MongoDB",
-                "name": "xbrl",
-                "credentials": {
-                    "conn-string": "<hostname>:<port>",
-                    "db": "sec-databasename",
-                    "user": "username",
-                    "pass": "password"
-                }
-            }
-        ]
-    },
-    "cellstore": {
-        "all": {
-            "profile": "sec", // alternatively generic
-            "filteredAspects": "2",
-            "allowRegistration": "true", // users can register
-            "adminUser": "admin@example.io",
-            "testUser": "test@example.io"
-        }
-        "dev" :
-            {
-                "adminPassword": "<dev admin user password>",
-                "testPassword": "<dev support user password>",
-                "testToken": "<dev support user token for testing>"
-            },
-        "prod" :
-            {
-                "adminPassword": "<prod admin user password>",
-                "testPassword": "<prod support user password>",
-                "testToken": "<prod support user token for testing>"
-            }
-    },
-    "netdna": {
-        "companyAlias": "<alias>",
-        "consumerKey": "<Consumer Key>",
-        "consumerSecret": "<Consumer Secret>",
-        "prod": {
-            "zone": "<zone>"
-        }
-    },
-    "sendmail":{
-        "host": "smtp.gmail.com:587/tls/novalidate-cert",
-        "user": "admin@example.com",
-        "password": "<password>",
-        "sender": {
-            "email": "hello@example.com",
-            "name": "SecXBRL.info"
-        }
-    }
-}
-```
-
-### Update config.json
-If you would like to update the `config.json` file into the repo, you need the following environment variable need to be set: `TRAVIS_SECRET_KEY`.
-Simply run:
 ```bash
-$ gulp encrypt
-```
-
-## Development
-
-Setup environment:
-
-```bash
+$ npm install gulp -g
 $ npm install && bower install
 ```
 
-### Backend Development
+## Configuration
+To create a CellStore deployment `<name>` you need to add a config file `config/<name>.json` with the following [example structure](#configuration-example).
 
-Deploy backend to secxbrl-myfeature.28.io (will delete and create project secxbrl-myfeature) and run against it:
-
+Encrypt your config file and add the encrypted `config/<name>.json.enc` to the repo:
 ```bash
-$ gulp 28:setup --build-id=myfeature
-$ gulp server
+$ export TRAVIS_SECRET_KEY=<secret>
+$ gulp encrypt --build-id=test --config=<name>
+$ git add config/<name>.json.enc
 ```
 
-Now, start developing the backend online on http://hq.28.io . Once, you are done with your implementation
-you can download the changes made (from secxbrl-myfeature.28.io):
+On github create a branch called `test`. With the matching config file name you have then created a production branch
+which automatically deploys to your production s3 bucket and 28.io project as defined in your configuration.
 
+Optionally:
+- add reports for your deployment to `data/<name>/`
+- add API tests to `queries/public/test/<name>/`
+- add e2e tests to `tests/e2e/<name>`
+
+## Environment Variables
+You might want to set the following environment variables for convenience:
 ```bash
-$ gulp 28:setup --build-id=myfeature
+$ export TRAVIS_SECRET_KEY=<secret> # to decrypt / encrypt config files
+$ export CELLSTORE_BUILD_ID=<mybuild-id> # default build-id if --build-id=xyz is not provided
+$ export CELLSTORE_CONFIG=<name> # default config if --config=xyz is not provided
 ```
 
-### Frontend Development
+## Deployment
+Create a CellStore deployment called test using the encrypted configuration in `config/sec.json.enc`.
+```bash
+$ gulp 28:setup --build-id=test --config=sec
+```
 
-Run frontend locally against current secxbrl-dev backend:
+To remove a deployment:
+Once you are done:
+```bash
+$ gulp teardown --build-id=test --config=sec
+```
+
+## Frontend Development
+
+Runs the frontend locally using the `sec.json` configuration:
 
 ```bash
-$ gulp load-config --build-id=dev #or gulp 28:setup --build-id=myfeature
-$ gulp server
+$ gulp server --build-id=mydemo --config=sec
 ```
 
 Run the built version (uglified etc.)
 ```bash
-gulp server:prod
-```
-
-### Deployment for UAT
-
-Deploy backend to secxbrl-myfeature.28.io and frontend (running against the deployed backend) to secxbrl-myfeature bucket on S3:
-
-```bash
-gulp setup --build-id=myfeature
-```
-
-### Build dist and run xqlint/jshint tests
-
-Build project into /dist (for running against backend project secxbrl-myfeature):
-
-```bash
-gulp build --build-id=myfeature
+gulp server:prod --build-id=mydemo --config=sec
 ```
 
 ## Testing
 
 Run UI tests only:
 ```bash
-gulp test --build-id=mydemo
+gulp test --build-id=mydemo --config=sec
 ```
 
 Run unit test:
 ```bash
-gulp test:unit
+gulp test:unit --build-id=mydemo --config=sec
 ```
 
-Once you are done:
-```bash
-gulp teardown --build-id=mydemo
-```
+## Configuration Example
+```json
+{
+    "all": {
+        "githubToken": "oiifwjro984t834toaihzg9riejloi",
 
-All steps can be done at once by simply running:
-```bash
-grunt --build-id=mydemo
+        "s3-region": "us-east-1",
+        "s3-bucketPrefix": "csms.example.com",
+        "s3-key": "ADUREIGMKODJAEO43SAJ3",
+        "s3-secret": "lkhsohqDFhsasdhaAFjaFajajfdWEhDFHAjhud4e4",
+        "s3-reportsBucket": "e2eFailureTestReportBucket",
+
+        "28-projectPrefix": "example-project",
+        "28-email": "user@example.com",
+        "28-password": "<password>",
+        "28-datasource-conn": "set-lskjdfaoieurlkajpoidgja/db.example.com:27017,db.example.com:27017",
+        "28-datasource-db": "db",
+        "28-datasource-user": "dbuser",
+        "28-datasource-pass": "<password>",
+
+        "cellstore-profile": "generic",
+        "cellstore-filteredAspects": "2",
+        "cellstore-allowRegistration": "true",
+        "cellstore-adminUser": "admin@example.com",
+        "cellstore-testUser": "testuser@example.com",
+
+        "netdna-companyAlias": "mycompanyalias",
+        "netdna-consumerKey": "klsjfoaoiqje8ahofdkgjoeqiutjae",
+        "netdna-consumerSecret": "lskajforeiwutjgheqoiajejkweasdf",
+
+        "sendmail-host": "smtp.example.com:995/tls/novalidate-cert",
+        "sendmail-user": "admin@example.com",
+        "sendmail-password": "<password>",
+        "sendmail-sender-email": "hello@example.com",
+        "sendmail-sender-name": "CellStore Example Setup"
+    },
+    "dev": {
+        "cellstore-adminPassword": "<password>",
+        "cellstore-testPassword": "<password>",
+        "cellstore-testToken": "secret",
+
+        "netdna-zone": "none"
+    },
+    "prod": {
+        "cellstore-adminPassword": "<password>",
+        "cellstore-testPassword": "<password>",
+        "cellstore-testToken": "cdjfalsk-slke-4dkd-73jd-kjsdhfakhjde",
+
+        "netdna-zone": "189474"
+    }
+}
 ```
