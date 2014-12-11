@@ -2,6 +2,8 @@ import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
+import module namespace csv = "http://zorba.io/modules/json-csv";
+
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 
@@ -15,6 +17,7 @@ declare  %rest:case-insensitive                 variable $token         as strin
 declare  %rest:env                              variable $request-uri   as string  external;
 declare  %rest:case-insensitive                 variable $format        as string? external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik           as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $entity        as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $tag           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $ticker        as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $sic           as string* external;
@@ -39,7 +42,9 @@ let $entities :=
         $tag,
         $ticker,
         $sic)
-    default return entities:entities()
+    default return
+        if(exists($entity)) then entities:entities($entity)
+                            else entities:entities()
 let $archives as object* :=
     switch($profile-name)
     case "sec" return fiscal-core:filings(
@@ -47,7 +52,9 @@ let $archives as object* :=
         $fiscalPeriod,
         $fiscalYear,
         $aid)
-    default return archives:archives()
+    default return
+        if(exists($entity)) then archives:archives-for-entities($entity)
+                            else archives:archives()
 let $summaries :=
     switch($profile-name)
     case "sec" return
@@ -64,12 +71,35 @@ let $comment :=
 }
 let $serializers := {
     to-xml : function($res as object) as node() {
-        <Filings>{
-            filings:summaries-to-xml($res.Archives[])   
-        }</Filings>
+        switch($profile-name)
+        case "sec" return
+            <Filings>{
+                filings:summaries-to-xml($res.Archives[])   
+            }</Filings>
+        default return
+            <Archives>{
+                for $a in $res.Archives[]
+                return <Archive>
+                    <AID>{$a._id}</AID>
+                    <Entity>{$a.Entity}</Entity>
+                </Archive>
+            }
+            </Archives>
     },
     to-csv : function($res as object) as string {
-        string-join(filings:summaries-to-csv($res.Archives[]))
+        switch($profile-name)
+        case "sec" return
+            string-join(filings:summaries-to-csv($res.Archives[]))
+        default return
+            string-join(
+                csv:serialize(
+                    for $a in $res.Archives[]
+                    return { 
+                        AID: $a._id,
+                        Entity: $a.Entity
+                    },
+            { serialize-null-as : "" }),
+        "")
     }
 }
 
