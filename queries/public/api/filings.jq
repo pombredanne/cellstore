@@ -70,12 +70,22 @@ let $summaries :=
 let $summaries :=
     for $archive in $summaries
     return copy $a := $archive
-    modify insert json {
-        Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-        "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($a.AccessionNumber) ||
-        "&format=html" ||
-        "&token=" || http-request:parameter-values("token")
-    } into $a
+    modify
+      switch($profile-name)
+      case "sec" return
+        insert json {
+          Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+          "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($a.AccessionNumber) ||
+          "&format=html" ||
+          "&token=" || http-request:parameter-values("token")
+        } into $a
+      default return
+        insert json {
+          Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+          "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($a.AID) ||
+          "&format=html" ||
+          "&token=" || http-request:parameter-values("token")
+        } into $a
     return $a
 
 let $result := { "Archives" : [ $summaries ] }
