@@ -69,7 +69,7 @@ let $entities :=
       default return
         insert json {
           Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-          "/v1/_queries/public/api/filings.jq?_method=POST&entity="|| encode-for-uri($e._id) ||
+          "/v1/_queries/public/api/filings.jq?_method=POST&eid="|| encode-for-uri($e._id) ||
           "&format=html" ||
           "&profile-name=" || $profile-name ||
           "&token=" || http-request:parameter-values("token")
