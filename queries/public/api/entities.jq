@@ -1,7 +1,11 @@
+import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace http-request = "http://www.28msec.com/modules/http/request";
+import module namespace csv = "http://zorba.io/modules/json-csv";
+
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 
@@ -9,10 +13,12 @@ import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/comp
 declare  %rest:case-insensitive                 variable $token        as string? external;
 declare  %rest:env                              variable $request-uri  as string  external;
 declare  %rest:case-insensitive                 variable $format       as string? external;
+declare  %rest:case-insensitive %rest:distinct  variable $eid          as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $cik          as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $tag          as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $ticker       as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $sic          as string* external;
+declare  %rest:case-insensitive                 variable $profile-name as string  external := $config:profile-name;
 
 session:audit-call($token);
 
@@ -24,15 +30,23 @@ let $tag := if (exists(($cik, $tag, $ticker, $sic)))
              else "ALL"
 
 (: Object resolution :)
-let $entities := 
-    for $entity in 
-        companies:companies(
+let $entities :=
+    switch($profile-name)
+    case "sec" return
+        for $entity in companies:companies(
             $cik,
             $tag,
             $ticker,
             $sic)
-    order by $entity.Profiles.SEC.CompanyName
-    return $entity
+        order by $entity.Profiles.SEC.CompanyName
+        return $entity
+    default return
+        for $entity in
+            if(exists($entities)) then entities:entities($eid)
+                                  else entities:entities()
+        return {
+            EID: $entity._id
+        }
 let $comment :=
 {
     NumEntities: count($entities),
@@ -41,22 +55,49 @@ let $comment :=
 let $entities :=
     for $entity in $entities
     return copy $e := $entity
-    modify insert json {
-        Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-        "/v1/_queries/public/api/filings.jq?_method=POST&entity="||encode-for-uri($e._id) ||
-        "&fiscalYear=ALL&fiscalPeriod=ALL&format=html" ||
-        "&token=" || http-request:parameter-values("token")
-    } into $e
+    modify
+      switch($profile-name)
+      case "sec"
+      return
+        insert json {
+          Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+          "/v1/_queries/public/api/filings.jq?_method=POST&cik="|| tokenize($e._id, " ")[2] ||
+          "&fiscalYear=ALL&fiscalPeriod=ALL&format=html" ||
+          "&profile-name=" || $profile-name ||
+          "&token=" || http-request:parameter-values("token")
+        } into $e
+      default return
+        insert json {
+          Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+          "/v1/_queries/public/api/filings.jq?_method=POST&entity="|| encode-for-uri($e._id) ||
+          "&format=html" ||
+          "&profile-name=" || $profile-name ||
+          "&token=" || http-request:parameter-values("token")
+        } into $e
     return $e
 let $result := { "Entities" : [ $entities ] }
 let $serializers := {
     to-xml : function($res as object) as node() {
+        switch($profile-name)
+        case "sec" return
         <Entities>{
             companies:to-xml($res.Entities[])
         }</Entities>
+        default return <Entities>
+            {
+                for $id in $res.Entities[].EID
+                return <EID>{$id}</EID>
+            }
+        </Entities>
     },
     to-csv : function($res as object) as string {
-        string-join(companies:to-csv($res.Entities[]))
+        switch($profile-name)
+        case "sec"
+        return string-join(companies:to-csv($res.Entities[]))
+        default return
+            string-join(
+                csv:serialize($res.Entities[], { serialize-null-as : "" }),
+        "")
     }
 }
 return api:serialize($result, $comment, $serializers, $format, "entities")
