@@ -84,7 +84,7 @@ declare %an:sequential function local:check($o as object) as object
 let $dow30 := test:is-dow30()
 return local:check({
     all: local:test-filings($local:expected.all, {ticker:"ko"}),
-    generic: local:test-filings-generic($local:expected.generic, {eid:"http://www.sec.gov/CIK 0000004962", profile-name:"generic"}),
+    generic: local:test-filings-generic($local:expected.generic, {eid:"http://www.sec.gov/CIK%200000004962", profile-name:"generic"}),
     dow30: local:test-filings($local:expected.dow30, {tag:"DOW30"}),
     cik: local:test-filings($local:expected.cik, {cik:"4962"}),
     ticker: local:test-filings($local:expected.ticker, {ticker:"wmt",fiscalYear:"ALL"}),
