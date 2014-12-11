@@ -42,8 +42,8 @@ let $entities :=
         return $entity
     default return
         for $entity in
-            if(exists($entities)) then entities:entities($eid)
-                                  else entities:entities()
+            if(exists($eid)) then entities:entities($eid)
+                                else entities:entities()
         return {
             EID: $entity._id
         }

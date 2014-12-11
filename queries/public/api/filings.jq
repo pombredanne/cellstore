@@ -44,9 +44,7 @@ let $entities :=
         $tag,
         $ticker,
         $sic)
-    default return
-        if(exists($eid)) then entities:entities($eid)
-                         else entities:entities()
+    default return ()
 let $archives as object* :=
     switch($profile-name)
     case "sec" return fiscal-core:filings(
@@ -55,8 +53,8 @@ let $archives as object* :=
         $fiscalYear,
         $aid)
     default return
-        if(exists($entity)) then archives:archives-for-entities($entities)
-                            else archives:archives()
+        if(exists($eid)) then archives:archives-for-entities($eid)
+                              else archives:archives()
 let $summaries :=
     switch($profile-name)
     case "sec" return

@@ -79,7 +79,7 @@ declare %an:sequential function local:check($o as object) as object
 let $dow30 := test:is-dow30()
 return local:check({
     dow30: local:test-entities($local:expected.dow30, {tag:"DOW30"}),
-    generic: local:test-entities-generic($local:expected.generic, {entity:"http://www.sec.gov/CIK 0000004962", profile-name:"generic"}),
+    generic: local:test-entities-generic($local:expected.generic, {eid:"http://www.sec.gov/CIK 0000004962", profile-name:"generic"}),
     cik: local:test-entities($local:expected.cik, {cik:"4962"}),
     ticker: local:test-entities($local:expected.ticker, {ticker:"wmt"}),
     ticker2: local:test-entities($local:expected.ticker2, {ticker:["wmt","ko"]}),
