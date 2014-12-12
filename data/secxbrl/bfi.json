@@ -2741,7 +2741,7 @@
         } ],
         "AllowCrossPeriod" : true,
         "AllowCrossBalance" : true,
-        "HideRulesForConcepts" : [  ]
+        "HideRulesForConcepts" : [ "fac:NetCashFlowFromOperatingActivitiesDiscontinued" ]
     }, {
         "Id" : "e7f1c48e-4b36-429c-90cc-48634d543ab9",
         "OriginalLanguage" : "SpreadsheetFormula",
