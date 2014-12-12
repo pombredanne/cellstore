@@ -29,7 +29,7 @@ angular
                     'Kind' : 'InterConceptTreeNetwork',
                     'ShortName' : 'Presentation',
                     'CyclesAllowed' : 'undirected',
-                    'Trees' : {}
+                    'Trees' : []
                 }, {
                     'LinkName' : 'link:definitionLink',
                     'LinkRole' : role,
@@ -38,49 +38,163 @@ angular
                     'Kind' : 'InterConceptTreeNetwork',
                     'ShortName' : 'ConceptMap',
                     'CyclesAllowed' : 'undirected',
-                    'Trees' : {}
+                    'Trees' : []
                 }
             ],
             'Hypercubes' : {
-                'xbrl:DefaultHypercube': {
-                    'Name': 'xbrl:DefaultHypercube',
+                'xbrl28:ImpliedTable': {
+                    'Name': 'xbrl28:ImpliedTable',
                     'Label': label + ' [Table]',
                     'Aspects': {
                         'xbrl:Concept': {
                             'Name': 'xbrl:Concept',
-                            'Label': 'Concept',
-                            'Domains': {
-                                'xbrl:ConceptDomain': {
-                                    'Name': 'xbrl:ConceptDomain',
-                                    'Label': 'Implicit XBRL Concept Domain',
-                                    'Members': {
-                                    }
-                                }
-                            }
+                            'Label': 'Concept [Axis]',
+                            'Members': []
                         },
                         'xbrl:Period': {
                             'Name': 'xbrl:Period',
-                            'Label': 'Period'
+                            'Label': 'Period [Axis]',
+                            'Kind' : 'TypedDimension',
+                            'Type' : 'string'
                         },
                         'xbrl:Entity': {
                             'Name': 'xbrl:Entity',
-                            'Label': 'Reporting Entity',
+                            'Label': 'Reporting Entity [Axis]',
                             'Kind' : 'TypedDimension',
                             'Type' : 'string'
                         },
                         'xbrl:Unit': {
                             'Name': 'xbrl:Unit',
-                            'Label': 'Unit',
-                            'Default': 'xbrl:NonNumeric'
+                            'Label': 'Unit [Axis]',
+                            'Kind' : 'TypedDimension',
+                            'Type' : 'string',
+                            'Default': 'xbrl28:NoUnit'
                         },
                         'xbrl28:Archive': {
                             'Name': 'xbrl28:Archive',
-                            'Label': 'Archive ID'
+                            'Label': 'Archive [Axis]',
+                            'Kind' : 'TypedDimension',
+                            'Type' : 'string'
                         }
                     }
                 }
             },
             'Rules' : [],
+            'Concepts': [
+                {
+                    'Name': 'xbrl28:Archive',
+                    'Label': 'Archive [Axis]',
+                    'IsNillable': true,
+                    'IsAbstract': true,
+                    'PeriodType': 'duration',
+                    'SubstitutionGroup': 'xbrldt:dimensionItem',
+                    'DataType': 'nonnum:domainItemType',
+                    'BaseType': 'string',
+                    'ClosestSchemaBuiltinType': 'xs:string',
+                    'IsTextBlock': false,
+                    'Labels': [
+                        {
+                            'Role': 'http://www.xbrl.org/2003/role/label',
+                            'Language': 'en-us',
+                            'Value': 'Archive [Axis]'
+                        }
+                    ]
+                },
+                {
+                    'Name': 'xbrl28:ImpliedTable',
+                    'Label': 'Implied Table [Table]',
+                    'IsNillable': true,
+                    'IsAbstract': true,
+                    'PeriodType': 'duration',
+                    'SubstitutionGroup': 'xbrldt:hypercubeItem',
+                    'DataType': 'xbrli:stringItemType',
+                    'BaseType': 'string',
+                    'ClosestSchemaBuiltinType': 'xs:string',
+                    'IsTextBlock': false,
+                    'Labels': [
+                        {
+                            'Role': 'http://www.xbrl.org/2003/role/label',
+                            'Language': 'en-us',
+                            'Value': 'Implied Table [Table]'
+                        }
+                    ]
+                },
+                {
+                    'Name': 'xbrl:Unit',
+                    'Label': 'Unit [Axis]',
+                    'IsNillable': true,
+                    'IsAbstract': true,
+                    'PeriodType': 'duration',
+                    'SubstitutionGroup': 'xbrldt:dimensionItem',
+                    'DataType': 'nonnum:domainItemType',
+                    'BaseType': 'string',
+                    'ClosestSchemaBuiltinType': 'xs:string',
+                    'IsTextBlock': false,
+                    'Labels': [
+                        {
+                            'Role': 'http://www.xbrl.org/2003/role/label',
+                            'Language': 'en-us',
+                            'Value': 'Unit [Axis]'
+                        }
+                    ]
+                },
+                {
+                    'Name': 'xbrl:Concept',
+                    'Label': 'Concept [Axis]',
+                    'IsNillable': true,
+                    'IsAbstract': true,
+                    'PeriodType': 'duration',
+                    'SubstitutionGroup': 'xbrldt:dimensionItem',
+                    'DataType': 'nonnum:domainItemType',
+                    'BaseType': 'string',
+                    'ClosestSchemaBuiltinType': 'xs:string',
+                    'IsTextBlock': false,
+                    'Labels': [
+                        {
+                            'Role': 'http://www.xbrl.org/2003/role/label',
+                            'Language': 'en-us',
+                            'Value': 'Concept [Axis]'
+                        }
+                    ]
+                },
+                {
+                    'Name': 'xbrl:Period',
+                    'Label': 'Period [Axis]',
+                    'IsNillable': true,
+                    'IsAbstract': true,
+                    'PeriodType': 'duration',
+                    'SubstitutionGroup': 'xbrldt:dimensionItem',
+                    'DataType': 'nonnum:domainItemType',
+                    'BaseType': 'string',
+                    'ClosestSchemaBuiltinType': 'xs:string',
+                    'IsTextBlock': false,
+                    'Labels': [
+                        {
+                            'Role': 'http://www.xbrl.org/2003/role/label',
+                            'Language': 'en-us',
+                            'Value': 'Period [Axis]'
+                        }
+                    ]
+                },{
+                    'Name': 'xbrl:Entity',
+                    'Label': 'Reporting Entity [Axis]',
+                    'IsNillable': true,
+                    'IsAbstract': true,
+                    'PeriodType': 'duration',
+                    'SubstitutionGroup': 'xbrldt:dimensionItem',
+                    'DataType': 'nonnum:domainItemType',
+                    'BaseType': 'string',
+                    'ClosestSchemaBuiltinType': 'xs:string',
+                    'IsTextBlock': false,
+                    'Labels': [
+                        {
+                            'Role': 'http://www.xbrl.org/2003/role/label',
+                            'Language': 'en-us',
+                            'Value': 'Reporting Entity [Axis]'
+                        }
+                    ]
+                }
+            ],
             'Filters' : {
                 'cik' : [  ],
                 'tag' : [ ],

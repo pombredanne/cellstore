@@ -11,10 +11,10 @@ declare %an:sequential function export:cleanup($report as item) as item*
     return
       insert json { "Id": random:uuid() } into $object;;
 
-    export:remove-ui-states($report)
+    export:cleanupImpl($report)
 };
 
-declare %private function export:remove-ui-states($report as item) as item*
+declare %private function export:cleanupImpl($report as item) as item*
 {
     typeswitch($report)
     case $object as object return {|
@@ -27,12 +27,18 @@ declare %private function export:remove-ui-states($report as item) as item*
                     if($object.$key instance of array)
                     then $object.$key[]
                     else values($object.$key)
-                ) ! (export:remove-ui-states($$)) ] }
+                ) ! (export:cleanupImpl($$)) ] }
+            case "Members" return { $key : [
+                            (
+                                if($object.$key instance of array)
+                                then $object.$key[]
+                                else values($object.$key)
+                            ) ! (export:cleanupImpl($$)) ] }
             case "children" return ()
             case "expanded" return ()
             case "$$hashKey" return ()
-            default return { $key : export:remove-ui-states($object.$key) }
+            default return { $key : export:cleanupImpl($object.$key) }
     |}
-    case $array as array return [ ($array[]) ! (export:remove-ui-states($$)) ]
+    case $array as array return [ ($array[]) ! (export:cleanupImpl($$)) ]
     default return $report
 };

@@ -12,7 +12,13 @@ angular
         $scope.error = undefined;
         if(!angular.equals($scope.conceptCopy, $scope.concept)){
             try {
-                $scope.report.updateConcept($scope.conceptCopy.Name,$scope.conceptCopy.Label,$scope.conceptCopy.IsAbstract);
+                $scope.report.updateConcept(
+                    $scope.conceptCopy.Name,
+                    $scope.conceptCopy.Label,
+                    $scope.conceptCopy.IsAbstract,
+                    $scope.conceptCopy.PeriodType,
+                    $scope.conceptCopy.DataType,
+                    $scope.conceptCopy.Balance);
 
 
                 // as long as we don't have individual labels for elements we update all of them
