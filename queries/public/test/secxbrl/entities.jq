@@ -1,4 +1,5 @@
 import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace test = "http://apps.28.io/test";
 
 declare variable $local:expected as object :=
@@ -34,7 +35,9 @@ declare %an:nondeterministic function local:test-example1() as item
         "Tags" : [ "FORTUNE100", "DOW30", "RUSSELL1000", "SP500" ], 
         "IsTrust" : false
       }
-    }
+    },
+    "Archives" : "http://" || request:server-name() || ":" || request:server-port() ||
+      "/v1/_queries/public/api/filings.jq?_method=POST&cik=0000021344&fiscalYear=ALL&fiscalPeriod=ALL&format=html&profile-name=sec&token=foobar"
   } ]
   let $endpoint := "entities"
   let $params := {cik:"21344"}
