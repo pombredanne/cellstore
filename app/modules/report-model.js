@@ -42,7 +42,7 @@ angular
 
     return ReportID;
 })
-.factory('AbstractReport', function($log, $q, ConceptIsStillReferencedError, ReportID){
+.factory('AbstractReport', function(_, $log, $q, ConceptIsStillReferencedError, ReportID){
 
     //Constructor
     var AbstractReport = function(){};
@@ -139,6 +139,25 @@ angular
         }
     };
 
+    var ensureOptionalParameterValue = function(paramValue, paramName, paramType, functionName, allowedValuesArray) {
+        if(paramValue !== undefined && paramValue !== null){
+            ensureParameter(paramValue, paramName, paramType, functionName);
+            var hasAllowedValue = false;
+            for(var i in allowedValuesArray){
+                if(allowedValuesArray.hasOwnProperty(i)){
+                    var allowedValue = allowedValuesArray[i];
+                    if(paramValue === allowedValue){
+                        hasAllowedValue = true;
+                    }
+                }
+            }
+            if(!hasAllowedValue){
+                throw new Error(functionName + ': function called with invalid value for param: "' + paramName + '".' +
+                                                  'Allowed values: ' + JSON.stringify(allowedValuesArray));
+            }
+        }
+    };
+
     var ensureExists = function(value, valueType, functionName, errorMessage) {
         if(value === null || value === undefined || value === '') {
             throw new Error(functionName + ': ' + errorMessage);
@@ -181,48 +200,117 @@ angular
     };
 
     AbstractReport.prototype.getModel = function(){
+        if(this.model.Concepts === undefined || this.model.Concepts === null){
+            this.model.Concepts = [];
+        }
         return this.model;
     };
 
     /**********************
      ** Concepts API
      **********************/
-    AbstractReport.prototype.addConcept = function(oname, label, abstract) {
+    AbstractReport.prototype.PeriodTypes =
+        {
+            'DURATION': 'duration',
+            'INSTANT': 'instant'
+        };
+    AbstractReport.prototype.BalanceTypes =
+        {
+            'CREDIT': 'credit',
+            'DEBIT': 'debit'
+        };
+
+        // http://www.xbrl.org/Specification/XBRL-RECOMMENDATION-2003-12-31+Corrected-Errata-2008-07-02.htm#_Ref69000723
+    AbstractReport.prototype.DataTypes =
+        {
+            'SHARES': 'xbrli:sharesItemType',
+            'MONETARY': 'xbrli:monetaryItemType',
+            'PURE': 'xbrli:pureItemType',
+            'STRING': 'xbrli:stringItemType',
+            'TEXTBLOCK': 'nonnum:textBlockItemType',
+            'BOOLEAN': 'xbrli:booleanItemType'
+        };
+    AbstractReport.prototype.BaseTypes =
+        {
+            'xbrli:sharesItemType': 'xbrli:shares',
+            'xbrli:monetaryItemType': 'xbrli:monetary',
+            'xbrli:pureItemType': 'xbrli:pure',
+            'xbrli:stringItemType': 'xs:string',
+            'nonnum:textBlockItemType': 'xs:string',
+            'xbrli:booleanItemType': 'xs:boolean'
+        };
+    AbstractReport.prototype.SchemaTypes =
+        {
+            'xbrli:sharesItemType': 'xs:decimal',
+            'xbrli:monetaryItemType': 'xs:decimal',
+            'xbrli:pureItemType': 'xs:decimal',
+            'xbrli:stringItemType': 'xs:string',
+            'nonnum:textBlockItemType': 'xs:string',
+            'xbrli:booleanItemType': 'xs:boolean'
+        };
+
+    AbstractReport.prototype.addConcept = function(oname, label, abstract, periodType, dataType, balance) {
         var name = this.alignConceptPrefix(oname);
         ensureConceptName(name, 'oname', 'addConcept');
         ensureParameter(label, 'label', 'string', 'addConcept');
         ensureParameter(abstract, 'abstract', 'boolean', 'addConcept');
+        ensureOptionalParameterValue(periodType, 'periodType', 'string', 'addConcept', _.values(this.PeriodTypes));
+        ensureOptionalParameterValue(dataType, 'dataType', 'string', 'addConcept', _.values(this.DataTypes));
+        ensureOptionalParameterValue(balance, 'balance', 'string', 'addConcept', _.values(this.BalanceTypes));
 
         if(this.existsConcept(name)) {
             throw new Error('addConcept: concept with name "' + name + '" already exists.');
         }
 
         var model = this.getModel();
+        var member = {
+            'Id': new ReportID().toString(),
+            'Name': name,
+            'Label': label
+        };
         var concept =
             {
+                'Id': new ReportID().toString(),
                 'Name': name,
                 'Label': label,
-                'IsAbstract': abstract
-                /* still to be implemented:
-                'IsNillable': false,
-                'PeriodType': duration,
+                'IsAbstract': abstract,
+                'IsNillable': true,
                 'SubstitutionGroup': 'xbrl:item',
-                'DataType' : 'nonnum:textBlockItemType',
-                'BaseType' : 'xs:string',
-                'ClosestSchemaBuiltinType' : 'xs:string',
-                'IsTextBlock' : true
-                */
+                'Labels': [
+                    {
+                        'Role': 'http://www.xbrl.org/2003/role/label',
+                        'Language': 'en-us',
+                        'Value': label
+                    }
+                ]
             };
-        model.Hypercubes['xbrl:DefaultHypercube']
+        if(balance !== undefined && balance !== null){
+            concept.Balance = balance;
+        }
+        if(periodType !== undefined && periodType !== null){
+            concept.PeriodType = periodType;
+        }
+        if(dataType !== undefined && dataType !== null){
+            concept.DataType = dataType;
+            concept.BaseType = this.BaseTypes[dataType];
+            concept.ClosestSchemaBuiltinType = this.SchemaTypes[dataType];
+            if(concept.DataType === this.DataTypes.TEXTBLOCK){
+                concept.IsTextBlock = true;
+            }
+        }
+        model.Hypercubes['xbrl28:ImpliedTable']
             .Aspects['xbrl:Concept']
-            .Domains['xbrl:ConceptDomain']
-            .Members[name] = concept;
+            .Members.push(member);
+        model.Concepts.push(concept);
     };
 
-    AbstractReport.prototype.updateConcept = function(oname, label, abstract) {
+    AbstractReport.prototype.updateConcept = function(oname, label, abstract, periodType, dataType, balance) {
         var name = this.alignConceptPrefix(oname);
         ensureConceptName(name, 'oname', 'updateConcept');
         ensureParameter(label, 'label', 'string', 'updateConcept');
+        ensureOptionalParameterValue(periodType, 'periodType', 'string', 'addConcept', _.values(this.PeriodTypes));
+        ensureOptionalParameterValue(dataType, 'dataType', 'string', 'addConcept', _.values(this.DataTypes));
+        ensureOptionalParameterValue(balance, 'balance', 'string', 'addConcept', _.values(this.BalanceTypes));
         abstract = abstract === true;
 
         if(!this.existsConcept(name)) {
@@ -230,6 +318,31 @@ angular
         }
 
         var concept = this.getConcept(name);
+        if(balance !== undefined && balance !== null){
+            concept.Balance = balance;
+        } else {
+            delete concept.Balance;
+        }
+        if(periodType !== undefined && periodType !== null){
+            concept.PeriodType = periodType;
+        } else {
+            delete concept.PeriodType;
+        }
+        if(dataType !== undefined && dataType !== null){
+            concept.DataType = dataType;
+            concept.BaseType = this.BaseTypes[dataType];
+            concept.ClosestSchemaBuiltinType = this.SchemaTypes[dataType];
+            if(concept.DataType === this.DataTypes.TEXTBLOCK){
+                concept.IsTextBlock = true;
+            } else {
+                delete concept.IsTextBlock;
+            }
+        } else {
+            delete concept.DataType;
+            delete concept.BaseType;
+            delete concept.ClosestSchemaBuiltinType;
+            delete concept.IsTextBlock;
+        }
         if(concept.IsAbstract !== abstract && !abstract) {
             // a concept can only be non-abstract if it has no children in presentation
             var elementIds = this.findInTree('Presentation', name);
@@ -287,6 +400,17 @@ angular
             }
         }
         concept.Label = label;
+        if(concept.Labels === undefined || concept.Labels === null) {
+            concept.Labels = [
+                    {
+                        'Role': 'http://www.xbrl.org/2003/role/label',
+                        'Language': 'en-us',
+                        'Value': label
+                    }
+                ];
+        } else {
+            concept.Labels[0].Value = label;
+        }
         concept.IsAbstract = abstract;
     };
 
@@ -374,10 +498,30 @@ angular
         }
 
         var model = this.getModel();
-        delete model.Hypercubes['xbrl:DefaultHypercube']
+
+        // remove concept from members
+        var members = model.Hypercubes['xbrl28:ImpliedTable']
             .Aspects['xbrl:Concept']
-            .Domains['xbrl:ConceptDomain']
-            .Members[name];
+            .Members;
+        for (var j in members){
+            if(members.hasOwnProperty(j)) {
+                var member = members[j];
+                if (member.Name === member) {
+                    members.splice(i, 1);
+                }
+            }
+        }
+
+        // remove concept from Concepts field
+        var concepts = model.Concepts;
+        for (var i in concepts){
+            if(concepts.hasOwnProperty(i)) {
+                var concept = concepts[i];
+                if (concept.Name === name) {
+                    concepts.splice(i, 1);
+                }
+            }
+        }
     };
 
     AbstractReport.prototype.existsConcept = function(oconceptName) {
@@ -400,40 +544,25 @@ angular
             return null;
         }
 
-        var concept =
-          model.Hypercubes['xbrl:DefaultHypercube']
-              .Aspects['xbrl:Concept']
-              .Domains['xbrl:ConceptDomain']
-              .Members[conceptName];
-
-        if(concept === null || concept === undefined) {
-            return null;
+        var concept = null;
+        var concepts = model.Concepts;
+        for (var i in concepts){
+            if(concepts.hasOwnProperty(i)) {
+                var tempConcept = concepts[i];
+                if (tempConcept.Name === conceptName) {
+                    concept = tempConcept;
+                }
+            }
         }
         return concept;
     };
 
     AbstractReport.prototype.listConcepts = function() {
-
-        var result = [];
         var model = this.getModel();
         if(model === null || model === undefined) {
             return result;
         }
-
-        var members =
-            model.Hypercubes['xbrl:DefaultHypercube']
-                .Aspects['xbrl:Concept']
-                .Domains['xbrl:ConceptDomain']
-                .Members;
-        if(members === null || members === undefined) {
-            return result;
-        }
-
-        for(var conceptname in members) {
-            var concept = members[conceptname];
-            result.push(concept);
-        }
-        return result;
+        return model.Concepts;
     };
 
     /**********************
@@ -471,8 +600,10 @@ angular
         }
 
         for(var treeroot in network.Trees) {
-            var tree = network.Trees[treeroot];
-            result.push(tree);
+            if(network.Trees.hasOwnProperty(treeroot)) {
+                var tree = network.Trees[treeroot];
+                result.push(tree);
+            }
         }
         return result;
     };
@@ -483,9 +614,9 @@ angular
             result.push(subtree.Id);
         }
         var children = subtree.To;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                var childresult = this.findInSubTree(conceptName, children[child]);
+        for(var i in children){
+            if(children.hasOwnProperty(i)) {
+                var childresult = this.findInSubTree(conceptName, children[i]);
                 Array.prototype.push.apply(result, childresult);
             }
         }
@@ -510,9 +641,9 @@ angular
         var network = this.getNetwork(networkShortName);
         var result = [];
         var children = network.Trees;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                var childresult = this.findInSubTree(conceptName, children[child]);
+        for(var i in children){
+            if(children.hasOwnProperty(i)) {
+                var childresult = this.findInSubTree(conceptName, children[i]);
                 Array.prototype.push.apply(result, childresult);
             }
         }
@@ -524,9 +655,9 @@ angular
             return subtree;
         }
         var children = subtree.To;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                var childresult = getElementByIdFromSubTree(elementID, children[child]);
+        for(var i in children){
+            if(children.hasOwnProperty(i)) {
+                var childresult = getElementByIdFromSubTree(elementID, children[i]);
                 if(childresult !== null) {
                     return childresult;
                 }
@@ -542,9 +673,9 @@ angular
         var network = this.getNetwork(networkShortName);
         var element = null;
         var children = network.Trees;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                var childresult = getElementByIdFromSubTree(elementID, children[child]);
+        for(var i in children){
+            if(children.hasOwnProperty(i)) {
+                var childresult = getElementByIdFromSubTree(elementID, children[i]);
                 if(childresult !== null) {
                     element = childresult;
                 }
@@ -595,9 +726,9 @@ angular
         }
 
         var ordered = [];
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                ordered.push(children[child]);
+        for(var j in children){
+            if(children.hasOwnProperty(j)) {
+                ordered.push(children[j]);
             }
         }
         report.sortTreeChildren(ordered);
@@ -612,12 +743,12 @@ angular
 
     var getParentElementFromSubTree = function(elementID, subtree) {
         var children = subtree.To;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                if(children[child].Id === elementID) {
+        for(var i in children){
+            if(children.hasOwnProperty(i)) {
+                if(children[i].Id === elementID) {
                     return subtree;
                 } else {
-                    var childresult = getParentElementFromSubTree(elementID, children[child]);
+                    var childresult = getParentElementFromSubTree(elementID, children[i]);
                     if(childresult !== null) {
                         return childresult;
                     }
@@ -634,9 +765,9 @@ angular
         var network = this.getNetwork(networkShortName);
         var parent = null;
         var children = network.Trees;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                var result = getParentElementFromSubTree(elementID, children[child]);
+        for(var i in children){
+            if(children.hasOwnProperty(i)) {
+                var result = getParentElementFromSubTree(elementID, children[i]);
                 if(result !== null) {
                     parent = result;
                 }
@@ -812,7 +943,7 @@ angular
         if((parentElementID === undefined || parentElementID === null) && rootElem === undefined) {
             // add a root element (only one allowed)
             var network = this.getNetwork(networkShortName);
-            network.Trees[conceptName] = element;
+            network.Trees.push(element);
             return element;
         }
 
@@ -834,10 +965,11 @@ angular
         }
 
         if(parent.To === undefined || parent.To === null) {
-            parent.To = {};
+            parent.To = [];
         }
 
-        parent.To[conceptName] = element;
+        parent.To.push(element);
+        this.sortTreeChildren(parent.To);
         return element;
     };
 
@@ -866,9 +998,10 @@ angular
             enforceStrictChildOrderAndShift(this, networkShortName, newParentElementID, (newOffset || 0));
             element.Order = newOrder;
             if(newParent.To === undefined || newParent.To === null) {
-                newParent.To = {};
+                newParent.To = [];
             }
-            newParent.To[element.Name] = element;
+            newParent.To.push(element);
+            this.sortTreeChildren(newParent.To);
         } else {
             // no new parent given -> making it a root element -> not allowed
             throw new Error('moveTreeBranch: moving an element to ' + networkShortName + ' network root is not allowed.');
@@ -886,7 +1019,14 @@ angular
             // deleting root not allowed
             throw new Error('removeTreeBranch: cannot remove root element from ' + networkShortName + ' tree.');
         } else {
-            delete parent.To[element.Name];
+            for (var i in parent.To){
+                if(parent.To.hasOwnProperty(i)){
+                    var elem = parent.To[i];
+                    if(elem.Id === element.Id){
+                        parent.To.splice(i, 1);
+                    }
+                }
+            }
         }
         return element;
     };
@@ -903,7 +1043,15 @@ angular
             return null;
         }
 
-        var map = network.Trees[conceptName];
+        var map = null;
+        for(var t in network.Trees){
+            if(network.Trees.hasOwnProperty(t)){
+                var tempMap = network.Trees[t];
+                if(tempMap.Name === conceptName){
+                    map = tempMap;
+                }
+            }
+        }
         if(map === null || map === undefined) {
             return null;
         } else {
@@ -924,9 +1072,9 @@ angular
         // sort
         var ordered = [];
         var children = conceptMap.To;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                ordered.push(children[child]);
+        for(var i in children){
+            if(children.hasOwnProperty(i)) {
+                ordered.push(children[i]);
             }
         }
         this.sortTreeChildren(ordered);
@@ -940,18 +1088,12 @@ angular
     };
 
     AbstractReport.prototype.listConceptMaps = function() {
-
-        var result = [];
         var network = this.getNetwork('ConceptMap');
         if(network === null || network === undefined || network.Trees === null || network.Trees === undefined) {
             return result;
         }
 
-        for (var conceptname in network.Trees) {
-            var map = network.Trees[conceptname];
-            result.push(map);
-        }
-        return result;
+        return network.Trees;
     };
 
     AbstractReport.prototype.existsConceptMap = function(oconceptName) {
@@ -977,33 +1119,35 @@ angular
 
         // ensure Concept map exists
         var conceptMap = this.getConceptMap(fromConceptName);
-        var toObj = {};
         if(conceptMap === undefined || conceptMap === null){
             conceptMap = {
                 'Id': new ReportID().toString(),
-                'Name': fromConcept.Name,
-                'To': toObj
+                'Name': fromConcept.Name
             };
         }
+        // reset
+        conceptMap.To = [];
 
         // add synomyms
         for(var i in toConceptNamesArray) {
-            var name = this.alignConceptPrefix(toConceptNamesArray[i]);
-            ensureConceptName(name, 'toConceptNamesArray', 'updateConceptMap');
-            toObj[name] = {
-                'Id': new ReportID().toString(),
-                'Name': name,
-                'Order': parseInt(i, 10) + 1
-            };
+            if(toConceptNamesArray.hasOwnProperty(i)) {
+                var name = this.alignConceptPrefix(toConceptNamesArray[i]);
+                ensureConceptName(name, 'toConceptNamesArray', 'updateConceptMap');
+                conceptMap.To.push({
+                    'Id': new ReportID().toString(),
+                    'Name': name,
+                    'Order': parseInt(i, 10) + 1
+                });
+            }
         }
-        conceptMap.To = toObj;
+        this.sortTreeChildren(conceptMap.To);
 
         // add concept map to network
         var network = this.getNetwork('ConceptMap');
         if(network.Trees === null || network.Trees === undefined) {
-            network.Trees = {};
+            network.Trees = [];
         }
-        network.Trees[fromConceptName] = conceptMap;
+        network.Trees.push(conceptMap);
     };
 
     AbstractReport.prototype.findInConceptMap = function(oconceptName) {
@@ -1019,14 +1163,20 @@ angular
             return result;
         }
 
-        for(var child in network.Trees){
-            if(network.Trees.hasOwnProperty(child)) {
-                var map = network.Trees[child];
+        for(var i in network.Trees){
+            if(network.Trees.hasOwnProperty(i)) {
+                var map = network.Trees[i];
+                if(map.Name === conceptName){
+                    result.Maps.push(conceptName);
+                }
                 var to = map.To;
-                if(to !== null && to !== undefined && to[conceptName] !== null && typeof to[conceptName] === 'object') {
-                    result.SynonymOf.push(child);
-                } else if (child === conceptName){
-                    result.Maps.push(child);
+                for(var j in to){
+                    if(to.hasOwnProperty(j)){
+                        var synonym = to[j];
+                        if(synonym.Name === conceptName){
+                            result.SynonymOf.push(conceptName);
+                        }
+                    }
                 }
             }
         }
@@ -1041,7 +1191,14 @@ angular
         ensureExists(conceptMap, 'object', 'removeConceptMap', 'No concept map exists for concept with name "' + conceptName + '".');
 
         var network = this.getNetwork('ConceptMap');
-        return delete network.Trees[conceptName];
+        for (var i in network.Trees){
+            if(network.Trees.hasOwnProperty(i)){
+                var map = network.Trees[i];
+                if(map.Name === conceptName){
+                    network.Trees.splice(i, 1);
+                }
+            }
+        }
     };
 
 
@@ -1056,6 +1213,14 @@ angular
 
         if(conceptMap.To[synonymName]){
             delete conceptMap.To[synonymName];
+        }
+        for (var i in conceptMap.To){
+            if(conceptMap.To.hasOwnProperty(i)){
+                var synonym = conceptMap.To[i];
+                if(synonym.Name === conceptName){
+                    conceptMap.To.splice(i, 1);
+                }
+            }
         }
     };
 
@@ -1118,12 +1283,14 @@ angular
         }
 
         for (var i in model.Rules) {
-            var rule = model.Rules[i];
-            if(rule.ValidatedConcepts !== undefined && rule.ValidatedConcepts !== null) {
-                for (var j in rule.ValidatedConcepts) {
-                    if (rule.ValidatedConcepts[j] === conceptName) {
-                        result.push(rule);
-                        break;
+            if(model.Rules.hasOwnProperty(i)) {
+                var rule = model.Rules[i];
+                if (rule.ValidatedConcepts !== undefined && rule.ValidatedConcepts !== null) {
+                    for (var j in rule.ValidatedConcepts) {
+                        if (rule.ValidatedConcepts[j] === conceptName) {
+                            result.push(rule);
+                            break;
+                        }
                     }
                 }
             }
@@ -1546,7 +1713,7 @@ angular
         var model = report.getModel();
         var result = [];
         var aspect =
-            model.Hypercubes['xbrl:DefaultHypercube']
+            model.Hypercubes['xbrl28:ImpliedTable']
                 .Aspects[aspectName];
         if(aspectName === 'xbrl:Concept' && aspect.Domains && aspect.Domains['xbrl:ConceptDomain'] && aspect.Domains['xbrl:ConceptDomain'].Members ){
             return Object.keys(aspect.Domains['xbrl:ConceptDomain'].Members);
@@ -1559,7 +1726,7 @@ angular
 
     var setAspect = function(report, aspectName, aspect){
         var model = report.getModel();
-        model.Hypercubes['xbrl:DefaultHypercube']
+        model.Hypercubes['xbrl28:ImpliedTable']
             .Aspects[aspectName] = aspect;
     };
 
@@ -1601,12 +1768,12 @@ angular
             setAspect(this, 'xbrl:Entity',
                 {
                     'Name': 'xbrl:Entity',
-                    'Label': 'Reporting Entity',
+                    'Label': 'Reporting Entity [Axis]',
                     'Kind': 'TypedDimension',
                     'Type': 'string',
                     'DomainRestriction': {
                         'Name': 'xbrl:EntityDomain',
-                        'Label': 'Entity Domain',
+                        'Label': 'Reporting Entity [Domain]',
                         'Enumeration': entities
                     }
                 });
@@ -1614,7 +1781,9 @@ angular
             setAspect(this, 'xbrl:Entity',
                 {
                     'Name': 'xbrl:Entity',
-                    'Label': 'Reporting Entity'
+                    'Label': 'Reporting Entity [Axis]',
+                    'Kind': 'TypedDimension',
+                    'Type': 'string'
                 });
         }
 
@@ -1623,12 +1792,12 @@ angular
             setAspect(this, 'xbrl28:Archive',
                 {
                     'Name': 'xbrl28:Archive',
-                    'Label': 'Archive ID',
+                    'Label': 'Archive [Axis]',
                     'Kind': 'TypedDimension',
                     'Type': 'string',
                     'DomainRestriction': {
                         'Name': 'xbrl28:ArchiveDomain',
-                        'Label': 'Archive Domain',
+                        'Label': 'Archive [Domain]',
                         'Enumeration': aspects['xbrl28:Archive']
                     }
                 });
@@ -1636,7 +1805,9 @@ angular
             setAspect(this, 'xbrl28:Archive',
                 {
                     'Name': 'xbrl28:Archive',
-                    'Label': 'Archive ID'
+                    'Label': 'Archive [Axis]',
+                    'Kind': 'TypedDimension',
+                    'Type': 'string'
                 });
         }
 
@@ -1645,12 +1816,12 @@ angular
             setAspect(this, 'sec:FiscalYear',
                 {
                     'Name': 'sec:FiscalYear',
-                    'Label': 'Fiscal Year',
+                    'Label': 'Fiscal Year [Axis]',
                     'Kind': 'TypedDimension',
                     'Type': 'integer',
                     'DomainRestriction': {
                         'Name': 'sec:FiscalYearDomain',
-                        'Label': 'Fiscal Year Domain',
+                        'Label': 'Fiscal Year [Domain]',
                         'Enumeration': aspects['sec:FiscalYear']
                     }
                 });
@@ -1658,7 +1829,9 @@ angular
             setAspect(this, 'sec:FiscalYear',
                 {
                     'Name': 'sec:FiscalYear',
-                    'Label': 'Fiscal Year'
+                    'Label': 'Fiscal Year [Axis]',
+                    'Kind': 'TypedDimension',
+                    'Type': 'integer'
                 });
         }
 
@@ -1667,12 +1840,12 @@ angular
             setAspect(this, 'sec:FiscalPeriod',
                 {
                     'Name': 'sec:FiscalPeriod',
-                    'Label': 'Fiscal Period',
+                    'Label': 'Fiscal Period [Axis]',
                     'Kind': 'TypedDimension',
                     'Type': 'string',
                     'DomainRestriction': {
                         'Name': 'sec:FiscalPeriodDomain',
-                        'Label': 'Fiscal Period Domain',
+                        'Label': 'Fiscal Period [Domain]',
                         'Enumeration': aspects['sec:FiscalPeriod']
                     }
                 });
@@ -1680,7 +1853,9 @@ angular
             setAspect(this, 'sec:FiscalPeriod',
                 {
                     'Name': 'sec:FiscalPeriod',
-                    'Label': 'Fiscal Period'
+                    'Label': 'Fiscal Period [Axis]',
+                    'Kind': 'TypedDimension',
+                    'Type': 'string'
                 });
         }
 
@@ -1689,12 +1864,12 @@ angular
             setAspect(this, 'sec:FiscalPeriodType',
                 {
                     'Name': 'sec:FiscalPeriodType',
-                    'Label': 'Fiscal Period Type',
+                    'Label': 'Fiscal Period Type [Axis]',
                     'Kind': 'TypedDimension',
                     'Type': 'string',
                     'DomainRestriction': {
                         'Name': 'sec:FiscalPeriodTypeDomain',
-                        'Label': 'Fiscal Period Type Domain',
+                        'Label': 'Fiscal Period Type [Domain]',
                         'Enumeration': aspects['sec:FiscalPeriodType']
                     }
                 });
@@ -1702,7 +1877,9 @@ angular
             setAspect(this, 'sec:FiscalPeriodType',
                 {
                     'Name': 'sec:FiscalPeriodType',
-                    'Label': 'Fiscal Period Type'
+                    'Label': 'Fiscal Period Type [Axis]',
+                    'Kind': 'TypedDimension',
+                    'Type': 'string'
                 });
         }
 

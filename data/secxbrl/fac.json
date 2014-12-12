@@ -1365,7 +1365,7 @@
             "Aspects" : {
                 "xbrl:Concept" : {
                     "Name" : "xbrl:Concept",
-                    "Label" : "Implicit XBRL Concept Dimension",
+                    "Label" : "Concept [Axis]",
                     "Members" : [ {
                         "Name" : "fac:ValidationStatistics",
                         "Label" : "Validation Rule Statistics [Hierarchy]",
@@ -1795,7 +1795,9 @@
                 },
                 "xbrl:Period" : {
                     "Name" : "xbrl:Period",
-                    "Label" : "Implicit XBRL Period Dimension",
+                    "Label" : "Period [Axis]",
+                    "Kind" : "TypedDimension",
+                    "Type" : "string",
                     "Id" : "10fcc78c-6ee3-42a2-9923-2c31887c148a"
                 },
                 "xbrl:Entity" : {
@@ -1813,35 +1815,43 @@
                 },
                 "dei:LegalEntityAxis" : {
                     "Name" : "dei:LegalEntityAxis",
-                    "Label" : "Legal Entity Dimension",
+                    "Label" : "Legal Entity [Axis]",
                     "Default" : "sec:DefaultLegalEntity",
-                    "Members" : [ {
-                        "Name" : "dei:LegalEntityAxisDomain",
-                        "Label" : "Implicit dei:LegalEntityAxis Domain",
-                        "Members" : {
-                            "sec:DefaultLegalEntity" : {
-                                "Name" : "sec:DefaultLegalEntity",
-                                "Id" : "0ec96526-b85b-415c-b450-beb9253bc3d8"
-                            }
-                        },
-                        "Id" : "5ed16bb6-a4e3-4913-8140-576d5caaf702"
-                    } ],
+                    "Members" : [
+                        {
+                            "Name" : "dei:LegalEntityAxisDomain",
+                            "Label" : "Legal Entity [Domain]",
+                            "Members" : [
+                                {
+                                    "Name" : "sec:DefaultLegalEntity",
+                                    "Label": "Default Legal Entity",
+                                    "Id" : "0ec96526-b85b-415c-b450-beb9253bc3d8"
+                                }
+                            ],
+                            "Id" : "5ed16bb6-a4e3-4913-8140-576d5caaf702"
+                        } ],
                     "Id" : "d6597dde-812c-451a-9994-9c281afcdff2"
                 },
                 "xbrl:Unit" : {
                     "Name" : "xbrl:Unit",
-                    "Label" : "Unit",
-                    "Default" : "xbrl:NonNumeric",
+                    "Label" : "Unit [Axis]",
+                    "Kind": "TypedDimension",
+                    "Type": "string",
+                    "Default" : "xbrl28:NoUnit",
                     "Id" : "e650daa0-ea76-4d26-aadb-47b145ec631f"
                 },
                 "sec:Accepted" : {
                     "Name" : "sec:Accepted",
-                    "Label" : "Acceptance Date",
+                    "Label" : "Acceptance Date [Axis]",
+                    "Kind" : "TypedDimension",
+                    "Type" : "string",
                     "Id" : "73ff06cc-313f-4156-a968-693b176b14a6"
                 },
                 "xbrl28:Archive" : {
                     "Name" : "xbrl28:Archive",
-                    "Label" : "Archive ID",
+                    "Label" : "Archive [Axis]",
+                    "Kind" : "TypedDimension",
+                    "Type" : "string",
                     "Id" : "3ec015c3-04f5-45b9-a206-42698de1921a"
                 },
                 "sec:FiscalYear" : {

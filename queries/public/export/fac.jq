@@ -72,7 +72,7 @@ return
     replace value of json $report.Hypercubes."xbrl28:ImpliedTable".Aspects."xbrl28:Archive" with
     {
         "Name": "xbrl28:Archive",
-        "Label": "Archive ID",
+        "Label": "Archive ID [Axis]",
         "Kind": "TypedDimension",
         "Type": "string"
     };

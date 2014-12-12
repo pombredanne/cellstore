@@ -200,6 +200,7 @@ var runQueries = function(projectName, queriesToRun) {
 
     var Queries = $28.api.Queries(projectName);
     /*jshint camelcase:false */
+    var errors = [];
     var projectToken = credentials.project_tokens['project_' + projectName];
     return sequenceOfQueries.reduce(function(previousPromise, nextQuery){
         return previousPromise.then(function(){
@@ -217,10 +218,16 @@ var runQueries = function(projectName, queriesToRun) {
                 var href = isTestQuery ? requestUri.host + requestUri.pathname.substring('/v1/_queries/public'.length) : requestUri.host + requestUri.pathname;
                 $.util.log(('✗ '.red) + href + ' returned with status code: ' + $.util.colors.red(error.response.statusCode));
                 error = isTestQuery ? summarizeTestError(error) : error;
-                throw error;
+                errors.push(error);
+                return credentials;
             });
         });
-    }, /* init: */ Q.resolve());
+    }, /* init: */ Q.resolve()).then(function(){
+        if(errors.length > 0){
+            $.util.log(errors.length + ' queries failed');
+            throw errors[0];
+        }
+    });
 };
 
 var createDatasource = function(projectName, datasource){
