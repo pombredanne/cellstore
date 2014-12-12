@@ -95,7 +95,7 @@ var config =
             'queries/private/migration/db7.jq'
         ],
         apiTestQueries: [
-            'queries/public/test/' + configId + '/*'
+            'queries/public/test/' + configId + '/*.jq'
         ],
 
         //tests
