@@ -1,4 +1,5 @@
 import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace test = "http://apps.28.io/test";
 
 declare variable $local:expected as object :=
@@ -30,8 +31,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 10, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/DocumentAndEntityInformation&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FDocumentAndEntityInformation%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/DocumentAndEntityInformation&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FDocumentAndEntityInformation%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1001000 - Statement - CONDENSED CONSOLIDATED STATEMENTS OF INCOME", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/CondensedConsolidatedStatementsOfIncome", 
@@ -46,8 +47,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 21, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CondensedConsolidatedStatementsOfIncome&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCondensedConsolidatedStatementsOfIncome%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CondensedConsolidatedStatementsOfIncome&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCondensedConsolidatedStatementsOfIncome%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1002000 - Statement - CONDENSED CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/CondensedConsolidatedStatementsOfComprehensiveIncome", 
@@ -62,8 +63,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 8, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CondensedConsolidatedStatementsOfComprehensiveIncome&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCondensedConsolidatedStatementsOfComprehensiveIncome%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CondensedConsolidatedStatementsOfComprehensiveIncome&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCondensedConsolidatedStatementsOfComprehensiveIncome%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1003000 - Statement - CONDENSED CONSOLIDATED BALANCE SHEETS", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets", 
@@ -78,8 +79,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 36, 
       "Abstracts" : 7, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCondensedConsolidatedBalanceSheets%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheets&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCondensedConsolidatedBalanceSheets%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1003500 - Statement - CONDENSED CONSOLIDATED BALANCE SHEETS Parentheticals", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheetsParentheticals", 
@@ -94,8 +95,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 6, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheetsParentheticals&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCondensedConsolidatedBalanceSheetsParentheticals%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CondensedConsolidatedBalanceSheetsParentheticals&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCondensedConsolidatedBalanceSheetsParentheticals%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1004000 - Statement - CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/CondensedConsolidatedStatementsOfCashFlows", 
@@ -110,8 +111,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 29, 
       "Abstracts" : 6, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CondensedConsolidatedStatementsOfCashFlows&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCondensedConsolidatedStatementsOfCashFlows%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CondensedConsolidatedStatementsOfCashFlows&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCondensedConsolidatedStatementsOfCashFlows%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2101100 - Disclosure - Summary of Significant Accounting Policies", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/SummaryOfSignificantAccountingPolicies", 
@@ -126,8 +127,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/SummaryOfSignificantAccountingPolicies&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FSummaryOfSignificantAccountingPolicies%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/SummaryOfSignificantAccountingPolicies&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FSummaryOfSignificantAccountingPolicies%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2102100 - Disclosure - Acquisitions and Divestitures", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestitures", 
@@ -142,8 +143,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestitures&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FAcquisitionsAndDivestitures%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestitures&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FAcquisitionsAndDivestitures%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2103100 - Disclosure - Investments", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/Investments", 
@@ -158,8 +159,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/Investments&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestments%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/Investments&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestments%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2104100 - Disclosure - Inventories", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/Inventories", 
@@ -174,8 +175,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/Inventories&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInventories%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/Inventories&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInventories%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2105100 - Disclosure - Hedging Transactions and Derivative Financial Instruments", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstruments", 
@@ -190,8 +191,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstruments&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstruments%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstruments&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstruments%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2106100 - Disclosure - Debt and Borrowing Arrangements", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/DebtAndBorrowingArrangements", 
@@ -206,8 +207,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/DebtAndBorrowingArrangements&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FDebtAndBorrowingArrangements%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/DebtAndBorrowingArrangements&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FDebtAndBorrowingArrangements%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2107100 - Disclosure - Commitments and Contingencies", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/CommitmentsAndContingencies", 
@@ -222,8 +223,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CommitmentsAndContingencies&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCommitmentsAndContingencies%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CommitmentsAndContingencies&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCommitmentsAndContingencies%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2108100 - Disclosure - Comprehensive Income", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/ComprehensiveIncome", 
@@ -238,8 +239,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ComprehensiveIncome&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FComprehensiveIncome%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ComprehensiveIncome&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FComprehensiveIncome%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2109100 - Disclosure - Changes in Equity", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/ChangesInEquity", 
@@ -254,8 +255,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ChangesInEquity&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FChangesInEquity%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ChangesInEquity&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FChangesInEquity%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2110100 - Disclosure - Significant Operating and Nonoperating Items", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/SignificantOperatingAndNonoperatingItems", 
@@ -270,8 +271,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/SignificantOperatingAndNonoperatingItems&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FSignificantOperatingAndNonoperatingItems%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/SignificantOperatingAndNonoperatingItems&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FSignificantOperatingAndNonoperatingItems%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2111100 - Disclosure - Productivity, Integration and Restructuring Initiatives", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/ProductivityIntegrationAndRestructuringInitiatives", 
@@ -286,8 +287,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ProductivityIntegrationAndRestructuringInitiatives&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiatives%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ProductivityIntegrationAndRestructuringInitiatives&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiatives%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2112100 - Disclosure - Pension and Other Postretirement Benefit Plans", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/PensionAndOtherPostretirementBenefitPlans", 
@@ -302,8 +303,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/PensionAndOtherPostretirementBenefitPlans&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlans%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/PensionAndOtherPostretirementBenefitPlans&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlans%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2113100 - Disclosure - Income Taxes", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/IncomeTaxes", 
@@ -318,8 +319,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/IncomeTaxes&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FIncomeTaxes%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/IncomeTaxes&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FIncomeTaxes%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2114100 - Disclosure - Fair Value Measurements", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/FairValueMeasurements", 
@@ -334,8 +335,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/FairValueMeasurements&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FFairValueMeasurements%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/FairValueMeasurements&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FFairValueMeasurements%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2115100 - Disclosure - Operating Segments", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/OperatingSegments", 
@@ -350,8 +351,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/OperatingSegments&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FOperatingSegments%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/OperatingSegments&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FOperatingSegments%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2302301 - Disclosure - Acquisitions and Divestitures (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestituresTables", 
@@ -366,8 +367,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestituresTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FAcquisitionsAndDivestituresTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestituresTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FAcquisitionsAndDivestituresTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2303301 - Disclosure - Investments (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/InvestmentsTables", 
@@ -382,8 +383,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 5, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InvestmentsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestmentsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InvestmentsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestmentsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2304301 - Disclosure - Inventories (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/InventoriesTables", 
@@ -398,8 +399,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InventoriesTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInventoriesTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InventoriesTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInventoriesTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2305301 - Disclosure - Hedging Transactions and Derivative Financial Instruments (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsTables", 
@@ -414,8 +415,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 6, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2308301 - Disclosure - Comprehensive Income (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/ComprehensiveIncomeTables", 
@@ -430,8 +431,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 3, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ComprehensiveIncomeTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FComprehensiveIncomeTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ComprehensiveIncomeTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FComprehensiveIncomeTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2309301 - Disclosure - Changes in Equity (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/ChangesInEquityTables", 
@@ -446,8 +447,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ChangesInEquityTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FChangesInEquityTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ChangesInEquityTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FChangesInEquityTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2311301 - Disclosure - Productivity, Integration and Restructuring Initiatives (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesTables", 
@@ -462,8 +463,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 1, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiativesTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiativesTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2312301 - Disclosure - Pension and Other Postretirement Benefit Plans (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/PensionAndOtherPostretirementBenefitPlansTables", 
@@ -478,8 +479,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/PensionAndOtherPostretirementBenefitPlansTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/PensionAndOtherPostretirementBenefitPlansTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2313301 - Disclosure - Income Taxes (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/IncomeTaxesTables", 
@@ -494,8 +495,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/IncomeTaxesTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FIncomeTaxesTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/IncomeTaxesTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FIncomeTaxesTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2314301 - Disclosure - Fair Value Measurements (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/FairValueMeasurementsTables", 
@@ -510,8 +511,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/FairValueMeasurementsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FFairValueMeasurementsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/FairValueMeasurementsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FFairValueMeasurementsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2315301 - Disclosure - Operating Segments (Tables)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/OperatingSegmentsTables", 
@@ -526,8 +527,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/OperatingSegmentsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FOperatingSegmentsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/OperatingSegmentsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FOperatingSegmentsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2402402 - Disclosure - Acquisitions and Divestitures (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestituresDetails", 
@@ -542,8 +543,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 3, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestituresDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FAcquisitionsAndDivestituresDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestituresDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FAcquisitionsAndDivestituresDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2402403 - Disclosure - Acquisitions and Divestitures (Details 2)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestituresDetails2", 
@@ -558,8 +559,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 20, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestituresDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FAcquisitionsAndDivestituresDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/AcquisitionsAndDivestituresDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FAcquisitionsAndDivestituresDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2403402 - Disclosure - Investments (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/InvestmentsDetails", 
@@ -574,8 +575,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 4, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InvestmentsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestmentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InvestmentsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestmentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2403403 - Disclosure - Investments (Details 2)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/InvestmentsDetails2", 
@@ -590,8 +591,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 4, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InvestmentsDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestmentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InvestmentsDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestmentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2403405 - Disclosure - Investments (Details 4)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/InvestmentsDetails4", 
@@ -606,8 +607,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 9, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InvestmentsDetails4&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestmentsDetails4%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InvestmentsDetails4&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestmentsDetails4%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2403406 - Disclosure - Investments (Details 5)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/InvestmentsDetails5", 
@@ -622,8 +623,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 11, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InvestmentsDetails5&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestmentsDetails5%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InvestmentsDetails5&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInvestmentsDetails5%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2404402 - Disclosure - Inventories (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/InventoriesDetails", 
@@ -638,8 +639,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 4, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InventoriesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInventoriesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/InventoriesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FInventoriesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2405402 - Disclosure - Hedging Transactions and Derivative Financial Instruments (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails", 
@@ -654,8 +655,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 8, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2405403 - Disclosure - Hedging Transactions and Derivative Financial Instruments (Details 2)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails2", 
@@ -670,8 +671,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 11, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2406402 - Disclosure - Debt and Borrowing Arrangements (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/DebtAndBorrowingArrangementsDetails", 
@@ -686,8 +687,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 5, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/DebtAndBorrowingArrangementsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FDebtAndBorrowingArrangementsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/DebtAndBorrowingArrangementsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FDebtAndBorrowingArrangementsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2407402 - Disclosure - Commitments and Contingencies (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/CommitmentsAndContingenciesDetails", 
@@ -702,8 +703,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 12, 
       "Abstracts" : 5, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CommitmentsAndContingenciesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCommitmentsAndContingenciesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/CommitmentsAndContingenciesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FCommitmentsAndContingenciesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2408402 - Disclosure - Comprehensive Income (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/ComprehensiveIncomeDetails", 
@@ -718,8 +719,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 46, 
       "Abstracts" : 19, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ComprehensiveIncomeDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FComprehensiveIncomeDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ComprehensiveIncomeDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FComprehensiveIncomeDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2409402 - Disclosure - Changes in Equity (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/ChangesInEquityDetails", 
@@ -734,8 +735,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 9, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ChangesInEquityDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FChangesInEquityDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ChangesInEquityDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FChangesInEquityDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2410401 - Disclosure - Significant Operating and Nonoperating Items (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/SignificantOperatingAndNonoperatingItemsDetails", 
@@ -750,8 +751,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 7, 
       "Abstracts" : 7, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/SignificantOperatingAndNonoperatingItemsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FSignificantOperatingAndNonoperatingItemsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/SignificantOperatingAndNonoperatingItemsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FSignificantOperatingAndNonoperatingItemsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2411402 - Disclosure - Productivity, Integration and Restructuring Initiatives (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesDetails", 
@@ -766,8 +767,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 6, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiativesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiativesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2412402 - Disclosure - Pension and Other Postretirement Benefit Plans (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails", 
@@ -782,8 +783,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 8, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2413402 - Disclosure - Income Taxes (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/IncomeTaxesDetails", 
@@ -798,8 +799,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 18, 
       "Abstracts" : 4, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/IncomeTaxesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FIncomeTaxesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/IncomeTaxesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FIncomeTaxesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2414402 - Disclosure - Fair Value Measurements (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/FairValueMeasurementsDetails", 
@@ -814,8 +815,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 6, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/FairValueMeasurementsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FFairValueMeasurementsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/FairValueMeasurementsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FFairValueMeasurementsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2414403 - Disclosure - Fair Value Measurements (Details 2)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/FairValueMeasurementsDetails2", 
@@ -830,8 +831,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 2, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/FairValueMeasurementsDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FFairValueMeasurementsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/FairValueMeasurementsDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FFairValueMeasurementsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2414404 - Disclosure - Fair Value Measurements (Details 3)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/FairValueMeasurementsDetails3", 
@@ -846,8 +847,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 0, 
       "Concepts" : 2, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/FairValueMeasurementsDetails3&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FFairValueMeasurementsDetails3%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/FairValueMeasurementsDetails3&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FFairValueMeasurementsDetails3%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2415402 - Disclosure - Operating Segments (Details)", 
       "NetworkIdentifier" : "http://www.thecoca-colacompany.com/role/OperatingSegmentsDetails", 
@@ -862,8 +863,8 @@ declare %an:nondeterministic function local:test-example1() as item
       "LineItems" : 1, 
       "Concepts" : 14, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/OperatingSegmentsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FOperatingSegmentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-13-000039&format=html&role=http://www.thecoca-colacompany.com/role/OperatingSegmentsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-13-000039%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecoca-colacompany.com%2Frole%2FOperatingSegmentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     } ]
   } ]
   let $params := {aid:"0000021344-13-000039"}
@@ -897,8 +898,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 14, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/DocumentAndEntityInformationDocument&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FDocumentAndEntityInformationDocument%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/DocumentAndEntityInformationDocument&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FDocumentAndEntityInformationDocument%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1001000 - Statement - CONSOLIDATED STATEMENTS OF INCOME", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncomeCalc2", 
@@ -913,8 +914,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 0, 
       "Abstracts" : 0, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncomeCalc2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfIncomeCalc2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncomeCalc2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfIncomeCalc2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1001000 - Statement - CONSOLIDATED STATEMENTS OF INCOME", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome", 
@@ -929,8 +930,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 20, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfIncome%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfIncome&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfIncome%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1002000 - Statement - CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfComprehensiveIncome", 
@@ -945,8 +946,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 8, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfComprehensiveIncome&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfComprehensiveIncome%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfComprehensiveIncome&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfComprehensiveIncome%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1002000 - Statement - CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfComprehensiveIncomeCalc2", 
@@ -961,8 +962,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 0, 
       "Abstracts" : 0, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfComprehensiveIncomeCalc2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfComprehensiveIncomeCalc2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfComprehensiveIncomeCalc2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfComprehensiveIncomeCalc2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1003000 - Statement - CONSOLIDATED BALANCE SHEETS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets", 
@@ -977,8 +978,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 36, 
       "Abstracts" : 7, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedBalanceSheets%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedBalanceSheets%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1003500 - Statement - CONSOLIDATED BALANCE SHEET (Parentheticals)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheetParentheticals", 
@@ -993,8 +994,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 5, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheetParentheticals&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedBalanceSheetParentheticals%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheetParentheticals&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedBalanceSheetParentheticals%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1004000 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfCashFlows", 
@@ -1009,8 +1010,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 29, 
       "Abstracts" : 6, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfCashFlows&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfCashFlows%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfCashFlows&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfCashFlows%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1005000 - Statement - CONSOLIDATED STATEMENTS OF SHAREOWNERS' EQUITY", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfShareownersEquity", 
@@ -1025,8 +1026,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 21, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfShareownersEquity&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfShareownersEquity%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfShareownersEquity&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfShareownersEquity%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "1005500 - Statement - CONSOLIDATED STATEMENTS OF SHAREOWNERS' EQUITY (Parentheticals)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfShareownersEquityParentheticals", 
@@ -1041,8 +1042,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 1, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfShareownersEquityParentheticals&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfShareownersEquityParentheticals%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ConsolidatedStatementsOfShareownersEquityParentheticals&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FConsolidatedStatementsOfShareownersEquityParentheticals%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2101100 - Disclosure - BUSINESS AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPolicies", 
@@ -1057,8 +1058,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPolicies&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPolicies%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPolicies&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPolicies%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2102100 - Disclosure - ACQUISITIONS AND DIVESTITURES", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/AcquisitionsAndDivestitures", 
@@ -1073,8 +1074,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AcquisitionsAndDivestitures&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAcquisitionsAndDivestitures%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AcquisitionsAndDivestitures&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAcquisitionsAndDivestitures%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2103100 - Disclosure - INVESTMENTS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/Investments", 
@@ -1089,8 +1090,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/Investments&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestments%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/Investments&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestments%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2104100 - Disclosure - INVENTORIES", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/Inventories", 
@@ -1105,8 +1106,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/Inventories&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInventories%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/Inventories&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInventories%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2105100 - Disclosure - HEDGING TRANSACTIONS AND DERIVATIVE FINANCIAL INSTRUMENTS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstruments", 
@@ -1121,8 +1122,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstruments&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstruments%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstruments&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstruments%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2106100 - Disclosure - EQUITY METHOD INVESTMENTS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/EquityMethodInvestments", 
@@ -1137,8 +1138,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/EquityMethodInvestments&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FEquityMethodInvestments%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/EquityMethodInvestments&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FEquityMethodInvestments%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2107100 - Disclosure - PROPERTY, PLANT AND EQUIPMENT", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PropertyPlantAndEquipment", 
@@ -1153,8 +1154,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PropertyPlantAndEquipment&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPropertyPlantAndEquipment%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PropertyPlantAndEquipment&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPropertyPlantAndEquipment%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2108100 - Disclosure - INTANGIBLE ASSETS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/IntangibleAssets", 
@@ -1169,8 +1170,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IntangibleAssets&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIntangibleAssets%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IntangibleAssets&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIntangibleAssets%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2109100 - Disclosure - ACCOUNTS PAYABLE AND ACCRUED EXPENSES", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/AccountsPayableAndAccruedExpenses", 
@@ -1185,8 +1186,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AccountsPayableAndAccruedExpenses&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAccountsPayableAndAccruedExpenses%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AccountsPayableAndAccruedExpenses&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAccountsPayableAndAccruedExpenses%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2110100 - Disclosure - DEBT AND BORROWING ARRANGEMENTS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangements", 
@@ -1201,8 +1202,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangements&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FDebtAndBorrowingArrangements%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangements&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FDebtAndBorrowingArrangements%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2111100 - Disclosure - COMMITMENTS AND CONTINGENCIES", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/CommitmentsAndContingencies", 
@@ -1217,8 +1218,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/CommitmentsAndContingencies&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FCommitmentsAndContingencies%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/CommitmentsAndContingencies&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FCommitmentsAndContingencies%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2112100 - Disclosure - STOCK COMPENSATION PLANS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/StockCompensationPlans", 
@@ -1233,8 +1234,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/StockCompensationPlans&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FStockCompensationPlans%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/StockCompensationPlans&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FStockCompensationPlans%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2113100 - Disclosure - PENSION AND OTHER POSTRETIREMENT BENEFIT PLANS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlans", 
@@ -1249,8 +1250,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlans&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlans%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlans&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlans%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2114100 - Disclosure - INCOME TAXES", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/IncomeTaxes", 
@@ -1265,8 +1266,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IncomeTaxes&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIncomeTaxes%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IncomeTaxes&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIncomeTaxes%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2115100 - Disclosure - OTHER COMPREHENSIVE INCOME", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/OtherComprehensiveIncome", 
@@ -1281,8 +1282,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OtherComprehensiveIncome&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOtherComprehensiveIncome%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OtherComprehensiveIncome&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOtherComprehensiveIncome%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2116100 - Disclosure - FAIR VALUE MEASUREMENTS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/FairValueMeasurements", 
@@ -1297,8 +1298,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurements&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurements%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurements&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurements%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2117100 - Disclosure - SIGNIFICANT OPERATING AND NONOPERATING ITEMS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/SignificantOperatingAndNonoperatingItems", 
@@ -1313,8 +1314,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/SignificantOperatingAndNonoperatingItems&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FSignificantOperatingAndNonoperatingItems%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/SignificantOperatingAndNonoperatingItems&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FSignificantOperatingAndNonoperatingItems%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2118100 - Disclosure - PRODUCTIVITY, INTEGRATION AND RESTRUCTURING INITIATIVES", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ProductivityIntegrationAndRestructuringInitiatives", 
@@ -1329,8 +1330,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ProductivityIntegrationAndRestructuringInitiatives&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiatives%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ProductivityIntegrationAndRestructuringInitiatives&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiatives%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2119100 - Disclosure - OPERATING SEGMENTS", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/OperatingSegments", 
@@ -1345,8 +1346,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 1, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OperatingSegments&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOperatingSegments%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OperatingSegments&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOperatingSegments%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2120100 - Disclosure - NET CHANGE IN OPERATING ASSETS AND LIABILITIES", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/NetChangeInOperatingAssetsAndLiabilities", 
@@ -1361,8 +1362,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/NetChangeInOperatingAssetsAndLiabilities&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FNetChangeInOperatingAssetsAndLiabilities%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/NetChangeInOperatingAssetsAndLiabilities&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FNetChangeInOperatingAssetsAndLiabilities%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2122100 - Disclosure - SUBSEQUENT EVENT", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/SubsequentEvent", 
@@ -1377,8 +1378,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 1, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/SubsequentEvent&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FSubsequentEvent%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/SubsequentEvent&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FSubsequentEvent%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2201201 - Disclosure - BUSINESS AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Policies)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesPolicies", 
@@ -1393,8 +1394,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 20, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesPolicies&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesPolicies%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesPolicies&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesPolicies%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2301302 - Disclosure - BUSINESS AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesTables", 
@@ -1409,8 +1410,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2302301 - Disclosure - ACQUISITIONS AND DIVESTITURES (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/AcquisitionsAndDivestituresTables", 
@@ -1425,8 +1426,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AcquisitionsAndDivestituresTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAcquisitionsAndDivestituresTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AcquisitionsAndDivestituresTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAcquisitionsAndDivestituresTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2303301 - Disclosure - INVESTMENTS (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/InvestmentsTables", 
@@ -1441,8 +1442,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 5, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2304301 - Disclosure - INVENTORIES (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/InventoriesTables", 
@@ -1457,8 +1458,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InventoriesTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInventoriesTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InventoriesTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInventoriesTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2305301 - Disclosure - HEDGING TRANSACTIONS AND DERIVATIVE FINANCIAL INSTRUMENTS (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsTables", 
@@ -1473,8 +1474,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 6, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2306301 - Disclosure - EQUITY METHOD INVESTMENTS (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/EquityMethodInvestmentsTables", 
@@ -1489,8 +1490,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/EquityMethodInvestmentsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FEquityMethodInvestmentsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/EquityMethodInvestmentsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FEquityMethodInvestmentsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2307301 - Disclosure - PROPERTY, PLANT AND EQUIPMENT (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PropertyPlantAndEquipmentTables", 
@@ -1505,8 +1506,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PropertyPlantAndEquipmentTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPropertyPlantAndEquipmentTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PropertyPlantAndEquipmentTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPropertyPlantAndEquipmentTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2308301 - Disclosure - INTANGIBLE ASSETS (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/IntangibleAssetsTables", 
@@ -1521,8 +1522,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 4, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IntangibleAssetsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIntangibleAssetsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IntangibleAssetsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIntangibleAssetsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2309301 - Disclosure - ACCOUNTS PAYABLE AND ACCRUED EXPENSES (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/AccountsPayableAndAccruedExpensesTables", 
@@ -1537,8 +1538,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AccountsPayableAndAccruedExpensesTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAccountsPayableAndAccruedExpensesTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AccountsPayableAndAccruedExpensesTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAccountsPayableAndAccruedExpensesTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2310301 - Disclosure - DEBT AND BORROWING ARRANGEMENTS (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangementsTables", 
@@ -1553,8 +1554,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 2, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangementsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FDebtAndBorrowingArrangementsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangementsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FDebtAndBorrowingArrangementsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2311301 - Disclosure - COMMITMENTS AND CONTINGENCIES (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/CommitmentsAndContingenciesTables", 
@@ -1569,8 +1570,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/CommitmentsAndContingenciesTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FCommitmentsAndContingenciesTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/CommitmentsAndContingenciesTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FCommitmentsAndContingenciesTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2312301 - Disclosure - STOCK COMPENSATION PLANS (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/StockCompensationPlansTables", 
@@ -1585,8 +1586,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 4, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/StockCompensationPlansTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FStockCompensationPlansTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/StockCompensationPlansTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FStockCompensationPlansTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2313301 - Disclosure - PENSION AND OTHER POSTRETIREMENT BENEFIT PLANS (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansTables", 
@@ -1601,8 +1602,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 13, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2314301 - Disclosure - INCOME TAXES (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/IncomeTaxesTables", 
@@ -1617,8 +1618,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 6, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IncomeTaxesTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIncomeTaxesTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IncomeTaxesTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIncomeTaxesTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2315301 - Disclosure - OTHER COMPREHENSIVE INCOME (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/OtherComprehensiveIncomeTables", 
@@ -1633,8 +1634,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 4, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OtherComprehensiveIncomeTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOtherComprehensiveIncomeTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OtherComprehensiveIncomeTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOtherComprehensiveIncomeTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2316301 - Disclosure - FAIR VALUE MEASUREMENTS (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/FairValueMeasurementsTables", 
@@ -1649,8 +1650,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 5, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurementsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurementsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurementsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurementsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2318301 - Disclosure - PRODUCTIVITY, INTEGRATION AND RESTRUCTURING INITIATIVES (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesTables", 
@@ -1665,8 +1666,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiativesTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiativesTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2319301 - Disclosure - OPERATING SEGMENTS (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/OperatingSegmentsTables", 
@@ -1681,8 +1682,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 3, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OperatingSegmentsTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOperatingSegmentsTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OperatingSegmentsTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOperatingSegmentsTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2320301 - Disclosure - NET CHANGE IN OPERATING ASSETS AND LIABILITIES (Tables)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/NetChangeInOperatingAssetsAndLiabilitiesTables", 
@@ -1697,8 +1698,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 1, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/NetChangeInOperatingAssetsAndLiabilitiesTables&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FNetChangeInOperatingAssetsAndLiabilitiesTables%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/NetChangeInOperatingAssetsAndLiabilitiesTables&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FNetChangeInOperatingAssetsAndLiabilitiesTables%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2401403 - Disclosure - BUSINESS AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails", 
@@ -1713,8 +1714,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 24, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2401404 - Disclosure - BUSINESS AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails2", 
@@ -1729,8 +1730,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 1, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2401405 - Disclosure - BUSINESS AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Details 3)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails3", 
@@ -1745,8 +1746,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 4, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails3&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesDetails3%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails3&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesDetails3%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2401406 - Disclosure - BUSINESS AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Details 4)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails4", 
@@ -1761,8 +1762,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 6, 
       "Abstracts" : 0, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails4&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesDetails4%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/BusinessAndSummaryOfSignificantAccountingPoliciesDetails4&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FBusinessAndSummaryOfSignificantAccountingPoliciesDetails4%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2402402 - Disclosure - ACQUISITIONS AND DIVESTITURES (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/AcquisitionsAndDivestituresDetails", 
@@ -1777,8 +1778,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 8, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AcquisitionsAndDivestituresDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAcquisitionsAndDivestituresDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AcquisitionsAndDivestituresDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAcquisitionsAndDivestituresDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2402403 - Disclosure - ACQUISITIONS AND DIVESTITURES (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/AcquisitionsAndDivestituresDetails2", 
@@ -1793,8 +1794,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 23, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AcquisitionsAndDivestituresDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAcquisitionsAndDivestituresDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AcquisitionsAndDivestituresDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAcquisitionsAndDivestituresDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2403402 - Disclosure - INVESTMENTS (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/InvestmentsDetails", 
@@ -1809,8 +1810,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 4, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2403403 - Disclosure - INVESTMENTS (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/InvestmentsDetails2", 
@@ -1825,8 +1826,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 4, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2403404 - Disclosure - INVESTMENTS (Details 3)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/InvestmentsDetails3", 
@@ -1841,8 +1842,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 5, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails3&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails3%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails3&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails3%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2403405 - Disclosure - INVESTMENTS (Details 4)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/InvestmentsDetails4", 
@@ -1857,8 +1858,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 5, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails4&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails4%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails4&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails4%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2403406 - Disclosure - INVESTMENTS (Details 5)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/InvestmentsDetails5", 
@@ -1873,8 +1874,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 8, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails5&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails5%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails5&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails5%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2403407 - Disclosure - INVESTMENTS (Details 6)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/InvestmentsDetails6", 
@@ -1889,8 +1890,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 2, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails6&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails6%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InvestmentsDetails6&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInvestmentsDetails6%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2404402 - Disclosure - INVENTORIES (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/InventoriesDetails", 
@@ -1905,8 +1906,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 4, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InventoriesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInventoriesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/InventoriesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FInventoriesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2405402 - Disclosure - HEDGING TRANSACTIONS AND DERIVATIVE FINANCIAL INSTRUMENTS (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails", 
@@ -1921,8 +1922,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 8, 
       "Abstracts" : 0, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2405403 - Disclosure - HEDGING TRANSACTIONS AND DERIVATIVE FINANCIAL INSTRUMENTS (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails2", 
@@ -1937,8 +1938,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 4, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/HedgingTransactionsAndDerivativeFinancialInstrumentsDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FHedgingTransactionsAndDerivativeFinancialInstrumentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2406402 - Disclosure - EQUITY METHOD INVESTMENTS (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/EquityMethodInvestmentsDetails", 
@@ -1953,8 +1954,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 23, 
       "Abstracts" : 5, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/EquityMethodInvestmentsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FEquityMethodInvestmentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/EquityMethodInvestmentsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FEquityMethodInvestmentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2406403 - Disclosure - EQUITY METHOD INVESTMENTS (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/EquityMethodInvestmentsDetails2", 
@@ -1969,8 +1970,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 7, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/EquityMethodInvestmentsDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FEquityMethodInvestmentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/EquityMethodInvestmentsDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FEquityMethodInvestmentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2407402 - Disclosure - PROPERTY, PLANT AND EQUIPMENT (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PropertyPlantAndEquipmentDetails", 
@@ -1985,8 +1986,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 3, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PropertyPlantAndEquipmentDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPropertyPlantAndEquipmentDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PropertyPlantAndEquipmentDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPropertyPlantAndEquipmentDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2408402 - Disclosure - INTANGIBLE ASSETS (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/IntangibleAssetsDetails", 
@@ -2001,8 +2002,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 13, 
       "Abstracts" : 4, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IntangibleAssetsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIntangibleAssetsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IntangibleAssetsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIntangibleAssetsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2408403 - Disclosure - INTANGIBLE ASSETS (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/IntangibleAssetsDetails2", 
@@ -2017,8 +2018,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 6, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IntangibleAssetsDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIntangibleAssetsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IntangibleAssetsDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIntangibleAssetsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2409402 - Disclosure - ACCOUNTS PAYABLE AND ACCRUED EXPENSES (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/AccountsPayableAndAccruedExpensesDetails", 
@@ -2033,8 +2034,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 7, 
       "Abstracts" : 1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AccountsPayableAndAccruedExpensesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAccountsPayableAndAccruedExpensesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/AccountsPayableAndAccruedExpensesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FAccountsPayableAndAccruedExpensesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2410402 - Disclosure - DEBT AND BORROWING ARRANGEMENTS (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangementsDetails", 
@@ -2049,8 +2050,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 5, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangementsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FDebtAndBorrowingArrangementsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangementsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FDebtAndBorrowingArrangementsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2410403 - Disclosure - DEBT AND BORROWING ARRANGEMENTS (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangementsDetails2", 
@@ -2065,8 +2066,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 26, 
       "Abstracts" : 4, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangementsDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FDebtAndBorrowingArrangementsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/DebtAndBorrowingArrangementsDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FDebtAndBorrowingArrangementsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2411402 - Disclosure - COMMITMENTS AND CONTINGENCIES (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/CommitmentsAndContingenciesDetails", 
@@ -2081,8 +2082,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 23, 
       "Abstracts" : 7, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/CommitmentsAndContingenciesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FCommitmentsAndContingenciesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/CommitmentsAndContingenciesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FCommitmentsAndContingenciesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2412402 - Disclosure - STOCK COMPENSATION PLANS (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/StockCompensationPlansDetails", 
@@ -2097,8 +2098,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 57, 
       "Abstracts" : 5, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/StockCompensationPlansDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FStockCompensationPlansDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/StockCompensationPlansDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FStockCompensationPlansDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2413402 - Disclosure - PENSION AND OTHER POSTRETIREMENT BENEFIT PLANS (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails", 
@@ -2113,8 +2114,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 32, 
       "Abstracts" : 7, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2413403 - Disclosure - PENSION AND OTHER POSTRETIREMENT BENEFIT PLANS (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails2", 
@@ -2129,8 +2130,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 2, 
       "Abstracts" : 0, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2413404 - Disclosure - PENSION AND OTHER POSTRETIREMENT BENEFIT PLANS (Details 3)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails3", 
@@ -2145,8 +2146,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 8, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails3&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails3%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails3&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails3%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2413405 - Disclosure - PENSION AND OTHER POSTRETIREMENT BENEFIT PLANS (Details 4)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails4", 
@@ -2161,8 +2162,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 29, 
       "Abstracts" : 6, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails4&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails4%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails4&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails4%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2413406 - Disclosure - PENSION AND OTHER POSTRETIREMENT BENEFIT PLANS (Details 5)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails5", 
@@ -2177,8 +2178,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 12, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails5&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails5%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails5&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails5%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2413407 - Disclosure - PENSION AND OTHER POSTRETIREMENT BENEFIT PLANS (Details 6)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails6", 
@@ -2193,8 +2194,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 4, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails6&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails6%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/PensionAndOtherPostretirementBenefitPlansDetails6&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FPensionAndOtherPostretirementBenefitPlansDetails6%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2414402 - Disclosure - INCOME TAXES (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/IncomeTaxesDetails", 
@@ -2209,8 +2210,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 59, 
       "Abstracts" : 5, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IncomeTaxesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIncomeTaxesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IncomeTaxesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIncomeTaxesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2414403 - Disclosure - INCOME TAXES (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/IncomeTaxesDetails2", 
@@ -2225,8 +2226,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 26, 
       "Abstracts" : 5, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IncomeTaxesDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIncomeTaxesDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IncomeTaxesDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIncomeTaxesDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2414404 - Disclosure - INCOME TAXES (Details 3)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/IncomeTaxesDetails3", 
@@ -2241,8 +2242,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 5, 
       "Abstracts" : 3, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IncomeTaxesDetails3&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIncomeTaxesDetails3%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/IncomeTaxesDetails3&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FIncomeTaxesDetails3%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2415402 - Disclosure - OTHER COMPREHENSIVE INCOME (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/OtherComprehensiveIncomeDetails", 
@@ -2257,8 +2258,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 47, 
       "Abstracts" : 18, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OtherComprehensiveIncomeDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOtherComprehensiveIncomeDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OtherComprehensiveIncomeDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOtherComprehensiveIncomeDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2416402 - Disclosure - FAIR VALUE MEASUREMENTS (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/FairValueMeasurementsDetails", 
@@ -2273,8 +2274,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 6, 
       "Abstracts" : 4, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurementsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurementsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurementsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurementsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2416403 - Disclosure - FAIR VALUE MEASUREMENTS (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/FairValueMeasurementsDetails2", 
@@ -2289,8 +2290,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 9, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurementsDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurementsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurementsDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurementsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2416404 - Disclosure - FAIR VALUE MEASUREMENTS (Details 3)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/FairValueMeasurementsDetails3", 
@@ -2305,8 +2306,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 7, 
       "Abstracts" : 4, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurementsDetails3&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurementsDetails3%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurementsDetails3&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurementsDetails3%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2416405 - Disclosure - FAIR VALUE MEASUREMENTS FAIR VALUE MEASUREMENTS (Details 4)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/FairValueMeasurementsFairValueMeasurementsDetails4", 
@@ -2321,8 +2322,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 2, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurementsFairValueMeasurementsDetails4&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurementsFairValueMeasurementsDetails4%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/FairValueMeasurementsFairValueMeasurementsDetails4&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FFairValueMeasurementsFairValueMeasurementsDetails4%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2417401 - Disclosure - SIGNIFICANT OPERATING AND NONOPERATING ITEMS (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/SignificantOperatingAndNonoperatingItemsDetails", 
@@ -2337,8 +2338,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 23, 
       "Abstracts" : 7, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/SignificantOperatingAndNonoperatingItemsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FSignificantOperatingAndNonoperatingItemsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/SignificantOperatingAndNonoperatingItemsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FSignificantOperatingAndNonoperatingItemsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2418402 - Disclosure - PRODUCTIVITY, INTEGRATION AND RESTRUCTURING INITIATIVES (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesDetails", 
@@ -2353,8 +2354,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 7, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiativesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/ProductivityIntegrationAndRestructuringInitiativesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FProductivityIntegrationAndRestructuringInitiativesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2419402 - Disclosure - OPERATING SEGMENTS (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/OperatingSegmentsDetails", 
@@ -2369,8 +2370,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 5, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OperatingSegmentsDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOperatingSegmentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OperatingSegmentsDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOperatingSegmentsDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2419403 - Disclosure - OPERATING SEGMENTS (Details 2)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/OperatingSegmentsDetails2", 
@@ -2385,8 +2386,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 1, 
       "Concepts" : 34, 
       "Abstracts" : -1, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OperatingSegmentsDetails2&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOperatingSegmentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/OperatingSegmentsDetails2&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FOperatingSegmentsDetails2%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2420402 - Disclosure - NET CHANGE IN OPERATING ASSETS AND LIABILITIES (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/NetChangeInOperatingAssetsAndLiabilitiesDetails", 
@@ -2401,8 +2402,8 @@ declare %an:nondeterministic function local:test-example2() as item
       "LineItems" : 0, 
       "Concepts" : 7, 
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/NetChangeInOperatingAssetsAndLiabilitiesDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FNetChangeInOperatingAssetsAndLiabilitiesDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/NetChangeInOperatingAssetsAndLiabilitiesDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FNetChangeInOperatingAssetsAndLiabilitiesDetails%26profile-name%3Dsec%26token%3Dfoobar"
     }, {
       "NetworkLabel" : "2422401 - Disclosure - SUBSEQUENT EVENT SUBSEQUENT EVENT (Details)", 
       "NetworkIdentifier" : "http://www.thecocacolacompany.com/role/SubsequentEventSubsequentEventDetails", 
@@ -2415,10 +2416,10 @@ declare %an:nondeterministic function local:test-example2() as item
       "Axis" : 2, 
       "Members" : 4, 
       "LineItems" : 1, 
-      "Concepts" : 4, 
+      "Concepts" : 4,
       "Abstracts" : 2, 
-      "FactTable" : "http://secxbrl-html.28.io:80/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/SubsequentEventSubsequentEventDetails&profile-name=sec&token=foobar", 
-      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2Fsecxbrl-html.28.io%3A80%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FSubsequentEventSubsequentEventDetails%26profile-name%3Dsec%26token%3Dfoobar"
+      "FactTable" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&format=html&role=http://www.thecocacolacompany.com/role/SubsequentEventSubsequentEventDetails&profile-name=sec&token=foobar", 
+      "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26aid%3D0000021344-14-000008%26format%3Dhtml%26role%3Dhttp%3A%2F%2Fwww.thecocacolacompany.com%2Frole%2FSubsequentEventSubsequentEventDetails%26profile-name%3Dsec%26token%3Dfoobar"
     } ]
   } ]
   let $params := {ticker:"ko"}
