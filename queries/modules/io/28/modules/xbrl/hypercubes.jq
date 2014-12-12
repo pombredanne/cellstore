@@ -571,10 +571,16 @@ declare function hypercubes:merge($hypercubes as object*) as object
     hypercubes:user-defined-hypercube({|
         for $aspect in keys($hypercubes.Aspects)
         let $default := distinct-values($hypercubes.Aspects.$aspect.Default)
-        let $domain := distinct-values(descendant-objects($hypercubes.Aspects.$aspect.Members).Name)
+        let $domain := distinct-values((
+            descendant-objects($hypercubes.Aspects.$aspect.Members).Name,
+            $hypercubes.Aspects.$aspect.DomainRestriction.Enumeration[]
+        ))
+        let $kind as string? := distinct-values($hypercubes.Aspects.$aspect.Kind)
+        let $type as string? := distinct-values($hypercubes.Aspects.$aspect.Type)
         return {
             $aspect : {|
                 { Default: $default}[exists($default)],
+                { Type : $type }[$kind eq "TypedDimension"],
                 { Domain: [ distinct-values(($domain, $default)) ]}[exists($domain)]
             |}
         }
