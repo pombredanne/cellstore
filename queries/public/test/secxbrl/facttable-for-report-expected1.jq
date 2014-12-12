@@ -131,14 +131,163 @@
     "Decimals" : -6, 
     "Concept" : {
       "Balance" : "CREDIT", 
-      Message" : "fac:Equity -> us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
+      "PeriodType" : "instant", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "AuditTrails" : [ {
+      "Id" : "BS4", 
+      "Type" : "xbrl28:validation", 
+      "Label" : "[BS4] Liabilities = CurrentLiabilities + NoncurrentLiabilities", 
+      "Message" : "fac:Liabilities[56,615,000,000 USD] = fac:CurrentLiabilities[27,811,000,000 USD] + fac:NoncurrentLiabilities[28,804,000,000 USD]", 
+      "Data" : {
+        "OutputConcept" : "fac:LiabilitiesValidation", 
+        "ValidatedConcepts" : [ "fac:Liabilities" ], 
+        "ValidatedFacts" : [ "996d6121-6587-4175-839e-9f86f9900c0e" ], 
+        "ValidationPassed" : true
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:validation", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:LiabilitiesAndEquityValidation", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "instant", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity", 
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Type" : "BooleanValue", 
+    "Value" : true, 
+    "Decimals" : -6, 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "instant", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "AuditTrails" : [ {
+      "Id" : "BS5", 
+      "Type" : "xbrl28:validation", 
+      "Label" : "[BS5] LiabilitiesAndEquity = Liabilities + CommitmentsAndContingencies + TemporaryEquity + Equity", 
+      "Message" : "fac:LiabilitiesAndEquity[90,055,000,000 USD] = fac:Liabilities[56,615,000,000 USD] + CommitmentsAndContingencies[0] + TemporaryEquity[0] + fac:Equity[33,440,000,000 USD]", 
+      "Data" : {
+        "OutputConcept" : "fac:LiabilitiesAndEquityValidation", 
+        "ValidatedConcepts" : [ "fac:LiabilitiesAndEquity" ], 
+        "ValidatedFacts" : [ "1ef22392-e99a-47f6-aab3-d9aa3852d5f1" ], 
+        "ValidationPassed" : true
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:validation", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:Assets", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "instant", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity", 
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Type" : "NumericValue", 
+    "Value" : 90055000000, 
+    "Decimals" : -6, 
+    "Concept" : {
+      "Balance" : "DEBIT", 
+      "PeriodType" : "instant", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:dimension-default", 
+      "Label" : "Default dimension value", 
+      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
+      "Data" : {
+        "Dimension" : "dei:LegalEntityAxis", 
+        "Member" : "sec:DefaultLegalEntity", 
+        "OutputConcept" : "us-gaap:Assets"
+      }
+    }, {
+      "Type" : "xbrl28:concept-maps", 
+      "Label" : "Concept map", 
+      "Message" : "fac:Assets -> us-gaap:Assets", 
+      "Data" : {
+        "OriginalConcept" : "us-gaap:Assets", 
+        "OutputConcept" : "fac:Assets"
+      }
+    } ], 
+    "xbrl28:Type" : "xbrl28:concept-maps", 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:Equity", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "instant", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity", 
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Type" : "NumericValue", 
+    "Value" : 33440000000, 
+    "Decimals" : -6, 
+    "Concept" : {
+      "Balance" : "CREDIT", 
+      "PeriodType" : "instant", 
+      "DataType" : "xbrli:monetaryItemType"
+    }, 
+    "AuditTrails" : [ {
+      "Type" : "xbrl28:dimension-default", 
+      "Label" : "Default dimension value", 
+      "Message" : "dei:LegalEntityAxis.Default = \"sec:DefaultLegalEntity\"", 
+      "Data" : {
+        "Dimension" : "dei:LegalEntityAxis", 
+        "Member" : "sec:DefaultLegalEntity", 
+        "OutputConcept" : "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
+      }
+    }, {
+      "Type" : "xbrl28:concept-maps", 
+      "Label" : "Concept map", 
+      "Message" : "fac:Equity -> us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
       "Data" : {
         "OriginalConcept" : "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 
         "OutputConcept" : "fac:Equity"
       }
     } ], 
     "xbrl28:Type" : "xbrl28:concept-maps", 
-    "EntityRegistrantName" : "COC  "Value" : 27811000000, 
+    "EntityRegistrantName" : "COCA COLA CO", 
+    "Unit" : "iso4217:USD"
+  }, {
+    "Aspects" : {
+      "xbrl28:Archive" : "0000021344-14-000008", 
+      "xbrl:Concept" : "fac:CurrentLiabilities", 
+      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
+      "xbrl:Period" : "2013-12-31", 
+      "sec:FiscalPeriod" : "FY", 
+      "sec:FiscalPeriodType" : "instant", 
+      "sec:FiscalYear" : 2013, 
+      "sec:Accepted" : "20140227132423", 
+      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity", 
+      "sec:Archive" : "0000021344-14-000008"
+    }, 
+    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
+    "Type" : "NumericValue", 
+    "Value" : 27811000000, 
     "Decimals" : -6, 
     "Concept" : {
       "Balance" : "CREDIT", 
