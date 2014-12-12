@@ -74,7 +74,7 @@ declare function local:concepts-for-archives(
                 let $keys as string* := $map.Trees[].Name
                 for $concept as string in $names[$$ = $keys]
                 return ($map.Trees[])[$$.Name eq $concept]
-    let $mapped-names as string* := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
+    let $mapped-names as string* := $concepts-computable-by-maps.To[].Name
     let $concepts-not-computable-by-maps as string* := seq:value-except($names, $mapped-names)
 
     let $all-results as object* := mw:find($concepts:col, 
@@ -97,7 +97,7 @@ declare function local:concepts-for-archives(
             $projection)
         for $concept as object in $concepts-computable-by-maps
         for $result as object in
-            for $candidate-concept in (keys($concept.To), $concept[].Name)
+            for $candidate-concept in $concept.To[].Name
             let $facts := $all-results[$$.Name = $candidate-concept]
             where exists($facts)
             count $c
