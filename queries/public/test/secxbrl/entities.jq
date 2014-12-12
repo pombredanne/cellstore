@@ -4,6 +4,7 @@ import module namespace test = "http://apps.28.io/test";
 declare variable $local:expected as object :=
     {
       "dow30" : [ "http://www.sec.gov/CIK 0000066740", "http://www.sec.gov/CIK 0000004962", "http://www.sec.gov/CIK 0000732717", "http://www.sec.gov/CIK 0000012927", "http://www.sec.gov/CIK 0000018230", "http://www.sec.gov/CIK 0000093410", "http://www.sec.gov/CIK 0000858877", "http://www.sec.gov/CIK 0000021344", "http://www.sec.gov/CIK 0000030554", "http://www.sec.gov/CIK 0000034088", "http://www.sec.gov/CIK 0000040545", "http://www.sec.gov/CIK 0000886982", "http://www.sec.gov/CIK 0000354950", "http://www.sec.gov/CIK 0000050863", "http://www.sec.gov/CIK 0000051143", "http://www.sec.gov/CIK 0000200406", "http://www.sec.gov/CIK 0000019617", "http://www.sec.gov/CIK 0000063908", "http://www.sec.gov/CIK 0000789019", "http://www.sec.gov/CIK 0000310158", "http://www.sec.gov/CIK 0000320187", "http://www.sec.gov/CIK 0000078003", "http://www.sec.gov/CIK 0000080424", "http://www.sec.gov/CIK 0000086312", "http://www.sec.gov/CIK 0000101829", "http://www.sec.gov/CIK 0000731766", "http://www.sec.gov/CIK 0000732712", "http://www.sec.gov/CIK 0001403161", "http://www.sec.gov/CIK 0000104169", "http://www.sec.gov/CIK 0001001039" ],
+      "generic" : [ "http://www.sec.gov/CIK 0000004962" ],
       "cik" : [ "http://www.sec.gov/CIK 0000004962" ],
       "ticker" : [ "http://www.sec.gov/CIK 0000104169" ],
       "ticker2" : [ "http://www.sec.gov/CIK 0000021344", "http://www.sec.gov/CIK 0000104169" ],
@@ -54,6 +55,17 @@ declare %an:nondeterministic function local:test-entities(
     return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
 };
 
+declare %an:nondeterministic function local:test-entities-generic(
+    $expected as array,
+    $params as object) as item
+{
+    let $endpoint := "entities"
+    let $request := test:invoke($endpoint, $params)
+    let $actual as array := [ $request[2].Entities[].EID ]
+    let $status as integer := $request[1]
+    return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
+};
+
 declare %an:sequential function local:check($o as object) as object
 {
     if (not(every $k in (keys($o) ! $o.$$) satisfies ($k instance of boolean and $k)))
@@ -67,6 +79,7 @@ declare %an:sequential function local:check($o as object) as object
 let $dow30 := test:is-dow30()
 return local:check({
     dow30: local:test-entities($local:expected.dow30, {tag:"DOW30"}),
+    generic: local:test-entities-generic($local:expected.generic, {eid:"http://www.sec.gov/CIK 0000004962", profile-name:"generic"}),
     cik: local:test-entities($local:expected.cik, {cik:"4962"}),
     ticker: local:test-entities($local:expected.ticker, {ticker:"wmt"}),
     ticker2: local:test-entities($local:expected.ticker2, {ticker:["wmt","ko"]}),

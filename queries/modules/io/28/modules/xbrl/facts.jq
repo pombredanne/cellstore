@@ -770,9 +770,7 @@ declare function facts:facts-for(
 {
   let $hypercube as object? := facts:from-options("Hypercube", $options)
   let $rules as object* := facts:from-options("Rules", $options)
-  let $concept-maps as object* :=
-    (facts:from-options("concept-maps", $options),
-     facts:from-options("ConceptMaps", $options))
+  let $concept-maps as object* := facts:from-options("ConceptMaps", $options)
   let $cache as object? := facts:from-options("Cache", $options)
   let $filter as object? := facts:from-options("Filter", $options)
   let $validate-facts as boolean := facts:from-options("Validate", $options)
