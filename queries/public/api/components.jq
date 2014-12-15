@@ -156,14 +156,14 @@ let $res as object* :=
                             format: $format,
                             role: $component.NetworkIdentifier,
                             profile-name: $profile-name
-                            }),
+                            }, true),
                         SpreadSheet: "http://rendering.secxbrl.info/#?url=" || encode-for-uri(
                             backend:url("spreadsheet-for-component", {
                             aid: $archive._id,
                             format: $format,
                             role: $component.NetworkIdentifier,
                             profile-name: $profile-name
-                            })
+                            }, true)
                         )
                     } into $c
                     return $c
@@ -182,14 +182,14 @@ let $res as object* :=
                             format: $format,
                             role: $r.Role,
                             profile-name: $profile-name
-                            }),
+                            }, true),
             SpreadSheet: "http://rendering.secxbrl.info/#?url=" || encode-for-uri(
                         backend:url("spreadsheet-for-component", {
                             aid: $r.Archive,
                             format: $format,
                             role: $r.Role,
                             profile-name: $profile-name
-                        }))
+                        }, true))
         }
 let $result := switch($profile-name) case "sec" return { Archives: [ $res ] } default return { Components : [ $res ] }
 let $comment :=
