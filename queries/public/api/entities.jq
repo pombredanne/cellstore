@@ -1,6 +1,7 @@
 import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
+import module namespace backend = "http://apps.28.io/test";
 
 import module namespace http-request = "http://www.28msec.com/modules/http/request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
@@ -59,12 +60,13 @@ let $entities :=
     return {|
       project($entity, "_id"),
       {
-        Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-          "/v1/_queries/public/api/filings.jq?_method=POST&cik="|| tokenize($entity._id, " ")[2] ||
-          "&fiscalYear=ALL&fiscalPeriod=ALL&format=" || $format ||
-          "&profile-name=" || $profile-name ||
-          "&token=" || http-request:parameter-values("token")
-      },
+        Archives: backend:url({
+          cik: tokenize($entity._id, " ")[2],
+          fiscalYear: "ALL",
+          fiscalPeriod: "ALL",
+          format: $format,
+          profile-name: $profile-name
+        }),
       trim($entity, "_id")
     |}
   default return
@@ -72,11 +74,11 @@ let $entities :=
     return {|
       $entity,
       {
-        Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-          "/v1/_queries/public/api/filings.jq?_method=POST&eid="|| encode-for-uri($entity.EID) ||
-          "&format=" || $format ||
-          "&profile-name=" || $profile-name ||
-          "&token=" || http-request:parameter-values("token")
+        Archives: backend:url({
+          eid: encode-for-uri($entity.EID),
+          format: $format,
+          profile-name: $profile-name
+        })
       }
   |}
 
