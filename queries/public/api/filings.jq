@@ -67,25 +67,30 @@ let $summaries :=
             Entity: $a.Entity
         }
 let $summaries :=
+  switch($profile-name)
+  case "sec" return
     for $archive in $summaries
-    return copy $a := $archive
-    modify
-      switch($profile-name)
-      case "sec" return
-        insert json {
-          Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-          "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($a.AccessionNumber) ||
+    return {|
+      project($archive, "AccessionNumber"),
+      {
+        Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+          "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($archive.AccessionNumber) ||
           "&format=" || $format || "&profile-name=" || $profile-name ||
           "&token=" || http-request:parameter-values("token")
-        } into $a
-      default return
-        insert json {
-          Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-          "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($a.AID) ||
+      },
+      trim($archive, "AccessionNumber")
+    |}
+  default return
+    for $archive in $summaries
+    return {|
+      $archive,
+      {
+        Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+          "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($archive.AID) ||
           "&format=" || $format || "&profile-name=" || $profile-name ||
           "&token=" || http-request:parameter-values("token")
-        } into $a
-    return $a
+      }
+    |}
 
 let $result := { "Archives" : [ $summaries ] }
 let $comment :=

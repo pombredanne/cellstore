@@ -53,28 +53,33 @@ let $comment :=
     TotalNumEntities: session:num-entities() 
 }
 let $entities :=
+  switch($profile-name)
+  case "sec" return
     for $entity in $entities
-    return copy $e := $entity
-    modify
-      switch($profile-name)
-      case "sec"
-      return
-        insert json {
-          Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-          "/v1/_queries/public/api/filings.jq?_method=POST&cik="|| tokenize($e._id, " ")[2] ||
+    return {|
+      project($entity, "_id"),
+      {
+        Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+          "/v1/_queries/public/api/filings.jq?_method=POST&cik="|| tokenize($entity._id, " ")[2] ||
           "&fiscalYear=ALL&fiscalPeriod=ALL&format=" || $format ||
           "&profile-name=" || $profile-name ||
           "&token=" || http-request:parameter-values("token")
-        } into $e
-      default return
-        insert json {
-          Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-          "/v1/_queries/public/api/filings.jq?_method=POST&eid="|| encode-for-uri($e.EID) ||
+      },
+      trim($entity, "_id")
+    |}
+  default return
+    for $entity in $entities
+    return {|
+      $entity,
+      {
+        Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
+          "/v1/_queries/public/api/filings.jq?_method=POST&eid="|| encode-for-uri($entity.EID) ||
           "&format=" || $format ||
           "&profile-name=" || $profile-name ||
           "&token=" || http-request:parameter-values("token")
-        } into $e
-    return $e
+      }
+  |}
+
 let $result := { "Entities" : [ $entities ] }
 let $serializers := {
     to-xml : function($res as object) as node() {
