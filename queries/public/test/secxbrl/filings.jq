@@ -63,7 +63,7 @@ declare %an:nondeterministic function local:test-example1() as item
             "ExtensionConcepts": 184,
             "ExtensionAbstracts": 164,
             "Components" : "http://" || request:server-name() || ":" || request:server-port() ||
-              "/v1/_queries/public/api/components.jq?_method=POST&aid=0001104659-14-009773&format=html&profile-name=sec&token=foobar"
+              "/v1/_queries/public/api/components.jq?_method=POST&aid=0001104659-14-009773&format=&profile-name=sec&token=foobar"
         }
     ]
     let $endpoint := "filings"

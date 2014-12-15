@@ -37,7 +37,7 @@ declare %an:nondeterministic function local:test-example1() as item
       }
     },
     "Archives" : "http://" || request:server-name() || ":" || request:server-port() ||
-      "/v1/_queries/public/api/filings.jq?_method=POST&cik=0000021344&fiscalYear=ALL&fiscalPeriod=ALL&format=html&profile-name=sec&token=foobar"
+      "/v1/_queries/public/api/filings.jq?_method=POST&cik=0000021344&fiscalYear=ALL&fiscalPeriod=ALL&format=&profile-name=sec&token=foobar"
   } ]
   let $endpoint := "entities"
   let $params := {cik:"21344"}
