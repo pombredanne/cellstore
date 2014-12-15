@@ -79,7 +79,7 @@ let $summaries :=
               aid: encode-for-uri($archive.AccessionNumber),
               format: $format,
               profile-name: $profile-name
-          })
+          }, true)
       },
       trim($archive, "AccessionNumber")
     |}
@@ -93,7 +93,7 @@ let $summaries :=
               aid: encode-for-uri($archive.AID),
               format: $format,
               profile-name: $profile-name
-          })
+          }, true)
       }
     |}
 
