@@ -3,6 +3,7 @@ import module namespace http-request = "http://www.28msec.com/modules/http/reque
 import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
+import module namespace backend = "http://apps.28.io/test";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
@@ -73,10 +74,12 @@ let $summaries :=
     return {|
       project($archive, "AccessionNumber"),
       {
-        Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-          "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($archive.AccessionNumber) ||
-          "&format=" || $format || "&profile-name=" || $profile-name ||
-          "&token=" || http-request:parameter-values("token")
+        Components: backend:url("components",
+          {
+              aid: encode-for-uri($archive.AccessionNumber),
+              format: $format,
+              profile-name: $profile-name
+          })
       },
       trim($archive, "AccessionNumber")
     |}
@@ -85,10 +88,12 @@ let $summaries :=
     return {|
       $archive,
       {
-        Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-          "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($archive.AID) ||
-          "&format=" || $format || "&profile-name=" || $profile-name ||
-          "&token=" || http-request:parameter-values("token")
+        Components: backend:url("components",
+          {
+              aid: encode-for-uri($archive.AID),
+              format: $format,
+              profile-name: $profile-name
+          })
       }
     |}
 
