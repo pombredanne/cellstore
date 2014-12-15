@@ -66,7 +66,7 @@ let $entities :=
           fiscalPeriod: "ALL",
           format: $format,
           profile-name: $profile-name
-        }),
+        }, true),
       trim($entity, "_id")
     |}
   default return
@@ -78,7 +78,7 @@ let $entities :=
           eid: encode-for-uri($entity.EID),
           format: $format,
           profile-name: $profile-name
-        })
+        }, true)
       }
   |}
 
