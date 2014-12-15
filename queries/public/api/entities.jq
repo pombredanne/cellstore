@@ -60,7 +60,7 @@ let $entities :=
     return {|
       project($entity, "_id"),
       {
-        Archives: backend:url({
+        Archives: backend:url("filings", {
           cik: tokenize($entity._id, " ")[2],
           fiscalYear: "ALL",
           fiscalPeriod: "ALL",
@@ -74,7 +74,7 @@ let $entities :=
     return {|
       $entity,
       {
-        Archives: backend:url({
+        Archives: backend:url("filings", {
           eid: encode-for-uri($entity.EID),
           format: $format,
           profile-name: $profile-name
