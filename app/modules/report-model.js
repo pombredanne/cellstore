@@ -507,7 +507,7 @@ angular
             if(members.hasOwnProperty(j)) {
                 var member = members[j];
                 if (member.Name === member) {
-                    members.splice(i, 1);
+                    members.splice(j, 1);
                 }
             }
         }
@@ -560,7 +560,7 @@ angular
     AbstractReport.prototype.listConcepts = function() {
         var model = this.getModel();
         if(model === null || model === undefined) {
-            return result;
+            return [];
         }
         return model.Concepts;
     };
@@ -938,7 +938,6 @@ angular
 
         // determine element
         var element = determineElement(this, elementOrConceptName, order);
-        var conceptName = element.Name;
 
         if((parentElementID === undefined || parentElementID === null) && rootElem === undefined) {
             // add a root element (only one allowed)
@@ -1090,7 +1089,7 @@ angular
     AbstractReport.prototype.listConceptMaps = function() {
         var network = this.getNetwork('ConceptMap');
         if(network === null || network === undefined || network.Trees === null || network.Trees === undefined) {
-            return result;
+            return [];
         }
 
         return network.Trees;
