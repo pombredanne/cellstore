@@ -75,14 +75,14 @@ let $summaries :=
         insert json {
           Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
           "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($a.AccessionNumber) ||
-          "&format=html&profile-name=" || $profile-name ||
+          "&format=" || $format || "&profile-name=" || $profile-name ||
           "&token=" || http-request:parameter-values("token")
         } into $a
       default return
         insert json {
           Components: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
           "/v1/_queries/public/api/components.jq?_method=POST&aid="||encode-for-uri($a.AID) ||
-          "&format=html&profile-name=" || $profile-name ||
+          "&format=" || $format || "&profile-name=" || $profile-name ||
           "&token=" || http-request:parameter-values("token")
         } into $a
     return $a

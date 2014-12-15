@@ -62,7 +62,7 @@ let $entities :=
         insert json {
           Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
           "/v1/_queries/public/api/filings.jq?_method=POST&cik="|| tokenize($e._id, " ")[2] ||
-          "&fiscalYear=ALL&fiscalPeriod=ALL&format=html" ||
+          "&fiscalYear=ALL&fiscalPeriod=ALL&format=" || $format ||
           "&profile-name=" || $profile-name ||
           "&token=" || http-request:parameter-values("token")
         } into $e
@@ -70,7 +70,7 @@ let $entities :=
         insert json {
           Archives: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
           "/v1/_queries/public/api/filings.jq?_method=POST&eid="|| encode-for-uri($e.EID) ||
-          "&format=html" ||
+          "&format=" || $format ||
           "&profile-name=" || $profile-name ||
           "&token=" || http-request:parameter-values("token")
         } into $e

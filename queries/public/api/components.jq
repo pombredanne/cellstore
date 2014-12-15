@@ -152,13 +152,13 @@ let $res as object* :=
                     modify insert json {
                         FactTable: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
                         "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid="||$archive._id ||
-                        "&format=html&role=" || $component.NetworkIdentifier ||
+                        "&format=" || $format || "&role=" || $component.NetworkIdentifier ||
                         "&profile-name=" || $profile-name ||
                         "&token=" || http-request:parameter-values("token"),
                         SpreadSheet: "http://rendering.secxbrl.info/#?url=" || encode-for-uri(
                         "http://" || http-request:server-name() || ":" || http-request:server-port() ||
                         "/v1/_queries/public/api/spreadsheet-for-component.jq?_method=POST&aid="||$archive._id ||
-                        "&format=html&role=" || $component.NetworkIdentifier ||
+                        "&format=" || $format || "&role=" || $component.NetworkIdentifier ||
                         "&profile-name=" || $profile-name ||
                         "&token=" || http-request:parameter-values("token"))
                     } into $c
