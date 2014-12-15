@@ -68,7 +68,7 @@ let $entities :=
           profile-name: $profile-name
         }, true)
       },
-      trim($entity, "_id"),
+      trim($entity, "_id")
     |}
   default return
     for $entity in $entities
