@@ -23,6 +23,9 @@ declare function local:to-csv($res as object*) as string*
         for $c in $a.Components[]
         return { 
             AcessionNumber : $a.AccessionNumber,
+            NetworkIdentifier : $c.NetworkIdentifier,
+            FactTable: $c.FactTable,
+            SpreadSheet: $c.SpreadSheet,
             EntityRegistrantName : $a.EntityRegistrantName,
             CIK : $a.CIK,
             FiscalYear : $a.FiscalYear,
@@ -30,7 +33,6 @@ declare function local:to-csv($res as object*) as string*
             AcceptanceDateTime : $a.AcceptanceDatetime,
             FormType : $a.FormType,
             NetworkLabel : $c.NetworkLabel,
-            NetworkIdentifier : $c.NetworkIdentifier,
             Category : $c.Category,
             SubCategory : $c.SubCategory,
             Table : flatten($c.Table),
@@ -41,9 +43,7 @@ declare function local:to-csv($res as object*) as string*
             Members : $c.Members,
             LineItems : $c.LineItems,
             Concepts : $c.Concepts,
-            Abstracts : $c.Abstracts,
-            FactTable: $c.FactTable,
-            SpreadSheet: $c.SpreadSheet
+            Abstracts : $c.Abstracts
         },
     { serialize-null-as : "" }) 
 };
@@ -55,11 +55,11 @@ declare function local:to-csv-generic($res as object*) as string*
         return {
             Archive: $a.Archive,
             Role: $a.Role,
+            FactTable: $a.FactTable,
+            SpreadSheet: $a.SpreadSheet,
             NumRules: $a.NumRules,
             NumNetworks: $a.NumNetworks,
-            NumHypercubes: size($a.Hypercubes),
-            FactTable: $a.FactTable,
-            SpreadSheet: $a.SpreadSheet
+            NumHypercubes: size($a.Hypercubes)
         },
     { serialize-null-as : "" }) 
 };
