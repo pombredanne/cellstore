@@ -1,6 +1,7 @@
 import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
+import module namespace backend = "http://apps.28.io/test";
 
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace components = "http://28.io/modules/xbrl/components";
@@ -150,17 +151,20 @@ let $res as object* :=
                     for $component in sec-networks:summaries($r)
                     return copy $c := $component
                     modify insert json {
-                        FactTable: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-                        "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid="||$archive._id ||
-                        "&format=" || $format || "&role=" || $component.NetworkIdentifier ||
-                        "&profile-name=" || $profile-name ||
-                        "&token=" || http-request:parameter-values("token"),
+                        FactTable: backend:url("facttable-for-component", {
+                            aid: $archive._id,
+                            format: $format,
+                            role: $component.NetworkIdentifier,
+                            profile-name: $profile-name
+                            }),
                         SpreadSheet: "http://rendering.secxbrl.info/#?url=" || encode-for-uri(
-                        "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-                        "/v1/_queries/public/api/spreadsheet-for-component.jq?_method=POST&aid="||$archive._id ||
-                        "&format=" || $format || "&role=" || $component.NetworkIdentifier ||
-                        "&profile-name=" || $profile-name ||
-                        "&token=" || http-request:parameter-values("token"))
+                            backend:url("spreadsheet-for-component", {
+                            aid: $archive._id,
+                            format: $format,
+                            role: $component.NetworkIdentifier,
+                            profile-name: $profile-name
+                            })
+                        )
                     } into $c
                     return $c
                ]
@@ -173,17 +177,19 @@ let $res as object* :=
             NumRules: size($r.Rules),
             NumNetworks: size($r.Networks),
             Hypercubes: [ keys($r.Hypercubes) ],
-            FactTable: "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-                        "/v1/_queries/public/api/facttable-for-component.jq?_method=POST&aid="||$r.Archive ||
-                        "&format=html&role=" || $r.Role ||
-                        "&profile-name=" || $profile-name ||
-                        "&token=" || http-request:parameter-values("token"),
+            FactTable: backend:url("facttable-for-component", {
+                            aid: $r.Archive,
+                            format: $format,
+                            role: $r.Role,
+                            profile-name: $profile-name
+                            }),
             SpreadSheet: "http://rendering.secxbrl.info/#?url=" || encode-for-uri(
-                        "http://" || http-request:server-name() || ":" || http-request:server-port() ||
-                        "/v1/_queries/public/api/spreadsheet-for-component.jq?_method=POST&aid="||$r.Archive ||
-                        "&role=" || $r.Role ||
-                        "&profile-name=" || $profile-name ||
-                        "&token=" || http-request:parameter-values("token"))
+                        backend:url("spreadsheet-for-component", {
+                            aid: $r.Archive,
+                            format: $format,
+                            role: $r.Role,
+                            profile-name: $profile-name
+                        }))
         }
 let $result := switch($profile-name) case "sec" return { Archives: [ $res ] } default return { Components : [ $res ] }
 let $comment :=
