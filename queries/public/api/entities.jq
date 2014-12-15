@@ -66,8 +66,9 @@ let $entities :=
           fiscalPeriod: "ALL",
           format: $format,
           profile-name: $profile-name
-        }, true),
-      trim($entity, "_id")
+        }, true)
+      },
+      trim($entity, "_id"),
     |}
   default return
     for $entity in $entities
