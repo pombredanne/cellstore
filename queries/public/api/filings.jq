@@ -5,6 +5,7 @@ import module namespace session = "http://apps.28.io/session";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
@@ -41,6 +42,9 @@ let $entities :=
         $tag,
         $ticker,
         $sic)
+    case "japan" return
+            if(exists($eid)) then entities:entities($eid)
+                                else entities:entities()
     default return ()
 let $archives as object* :=
     switch($profile-name)
@@ -58,6 +62,21 @@ let $summaries :=
         for $f in filings:summaries($archives) 
         order by $f.Accepted descending
         return $f
+    case "japan" return
+      for $a in $archives
+      where (empty($fiscalYear) or
+             $fiscalYear = 0 or
+             $fiscalYear = $a.Profiles.JAPAN.DocumentFiscalYearFocus)
+      and (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.JAPAN.DocumentFiscalPeriodFocus = $fiscalPeriod)
+      return {
+        AID: $a._id,
+        InstanceURL: $a.InstanceURL,
+        Entity: $a.Entity,
+        EDINETCode: $a.Profiles.JAPAN.EDINETCode,
+        SubmissionDate: $a.Profiles.JAPAN.SubmissionDate,
+        FiscalYear: $a.Profiles.JAPAN.DocumentFiscalYearFocus,
+        FiscalPeriod: $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
+      }
     default return
         for $a in $archives
         return {

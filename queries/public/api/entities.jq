@@ -39,6 +39,9 @@ let $entities :=
             $sic)
         order by $entity.Profiles.SEC.CompanyName
         return $entity
+    case "japan" return
+            if(exists($eid)) then entities:entities($eid)
+                                else entities:entities()
     default return
         for $entity in
             if(exists($eid)) then entities:entities($eid)
