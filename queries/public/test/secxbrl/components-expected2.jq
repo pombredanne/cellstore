@@ -1,3 +1,6 @@
+import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace config = "http://apps.28.io/config";
+
 [ {
     "AccessionNumber" : "0000021344-14-000008", 
     "EntityRegistrantName" : "COCA COLA CO", 
