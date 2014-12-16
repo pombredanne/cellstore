@@ -19,6 +19,18 @@ var Options = {
     OVERWRITE_IF_NEWER: 3
 };
 
+var castToJson = function(obj){
+    var result = obj;
+    if(typeof obj === 'string'){
+        try {
+            result = JSON.parse(obj);
+        } catch (e) {
+
+        }
+    }
+    return result;
+};
+
 var throwError = function (error) {
     var message = JSON.stringify(error);
     if(error.body){
@@ -34,18 +46,6 @@ var throwError = function (error) {
     throw new $.util.PluginError(__filename, message);
 };
 
-var castToJson = function(obj){
-    var result = obj;
-    if(typeof obj === 'string'){
-        try {
-            result = JSON.parse(obj);
-        } catch (e) {
-
-        }
-    }
-    return result;
-};
-
 var summarizeTestError = function(error){
     var hasError = false;
     if(error.body) {
@@ -56,6 +56,7 @@ var summarizeTestError = function(error){
         if(body.content){
             body = castToJson(body.content);
         }
+        /*jshint camelcase:false */
         if(typeof body === 'object' && !body.request_id) {
             for (var testName in body) {
                 if (body.hasOwnProperty(testName)) {
