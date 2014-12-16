@@ -33,6 +33,9 @@ var castToJson = function(obj){
 
 var throwError = function (error) {
     var message = JSON.stringify(error);
+    $.util.log(error.toString());
+    $.util.log(error.stack);
+    $.util.log(error.filename);
     if(error.body){
         var body = castToJson(error.body);
         message = typeof body === 'object' ? JSON.stringify(body, null, '\t') : body;
@@ -139,6 +142,10 @@ var createProject = function(projectName){
     return defered.promise;
 };
 
+var ignoreQueriesFunction = function(list){
+    return list;
+};
+
 var upload = function(projectName){
     /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
@@ -150,7 +157,7 @@ var upload = function(projectName){
     var deleteOrphaned = true;
     var simulate = false;
     $.util.log('Uploading queries.');
-    return $28.upload(projectName, projectToken, projectPath, overwrite, deleteOrphaned, simulate, []).then(function(){
+    return $28.upload(projectName, projectToken, projectPath, overwrite, deleteOrphaned, simulate, ignoreQueriesFunction).then(function(){
         $.util.log('Queries uploaded.');
         return credentials;
     });
