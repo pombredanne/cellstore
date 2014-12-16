@@ -1,5 +1,7 @@
 import module namespace response = "http://www.28msec.com/modules/http-response";
+import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace test = "http://apps.28.io/test";
+import module namespace config = "http://apps.28.io/config";
 
 declare variable $local:expected as object :=
     {
@@ -18,7 +20,9 @@ declare %an:nondeterministic function local:test-example1() as item
 {
   let $expected := 
   [ {
-    "_id" : "http://www.sec.gov/CIK 0000021344", 
+    "_id" : "http://www.sec.gov/CIK 0000021344",
+    "Archives" : "http://" || request:server-name() || ":" || request:server-port() ||
+      "/v1/_queries/public/api/filings.jq?_method=POST&token=" || $config:test-token || "&cik=0000021344&fiscalYear=ALL&fiscalPeriod=ALL&format=&profile-name=sec",
     "Profiles" : {
       "SEC" : {
         "Name" : "SEC", 
