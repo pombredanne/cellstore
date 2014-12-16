@@ -1,6 +1,7 @@
 import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
+import module namespace backend = "http://apps.28.io/test";
 
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace components = "http://28.io/modules/xbrl/components";
@@ -20,11 +21,10 @@ declare function local:to-csv($res as object*) as string*
         for $a in $res
         for $c in $a.Components[]
         return { 
-            Archive: $a.Archive,
-            Role: $a.Role,
-            NumRules: $a.NumRules,
-            NumNetworks: $a.NumNetworks,
             AcessionNumber : $a.AccessionNumber,
+            NetworkIdentifier : $c.NetworkIdentifier,
+            FactTable: $c.FactTable,
+            SpreadSheet: $c.SpreadSheet,
             EntityRegistrantName : $a.EntityRegistrantName,
             CIK : $a.CIK,
             FiscalYear : $a.FiscalYear,
@@ -32,7 +32,6 @@ declare function local:to-csv($res as object*) as string*
             AcceptanceDateTime : $a.AcceptanceDatetime,
             FormType : $a.FormType,
             NetworkLabel : $c.NetworkLabel,
-            NetworkIdentifier : $c.NetworkRole,
             Category : $c.Category,
             SubCategory : $c.SubCategory,
             Table : flatten($c.Table),
@@ -55,6 +54,8 @@ declare function local:to-csv-generic($res as object*) as string*
         return {
             Archive: $a.Archive,
             Role: $a.Role,
+            FactTable: $a.FactTable,
+            SpreadSheet: $a.SpreadSheet,
             NumRules: $a.NumRules,
             NumNetworks: $a.NumNetworks,
             NumHypercubes: size($a.Hypercubes)
@@ -145,7 +146,25 @@ let $res as object* :=
                AcceptanceDatetime : sec-filings:acceptance-dateTimes($archive),
                FormType : $archive.Profiles.SEC.FormType,
                Components : [ 
-                   sec-networks:summaries($r)
+                    for $component in sec-networks:summaries($r)
+                    return copy $c := $component
+                    modify insert json {
+                        FactTable: backend:url("facttable-for-component", {
+                            aid: $archive._id,
+                            format: $format,
+                            role: $component.NetworkIdentifier,
+                            profile-name: $profile-name
+                            }, true),
+                        SpreadSheet: "http://rendering.secxbrl.info/#?url=" || encode-for-uri(
+                            backend:url("spreadsheet-for-component", {
+                            aid: $archive._id,
+                            format: $format,
+                            role: $component.NetworkIdentifier,
+                            profile-name: $profile-name
+                            }, true)
+                        )
+                    } into $c
+                    return $c
                ]
            }
     default return
@@ -155,7 +174,20 @@ let $res as object* :=
             Role: $r.Role,
             NumRules: size($r.Rules),
             NumNetworks: size($r.Networks),
-            Hypercubes: [ keys($r.Hypercubes) ]
+            Hypercubes: [ keys($r.Hypercubes) ],
+            FactTable: backend:url("facttable-for-component", {
+                            aid: $r.Archive,
+                            format: $format,
+                            role: $r.Role,
+                            profile-name: $profile-name
+                            }, true),
+            SpreadSheet: "http://rendering.secxbrl.info/#?url=" || encode-for-uri(
+                        backend:url("spreadsheet-for-component", {
+                            aid: $r.Archive,
+                            format: $format,
+                            role: $r.Role,
+                            profile-name: $profile-name
+                        }, true))
         }
 let $result := switch($profile-name) case "sec" return { Archives: [ $res ] } default return { Components : [ $res ] }
 let $comment :=
