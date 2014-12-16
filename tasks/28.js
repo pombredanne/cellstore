@@ -22,17 +22,10 @@ var Options = {
 var throwError = function (error) {
     var message = JSON.stringify(error);
     if(error.body){
-        var body = error.body;
-        if(typeof body === 'string'){
-            try {
-                body = JSON.parse(body);
-            } catch (e) {
-
-            }
-        }
-        message = JSON.stringify(body, null, '\t');
+        var body = castToJson(error.body);
+        message = typeof body === 'object' ? JSON.stringify(body, null, '\t') : body;
     }
-    if(error.message){
+    if(typeof error.message === 'string'){
         message = error.message;
     }
     if(message.length > 500){
@@ -63,21 +56,23 @@ var summarizeTestError = function(error){
         if(body.content){
             body = castToJson(body.content);
         }
-        for (var testName in body) {
-            if (body.hasOwnProperty(testName)){
-                var testResult = body[testName];
-                if (typeof testResult === 'object') {
-                    $.util.log(testName.red + ': ' + testResult.url);
-                    if (testResult.expectedFactTable && testResult.expectedFactTable.error === true) {
-                        $.util.log(testName.red + ': ' + JSON.stringify(testResult.expectedFactTable, null, '\t'));
-                    }
-                    if (testResult.factTableDiff) {
-                        for (var diff in testResult.factTableDiff) {
-                            if (diff.expectedNumberOfFacts) {
-                                $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
-                            }
+        if(typeof body === 'object' && !body.request_id) {
+            for (var testName in body) {
+                if (body.hasOwnProperty(testName)) {
+                    var testResult = body[testName];
+                    if (typeof testResult === 'object') {
+                        $.util.log(testName.red + ': ' + testResult.url);
+                        if (testResult.expectedFactTable && testResult.expectedFactTable.error === true) {
+                            $.util.log(testName.red + ': ' + JSON.stringify(testResult.expectedFactTable, null, '\t'));
                         }
-                        hasError = true;
+                        if (testResult.factTableDiff) {
+                            for (var diff in testResult.factTableDiff) {
+                                if (diff.expectedNumberOfFacts) {
+                                    $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
+                                }
+                            }
+                            hasError = true;
+                        }
                     }
                 }
             }
