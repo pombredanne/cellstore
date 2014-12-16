@@ -1,5 +1,3 @@
-import module namespace http-request = "http://www.28msec.com/modules/http/request";
-
 import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";

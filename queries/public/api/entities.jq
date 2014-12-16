@@ -3,7 +3,6 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace backend = "http://apps.28.io/test";
 
-import module namespace http-request = "http://www.28msec.com/modules/http/request";
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 import module namespace entities = "http://28.io/modules/xbrl/entities";
