@@ -4,7 +4,7 @@ module namespace japan = "http://28.io/modules/xbrl/profiles/japan/core";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 
 declare function japan:filings(
-    $eid as string*,
+    $entities as item*,
     $fiscalYear as integer*,
     $fiscalPeriod as string*,
     $aid as string*) as object*
@@ -12,8 +12,7 @@ declare function japan:filings(
     archives:archives($aid),
     if($fiscalYear = 1)
     then
-        for $a as object in if(exists($eid)) then archives:archives-for-entities($eid)
-                                             else archives:archives()
+        for $a as object in archives:archives-for-entities($entities)
         where (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.JAPAN.DocumentFiscalPeriodFocus = $fiscalPeriod)
         group by $a.Entity
         return
@@ -23,8 +22,7 @@ declare function japan:filings(
             count $i where $i eq 1
             return $filing
     else
-        for $a as object in if(exists($eid)) then archives:archives-for-entities($eid)
-                                             else archives:archives()
+        for $a as object in archives:archives-for-entities($entities)
         where (empty($fiscalYear) or
                $fiscalYear = 0 or
                $fiscalYear = $a.Profiles.JAPAN.DocumentFiscalYearFocus)

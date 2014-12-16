@@ -46,7 +46,7 @@ let $entities :=
         $sic)
     case "japan" return
             if(exists($eid)) then entities:entities($eid)
-                             else entities:entities()
+                             else if($tag = "ALL") then entities:entities() else ()
     default return ()
 let $archives as object* :=
     switch($profile-name)
@@ -55,7 +55,7 @@ let $archives as object* :=
         $fiscalPeriod,
         $fiscalYear,
         $aid)
-    case "japan" return japan:filings($eid, $fiscalYear, $fiscalPeriod, $aid)
+    case "japan" return japan:filings($entities, $fiscalYear, $fiscalPeriod, $aid)
     default return
         if(exists($eid)) then archives:archives-for-entities($eid)
                          else archives:archives()
