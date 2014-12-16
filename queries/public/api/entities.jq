@@ -1,6 +1,7 @@
 import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
+import module namespace backend = "http://apps.28.io/test";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
@@ -51,6 +52,36 @@ let $comment :=
     NumEntities: count($entities),
     TotalNumEntities: session:num-entities() 
 }
+let $entities :=
+  switch($profile-name)
+  case "sec" return
+    for $entity in $entities
+    return {|
+      project($entity, "_id"),
+      {
+        Archives: backend:url("filings", {
+          cik: tokenize($entity._id, " ")[2],
+          fiscalYear: "ALL",
+          fiscalPeriod: "ALL",
+          format: $format,
+          profile-name: $profile-name
+        }, true)
+      },
+      trim($entity, "_id")
+    |}
+  default return
+    for $entity in $entities
+    return {|
+      $entity,
+      {
+        Archives: backend:url("filings", {
+          eid: encode-for-uri($entity.EID),
+          format: $format,
+          profile-name: $profile-name
+        }, true)
+      }
+  |}
+
 let $result := { "Entities" : [ $entities ] }
 let $serializers := {
     to-xml : function($res as object) as node() {
