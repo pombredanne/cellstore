@@ -1,6 +1,7 @@
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace test = "http://apps.28.io/test";
+import module namespace config = "http://apps.28.io/config";
 
 declare variable $local:expected as object :=
     {
@@ -39,6 +40,8 @@ declare %an:nondeterministic function local:test-example1() as item
   let $expected := 
     [
         {
+            "AccessionNumber": "0001104659-14-009773",
+            "Components" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/components.jq?_method=POST&token=" || $config:test-token || "&aid=0001104659-14-009773&format=&profile-name=sec", 
             "CIK": "http://www.sec.gov/CIK 0000066740",
             "EntityRegistrantName": "3M CO",
             "FormType": "10-K",
@@ -46,7 +49,6 @@ declare %an:nondeterministic function local:test-example1() as item
             "FiscalPeriod": "FY",
             "Accepted": "2014-02-13T16:16:20Z",
             "Generator": "IBM Cognos",
-            "AccessionNumber": "0001104659-14-009773",
             "SECFilingPage": "http://www.sec.gov/Archives/edgar/data/66740/000110465914009773/0001104659-14-009773-index.htm",
             "XBRLInstanceURL": "http://www.sec.gov/Archives/edgar/data/66740/000110465914009773/mmm-20131231.xml",
             "Networks": 104,
@@ -61,9 +63,7 @@ declare %an:nondeterministic function local:test-example1() as item
             "Facts": 3506,
             "ExtensionFacts": 1180,
             "ExtensionConcepts": 184,
-            "ExtensionAbstracts": 164,
-            "Components" : "http://" || request:server-name() || ":" || request:server-port() ||
-              "/v1/_queries/public/api/components.jq?_method=POST&aid=0001104659-14-009773&format=&profile-name=sec&token=foobar"
+            "ExtensionAbstracts": 164
         }
     ]
     let $endpoint := "filings"
