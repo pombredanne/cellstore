@@ -7,10 +7,10 @@ var Config = require('./config');
 
 gulp.task('less', function () {
   return gulp.src('app/styles/index.less')
-      .pipe($.less({
-          paths: [ ]
-        }))
-      .pipe(gulp.dest('app/styles'));
+    .pipe($.less({
+      paths: [ ]
+    }))
+    .pipe(gulp.dest('app/styles'));
 });
 
 gulp.task('html', ['less'], function () {
