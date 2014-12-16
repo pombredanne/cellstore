@@ -1,3 +1,6 @@
+import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace config = "http://apps.28.io/config";
+
 [ {
     "AccessionNumber" : "0000021344-13-000039", 
     "EntityRegistrantName" : "COCA COLA CO", 
@@ -856,3 +859,4 @@
       "SpreadSheet" : "http://rendering.secxbrl.info/#?url=http%3A%2F%2F" || request:server-name() || "%3A" || request:server-port() || "%2Fv1%2F_queries%2Fpublic%2Fapi%2Fspreadsheet-for-component.jq%3F_method%3DPOST%26token%3D" || $config:test-token || "%26aid%3D0000021344-13-000039%26format%3D%26role%3Dhttp%253A%252F%252Fwww.thecoca-colacompany.com%252Frole%252FOperatingSegmentsDetails%26profile-name%3Dsec"
     } ]
   } ]
+  
