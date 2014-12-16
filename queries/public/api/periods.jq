@@ -1,7 +1,6 @@
 import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
-import module namespace backend = "http://apps.28.io/test";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
@@ -24,8 +23,8 @@ declare  %rest:case-insensitive %rest:distinct  variable $cik           as strin
 declare  %rest:case-insensitive %rest:distinct  variable $tag           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $ticker        as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $sic           as string* external;
-declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear    as string* external := "LATEST";
-declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear    as string* external := "ALL";
+declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string* external := "ALL";
 declare  %rest:case-insensitive %rest:distinct  variable $aid           as string* external;
 declare  %rest:case-insensitive                 variable $profile-name  as string  external := $config:profile-name;
 
@@ -60,7 +59,7 @@ let $archives as object* :=
     default return
         if(exists($eid)) then archives:archives-for-entities($eid)
                          else archives:archives()
-let $summaries :=
+let $periods :=
     switch($profile-name)
     case "sec" return
         for $f in filings:summaries($archives) 
@@ -68,91 +67,33 @@ let $summaries :=
         return $f
     case "japan" return
       for $a in $archives
-      order by $a.Profiles.JAPAN.DocumentFiscalYearFocus descending, $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
-      return api:flatten-json-object(project($a, ("_id", "Entity", "Profiles"))) 
-    default return
-        for $a in $archives
-        return {
-            AID: $a._id,
-            Entity: $a.Entity
-        }
-let $summaries :=
-  switch($profile-name)
-  case "sec" return
-    for $archive in $summaries
-    return {|
-      project($archive, "AccessionNumber"),
-      {
-        Components: backend:url("components",
-          {
-              aid: encode-for-uri($archive.AccessionNumber),
-              format: $format,
-              profile-name: $profile-name
-          }, true)
-      },
-      trim($archive, "AccessionNumber")
-    |}
-  case "japan" return
-    for $archive in $summaries
-    return {|
-      project($archive, "_id"),
-      {
-        Components: backend:url("components",
-          {
-              aid: encode-for-uri($archive._id),
-              format: $format,
-              profile-name: $profile-name
-          }, true)
-      },
-      trim($archive, "_id")
-    |}
-  default return
-    for $archive in $summaries
-    return {|
-      $archive,
-      {
-        Components: backend:url("components",
-          {
-              aid: encode-for-uri($archive.AID),
-              format: $format,
-              profile-name: $profile-name
-          }, true)
-      }
-    |}
+      group by $fy := $a.Profiles.JAPAN.DocumentFiscalYearFocus, $fp := $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
+      order by $fy descending, $fp
+      return { FiscalYear: $fy, FiscalPeriod: $fp }
+    default return ()
 
-let $result := { "Archives" : [ $summaries ] }
+let $result := { "Periods" : [ $periods ] }
 let $comment :=
 {
-    NumArchives: count($summaries),
-    TotalNumArchives: session:num-archives(),
-    TotalNumEntities: session:num-entities()
+    NumPeriods: count($periods)
 }
 let $serializers := {
     to-xml : function($res as object) as node() {
         switch($profile-name)
-        case "sec" return
-            <Filings>{
-                filings:summaries-to-xml($res.Archives[])   
-            }</Filings>
-        default return
-            <Archives>{
-                for $a in $res.Archives[]
-                return <Archive>
-                    <AID>{$a.AID}</AID>
-                    <Entity>{$a.Entity}</Entity>
-                </Archive>
-            }
-            </Archives>
+        case "sec"
+        case "japan" return
+            <Periods>{
+                for $period in $res.Periods[]
+                return <Period fiscalYear="{$period.FiscalYear}" fiscalPeriod="{$period.FiscalPeriod}"/>
+            }</Periods>
+        default return ()
     },
     to-csv : function($res as object) as string {
         switch($profile-name)
-        case "sec" return
-            string-join(filings:summaries-to-csv($res.Archives[]))
-        default return
-            string-join(
-                csv:serialize($res.Archives[], { serialize-null-as : "" }
-            ),
-        "")
+        case "sec"
+        case "japan" return
+            string-join(csv:serialize($res.Periods[], {serialize-null-as: ""}))
+        default return ()
     }
 }
 

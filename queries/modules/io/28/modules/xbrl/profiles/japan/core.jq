@@ -1,0 +1,33 @@
+jsoniq version "1.0";
+module namespace japan = "http://28.io/modules/xbrl/profiles/japan/core";
+
+import module namespace archives = "http://28.io/modules/xbrl/archives";
+
+declare function japan:filings(
+    $eid as string*,
+    $fiscalYear as integer*,
+    $fiscalPeriod as string*,
+    $aid as string*) as object*
+{
+    archives:archives($aid),
+    if($fiscalYear = 1)
+    then
+        for $a as object in if(exists($eid)) then archives:archives-for-entities($eid)
+                                             else archives:archives()
+        where (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.JAPAN.DocumentFiscalPeriodFocus = $fiscalPeriod)
+        group by $a.Entity
+        return
+            for $filing in $a
+            group by $fy := $filing.Profiles.JAPAN.DocumentFiscalYearFocus
+            order by $fy descending
+            count $i where $i eq 1
+            return $filing
+    else
+        for $a as object in if(exists($eid)) then archives:archives-for-entities($eid)
+                                             else archives:archives()
+        where (empty($fiscalYear) or
+               $fiscalYear = 0 or
+               $fiscalYear = $a.Profiles.JAPAN.DocumentFiscalYearFocus)
+               and (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.JAPAN.DocumentFiscalPeriodFocus = $fiscalPeriod)
+        return $a
+};
