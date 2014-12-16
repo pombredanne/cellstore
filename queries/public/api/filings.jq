@@ -69,7 +69,7 @@ let $summaries :=
              $fiscalYear = 0 or
              $fiscalYear = $a.Profiles.JAPAN.DocumentFiscalYearFocus)
       and (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.JAPAN.DocumentFiscalPeriodFocus = $fiscalPeriod)
-      order by $a.Profiles.JAPAN.DocumentFiscalYearFocus, $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
+      order by $a.Profiles.JAPAN.DocumentFiscalYearFocus descending, $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
       return {
         AID: $a._id,
         InstanceURL: $a.InstanceURL,
