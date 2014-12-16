@@ -43,13 +43,8 @@ let $entities :=
     case "japan" return
       for $e in if(exists($eid)) then entities:entities($eid)
                                  else entities:entities()
-      return {
-        EID: $e._id,
-        EDINETCode: $e.Profiles.JAPAN.EDINETCode,
-        Name: $e.Profiles.JAPAN.SubmitterName,
-        NameAlphabetic: $e.Profiles.JAPAN.SubmitterNameAlphabetic,
-        NamePhonetic: $e.Profiles.JAPAN.SubmitterNamePhonetic
-      }
+      order by $e._id
+      return api:flatten-json-object($e)
     default return
         for $entity in
             if(exists($eid)) then entities:entities($eid)
@@ -82,17 +77,17 @@ let $entities :=
   case "japan" return
     for $entity in $entities
     return {|
-      project($entity, "EID"),
+      project($entity, "_id"),
       {
         Archives: backend:url("filings", {
-          eid: $entity.EID,
+          eid: $entity._id,
           fiscalYear: "ALL",
           fiscalPeriod: "ALL",
           format: $format,
           profile-name: $profile-name
         }, true)
       },
-      trim($entity, "EID")
+      trim($entity, "_id")
     |}
   default return
     for $entity in $entities

@@ -70,15 +70,7 @@ let $summaries :=
              $fiscalYear = $a.Profiles.JAPAN.DocumentFiscalYearFocus)
       and (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.JAPAN.DocumentFiscalPeriodFocus = $fiscalPeriod)
       order by $a.Profiles.JAPAN.DocumentFiscalYearFocus descending, $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
-      return {
-        AID: $a._id,
-        InstanceURL: $a.InstanceURL,
-        Entity: $a.Entity,
-        EDINETCode: $a.Profiles.JAPAN.EDINETCode,
-        SubmissionDate: $a.Profiles.JAPAN.SubmissionDate,
-        FiscalYear: $a.Profiles.JAPAN.DocumentFiscalYearFocus,
-        FiscalPeriod: $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
-      }
+      return api:flatten-json-object(project($a, ("_id", "Profiles"))) 
     default return
         for $a in $archives
         return {
@@ -100,6 +92,20 @@ let $summaries :=
           }, true)
       },
       trim($archive, "AccessionNumber")
+    |}
+  case "japan" return
+    for $archive in $summaries
+    return {|
+      project($archive, "_id"),
+      {
+        Components: backend:url("components",
+          {
+              aid: encode-for-uri($archive._id),
+              format: $format,
+              profile-name: $profile-name
+          }, true)
+      },
+      trim($archive, "_id")
     |}
   default return
     for $archive in $summaries

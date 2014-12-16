@@ -6,6 +6,21 @@ import module namespace session    = "http://apps.28.io/session";
 import module namespace resp       = "http://www.28msec.com/modules/http-response";
 import module namespace sec-fiscal = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
+declare function api:flatten-json-object($items as item*) as item*
+{
+  for $item in $items
+  return typeswitch($item)
+         case atomic return $item
+         case array return string-join(flatten($item)[$$ instance of atomic], "")
+         case object return {|
+             for $key in keys($item)
+             return typeswitch($item.$key)
+                    case object return api:flatten-json-object($item.$key)
+                    default return { $key: api:flatten-json-object($item.$key) }
+         |}
+         default return ()
+};
+
 declare function api:validate-regexp($name as string, $value as string?, $regexp as string)
 as ()
 {
