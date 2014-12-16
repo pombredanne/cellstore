@@ -15,9 +15,28 @@ angular
             templateUrl: '/modules/ui/formula-editor.html',
             link: function($scope) {
                 $scope.error = undefined;
+                $scope.modelError = undefined;
                 if($scope.languageType === ''){
                     $scope.languageType = undefined;
                 }
+
+                var updateModelError = function(){
+                    $scope.modelError = undefined;
+                    if($scope.formula.model.IdErr!==undefined){
+                        $scope.modelError += $scope.formula.model.IdErr;
+                    }
+                    if($scope.formula.model.ComputableConceptsErr!==undefined){
+                        $scope.modelError += $scope.formula.model.ComputableConceptsErr;
+                    }
+                    if($scope.formula.model.DependsOnErr!==undefined){
+                        $scope.modelError += $scope.formula.model.DependsOnErr;
+                    }
+                };
+
+                var validate = function(){
+                    $scope.formula.validate($scope.action);
+                    updateModelError();
+                };
 
                 var redirectToParent = function(){
                     var current = $state.current.name;
@@ -65,10 +84,12 @@ angular
                             var rule = $scope.formula.getRule();
                             var concept = rule.ComputableConcepts[0];
                             if(rule.Type === 'xbrl28:validation' && rule.OriginalLanguage === 'SpreadsheetFormula' &&
-                                !$scope.report.existsConcept(concept)) {
+                                !$scope.report.existsConcept(concept) && rule.ValidatedConcepts) {
+                                var validatedConceptName = rule.ValidatedConcepts[0];
+                                var validatedConcept = $scope.report.getConcept(validatedConceptName);
                                 // in the simple formula case we automatically create a concept
                                 // for a newly created validation formula
-                                $scope.report.addConcept(concept, rule.Label, false);
+                                $scope.report.addConcept(concept, rule.Label, false, validatedConcept.PeriodType, validatedConcept.DataType, validatedConcept.Balance);
                             }
                             $scope.report.createRule(rule);
                         } catch (e) {

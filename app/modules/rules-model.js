@@ -15,6 +15,25 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             }
         };
 
+        var ensureOptionalParameterValue = function(paramValue, paramName, paramType, functionName, allowedValuesArray) {
+            if(paramValue !== undefined && paramValue !== null){
+                ensureParameter(paramValue, paramName, paramType, functionName);
+                var hasAllowedValue = false;
+                for(var i in allowedValuesArray){
+                    if(allowedValuesArray.hasOwnProperty(i)){
+                        var allowedValue = allowedValuesArray[i];
+                        if(paramValue === allowedValue){
+                            hasAllowedValue = true;
+                        }
+                    }
+                }
+                if(!hasAllowedValue){
+                    throw new Error(functionName + ': function called with invalid value for param: "' + paramName + '".' +
+                        'Allowed values: ' + JSON.stringify(allowedValuesArray));
+                }
+            }
+        };
+
         //Constructor
         var Rule = function (modelOrRuleType, report, computableConcept, language) {
             ensureParameter(report, 'report', 'object', 'Rule (Const.)');
@@ -58,9 +77,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                             'Id': report.uuid(),
                             'Type': modelOrRuleType,
                             'OriginalLanguage': language,
-                            'Label': concept.Label,
-                            'Description': 'Rule to validate ' + concept.Label + ' (' + computableConcept +
-                            '). It also creates a new fact (' + alignedComputableConcept + ') that contains the validation result.',
                             'ComputableConcepts': [alignedComputableConcept],
                             'ValidatedConcepts': [this.report.hideDefaultConceptPrefix(computableConcept)],
                             'DependsOn': [],
@@ -82,9 +98,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         this.setModel({
                             'Id': report.uuid(),
                             'Type': modelOrRuleType,
-                            'Label': concept.Label + ' Validation',
-                            'Description': 'Rule to validate ' + concept.Label + ' (' + computableConcept +
-                            '). It also creates a new fact (' + alignedComputableConcept + ') that contains the validation result.',
                             'ComputableConcepts': [computableConcept + 'Validation'],
                             'ValidatedConcepts': [computableConcept],
                             'DependsOn': [],
@@ -98,8 +111,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                             'Id': report.uuid(),
                             'Type': modelOrRuleType,
                             'OriginalLanguage': language,
-                            'Label': concept.Label,
-                            'Description': 'Rule to compute ' + concept.Label + ' (' + computableConcept + ').',
                             'ComputableConcepts': [computableConcept],
                             'DependsOn': [],
                             'HideRulesForConcepts': [],
@@ -120,8 +131,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         this.setModel({
                             'Id': report.uuid(),
                             'Type': modelOrRuleType,
-                            'Label': concept.Label,
-                            'Description': 'Rule to compute ' + concept.Label + ' (' + computableConcept + ').',
                             'ComputableConcepts': [computableConcept],
                             'DependsOn': [],
                             'HideRulesForConcepts': [],
@@ -836,16 +845,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             }
         };
 
-        var validateLabel = function (rule) {
-            var label = rule.Label;
-            if (label === undefined || label === null || label === '') {
-                rule.LabelErr = 'Rule Label is mandatory.';
-                rule.valid = false;
-            } else {
-                delete rule.LabelErr;
-            }
-        };
-
         var validateComputableConcepts = function (rule, report) {
             var computableConcepts = rule.ComputableConcepts;
             if (computableConcepts[0] === '' || computableConcepts.length === 0) {
@@ -1024,7 +1023,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 var type = rule.Type;
                 rule.valid = true;
                 validateId(rule, report, action);
-                validateLabel(rule);
                 validateComputableConcepts(rule, report);
                 if (updateDependencies !== undefined && updateDependencies) {
                     inferDependencies(this, this.model, true);
@@ -1111,8 +1109,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 'Id': model.Id,
                 'OriginalLanguage': model.OriginalLanguage,
                 'Type': model.Type,
-                'Label': model.Label,
-                'Description': model.Description,
                 'ComputableConcepts': computableConcepts,
                 'DependsOn': model.DependsOn,
                 'Formula': model.Formula

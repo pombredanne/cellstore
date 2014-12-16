@@ -12,6 +12,7 @@ gulp.task('images', function () {
             progressive: true,
             interlaced: true
         })))
+        .pipe($.debug({verbose: true}))
         .pipe(gulp.dest('dist/images'))
         .pipe($.size());
 });
