@@ -15,25 +15,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             }
         };
 
-        var ensureOptionalParameterValue = function(paramValue, paramName, paramType, functionName, allowedValuesArray) {
-            if(paramValue !== undefined && paramValue !== null){
-                ensureParameter(paramValue, paramName, paramType, functionName);
-                var hasAllowedValue = false;
-                for(var i in allowedValuesArray){
-                    if(allowedValuesArray.hasOwnProperty(i)){
-                        var allowedValue = allowedValuesArray[i];
-                        if(paramValue === allowedValue){
-                            hasAllowedValue = true;
-                        }
-                    }
-                }
-                if(!hasAllowedValue){
-                    throw new Error(functionName + ': function called with invalid value for param: "' + paramName + '".' +
-                        'Allowed values: ' + JSON.stringify(allowedValuesArray));
-                }
-            }
-        };
-
         //Constructor
         var Rule = function (modelOrRuleType, report, computableConcept, language) {
             ensureParameter(report, 'report', 'object', 'Rule (Const.)');
@@ -506,7 +487,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             } else if (decimals === 'INF'){
                 decimals = '"INF"';
             }
-            var units = undefined;
+            var units;
             if(this.model.Units !== undefined && this.model.Units !== '' && this.model.Units !== null){
                 units = this.model.Units;
             }
@@ -856,7 +837,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             if (typeof decimals === 'string' && decimals !== 'INF' && decimals !== '') {
                 decimals = parseInt(decimals,10);
             } else if(typeof decimals === 'number') {
-                decimals = decimals | 0;
+                decimals = Math.round(decimals);
             }
             if(decimals !== undefined && decimals !== '' && isNaN(decimals) && decimals !== 'INF'){
                 rule.DecimalsErr = 'Invalid decimals value (must be integer or "INF")';
@@ -1133,7 +1114,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 if (typeof model.Decimals === 'string' && model.Decimals !== 'INF' && model.Decimals !== '') {
                     result = parseInt(model.Decimals,10);
                 } else if(typeof decimals === 'number') {
-                    result = model.Decimals | 0;
+                    result = Math.round(model.Decimals);
                 }
                 if(result !== undefined && isNaN(result) && result !== 'INF'){
                     return undefined;

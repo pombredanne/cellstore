@@ -1496,7 +1496,7 @@ angular
         }
         ensureExists(formula, 'string', errorMsgPrefix, 'Cannot store rule with empty source code.');
         if(decimals !== undefined && typeof decimals !== 'number' && decimals !== 'INF'){
-            throw new Error(errorMsgPrefix + ': Invalid decimals value "' + decimals + "'");
+            throw new Error(errorMsgPrefix + ': Invalid decimals value "' + decimals + '"');
         }
         validateComputableConcepts(report, errorMsgPrefix, computableConceptsArray, id);
         validateDependingConceptsArray(report, errorMsgPrefix, dependingConceptsArray);
