@@ -1,6 +1,7 @@
 import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
+import module namespace backend = "http://apps.28.io/test";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
@@ -16,8 +17,8 @@ import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fi
 declare  %rest:case-insensitive                 variable $token         as string? external;
 declare  %rest:env                              variable $request-uri   as string  external;
 declare  %rest:case-insensitive                 variable $format        as string? external;
-declare  %rest:case-insensitive %rest:distinct  variable $cik           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $eid           as string* external;
+declare  %rest:case-insensitive %rest:distinct  variable $cik           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $tag           as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $ticker        as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $sic           as string* external;
@@ -83,6 +84,36 @@ let $summaries :=
             AID: $a._id,
             Entity: $a.Entity
         }
+let $summaries :=
+  switch($profile-name)
+  case "sec" return
+    for $archive in $summaries
+    return {|
+      project($archive, "AccessionNumber"),
+      {
+        Components: backend:url("components",
+          {
+              aid: encode-for-uri($archive.AccessionNumber),
+              format: $format,
+              profile-name: $profile-name
+          }, true)
+      },
+      trim($archive, "AccessionNumber")
+    |}
+  default return
+    for $archive in $summaries
+    return {|
+      $archive,
+      {
+        Components: backend:url("components",
+          {
+              aid: encode-for-uri($archive.AID),
+              format: $format,
+              profile-name: $profile-name
+          }, true)
+      }
+    |}
+
 let $result := { "Archives" : [ $summaries ] }
 let $comment :=
 {

@@ -19,28 +19,6 @@ var Options = {
     OVERWRITE_IF_NEWER: 3
 };
 
-var throwError = function (error) {
-    var message = JSON.stringify(error);
-    if(error.body){
-        var body = error.body;
-        if(typeof body === 'string'){
-            try {
-                body = JSON.parse(body);
-            } catch (e) {
-
-            }
-        }
-        message = JSON.stringify(body, null, '\t');
-    }
-    if(error.message){
-        message = error.message;
-    }
-    if(message.length > 500){
-        message = message.substring(0, 500) + ' ... (truncated)';
-    }
-    throw new $.util.PluginError(__filename, message);
-};
-
 var castToJson = function(obj){
     var result = obj;
     if(typeof obj === 'string'){
@@ -53,6 +31,24 @@ var castToJson = function(obj){
     return result;
 };
 
+var throwError = function (error) {
+    var message = JSON.stringify(error);
+    $.util.log(error.toString());
+    $.util.log(error.stack);
+    $.util.log(error.filename);
+    if(error.body){
+        var body = castToJson(error.body);
+        message = typeof body === 'object' ? JSON.stringify(body, null, '\t') : body;
+    }
+    if(typeof error.message === 'string'){
+        message = error.message;
+    }
+    if(message.length > 500){
+        message = message.substring(0, 500) + ' ... (truncated)';
+    }
+    throw new $.util.PluginError(__filename, message);
+};
+
 var summarizeTestError = function(error){
     var hasError = false;
     if(error.body) {
@@ -63,21 +59,24 @@ var summarizeTestError = function(error){
         if(body.content){
             body = castToJson(body.content);
         }
-        for (var testName in body) {
-            if (body.hasOwnProperty(testName)){
-                var testResult = body[testName];
-                if (typeof testResult === 'object') {
-                    $.util.log(testName.red + ': ' + testResult.url);
-                    if (testResult.expectedFactTable && testResult.expectedFactTable.error === true) {
-                        $.util.log(testName.red + ': ' + JSON.stringify(testResult.expectedFactTable, null, '\t'));
-                    }
-                    if (testResult.factTableDiff) {
-                        for (var diff in testResult.factTableDiff) {
-                            if (diff.expectedNumberOfFacts) {
-                                $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
-                            }
+        /*jshint camelcase:false */
+        if(typeof body === 'object' && !body.request_id) {
+            for (var testName in body) {
+                if (body.hasOwnProperty(testName)) {
+                    var testResult = body[testName];
+                    if (typeof testResult === 'object') {
+                        $.util.log(testName.red + ': ' + testResult.url);
+                        if (testResult.expectedFactTable && testResult.expectedFactTable.error === true) {
+                            $.util.log(testName.red + ': ' + JSON.stringify(testResult.expectedFactTable, null, '\t'));
                         }
-                        hasError = true;
+                        if (testResult.factTableDiff) {
+                            for (var diff in testResult.factTableDiff) {
+                                if (diff.expectedNumberOfFacts) {
+                                    $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
+                                }
+                            }
+                            hasError = true;
+                        }
                     }
                 }
             }
@@ -143,6 +142,10 @@ var createProject = function(projectName){
     return defered.promise;
 };
 
+var ignoreQueriesFunction = function(list){
+    return list;
+};
+
 var upload = function(projectName){
     /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
@@ -154,7 +157,7 @@ var upload = function(projectName){
     var deleteOrphaned = true;
     var simulate = false;
     $.util.log('Uploading queries.');
-    return $28.upload(projectName, projectToken, projectPath, overwrite, deleteOrphaned, simulate, []).then(function(){
+    return $28.upload(projectName, projectToken, projectPath, overwrite, deleteOrphaned, simulate, ignoreQueriesFunction).then(function(){
         $.util.log('Queries uploaded.');
         return credentials;
     });
