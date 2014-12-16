@@ -41,8 +41,15 @@ let $entities :=
         order by $entity.Profiles.SEC.CompanyName
         return $entity
     case "japan" return
-            if(exists($eid)) then entities:entities($eid)
-                                else entities:entities()
+      for $e in if(exists($eid)) then entities:entities($eid)
+                                 else entities:entities()
+      return {
+        EID: $e._id,
+        EDINETCode: $e.Profiles.JAPAN.EDINETCode,
+        Name: $e.Profiles.JAPAN.SubmitterName,
+        NameAlphabetic: $e.Profiles.JAPAN.SubmitterNameAlphabetic,
+        NamePhonetic: $e.Profiles.JAPAN.SubmitterNamePhonetic
+      }
     default return
         for $entity in
             if(exists($eid)) then entities:entities($eid)
@@ -71,6 +78,21 @@ let $entities :=
         }, true)
       },
       trim($entity, "_id")
+    |}
+  case "japan" return
+    for $entity in $entities
+    return {|
+      project($entity, "EID"),
+      {
+        Archives: backend:url("filings", {
+          eid: $entity.EID,
+          fiscalYear: "ALL",
+          fiscalPeriod: "ALL",
+          format: $format,
+          profile-name: $profile-name
+        }, true)
+      },
+      trim($entity, "EID")
     |}
   default return
     for $entity in $entities

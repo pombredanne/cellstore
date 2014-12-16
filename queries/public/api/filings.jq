@@ -45,7 +45,7 @@ let $entities :=
         $sic)
     case "japan" return
             if(exists($eid)) then entities:entities($eid)
-                                else entities:entities()
+                             else entities:entities()
     default return ()
 let $archives as object* :=
     switch($profile-name)
@@ -56,7 +56,7 @@ let $archives as object* :=
         $aid)
     default return
         if(exists($eid)) then archives:archives-for-entities($eid)
-                              else archives:archives()
+                         else archives:archives()
 let $summaries :=
     switch($profile-name)
     case "sec" return
@@ -69,6 +69,7 @@ let $summaries :=
              $fiscalYear = 0 or
              $fiscalYear = $a.Profiles.JAPAN.DocumentFiscalYearFocus)
       and (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.JAPAN.DocumentFiscalPeriodFocus = $fiscalPeriod)
+      order by $a.Profiles.JAPAN.DocumentFiscalYearFocus, $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
       return {
         AID: $a._id,
         InstanceURL: $a.InstanceURL,
