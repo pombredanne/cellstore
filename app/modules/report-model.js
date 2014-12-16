@@ -220,7 +220,7 @@ angular
             'DEBIT': 'debit'
         };
 
-        // http://www.xbrl.org/Specification/XBRL-RECOMMENDATION-2003-12-31+Corrected-Errata-2008-07-02.htm#_Ref69000723
+    // http://www.xbrl.org/Specification/XBRL-RECOMMENDATION-2003-12-31+Corrected-Errata-2008-07-02.htm#_Ref69000723
     AbstractReport.prototype.DataTypes =
         {
             'SHARES': 'xbrli:sharesItemType',
@@ -1374,12 +1374,28 @@ angular
         return result;
     };
 
-    var createNewRule = function(id, label, description, type, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, report) {
+    // http://www.xbrl.org/utr/utr.xml
+    AbstractReport.prototype.Units =
+        {
+            'PURE': 'xbrli:pureItemType',
+            'SHARES': 'xbrli:shares',
+
+            'AUD': 'iso4217:AUD',
+            'CAD': 'iso4217:CAD',
+            'CHF': 'iso4217:CHF',
+            'CLP': 'iso4217:CLP',
+            'EUR': 'iso4217:EUR',
+            'GBP': 'iso4217:GBP',
+            'INR': 'iso4217:INR',
+            'JPY': 'iso4217:JPY'
+        };
+
+    var createNewRule = function(id, type, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals, report) {
         ensureParameter(id, 'id', 'string', 'createNewRule');
-        ensureParameter(label, 'label', 'string', 'createNewRule');
         ensureRuleType(type, 'type', 'createNewRule');
         ensureParameter(formula, 'formula', 'string', 'createNewRule');
         ensureExists(computableConceptsArray, 'object', 'createNewRule', 'function called without computableConceptsArray.');
+        ensureOptionalParameterValue(unit, 'unit', 'string', 'createNewRule', _.values(report.Units));
 
         validateComputableConcepts(report, 'createNewRule', computableConceptsArray, id);
         validateDependingConceptsArray(report, 'createNewRule', dependingConceptsArray);
@@ -1391,13 +1407,17 @@ angular
 
         var rule = {
             'Id': id,
-            'Label': label,
-            'Description': description,
             'Type': type,
             'Formula': formula,
             'ComputableConcepts': computableConceptsArray,
             'DependsOn': dependingConceptsArray
         };
+        if(unit !== undefined && unit !== null && unit !== ''){
+            rule.Unit = unit;
+        }
+        if(decimals !== undefined && decimals !== null && decimals !== ''){
+            rule.Decimals = decimals;
+        }
 
         if(type === 'xbrl28:validation') {
             ensureExists(validatedConceptsArray, 'object', 'createNewRule', 'function called without validatedConceptsArray.');
@@ -1464,7 +1484,7 @@ angular
         }
     };
 
-    var validate = function(report, errorMsgPrefix, action, id, label, type, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray){
+    var validate = function(report, errorMsgPrefix, action, id, type, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals){
         ensureExists(id, 'string', errorMsgPrefix, 'Mandatory Id missing.');
         var existingRule = report.getRule(id);
         if(action === 'Create' && existingRule !== undefined && existingRule !== null){
@@ -1474,8 +1494,10 @@ angular
         } else if(action !== 'Create' && action !== 'Update'){
             throw new Error(errorMsgPrefix + ': Unknown action "' + action + '"!');
         }
-        ensureExists(label, 'string', errorMsgPrefix, 'Mandatory Label missing.');
         ensureExists(formula, 'string', errorMsgPrefix, 'Cannot store rule with empty source code.');
+        if(decimals !== undefined && typeof decimals !== 'number' && decimals !== 'INF'){
+            throw new Error(errorMsgPrefix + ': Invalid decimals value "' + decimals + "'");
+        }
         validateComputableConcepts(report, errorMsgPrefix, computableConceptsArray, id);
         validateDependingConceptsArray(report, errorMsgPrefix, dependingConceptsArray);
         validateValidatedConceptsArray(report, errorMsgPrefix, validatedConceptsArray);
@@ -1483,19 +1505,19 @@ angular
 
     AbstractReport.prototype.updateRule = function(rule){
         var id = rule.Id;
-        var label = rule.Label;
         var language = rule.OriginalLanguage;
         var type = rule.Type;
-        var description = rule.Description;
         var formula = rule.Formula;
         var computableConceptsArray = rule.ComputableConcepts;
         var dependingConceptsArray = rule.DependsOn;
         var validatedConceptsArray = rule.ValidatedConcepts;
-        validate(this, 'Rule Updating Error', 'Update', id, label, type, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray);
+        var unit = rule.Unit;
+        var decimals = rule.Decimals;
+        validate(this, 'Rule Updating Error', 'Update', id, type, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals);
         if(type === 'xbrl28:formula' && language === undefined){
-            this.setFormulaRule(id, label, description, formula, computableConceptsArray, dependingConceptsArray);
+            this.setFormulaRule(id, formula, computableConceptsArray, dependingConceptsArray, unit, decimals);
         } else if (type === 'xbrl28:validation' && language === undefined) {
-            this.setValidationRule(id, label, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray);
+            this.setValidationRule(id, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals);
         } else if (language === 'SpreadsheetFormula') {
             var model = this.getModel();
             ensureExists(model, 'object', 'updateRule', 'Report doesn\'t have a model.');
@@ -1507,19 +1529,19 @@ angular
 
     AbstractReport.prototype.createRule = function(rule){
         var id = rule.Id;
-        var label = rule.Label;
         var language = rule.OriginalLanguage;
         var type = rule.Type;
-        var description = rule.Description;
         var formula = rule.Formula;
         var computableConceptsArray = rule.ComputableConcepts;
         var dependingConceptsArray = rule.DependsOn;
         var validatedConceptsArray = rule.ValidatedConcepts;
-        validate(this, 'Rule Creation Error', 'Create', id, label, type, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray);
+        var unit = rule.Unit;
+        var decimals = rule.Decimals;
+        validate(this, 'Rule Creation Error', 'Create', id, type, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals);
         if(type === 'xbrl28:formula' && language === undefined){
-            this.setFormulaRule(id, label, description, formula, computableConceptsArray, dependingConceptsArray);
+            this.setFormulaRule(id, formula, computableConceptsArray, dependingConceptsArray, unit, decimals);
         } else if (type === 'xbrl28:validation' && language === undefined) {
-            this.setValidationRule(id, label, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray);
+            this.setValidationRule(id, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals);
         } else if (language === 'SpreadsheetFormula') {
             var model = this.getModel();
             ensureExists(model, 'object', 'createRule', 'Report doesn\'t have a model.');
@@ -1531,9 +1553,9 @@ angular
         }
     };
 
-    AbstractReport.prototype.setFormulaRule = function(id, label, description, formula, computableConceptsArray, dependingConceptsArray){
+    AbstractReport.prototype.setFormulaRule = function(id, formula, computableConceptsArray, dependingConceptsArray, unit, decimals){
         // sanity checks are done in createNewRule
-        var rule = createNewRule(id, label, description, 'xbrl28:formula', formula, computableConceptsArray, dependingConceptsArray, null, this);
+        var rule = createNewRule(id, 'xbrl28:formula', formula, computableConceptsArray, dependingConceptsArray, null, unit, decimals, this);
 
         var model = this.getModel();
         ensureExists(model, 'object', 'setFormulaRule', 'Report doesn\'t have a model.');
@@ -1547,9 +1569,9 @@ angular
         model.Rules.push(rule);
     };
 
-    AbstractReport.prototype.setValidationRule = function(id, label, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray){
+    AbstractReport.prototype.setValidationRule = function(id, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals){
         // sanity checks are done in createNewRule
-        var rule = createNewRule(id, label, description, 'xbrl28:validation', formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, this);
+        var rule = createNewRule(id, 'xbrl28:validation', formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals, this);
 
         var model = this.getModel();
         ensureExists(model, 'object', 'setValidationRule', 'Report doesn\'t have a model.');

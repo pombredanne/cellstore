@@ -15,28 +15,9 @@ angular
             templateUrl: '/modules/ui/formula-editor.html',
             link: function($scope) {
                 $scope.error = undefined;
-                $scope.modelError = undefined;
                 if($scope.languageType === ''){
                     $scope.languageType = undefined;
                 }
-
-                var updateModelError = function(){
-                    $scope.modelError = undefined;
-                    if($scope.formula.model.IdErr!==undefined){
-                        $scope.modelError += $scope.formula.model.IdErr;
-                    }
-                    if($scope.formula.model.ComputableConceptsErr!==undefined){
-                        $scope.modelError += $scope.formula.model.ComputableConceptsErr;
-                    }
-                    if($scope.formula.model.DependsOnErr!==undefined){
-                        $scope.modelError += $scope.formula.model.DependsOnErr;
-                    }
-                };
-
-                var validate = function(){
-                    $scope.formula.validate($scope.action);
-                    updateModelError();
-                };
 
                 var redirectToParent = function(){
                     var current = $state.current.name;
@@ -75,6 +56,18 @@ angular
                         $scope.formula.compile();
                         $scope.formula.validate($scope.report, $scope.action);
                     }
+                };
+
+                $scope.validate = function(updateDependencies){
+                    $scope.formula.validate($scope.action, updateDependencies);
+                };
+
+                $scope.compilePrereq = function(index, async){
+                    $scope.formula.compilePrereq(index, async, $scope.action);
+                };
+
+                $scope.compileBody = function(index, async){
+                    $scope.formula.compileBody(index, async, $scope.action);
                 };
 
                 $scope.ok = function(){

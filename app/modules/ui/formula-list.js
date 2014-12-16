@@ -10,7 +10,7 @@ angular
                 'type': '@',
                 'report': '='
             },
-            templateUrl: '/modules/ui/formulas-list.html',
+            templateUrl: '/modules/ui/formula-list.html',
             link: function($scope) {
 
                 $scope.hasComputingRule = false;
