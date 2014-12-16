@@ -11,8 +11,6 @@ import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/n
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
-import module namespace http-request = "http://www.28msec.com/modules/http/request";
-
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
