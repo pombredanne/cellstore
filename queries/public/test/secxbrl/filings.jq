@@ -89,7 +89,7 @@ let $dow30 := test:is-dow30()
 return local:check({
     all: local:test-filings($local:expected.all, {ticker:"ko"}),
     generic: local:test-filings-generic($local:expected.generic, {eid:"http://www.sec.gov/CIK 0000004962", profile-name:"generic"}),
-    eid-sec: local:test-filings-generic($local:expected.eid-sec, {eid:"http://www.sec.gov/CIK 0000004962"}),
+    eid-sec: local:test-filings($local:expected.eid-sec, {eid:"http://www.sec.gov/CIK 0000004962"}),
     dow30: local:test-filings($local:expected.dow30, {tag:"DOW30"}),
     cik: local:test-filings($local:expected.cik, {cik:"4962"}),
     ticker: local:test-filings($local:expected.ticker, {ticker:"wmt",fiscalYear:"ALL"}),
