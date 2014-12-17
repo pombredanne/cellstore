@@ -1,7 +1,7 @@
 # CellStore
 [![Build Status](http://img.shields.io/travis/28msec/cellstore/master.svg?style=flat)](https://travis-ci.org/28msec/cellstore) [![Code Climate](http://img.shields.io/codeclimate/github/28msec/cellstore.svg?style=flat)](https://codeclimate.com/github/28msec/cellstore)
 
-In traditional data warehousing, it takes months to build a single hypercube. 
+In traditional data warehousing, it takes months for the IT department to build a single hypercube. 
 With the CellStore, it takes minutes for the business users to build an infinite number of hypercubes.
 
 Built on top of http://28.io.
