@@ -11,7 +11,7 @@ import module namespace csv = "http://zorba.io/modules/json-csv";
 declare function api:json-to-csv($objects as object*) as string
 {
   string-join(
-    csv:serialize($objects, { serialize-null-as : "" }),
+    csv:serialize(api:flatten-json-object($objects), { serialize-null-as : "" }),
   "")
 };
 
