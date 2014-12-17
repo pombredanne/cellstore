@@ -6,6 +6,15 @@ import module namespace session    = "http://apps.28.io/session";
 import module namespace resp       = "http://www.28msec.com/modules/http-response";
 import module namespace sec-fiscal = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
+import module namespace csv = "http://zorba.io/modules/json-csv";
+
+declare function api:json-to-csv($objects as object*) as string
+{
+  string-join(
+    csv:serialize($objects, { serialize-null-as : "" }),
+  "")
+};
+
 declare function api:flatten-json-object($items as item*) as item*
 {
   for $item in $items
