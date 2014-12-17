@@ -8,7 +8,6 @@ import module namespace components = "http://28.io/modules/xbrl/components";
 
 import module namespace sec-filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
-import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
