@@ -59,17 +59,6 @@ declare %an:nondeterministic function local:test-entities(
     return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
 };
 
-declare %an:nondeterministic function local:test-entities-generic(
-    $expected as array,
-    $params as object) as item
-{
-    let $endpoint := "entities"
-    let $request := test:invoke($endpoint, $params)
-    let $actual as array := [ $request[2].Entities[].EID ]
-    let $status as integer := $request[1]
-    return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
-};
-
 declare %an:sequential function local:check($o as object) as object
 {
     if (not(every $k in (keys($o) ! $o.$$) satisfies ($k instance of boolean and $k)))
@@ -83,7 +72,7 @@ declare %an:sequential function local:check($o as object) as object
 let $dow30 := test:is-dow30()
 return local:check({
     dow30: local:test-entities($local:expected.dow30, {tag:"DOW30"}),
-    generic: local:test-entities-generic($local:expected.generic, {eid:"http://www.sec.gov/CIK 0000004962", profile-name:"generic"}),
+    generic: local:test-entities($local:expected.generic, {eid:"http://www.sec.gov/CIK 0000004962", profile-name:"generic"}),
     cik: local:test-entities($local:expected.cik, {cik:"4962"}),
     ticker: local:test-entities($local:expected.ticker, {ticker:"wmt"}),
     ticker2: local:test-entities($local:expected.ticker2, {ticker:["wmt","ko"]}),
