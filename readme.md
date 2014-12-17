@@ -49,11 +49,6 @@ Create a CellStore deployment called test using the encrypted configuration in `
 $ gulp 28:setup --build-id=test --config=sec
 ```
 
-To resync changes made on hq.28.io into your local branch:
-```bash
-$ gulp download --build-id=test --config=sec
-```
-
 To remove a deployment:
 Once you are done:
 ```bash

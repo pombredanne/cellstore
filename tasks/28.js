@@ -167,23 +167,6 @@ var upload = function(projectName){
     });
 };
 
-var download = function(projectName){
-    /*jshint camelcase:false */
-    var projectToken = credentials.project_tokens['project_' + projectName];
-    if(!projectToken) {
-        throw new Error('project not found ' + projectName);
-    }
-    var projectPath = Config.paths.queries;
-    var overwrite = Options.OVERWRITE_ALWAYS;
-    var deleteOrphaned = true;
-    var simulate = false;
-    $.util.log('Downloading queries.');
-    return $28.download(projectName, projectToken, projectPath, overwrite, deleteOrphaned, simulate, []).then(function(){
-        $.util.log('Queries downloaded.');
-        return credentials;
-    });
-};
-
 var runQueriesInParallel = function(projectName, queriesToRun) {
     var promises = [];
     var QueriesAPI = $28.api.Queries(projectName);
@@ -281,10 +264,6 @@ gulp.task('28:remove-project', function(){
 
 gulp.task('28:upload', function(){
     return upload(Config.projectName).catch(throwError);
-});
-
-gulp.task('28:download', function(){
-    return download(Config.projectName).catch(throwError);
 });
 
 gulp.task('28:setup-datasource', function(){
