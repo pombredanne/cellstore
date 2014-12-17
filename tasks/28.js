@@ -252,10 +252,6 @@ gulp.task('28:setup-datasource', function(){
     return Q.all(promises);
 });
 
-gulp.task('28:watch', function(){
-
-});
-
 gulp.task('28:init', function(){
     return runQueries(Config.projectName, Config.paths.initQueries).catch(throwError);
 });
