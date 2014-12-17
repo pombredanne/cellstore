@@ -2435,7 +2435,7 @@ declare %an:nondeterministic function local:test-acceptance-date($expected as st
 {
     let $endpoint := "components"
     let $request := test:invoke($endpoint, $params)
-    let $actual as string := $request[2].Archives[].AcceptanceDatetime
+    let $actual as string? := $request[2].Archives[].AcceptanceDatetime
     let $status as integer := $request[1]
     return test:assert-eq($expected, $actual, $status, test:url($endpoint, $params))
 };
