@@ -7,7 +7,7 @@ var expand = require('glob-expand');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var $28 = new (require('28').$28)('http://portal.28.io/api');
-var VFS = new require('28').VFS;
+var VFS = require('28').VFS;
 
 
 var Config = require('./config');
