@@ -4,15 +4,11 @@ import module namespace session = "http://apps.28.io/session";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
-import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 
-import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
+import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
-import module namespace japan = "http://28.io/modules/xbrl/profiles/japan/core";
-
-import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
 (: Query parameters :)
 declare  %rest:case-insensitive                 variable $token         as string? external;
@@ -37,28 +33,22 @@ let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
-let $entities :=
-    switch($profile-name)
-    case "sec" return companies:companies(
-        $cik,
-        $tag,
-        $ticker,
-        $sic)
-    case "japan" return
-            if(exists($eid)) then entities:entities($eid)
-                             else if($tag = "ALL") then entities:entities() else ()
-    default return ()
-let $archives as object* :=
-    switch($profile-name)
-    case "sec" return fiscal-core:filings(
-        $entities,
-        $fiscalPeriod,
-        $fiscalYear,
-        $aid)
-    case "japan" return japan:filings($entities, $fiscalYear, $fiscalPeriod, $aid)
-    default return
-        if(exists($eid)) then archives:archives-for-entities($eid)
-                         else archives:archives()
+let $entities := multiplexer:entities(
+  $profile-name,
+  $eid,
+  $cik,
+  $tag,
+  $ticker,
+  $sic)
+
+let $archives as object* := multiplexer:filings(
+  $profile-name,
+  $entities,
+  $fiscalPeriod,
+  $fiscalYear,
+  $aid)
+
+
 let $periods :=
     switch($profile-name)
     case "sec" return
