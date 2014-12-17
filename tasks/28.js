@@ -266,18 +266,25 @@ gulp.task('28:test', function(){
 
 module.exports = {
     watchJSONiqQueries: function(event){
+        //Initialize the VFS
         /*jshint camelcase:false */
         var projectName = Config.projectName;
         var projectToken = credentials.project_tokens['project_' + projectName];
         var path = require('path');
         var projectPath = path.resolve(Config.paths.queries);
         var vfs = new VFS($28.api, projectName, projectToken, projectPath);
+
+        //Do the Watch
         gulp.watch(Config.paths.jsoniq, {}, function(event){
+            //Get relative query path
             var query = event.path.substring(projectPath.length + 1);
             $.util.log(query + ' has ' + event.type);
+
+            //Upload
             if(event.type === 'added' || event.type === 'changed') {
                 $.util.log($.util.colors.grey('Uploading ' + query));
                 vfs.writeRemoteQuery(query, true).then(function(result){
+                    //Show compilation errors
                     if(result && result.message) {
                         $.util.log($.util.colors.red(result.message));
                     }
@@ -285,6 +292,8 @@ module.exports = {
                 }).catch(function(error){
                     throwError(error);
                 });
+
+            //Delete
             } else if(event.type === 'deleted') {
                 $.util.log($.util.colors.grey('Removing ' + query));
                 vfs.deleteRemoteQuery(query).then(function(){
