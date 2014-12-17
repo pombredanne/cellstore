@@ -7,6 +7,8 @@ var expand = require('glob-expand');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var $28 = new (require('28').$28)('http://portal.28.io/api');
+var VFS = new require('28').VFS;
+
 
 var Config = require('./config');
 
@@ -250,6 +252,10 @@ gulp.task('28:setup-datasource', function(){
     return Q.all(promises);
 });
 
+gulp.task('28:watch', function(){
+
+});
+
 gulp.task('28:init', function(){
     return runQueries(Config.projectName, Config.paths.initQueries).catch(throwError);
 });
@@ -257,3 +263,36 @@ gulp.task('28:init', function(){
 gulp.task('28:test', function(){
     return runQueries(Config.projectName, Config.paths.apiTestQueries).catch(throwError);
 });
+
+module.exports = {
+    watchJSONiqQueries: function(event){
+        /*jshint camelcase:false */
+        var projectName = Config.projectName;
+        var projectToken = credentials.project_tokens['project_' + projectName];
+        var path = require('path');
+        var projectPath = path.resolve(Config.paths.queries);
+        var vfs = new VFS($28.api, projectName, projectToken, projectPath);
+        gulp.watch(Config.paths.jsoniq, {}, function(event){
+            var query = event.path.substring(projectPath.length + 1);
+            $.util.log(query + ' has ' + event.type);
+            if(event.type === 'added' || event.type === 'changed') {
+                $.util.log($.util.colors.grey('Uploading ' + query));
+                vfs.writeRemoteQuery(query, true).then(function(result){
+                    if(result && result.message) {
+                        $.util.log($.util.colors.red(result.message));
+                    }
+                    $.util.log($.util.colors.green(query + ' uploaded'));
+                }).catch(function(error){
+                    throwError(error);
+                });
+            } else if(event.type === 'deleted') {
+                $.util.log($.util.colors.grey('Removing ' + query));
+                vfs.deleteRemoteQuery(query).then(function(){
+                    $.util.log($.util.colors.green(query + ' removed'));
+                }).catch(function(error){
+                    throwError(error);
+                });
+            }
+        });
+    }
+};

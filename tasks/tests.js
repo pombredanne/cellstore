@@ -3,15 +3,15 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
-var Config = require('./config');
-
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
-
 var modRewrite = require('connect-modrewrite');
 var rewriteRules = [
   '!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg|\\.map /index.html [L]'
 ];
+
+var Config = require('./config');
+var $28 = require('./28');
 
 gulp.task('server:dist', function() {
   browserSync({
@@ -30,23 +30,24 @@ gulp.task('server:dist', function() {
 
 //run the server after having built generated files, and watch for changes
 gulp.task('server:dev', function() {
-  browserSync({
-    port: 9000,
-    notify: false,
-    logPrefix: Config.bucketName,
-    server: {
-      baseDir: ['.', Config.paths.app],
-      middleware: [
-        modRewrite(rewriteRules)
-      ]
-    },
-    browser: 'default'
-  });
+    browserSync({
+        port: 9000,
+        notify: false,
+        logPrefix: Config.bucketName,
+        server: {
+            baseDir: ['.', Config.paths.app],
+            middleware: [
+                modRewrite(rewriteRules)
+            ]
+        },
+        browser: 'default'
+    });
 
-  gulp.watch(Config.paths.html, reload);
-  gulp.watch(Config.paths.less, ['less', reload]);
-  gulp.watch(Config.paths.js, reload);
-  gulp.watch(Config.paths.json, ['jsonlint']);
+    gulp.watch(Config.paths.html, reload);
+    gulp.watch(Config.paths.less, ['less', reload]);
+    gulp.watch(Config.paths.js, reload);
+    gulp.watch(Config.paths.json, ['jsonlint']);
+    $28.watchJSONiqQueries();
 });
 
 gulp.task('server:stop', browserSync.exit);
