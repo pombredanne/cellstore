@@ -12,9 +12,8 @@ import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
 
-import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
-import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
+import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
@@ -32,6 +31,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $ticker             as 
 declare  %rest:case-insensitive %rest:distinct  variable $sic                as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external := "LATEST";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $eid                as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $networkIdentifier  as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $cid                as string* external;
@@ -59,17 +59,21 @@ let $reportElement := ($reportElement, $concept)
 let $networkIdentifier := distinct-values(($networkIdentifier, $role))
 
 (: Object resolution :)
-let $entities as object* := 
-    companies:companies(
-        $cik,
-        $tag,
-        $ticker,
-        $sic)
-let $archive as object* := fiscal-core:filings(
-    $entities,
-    $fiscalPeriod,
-    $fiscalYear,
-    $aid)
+let $entities := multiplexer:entities(
+  $profile-name,
+  $eid,
+  $cik,
+  $tag,
+  $ticker,
+  $sic)
+
+let $archives as object* := multiplexer:filings(
+  $profile-name,
+  $entities,
+  $fiscalPeriod,
+  $fiscalYear,
+  $aid)
+
 let $entity    := entities:entities($archive.Entity)
 let $components  := 
     switch($profile-name)

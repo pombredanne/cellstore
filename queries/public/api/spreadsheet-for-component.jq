@@ -1,7 +1,6 @@
 import module namespace components = "http://28.io/modules/xbrl/components";
 
-import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
-import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
+import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
 
@@ -49,17 +48,21 @@ let $reportElement := ($reportElement, $concept)
 let $networkIdentifier := distinct-values(($networkIdentifier, $role))
 
 (: Object resolution :)
-let $entities as object* := 
-    companies:companies(
-        $cik,
-        $tag,
-        $ticker,
-        $sic)
-let $archive as object* := fiscal-core:filings(
-    $entities,
-    $fiscalPeriod,
-    $fiscalYear,
-    $aid)
+let $entities := multiplexer:entities(
+  $profile-name,
+  $eid,
+  $cik,
+  $tag,
+  $ticker,
+  $sic)
+
+let $archives as object* := multiplexer:filings(
+  $profile-name,
+  $entities,
+  $fiscalPeriod,
+  $fiscalYear,
+  $aid)
+
 let $components  :=
     switch($profile-name)
     case "sec" return sec-networks:components(

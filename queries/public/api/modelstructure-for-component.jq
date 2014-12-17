@@ -2,9 +2,8 @@ import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 
-import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
-import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
 import module namespace api = "http://apps.28.io/api";
 
@@ -127,6 +126,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $ticker             as 
 declare  %rest:case-insensitive %rest:distinct  variable $sic                as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external := "LATEST";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $eid                as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $networkIdentifier  as string* external;
 declare  %rest:case-insensitive                 variable $cid                as string? external;
@@ -145,17 +145,21 @@ let $tag as string* := api:preprocess-tags($tag)
 let $reportElement := ($reportElement, $concept)
 
 (: Object resolution :)
-let $entities := 
-    companies:companies(
-        $cik,
-        $tag,
-        $ticker,
-        $sic)
-let $archives as object* := fiscal-core:filings(
-    $entities,
-    $fiscalPeriod,
-    $fiscalYear,
-    $aid)
+let $entities := multiplexer:entities(
+  $profile-name,
+  $eid,
+  $cik,
+  $tag,
+  $ticker,
+  $sic)
+
+let $archives as object* := multiplexer:filings(
+  $profile-name,
+  $entities,
+  $fiscalPeriod,
+  $fiscalYear,
+  $aid)
+
 let $components  := sec-networks:components(
     $archives,
     $cid,

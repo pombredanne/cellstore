@@ -10,8 +10,7 @@ import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 import module namespace config = "http://apps.28.io/config";
 
-import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
-import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
 import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
  
@@ -158,17 +157,21 @@ let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
-let $entities as object* := 
-    companies:companies(
-        $cik,
-        $tag,
-        $ticker,
-        $sic)
-let $archives as object* := fiscal-core:filings(
-    $entities,
-    $fiscalPeriod,
-    $fiscalYear,
-    $aid)
+let $entities := multiplexer:entities(
+  $profile-name,
+  $eid,
+  $cik,
+  $tag,
+  $ticker,
+  $sic)
+
+let $archives as object* := multiplexer:filings(
+  $profile-name,
+  $entities,
+  $fiscalPeriod,
+  $fiscalYear,
+  $aid)
+
 let $entities as object* :=
     ($entities[$$._id = $archives.Entity],
     let $not-found := $archives.Entity[not $entities._id = $$]

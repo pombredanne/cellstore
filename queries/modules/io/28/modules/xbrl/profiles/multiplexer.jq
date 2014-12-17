@@ -34,7 +34,8 @@ declare function multiplexer:entities(
       $cik,
       $tag,
       $ticker,
-      $sic)
+      $sic,
+      $eid)
     order by $entity.Profiles.SEC.CompanyName
     return $entity
   default return
