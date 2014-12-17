@@ -142,6 +142,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $sic           as strin
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear    as string*  external := "LATEST";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string*  external := "FY";
 declare  %rest:case-insensitive %rest:distinct  variable $aid           as string*  external;
+declare  %rest:case-insensitive %rest:distinct  variable $eid           as string*  external;
 declare  %rest:case-insensitive %rest:distinct  variable $label         as string*  external;
 declare  %rest:case-insensitive                 variable $map           as string?  external;
 declare  %rest:case-insensitive                 variable $report        as string?  external;
