@@ -52,14 +52,10 @@ let $summaries :=
         return $f
     case "japan" return
       for $a in $archives
-      order by $a.Profiles.JAPAN.DocumentFiscalYearFocus descending, $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
-      return api:flatten-json-object(project($a, ("_id", "Entity", "Profiles"))) 
-    default return
-        for $a in $archives
-        return {
-            AID: $a._id,
-            Entity: $a.Entity
-        }
+      order by $a.Profiles.JAPAN.SubmissionDate descending
+      return project($a, ("_id", "Entity", "Profiles")))
+    default return $archives
+
 let $summaries :=
   switch($profile-name)
   case "sec" return
@@ -76,7 +72,7 @@ let $summaries :=
       },
       trim($archive, "AccessionNumber")
     |}
-  case "japan" return
+  default return
     for $archive in $summaries
     return {|
       project($archive, "_id"),
@@ -89,19 +85,6 @@ let $summaries :=
           }, true)
       },
       trim($archive, "_id")
-    |}
-  default return
-    for $archive in $summaries
-    return {|
-      $archive,
-      {
-        Components: backend:url("components",
-          {
-              aid: encode-for-uri($archive.AID),
-              format: $format,
-              profile-name: $profile-name
-          }, true)
-      }
     |}
 
 let $result := { "Archives" : [ $summaries ] }
@@ -122,7 +105,7 @@ let $serializers := {
             <Archives>{
                 for $a in $res.Archives[]
                 return <Archive>
-                    <AID>{$a.AID}</AID>
+                    <AID>{$a._id}</AID>
                     <Entity>{$a.Entity}</Entity>
                 </Archive>
             }
