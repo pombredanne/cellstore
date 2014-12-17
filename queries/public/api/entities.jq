@@ -29,10 +29,6 @@ let $tag := if (exists(($cik, $tag, $ticker, $sic, $eid)))
 (: Entity resolution :)
 let $entities := multiplexer:entities($profile-name, $eid, $cik, $tag, $ticker, $sic)
 let $entities :=
-  if($profile-name ne "sec")
-  then $entities ! api:flatten-json-object($$)
-  else $entities
-let $entities :=
   for $entity in $entities
   return {|
     project($entity, "_id"),
@@ -70,7 +66,7 @@ let $serializers := {
         }</Entities>
         default return <Entities>
             {
-                for $id in $res.Entities[].EID
+                for $id in $res.Entities[]._id
                 return <EID>{$id}</EID>
             }
         </Entities>
