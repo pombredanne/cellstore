@@ -25,7 +25,7 @@ session:audit-call($token);
 (: Post-processing :)
 let $format as string? := api:preprocess-format($format, $request-uri)
 let $tag as string* := api:preprocess-tags($tag)
-let $tag := if (exists(($cik, $tag, $ticker, $sic)))
+let $tag := if (exists(($cik, $tag, $ticker, $sic, $eid)))
              then $tag
              else "ALL"
 
@@ -40,66 +40,37 @@ let $entities :=
             $sic)
         order by $entity.Profiles.SEC.CompanyName
         return $entity
-    case "japan" return
-      for $e in if(exists($eid)) then entities:entities($eid)
-                                 else entities:entities()
-      order by $e._id
-      return api:flatten-json-object($e)
     default return
-        for $entity in
-            if(exists($eid)) then entities:entities($eid)
-                                else entities:entities()
-        return {
-            EID: $entity._id
-        }
+      for $entity in if(exists($eid)) then entities:entities($eid)
+                                      else entities:entities()
+      order by $entity._id
+      return api:flatten-json-object($entity)
+
 let $comment :=
 {
     NumEntities: count($entities),
     TotalNumEntities: session:num-entities() 
 }
 let $entities :=
-  switch($profile-name)
-  case "sec" return
-    for $entity in $entities
-    return {|
-      project($entity, "_id"),
-      {
-        Archives: backend:url("filings", {
-          cik: tokenize($entity._id, " ")[2],
-          fiscalYear: "ALL",
-          fiscalPeriod: "ALL",
-          format: $format,
-          profile-name: $profile-name
-        }, true)
-      },
-      trim($entity, "_id")
-    |}
-  case "japan" return
-    for $entity in $entities
-    return {|
-      project($entity, "_id"),
-      {
-        Archives: backend:url("filings", {
-          eid: $entity._id,
-          fiscalYear: "ALL",
-          fiscalPeriod: "ALL",
-          format: $format,
-          profile-name: $profile-name
-        }, true)
-      },
-      trim($entity, "_id")
-    |}
-  default return
-    for $entity in $entities
-    return {|
-      $entity,
-      {
-        Archives: backend:url("filings", {
-          eid: encode-for-uri($entity.EID),
-          format: $format,
-          profile-name: $profile-name
-        }, true)
-      }
+  for $entity in $entities
+  return {|
+    project($entity, "_id"),
+    {
+      Archives: backend:url(
+        "filings",
+        {|
+          {
+            eid: $entity._id,
+            format: $format,
+            profile-name: $profile-name
+          },
+          {
+            fiscalYear: "ALL",
+            fiscalPeriod: "ALL"
+          }[$profile-name = ("sec", "japan")]
+        |}, true)
+    },
+    trim($entity, "_id")
   |}
 
 let $result := { "Entities" : [ $entities ] }
