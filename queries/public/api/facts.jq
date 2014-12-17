@@ -170,6 +170,7 @@ let $entities as object* :=
         $tag,
         $ticker,
         $sic,
+        $eid,
         $aid)
 let $report as object? := reports:reports($report)
 let $map as item* :=
