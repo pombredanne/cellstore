@@ -2,8 +2,6 @@ import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace csv = "http://zorba.io/modules/json-csv";
-
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
@@ -81,8 +79,7 @@ let $serializers := {
     to-csv : function($res as object) as string {
         switch($profile-name)
         case "sec"
-        case "japan" return
-            string-join(csv:serialize($res.Periods[], {serialize-null-as: ""}))
+        case "japan" return api:json-to-csv($res.Periods[])
         default return ()
     }
 }

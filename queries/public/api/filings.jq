@@ -3,8 +3,6 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace backend = "http://apps.28.io/test";
 
-import module namespace csv = "http://zorba.io/modules/json-csv";
-
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
@@ -137,11 +135,7 @@ let $serializers := {
         switch($profile-name)
         case "sec" return
             string-join(filings:summaries-to-csv($res.Archives[]))
-        default return
-            string-join(
-                csv:serialize($res.Archives[], { serialize-null-as : "" }
-            ),
-        "")
+        default return api:json-to-csv($res.Archives[])
     }
 }
 
