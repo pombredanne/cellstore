@@ -2,8 +2,6 @@ import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
-import module namespace entities = "http://28.io/modules/xbrl/entities";
-
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 

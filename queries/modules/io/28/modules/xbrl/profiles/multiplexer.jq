@@ -26,8 +26,7 @@ declare function multiplexer:entities(
   $cik as string*,
   $tag as string*,
   $ticker as string*,
-  $sic as string*
-)
+  $sic as string*) as object*
 {
   switch($profile-name)
   case "sec" return
@@ -52,7 +51,7 @@ declare function multiplexer:filings(
   $entities as item*,
   $fiscalPeriod as string*,
   $fiscalYear as integer*,
-  $aid as string*)
+  $aid as string*) as object*
 {
   switch($profile-name)
   case "sec" return fiscal-core:filings(

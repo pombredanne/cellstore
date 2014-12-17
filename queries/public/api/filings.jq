@@ -3,9 +3,6 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace backend = "http://apps.28.io/test";
 
-import module namespace entities = "http://28.io/modules/xbrl/entities";
-
-import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace filings = "http://28.io/modules/xbrl/profiles/sec/filings";
 import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
