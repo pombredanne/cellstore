@@ -1,7 +1,10 @@
 # CellStore
 [![Build Status](http://img.shields.io/travis/28msec/cellstore/master.svg?style=flat)](https://travis-ci.org/28msec/cellstore) [![Code Climate](http://img.shields.io/codeclimate/github/28msec/cellstore.svg?style=flat)](https://codeclimate.com/github/28msec/cellstore)
 
-Modern Data Warehousing and Enterprise Information Management. Built on top of http://28.io.
+In traditional data warehousing, it takes months to build a single hypercube. 
+With the CellStore, it takes minutes for the business users to build an infinite number of hypercubes.
+
+Built on top of http://28.io.
 
 ## Whitepaper
 http://arxiv.org/pdf/1410.0600.pdf
