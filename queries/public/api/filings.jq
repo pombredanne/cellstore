@@ -53,7 +53,7 @@ let $summaries :=
     case "japan" return
       for $a in $archives
       order by $a.Profiles.JAPAN.SubmissionDate descending
-      return project($a, ("_id", "Entity", "Profiles")))
+      return project($a, ("_id", "Entity", "Profiles"))
     default return $archives
 
 let $summaries :=

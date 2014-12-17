@@ -67,7 +67,7 @@ let $entities := multiplexer:entities(
   $ticker,
   $sic)
 
-let $archives as object* := multiplexer:filings(
+let $archive as object* := multiplexer:filings(
   $profile-name,
   $entities,
   $fiscalPeriod,
