@@ -261,7 +261,7 @@ gulp.task('28:test', function(){
 });
 
 module.exports = {
-    watchJSONiqQueries: function(event){
+    watchJSONiqQueries: function(){
         //Initialize the VFS
         /*jshint camelcase:false */
         var projectName = Config.projectName;
