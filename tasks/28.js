@@ -81,7 +81,7 @@ var summarizeTestError = function(error){
                         if (diff.expectedNumberOfFacts) {
                             $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
                         }
-                    })
+                    });
                 }
             });
         }
@@ -187,6 +187,7 @@ var download = function(projectName){
 var runQueriesInParallel = function(projectName, queriesToRun) {
     var promises = [];
     var QueriesAPI = $28.api.Queries(projectName);
+    /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
     $.util.log('in parallel: ' + JSON.stringify(queriesToRun));
     _.each(queriesToRun, function(nextQuery){
@@ -207,7 +208,7 @@ var runQueriesInParallel = function(projectName, queriesToRun) {
                 error = isTestQuery ? summarizeTestError(error) : error;
                 throw error;
             })
-        )
+        );
     });
     return Q.all(promises);
 };
