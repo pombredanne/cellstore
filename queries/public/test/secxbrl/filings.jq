@@ -31,7 +31,7 @@ declare %an:sequential function local:test-filings-generic($expected as array, $
 {
     let $endpoint := "filings"
     let $request := test:invoke($endpoint, $params)
-    let $actual as array := [ $request[2].Archives[].AID ]
+    let $actual as array := [ $request[2].Archives[]._id ]
     let $status as integer := $request[1]
     return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
 };
