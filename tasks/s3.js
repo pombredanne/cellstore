@@ -174,7 +174,7 @@ gulp.task('s3-setup', function() {
         .catch(function(error){
             $.util.log('Error while doing the s3 setup');
             $.util.log(error);
-            throw error;
+            throw new $.util.PluginError(__filename, JSON.stringify(error));
         });
     } else {
         return gulp.src('dist/**/*')
@@ -193,6 +193,7 @@ gulp.task('s3-teardown', function(done) {
         .catch(function(error){
             $.util.log('Error while doing the s3 setup');
             $.util.log(error);
+            done(JSON.stringify(error));
         });
     } else {
         $.util.log('We are on master, no teardown.');

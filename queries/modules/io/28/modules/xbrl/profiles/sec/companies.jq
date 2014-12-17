@@ -329,6 +329,7 @@ declare function companies:to-csv($companies-or-ids as item*) as string*
     for $e in companies:companies($companies-or-ids)
     return {
       ID : $e._id,
+      Archives: $e.Archives,
       Profile : $e.Profiles.SEC.Name,
       EntityName : $e.Profiles.SEC.CompanyName,
       CompanyType : $e.Profiles.SEC.CompanyType,

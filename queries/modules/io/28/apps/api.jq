@@ -126,6 +126,11 @@ declare %an:sequential function api:serialize(
         resp:header("Content-Disposition", "attachment; filename=" || $file-name || ".csv");
         $serializers.to-csv($result)
     }
+    case "html" return {
+        resp:content-type("text/html");
+        let $csv as string := $serializers.to-csv($result)
+        return api:csv-to-html($csv)
+    }
     case "excel" return {
         resp:content-type("application/vnd.ms-excel");
         resp:header("Content-Disposition", "attachment; filename=" || $file-name || ".csv");
@@ -139,6 +144,43 @@ declare %an:sequential function api:serialize(
             $result
         |}
     }
+};
+
+declare %an:sequential function api:csv-to-html(
+    $csv as string) as item*
+{
+    let $csv as string* := $csv
+    return <html xmlns="http://w3.org/1999/xhtml">
+      <head>
+        <title>Cell Store REST API</title>
+        <style>
+            table {{
+                border-collapse: collapse
+            }}
+            table, th, td {{
+                border: solid
+            }}
+        </style>
+      </head>
+      <body>
+        <table>
+          {
+            for $row as string in tokenize($csv, "\n")
+            return <tr>
+              {
+                for tumbling window $cells as string* in tokenize($row, ",")
+                start $start at $i when true
+                only end $end at $j when not contains(replace($start, "\"\"", ""), "\"") or ($j gt $i and contains(replace($end, "\"\"", ""), "\""))
+                let $cell := replace(string-join($cells, ","), "\"", "")
+                return if(contains($cell, "http://") and (contains($cell, "28.io") or contains($cell, "rendering.secxbrl.info")))
+                       then <td><a href="{$cell}">Link</a></td>
+                       else <td>{$cell}</td>
+              }
+            </tr>
+          }
+        </table>
+      </body>
+    </html>
 };
 
 declare function api:preprocess-fiscal-years($fiscal-years as string*) as integer*

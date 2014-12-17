@@ -15,7 +15,6 @@ after_script:
 matrix:
   fast_finish: true
   allow_failures:
-  - env: CELLSTORE_CONFIG=edinet
   - env: CELLSTORE_CONFIG=nl
 env:
   matrix:

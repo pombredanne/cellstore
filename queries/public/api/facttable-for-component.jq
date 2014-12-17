@@ -151,53 +151,7 @@ let $facts :=
             |}
 let $facts := api:normalize-facts($facts)
 
-let $results :=
-    switch ($format)
-    case "xml" return {
-        response:serialization-parameters({"omit-xml-declaration" : false, indent : true });
-        (session:comment("xml", {
-                    NumFacts : count($facts),
-                    TotalNumFacts: session:num-facts(),
-                    TotalNumArchives: session:num-archives(),
-                    TotalNumEntities: session:num-entities()
-                }),
-        switch($profile-name)
-        case "sec" return <FactTable entityRegistrantName="{$entity.Profiles.SEC.CompanyName}"
-            cik="{$entity._id}"
-            tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
-            label="{$component.Label}"
-            accessionNumber="{$component.Archive}"
-            networkIdentifier="{$component.Role}"
-            formType="{$archive.Profiles.SEC.FormType}"
-            fiscalPeriod="{$archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus}"
-            fiscalYear="{$archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus}" 
-            acceptanceDatetime="{filings:acceptance-dateTimes($archive)}"
-            disclosure="{$component.Profiles.SEC.Disclosure}"
-            >{
-            conversion:facts-to-xml($facts, { Caller: "Component" })
-        }</FactTable>
-        default return <FactTable
-            tableName="{sec-networks:tables($component, {IncludeImpliedTable: true}).Name}"
-            label="{$component.Label}"
-            archive="{$component.Archive}"
-            role="{$component.Role}"
-            >{
-            conversion:facts-to-xml($facts, { Caller: "Component" })
-        }</FactTable>)
-    }
-    case "text" case "csv" return {
-        response:content-type("text/csv");
-        response:header("Content-Disposition", "attachment; filename=facttable-" || $cid || ".csv");
-        conversion:facts-to-csv($facts, { Caller: "Component"})
-    }
-    case "excel" return {
-        response:content-type("application/vnd.ms-excel");
-        response:header("Content-Disposition", "attachment; filename=facttable-" || $cid || ".csv");
-        conversion:facts-to-csv($facts, { Caller: "Component"})
-    }
-    default return {
-        response:content-type("application/json");
-        response:serialization-parameters({"indent" : true});
+let $result :=
         {|
             {
                 CIK : $entity._id,
@@ -219,16 +173,45 @@ let $results :=
                 TableName : keys($component.Hypercubes),
                 Label : $component.Label,
                 FactTable : [ $facts ]
-            }[$profile-name ne "sec"],
-            session:comment(
-                "json",
-                {
-                    NumFacts : count($facts),
-                    TotalNumFacts: session:num-facts(),
-                    TotalNumArchives: session:num-archives(),
-                    TotalNumEntities: session:num-entities()
-                }
-            )
+            }[$profile-name ne "sec"]
         |}
+        
+let $comment := {
+    NumFacts : count($facts),
+    TotalNumFacts: session:num-facts(),
+    TotalNumArchives: session:num-archives(),
+    TotalNumEntities: session:num-entities()
+}
+
+let $serializers := {
+    to-xml : function($res as object) as node() {
+        switch($profile-name)
+        case "sec" return <FactTable entityRegistrantName="{$res.EntityRegistrantName}"
+            cik="{$res.CIK}"
+            tableName="{$res.TableName}"
+            label="{$res.Label}"
+            accessionNumber="{$res.AccessionNumber}"
+            networkIdentifier="{$res.NetworkIdentifier}"
+            formType="{$res.FormType}"
+            fiscalPeriod="{$res.FiscalPeriod}"
+            fiscalYear="{$res.FiscalYear}" 
+            acceptanceDatetime="{$res.AcceptanceDatetime}"
+            disclosure="{$res.Disclosure}"
+            >{
+            conversion:facts-to-xml($res.FactTable[], { Caller: "Component" })
+        }</FactTable>
+        default return <FactTable
+            tableName="{$res.TableName}"
+            label="{$res.Label}"
+            archive="{$res.Archive}"
+            role="{$res.Role}"
+            >{
+            conversion:facts-to-xml($res.FactTable[], { Caller: "Component" })
+        }</FactTable>
+    },
+    to-csv : function($res as object) as string {
+        string-join(conversion:facts-to-csv($res.FactTable[], { Caller: "Component"}))
     }
-return api:check-and-return-results($token, $results, $format)
+}
+return api:serialize($result, $comment, $serializers, $format, "facttable-" || $cid)
+
