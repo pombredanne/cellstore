@@ -42,7 +42,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('build', ['clean', 'swagger'], function(done){
-  $.runSequence(['templates', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
+  $.runSequence('templates', ['lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
 gulp.task('server', ['templates', 'less', 'swagger'], function(done){
@@ -65,6 +65,10 @@ gulp.task('setup', ['load-config'], function(done){
 
 gulp.task('28:setup', ['templates'], function(done){
     $.runSequence('28:login', '28:remove-project', '28:create-project', '28:setup-datasource', '28:upload', '28:init', '28:test', done);
+});
+
+gulp.task('download', ['templates'], function(done){
+    $.runSequence('28:login', '28:download', done);
 });
 
 gulp.task('teardown', ['load-config'], function(done){
