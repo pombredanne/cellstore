@@ -6,6 +6,9 @@ With the CellStore, it takes minutes for the business users to build an infinite
 
 Built on top of http://28.io.
 
+## Demo
+A CellStore with all SEC filings since 2010 is available at http://secxbrl.info
+
 ## Whitepaper
 http://arxiv.org/pdf/1410.0600.pdf
 
