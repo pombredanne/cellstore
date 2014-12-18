@@ -7,6 +7,7 @@ var expand = require('glob-expand');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var $28 = new (require('28').$28)('http://portal.28.io/api');
+var _ = require('lodash');
 
 var Config = require('./config');
 
@@ -21,7 +22,7 @@ var Options = {
 
 var castToJson = function(obj){
     var result = obj;
-    if(typeof obj === 'string'){
+    if(_.isString(obj)){
         try {
             result = JSON.parse(obj);
         } catch (e) {
@@ -33,16 +34,23 @@ var castToJson = function(obj){
 
 var throwError = function (error) {
     var message = JSON.stringify(error);
-    $.util.log(error.toString());
-    $.util.log(error.stack);
-    $.util.log(error.filename);
-    if(error.body){
-        var body = castToJson(error.body);
-        message = typeof body === 'object' ? JSON.stringify(body, null, '\t') : body;
-    }
-    if(typeof error.message === 'string'){
+    if(error.stack || error.filename){
+        message = error.toString();
+        $.util.log(error.stack);
+        $.util.log(error.filename);
+    } else if(_.isString(error.message)){
         message = error.message;
     }
+    if(error.body){
+        var body = castToJson(error.body);
+        message = _.isObject(body) ? JSON.stringify(body, null, '\t') : body;
+        if((_.isObject(body) && body.context) || (_.isArray(body) && body[0].context)){
+            $.util.log(message);
+            message = 'Compilation error';
+        }
+    }
+
+    // truncate error message if too long
     if(message.length > 500){
         message = message.substring(0, 500) + ' ... (truncated)';
     }
@@ -53,33 +61,29 @@ var summarizeTestError = function(error){
     var hasError = false;
     if(error.body) {
         var body = castToJson(error.body);
-        if(typeof body.items === 'object' && body.items.length > 0){
+        if (_.isObject(body) && _.isArray(body.items) && body.items.length > 0) {
             body = castToJson(body.items[0]);
         }
-        if(body.content){
+        if (_.isObject(body) && body.content) {
             body = castToJson(body.content);
         }
         /*jshint camelcase:false */
-        if(typeof body === 'object' && !body.request_id) {
-            for (var testName in body) {
-                if (body.hasOwnProperty(testName)) {
-                    var testResult = body[testName];
-                    if (typeof testResult === 'object') {
-                        $.util.log(testName.red + ': ' + testResult.url);
-                        if (testResult.expectedFactTable && testResult.expectedFactTable.error === true) {
-                            $.util.log(testName.red + ': ' + JSON.stringify(testResult.expectedFactTable, null, '\t'));
-                        }
-                        if (testResult.factTableDiff) {
-                            for (var diff in testResult.factTableDiff) {
-                                if (diff.expectedNumberOfFacts) {
-                                    $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
-                                }
-                            }
-                            hasError = true;
-                        }
+        if (_.isObject(body) && !body.request_id) {
+            _.each(body, function(testResult, testName){
+                if (_.isObject(testResult) && testResult.url) {
+                    hasError = true;
+                    $.util.log(testName.red + ': ' + testResult.url);
+                    if (_.isObject(testResult.expectedFactTable) && testResult.expectedFactTable.error === true) {
+                        // http error (e.g. 404)
+                        $.util.log(testName.red + ': ' + JSON.stringify(testResult.expectedFactTable, null, '\t'));
                     }
+                    _.each(testResult.factTableDiff, function(diff){
+                        if (diff.expectedNumberOfFacts) {
+                            $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
+                        }
+                    });
                 }
-            }
+            });
         }
         if (hasError) {
             return new Error('some test queries failed');
@@ -163,27 +167,14 @@ var upload = function(projectName){
     });
 };
 
-var runQueries = function(projectName, queriesToRun) {
-    var sequenceOfQueries = [];
-    queriesToRun.forEach(function(queries){
-        queries = expand(queries);
-        queries.forEach(function(query) {
-            var queryPath = query.substring(Config.paths.queries.length + 1);
-            sequenceOfQueries.push(queryPath);
-        });
-    });
-
-    if (sequenceOfQueries.length === 0){
-        $.util.log('At least 1 query to init and for the API tests need to be provided.'.red);
-        throw new Error('No queries to run for: ' + JSON.stringify(queriesToRun));
-    }
-
-    var Queries = $28.api.Queries(projectName);
+var runQueriesInParallel = function(projectName, queriesToRun) {
+    var promises = [];
+    var QueriesAPI = $28.api.Queries(projectName);
     /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
-    return sequenceOfQueries.reduce(function(previousPromise, nextQuery){
-        return previousPromise.then(function(){
-            return Queries.executeQuery({
+    _.each(queriesToRun, function(nextQuery){
+        promises.push(
+            QueriesAPI.executeQuery({
                 accept: 'application/28.io+json',
                 queryPath: nextQuery,
                 format: '',
@@ -194,13 +185,44 @@ var runQueries = function(projectName, queriesToRun) {
             }).catch(function (error) {
                 var requestUri = error.response.request.uri;
                 var isTestQuery = (requestUri.pathname.lastIndexOf('/v1/_queries/public/test', 0) === 0);
-                var href = isTestQuery ? requestUri.host + requestUri.pathname.substring('/v1/_queries/public'.length + 1) : requestUri.host + requestUri.pathname;
+                var href = isTestQuery ? requestUri.host + requestUri.pathname.substring('/v1/_queries/public'.length) : requestUri.host + requestUri.pathname;
                 $.util.log(('✗ '.red) + href + ' returned with status code: ' + $.util.colors.red(error.response.statusCode));
                 error = isTestQuery ? summarizeTestError(error) : error;
                 throw error;
+            })
+        );
+    });
+    return Q.all(promises);
+};
+
+var runQueries = function(projectName, sequenceOfQueriesToRun) {
+    return _.chain(sequenceOfQueriesToRun)
+        .map(function(queriesToRun) {
+            // create chunks of queries to be executed in parallel
+            if (_.isString(queriesToRun)) {
+                return expand(queriesToRun);
+            } else if (_.isArray(queriesToRun)){
+                return _.chain(queriesToRun)
+                    .map(function(queriesGlob){
+                        return expand(queriesGlob);
+                    })
+                    .flatten()
+                    .value();
+            }
+        })
+        .map(function(queriesToRunArray){
+            // substring to relative query path
+            return _.map(queriesToRunArray, function(query) {
+                return query.substring(Config.paths.queries.length + 1);
             });
-        });
-    }, /* init: */ Q.resolve());
+        })
+        .reduce(function(previousPromise, nextQueriesArray){
+            // execute them in chunks
+            return previousPromise.then(function() {
+                return runQueriesInParallel(projectName, nextQueriesArray);
+            });
+        }, Q.resolve())
+        .value();
 };
 
 var createDatasource = function(projectName, datasource){
@@ -211,14 +233,14 @@ var createDatasource = function(projectName, datasource){
         /*jshint camelcase:false */
         var projectToken = credentials.project_tokens['project_' + projectName];
         $28.createDatasource(projectName, datasource.category, datasource.name, projectToken, difault, JSON.stringify(datasource.credentials))
-        .then(function(){
-            $.util.log(datasource.name + ' created');
-            defered.resolve(credentials);
-        })
-        .catch(function (error) {
-            $.util.log('datasource creation failed: ' + datasource.name);
-            defered.reject(error);
-        });
+            .then(function(){
+                $.util.log(datasource.name + ' created');
+                defered.resolve(credentials);
+            })
+            .catch(function (error) {
+                $.util.log('datasource creation failed: ' + datasource.name);
+                defered.reject(error);
+            });
     } else {
         $.util.log('Skipping data source creation on production: ' + datasource.name);
         defered.resolve(credentials);
