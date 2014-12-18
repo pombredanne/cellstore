@@ -3,10 +3,6 @@ node_js:
 - '0.10'
 addons:
   firefox: '31.0'
-before_install:
-- sudo apt-get update
-- sudo update-ca-certificates
-- date
 before_script:
 - npm install -g bower gulp
 - bower install
