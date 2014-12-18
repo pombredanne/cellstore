@@ -172,7 +172,6 @@ var runQueriesInParallel = function(projectName, queriesToRun) {
     var QueriesAPI = $28.api.Queries(projectName);
     /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
-    $.util.log('in parallel: ' + JSON.stringify(queriesToRun));
     _.each(queriesToRun, function(nextQuery){
         promises.push(
             QueriesAPI.executeQuery({
@@ -212,7 +211,6 @@ var runQueries = function(projectName, sequenceOfQueriesToRun) {
             }
         })
         .map(function(queriesToRunArray){
-            $.util.log('substr: ' + JSON.stringify(queriesToRunArray));
             // substring to relative query path
             return _.map(queriesToRunArray, function(query) {
                 return query.substring(Config.paths.queries.length + 1);
