@@ -36,9 +36,13 @@ Optionally:
 - add e2e tests to `tests/e2e/<name>`
 
 ## Environment Variables
-You might want to set the following environment variables for convenience:
+The `TRAVIS_SECRET_KEY` environnement variable is mandatory in order to decrypt deployment files.
 ```bash
 $ export TRAVIS_SECRET_KEY=<secret> # to decrypt / encrypt config files
+```
+
+You might want to set the following environment variables for convenience:
+```bash
 $ export CELLSTORE_BUILD_ID=<mybuild-id> # default build-id if --build-id=xyz is not provided
 $ export CELLSTORE_CONFIG=<name> # default config if --config=xyz is not provided
 ```
@@ -55,17 +59,12 @@ Once you are done:
 $ gulp teardown --build-id=test --config=sec
 ```
 
-## Frontend Development
+## Development
 
-Runs the frontend locally using the `sec.json` configuration:
+To test the development version using the `sec.json` configuration:
 
 ```bash
 $ gulp server --build-id=mydemo --config=sec
-```
-
-Run the built version (uglified etc.)
-```bash
-gulp server:prod --build-id=mydemo --config=sec
 ```
 
 ## Testing
