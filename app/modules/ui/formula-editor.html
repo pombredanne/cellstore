@@ -24,7 +24,7 @@
                                        typeahead-on-select="onSelectTypeAhead(true)">
                             </div>
                             <div class="col-sm-offset-2 col-sm-10" ng-if="alt.SourceFactErr">
-                                <p ng-bind-html="alt.SourceFactErr" auto-recompile-bind-html class="text-danger"></p>
+                                <p ng-bind="alt.SourceFactErr" class="text-danger"></p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error': alt.PrereqErr!==undefined}">

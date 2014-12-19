@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rules-model', ['excel-parser', 'formula-parser'])
-    .factory('Rule', ['_', '$q', '$log', '$sce', 'ExcelParser', 'FormulaParser', function (_, $q, $log, $sce, ExcelParser, FormulaParser) {
+    .factory('Rule', function (_, $q, $log, ExcelParser, FormulaParser) {
 
         var ensureParameter = function (paramValue, paramName, paramType, functionName, regex, regexErrorMessage) {
             if (paramValue === null || paramValue === undefined) {
@@ -963,7 +963,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
         var validateAlternative = function (rule, alternative, report) {
             var sourceFact = alternative.SourceFact;
             if (sourceFact === undefined || sourceFact === null || sourceFact[0] === '' || sourceFact.length === 0) {
-                alternative.SourceFactErr = $sce.trustAsHtml('Source Fact is mandatory (general characteristics - e.g. credit or debit - will be copied from this fact).');
+                alternative.SourceFactErr = 'Source Fact is mandatory (general characteristics - e.g. credit or debit - will be copied from this fact).';
                 alternative.valid = false;
             } else {
                 var notExistingConcepts = [];
@@ -977,12 +977,10 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     }
                 }
                 if (notExistingConcepts.length === 1) {
-                    alternative.SourceFactErr =
-                        $sce.trustAsHtml(
-                            'The source concept "' + notExistingConcepts[0] + '" does not exist.');
+                    alternative.SourceFactErr = 'The source concept "' + notExistingConcepts[0] + '" does not exist.';
                     alternative.valid = false;
                 } else if (notExistingConcepts.length > 1) {
-                    alternative.SourceFactErr = $sce.trustAsHtml('The following source concepts do not exist: "' + notExistingConcepts.join('", "') + '".');
+                    alternative.SourceFactErr = 'The following source concepts do not exist: "' + notExistingConcepts.join('", "') + '".';
                     alternative.valid = false;
                 } else {
                     delete alternative.SourceFactErr;
@@ -1188,4 +1186,4 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             return this.model.Id;
         };
         return Rule;
-    }]);
+    });

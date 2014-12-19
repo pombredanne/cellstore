@@ -93,6 +93,11 @@ var config =
             'queries/private/UpdateReportSchema.jq',
             'queries/private/cleanupTestUserReports.jq',
             'queries/private/migration/db7.jq'
+            [
+                'queries/private/UpdateReportSchema.jq',
+                'queries/private/cleanupTestUserReports.jq'
+            ],
+            'queries/private/migration/db6.jq'
         ],
         apiTestQueries: [
             'queries/public/test/' + configId + '/*.jq'
