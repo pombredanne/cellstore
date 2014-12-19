@@ -25,7 +25,7 @@ declare function local:to-csv($concepts as item*, $onlyNames as boolean) as stri
         string-join(("Name", $concepts), "
 ")
     else
-        string-join(csv:serialize($concepts, { serialize-null-as : "" }))
+        string-join(csv:serialize(trim($concepts, "Labels"), { serialize-null-as : "" }))
 };
 
 declare function local:to-xml($concepts as item*, $onlyNames as boolean) as element()*
@@ -224,7 +224,18 @@ let $result :=
                 let $original-name := ($concept.Origin, $concept.Name)[1]
                 return {|
                     project($concept, ("Name", "Origin")),
-                    trim($members.$original-name, "Name"),
+                    {
+                      Labels: [
+                        for $labelRole in keys($concept.Labels)
+                        for $language in keys($concept.Labels.$labelRole)
+                        return {
+                          Role: $labelRole,
+                          Language: $language,
+                          Value: $concept.Labels.$labelRole.$language
+                        }
+                      ]
+                    },
+                    trim($members.$original-name, ("Name", "Labels")),
                     $metadata
                 |}
         ]
