@@ -246,15 +246,24 @@ let $result :=
                 let $metadata := {
                     ComponentRole : $component.Role,
                     ComponentLabel : $component.Label,
-                    AccessionNumber : $archive._id,
-                    FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
-                    FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
+                    Archive : $archive
                 }
                 for $concept in $concept
                 let $original-name := ($concept.Origin, $concept.Name)[1]
                 return {|
                     project($concept, ("Name", "Origin")),
-                    trim($members.$original-name, "Name"),
+                    {
+                      Labels: [
+                        for $labelRole in keys($concept.Labels)
+                        for $language in keys($concept.Labels.$labelRole)
+                        return {
+                          Role: $labelRole,
+                          Language: $language,
+                          Value: $concept.Labels.$labelRole.$language
+                        }
+                      ]
+                    },
+                    trim($members.$original-name, ("Name", "Labels")),
                     $metadata
                 |}
         ]

@@ -120,10 +120,10 @@ let $components as object* :=
         $label)
     default return
         switch(true)
-        case (exists($networkIdentifier) and exists($aid))
-        return components:components-for-archives-and-roles($aid, $networkIdentifier)
-        case exists($aid)
-        return components:components-for-archives($aid)
+        case (exists($networkIdentifier) and exists($archives))
+        return components:components-for-archives-and-roles($archives, $networkIdentifier)
+        case exists($archives)
+        return components:components-for-archives($archives)
         default
         return if($profile-name eq "sec") then {
           response:status-code(400);

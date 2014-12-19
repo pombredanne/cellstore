@@ -75,10 +75,10 @@ let $components  :=
         $label)
     default return
         switch(true)
-        case (exists($networkIdentifier) and exists($aid))
-        return components:components-for-archives-and-roles($aid, $networkIdentifier)
-        case exists($aid)
-        return components:components-for-archives($aid)
+        case (exists($networkIdentifier) and exists($archive))
+        return components:components-for-archives-and-roles($archive, $networkIdentifier)
+        case exists($archive)
+        return components:components-for-archives($archive)
         default
         return {
           response:status-code(400);
