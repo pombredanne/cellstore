@@ -42,7 +42,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('build', ['clean', 'swagger'], function(done){
-  $.runSequence(['templates', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
+  $.runSequence('templates', ['lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
 gulp.task('server', ['templates', 'less', 'swagger', '28:login'], function(done){
