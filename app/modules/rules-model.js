@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rules-model', ['excel-parser', 'formula-parser'])
-    .factory('Rule', ['$q', '$log', '$sce', 'ExcelParser', 'FormulaParser', function ($q, $log, $sce, ExcelParser, FormulaParser) {
+    .factory('Rule', function (_, $q, $log, $sce, ExcelParser, FormulaParser) {
 
         var ensureParameter = function (paramValue, paramName, paramType, functionName, regex, regexErrorMessage) {
             if (paramValue === null || paramValue === undefined) {
@@ -18,19 +18,19 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
         //Constructor
         var Rule = function (modelOrRuleType, report, computableConcept, language) {
             ensureParameter(report, 'report', 'object', 'Rule (Const.)');
-            if (typeof modelOrRuleType === 'object' && modelOrRuleType !== null) {
+            if (_.isObject(modelOrRuleType)) {
                 this.report = report;
                 this.setModel(modelOrRuleType);
             } else {
                 ensureParameter(modelOrRuleType, 'modelOrRuleType', 'string', 'Rule (Const.)', /^(xbrl28:formula)|(xbrl28:validation)$/g, 'unknown rule type: ' + modelOrRuleType);
                 ensureParameter(computableConcept, 'computableConcept', 'string', 'Rule (Const.)');
-                if (language !== undefined && language !== null && language !== 'SpreadsheetFormula') {
+                if (_.isString(language) && language !== 'SpreadsheetFormula') {
                     throw new Error('Rule (Const.): unknown original language "' + language + '"');
                 }
                 this.report = report;
                 this.parser = null;
                 var concept = report.getConcept(computableConcept);
-                if (concept === undefined || concept === null) {
+                if (!_.isObject(concept)) {
                     throw new Error('Concept with name ' + computableConcept + ' does not exist.');
                 }
                 if (modelOrRuleType === 'xbrl28:validation') {
@@ -1163,4 +1163,4 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             return this.model.Id;
         };
         return Rule;
-    }]);
+    });
