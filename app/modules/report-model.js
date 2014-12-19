@@ -937,8 +937,8 @@ angular
 
         // add synomyms
         var that = this;
-        _.each(toConceptNamesArray, function(name, index){
-            var name = that.alignConceptPrefix(name);
+        _.each(toConceptNamesArray, function(ocname, index){
+            var name = that.alignConceptPrefix(ocname);
             ensureConceptName(name, 'toConceptNamesArray', 'updateConceptMap');
             toObj[name] = {
                 'Id': new ReportID().toString(),
@@ -973,7 +973,7 @@ angular
             var to = map.To;
             if(to !== null && to !== undefined && to[conceptName] !== null && typeof to[conceptName] === 'object') {
                 result.SynonymOf.push(map.Name);
-            } else if (child === conceptName){
+            } else if (map.Name === conceptName){
                 result.Maps.push(map.Name);
             }
         });
@@ -1017,7 +1017,9 @@ angular
             return null;
         }
 
-        return _.find(model.Rules, function(rule){ return rule.Id === id });
+        return _.find(model.Rules, function(rule){
+            return rule.Id === id;
+        });
     };
 
     AbstractReport.prototype.removeRule = function(id) {
