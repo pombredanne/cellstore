@@ -2,6 +2,23 @@ jsoniq version "1.0";
 module namespace japan = "http://28.io/modules/xbrl/profiles/japan/core";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
+declare function japan:entities(
+    $cik as string*,
+    $eid as string*,
+    $tag as string*
+)
+{
+  let $eid := distinct-values((
+    $cik ! ("http://info.edinet-fsa.go.jp " || $$ || "-000"),
+    $eid
+  ))
+  return
+    switch(true)
+    case $tag = "ALL" return entities:entities()
+    case exists($eid) return entities:entities($eid)
+    default return ()
+};
 
 declare function japan:filings(
     $entities as item*,

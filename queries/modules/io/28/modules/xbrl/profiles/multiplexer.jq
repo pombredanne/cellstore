@@ -39,10 +39,7 @@ declare function multiplexer:entities(
     order by $entity.Profiles.SEC.CompanyName
     return $entity
   default return
-    for $entity in switch(true)
-                   case exists($eid) return entities:entities($eid)
-                   case $tag = "ALL" return entities:entities()
-                   default return ()
+    for $entity in japan:entities($cik, $eid, $tag)
     order by $entity._id
     return $entity
 };
