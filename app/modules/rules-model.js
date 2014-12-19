@@ -183,17 +183,19 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
         };
 
         Rule.prototype.listAvailableConceptNames = function () {
-            var result = [];
-            if (this.report !== undefined && this.report !== null && typeof this.report === 'object') {
-                var concepts = this.report.listConcepts();
-                for (var i in concepts) {
-                    var concept = concepts[i];
-                    if (concepts.hasOwnProperty(i) && (concept.IsAbstract === undefined || concept.IsAbstract === false)) {
-                        result.push(this.report.hideDefaultConceptPrefix(concept.Name));
-                    }
-                }
+            if (!_.isObject(this.report)) {
+                return [];
             }
-            return result;
+            var concepts = this.report.listConcepts();
+            var that = this;
+            return _.chain(concepts)
+                .filter(function (concept) {
+                    return concept.IsAbstract !== true;
+                })
+                .map(function(concept){
+                    return that.report.hideDefaultConceptPrefix(concept.Name);
+                })
+                .value();
         };
 
         Rule.prototype.listConcepts = function () {
@@ -209,8 +211,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     .Aspects['xbrl:Concept']
                     .Domains['xbrl:ConceptDomain']
                     .Members;
-            } else {
-                return undefined;
             }
         };
 
@@ -228,49 +228,30 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             return this.parser;
         };
 
-        /*Rule.prototype.updateView = function() {
-         this.view = JSON.stringify(this.model, null, ' ');
-         };*/
-
-        var makeUnique = function (array) {
-            ensureParameter(array, 'array', 'object', 'makeUnique');
-            var unique = {}, result = [];
-            for (var j in array) {
-                var item = array[j];
-                if (unique.hasOwnProperty(item)) {
-                    continue;
-                }
-                result.push(item);
-                unique[item] = 1;
-            }
-            return result;
-        };
-
         var inferDependenciesImpl = function (formula, obj) {
             ensureParameter(formula, 'formula', 'object', 'inferDependenciesImpl');
             ensureParameter(obj, 'obj', 'object', 'inferDependenciesImpl');
             var result = [];
             var formulae = obj.Formulae;
-            if (formulae !== undefined && formulae !== null && typeof formulae === 'object') {
-                for (var i in formulae) {
-                    var alternative = formulae[i];
+            if (_.isArray(formulae)) {
+                _.each(formulae, function(alternative){
                     result = result.concat(inferDependenciesImpl(formula, alternative));
-                }
+                });
                 result = formula.report.alignConceptPrefixes(result);
-                result = makeUnique(result);
+                result = _.unique(result);
                 obj.DependsOn = result;
             } else {
                 var prereq = obj.Prereq;
                 var body = obj.Body;
                 var sourceFacts = obj.SourceFact;
                 if (prereq !== undefined || body !== undefined || sourceFacts !== undefined) {
-                    if (prereq !== undefined && prereq !== null && typeof prereq === 'object') {
+                    if (_.isObject(prereq)) {
                         result = result.concat(inferDependenciesImpl(formula, prereq));
                     }
-                    if (body !== undefined && body !== null && typeof body === 'object') {
+                    if (_.isObject(body)) {
                         result = result.concat(inferDependenciesImpl(formula, body));
                     }
-                    if (sourceFacts !== undefined && sourceFacts !== null && typeof sourceFacts === 'object') {
+                    if (_.isArray(sourceFacts)) {
                         result = result.concat(sourceFacts);
                     }
                 } else {
@@ -279,11 +260,10 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     if (type === 'variable') {
                         var name = obj.Name;
                         result.push(name);
-                    } else if (children !== undefined && children !== null && typeof children === 'object') {
-                        for (var j in children) {
-                            var child = children[j];
+                    } else if (_.isArray(children)) {
+                        _.each(children, function(child) {
                             result = result.concat(inferDependenciesImpl(formula, child));
-                        }
+                        });
                     }
                 }
             }
@@ -306,7 +286,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
         // computation is the jsoniq code part that computes the value of the new
         // fact
         var toComputation = function (ast) {
-            if (ast !== undefined && ast !== null && typeof ast === 'object') {
+            if (_.isObject(ast)) {
                 var type = ast.Type;
                 var children = ast.Children;
                 var value = ast.Value;
@@ -334,10 +314,9 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     // primaries
                     case 'block':
                         var inner = [];
-                        for (var i in children) {
-                            var child = children[i];
+                        _.each(children, function(child){
                             inner.push(toComputation(child));
-                        }
+                        });
                         return '(' + inner.join(',') + ')';
                     case 'variable':
                         return 'rules:decimal-value($' + name + ')';
@@ -353,23 +332,19 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     // functions
                     case 'function':
                         var innerparams = [];
-                        for (var j in children) {
-                            var param = children[j];
+                        _.each(children, function(param){
                             innerparams.push(toComputation(param));
-                        }
+                        });
                         switch (name) {
                             case 'isblank':
                                 var innerparams2 = [];
-                                for (var h in children) {
-                                    if (children.hasOwnProperty(h)) {
-                                        var p = children[j];
-                                        if (p.Type === 'variable') {
-                                            innerparams2.push('$' + p.Name);
-                                        } else {
-                                            innerparams2.push(toComputation(p));
-                                        }
+                                _.each(children, function(p){
+                                    if (p.Type === 'variable') {
+                                        innerparams2.push('$' + p.Name);
+                                    } else {
+                                        innerparams2.push(toComputation(p));
                                     }
-                                }
+                                });
                                 return 'not(exists(' + innerparams2.join(', ') + '))';
                             case 'not':
                                 return 'not((' + innerparams.join(', ') + '))';
@@ -429,10 +404,9 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     // primaries
                     case 'block':
                         var inner = [];
-                        for (var i in children) {
-                            var child = children[i];
+                        _.each(children, function(child){
                             inner.push(toAuditTrail(child));
-                        }
+                        });
                         result.push('" ( " || ' + inner.join(' || ", "') + ' || " )"');
                         break;
                     case 'variable':
@@ -449,10 +423,9 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     // functions
                     case 'function':
                         var innerparams = [];
-                        for (var j in children) {
-                            var param = children[j];
+                        _.each(children, function(param){
                             innerparams.push(toAuditTrail(param));
-                        }
+                        });
                         switch (name) {
                             case 'isblank':
                                 result.push('"not(exists( " || ' + innerparams.join(' || ", "') + ' || "))"');
@@ -479,11 +452,11 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             facts = facts.concat(rule.DependsOn);
             if ((rule.OriginalLanguage === 'SpreadsheetFormula') &&
                 rule.Formulae !== undefined && rule.Formulae !== null) {
-                for (var i in rule.Formulae) {
-                    facts = facts.concat(rule.Formulae[i].SourceFact);
-                }
+                _.each(rule.Formulae, function(formula){
+                    facts = facts.concat(formula.SourceFact);
+                });
             }
-            return makeUnique(report.alignConceptPrefixes(facts));
+            return _.unique(report.alignConceptPrefixes(facts));
         };
 
         Rule.prototype.toJsoniq = function () {
@@ -491,7 +464,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             var prefix = this.getPrefix();
             var report = this.report;
             var computedConcept = report.alignConceptPrefix(this.model.ComputableConcepts[0]);
-            if (this.model !== undefined && this.model !== null && typeof this.model === 'object') {
+            if (_.isObject(this.model)) {
                 if ((this.model.OriginalLanguage === 'SpreadsheetFormula') &&
                     this.model.Formulae !== undefined && this.model.Formulae !== null) {
 
@@ -505,18 +478,16 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     var allowCrossPeriod = this.model.AllowCrossPeriod;
                     //var allowCrossBalance = this.model.AllowCrossBalance;
                     var factsFilter = '';
-                    for (var i in facts) {
-                        var fact = facts[i];
+                    _.each(facts, function(fact){
                         if (factsFilter === '') {
                             factsFilter = '"';
                         } else {
                             factsFilter += ', "';
                         }
                         factsFilter += fact + '"';
-                    }
+                    });
                     var variables = [];
-                    for (var j in facts) {
-                        var concept = facts[j];
+                    _.each(facts, function(concept){
                         var variable = {};
                         if (concept.indexOf(prefix + ':') === 0) {
                             variable.Name = concept.substring(prefix.length + 1);
@@ -525,19 +496,16 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         }
                         variable.Concept = report.alignConceptPrefix(concept);
                         variables.push(variable);
-                    }
+                    });
                     var auditTrailSourceFacts = '';
-                    for (var y in variables) {
-                        if (variables.hasOwnProperty(y)) {
-                            var va = variables[y];
-                            if (auditTrailSourceFacts === '') {
-                                auditTrailSourceFacts += '$';
-                            } else {
-                                auditTrailSourceFacts += ', $';
-                            }
-                            auditTrailSourceFacts += va.Name;
+                    _.each(variables, function(va){
+                        if (auditTrailSourceFacts === '') {
+                            auditTrailSourceFacts += '$';
+                        } else {
+                            auditTrailSourceFacts += ', $';
                         }
-                    }
+                        auditTrailSourceFacts += va.Name;
+                    });
 
                     result.push('');
                     result.push('for $facts in facts:facts-for-internal((');
@@ -559,107 +527,100 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     result.push('for $duration-string as string? allowing empty in distinct-values($facts[$$.Concept.PeriodType eq "duration"].$facts:ASPECTS.$facts:PERIOD)');
                     result.push('let $facts := $facts[$$.$facts:ASPECTS.$facts:PERIOD = ($duration-string, $aligned-period)]');
                     result.push('let $warnings as string* := ()');
-                    for (var x in variables) {
-                        if (variables.hasOwnProperty(x)) {
-                            var v = variables[x];
-                            result.push('let $' + v.Name + ' as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq "' + v.Concept + '"]');
-                            result.push('let $warnings := ($warnings, if(count($' + v.Name + ') gt 1)');
-                            result.push('                             then if(count(distinct-values($' + v.Name + '.Value)) gt 1)');
-                            result.push('                                  then "Cell collision with conflicting values for concept ' + v.Name + '."');
-                            result.push('                                  else "Cell collision with consistent values for concept ' + v.Name + '."');
-                            result.push('                             else ())');
-                            result.push('let $' + v.Name + ' as object? := $' + v.Name + '[1]');
-                        }
-                    }
+                    _.each(variables, function(v){
+                        var v = variables[x];
+                        result.push('let $' + v.Name + ' as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq "' + v.Concept + '"]');
+                        result.push('let $warnings := ($warnings, if(count($' + v.Name + ') gt 1)');
+                        result.push('                             then if(count(distinct-values($' + v.Name + '.Value)) gt 1)');
+                        result.push('                                  then "Cell collision with conflicting values for concept ' + v.Name + '."');
+                        result.push('                                  else "Cell collision with consistent values for concept ' + v.Name + '."');
+                        result.push('                             else ())');
+                        result.push('let $' + v.Name + ' as object? := $' + v.Name + '[1]');
+                    });
                     result.push('let $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]');
                     result.push('return');
                     result.push('  switch (true)');
                     result.push('  case exists($' + computedFactVariable + ') return $' + computedFactVariable);
 
-                    for (var k in this.model.Formulae) {
-                        if (this.model.Formulae.hasOwnProperty(k)) {
-                            var alternative = this.model.Formulae[k];
-                            var body = alternative.Body;
-                            var prereq = alternative.Prereq;
-                            var sourceFacts = report.alignConceptPrefixes(alternative.SourceFact);
-                            var sourceFactVariable;
-                            if (sourceFacts[0] !== undefined && sourceFacts[0].indexOf(prefix + ':') === 0) {
-                                sourceFactVariable = sourceFacts[0].substring(prefix.length + 1);
-                            } else if (sourceFacts[0] !== undefined) {
-                                sourceFactVariable = sourceFacts[0].replace(/:/g, '_');
-                            }
-
-                            var sourceFactExistenceCheck = '';
-                            for (var s in sourceFacts) {
-                                if (sourceFacts.hasOwnProperty(s)) {
-                                    var sFact = sourceFacts[s];
-                                    if (sFact.indexOf(prefix + ':') === 0) {
-                                        sFact = sFact.substring(prefix.length + 1);
-                                    } else {
-                                        sFact = sFact.replace(/:/g, '_');
-                                    }
-                                    if (sourceFactExistenceCheck !== '') {
-                                        sourceFactExistenceCheck += ' and ';
-                                    }
-                                    sourceFactExistenceCheck += 'exists($' + sFact + ')';
-                                }
-                            }
-
-                            var validatedFactVariable;
-                            if (this.model.Type === 'xbrl28:validation') {
-                                var validatedConcept = report.alignConceptPrefix(this.model.ValidatedConcepts[0]);
-                                if (validatedConcept.indexOf(prefix + ':') === 0) {
-                                    validatedFactVariable = report.hideDefaultConceptPrefix(validatedConcept);
-                                } else {
-                                    validatedFactVariable = validatedConcept.replace(/:/g, '_');
-                                }
-                            }
-
-                            result.push('  case (' + sourceFactExistenceCheck + ' and ' + toComputation(prereq) + ')');
-                            result.push('  return');
-                            result.push('    let $computed-value := ' + toComputation(body));
-                            result.push('    let $audit-trail-message as string* := ');
-                            if (this.model.Type === 'xbrl28:formula') {
-                                result.push('      rules:fact-trail({"Aspects": { "xbrl:Unit" : $_unit, "xbrl:Concept" : "' + computedConcept + '" }, Value: $computed-value }) || " = " || ');
-                            }
-                            result.push('         ' + toAuditTrail(body));
-                            result.push('    let $audit-trail-message as string* := ($audit-trail-message, $warnings)');
-                            result.push('    let $source-facts as object* := (' + auditTrailSourceFacts + ')');
-                            result.push('    return');
-                            result.push('      if(string(number($computed-value)) != "NaN" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))');
-                            result.push('      then');
-                            result.push('        copy $newfact :=');
-                            result.push('          rules:create-computed-fact(');
-                            result.push('            $' + sourceFactVariable + ',');
-                            result.push('            "' + computedConcept + '",');
-                            result.push('            $computed-value,');
-                            result.push('            $rule,');
-                            result.push('            $audit-trail-message,');
-                            result.push('            $source-facts,');
-                            result.push('            $options)');
-                            result.push('        modify (');
-                            result.push('            replace value of json $newfact("Decimals") with 2');
-                            result.push('          )');
-                            result.push('        return $newfact');
-                            result.push('      else');
-                            result.push('        rules:create-computed-fact(');
-                            result.push('          $' + sourceFactVariable + ',');
-                            result.push('          "' + computedConcept + '",');
-                            result.push('          $computed-value,');
-                            result.push('          $rule,');
-                            result.push('          $audit-trail-message,');
-                            result.push('          $source-facts,');
-                            if (this.model.Type === 'xbrl28:validation') {
-                                result.push('            $options,');
-                                result.push('            $' + validatedFactVariable + ',');
-                                result.push('            $computed-value)');
-                            }
-                            else {
-                                result.push('            $options)');
-                            }
-
+                    var that = this;
+                    _.each(this.model.Formulae, function(alternative){
+                        var body = alternative.Body;
+                        var prereq = alternative.Prereq;
+                        var sourceFacts = report.alignConceptPrefixes(alternative.SourceFact);
+                        var sourceFactVariable;
+                        if (sourceFacts[0] !== undefined && sourceFacts[0].indexOf(prefix + ':') === 0) {
+                            sourceFactVariable = sourceFacts[0].substring(prefix.length + 1);
+                        } else if (sourceFacts[0] !== undefined) {
+                            sourceFactVariable = sourceFacts[0].replace(/:/g, '_');
                         }
-                    }
+
+                        var sourceFactExistenceCheck = '';
+                        _.each(sourceFacts, function(sFact){
+                            if (sFact.indexOf(prefix + ':') === 0) {
+                                sFact = sFact.substring(prefix.length + 1);
+                            } else {
+                                sFact = sFact.replace(/:/g, '_');
+                            }
+                            if (sourceFactExistenceCheck !== '') {
+                                sourceFactExistenceCheck += ' and ';
+                            }
+                            sourceFactExistenceCheck += 'exists($' + sFact + ')';
+                        });
+
+                        var validatedFactVariable;
+                        if (that.model.Type === 'xbrl28:validation') {
+                            var validatedConcept = report.alignConceptPrefix(that.model.ValidatedConcepts[0]);
+                            if (validatedConcept.indexOf(prefix + ':') === 0) {
+                                validatedFactVariable = report.hideDefaultConceptPrefix(validatedConcept);
+                            } else {
+                                validatedFactVariable = validatedConcept.replace(/:/g, '_');
+                            }
+                        }
+
+                        result.push('  case (' + sourceFactExistenceCheck + ' and ' + toComputation(prereq) + ')');
+                        result.push('  return');
+                        result.push('    let $computed-value := ' + toComputation(body));
+                        result.push('    let $audit-trail-message as string* := ');
+                        if (that.model.Type === 'xbrl28:formula') {
+                            result.push('      rules:fact-trail({"Aspects": { "xbrl:Unit" : $_unit, "xbrl:Concept" : "' + computedConcept + '" }, Value: $computed-value }) || " = " || ');
+                        }
+                        result.push('         ' + toAuditTrail(body));
+                        result.push('    let $audit-trail-message as string* := ($audit-trail-message, $warnings)');
+                        result.push('    let $source-facts as object* := (' + auditTrailSourceFacts + ')');
+                        result.push('    return');
+                        result.push('      if(string(number($computed-value)) != "NaN" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))');
+                        result.push('      then');
+                        result.push('        copy $newfact :=');
+                        result.push('          rules:create-computed-fact(');
+                        result.push('            $' + sourceFactVariable + ',');
+                        result.push('            "' + computedConcept + '",');
+                        result.push('            $computed-value,');
+                        result.push('            $rule,');
+                        result.push('            $audit-trail-message,');
+                        result.push('            $source-facts,');
+                        result.push('            $options)');
+                        result.push('        modify (');
+                        result.push('            replace value of json $newfact("Decimals") with 2');
+                        result.push('          )');
+                        result.push('        return $newfact');
+                        result.push('      else');
+                        result.push('        rules:create-computed-fact(');
+                        result.push('          $' + sourceFactVariable + ',');
+                        result.push('          "' + computedConcept + '",');
+                        result.push('          $computed-value,');
+                        result.push('          $rule,');
+                        result.push('          $audit-trail-message,');
+                        result.push('          $source-facts,');
+                        if (that.model.Type === 'xbrl28:validation') {
+                            result.push('            $options,');
+                            result.push('            $' + validatedFactVariable + ',');
+                            result.push('            $computed-value)');
+                        }
+                        else {
+                            result.push('            $options)');
+                        }
+
+                    });
                     result.push('  default return ()');
 
                 }
@@ -854,15 +815,11 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             } else if (rule.Type === 'xbrl28:validation' && rule.OriginalLanguage === 'SpreadsheetFormula') {
                 delete rule.ComputableConceptsErr;
             } else {
-                var notExistingConcepts = [];
-                for (var i in computableConcepts) {
-                    if (computableConcepts.hasOwnProperty(i)) {
-                        var concept = report.getConcept(report.alignConceptPrefix(computableConcepts[i]));
-                        if (concept === undefined || concept === null) {
-                            notExistingConcepts.push(computableConcepts[i]);
-                        }
-                    }
-                }
+                var notExistingConcepts = _.chain(computableConcepts)
+                    .filter(function(cname) {
+                        return !_.isObject(report.getConcept(report.alignConceptPrefix(cname)));
+                    })
+                    .value();
                 if (notExistingConcepts.length === 1) {
                     rule.ComputableConceptsErr = 'The computed concept "' + notExistingConcepts[0] + '" does not exist.';
                     rule.valid = false;
@@ -877,15 +834,11 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
 
         var validateDependsOnConcepts = function (rule, report) {
             var dependsOnConcepts = rule.DependsOn;
-            var notExistingConcepts = [];
-            for (var i in dependsOnConcepts) {
-                if (dependsOnConcepts.hasOwnProperty(i)) {
-                    var concept = report.getConcept(report.alignConceptPrefix(dependsOnConcepts[i]));
-                    if (concept === undefined || concept === null) {
-                        notExistingConcepts.push(dependsOnConcepts[i]);
-                    }
-                }
-            }
+            var notExistingConcepts = _.chain(dependsOnConcepts)
+                .filter(function(cname) {
+                    return !_.isObject(report.getConcept(report.alignConceptPrefix(cname)));
+                })
+                .value();
             if (notExistingConcepts.length === 1) {
                 rule.DependsOnErr = 'The depending concept "' + notExistingConcepts[0] + '" does not exist.';
                 rule.valid = false;
@@ -899,15 +852,11 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
 
         var validateHideRulesForConcepts = function (rule, report) {
             var hideRulesForConcepts = rule.HideRulesForConcepts;
-            var notExistingConcepts = [];
-            for (var i in hideRulesForConcepts) {
-                if (hideRulesForConcepts.hasOwnProperty(i)) {
-                    var concept = report.getConcept(report.alignConceptPrefix(hideRulesForConcepts[i]));
-                    if (concept === undefined || concept === null) {
-                        notExistingConcepts.push(hideRulesForConcepts[i]);
-                    }
-                }
-            }
+            var notExistingConcepts = _.chain(hideRulesForConcepts)
+                .filter(function(cname) {
+                    return !_.isObject(report.getConcept(report.alignConceptPrefix(cname)));
+                })
+                .value();
             if (notExistingConcepts.length === 1) {
                 rule.HideRulesForConceptsErr = 'The concept "' + notExistingConcepts[0] + '" does not exist.';
                 rule.valid = false;
@@ -925,15 +874,11 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 rule.ValidatedConceptsErr = 'Validated Concept is mandatory.';
                 rule.valid = false;
             } else {
-                var notExistingConcepts = [];
-                for (var i in validatedConcepts) {
-                    if (validatedConcepts.hasOwnProperty(i)) {
-                        var concept = report.getConcept(report.alignConceptPrefix(validatedConcepts[i]));
-                        if (concept === undefined || concept === null) {
-                            notExistingConcepts.push(validatedConcepts[i]);
-                        }
-                    }
-                }
+                var notExistingConcepts = _.chain(validatedConcepts)
+                    .filter(function(cname) {
+                        return !_.isObject(report.getConcept(report.alignConceptPrefix(cname)));
+                    })
+                    .value();
                 if (notExistingConcepts.length === 1) {
                     rule.ValidatedConceptsErr = 'The validated concept "' + notExistingConcepts[0] + '" does not exist.';
                     rule.valid = false;
@@ -962,16 +907,11 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 alternative.SourceFactErr = 'Source Fact is mandatory (general characteristics - e.g. credit or debit - will be copied from this fact).';
                 alternative.valid = false;
             } else {
-                var notExistingConcepts = [];
-                // multiple source facts are not supported, this is for future compatibility
-                for (var i in sourceFact) {
-                    if (sourceFact.hasOwnProperty(i)) {
-                        var concept = report.getConcept(report.alignConceptPrefix(sourceFact[i]));
-                        if (concept === undefined || concept === null) {
-                            notExistingConcepts.push(sourceFact[i]);
-                        }
-                    }
-                }
+                var notExistingConcepts = _.chain(sourceFact)
+                    .filter(function(cname) {
+                        return !_.isObject(report.getConcept(report.alignConceptPrefix(cname)));
+                    })
+                    .value();
                 if (notExistingConcepts.length === 1) {
                     alternative.SourceFactErr = 'The source concept "' + notExistingConcepts[0] + '" does not exist.';
                     alternative.valid = false;
@@ -981,11 +921,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 } else {
                     delete alternative.SourceFactErr;
                 }
-                if (alternative.SourceFactErr === undefined && alternative.BodyErr === undefined && alternative.PrereqErr === undefined) {
-                    alternative.valid = true;
-                } else {
-                    alternative.valid = false;
-                }
+                alternative.valid = (alternative.SourceFactErr === undefined && alternative.BodyErr === undefined && alternative.PrereqErr === undefined);
             }
         };
 
@@ -996,18 +932,15 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 rule.FormulaeErr = 'At least one alternative code section is mandatory.';
                 rule.valid = false;
             } else {
-                for (var i in formulae) {
-                    if (formulae.hasOwnProperty(i)) {
-                        var alternative = formulae[i];
-                        validateAlternative(rule, alternative, report);
-                        if (alternative.active) {
-                            hasActive = true;
-                        }
-                        if (!alternative.valid) {
-                            rule.valid = false;
-                        }
+                _.each(formulae, function(alternative){
+                    validateAlternative(rule, alternative, report);
+                    if (alternative.active) {
+                        hasActive = true;
                     }
-                }
+                    if (!alternative.valid) {
+                        rule.valid = false;
+                    }
+                });
                 if (!hasActive) {
                     formulae[0].active = true;
                 }
@@ -1045,29 +978,21 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             var name = item.Name; //variable
             var value = item.Value; //atomic
             var children = item.Children;
-            if (type === undefined || type === null || typeof type !== 'string') {
+            if (!_.isString(type)) {
                 throw new Error('Not a valid object in AST (expected object to have field "Type"): ' + JSON.stringify(item) + '.');
             }
-            if (name !== undefined && typeof name === 'string') {
-                if (value !== undefined && typeof value === 'string') {
-                    throw new Error('Not a valid object in AST (object contains fields "Name" and "Value"): ' + JSON.stringify(item) + '.');
-                }
+            if (_.isString(name) && _.isString(value)) {
+                throw new Error('Not a valid object in AST (object contains fields "Name" and "Value"): ' + JSON.stringify(item) + '.');
             }
-            if (value !== undefined && typeof value === 'string') {
-                if (children !== undefined && typeof children === 'object') {
-                    throw new Error('Not a valid object in AST (object contains fields "Value" and "Children"): ' + JSON.stringify(item) + '.');
-                }
+            if (_.isString(value) && _.isArray(children)) {
+                throw new Error('Not a valid object in AST (object contains fields "Value" and "Children"): ' + JSON.stringify(item) + '.');
             }
-            if (children !== undefined && children !== null && children.length === undefined) {
+            if (children !== undefined && !_.isArray(children)) {
                 throw new Error('Not a valid object in AST (children not array): ' + JSON.stringify(item) + '.');
             }
-            if (children !== undefined && children !== null && children.length !== undefined && children.length > 0) {
-                for (var i in children) {
-                    if (children.hasOwnProperty(i)) {
-                        validateASTItem(children[i]);
-                    }
-                }
-            }
+            _.each(children, function(child){
+                validateASTItem(child);
+            });
         };
 
         // test whether auto generated AST is valid
@@ -1076,13 +1001,10 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             if (formulae === undefined || formulae === null || formulae[0] === '' || formulae.length === 0) {
                 return true;
             } else {
-                for (var i in formulae) {
-                    if (formulae.hasOwnProperty(i)) {
-                        var alternative = formulae[i];
-                        validateASTItem(alternative.Prereq);
-                        validateASTItem(alternative.Body);
-                    }
-                }
+                _.each(formulae, function(alternative){
+                    validateASTItem(alternative.Prereq);
+                    validateASTItem(alternative.Body);
+                });
             }
             return true;
         };
@@ -1118,20 +1040,15 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             if (model.ValidatedConcepts !== undefined) {
                 rule.ValidatedConcepts = report.alignConceptPrefixes(model.ValidatedConcepts);
             }
-            if (model.Formulae !== undefined && model.Formulae !== null && typeof model.Formulae === 'object') {
-                var formulae = [];
-                angular.forEach(model.Formulae,
-                    function (formula) {
-                        formulae.push(
-                            {
+            if (_.isArray(model.Formulae)) {
+                rule.Formulae =
+                    _.map(model.Formulae, function (formula) {
+                        return {
                                 'PrereqSrc': formula.PrereqSrc,
                                 'SourceFact': formula.SourceFact,
                                 'BodySrc': formula.BodySrc
-                            }
-                        );
-                    }
-                );
-                rule.Formulae = formulae;
+                            };
+                    });
             }
             rule.AllowCrossPeriod = model.AllowCrossPeriod;
             rule.AllowCrossBalance = model.AllowCrossBalance;
