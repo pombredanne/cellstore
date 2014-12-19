@@ -6,7 +6,6 @@ var $ = require('gulp-load-plugins')();
 var _ = require('lodash');
 var Q = require('q');
 var AWS = require('aws-sdk');
-var awspublish = require('gulp-awspublish');
 var parallelize = require('concurrent-transform');
 
 var Config = require('./config');
@@ -23,9 +22,10 @@ var init = function() {
         accessKeyId: key,
         secretAccessKey: secret,
         region: region,
-        bucket: bucketName
+        bucket: bucketName,
+        endpoint: new AWS.Endpoint('http://s3.amazonaws.com')
     };
-    publisher = awspublish.create({
+    publisher = $.awspublish.create({
         key: key,
         secret: secret,
         bucket: bucketName
@@ -164,9 +164,9 @@ gulp.task('s3-setup', function() {
         .then(function(){
             var defered = Q.defer();
             gulp.src('dist/**/*')
-                    .pipe(awspublish.gzip())
+                    .pipe($.awspublish.gzip())
                     .pipe(parallelize(publisher.publish(), 10))
-                    .pipe(awspublish.reporter())
+                    .pipe($.awspublish.reporter())
                     .on('error', defered.reject)
                     .on('end', defered.resolve);
             return defered.promise;
@@ -178,9 +178,9 @@ gulp.task('s3-setup', function() {
         });
     } else {
         return gulp.src('dist/**/*')
-            .pipe(awspublish.gzip())
+            .pipe($.awspublish.gzip())
             .pipe(parallelize(publisher.publish(), 10))
-            .pipe(awspublish.reporter());
+            .pipe($.awspublish.reporter());
     }
 });
 
