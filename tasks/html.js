@@ -2,18 +2,22 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var sass = require('gulp-ruby-sass');
 
 var Config = require('./config');
 
-gulp.task('less', function () {
-  return gulp.src('app/styles/index.less')
-    .pipe($.less({
-      paths: [ ]
-    }))
-    .pipe(gulp.dest('app/styles'));
+gulp.task('sass', function () {
+    return gulp.src('./app/styles/index.scss')
+            .pipe(sass({ loadPath: '.' }))
+            .pipe(gulp.dest('./app/styles/'))
+            .pipe($.minifyCss({
+                keepSpecialComments: 0
+            }))
+            .pipe($.rename({ extname: '.min.css' }))
+            .pipe(gulp.dest('./app/styles/'));
 });
 
-gulp.task('html', ['less'], function () {
+gulp.task('html', ['sass'], function () {
     var assets = $.useref.assets({ searchPath: '{' + Config.paths.app + ',' + Config.paths.tmp + '}' });
     return gulp.src(Config.paths.index)
         .pipe(assets)

@@ -7,7 +7,7 @@
     }
 }
 .angular-ui-tree-empty {
-    border: 2px dashed @clouds;
+    border: 2px dashed $clouds;
     min-height: 100px;
 }
 
@@ -55,26 +55,26 @@
     box-sizing: border-box;
     min-height: 30px;
     line-height: 30px;
-    
-    //background: @clouds;
-    border-bottom: 1px solid @clouds;
-    color: @concrete;
-    
+
+    //background: $clouds;
+    border-bottom: 1px solid $clouds;
+    color: $concrete;
+
     .btn {
         height: 30px;
         width: 30px;
         line-height: 30px;
     }
-    
+
     &.active {
-        color: @brand-primary;
-        background: @clouds;
+        color: $brand-primary;
+        background: $clouds;
         cursor: move;
     }
 
     &.active-no-drag {
-      color: @brand-primary;
-      background: @clouds;
+      color: $brand-primary;
+      background: $clouds;
     }
 
     &.notactive:hover {
@@ -88,15 +88,15 @@
         padding-left: 5px;
         padding-right: 5px;
     }
-    
+
     .element-name-lg {
         width: 100%;
     }
-    
+
     .element-name {
         width: calc(~"100% - 31px");
     }
-    
+
     .element-name-xs {
         width: calc(~"100% - 62px");
     }

@@ -1,25 +1,25 @@
-@import "bootstrap.less";
-@import "flexbox.less";
-@import "ng-progress-lite.less";
-@import "flexy-layout.less";
-@import "api-scheduler-status.less";
+@import "bootstrap";
+@import "flexbox";
+@import "ng-progress-lite";
+@import "flexy-layout";
+@import "api-scheduler-status";
 
-@import "../modules/ui/formula-editor.less";
-@import "../modules/ui/formula-list.less";
+@import "../modules/ui/formula-editor";
+@import "../modules/ui/formula-list";
 
-@import "../auth/auth.less";
-@import "../reports/reports.less";
-@import "../report/report.less";
-@import "../report/taxonomy/taxonomy.less";
-@import "../report/taxonomy/concept/concept.less";
-@import "../report/taxonomy/concept/overview/overview.less";
-@import "../report/spreadsheet/spreadsheet.less";
-@import "../report/facts/facts.less";
-@import "../report/filters/filters.less";
+@import "../auth/auth";
+@import "../reports/reports";
+@import "../report/report";
+@import "../report/taxonomy/taxonomy";
+@import "../report/taxonomy/concept/concept";
+@import "../report/taxonomy/concept/overview/overview";
+@import "../report/spreadsheet/spreadsheet";
+@import "../report/facts/facts";
+@import "../report/filters/filters";
 
 .disabled {
     cursor: not-allowed;
-    
+
     a {
         pointer-events: none;
     }
@@ -27,7 +27,7 @@
 
 a {
     cursor: pointer;
-    
+
     &[disabled] {
         pointer-events: none;
     }
@@ -38,13 +38,14 @@ section {
 }
 
 //std margin, padding, bg
-.std-padding {
-    padding: 20px;    
+@mixin std-padding() {
+    padding: 20px;
 }
 
-.no-top-padding {
-    padding-top: 0;   
+@mixin no-top-padding() {
+    padding-top: 0;
 }
+
 .std-top-padding {
     padding-top: 20px;
 }
@@ -67,21 +68,21 @@ section {
     padding-bottom: 20px;
     padding-top: 20px;
     margin-bottom: 20px;
-    border-bottom: 1px solid @clouds;
+    border-bottom: 1px solid $clouds;
     font-weight: 300;
 }
 
 .bg-primary {
-    background-color: @brand-primary;
+    background-color: $brand-primary;
     &:hover {
-        background-color: @brand-primary !important;
+        background-color: $brand-primary !important;
     }
 }
 
 .bg-danger {
-    background-color: @brand-danger;
+    background-color: $brand-danger;
     &:hover {
-        background-color: @brand-danger !important;
+        background-color: $brand-danger !important;
     }
 }
 
@@ -101,7 +102,7 @@ label {
 .navbar-brand {
     color: white !important;
     font-weight: 100;
-    
+
     a {
         color: white;
         &:hover {
@@ -113,11 +114,11 @@ label {
 
 //Modals
 .modal-header {
-    background-color: @brand-primary;
+    background-color: $brand-primary;
     color: white;
 
     &.modal-header-danger {
-        background-color: @brand-danger;
+        background-color: $brand-danger;
     }
 }
 
@@ -135,33 +136,33 @@ label {
 
 //Full screen mode
 .scrollable {
-    .flex-grow(1);
+    @include flex-grow(1);
     overflow: auto;
 }
 
-.viewport{
+@mixin viewport(){
     height: 100%;
     width: 100%;
     overflow: hidden;
-    .flex-display;
-    .flex-grow(1);
+    @include flex-display();
+    @include flex-grow(1);
 }
 
 .content { padding:15px }
 
 
 html {
-    .viewport;
+    @include viewport();
 
     body {
-        .viewport();
-    
+        @include viewport();
+
         div[ui-view] {
-            .viewport;
+            @include viewport();
             >div {
-                .viewport;
+                @include viewport();
             }
-        }   
+        }
     }
 }
 
@@ -182,17 +183,17 @@ html {
 .nav-pills {
 
     li {
-        border: 1px solid @clouds;
-        
+        border: 1px solid $clouds;
+
         &.active {
-            border: 1px solid @brand-primary;
+            border: 1px solid $brand-primary;
         }
-        
+
         >a {
-            color: @text-color;
-            
+            color: $text-color;
+
             &:hover {
-                background-color: lighten(@clouds, 3%);
+                background-color: lighten($clouds, 3%);
             }
         }
     }

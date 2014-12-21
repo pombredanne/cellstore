@@ -1,5 +1,5 @@
 formula-editor {
-  .flex-display;
+  @include flex-display();
 }
 
 #formula-editor {
