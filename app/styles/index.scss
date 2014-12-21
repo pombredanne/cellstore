@@ -38,11 +38,11 @@ section {
 }
 
 //std margin, padding, bg
-@mixin std-padding() {
+.std-padding {
     padding: 20px;
 }
 
-@mixin no-top-padding() {
+.no-top-padding {
     padding-top: 0;
 }
 

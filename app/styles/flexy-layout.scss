@@ -58,6 +58,6 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    //@include std-padding();
-    //@include no-top-padding();
+    padding: 20px;
+    padding-top: 0;
 }
