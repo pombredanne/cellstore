@@ -28,32 +28,26 @@ $silver:        #bdc3c7;
 $concrete:      #95a5a6;
 $asbestos:      #7f8c8d;
 
-$default-transition-time: 500ms linear;
-$golden-ratio: 1.61803398875;
-
 //
 // Variables
 // --------------------------------------------------
-$std-space: 15px;
+
 
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
 
-$gray-darker:            lighten(#000, 13.5%);//$wet-asphalt;//lighten(#000, 13.5%); // #222
-$gray-dark:              lighten(#000, 20%); //$wet-asphalt;//lighten(#000, 20%);   // #333
-$gray:                   $asbestos;//lighten(#000, 33.5%); // #555
-$gray-light:             $concrete;//lighten(#000, 60%);   // #999
-$gray-lighter:           $clouds; //lighten(#000, 93.5%); // #eee
+$gray-darker:            lighten(#000, 13.5%); // #222
+$gray-dark:              lighten(#000, 20%);   // #333
+$gray:                   lighten(#000, 33.5%); // #555
+$gray-light:             lighten(#000, 60%);   // #999
+$gray-lighter:           lighten(#000, 93.5%); // #eee
 
-$brand-primary:         $peter-river;
-$brand-success:         $nephritis;
-$brand-info:            $peter-river;
-$brand-warning:         $sun-flower;
-$brand-danger:          $pomegranate;
-
-$brand-primary-dark: darken($brand-primary, 10%);
-$brand-primary-light: lighten($brand-primary, 10%);
+$brand-primary:         #428bca;
+$brand-success:         #5cb85c;
+$brand-info:            #5bc0de;
+$brand-warning:         #f0ad4e;
+$brand-danger:          #d9534f;
 
 
 //== Scaffolding
@@ -69,20 +63,18 @@ $text-color:            $gray-dark;
 $link-color:            $brand-primary;
 //** Link hover color set via `darken()` function.
 $link-hover-color:      darken($link-color, 15%);
-//** Link hover decoration.
 $link-hover-decoration: underline;
-
 
 //== Typography
 //
 //## Font, line-height, and color for body text, headings, and more.
-$font-family-sans-serif:  'proxima-nova', 'Helvetica Neue', Helvetica,Arial, sans-serif;
+$font-family-sans-serif:  'proxima-nova', 'Helvetica Neue',Helvetica,Arial,sans-serif;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   'source-code-pro', 'Monaco', 'Menlo', 'Droid Sans Mono', 'Courier New', monospace;
 $font-family-base:        $font-family-sans-serif;
 
-$font-size-base:          16px;
+$font-size-base:          14px;
 $font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 
@@ -100,7 +92,7 @@ $line-height-computed:    floor(($font-size-base * $line-height-base)); // ~20px
 
 //** By default, this inherits from the `<body>`.
 $headings-font-family:    inherit;
-$headings-font-weight:    300;
+$headings-font-weight:    500;
 $headings-line-height:    1.1;
 $headings-color:          inherit;
 
@@ -132,9 +124,9 @@ $padding-xs-horizontal:     5px;
 $line-height-large:         1.33;
 $line-height-small:         1.5;
 
-$border-radius-base:        4px;
-$border-radius-large:       6px;
-$border-radius-small:       3px;
+$border-radius-base:        0;//4px;
+$border-radius-large:       0;//6px;
+$border-radius-small:       0;//3px;
 
 //** Global color for active items (e.g., navs or dropdowns).
 $component-active-color:    #fff;
@@ -213,7 +205,7 @@ $input-bg-disabled:              $gray-lighter;
 //** Text color for `<input>`s
 $input-color:                    $gray;
 //** `<input>` border color
-$input-border:                   $gray-lighter;
+$input-border:                   #ccc;
 //** `<input>` border radius
 $input-border-radius:            $border-radius-base;
 //** Large `.form-control` border radius
@@ -221,7 +213,7 @@ $input-border-radius-large:      $border-radius-large;
 //** Small `.form-control` border radius
 $input-border-radius-small:      $border-radius-small;
 //** Border color for inputs on focus
-$input-border-focus:             $brand-primary;
+$input-border-focus:             #66afe9;
 
 //** Placeholder text color
 $input-color-placeholder:        $gray-light;
@@ -291,6 +283,7 @@ $zindex-dropdown:          1000;
 $zindex-popover:           1060;
 $zindex-tooltip:           1070;
 $zindex-navbar-fixed:      1030;
+//$zindex-modal-background:  1040;
 $zindex-modal:             1040;
 
 
@@ -375,15 +368,15 @@ $navbar-padding-horizontal:        floor(($grid-gutter-width / 2));
 $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2);
 $navbar-collapse-max-height:       340px;
 
-$navbar-default-color:             $text-color;
-$navbar-default-bg:                white;
+$navbar-default-color:             white;
+$navbar-default-bg:                $brand-primary;
 $navbar-default-border:            $navbar-default-bg;//darken($navbar-default-bg, 6.5%);
 
 // Navbar links
-$navbar-default-link-color:                $gray-light;//darken(white, 5%);
-$navbar-default-link-hover-color:          $brand-primary;//darken(white, 5%);
+$navbar-default-link-color:                darken(white, 5%);
+$navbar-default-link-hover-color:          white;//darken(white, 5%);
 $navbar-default-link-hover-bg:             transparent;
-$navbar-default-link-active-color:         $brand-primary;//white;
+$navbar-default-link-active-color:         white;
 $navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%);
 $navbar-default-link-disabled-color:       #ccc;
 $navbar-default-link-disabled-bg:          transparent;
@@ -451,7 +444,7 @@ $nav-tabs-justified-link-border-color:            #ddd;
 $nav-tabs-justified-active-link-border-color:     $body-bg;
 
 //== Pills
-$nav-pills-border-radius:                   0;//$border-radius-base;
+$nav-pills-border-radius:                   $border-radius-base;
 $nav-pills-active-link-hover-bg:            $component-active-bg;
 $nav-pills-active-link-hover-color:         $component-active-color;
 
@@ -497,11 +490,11 @@ $pager-disabled-color:                 $pagination-disabled-color;
 //
 //##
 
-$jumbotron-padding:              0;
-$jumbotron-color:                white;
-$jumbotron-bg:                   $brand-primary;
+$jumbotron-padding:              30px;
+$jumbotron-color:                inherit;
+$jumbotron-bg:                   $gray-lighter;
 $jumbotron-heading-color:        inherit;
-$jumbotron-font-size:            ceil(($font-size-base * 1.61));
+$jumbotron-font-size:            ceil(($font-size-base * 1.5));
 
 
 //== Form states and alerts
@@ -686,16 +679,17 @@ $list-group-border:             #ddd;
 //** List group border radius
 $list-group-border-radius:      $border-radius-base;
 
-//** Background color of single list items on hover
+//** Background color of single list elements on hover
 $list-group-hover-bg:           #f5f5f5;
-//** Text color of active list items
+//** Text color of active list elements
 $list-group-active-color:       $component-active-color;
-//** Background color of active list items
+//** Background color of active list elements
 $list-group-active-bg:          $component-active-bg;
 //** Border color of active list elements
 $list-group-active-border:      $list-group-active-bg;
-//** Text color for content within active list items
 $list-group-active-text-color:  lighten($list-group-active-bg, 40%);
+
+$list-group-link-color:         #555;
 
 //** Text color of disabled list items
 $list-group-disabled-color:      $gray-light;
@@ -715,6 +709,7 @@ $list-group-link-heading-color: #333;
 
 $panel-bg:                    #fff;
 $panel-body-padding:          15px;
+
 $panel-heading-padding:       10px 15px;
 $panel-footer-padding:        $panel-heading-padding;
 $panel-border-radius:         $border-radius-base;
@@ -801,9 +796,9 @@ $badge-border-radius:         10px;
 $breadcrumb-padding-vertical:   8px;
 $breadcrumb-padding-horizontal: 15px;
 //** Breadcrumb background color
-$breadcrumb-bg:                 $gray-lighter;
+$breadcrumb-bg:                 #f5f5f5;
 //** Breadcrumb text color
-$breadcrumb-color:              $gray-light;
+$breadcrumb-color:              #ccc;
 //** Text color of current page in the breadcrumb
 $breadcrumb-active-color:       $gray-light;
 //** Textual separator for between breadcrumb elements
@@ -840,15 +835,15 @@ $close-text-shadow:           0 1px 0 #fff;
 //
 //##
 
-$code-color:                  $text-color;
-$code-bg:                     $gray-lighter;
+$code-color:                  #c7254e;
+$code-bg:                     #f9f2f4;
 
 $kbd-color:                   #fff;
 $kbd-bg:                      #333;
 
-$pre-bg:                      $gray-lighter;
-$pre-color:                   $text-color;
-$pre-border-color:            $gray-lighter;
+$pre-bg:                      #f5f5f5;
+$pre-color:                   $gray-dark;
+$pre-border-color:            #ccc;
 $pre-scrollable-max-height:   340px;
 
 
@@ -856,8 +851,8 @@ $pre-scrollable-max-height:   340px;
 //
 //##
 
-//** Text muted color
 $component-offset-horizontal: 180px;
+//** Text muted color
 $text-muted:                  $gray-light;
 //** Abbreviations and acronyms border color
 $abbr-border-color:           $gray-light;
