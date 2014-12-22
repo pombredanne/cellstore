@@ -1,5 +1,5 @@
 @import "bootstrap";
-@import "flexbox";
+@import "bower_components/sass-flex-mixin/flex";
 @import "ng-progress-lite";
 @import "flexy-layout";
 @import "api-scheduler-status";
@@ -144,7 +144,8 @@ label {
     height: 100%;
     width: 100%;
     overflow: hidden;
-    @include flex-display();
+    @include flexbox;
+    @include flex-direction(column);
     @include flex-grow(1);
 }
 
