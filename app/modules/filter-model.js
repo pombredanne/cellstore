@@ -146,31 +146,31 @@ angular
             }
 
             function setSics(lSics){
-                if(lSics !== undefined && lSics !== null && typeof lSics === 'object' && lSics.length !== undefined) {
+                if(_.isArray(lSics)) {
                     sics = lSics;
                 }
             }
 
             function setEntities(lEntities){
-                if(lEntities !== undefined && lEntities !== null && typeof lEntities === 'object' && lEntities.length !== undefined) {
+                if(_.isArray(lEntities)) {
                     entities = lEntities;
                 }
             }
 
             function setYears(lYears){
-                if(lYears !== undefined && lYears !== null && typeof lYears === 'object' && lYears.length !== undefined) {
+                if(_.isArray(lYears)) {
                     years = lYears;
                 }
             }
 
             function setPeriods(lPeriods){
-                if(lPeriods !== undefined && lPeriods !== null && typeof lPeriods === 'object' && lPeriods.length !== undefined) {
+                if(_.isArray(lPeriods)) {
                     periods = lPeriods;
                 }
             }
 
             function setTags(lTags){
-                if(lTags !== undefined && lTags !== null && typeof lTags === 'object' && lTags.length !== undefined) {
+                if(_.isArray(lTags)) {
                     tags = lTags;
                 }
             }
@@ -370,7 +370,7 @@ angular
                         getAspects()
                             .then(
                                 function (aspects) {
-                                    if (report !== undefined && typeof report === 'object') {
+                                    if (_.isObject(report)) {
                                         report.updateAspects(aspects);
                                     }
                                 }

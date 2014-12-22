@@ -173,7 +173,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
 
         Rule.prototype.getPrefix = function () {
             var prefix;
-            if (this.report !== undefined && this.report !== null && typeof this.report === 'object') {
+            if (_.isObject(this.report)) {
                 prefix = this.report.getPrefix();
             }
             if (this.report === undefined || prefix === undefined || prefix === null || prefix === '') {
@@ -360,7 +360,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
         // computation is the jsoniq code part that creates the audit trail of the new
         // fact
         var toAuditTrail = function (ast) {
-            if (ast !== undefined && ast !== null && typeof ast === 'object') {
+            if (_.isObject(ast)) {
                 var type = ast.Type;
                 var children = ast.Children;
                 var value = ast.Value;
@@ -950,7 +950,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             var report = this.report;
             var rule = this.getModel();
 
-            if (rule !== undefined && rule !== null && typeof rule === 'object') {
+            if (_.isObject(rule)) {
                 var type = rule.Type;
                 rule.valid = true;
                 validateId(rule, report, action);
@@ -1009,7 +1009,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
         };
 
         Rule.prototype.isValid = function () {
-            if (this.model === undefined || this.model === null || typeof this.model !== 'object') {
+            if (this.model === undefined || this.model === null || !_.isObject(this.model)) {
                 return false;
             }
             if (this.model.valid === undefined) {

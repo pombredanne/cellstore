@@ -15,7 +15,7 @@ angular
         }
     };
 })
-.controller('TaxonomyCtrl', function($scope, $state){
+.controller('TaxonomyCtrl', function(_, $scope, $state){
 
     $scope.treeOptions = {
         accept: function(sourceNodeScope, destNodesScope){
@@ -65,13 +65,13 @@ angular
             var order1 = elem1.Order;
             if(order1 === undefined || order1 === null){
                 order1 = 1;
-            } else if(typeof order1 !== 'number'){
+            } else if(!_.isNumber(order1)){
                 order1 = parseInt(order1, 10);
             }
             var order2 = elem2.Order;
             if(order2 === undefined || order2 === null){
                 order2 = 1;
-            } else if(typeof order2 !== 'number'){
+            } else if(!_.isNumber(order2)){
                 order2 = parseInt(order2, 10);
             }
             if (order1 < order2){

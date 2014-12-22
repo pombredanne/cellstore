@@ -154,7 +154,7 @@ angular
     AbstractReport.prototype.getPrefix = function(){
         var model = this.getModel();
         ensureExists(model, 'object', 'getPrefix', 'Report doesn\'t have a model.');
-        if(model.Prefix !== undefined && model.Prefix !== null && typeof model.Prefix === 'string'){
+        if(_.isString(model.Prefix)){
             return model.Prefix;
         }
 
@@ -197,25 +197,24 @@ angular
         }
 
         var model = this.getModel();
-        var concept =
-            {
-                'Name': name,
-                'Label': label,
-                'IsAbstract': abstract
-                /* still to be implemented:
-                'IsNillable': false,
-                'PeriodType': duration,
-                'SubstitutionGroup': 'xbrl:item',
-                'DataType' : 'nonnum:textBlockItemType',
-                'BaseType' : 'xs:string',
-                'ClosestSchemaBuiltinType' : 'xs:string',
-                'IsTextBlock' : true
-                */
-            };
         model.Hypercubes['xbrl:DefaultHypercube']
             .Aspects['xbrl:Concept']
             .Domains['xbrl:ConceptDomain']
-            .Members[name] = concept;
+            .Members[name] =
+                {
+                    'Name': name,
+                    'Label': label,
+                    'IsAbstract': abstract
+                    /* still to be implemented:
+                    'IsNillable': false,
+                    'PeriodType': duration,
+                    'SubstitutionGroup': 'xbrl:item',
+                    'DataType' : 'nonnum:textBlockItemType',
+                    'BaseType' : 'xs:string',
+                    'ClosestSchemaBuiltinType' : 'xs:string',
+                    'IsTextBlock' : true
+                    */
+                };
     };
 
     AbstractReport.prototype.updateConcept = function(oname, label, abstract) {
@@ -229,12 +228,13 @@ angular
         }
 
         var concept = this.getConcept(name);
+        var that = this;
         if(concept.IsAbstract !== abstract && !abstract) {
             // a concept can only be non-abstract if it has no children in presentation
             var elementIds = this.findInTree('Presentation', name);
             _.each(elementIds, function(id){
-                var element = this.getElementFromTree('Presentation', id);
-                if (typeof element.To === 'object' && element.To !== null && Object.keys(element.To).length > 0) {
+                var element = that.getElementFromTree('Presentation', id);
+                if (_.isObject(element.To) && Object.keys(element.To).length > 0) {
                     throw new Error('updateConcept: cannot make concept with name "' + name + '" non-abstract because it exists with children in the presentation tree.');
                 }
             });
@@ -475,10 +475,9 @@ angular
         var conceptName = this.alignConceptPrefix(oconceptName);
         ensureConceptName(conceptName, 'oconceptName', 'findInTrees');
 
-        var result = {
+        return {
             Presentation: this.findInTree('Presentation', conceptName)
         };
-        return result;
     };
 
     AbstractReport.prototype.findInTree = function(networkShortName, oconceptName) {
@@ -536,13 +535,13 @@ angular
             var order1 = elem1.Order;
             if(order1 === undefined || order1 === null){
                 order1 = 1;
-            } else if(typeof order1 !== 'number'){
+            } else if(!_.isNumber(order1)){
                 order1 = parseInt(order1, 10);
             }
             var order2 = elem2.Order;
             if(order2 === undefined || order2 === null){
                 order2 = 1;
-            } else if(typeof order2 !== 'number'){
+            } else if(!_.isNumber(order2)){
                 order2 = parseInt(order2, 10);
             }
             if (order1 < order2){
@@ -636,13 +635,12 @@ angular
             ensureParameter(order, 'order', 'number', 'createNewElement');
             _order = order;
         }
-        var element = {
+        return {
             Id: new ReportID().toString(),
             Name : concept.Name,
             Label : concept.Label,
             Order : _order
         };
-        return element;
     };
 
     var getMaxOrder = function(report, networkShortName, parentElementID){
@@ -723,9 +721,9 @@ angular
         ensureNetworkShortName(networkShortName, 'networkShortName', 'getRootElement');
         var rootElem;
         var network = this.getNetwork('Presentation');
-        if (network !== undefined && network.Trees !== undefined && network.Trees.length !== undefined && network.Trees.length > 0) {
+        if (_.isObject(network) && _.isArray(network.Trees) && network.Trees.length > 0) {
             rootElem = network.Trees[0];
-        } else if (network !== undefined && network.Trees !== undefined && typeof network.Trees === 'object' && network.Trees !== null && Object.keys(network.Trees).length > 0) {
+        } else if (_.isObject(network) && _.isObject(network.Trees) && Object.keys(network.Trees).length > 0) {
             rootElem = network.Trees[Object.keys(network.Trees)[0]];
         }
         return rootElem;
@@ -970,7 +968,7 @@ angular
 
         _.each(network.Trees, function(map){
             var to = map.To;
-            if(to !== null && to !== undefined && to[conceptName] !== null && typeof to[conceptName] === 'object') {
+            if(to !== null && to !== undefined && _.isObject(to[conceptName])) {
                 result.SynonymOf.push(map.Name);
             } else if (map.Name === conceptName){
                 result.Maps.push(map.Name);
