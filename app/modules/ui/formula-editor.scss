@@ -1,5 +1,6 @@
 formula-editor {
-  @include flex-display();
+  @include flexbox;
+  @include flex-direction(column);
 }
 
 #formula-editor {
