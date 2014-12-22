@@ -528,7 +528,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     result.push('let $facts := $facts[$$.$facts:ASPECTS.$facts:PERIOD = ($duration-string, $aligned-period)]');
                     result.push('let $warnings as string* := ()');
                     _.each(variables, function(v){
-                        var v = variables[x];
                         result.push('let $' + v.Name + ' as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq "' + v.Concept + '"]');
                         result.push('let $warnings := ($warnings, if(count($' + v.Name + ') gt 1)');
                         result.push('                             then if(count(distinct-values($' + v.Name + '.Value)) gt 1)');
