@@ -19,10 +19,10 @@ ul.selector {
   padding: 3px 0px;
   margin: 0;
   list-style: none;
-  border: 1px solid @clouds;
+  border: 1px solid $clouds;
   background: white;
   border-radius: 3px;
-  .box-sizing(border-box);
+  @include box-sizing(border-box);
   overflow-x: hidden;
 
   li {
@@ -31,12 +31,12 @@ ul.selector {
     padding: 1px 5px;
 
     &.selected {
-      background: @brand-primary;
+      background: $brand-primary;
       color: white;
     }
 
     &.disabled {
-      color: @silver;
+      color: $silver;
 
       &:after {
         float: right;

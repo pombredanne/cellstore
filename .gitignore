@@ -8,6 +8,7 @@ app/modules/*-api.js
 app/modules/formula-parser.js
 app/constants.js
 app/styles/*.css
+app/styles/index.css.map
 .DS_Store
 *~
 *.swp
