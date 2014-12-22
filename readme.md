@@ -4,7 +4,9 @@
 In traditional data warehousing, it takes months for the IT department to build a single hypercube. 
 With the CellStore, it takes minutes for the business users to build an infinite number of hypercubes.
 
-Built on top of http://28.io.
+The CellStore is entirely written in JSONiq.
+
+The CellStore is hosted on [28.io](http://www.28.io). The deployment can be easily customized to deploy on your own [28.io](http://www.28.io) account.
 
 ## Demo
 A CellStore with all SEC filings since 2010 is available at http://secxbrl.info.
