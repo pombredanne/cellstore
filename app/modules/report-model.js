@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-.module('report-model', [])
+.module('report-model', ['lodash'])
 .factory('ConceptIsStillReferencedError', function(){
     var ConceptIsStillReferencedError = function(message, references) {
         this.name = 'ConceptIsStillReferencedError';
@@ -48,17 +48,16 @@ angular
     var AbstractReport = function(){};
 
     AbstractReport.prototype.super = function(modelOrName, label, description, role, username, prefix){
-        if (typeof modelOrName !== 'object' &&
-                   typeof modelOrName !== 'string' &&
+        if (!_.isObject(modelOrName) && !_.isString(modelOrName) &&
                    modelOrName !== undefined &&
                    modelOrName !== null) {
             throw new Error('new Report creation with invalid type ' + typeof modelOrName);
-        } else if (typeof modelOrName === 'object') {
+        } else if (_.isObject(modelOrName)) {
             if(modelOrName._id === undefined){
                 modelOrName._id = this.uuid();
             }
             this.model = modelOrName;
-        } else if (typeof modelOrName === 'string' ||
+        } else if (_.isString(modelOrName) ||
                    modelOrName === undefined ||
                    modelOrName === null){
             ensureParameter(label, 'label', 'string', 'Report (Constructor)');
@@ -370,10 +369,7 @@ angular
         ensureConceptName(conceptName, 'oconceptName', 'existsConcept');
 
         var concept = this.getConcept(conceptName);
-        if(concept !== null && typeof concept === 'object') {
-            return true;
-        }
-        return false;
+        return _.isObject(concept);
     };
 
     AbstractReport.prototype.getConcept = function(oconceptName) {
@@ -382,7 +378,7 @@ angular
 
         var model = this.getModel();
         if(model === null || model === undefined) {
-            return null;
+            return;
         }
 
         var concept =
@@ -392,7 +388,7 @@ angular
               .Members[conceptName];
 
         if(concept === null || concept === undefined) {
-            return null;
+            return;
         }
         return concept;
     };
@@ -428,16 +424,16 @@ angular
         ensureNetworkShortName(networkShortName, 'networkShortName', 'getNetwork');
 
         var model = this.getModel();
-        if(model === null || model === undefined) {
-            return null;
+        if(!_.isObject(model)) {
+            return;
         }
 
         var networks = model.Networks;
-        if(networks === null || networks === undefined) {
-            return null;
+        if(!_.isArray(networks)) {
+            return;
         }
 
-        _.find(networks, function(network){
+        return _.find(networks, function(network){
             return network.ShortName === networkShortName;
         });
     };
@@ -462,7 +458,7 @@ angular
         if(subtree.Name === conceptName){
             result.push(subtree.Id);
         }
-        _.chain(subtree.To)
+        return _.chain(subtree.To)
             .map(function(child){
                 return that.findInSubTree(conceptName, child);
             })
@@ -492,7 +488,7 @@ angular
 
         var that = this;
         var network = this.getNetwork(networkShortName);
-        _.chain(network.Trees)
+        return _.chain(network.Trees)
             .map(function(child){
                 return that.findInSubTree(conceptName, child);
             })
@@ -593,7 +589,7 @@ angular
                 parent = subtree;
             } else {
                 var childresult = getParentElementFromSubTree(elementID, child);
-                if(childresult !== null) {
+                if(childresult !== undefined) {
                     parent = childresult;
                 }
             }
@@ -609,7 +605,7 @@ angular
         var parent;
         _.each(network.Trees, function(child){
             var result = getParentElementFromSubTree(elementID, child);
-            if(result !== null) {
+            if(result !== undefined) {
                 parent = result;
             }
         });
@@ -652,6 +648,9 @@ angular
     var getMaxOrder = function(report, networkShortName, parentElementID){
         ensureNetworkShortName(networkShortName, 'networkShortName', 'getMaxOrder');
         var network = report.getNetwork(networkShortName);
+        if(!_.isObject(network)){
+            return 0;
+        }
         var children = network.Trees;
         if(parentElementID !== undefined && parentElementID !== null) {
             var parent = report.getElementFromTree(networkShortName, parentElementID);
@@ -1026,11 +1025,11 @@ angular
         ensureParameter(id, 'id', 'string', 'removeRule');
 
         var model = this.getModel();
-        if(model === null || model === undefined || model.Rules === null || model.Rules === undefined || model.Rules.length === 0) {
+        if(!_.isObject(model) || !_.isArray(model.Rules) || model.Rules.length === 0) {
             return;
         }
         _.each(model.Rules, function(rule, index){
-            if(rule.Id === id) {
+            if(!_.isObject(rule) || rule.Id === id) {
                 // remove rule from array
                 model.Rules.splice(index,1);
             }
@@ -1313,10 +1312,10 @@ angular
         if(!_.isString(rulesType)) {
             var result = [];
             var model = this.getModel();
-            if (!_.isObject(model) || _.isArray(model.Rules)) {
+            if (!_.isObject(model) || !_.isArray(model.Rules)) {
                 return result;
             }
-            if (concept !== undefined && concept !== null) {
+            if (_.isString(concept)) {
                 ensureParameter(concept, 'concept', 'string', 'listRules');
                 result = this.computableByRules(concept);
             } else {
@@ -1380,14 +1379,16 @@ angular
     };
 
     AbstractReport.prototype.hideDefaultConceptPrefixes = function(conceptsArray){
+        var that = this;
         return _.map(conceptsArray, function(ocname){
-            return this.hideDefaultConceptPrefix(ocname);
+            return that.hideDefaultConceptPrefix(ocname);
         });
     };
 
     AbstractReport.prototype.alignConceptPrefixes = function(conceptsArray){
+        var that = this;
         return _.map(conceptsArray, function(ocname){
-            return this.alignConceptPrefix(ocname);
+            return that.alignConceptPrefix(ocname);
         });
     };
 
