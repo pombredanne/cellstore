@@ -181,7 +181,7 @@ var runQueriesInParallel = function(projectName, queriesToRun) {
                 format: '',
                 token: projectToken
             }).then(function (data) {
-                $.util.log($.util.colors.gree('✓ ') + nextQuery + ' returned with status code: ' + data.response.statusCode);
+                $.util.log($.util.colors.green('✓ ') + nextQuery + ' returned with status code: ' + data.response.statusCode);
                 return credentials;
             }).catch(function (error) {
                 var requestUri = error.response.request.uri;
