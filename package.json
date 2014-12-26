@@ -6,7 +6,6 @@
     "28": "1.0.2",
     "aws-sdk": "^2.0.29",
     "browser-sync": "^1.7.1",
-    "colors": "^1.0.3",
     "concurrent-transform": "^1.0.0",
     "connect-modrewrite": "^0.7.9",
     "glob-expand": "0.0.2",
