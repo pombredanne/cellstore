@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
-    "28": "1.0.2",
+    "28": "1.0.3",
     "aws-sdk": "^2.0.29",
     "browser-sync": "^1.7.1",
     "concurrent-transform": "^1.0.0",
