@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
-    "28": "1.0.2",
+    "28": "1.0.3",
     "aws-sdk": "^2.0.29",
     "browser-sync": "^1.7.1",
     "concurrent-transform": "^1.0.0",
@@ -50,7 +50,7 @@
     "protractor-screenshot-reporter": "0.0.5",
     "q": "~1.0.1",
     "request": "~2.33.0",
-    "swagger-js-codegen": "^0.2.6"
+    "swagger-js-codegen": "0.3.1"
   },
   "engines": {
     "node": ">=0.8.0"
