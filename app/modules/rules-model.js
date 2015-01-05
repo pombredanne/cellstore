@@ -496,6 +496,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     this.model.Formulae !== undefined && this.model.Formulae !== null) {
 
                     var facts = getUniqueFacts(report, this.model);
+                    $log.log(facts);
                     var computedFactVariable;
                     if (computedConcept.indexOf(prefix + ':') === 0) {
                         computedFactVariable = report.hideDefaultConceptPrefix(computedConcept);

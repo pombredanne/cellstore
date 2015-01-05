@@ -1,0 +1,79 @@
+
+for $facts in facts:facts-for-internal((
+{{#UniqueFacts}}'{{.}}',{{/UniqueFacts}}()
+    ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)
+
+let $duration-period as object? := facts:duration-for-fact($facts, {Typed: false })
+let $instant-period as string?  := facts:instant-for-fact($facts, {Typed: false })
+let $aligned-period as string  := ( $duration-period.End, $instant-period, "forever")[1]
+
+group by $canonical-filter-string :=
+  facts:canonical-grouping-key($facts, ($facts:CONCEPT, $facts:UNIT {{#AllowCrossPeriod}}, $facts:PERIOD{{/AllowCrossPeriod}} ))
+  {{#AllowCrossPeriod}}, $aligned-period{{/AllowCrossPeriod}}
+
+
+for $duration-string as string? allowing empty in distinct-values($facts[$$.Concept.PeriodType eq "duration"].$facts:ASPECTS.$facts:PERIOD)
+let $facts := $facts[$$.$facts:ASPECTS.$facts:PERIOD = ($duration-string, $aligned-period)]
+let $warnings as string* := ()
+for (var x in variables) {
+if (variables.hasOwnProperty(x)) {
+var v = variables[x];
+let $' + v.Name + ' as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq "' + v.Concept + '"]
+let $warnings := ($warnings, if(count($' + v.Name + ') gt 1)
+                             then if(count(distinct-values($' + v.Name + '.Value)) gt 1)
+                                  then "Cell collision with conflicting values for concept ' + v.Name + '."
+                                  else "Cell collision with consistent values for concept ' + v.Name + '."
+                             else ())
+let $' + v.Name + ' as object? := $' + v.Name + '[1]
+}
+}
+let $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]
+return
+  switch (true)
+  case exists($' + computedFactVariable + ') return $' + computedFactVariable);
+  case (' + sourceFactExistenceCheck + ' and ' + toComputation(prereq) + ')
+  return
+    let $computed-value := ' + toComputation(body));
+    let $audit-trail-message as string* := 
+if (this.model.Type === 'xbrl28:formula') {
+      rules:fact-trail({"Aspects": { "xbrl:Unit" : $_unit, "xbrl:Concept" : "' + computedConcept + '" }, Value: $computed-value }) || " = " || 
+}
+         ' + toAuditTrail(body));
+    let $audit-trail-message as string* := ($audit-trail-message, $warnings)
+    let $source-facts as object* := (' + auditTrailSourceFacts + ')
+    return
+      if(string(number($computed-value)) != "NaN" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))
+      then
+        copy $newfact :=
+          rules:create-computed-fact(
+            $' + sourceFactVariable + ',
+            "' + computedConcept + '",
+            $computed-value,
+            $rule,
+            $audit-trail-message,
+            $source-facts,
+            $options)
+        modify (
+            replace value of json $newfact("Decimals") with 2
+          )
+        return $newfact
+      else
+        rules:create-computed-fact(
+          $' + sourceFactVariable + ',
+          "' + computedConcept + '",
+          $computed-value,
+          $rule,
+          $audit-trail-message,
+          $source-facts,
+if (this.model.Type === 'xbrl28:validation') {
+            $options,
+            $' + validatedFactVariable + ',
+            $computed-value)
+}
+else {
+            $options)
+}
+
+}
+}
+  default return ()
