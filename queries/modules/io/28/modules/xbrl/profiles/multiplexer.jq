@@ -13,7 +13,6 @@ jsoniq version "1.0";
 module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
-import module namespace entities = "http://28.io/modules/xbrl/entities";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
