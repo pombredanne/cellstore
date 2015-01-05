@@ -1,8 +1,8 @@
 'use strict';
 
 angular
-    .module('filter-model', ['constants', 'api'])
-    .factory('Filter', function($q, API, Session){
+    .module('filter-model', ['constants', 'api', 'lodash'])
+    .factory('Filter', function(_, $q, API, Session){
 
         return (function() {
 
