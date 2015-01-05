@@ -7,6 +7,8 @@ var expand = require('glob-expand');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var $28 = new (require('28').$28)('http://portal.28.io/api');
+var VFS = require('28').VFS;
+var _ = require('lodash');
 
 var Config = require('./config');
 
@@ -19,10 +21,77 @@ var Options = {
     OVERWRITE_IF_NEWER: 3
 };
 
-var throwError = function(error) {
-    throw error;
+var castToJson = function(obj){
+    var result = obj;
+    if(_.isString(obj)){
+        try {
+            result = JSON.parse(obj);
+        } catch (e) {
+
+        }
+    }
+    return result;
 };
 
+var throwError = function (error) {
+    var message = JSON.stringify(error);
+    if(error.stack || error.filename){
+        message = error.toString();
+        $.util.log(error.stack);
+        $.util.log(error.filename);
+    } else if(_.isString(error.message)){
+        message = error.message;
+    }
+    if(error.body){
+        var body = castToJson(error.body);
+        message = _.isObject(body) ? JSON.stringify(body, null, '\t') : body;
+        if((_.isObject(body) && body.context) || (_.isArray(body) && body[0].context)){
+            $.util.log(message);
+            message = 'Compilation error';
+        }
+    }
+
+    // truncate error message if too long
+    if(message.length > 500){
+        message = message.substring(0, 500) + ' ... (truncated)';
+    }
+    throw new $.util.PluginError(__filename, message);
+};
+
+var summarizeTestError = function(error){
+    var hasError = false;
+    if(error.body) {
+        var body = castToJson(error.body);
+        if (_.isObject(body) && _.isArray(body.items) && body.items.length > 0) {
+            body = castToJson(body.items[0]);
+        }
+        if (_.isObject(body) && body.content) {
+            body = castToJson(body.content);
+        }
+        /*jshint camelcase:false */
+        if (_.isObject(body) && !body.request_id) {
+            _.each(body, function(testResult, testName){
+                if (_.isObject(testResult) && testResult.url) {
+                    hasError = true;
+                    $.util.log(testName.red + ': ' + testResult.url);
+                    if (_.isObject(testResult.expectedFactTable) && testResult.expectedFactTable.error === true) {
+                        // http error (e.g. 404)
+                        $.util.log(testName.red + ': ' + JSON.stringify(testResult.expectedFactTable, null, '\t'));
+                    }
+                    _.each(testResult.factTableDiff, function(diff){
+                        if (diff.expectedNumberOfFacts) {
+                            $.util.log(testName.red + ': ' + JSON.stringify(diff, null, '\t'));
+                        }
+                    });
+                }
+            });
+        }
+        if (hasError) {
+            return new Error('some test queries failed');
+        }
+    }
+    return error;
+};
 
 var login = function(email, password){
     $.util.log('Logging in as ' + email);
@@ -78,6 +147,10 @@ var createProject = function(projectName){
     return defered.promise;
 };
 
+var ignoreQueriesFunction = function(list){
+    return list;
+};
+
 var upload = function(projectName){
     /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
@@ -89,56 +162,68 @@ var upload = function(projectName){
     var deleteOrphaned = true;
     var simulate = false;
     $.util.log('Uploading queries.');
-    return $28.upload(projectName, projectToken, projectPath, overwrite, deleteOrphaned, simulate, []).then(function(){
+    return $28.upload(projectName, projectToken, projectPath, overwrite, deleteOrphaned, simulate, ignoreQueriesFunction).then(function(){
         $.util.log('Queries uploaded.');
         return credentials;
     });
 };
 
-var runQueries = function(projectName, runQueries) {
-    var sequence = [];
-    var Queries = $28.api.Queries(projectName);
+var runQueriesInParallel = function(projectName, queriesToRun) {
+    var promises = [];
+    var QueriesAPI = $28.api.Queries(projectName);
     /*jshint camelcase:false */
     var projectToken = credentials.project_tokens['project_' + projectName];
-    runQueries.forEach(function(queries){
-        queries = expand(queries);
-        var batch = [];
-        queries.forEach(function(query){
-            var queryPath = query.substring(Config.paths.queries.length + 1);
-            batch.push(function(credentials) {
-                /*jshint camelcase:false */
-                return Queries.executeQuery({
-                    accept: 'application/28.io+json',
-                    queryPath: queryPath,
-                    format: '',
-                    token: projectToken
-                }).then(function (data) {
-                    $.util.log(('✓ '.green) + queryPath + ' returned with status code: ' + data.response.statusCode);
-                    return credentials;
-                }).catch(function (error) {
-                    $.util.log(error.body);
-                    $.util.log(('✗ '.red) + queryPath + ' returned with status code: ' + error.response.statusCode);
-                    throw error;
-                });
-            });
-        });
-
-        sequence.push(function(credentials){
-            var promises = [];
-            batch.forEach(function(unit){
-                promises.push(unit(credentials));
-            });
-            return Q.allSettled(promises).then(function(results){
-                results.forEach(function (result) {
-                    if (result.state !== 'fulfilled') {
-                        throw new Error('Some queries failed.');
-                    }
-                });
+    _.each(queriesToRun, function(nextQuery){
+        promises.push(
+            QueriesAPI.executeQuery({
+                accept: 'application/28.io+json',
+                queryPath: nextQuery,
+                format: '',
+                token: projectToken
+            }).then(function (data) {
+                $.util.log($.util.colors.green('✓ ') + nextQuery + ' returned with status code: ' + data.response.statusCode);
                 return credentials;
-            });
-        });
+            }).catch(function (error) {
+                var requestUri = error.response.request.uri;
+                var isTestQuery = (requestUri.pathname.lastIndexOf('/v1/_queries/public/test', 0) === 0);
+                var href = isTestQuery ? requestUri.host + requestUri.pathname.substring('/v1/_queries/public'.length) : requestUri.host + requestUri.pathname;
+                $.util.log($.util.colors.red('✗ ') + href + ' returned with status code: ' + $.util.colors.red(error.response.statusCode));
+                error = isTestQuery ? summarizeTestError(error) : error;
+                throw error;
+            })
+        );
     });
-    return sequence.reduce(Q.when, Q());
+    return Q.all(promises);
+};
+
+var runQueries = function(projectName, sequenceOfQueriesToRun) {
+    return _.chain(sequenceOfQueriesToRun)
+        .map(function(queriesToRun) {
+            // create chunks of queries to be executed in parallel
+            if (_.isString(queriesToRun)) {
+                return expand(queriesToRun);
+            } else if (_.isArray(queriesToRun)){
+                return _.chain(queriesToRun)
+                    .map(function(queriesGlob){
+                        return expand(queriesGlob);
+                    })
+                    .flatten()
+                    .value();
+            }
+        })
+        .map(function(queriesToRunArray){
+            // substring to relative query path
+            return _.map(queriesToRunArray, function(query) {
+                return query.substring(Config.paths.queries.length + 1);
+            });
+        })
+        .reduce(function(previousPromise, nextQueriesArray){
+            // execute them in chunks
+            return previousPromise.then(function() {
+                return runQueriesInParallel(projectName, nextQueriesArray);
+            });
+        }, Q.resolve())
+        .value();
 };
 
 var createDatasource = function(projectName, datasource){
@@ -149,14 +234,14 @@ var createDatasource = function(projectName, datasource){
         /*jshint camelcase:false */
         var projectToken = credentials.project_tokens['project_' + projectName];
         $28.createDatasource(projectName, datasource.category, datasource.name, projectToken, difault, JSON.stringify(datasource.credentials))
-        .then(function(){
-            $.util.log(datasource.name + ' created');
-            defered.resolve(credentials);
-        })
-        .catch(function (error) {
-            $.util.log('datasource creation failed: ' + error);
+            .then(function(){
+                $.util.log(datasource.name + ' created');
+                defered.resolve(credentials);
+            })
+            .catch(function (error) {
+                $.util.log('datasource creation failed: ' + datasource.name);
                 defered.reject(error);
-        });
+            });
     } else {
         $.util.log('Skipping data source creation on production: ' + datasource.name);
         defered.resolve(credentials);
@@ -195,3 +280,45 @@ gulp.task('28:init', function(){
 gulp.task('28:test', function(){
     return runQueries(Config.projectName, Config.paths.apiTestQueries).catch(throwError);
 });
+
+module.exports = {
+    watchJSONiqQueries: function(){
+        //Initialize the VFS
+        /*jshint camelcase:false */
+        var projectName = Config.projectName;
+        var projectToken = credentials.project_tokens['project_' + projectName];
+        var path = require('path');
+        var projectPath = path.resolve(Config.paths.queries);
+        var vfs = new VFS($28.api, projectName, projectToken, projectPath);
+
+        //Do the Watch
+        gulp.watch(Config.paths.jsoniq, {}, function(event){
+            //Get relative query path
+            var query = event.path.substring(projectPath.length + 1);
+            $.util.log(query + ' has ' + event.type);
+
+            //Upload
+            if(event.type === 'added' || event.type === 'changed') {
+                $.util.log($.util.colors.grey('Uploading ' + query));
+                vfs.writeRemoteQuery(query, true).then(function(result){
+                    //Show compilation errors
+                    if(result && result.message) {
+                        $.util.log($.util.colors.red(result.message));
+                    }
+                    $.util.log($.util.colors.green(query + ' uploaded'));
+                }).catch(function(error){
+                    throwError(error);
+                });
+
+            //Delete
+            } else if(event.type === 'deleted') {
+                $.util.log($.util.colors.grey('Removing ' + query));
+                vfs.deleteRemoteQuery(query).then(function(){
+                    $.util.log($.util.colors.green(query + ' removed'));
+                }).catch(function(error){
+                    throwError(error);
+                });
+            }
+        });
+    }
+};

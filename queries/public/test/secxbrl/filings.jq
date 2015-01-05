@@ -1,11 +1,14 @@
+import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace test = "http://apps.28.io/test";
+import module namespace config = "http://apps.28.io/config";
 
 declare variable $local:expected as object :=
     {
       "all" : [ "0000021344-14-000008" ],
       "dow30" : [ "0000858877-14-000029", "0000080424-14-000057", "0001193125-14-289961", "0000320187-14-000097", "0000732717-14-000022", "0000354950-14-000008", "0000104169-14-000019", "0000078003-14-000018", "0001193125-14-073792", "0000310158-14-000009", "0000040554-14-000023", "0001193125-14-073266", "0000021344-14-000008", "0000034088-14-000012", "0001047469-14-001302", "0001193125-14-066777", "0000063908-14-000019", "0000200406-14-000033", "0000093410-14-000011", "0000019617-14-000289", "0000018230-14-000058", "0000012927-14-000004", "0000050863-14-000020", "0001104659-14-009773", "0001047469-14-000854", "0000731766-14-000008", "0000101829-14-000006", "0000030554-14-000002", "0001403161-14-000017", "0001001039-14-000228" ],
       "cik" : [ "0001193125-14-066777" ],
+      "generic" : [ "0000950123-10-072749", "0000950123-10-100214", "0000950123-11-019072", "0000950123-11-044479", "0000950123-11-072260", "0000950123-11-094420", "0001193125-10-109084", "0001193125-12-077400", "0001193125-12-332179", "0001193125-12-200270", "0001193125-12-443821", "0001193125-13-070554", "0001193125-13-180601", "0001193125-13-307673", "0001193125-13-415898", "0001193125-14-066777", "0001193125-14-167067", "0001193125-14-286961", "0001193125-14-384990" ],
       "ticker" : [ "0000104169-14-000019", "0000104169-13-000011", "0001193125-12-134679", "0001193125-11-083157" ],
       "fpall" : [ "0001193125-12-134679", "0001193125-11-335177", "0001193125-11-238857", "0001193125-11-158587" ],
       "fyfp" : [ "0001193125-11-158587" ],
@@ -23,11 +26,22 @@ declare %an:sequential function local:test-filings($expected as array, $params a
     return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
 };
 
+declare %an:sequential function local:test-filings-generic($expected as array, $params as object) as item
+{
+    let $endpoint := "filings"
+    let $request := test:invoke($endpoint, $params)
+    let $actual as array := [ $request[2].Archives[].AID ]
+    let $status as integer := $request[1]
+    return test:assert-eq-array($expected, $actual, $status, test:url($endpoint, $params))
+};
+
 declare %an:nondeterministic function local:test-example1() as item
 {
   let $expected := 
     [
         {
+            "AccessionNumber": "0001104659-14-009773",
+            "Components" : "http://" || request:server-name() || ":" || request:server-port() || "/v1/_queries/public/api/components.jq?_method=POST&token=" || $config:test-token || "&aid=0001104659-14-009773&format=&profile-name=sec", 
             "CIK": "http://www.sec.gov/CIK 0000066740",
             "EntityRegistrantName": "3M CO",
             "FormType": "10-K",
@@ -35,7 +49,6 @@ declare %an:nondeterministic function local:test-example1() as item
             "FiscalPeriod": "FY",
             "Accepted": "2014-02-13T16:16:20Z",
             "Generator": "IBM Cognos",
-            "AccessionNumber": "0001104659-14-009773",
             "SECFilingPage": "http://www.sec.gov/Archives/edgar/data/66740/000110465914009773/0001104659-14-009773-index.htm",
             "XBRLInstanceURL": "http://www.sec.gov/Archives/edgar/data/66740/000110465914009773/mmm-20131231.xml",
             "Networks": 104,
@@ -74,6 +87,7 @@ declare %an:sequential function local:check($o as object) as object
 let $dow30 := test:is-dow30()
 return local:check({
     all: local:test-filings($local:expected.all, {ticker:"ko"}),
+    generic: local:test-filings-generic($local:expected.generic, {eid:"http://www.sec.gov/CIK 0000004962", profile-name:"generic"}),
     dow30: local:test-filings($local:expected.dow30, {tag:"DOW30"}),
     cik: local:test-filings($local:expected.cik, {cik:"4962"}),
     ticker: local:test-filings($local:expected.ticker, {ticker:"wmt",fiscalYear:"ALL"}),

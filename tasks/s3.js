@@ -6,7 +6,6 @@ var $ = require('gulp-load-plugins')();
 var _ = require('lodash');
 var Q = require('q');
 var AWS = require('aws-sdk');
-var awspublish = require('gulp-awspublish');
 var parallelize = require('concurrent-transform');
 
 var Config = require('./config');
@@ -25,7 +24,7 @@ var init = function() {
         region: region,
         bucket: bucketName
     };
-    publisher = awspublish.create({
+    publisher = $.awspublish.create({
         key: key,
         secret: secret,
         bucket: bucketName
@@ -164,9 +163,9 @@ gulp.task('s3-setup', function() {
         .then(function(){
             var defered = Q.defer();
             gulp.src('dist/**/*')
-                    .pipe(awspublish.gzip())
+                    .pipe($.awspublish.gzip())
                     .pipe(parallelize(publisher.publish(), 10))
-                    .pipe(awspublish.reporter())
+                    .pipe($.awspublish.reporter())
                     .on('error', defered.reject)
                     .on('end', defered.resolve);
             return defered.promise;
@@ -174,13 +173,13 @@ gulp.task('s3-setup', function() {
         .catch(function(error){
             $.util.log('Error while doing the s3 setup');
             $.util.log(error);
-            throw error;
+            throw new $.util.PluginError(__filename, JSON.stringify(error));
         });
     } else {
         return gulp.src('dist/**/*')
-            .pipe(awspublish.gzip())
+            .pipe($.awspublish.gzip())
             .pipe(parallelize(publisher.publish(), 10))
-            .pipe(awspublish.reporter());
+            .pipe($.awspublish.reporter());
     }
 });
 
@@ -193,6 +192,7 @@ gulp.task('s3-teardown', function(done) {
         .catch(function(error){
             $.util.log('Error while doing the s3 setup');
             $.util.log(error);
+            done(JSON.stringify(error));
         });
     } else {
         $.util.log('We are on master, no teardown.');

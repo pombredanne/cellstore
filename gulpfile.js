@@ -16,7 +16,7 @@ require('./tasks/netdna');
 require('./tasks/templates');
 
 gulp.task('watch', function() {
-    return gulp.watch(Config.paths.less, ['less']);
+    return gulp.watch(Config.paths.sass, ['sass']);
 });
 
 gulp.task('fonts', function(){
@@ -42,10 +42,10 @@ gulp.task('clean', function () {
 });
 
 gulp.task('build', ['clean', 'swagger'], function(done){
-  $.runSequence(['templates', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
+  $.runSequence('templates', ['lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
-gulp.task('server', ['templates', 'less', 'swagger'], function(done){
+gulp.task('server', ['templates', 'sass', 'swagger', '28:login'], function(done){
   $.runSequence('server:dev', done);
 });
 
@@ -63,7 +63,7 @@ gulp.task('setup', ['load-config'], function(done){
     $.runSequence('build', [ 's3-setup', '28:setup' ], 'server:dist', 'test:unit', 'test:e2e', 'server:stop', done);
 });
 
-gulp.task('28:setup', ['load-config'], function(done){
+gulp.task('28:setup', ['templates'], function(done){
     $.runSequence('28:login', '28:remove-project', '28:create-project', '28:setup-datasource', '28:upload', '28:init', '28:test', done);
 });
 

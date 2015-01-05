@@ -1,30 +1,32 @@
 .flexy-layout {
-    .flex-display;
-    .flex-grow(1);
+    @include flexbox;
+    @include flex-direction(column);
+    @include flex-grow(1);
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     overflow: hidden;
-    
+
     >.block {
-        .flex-display;
+        @include flexbox;
+        @include flex-direction(column);
     }
 
     &.flexy-layout-column {
-        .flex-direction(row);
+        @include flex-direction(row);
     }
 
     &.flexy-layout-row {
-        .flex-direction(column);
+        @include flex-direction(column);
     }
 
 
     &.flexy-layout-column > .splitter{
         width: 5px;
-        background: @clouds;
+        background: $clouds;
         >.ghost{
             cursor: col-resize;
-            .flex-grow(1);
+            @include flex-grow(1);
         }
     }
 
@@ -32,7 +34,7 @@
         height: 5px;
         >.ghost{
             cursor: row-resize;
-            .flex-grow(1);
+            @include flex-grow(1);
         }
     }
 }
@@ -49,15 +51,16 @@
     height: 100%;
     width: 100%;
     z-index: 99;
-    background: @clouds;
+    background: $clouds;
 }
 
 .block-content {
-    .flex-display;
-    .flex-grow(1);
+    @include flexbox;
+    @include flex-direction(column);
+    @include flex-grow(1);
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    .std-padding;
-    .no-top-padding;
+    padding: 20px;
+    padding-top: 0;
 }

@@ -1,0 +1,27 @@
+formula-editor {
+  @include flexbox;
+  @include flex-direction(column);
+}
+
+#formula-editor {
+
+  .button-bar {
+    margin: 20px 5px 30px 5px;
+  }
+
+  div.properties {
+    margin: 10px 10px;
+    padding-top: 10px;
+  }
+
+  div.alternatives {
+    margin: 5px 10px;
+  }
+
+  div.tab-body, div.accordion-body {
+    border-width: 0 1px 1px 1px;
+    border-color: #ddd;
+    border-radius: 4px 4px 0 0;
+    padding-top: 15px;
+  }
+}

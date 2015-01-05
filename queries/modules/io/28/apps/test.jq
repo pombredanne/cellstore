@@ -14,14 +14,14 @@ declare function test:url($endpoint as string, $parameters as object) as string
     test:url($endpoint, $parameters, false)
 };
 
-declare %private function test:url($endpoint as string, $parameters as object, $includeToken as boolean) as string
+declare function test:url($endpoint as string, $parameters as object, $includeToken as boolean) as string
 {
     "http://" || request:server-name() || ":" || request:server-port() ||
     "/v1/_queries/public/api/"||$endpoint||".jq?_method=POST&token=" || (if($includeToken) then $config:test-token else "{{token}}") || "&"||
     string-join(
         for $key in keys($parameters)
         for $value as string in (flatten($parameters.$key) ! string($$))
-        return ($key||"="||$value),
+        return ($key||"="||encode-for-uri($value)),
         "&")
 };
 

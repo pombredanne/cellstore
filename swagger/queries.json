@@ -14,7 +14,7 @@
             "operations": [
                 {
                     "method": "POST",
-                    "summary": "[SEC profile] Retrieve information about all or a selection of entities",
+                    "summary": "Retrieve information about all or a selection of entities",
                     "nickname": "listEntities",
                     "parameters": [
                         {
@@ -32,7 +32,7 @@
                         },
                         {
                             "name": "tag",
-                            "description": "A tag to filter",
+                            "description": "[SEC profile] A tag to filter",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -46,22 +46,29 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "cik",
-                            "description": "A CIK number",
+                            "description": "[SEC profile] A CIK number",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "ticker",
-                            "description": "A ticker symbols",
+                            "description": "[SEC profile] A ticker symbols",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -125,7 +132,7 @@
             "operations": [
                 {
                     "method": "POST",
-                    "summary": "[SEC profile] Retrieve the filings of a particular entity",
+                    "summary": "Retrieve the filings of a particular entity",
                     "nickname": "listFilings",
                     "parameters": [
                         {
@@ -143,7 +150,7 @@
                         },
                         {
                             "name": "tag",
-                            "description": "A tag to filter",
+                            "description": "[SEC profile] A tag to filter",
                             "required": false,
                             "type": "string",
                             "enum": [
@@ -156,36 +163,43 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "cik",
-                            "description": "A CIK number",
+                            "description": "[SEC profile] A CIK number",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "ticker",
-                            "description": "A ticker symbols",
+                            "description": "[SEC profile] A ticker symbol",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "sic",
-                            "description": "The industry group",
+                            "description": "[SEC profile] The industry group",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "aid",
-                            "description": "The id of the filing",
+                            "description": "An Archive ID (a value of the xbrl28:Archive aspect)",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
                         },
                         {
                             "name": "fiscalYear",
-                            "description": "The fiscal year focus of the filings to retrieve (default: LATEST)",
+                            "description": "[SEC profile] The fiscal year focus of the filings to retrieve (default: LATEST)",
                             "required": false,
                             "type": "string",
                             "paramType": "query",
@@ -197,7 +211,7 @@
                         },
                         {
                             "name": "fiscalPeriod",
-                            "description": "The fiscal period focus of the filings to retrieve (default: FY)",
+                            "description": "[SEC profile] The fiscal period focus of the filings to retrieve (default: FY)",
                             "required": false,
                             "type": "string",
                             "enum": [

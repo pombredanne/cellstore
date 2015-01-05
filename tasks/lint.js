@@ -8,7 +8,7 @@ var map = require('map-stream');
 var Config = require('./config');
 
 gulp.task('jslint', function(){
-    return gulp.src(Config.paths.js.concat(Config.paths.tasks).concat(['!app/modules/*-api.js']))
+    return gulp.src(Config.paths.js.concat(Config.paths.tasks).concat(['!app/modules/*-api.js']).concat(['tests/**/*.js']))
         .pipe($.jshint())
         .pipe($.jshint.reporter())
         .pipe($.jshint.reporter('fail'));
