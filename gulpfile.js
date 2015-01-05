@@ -16,7 +16,7 @@ require('./tasks/netdna');
 require('./tasks/templates');
 
 gulp.task('watch', function() {
-    return gulp.watch(Config.paths.less, ['less']);
+    return gulp.watch(Config.paths.sass, ['sass']);
 });
 
 gulp.task('fonts', function(){
@@ -45,7 +45,7 @@ gulp.task('build', ['clean', 'swagger'], function(done){
   $.runSequence('templates', ['lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
-gulp.task('server', ['templates', 'less', 'swagger'], function(done){
+gulp.task('server', ['templates', 'sass', 'swagger', '28:login'], function(done){
   $.runSequence('server:dev', done);
 });
 

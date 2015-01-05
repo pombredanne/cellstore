@@ -22,8 +22,7 @@ var init = function() {
         accessKeyId: key,
         secretAccessKey: secret,
         region: region,
-        bucket: bucketName,
-        endpoint: new AWS.Endpoint('http://s3.amazonaws.com')
+        bucket: bucketName
     };
     publisher = $.awspublish.create({
         key: key,

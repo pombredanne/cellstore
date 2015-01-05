@@ -33,7 +33,6 @@
     "angular-sanitize": "~1.2.18",
     "angular-ui-bootstrap-bower": "~0.11.0",
     "angular-cache": "2.3.0",
-    "bootstrap": "~3.1.1",
     "accounting": "~0.3.2",
     "layoutmodel-renderer-angular": "https://github.com/28msec/layoutmodel-renderer-angular.git#88d350e43af772c8a98fe8510c900d6d98345d70",
     "flexy-layout": "git://github.com/lorenzofox3/flexy-layout.git",
@@ -41,7 +40,10 @@
     "moment": "~2.7.0",
     "lodash": "~2.4.1",
     "ng-file-upload": "~1.6.12",
-    "ng-file-upload-shim": "~1.6.12"
+    "ng-file-upload-shim": "~1.6.12",
+    "bootstrap-sass-official": "~3.3.1",
+    "sass-flex-mixin": "https://github.com/mastastealth/sass-flex-mixin.git#ef4a13621c17e04c87786b26eef7d4d960a50209"
+
   },
   "resolutions": {
     "angular": "1.2.9",

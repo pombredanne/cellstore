@@ -7,6 +7,7 @@ var expand = require('glob-expand');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var $28 = new (require('28').$28)('http://portal.28.io/api');
+var VFS = require('28').VFS;
 var _ = require('lodash');
 
 var Config = require('./config');
@@ -181,13 +182,13 @@ var runQueriesInParallel = function(projectName, queriesToRun) {
                 format: '',
                 token: projectToken
             }).then(function (data) {
-                $.util.log(('✓ '.green) + nextQuery + ' returned with status code: ' + data.response.statusCode);
+                $.util.log($.util.colors.green('✓ ') + nextQuery + ' returned with status code: ' + data.response.statusCode);
                 return credentials;
             }).catch(function (error) {
                 var requestUri = error.response.request.uri;
                 var isTestQuery = (requestUri.pathname.lastIndexOf('/v1/_queries/public/test', 0) === 0);
                 var href = isTestQuery ? requestUri.host + requestUri.pathname.substring('/v1/_queries/public'.length) : requestUri.host + requestUri.pathname;
-                $.util.log(('✗ '.red) + href + ' returned with status code: ' + $.util.colors.red(error.response.statusCode));
+                $.util.log($.util.colors.red('✗ ') + href + ' returned with status code: ' + $.util.colors.red(error.response.statusCode));
                 error = isTestQuery ? summarizeTestError(error) : error;
                 throw error;
             })
@@ -280,3 +281,45 @@ gulp.task('28:init', function(){
 gulp.task('28:test', function(){
     return runQueries(Config.projectName, Config.paths.apiTestQueries).catch(throwError);
 });
+
+module.exports = {
+    watchJSONiqQueries: function(){
+        //Initialize the VFS
+        /*jshint camelcase:false */
+        var projectName = Config.projectName;
+        var projectToken = credentials.project_tokens['project_' + projectName];
+        var path = require('path');
+        var projectPath = path.resolve(Config.paths.queries);
+        var vfs = new VFS($28.api, projectName, projectToken, projectPath);
+
+        //Do the Watch
+        gulp.watch(Config.paths.jsoniq, {}, function(event){
+            //Get relative query path
+            var query = event.path.substring(projectPath.length + 1);
+            $.util.log(query + ' has ' + event.type);
+
+            //Upload
+            if(event.type === 'added' || event.type === 'changed') {
+                $.util.log($.util.colors.grey('Uploading ' + query));
+                vfs.writeRemoteQuery(query, true).then(function(result){
+                    //Show compilation errors
+                    if(result && result.message) {
+                        $.util.log($.util.colors.red(result.message));
+                    }
+                    $.util.log($.util.colors.green(query + ' uploaded'));
+                }).catch(function(error){
+                    throwError(error);
+                });
+
+            //Delete
+            } else if(event.type === 'deleted') {
+                $.util.log($.util.colors.grey('Removing ' + query));
+                vfs.deleteRemoteQuery(query).then(function(){
+                    $.util.log($.util.colors.green(query + ' removed'));
+                }).catch(function(error){
+                    throwError(error);
+                });
+            }
+        });
+    }
+};

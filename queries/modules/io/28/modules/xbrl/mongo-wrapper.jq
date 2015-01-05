@@ -1,3 +1,4 @@
+jsoniq version "1.0";
 module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
