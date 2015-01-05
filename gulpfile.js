@@ -45,7 +45,7 @@ gulp.task('build', ['clean', 'swagger'], function(done){
   $.runSequence('templates', ['lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
-gulp.task('server', ['templates', 'sass', 'swagger'], function(done){
+gulp.task('server', ['templates', 'sass', 'swagger', '28:login'], function(done){
   $.runSequence('server:dev', done);
 });
 
