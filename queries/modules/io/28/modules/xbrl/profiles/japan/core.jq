@@ -7,7 +7,7 @@ declare function japan:entities(
     $cik as string*,
     $eid as string*,
     $tag as string*
-)
+) as object*
 {
   let $eid := distinct-values((
     $cik ! ("http://info.edinet-fsa.go.jp " || $$ || "-000"),
