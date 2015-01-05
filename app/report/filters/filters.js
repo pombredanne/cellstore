@@ -2,7 +2,7 @@
 
 angular.module('report-editor')
 .controller('FiltersCtrl',
-    function($scope, $state, $stateParams, $location, Filter, tags, entities, years, periods, sics, periodTypes) {
+    function(_, $scope, $state, $stateParams, $location, Filter, tags, entities, years, periods, sics, periodTypes) {
         $scope.tags = tags;
         $scope.entities = entities;
         $scope.years = years;
@@ -50,7 +50,7 @@ angular.module('report-editor')
                 Filter.getAspects()
                     .then(
                         function (aspects) {
-                            if ($scope.report !== undefined && typeof $scope.report === 'object') {
+                            if (_.isObject($scope.report)) {
                                 $scope.report.updateAspects(aspects);
                             }
                         }
