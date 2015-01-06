@@ -4,7 +4,7 @@
 In traditional data warehousing, it takes months for the IT department to build a single hypercube. 
 With the CellStore, it takes minutes for the business users to build an infinite number of hypercubes.
 
-Built on top of http://28.io.
+The CellStore is entirely written in [JSONiq](http://jsoniq.org) and is hosted on [28.io](http://www.28.io). The deployment can be easily customized to deploy on your own [28.io](http://www.28.io) account.
 
 ## Demo
 A CellStore with all SEC filings since 2010 is available at http://secxbrl.info.
@@ -42,9 +42,13 @@ Optionally:
 - add e2e tests to `tests/e2e/<name>`
 
 ## Environment Variables
-You might want to set the following environment variables for convenience:
+The `TRAVIS_SECRET_KEY` environnement variable is mandatory in order to decrypt deployment files.
 ```bash
 $ export TRAVIS_SECRET_KEY=<secret> # to decrypt / encrypt config files
+```
+
+You might want to set the following environment variables for convenience:
+```bash
 $ export CELLSTORE_BUILD_ID=<mybuild-id> # default build-id if --build-id=xyz is not provided
 $ export CELLSTORE_CONFIG=<name> # default config if --config=xyz is not provided
 ```
@@ -61,17 +65,12 @@ Once you are done:
 $ gulp teardown --build-id=test --config=sec
 ```
 
-## Frontend Development
+## Development
 
-Runs the frontend locally using the `sec.json` configuration:
+To test the development version using the `sec.json` configuration:
 
 ```bash
 $ gulp server --build-id=mydemo --config=sec
-```
-
-Run the built version (uglified etc.)
-```bash
-gulp server:prod --build-id=mydemo --config=sec
 ```
 
 ## Testing
