@@ -61,6 +61,8 @@ declare function multiplexer:filings(
       $fiscalYear,
       $fiscalPeriod,
       $aid)
-  default return archives:archives-for-entities($entities)
+  default return (
+      archives:archives($aid),
+      archives:archives-for-entities($entities))
 };
 
