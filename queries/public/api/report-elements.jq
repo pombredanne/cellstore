@@ -182,16 +182,10 @@ let $map as object? :=
     if(exists($report))
     then reports:concept-map($report)
     else concept-maps:concept-maps($map)
-let $concepts :=
-    if($profile-name eq "sec")
-    then
-        if (exists($label))
-            then local:concepts-for-archives-and-labels($archives._id, $label[1])
-            else local:concepts-for-archives($archives._id, $name, $map, { OnlyNames: $onlyNames })
-    else
-        if (exists($label))
-            then local:concepts-for-archives-and-labels($aid, $label[1])
-            else local:concepts-for-archives($aid, $name, $map, { OnlyNames: $onlyNames })
+let $concepts as object* :=
+    if (exists($label))
+        then local:concepts-for-archives-and-labels($archives._id, $label[1])
+        else local:concepts-for-archives($archives._id, $name, $map, { OnlyNames: $onlyNames })
 
 let $result :=
     if($profile-name eq "sec")
@@ -211,7 +205,7 @@ let $result :=
                 let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
                 let $archive as object := $archives[$$._id eq $archive]
                 let $entity as object := $entities[$$._id eq $archive.Entity]
-                let $metadata := {
+		                let $metadata := {
                     ComponentRole : $component.Role,
                     ComponentLabel : $component.Label,
                     AccessionNumber : $archive._id,

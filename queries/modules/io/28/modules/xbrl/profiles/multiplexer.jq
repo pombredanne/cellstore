@@ -13,6 +13,7 @@ jsoniq version "1.0";
 module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
+import module namespace entities = "http://28.io/modules/xbrl/entities";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
@@ -37,10 +38,12 @@ declare function multiplexer:entities(
       $eid)
     order by $entity.Profiles.SEC.CompanyName
     return $entity
-  default return
+  case "japan" return
     for $entity in japan:entities($cik, $eid, $tag)
     order by $entity._id
     return $entity
+  default return
+    entities:entities($eid)
 };
 
 declare function multiplexer:filings(
