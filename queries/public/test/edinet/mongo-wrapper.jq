@@ -23,7 +23,7 @@ let $indexes :=
   for $coll in keys($japan-mw:ALL-INDEXES)
   for $index in members($japan-mw:ALL-INDEXES($coll))
   return local:check-index($conn, $coll, $index)
-let $expected as integer := 20
+let $expected as integer := 21
 return 
   if (count($indexes) eq $expected)
   then "OK"
