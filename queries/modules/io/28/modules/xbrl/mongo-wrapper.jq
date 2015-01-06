@@ -10,7 +10,7 @@ declare variable $mw:ARCHIVES-ENTITY as string := "Entity_hashed";
 
 declare variable $mw:COMPONENTS-ID as string := "_id_";
 declare variable $mw:COMPONENTS-ARCHIVE as string := "Archive_hashed";
-declare variable $mw:COMPONENTS-PROFILE_SEC_DISCLOSURE as string := "Profiles.SEC.Disclosure_hashed";
+declare variable $mw:COMPONENTS-PROFILE_JAPAN_DISCLOSURE as string := "Profiles.JAPAN.Disclosure_hashed";
 declare variable $mw:COMPONENTS-ROLE as string := "Role_hashed";
 
 declare variable $mw:CONCEPTS-ID as string := "_id_";
@@ -18,14 +18,14 @@ declare variable $mw:CONCEPTS-ARCHIVE-ROLE-NAME as string := "Archive_1_Role_1_N
 declare variable $mw:CONCEPTS-NAME-ARCHIVE as string := "Name_1_Archive_1";
 
 declare variable $mw:ENTITIES-ID as string := "_id_";
-declare variable $mw:ENTITIES-PROFILES_SEC_COMPANYTYPE as string := "Profiles.SEC.CompanyType_hashed";
-declare variable $mw:ENTITIES-PROFILES_SEC_SIC as string := "Profiles.SEC.SIC_hashed";
-declare variable $mw:ENTITIES-PROFILES_SEC_SECTOR as string := "Profiles.SEC.Sector_hashed";
-declare variable $mw:ENTITIES-PROFILES_SEC_TAGS as string := "Profiles.SEC.Tags_1";
-declare variable $mw:ENTITIES-PROFILES_SEC_TICKERS as string := "Profiles.SEC.Tickers_1";
+declare variable $mw:ENTITIES-PROFILES_JAPAN_SIC as string := "Profiles.JAPAN.SIC_hashed";
+declare variable $mw:ENTITIES-PROFILES_JAPAN_INDUSTRY as string := "Profiles.JAPAN.Industry_hashed";
+declare variable $mw:ENTITIES-PROFILES_JAPAN_TAGS as string := "Profiles.JAPAN.Tags_1";
+declare variable $mw:ENTITIES-PROFILES_JAPAN_TICKERS as string := "Profiles.JAPAN.Tickers_1";
+declare variable $mw:ENTITIES-PROFILES_JAPAN_SUBMITTERTYPE as string := "Profiles.JAPAN.SubmitterType_hashed";
 
 declare variable $mw:FACTS-ID as string := "_id_";
-declare variable $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP as string := "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.sec:FiscalYear_1_Aspects.sec:FiscalPeriod_1";
+declare variable $mw:FACTS-AXCONCEPT_AXENTITY_AJFY_AJFP as string := "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.japan:FiscalYear_1_Aspects.japan:FiscalPeriod_1";
 declare variable $mw:FACTS-ASARCHIVE_AXCONCEPT as string := "Aspects.xbrl28:Archive_1_Aspects.xbrl:Concept_1";
 
 declare variable $mw:FOOTNOTES-ID as string := "_id_";
@@ -34,13 +34,15 @@ declare variable $mw:FOOTNOTES-FACTS_ID-LANG as string := "Facts._id_1_Lang_1";
 
 declare variable $mw:ALL-INDEXES as object :=
 {
-  "archives" : [ $mw:ARCHIVES-ID, $mw:ARCHIVES-ENTITY ], 
-  "components": [ $mw:COMPONENTS-ID, $mw:COMPONENTS-ARCHIVE, $mw:COMPONENTS-PROFILE_SEC_DISCLOSURE, $mw:COMPONENTS-ROLE ],
-  "concepts": [ $mw:CONCEPTS-ID, $mw:CONCEPTS-ARCHIVE-ROLE-NAME, $mw:CONCEPTS-NAME-ARCHIVE ],  
-  "entities": [ $mw:ENTITIES-ID, $mw:ENTITIES-PROFILES_SEC_COMPANYTYPE, $mw:ENTITIES-PROFILES_SEC_SIC, 
-               $mw:ENTITIES-PROFILES_SEC_SECTOR, $mw:ENTITIES-PROFILES_SEC_TAGS, $mw:ENTITIES-PROFILES_SEC_TICKERS ],
-  "facts": [ $mw:FACTS-ID, $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP, $mw:FACTS-ASARCHIVE_AXCONCEPT ],
-  "footnotes": [ $mw:FOOTNOTES-ID, $mw:FOOTNOTES-ARCHIVE, $mw:FOOTNOTES-FACTS_ID-LANG ]
+  "archives" :  [ $mw:ARCHIVES-ID, $mw:ARCHIVES-ENTITY ], 
+  "components": [ $mw:COMPONENTS-ID, $mw:COMPONENTS-ARCHIVE, $mw:COMPONENTS-PROFILE_JAPAN_DISCLOSURE, 
+                  $mw:COMPONENTS-ROLE ],
+  "concepts":   [ $mw:CONCEPTS-ID, $mw:CONCEPTS-ARCHIVE-ROLE-NAME, $mw:CONCEPTS-NAME-ARCHIVE ],  
+  "entities":   [ $mw:ENTITIES-ID, $mw:ENTITIES-PROFILES_JAPAN_SIC, $mw:ENTITIES-PROFILES_JAPAN_INDUSTRY, 
+                  $mw:ENTITIES-PROFILES_JAPAN_TAGS, $mw:ENTITIES-PROFILES_JAPAN_TICKERS, 
+                  $mw:ENTITIES-PROFILES_JAPAN_SUBMITTERTYPE ],
+  "facts":      [ $mw:FACTS-ID, $mw:FACTS-AXCONCEPT_AXENTITY_AJFY_AJFP, $mw:FACTS-ASARCHIVE_AXCONCEPT ],
+  "footnotes":  [ $mw:FOOTNOTES-ID, $mw:FOOTNOTES-ARCHIVE, $mw:FOOTNOTES-FACTS_ID-LANG ]
 };
 
 declare %an:strictlydeterministic function mw:connection() as anyURI
@@ -113,8 +115,8 @@ declare %private function mw:components-hint($query as object) as object
       return { "$query": $query, "$hint": $mw:COMPONENTS-ID }
     case (exists($query("Archive")))
       return { "$query": $query, "$hint": $mw:COMPONENTS-ARCHIVE }
-    case (exists($query("Profiles.SEC.Disclosure")))
-      return { "$query": $query, "$hint": $mw:COMPONENTS-PROFILE_SEC_DISCLOSURE }
+    case (exists($query("Profiles.JAPAN.Disclosure")))
+      return { "$query": $query, "$hint": $mw:COMPONENTS-PROFILE_JAPAN_DISCLOSURE }
     case (exists($query("Role")))
       return { "$query": $query, "$hint": $mw:COMPONENTS-ROLE }  
     default
@@ -149,16 +151,16 @@ declare %private function mw:entities-hint($query as object) as object
   switch (true)
     case (exists($query("_id")))
       return { "$query": $query, "$hint": $mw:ENTITIES-ID }
-    case (exists($query("Profiles.SEC.CompanyType")))
-      return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_SEC_COMPANYTYPE }
-    case (exists($query("Profiles.SEC.SIC")))
-      return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_SEC_SIC }
-    case (exists($query("Profiles.SEC.Sector")))
-      return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_SEC_SECTOR }
-    case (exists($query("Profiles.SEC.Tags")))
-      return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_SEC_TAGS }
-    case (exists($query("Profiles.SEC.Tickers")))
-      return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_SEC_TICKERS }
+    case (exists($query("Profiles.JAPAN.SIC")))
+      return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_JAPAN_SIC }
+    case (exists($query("Profiles.JAPAN.Industry")))
+      return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_JAPAN_INDUSTRY }    
+    case (exists($query("Profiles.JAPAN.Tags")))
+      return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_JAPAN_TAGS }
+    case (exists($query("Profiles.JAPAN.Tickers")))
+      return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_JAPAN_TICKERS }
+    case (exists($query("Profiles.JAPAN.SubmitterType")))
+      return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_JAPAN_SUBMITTERTYPE }
     default
       return $query
 };
@@ -170,7 +172,7 @@ declare %private function mw:facts-hint($query as object) as object
       return { "$query": $query, "$hint": $mw:FACTS-ID }
     case (mw:is-selective($query, "Aspects.xbrl:Concept") and 
           mw:is-selective($query, "Aspects.xbrl:Entity"))
-      return { "$query": $query, "$hint": $mw:FACTS-AXCONCEPT_AXENTITY_ASFY_ASFP }
+      return { "$query": $query, "$hint": $mw:FACTS-AXCONCEPT_AXENTITY_AJFY_AJFP }
     case (mw:is-selective($query, "Aspects.xbrl28:Archive"))
       return { "$query": $query, "$hint": $mw:FACTS-ASARCHIVE_AXCONCEPT }
     default
