@@ -4,6 +4,25 @@ module namespace japan = "http://28.io/modules/xbrl/profiles/japan/core";
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 
+(:
+ : Copyright 2012-2015 28msec Inc.
+ :)
+(:~
+ : <p>This module provides functionality for querying against the Japan profile.</p>
+ :
+ : @author Ghislain Fourny
+ :
+ :)
+
+(:~
+ : <p>Retrieves the entities with the given identifiers.</p>
+ :
+ : @param $cik a sequence of shortcut codes, like E01225.
+ : @param $eid a sequence of raw EIDs.
+ : @param $tag a sequence of tags (e.g., indices).
+ :
+ : @return the entities that match those identifiers.
+ :) 
 declare function japan:entities(
     $cik as string*,
     $eid as string*,
@@ -21,6 +40,16 @@ declare function japan:entities(
     default return ()
 };
 
+(:~
+ : <p>Retrieves the filings with the given characteristics.</p>
+ :
+ : @param $entities a sequence of entities or EIDs.
+ : @param $fiscalYear a sequence of fiscal years.
+ : @param $fiscalPeriod a sequence of fiscal periods.
+ : @param $aid a sequence of AIDs.
+ :
+ : @return the filings that match those criteria.
+ :) 
 declare function japan:filings(
     $entities as item*,
     $fiscalYear as integer*,
