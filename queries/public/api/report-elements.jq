@@ -205,7 +205,7 @@ let $result :=
                 let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
                 let $archive as object := $archives[$$._id eq $archive]
                 let $entity as object := $entities[$$._id eq $archive.Entity]
-		                let $metadata := {
+                let $metadata := {
                     ComponentRole : $component.Role,
                     ComponentLabel : $component.Label,
                     AccessionNumber : $archive._id,
