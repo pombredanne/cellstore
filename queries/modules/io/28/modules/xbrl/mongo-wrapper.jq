@@ -3,7 +3,7 @@ module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
 
 import module namespace mw-sec = "http://28.io/modules/xbrl/profiles/sec/mongo-wrapper";
 import module namespace mw-japan = "http://28.io/modules/xbrl/profiles/japan/mongo-wrapper";
-
+import module namespace config = "http://apps.28.io/config";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
 
@@ -22,16 +22,16 @@ declare %an:strictlydeterministic function mw:connection() as anyURI
     }
 };
 
-declare function mw:find($profile as string, $collection as string, $query as object) as object()*
+declare function mw:find($collection as string, $query as object) as object()*
 {
   let $conn := mw:connection()
-  return mongo:find($conn, $collection, mw:hint($profile, $collection, $query))
+  return mongo:find($conn, $collection, mw:hint($collection, $query))
 };
 
-declare function mw:find($profile as string, $collection as string, $query as object, $projection as object) as object()*
+declare function mw:find($collection as string, $query as object, $projection as object) as object()*
 {
   let $conn := mw:connection()
-  return mongo:find($conn, $collection, mw:hint($profile, $collection, $query), $projection, {})
+  return mongo:find($conn, $collection, mw:hint( $collection, $query), $projection, {})
 };
 
 declare function mw:run-cmd-deterministic($command as object) as object*
@@ -40,17 +40,15 @@ declare function mw:run-cmd-deterministic($command as object) as object*
   return mongo:run-cmd-deterministic($conn, $command)
 };
 
-declare %private function mw:hint($profile as string, $collection as string, $query as object) as object
+declare %private function mw:hint($collection as string, $query as object) as object
 {
-  switch(lower-case($profile))
+  switch(lower-case($config:profile-name))
     case "sec"
       return mw-sec:hint($collection, $query)
     case "japan"
       return mw-japan:hint($collection, $query)
-    case "nl"
-      return $query
     default
-      return error(QName("mw:UNKNOWN-PROFILE"), $profile || ": Unknown profile. Allowed values: \"sec\", \"japan\", or \"nl\".")
+      return $query
 };
 
 (:

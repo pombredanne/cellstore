@@ -1,4 +1,5 @@
 import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
+import module namespace japan-mw = "http://28.io/modules/xbrl/profiles/sec/mongo-wrapper";
 import module namespace mongo = "http://www.28msec.com/modules/mongodb";
 
 (:
@@ -19,8 +20,8 @@ declare function local:check-index($conn as anyURI, $coll as string, $index as s
 
 let $indexes :=
   let $conn := mw:connection()
-  for $coll in keys($mw:ALL-INDEXES)
-  for $index in members($mw:ALL-INDEXES($coll))
+  for $coll in keys($japan-mw:ALL-INDEXES)
+  for $index in members($japan-mw:ALL-INDEXES($coll))
   return local:check-index($conn, $coll, $index)
 let $expected as integer := 20
 return 
