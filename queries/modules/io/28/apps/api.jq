@@ -15,7 +15,7 @@ declare function api:json-to-csv($objects as object*) as string
   "")
 };
 
-declare function api:flatten-json-object($items as item*) as item*
+declare %private function api:flatten-json-object($items as item*) as item*
 {
   for $item in $items
   return typeswitch($item)
