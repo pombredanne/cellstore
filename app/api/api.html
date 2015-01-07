@@ -27,7 +27,15 @@
             <div class="scrollable">
                 <h2><span ng-bind="op.nickname"></span>()</h2>
                 <p ng-bind="op.summary"></p>
-                <pre>curl -X <span ng-bind="op.method"></span> <span ng-bind="API_URL + path"></span></pre>
+                <pre ng-bind="curl()"></pre>
+                <h3>Examples</h3>
+                <ul>
+                    <li>
+                        <a ng-click="test({ aid: 'STANDARD-TAXONOMY-2014', format: 'json', 'profile-name': 'japan', label: 'Accounting policy for deferred assets' })">
+                            Get element name of standard taxonomy by label
+                        </a>
+                    </li>
+                </ul>
                 <h3>Parameters</h3>
                 <table class="table">
                     <tr ng-repeat="param in op.parameters">
@@ -40,6 +48,7 @@
                 <tabset>
                     <tab>
                         <tab-heading>Body</tab-heading>
+                        <pre ng-bind="body"></pre>
                     </tab>
                     <tab>
                         <tab-heading>Headers</tab-heading>

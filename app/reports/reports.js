@@ -10,7 +10,7 @@ angular.module('report-editor')
     $scope.reports.forEach(function(report){
         $scope.selectedReports[report._id] = false;
     });
-    
+
     $scope.formatDateTime = function(date){
         return moment(date).fromNow();
     };
@@ -159,7 +159,7 @@ angular.module('report-editor')
             $scope.loading = false;
         });
     };
-    
+
     $scope.cancel = function(){
         $modalInstance.dismiss('cancel');
     };
@@ -225,12 +225,12 @@ angular.module('report-editor')
             });
         }
     };
-    
+
     $scope.cancel = function(){
         $modalInstance.dismiss('cancel');
     };
 })
-.controller('ImportReportCtrl', function($scope, $modalInstance, $log, API_URL, Session, ReportID, $upload /* angularFileUpload service */){
+.controller('ImportReportCtrl', function($scope, $modalInstance, $log, PROFILE, API_URL, Session, ReportID, $upload /* angularFileUpload service */){
     $scope.report = {};
     $scope.loading = false;
     $scope.file = undefined;
