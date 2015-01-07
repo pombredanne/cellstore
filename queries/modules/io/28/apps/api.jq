@@ -6,6 +6,30 @@ import module namespace session    = "http://apps.28.io/session";
 import module namespace resp       = "http://www.28msec.com/modules/http-response";
 import module namespace sec-fiscal = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
 
+import module namespace csv = "http://zorba.io/modules/json-csv";
+
+declare function api:json-to-csv($objects as object*) as string
+{
+  string-join(
+    csv:serialize(api:flatten-json-object($objects), { serialize-null-as : "" }),
+  "")
+};
+
+declare %private function api:flatten-json-object($items as item*) as item*
+{
+  for $item in $items
+  return typeswitch($item)
+         case atomic return $item
+         case array return string-join(flatten($item)[$$ instance of atomic], "")
+         case object return {|
+             for $key in keys($item)
+             return typeswitch($item.$key)
+                    case object return api:flatten-json-object($item.$key)
+                    default return { $key: api:flatten-json-object($item.$key) }
+         |}
+         default return ()
+};
+
 declare function api:validate-regexp($name as string, $value as string?, $regexp as string)
 as ()
 {

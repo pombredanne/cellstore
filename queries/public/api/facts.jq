@@ -14,6 +14,7 @@ import module namespace components = "http://28.io/modules/xbrl/components";
 import module namespace sec = "http://28.io/modules/xbrl/profiles/sec/core";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
 import module namespace request = "http://www.28msec.com/modules/http-request";
 
@@ -41,7 +42,9 @@ declare function local:param-values($name as string) as string*
          then "sec:DefaultLegalEntity"
          else request:param-values("sec:LegalEntityAxis::default")
      case $name eq "xbrl:Entity" and $profile-name eq "sec" return (
-         let $companies := companies:companies(
+         let $companies := multiplexer:entities(
+            $profile-name,
+            $eid,
             $cik,
             api:preprocess-tags($tag),
             $ticker,
@@ -144,6 +147,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $sic               as s
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear        as string* external := "LATEST";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod      as string* external := "FY";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriodType  as string* external := ("instant", "YTD");
+declare  %rest:case-insensitive %rest:distinct  variable $eid               as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $aid               as string* external;
 declare  %rest:case-insensitive                 variable $map               as string? external;
 declare  %rest:case-insensitive                 variable $rule              as string? external;
@@ -166,6 +170,7 @@ let $entities as object* :=
         $tag,
         $ticker,
         $sic,
+        $eid,
         $aid)
 let $report as object? := reports:reports($report)
 let $map as item* :=

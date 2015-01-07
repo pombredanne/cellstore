@@ -10,8 +10,7 @@ import module namespace reports = "http://28.io/modules/xbrl/reports";
 import module namespace concept-maps = "http://28.io/modules/xbrl/concept-maps";
 import module namespace config = "http://apps.28.io/config";
 
-import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
-import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
 import module namespace mw = "http://28.io/modules/xbrl/mongo-wrapper";
  
@@ -26,7 +25,7 @@ declare function local:to-csv($concepts as item*, $onlyNames as boolean) as stri
         string-join(("Name", $concepts), "
 ")
     else
-        string-join(csv:serialize($concepts, { serialize-null-as : "" }))
+        string-join(csv:serialize(trim($concepts, "Labels"), { serialize-null-as : "" }))
 };
 
 declare function local:to-xml($concepts as item*, $onlyNames as boolean) as element()*
@@ -143,6 +142,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $sic           as strin
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear    as string*  external := "LATEST";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod  as string*  external := "FY";
 declare  %rest:case-insensitive %rest:distinct  variable $aid           as string*  external;
+declare  %rest:case-insensitive %rest:distinct  variable $eid           as string*  external;
 declare  %rest:case-insensitive %rest:distinct  variable $label         as string*  external;
 declare  %rest:case-insensitive                 variable $map           as string?  external;
 declare  %rest:case-insensitive                 variable $report        as string?  external;
@@ -158,17 +158,21 @@ let $fiscalPeriod as string* := api:preprocess-fiscal-periods($fiscalPeriod)
 let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
-let $entities as object* := 
-    companies:companies(
-        $cik,
-        $tag,
-        $ticker,
-        $sic)
-let $archives as object* := fiscal-core:filings(
-    $entities,
-    $fiscalPeriod,
-    $fiscalYear,
-    $aid)
+let $entities := multiplexer:entities(
+  $profile-name,
+  $eid,
+  $cik,
+  $tag,
+  $ticker,
+  $sic)
+
+let $archives as object* := multiplexer:filings(
+  $profile-name,
+  $entities,
+  $fiscalPeriod,
+  $fiscalYear,
+  $aid)
+
 let $entities as object* :=
     ($entities[$$._id = $archives.Entity],
     let $not-found := $archives.Entity[not $entities._id = $$]
@@ -178,16 +182,10 @@ let $map as object? :=
     if(exists($report))
     then reports:concept-map($report)
     else concept-maps:concept-maps($map)
-let $concepts :=
-    if($profile-name eq "sec")
-    then
-        if (exists($label))
-            then local:concepts-for-archives-and-labels($archives._id, $label[1])
-            else local:concepts-for-archives($archives._id, $name, $map, { OnlyNames: $onlyNames })
-    else
-        if (exists($label))
-            then local:concepts-for-archives-and-labels($aid, $label[1])
-            else local:concepts-for-archives($aid, $name, $map, { OnlyNames: $onlyNames })
+let $concepts as object* :=
+    if (exists($label))
+        then local:concepts-for-archives-and-labels($archives._id, $label[1])
+        else local:concepts-for-archives($archives._id, $name, $map, { OnlyNames: $onlyNames })
 
 let $result :=
     if($profile-name eq "sec")
@@ -220,7 +218,18 @@ let $result :=
                 let $original-name := ($concept.Origin, $concept.Name)[1]
                 return {|
                     project($concept, ("Name", "Origin")),
-                    trim($members.$original-name, "Name"),
+                    {
+                      Labels: [
+                        for $labelRole in keys($concept.Labels)
+                        for $language in keys($concept.Labels.$labelRole)
+                        return {
+                          Role: $labelRole,
+                          Language: $language,
+                          Value: $concept.Labels.$labelRole.$language
+                        }
+                      ]
+                    },
+                    trim($members.$original-name, ("Name", "Labels")),
                     $metadata
                 |}
         ]
@@ -242,15 +251,24 @@ let $result :=
                 let $metadata := {
                     ComponentRole : $component.Role,
                     ComponentLabel : $component.Label,
-                    AccessionNumber : $archive._id,
-                    FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
-                    FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus
+                    Archive : $archive
                 }
                 for $concept in $concept
                 let $original-name := ($concept.Origin, $concept.Name)[1]
                 return {|
                     project($concept, ("Name", "Origin")),
-                    trim($members.$original-name, "Name"),
+                    {
+                      Labels: [
+                        for $labelRole in keys($concept.Labels)
+                        for $language in keys($concept.Labels.$labelRole)
+                        return {
+                          Role: $labelRole,
+                          Language: $language,
+                          Value: $concept.Labels.$labelRole.$language
+                        }
+                      ]
+                    },
+                    trim($members.$original-name, ("Name", "Labels")),
                     $metadata
                 |}
         ]

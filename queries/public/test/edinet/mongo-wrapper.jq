@@ -17,12 +17,13 @@ declare function local:check-index($conn as anyURI, $coll as string, $index as s
   return subsequence(mongo:find($conn, $coll, {"$query": {$field: {"$exists": true}} , "$hint": $index}, {$field: 1}),1,1)
 };
 
-let $indexes:=
+let $indexes :=
   let $conn := mw:connection()
   for $coll in keys($mw:ALL-INDEXES)
   for $index in members($mw:ALL-INDEXES($coll))
   return local:check-index($conn, $coll, $index)
+let $expected as integer := 21
 return 
-  if (count($indexes) eq 15)
+  if (count($indexes) eq $expected)
   then "OK"
-  else error(QName("mw:TEST-FAIL"), "Expected 15 indexes, got " || count($indexes))
+  else error(QName("mw:TEST-FAIL"), "Expected " || $expected || " indexes, got " || count($indexes))
