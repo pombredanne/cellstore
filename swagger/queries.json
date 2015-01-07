@@ -267,11 +267,11 @@
         {
             "path": "/periods.jq",
             "description": "Fiscal Periods",
-            "nickname": "listPeriods",
             "operations": [
                 {
                     "method": "POST",
                     "summary": "[SEC profile] Retrieve the periods of the filings filed by a particular entity",
+                    "nickname": "listPeriods",
                     "parameters": [
                         {
                             "name": "format",
