@@ -1824,6 +1824,16 @@
                     "onlyName": "true",
                     "format": "csv"
                 }
+            }, {
+                "title": "Get element name of standard taxonomy by label",
+                "description": "Get element name of standard taxonomy by label.",
+                "profile": ["japan"],
+                "parameters": {
+                    "aid": "STANDARD-TAXONOMY-2014",
+                    "format": "json",
+                    "profile-name": "japan",
+                    "label": "Accounting policy for deferred assets"
+                }
             }]
         }]
     }],

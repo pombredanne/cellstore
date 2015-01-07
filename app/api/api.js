@@ -2,6 +2,7 @@
 
 angular.module('report-editor')
     .controller('APICtrl', function(_, $scope, $state, $sce, $stateParams, swagger, API_URL, Session, API, PROFILE){
+
         var method = $stateParams.method;
         var path = '/' + $stateParams.path;
         var operation;
