@@ -232,8 +232,11 @@
             "examples": [{
                 "title": "Retrieve the filings of a specific entity",
                 "description": "Retrieve information about the filings of an entity identified by its CIK. Return the result as XML.",
-                "request": "[API_URL]/_queries/public/api/filings.jq?_method=POST&cik=66740&format=xml",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "cik": "66740",
+                    "format": "xml"
+                }
             }]
         }]
     }, {
@@ -535,13 +538,17 @@
             "examples": [{
                 "title": "Retrieve information about all components of a filing",
                 "description": "Retrieve information about all components of a particular filing which is identified by its accession number. Return the result as JSON.",
-                "request": "[API_URL]/_queries/public/api/components.jq?_method=POST&aid=0000021344-13-000039",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "aid": "0000021344-13-000039"
+                }
             }, {
                 "title": "Retrieve information about all components of COCA COLA's latest 10-K",
                 "description": "Retrieve information about all components of a particular filing which is identified by its accession number. Return the result as JSON.",
-                "request": "[API_URL]/_queries/public/api/components.jq?_method=POST&ticker=ko",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "ticker": "ko"
+                }
             }]
         }]
     }, {
@@ -719,15 +726,22 @@
             "examples": [{
                 "title": "Fact Table as CSV",
                 "description": "Retrieve the fact table for a particular component. Return the result as CSV.",
-                "request": "[API_URL]/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets&format=csv",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "aid": "0000021344-14-000008",
+                    "networkIdentifier": "http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets",
+                    "format": "csv"
+                }
             }, {
                 "title": "Fact Table of Coca Cola's Q3/2013 Balance Sheet",
                 "description": "Retrieve the fact table for the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050. Return the result as XML.",
-                "request": "[API_URL]/_queries/public/api/facttable-for-component.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "format": "xml",
+                    "aid": "0000021344-13-000050",
+                    "disclosure": "BalanceSheet"
+                }
             }
-
             ]
         }]
     }, {
@@ -905,15 +919,22 @@
             "examples": [{
                 "title": "Fact Table as CSV",
                 "description": "Retrieve the fact table for a particular component. Return the result as CSV.",
-                "request": "[API_URL]/_queries/public/api/facttable-for-component.jq?_method=POST&aid=0000021344-14-000008&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets&format=csv",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "aid": "0000021344-14-000008",
+                    "networkIdentifier": "http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets",
+                    "format": "csv"
+                }
             }, {
                 "title": "Fact Table of Coca Cola's Q3/2013 Balance Sheet",
                 "description": "Retrieve the fact table for the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050. Return the result as XML.",
-                "request": "[API_URL]/_queries/public/api/facttable-for-component.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "format": "xml",
+                    "aid": "0000021344-13-000050",
+                    "disclosure": "BalanceSheet"
+                }
             }
-
             ]
         }]
     }, {
@@ -1035,13 +1056,21 @@
             "examples": [{
                 "title": "Model Structure as XML",
                 "description": "Retrieve the model structure for a particular component. Return the result as XML.",
-                "request": "[API_URL]/_queries/public/api/modelstructure-for-component.jq?_method=POST&aid=0000021344-14-000008&networkIdentifier=http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets&format=xml",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "aid": "0000021344-14-000008",
+                    "networkIdentifier": "http://www.thecocacolacompany.com/role/ConsolidatedBalanceSheets",
+                    "format": "xml"
+                }
             }, {
                 "title": "Model Structure of Coca Cola's Q3/2013 Balance Sheet",
                 "description": "Retrieve the model structure for a the Balance Sheet of Coca Cola filing identified with accession number 0000021344-13-000050. Return the result as XML.",
-                "request": "[API_URL]/_queries/public/api/modelstructure-for-component.jq?_method=POST&format=xml&aid=0000021344-13-000050&disclosure=BalanceSheet",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "format": "xml",
+                    "aid": "0000021344-13-000050",
+                    "disclosure": "BalanceSheet"
+                }
             }]
         }]
     }, {
