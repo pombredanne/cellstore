@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-.module('report-model', [])
+.module('report-model', ['lodash'])
 .factory('ConceptIsStillReferencedError', function(){
     var ConceptIsStillReferencedError = function(message, references) {
         this.name = 'ConceptIsStillReferencedError';
@@ -42,23 +42,22 @@ angular
 
     return ReportID;
 })
-.factory('AbstractReport', function($log, $q, ConceptIsStillReferencedError, ReportID){
+.factory('AbstractReport', function(_, $log, $q, ConceptIsStillReferencedError, ReportID){
 
     //Constructor
     var AbstractReport = function(){};
 
     AbstractReport.prototype.super = function(modelOrName, label, description, role, username, prefix){
-        if (typeof modelOrName !== 'object' &&
-                   typeof modelOrName !== 'string' &&
+        if (!_.isObject(modelOrName) && !_.isString(modelOrName) &&
                    modelOrName !== undefined &&
                    modelOrName !== null) {
             throw new Error('new Report creation with invalid type ' + typeof modelOrName);
-        } else if (typeof modelOrName === 'object') {
+        } else if (_.isObject(modelOrName)) {
             if(modelOrName._id === undefined){
                 modelOrName._id = this.uuid();
             }
             this.model = modelOrName;
-        } else if (typeof modelOrName === 'string' ||
+        } else if (_.isString(modelOrName) ||
                    modelOrName === undefined ||
                    modelOrName === null){
             ensureParameter(label, 'label', 'string', 'Report (Constructor)');
@@ -73,7 +72,7 @@ angular
             if(prefix === undefined || prefix === null || typeof prefix !== 'string'){
                 // do a good guess
                 var startingChars = '';
-                label.split(/[^A-Za-z0-9]+/).forEach(function(elem){
+                _.each(label.split(/[^A-Za-z0-9]+/), function(elem){
                     var char = elem.substr(0,1);
                     if(/[A-Za-z]/.test(char) && elem.length > 1) {
                         startingChars += char.toLowerCase();
@@ -155,7 +154,7 @@ angular
     AbstractReport.prototype.getPrefix = function(){
         var model = this.getModel();
         ensureExists(model, 'object', 'getPrefix', 'Report doesn\'t have a model.');
-        if(model.Prefix !== undefined && model.Prefix !== null && typeof model.Prefix === 'string'){
+        if(_.isString(model.Prefix)){
             return model.Prefix;
         }
 
@@ -198,25 +197,24 @@ angular
         }
 
         var model = this.getModel();
-        var concept =
-            {
-                'Name': name,
-                'Label': label,
-                'IsAbstract': abstract
-                /* still to be implemented:
-                'IsNillable': false,
-                'PeriodType': duration,
-                'SubstitutionGroup': 'xbrl:item',
-                'DataType' : 'nonnum:textBlockItemType',
-                'BaseType' : 'xs:string',
-                'ClosestSchemaBuiltinType' : 'xs:string',
-                'IsTextBlock' : true
-                */
-            };
         model.Hypercubes['xbrl:DefaultHypercube']
             .Aspects['xbrl:Concept']
             .Domains['xbrl:ConceptDomain']
-            .Members[name] = concept;
+            .Members[name] =
+                {
+                    'Name': name,
+                    'Label': label,
+                    'IsAbstract': abstract
+                    /* still to be implemented:
+                    'IsNillable': false,
+                    'PeriodType': duration,
+                    'SubstitutionGroup': 'xbrl:item',
+                    'DataType' : 'nonnum:textBlockItemType',
+                    'BaseType' : 'xs:string',
+                    'ClosestSchemaBuiltinType' : 'xs:string',
+                    'IsTextBlock' : true
+                    */
+                };
     };
 
     AbstractReport.prototype.updateConcept = function(oname, label, abstract) {
@@ -230,18 +228,16 @@ angular
         }
 
         var concept = this.getConcept(name);
+        var that = this;
         if(concept.IsAbstract !== abstract && !abstract) {
             // a concept can only be non-abstract if it has no children in presentation
             var elementIds = this.findInTree('Presentation', name);
-            for (var i in elementIds) {
-                if (elementIds.hasOwnProperty(i)) {
-                    var id = elementIds[i];
-                    var element = this.getElementFromTree('Presentation', id);
-                    if (typeof element.To === 'object' && element.To !== null && Object.keys(element.To).length > 0) {
-                        throw new Error('updateConcept: cannot make concept with name "' + name + '" non-abstract because it exists with children in the presentation tree.');
-                    }
+            _.each(elementIds, function(id){
+                var element = that.getElementFromTree('Presentation', id);
+                if (_.isObject(element.To) && Object.keys(element.To).length > 0) {
+                    throw new Error('updateConcept: cannot make concept with name "' + name + '" non-abstract because it exists with children in the presentation tree.');
                 }
-            }
+            });
         } else if(concept.IsAbstract !== abstract && abstract){
             var references = this.findConceptReferences(name);
             if(references.ConceptMaps.SynonymOf.length +
@@ -300,19 +296,13 @@ angular
             'Rules': this.findInRules(conceptName)
         };
         var refCount = 0;
-        for(var i in references){
-            if(references.hasOwnProperty(i)){
-                var subRefCats = references[i];
-                for (var j in subRefCats){
-                    if(subRefCats.hasOwnProperty(j)){
-                        var subRefCat = subRefCats[j];
-                        if(subRefCat !== undefined && subRefCat !== null && subRefCat.length !== undefined){
-                            refCount += subRefCat.length;
-                        }
-                    }
+        _.each(references, function(subRefCats){
+            _.each(subRefCats,function(subRefCat){
+                if(_.isArray(subRefCat)){
+                    refCount += subRefCat.length;
                 }
-            }
-        }
+            });
+        });
         references.References = refCount;
         return references;
     };
@@ -339,38 +329,32 @@ angular
                         ' rules still depend on this concept.');
                 }
                 if(references.Rules.Computing !== undefined && references.Rules.Computing !== null && references.Rules.Computing.length > 0){
-                    references.Rules.Computing.forEach(function(id){
+                    _.each(references.Rules.Computing, function(id){
                         $log.log('removing ' + name + ' computing rule ' + id);
                         that.removeRule(id);
                     });
                 }
                 if(references.Rules.Validating !== undefined && references.Rules.Validating !== null && references.Rules.Validating.length > 0){
-                    references.Rules.Validating.forEach(function(id){
+                    _.each(references.Rules.Validating, function(id){
                         $log.log('removing ' + name + ' validating rule ' + id);
                         that.removeRule(id);
                     });
                 }
             }
             if(references.ConceptMaps) {
-                if(references.ConceptMaps.Maps.length > 0) {
-                    references.ConceptMaps.Maps.forEach(function(id){
-                        $log.log('removing synonyms map for ' + id);
-                        that.removeConceptMap(id);
-                    });
-                }
-                if(references.ConceptMaps.SynonymOf.length > 0) {
-                    references.ConceptMaps.SynonymOf.forEach(function(id){
-                        $log.log('removing ' + name + ' as synonym of ' + id);
-                        that.removeSynonym(id, name);
-                    });
-                }
-            }
-            if(references.Trees.Presentation) {
-                references.Trees.Presentation.forEach(function(id){
-                    $log.log('removing presentation element ' + name + ' (' + id + ')');
-                    that.removeTreeBranch('Presentation', id);
+                _.each(references.ConceptMaps.Maps, function(id){
+                    $log.log('removing synonyms map for ' + id);
+                    that.removeConceptMap(id);
+                });
+                _.each(references.ConceptMaps.SynonymOf, function(id){
+                    $log.log('removing ' + name + ' as synonym of ' + id);
+                    that.removeSynonym(id, name);
                 });
             }
+            _.each(references.Trees.Presentation, function(id){
+                $log.log('removing presentation element ' + name + ' (' + id + ')');
+                that.removeTreeBranch('Presentation', id);
+            });
         }
 
         var model = this.getModel();
@@ -385,10 +369,7 @@ angular
         ensureConceptName(conceptName, 'oconceptName', 'existsConcept');
 
         var concept = this.getConcept(conceptName);
-        if(concept !== null && typeof concept === 'object') {
-            return true;
-        }
-        return false;
+        return _.isObject(concept);
     };
 
     AbstractReport.prototype.getConcept = function(oconceptName) {
@@ -397,7 +378,7 @@ angular
 
         var model = this.getModel();
         if(model === null || model === undefined) {
-            return null;
+            return;
         }
 
         var concept =
@@ -407,7 +388,7 @@ angular
               .Members[conceptName];
 
         if(concept === null || concept === undefined) {
-            return null;
+            return;
         }
         return concept;
     };
@@ -443,63 +424,60 @@ angular
         ensureNetworkShortName(networkShortName, 'networkShortName', 'getNetwork');
 
         var model = this.getModel();
-        if(model === null || model === undefined) {
-            return null;
+        if(!_.isObject(model)) {
+            return;
         }
 
         var networks = model.Networks;
-        if(networks === null || networks === undefined) {
-            return null;
+        if(!_.isArray(networks)) {
+            return;
         }
 
-        for(var i in networks) {
-            var network = networks[i];
-            if(networks.hasOwnProperty(i) &&
-                network.ShortName === networkShortName){
-                return network;
-            }
-        }
+        return _.find(networks, function(network){
+            return network.ShortName === networkShortName;
+        });
     };
 
     AbstractReport.prototype.listTrees = function(networkShortName) {
         ensureNetworkShortName(networkShortName, 'networkShortName', 'listTrees');
 
-        var result = [];
         var network = this.getNetwork(networkShortName);
         if(network === null || network === undefined) {
-            return result;
+            return [];
         }
 
-        for(var treeroot in network.Trees) {
-            var tree = network.Trees[treeroot];
-            result.push(tree);
-        }
-        return result;
+        // return copy of array
+        return _.map(network.Trees, function(tree){
+            return tree;
+        });
     };
 
     AbstractReport.prototype.findInSubTree = function(conceptName, subtree) {
         var result = [];
+        var that = this;
         if(subtree.Name === conceptName){
             result.push(subtree.Id);
         }
-        var children = subtree.To;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                var childresult = this.findInSubTree(conceptName, children[child]);
-                Array.prototype.push.apply(result, childresult);
-            }
-        }
-        return result;
+        return _.chain(subtree.To)
+            .map(function(child){
+                return that.findInSubTree(conceptName, child);
+            })
+            .filter(function(subTreeResults){
+                return subTreeResults.length > 0;
+            })
+            .reduce(function(result, subTreeResults){
+                return _.union(result, subTreeResults);
+            }, result)
+            .value();
     };
 
     AbstractReport.prototype.findInTrees = function(oconceptName) {
         var conceptName = this.alignConceptPrefix(oconceptName);
         ensureConceptName(conceptName, 'oconceptName', 'findInTrees');
 
-        var result = {
+        return {
             Presentation: this.findInTree('Presentation', conceptName)
         };
-        return result;
     };
 
     AbstractReport.prototype.findInTree = function(networkShortName, oconceptName) {
@@ -507,32 +485,33 @@ angular
         ensureConceptName(conceptName, 'oconceptName', 'findInTree');
         ensureNetworkShortName(networkShortName, 'networkShortName', 'findInTree');
 
+        var that = this;
         var network = this.getNetwork(networkShortName);
-        var result = [];
-        var children = network.Trees;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                var childresult = this.findInSubTree(conceptName, children[child]);
-                Array.prototype.push.apply(result, childresult);
-            }
-        }
-        return result;
+        return _.chain(network.Trees)
+            .map(function(child){
+                return that.findInSubTree(conceptName, child);
+            })
+            .filter(function(subTreeResults){
+                return subTreeResults.length > 0;
+            })
+            .reduce(function(result, subTreeResults){
+                return _.union(result, subTreeResults);
+            }, [])
+            .value();
     };
 
     var getElementByIdFromSubTree = function(elementID, subtree) {
         if(subtree.Id === elementID){
             return subtree;
         }
-        var children = subtree.To;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                var childresult = getElementByIdFromSubTree(elementID, children[child]);
-                if(childresult !== null) {
-                    return childresult;
-                }
+        var result;
+        _.each(subtree.To, function(child){
+            var found = getElementByIdFromSubTree(elementID, child);
+            if(found !== undefined){
+                result = found;
             }
-        }
-        return null;
+        });
+        return result;
     };
 
     AbstractReport.prototype.getElementFromTree = function(networkShortName, elementID) {
@@ -540,17 +519,14 @@ angular
         ensureParameter(elementID, 'elementID', 'string', 'getElementFromTree');
 
         var network = this.getNetwork(networkShortName);
-        var element = null;
-        var children = network.Trees;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                var childresult = getElementByIdFromSubTree(elementID, children[child]);
-                if(childresult !== null) {
-                    element = childresult;
-                }
+        var result;
+        _.each(network.Trees, function(tree){
+            var found = getElementByIdFromSubTree(elementID, tree);
+            if(found !== undefined){
+                result = found;
             }
-        }
-        return element;
+        });
+        return result;
     };
 
     AbstractReport.prototype.sortTreeChildren = function(children){
@@ -559,13 +535,13 @@ angular
             var order1 = elem1.Order;
             if(order1 === undefined || order1 === null){
                 order1 = 1;
-            } else if(typeof order1 !== 'number'){
+            } else if(!_.isNumber(order1)){
                 order1 = parseInt(order1, 10);
             }
             var order2 = elem2.Order;
             if(order2 === undefined || order2 === null){
                 order2 = 1;
-            } else if(typeof order2 !== 'number'){
+            } else if(!_.isNumber(order2)){
                 order2 = parseInt(order2, 10);
             }
             if (order1 < order2){
@@ -594,37 +570,30 @@ angular
             children = parent.To;
         }
 
-        var ordered = [];
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                ordered.push(children[child]);
-            }
-        }
+        var ordered = _.map(children, function(child){ return child; });
         report.sortTreeChildren(ordered);
-        for (var i = 0; i < ordered.length; i++) {
-            if(shiftOffset !== -1 && i >= shiftOffset){
-                ordered[i].Order = i + 2;
+        _.each(ordered, function(element, index){
+            if(shiftOffset !== -1 && index >= shiftOffset){
+                element.Order = index + 2;
             } else {
-                ordered[i].Order = i + 1;
+                element.Order = index + 1;
             }
-        }
+        });
     };
 
     var getParentElementFromSubTree = function(elementID, subtree) {
-        var children = subtree.To;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                if(children[child].Id === elementID) {
-                    return subtree;
-                } else {
-                    var childresult = getParentElementFromSubTree(elementID, children[child]);
-                    if(childresult !== null) {
-                        return childresult;
-                    }
+        var parent;
+        _.each(subtree.To, function(child){
+            if(child.Id === elementID) {
+                parent = subtree;
+            } else {
+                var childresult = getParentElementFromSubTree(elementID, child);
+                if(childresult !== undefined) {
+                    parent = childresult;
                 }
             }
-        }
-        return null;
+        });
+        return parent;
     };
 
     AbstractReport.prototype.getParentElementFromTree = function(networkShortName, elementID) {
@@ -632,16 +601,13 @@ angular
         ensureParameter(elementID, 'elementID', 'string', 'getParentElementFromTree');
 
         var network = this.getNetwork(networkShortName);
-        var parent = null;
-        var children = network.Trees;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                var result = getParentElementFromSubTree(elementID, children[child]);
-                if(result !== null) {
-                    parent = result;
-                }
+        var parent;
+        _.each(network.Trees, function(child){
+            var result = getParentElementFromSubTree(elementID, child);
+            if(result !== undefined) {
+                parent = result;
             }
-        }
+        });
         return parent;
     };
 
@@ -650,15 +616,12 @@ angular
         ensureParameter(elementID, 'elementID', 'string', 'existsElementInTree');
 
         var element = this.getElementFromTree(networkShortName, elementID);
-        if(element !== null && typeof element === 'object') {
-            return true;
-        }
-        return false;
+        return _.isObject(element);
     };
 
     AbstractReport.prototype.createNewElement = function(conceptOrConceptName, order) {
         var concept;
-        if(typeof conceptOrConceptName === 'string'){
+        if(_.isString(conceptOrConceptName)){
             var conceptName = this.alignConceptPrefix(conceptOrConceptName);
             ensureConceptName(conceptName, 'conceptOrConceptName', 'createNewElement');
             concept = this.getConcept(conceptName);
@@ -672,29 +635,27 @@ angular
             ensureParameter(order, 'order', 'number', 'createNewElement');
             _order = order;
         }
-        var element = {
+        return {
             Id: new ReportID().toString(),
             Name : concept.Name,
             Label : concept.Label,
             Order : _order
         };
-        return element;
     };
 
     var getMaxOrder = function(report, networkShortName, parentElementID){
         ensureNetworkShortName(networkShortName, 'networkShortName', 'getMaxOrder');
         var network = report.getNetwork(networkShortName);
+        if(!_.isObject(network)){
+            return 0;
+        }
         var children = network.Trees;
         if(parentElementID !== undefined && parentElementID !== null) {
             var parent = report.getElementFromTree(networkShortName, parentElementID);
             children = parent.To;
         }
-        var count = 0, child;
-        for (child in children) {
-            if (children.hasOwnProperty(child)) {
-                count += 1;
-            }
-        }
+        var count = 0;
+        _.each(children, function(){ count += 1; });
         return count;
     };
 
@@ -722,7 +683,7 @@ angular
     // 2. element which will return the element with the desired order
     var determineElement = function(report, elementOrConceptName, order){
         var element;
-        if(typeof elementOrConceptName === 'string'){
+        if(_.isString(elementOrConceptName)){
             var conceptName = report.alignConceptPrefix(elementOrConceptName);
             ensureConceptName(conceptName, 'conceptName', 'determineElement');
             var concept = report.getConcept(conceptName);
@@ -760,9 +721,9 @@ angular
         ensureNetworkShortName(networkShortName, 'networkShortName', 'getRootElement');
         var rootElem;
         var network = this.getNetwork('Presentation');
-        if (network !== undefined && network.Trees !== undefined && network.Trees.length !== undefined && network.Trees.length > 0) {
+        if (_.isObject(network) && _.isArray(network.Trees) && network.Trees.length > 0) {
             rootElem = network.Trees[0];
-        } else if (network !== undefined && network.Trees !== undefined && typeof network.Trees === 'object' && network.Trees !== null && Object.keys(network.Trees).length > 0) {
+        } else if (_.isObject(network) && _.isObject(network.Trees) && Object.keys(network.Trees).length > 0) {
             rootElem = network.Trees[Object.keys(network.Trees)[0]];
         }
         return rootElem;
@@ -776,7 +737,7 @@ angular
         var isRootElem = false;
         var elementIds = this.findInTree(networkShortName, conceptName);
         var that = this;
-        angular.forEach(elementIds, function (id) {
+        _.each(elementIds, function (id) {
             var parent = that.getParentElementFromTree(networkShortName, id);
             if (parent === undefined || parent === null) {
                 isRootElem = true;
@@ -903,12 +864,7 @@ angular
             return null;
         }
 
-        var map = network.Trees[conceptName];
-        if(map === null || map === undefined) {
-            return null;
-        } else {
-            return map;
-        }
+        return network.Trees[conceptName];
     };
 
     AbstractReport.prototype.listConceptMapSynonyms = function(oconceptName) {
@@ -923,19 +879,13 @@ angular
 
         // sort
         var ordered = [];
-        var children = conceptMap.To;
-        for(var child in children){
-            if(children.hasOwnProperty(child)) {
-                ordered.push(children[child]);
-            }
-        }
+        _.each(conceptMap.To, function(child){
+           ordered.push(child);
+        });
         this.sortTreeChildren(ordered);
-
-        for(var synonym in ordered){
-            if(ordered.hasOwnProperty(synonym)) {
-                synonyms.push(ordered[synonym].Name);
-            }
-        }
+        _.each(ordered, function(synonym){
+            synonyms.push(synonym.Name);
+        });
         return synonyms;
     };
 
@@ -947,10 +897,9 @@ angular
             return result;
         }
 
-        for (var conceptname in network.Trees) {
-            var map = network.Trees[conceptname];
+        _.each(network.Trees, function(map){
             result.push(map);
-        }
+        });
         return result;
     };
 
@@ -959,10 +908,7 @@ angular
         ensureConceptName(conceptName, 'oconceptName', 'existsConceptMap');
 
         var map = this.getConceptMap(conceptName);
-        if(map === null || map === undefined) {
-            return false;
-        }
-        return true;
+        return (map !== null && map !== undefined);
     };
 
     AbstractReport.prototype.updateConceptMap = function(ofromConceptName, toConceptNamesArray) {
@@ -987,15 +933,16 @@ angular
         }
 
         // add synomyms
-        for(var i in toConceptNamesArray) {
-            var name = this.alignConceptPrefix(toConceptNamesArray[i]);
+        var that = this;
+        _.each(toConceptNamesArray, function(ocname, index){
+            var name = that.alignConceptPrefix(ocname);
             ensureConceptName(name, 'toConceptNamesArray', 'updateConceptMap');
             toObj[name] = {
                 'Id': new ReportID().toString(),
                 'Name': name,
-                'Order': parseInt(i, 10) + 1
+                'Order': index + 1
             };
-        }
+        });
         conceptMap.To = toObj;
 
         // add concept map to network
@@ -1019,17 +966,14 @@ angular
             return result;
         }
 
-        for(var child in network.Trees){
-            if(network.Trees.hasOwnProperty(child)) {
-                var map = network.Trees[child];
-                var to = map.To;
-                if(to !== null && to !== undefined && to[conceptName] !== null && typeof to[conceptName] === 'object') {
-                    result.SynonymOf.push(child);
-                } else if (child === conceptName){
-                    result.Maps.push(child);
-                }
+        _.each(network.Trees, function(map){
+            var to = map.To;
+            if(to !== null && to !== undefined && _.isObject(to[conceptName])) {
+                result.SynonymOf.push(map.Name);
+            } else if (map.Name === conceptName){
+                result.Maps.push(map.Name);
             }
-        }
+        });
         return result;
     };
 
@@ -1070,39 +1014,31 @@ angular
             return null;
         }
 
-        for (var i in model.Rules) {
-            var rule = model.Rules[i];
-            if(rule.Id === id) {
-                return rule;
-            }
-        }
-        return null;
+        return _.find(model.Rules, function(rule){
+            return rule.Id === id;
+        });
     };
 
     AbstractReport.prototype.removeRule = function(id) {
         ensureParameter(id, 'id', 'string', 'removeRule');
 
         var model = this.getModel();
-        if(model === null || model === undefined || model.Rules === null || model.Rules === undefined || model.Rules.length === 0) {
+        if(!_.isObject(model) || !_.isArray(model.Rules) || model.Rules.length === 0) {
             return;
         }
-        for (var i in model.Rules) {
-            var rule = model.Rules[i];
-            if(rule.Id === id) {
+        _.each(model.Rules, function(rule, index){
+            if(!_.isObject(rule) || rule.Id === id) {
                 // remove rule from array
-                model.Rules.splice(i,1);
+                model.Rules.splice(index,1);
             }
-        }
+        });
     };
 
     AbstractReport.prototype.existsRule = function(id) {
         ensureParameter(id, 'id', 'string', 'existsRule');
 
         var rule = this.getRule(id);
-        if(rule !== null && typeof rule === 'object') {
-            return true;
-        }
-        return false;
+        return _.isObject(rule);
     };
 
     AbstractReport.prototype.validatedByRules = function(oconceptName) {
@@ -1113,22 +1049,15 @@ angular
         var model = this.getModel();
         ensureExists(model, 'object', 'validatedByRules', 'Report doesn\'t have a model.');
 
-        if(model.Rules === null || model.Rules === undefined || model.Rules.length === 0) {
+        if(!_.isArray(model.Rules)) {
             return result;
         }
 
-        for (var i in model.Rules) {
-            var rule = model.Rules[i];
-            if(rule.ValidatedConcepts !== undefined && rule.ValidatedConcepts !== null) {
-                for (var j in rule.ValidatedConcepts) {
-                    if (rule.ValidatedConcepts[j] === conceptName) {
-                        result.push(rule);
-                        break;
-                    }
-                }
-            }
-        }
-        return result;
+        return _.chain(model.Rules)
+            .filter(function(rule) {
+                return _.indexOf(rule.ValidatedConcepts, conceptName) !== -1;
+            })
+            .value();
     };
 
     AbstractReport.prototype.computableByRules = function(oconceptName) {
@@ -1139,20 +1068,15 @@ angular
         var model = this.getModel();
         ensureExists(model, 'object', 'computableByRules', 'Report doesn\'t have a model.');
 
-        if(model.Rules === null || model.Rules === undefined || model.Rules.length === 0) {
+        if(!_.isArray(model.Rules)) {
             return result;
         }
 
-        for (var i in model.Rules) {
-            var rule = model.Rules[i];
-            // indexOf not supported in IE<9
-            for(var j in rule.ComputableConcepts){
-                if(rule.ComputableConcepts[j] === conceptName) {
-                    result.push(rule);
-                }
-            }
-        }
-        return result;
+        return _.chain(model.Rules)
+            .filter(function(rule) {
+                return _.indexOf(rule.ComputableConcepts, conceptName) !== -1;
+            })
+            .value();
     };
 
     AbstractReport.prototype.findInRules = function(oconceptName) {
@@ -1167,44 +1091,24 @@ angular
         var model = this.getModel();
         ensureExists(model, 'object', 'findInRules', 'Report doesn\'t have a model.');
 
-        if(model.Rules === null || model.Rules === undefined || model.Rules.length === 0) {
+        if(!_.isArray(model.Rules)) {
             return result;
         }
 
-        for (var i in model.Rules) {
-            var rule = model.Rules[i];
-            var found = false;
-            // indexOf not supported in IE<9
-            for(var j in rule.ComputableConcepts){
-                if(rule.ComputableConcepts[j] === conceptName) {
-                    result.Computing.push(rule.Id);
-                    found = true;
-                    break;
-                }
+        _.each(model.Rules, function(rule){
+            var found = _.find(rule.ComputableConcepts, function(name){ return name === conceptName; });
+            if(found){
+                result.Computing.push(rule.Id);
             }
-            if(!found && rule.DependsOn !== null && typeof rule.DependsOn === 'object') {
-                for(var x in rule.DependsOn){
-                    if(rule.DependsOn[x] === conceptName &&
-                        (
-                           ( rule.Type === 'xbrl28:formula' && rule.ComputableConcepts.length === 1 && rule.ComputableConcepts[0] !== conceptName) ||
-                           ( rule.Type === 'xbrl28:validation' && rule.ValidatedConcepts.length === 1 && rule.ValidatedConcepts[0] !== conceptName)
-                        )) {
-                        result.Dependent.push(rule.Id);
-                        found = true;
-                        break;
-                    }
-                }
+            found = _.find(rule.DependsOn, function(name){ return name === conceptName; });
+            if(found){
+                result.Dependent.push(rule.Id);
             }
-            if(!found && rule.ValidatedConcepts !== null && typeof rule.ValidatedConcepts === 'object') {
-                for(var y in rule.ValidatedConcepts){
-                    if(rule.ValidatedConcepts[y] === conceptName) {
-                        result.Validating.push(rule.Id);
-                        found = true;
-                        break;
-                    }
-                }
+            found = _.find(rule.ValidatedConcepts, function(name){ return name === conceptName; });
+            if(found){
+                result.Validating.push(rule.Id);
             }
-        }
+        });
         return result;
     };
 
@@ -1246,56 +1150,46 @@ angular
 
     var validateComputableConcepts = function(report, errorMsgPrefix, computableConceptsArray, ruleId) {
         ensureExists(computableConceptsArray[0], 'string', errorMsgPrefix, 'Mandatory computable concept missing.');
-        for(var i in computableConceptsArray) {
-            if(computableConceptsArray.hasOwnProperty(i)) {
-                var cname = report.alignConceptPrefix(computableConceptsArray[i]);
-                ensureConceptName(cname, 'computableConceptsArray', errorMsgPrefix, 'The computable concept name ' + cname + ' is not a valid concept name (correct pattern e.g. fac:Revenues).');
-                var cconcept = report.getConcept(cname);
-                if (cconcept === undefined || cconcept === null) {
-                    throw new Error(errorMsgPrefix + ': the computable concept with name "' + cname +
-                        '" does not exist. You need to create this concept or adapt it to an existing one before you can create the rule.');
-                }
-                var rulesComputableConcepts = report.computableByRules(cname);
-                if (rulesComputableConcepts.length > 0 && rulesComputableConcepts[0].Id !== ruleId) {
-                    throw new Error(errorMsgPrefix + ': A rule which can compute facts for concept "' + cname + '" exists already: "' + rulesComputableConcepts[0].Id +
-                        '". Currently, only one rule must be able to compute a fact for a certain concept.');
-                }
+        _.each(computableConceptsArray, function(ocname){
+            var cname = report.alignConceptPrefix(ocname);
+            ensureConceptName(cname, 'computableConceptsArray', errorMsgPrefix, 'The computable concept name ' + cname + ' is not a valid concept name (correct pattern e.g. fac:Revenues).');
+            var cconcept = report.getConcept(cname);
+            if (!_.isObject(cconcept)) {
+                throw new Error(errorMsgPrefix + ': the computable concept with name "' + cname +
+                    '" does not exist. You need to create this concept or adapt it to an existing one before you can create the rule.');
             }
-        }
+            var rulesComputableConcepts = report.computableByRules(cname);
+            if (_.isArray(rulesComputableConcepts) && rulesComputableConcepts.length > 0 && rulesComputableConcepts[0].Id !== ruleId) {
+                throw new Error(errorMsgPrefix + ': A rule which can compute facts for concept "' + cname + '" exists already: "' + rulesComputableConcepts[0].Id +
+                    '". Currently, only one rule must be able to compute a fact for a certain concept.');
+            }
+        });
     };
 
     var validateDependingConceptsArray = function(report, errorMsgPrefix, dependingConceptsArray) {
-        if(dependingConceptsArray !== undefined && dependingConceptsArray !== null && typeof dependingConceptsArray === 'object') {
-            for (var j in dependingConceptsArray) {
-                if(dependingConceptsArray.hasOwnProperty(j)) {
-                    var dname = report.alignConceptPrefix(dependingConceptsArray[j]);
-                    ensureConceptName(dname, 'dependingConceptsArray', errorMsgPrefix, 'The dependency concept name ' + dname +
-                        ' is not a valid concept name (correct pattern e.g. fac:Revenues).');
-                    var dconcept = report.getConcept(dname);
-                    if (dconcept === undefined || dconcept === null) {
-                        throw new Error(errorMsgPrefix + ': A concept with name "' + dname +
-                            '" does not exist (as used in the dependencies). You need to create this concept or remove it from the dependencies before you can create the rule.');
-                    }
-                }
+        _.each(dependingConceptsArray, function(ocname){
+            var dname = report.alignConceptPrefix(ocname);
+            ensureConceptName(dname, 'dependingConceptsArray', errorMsgPrefix, 'The dependency concept name ' + dname +
+                ' is not a valid concept name (correct pattern e.g. fac:Revenues).');
+            var dconcept = report.getConcept(dname);
+            if (!_.isObject(dconcept)) {
+                throw new Error(errorMsgPrefix + ': A concept with name "' + dname +
+                    '" does not exist (as used in the dependencies). You need to create this concept or remove it from the dependencies before you can create the rule.');
             }
-        }
+        });
     };
 
     var validateValidatedConceptsArray = function(report, errorMsgPrefix, validatedConceptsArray) {
-        if(validatedConceptsArray !== undefined && validatedConceptsArray !== null && typeof validatedConceptsArray === 'object') {
-            for(var x in validatedConceptsArray) {
-                if(validatedConceptsArray.hasOwnProperty(x)) {
-                    var vname = report.alignConceptPrefix(validatedConceptsArray[x]);
-                    ensureConceptName(vname, 'validatedConceptsArray', errorMsgPrefix, 'The validated concept name ' + vname +
-                        ' is not a valid concept name (correct pattern e.g. fac:Revenues).');
-                    var vconcept = report.getConcept(vname);
-                    if (vconcept === undefined || vconcept === null) {
-                        throw new Error(errorMsgPrefix + ': The validated concept with name "' + vname +
-                            '" does not exist. You need to create this concept or adapt it to an existing one before you can create the rule.');
-                    }
-                }
+        _.each(validatedConceptsArray, function(ocname){
+            var vname = report.alignConceptPrefix(ocname);
+            ensureConceptName(vname, 'validatedConceptsArray', errorMsgPrefix, 'The validated concept name ' + vname +
+                ' is not a valid concept name (correct pattern e.g. fac:Revenues).');
+            var vconcept = report.getConcept(vname);
+            if (!_.isObject(vconcept)) {
+                throw new Error(errorMsgPrefix + ': The validated concept with name "' + vname +
+                    '" does not exist. You need to create this concept or adapt it to an existing one before you can create the rule.');
             }
-        }
+        });
     };
 
     var validate = function(report, errorMsgPrefix, action, id, label, type, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray){
@@ -1358,7 +1252,7 @@ angular
             var model = this.getModel();
             ensureExists(model, 'object', 'createRule', 'Report doesn\'t have a model.');
 
-            if(model.Rules === null || model.Rules === undefined) {
+            if(!_.isArray(model.Rules)) {
                 model.Rules = [];
             }
             model.Rules.push(rule);
@@ -1372,7 +1266,7 @@ angular
         var model = this.getModel();
         ensureExists(model, 'object', 'setFormulaRule', 'Report doesn\'t have a model.');
 
-        if(model.Rules === null || model.Rules === undefined) {
+        if(!_.isArray(model.Rules)) {
             model.Rules = [];
         }
         if(this.existsRule(id)) {
@@ -1388,7 +1282,7 @@ angular
         var model = this.getModel();
         ensureExists(model, 'object', 'setValidationRule', 'Report doesn\'t have a model.');
 
-        if(model.Rules === null || model.Rules === undefined) {
+        if(!_.isArray(model.Rules)) {
             model.Rules = [];
         }
         if(this.existsRule(id)) {
@@ -1401,10 +1295,10 @@ angular
 
         var result = [];
         var model = this.getModel();
-        if (model === null || model === undefined || model.Rules === null || model.Rules === undefined) {
+        if (!_.isObject(model) || _.isArray(model.Rules)) {
             return result;
         }
-        if (concept !== undefined && concept !== null) {
+        if (_.isObject(concept)) {
             ensureParameter(concept, 'concept', 'string', 'listValidatingRules');
             result = this.validatedByRules(concept);
         }
@@ -1413,13 +1307,13 @@ angular
 
     AbstractReport.prototype.listRules = function(concept, rulesType){
 
-        if(rulesType === undefined || rulesType === null) {
+        if(!_.isString(rulesType)) {
             var result = [];
             var model = this.getModel();
-            if (model === null || model === undefined || model.Rules === null || model.Rules === undefined) {
+            if (!_.isObject(model) || !_.isArray(model.Rules)) {
                 return result;
             }
-            if (concept !== undefined && concept !== null) {
+            if (_.isString(concept)) {
                 ensureParameter(concept, 'concept', 'string', 'listRules');
                 result = this.computableByRules(concept);
             } else {
@@ -1436,45 +1330,30 @@ angular
     };
 
     AbstractReport.prototype.listFormulaRules = function(concept){
-        var result = [];
         var rules = this.listRules(concept);
-        for(var i in rules) {
-            var rule = rules[i];
-            if(rule.Type === 'xbrl28:formula'){
-                result.push(rule);
-            }
-        }
-        return result;
+        return _.filter(rules, function(rule){
+            return (rule.Type === 'xbrl28:formula');
+        });
     };
 
     AbstractReport.prototype.listValidationRules = function(concept){
-        var result = [];
         var rules = this.listRules(concept);
-        for(var i in rules) {
-            var rule = rules[i];
-            if(rule.Type === 'xbrl28:validation'){
-                result.push(rule);
-            }
-        }
-        return result;
+        return _.filter(rules, function(rule){
+            return (rule.Type === 'xbrl28:validation');
+        });
     };
 
     AbstractReport.prototype.listSpreadsheetRules = function(concept){
-        var result = [];
         var rules = this.listRules(concept);
-        for(var i in rules) {
-            var rule = rules[i];
-            if(rule.OriginalLanguage === 'SpreadsheetFormula'){
-                result.push(rule);
-            }
-        }
-        return result;
+        return _.filter(rules, function(rule){
+            return (rule.OriginalLanguage === 'SpreadsheetFormula');
+        });
     };
 
     AbstractReport.prototype.alignConceptPrefix = function(concept){
         var prefix = this.getPrefix();
         var result;
-        if(concept !== undefined && concept !== null && typeof concept === 'string') {
+        if(_.isString(concept)) {
             if (concept.indexOf(':') === -1) {
                 result = prefix + ':' + concept;
             } else {
@@ -1487,7 +1366,7 @@ angular
     AbstractReport.prototype.hideDefaultConceptPrefix = function(concept){
         var prefix = this.getPrefix();
         var result;
-        if(concept !== undefined && concept !== null && typeof concept === 'string') {
+        if(_.isString(concept)) {
             if(concept.indexOf(prefix + ':') === 0){
                 result = concept.substring(prefix.length + 1);
             } else {
@@ -1498,27 +1377,17 @@ angular
     };
 
     AbstractReport.prototype.hideDefaultConceptPrefixes = function(conceptsArray){
-        var result = [];
-        if(conceptsArray !== undefined && conceptsArray !== null && typeof conceptsArray === 'object') {
-            for (var i in conceptsArray) {
-                if(conceptsArray.hasOwnProperty(i)) {
-                    var concept = conceptsArray[i];
-                    result.push(this.hideDefaultConceptPrefix(concept));
-                }
-            }
-        }
-        return result;
+        var that = this;
+        return _.map(conceptsArray, function(ocname){
+            return that.hideDefaultConceptPrefix(ocname);
+        });
     };
 
     AbstractReport.prototype.alignConceptPrefixes = function(conceptsArray){
-        var result = [];
-        if(conceptsArray !== undefined && conceptsArray !== null && typeof conceptsArray === 'object') {
-            for (var i in conceptsArray) {
-                var concept = conceptsArray[i];
-                result.push(this.alignConceptPrefix(concept));
-            }
-        }
-        return result;
+        var that = this;
+        return _.map(conceptsArray, function(ocname){
+            return that.alignConceptPrefix(ocname);
+        });
     };
 
     /**********************
@@ -1575,7 +1444,7 @@ angular
 
         var count = 0;
         var that = this;
-        angular.forEach(arrayOfAspectNames, function(aspectName){
+        _.each(arrayOfAspectNames, function(aspectName){
             var aspects = getAspectEnumeration(that, aspectName);
             if(aspects !== undefined && aspects.length !== undefined) {
                 count += aspects.length;

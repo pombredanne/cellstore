@@ -21,6 +21,7 @@ module.exports = function (config) {
             'bower_components/angular-ui-router/release/angular-ui-router.js',
             'bower_components/angular-ui-tree/dist/angular-ui-tree.js',
             'bower_components/ng-file-upload/angular-file-upload.js',
+            'bower_components/lodash/dist/lodash.js',
 
             'app/constants.js',
             'app/modules/report-api.js',

@@ -53,6 +53,7 @@ let $entities := ($eid,
                 $tag,
                 $ticker,
                 $sic,
+                $eid,
                 $aid)
         order by $entity.Profiles.SEC.CompanyName
         return $entity
