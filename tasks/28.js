@@ -288,14 +288,15 @@ module.exports = {
         /*jshint camelcase:false */
         var projectName = Config.projectName;
         var projectToken = credentials.project_tokens['project_' + projectName];
-        var path = require('path');
-        var projectPath = path.resolve(Config.paths.queries);
+        var upath = require('upath');
+        var projectPath = upath.resolve(Config.paths.queries);
         var vfs = new VFS($28.api, projectName, projectToken, projectPath);
 
         //Do the Watch
         gulp.watch(Config.paths.jsoniq, {}, function(event){
             //Get relative query path
             var query = event.path.substring(projectPath.length + 1);
+            query = upath.normalize(query);
             $.util.log(query + ' has ' + event.type);
 
             //Upload
