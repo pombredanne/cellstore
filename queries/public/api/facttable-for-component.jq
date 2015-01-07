@@ -67,18 +67,18 @@ let $entities := multiplexer:entities(
   $ticker,
   $sic)
 
-let $archive as object* := multiplexer:filings(
+let $archives as object* := multiplexer:filings(
   $profile-name,
   $entities,
   $fiscalPeriod,
   $fiscalYear,
   $aid)
 
-let $entity    := entities:entities($archive.Entity)
+let $entity    := entities:entities($archives.Entity)
 let $components  := 
     switch($profile-name)
     case "sec" return sec-networks:components(
-        $archive,
+        $archives,
         $cid,
         $reportElement,
         $disclosure,
@@ -86,10 +86,10 @@ let $components  :=
         $label)
     default return
         switch(true)
-        case (exists($networkIdentifier) and exists($archive))
-        return components:components-for-archives-and-roles($archive, $networkIdentifier)
-        case exists($archive)
-        return components:components-for-archives($archive)
+        case (exists($networkIdentifier) and exists($archives))
+        return components:components-for-archives-and-roles($archives, $networkIdentifier)
+        case exists($archives)
+        return components:components-for-archives($archives)
         default
         return {
           response:status-code(400);
@@ -111,7 +111,7 @@ let $facts :=
                  "sec:FiscalPeriodType" : { Type: "string", Default: null }
              })
              let $options as object? := if(exists($rules)) then { Rules: [ $rules ] } else ()
-             let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive, $options)
+             let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archives, $options)
              let $map := concept-maps:concept-maps($map)
              let $concepts := 
                 if (not $map instance of null)
@@ -122,7 +122,7 @@ let $facts :=
                 else
                     for $d in $rollup[]
                     return ($d, keys(descendant-objects($p)[$$.Name eq $d].To))
-             return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
+             return sec:facts-for-archives-and-concepts($archives, $concepts, { Hypercube: $hc })
          else components:facts(
             $component,
             {|
@@ -163,10 +163,10 @@ let $result :=
                 TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name,
                 Label : $component.Label,
                 AccessionNumber : $component.Archive,
-                FormType : $archive.Profiles.SEC.FormType,
-                FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
-                FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
-                AcceptanceDatetime : filings:acceptance-dateTimes($archive),
+                FormType : $archives.Profiles.SEC.FormType,
+                FiscalPeriod : $archives.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
+                FiscalYear : $archives.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
+                AcceptanceDatetime : ($archives ! filings:acceptance-dateTimes($$)),
                 NetworkIdentifier: $component.Role,
                 Disclosure : $component.Profiles.SEC.Disclosure,
                 FactTable : [ $facts ]
