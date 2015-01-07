@@ -48,8 +48,8 @@ angular
                 }
             ],
             'Hypercubes' : {
-                'xbrl:DefaultHypercube': {
-                    'Name': 'xbrl:DefaultHypercube',
+                'xbrl28:ImpliedTable': {
+                    'Name': 'xbrl28:ImpliedTable',
                     'Label': label + ' [Table]',
                     'Aspects': {
                         'xbrl:Concept': {
