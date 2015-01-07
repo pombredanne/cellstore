@@ -12,9 +12,8 @@ import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace facts = "http://28.io/modules/xbrl/facts";
 import module namespace rules = "http://28.io/modules/xbrl/rules";
 
-import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
-import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
+import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
 import module namespace response = "http://www.28msec.com/modules/http-response";
 
@@ -32,6 +31,7 @@ declare  %rest:case-insensitive %rest:distinct  variable $ticker             as 
 declare  %rest:case-insensitive %rest:distinct  variable $sic                as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalYear         as string* external := "LATEST";
 declare  %rest:case-insensitive %rest:distinct  variable $fiscalPeriod       as string* external := "FY";
+declare  %rest:case-insensitive %rest:distinct  variable $eid                as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $aid                as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $networkIdentifier  as string* external;
 declare  %rest:case-insensitive %rest:distinct  variable $cid                as string* external;
@@ -59,22 +59,26 @@ let $reportElement := ($reportElement, $concept)
 let $networkIdentifier := distinct-values(($networkIdentifier, $role))
 
 (: Object resolution :)
-let $entities as object* := 
-    companies:companies(
-        $cik,
-        $tag,
-        $ticker,
-        $sic)
-let $archive as object* := fiscal-core:filings(
-    $entities,
-    $fiscalPeriod,
-    $fiscalYear,
-    $aid)
-let $entity    := entities:entities($archive.Entity)
+let $entities := multiplexer:entities(
+  $profile-name,
+  $eid,
+  $cik,
+  $tag,
+  $ticker,
+  $sic)
+
+let $archives as object* := multiplexer:filings(
+  $profile-name,
+  $entities,
+  $fiscalPeriod,
+  $fiscalYear,
+  $aid)
+
+let $entity    := entities:entities($archives.Entity)
 let $components  := 
     switch($profile-name)
     case "sec" return sec-networks:components(
-        $archive,
+        $archives,
         $cid,
         $reportElement,
         $disclosure,
@@ -82,10 +86,10 @@ let $components  :=
         $label)
     default return
         switch(true)
-        case (exists($networkIdentifier) and exists($aid))
-        return components:components-for-archives-and-roles($aid, $networkIdentifier)
-        case exists($aid)
-        return components:components-for-archives($aid)
+        case (exists($networkIdentifier) and exists($archives))
+        return components:components-for-archives-and-roles($archives, $networkIdentifier)
+        case exists($archives)
+        return components:components-for-archives($archives)
         default
         return {
           response:status-code(400);
@@ -107,7 +111,7 @@ let $facts :=
                  "sec:FiscalPeriodType" : { Type: "string", Default: null }
              })
              let $options as object? := if(exists($rules)) then { Rules: [ $rules ] } else ()
-             let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archive, $options)
+             let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archives, $options)
              let $map := concept-maps:concept-maps($map)
              let $concepts := 
                 if (not $map instance of null)
@@ -118,7 +122,7 @@ let $facts :=
                 else
                     for $d in $rollup[]
                     return ($d, keys(descendant-objects($p)[$$.Name eq $d].To))
-             return sec:facts-for-archives-and-concepts($archive, $concepts, { Hypercube: $hc })
+             return sec:facts-for-archives-and-concepts($archives, $concepts, { Hypercube: $hc })
          else components:facts(
             $component,
             {|
@@ -159,10 +163,10 @@ let $result :=
                 TableName : sec-networks:tables($component, {IncludeImpliedTable: true}).Name,
                 Label : $component.Label,
                 AccessionNumber : $component.Archive,
-                FormType : $archive.Profiles.SEC.FormType,
-                FiscalPeriod : $archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
-                FiscalYear : $archive.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
-                AcceptanceDatetime : filings:acceptance-dateTimes($archive),
+                FormType : $archives.Profiles.SEC.FormType,
+                FiscalPeriod : $archives.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
+                FiscalYear : $archives.Profiles.SEC.Fiscal.DocumentFiscalYearFocus,
+                AcceptanceDatetime : ($archives ! filings:acceptance-dateTimes($$)),
                 NetworkIdentifier: $component.Role,
                 Disclosure : $component.Profiles.SEC.Disclosure,
                 FactTable : [ $facts ]

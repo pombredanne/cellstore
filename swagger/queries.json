@@ -276,6 +276,144 @@
             ]
         },
         {
+            "path": "/periods.jq",
+            "description": "Fiscal Periods",
+            "operations": [
+                {
+                    "method": "POST",
+                    "summary": "[SEC profile] Retrieve the periods of the filings filed by a particular entity",
+                    "nickname": "listPeriods",
+                    "parameters": [
+                        {
+                            "name": "format",
+                            "description": "The result format",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "json",
+                                "csv",
+                                "xml",
+                                "excel"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "tag",
+                            "description": "[SEC profile] A tag to filter",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "DOW30",
+                                "SP500",
+                                "FORTUNE100",
+                                "PJI",
+                                "ALL"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "cik",
+                            "description": "[SEC profile] A CIK number",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "ticker",
+                            "description": "[SEC profile] A ticker symbol",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "sic",
+                            "description": "[SEC profile] The industry group",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "aid",
+                            "description": "An Archive ID (a value of the xbrl28:Archive aspect)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "fiscalYear",
+                            "description": "[SEC profile] The fiscal year focus of the filings to retrieve (default: LATEST)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query",
+                            "enum": [
+                                "year (e.g. 2011)",
+                                "LATEST",
+                                "ALL"
+                            ]
+                        },
+                        {
+                            "name": "fiscalPeriod",
+                            "description": "[SEC profile] The fiscal period focus of the filings to retrieve (default: FY)",
+                            "required": false,
+                            "type": "string",
+                            "enum": [
+                                "Q1",
+                                "Q2",
+                                "Q3",
+                                "FY",
+                                "ALL"
+                            ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "token",
+                            "description": "The token of the current session (if accessing entities beyond DOW30)",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "_method",
+                            "paramType": "query"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Unauthorized: the specified project token is invalid, expired, or has insufficient privileges",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code": 500,
+                            "message": "An internal error occurred during the processing of the request.",
+                            "responseModel": "Error"
+                        }
+                    ],
+                    "successMessages": [
+                        {
+                            "code": 200,
+                            "message": "Returns all periods of the filings filed by the given entity."
+                        }
+                    ],
+                    "examples": [
+                        {
+                            "title": "Retrieve the periods of the filings filed by a specific entity",
+                            "description": "Retrieve information about the periods of the filings filed by an entity identified by its CIK. Return the result as XML.",
+                            "request": "[API_URL]/_queries/public/api/periods.jq?_method=POST&cik=66740&format=xml",
+                            "response": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "path": "/components.jq",
             "description": "Components",
             "operations": [
@@ -295,6 +433,13 @@
                                 "xml",
                                 "excel"
                             ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
                             "paramType": "query"
                         },
                         {
@@ -511,6 +656,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "cik",
                             "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
                             "profile": ["secxbrl"],
@@ -716,6 +868,13 @@
                         {
                             "name": "aid",
                             "description": "The accession number of the filing. This parameter needs to be used together with the disclosure parameter to identify a component.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -927,6 +1086,13 @@
                         {
                             "name": "aid",
                             "description": "The accession number of the filing. This parameter needs to be used together with the disclosure parameter to identify a component.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -1435,6 +1601,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "cik",
                             "description": "The CIK of the entity",
                             "profile": ["secxbrl"],
@@ -1706,6 +1879,13 @@
                                 "PJI",
                                 "ALL"
                             ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
                             "paramType": "query"
                         },
                         {

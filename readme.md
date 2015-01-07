@@ -14,11 +14,15 @@ http://arxiv.org/pdf/1410.0600.pdf
 
 ## Installation
 
+Prerequisites: [NPM](https://www.npmjs.com/), [Ruby](https://www.ruby-lang.org/) (needed for [SASS](http://sass-lang.com/)).
+
 *Windows Users*:
 We advice you to run any commands in the Git Bash.
 Otherwise, the decryption of config.json won't work and you will have to setup the config.json manually.
+A working Ruby version for windows can be found at [rubyinstaller.org](http://rubyinstaller.org/downloads/).
 
 ```bash
+$ gem install sass
 $ npm install gulp -g
 $ npm install && bower install
 ```

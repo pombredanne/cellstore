@@ -85,9 +85,10 @@ declare function companies:companies(
     $ciks as string*,
     $tags as string*,
     $tickers as string*,
-    $sics as string*) as object*
+    $sics as string*,
+    $eids as string*) as object*
 {
-    companies:companies($ciks, $tags, $tickers, $sics, ())
+    companies:companies($ciks, $tags, $tickers, $sics, $eids, ())
 };
 
 (:~
@@ -107,6 +108,7 @@ declare function companies:companies(
     $tags as string*,
     $tickers as string*,
     $sics as string*,
+    $eids as string*,
     $aids as string*) as object*
 {
     if ($tags = "ALL")
@@ -117,6 +119,7 @@ declare function companies:companies(
             companies:companies-for-tags($tags),
             companies:companies-for-tickers($tickers),
             companies:companies-for-SIC($sics),
+            entities:entities($eids),
             companies:companies-for-archives($aids)
         )
         group by $c._id
