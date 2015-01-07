@@ -267,6 +267,7 @@
         {
             "path": "/periods.jq",
             "description": "Fiscal Periods",
+            "nickname": "listPeriods",
             "operations": [
                 {
                     "method": "POST",
