@@ -2,14 +2,20 @@
     <header class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <span class="navbar-brand">Reports</span>
+                <span class="navbar-brand">CellStore Manager</span>
             </div>
             <account></account>
         </div>
     </header>
     <div class="container scrollable std-top-padding">
+        <h1>APIs</h1>
         <section>
-            <button class="btn btn-primary" title="Create a New Report" ng-click="createReport()" id="create-report">CREATE</button>
+            <button class="btn btn-primary" title="API Documentation" ui-sref="api()"><i class="fa fa-wrench"></i> API Documentation</button>
+        </section>
+        <hr>
+        <h1>Taxonomies</h1>
+        <section>
+            <button class="btn btn-primary" title="Create a New Report" ng-click="createReport()" id="create-report">Create</button>
             <button class="btn btn-default fa fa-upload" title="Import a Report" ng-click="importReport()" id="import-report"></button>
             <button class="btn btn-default fa fa-download" title="Export a Report" ng-show="hasSingleSelectedReport" ng-click="downloadSelectedReport()" id="export-report"></button>
             <button class="btn btn-default fa fa-trash-o" title="Delete Reports" ng-show="hasSelectedReport" ng-click="deleteReports()" id="delete-reports"></button>
