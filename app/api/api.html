@@ -56,7 +56,7 @@
                 View in Spreadsheet Rendering
                 </a>
                 <a ng-if="body" class="btn btn-default" ng-href="{{getUrl(true)}}" target="_blank">Open in new Tab</a>
-                <pre class="body" ng-if="body" ng-bind="body">
+                <pre class="body" ng-class="{ 'text-danger': error }" ng-if="body" ng-bind="body">
                 </pre>
             </div>
         </block-container>

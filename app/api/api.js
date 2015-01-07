@@ -81,6 +81,7 @@ angular.module('report-editor')
 
                 })
                 .catch(function(error){
+                   $scope.body = _.isString(error.body) ? error.body : JSON.stringify(error.body, null, 2);
                    $scope.error = error;
                 })
                 .finally(function(){

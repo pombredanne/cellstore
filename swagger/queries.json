@@ -935,8 +935,8 @@
                     "disclosure": "BalanceSheet"
                 }
             }, {
-                "title": "Balance Sheet",
-                "description": "Balance Sheet.",
+                "title": "Get B/S report by company name/ID and period",
+                "description": "Get B/S report by company name/ID and period.",
                 "profile": ["japan"],
                 "parameters": {
                     "eid": "http://info.edinet-fsa.go.jp E01225-000",
@@ -944,6 +944,32 @@
                     "fiscalPeriod": "Q1",
                     "format": "html",
                     "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
+                    "profile-name": "japan",
+                    "merge": "true"
+                }
+            }, {
+                "title": "Get P/L report by company name/ID and period",
+                "description": "Get B/S report by company name/ID and period.",
+                "profile": ["japan"],
+                "parameters": {
+                    "eid": "http://info.edinet-fsa.go.jp E01225-000",
+                    "fiscalYear": "2014",
+                    "fiscalPeriod": "Q1",
+                    "format": "html",
+                    "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
+                    "profile-name": "japan",
+                    "merge": "true"
+                }
+            }, {
+                "title": "Get C/F report by company name/ID and period",
+                "description": "Get C/F report by company name/ID and period.",
+                "profile": ["japan"],
+                "parameters": {
+                    "eid": "http://info.edinet-fsa.go.jp E01225-000",
+                    "fiscalYear": "2014",
+                    "fiscalPeriod":"Q1",
+                    "format": "html",
+                    "role": "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
                     "profile-name": "japan",
                     "merge": "true"
                 }
