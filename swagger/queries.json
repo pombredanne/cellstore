@@ -1231,8 +1231,14 @@
             "examples": [{
                 "title": "Fact Table for the Fundamental Accounting Concepts of COCA COLA's 2010..2013 10-K filings as CSV.",
                 "description": "Retrieve the fact table for a particular component. Return the result as CSV.",
-                "request": "[API_URL]/_queries/public/api/facttable-for-report.jq?_method=POST&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalYear=2012&fiscalYear=2011&fiscalYear=2010&fiscalPeriod=FY&format=csv",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "report": "FundamentalAccountingConcepts",
+                    "ticker": "ko",
+                    "fiscalYear": ["2013", "2012", "2011", "2010"],
+                    "fiscalPeriod": "FY",
+                    "format": "csv"
+                }
             }]
         }]
     }, {
@@ -1391,8 +1397,12 @@
             "examples": [{
                 "title": "Spreadsheet for the Fundamental Accounting Concepts of COCA COLA's FY 2010..2013.",
                 "description": "Retrieve the spreadsheet for a particular report. Return the result as JSON, with eliminated empty rows/columns.",
-                "request": "[API_URL]/_queries/public/api/spreadsheet-for-report.jq?_method=POST&report=FundamentalAccountingConcepts&ticker=ko&fiscalYear=2013&fiscalYear=2012&fiscalYear=2011&fiscalYear=2010&fiscalPeriod=FY&format=csv&eliminate=true",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "report": "FundamentalAccountingConcepts",
+                    "ticker": "ko",
+                    "fiscalYear": ["2013", "2012", "2011", "2010"]
+                }
             }]
         }]
     }, {
@@ -1611,18 +1621,31 @@
             "examples": [{
                 "title": "Retrieve us-gaap:Assets for DOW30",
                 "description": "Retrieve the value of us-gaap:Assets for all DOW30 entities for the latest reported year. Bring in all data regardless of which characteristic. Return the result as JSON.",
-                "request": "[API_URL]/_queries/public/api/facts.jq?_method=POST&concept=us-gaap:Assets&tag=dow30",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "concept": "us-gaap:Assets",
+                    "tag": "dow30"
+                }
             }, {
                 "title": "Retrieve us-gaap:Assets for DOW30 which relates to the root reporting entity only.",
                 "description": "Retrieve the value of us-gaap:Assets for all DOW30 entities for the latest reported year which relates to the root reporting entity only. Return the result as JSON.",
-                "request": "[API_URL]/_queries/public/api/facts.jq?_method=POST&concept=us-gaap:Assets&dei:LegalEntityAxis=sec:DefaultLegalEntity&tag=dow30",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "concept": "us-gaap:Assets",
+                    "dei:LegalEntityAxis": "sec:DefaultLegalEntity",
+                    "tag": "dow30"
+                }
             }, {
                 "title": "Retrieve fac:NetCashFlow for DOW30",
                 "description": "Retrieve the value of fac:NetCashFlow (using the FundamentalAccountingConcepts map) for the DOW30 entities for the year 2011. Return the result as CSV.",
-                "request": "[API_URL]/_queries/public/api/facts.jq?_method=POST&concept=fac:NetCashFlow&tag=dow30&map=FundamentalAccountingConcepts&fiscalYear=2011&format=csv",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "concept": "fac:NetCashFlow",
+                    "report": "FundamentalAccountingConcepts",
+                    "tag": "dow30",
+                    "fiscalYear": "2011",
+                    "format": "csv"
+                }
             }]
         }]
     }, {
@@ -1795,8 +1818,12 @@
             "examples": [{
                 "title": "Retrieve the the names of all report elements of COCA COLA's latest FY filing",
                 "description": "Retrieve a set of names of report elements of COCA COLA's latest FY filing.  Return the result as CSV.",
-                "request": "[API_URL]/_queries/public/api/report-elements.jq?_method=POST&ticker=ko&onlyNames=true&format=csv",
-                "response": ""
+                "profile": ["sec"],
+                "parameters": {
+                    "ticker": "ko",
+                    "onlyName": "true",
+                    "format": "csv"
+                }
             }]
         }]
     }],
