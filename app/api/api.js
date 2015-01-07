@@ -25,7 +25,7 @@ angular.module('report-editor')
         console.log(operation);
         operation.notes = $sce.trustAsHtml(operation.notes);
         operation.parameters = _.chain(operation.parameters).filter(function(param){
-            return param.name !== 'token' && param.name !== '_method' && (param.profile === undefined || param.profile === PROFILE);
+            return param.name !== 'token' && param.name !== '_method' && (param.profile === undefined || param.profile.indexOf(PROFILE) !== -1);
         }).forEach(function(param){
             param.description = $sce.trustAsHtml(param.description);
         }).value();
