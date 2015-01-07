@@ -395,7 +395,7 @@
                         {
                             "title": "Retrieve the periods of the filings filed by a specific entity",
                             "description": "Retrieve information about the periods of the filings filed by an entity identified by its CIK. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/filings.jq?_method=POST&cik=66740&format=xml",
+                            "request": "[API_URL]/_queries/public/api/periods.jq?_method=POST&cik=66740&format=xml",
                             "response": ""
                         }
                     ]
