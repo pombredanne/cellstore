@@ -48,9 +48,10 @@ let $archives as object* := multiplexer:filings(
 let $periods :=
     switch($profile-name)
     case "sec" return
-        for $f in filings:summaries($archives) 
-        order by $f.Accepted descending
-        return $f
+      for $a in $archives
+      group by $fy := $a.Profiles.SEC.DocumentFiscalYearFocus, $fp := $a.Profiles.SEC.DocumentFiscalPeriodFocus
+      order by $fy descending, $fp
+      return { FiscalYear: $fy, FiscalPeriod: $fp }
     case "japan" return
       for $a in $archives
       group by $fy := $a.Profiles.JAPAN.DocumentFiscalYearFocus, $fp := $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
