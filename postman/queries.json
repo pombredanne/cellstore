@@ -38,17 +38,22 @@
 			"url": "http://secxbrl.28.io/v1/_queries/public/api/facttable-for-component.jq?format=&cid=&aid=&cik=&ticker=&tag=&sic=&networkIdentifier=&role=&fiscalYear=&fiscalPeriod=&disclosure=&label=&validate=&token=&additional-rules=&labels=&profile-name=&_method="
 		},
 		{
-			"collectionId": "d2990839-2345-4ded-b829-7ef7cec9a7a9",
-			"dataMode": "params",
-			"descriptionFormat": "html",
-			"description": "Retrieve information about all or a selection of entities",
-			"data": [],
-			"headers": "",
 			"id": "2475876f-4060-4f5d-b7ce-25e141ed4ff1",
-			"method": "POST",
-			"name": "listEntities",
+			"headers": "",
+			"url": "{{secxbrl}}/v1/_queries/public/api/entities.jq?format=json&tag=DOW30&eid&cik&sic&ticker&token={{token}}&_method=POST",
 			"preRequestScript": "",
 			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1420655726564,
+			"name": "listEntities",
+			"description": "Retrieve information about all or a selection of entities",
+			"collectionId": "d2990839-2345-4ded-b829-7ef7cec9a7a9",
 			"responses": [
 				{
 					"status": "",
@@ -121,10 +126,7 @@
 					}
 				}
 			],
-			"synced": false,
-			"tests": "",
-			"time": 1420574463237,
-			"url": "http://secxbrl.28.io/v1/_queries/public/api/entities.jq?format=&tag=&eid=&cik=&sic=&ticker=&token=&_method="
+			"synced": false
 		},
 		{
 			"collectionId": "d2990839-2345-4ded-b829-7ef7cec9a7a9",
