@@ -421,7 +421,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                                 result.push('"not(exists( " || ' + innerparams.join(' || ", "') + ' || "))"');
                                 break;
                             case 'not':
-                                result.push('not((' + innerparams.join(' || ", "') + ' || "))"');
+                                result.push('"not(( " || ' + innerparams.join(' || ", "') + ' || "))"');
                                 break;
                             case 'and':
                                 result.push('(' + innerparams.join(' || " and "') + ' || ")"');
@@ -461,8 +461,8 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 decimals = '"INF"';
             }
             var units;
-            if(_.isString(this.model.Units) && this.model.Units !== ''){
-                units = this.model.Units;
+            if(_.isString(this.model.Unit) && this.model.Unit !== ''){
+                units = this.model.Unit;
             }
             if (_.isObject(this.model)) {
                 if ((this.model.OriginalLanguage === 'SpreadsheetFormula') &&
@@ -590,7 +590,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         result.push('         ' + toAuditTrail(body));
                         result.push('    let $audit-trail-message as string* := ($audit-trail-message, $warnings)');
                         result.push('    let $source-facts as object* := (' + auditTrailSourceFacts + ')');
-                        result.push('    let $fact as :=');
+                        result.push('    let $fact as object :=');
                         result.push('        rules:create-computed-fact(');
                         result.push('          $' + sourceFactVariable + ',');
                         result.push('          "' + computedConcept.Name + '",');
@@ -609,47 +609,28 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         result.push('    return');
                         result.push('        copy $newFact := $fact');
                         result.push('        modify (');
-                        result.push('            if(exists($newFact("Unit"))) then replace value of json $newFact("Unit") with $_unit else (),');
-                        result.push('            if(exists($newFact("Aspects")("xbrl:Unit"))) then replace value of json $newFact("Aspects")("xbrl:Unit") with $_unit else (),');
-                        result.push('            if(exists($newFact("Decimals"))) then replace value of json $newFact("Decimals") with ' + decimals + ' else ()');
+                        result.push('            if(exists($newFact("Aspects")("xbrl:Unit"))) then replace value of json $newFact("Aspects")("xbrl:Unit") with $_unit');
+                        result.push('                                                         else insert json { "xbrl:Unit": $_unit } into $newFact("Aspects"),');
+                        result.push('            if(exists($newFact("Decimals"))) then replace value of json $newFact("Decimals") with ' + decimals);
+                        result.push('                                             else insert json { "Decimals": ' + decimals + ' } into $newFact');
+
+                        if(_.isString(computedConcept.Balance)){
+                            result.push('            ,');
+                            result.push('              if(exists($newFact("Concept")("Balance"))) then replace value of json $newFact("Concept")("Balance") with "' + computedConcept.Balance + '"');
+                            result.push('                                                         else insert json { "Balance": "' + computedConcept.Balance + '" } into $newFact("Concept")');
+                        }
+                        if(_.isString(computedConcept.DataType)){
+                            result.push('            ,');
+                            result.push('              if(exists($newFact("Concept")("DataType"))) then replace value of json $newFact("Concept")("DataType") with "' + computedConcept.DataType + '"');
+                            result.push('                                                         else insert json { "DataType": "' + computedConcept.DataType + '" } into $newFact("Concept")');
+                        }
+                        if(_.isString(computedConcept.PeriodType)){
+                            result.push('            ,');
+                            result.push('              if(exists($newFact("Concept")("PeriodType"))) then replace value of json $newFact("Concept")("PeriodType") with "' + computedConcept.PeriodType + '"');
+                            result.push('                                                         else insert json { "PeriodType": "' + computedConcept.PeriodType + '" } into $newFact("Concept")');
+                        }
                         result.push('          )');
                         result.push('        return $newFact');
-                        result.push('      else');
-                        result.push('         ' + toAuditTrail(body));
-                        result.push('    let $audit-trail-message as string* := ($audit-trail-message, $warnings)');
-                        result.push('    let $source-facts as object* := (' + auditTrailSourceFacts + ')');
-                        result.push('    return');
-                        result.push('      if(string(number($computed-value)) != "NaN" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))');
-                        result.push('      then');
-                        result.push('        copy $newfact :=');
-                        result.push('          rules:create-computed-fact(');
-                        result.push('            $' + sourceFactVariable + ',');
-                        result.push('            "' + computedConcept + '",');
-                        result.push('            $computed-value,');
-                        result.push('            $rule,');
-                        result.push('            $audit-trail-message,');
-                        result.push('            $source-facts,');
-                        result.push('            $options)');
-                        result.push('        modify (');
-                        result.push('            replace value of json $newfact("Decimals") with 2');
-                        result.push('          )');
-                        result.push('        return $newfact');
-                        result.push('      else');
-                        result.push('        rules:create-computed-fact(');
-                        result.push('          $' + sourceFactVariable + ',');
-                        result.push('          "' + computedConcept + '",');
-                        result.push('          $computed-value,');
-                        result.push('          $rule,');
-                        result.push('          $audit-trail-message,');
-                        result.push('          $source-facts,');
-                        if (that.model.Type === 'xbrl28:validation') {
-                            result.push('            $options,');
-                            result.push('            $' + validatedFactVariable + ',');
-                            result.push('            $computed-value)');
-                        }
-                        else {
-                            result.push('            $options)');
-                        }
 
                     });
                     result.push('  default return ()');
