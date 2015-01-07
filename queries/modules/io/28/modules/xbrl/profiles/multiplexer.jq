@@ -20,6 +20,18 @@ import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fi
 
 import module namespace japan = "http://28.io/modules/xbrl/profiles/japan/core";
 
+(:~
+ : <p>Retrieves entities depending on the profile.</p>
+ :
+ : @param $profile-name the name of the profile (e.g., SEC, Japan, Generic).
+ : @param $eid a sequence of EIDs.
+ : @param $cik a sequence of profile-specific CIKs.
+ : @param $tag a sequence of tags (e.g., indices, ALL, ...).
+ : @param $ticker a sequence of stock exchange tickers.
+ : @param $sic a sequence of industry group SIC codes.
+ : 
+ : @return the entities retrieved according to the profile specified.
+ :)
 declare function multiplexer:entities(
   $profile-name as string,
   $eid as string*,
@@ -46,6 +58,17 @@ declare function multiplexer:entities(
     entities:entities($eid)
 };
 
+(:~
+ : <p>Retrieves archives depending on the profile.</p>
+ :
+ : @param $profile-name the name of the profile (e.g., SEC, Japan, Generic).
+ : @param $entities a sequence of entities or EIDs.
+ : @param $fiscalPeriod a sequence of fiscal periods (Q1, Q2, Q3, FY).
+ : @param $fiscalYear a sequence of fiscal years.
+ : @param $aid a sequence of AIDs.
+ : 
+ : @return the archives retrieved according to the profile specified.
+ :)
 declare function multiplexer:filings(
   $profile-name as string,
   $entities as item*,
