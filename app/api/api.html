@@ -36,13 +36,15 @@
                 </ul>
                 <div ng-init="isCollapsed = false">
                     <h3><a class="fa" ng-class="{ 'fa-caret-down': !isCollapsed, 'fa-caret-right': isCollapsed }" ng-click="isCollapsed = !isCollapsed"></a> Parameters</h3>
-                    <table class="table" collapse="isCollapsed">
-                        <tr ng-repeat="param in op.parameters">
-                            <td ng-bind="param.name"></td>
-                            <td><input type="text" ng-model="params[param.name]"></td>
-                            <td ng-bind-html="param.description"></td>
-                        </tr>
-                    </table>
+                    <div collapse="isCollapsed">
+                        <table class="table">
+                            <tr ng-repeat="param in op.parameters">
+                                <td ng-bind="param.name"></td>
+                                <td><input type="text" ng-model="params[param.name]"></td>
+                                <td ng-bind-html="param.description"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <button ng-click="test()" class="btn btn-primary" ng-class="{ disabled: loading }">
                     <span ng-if="!loading">Test</span>

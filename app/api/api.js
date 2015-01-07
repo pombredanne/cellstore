@@ -30,12 +30,9 @@ angular.module('report-editor')
         }).value();
 
         $scope.examples = _.chain(operation.examples).filter(function(example){
+            console.log(example);
             return example.profile === undefined || example.profile.indexOf(PROFILE) !== -1;
         }).value();
-
-        operation.examples.forEach(function(example){
-            example.description = $sce.trustAsHtml(example.description);
-        });
 
         $scope.API_URL = API_URL;
         $scope.api = swagger;
