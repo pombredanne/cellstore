@@ -51,7 +51,13 @@ angular.module('report-editor')
                     params._method = 'POST';
                 }
                 result += _.chain(params).map(function(v, k){
-                    return k + '=' + encodeURIComponent(v);
+                    if(_.isArray(v)) {
+                        return _.chain(v).map(function(v, k){
+                            return k + '=' + encodeURIComponent(v);
+                        }).value().join('&');
+                    } else {
+                        return k + '=' + encodeURIComponent(v);
+                    }
                 }).join('&');
             }
             return result;

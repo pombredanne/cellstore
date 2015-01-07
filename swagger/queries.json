@@ -1834,6 +1834,16 @@
                     "profile-name": "japan",
                     "label": "Accounting policy for deferred assets"
                 }
+            }, {
+                "title": "Get element name of specified company's taxonomy by label and company ID",
+                "description": "Get element name of specified company's taxonomy by label and company ID.",
+                "profile": ["japan"],
+                "parameters": {
+                    "cik": "E01225",
+                    "format": "json",
+                    "profile-name": "japan",
+                    "label": "Loss of inactive facilities"
+                }
             }]
         }]
     }],
