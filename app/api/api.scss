@@ -1,0 +1,44 @@
+#api {
+    .operations {
+        .block-content {
+
+            padding: 0;
+
+            .std-header {
+                padding-left: 15px;
+            }
+
+            .operation {
+                border: none;
+
+                >a {
+                    &:hover {
+                        text-decoration: none !important;
+                    }
+
+                    .method {
+                        padding: 4px;
+                        color: white;
+                    }
+
+                    .method-post {
+                        background-color: $brand-primary;
+                    }
+
+                    .path {
+                        color: $text-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .parameters {
+        input[type=text{}~
+        }
+    }
+
+    .nav-tabs {
+        margin-top: 15px;
+    }
+}

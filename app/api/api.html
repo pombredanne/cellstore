@@ -2,19 +2,53 @@
     <header class="navbar navbar-default">
         <div class="navbar-header">
             <span class="navbar-brand">
-                <a class="fa fa-list" href="../"></a>
+                <a class="fa fa-list" href="/"></a>
                 CellStore REST API
             </span>
         </div>
         <account></account>
     </header>
     <flexy-layout orientation="horizontal">
-        <block-container init="250" id="presentation-tree">
-            <h1>Hello</h1>
+        <block-container init="250" class="operations">
+            <header class="std-header">Operations</header>
+            <div class="scrollable">
+                <ul ng-repeat="api in api.apis" class="list-group">
+                    <li ng-repeat="operation in api.operations" class="list-group-item operation">
+                        <a ui-sref="api({ method: operation.method, path: api.path.substring(1) })">
+                            <span ng-bind="operation.method" class="method" ng-class="'method-' + operation.method.toLowerCase()"></span>
+                            <span ng-bind="api.path" class="path"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </block-container>
         <block-splitter></block-splitter>
         <block-container>
-            <div ui-view></div>
+            <div class="scrollable">
+                <h2><span ng-bind="op.nickname"></span>()</h2>
+                <p ng-bind="op.summary"></p>
+                <pre>curl -X <span ng-bind="op.method"></span> <span ng-bind="API_URL + path"></span></pre>
+                <h3>Parameters</h3>
+                <table class="table">
+                    <tr ng-repeat="param in op.parameters">
+                        <td ng-bind="param.name"></td>
+                        <td><input type="text" ng-model="params[param.name]"></td>
+                        <td ng-bind-html="param.description"></td>
+                    </tr>
+                </table>
+                <button ng-click="test()" class="btn btn-primary">Test</button>
+                <tabset>
+                    <tab>
+                        <tab-heading>Body</tab-heading>
+                    </tab>
+                    <tab>
+                        <tab-heading>Headers</tab-heading>
+                    </tab>
+                    <tab>
+                        <tab-heading>Tests</tab-heading>
+                    </tab>
+                </tabset>
+            </div>
         </block-container>
     </flexy-layout>
 </div>
