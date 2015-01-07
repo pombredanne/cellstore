@@ -57,7 +57,7 @@ let $entities := multiplexer:entities(
   $ticker,
   $sic)
 
-let $archive as object* := multiplexer:filings(
+let $archives as object* := multiplexer:filings(
   $profile-name,
   $entities,
   $fiscalPeriod,
@@ -67,7 +67,7 @@ let $archive as object* := multiplexer:filings(
 let $components  :=
     switch($profile-name)
     case "sec" return sec-networks:components(
-        $archive,
+        $archives,
         $cid,
         $reportElement,
         $disclosure,
@@ -75,10 +75,10 @@ let $components  :=
         $label)
     default return
         switch(true)
-        case (exists($networkIdentifier) and exists($archive))
-        return components:components-for-archives-and-roles($archive, $networkIdentifier)
-        case exists($archive)
-        return components:components-for-archives($archive)
+        case (exists($networkIdentifier) and exists($archives))
+        return components:components-for-archives-and-roles($archives, $networkIdentifier)
+        case exists($archives)
+        return components:components-for-archives($archives)
         default
         return {
           response:status-code(400);
