@@ -1,7 +1,5 @@
 import module namespace response = "http://www.28msec.com/modules/http-response";
-import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace test = "http://apps.28.io/test";
-import module namespace config = "http://apps.28.io/config";
 
 declare %an:nondeterministic function local:test-taxonomy-label() as item
 {
