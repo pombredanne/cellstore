@@ -63,8 +63,7 @@ declare %an:sequential function local:check($o as object) as object
             $o
 };
 
-let $dow30 := test:is-dow30()
-return local:check({
+local:check({
     all: local:test-entities($local:expected.all, {}),
     example1: local:test-example1()
 })
