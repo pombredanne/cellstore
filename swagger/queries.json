@@ -1844,6 +1844,24 @@
                     "profile-name": "japan",
                     "label": "Loss of inactive facilities"
                 }
+            }, {
+                "title": "Get label of standard taxonomy by element name",
+                "description": "Get label of standard taxonomy by element name.",
+                "profile": ["japan"],
+                "parameters": {
+                    "aid": "STANDARD-TAXONOMY-2014",
+                    "format": "json",
+                    "profile-name": "japan",
+                    "name": "jppfs-cor:CurrentAssets"
+                }
+            }, {
+                "title": "Get label of specified company's taxonomy by element name and company ID",
+                "description": "Get label of specified company's taxonomy by element name and company ID.",
+                "profile": ["japan"],
+                "parameters": {
+                    "cik": "E01225",
+                    "name": "jpcrp-cor:NotesConsolidatedStatementOfCashFlowsHeading"
+                }
             }]
         }]
     }],
