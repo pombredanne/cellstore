@@ -42,7 +42,7 @@ angular.module('report-editor')
             token: Session.getToken()
         };
 
-        $scope.getUrl = function(inBrowser){
+        $scope.getUrl = function(inBrowser, inParam){
             var result = API_URL + '/_queries/public/api' + path;
             if(Object.keys($scope.params).length > 0) {
                 result += '?';
@@ -60,7 +60,7 @@ angular.module('report-editor')
                     }
                 }).join('&');
             }
-            return result;
+            return encodeURIComponent(result);
         };
 
         $scope.curl = function(){

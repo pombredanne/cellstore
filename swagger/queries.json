@@ -934,6 +934,19 @@
                     "aid": "0000021344-13-000050",
                     "disclosure": "BalanceSheet"
                 }
+            }, {
+                "title": "Balance Sheet",
+                "description": "Balance Sheet.",
+                "profile": ["japan"],
+                "parameters": {
+                    "eid": "http://info.edinet-fsa.go.jp E01225-000",
+                    "fiscalYear": "2014",
+                    "fiscalPeriod": "Q1",
+                    "format": "html",
+                    "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
+                    "profile-name": "japan",
+                    "merge": "true"
+                }
             }
             ]
         }]
