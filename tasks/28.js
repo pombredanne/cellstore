@@ -172,7 +172,6 @@ var runQueriesInParallel = function(projectName, queriesToRun) {
     var promises = [];
     var QueriesAPI = $28.api.Queries(projectName);
     /*jshint camelcase:false */
-    var errors = [];
     var projectToken = credentials.project_tokens['project_' + projectName];
     _.each(queriesToRun, function(nextQuery){
         promises.push(

@@ -1066,13 +1066,13 @@ angular
         _.each(toConceptNamesArray, function(ocname, index){
             var name = that.alignConceptPrefix(ocname);
             ensureConceptName(name, 'toConceptNamesArray', 'updateConceptMap');
-            toObj[name] = {
+            conceptMap.To.push({
                 'Id': new ReportID().toString(),
                 'Name': name,
                 'Order': index + 1
-            };
+            });
         });
-        conceptMap.To = toObj;
+        this.sortTreeChildren(conceptMap.To);
 
         // add concept map to network
         var network = this.getNetwork('ConceptMap');
