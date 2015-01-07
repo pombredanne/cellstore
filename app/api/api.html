@@ -30,10 +30,8 @@
                 <pre ng-bind="curl()"></pre>
                 <h3>Examples</h3>
                 <ul>
-                    <li>
-                        <a ng-click="test({ aid: 'STANDARD-TAXONOMY-2014', format: 'json', 'profile-name': 'japan', label: 'Accounting policy for deferred assets' })">
-                            Get element name of standard taxonomy by label
-                        </a>
+                    <li ng-repeat="example in examples">
+                        <a ng-click="test(example.parameters)" ng-bind="example.title"></a>
                     </li>
                 </ul>
                 <div ng-init="isCollapsed = false">
@@ -53,18 +51,6 @@
                 <a ng-if="body" class="btn btn-default" ng-href="{{getUrl(true)}}" target="_blank">Open in new Tab</a>
                 <pre class="body" ng-if="body" ng-bind="body">
                 </pre>
-                <!--tabset>
-                    <tab>
-                        <tab-heading>Body</tab-heading>
-                        <pre ng-bind="body"></pre>
-                    </tab>
-                    <tab>
-                        <tab-heading>Headers</tab-heading>
-                    </tab>
-                    <tab>
-                        <tab-heading>Tests</tab-heading>
-                    </tab>
-                </tabset-->
             </div>
         </block-container>
     </flexy-layout>

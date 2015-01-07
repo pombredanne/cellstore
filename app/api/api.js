@@ -29,6 +29,10 @@ angular.module('report-editor')
             param.description = $sce.trustAsHtml(param.description);
         }).value();
 
+        $scope.examples = _.chain(operation.examples).filter(function(example){
+            return example.profile === undefined || example.profile.indexOf(PROFILE) !== -1;
+        }).value();
+
         operation.examples.forEach(function(example){
             example.description = $sce.trustAsHtml(example.description);
         });

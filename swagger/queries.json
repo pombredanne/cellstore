@@ -109,22 +109,27 @@
                     ],
                     "examples": [
                         {
-                            "title": "Retrieve a specific entity",
-                            "description": "Retrieve information about a specific entity identified by its CIK. Return the result as JSON.",
-                            "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&cik=21344",
-                            "response": ""
+                            "title": "Get list of all companies/IDs as JSON",
+                            "description": "Retrieve information about all entities. Return the result as JSON.",
+                            "parameters": {
+                                "format": "json"
+                            }
                         },
                         {
-                            "title": "Retrieve all entities",
+                            "title": "Get list of all companies/IDs as XML",
                             "description": "Retrieve information about all entities. Return the result as XML.",
-                            "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&format=xml",
-                            "response": ""
+                            "parameters": {
+                                "format": "xml"
+                            }
                         },
                         {
                             "title": "Retrieve information about all DOW30 entities",
+                            "profile": ["sec"],
                             "description": "Retrieve information about all DOW30 entities. Return the result as CSV.",
-                            "request": "[API_URL]/_queries/public/api/entities.jq?_method=POST&tag=DOW30&format=csv",
-                            "response": ""
+                            "parameters": {
+                                "tag": "DOW30",
+                                "format": "csv"
+                            }
                         }
                     ]
                 }
