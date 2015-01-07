@@ -51,7 +51,7 @@ angular.module('report-editor')
                 result += '?';
                 var params = _.clone($scope.params);
                 if(inBrowser) {
-                    params['_method'] = 'POST';
+                    params._method = 'POST';
                 }
                 result += _.chain(params).map(function(v, k){
                     return k + '=' + encodeURIComponent(v);
