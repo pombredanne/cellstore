@@ -287,6 +287,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "ticker",
                             "description": "[SEC profile] The ticker of the entity",
                             "required": false,
@@ -487,6 +494,13 @@
                         {
                             "name": "aid",
                             "description": "The accession number of the filing. This parameter needs to be used together with the disclosure parameter to identify a component.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -694,6 +708,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "cik",
                             "description": "[SEC profile] The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
                             "required": false,
@@ -891,6 +912,13 @@
                         {
                             "name": "aid",
                             "description": "The accession number of the filing. This parameter needs to be used together with the disclosure parameter to identify a component.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
                             "required": false,
                             "type": "string",
                             "paramType": "query"
@@ -1385,6 +1413,13 @@
                             "paramType": "query"
                         },
                         {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query"
+                        },
+                        {
                             "name": "cik",
                             "description": "[SEC profile] The CIK of the entity",
                             "required": false,
@@ -1648,6 +1683,13 @@
                                 "PJI",
                                 "ALL"
                             ],
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "eid",
+                            "description": "An Entity ID (a value of the xbrl:Entity aspect)",
+                            "required": false,
+                            "type": "string",
                             "paramType": "query"
                         },
                         {
