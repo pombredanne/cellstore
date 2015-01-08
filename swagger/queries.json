@@ -942,7 +942,6 @@
                     "eid": "http://info.edinet-fsa.go.jp E01225-000",
                     "fiscalYear": "2014",
                     "fiscalPeriod": "Q1",
-                    "format": "html",
                     "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
                     "profile-name": "japan",
                     "merge": "true"
@@ -955,7 +954,6 @@
                     "eid": "http://info.edinet-fsa.go.jp E01225-000",
                     "fiscalYear": "2014",
                     "fiscalPeriod": "Q1",
-                    "format": "html",
                     "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
                     "profile-name": "japan",
                     "merge": "true"
@@ -968,7 +966,6 @@
                     "eid": "http://info.edinet-fsa.go.jp E01225-000",
                     "fiscalYear": "2014",
                     "fiscalPeriod":"Q1",
-                    "format": "html",
                     "role": "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
                     "profile-name": "japan",
                     "merge": "true"
@@ -981,7 +978,6 @@
                     "eid": "http://info.edinet-fsa.go.jp E01225-000",
                     "fiscalYear": "2014",
                     "fiscalPeriod": "Q1",
-                    "format": "html",
                     "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
                     "profile-name": "japan",
                     "merge": "true"
@@ -994,7 +990,6 @@
                     "eid": "http://info.edinet-fsa.go.jp E01225-000",
                     "fiscalYear": "2014",
                     "fiscalPeriod": "Q1",
-                    "format": "html",
                     "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
                     "profile-name": "japan",
                     "merge": "true"
@@ -1007,7 +1002,6 @@
                     "eid": "http://info.edinet-fsa.go.jp E01225-000",
                     "fiscalYear": "2014",
                     "fiscalPeriod": "Q1",
-                    "format": "html",
                     "role": "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
                     "profile-name": "japan",
                     "merge": "true"
@@ -1020,7 +1014,6 @@
                     "tag": "ALL",
                     "fiscalYear": "2014",
                     "fiscalPeriod": "Q1",
-                    "format": "html",
                     "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
                     "profile-name": "japan",
                     "merge": "true"
@@ -1033,7 +1026,6 @@
                     "tag": "ALL",
                     "fiscalYear": "2014",
                     "fiscalPeriod": "Q1",
-                    "format": "html",
                     "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
                     "profile-name": "japan",
                     "merge": "true"
@@ -1046,7 +1038,6 @@
                     "tag": "ALL",
                     "fiscalYear": "2014",
                     "fiscalPeriod": "Q1",
-                    "format": "html",
                     "role": "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
                     "profile-name": "japan",
                     "merge": "true"
