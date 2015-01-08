@@ -1543,7 +1543,7 @@ declare %private function facts:align-aspects(
     let $hypercube-members as atomic* :=
       if ($typed-dimension)
       then flatten($hypercube-domains)
-      else $hypercube-domains.Name
+      else ($hypercube-domains, descendant-objects($hypercube-domains)).Name
     let $hypercube-default as atomic? := $dimension.Default
     let $hypercube-has-default as boolean := exists($hypercube-default)
 
