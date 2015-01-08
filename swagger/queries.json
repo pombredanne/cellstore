@@ -1763,6 +1763,16 @@
                     "fiscalYear": "2011",
                     "format": "csv"
                 }
+            }, {
+                "title": "Get text by company name/ID, period and element name",
+                "description": "Get text by company name/ID, period and element name.",
+                "profile": ["japan"],
+                "parameters": {
+                    "xbrl:Period": "2012-06-26",
+                    "xbrl:Entity": "http://info.edinet-fsa.go.jp E01225-000",
+                    "japan:Submitted": "ALL",
+                    "xbrl:Concept": "jp-o-di:ContextIDBeginningOfPeriodSCNonconsolidatedSS"
+                }
             }]
         }]
     }, {

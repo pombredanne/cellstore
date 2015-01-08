@@ -60,7 +60,10 @@ angular.module('report-editor')
                     }
                 }).join('&');
             }
-            return encodeURIComponent(result);
+            if(inParam) {
+                result = encodeURIComponent(result);
+            }
+            return result;
         };
 
         $scope.curl = function(){
