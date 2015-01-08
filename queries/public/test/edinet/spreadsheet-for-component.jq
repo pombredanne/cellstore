@@ -53,5 +53,59 @@ local:check({
         role: "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
         merge: "true"
       },
-      "spreadsheet-for-component-expected-cf-one.jq")
+      "spreadsheet-for-component-expected-cf-one.jq"),
+    bs-companies: local:test-values(
+      {
+        eid: [ "http://info.edinet-fsa.go.jp E01225-000", "http://disclosure.edinet-fsa.go.jp E01264-000", "http://disclosure.edinet-fsa.go.jp E04147-000", "http://disclosure.edinet-fsa.go.jp E04425-000" ],
+        fiscalYear: "2014",
+        fiscalPeriod: "Q1",
+        role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
+        merge: "true"
+      },
+      "spreadsheet-for-component-expected-bs-companies.jq"),
+    pl-companies: local:test-values(
+      {
+        eid: [ "http://info.edinet-fsa.go.jp E01225-000", "http://disclosure.edinet-fsa.go.jp E01264-000", "http://disclosure.edinet-fsa.go.jp E04147-000", "http://disclosure.edinet-fsa.go.jp E04425-000" ],
+        fiscalYear: "2014",
+        fiscalPeriod: "Q1",
+        role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
+        merge: "true"
+      },
+      "spreadsheet-for-component-expected-pl-one.jq"),
+    cf-companies: local:test-values(
+      {
+        eid: [ "http://info.edinet-fsa.go.jp E01225-000", "http://disclosure.edinet-fsa.go.jp E01264-000", "http://disclosure.edinet-fsa.go.jp E04147-000", "http://disclosure.edinet-fsa.go.jp E04425-000" ],
+        fiscalYear: "2014",
+        fiscalPeriod: "Q1",
+        role: "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
+        merge: "true"
+      },
+      "spreadsheet-for-component-expected-cf-companies.jq"),
+    bs-periods: local:test-values(
+      {
+        eid: "http://info.edinet-fsa.go.jp E01225-000",
+        fiscalYear: "ALL",
+        fiscalPeriod: "FY",
+        role: "http://info.edinet-fsa.go.jp/jp/fr/gaap/role/ConsolidatedBalanceSheets",
+        merge: "true"
+      },
+      "spreadsheet-for-component-expected-bs-periods.jq"),
+    pl-periods: local:test-values(
+      {
+        eid: "http://info.edinet-fsa.go.jp E01225-000",
+        fiscalYear: "ALL",
+        fiscalPeriod: "FY",
+        role: "http://info.edinet-fsa.go.jp/jp/fr/gaap/role/ConsolidatedStatementsOfIncome",
+        merge: "true"
+      },
+      "spreadsheet-for-component-expected-pl-periods.jq"),
+    cf-periods: local:test-values(
+      {
+        eid: "http://info.edinet-fsa.go.jp E01225-000",
+        fiscalYear: "ALL",
+        fiscalPeriod: "FY",
+        role: "http://info.edinet-fsa.go.jp/jp/fr/gaap/role/ConsolidatedStatementsOfCashFlowsIndirect",
+        merge: "true"
+      },
+      "spreadsheet-for-component-expected-cf-periods.jq")
 })
