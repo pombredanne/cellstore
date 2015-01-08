@@ -1,0 +1,66 @@
+<div id="api">
+    <header class="navbar navbar-default">
+        <div class="navbar-header">
+            <span class="navbar-brand">
+                <a class="fa fa-list" href="/"></a>
+                CellStore REST API
+            </span>
+        </div>
+        <account></account>
+    </header>
+    <flexy-layout orientation="horizontal">
+        <block-container init="250" class="operations">
+            <header class="std-header">Operations</header>
+            <div class="scrollable">
+                <ul ng-repeat="api in api.apis" class="list-group">
+                    <li ng-repeat="operation in api.operations" class="list-group-item operation">
+                        <a ui-sref="api({ method: operation.method, path: api.path.substring(1) })">
+                            <span ng-bind="operation.method" class="method" ng-class="'method-' + operation.method.toLowerCase()"></span>
+                            <span ng-bind="api.path" class="path"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </block-container>
+        <block-splitter></block-splitter>
+        <block-container>
+            <div class="scrollable">
+                <h2><span ng-bind="op.nickname"></span>()</h2>
+                <p ng-bind="op.summary"></p>
+                <pre ng-bind="curl()"></pre>
+                <div ng-if="examples.length > 0">
+                    <h3>Examples</h3>
+                    <ul>
+                        <li ng-repeat="example in examples">
+                            <a ng-click="test(example.parameters)" ng-bind="example.title"></a>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-init="isCollapsed = false">
+                    <h3><a class="fa" ng-class="{ 'fa-caret-down': !isCollapsed, 'fa-caret-right': isCollapsed }" ng-click="isCollapsed = !isCollapsed"></a> Parameters</h3>
+                    <div collapse="isCollapsed">
+                        <table class="table">
+                            <tr ng-repeat="param in op.parameters">
+                                <td ng-bind="param.name"></td>
+                                <td class="parameter"><input type="text" ng-model="params[param.name]"></td>
+                                <td ng-bind-html="param.description"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <button ng-click="test()" class="btn btn-primary" ng-class="{ disabled: loading }">
+                    <span ng-if="!loading"><i class="fa fa-play-circle-o "></i> Test</span>
+                    <span ng-if="loading"><i class="fa fa-spin fa-spinner"></i> Loading...</span>
+                </button>
+                <a ng-if="body && op.nickname === 'spreadsheetForComponent'" class="btn btn-default" ng-href="http://rendering.secxbrl.info/#?url={{getUrl(true, true)}}" target="_blank">
+                    <i class="fa fa-table"></i> View in Spreadsheet Rendering
+                </a>
+                <a ng-if="body" class="btn btn-default" ng-href="{{getUrl(true)}}" target="_blank">
+                    <i class="fa fa-external-link"></i> Open in new Tab
+                </a>
+                <pre class="body" ng-class="{ 'text-danger': error }" ng-if="body" ng-bind="body">
+                </pre>
+            </div>
+        </block-container>
+    </flexy-layout>
+</div>
