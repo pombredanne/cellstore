@@ -10,7 +10,7 @@ declare %an:nondeterministic function local:test-values($params as object, $expe
     let $actual as object := $request[2]
     let $expected := parse-json(
         http-client:get("http://" || request:server-name() || ":" || request:server-port() ||
-                        "/test/secxbrl/" || $expected-file).body.content)
+                        "/test/edinet/" || $expected-file).body.content)
     return if (deep-equal($actual, $expected))
            then true
            else { url: test:url($endpoint, $params) }
@@ -29,11 +29,29 @@ declare %an:sequential function local:check($o as object) as object
 local:check({
     bs-one: local:test-values(
       {
-        eid: "http://info.edinet-fsa.go.jp%20E01225-000",
+        eid: "http://info.edinet-fsa.go.jp E01225-000",
         fiscalYear: "2014",
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
         merge: "true"
       },
-      "spreadsheet-for-component-expected-bs-one.jq")
+      "spreadsheet-for-component-expected-bs-one.jq"),
+    pl-one: local:test-values(
+      {
+        eid: "http://info.edinet-fsa.go.jp E01225-000",
+        fiscalYear: "2014",
+        fiscalPeriod: "Q1",
+        role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
+        merge: "true"
+      },
+      "spreadsheet-for-component-expected-pl-one.jq"),
+    cf-one: local:test-values(
+      {
+        eid: "http://info.edinet-fsa.go.jp E01225-000",
+        fiscalYear: "2014",
+        fiscalPeriod: "Q1",
+        role: "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
+        merge: "true"
+      },
+      "spreadsheet-for-component-expected-cf-one.jq")
 })
