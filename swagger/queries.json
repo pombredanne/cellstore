@@ -973,6 +973,84 @@
                     "profile-name": "japan",
                     "merge": "true"
                 }
+            }, {
+                "title": "Get B/S report for multiple FYs by company name/ID and range of period",
+                "description": "Get B/S report for multiple FYs by company name/ID and range of period.",
+                "profile": ["japan"],
+                "parameters": {
+                    "eid": "http://info.edinet-fsa.go.jp E01225-000",
+                    "fiscalYear": "2014",
+                    "fiscalPeriod": "Q1",
+                    "format": "html",
+                    "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
+                    "profile-name": "japan",
+                    "merge": "true"
+                }
+            }, {
+                "title": "Get P/L report for multiple FYs by company name/ID and range of period",
+                "description": "Get P/L report for multiple FYs by company name/ID and range of period.",
+                "profile": ["japan"],
+                "parameters": {
+                    "eid": "http://info.edinet-fsa.go.jp E01225-000",
+                    "fiscalYear": "2014",
+                    "fiscalPeriod": "Q1",
+                    "format": "html",
+                    "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
+                    "profile-name": "japan",
+                    "merge": "true"
+                }
+            }, {
+                "title": "Get C/S report for multiple FYs by company name/ID and range of period",
+                "description": "Get C/S report for multiple FYs by company name/ID and range of period.",
+                "profile": ["japan"],
+                "parameters": {
+                    "eid": "http://info.edinet-fsa.go.jp E01225-000",
+                    "fiscalYear": "2014",
+                    "fiscalPeriod": "Q1",
+                    "format": "html",
+                    "role": "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
+                    "profile-name": "japan",
+                    "merge": "true"
+                }
+            }, {
+                "title": "Get B/S report of different companies by list of company names/IDs and period",
+                "description": "Get B/S report of different companies by list of company names/IDs and period.",
+                "profile": ["japan"],
+                "parameters": {
+                    "tag": "ALL",
+                    "fiscalYear": "2014",
+                    "fiscalPeriod": "Q1",
+                    "format": "html",
+                    "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
+                    "profile-name": "japan",
+                    "merge": "true"
+                }
+            }, {
+                "title": "Get P/L report of different companies by list of company names/IDs and period",
+                "description": "Get P/L report of different companies by list of company names/IDs and period.",
+                "profile": ["japan"],
+                "parameters": {
+                    "tag": "ALL",
+                    "fiscalYear": "2014",
+                    "fiscalPeriod": "Q1",
+                    "format": "html",
+                    "role": "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
+                    "profile-name": "japan",
+                    "merge": "true"
+                }
+            }, {
+                "title": "Get C/S report of different companies by list of company names/IDs and period",
+                "description": "Get C/S report of different companies by list of company names/IDs and period.",
+                "profile": ["japan"],
+                "parameters": {
+                    "tag": "ALL",
+                    "fiscalYear": "2014",
+                    "fiscalPeriod": "Q1",
+                    "format": "html",
+                    "role": "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
+                    "profile-name": "japan",
+                    "merge": "true"
+                }
             }
             ]
         }]
