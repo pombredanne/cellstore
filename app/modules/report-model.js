@@ -1050,6 +1050,11 @@ angular
                 '". Reason: Concept is abstract.');
         }
 
+        var network = this.getNetwork('ConceptMap');
+        if(network.Trees === null || network.Trees === undefined) {
+            network.Trees = [];
+        }
+
         // ensure Concept map exists
         var conceptMap = this.getConceptMap(fromConceptName);
         if(conceptMap === undefined || conceptMap === null){
@@ -1057,6 +1062,8 @@ angular
                 'Id': new ReportID().toString(),
                 'Name': fromConcept.Name
             };
+            // add concept map to network
+            network.Trees.push(conceptMap);
         }
         // reset
         conceptMap.To = [];
@@ -1073,13 +1080,6 @@ angular
             });
         });
         this.sortTreeChildren(conceptMap.To);
-
-        // add concept map to network
-        var network = this.getNetwork('ConceptMap');
-        if(network.Trees === null || network.Trees === undefined) {
-            network.Trees = [];
-        }
-        network.Trees.push(conceptMap);
     };
 
     AbstractReport.prototype.findInConceptMap = function(oconceptName) {
