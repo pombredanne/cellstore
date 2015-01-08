@@ -13,7 +13,7 @@ declare %an:nondeterministic function local:test-values($params as object, $expe
                         "/test/edinet/" || $expected-file).body.content)
     return if (deep-equal($actual, $expected))
            then true
-           else { url: test:url($endpoint, $params) }
+           else { url: test:url($endpoint, $params), actual: $actual, expected: $expected }
 };
 
 declare %an:sequential function local:check($o as object) as object
@@ -56,7 +56,7 @@ local:check({
       "spreadsheet-for-component-expected-cf-one.jq"),
     bs-companies: local:test-values(
       {
-        eid: [ "http://info.edinet-fsa.go.jp E01225-000", "http://disclosure.edinet-fsa.go.jp E01264-000", "http://disclosure.edinet-fsa.go.jp E04147-000", "http://disclosure.edinet-fsa.go.jp E04425-000" ],
+        tag: "ALL",
         fiscalYear: "2014",
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
@@ -65,16 +65,16 @@ local:check({
       "spreadsheet-for-component-expected-bs-companies.jq"),
     pl-companies: local:test-values(
       {
-        eid: [ "http://info.edinet-fsa.go.jp E01225-000", "http://disclosure.edinet-fsa.go.jp E01264-000", "http://disclosure.edinet-fsa.go.jp E04147-000", "http://disclosure.edinet-fsa.go.jp E04425-000" ],
+        tag: "ALL",
         fiscalYear: "2014",
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
         merge: "true"
       },
-      "spreadsheet-for-component-expected-pl-one.jq"),
+      "spreadsheet-for-component-expected-pl-companies.jq"),
     cf-companies: local:test-values(
       {
-        eid: [ "http://info.edinet-fsa.go.jp E01225-000", "http://disclosure.edinet-fsa.go.jp E01264-000", "http://disclosure.edinet-fsa.go.jp E04147-000", "http://disclosure.edinet-fsa.go.jp E04425-000" ],
+        tag: "ALL",
         fiscalYear: "2014",
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
