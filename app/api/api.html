@@ -49,13 +49,15 @@
                     </div>
                 </div>
                 <button ng-click="test()" class="btn btn-primary" ng-class="{ disabled: loading }">
-                    <span ng-if="!loading">Test</span>
+                    <span ng-if="!loading"><i class="fa fa-play-circle-o "></i> Test</span>
                     <span ng-if="loading"><i class="fa fa-spin fa-spinner"></i> Loading...</span>
                 </button>
                 <a ng-if="body && op.nickname === 'spreadsheetForComponent'" class="btn btn-default" ng-href="http://rendering.secxbrl.info/#?url={{getUrl(true, true)}}" target="_blank">
-                View in Spreadsheet Rendering
+                    <i class="fa fa-table"></i> View in Spreadsheet Rendering
                 </a>
-                <a ng-if="body" class="btn btn-default" ng-href="{{getUrl(true)}}" target="_blank">Open in new Tab</a>
+                <a ng-if="body" class="btn btn-default" ng-href="{{getUrl(true)}}" target="_blank">
+                    <i class="fa fa-external-link"></i> Open in new Tab
+                </a>
                 <pre class="body" ng-class="{ 'text-danger': error }" ng-if="body" ng-bind="body">
                 </pre>
             </div>

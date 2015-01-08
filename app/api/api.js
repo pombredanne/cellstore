@@ -91,4 +91,8 @@ angular.module('report-editor')
                     $scope.loading = false;
                 });
         };
+
+        if($scope.examples.length > 0) {
+            $scope.test($scope.examples[0].parameters);
+        }
     });
