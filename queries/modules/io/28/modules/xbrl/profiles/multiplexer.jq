@@ -135,8 +135,5 @@ declare function multiplexer:components(
     case exists($archives)
       return components:components-for-archives($archives)
     default
-    return
-      if($profile-name eq "sec")
-      then error(QName("multiplexer:ARCHIVE-MISSING"), "Archive ID missing.")
-      else components:components()
+    return components:components()
 };

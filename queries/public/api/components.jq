@@ -109,7 +109,6 @@ let $archives as object* := multiplexer:filings(
 
 let $entities as object*  := entities:entities($archives.Entity)
 let $components as object* :=
-  try {
     multiplexer:components(
       $profile-name,
       $archives,
@@ -118,10 +117,6 @@ let $components as object* :=
       $disclosure,
       $networkIdentifier,
     $label)
-  } catch * {{
-    response:status-code(400);
-    session:error("Archive ID missing.", $format)
-  }}
 
 let $res as object* :=
     switch($profile-name)

@@ -76,7 +76,6 @@ let $archives as object* := multiplexer:filings(
 
 let $entity    := entities:entities($archives.Entity)
 let $components as object* :=
-  try {
     multiplexer:components(
       $profile-name,
       $archives,
@@ -85,10 +84,6 @@ let $components as object* :=
       $disclosure,
       $networkIdentifier,
     $label)
-  } catch * {{
-    response:status-code(400);
-    session:error("Archive ID missing.", $format)
-  }}
 
 let $component as object? := if($merge) then components:merge($components) else $components[1]
 let $cid as string? := string-join($components ! components:cid($$), "--")

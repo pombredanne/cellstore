@@ -65,7 +65,6 @@ let $archives as object* := multiplexer:filings(
   $aid)
 
 let $components as object* :=
-  try {
     multiplexer:components(
       $profile-name,
       $archives,
@@ -74,10 +73,6 @@ let $components as object* :=
       $disclosure,
       $networkIdentifier,
     $label)
-  } catch * {{
-    response:status-code(400);
-    session:error("Archive ID missing.", $format)
-  }}
 
 let $component as object? := if($merge) then components:merge($components) else $components[1]
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
