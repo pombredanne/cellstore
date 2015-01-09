@@ -268,12 +268,14 @@ as object*
       $options.FilterOverride
     )
     else $overriden-hypercube
+  let $concepts as object* := ($component.Concepts[], $options.Concepts[])
   return hypercubes:facts(
           $hypercube,
           {|
-            trim($options, "Rules"),
+            trim($options, ("Rules", "Concepts" )),
             { "ConceptMaps": $concept-map }[exists($concept-map)],
-            { "Rules": $rules }[exists($rules)]
+            { "Rules": $rules }[exists($rules)],
+            { "Concepts": [ $concepts ] }[exists($concepts)]
           |}
          )
 };
@@ -336,9 +338,10 @@ as object*
       $component,
       "ConceptMap")
     let $rules as array? := $component.Rules
+    let $concepts as object* := ($component.Concepts[], $options.Concepts[])
     let $new-options as object :=
         {|
-            trim($options, "Rules"),
+            trim($options, ("Rules", "Concepts" )),
             {"ConceptMaps": $concept-map }[exists($concept-map)],
             { "Rules": [ ( flatten($rules[]), flatten($options.Rules) ) ] }[exists(($rules, $options.Rules))],
             {
@@ -349,7 +352,8 @@ as object*
                         $options.FilterOverride
                     )
                     else $overriden-hypercube
-            }[exists($overriden-hypercube)]
+            }[exists($overriden-hypercube)],
+            { "Concepts": [ $concepts ] }[exists($concepts)]
         |}
     let $structural-model as object := resolution:resolve(
         $definition-model,

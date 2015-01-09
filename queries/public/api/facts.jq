@@ -191,7 +191,8 @@ let $facts :=
         Validate: $validate
       },
       { "ConceptMaps" : $map }[exists($map)],
-      { "Rules" : [ $rule ] }[exists($rule)]
+      { "Rules" : [ $rule ] }[exists($rule)],
+      { "Concepts" : [ $report.Concepts[] ] }[exists($report) and exists($report.Concepts)]
     |}
     return if($profile-name eq "sec")
     then sec:facts-for($options)
