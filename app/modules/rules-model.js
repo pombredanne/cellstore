@@ -455,11 +455,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             var report = this.report;
             var computedConcept = report.getConcept(this.model.ComputableConcepts[0]);
             var decimals = this.getDecimals();
-            if(decimals === undefined){
-                decimals = 2;
-            } else if (decimals === 'INF'){
-                decimals = '"INF"';
-            }
             var units;
             if(_.isString(this.model.Unit) && this.model.Unit !== ''){
                 units = this.model.Unit;
@@ -590,6 +585,13 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         result.push('         ' + toAuditTrail(body));
                         result.push('    let $audit-trail-message as string* := ($audit-trail-message, $warnings)');
                         result.push('    let $source-facts as object* := (' + auditTrailSourceFacts + ')');
+                        result.push('    let $rule as object :=');
+                        result.push('        copy $newRule := $rule');
+                        result.push('        modify (');
+                        result.push('            if(exists($newRule("Label"))) then ()');
+                        result.push('                                          else insert json { "Label": "' + computedConcept.Label + '" } into $newRule');
+                        result.push('          )');
+                        result.push('        return $newRule');
                         result.push('    let $fact as object :=');
                         result.push('        rules:create-computed-fact(');
                         result.push('          $' + sourceFactVariable + ',');
@@ -610,10 +612,11 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         result.push('        copy $newFact := $fact');
                         result.push('        modify (');
                         result.push('            if(exists($newFact("Aspects")("xbrl:Unit"))) then replace value of json $newFact("Aspects")("xbrl:Unit") with $_unit');
-                        result.push('                                                         else insert json { "xbrl:Unit": $_unit } into $newFact("Aspects"),');
-                        result.push('            if(exists($newFact("Decimals"))) then replace value of json $newFact("Decimals") with ' + decimals);
-                        result.push('                                             else insert json { "Decimals": ' + decimals + ' } into $newFact');
-
+                        result.push('                                                         else insert json { "xbrl:Unit": $_unit } into $newFact("Aspects")');
+                        if(decimals !== undefined) {
+                            result.push('            ,if(exists($newFact("Decimals"))) then replace value of json $newFact("Decimals") with ' + decimals);
+                            result.push('                                             else insert json { "Decimals": ' + decimals + ' } into $newFact');
+                        }
                         if(_.isString(computedConcept.Balance)){
                             result.push('            ,');
                             result.push('              if(exists($newFact("Concept")("Balance"))) then replace value of json $newFact("Concept")("Balance") with "' + computedConcept.Balance + '"');
