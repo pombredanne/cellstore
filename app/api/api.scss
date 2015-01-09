@@ -1,0 +1,54 @@
+#api {
+    .operations {
+        .block-content {
+
+            padding: 0;
+
+            .std-header {
+                padding-left: 15px;
+            }
+
+            .operation {
+                border: none;
+
+                >a {
+                    &:hover {
+                        text-decoration: none !important;
+                    }
+
+                    .method {
+                        padding: 4px;
+                        color: white;
+                    }
+
+                    .method-post {
+                        background-color: $brand-primary;
+                    }
+
+                    .path {
+                        color: $text-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .parameter {
+        width: 45%;
+        input[type=text] {
+            width: 100%;
+        }
+    }
+
+    .fa.fa-caret-down {
+
+    }
+
+    .nav-tabs {
+        margin-top: 15px;
+    }
+
+    .body {
+        margin-top: 15px;
+    }
+}
