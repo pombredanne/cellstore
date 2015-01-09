@@ -21,7 +21,7 @@
     "Concept" : {
       "Balance" : "DEBIT", 
       "PeriodType" : "instant", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "BS2", 
@@ -58,7 +58,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "instant", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "BS1", 
@@ -95,7 +95,7 @@
     "Concept" : {
       "Balance" : "DEBIT", 
       "PeriodType" : "instant", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "BS3", 
@@ -132,7 +132,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "instant", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "BS4", 
@@ -169,7 +169,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "instant", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "BS5", 
@@ -374,7 +374,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "instant", 
@@ -638,7 +638,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "instant", 
@@ -671,7 +671,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "instant", 
@@ -708,7 +708,7 @@
     "Concept" : {
       "Balance" : "DEBIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "CF5", 
@@ -745,7 +745,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS4", 
@@ -782,7 +782,7 @@
     "Concept" : {
       "Balance" : "DEBIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "CF6", 
@@ -819,7 +819,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS5", 
@@ -856,7 +856,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS1", 
@@ -893,7 +893,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS7", 
@@ -930,7 +930,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS10", 
@@ -967,7 +967,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS8", 
@@ -1004,7 +1004,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS3", 
@@ -1041,7 +1041,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS9", 
@@ -1077,7 +1077,7 @@
     "Decimals" : -6, 
     "Concept" : {
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "CF4", 
@@ -1114,7 +1114,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS6", 
@@ -1150,7 +1150,7 @@
     "Decimals" : -6, 
     "Concept" : {
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "CF3", 
@@ -1187,7 +1187,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS11", 
@@ -1224,7 +1224,7 @@
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "IS2", 
@@ -1260,7 +1260,7 @@
     "Decimals" : -6, 
     "Concept" : {
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "CF2", 
@@ -1297,7 +1297,7 @@
     "Concept" : {
       "Balance" : "DEBIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:booleanItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "CF1", 
@@ -2231,7 +2231,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
@@ -2372,7 +2372,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
@@ -2405,7 +2405,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
@@ -2678,7 +2678,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
@@ -2711,7 +2711,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
@@ -2744,7 +2744,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
@@ -2965,7 +2965,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
@@ -2998,7 +2998,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
@@ -3371,11 +3371,11 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0.257954545454545455, 
-    "Decimals" : 2, 
+    "Decimals" : 3,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:pureItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "fe735813-326b-4f09-a38e-8f80c80e816b", 
@@ -3405,11 +3405,11 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0.095785908611404142, 
-    "Decimals" : 2, 
+    "Decimals" : 3,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:pureItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "78e824dc-4b68-4a1b-9aa3-ec51d0f55335", 
@@ -3439,11 +3439,11 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0.184103811841038118, 
-    "Decimals" : 2, 
+    "Decimals" : 3,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:pureItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "de1806dc-ff91-47a9-a10b-fb631b268ae3", 
@@ -3473,11 +3473,11 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0.347626339969372129, 
-    "Decimals" : 2, 
+    "Decimals" : 3,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
+      "DataType" : "xbrli:pureItemType"
     }, 
     "AuditTrails" : [ {
       "Id" : "9f8da807-3830-485d-8f97-6f77c9b1ab05", 
@@ -3494,108 +3494,6 @@
   }, {
     "Aspects" : {
       "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:PassedValidations", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity", 
-      "sec:Archive" : "0000021344-14-000008"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Type" : "NumericValue", 
-    "Value" : 20, 
-    "Decimals" : 0, 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "AuditTrails" : [ {
-      "Id" : null, 
-      "Type" : "xbrl28:formula", 
-      "Label" : "Validation Statistics: Passed Validations", 
-      "Message" : "count(fac:AssetsValidation, fac:GrossProfitValidation, fac:ComprehensiveIncomeLossValidation2, fac:ComprehensiveIncomeLossValidation, fac:NetIncomeLossAvailableToCommonStockholdersBasicValidation, fac:NetIncomeLossValidation2, fac:IncomeLossFromContinuingOperationsAfterTaxValidation, fac:IncomeLossFromContinuingOperationsBeforeTaxValidation, fac:IncomeLossBeforeEquityMethodInvestmentsValidation, fac:EquityValidation, fac:NetCashFlowFromFinancingActivitiesValidation, fac:NetCashFlowFromInvestingActivitiesValidation, fac:NetCashFlowFromOperatingActivitiesValidation, fac:LiabilitiesValidation, fac:AssetsValidation2, fac:NetCashFlowDiscontinuedValidation, fac:NetCashFlowContinuingValidation, fac:NetIncomeLossValidation, fac:NetCashFlowValidation, fac:LiabilitiesAndEquityValidation)", 
-      "Data" : {
-        "OutputConcept" : "fac:PassedValidations"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "pure"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:FailedValidations", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity", 
-      "sec:Archive" : "0000021344-14-000008"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Type" : "NumericValue", 
-    "Value" : 2, 
-    "Decimals" : 0, 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "AuditTrails" : [ {
-      "Id" : null, 
-      "Type" : "xbrl28:formula", 
-      "Label" : "Validation Statistics: Passed Validations", 
-      "Message" : "count(fac:OperatingIncomeLossValidation, fac:OperatingIncomeLossValidation2)", 
-      "Data" : {
-        "OutputConcept" : "fac:FailedValidations"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "pure"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
-      "xbrl:Concept" : "fac:NotApplicableValidations", 
-      "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
-      "xbrl:Period" : "2013-01-01/2013-12-31", 
-      "sec:FiscalPeriod" : "FY", 
-      "sec:FiscalPeriodType" : "YTD", 
-      "sec:FiscalYear" : 2013, 
-      "sec:Accepted" : "20140227132423", 
-      "dei:LegalEntityAxis" : "sec:DefaultLegalEntity", 
-      "sec:Archive" : "0000021344-14-000008"
-    }, 
-    "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
-    "Type" : "NumericValue", 
-    "Value" : 0, 
-    "Decimals" : 0, 
-    "Concept" : {
-      "Balance" : "CREDIT", 
-      "PeriodType" : "duration", 
-      "DataType" : "xbrli:monetaryItemType"
-    }, 
-    "AuditTrails" : [ {
-      "Id" : null, 
-      "Type" : "xbrl28:formula", 
-      "Label" : "Validation Statistics: Validations that couldn't be applied", 
-      "Message" : "count()", 
-      "Data" : {
-        "OutputConcept" : "fac:NotApplicableValidations"
-      }
-    } ], 
-    "xbrl28:Type" : "xbrl28:formula", 
-    "EntityRegistrantName" : "COCA COLA CO", 
-    "Unit" : "pure"
-  }, {
-    "Aspects" : {
-      "xbrl28:Archive" : "0000021344-14-000008", 
       "xbrl:Concept" : "fac:ResearchAndDevelopment", 
       "xbrl:Entity" : "http://www.sec.gov/CIK 0000021344", 
       "xbrl:Period" : "2013-01-01/2013-12-31", 
@@ -3609,7 +3507,7 @@
     "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "sec:Accepted" ], 
     "Type" : "NumericValue", 
     "Value" : 0, 
-    "Decimals" : 3, 
+    "Decimals" : 2,
     "Concept" : {
       "Balance" : "CREDIT", 
       "PeriodType" : "duration", 
