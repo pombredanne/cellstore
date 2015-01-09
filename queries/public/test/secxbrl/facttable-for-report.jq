@@ -253,7 +253,7 @@ declare %an:nondeterministic function local:test-values() as item*
 
 let $dow30 := test:is-dow30()
 return local:check({
-    cocacola: local:test-facttable(95, {
+    cocacola: local:test-facttable(92, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2013",
@@ -269,24 +269,24 @@ return local:check({
         18, {
         aid:"0000732717-14-000022",
         report:"FundamentalAccountingConcepts"}),
-    aid2-qtd: local:test-facttable(96, {
+    aid2-qtd: local:test-facttable(93, {
         aid:"0000732717-14-000022",
         report:"FundamentalAccountingConcepts",
         fiscalPeriodType: [ "instant", "QTD" ]
     }),
-    tickerrole: local:test-facttable(95, {
+    tickerrole: local:test-facttable(92, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
         fiscalPeriod:"Q1"}),
-    tickerfyfprole: local:test-facttable(247, {
+    tickerfyfprole: local:test-facttable(238, {
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
         fiscalPeriod:"FY",
         fiscalPeriodType:["instant", "QTD", "YTD"]
     }),
-    bfiXOMUnits: local:test-facttable(401, {
+    bfiXOMUnits: local:test-facttable(386, {
         report:"supportBasicFinancialInformation",
         ticker:["xom"],
         fiscalYear:"ALL",

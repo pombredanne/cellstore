@@ -29,31 +29,31 @@ declare %an:sequential function local:check($o as object) as object
 };
 
 local:check({
-    cocacola: local:test-spreadsheet(96, {
+    cocacola: local:test-spreadsheet(93, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2013",
         fiscalPeriod:"Q1"}),
-    tickerrole: local:test-spreadsheet(96, {
+    tickerrole: local:test-spreadsheet(93, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
         fiscalPeriod:"Q1"}),
-    tickerconcept: local:test-spreadsheet(384, {
+    tickerconcept: local:test-spreadsheet(372, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
         fiscalPeriod:"ALL",
         fiscalPeriodType:["instant", "YTD"]
     }),
-    tickerconcept-qtd: local:test-spreadsheet(198, {
+    tickerconcept-qtd: local:test-spreadsheet(192, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
         fiscalPeriod:"ALL",
         fiscalPeriodType:["instant", "QTD"]
     }),
-    tickerfyfprole: local:test-spreadsheet(193, {
+    tickerfyfprole: local:test-spreadsheet(187, {
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
