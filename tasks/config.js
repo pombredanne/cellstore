@@ -96,14 +96,11 @@ var config =
         initQueries: [
             'queries/private/InitAuditCollection.jq',
             'queries/private/init.jq',
-            'queries/private/UpdateReportSchema.jq',
-            'queries/private/cleanupTestUserReports.jq',
-            'queries/private/migration/db7.jq',
             [
                 'queries/private/UpdateReportSchema.jq',
                 'queries/private/cleanupTestUserReports.jq'
             ],
-            'queries/private/migration/db6.jq'
+            'queries/private/migration/db7.jq'
         ],
         apiTestQueries: [
             'queries/public/test/' + configId + '/*.jq'
