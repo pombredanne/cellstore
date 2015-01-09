@@ -118,7 +118,7 @@ let $components as object* :=
       $reportElement,
       $disclosure,
       $networkIdentifier,
-      $label)
+    $label)
   } catch * {{
     response:status-code(400);
     session:error("Archive ID missing.", $format)

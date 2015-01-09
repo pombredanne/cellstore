@@ -98,12 +98,16 @@ declare function multiplexer:filings(
   : <p>Retrieves components depending on the profile.</p>
   :
   : @param $profile-name the name of the profile (e.g., SEC, Japan, Generic).
-  : @param $entities a sequence of entities or EIDs.
-  : @param $fiscalPeriod a sequence of fiscal periods (Q1, Q2, Q3, FY).
-  : @param $fiscalYear a sequence of fiscal years.
-  : @param $aid a sequence of AIDs.
+  : @param $archives a sequence of archive objects.
+  : @param $cid a sequence of CIDs.
+  : @param $reportElement a sequence of report element names.
+  : @param $disclosure a sequence of disclosure names.
+  : @param $networkIdentifier a sequence of network identifiers.
+  : @parem $label a sequence of labels.
   :
-  : @return the archives retrieved according to the profile specified.
+  : @error multiplexer:ARCHIVE-MISSING if a AID is required but not provided.
+  :
+  : @return the components retrieved according to the profile specified.
 :)
 declare function multiplexer:components(
   $profile-name as string,
@@ -114,23 +118,25 @@ declare function multiplexer:components(
   $networkIdentifier as string*,
   $label as string*) as object*
 {
-switch($profile-name)
-case "sec" return sec-networks:components(
-  $archives,
-  $cid,
-  $reportElement,
-  $disclosure,
-  $networkIdentifier,
-  $label)
+  switch($profile-name)
+  case "sec" return sec-networks:components(
+    $archives,
+    $cid,
+    $reportElement,
+    $disclosure,
+    $networkIdentifier,
+    $label)
   default return
-  switch(true)
-  case (exists($networkIdentifier) and exists($archives))
-  return components:components-for-archives-and-roles($archives, $networkIdentifier)
-  case exists($archives)
-  return components:components-for-archives($archives)
-  default
-  return
-    if($profile-name eq "sec")
-    then error(QName("multiplexer:AID-MISSING"), "Archive ID missing.")
-    else components:components()
+    switch(true)
+    case (exists($networkIdentifier) and exists($archives))
+      return components:components-for-archives-and-roles(
+          $archives,
+          $networkIdentifier)
+    case exists($archives)
+      return components:components-for-archives($archives)
+    default
+    return
+      if($profile-name eq "sec")
+      then error(QName("multiplexer:ARCHIVE-MISSING"), "Archive ID missing.")
+      else components:components()
 };

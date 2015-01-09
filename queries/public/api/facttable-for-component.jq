@@ -75,26 +75,21 @@ let $archives as object* := multiplexer:filings(
   $aid)
 
 let $entity    := entities:entities($archives.Entity)
-let $components  := 
-    switch($profile-name)
-    case "sec" return sec-networks:components(
-        $archives,
-        $cid,
-        $reportElement,
-        $disclosure,
-        $networkIdentifier,
-        $label)
-    default return
-        switch(true)
-        case (exists($networkIdentifier) and exists($archives))
-        return components:components-for-archives-and-roles($archives, $networkIdentifier)
-        case exists($archives)
-        return components:components-for-archives($archives)
-        default
-        return {
-          response:status-code(400);
-          session:error("Archive ID missing.", $format)
-        }
+let $components as object* :=
+  try {
+    multiplexer:components(
+      $profile-name,
+      $archives,
+      $cid,
+      $reportElement,
+      $disclosure,
+      $networkIdentifier,
+    $label)
+  } catch * {{
+    response:status-code(400);
+    session:error("Archive ID missing.", $format)
+  }}
+
 let $component as object? := if($merge) then components:merge($components) else $components[1]
 let $cid as string? := string-join($components ! components:cid($$), "--")
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
@@ -102,7 +97,7 @@ let $rules as object* := if(exists($additional-rules)) then rules:rules($additio
 (: Fact resolution :)
 let $facts :=
     if (exists($rollup) and $profile-name eq "sec")
-         then 
+         then
              let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
              let $hc := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
              let $hc := hypercubes:modify-hypercube($hc, {
@@ -113,7 +108,7 @@ let $facts :=
              let $options as object? := if(exists($rules)) then { Rules: [ $rules ] } else ()
              let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archives, $options)
              let $map := concept-maps:concept-maps($map)
-             let $concepts := 
+             let $concepts :=
                 if (not $map instance of null)
                 then
                     for $d in $rollup[]
@@ -179,7 +174,7 @@ let $result :=
                 FactTable : [ $facts ]
             }[$profile-name ne "sec"]
         |}
-        
+
 let $comment := {
     NumFacts : count($facts),
     TotalNumFacts: session:num-facts(),
@@ -198,7 +193,7 @@ let $serializers := {
             networkIdentifier="{$res.NetworkIdentifier}"
             formType="{$res.FormType}"
             fiscalPeriod="{$res.FiscalPeriod}"
-            fiscalYear="{$res.FiscalYear}" 
+            fiscalYear="{$res.FiscalYear}"
             acceptanceDatetime="{$res.AcceptanceDatetime}"
             disclosure="{$res.Disclosure}"
             >{
@@ -218,4 +213,3 @@ let $serializers := {
     }
 }
 return api:serialize($result, $comment, $serializers, $format, "facttable-" || $cid)
-
