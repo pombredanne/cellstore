@@ -80,7 +80,7 @@ var config =
         html: ['app/**/*.html'],
         images: 'app/images/**/*.{gif,jpg,png}',
         svgs: 'app/images/**/*.svg',
-        less: ['app/**/*.scss'],
+        sass: ['app/**/*.scss'],
         fonts: ['app/**/*.ttf', 'app/**/*.woff'],
 
         //CI

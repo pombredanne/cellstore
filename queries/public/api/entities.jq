@@ -2,11 +2,7 @@ import module namespace config = "http://apps.28.io/config";
 import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 import module namespace backend = "http://apps.28.io/test";
-
-import module namespace csv = "http://zorba.io/modules/json-csv";
-
-import module namespace entities = "http://28.io/modules/xbrl/entities";
-
+import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 
 (: Query parameters :)
@@ -22,65 +18,42 @@ declare  %rest:case-insensitive                 variable $profile-name as string
 
 session:audit-call($token);
 
-(: Post-processing :)
+(: HTTP parameter post-processing :)
 let $format as string? := api:preprocess-format($format, $request-uri)
 let $tag as string* := api:preprocess-tags($tag)
-let $tag := if (exists(($cik, $tag, $ticker, $sic)))
+let $tag := if (exists(($cik, $tag, $ticker, $sic, $eid)))
              then $tag
              else "ALL"
 
-(: Object resolution :)
+(: Entity resolution :)
+let $entities := multiplexer:entities($profile-name, $eid, $cik, $tag, $ticker, $sic)
 let $entities :=
-    switch($profile-name)
-    case "sec" return
-        for $entity in companies:companies(
-            $cik,
-            $tag,
-            $ticker,
-            $sic)
-        order by $entity.Profiles.SEC.CompanyName
-        return $entity
-    default return
-        for $entity in
-            if(exists($eid)) then entities:entities($eid)
-                                else entities:entities()
-        return {
-            EID: $entity._id
-        }
+  for $entity in $entities
+  return {|
+    project($entity, "_id"),
+    {
+      Archives: backend:url(
+        "filings",
+        {|
+          {
+            eid: $entity._id,
+            format: $format,
+            profile-name: $profile-name
+          },
+          {
+            fiscalYear: "ALL",
+            fiscalPeriod: "ALL"
+          }[$profile-name = ("sec", "japan")]
+        |}, true)
+    },
+    trim($entity, "_id")
+  |}
+
 let $comment :=
 {
     NumEntities: count($entities),
-    TotalNumEntities: session:num-entities() 
+    TotalNumEntities: session:num-entities()
 }
-let $entities :=
-  switch($profile-name)
-  case "sec" return
-    for $entity in $entities
-    return {|
-      project($entity, "_id"),
-      {
-        Archives: backend:url("filings", {
-          cik: tokenize($entity._id, " ")[2],
-          fiscalYear: "ALL",
-          fiscalPeriod: "ALL",
-          format: $format,
-          profile-name: $profile-name
-        }, true)
-      },
-      trim($entity, "_id")
-    |}
-  default return
-    for $entity in $entities
-    return {|
-      $entity,
-      {
-        Archives: backend:url("filings", {
-          eid: encode-for-uri($entity.EID),
-          format: $format,
-          profile-name: $profile-name
-        }, true)
-      }
-  |}
 
 let $result := { "Entities" : [ $entities ] }
 let $serializers := {
@@ -92,19 +65,15 @@ let $serializers := {
         }</Entities>
         default return <Entities>
             {
-                for $id in $res.Entities[].EID
+                for $id in $res.Entities[]._id
                 return <EID>{$id}</EID>
             }
         </Entities>
     },
     to-csv : function($res as object) as string {
         switch($profile-name)
-        case "sec"
-        return string-join(companies:to-csv($res.Entities[]))
-        default return
-            string-join(
-                csv:serialize($res.Entities[], { serialize-null-as : "" }),
-        "")
+        case "sec" return string-join(companies:to-csv($res.Entities[]))
+        default return api:json-to-csv($res.Entities[])
     }
 }
 return api:serialize($result, $comment, $serializers, $format, "entities")
