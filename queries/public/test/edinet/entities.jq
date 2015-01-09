@@ -16,8 +16,8 @@ declare %an:nondeterministic function local:test-example1() as item
     "Archives" : "http://" || request:server-name() || ":" || request:server-port() ||
       "/v1/_queries/public/api/filings.jq?_method=POST&token=" || $config:test-token || "&eid=http%3A%2F%2Finfo.edinet-fsa.go.jp%20E01225-000&format=json&profile-name=japan&fiscalYear=ALL&fiscalPeriod=ALL",
     "Profiles" : {
-      "FSA" : {
-        "Name" : "FSA",
+      "JAPAN" : {
+        "Name" : "JAPAN",
         "EDINETCode" : "E01225-000",
         "SubmitterName" : "新日鐵住金株式会社",
         "SubmitterNameAlphabetic" : "NIPPON STEEL & SUMITOMO METAL CORPORATION",
