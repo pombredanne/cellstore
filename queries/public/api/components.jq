@@ -9,8 +9,6 @@ import module namespace sec-filings = "http://28.io/modules/xbrl/profiles/sec/fi
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
-import module namespace response = "http://www.28msec.com/modules/http-response";
-
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
 declare function local:to-csv($res as object*) as string*
