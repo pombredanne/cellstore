@@ -268,11 +268,11 @@ as object*
       $options.FilterOverride
     )
     else $overriden-hypercube
-  let $concepts as object* := ($component.Concepts[], $options.Concepts[])
+  let $concepts as object* := $component.Concepts[]
   return hypercubes:facts(
           $hypercube,
           {|
-            trim($options, ("Rules", "Concepts" )),
+            trim($options, "Rules"),
             { "ConceptMaps": $concept-map }[exists($concept-map)],
             { "Rules": $rules }[exists($rules)],
             { "Concepts": [ $concepts ] }[exists($concepts)]
@@ -338,10 +338,10 @@ as object*
       $component,
       "ConceptMap")
     let $rules as array? := $component.Rules
-    let $concepts as object* := ($component.Concepts[], $options.Concepts[])
+    let $concepts as object* := $component.Concepts[]
     let $new-options as object :=
         {|
-            trim($options, ("Rules", "Concepts" )),
+            trim($options, "Rules"),
             {"ConceptMaps": $concept-map }[exists($concept-map)],
             { "Rules": [ ( flatten($rules[]), flatten($options.Rules) ) ] }[exists(($rules, $options.Rules))],
             {
