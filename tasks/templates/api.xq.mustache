@@ -1,0 +1,13 @@
+module namespace api = "http://japan.xbrl.io/api";
+
+import module namespace http = "http://expath.org/ns/http-client";
+
+{{#operations}}
+declare function api:{{nickname}}($parameters) {
+    let $query := for $parameter in $parameter
+                  return $parameter/@name/string() || "=" || encode-for-uri($parameter/@value/string())
+    let $query := string-join($query, "&")
+    return
+        http:send-request(<http:request href="http://edinet.28.io/v1/_queries/public/api{{&path}}?{{&query}}" method="POST"></http:request>)
+};
+{{/operations}}
