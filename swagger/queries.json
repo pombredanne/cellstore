@@ -29,7 +29,7 @@
             }, {
                 "name": "tag",
                 "description": "A tag to filter",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -50,7 +50,7 @@
             }, {
                 "name": "cik",
                 "description": "A CIK number",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -135,7 +135,7 @@
             }, {
                 "name": "tag",
                 "description": "A tag to filter",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -155,7 +155,7 @@
             }, {
                 "name": "cik",
                 "description": "A CIK number",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -182,7 +182,7 @@
             }, {
                 "name": "fiscalYear",
                 "description": "The fiscal year focus of the filings to retrieve (default: LATEST)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query",
@@ -194,7 +194,7 @@
             }, {
                 "name": "fiscalPeriod",
                 "description": "The fiscal period focus of the filings to retrieve (default: FY)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -208,7 +208,6 @@
             }, {
                 "name": "token",
                 "description": "The token of the current session",
-                "profile": ["sec"],
                 "required": true,
                 "type": "string",
                 "paramType": "query"
@@ -280,7 +279,7 @@
             }, {
                 "name": "cik",
                 "description": "A CIK number",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -307,7 +306,7 @@
             }, {
                 "name": "fiscalYear",
                 "description": "The fiscal year focus of the filings to retrieve (default: LATEST)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query",
@@ -319,7 +318,7 @@
             }, {
                 "name": "fiscalPeriod",
                 "description": "The fiscal period focus of the filings to retrieve (default: FY)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -406,7 +405,7 @@
             }, {
                 "name": "tag",
                 "description": "The tag to filter entities",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -428,14 +427,14 @@
             }, {
                 "name": "cik",
                 "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
             }, {
                 "name": "fiscalYear",
                 "description": "The fiscal year focus of the components to retrieve (default: ALL)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query",
@@ -447,7 +446,7 @@
             }, {
                 "name": "fiscalPeriod",
                 "description": "The fiscal period focus of the components to retrieve (default: ALL)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -591,7 +590,7 @@
             }, {
                 "name": "cik",
                 "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -605,7 +604,7 @@
             }, {
                 "name": "tag",
                 "description": "A tag to filter",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -640,14 +639,14 @@
             }, {
                 "name": "fiscalYear",
                 "description": "The fiscal year of the filing",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
             }, {
                 "name": "fiscalPeriod",
                 "description": "The fiscal period of the filing",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -784,7 +783,7 @@
             }, {
                 "name": "cik",
                 "description": "The CIK of an entity. This parameter needs to be used together with the fiscalYear, fiscalPeriod, and disclosure parameters to identify a component.",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -798,7 +797,7 @@
             }, {
                 "name": "tag",
                 "description": "A tag to filter",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -833,14 +832,14 @@
             }, {
                 "name": "fiscalYear",
                 "description": "The fiscal year of the filing",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
             }, {
                 "name": "fiscalPeriod",
                 "description": "The fiscal period of the filing",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -1203,7 +1202,7 @@
             }, {
                 "name": "cik",
                 "description": "The CIK of the entity",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -1217,7 +1216,7 @@
             }, {
                 "name": "tag",
                 "description": "The tag to filter entities",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1239,7 +1238,7 @@
             }, {
                 "name": "fiscalYear",
                 "description": "The fiscal year of the fact to retrieve (default: LATEST)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query",
@@ -1251,7 +1250,7 @@
             }, {
                 "name": "fiscalPeriod",
                 "description": "The fiscal period of the fact to retrieve (default: FY). Can select multiple.",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1265,7 +1264,7 @@
             }, {
                 "name": "fiscalPeriodType",
                 "description": "The fiscal period type of the fact to retrieve (default: instant+YTD). Can select multiple.",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1371,7 +1370,7 @@
             }, {
                 "name": "cik",
                 "description": "The CIK of the entity",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -1385,7 +1384,7 @@
             }, {
                 "name": "tag",
                 "description": "The tag to filter entities",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1419,7 +1418,7 @@
             }, {
                 "name": "fiscalPeriod",
                 "description": "The fiscal period of the fact to retrieve (default: FY)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1433,7 +1432,7 @@
             }, {
                 "name": "fiscalPeriodType",
                 "description": "The fiscal period type of the fact to retrieve (default: instant+YTD). Can select multiple, but preferably not both YTD and QTD.",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1541,7 +1540,7 @@
             }, {
                 "name": "cik",
                 "description": "The CIK of the entity",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -1555,7 +1554,7 @@
             }, {
                 "name": "tag",
                 "description": "The tag to filter entities",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1583,7 +1582,7 @@
             }, {
                 "name": "fiscalYear",
                 "description": "The fiscal year of the fact to retrieve (default: LATEST)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query",
@@ -1601,7 +1600,7 @@
             }, {
                 "name": "fiscalPeriod",
                 "description": "The fiscal period of the fact to retrieve (default: FY)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1615,7 +1614,7 @@
             }, {
                 "name": "fiscalPeriodType",
                 "description": "The fiscal period type of the fact to retrieve (default: instant+YTD). Can select multiple.",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1788,7 +1787,7 @@
             }, {
                 "name": "tag",
                 "description": "A tag to filter entities",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1809,7 +1808,7 @@
             }, {
                 "name": "cik",
                 "description": "A CIK number",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -1830,7 +1829,7 @@
             }, {
                 "name": "fiscalYear",
                 "description": "The fiscal year focus of the component to retrieve (default: ALL)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "paramType": "query",
@@ -1842,7 +1841,7 @@
             }, {
                 "name": "fiscalPeriod",
                 "description": "The fiscal period focus of the component to retrieve (default: FY)",
-                "profile": ["sec"],
+                "profile": ["sec", "japan"],
                 "required": false,
                 "type": "string",
                 "enum": [
