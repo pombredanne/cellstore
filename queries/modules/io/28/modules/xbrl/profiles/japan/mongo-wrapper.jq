@@ -7,7 +7,7 @@ declare variable $mw:ARCHIVES-ENTITY as string := "Entity_hashed";
 
 declare variable $mw:COMPONENTS-ID as string := "_id_";
 declare variable $mw:COMPONENTS-ARCHIVE as string := "Archive_hashed";
-declare variable $mw:COMPONENTS-PROFILE_JAPAN_DISCLOSURE as string := "Profiles.FSA.Disclosure_hashed";
+declare variable $mw:COMPONENTS-PROFILE_JAPAN_DISCLOSURE as string := "Profiles.JAPAN.Disclosure_hashed";
 declare variable $mw:COMPONENTS-ROLE as string := "Role_hashed";
 
 declare variable $mw:CONCEPTS-ID as string := "_id_";
@@ -15,11 +15,11 @@ declare variable $mw:CONCEPTS-ARCHIVE-ROLE-NAME as string := "Archive_1_Role_1_N
 declare variable $mw:CONCEPTS-NAME-ARCHIVE as string := "Name_1_Archive_1";
 
 declare variable $mw:ENTITIES-ID as string := "_id_";
-declare variable $mw:ENTITIES-PROFILES_JAPAN_SIC as string := "Profiles.FSA.SIC_hashed";
-declare variable $mw:ENTITIES-PROFILES_JAPAN_INDUSTRY as string := "Profiles.FSA.Industry_hashed";
-declare variable $mw:ENTITIES-PROFILES_JAPAN_TAGS as string := "Profiles.FSA.Tags_1";
-declare variable $mw:ENTITIES-PROFILES_JAPAN_TICKERS as string := "Profiles.FSA.Tickers_1";
-declare variable $mw:ENTITIES-PROFILES_JAPAN_SUBMITTERTYPE as string := "Profiles.FSA.SubmitterType_hashed";
+declare variable $mw:ENTITIES-PROFILES_JAPAN_SIC as string := "Profiles.JAPAN.SIC_hashed";
+declare variable $mw:ENTITIES-PROFILES_JAPAN_INDUSTRY as string := "Profiles.JAPAN.Industry_hashed";
+declare variable $mw:ENTITIES-PROFILES_JAPAN_TAGS as string := "Profiles.JAPAN.Tags_1";
+declare variable $mw:ENTITIES-PROFILES_JAPAN_TICKERS as string := "Profiles.JAPAN.Tickers_1";
+declare variable $mw:ENTITIES-PROFILES_JAPAN_SUBMITTERTYPE as string := "Profiles.JAPAN.SubmitterType_hashed";
 
 declare variable $mw:FACTS-ID as string := "_id_";
 declare variable $mw:FACTS-AXCONCEPT_AXENTITY_AJFY_AJFP as string := "Aspects.xbrl:Concept_1_Aspects.xbrl:Entity_1_Aspects.japan:FiscalYear_1_Aspects.japan:FiscalPeriod_1";
@@ -79,7 +79,7 @@ declare %private function mw:components-hint($query as object) as object
       return { "$query": $query, "$hint": $mw:COMPONENTS-ID }
     case (exists($query("Archive")))
       return { "$query": $query, "$hint": $mw:COMPONENTS-ARCHIVE }
-    case (exists($query("Profiles.FSA.Disclosure")))
+    case (exists($query("Profiles.JAPAN.Disclosure")))
       return { "$query": $query, "$hint": $mw:COMPONENTS-PROFILE_JAPAN_DISCLOSURE }
     case (exists($query("Role")))
       return { "$query": $query, "$hint": $mw:COMPONENTS-ROLE }
@@ -115,15 +115,15 @@ declare %private function mw:entities-hint($query as object) as object
   switch (true)
     case (exists($query("_id")))
       return { "$query": $query, "$hint": $mw:ENTITIES-ID }
-    case (exists($query("Profiles.FSA.SIC")))
+    case (exists($query("Profiles.JAPAN.SIC")))
       return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_JAPAN_SIC }
-    case (exists($query("Profiles.FSA.Industry")))
+    case (exists($query("Profiles.JAPAN.Industry")))
       return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_JAPAN_INDUSTRY }
-    case (exists($query("Profiles.FSA.Tags")))
+    case (exists($query("Profiles.JAPAN.Tags")))
       return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_JAPAN_TAGS }
-    case (exists($query("Profiles.FSA.Tickers")))
+    case (exists($query("Profiles.JAPAN.Tickers")))
       return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_JAPAN_TICKERS }
-    case (exists($query("Profiles.FSA.SubmitterType")))
+    case (exists($query("Profiles.JAPAN.SubmitterType")))
       return { "$query": $query, "$hint": $mw:ENTITIES-PROFILES_JAPAN_SUBMITTERTYPE }
     default
       return $query

@@ -52,7 +52,7 @@ let $summaries :=
         return $f
     case "japan" return
       for $a in $archives
-      order by $a.Profiles.FSA.SubmissionDate descending
+      order by $a.Profiles.JAPAN.SubmissionDate descending
       return project($a, ("_id", "Entity", "Profiles"))
     default return $archives
 

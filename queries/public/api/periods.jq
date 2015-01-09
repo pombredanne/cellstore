@@ -53,7 +53,7 @@ let $periods :=
       return { FiscalYear: $fy, FiscalPeriod: $fp }
     case "japan" return
       for $a in $archives
-      group by $fy := $a.Profiles.FSA.DocumentFiscalYearFocus, $fp := $a.Profiles.FSA.DocumentFiscalPeriodFocus
+      group by $fy := $a.Profiles.JAPAN.DocumentFiscalYearFocus, $fp := $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
       order by $fy descending, $fp
       return { FiscalYear: $fy, FiscalPeriod: $fp }
     default return ()

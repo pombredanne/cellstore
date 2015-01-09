@@ -60,11 +60,11 @@ declare function japan:filings(
     if($fiscalYear = 1)
     then
         for $a as object in archives:archives-for-entities($entities)
-        where (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.FSA.DocumentFiscalPeriodFocus = $fiscalPeriod)
+        where (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.JAPAN.DocumentFiscalPeriodFocus = $fiscalPeriod)
         group by $a.Entity
         return
             for $filing in $a
-            group by $fy := $filing.Profiles.FSA.DocumentFiscalYearFocus
+            group by $fy := $filing.Profiles.JAPAN.DocumentFiscalYearFocus
             order by $fy descending
             count $i where $i eq 1
             return $filing
@@ -72,7 +72,7 @@ declare function japan:filings(
         for $a as object in archives:archives-for-entities($entities)
         where (empty($fiscalYear) or
                $fiscalYear = 0 or
-               $fiscalYear = $a.Profiles.FSA.DocumentFiscalYearFocus)
-               and (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.FSA.DocumentFiscalPeriodFocus = $fiscalPeriod)
+               $fiscalYear = $a.Profiles.JAPAN.DocumentFiscalYearFocus)
+               and (empty($fiscalPeriod) or ($fiscalPeriod = "ALL") or $a.Profiles.JAPAN.DocumentFiscalPeriodFocus = $fiscalPeriod)
         return $a
 };
