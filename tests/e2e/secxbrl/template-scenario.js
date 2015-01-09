@@ -26,7 +26,7 @@ describe('Report Templates', function(){
         report.goToTaxonomy().concepts.goToConcept('fac:FundamentalAccountingConceptsLineItems');
         var concept = report.taxonomy.getConcept('fac:FundamentalAccountingConceptsLineItems');
         expect(concept.label.getAttribute('value')).toBe('Fundamental Accounting Concepts [Line Items]');
-        expect(report.taxonomy.elements.count()).toBe(107);
+        expect(report.taxonomy.elements.count()).toBe(103);
         expect(report.taxonomy.rootElements.count()).toBe(1);
     });
 

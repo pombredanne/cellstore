@@ -24,7 +24,7 @@ describe('Report', function() {
     });
 
     it('should have 107 elements', function(){
-        expect(report.taxonomy.elements.count()).toBe(107);
+        expect(report.taxonomy.elements.count()).toBe(103);
     });
     
     it('should have the proper css properties', function() {
