@@ -4,7 +4,11 @@ import module namespace test = "http://apps.28.io/test";
 declare %an:nondeterministic function local:test-example1() as item
 {
   let $expected :=
-  [ {
+  [
+  {
+    "FiscalYear": null,
+    "FiscalPeriod": null
+  }, {
     "FiscalYear" : 2014,
     "FiscalPeriod" : "Q1"
   }, {
