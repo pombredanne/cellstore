@@ -488,25 +488,19 @@ angular
         var members = model.Hypercubes['xbrl28:ImpliedTable']
             .Aspects['xbrl:Concept']
             .Members;
-        for (var j in members){
-            if(members.hasOwnProperty(j)) {
-                var member = members[j];
-                if (member.Name === member) {
-                    members.splice(j, 1);
-                }
+        _.each(members, function(member,index){
+            if(member.Name === name){
+                members.splice(index, 1);
             }
-        }
+        });
 
         // remove concept from Concepts field
         var concepts = model.Concepts;
-        for (var i in concepts){
-            if(concepts.hasOwnProperty(i)) {
-                var concept = concepts[i];
-                if (concept.Name === name) {
-                    concepts.splice(i, 1);
-                }
+        _.each(concepts, function(concept,index){
+            if(concept.Name === name){
+                concepts.splice(index, 1);
             }
-        }
+        });
     };
 
     AbstractReport.prototype.existsConcept = function(oconceptName) {
@@ -1116,14 +1110,11 @@ angular
         ensureExists(conceptMap, 'object', 'removeConceptMap', 'No concept map exists for concept with name "' + conceptName + '".');
 
         var network = this.getNetwork('ConceptMap');
-        for (var i in network.Trees){
-            if(network.Trees.hasOwnProperty(i)){
-                var map = network.Trees[i];
-                if(map.Name === conceptName){
-                    network.Trees.splice(i, 1);
-                }
+        _.each(network.Trees, function(map,index){
+            if(map.Name === conceptName){
+                network.Trees.splice(index, 1);
             }
-        }
+        });
     };
 
 
@@ -1139,14 +1130,11 @@ angular
         if(conceptMap.To[synonymName]){
             delete conceptMap.To[synonymName];
         }
-        for (var i in conceptMap.To){
-            if(conceptMap.To.hasOwnProperty(i)){
-                var synonym = conceptMap.To[i];
-                if(synonym.Name === conceptName){
-                    conceptMap.To.splice(i, 1);
-                }
+        _.each(conceptMap.To, function(synonym,index){
+            if(synonym.Name === conceptName){
+                conceptMap.To.splice(index, 1);
             }
-        }
+        });
     };
 
     /**********************
