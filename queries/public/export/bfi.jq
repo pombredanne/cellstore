@@ -3,19 +3,31 @@ import module namespace http = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
 import module namespace export = "http://apps.28.io/reports-export";
 
-declare %an:nondeterministic function local:concepts() as object*{
-  {
-    "Name" : "fac:CommonStockSharesAuthorized",
-    "Label" : "Common Stock Shares (authorized)"
-  },
-  {
-    "Name" : "fac:CommonStockSharesIssued",
-    "Label" : "Common Stock Shares (issued)"
-  },
-  {
-    "Name" : "fac:CommonStockSharesOutstanding",
-    "Label" : "Common Stock Shares (outstanding)"
-  }
+declare %an:nondeterministic function local:concept($name as string, $label as string, $detailed as xs:boolean) as object{
+  {|
+      {
+        "Name" : $name,
+        "Label" : $label
+      },
+      {
+        "PeriodType" : "instant",
+        "Labels" : [ {
+          "Role" : "http://www.xbrl.org/2003/role/label",
+          "Language" : "en-us",
+          "Value" : $label
+        } ],
+        "IsAbstract" : false,
+        "DataType" : "xbrli:sharesItemType",
+        "BaseType" : "xbrli:shares",
+        "ClosestSchemaBuiltinType" : "xs:decimal"
+      }[$detailed]
+  |}
+};
+
+declare %an:nondeterministic function local:concepts($detailed as xs:boolean) as object*{
+  local:concept("fac:CommonStockSharesAuthorized","Common Stock Shares (authorized)", $detailed),
+  local:concept("fac:CommonStockSharesIssued","Common Stock Shares (issued)", $detailed),
+  local:concept("fac:CommonStockSharesOutstanding","Common Stock Shares (outstanding)", $detailed)
 };
 
 declare variable $id := "BasicFinancialInformation";
@@ -145,13 +157,13 @@ let $genInfo := $presentation.Trees[][$$.Name eq "fac:FundamentalAccountingConce
 return
   {
     replace value of json $presentation.LinkRole with $role;
-    replace value of json $genInfo.To with [ ( $genInfo.To[], local:concepts() ) ];
+    replace value of json $genInfo.To with [ ( $genInfo.To[], local:concepts(false) ) ];
   }
 
 (: Hypercube :)
 let $concepts := $report.Hypercubes."xbrl28:ImpliedTable".Aspects."xbrl:Concept"
 return
-  replace value of json $concepts.Members with [ $concepts.Members[], local:concepts() ];
+  replace value of json $concepts.Members with [ $concepts.Members[], local:concepts(false) ];
 
 (: ConceptMap :)
 let $conceptMap := $report.Networks[][$$.ShortName eq "ConceptMap"]
@@ -218,7 +230,7 @@ export:cleanup(
       Rules: [ for $rule in ($report.Rules[], $additionalRules)
                order by $rule.ComputableConcepts[][1], $rule.Id descending empty least
                return $rule ],
-      Concepts: [ $report.Concepts[], local:concepts() ],
+      Concepts: [ $report.Concepts[], local:concepts(true) ],
       Filters: {
         cik: [  ],
         tag: [ "DOW30" ],
