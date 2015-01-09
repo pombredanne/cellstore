@@ -3,9 +3,10 @@
     "Archive" : null,
     "Label" : "nttdata",
     "Description" : "",
-    "Owner" : "support@28.io",
+    "Owner" : "admin@28.io",
     "Role" : "http://reports.28.io",
     "Prefix" : "n",
+    "ACL" : [  ],
     "Networks" : [ {
         "LinkName" : "link:presentationLink",
         "LinkRole" : "http://reports.28.io",
