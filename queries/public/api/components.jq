@@ -19,7 +19,7 @@ declare function local:to-csv($res as object*) as string*
     csv:serialize(
         for $a in $res
         for $c in $a.Components[]
-        return { 
+        return {
             AcessionNumber : $a.AccessionNumber,
             NetworkIdentifier : $c.NetworkIdentifier,
             FactTable: $c.FactTable,
@@ -43,7 +43,7 @@ declare function local:to-csv($res as object*) as string*
             Concepts : $c.Concepts,
             Abstracts : $c.Abstracts
         },
-    { serialize-null-as : "" }) 
+    { serialize-null-as : "" })
 };
 
 declare function local:to-csv-generic($res as object*) as string*
@@ -59,7 +59,7 @@ declare function local:to-csv-generic($res as object*) as string*
             NumNetworks: $a.NumNetworks,
             NumHypercubes: size($a.Hypercubes)
         },
-    { serialize-null-as : "" }) 
+    { serialize-null-as : "" })
 };
 
 (: Query parameters :)
@@ -110,26 +110,21 @@ let $archives as object* := multiplexer:filings(
 
 let $entities as object*  := entities:entities($archives.Entity)
 let $components as object* :=
-    switch($profile-name)
-    case "sec" return sec-networks:components(
-        $archives,
-        $cid,
-        $reportElement,
-        $disclosure,
-        $networkIdentifier,
-        $label)
-    default return
-        switch(true)
-        case (exists($networkIdentifier) and exists($archives))
-        return components:components-for-archives-and-roles($archives, $networkIdentifier)
-        case exists($archives)
-        return components:components-for-archives($archives)
-        default
-        return if($profile-name eq "sec") then {
-          response:status-code(400);
-          session:error("Archive ID missing.", $format)
-        } else components:components()
-let $res as object* := 
+  try {
+    multiplexer:components(
+      $profile-name,
+      $archives,
+      $cid,
+      $reportElement,
+      $disclosure,
+      $networkIdentifier,
+      $label)
+  } catch * {{
+    response:status-code(400);
+    session:error("Archive ID missing.", $format)
+  }}
+
+let $res as object* :=
     switch($profile-name)
     case "sec" return
         for $r in $components
@@ -148,7 +143,7 @@ let $res as object* :=
                FiscalPeriod :$archive.Profiles.SEC.Fiscal.DocumentFiscalPeriodFocus,
                AcceptanceDatetime : sec-filings:acceptance-dateTimes($archive),
                FormType : $archive.Profiles.SEC.FormType,
-               Components : [ 
+               Components : [
                     for $component in sec-networks:summaries($r)
                     return copy $c := $component
                     modify insert json {
@@ -221,16 +216,8 @@ let $serializers := {
         }
         default return function($res as object) as node() {
         <Components>{
-                  for $r in $res.Components[]
-                  return
-                    <Component>
-                         <Archive>{$r.Archive}</Archive>
-                         <Role>{$r.Role}</Role>
-                         <NumRules>{$r.NumRules}</NumRules>
-                         <NumNetworks>{$r.NumNetworks}</NumNetworks>
-                         <Hypercubes>{$r.Hypercubes[] ! <Hypercube>{$$}</Hypercube>}</Hypercubes>
-                    </Component>
-             }</Components>
+          api:json-to-xml($res.Components[], "Component")
+        }</Components>
     },
     to-csv : function($res as object) as string {
         switch($profile-name)

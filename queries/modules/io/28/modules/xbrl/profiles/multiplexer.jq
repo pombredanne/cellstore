@@ -14,9 +14,11 @@ module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
 import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
+import module namespace components = "http://28.io/modules/xbrl/components";
 
 import module namespace companies = "http://28.io/modules/xbrl/profiles/sec/companies";
 import module namespace fiscal-core = "http://28.io/modules/xbrl/profiles/sec/fiscal/core";
+import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 
 import module namespace japan = "http://28.io/modules/xbrl/profiles/japan/core";
 
@@ -29,7 +31,7 @@ import module namespace japan = "http://28.io/modules/xbrl/profiles/japan/core";
  : @param $tag a sequence of tags (e.g., indices, ALL, ...).
  : @param $ticker a sequence of stock exchange tickers.
  : @param $sic a sequence of industry group SIC codes.
- : 
+ :
  : @return the entities retrieved according to the profile specified.
  :)
 declare function multiplexer:entities(
@@ -66,7 +68,7 @@ declare function multiplexer:entities(
  : @param $fiscalPeriod a sequence of fiscal periods (Q1, Q2, Q3, FY).
  : @param $fiscalYear a sequence of fiscal years.
  : @param $aid a sequence of AIDs.
- : 
+ :
  : @return the archives retrieved according to the profile specified.
  :)
 declare function multiplexer:filings(
@@ -92,3 +94,43 @@ declare function multiplexer:filings(
       archives:archives-for-entities($entities))
 };
 
+(:~
+  : <p>Retrieves components depending on the profile.</p>
+  :
+  : @param $profile-name the name of the profile (e.g., SEC, Japan, Generic).
+  : @param $entities a sequence of entities or EIDs.
+  : @param $fiscalPeriod a sequence of fiscal periods (Q1, Q2, Q3, FY).
+  : @param $fiscalYear a sequence of fiscal years.
+  : @param $aid a sequence of AIDs.
+  :
+  : @return the archives retrieved according to the profile specified.
+:)
+declare function multiplexer:components(
+  $profile-name as string,
+  $archives as object*,
+  $cid as string*,
+  $reportElement as string*,
+  $disclosure as string*,
+  $networkIdentifier as string*,
+  $label as string*) as object*
+{
+switch($profile-name)
+case "sec" return sec-networks:components(
+  $archives,
+  $cid,
+  $reportElement,
+  $disclosure,
+  $networkIdentifier,
+  $label)
+  default return
+  switch(true)
+  case (exists($networkIdentifier) and exists($archives))
+  return components:components-for-archives-and-roles($archives, $networkIdentifier)
+  case exists($archives)
+  return components:components-for-archives($archives)
+  default
+  return
+    if($profile-name eq "sec")
+    then error(QName("multiplexer:AID-MISSING"), "Archive ID missing.")
+    else components:components()
+};

@@ -55,6 +55,7 @@ let $periods :=
       for $a in $archives
       group by $fy := $a.Profiles.JAPAN.DocumentFiscalYearFocus, $fp := $a.Profiles.JAPAN.DocumentFiscalPeriodFocus
       order by $fy descending, $fp
+      where not empty(($fy, $fp))
       return { FiscalYear: $fy, FiscalPeriod: $fp }
     default return ()
 
@@ -69,8 +70,7 @@ let $serializers := {
         case "sec"
         case "japan" return
             <Periods>{
-                for $period in $res.Periods[]
-                return <Period fiscalYear="{$period.FiscalYear}" fiscalPeriod="{$period.FiscalPeriod}"/>
+              api:json-to-xml($res.Periods[], "Period")
             }</Periods>
         default return ()
     },
