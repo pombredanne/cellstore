@@ -40,16 +40,10 @@ gulp.task('encrypt', ['env-check'], function(done){
 });
 
 gulp.task('decrypt', ['env-check'], function(done){
-  if(!fs.existsSync(file)) {
-      if(fs.existsSync(encryptedFile)){
-          $.runSequence('decrypt-force', done);
-      } else {
-          done(msgs.encyptedFileNotFound);
-      }
-  } else {
-      $.util.log(msgs.alreadyExists);
-      done();
-  }
+    if(fs.existsSync(file)) {
+        fs.renameSync(file, file + '.' + (new Date()).getTime());
+    }
+    $.runSequence('decrypt-force', done);
 });
 
 gulp.task('encrypt-force', ['env-check'], $.shell.task(cmds.encrypt));
