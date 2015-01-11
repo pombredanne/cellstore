@@ -13,7 +13,11 @@ declare %an:nondeterministic function local:test-values($params as object, $expe
                         "/test/edinet/" || $expected-file).body.content)
     return if (deep-equal($actual, $expected))
            then true
-           else { url: test:url($endpoint, $params) }
+           else {
+                url: test:url($endpoint, $params),
+                actual: $actual,
+                expected: $expected
+           }
 };
 
 declare %an:sequential function local:check($o as object) as object
