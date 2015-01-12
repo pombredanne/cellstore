@@ -116,7 +116,7 @@ var createBucket = function() {
             defered.reject();
         } else {
             $.util.log('createBucket(' + bucketName + ')');
-            waitForBucketExists()
+            return waitForBucketExists()
                 .then(function(){
                     defered.resolve();
                 })
