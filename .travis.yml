@@ -4,11 +4,10 @@ node_js:
 - '0.10.33'
 addons:
   firefox: '31.0'
-before_script:
-- npm --version
+before_install
 - npm install -g npm
 - npm --version
-- npm install
+before_script:
 - gem install sass
 - npm install -g bower gulp
 - bower install
