@@ -8,6 +8,7 @@ before_script:
 - npm --version
 - npm install -g npm
 - npm --version
+- npm install
 - gem install sass
 - npm install -g bower gulp
 - bower install
