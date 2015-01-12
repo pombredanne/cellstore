@@ -5,6 +5,7 @@ node_js:
 addons:
   firefox: '31.0'
 before_script:
+- npm install
 - gem install sass
 - npm install -g bower gulp
 - bower install
