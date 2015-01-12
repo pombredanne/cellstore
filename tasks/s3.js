@@ -89,6 +89,22 @@ var listObjects = function (idempotent, prefix, marker, contents) {
     return defered.promise;
 };
 
+var waitForBucketExists = function() {
+    var defered = Q.defer();
+    s3.waitFor('bucketExists', {
+        Bucket : bucketName
+    }, function(err) {
+        if (err) {
+            $.util.log($.util.colors.red(bucketName + err), err.stack);
+            defered.reject();
+        } else {
+            $.util.log('waitFor(bucketExists, ' + bucketName + ')');
+            defered.resolve();
+        }
+    });
+    return defered.promise;
+};
+
 var createBucket = function() {
     var defered = Q.defer();
     s3.createBucket({
@@ -96,11 +112,11 @@ var createBucket = function() {
         ACL : 'public-read'
     }, function(err, data) {
         if (err || data === null) {
-            $.util.log(bucketName + err);
+            $.util.log($.util.colors.red(bucketName + err));
             defered.reject();
         } else {
             $.util.log('createBucket(' + bucketName + ')');
-            defered.resolve();
+            return waitForBucketExists();
         }
     });
     return defered.promise;
@@ -171,7 +187,7 @@ gulp.task('s3-setup', function() {
             return defered.promise;
         })
         .catch(function(error){
-            $.util.log('Error while doing the s3 setup');
+            $.util.log($.util.colors.red('Error while doing the s3 setup'));
             $.util.log(error);
             throw new $.util.PluginError(__filename, JSON.stringify(error));
         });
