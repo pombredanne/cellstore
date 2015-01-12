@@ -14,6 +14,7 @@ require('./tasks/tests');
 require('./tasks/28');
 require('./tasks/netdna');
 require('./tasks/templates');
+require('./tasks/codegen');
 
 gulp.task('watch', function() {
     return gulp.watch(Config.paths.sass, ['sass']);
@@ -70,3 +71,5 @@ gulp.task('28:setup', ['templates'], function(done){
 gulp.task('teardown', ['load-config'], function(done){
     $.runSequence('28:login', '28:remove-project', 's3-teardown', done);
 });
+
+gulp.task('codegen', ['codegen:impl']);
