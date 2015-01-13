@@ -7,13 +7,13 @@
         <h2 ng-if="dependentRules.Computing">Computing:</h2>
         <ul ng-if="dependentRules.Computing">
             <li ng-repeat="(key, rule) in dependentRules.Computing">
-                <a ui-sref="report.taxonomy.concept.formula.computation.edit({'conceptId': rule.ComputableConcepts[0],'ruleId':rule.Id})" ng-bind="rule.Label" target="_blank"></a>
+                <a ui-sref="report.taxonomy.concept.formula.computation.edit({'conceptId': rule.ComputableConcepts[0],'ruleId':rule.Id})" target="_blank">Computation formula of {{rule.ComputableConcepts[0]}}</a>
             </li>
         </ul>
         <h2 ng-if="dependentRules.Validating">Validating:</h2>
         <ul ng-if="dependentRules.Validating">
             <li ng-repeat="(key, rule) in dependentRules.Validating">
-                <a ui-sref="report.taxonomy.concept.formula.validations.edit({'conceptId': rule.ValidatedConcepts[0],'ruleId':rule.Id})" ng-bind="rule.Label" target="_blank"></a>
+                <a ui-sref="report.taxonomy.concept.formula.validations.edit({'conceptId': rule.ValidatedConcepts[0],'ruleId':rule.Id})" target="_blank">Validation formula of {{rule.ValidatedConcepts[0]}}</a>
             </li>
         </ul>
     </div>

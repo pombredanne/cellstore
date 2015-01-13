@@ -10,9 +10,42 @@
         <div ng-if="!isRootElementInPresentation">
             <div class="checkbox">
                 <label>
-                    <input ng-change="updateConcept()" type="checkbox" ng-model="conceptCopy.IsAbstract">
+                    <input data-ng-change="updateConcept()" type="checkbox" ng-model="conceptCopy.IsAbstract">
                     Abstract concept
                 </label>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-5">
+                    <label for="conceptBalanceType">Balance Type:</label>
+                    <select id="conceptBalanceType" class="form-control"
+                            data-ng-change="updateConcept()"
+                            data-ng-model="conceptCopy.Balance"
+                            ng-options="key for (key , value) in report.BalanceTypes">
+                        <option value="">- auto -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-5">
+                    <label for="conceptPeriodType">Period Type:</label>
+                    <select id="conceptPeriodType" class="form-control"
+                            data-ng-change="updateConcept()"
+                            data-ng-model="conceptCopy.PeriodType"
+                            ng-options="key for (key , value) in report.PeriodTypes">
+                        <option value="">- auto -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-5">
+                    <label for="conceptDataType">Data Type:</label>
+                    <select id="conceptDataType" class="form-control"
+                            data-ng-change="updateConcept()"
+                            data-ng-model="conceptCopy.DataType"
+                            ng-options="key for (key , value) in report.DataTypes">
+                        <option value="">- auto -</option>
+                    </select>
+                </div>
             </div>
             <hr>
             <h3>Presentation</h3>

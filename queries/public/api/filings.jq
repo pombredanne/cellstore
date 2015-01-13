@@ -47,12 +47,12 @@ let $archives as object* := multiplexer:filings(
 let $summaries :=
     switch($profile-name)
     case "sec" return
-        for $f in filings:summaries($archives) 
+        for $f in filings:summaries($archives)
         order by $f.Accepted descending
         return $f
     case "japan" return
       for $a in $archives
-      order by $a.Profiles.JAPAN.SubmissionDate descending
+      order by $a.Profiles.FSA.SubmissionDate descending
       return project($a, ("_id", "Entity", "Profiles"))
     default return $archives
 
@@ -99,7 +99,7 @@ let $serializers := {
         switch($profile-name)
         case "sec" return
             <Filings>{
-                filings:summaries-to-xml($res.Archives[])   
+                filings:summaries-to-xml($res.Archives[])
             }</Filings>
         default return
             <Archives>{

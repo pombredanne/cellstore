@@ -69,7 +69,9 @@ gulp.task('test:e2e', ['webdriver:update'], function() {
       args.push('--baseUrl');
       args.push('http://' + Config.bucketName + '.s3-website-us-east-1.amazonaws.com');
   }
-  return gulp.src(Config.paths.e2eSpecs)
+  var specs = Config.paths.e2eSpecs;
+  $.util.log('specs: ' + specs);
+  return gulp.src(specs)
     .pipe($.protractor.protractor({
       configFile: configFile,
           args: args

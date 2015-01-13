@@ -22,16 +22,33 @@
                     <td ng-bind="fact.Type" class="col-md-8"></td>
                 </tr>
                 <tr  class="row">
-                    <td class="col-md-4">Unit</td>
-                    <td ng-bind="fact.Unit" class="col-md-8"></td>
-                </tr>
-                <tr  class="row">
                     <td class="col-md-4">Decimals</td>
                     <td ng-bind="fact.Decimals" class="col-md-8"></td>
                 </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3>Concept Properties</h3>
+            <table class="table table-hover">
+                <thead>
+                <tr class="row">
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
                 <tr  class="row">
-                    <td class="col-md-4">Balance</td>
-                    <td ng-bind="fact.Balance" class="col-md-8"></td>
+                    <td class="col-md-4">Balance Type</td>
+                    <td ng-bind="fact.Concept.Balance" class="col-md-8"></td>
+                </tr>
+                <tr  class="row">
+                    <td class="col-md-4">Period Type</td>
+                    <td ng-bind="fact.Concept.PeriodType" class="col-md-8"></td>
+                </tr>
+                <tr  class="row">
+                    <td class="col-md-4">Data Type</td>
+                    <td ng-bind="fact.Concept.DataType" class="col-md-8"></td>
                 </tr>
                 </tbody>
             </table>

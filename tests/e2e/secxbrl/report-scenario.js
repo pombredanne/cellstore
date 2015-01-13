@@ -24,7 +24,7 @@ describe('Report', function() {
     });
 
     it('should have 107 elements', function(){
-        expect(report.taxonomy.elements.count()).toBe(107);
+        expect(report.taxonomy.elements.count()).toBe(103);
     });
     
     it('should have the proper css properties', function() {
@@ -71,7 +71,7 @@ describe('Report', function() {
         var roas = report.spreadsheet.getValueTDsByHeaderContainingText('(ROA)');
         expect(roas.count()).toBe(1);
         var value = report.spreadsheet.getCellValue(roas.get(0));
-        expect(value.getText()).toBe('0.10');
+        expect(value.getText()).toBe('0.096');
     });
 
     it('should display validation and fact details on fact click', function(){

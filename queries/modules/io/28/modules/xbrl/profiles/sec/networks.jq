@@ -263,8 +263,7 @@ declare %private function sec-networks:model-structures-recursive(
 {
   for $xbrl-concept in $xbrl-concepts
   order by $xbrl-concept.Order
-  let $main-object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-      .Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members.($xbrl-concept.Name)
+  let $main-object := ($component.Concepts[])[$$.Name eq $xbrl-concept.Name]
   let $kind :=
       switch($main-object.SubstitutionGroup)
       case "xbrldt:hypercubeItem" return "Table"
@@ -314,7 +313,7 @@ declare function sec-networks:model-structures($networks as object*) as object*
       $networks:PRESENTATION_NETWORK)
   return sec-networks:model-structures-recursive(
       $sec-network,
-      values($presentation-network.Trees),
+      $presentation-network.Trees[],
       "None",
       1)
 };
@@ -399,7 +398,6 @@ declare function sec-networks:standard-definition-models-for-components($compone
 declare function sec-networks:standard-definition-models-for-components($components as object*, $options as object?) as object
 {
     for $component in $components
-    let $implicit-table as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
     let $table as object := components:select-table($component, $options)
 
     let $auto-slice as boolean := empty($options.AutoSlice) or $options.AutoSlice
@@ -445,7 +443,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
     let $x-breakdowns as object* := (
         components:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
         for $d as string in $column-dimensions
-        let $metadata as object? := descendant-objects($implicit-table)[$$.Name eq $d]
+        let $metadata as object? := ($component.Concepts[])[$$.Name eq $d]
         return
             if($d = ("sec:Accepted", "sec:FiscalYear", "sec:FiscalPeriod", "sec:FiscalPeriodType"))
             then components:standard-typed-dimension-breakdown(
@@ -454,14 +452,14 @@ declare function sec-networks:standard-definition-models-for-components($compone
             else components:standard-explicit-dimension-breakdown(
                 $d,
                 $metadata.Label,
-                keys($table.Aspects.$d.Domains),
+                $table.Aspects.$d.Members[].Name,
                 $component.Role),
         components:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
     )
 
     let $lineitems as string* := sec-networks:line-items-report-elements($component).Name
     let $presentation-network as object? := networks:networks-for-components-and-short-names($component, "Presentation")
-    let $roots as string* := keys($presentation-network.Trees)
+    let $roots as string* := distinct-values($presentation-network.Trees[].Name)
     let $lineitems as string* := if(exists($lineitems)) then $lineitems else $roots
     let $y-breakdowns as object := components:standard-concept-breakdown($lineitems, $component.Role)
 
@@ -506,10 +504,7 @@ declare function sec-networks:tables($networks as object*, $options as object?) 
                                            then $options("IncludeImpliedTable")
                                            else false
   for $sec-network in $networks
-  let $default-hypercube as object := hypercubes:hypercubes-for-components($sec-network, "xbrl:DefaultHypercube")
-  let $hypercube-metadata as object* := values(
-      $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
-  )[$$.SubstitutionGroup eq "xbrldt:hypercubeItem"]
+  let $hypercube-metadata as object* := ($sec-network.Concepts[])[$$.SubstitutionGroup eq "xbrldt:hypercubeItem"]
   return if (exists($hypercube-metadata) or not $include-implied-table)
          then $hypercube-metadata
          else {
@@ -625,10 +620,8 @@ declare function sec-networks:line-items-report-elements($networks-or-ids as ite
 declare function sec-networks:abstracts($networks as object*) as object*
 {
   for $sec-network in $networks
-  let $default-hypercube as object := hypercubes:hypercubes-for-components($sec-network, "xbrl:DefaultHypercube")
-  let $abstract-metadata as object* := values(
-      $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
-  )[not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem")][$$.IsAbstract]
+  let $abstract-metadata as object* := ($sec-network.Concepts[])
+    [not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem")][$$.IsAbstract]
   let $tables := sec-networks:tables($sec-network)
   let $presentation-network := networks:networks-for-components-and-short-names(
       $sec-network,
@@ -652,10 +645,8 @@ declare function sec-networks:abstracts($networks as object*) as object*
 declare function sec-networks:concepts($networks as object*) as object*
 {
   for $sec-network in $networks
-  let $default-hypercube as object := hypercubes:hypercubes-for-components($sec-network, "xbrl:DefaultHypercube")
-  let $concept-metadata as object* := values(
-      $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
-  )[not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem")][not $$.IsAbstract]
+  let $concept-metadata as object* := ($sec-network.Concepts[])
+    [not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem")][not $$.IsAbstract]
   return $concept-metadata
 };
 
@@ -966,10 +957,8 @@ declare function sec-networks:categories($networks as object*) as string*
 declare function sec-networks:sub-categories($networks as object*) as string*
 {
   for $network in $networks
-  let $default-hypercube as object := hypercubes:hypercubes-for-components($network, "xbrl:DefaultHypercube")
-  let $is-text-blocks as boolean* := values(
-      $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
-  )[not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem") and not $$.IsAbstract].IsTextBlock
+  let $is-text-blocks as boolean* := ($network.Concepts[])
+    [not $$.SubstitutionGroup = ("xbrldt:hypercubeItem", "xbrldt:dimensionItem") and not $$.IsAbstract].IsTextBlock
   let $exists-text-blocks as boolean := exists($is-text-blocks[$$])
   let $exists-non-text-blocks as boolean := exists($is-text-blocks[not $$])
   return switch(true)

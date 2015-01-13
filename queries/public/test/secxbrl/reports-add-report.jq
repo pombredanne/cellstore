@@ -22,14 +22,14 @@ declare variable $newReport as object :=
             "Kind" : "InterConceptTreeNetwork",
             "ShortName" : "Presentation",
             "CyclesAllowed" : "undirected",
-            "Trees" : {
-                "t:ReportLineItems" : {
+            "Trees" : [
+                {
                     "Id" : "3ef962e3-a913-464e-94be-f78a689d15ae",
                     "Name" : "t:ReportLineItems",
                     "Label" : "test",
                     "Order" : 1
                 }
-            }
+            ]
         } ],
         "Hypercubes" : {
             "xbrl:DefaultHypercube" : {
@@ -39,19 +39,13 @@ declare variable $newReport as object :=
                     "xbrl:Concept" : {
                         "Name" : "xbrl:Concept",
                         "Label" : "Concept",
-                        "Domains" : {
-                            "xbrl:ConceptDomain" : {
-                                "Name" : "xbrl:ConceptDomain",
-                                "Label" : "Implicit XBRL Concept Domain",
-                                "Members" : {
-                                    "t:ReportLineItems" : {
-                                        "Name" : "t:ReportLineItems",
-                                        "Label" : "test",
-                                        "IsAbstract" : true
-                                    }
-                                }
+                        "Members" : [
+                            {
+                                "Name" : "t:ReportLineItems",
+                                "Label" : "test",
+                                "IsAbstract" : true
                             }
-                        }
+                        ]
                     }
                 }
             }

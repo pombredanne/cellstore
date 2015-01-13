@@ -2,7 +2,7 @@
 
 angular
 .module('report-editor')
-.controller('SynonymsCtrl', function($scope){
+.controller('SynonymsCtrl', function(_, $scope){
     $scope.synonyms = $scope.report.listConceptMapSynonyms($scope.concept.Name);
     $scope.form = {};
 
@@ -19,7 +19,9 @@ angular
     
     $scope.moveSynonym = function(value, index){
         var parent = $scope.report.getConceptMap($scope.concept.Name);
-        var child = parent.To[value];
+        var child = _.find(parent.To, function(synonym){
+            return synonym.Name === value;
+        });
         $scope.report.moveTreeBranch('ConceptMap', child.Id, parent.Id, index);
         $scope.synonyms = $scope.report.listConceptMapSynonyms($scope.concept.Name);
     };
