@@ -694,7 +694,6 @@ declare function facts:labels(
 {
     let $concept-names as string* :=
         distinct-values((values($facts.Aspects), keys($facts.Aspects))[string($$) = $concepts.Name])
-    let $archives := $facts.Aspects.$facts:ARCHIVE
     return
         {|
             for $name in $concept-names
