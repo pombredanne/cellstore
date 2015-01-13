@@ -113,16 +113,15 @@ declare function networks:merge($networks as object*) as object*
         Kind: $networks[1].Kind,
         ShortName: $networks[1].ShortName,
         CyclesAllowed: $networks[1].CyclesAllowed,
-        Trees: {|
-          for $root in keys($networks.Trees)
+        Trees: [
+          for $concept in $networks.Trees[]
+          group by $name := $concept.Name
           return {
-              $root : {
-                Name: $networks.Trees.$root[1].Name,
-                Label: $networks.Trees.$root[1].Label,
-                To: [ networks:merge-trees($networks.Trees.$root.To[]) ]
-              }
+            Name: $name,
+            Label: $concept[1].Label,
+            To: [ networks:merge-trees($concept.To[]) ]
           }
-        |}
+        ]
     } 
 };
 

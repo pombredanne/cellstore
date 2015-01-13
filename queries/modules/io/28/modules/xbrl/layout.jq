@@ -160,7 +160,7 @@ declare function layout:build-hypercube(
                 for $dimension in distinct-values((keys(($hypercube.Aspects, $table-domain)), $open-dimensions))
                 let $dimension-type as string? := $dimension.Type
                 let $hypercube-members as atomic* := (
-                    descendant-objects($hypercube.Aspects.$dimension.Domains).Name,
+                    descendant-objects($hypercube.Aspects.$dimension.Members).Name,
                     $hypercube.Aspects.$dimension.DomainRestriction.Enumeration[])
                 let $hypercube-default := ($hypercube.Aspects.$dimension.Default,
                                            $structural-model.DimensionDefaults.$dimension)[1]

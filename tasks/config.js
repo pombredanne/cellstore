@@ -7,7 +7,7 @@ var gulp = require('gulp');
 var _ = require('lodash');
 
 var knownOptions = {
-    string: [ 'build-id', 'config' ],
+    string: [ 'build-id', 'config', 'specs' ],
     default: {
         'build-id': process.env.CELLSTORE_BUILD_ID !== undefined ? process.env.CELLSTORE_BUILD_ID : process.env.RANDOM_ID,
         'config': ( process.env.TRAVIS_BRANCH !== undefined && fs.existsSync('config/' + process.env.TRAVIS_BRANCH + '.json.enc') ) ? process.env.TRAVIS_BRANCH : process.env.CELLSTORE_CONFIG
@@ -46,6 +46,12 @@ if(isOnTravisAndProd && process.env.TRAVIS_BRANCH !== process.env.CELLSTORE_CONF
     $.util.log('Current production branch "' + process.env.TRAVIS_BRANCH + '" doesn\'t match cellstore configuration "' + process.env.CELLSTORE_CONFIG + '"');
     $.util.log($.util.colors.green('Nothing to do!'));
     process.exit(0);
+}
+
+// allow running single protractor specs using --specs arg
+var specs = [ 'tests/e2e/' + configId + '/*-scenario.js' ];
+if (_.isString(args.specs) ){
+    specs = args.specs.split(',');
 }
 
 var config =
@@ -94,7 +100,7 @@ var config =
                 'queries/private/UpdateReportSchema.jq',
                 'queries/private/cleanupTestUserReports.jq'
             ],
-            'queries/private/migration/db6.jq'
+            'queries/private/migration/db7.jq'
         ],
         apiTestQueries: [
             'queries/public/test/' + configId + '/*.jq'
@@ -103,7 +109,7 @@ var config =
         //tests
         protractorConfigLocal: 'tests/e2e/config/protractor-conf.js',
         protractorConfigTravis: 'tests/e2e/config/protractor-travis-nosaucelabs-conf.js',
-        e2eSpecs: [ 'tests/e2e/' + configId + '/*-scenario.js' ]
+        e2eSpecs: specs
     },
     credentials: {}
 };

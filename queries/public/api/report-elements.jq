@@ -3,7 +3,6 @@ import module namespace api = "http://apps.28.io/api";
 import module namespace session = "http://apps.28.io/session";
 
 import module namespace entities = "http://28.io/modules/xbrl/entities";
-import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace components = "http://28.io/modules/xbrl/components";
 import module namespace concepts = "http://28.io/modules/xbrl/concepts";
 import module namespace reports = "http://28.io/modules/xbrl/reports";
@@ -69,12 +68,12 @@ declare function local:concepts-for-archives(
     let $concepts-computable-by-maps as object* := 
         switch(true)
             case not exists($map) return ()
-            case not exists($names) return values($map.Trees)
+            case not exists($names) return $map.Trees[]
             default return
-                let $keys as string* := keys($map.Trees)
+                let $keys as string* := $map.Trees[].Name
                 for $concept as string in $names[$$ = $keys]
-                return $map.Trees.$concept
-    let $mapped-names as string* := (keys($concepts-computable-by-maps.To ), $concepts-computable-by-maps.To [].Name)
+                return ($map.Trees[])[$$.Name eq $concept]
+    let $mapped-names as string* := $concepts-computable-by-maps.To[].Name
     let $concepts-not-computable-by-maps as string* := seq:value-except($names, $mapped-names)
 
     let $all-results as object* := mw:find($concepts:col, 
@@ -97,7 +96,7 @@ declare function local:concepts-for-archives(
             $projection)
         for $concept as object in $concepts-computable-by-maps
         for $result as object in
-            for $candidate-concept in (keys($concept.To), $concept[].Name)
+            for $candidate-concept in $concept.To[].Name
             let $facts := $all-results[$$.Name = $candidate-concept]
             where exists($facts)
             count $c
@@ -201,8 +200,7 @@ let $result :=
                 for $concept in $concepts
                 group by $archive := $concept.Archive,  $role := $concept.Role
                 let $component as object := $components[$$.Archive eq $archive and $$.Role eq $role]
-                let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-                let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+                let $members as object* := $components.Concepts[]
                 let $archive as object := $archives[$$._id eq $archive]
                 let $entity as object := $entities[$$._id eq $archive.Entity]
                 let $metadata := {
@@ -246,8 +244,7 @@ let $result :=
                 for $concept in $concepts
                 group by $archive := $concept.Archive,  $role := $concept.Role
                 let $component as object := $components[$$.Archive eq $archive and $$.Role eq $role]
-                let $default-hc as object := hypercubes:hypercubes-for-components($component, "xbrl:DefaultHypercube")
-                let $members as object* := $default-hc.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members
+                let $members as object* := $components.Concepts[]
                 let $metadata := {
                     ComponentRole : $component.Role,
                     ComponentLabel : $component.Label,
