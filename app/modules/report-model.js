@@ -138,6 +138,25 @@ angular
         }
     };
 
+    var ensureOptionalParameterValue = function(paramValue, paramName, paramType, functionName, allowedValuesArray) {
+        if(paramValue !== undefined && paramValue !== null){
+            ensureParameter(paramValue, paramName, paramType, functionName);
+            var hasAllowedValue = false;
+            for(var i in allowedValuesArray){
+                if(allowedValuesArray.hasOwnProperty(i)){
+                    var allowedValue = allowedValuesArray[i];
+                    if(paramValue === allowedValue){
+                        hasAllowedValue = true;
+                    }
+                }
+            }
+            if(!hasAllowedValue){
+                throw new Error(functionName + ': function called with invalid value for param: "' + paramName + '".' +
+                                                  'Allowed values: ' + JSON.stringify(allowedValuesArray));
+            }
+        }
+    };
+
     var ensureExists = function(value, valueType, functionName, errorMessage) {
         if(value === null || value === undefined || value === '') {
             throw new Error(functionName + ': ' + errorMessage);
@@ -180,47 +199,117 @@ angular
     };
 
     AbstractReport.prototype.getModel = function(){
+        if(this.model.Concepts === undefined || this.model.Concepts === null){
+            this.model.Concepts = [];
+        }
         return this.model;
     };
 
     /**********************
      ** Concepts API
      **********************/
-    AbstractReport.prototype.addConcept = function(oname, label, abstract) {
+    AbstractReport.prototype.PeriodTypes =
+        {
+            'DURATION': 'duration',
+            'INSTANT': 'instant'
+        };
+    AbstractReport.prototype.BalanceTypes =
+        {
+            'CREDIT': 'credit',
+            'DEBIT': 'debit'
+        };
+
+    // http://www.xbrl.org/Specification/XBRL-RECOMMENDATION-2003-12-31+Corrected-Errata-2008-07-02.htm#_Ref69000723
+    AbstractReport.prototype.DataTypes =
+        {
+            'SHARES': 'xbrli:sharesItemType',
+            'MONETARY': 'xbrli:monetaryItemType',
+            'PURE': 'xbrli:pureItemType',
+            'STRING': 'xbrli:stringItemType',
+            'TEXTBLOCK': 'nonnum:textBlockItemType',
+            'BOOLEAN': 'xbrli:booleanItemType'
+        };
+    AbstractReport.prototype.BaseTypes =
+        {
+            'xbrli:sharesItemType': 'xbrli:shares',
+            'xbrli:monetaryItemType': 'xbrli:monetary',
+            'xbrli:pureItemType': 'xbrli:pure',
+            'xbrli:stringItemType': 'xs:string',
+            'nonnum:textBlockItemType': 'xs:string',
+            'xbrli:booleanItemType': 'xs:boolean'
+        };
+    AbstractReport.prototype.SchemaTypes =
+        {
+            'xbrli:sharesItemType': 'xs:decimal',
+            'xbrli:monetaryItemType': 'xs:decimal',
+            'xbrli:pureItemType': 'xs:decimal',
+            'xbrli:stringItemType': 'xs:string',
+            'nonnum:textBlockItemType': 'xs:string',
+            'xbrli:booleanItemType': 'xs:boolean'
+        };
+
+    AbstractReport.prototype.addConcept = function(oname, label, abstract, periodType, dataType, balance) {
         var name = this.alignConceptPrefix(oname);
         ensureConceptName(name, 'oname', 'addConcept');
         ensureParameter(label, 'label', 'string', 'addConcept');
         ensureParameter(abstract, 'abstract', 'boolean', 'addConcept');
+        ensureOptionalParameterValue(periodType, 'periodType', 'string', 'addConcept', _.values(this.PeriodTypes));
+        ensureOptionalParameterValue(dataType, 'dataType', 'string', 'addConcept', _.values(this.DataTypes));
+        ensureOptionalParameterValue(balance, 'balance', 'string', 'addConcept', _.values(this.BalanceTypes));
 
         if(this.existsConcept(name)) {
             throw new Error('addConcept: concept with name "' + name + '" already exists.');
         }
 
         var model = this.getModel();
-        model.Hypercubes['xbrl:DefaultHypercube']
+        var member = {
+            'Id': new ReportID().toString(),
+            'Name': name,
+            'Label': label
+        };
+        var concept =
+            {
+                'Id': new ReportID().toString(),
+                'Name': name,
+                'Label': label,
+                'IsAbstract': abstract,
+                'IsNillable': true,
+                'SubstitutionGroup': 'xbrl:item',
+                'Labels': [
+                    {
+                        'Role': 'http://www.xbrl.org/2003/role/label',
+                        'Language': 'en-us',
+                        'Value': label
+                    }
+                ]
+            };
+        if(balance !== undefined && balance !== null){
+            concept.Balance = balance;
+        }
+        if(periodType !== undefined && periodType !== null){
+            concept.PeriodType = periodType;
+        }
+        if(dataType !== undefined && dataType !== null){
+            concept.DataType = dataType;
+            concept.BaseType = this.BaseTypes[dataType];
+            concept.ClosestSchemaBuiltinType = this.SchemaTypes[dataType];
+            if(concept.DataType === this.DataTypes.TEXTBLOCK){
+                concept.IsTextBlock = true;
+            }
+        }
+        model.Hypercubes['xbrl28:ImpliedTable']
             .Aspects['xbrl:Concept']
-            .Domains['xbrl:ConceptDomain']
-            .Members[name] =
-                {
-                    'Name': name,
-                    'Label': label,
-                    'IsAbstract': abstract
-                    /* still to be implemented:
-                    'IsNillable': false,
-                    'PeriodType': duration,
-                    'SubstitutionGroup': 'xbrl:item',
-                    'DataType' : 'nonnum:textBlockItemType',
-                    'BaseType' : 'xs:string',
-                    'ClosestSchemaBuiltinType' : 'xs:string',
-                    'IsTextBlock' : true
-                    */
-                };
+            .Members.push(member);
+        model.Concepts.push(concept);
     };
 
-    AbstractReport.prototype.updateConcept = function(oname, label, abstract) {
+    AbstractReport.prototype.updateConcept = function(oname, label, abstract, periodType, dataType, balance) {
         var name = this.alignConceptPrefix(oname);
         ensureConceptName(name, 'oname', 'updateConcept');
         ensureParameter(label, 'label', 'string', 'updateConcept');
+        ensureOptionalParameterValue(periodType, 'periodType', 'string', 'addConcept', _.values(this.PeriodTypes));
+        ensureOptionalParameterValue(dataType, 'dataType', 'string', 'addConcept', _.values(this.DataTypes));
+        ensureOptionalParameterValue(balance, 'balance', 'string', 'addConcept', _.values(this.BalanceTypes));
         abstract = abstract === true;
 
         if(!this.existsConcept(name)) {
@@ -228,6 +317,31 @@ angular
         }
 
         var concept = this.getConcept(name);
+        if(balance !== undefined && balance !== null){
+            concept.Balance = balance;
+        } else {
+            delete concept.Balance;
+        }
+        if(periodType !== undefined && periodType !== null){
+            concept.PeriodType = periodType;
+        } else {
+            delete concept.PeriodType;
+        }
+        if(dataType !== undefined && dataType !== null){
+            concept.DataType = dataType;
+            concept.BaseType = this.BaseTypes[dataType];
+            concept.ClosestSchemaBuiltinType = this.SchemaTypes[dataType];
+            if(concept.DataType === this.DataTypes.TEXTBLOCK){
+                concept.IsTextBlock = true;
+            } else {
+                delete concept.IsTextBlock;
+            }
+        } else {
+            delete concept.DataType;
+            delete concept.BaseType;
+            delete concept.ClosestSchemaBuiltinType;
+            delete concept.IsTextBlock;
+        }
         var that = this;
         if(concept.IsAbstract !== abstract && !abstract) {
             // a concept can only be non-abstract if it has no children in presentation
@@ -283,6 +397,17 @@ angular
             }
         }
         concept.Label = label;
+        if(concept.Labels === undefined || concept.Labels === null) {
+            concept.Labels = [
+                    {
+                        'Role': 'http://www.xbrl.org/2003/role/label',
+                        'Language': 'en-us',
+                        'Value': label
+                    }
+                ];
+        } else {
+            concept.Labels[0].Value = label;
+        }
         concept.IsAbstract = abstract;
     };
 
@@ -358,10 +483,24 @@ angular
         }
 
         var model = this.getModel();
-        delete model.Hypercubes['xbrl:DefaultHypercube']
+
+        // remove concept from members
+        var members = model.Hypercubes['xbrl28:ImpliedTable']
             .Aspects['xbrl:Concept']
-            .Domains['xbrl:ConceptDomain']
-            .Members[name];
+            .Members;
+        _.each(members, function(member,index){
+            if(member.Name === name){
+                members.splice(index, 1);
+            }
+        });
+
+        // remove concept from Concepts field
+        var concepts = model.Concepts;
+        _.each(concepts, function(concept,index){
+            if(concept.Name === name){
+                concepts.splice(index, 1);
+            }
+        });
     };
 
     AbstractReport.prototype.existsConcept = function(oconceptName) {
@@ -377,44 +516,22 @@ angular
         ensureConceptName(conceptName, 'oconceptName', 'getConcept');
 
         var model = this.getModel();
-        if(model === null || model === undefined) {
+        if(!_.isObject(model)) {
             return;
         }
 
-        var concept =
-          model.Hypercubes['xbrl:DefaultHypercube']
-              .Aspects['xbrl:Concept']
-              .Domains['xbrl:ConceptDomain']
-              .Members[conceptName];
-
-        if(concept === null || concept === undefined) {
-            return;
-        }
-        return concept;
+        var concepts = model.Concepts;
+        return _.find(concepts, function(concept){
+            return concept.Name === conceptName;
+        });
     };
 
     AbstractReport.prototype.listConcepts = function() {
-
-        var result = [];
         var model = this.getModel();
         if(model === null || model === undefined) {
-            return result;
+            return [];
         }
-
-        var members =
-            model.Hypercubes['xbrl:DefaultHypercube']
-                .Aspects['xbrl:Concept']
-                .Domains['xbrl:ConceptDomain']
-                .Members;
-        if(members === null || members === undefined) {
-            return result;
-        }
-
-        for(var conceptname in members) {
-            var concept = members[conceptname];
-            result.push(concept);
-        }
-        return result;
+        return model.Concepts;
     };
 
     /**********************
@@ -768,12 +885,11 @@ angular
 
         // determine element
         var element = determineElement(this, elementOrConceptName, order);
-        var conceptName = element.Name;
 
         if((parentElementID === undefined || parentElementID === null) && rootElem === undefined) {
             // add a root element (only one allowed)
             var network = this.getNetwork(networkShortName);
-            network.Trees[conceptName] = element;
+            network.Trees.push(element);
             return element;
         }
 
@@ -795,10 +911,11 @@ angular
         }
 
         if(parent.To === undefined || parent.To === null) {
-            parent.To = {};
+            parent.To = [];
         }
 
-        parent.To[conceptName] = element;
+        parent.To.push(element);
+        this.sortTreeChildren(parent.To);
         return element;
     };
 
@@ -827,9 +944,10 @@ angular
             enforceStrictChildOrderAndShift(this, networkShortName, newParentElementID, (newOffset || 0));
             element.Order = newOrder;
             if(newParent.To === undefined || newParent.To === null) {
-                newParent.To = {};
+                newParent.To = [];
             }
-            newParent.To[element.Name] = element;
+            newParent.To.push(element);
+            this.sortTreeChildren(newParent.To);
         } else {
             // no new parent given -> making it a root element -> not allowed
             throw new Error('moveTreeBranch: moving an element to ' + networkShortName + ' network root is not allowed.');
@@ -847,7 +965,12 @@ angular
             // deleting root not allowed
             throw new Error('removeTreeBranch: cannot remove root element from ' + networkShortName + ' tree.');
         } else {
-            delete parent.To[element.Name];
+            _.each(parent.To, function(elem, index){
+                if(!_.isObject(elem) || elem.Id === element.Id) {
+                    // remove rule from array
+                    parent.To.splice(index,1);
+                }
+            });
         }
         return element;
     };
@@ -864,7 +987,9 @@ angular
             return null;
         }
 
-        return network.Trees[conceptName];
+        return _.find(network.Trees, function(tempMap){
+            return tempMap.Name === conceptName;
+        });
     };
 
     AbstractReport.prototype.listConceptMapSynonyms = function(oconceptName) {
@@ -890,17 +1015,15 @@ angular
     };
 
     AbstractReport.prototype.listConceptMaps = function() {
-
-        var result = [];
         var network = this.getNetwork('ConceptMap');
-        if(network === null || network === undefined || network.Trees === null || network.Trees === undefined) {
-            return result;
+        if(!_.isObject(network) || !_.isArray(network.Trees)) {
+            return [];
         }
 
-        _.each(network.Trees, function(map){
-            result.push(map);
+        // return copy of array
+        return _.map(network.Trees, function(tree){
+            return tree;
         });
-        return result;
     };
 
     AbstractReport.prototype.existsConceptMap = function(oconceptName) {
@@ -921,36 +1044,36 @@ angular
                 '". Reason: Concept is abstract.');
         }
 
+        var network = this.getNetwork('ConceptMap');
+        if(network.Trees === null || network.Trees === undefined) {
+            network.Trees = [];
+        }
+
         // ensure Concept map exists
         var conceptMap = this.getConceptMap(fromConceptName);
-        var toObj = {};
         if(conceptMap === undefined || conceptMap === null){
             conceptMap = {
                 'Id': new ReportID().toString(),
-                'Name': fromConcept.Name,
-                'To': toObj
+                'Name': fromConcept.Name
             };
+            // add concept map to network
+            network.Trees.push(conceptMap);
         }
+        // reset
+        conceptMap.To = [];
 
         // add synomyms
         var that = this;
         _.each(toConceptNamesArray, function(ocname, index){
             var name = that.alignConceptPrefix(ocname);
             ensureConceptName(name, 'toConceptNamesArray', 'updateConceptMap');
-            toObj[name] = {
+            conceptMap.To.push({
                 'Id': new ReportID().toString(),
                 'Name': name,
                 'Order': index + 1
-            };
+            });
         });
-        conceptMap.To = toObj;
-
-        // add concept map to network
-        var network = this.getNetwork('ConceptMap');
-        if(network.Trees === null || network.Trees === undefined) {
-            network.Trees = {};
-        }
-        network.Trees[fromConceptName] = conceptMap;
+        this.sortTreeChildren(conceptMap.To);
     };
 
     AbstractReport.prototype.findInConceptMap = function(oconceptName) {
@@ -967,11 +1090,13 @@ angular
         }
 
         _.each(network.Trees, function(map){
-            var to = map.To;
-            if(to !== null && to !== undefined && _.isObject(to[conceptName])) {
-                result.SynonymOf.push(map.Name);
-            } else if (map.Name === conceptName){
+            var to = _.find(map.To, function(synonym){
+                return synonym.Name === conceptName;
+            });
+            if (map.Name === conceptName){
                 result.Maps.push(map.Name);
+            } else if(_.isObject(to)) {
+                result.SynonymOf.push(map.Name);
             }
         });
         return result;
@@ -985,7 +1110,11 @@ angular
         ensureExists(conceptMap, 'object', 'removeConceptMap', 'No concept map exists for concept with name "' + conceptName + '".');
 
         var network = this.getNetwork('ConceptMap');
-        return delete network.Trees[conceptName];
+        _.each(network.Trees, function(map,index){
+            if(map.Name === conceptName){
+                network.Trees.splice(index, 1);
+            }
+        });
     };
 
 
@@ -1001,6 +1130,11 @@ angular
         if(conceptMap.To[synonymName]){
             delete conceptMap.To[synonymName];
         }
+        _.each(conceptMap.To, function(synonym,index){
+            if(synonym.Name === conceptName){
+                conceptMap.To.splice(index, 1);
+            }
+        });
     };
 
     /**********************
@@ -1112,12 +1246,28 @@ angular
         return result;
     };
 
-    var createNewRule = function(id, label, description, type, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, report) {
+    // http://www.xbrl.org/utr/utr.xml
+    AbstractReport.prototype.Units =
+        {
+            'PURE': 'xbrli:pureItemType',
+            'SHARES': 'xbrli:shares',
+
+            'AUD': 'iso4217:AUD',
+            'CAD': 'iso4217:CAD',
+            'CHF': 'iso4217:CHF',
+            'CLP': 'iso4217:CLP',
+            'EUR': 'iso4217:EUR',
+            'GBP': 'iso4217:GBP',
+            'INR': 'iso4217:INR',
+            'JPY': 'iso4217:JPY'
+        };
+
+    var createNewRule = function(id, type, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals, report) {
         ensureParameter(id, 'id', 'string', 'createNewRule');
-        ensureParameter(label, 'label', 'string', 'createNewRule');
         ensureRuleType(type, 'type', 'createNewRule');
         ensureParameter(formula, 'formula', 'string', 'createNewRule');
         ensureExists(computableConceptsArray, 'object', 'createNewRule', 'function called without computableConceptsArray.');
+        ensureOptionalParameterValue(unit, 'unit', 'string', 'createNewRule', _.values(report.Units));
 
         validateComputableConcepts(report, 'createNewRule', computableConceptsArray, id);
         validateDependingConceptsArray(report, 'createNewRule', dependingConceptsArray);
@@ -1129,13 +1279,17 @@ angular
 
         var rule = {
             'Id': id,
-            'Label': label,
-            'Description': description,
             'Type': type,
             'Formula': formula,
             'ComputableConcepts': computableConceptsArray,
             'DependsOn': dependingConceptsArray
         };
+        if(unit !== undefined && unit !== null && unit !== ''){
+            rule.Unit = unit;
+        }
+        if(decimals !== undefined && decimals !== null && decimals !== ''){
+            rule.Decimals = decimals;
+        }
 
         if(type === 'xbrl28:validation') {
             ensureExists(validatedConceptsArray, 'object', 'createNewRule', 'function called without validatedConceptsArray.');
@@ -1192,7 +1346,7 @@ angular
         });
     };
 
-    var validate = function(report, errorMsgPrefix, action, id, label, type, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray){
+    var validate = function(report, errorMsgPrefix, action, id, type, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals){
         ensureExists(id, 'string', errorMsgPrefix, 'Mandatory Id missing.');
         var existingRule = report.getRule(id);
         if(action === 'Create' && existingRule !== undefined && existingRule !== null){
@@ -1202,8 +1356,10 @@ angular
         } else if(action !== 'Create' && action !== 'Update'){
             throw new Error(errorMsgPrefix + ': Unknown action "' + action + '"!');
         }
-        ensureExists(label, 'string', errorMsgPrefix, 'Mandatory Label missing.');
         ensureExists(formula, 'string', errorMsgPrefix, 'Cannot store rule with empty source code.');
+        if(decimals !== undefined && typeof decimals !== 'number' && decimals !== 'INF'){
+            throw new Error(errorMsgPrefix + ': Invalid decimals value "' + decimals + '"');
+        }
         validateComputableConcepts(report, errorMsgPrefix, computableConceptsArray, id);
         validateDependingConceptsArray(report, errorMsgPrefix, dependingConceptsArray);
         validateValidatedConceptsArray(report, errorMsgPrefix, validatedConceptsArray);
@@ -1211,19 +1367,19 @@ angular
 
     AbstractReport.prototype.updateRule = function(rule){
         var id = rule.Id;
-        var label = rule.Label;
         var language = rule.OriginalLanguage;
         var type = rule.Type;
-        var description = rule.Description;
         var formula = rule.Formula;
         var computableConceptsArray = rule.ComputableConcepts;
         var dependingConceptsArray = rule.DependsOn;
         var validatedConceptsArray = rule.ValidatedConcepts;
-        validate(this, 'Rule Updating Error', 'Update', id, label, type, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray);
+        var unit = rule.Unit;
+        var decimals = rule.Decimals;
+        validate(this, 'Rule Updating Error', 'Update', id, type, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals);
         if(type === 'xbrl28:formula' && language === undefined){
-            this.setFormulaRule(id, label, description, formula, computableConceptsArray, dependingConceptsArray);
+            this.setFormulaRule(id, formula, computableConceptsArray, dependingConceptsArray, unit, decimals);
         } else if (type === 'xbrl28:validation' && language === undefined) {
-            this.setValidationRule(id, label, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray);
+            this.setValidationRule(id, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals);
         } else if (language === 'SpreadsheetFormula') {
             var model = this.getModel();
             ensureExists(model, 'object', 'updateRule', 'Report doesn\'t have a model.');
@@ -1235,19 +1391,19 @@ angular
 
     AbstractReport.prototype.createRule = function(rule){
         var id = rule.Id;
-        var label = rule.Label;
         var language = rule.OriginalLanguage;
         var type = rule.Type;
-        var description = rule.Description;
         var formula = rule.Formula;
         var computableConceptsArray = rule.ComputableConcepts;
         var dependingConceptsArray = rule.DependsOn;
         var validatedConceptsArray = rule.ValidatedConcepts;
-        validate(this, 'Rule Creation Error', 'Create', id, label, type, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray);
+        var unit = rule.Unit;
+        var decimals = rule.Decimals;
+        validate(this, 'Rule Creation Error', 'Create', id, type, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals);
         if(type === 'xbrl28:formula' && language === undefined){
-            this.setFormulaRule(id, label, description, formula, computableConceptsArray, dependingConceptsArray);
+            this.setFormulaRule(id, formula, computableConceptsArray, dependingConceptsArray, unit, decimals);
         } else if (type === 'xbrl28:validation' && language === undefined) {
-            this.setValidationRule(id, label, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray);
+            this.setValidationRule(id, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals);
         } else if (language === 'SpreadsheetFormula') {
             var model = this.getModel();
             ensureExists(model, 'object', 'createRule', 'Report doesn\'t have a model.');
@@ -1259,9 +1415,9 @@ angular
         }
     };
 
-    AbstractReport.prototype.setFormulaRule = function(id, label, description, formula, computableConceptsArray, dependingConceptsArray){
+    AbstractReport.prototype.setFormulaRule = function(id, formula, computableConceptsArray, dependingConceptsArray, unit, decimals){
         // sanity checks are done in createNewRule
-        var rule = createNewRule(id, label, description, 'xbrl28:formula', formula, computableConceptsArray, dependingConceptsArray, null, this);
+        var rule = createNewRule(id, 'xbrl28:formula', formula, computableConceptsArray, dependingConceptsArray, null, unit, decimals, this);
 
         var model = this.getModel();
         ensureExists(model, 'object', 'setFormulaRule', 'Report doesn\'t have a model.');
@@ -1275,9 +1431,9 @@ angular
         model.Rules.push(rule);
     };
 
-    AbstractReport.prototype.setValidationRule = function(id, label, description, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray){
+    AbstractReport.prototype.setValidationRule = function(id, formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals){
         // sanity checks are done in createNewRule
-        var rule = createNewRule(id, label, description, 'xbrl28:validation', formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, this);
+        var rule = createNewRule(id, 'xbrl28:validation', formula, computableConceptsArray, dependingConceptsArray, validatedConceptsArray, unit, decimals, this);
 
         var model = this.getModel();
         ensureExists(model, 'object', 'setValidationRule', 'Report doesn\'t have a model.');
@@ -1415,7 +1571,7 @@ angular
         var model = report.getModel();
         var result = [];
         var aspect =
-            model.Hypercubes['xbrl:DefaultHypercube']
+            model.Hypercubes['xbrl28:ImpliedTable']
                 .Aspects[aspectName];
         if(aspectName === 'xbrl:Concept' && aspect.Domains && aspect.Domains['xbrl:ConceptDomain'] && aspect.Domains['xbrl:ConceptDomain'].Members ){
             return Object.keys(aspect.Domains['xbrl:ConceptDomain'].Members);
@@ -1428,7 +1584,7 @@ angular
 
     var setAspect = function(report, aspectName, aspect){
         var model = report.getModel();
-        model.Hypercubes['xbrl:DefaultHypercube']
+        model.Hypercubes['xbrl28:ImpliedTable']
             .Aspects[aspectName] = aspect;
     };
 
@@ -1470,12 +1626,12 @@ angular
             setAspect(this, 'xbrl:Entity',
                 {
                     'Name': 'xbrl:Entity',
-                    'Label': 'Reporting Entity',
+                    'Label': 'Reporting Entity [Axis]',
                     'Kind': 'TypedDimension',
                     'Type': 'string',
                     'DomainRestriction': {
                         'Name': 'xbrl:EntityDomain',
-                        'Label': 'Entity Domain',
+                        'Label': 'Reporting Entity [Domain]',
                         'Enumeration': entities
                     }
                 });
@@ -1483,7 +1639,9 @@ angular
             setAspect(this, 'xbrl:Entity',
                 {
                     'Name': 'xbrl:Entity',
-                    'Label': 'Reporting Entity'
+                    'Label': 'Reporting Entity [Axis]',
+                    'Kind': 'TypedDimension',
+                    'Type': 'string'
                 });
         }
 
@@ -1492,12 +1650,12 @@ angular
             setAspect(this, 'xbrl28:Archive',
                 {
                     'Name': 'xbrl28:Archive',
-                    'Label': 'Archive ID',
+                    'Label': 'Archive [Axis]',
                     'Kind': 'TypedDimension',
                     'Type': 'string',
                     'DomainRestriction': {
                         'Name': 'xbrl28:ArchiveDomain',
-                        'Label': 'Archive Domain',
+                        'Label': 'Archive [Domain]',
                         'Enumeration': aspects['xbrl28:Archive']
                     }
                 });
@@ -1505,7 +1663,9 @@ angular
             setAspect(this, 'xbrl28:Archive',
                 {
                     'Name': 'xbrl28:Archive',
-                    'Label': 'Archive ID'
+                    'Label': 'Archive [Axis]',
+                    'Kind': 'TypedDimension',
+                    'Type': 'string'
                 });
         }
 
@@ -1514,12 +1674,12 @@ angular
             setAspect(this, 'sec:FiscalYear',
                 {
                     'Name': 'sec:FiscalYear',
-                    'Label': 'Fiscal Year',
+                    'Label': 'Fiscal Year [Axis]',
                     'Kind': 'TypedDimension',
                     'Type': 'integer',
                     'DomainRestriction': {
                         'Name': 'sec:FiscalYearDomain',
-                        'Label': 'Fiscal Year Domain',
+                        'Label': 'Fiscal Year [Domain]',
                         'Enumeration': aspects['sec:FiscalYear']
                     }
                 });
@@ -1527,7 +1687,9 @@ angular
             setAspect(this, 'sec:FiscalYear',
                 {
                     'Name': 'sec:FiscalYear',
-                    'Label': 'Fiscal Year'
+                    'Label': 'Fiscal Year [Axis]',
+                    'Kind': 'TypedDimension',
+                    'Type': 'integer'
                 });
         }
 
@@ -1536,12 +1698,12 @@ angular
             setAspect(this, 'sec:FiscalPeriod',
                 {
                     'Name': 'sec:FiscalPeriod',
-                    'Label': 'Fiscal Period',
+                    'Label': 'Fiscal Period [Axis]',
                     'Kind': 'TypedDimension',
                     'Type': 'string',
                     'DomainRestriction': {
                         'Name': 'sec:FiscalPeriodDomain',
-                        'Label': 'Fiscal Period Domain',
+                        'Label': 'Fiscal Period [Domain]',
                         'Enumeration': aspects['sec:FiscalPeriod']
                     }
                 });
@@ -1549,7 +1711,9 @@ angular
             setAspect(this, 'sec:FiscalPeriod',
                 {
                     'Name': 'sec:FiscalPeriod',
-                    'Label': 'Fiscal Period'
+                    'Label': 'Fiscal Period [Axis]',
+                    'Kind': 'TypedDimension',
+                    'Type': 'string'
                 });
         }
 
@@ -1558,12 +1722,12 @@ angular
             setAspect(this, 'sec:FiscalPeriodType',
                 {
                     'Name': 'sec:FiscalPeriodType',
-                    'Label': 'Fiscal Period Type',
+                    'Label': 'Fiscal Period Type [Axis]',
                     'Kind': 'TypedDimension',
                     'Type': 'string',
                     'DomainRestriction': {
                         'Name': 'sec:FiscalPeriodTypeDomain',
-                        'Label': 'Fiscal Period Type Domain',
+                        'Label': 'Fiscal Period Type [Domain]',
                         'Enumeration': aspects['sec:FiscalPeriodType']
                     }
                 });
@@ -1571,7 +1735,9 @@ angular
             setAspect(this, 'sec:FiscalPeriodType',
                 {
                     'Name': 'sec:FiscalPeriodType',
-                    'Label': 'Fiscal Period Type'
+                    'Label': 'Fiscal Period Type [Axis]',
+                    'Kind': 'TypedDimension',
+                    'Type': 'string'
                 });
         }
 

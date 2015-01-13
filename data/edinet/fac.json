@@ -1,0 +1,283 @@
+
+{
+    "_id" : "f97d635c-9990-4372-a18a-2e02ce27c73e",
+    "Archive" : null,
+    "Label" : "Fundamental Accounting Concepts (Japan)",
+    "Description" : "",
+    "Prefix" : "n",
+    "Role" : "http://reports.28.io",
+    "Owner" : "admin@28.io",
+    "ACL" : [  ],
+    "LastModified" : "2015-01-09T13:30:08.685215Z",
+    "Networks" : [ {
+        "LinkName" : "link:presentationLink",
+        "LinkRole" : "http://reports.28.io",
+        "ArcName" : "link:presentationArc",
+        "ArcRole" : "http://www.xbrl.org/2003/arcrole/parent-child",
+        "Kind" : "InterConceptTreeNetwork",
+        "ShortName" : "Presentation",
+        "CyclesAllowed" : "undirected",
+        "Trees" : [ {
+            "Id" : "378ca058-f938-4fce-9fac-efe0f23b0d21",
+            "Name" : "n:ReportLineItems",
+            "Label" : "nttdata",
+            "Order" : 1,
+            "To" : [ {
+                "Id" : "62ad910a-080c-4655-92b3-cca385fea866",
+                "Name" : "n:Equity",
+                "Label" : "Equity",
+                "Order" : 1
+            }, {
+                "Id" : "f0f5ba8a-4543-4185-9aca-3d5e6eb5fd87",
+                "Name" : "n:CurrentLiabilities",
+                "Label" : "Current Liabilities",
+                "Order" : 2
+            }, {
+                "Id" : "f9dbc05b-56ab-4145-84e8-b594e8cc44af",
+                "Name" : "n:NoncurrentLiabilities",
+                "Label" : "Noncurrent Liabilities",
+                "Order" : 3
+            }, {
+                "Id" : "46385c9b-76e5-4db9-82f9-acae48204600",
+                "Name" : "n:Liabilities",
+                "Label" : "Liabilities",
+                "Order" : 4
+            }, {
+                "Id" : "5a021207-7535-44f9-979f-2d7a95df0237",
+                "Name" : "n:LiabilityAndEquity",
+                "Label" : "Liability And Equity",
+                "Order" : 5
+            }, {
+                "Id" : "954b087c-9d85-4596-835d-b411d1a448e0",
+                "Name" : "n:CurrentAssets",
+                "Label" : "Current Assets",
+                "Order" : 6
+            }, {
+                "Id" : "ad6fe0a4-3a3a-47ab-8ab7-fdcc9c610815",
+                "Name" : "n:NoncurrentAssets",
+                "Label" : "Noncurrent Assets",
+                "Order" : 7
+            }, {
+                "Id" : "f26e12ae-e1e3-47a7-82cf-7d2d910c5235",
+                "Name" : "n:Assets",
+                "Label" : "Assets",
+                "Order" : 8
+            } ]
+        } ]
+    }, {
+        "LinkName" : "link:definitionLink",
+        "LinkRole" : "http://reports.28.io",
+        "ArcName" : "link:definitionArc",
+        "ArcRole" : "http://www.xbrlsite.com/2013/fro/arcrole/class-subClass",
+        "Kind" : "InterConceptTreeNetwork",
+        "ShortName" : "ConceptMap",
+        "CyclesAllowed" : "undirected",
+        "Trees" : [ {
+            "Id" : "ebfa5c68-b897-4f61-a0de-ee0799106e64",
+            "Name" : "n:Equity",
+            "To" : [ {
+                "Id" : "001ecd0a-d074-487f-869c-14df87cc4750",
+                "Name" : "jpfr-t-cte:ShareholdersEquity",
+                "Order" : 1
+            } ]
+        }, {
+            "Id" : "aa6cda6a-ddea-4a9d-864b-774c1fddc9db",
+            "Name" : "n:CurrentLiabilities",
+            "To" : [ {
+                "Id" : "040eb984-d938-4e2f-892e-6fc0a25c277d",
+                "Name" : "jpfr-t-cte:CurrentLiabilities",
+                "Order" : 1
+            } ]
+        }, {
+            "Id" : "15498c57-e6ff-4f9c-8f82-118538978bf3",
+            "Name" : "n:NoncurrentLiabilities",
+            "To" : [ {
+                "Id" : "945ac108-5163-4a0b-8df2-102a35d6869f",
+                "Name" : "jpfr-t-cte:NoncurrentLiabilities",
+                "Order" : 1
+            } ]
+        }, {
+            "Id" : "c0408702-918e-4b1a-998b-a381cda3f1b5",
+            "Name" : "n:CurrentAssets",
+            "To" : [ {
+                "Id" : "00e8fc5c-5855-4fee-8c8f-a1d75cbb4d21",
+                "Name" : "jpfr-t-cte:CurrentAssets",
+                "Order" : 1
+            } ]
+        }, {
+            "Id" : "cf4428cd-6904-4cd2-813d-e74feb7463a6",
+            "Name" : "n:NoncurrentAssets",
+            "To" : [ {
+                "Id" : "eae41be3-4075-48a5-8c7d-498ab8f93cb7",
+                "Name" : "jpfr-t-cte:NoncurrentAssets",
+                "Order" : 1
+            } ]
+        } ]
+    } ],
+    "Hypercubes" : {
+        "xbrl28:ImpliedTable" : {
+            "Name" : "xbrl28:ImpliedTable",
+            "Label" : "Implied Table [Table]",
+            "Aspects" : {
+                "xbrl:Concept" : {
+                    "Name" : "xbrl:Concept",
+                    "Label" : "Concept",
+                    "Members" : [ {
+                        "Name" : "n:ReportLineItems",
+                        "Label" : "nttdata",
+                        "Id" : "e5c0e2da-a544-469d-9db1-cd9b6ad6e3b1"
+                    }, {
+                        "Name" : "n:Equity",
+                        "Label" : "Equity",
+                        "Id" : "55d35f15-d5da-4d6f-acd5-65662bf91a99"
+                    }, {
+                        "Name" : "n:CurrentLiabilities",
+                        "Label" : "Current Liabilities",
+                        "Id" : "dd564a61-a6ea-49f5-a959-994c7bec3473"
+                    }, {
+                        "Name" : "n:NoncurrentLiabilities",
+                        "Label" : "Noncurrent Liabilities",
+                        "Id" : "dd53b31b-f734-4e63-8e88-b3648a7c3048"
+                    }, {
+                        "Name" : "n:Liabilities",
+                        "Label" : "Liabilities",
+                        "Id" : "33c4d3b7-95b4-4db2-ae9f-56564c608b59"
+                    }, {
+                        "Name" : "n:LiabilityAndEquity",
+                        "Label" : "Liability And Equity",
+                        "Id" : "a87003b5-7ff8-47ef-ad2d-c0e4f21f8f30"
+                    }, {
+                        "Name" : "n:CurrentAssets",
+                        "Label" : "Current Assets",
+                        "Id" : "be6c820a-a5b4-466a-a361-21f45ec78b57"
+                    }, {
+                        "Name" : "n:NoncurrentAssets",
+                        "Label" : "Noncurrent Assets",
+                        "Id" : "2d04440e-80ce-413f-b3be-06a562a556ac"
+                    }, {
+                        "Name" : "n:Assets",
+                        "Label" : "Assets",
+                        "Id" : "eee1726d-838a-455d-bd33-ebbfaca0b8d7"
+                    } ],
+                    "Id" : "8e5df9d8-30c3-49e8-9bd3-bda9569828ce"
+                },
+                "xbrl:Period" : {
+                    "Name" : "xbrl:Period",
+                    "Label" : "Period [Axis]",
+                    "Kind" : "TypedDimension",
+                    "Type" : "string",
+                    "Id" : "05c32b88-4eb1-4387-babd-92b024fa6f2f"
+                },
+                "xbrl:Entity" : {
+                    "Name" : "xbrl:Entity",
+                    "Label" : "Reporting Entity [Axis]",
+                    "Kind" : "TypedDimension",
+                    "Type" : "string",
+                    "Id" : "60c375b7-869c-46f4-9565-72e28ba3cb90"
+                },
+                "xbrl:Unit" : {
+                    "Name" : "xbrl:Unit",
+                    "Label" : "Unit",
+                    "Default" : "xbrl:NonNumeric",
+                    "Id" : "42a972a8-f6ff-466b-89c4-3b65ce93464a"
+                }
+            },
+            "Id" : "5d4fd00f-1ea7-46bd-a415-9e529e844fd9"
+        }
+    },
+    "DefinitionModels" : [ {
+        "ModelKind" : "DefinitionModel",
+        "Labels" : [ "nttdata" ],
+        "Parameters" : {
+
+        },
+        "Breakdowns" : {
+            "x" : [ {
+                "BreakdownLabels" : [ "Reporting Entity Breakdown" ],
+                "BreakdownTrees" : [ {
+                    "Kind" : "Rule",
+                    "Abstract" : true,
+                    "Labels" : [ "Reporting Entity [Axis]" ],
+                    "Children" : [ {
+                        "Kind" : "Aspect",
+                        "Aspect" : "xbrl:Entity"
+                    } ]
+                } ]
+            }, {
+                "BreakdownLabels" : [ "Reporting Period Breakdown" ],
+                "BreakdownTrees" : [ {
+                    "Kind" : "Rule",
+                    "Abstract" : true,
+                    "Labels" : [ "Period [Axis]" ],
+                    "Children" : [ {
+                        "Kind" : "Aspect",
+                        "Aspect" : "xbrl:Period"
+                    } ]
+                } ]
+            } ],
+            "y" : [ {
+                "BreakdownLabels" : [ "Breakdown on concepts" ],
+                "BreakdownTrees" : [ {
+                    "Kind" : "ConceptRelationship",
+                    "LinkName" : "link:presentationLink",
+                    "LinkRole" : "http://reports.28.io",
+                    "ArcName" : "link:presentationArc",
+                    "ArcRole" : "http://www.xbrl.org/2003/arcrole/parent-child",
+                    "RelationshipSource" : "n:ReportLineItems",
+                    "FormulaAxis" : "descendant",
+                    "Generations" : 0
+                } ]
+            } ]
+        },
+        "TableFilters" : {
+
+        }
+    } ],
+    "Rules" : [  ],
+    "Concepts" : [ {
+        "Name" : "n:ReportLineItems",
+        "Label" : "nttdata",
+        "IsAbstract" : true,
+        "Id" : "f170a305-366f-4211-bff0-00974dbaf9fa"
+    }, {
+        "Name" : "n:Equity",
+        "Label" : "Equity",
+        "IsAbstract" : false,
+        "Id" : "e7dbd8ec-39ae-4f1c-90c3-0eab8e00ac22"
+    }, {
+        "Name" : "n:CurrentLiabilities",
+        "Label" : "Current Liabilities",
+        "IsAbstract" : false,
+        "Id" : "8ce1bf65-61ff-4308-8a06-1de7a02cf05c"
+    }, {
+        "Name" : "n:NoncurrentLiabilities",
+        "Label" : "Noncurrent Liabilities",
+        "IsAbstract" : false,
+        "Id" : "a7b04be6-8776-4ff0-b9d2-0872eeb3b392"
+    }, {
+        "Name" : "n:Liabilities",
+        "Label" : "Liabilities",
+        "IsAbstract" : false,
+        "Id" : "723dc32c-b442-436b-95fe-872cc048f7e3"
+    }, {
+        "Name" : "n:LiabilityAndEquity",
+        "Label" : "Liability And Equity",
+        "IsAbstract" : false,
+        "Id" : "edb6b9cc-bf15-44b7-a6d5-fa31192a1b00"
+    }, {
+        "Name" : "n:CurrentAssets",
+        "Label" : "Current Assets",
+        "IsAbstract" : false,
+        "Id" : "341dfc32-eb2e-4472-bcad-9753a320700a"
+    }, {
+        "Name" : "n:NoncurrentAssets",
+        "Label" : "Noncurrent Assets",
+        "IsAbstract" : false,
+        "Id" : "8c09018e-33db-4c5e-83bf-814c882bdd7f"
+    }, {
+        "Name" : "n:Assets",
+        "Label" : "Assets",
+        "IsAbstract" : false,
+        "Id" : "1b601b7e-683f-4e7b-97a0-5f4d06b8b96b"
+    } ]
+}

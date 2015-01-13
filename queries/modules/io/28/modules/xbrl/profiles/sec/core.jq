@@ -327,7 +327,7 @@ declare function sec:fact-table-for-schema(
 {
    let $schema := report-schemas:report-schemas($schema)
    let $facts := sec:facts-for-schema($schema, $archives)
-   let $hypercube := hypercubes:hypercubes-for-components($schema, "xbrl:DefaultHypercube")
+   let $hypercube := hypercubes:hypercubes-for-components($schema)[1]
    return hypercubes:fact-table-for-hypercube-and-facts($hypercube, $facts)
 };
 

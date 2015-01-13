@@ -58,6 +58,18 @@ angular
                     }
                 };
 
+                $scope.validate = function(updateDependencies){
+                    $scope.formula.validate($scope.action, updateDependencies);
+                };
+
+                $scope.compilePrereq = function(index, async){
+                    $scope.formula.compilePrereq(index, async, $scope.action);
+                };
+
+                $scope.compileBody = function(index, async){
+                    $scope.formula.compileBody(index, async, $scope.action);
+                };
+
                 $scope.ok = function(){
                     if ($scope.action === 'Create') {
                         try {
@@ -65,10 +77,12 @@ angular
                             var rule = $scope.formula.getRule();
                             var concept = rule.ComputableConcepts[0];
                             if(rule.Type === 'xbrl28:validation' && rule.OriginalLanguage === 'SpreadsheetFormula' &&
-                                !$scope.report.existsConcept(concept)) {
+                                !$scope.report.existsConcept(concept) && rule.ValidatedConcepts) {
+                                var validatedConceptName = rule.ValidatedConcepts[0];
+                                var validatedConcept = $scope.report.getConcept(validatedConceptName);
                                 // in the simple formula case we automatically create a concept
                                 // for a newly created validation formula
-                                $scope.report.addConcept(concept, rule.Label, false);
+                                $scope.report.addConcept(concept, rule.Label, false, validatedConcept.PeriodType, validatedConcept.DataType, validatedConcept.Balance);
                             }
                             $scope.report.createRule(rule);
                         } catch (e) {
