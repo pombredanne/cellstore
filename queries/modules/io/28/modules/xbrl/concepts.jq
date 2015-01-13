@@ -73,9 +73,9 @@ declare variable $concepts:ALL_CONCEPT_NAMES as xs:string := "";
 
 (:~
  : <p>Retrieves all concepts.</p>
- : 
+ :
  : @return all concepts.
- :) 
+ :)
 declare function concepts:concepts() as object*
 {
   mw:find($concepts:col,{})
@@ -85,16 +85,16 @@ declare function concepts:concepts() as object*
  : <p>Retrieves the concepts which:
  :  - concept name matches a given one;
  :  - archive number matches that of a given component;
- :  - component role matches that of a given component or is the default 
+ :  - component role matches that of a given component or is the default
  :    component role.
  : </p>
  :
  : @param $concept-names the concepts names.
  : @param $component-or-ids the CIDs or the components themselves.
- : 
+ :
  : @return the matching concepts.
- :) 
-declare function concepts:concepts-for-components($concept-names as string*, 
+ :)
+declare function concepts:concepts-for-components($concept-names as string*,
     $component-or-ids as item*) as object*
 {
   let $components := components:components($component-or-ids)
@@ -104,16 +104,16 @@ declare function concepts:concepts-for-components($concept-names as string*,
 (:~
  : <p>Retrieves the concepts which:
  :  - concept name and archive number match a given one;
- :  - component role matches a given one or is the default 
+ :  - component role matches a given one or is the default
  :    component role.
  : </p>
  :
  : @param $concept-names the concepts names.
  : @param $archives the archive numbers.
  : @param $component-roles the component roles.
- : 
+ :
  : @return the matching concepts.
- :) 
+ :)
 declare function concepts:concepts(
     $concept-names as string*,
     $archives as string*,
@@ -121,7 +121,7 @@ declare function concepts:concepts(
   ) as object*
 {
   if (exists($archives))
-  then mw:find($concepts:col, 
+  then mw:find($concepts:col,
     {|
       {
         $concepts:ARCHIVE : { "$in" : [ $archives ] }
@@ -141,13 +141,13 @@ declare function concepts:concepts(
 
 
 (:~
- : <p>Retrieves all the labels with the given label role and language in the 
+ : <p>Retrieves all the labels with the given label role and language in the
  : matching concepts.</p>
  :
  : <p>Matching concepts are those which:
  :  - concept name matches a given one,
  :  - archive number matches that of a given component,
- :  - component role matches that of a given component or is the default 
+ :  - component role matches that of a given component or is the default
  :    component role.
  : </p>
  :
@@ -165,31 +165,31 @@ declare function concepts:concepts(
  : @param $label-role the label role.
  : @param $language the label language.
  : @param $options optional parameters to control language matching.
- : 
+ :
  : @return the matching labels.
  :)
  declare function concepts:labels-for-components(
-     $concept-names as string*, 
-     $component-or-ids as item*, 
-     $label-role as string, 
-     $language as string, 
+     $concept-names as string*,
+     $component-or-ids as item*,
+     $label-role as string,
+     $language as string,
      $options as object?
    ) as string*
 {
   let $components := components:components($component-or-ids)
   let $concepts := concepts:concepts-for-components($concept-names, $components)
-  return concepts:labels($concept-names, $components.Archive[not $$ instance of null], $components.Role, 
+  return concepts:labels($concept-names, $components.Archive[not $$ instance of null], $components.Role,
       $label-role, $language, $concepts, $options)
 };
 
 (:~
- : <p>Retrieves all the labels with the given label role and language in the 
+ : <p>Retrieves all the labels with the given label role and language in the
  : matching concepts.</p>
  :
  : <p>Matching concepts are those which:
  :  - concept name matches a given one,
  :  - archive number matches that of a given component,
- :  - component role matches that of a given component or is the default 
+ :  - component role matches that of a given component or is the default
  :    component role.
  : </p>
  :
@@ -211,33 +211,33 @@ declare function concepts:concepts(
  : @param $component-or-ids the CIDs or the components themselves.
  : @param $label-role the label role.
  : @param $language the label language.
- : @param $concepts the concepts in which the labels will be 
+ : @param $concepts the concepts in which the labels will be
  :                  searched.
  : @param $options optional parameters to control language matching.
- : 
+ :
  : @return the matching labels.
- :) 
+ :)
 declare function concepts:labels-for-components(
-    $concept-names as string*, 
-    $component-or-ids as item*, 
-    $label-role as string, 
-    $language as string, 
-    $concepts as object*, 
+    $concept-names as string*,
+    $component-or-ids as item*,
+    $label-role as string,
+    $language as string,
+    $concepts as object*,
     $options as object?
   ) as string*
 {
   let $components := components:components($component-or-ids)
-    return concepts:labels($concept-names, $components.Archive[not $$ instance of null], $components.Role, 
+    return concepts:labels($concept-names, $components.Archive[not $$ instance of null], $components.Role,
       $label-role, $language, $concepts, $options)
 };
 
 (:~
- : <p>Retrieves all the labels with the given label role and language in the 
+ : <p>Retrieves all the labels with the given label role and language in the
  : matching concepts.</p>
  :
  : <p>Matching concepts are those which:
  :  - concept name and archive number match a given one;
- :  - component role matches a given one or is the default 
+ :  - component role matches a given one or is the default
  :    component role.
  : </p>
  :
@@ -259,15 +259,15 @@ declare function concepts:labels-for-components(
  : @param $label-role the label role.
  : @param $language the label language.
  : @param $options optional parameters to control language matching.
- : 
+ :
  : @return the matching labels.
  :)
 declare function concepts:labels(
-    $concept-names as string*, 
-    $archives as string*, 
-    $component-roles as string*, 
-    $label-role as string, 
-    $language as string, 
+    $concept-names as string*,
+    $archives as string*,
+    $component-roles as string*,
+    $label-role as string,
+    $language as string,
     $options as object?
   ) as string*
 {
@@ -277,12 +277,12 @@ declare function concepts:labels(
 };
 
 (:~
- : <p>Retrieves all the labels with the given label role and language in the 
+ : <p>Retrieves all the labels with the given label role and language in the
  : matching concepts.</p>
  :
  : <p>Matching concepts are those which:
  :  - concept name and archive number match a given one;
- :  - component role matches a given one or is the default 
+ :  - component role matches a given one or is the default
  :    component role.
  : </p>
  :
@@ -305,19 +305,19 @@ declare function concepts:labels(
  : @param $component-roles the component roles.
  : @param $label-role the label role.
  : @param $language the label language.
- : @param $concepts the concepts in which the labels will be 
+ : @param $concepts the concepts in which the labels will be
  :                  searched.
  : @param $options Optional parameters to control language matching.
- : 
+ :
  : @return the matching labels.
  :)
 declare function concepts:labels(
-    $concept-names as string*, 
-    $archives as string*, 
-    $component-roles as string*, 
-    $label-role as string, 
-    $language as string, 
-    $concepts as object*, 
+    $concept-names as string*,
+    $archives as string*,
+    $component-roles as string*,
+    $label-role as string,
+    $language as string,
+    $concepts as object*,
     $options as object?
   ) as string*
 {
@@ -336,7 +336,7 @@ declare function concepts:labels(
   )
   for $concept-labels-group in $concept-labels-groups-for-role
   let $perfect-match := $concept-labels-group.$normalized-language
-  return 
+  return
     if ($perfect-match)
     then $concept-labels-group.$normalized-language
     else concepts:approximated-labels-match($concept-labels-group, $normalized-language, $options)
@@ -344,8 +344,8 @@ declare function concepts:labels(
 
 
 declare %private function concepts:approximated-labels-match(
-    $concept-labels-group as object, 
-    $normalized-language as string, 
+    $concept-labels-group as object,
+    $normalized-language as string,
     $options as object?
   ) as string*
 {
@@ -355,23 +355,23 @@ declare %private function concepts:approximated-labels-match(
     return
     (
       if ($options.MatchDown cast as boolean?)
-      then 
+      then
         for $matching-key in $keys[starts-with($$, $normalized-language)]
         return $concept-labels-group($matching-key)
       else (),
       if ($options.MatchUp cast as boolean?)
-      then 
+      then
         for $matching-key in $keys[starts-with($normalized-language, $$)]
         return $concept-labels-group($matching-key)
       else (),
       if ($options.MatchAnyVariant cast as boolean?)
-      then 
+      then
         if (contains($normalized-language, "-"))
-        then 
+        then
           for $matching-key in $keys[starts-with($$, substring-before($normalized-language, "-") || "-")]
           return $concept-labels-group($matching-key)
         else ()
-      else ()      
+      else ()
     )
   else ()
 };
@@ -381,7 +381,7 @@ declare %private function concepts:approximated-labels-match(
  : be used to find the right labels in the concepts collection.</p>
  :
  : @param $language the language identifier.
- : 
+ :
  : @return the normalized language.
  :)
 declare function concepts:normalize-language($language as string) as string

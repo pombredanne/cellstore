@@ -157,8 +157,8 @@ declare %private function resolution:labels(
         then
             concepts:labels-for-components(
                 $concept-names,
-                $components, 
-                $label-role, 
+                $components,
+                $label-role,
                 ($options.Language, "en-US")[1],
                 $concepts,
                 ())
@@ -197,13 +197,13 @@ declare %private function resolution:convert-rule-node(
             $main-members,
             $components,
             $concepts,
-            $concepts:STANDARD_LABEL_ROLE, 
+            $concepts:STANDARD_LABEL_ROLE,
             $options)
     )
-          
+
     let $children := resolution:convert-definition-nodes(
         $definition-node.Children[],
-        $components, 
+        $components,
         $parent-child-order,
         $concepts,
         $options)
@@ -211,7 +211,7 @@ declare %private function resolution:convert-rule-node(
         Labels: [ ],
         ConstraintSets : {
             "": { }
-            
+
         },
         RollUp: true
     }
@@ -383,7 +383,7 @@ declare %private function resolution:expand-concept-network(
             $concept,
             $components,
             $concepts,
-            ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
+            ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1],
             $options)
     return
     {|
@@ -430,7 +430,7 @@ declare %private function resolution:expand-concept-network(
                         $parent-child-order,
                         $concepts,
                         $options
-                    ) 
+                    )
         let $roll-up :=
             if($concept-metadata.IsAbstract)
             then ()
@@ -501,7 +501,7 @@ declare function resolution:expand-dimension-network(
             $value,
             $components,
             $concepts,
-            ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
+            ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1],
             $options)
     return
     {|
@@ -521,7 +521,7 @@ declare function resolution:expand-dimension-network(
                         $parent-child-order,
                         $concepts,
                         $options
-                ) 
+                )
         let $roll-up :={
             Labels: [],
             RollUp: true
@@ -611,13 +611,13 @@ declare %private function resolution:metadata(
 
 (:~
   Resolves a definition model to a structural model, given a component.
-  
+
   @param $definition-model A definition mode, in 28msec's proprietary JSON format.
   @param $component A component, in 28msec's proprietary JSON format.
-  
+
   @error resolution:UNFORESEEN-ERROR Something went wrong, contact us.
   @error resolution:UNKNOWN-DEFINITION-NODE-KIND A definition node was not recognized.
-  
+
   @return a structural model
 :)
 declare function resolution:resolve(
@@ -630,10 +630,10 @@ declare function resolution:resolve(
 
 (:~
  : Resolves a definition model to a structural model, given a component.
- : 
+ :
  : @param $definition-model A definition mode, in 28msec's proprietary JSON format.
  : @param $component A component, in 28msec's proprietary JSON format.
- : @param $options Optional parameters among which 
+ : @param $options Optional parameters among which
  : <ul>
  :   <li>Hypercube: override the components' hypercubes with the provided hypercube
  :      (this will only affect the default values used later in the layout pipeline).</li>
@@ -678,7 +678,7 @@ declare function resolution:resolve(
                         $axis: [
                             for $breakdown in $definition-model.Breakdowns.$axis[]
                             return resolution:convert-breakdown($breakdown,
-                                                                $components, 
+                                                                $components,
                                                                 $definition-model.ParentChildOrder,
                                                                 $concepts,
                                                                 $options)
@@ -703,7 +703,7 @@ declare function resolution:resolve(
             where exists($hypercube-default)
             return {
                 $dimension: $hypercube-default
-            } 
+            }
         |}
     }
 };
