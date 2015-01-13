@@ -358,10 +358,10 @@ declare %private function resolution:expand-concept-network(
 {
     let $concept as string := $network.Name
     let $default-languages as string* := $components.$components:DEFAULT-LANGUAGE
-    let $default-languages := if(exists($default-languages)) then trace($default-languages, "default") else "en-US"
+    let $default-languages := if(exists($default-languages)) then $default-languages else "en-US"
     let $concept-metadata := ($components.Concepts[])[$$.Name eq $concept][1]
     let $label :=
-        if(every $language in $default-languages satisfies $language eq trace($options.Language, "language"))
+        if(every $language in $default-languages satisfies $language eq $options.Language)
         then $network.Label
         else
         resolution:labels(
