@@ -91,7 +91,7 @@ return if(empty($component)) then {
     response:status-code(404);
     response:content-type("application/json");
     session:error("component not found", "json")
-} else 
+} else
 (: Fact resolution :)
 let $definition-model :=
 switch($profile-name)
