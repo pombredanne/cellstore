@@ -417,7 +417,7 @@ declare function concepts:normalize-language($language as string) as string
  : @param $label-role the label role.
  : @param $language the label language.
  : @param $concepts the concepts in which the labels will be
- :                  searched.
+ :                  searched (in the version-7 format).
  : @param $options Optional parameters to control language matching.
  :
  : @return the matching labels.
@@ -433,7 +433,8 @@ declare function concepts:labels(
   let $label-role-translated := replace($label-role, "\\.", "\uff0e")
   let $normalized-language as string := concepts:normalize-language($language)
 
-  for $concept as object in $concepts[$$.$concepts:NAME = $concept-names]
+  for $concept as object in $concepts
+  where ($concepts:ALL_CONCEPT_NAMES, $concept.$concepts:NAME) = $concept-names
   return
   for $concept-labels as object* in $concept.$concepts:LABELS[]
   let $role := $concept-labels.Role
