@@ -4,11 +4,25 @@ module namespace conversion = "http://28.io/modules/xbrl/conversion";
 
 import module namespace csv = "http://zorba.io/modules/json-csv";
 
+declare %private variable $conversion:STANDARD_LABELS :=
+    {
+        "xbrl28:Archive" : "Accession Number",
+        "xbrl:Concept" : "Concept",
+        "xbrl:Entity" : "Entity",
+        "xbrl:Period" : "Period",
+        "sec:FiscalPeriod" : "Fiscal Period",
+        "sec:FiscalYear" : "Fiscal Year",
+        "sec:FiscalPeriodType" : "Fiscal Period Type",
+        "sec:Accepted" : "Accepted",
+        "xbrl:Unit": "Unit",
+        "dei:LegalEntityAxis": "Legal Entity"
+    };
+
 declare %private function conversion:aspect-label(
     $aspect as string,
     $fact as object) as string
 {
-    ($fact.Labels.$aspect, $aspect)[1]
+    ($fact.Labels.$aspect, $conversion:STANDARD_LABELS.$aspect, $aspect)[1]
 };
 
 declare %private function conversion:aspect-value-or-label(
