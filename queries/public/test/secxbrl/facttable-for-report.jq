@@ -53,7 +53,7 @@ declare function local:expected-OtherOperatingIncomeExpenses-ATnT-2013() as obje
 declare function local:compare-audit-trails($expected as array?, $actual as array?) as object* {
     for $exp as object at $pos in $expected[]
     let $act as object? := $actual[][$pos]
-    return 
+    return
         if (exists($exp.Data.ValidatedFacts))
         then
             let $expM := copy $e := $exp modify ( delete json $e.Data.ValidatedFacts ) return $e
@@ -61,7 +61,7 @@ declare function local:compare-audit-trails($expected as array?, $actual as arra
             return  (
                 if(deep-equal($expM, $actM))
                 then ()
-                else 
+                else
                     {
                         type: "unexpected-audittrails-value",
                         expected: $expM,
@@ -69,7 +69,7 @@ declare function local:compare-audit-trails($expected as array?, $actual as arra
                     },
                 if(count($exp.Data.ValidatedFacts[]) eq count($act.Data.ValidatedFacts[]))
                 then ()
-                else 
+                else
                     {
                         type: "number-of-validated-facts-differs",
                         expected: $exp,
@@ -79,7 +79,7 @@ declare function local:compare-audit-trails($expected as array?, $actual as arra
         else
             if(deep-equal($exp, $act))
             then ()
-            else 
+            else
                 {
                     type: "unexpected-audittrails-value",
                     expected: $exp,
@@ -99,12 +99,12 @@ declare function local:diff-facts($fact-expected as object, $fact-actual as obje
             where not($key = ("Aspects", "KeyAspects", "Profiles", "AuditTrails"))
             let $exp-value := $fact-expected.$key
             let $act-value := $fact-actual.$key
-            return 
-                if(deep-equal($exp-value, $act-value) or 
+            return
+                if(deep-equal($exp-value, $act-value) or
                    (schema:schema-type($exp-value) eq schema:schema-type($act-value) and schema:schema-type($exp-value) eq xs:QName("xs:decimal") and fn:format-number(xs:decimal($exp-value),"#,##0.0000000000000") eq fn:format-number(xs:decimal($act-value),"#,##0.0000000000000"))
                 )
                 then ()
-                else 
+                else
                     {
                         type: "unexpected-fact-field-value",
                         field: $key,
@@ -115,10 +115,10 @@ declare function local:diff-facts($fact-expected as object, $fact-actual as obje
             for $key in distinct-values((keys($fact-expected.Aspects), keys($fact-actual.Aspects)))
             let $exp-value := $fact-expected.Aspects.$key
             let $act-value := $fact-actual.Aspects.$key
-            return 
+            return
                 if(deep-equal($exp-value, $act-value))
                 then ()
-                else 
+                else
                     {
                         type: "unexpected-aspect-value",
                         aspect: $key,
@@ -128,10 +128,10 @@ declare function local:diff-facts($fact-expected as object, $fact-actual as obje
             (: compare keyaspects :)
             let $exp-value := $fact-expected.KeyAspects
             let $act-value := $fact-actual.KeyAspects
-            return 
+            return
                 if(deep-equal($exp-value, $act-value))
                 then ()
-                else 
+                else
                     {
                         type: "unexpected-keyaspects-value",
                         expected: $exp-value,
@@ -140,10 +140,10 @@ declare function local:diff-facts($fact-expected as object, $fact-actual as obje
             (: compare Profiles :)
             let $exp-value := $fact-expected.Profiles
             let $act-value := $fact-actual.Profiles
-            return 
+            return
                 if(deep-equal($exp-value, $act-value))
                 then ()
-                else 
+                else
                     {
                         type: "unexpected-profiles-value",
                         expected: $exp-value,
@@ -152,7 +152,7 @@ declare function local:diff-facts($fact-expected as object, $fact-actual as obje
             (: compare Audittrails :)
             let $exp-value := $fact-expected.AuditTrails
             let $act-value := $fact-actual.AuditTrails
-            return 
+            return
                 local:compare-audit-trails($exp-value, $act-value)
         )
 };
@@ -168,7 +168,7 @@ declare function local:compare-fact-tables($fact-table-expected as object, $fact
                                       and $$.Aspects."xbrl:Period" eq $exp.Aspects."xbrl:Period"
                                       and $$.Aspects."xbrl28:Archive" eq $exp.Aspects."xbrl28:Archive"]
             let $errors as object* := local:diff-facts($exp, $act)
-            return 
+            return
                 if(empty($errors))
                 then ()
                 else {
@@ -176,14 +176,14 @@ declare function local:compare-fact-tables($fact-table-expected as object, $fact
                     actualFact: $act,
                     errors: [$errors]
                 },
-            
+
             for $act in $actual-facts
             let $exp := $expected-facts[$$.Aspects."xbrl:Concept" eq $act.Aspects."xbrl:Concept"
                                       and $$.Aspects."xbrl:Entity" eq $act.Aspects."xbrl:Entity"
                                       and $$.Aspects."xbrl:Period" eq $act.Aspects."xbrl:Period"
                                       and $$.Aspects."xbrl28:Archive" eq $act.Aspects."xbrl28:Archive"]
             where empty($exp)
-            return 
+            return
                 {
                     unexpectedFact: $act
                 }
@@ -215,7 +215,7 @@ declare %an:nondeterministic function local:test-facttable-fact($concept as stri
     let $request := test:invoke($endpoint, $params)
     let $facts as object* := $request[2].FactTable[]
     let $actual := $facts[$$.Aspects."xbrl:Concept" eq $concept]
-    let $diff := 
+    let $diff :=
       for $f in $actual return local:diff-facts($expected, $f)
     return if (empty($diff)) then true else { url: test:url($endpoint, $params), factDiffErrors: [ $diff ], expectedFact: $expected, actualFact: $actual }
 };
@@ -253,12 +253,12 @@ declare %an:nondeterministic function local:test-values() as item*
 
 let $dow30 := test:is-dow30()
 return local:check({
-    cocacola: local:test-facttable(95, {
+    cocacola: local:test-facttable(92, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2013",
         fiscalPeriod:"Q1"}),
-    aid: local:test-facttable(if($dow30) then 0 else 95, {
+    aid: local:test-facttable(if($dow30) then 0 else 92, {
         aid:"0001193125-14-157120",
         report:"FundamentalAccountingConcepts"}),
     aid2: local:test-facttable(
@@ -269,24 +269,24 @@ return local:check({
         18, {
         aid:"0000732717-14-000022",
         report:"FundamentalAccountingConcepts"}),
-    aid2-qtd: local:test-facttable(96, {
+    aid2-qtd: local:test-facttable(93, {
         aid:"0000732717-14-000022",
         report:"FundamentalAccountingConcepts",
         fiscalPeriodType: [ "instant", "QTD" ]
     }),
-    tickerrole: local:test-facttable(95, {
+    tickerrole: local:test-facttable(92, {
         report:"FundamentalAccountingConcepts",
         ticker:"ko",
         fiscalYear:"2012",
         fiscalPeriod:"Q1"}),
-    tickerfyfprole: local:test-facttable(247, {
+    tickerfyfprole: local:test-facttable(238, {
         report:"FundamentalAccountingConcepts",
         ticker:["ko","wmt"],
         fiscalYear:"2013",
         fiscalPeriod:"FY",
         fiscalPeriodType:["instant", "QTD", "YTD"]
     }),
-    bfiXOMUnits: local:test-facttable(401, {
+    bfiXOMUnits: local:test-facttable(386, {
         report:"supportBasicFinancialInformation",
         ticker:["xom"],
         fiscalYear:"ALL",

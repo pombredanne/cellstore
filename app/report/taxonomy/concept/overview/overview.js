@@ -2,7 +2,7 @@
 
 angular
 .module('report-editor')
-.controller('ConceptOverviewCtrl', function($scope, $state, $modal, $location, ConceptIsStillReferencedError){
+.controller('ConceptOverviewCtrl', function(_, $scope, $state, $modal, $location, ConceptIsStillReferencedError){
 
     $scope.error = undefined;
     $scope.conceptCopy = angular.copy($scope.concept);
@@ -12,7 +12,13 @@ angular
         $scope.error = undefined;
         if(!angular.equals($scope.conceptCopy, $scope.concept)){
             try {
-                $scope.report.updateConcept($scope.conceptCopy.Name,$scope.conceptCopy.Label,$scope.conceptCopy.IsAbstract);
+                $scope.report.updateConcept(
+                    $scope.conceptCopy.Name,
+                    $scope.conceptCopy.Label,
+                    $scope.conceptCopy.IsAbstract,
+                    $scope.conceptCopy.PeriodType,
+                    $scope.conceptCopy.DataType,
+                    $scope.conceptCopy.Balance);
 
 
                 // as long as we don't have individual labels for elements we update all of them
@@ -110,17 +116,14 @@ angular
                                 Computing: [],
                                 Validating: []
                             };
-                            for (var i in e.references.Rules.Dependent){
-                                if(e.references.Rules.Dependent.hasOwnProperty(i)){
-                                    var id = e.references.Rules.Dependent[i];
-                                    var rule = $scope.report.getRule(id);
-                                    if(rule.Type === 'xbrl28:validation'){
-                                        rules.Validating.push(rule);
-                                    } else {
-                                        rules.Computing.push(rule);
-                                    }
+                            _.each(e.references.Rules.Dependent, function(id){
+                                var rule = $scope.report.getRule(id);
+                                if(rule.Type === 'xbrl28:validation'){
+                                    rules.Validating.push(rule);
+                                } else {
+                                    rules.Computing.push(rule);
                                 }
-                            }
+                            });
                             return rules;
                         }
                     }

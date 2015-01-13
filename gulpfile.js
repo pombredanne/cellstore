@@ -45,7 +45,7 @@ gulp.task('build', ['clean', 'swagger'], function(done){
   $.runSequence('templates', ['lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
-gulp.task('server', ['templates', 'sass', 'swagger', '28:login'], function(done){
+gulp.task('server', ['load-config', 'templates', 'sass', 'swagger', '28:login'], function(done){
   $.runSequence('server:dev', done);
 });
 
@@ -60,7 +60,7 @@ gulp.task('test', ['server:prod'], function (done) {
 gulp.task('default', ['build']);
 
 gulp.task('setup', ['load-config'], function(done){
-    $.runSequence('build', [ 's3-setup', '28:setup' ], 'server:dist', 'test:unit', 'test:e2e', 'server:stop', done);
+    $.runSequence('build', [ 's3-setup', '28:setup' ], 'server:dist', /*'test:unit', */'test:e2e', 'server:stop', done);
 });
 
 gulp.task('28:setup', ['templates'], function(done){

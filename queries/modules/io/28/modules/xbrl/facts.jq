@@ -770,9 +770,7 @@ declare function facts:facts-for(
 {
   let $hypercube as object? := facts:from-options("Hypercube", $options)
   let $rules as object* := facts:from-options("Rules", $options)
-  let $concept-maps as object* :=
-    (facts:from-options("concept-maps", $options),
-     facts:from-options("ConceptMaps", $options))
+  let $concept-maps as object* := facts:from-options("ConceptMaps", $options)
   let $cache as object? := facts:from-options("Cache", $options)
   let $filter as object? := facts:from-options("Filter", $options)
   let $validate-facts as boolean := facts:from-options("Validate", $options)
@@ -922,7 +920,7 @@ declare function facts:facts-for-internal(
       else 
           (: default rules are applied to every concept :)
           $concepts
-  let $all-concepts-computable-by-maps as string* := keys($concept-maps.Trees)
+  let $all-concepts-computable-by-maps as string* := $concept-maps.Trees[].Name
 
   (: determine concepts that should be computed with the cache :)
   let $concepts-in-cache as string* := $concepts[$concepts-from-cache = $$]
@@ -1372,14 +1370,15 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
         then $options.facts-for-archives-and-concepts
         else facts:facts-for-archives-and-concepts#3
 
-    let $all-mapped-concepts := 
+    let $all-mapped-concepts as string* := 
       distinct-values(
-        for $concept in $concepts 
-        let $children := $concept-maps.Trees.$concept.To
+        for $object in $concept-maps.Trees[]
+        where $object.Name = $concepts
+        let $children as object* := $object.To[]
         return
           if (exists($children))
-          then (keys($children), $children[].Name)
-          else $concept
+          then $children.Name
+          else $object.Name
       )
 
     let $new-options as object* :=
@@ -1407,8 +1406,8 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
                           { "Aspects" : 
                             { "xbrl:Concept" : [ $all-mapped-concepts ] } } }
                       into $new,
-              if(exists($new.Hypercube.Aspects.$facts:CONCEPT.Domains)) 
-              then delete json $new.Hypercube.Aspects.$facts:CONCEPT.Domains 
+              if(exists($new.Hypercube.Aspects.$facts:CONCEPT.Members)) 
+              then delete json $new.Hypercube.Aspects.$facts:CONCEPT.Members 
               else (),
               insert json { "cache-control" : "no-cache" } into $new
             )
@@ -1432,10 +1431,12 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
     group by $uncovered-filter :=
         facts:canonical-grouping-key($facts, $facts:CONCEPT)
     return
-    for $concept in $concepts
-    let $children := $concept-maps.Trees.$concept.To
+    for $object in $concept-maps.Trees[]
+    where $object.Name = $concepts
+    let $concept := $object.Name
+    let $children as object* := $object.To[]
     for $fact as object in
-          for $candidate-concept in (keys($children), $children[].Name)
+          for $candidate-concept in $children.Name
           let $facts := $facts[$$.Aspects.$facts:CONCEPT = $candidate-concept]
           where exists($facts)
           count $c
@@ -1534,15 +1535,15 @@ declare %private function facts:align-aspects(
     (: handling explicit and typed dimensions (but only those restricted by an enumeration here :)
     let $dimension as object := $hypercube-aspects.$dimension-name
     let $typed-dimension as boolean := $dimension.Kind = "TypedDimension"
-    let $hypercube-domains  :=
+    let $hypercube-domains :=
       if ($typed-dimension)
       then $dimension.DomainRestriction.Enumeration
-      else $dimension.Domains
+      else $dimension.Members[]
     let $hypercube-restricts := exists($hypercube-domains)
     let $hypercube-members as atomic* :=
       if ($typed-dimension)
       then flatten($hypercube-domains)
-      else descendant-objects($hypercube-domains).Name
+      else ($hypercube-domains, descendant-objects($hypercube-domains)).Name
     let $hypercube-default as atomic? := $dimension.Default
     let $hypercube-has-default as boolean := exists($hypercube-default)
 
@@ -1851,7 +1852,7 @@ declare %private function facts:flatten-concept-maps(
   $concept-maps as object*
 ) as object*
 {
-  facts:flatten-concept-maps($concept-maps, keys($concept-maps.Trees))
+  facts:flatten-concept-maps($concept-maps, $concept-maps.Trees[].Name)
 };
 
 (:~
@@ -1864,9 +1865,10 @@ declare %private function facts:flatten-concept-maps(
   $concepts as string*
 ) as object*
 {
-    for $key in $concepts
-    let $children := $concept-maps.Trees.$key.To
-    let $val := (keys($children), $children[].Name)
+    for $concept in $concept-maps.Trees[]
+    where $concept.Name = $concepts
+    let $key := $concept.Name
+    let $val as object* := $concept.To[].Name
     where exists($val)
     return {$key:[$val]}
 };

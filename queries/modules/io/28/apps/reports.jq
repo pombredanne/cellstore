@@ -75,33 +75,9 @@ declare function reports:concepts-checks($report as object)
 as object*
 {
     (: check whether all indexes match the concept name -> index : { Name: index } :)
-    let $all-presentation-network-mappings := descendant-objects($report.Networks[][$$.ShortName eq "Presentation"]) ! ($$.Trees, $$.To)
-    let $all-conceptmap-network-mappings := descendant-objects($report.Networks[][$$.ShortName eq "ConceptMap"]) ! ($$.Trees, $$.To)
     let $all-hypercube-mappings := descendant-objects($report.Hypercubes) ! ($$.Members)
     return
         (
-            for $key in keys($all-presentation-network-mappings)
-            for $concept in $all-presentation-network-mappings.$key
-            return 
-                if($concept.Name eq $key)
-                then ()
-                else reports:message($reports:ERROR,
-                                     $reports:CONTEXT-NETWORKS-PRESENTATION,
-                                     $key, 
-                                     "Concept.Name ('" || $concept.Name || "') does not match index key ('" || $key || "') in presentation network",
-                                     $concept),
-            
-            for $key in keys($all-conceptmap-network-mappings)
-            for $concept in $all-conceptmap-network-mappings.$key
-            return 
-                if($concept.Name eq $key)
-                then ()
-                else reports:message($reports:ERROR,
-                                     $reports:CONTEXT-NETWORKS-CONCEPTMAP,
-                                     $key, 
-                                     "Concept.Name ('" || $concept.Name || "') does not match index key ('" || $key || "') in concept map",
-                                     $concept),
-            
             for $key in keys($all-hypercube-mappings)
             for $concept in $all-hypercube-mappings.$key
             return 
@@ -115,7 +91,7 @@ as object*
         ),
     
     (: check whether all used concepts are in the hypercube :)
-    let $hypercube-concepts := keys($report.Hypercubes."xbrl:DefaultHypercube".Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members)
+    let $hypercube-concepts as string* := distinct-values(values($report.Hypercubes).Aspects."xbrl:Concept".Members[].Name)
     return
         (
             let $pres-concepts := 
@@ -161,7 +137,7 @@ as object*
                 )(:,
             
             let $map-concepts := 
-                keys($report.Networks[][$$.ShortName eq "ConceptMap"].Trees)
+                $report.Networks[][$$.ShortName eq "ConceptMap"].Trees[].Name
             for $concept-names in $map-concepts
             group by $concept-name := $concept-names
             return

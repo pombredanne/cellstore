@@ -143,17 +143,8 @@ declare %private function resolution:labels(
     $label-role as string,
     $options as object?) as string*
 {
-    let $components-with-the-language-as-default :=
-        for $component in $components
-        let $default-language := ($component.DefaultLanguage, "en-US")[1]
-        where not $default-language ne $options.Language
-        return $component
-
     let $labels-from-local-metadata as string* :=
-        let $default-hypercubes as object* :=
-            hypercubes:hypercubes-for-components($components-with-the-language-as-default, "xbrl:DefaultHypercube")
-        for $local-metadata as object in
-            descendant-objects($default-hypercubes.Aspects)
+        for $local-metadata as object in $components.Concepts[]
         let $local-metadata-name := $local-metadata.Name
         let $local-metadata-preferred-label-role as string := ($local-metadata.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1]
         where $local-metadata-name = $concept-names and
@@ -166,8 +157,8 @@ declare %private function resolution:labels(
         then
             concepts:labels-for-components(
                 $concept-names,
-                $components, 
-                $label-role, 
+                $components,
+                $label-role,
                 ($options.Language, "en-US")[1],
                 $concepts,
                 ())
@@ -206,13 +197,13 @@ declare %private function resolution:convert-rule-node(
             $main-members,
             $components,
             $concepts,
-            $concepts:STANDARD_LABEL_ROLE, 
+            $concepts:STANDARD_LABEL_ROLE,
             $options)
     )
-          
+
     let $children := resolution:convert-definition-nodes(
         $definition-node.Children[],
-        $components, 
+        $components,
         $parent-child-order,
         $concepts,
         $options)
@@ -220,7 +211,7 @@ declare %private function resolution:convert-rule-node(
         Labels: [ ],
         ConstraintSets : {
             "": { }
-            
+
         },
         RollUp: true
     }
@@ -383,8 +374,7 @@ declare %private function resolution:expand-concept-network(
     let $concept as string := $network.Name
     let $default-languages as string* := $components.$components:DEFAULT-LANGUAGE
     let $default-languages := if(exists($default-languages)) then $default-languages else "en-US"
-    let $default-hypercube := hypercubes:hypercubes-for-components($components, "xbrl:DefaultHypercube")
-    let $concept-metadata := $default-hypercube.Aspects."xbrl:Concept".Domains."xbrl:ConceptDomain".Members.$concept[1]
+    let $concept-metadata := ($components.Concepts[])[$$.Name eq $concept][1]
     let $label :=
         if(every $language in $default-languages satisfies $language eq $options.Language)
         then $network.Label
@@ -393,7 +383,7 @@ declare %private function resolution:expand-concept-network(
             $concept,
             $components,
             $concepts,
-            ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
+            ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1],
             $options)
     return
     {|
@@ -440,7 +430,7 @@ declare %private function resolution:expand-concept-network(
                         $parent-child-order,
                         $concepts,
                         $options
-                    ) 
+                    )
         let $roll-up :=
             if($concept-metadata.IsAbstract)
             then ()
@@ -511,7 +501,7 @@ declare function resolution:expand-dimension-network(
             $value,
             $components,
             $concepts,
-            ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1], 
+            ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1],
             $options)
     return
     {|
@@ -531,7 +521,7 @@ declare function resolution:expand-dimension-network(
                         $parent-child-order,
                         $concepts,
                         $options
-                ) 
+                )
         let $roll-up :={
             Labels: [],
             RollUp: true
@@ -616,19 +606,18 @@ declare %private function resolution:metadata(
     $components as object*,
     $member-names as string*) as object*
 {
-    let $default-hypercube := hypercubes:hypercubes-for-components($components, "xbrl:DefaultHypercube")
-    return descendant-objects($default-hypercube.Aspects)[$$.Name = $member-names][1]
+    ($components.Concepts[])[$$.Name = $member-names][1]
 };
 
 (:~
   Resolves a definition model to a structural model, given a component.
-  
+
   @param $definition-model A definition mode, in 28msec's proprietary JSON format.
   @param $component A component, in 28msec's proprietary JSON format.
-  
+
   @error resolution:UNFORESEEN-ERROR Something went wrong, contact us.
   @error resolution:UNKNOWN-DEFINITION-NODE-KIND A definition node was not recognized.
-  
+
   @return a structural model
 :)
 declare function resolution:resolve(
@@ -641,10 +630,10 @@ declare function resolution:resolve(
 
 (:~
  : Resolves a definition model to a structural model, given a component.
- : 
+ :
  : @param $definition-model A definition mode, in 28msec's proprietary JSON format.
  : @param $component A component, in 28msec's proprietary JSON format.
- : @param $options Optional parameters among which 
+ : @param $options Optional parameters among which
  : <ul>
  :   <li>Hypercube: override the components' hypercubes with the provided hypercube
  :      (this will only affect the default values used later in the layout pipeline).</li>
@@ -689,7 +678,7 @@ declare function resolution:resolve(
                         $axis: [
                             for $breakdown in $definition-model.Breakdowns.$axis[]
                             return resolution:convert-breakdown($breakdown,
-                                                                $components, 
+                                                                $components,
                                                                 $definition-model.ParentChildOrder,
                                                                 $concepts,
                                                                 $options)
@@ -714,7 +703,7 @@ declare function resolution:resolve(
             where exists($hypercube-default)
             return {
                 $dimension: $hypercube-default
-            } 
+            }
         |}
     }
 };

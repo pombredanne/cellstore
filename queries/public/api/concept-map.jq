@@ -11,12 +11,12 @@ declare function local:to-xml($c as object) as node()*
     (
         session:comment("xml"),
         <ConceptMap name="{$c.ShortName}" linkrole="{$c.LinkRole}">{
-            for $k in keys($c.Trees)
+            for $o in $c.Trees[]
             return
                 <Mapping>{
                      (
-                         <Concept>{$k}</Concept>,
-                         for $t in $c.Trees.$k.To[].Name
+                         <Concept>{$o.Name}</Concept>,
+                         for $t in $o.To[].Name
                          return
                              <MappedTo>{$t}</MappedTo>
                      )
@@ -30,11 +30,11 @@ declare function local:to-csv($c as object) as string
 {
     string-join(
         csv:serialize(
-            for $k in keys($c.Trees)
-            for $v at $y in keys($c."Trees".$k.To)
+            for $o as object in $c.Trees[]
+            for $v as object at $y in $o.To[]
             return {
-                "Concept" : $k,
-                "MappedTo" : $v,
+                "Concept" : $o.Name,
+                "MappedTo" : $v.Name,
                 "TryOrder" : $y
             }
         )

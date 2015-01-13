@@ -1,4 +1,4 @@
-import module namespace archives = "http://28.io/modules/xbrl/archives";		
+import module namespace archives = "http://28.io/modules/xbrl/archives";
 import module namespace entities = "http://28.io/modules/xbrl/entities";
 import module namespace hypercubes = "http://28.io/modules/xbrl/hypercubes";
 import module namespace conversion = "http://28.io/modules/xbrl/conversion";
@@ -47,7 +47,7 @@ let $tag as string* := api:preprocess-tags($tag)
 let $entities := ($eid,
     if($profile-name eq "sec")
     then
-        for $entity in 
+        for $entity in
             companies:companies(
                 $cik,
                 $tag,
@@ -68,7 +68,7 @@ then
       response:status-code(404);
       session:error("report with id '" || $report-id || "' does not exist.", $format)
 } else
-    
+
     (: Fact resolution :)
     let $filter-override as object? :=
         if($profile-name eq "sec")
@@ -80,8 +80,8 @@ then
             $aid)
         else components:filter-override($entities, $aid)
     let $facts as object* :=
-        let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
-        let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
+        let $hypercube := hypercubes:hypercubes-for-components($report)[1]
+        let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Members, $$.DomainRestriction))]
         return if(count($filtered-aspects) lt $config:filtered-aspects and not exists(($filter-override)))
         then {
               response:status-code(403);
@@ -94,8 +94,8 @@ then
                         { Validate: $validate }
                     |}
                 )
-    
-    let $concepts as object* := 
+
+    let $concepts as object* :=
         reports:concepts($report)
     let $language as string := ( $report.$components:DEFAULT-LANGUAGE , $concepts:AMERICAN_ENGLISH )[1]
     let $role as string := ( $report.Role, $concepts:ANY_COMPONENT_LINK_ROLE )[1]
@@ -114,7 +114,7 @@ then
             if($labels)
             then
                 let $labels as object? := facts:labels($fact, $role, $concepts:STANDARD_LABEL_ROLE, $language, $concepts, ())
-                return 
+                return
                     { Labels : $labels }
             else ()
         |}
@@ -126,9 +126,9 @@ then
             trim($fact, "Labels"),
             { Labels : $labels-object }[exists($labels)]
         |}
-    
+
     let $facts := api:normalize-facts($facts)
-    
+
     let $results :=
         switch ($format)
         case "xml" return {

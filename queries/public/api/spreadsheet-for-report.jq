@@ -45,7 +45,7 @@ let $tag as string* := api:preprocess-tags($tag)
 let $entities := ($eid,
     if($profile-name eq "sec")
     then
-        for $entity in 
+        for $entity in
             companies:companies(
                 $cik,
                 $tag,
@@ -77,10 +77,10 @@ then
             $fiscalPeriodType,
             $aid)
         else components:filter-override($entities, $aid)
-    
+
     (: Fact resolution :)
-    let $hypercube := hypercubes:hypercubes-for-components($report, "xbrl:DefaultHypercube")
-    let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Domains, $$.DomainRestriction))]
+    let $hypercube := hypercubes:hypercubes-for-components($report)[1]
+    let $filtered-aspects := values($hypercube.Aspects)[exists(($$.Members, $$.DomainRestriction))]
     let $spreadsheet as object? :=
         if(count($filtered-aspects) lt $config:filtered-aspects and not exists(($filter-override)))
         then {

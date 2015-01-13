@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rules-model', ['excel-parser', 'formula-parser'])
-    .factory('Rule', function (_, $q, $log, $sce, ExcelParser, FormulaParser) {
+    .factory('Rule', function (_, $q, $log, ExcelParser, FormulaParser) {
 
         var ensureParameter = function (paramValue, paramName, paramType, functionName, regex, regexErrorMessage) {
             if (paramValue === null || paramValue === undefined) {
@@ -58,9 +58,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                             'Id': report.uuid(),
                             'Type': modelOrRuleType,
                             'OriginalLanguage': language,
-                            'Label': concept.Label,
-                            'Description': 'Rule to validate ' + concept.Label + ' (' + computableConcept +
-                            '). It also creates a new fact (' + alignedComputableConcept + ') that contains the validation result.',
                             'ComputableConcepts': [alignedComputableConcept],
                             'ValidatedConcepts': [this.report.hideDefaultConceptPrefix(computableConcept)],
                             'DependsOn': [],
@@ -82,9 +79,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         this.setModel({
                             'Id': report.uuid(),
                             'Type': modelOrRuleType,
-                            'Label': concept.Label + ' Validation',
-                            'Description': 'Rule to validate ' + concept.Label + ' (' + computableConcept +
-                            '). It also creates a new fact (' + alignedComputableConcept + ') that contains the validation result.',
                             'ComputableConcepts': [computableConcept + 'Validation'],
                             'ValidatedConcepts': [computableConcept],
                             'DependsOn': [],
@@ -98,8 +92,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                             'Id': report.uuid(),
                             'Type': modelOrRuleType,
                             'OriginalLanguage': language,
-                            'Label': concept.Label,
-                            'Description': 'Rule to compute ' + concept.Label + ' (' + computableConcept + ').',
                             'ComputableConcepts': [computableConcept],
                             'DependsOn': [],
                             'HideRulesForConcepts': [],
@@ -120,8 +112,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         this.setModel({
                             'Id': report.uuid(),
                             'Type': modelOrRuleType,
-                            'Label': concept.Label,
-                            'Description': 'Rule to compute ' + concept.Label + ' (' + computableConcept + ').',
                             'ComputableConcepts': [computableConcept],
                             'DependsOn': [],
                             'HideRulesForConcepts': [],
@@ -431,7 +421,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                                 result.push('"not(exists( " || ' + innerparams.join(' || ", "') + ' || "))"');
                                 break;
                             case 'not':
-                                result.push('not((' + innerparams.join(' || ", "') + ' || "))"');
+                                result.push('"not(( " || ' + innerparams.join(' || ", "') + ' || "))"');
                                 break;
                             case 'and':
                                 result.push('(' + innerparams.join(' || " and "') + ' || ")"');
@@ -463,17 +453,22 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             var result = [];
             var prefix = this.getPrefix();
             var report = this.report;
-            var computedConcept = report.alignConceptPrefix(this.model.ComputableConcepts[0]);
+            var computedConcept = report.getConcept(this.model.ComputableConcepts[0]);
+            var decimals = this.getDecimals();
+            var units;
+            if(_.isString(this.model.Unit) && this.model.Unit !== ''){
+                units = this.model.Unit;
+            }
             if (_.isObject(this.model)) {
                 if ((this.model.OriginalLanguage === 'SpreadsheetFormula') &&
                     this.model.Formulae !== undefined && this.model.Formulae !== null) {
 
                     var facts = getUniqueFacts(report, this.model);
                     var computedFactVariable;
-                    if (computedConcept.indexOf(prefix + ':') === 0) {
-                        computedFactVariable = report.hideDefaultConceptPrefix(computedConcept);
+                    if (computedConcept.Name.indexOf(prefix + ':') === 0) {
+                        computedFactVariable = report.hideDefaultConceptPrefix(computedConcept.Name);
                     } else {
-                        computedFactVariable = computedConcept.replace(/:/g, '_');
+                        computedFactVariable = computedConcept.Name.replace(/:/g, '_');
                     }
                     var allowCrossPeriod = this.model.AllowCrossPeriod;
                     //var allowCrossBalance = this.model.AllowCrossBalance;
@@ -536,7 +531,11 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         result.push('                             else ())');
                         result.push('let $' + v.Name + ' as object? := $' + v.Name + '[1]');
                     });
-                    result.push('let $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]');
+                    if(_.isString(units)){
+                        result.push('let $_unit := "' + units + '"');
+                    } else {
+                        result.push('let $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]');
+                    }
                     result.push('return');
                     result.push('  switch (true)');
                     result.push('  case exists($' + computedFactVariable + ') return $' + computedFactVariable);
@@ -581,31 +580,22 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         result.push('    let $computed-value := ' + toComputation(body));
                         result.push('    let $audit-trail-message as string* := ');
                         if (that.model.Type === 'xbrl28:formula') {
-                            result.push('      rules:fact-trail({"Aspects": { "xbrl:Unit" : $_unit, "xbrl:Concept" : "' + computedConcept + '" }, Value: $computed-value }) || " = " || ');
+                            result.push('      rules:fact-trail({"Aspects": { "xbrl:Unit" : $_unit, "xbrl:Concept" : "' + computedConcept.Name + '" }, Value: $computed-value }) || " = " || ');
                         }
                         result.push('         ' + toAuditTrail(body));
                         result.push('    let $audit-trail-message as string* := ($audit-trail-message, $warnings)');
                         result.push('    let $source-facts as object* := (' + auditTrailSourceFacts + ')');
-                        result.push('    return');
-                        result.push('      if(string(number($computed-value)) != "NaN" and not($computed-value instance of xs:boolean) and $computed-value ne xs:integer($computed-value))');
-                        result.push('      then');
-                        result.push('        copy $newfact :=');
-                        result.push('          rules:create-computed-fact(');
-                        result.push('            $' + sourceFactVariable + ',');
-                        result.push('            "' + computedConcept + '",');
-                        result.push('            $computed-value,');
-                        result.push('            $rule,');
-                        result.push('            $audit-trail-message,');
-                        result.push('            $source-facts,');
-                        result.push('            $options)');
+                        result.push('    let $rule as object :=');
+                        result.push('        copy $newRule := $rule');
                         result.push('        modify (');
-                        result.push('            replace value of json $newfact("Decimals") with 2');
+                        result.push('            if(exists($newRule("Label"))) then ()');
+                        result.push('                                          else insert json { "Label": "' + computedConcept.Label + '" } into $newRule');
                         result.push('          )');
-                        result.push('        return $newfact');
-                        result.push('      else');
+                        result.push('        return $newRule');
+                        result.push('    let $fact as object :=');
                         result.push('        rules:create-computed-fact(');
                         result.push('          $' + sourceFactVariable + ',');
-                        result.push('          "' + computedConcept + '",');
+                        result.push('          "' + computedConcept.Name + '",');
                         result.push('          $computed-value,');
                         result.push('          $rule,');
                         result.push('          $audit-trail-message,');
@@ -618,6 +608,32 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         else {
                             result.push('            $options)');
                         }
+                        result.push('    return');
+                        result.push('        copy $newFact := $fact');
+                        result.push('        modify (');
+                        result.push('            if(exists($newFact("Aspects")("xbrl:Unit"))) then replace value of json $newFact("Aspects")("xbrl:Unit") with $_unit');
+                        result.push('                                                         else insert json { "xbrl:Unit": $_unit } into $newFact("Aspects")');
+                        if(decimals !== undefined) {
+                            result.push('            ,if(exists($newFact("Decimals"))) then replace value of json $newFact("Decimals") with ' + decimals);
+                            result.push('                                             else insert json { "Decimals": ' + decimals + ' } into $newFact');
+                        }
+                        if(_.isString(computedConcept.Balance)){
+                            result.push('            ,');
+                            result.push('              if(exists($newFact("Concept")("Balance"))) then replace value of json $newFact("Concept")("Balance") with "' + computedConcept.Balance + '"');
+                            result.push('                                                         else insert json { "Balance": "' + computedConcept.Balance + '" } into $newFact("Concept")');
+                        }
+                        if(_.isString(computedConcept.DataType)){
+                            result.push('            ,');
+                            result.push('              if(exists($newFact("Concept")("DataType"))) then replace value of json $newFact("Concept")("DataType") with "' + computedConcept.DataType + '"');
+                            result.push('                                                         else insert json { "DataType": "' + computedConcept.DataType + '" } into $newFact("Concept")');
+                        }
+                        if(_.isString(computedConcept.PeriodType)){
+                            result.push('            ,');
+                            result.push('              if(exists($newFact("Concept")("PeriodType"))) then replace value of json $newFact("Concept")("PeriodType") with "' + computedConcept.PeriodType + '"');
+                            result.push('                                                         else insert json { "PeriodType": "' + computedConcept.PeriodType + '" } into $newFact("Concept")');
+                        }
+                        result.push('          )');
+                        result.push('        return $newFact');
 
                     });
                     result.push('  default return ()');
@@ -796,13 +812,21 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             }
         };
 
-        var validateLabel = function (rule) {
-            var label = rule.Label;
-            if (label === undefined || label === null || label === '') {
-                rule.LabelErr = 'Rule Label is mandatory.';
+        var validateDecimals = function (rule) {
+            var decimals = rule.Decimals;
+            if (typeof decimals === 'string' && decimals !== 'INF' && decimals !== '') {
+                decimals = parseInt(decimals,10);
+            } else if(typeof decimals === 'number') {
+                decimals = Math.round(decimals);
+            }
+            if(decimals !== undefined && decimals !== '' && isNaN(decimals) && decimals !== 'INF'){
+                rule.DecimalsErr = 'Invalid decimals value (must be integer or "INF")';
+                rule.valid = false;
+            } else if(decimals !== undefined && decimals !== '' && !isNaN(decimals) && decimals !== parseFloat(rule.Decimals)){
+                rule.DecimalsErr = 'Invalid decimals value (must be integer or "INF")';
                 rule.valid = false;
             } else {
-                delete rule.LabelErr;
+                delete rule.DecimalsErr;
             }
         };
 
@@ -954,7 +978,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 var type = rule.Type;
                 rule.valid = true;
                 validateId(rule, report, action);
-                validateLabel(rule);
+                validateDecimals(rule);
                 validateComputableConcepts(rule, report);
                 if (updateDependencies !== undefined && updateDependencies) {
                     inferDependencies(this, this.model, true);
@@ -1019,6 +1043,25 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             }
         };
 
+        Rule.prototype.getDecimals = function () {
+            var model = this.getModel();
+            if(model === undefined || model === null){
+                return undefined;
+            }
+            if(model.Decimals !== undefined && model.Decimals !== '' && model.Decimals !== null){
+                var result = model.Decimals;
+                if (typeof model.Decimals === 'string' && model.Decimals !== 'INF' && model.Decimals !== '') {
+                    result = parseInt(model.Decimals,10);
+                } else if(typeof decimals === 'number') {
+                    result = Math.round(model.Decimals);
+                }
+                if(result !== undefined && isNaN(result) && result !== 'INF'){
+                    return undefined;
+                }
+                return result;
+            }
+        };
+
         Rule.prototype.getRule = function () {
             var model = this.getModel();
             if (model.OriginalLanguage === 'SpreadsheetFormula') {
@@ -1030,12 +1073,14 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 'Id': model.Id,
                 'OriginalLanguage': model.OriginalLanguage,
                 'Type': model.Type,
-                'Label': model.Label,
-                'Description': model.Description,
+                'Decimals': this.getDecimals(),
                 'ComputableConcepts': computableConcepts,
                 'DependsOn': model.DependsOn,
                 'Formula': model.Formula
             };
+            if(model.Unit !== undefined && model.Unit !== '' && model.Unit !== null){
+                rule.Unit = model.Unit;
+            }
             if (model.ValidatedConcepts !== undefined) {
                 rule.ValidatedConcepts = report.alignConceptPrefixes(model.ValidatedConcepts);
             }
