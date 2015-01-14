@@ -506,7 +506,14 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 _.each(data.Formulae, function(alternative){
                     var body = alternative.Body;
                     var prereq = alternative.Prereq;
-                    var usedFacts = inferDependenciesImpl(that, alternative);
+                    var sourceFactVarName = alternative.SourceFact[0];
+                    if (sourceFactVarName.indexOf(prefix + ':') === 0) {
+                        sourceFactVarName = sourceFactVarName.substring(prefix.length + 1);
+                    } else {
+                        sourceFactVarName = sourceFactVarName.replace(/:/g, '_');
+                    }
+                    alternative.SourceFactVarName = sourceFactVarName;
+                    var usedFacts = _.unique(inferDependenciesImpl(that, alternative));
                     var usedVariables = [];
                     _.each(usedFacts, function(fact){
                         var variable = {
@@ -519,7 +526,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         }
                         usedVariables.push(variable);
                     });
-                    alternative.UsedVariables = _.unique(usedVariables);
+                    alternative.UsedVariables = usedVariables;
                     prereq.Compiled = toComputation(prereq);
                     body.Compiled = toComputation(body);
                     var auditTrail = '';
@@ -963,8 +970,10 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             }
             var report = this.report;
             var computableConcepts = report.alignConceptPrefixes(model.ComputableConcepts);
+            var label = report.getConcept(computableConcepts[0]).Label;
             var rule = {
                 'Id': model.Id,
+                'Label': label,
                 'OriginalLanguage': model.OriginalLanguage,
                 'Type': model.Type,
                 'Decimals': this.getDecimals(),
