@@ -53,7 +53,7 @@ declare variable $components:ROLE as xs:string := "Role";
 (:~
  : Name of the field pointing to the default language.
  :)
-declare variable $components:DEFAULT-LANGUAGE as xs:string := "DefaultLanguage";
+declare variable $components:DEFAULT-LANGUAGE as xs:string := "Language";
 
 (:~
  : <p>Retrieves all components.</p>

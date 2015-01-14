@@ -64,26 +64,16 @@ let $archives as object* := multiplexer:filings(
   $fiscalYear,
   $aid)
 
-let $components  :=
-    switch($profile-name)
-    case "sec" return sec-networks:components(
-        $archives,
-        $cid,
-        $reportElement,
-        $disclosure,
-        $networkIdentifier,
-        $label)
-    default return
-        switch(true)
-        case (exists($networkIdentifier) and exists($archives))
-        return components:components-for-archives-and-roles($archives, $networkIdentifier)
-        case exists($archives)
-        return components:components-for-archives($archives)
-        default
-        return {
-          response:status-code(400);
-          session:error("Archive ID missing.", $format)
-        }
+let $components as object* :=
+    multiplexer:components(
+      $profile-name,
+      $archives,
+      $cid,
+      $reportElement,
+      $disclosure,
+      $networkIdentifier,
+    $label)
+
 let $component as object? := if($merge) then components:merge($components) else $components[1]
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
 

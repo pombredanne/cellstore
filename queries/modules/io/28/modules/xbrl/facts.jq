@@ -649,6 +649,73 @@ declare function facts:labels(
 };
 
 (:~
+ : <p>Retrieves all the labels with the given label role and language for
+ : all concepts used in the fact and matching a concept in the list of
+ : concepts. Concepts used in a fact include not only those from the
+ : 'xbrl:Concept' aspect, but also Members of any custom axis.</p>
+ :
+ : <p>Matching concepts are those which:
+ :  - concept name matches a given one,
+ :  - archive number matches that of a given component,
+ :  - component role matches that of a given component or is the default
+ :    component role.
+ : </p>
+ :
+ : <p>The set of concepts to search in is specified as a parameter.</p>
+ :
+ : <p>Language matching can either be exact, if no options are given,
+ : or approximated, if at least one of the following options is given:</p>
+ : <ul>
+ :   <li>MatchDown: whether to match a more specific language, e.g.:
+ :       "en" will match labels which language is "en" or "en-US".</li>
+ :   <li>MatchUp: whether to match a less specific language, e.g.:
+ :       "en-US" will match labels which language is "en-US" or "en".</li>
+ :   <li>MatchAnyVariant: whether to match a different variant of the same
+ :       language, e.g.: "en-US" will match labels which language is "en-US"
+ :       or "en-UK".</li>
+ : </ul>
+ :
+ : @param $facts a sequence of facts.
+ : @param $label-role the label role.
+ : @param $language the label language.
+ : @param $concepts the concepts in which the labels will be
+ :                  searched (in the version-7 format).
+ : @param $options optional parameters to control language matching.
+ :
+ : @return an object with matching concepts as keys and labels as values.
+ :)
+declare function facts:labels(
+    $facts as object*,
+    $label-role as string,
+    $language as string,
+    $concepts as object*,
+    $options as object?
+  ) as object?
+{
+    let $concept-names as string* :=
+        distinct-values((values($facts.Aspects), keys($facts.Aspects))[string($$) = $concepts.Name])
+    return
+        {|
+            for $name in $concept-names
+            let $label as string? :=
+                concepts:labels(
+                    $name,
+                    $label-role,
+                    $language,
+                    $concepts,
+                    $options)[1]
+            return
+                {
+                    $name: $label
+                },
+            for $key in distinct-values(keys($facts.Aspects))
+            where not string($facts.Aspects.$key) = $concept-names
+            return
+                { $facts.Aspects.$key : "Default Legal Entity" }[$key eq "dei:LegalEntityAxis" and $facts.Aspects.$key eq "sec:DefaultLegalEntity"]
+        |}
+};
+
+(:~
  : <p>Retrieves the eid of the entity who reported a fact.</p>
  :
  : @param $fact-or-id a fact or its FID.
