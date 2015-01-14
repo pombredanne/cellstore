@@ -467,7 +467,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 var data = angular.copy(this.model);
                 data.Variables = [];
                 var facts = getUniqueFacts(report, this.model);
-                $log.log(facts);
                 _.each(facts, function(fact){
                     var variable = {
                         'Concept': fact
@@ -521,7 +520,6 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         usedVariables.push(variable);
                     });
                     alternative.UsedVariables = _.unique(usedVariables);
-                    $log.log('Used: ' + JSON.stringify(alternative.UsedVariables));
                     prereq.Compiled = toComputation(prereq);
                     body.Compiled = toComputation(body);
                     var auditTrail = '';
