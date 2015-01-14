@@ -1,0 +1,59 @@
+
+    case (exists(${{SourceFact}}) and {{{Prereq.Compiled}}})
+    return
+      let $computed-value := {{{Body.Compiled}}}
+      let $audit-trail-message as string* := {{{Body.AuditTrail}}}
+      let $audit-trail-message as string* := ($audit-trail-message, $warnings)
+      let $source-facts as object* := ( {{#UsedVariables}}${{VarName}},{{/UsedVariables}}())
+      let $rule as object :=
+        copy $newRule := $rule
+        modify (
+            if(exists($newRule("Label"))) then ()
+            else insert json { "Label": "{{#Variables}}{{#ComputedConcept}}{{ComputedConcept.Label}}{{/ComputedConcept}}{{/Variables}}" } into $newRule
+        )
+        return $newRule
+      let $fact as object :=
+        rules:create-computed-fact(
+          {{#Variables}}{{#ComputedConcept}}${{VarName}},
+          "{{Concept}},{{/ComputedConcept}}{{/Variables}}
+          $computed-value,
+          $rule,
+          $audit-trail-message,
+          $source-facts,
+{{#ValidatedFactVariable}}
+          $options,
+          ${{ValidatedFactVariable}},
+          $computed-value)
+{{/ValidatedFactVariable}}
+{{^ValidatedFactVariable}}
+          $options)
+{{/ValidatedFactVariable}}
+      return
+        copy $newFact := $fact
+        modify (
+          if(exists($newFact("Aspects")("xbrl:Unit")))
+          then replace value of json $newFact("Aspects")("xbrl:Unit") with $_unit
+          else insert json { "xbrl:Unit": $_unit } into $newFact("Aspects"),
+{{#DecimalsString}}
+          if(exists($newFact("Decimals")))
+          then replace value of json $newFact("Decimals") with "{{DecimalsString}}"
+          else insert json { "Decimals": "{{DecimalsString}}" } into $newFact,{{/DecimalsString}}
+{{#DecimalsInt}}
+          if(exists($newFact("Decimals")))
+          then replace value of json $newFact("Decimals") with {{DecimalsInt}}
+          else insert json { "Decimals": {{DecimalsInt}} } into $newFact,{{/DecimalsInt}}
+{{#Variables}}{{#ComputedConcept}}{{#Balance}}
+          if(exists($newFact("Concept")("Balance")))
+          then replace value of json $newFact("Concept")("Balance") with "{{Balance}}"
+          else insert json { "Balance": "{{Balance}}" } into $newFact("Concept"),{{/Balance}}{{/ComputedConcept}}{{/Variables}}
+{{#Variables}}{{#ComputedConcept}}{{#DataType}}
+          if(exists($newFact("Concept")("DataType")))
+          then replace value of json $newFact("Concept")("DataType") with "{{DataType}}"
+          else insert json { "DataType": "{{DataType}}" } into $newFact("Concept"),{{/DataType}}{{/ComputedConcept}}{{/Variables}}
+{{#Variables}}{{#ComputedConcept}}{{#PeriodType}}
+          if(exists($newFact("Concept")("PeriodType")))
+          then replace value of json $newFact("Concept")("PeriodType") with "{{PeriodType}}"
+          else insert json { "PeriodType": "{{PeriodType}}" } into $newFact("Concept"),{{/PeriodType}}{{/ComputedConcept}}{{/Variables}}
+          ()
+        )
+        return $newFact

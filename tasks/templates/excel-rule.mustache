@@ -1,0 +1,49 @@
+for $facts in facts:facts-for-internal((
+    {{#Variables}}"{{Concept}}",{{/Variables}}()
+  ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)
+
+let $duration-period as object? := facts:duration-for-fact($facts, {Typed: false })
+let $instant-period as string?  := facts:instant-for-fact($facts, {Typed: false })
+let $aligned-period as string  := ( $duration-period.End, $instant-period, "forever")[1]
+
+group by $canonical-filter-string :=
+facts:canonical-grouping-key($facts, ($facts:CONCEPT, $facts:UNIT {{#AllowCrossPeriod}}, $facts:PERIOD{{/AllowCrossPeriod}} ))
+{{#AllowCrossPeriod}}
+    , $aligned-period
+{{/AllowCrossPeriod}}
+
+let $facts := $facts[$$.$facts:ASPECTS.$facts:PERIOD = ($duration-string, $aligned-period)]
+let $warnings as string* := ()
+
+{{#Variables}}
+let ${{Name}} as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq "{{Concept}}"]
+let $warnings := ($warnings,
+  if(count(${{Name}}) gt 1)
+  then if(count(distinct-values(${{Name}}.Value)) gt 1)
+    then "Cell collision with conflicting values for concept {{Name}}."
+    else "Cell collision with consistent values for concept {{Name}}."
+  else ())
+let ${{Name}} as object? := ${{Name}}[1]
+
+{{/Variables}}
+
+{{#Unit}}
+let $_unit := "{{Unit}}"
+{{/Unit}}
+{{^Unit}}
+let $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]
+{{/Unit}}
+
+return
+  switch (true)
+{{#Variables}}
+  {{#ComputedConcept}}
+    case exists(${{VarName}}) return ${{VarName}}
+  {{/ComputedConcept}}
+{{/Variables}}
+
+{{#Formulae}}
+    {{> excel-rule-alternative }}
+{{/Formulae}}
+
+    default return ()
