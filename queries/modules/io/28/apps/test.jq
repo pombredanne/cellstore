@@ -2,11 +2,12 @@ jsoniq version "1.0";
 module namespace test = "http://apps.28.io/test";
 import module namespace http-client = "http://zorba.io/modules/http-client";
 import module namespace request = "http://www.28msec.com/modules/http-request";
+import module namespace response = "http://www.28msec.com/modules/http-response";
 import module namespace config = "http://apps.28.io/config";
 import module namespace credentials = "http://www.28msec.com/modules/credentials";
 
 declare function test:is-dow30() as boolean{
-  contains(credentials:credentials("MongoDB", "xbrl").db, "dow30")  
+  contains(credentials:credentials("MongoDB", "xbrl").db, "dow30")
 };
 
 declare function test:url($endpoint as string, $parameters as object) as string
@@ -54,6 +55,39 @@ declare %an:nondeterministic function test:invoke-public($endpoint as string, $p
   let $response as object := http-client:get($url)
   return ($response.status, parse-json($response.body.content))
 };
+
+declare %an:nondeterministic function test:get-expected-result(
+  $expected-file as string
+) as item*
+{
+  parse-json(
+    http-client:get("http://" || request:server-name() || ":" || request:server-port() ||
+                    "/test/" || $expected-file).body.content)
+};
+
+
+declare %an:nondeterministic function test:invoke-and-assert-deep-equal-json(
+  $endpoint as string,
+  $parameters as object,
+  $transform as function(object) as item*,
+  $expected as item*
+) as item
+{
+  let $request := test:invoke($endpoint, $parameters)
+  let $status as integer := $request[1]
+  let $actual as item* := $transform($request[2])
+  return test:assert-deep-equal($expected, $actual, $status, test:url($endpoint, $parameters))
+};
+
+declare %an:sequential function test:check-all-success($o as object) as object
+{
+  if (not(every $k in (keys($o) ! $o.$$) satisfies ($k instance of boolean and $k)))
+  then {
+    response:status-code(500);
+    $o
+  } else $o
+};
+
 
 
 (:    return
@@ -103,11 +137,11 @@ declare function test:assert-eq-array(
 {
     let $diff := try {
             {
-                actual: [ 
+                actual: [
                     for $a in flatten($actual)
                     where not($a = flatten($expected))
                     return $a ],
-                actualDuplicates: [ 
+                actualDuplicates: [
                     for $a in flatten($actual)
                     where $a = flatten($expected) and count(flatten($actual)[$$ eq $a]) ne count(flatten($expected)[$$ eq $a])
                     return $a ],
@@ -117,7 +151,7 @@ declare function test:assert-eq-array(
                     return $e ]
             }
         } catch * { "error: " || $err:description }
-      
+
     return
         switch(true)
         case $status ne 200 return { "url": $url, status: $status }
@@ -130,4 +164,3 @@ declare function test:assert-eq-array(
             "actual": $actual
         }
 };
-
