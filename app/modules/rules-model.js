@@ -946,7 +946,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 var result = model.Decimals;
                 if (_.isString(model.Decimals) && model.Decimals !== 'INF' && model.Decimals !== '') {
                     result = parseInt(model.Decimals,10);
-                } else if(_.isNumber(decimals)) {
+                } else if(_.isNumber(model.Decimals)) {
                     result = Math.round(model.Decimals);
                 }
                 if(result !== undefined && isNaN(result) && result !== 'INF'){
