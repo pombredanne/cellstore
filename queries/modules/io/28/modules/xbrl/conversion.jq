@@ -19,9 +19,10 @@ declare %private variable $conversion:STANDARD_LABELS :=
     };
 
 declare %private function conversion:aspect-label(
-    $aspect as string) as string
+    $aspect as string,
+    $fact as object) as string
 {
-    ($conversion:STANDARD_LABELS.$aspect, $aspect)[1]
+    ($fact.Labels.$aspect, $conversion:STANDARD_LABELS.$aspect, $aspect)[1]
 };
 
 declare %private function conversion:aspect-value-or-label(
@@ -40,7 +41,7 @@ declare %private function conversion:aspect-value-or-label(
 declare function conversion:get-standard-labels($fact as object, $entityName as string?) as object {
     {|
         for $aspect as string in keys($fact.Aspects)
-        let $aspect-label as string := conversion:aspect-label($aspect)
+        let $aspect-label as string := conversion:aspect-label($aspect, $fact)
         let $aspect-value as atomic := conversion:aspect-value-or-label($aspect, $fact)
         return
             (
@@ -69,7 +70,7 @@ declare function conversion:get-standard-labels($fact as object, $entityName as 
 
 declare function conversion:facts-to-csv(
     $facts as object*,
-    $options as object?) as string? 
+    $options as object?) as string?
 {
     let $projection :=
         if($options.Caller eq "Report")
@@ -85,12 +86,12 @@ declare function conversion:facts-to-csv(
            then string-join(
                 csv:serialize(
                     for $fact in $facts
-                    return 
+                    return
                         {|
                             if($use-labels)
                             then
                                 for $aspect as string in keys($fact.Aspects)[$$ ne "sec:Archive"]
-                                let $aspect-label as string := conversion:aspect-label($aspect)
+                                let $aspect-label as string := conversion:aspect-label($aspect, $fact)
                                 let $aspect-value as atomic := conversion:aspect-value-or-label($aspect, $fact)
                                 return
                                     {
@@ -99,7 +100,7 @@ declare function conversion:facts-to-csv(
                             else
                                 $fact.Aspects,
                             {
-                                "Unit": 
+                                "Unit":
                                     if(starts-with($fact.Unit, "iso4217:"))
                                     then substring-after($fact.Unit, "iso4217:")
                                     else $fact.Unit
@@ -127,14 +128,14 @@ declare function conversion:facts-to-xml(
                     <Aspect>
                         <Name>{
                             if($use-labels)
-                            then attribute { "label" } { conversion:aspect-label($aspect) }
-                            else (), 
+                            then attribute { "label" } { conversion:aspect-label($aspect, $fact) }
+                            else (),
                             $aspect
                         }</Name>
                         <Value>{
                             if($use-labels)
                             then attribute { "label" } { conversion:aspect-value-or-label($aspect, $fact) }
-                            else (), 
+                            else (),
                             $aspects.$aspect
                         }</Value>
                     </Aspect>
@@ -178,5 +179,3 @@ declare function conversion:audittrail-to-xml($audit as item) as element()
         )
     }</AuditTrails>
 };
-
-

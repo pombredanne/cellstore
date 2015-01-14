@@ -58,17 +58,11 @@ let $comment :=
 let $result := { "Entities" : [ $entities ] }
 let $serializers := {
     to-xml : function($res as object) as node() {
-        switch($profile-name)
-        case "sec" return
         <Entities>{
-            companies:to-xml($res.Entities[])
+          switch($profile-name)
+          case "sec" return companies:to-xml($res.Entities[])
+          default return api:json-to-xml($res.Entities[], "Entity")
         }</Entities>
-        default return <Entities>
-            {
-                for $id in $res.Entities[]._id
-                return <EID>{$id}</EID>
-            }
-        </Entities>
     },
     to-csv : function($res as object) as string {
         switch($profile-name)
