@@ -82,14 +82,27 @@ declare %an:nondeterministic function test:get-expected-result-xml(
 };
 
 
-declare %an:nondeterministic function test:invoke-and-assert-deep-equal-json(
+declare %an:nondeterministic function test:invoke-and-assert-deep-equal(
   $endpoint as string,
   $parameters as object,
   $transform as function(object) as item*,
   $expected as item*
 ) as item
 {
-  let $request := test:invoke($endpoint, $parameters)
+  test:invoke-and-assert-deep-equal($endpoint, $parameters, $transform, $expected, {})
+};
+
+declare %an:nondeterministic function test:invoke-and-assert-deep-equal(
+  $endpoint as string,
+  $parameters as object,
+  $transform as function(object) as item*,
+  $expected as item*,
+  $options as object?
+) as item
+{
+  let $request := switch($options.Format)
+                  case "xml" return test:invoke-xml($endpoint, $parameters)
+                  default return test:invoke($endpoint, $parameters)
   let $status as integer := $request[1]
   let $actual as item* := $transform($request[2])
   return test:assert-deep-equal($expected, $actual, $status, test:url($endpoint, $parameters))
@@ -102,19 +115,6 @@ declare %an:sequential function test:check-all-success($o as object) as object
     response:status-code(500);
     $o
   } else $o
-};
-
-declare %an:nondeterministic function test:invoke-and-assert-deep-equal-xml(
-  $endpoint as string,
-  $parameters as object,
-  $transform as function(object) as item*,
-  $expected as item*
-) as item
-{
-  let $request := test:invoke-xml($endpoint, $parameters)
-  let $status as integer := $request[1]
-  let $actual as item* := $transform($request[2])
-  return test:assert-deep-equal($expected, $actual, $status, test:url($endpoint, $parameters))
 };
 
 (:    return
