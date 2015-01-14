@@ -388,3 +388,84 @@ declare function concepts:normalize-language($language as string) as string
 {
   replace(lower-case($language), "_", "-")
 };
+
+(:~
+ : <p>Retrieves all the labels with the given label role and language in the
+ : matching concepts.</p>
+ :
+ : <p>Matching concepts are those which:
+ :  - concept name and archive number match a given one;
+ :  - component role matches a given one or is the default
+ :    component role.
+ : </p>
+ :
+ : <p>The set of concepts to search in is specified as a parameter.</p>
+ :
+ : <p>Language matching can either be exact, if no options are given,
+ : or approximated, if at least one of the following options is given:</p>
+ : <ul>
+ :   <li>MatchDown: whether to match a more specific language, e.g.:
+ :       "en" will match labels which language is "en" or "en-US".</li>
+ :   <li>MatchUp: whether to match a less specific language, e.g.:
+ :       "en-US" will match labels which language is "en-US" or "en".</li>
+ :   <li>MatchAnyVariant: whether to match a different variant of the same
+ :       language, e.g.: "en-US" will match labels which language is "en-US"
+ :       or "en-UK".</li>
+ : </ul>
+ :
+ : @param $concept-names the concepts names.
+ : @param $label-role the label role.
+ : @param $language the label language.
+ : @param $concepts the concepts in which the labels will be
+ :                  searched (in the version-7 format).
+ : @param $options Optional parameters to control language matching.
+ :
+ : @return the matching labels.
+ :)
+declare function concepts:labels(
+    $concept-names as string*,
+    $label-role as string,
+    $language as string,
+    $concepts as object*,
+    $options as object?
+  ) as string*
+{
+  let $label-role-translated := replace($label-role, "\\.", "\uff0e")
+  let $normalized-language as string := concepts:normalize-language($language)
+
+  for $concept as object in $concepts
+  where ($concepts:ALL_CONCEPT_NAMES, $concept.$concepts:NAME) = $concept-names
+  return
+  for $concept-labels as object* in $concept.$concepts:LABELS[]
+  let $role := $concept-labels.Role
+  where $role = ($label-role, $label-role-translated)
+  group by $role
+  let $perfect-match as object? := $concept-labels[$$.Language eq $normalized-language]
+  let $approximate-languages as string* := concepts:approximate-languages(
+    distinct-values($concept-labels.Language),
+    $normalized-language,
+    $options
+  )
+  let $approximate-matches as object* :=
+    $concept-labels[$$.Language = $approximate-languages]
+  return ($perfect-match, $approximate-matches)[1].Value
+};
+
+
+declare %private function concepts:approximate-languages(
+    $all-languages as string*,
+    $normalized-language as string,
+    $options as object?
+  ) as string*
+{
+    if(not $options.MatchDown cast as boolean? eq false)
+    then $all-languages[starts-with($$, $normalized-language)]
+    else (),
+    if(not $options.MatchUp cast as boolean? eq false)
+    then $all-languages[starts-with($normalized-language, $$)]
+    else (),
+    if ((not $options.MatchAnyVariant cast as boolean? eq false) and contains($normalized-language, "-"))
+    then
+      $all-languages[starts-with($$, substring-before($normalized-language, "-") || "-")]
+    else ()
+};

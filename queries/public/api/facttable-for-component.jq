@@ -131,11 +131,10 @@ let $facts :=
     then $facts
     else
         (: if labels are requested by the labels=true parameter then also add labels for concepts :)
-        let $concepts as object* :=
-            concepts:concepts-for-components($concepts:ALL_CONCEPT_NAMES, $component)
+        let $concepts as object* := $component.Concepts[]
         for $fact in $facts
         let $labels :=
-            facts:labels($fact, $component.Role, $concepts:STANDARD_LABEL_ROLE,$concepts:AMERICAN_ENGLISH, $concepts, ())
+            facts:labels($fact, $concepts:STANDARD_LABEL_ROLE,$concepts:AMERICAN_ENGLISH, $concepts, ())
         return
             {|
                 trim($fact, "Labels"),
