@@ -15,8 +15,6 @@ import module namespace rules = "http://28.io/modules/xbrl/rules";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
-import module namespace response = "http://www.28msec.com/modules/http-response";
-
 import module namespace config = "http://apps.28.io/config";
 import module namespace session = "http://apps.28.io/session";
 import module namespace api = "http://apps.28.io/api";
@@ -75,26 +73,16 @@ let $archives as object* := multiplexer:filings(
   $aid)
 
 let $entity    := entities:entities($archives.Entity)
-let $components  :=
-    switch($profile-name)
-    case "sec" return sec-networks:components(
-        $archives,
-        $cid,
-        $reportElement,
-        $disclosure,
-        $networkIdentifier,
-        $label)
-    default return
-        switch(true)
-        case (exists($networkIdentifier) and exists($archives))
-        return components:components-for-archives-and-roles($archives, $networkIdentifier)
-        case exists($archives)
-        return components:components-for-archives($archives)
-        default
-        return {
-          response:status-code(400);
-          session:error("Archive ID missing.", $format)
-        }
+let $components as object* :=
+    multiplexer:components(
+      $profile-name,
+      $archives,
+      $cid,
+      $reportElement,
+      $disclosure,
+      $networkIdentifier,
+    $label)
+
 let $component as object? := if($merge) then components:merge($components) else $components[1]
 let $cid as string? := string-join($components ! components:cid($$), "--")
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
