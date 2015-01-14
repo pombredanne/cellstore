@@ -98,18 +98,13 @@ let $serializers := {
     to-xml : function($res as object) as node() {
         switch($profile-name)
         case "sec" return
-            <Filings>{
-                filings:summaries-to-xml($res.Archives[])
-            }</Filings>
+          <Filings>{
+            filings:summaries-to-xml($res.Archives[])
+          }</Filings>
         default return
-            <Archives>{
-                for $a in $res.Archives[]
-                return <Archive>
-                    <AID>{$a._id}</AID>
-                    <Entity>{$a.Entity}</Entity>
-                </Archive>
-            }
-            </Archives>
+          <Archives>{
+            api:json-to-xml($res.Archives[], "Archive")
+          }</Archives>
     },
     to-csv : function($res as object) as string {
         switch($profile-name)

@@ -22,36 +22,36 @@ jsoniq version "1.0";
  : as hypercubes), look at the components module.</p>
  :
  : <p>Facts are stored in a MongoDB datasource called <b>xbrl</b>.</p>
- : 
+ :
  : <h2 id="standard_options">Standard <code>$options</code> Parameter</h2>
  :
  : <p>Most functions in the BizQL package allow an additional <code>$options</code>
- :    parameter. The options parameter is a JSON object allowing the following 
+ :    parameter. The options parameter is a JSON object allowing the following
  :    fields:</p>
- : 
+ :
  : <ul>
  : <li><b>Hypercube</b>: a hypercube object can be passed with the options to apply
- :     implicit filtering for it. Only facts belonging to this hypercube will be 
+ :     implicit filtering for it. Only facts belonging to this hypercube will be
  :     returned. Hypercube semantics (such as default dimension values) apply.
  :     By default, the dimensionless hypercube is used (no dimensions allowed, no filtering).
  :     You can override Hypercube with null to bypass hypercube semantics.</li>
- : <li><b>Filter</b>: an object specifying the fields to filter for. Filtering fields 
+ : <li><b>Filter</b>: an object specifying the fields to filter for. Filtering fields
  :     can be any field contained in facts, including profile specific fields, e.g.:
  :     <pre class="ace-static" ace-mode="java">
  :   {
- :     Filter: 
- :       { 
+ :     Filter:
+ :       {
  :         Aspects:
  :         {
  :           "xbrl28:Archive": "0000034088-13-000011",
- :           "us-gaap:DefinedBenefitPlansDisclosuresDefinedBenefitPlansAxis" : 
+ :           "us-gaap:DefinedBenefitPlansDisclosuresDefinedBenefitPlansAxis" :
  :             "us-gaap:ForeignPensionPlansDefinedBenefitMember"
  :         },
  :         Profiles: {
- :           SEC: { 
- :             Fiscal: { 
- :               Year: [2011, 2012] 
- :             } 
+ :           SEC: {
+ :             Fiscal: {
+ :               Year: [2011, 2012]
+ :             }
  :           }
  :         }
  :       }
@@ -59,15 +59,15 @@ jsoniq version "1.0";
  :   </pre>
  :   A filter must contain at least on of the fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept,
  :   Aspects.xbrl:Period, or Aspects.xbrl:Entity.</li>
- : <li><b>ConceptMaps</b>: 
- :   <ol><li>a string which is a name of a report schema that is stored in the 
+ : <li><b>ConceptMaps</b>:
+ :   <ol><li>a string which is a name of a report schema that is stored in the
  :       reportschemas collection and from which to load a ConceptMap</li>
  :       <li>an object which is a ConceptMap network object</li>
- :       <li>an array of ConceptMap network objects (to learn more about concept-maps 
+ :       <li>an array of ConceptMap network objects (to learn more about concept-maps
  :       refer to the concept-maps module documentation)</li>
  :   </ol></li>
  : <li><b>Rules</b>:
- :   <ol><li>a string which is a name of a report schema that is stored in the 
+ :   <ol><li>a string which is a name of a report schema that is stored in the
  :       reportschemas collection and from which to load Rules</li>
  :       <li>an object which is a Rule object</li>
  :       <li>an array of Rule objects</li>
@@ -78,10 +78,10 @@ jsoniq version "1.0";
  :     i.e. only return footnotes etc. for this specific language</li>
  : <li><b>AuditTrail</b>: if set to "debug" the audit trails will be more verbose</li>
  : <li><b>facts-for-archives-and-concept</b> (deprecated, use filters instead):
- :     to override how underlying facts are 
+ :     to override how underlying facts are
  :     resolved, for example with finer-grained, profile-specific filtering (option value
- :     must be a function item). facts:facts-for-archives-and-concepts#3 is used by 
- :     default, but it is possible to supply another function that, for examples, filters 
+ :     must be a function item). facts:facts-for-archives-and-concepts#3 is used by
+ :     default, but it is possible to supply another function that, for examples, filters
  :     irrelevant facts out.</li>
  : <li><b>cache-control</b>: configure the behavior of the internal caching mechanism
  :   <ol><li><i>no-cache</i>: do not cache any fetched fact.</li>
@@ -175,18 +175,18 @@ declare variable $facts:ALL_OF_THEM as boolean := true;
 
 (:~
  : <p>Return the fact with the given FIDs.</p>
- : 
+ :
  : @param $fact-or-ids the FIDs or the facts themselves.
  :
  : @return the facts with the given FIDs
  :         the empty sequence if no fact was found or if the input is an
  : empty sequence.
- :) 
+ :)
 declare function facts:facts($fact-or-ids as item*) as object*
 {
   let $ids as string* := $fact-or-ids[$$ instance of string]
   let $facts as object* := $fact-or-ids[$$ instance of object]
-  return 
+  return
     (
       $facts,
       if (exists($ids))
@@ -218,7 +218,7 @@ declare function facts:facts-for-archives(
  : @param $archives-or-ids a sequence of archives or AIDs to filter.
  : @param $options <a href="#standard_options">standard fact retrieving options</a>.
  : @return all facts reported in these archives.
- :) 
+ :)
 declare function facts:facts-for-archives(
   $archives-or-ids as item*,
   $options as object?) as object*
@@ -238,7 +238,7 @@ declare function facts:facts-for-archives(
  : @return all facts associated with these aspects.
  : @deprecated This function has been deprecated in favor of more generic
  :   functions like facts:facts-for and hypercubes:facts.
- :) 
+ :)
 declare function facts:facts-for-aspects(
   $aspects as object) as object*
 {
@@ -255,7 +255,7 @@ declare function facts:facts-for-aspects(
  : @return all facts associated with these aspects.
  : @deprecated This function has been deprecated in favor of more generic
  :   functions like facts:facts-for and hypercubes:facts.
- :) 
+ :)
 declare function facts:facts-for-aspects(
   $aspects as object,
   $options as object?) as object*
@@ -265,7 +265,7 @@ declare function facts:facts-for-aspects(
       $facts:ASPECTS : $aspects
     }
   }
-  return 
+  return
     facts:facts-for(
      facts:merge-objects($filter, $options, true (: giving parameters higher priority :))
     )
@@ -276,7 +276,7 @@ declare function facts:facts-for-aspects(
  :
  : @param $concepts the concepts.
  : @return facts associated with these concepts.
- :) 
+ :)
 declare function facts:facts-for-concepts(
   $concepts as string*) as object*
 {
@@ -292,7 +292,7 @@ declare function facts:facts-for-concepts(
  : @return facts associated with these concepts.
  : @deprecated This function has been deprecated in favor of more generic
  :   functions like facts:facts-for and hypercubes:facts.
- :) 
+ :)
 declare function facts:facts-for-concepts(
   $concepts as string*,
   $options as object?) as object*
@@ -311,7 +311,7 @@ declare function facts:facts-for-concepts(
  : @return facts reported by the given entities.
  : @deprecated This function has been deprecated in favor of more generic
  :   functions like facts:facts-for and hypercubes:facts.
- :) 
+ :)
 declare function facts:facts-for-entities(
   $entities-or-ids as item*) as object*
 {
@@ -332,9 +332,9 @@ declare function facts:facts-for-entities(
  : @return all facts satisfying all supplied conditions.
  : @deprecated This function has been deprecated in favor of more generic
  :   functions like facts:facts-for and hypercubes:facts.
- :) 
+ :)
 declare function facts:facts-for-archives-and-aspects(
-  $archives-or-ids as item*, 
+  $archives-or-ids as item*,
   $aspects as object) as object*
 {
   facts:facts-for-archives-and-aspects($archives-or-ids, $aspects, ())
@@ -353,13 +353,13 @@ declare function facts:facts-for-archives-and-aspects(
  : @return all facts satisfying all supplied conditions.
  : @deprecated This function has been deprecated in favor of more generic
  :   functions like facts:facts-for and hypercubes:facts.
- :) 
+ :)
 declare function facts:facts-for-archives-and-aspects(
-  $archives-or-ids as item*, 
+  $archives-or-ids as item*,
   $aspects as object,
   $options as object?) as object*
 {
-  let $filter as object := 
+  let $filter as object :=
     {
       "Filter" :
         {
@@ -372,7 +372,7 @@ declare function facts:facts-for-archives-and-aspects(
             |}
         }
     }
-  return 
+  return
     facts:facts-for(
       facts:merge-objects($filter, $options, true (: giving parameters higher priority :))
     )
@@ -387,7 +387,7 @@ declare function facts:facts-for-archives-and-aspects(
  : @return facts associated with these concepts and archives.
  : @deprecated This function has been deprecated in favor of more generic
  :   functions like facts:facts-for and hypercubes:facts.
- :) 
+ :)
 declare function facts:facts-for-archives-and-concepts(
   $archives-or-ids as item*,
   $concepts as item*) as object*
@@ -406,7 +406,7 @@ declare function facts:facts-for-archives-and-concepts(
  : @return facts associated with these concepts.
  : @deprecated This function has been deprecated in favor of more generic
  :   functions like facts:facts-for and hypercubes:facts.
- :) 
+ :)
 declare function facts:facts-for-archives-and-concepts(
   $archives-or-ids as item*,
   $concepts as item*,
@@ -426,15 +426,15 @@ declare function facts:facts-for-archives-and-concepts(
  :
  : @param $fact a fact object.
  :
- : @return the prefix of the fact's xbrl:Concept aspect or empty sequence if the 
+ : @return the prefix of the fact's xbrl:Concept aspect or empty sequence if the
  :         concept doesn't have a prefix.
- :) 
+ :)
 declare function facts:prefix-from-fact-concept(
-  $fact as object) as string? 
+  $fact as object) as string?
 {
   let $concept-name as string := $fact.Aspects.$facts:CONCEPT
   let $tokenz := string:split($concept-name,":")
-  return 
+  return
     if (exists($tokenz[2]))
     then (: ok: has a prefix :) $tokenz[1]
     else (: no ns prefix found :) ()
@@ -475,7 +475,7 @@ declare function facts:fid($facts-or-ids as item*) as atomic*
     let $id := $fact-or-id.$facts:ID
     return if(exists($id))
            then $id
-           else error(QName("facts:INVALID-PARAMETER"), 
+           else error(QName("facts:INVALID-PARAMETER"),
                       "Invalid fact provided (no " || $facts:ID || " field)")
   case $id as atomic return $id
   default return error(
@@ -486,9 +486,9 @@ declare function facts:fid($facts-or-ids as item*) as atomic*
 
 (:~
  : <p>Queries MongoDB with a MongoDB query.</p>
- : 
+ :
  : @return all facts returned by this query.
- :) 
+ :)
 declare %private %an:strictlydeterministic function facts:facts-query-cached($query as string) as object*
 {
   let $query as object := parse-json($query)
@@ -497,9 +497,9 @@ declare %private %an:strictlydeterministic function facts:facts-query-cached($qu
 
 (:~
  : <p>Queries MongoDB with a MongoDB query.</p>
- : 
+ :
  : @return all facts returned by this query.
- :) 
+ :)
 declare %private function facts:facts-query($query as object) as object*
 {
   mw:find($facts:col, $query)
@@ -521,9 +521,9 @@ as string
  :
  : <p>Populates a sequence of facts with their associated footnotes.
  : More in detail, in each returned fact object an additional field
- : Footnotes is added which contains all connected footnotes in an 
+ : Footnotes is added which contains all connected footnotes in an
  : array.</p>
- : 
+ :
  : @param $fact-or-ids the FIDs or the facts themselves.
  :
  : @return a sequence of facts with populated Footnotes field.
@@ -537,9 +537,9 @@ declare function facts:populate-with-footnotes(
 (:~
  : <p>Populates a sequence of facts with their associated footnotes.
  : More in detail, in each returned fact object an additional field
- : Footnotes is added which contains all connected footnotes in an 
+ : Footnotes is added which contains all connected footnotes in an
  : array.</p>
- : 
+ :
  : @param $fact-or-ids the FIDs or the facts themselves.
  : @param $options <a href="#standard_options">standard fact retrieving options</a>.
  :
@@ -551,9 +551,9 @@ declare function facts:populate-with-footnotes(
 {
   let $facts as object* := facts:facts($fact-or-ids)
   for $fact in $facts
-  let $footnotes as object* := 
+  let $footnotes as object* :=
     for $footnote in footnotes:footnotes-for-facts($fact, $options)
-    let $f as object := 
+    let $f as object :=
       (
         for $factref in $footnote.Facts[][$$.$facts:ID eq $fact.$facts:ID]
         order by $factref.Priority descending
@@ -637,6 +637,73 @@ declare function facts:labels(
                 concepts:labels(
                     $name, $archives, $component-roles,
                     $label-role, $language, $concepts, $options)[1]
+            return
+                {
+                    $name: $label
+                },
+            for $key in distinct-values(keys($facts.Aspects))
+            where not string($facts.Aspects.$key) = $concept-names
+            return
+                { $facts.Aspects.$key : "Default Legal Entity" }[$key eq "dei:LegalEntityAxis" and $facts.Aspects.$key eq "sec:DefaultLegalEntity"]
+        |}
+};
+
+(:~
+ : <p>Retrieves all the labels with the given label role and language for
+ : all concepts used in the fact and matching a concept in the list of
+ : concepts. Concepts used in a fact include not only those from the
+ : 'xbrl:Concept' aspect, but also Members of any custom axis.</p>
+ :
+ : <p>Matching concepts are those which:
+ :  - concept name matches a given one,
+ :  - archive number matches that of a given component,
+ :  - component role matches that of a given component or is the default
+ :    component role.
+ : </p>
+ :
+ : <p>The set of concepts to search in is specified as a parameter.</p>
+ :
+ : <p>Language matching can either be exact, if no options are given,
+ : or approximated, if at least one of the following options is given:</p>
+ : <ul>
+ :   <li>MatchDown: whether to match a more specific language, e.g.:
+ :       "en" will match labels which language is "en" or "en-US".</li>
+ :   <li>MatchUp: whether to match a less specific language, e.g.:
+ :       "en-US" will match labels which language is "en-US" or "en".</li>
+ :   <li>MatchAnyVariant: whether to match a different variant of the same
+ :       language, e.g.: "en-US" will match labels which language is "en-US"
+ :       or "en-UK".</li>
+ : </ul>
+ :
+ : @param $facts a sequence of facts.
+ : @param $label-role the label role.
+ : @param $language the label language.
+ : @param $concepts the concepts in which the labels will be
+ :                  searched (in the version-7 format).
+ : @param $options optional parameters to control language matching.
+ :
+ : @return an object with matching concepts as keys and labels as values.
+ :)
+declare function facts:labels(
+    $facts as object*,
+    $label-role as string,
+    $language as string,
+    $concepts as object*,
+    $options as object?
+  ) as object?
+{
+    let $concept-names as string* :=
+        distinct-values((values($facts.Aspects), keys($facts.Aspects))[string($$) = $concepts.Name])
+    return
+        {|
+            for $name in $concept-names
+            let $label as string? :=
+                concepts:labels(
+                    $name,
+                    $label-role,
+                    $language,
+                    $concepts,
+                    $options)[1]
             return
                 {
                     $name: $label
@@ -760,11 +827,11 @@ as boolean
  :
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
- : @error facts:FILTER-TOO-GENERIC The filter object must have at least one of the 
- :        fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
+ : @error facts:FILTER-TOO-GENERIC The filter object must have at least one of the
+ :        fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or
  :        Aspects.xbrl:Entity.
  : @return all facts satisfying the filter and options.
- :) 
+ :)
 declare function facts:facts-for(
   $options as object?) as object*
 {
@@ -817,7 +884,7 @@ declare function facts:facts-for(
  : @param $options the options.
  :
  : @return the stamped facts (only those being explicitly asked by the user, not
- : the validating ones). 
+ : the validating ones).
  :)
 declare %private function facts:validate(
     $facts as object*,
@@ -837,7 +904,7 @@ declare %private function facts:validate(
   let $validation-facts as object* :=
       $facts[$$.$facts:ASPECTS.$facts:CONCEPT = $validation-concepts]
   let $is-valid as boolean := not $validation-facts.Value = false
-  let $audit-trail-option as string := 
+  let $audit-trail-option as string :=
       facts:from-options("audit-trail", $options)
   let $audit-trail := {
     Type: "xbrl28:validation-stamp",
@@ -881,11 +948,11 @@ declare %private function facts:validate(
  :
  : @error facts:INVALID-RULE-TYPE the type of a rule is not unknown/invalid
  : @error facts:RULE-EXECUTION-ERROR a rule raised an error whilst being executed
- : @error facts:FILTER-TOO-GENERIC The filter object must have at least one of the 
- :        fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or 
+ : @error facts:FILTER-TOO-GENERIC The filter object must have at least one of the
+ :        fields Aspects.xbrl28:Archive, Aspects.xbrl:Concept, Aspects.xbrl:Period, or
  :        Aspects.xbrl:Entity.
  : @return all facts satisfying the filter and options.
- :) 
+ :)
 declare function facts:facts-for-internal(
   $concepts as string*,
   $hypercube as object?,
@@ -895,15 +962,15 @@ declare function facts:facts-for-internal(
   $cache as object*,
   $options as object?) as object*
 {
-  let $cache-filter-index as string := 
+  let $cache-filter-index as string :=
     facts:canonically-serialize-object($aligned-filter, $facts:CONCEPT)
-  
+
   (: ### 0. prepopulate cache from known dependencies? ### :)
   let $cache :=
     facts:prepopulate-cache($cache,
-                            $options, 
-                            $concepts, 
-                            $rules, 
+                            $options,
+                            $concepts,
+                            $rules,
                             $concept-maps,
                             $aligned-filter,
                             $hypercube,
@@ -914,10 +981,10 @@ declare function facts:facts-for-internal(
   (: Learn about what concepts can be computed where :)
   let $concepts-from-cache as string* := keys($cache)[exists($cache.$$.$cache-filter-index)]
   let $default-rules := $rules[empty(jn:flatten($$.ComputableConcepts))]
-  let $all-concepts-computable-by-rules as string* := 
+  let $all-concepts-computable-by-rules as string* :=
       if(empty($default-rules))
       then jn:flatten($rules.ComputableConcepts)
-      else 
+      else
           (: default rules are applied to every concept :)
           $concepts
   let $all-concepts-computable-by-maps as string* := $concept-maps.Trees[].Name
@@ -945,7 +1012,7 @@ declare function facts:facts-for-internal(
       facts:facts-from-cache($concepts-in-cache, $cache-filter-index, $cache)
 
   (: ### 3. issue a direct lookup ### :)
-  let $direct-lookup-results as object* := 
+  let $direct-lookup-results as object* :=
     facts:facts-for-direct($concepts-not-computable-by-rules-or-maps,
                            $aligned-filter,
                            $hypercube,
@@ -1002,7 +1069,7 @@ declare %private function facts:from-options(
     $options as object?
 ) as item*
 {
-  (: might be an array of report schemas/objects 
+  (: might be an array of report schemas/objects
      or a single object or a report schema name :)
   let $concept-maps := jn:flatten(($options.concept-maps, $options.ConceptMaps)[1])
   let $rules := jn:flatten($options.Rules)
@@ -1039,7 +1106,7 @@ declare %private function facts:from-options(
     case ($option-name eq "audit-trail" or $option-name eq "AuditTrail")
     return
         lower-case((
-          $options."audit-trail", 
+          $options."audit-trail",
           $options.AuditTrail,
           "production"
         )[1])
@@ -1072,7 +1139,7 @@ declare %private function facts:facts-for-concepts-and-rules(
           for $key in distinct-values(jn:flatten($rules.ComputableConcepts))
           return
             (
-              $key, 
+              $key,
               $rules[jn:flatten($$.ComputableConcepts) = $key].DependsOn[]
             )
         )
@@ -1097,7 +1164,7 @@ declare %private function facts:facts-for-concepts-and-rules(
            after finishing the evaled query. To prevent this we create the
            connection here outside of eval. :)
         if (empty(facts:from-options("debug", $options)))
-        then { "debug": { "connection": string(mw:connection()) }} 
+        then { "debug": { "connection": string(mw:connection()) }}
         else ()
       |}
   let $default-rules as object* := $rules[empty(jn:flatten($$.ComputableConcepts))]
@@ -1166,7 +1233,7 @@ declare %private
     case ($type = ("xbrl28:formula", "xbrl28:validation"))
     return
       let $formula := $rule.Formula
-      return 
+      return
         try {
           (# Q{http://xqlint.io}xqlint varrefs($concepts, $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options) #) {
             reflection:eval($formula)[$$.Aspects.$facts:CONCEPT = $concepts]
@@ -1187,17 +1254,17 @@ declare %private
               "column-number": $err:column-number,
               "stack-trace": $zerr:stack-trace
             }
-          let $message := 
+          let $message :=
             if($err:code eq xs:QName("facts:RULE-EXECUTION-ERROR"))
             then
                 $err:description
             else
-                "Error executing rule '" || $rule.Label 
-                    || "'. 
+                "Error executing rule '" || $rule.Label
+                    || "'.
 
-Details: (" || $err:code || ") location:" || $err:line-number || ":" || $err:column-number || " " || $err:description || " 
+Details: (" || $err:code || ") location:" || $err:line-number || ":" || $err:column-number || " " || $err:description || "
 Object: [" || serialize($err:value, $ser-params) || "]
-Stacktrace: 
+Stacktrace:
 "  || serialize($zerr:stack-trace, $ser-params)
           return
             error(xs:QName("facts:RULE-EXECUTION-ERROR"),
@@ -1254,8 +1321,8 @@ declare %private function facts:facts-for-direct(
                 "Aspects": {
                   "xbrl:Concept": [ $concepts-not-computable-by-rules-or-maps ]
                 }
-              }, 
-              $filter, 
+              },
+              $filter,
               true (: prioritize first object :)
         )
         return facts:facts-for-direct($aligned-filter,
@@ -1276,20 +1343,20 @@ declare %private function facts:facts-for-direct(
   return
     if (some $array in descendant-arrays($filter)
         satisfies size($array) eq 0)
-    then 
+    then
       (: if the user filters for a value which is not in the value space
          of the hypercube the result can only be empty:)
        ()
     else
       let $found as object* := facts:facts-query-cached(serialize($query))
-      
+
       let $include-footnotes as boolean? := facts:from-options("include-footnotes", $options)
       let $facts as object* :=
 
         (: only return facts that belong to the hypercube, i.e. have no
            additional axis :)
         if (exists($hypercube))
-        then 
+        then
           let $keys := keys($hypercube.$facts:ASPECTS)
           let $hypercube-dimensions as object* :=
             for $dimension in $keys
@@ -1316,7 +1383,7 @@ declare %private function facts:facts-for-direct(
               |}
               let $removals := seq:value-except(keys($fact.$facts:ASPECTS), $hc-dimension-names)
               (: where count(keys($replacements)) gt 0 :)
-              return ( 
+              return (
                 insert json $replacements into $populated.$facts:ASPECTS,
                 $removals ! (delete json $populated($facts:ASPECTS)($$)),
                 let $audit-trails := keys($replacements) ! {
@@ -1330,14 +1397,14 @@ declare %private function facts:facts-for-direct(
                   }
                 }
                 return if(exists($populated.AuditTrails))
-                       then append json $audit-trails into $populated.AuditTrails 
+                       then append json $audit-trails into $populated.AuditTrails
                        else insert json { AuditTrails: [ $audit-trails ] } into $populated
               )
             return $populated
 
-        else $found 
+        else $found
 
-      return 
+      return
         if ($include-footnotes)
         then facts:populate-with-footnotes($facts, $options)
         else $facts
@@ -1357,11 +1424,11 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
 ) as object*
 {
   if (empty($concepts) or empty($concept-maps))
-  then 
+  then
     (: concept maps only work if concepts and concept-maps are given :)
     ()
   else
-    let $archive-or-ids := 
+    let $archive-or-ids :=
       if (exists( $filter.$facts:ASPECTS.$facts:ARCHIVE ))
       then jn:flatten( $filter.$facts:ASPECTS.$facts:ARCHIVE )
       else $facts:ALL_OF_THEM
@@ -1370,7 +1437,7 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
         then $options.facts-for-archives-and-concepts
         else facts:facts-for-archives-and-concepts#3
 
-    let $all-mapped-concepts as string* := 
+    let $all-mapped-concepts as string* :=
       distinct-values(
         for $object in $concept-maps.Trees[]
         where $object.Name = $concepts
@@ -1386,28 +1453,28 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
       copy $new := trim($options, ("concept-maps", "ConceptMaps", "cache-control"))
       modify (switch(true)
               case exists($new.Filter.Aspects.$facts:CONCEPT)
-                  return 
-                    replace value of json $new.Filter.Aspects.$facts:CONCEPT 
+                  return
+                    replace value of json $new.Filter.Aspects.$facts:CONCEPT
                             with [ $all-mapped-concepts ]
               case exists($new.Filter.Aspects)
-                  return 
-                    insert json { "xbrl:Concept" : [ $all-mapped-concepts ] } 
+                  return
+                    insert json { "xbrl:Concept" : [ $all-mapped-concepts ] }
                            into $new.Filter.Aspects
               case exists($new.Filter)
-                  return 
-                    insert json 
-                        { "Aspects" : 
-                          { "xbrl:Concept" : [ $all-mapped-concepts ] } } 
+                  return
+                    insert json
+                        { "Aspects" :
+                          { "xbrl:Concept" : [ $all-mapped-concepts ] } }
                       into $new.Filter
               default
-                  return 
-                    insert json 
-                        { "Filter" : 
-                          { "Aspects" : 
+                  return
+                    insert json
+                        { "Filter" :
+                          { "Aspects" :
                             { "xbrl:Concept" : [ $all-mapped-concepts ] } } }
                       into $new,
-              if(exists($new.Hypercube.Aspects.$facts:CONCEPT.Members)) 
-              then delete json $new.Hypercube.Aspects.$facts:CONCEPT.Members 
+              if(exists($new.Hypercube.Aspects.$facts:CONCEPT.Members))
+              then delete json $new.Hypercube.Aspects.$facts:CONCEPT.Members
               else (),
               insert json { "cache-control" : "no-cache" } into $new
             )
@@ -1424,9 +1491,9 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
           (),
           $cache,
           $new-options)
-    let $audit-trail-option as string := 
+    let $audit-trail-option as string :=
         facts:from-options("AuditTrail", $options)
-    return 
+    return
     for $facts in $underlying-facts
     group by $uncovered-filter :=
         facts:canonical-grouping-key($facts, $facts:CONCEPT)
@@ -1444,9 +1511,9 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
           return $facts
     return
       copy $populated := $fact
-      modify (replace value of json 
+      modify (replace value of json
                   $populated.Aspects.$facts:CONCEPT with $concept,
-              let $orig-concept as string := 
+              let $orig-concept as string :=
                 facts:concept-for-fact($populated)
               let $audit-trail := {
                 Type: "xbrl28:concept-maps",
@@ -1461,7 +1528,7 @@ declare %private function facts:facts-for-archives-and-concepts-and-concept-maps
                 |}
               }
               return if(exists($populated.AuditTrails))
-                     then append json $audit-trail into $populated.AuditTrails 
+                     then append json $audit-trail into $populated.AuditTrails
                      else insert json { AuditTrails: [ $audit-trail ] } into $populated,
 
               if(exists($populated."xbrl28:Type"))
@@ -1493,10 +1560,10 @@ declare %private function facts:align-filter-to-hypercube(
   $filter as object?,
   $hypercube as object?) as object
 {
-  let $aligned-filter as object := 
+  let $aligned-filter as object :=
       if(exists($hypercube))
-      then let $aspects as object? := 
-            facts:align-aspects($hypercube.$facts:ASPECTS, 
+      then let $aspects as object? :=
+            facts:align-aspects($hypercube.$facts:ASPECTS,
                                 $filter.$facts:ASPECTS)
            return {|
                for $key in keys($filter)
@@ -1506,7 +1573,7 @@ declare %private function facts:align-filter-to-hypercube(
                then { Aspects: $aspects }
                else ()
           |}
-      else $filter 
+      else $filter
   return
     if (empty((
         $aligned-filter.$facts:ASPECTS.$facts:ARCHIVE,
@@ -1514,11 +1581,11 @@ declare %private function facts:align-filter-to-hypercube(
         $aligned-filter.$facts:ASPECTS.$facts:PERIOD,
         $aligned-filter.$facts:ASPECTS.$facts:ENTITY
     )))
-    then error(QName("facts:FILTER-TOO-GENERIC"), 
+    then error(QName("facts:FILTER-TOO-GENERIC"),
                  "The filter object must have at least one of the fields "  || $facts:ASPECTS || "."
-                 || $facts:ARCHIVE || ", " || $facts:ASPECTS || "." || $facts:CONCEPT 
-                 || ", " || $facts:ASPECTS || "." || $facts:PERIOD || ", " 
-                 || "or " || $facts:ASPECTS || "." || $facts:ENTITY 
+                 || $facts:ARCHIVE || ", " || $facts:ASPECTS || "." || $facts:CONCEPT
+                 || ", " || $facts:ASPECTS || "." || $facts:PERIOD || ", "
+                 || "or " || $facts:ASPECTS || "." || $facts:ENTITY
                  || ". Provided Filter object: " || serialize($filter))
     else $aligned-filter
 };
@@ -1608,7 +1675,7 @@ declare %private function facts:filter-to-mongo-query($prefix as xs:string, $fil
       typeswitch ($value)
       case object return facts:filter-to-mongo-query( $prefix || "." || $key, $value)
       case array return {
-          $prefix || "." || $key : 
+          $prefix || "." || $key :
           if (size($value) gt 1) then { "$in" : $value } else $value[]
       }
       default return { $prefix || "." || $key : $value }
@@ -1622,19 +1689,19 @@ declare %private function facts:filter-to-mongo-query($prefix as xs:string, $fil
  :
  : <p>The third parameter can be used to priotitize the first object. If the first
  :    object is prioritized and both objects contain fields with the same name,
- :    the fields are either merged (in case of two object values) or the value of 
+ :    the fields are either merged (in case of two object values) or the value of
  :    the first object is taken.</p>
  :
  : @param $o1 first object
  : @param $o2 second object
  : @param $prioritize-first-object boolean flag to give the first object higher
  :        priority in the merge
- : 
+ :
  : @return one merge object or an empty-sequence (in case both input objects are empty).
- :) 
+ :)
 declare function facts:merge-objects(
-  $o1 as object?, 
-  $o2 as object?, 
+  $o1 as object?,
+  $o2 as object?,
   $prioritize-first-object as boolean) as object?
 {
   if (empty($o1) or empty($o2))
@@ -1657,7 +1724,7 @@ declare function facts:merge-objects(
             return $subo1
         default
             return [ ($subo1, $subo2) ! (typeswitch($$)
-                                         case array return $$[] 
+                                         case array return $$[]
                                          default return $$) ]
       }
     |}
@@ -1674,7 +1741,7 @@ declare function facts:merge-objects(
  : @param $facts the facts for which to generate a grouping key.
  :
  : @return the serialized grouping keys.
- :) 
+ :)
 declare function facts:canonical-grouping-key(
   $facts as object*) as string*
 {
@@ -1691,9 +1758,9 @@ declare function facts:canonical-grouping-key(
  : @param $covered-aspects the aspects that are covered and that are not grouped on.
  :
  : @return the serialized grouping keys.
- :) 
+ :)
 declare function facts:canonical-grouping-key(
-  $facts as object*, 
+  $facts as object*,
   $covered-aspects as string*) as string*
 {
   for $fact in $facts
@@ -1706,8 +1773,8 @@ declare function facts:canonical-grouping-key(
 };
 
 (:~
- : <p>Canonically serialize an object, i.e. serialize fields in an ordered way. 
- :    Fields can be excluded from serialization (e.g. xbrl:Concept in case of 
+ : <p>Canonically serialize an object, i.e. serialize fields in an ordered way.
+ :    Fields can be excluded from serialization (e.g. xbrl:Concept in case of
  :    serializing a filter)</p>
  :
  : @deprecated This function has been deprecated in favor of the fact specific
@@ -1717,9 +1784,9 @@ declare function facts:canonical-grouping-key(
  : @param $exclude-fields the strings of field names to exclude from serialization
  :
  : @return the serialized object as string
- :) 
+ :)
 declare function facts:canonically-serialize-object(
-  $object as object, 
+  $object as object,
   $exclude-fields as string*) as string
 {
     switch(true)
@@ -1748,7 +1815,7 @@ declare function facts:canonically-serialize-object(
 };
 
 (:~
- : serialize items in a canonical way. this function is used in 
+ : serialize items in a canonical way. this function is used in
  : facts:canonically-serialize-object#2 to recursively serialize an object.
  :)
 declare %private function facts:canonically-serialize-items(
@@ -1758,14 +1825,14 @@ declare %private function facts:canonically-serialize-items(
   string-join(
     switch(true)
     case ($items instance of atomic*)
-    return 
+    return
       for $i in $items
       let $val := string($i)
       order by $val
       return $val
 
     case ($items instance of object*)
-    return 
+    return
       string-join(
         $items ! facts:canonically-serialize-object($$, $exclude-fields)
         , ",")
@@ -1783,7 +1850,7 @@ declare %private function facts:canonically-serialize-items(
 };
 
 (:~
- : put some facts into the Cache field of an options object. The 
+ : put some facts into the Cache field of an options object. The
  : cache-filter-index is used to allow correct caching for specific filters.
  :)
 declare %private function facts:update-cache(
@@ -1796,8 +1863,8 @@ declare %private function facts:update-cache(
 {
   if (facts:from-options("cache-control", $options) eq "no-cache")
   then $cache
-  else 
-    let $cache-additions := 
+  else
+    let $cache-additions :=
         for $concept in distinct-values($queried-concepts)
         let $facts as object* := $facts-found[$$.$facts:ASPECTS.$facts:CONCEPT eq $concept]
         return {
@@ -1805,7 +1872,7 @@ declare %private function facts:update-cache(
         }
     for $c in ($cache-additions, $cache)
     group by $concept := keys($c)
-    return switch(count($c)) 
+    return switch(count($c))
            case 1 return $c
            case 2 return facts:merge-objects($c[1], $c[2], true)
            default return error()
@@ -1829,7 +1896,7 @@ declare %private function facts:prepopulate-cache(
 {
   if (not(facts:from-options("cache-control", $options) eq "prefetch"))
   then $cache
-  else 
+  else
     let $concepts :=
       facts:get-dependent-concepts($concepts, $rules, $concept-maps)
     let $direct-lookup-results as object* :=
@@ -1857,7 +1924,7 @@ declare %private function facts:flatten-concept-maps(
 
 (:~
  : flatten deep structure of concept-maps
- : @param $concepts is optional and restricts the resulting 
+ : @param $concepts is optional and restricts the resulting
  :        mappings to only these concepts
  :)
 declare %private function facts:flatten-concept-maps(
@@ -1882,7 +1949,7 @@ declare %private function facts:get-dependent-concepts(
   $concept-maps as object*
 ) as string*
 {
-  let $flat-concept-maps := 
+  let $flat-concept-maps :=
     facts:flatten-concept-maps($concept-maps)
   let $concepts-not-to-prefetch :=
     (
@@ -1893,14 +1960,14 @@ declare %private function facts:get-dependent-concepts(
     distinct-values(
       for $concept in $concepts
       return
-        facts:get-dependent-concepts-internal($concept, 
-                                              $rules, 
+        facts:get-dependent-concepts-internal($concept,
+                                              $rules,
                                               $flat-concept-maps)
     )[not($$ = $concepts-not-to-prefetch)]
 };
 
 (:~
- : get all dependent concepts from rules, concept-maps, and concepts 
+ : get all dependent concepts from rules, concept-maps, and concepts
  : recursively. This is a helper function for facts:get-dependent-concepts#3.
  : Use facts:get-dependent-concepts#3 instead.
  :)

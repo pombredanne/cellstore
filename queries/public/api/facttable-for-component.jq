@@ -15,8 +15,6 @@ import module namespace rules = "http://28.io/modules/xbrl/rules";
 import module namespace sec-networks = "http://28.io/modules/xbrl/profiles/sec/networks";
 import module namespace multiplexer = "http://28.io/modules/xbrl/profiles/multiplexer";
 
-import module namespace response = "http://www.28msec.com/modules/http-response";
-
 import module namespace config = "http://apps.28.io/config";
 import module namespace session = "http://apps.28.io/session";
 import module namespace api = "http://apps.28.io/api";
@@ -75,26 +73,16 @@ let $archives as object* := multiplexer:filings(
   $aid)
 
 let $entity    := entities:entities($archives.Entity)
-let $components  := 
-    switch($profile-name)
-    case "sec" return sec-networks:components(
-        $archives,
-        $cid,
-        $reportElement,
-        $disclosure,
-        $networkIdentifier,
-        $label)
-    default return
-        switch(true)
-        case (exists($networkIdentifier) and exists($archives))
-        return components:components-for-archives-and-roles($archives, $networkIdentifier)
-        case exists($archives)
-        return components:components-for-archives($archives)
-        default
-        return {
-          response:status-code(400);
-          session:error("Archive ID missing.", $format)
-        }
+let $components as object* :=
+    multiplexer:components(
+      $profile-name,
+      $archives,
+      $cid,
+      $reportElement,
+      $disclosure,
+      $networkIdentifier,
+    $label)
+
 let $component as object? := if($merge) then components:merge($components) else $components[1]
 let $cid as string? := string-join($components ! components:cid($$), "--")
 let $rules as object* := if(exists($additional-rules)) then rules:rules($additional-rules) else ()
@@ -102,7 +90,7 @@ let $rules as object* := if(exists($additional-rules)) then rules:rules($additio
 (: Fact resolution :)
 let $facts :=
     if (exists($rollup) and $profile-name eq "sec")
-         then 
+         then
              let $calc-network := networks:networks-for-components-and-short-names($component, $networks:CALCULATION_NETWORK)
              let $hc := hypercubes:hypercubes-for-components($component)[]
              let $hc := hypercubes:modify-hypercube($hc, {
@@ -113,7 +101,7 @@ let $facts :=
              let $options as object? := if(exists($rules)) then { Rules: [ $rules ] } else ()
              let $p := hypercubes:populate-networks-with-facts($calc-network, $hc, $archives, $options)
              let $map := concept-maps:concept-maps($map)
-             let $concepts := 
+             let $concepts :=
                 if (not $map instance of null)
                 then
                     for $d in $rollup[]
@@ -143,11 +131,10 @@ let $facts :=
     then $facts
     else
         (: if labels are requested by the labels=true parameter then also add labels for concepts :)
-        let $concepts as object* :=
-            concepts:concepts-for-components($concepts:ALL_CONCEPT_NAMES, $component)
+        let $concepts as object* := $component.Concepts[]
         for $fact in $facts
         let $labels :=
-            facts:labels($fact, $component.Role, $concepts:STANDARD_LABEL_ROLE,$concepts:AMERICAN_ENGLISH, $concepts, ())
+            facts:labels($fact, $concepts:STANDARD_LABEL_ROLE,$concepts:AMERICAN_ENGLISH, $concepts, ())
         return
             {|
                 trim($fact, "Labels"),
@@ -179,7 +166,7 @@ let $result :=
                 FactTable : [ $facts ]
             }[$profile-name ne "sec"]
         |}
-        
+
 let $comment := {
     NumFacts : count($facts),
     TotalNumFacts: session:num-facts(),
@@ -198,7 +185,7 @@ let $serializers := {
             networkIdentifier="{$res.NetworkIdentifier}"
             formType="{$res.FormType}"
             fiscalPeriod="{$res.FiscalPeriod}"
-            fiscalYear="{$res.FiscalYear}" 
+            fiscalYear="{$res.FiscalYear}"
             acceptanceDatetime="{$res.AcceptanceDatetime}"
             disclosure="{$res.Disclosure}"
             >{
@@ -218,4 +205,3 @@ let $serializers := {
     }
 }
 return api:serialize($result, $comment, $serializers, $format, "facttable-" || $cid)
-
