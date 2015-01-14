@@ -343,14 +343,14 @@ declare %private function resolution:expand-concept-network(
         then $network.Label
         else
         resolution:labels(
-            trace($concept, "concept"),
+            $concept,
             $components,
             ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1],
             $options)
     return
     {|
         {
-            Labels: [ trace($label, "final") ],
+            Labels: [ $label ],
             ConstraintSets: {
                 "" : { "xbrl:Concept" : $concept }
             }
