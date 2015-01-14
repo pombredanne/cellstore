@@ -7,23 +7,24 @@ let $instant-period as string?  := facts:instant-for-fact($facts, {Typed: false 
 let $aligned-period as string  := ( $duration-period.End, $instant-period, "forever")[1]
 
 group by $canonical-filter-string :=
-facts:canonical-grouping-key($facts, ($facts:CONCEPT, $facts:UNIT {{#AllowCrossPeriod}}, $facts:PERIOD{{/AllowCrossPeriod}} ))
+  facts:canonical-grouping-key($facts, ($facts:CONCEPT, $facts:UNIT {{#AllowCrossPeriod}}, $facts:PERIOD{{/AllowCrossPeriod}} ))
 {{#AllowCrossPeriod}}
     , $aligned-period
 {{/AllowCrossPeriod}}
 
+for $duration-string as string? allowing empty in distinct-values($facts[$$.Concept.PeriodType eq "duration"].$facts:ASPECTS.$facts:PERIOD)
 let $facts := $facts[$$.$facts:ASPECTS.$facts:PERIOD = ($duration-string, $aligned-period)]
 let $warnings as string* := ()
 
 {{#Variables}}
-let ${{Name}} as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq "{{Concept}}"]
+let ${{VarName}} as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq "{{Concept}}"]
 let $warnings := ($warnings,
-  if(count(${{Name}}) gt 1)
-  then if(count(distinct-values(${{Name}}.Value)) gt 1)
-    then "Cell collision with conflicting values for concept {{Name}}."
-    else "Cell collision with consistent values for concept {{Name}}."
+  if(count(${{VarName}}) gt 1)
+  then if(count(distinct-values(${{VarName}}.Value)) gt 1)
+    then "Cell collision with conflicting values for concept {{VarName}}."
+    else "Cell collision with consistent values for concept {{VarName}}."
   else ())
-let ${{Name}} as object? := ${{Name}}[1]
+let ${{VarName}} as object? := ${{VarName}}[1]
 
 {{/Variables}}
 
@@ -35,7 +36,7 @@ let $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]
 {{/Unit}}
 
 return
-  switch (true)
+  switch (true())
 {{#Variables}}
   {{#ComputedConcept}}
     case exists(${{VarName}}) return ${{VarName}}

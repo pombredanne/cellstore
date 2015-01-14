@@ -6,16 +6,16 @@
       let $audit-trail-message as string* := ($audit-trail-message, $warnings)
       let $source-facts as object* := ( {{#UsedVariables}}${{VarName}},{{/UsedVariables}}())
       let $rule as object :=
-        copy $newRule := $rule
-        modify (
-            if(exists($newRule("Label"))) then ()
-            else insert json { "Label": "{{#Variables}}{{#ComputedConcept}}{{ComputedConcept.Label}}{{/ComputedConcept}}{{/Variables}}" } into $newRule
-        )
-        return $newRule
+        if(exists($rule("Label")))
+        then $rule
+        else
+          copy $newRule := $rule
+          modify insert json { "Label": "{{#Variables}}{{#ComputedConcept}}{{ComputedConcept.Label}}{{/ComputedConcept}}{{/Variables}}" } into $newRule
+          return $newRule
       let $fact as object :=
         rules:create-computed-fact(
-          {{#Variables}}{{#ComputedConcept}}${{VarName}},
-          "{{Concept}},{{/ComputedConcept}}{{/Variables}}
+          ${{SourceFactVarName}},
+          {{#Variables}}{{#ComputedConcept}}"{{Concept}}",{{/ComputedConcept}}{{/Variables}}
           $computed-value,
           $rule,
           $audit-trail-message,
