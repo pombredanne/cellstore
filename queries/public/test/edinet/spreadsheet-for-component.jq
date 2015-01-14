@@ -13,6 +13,19 @@ test:check-all-success({
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-one.jq")
     ),
+    bs-one-en: test:invoke-and-assert-deep-equal(
+      "spreadsheet-for-component",
+      {
+        eid: "http://info.edinet-fsa.go.jp E01225-000",
+        fiscalYear: "2014",
+        fiscalPeriod: "Q1",
+        role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
+        language: "en",
+        merge: "true"
+      },
+      function($b as item*) as item* { $b },
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-one-en.jq")
+    ),
     pl-one: test:invoke-and-assert-deep-equal(
       "spreadsheet-for-component",
       {
