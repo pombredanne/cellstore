@@ -33,6 +33,13 @@ declare %an:nondeterministic function test:invoke($endpoint as string, $paramete
   return ($response.status, parse-json($response.body.content))
 };
 
+declare %an:nondeterministic function test:invoke-xml($endpoint as string, $parameters as object) as item*
+{
+  let $url as string:= test:url($endpoint, $parameters, true)
+  let $response as object := http-client:get($url)
+  return ($response.status, parse-xml($response.body.content))
+};
+
 
 declare %an:sequential function test:invoke-body($endpoint as string, $parameters as object, $body as string) as item*
 {
@@ -65,6 +72,15 @@ declare %an:nondeterministic function test:get-expected-result(
                     "/test/" || $expected-file).body.content)
 };
 
+declare %an:nondeterministic function test:get-expected-result-xml(
+  $expected-file as string
+) as item*
+{
+  parse-xml(
+    http-client:get("http://" || request:server-name() || ":" || request:server-port() ||
+                    "/test/" || $expected-file).body.content)
+};
+
 
 declare %an:nondeterministic function test:invoke-and-assert-deep-equal-json(
   $endpoint as string,
@@ -88,7 +104,18 @@ declare %an:sequential function test:check-all-success($o as object) as object
   } else $o
 };
 
-
+declare %an:nondeterministic function test:invoke-and-assert-deep-equal-xml(
+  $endpoint as string,
+  $parameters as object,
+  $transform as function(object) as item*,
+  $expected as item*
+) as item
+{
+  let $request := test:invoke-xml($endpoint, $parameters)
+  let $status as integer := $request[1]
+  let $actual as item* := $transform($request[2])
+  return test:assert-deep-equal($expected, $actual, $status, test:url($endpoint, $parameters))
+};
 
 (:    return
         if ($actual eq $expected)
@@ -113,8 +140,8 @@ declare function test:assert-eq(
 };
 
 declare function test:assert-deep-equal(
-    $expected as json-item,
-    $actual as json-item?,
+    $expected as item,
+    $actual as item?,
     $status as integer,
     $url as string) as item
 {
@@ -124,8 +151,8 @@ declare function test:assert-deep-equal(
     default return
     {
         "url": $url,
-        "expected": $expected,
-        "actual": $actual
+        "expected": typeswitch($expected) case json-item return $expected default return serialize($expected),
+        "actual": typeswitch($actual) case json-item return $actual default return serialize($actual)
     }
 };
 
