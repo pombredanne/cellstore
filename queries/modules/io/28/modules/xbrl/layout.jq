@@ -246,7 +246,7 @@ declare function layout:matches-aspects(
     return
       $fact.Aspects.$aspect eq $allowed-value
       or
-      empty($allowed-value) and $fact.Aspects.$aspect eq $default-value
+      (empty($allowed-value) and $fact.Aspects.$aspect eq $default-value)
 };
 
 (:

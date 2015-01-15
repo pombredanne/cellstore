@@ -706,12 +706,12 @@ declare function components:standard-definition-models-for-components($component
         let $metadata as object? := ($component.Concepts[])[$$.Name eq $d]
         let $label as string? :=
           concepts:labels(
-          $d,
-          $concepts:VERBOSE_LABEL_ROLE,
-          ($options.Language, "en")[1],
-          $components.Concepts[],
-          $options
-        )[1]
+            $d,
+            $concepts:VERBOSE_LABEL_ROLE,
+            ($options.Language, "en")[1],
+            $components.Concepts[],
+            $options
+          )[1]
         return
             components:standard-explicit-dimension-breakdown(
                 $d,

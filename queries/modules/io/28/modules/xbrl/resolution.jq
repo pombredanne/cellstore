@@ -451,19 +451,18 @@ declare function resolution:expand-dimension-network(
     $options as object?) as object
 {
     let $value as string := $network.Name
-    let $label as string* :=
-          if(not $options.Language != $components.$components:DEFAULT-LANGUAGE)
-          then $network.Label
-          else
-          resolution:labels(
+    let $labels as string* :=
+          if($options.Language != $components.$components:DEFAULT-LANGUAGE)
+          then resolution:labels(
             $value,
             $components,
             ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1],
             $options)
+          else $network.Label
     return
     {|
         {
-            Labels: [ $label],
+            Labels: [ $labels ],
             ConstraintSets: {
                 "" : { $dimension : $value }
             }
