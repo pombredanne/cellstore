@@ -11,7 +11,8 @@ test:check-all-success({
         merge: "true"
       },
       function($b as item*) as item* { $b },
-      test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-one.jq")
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-one.jq"),
+      { TrimIdField: true }
     ),
     bs-one-en: test:invoke-and-assert-deep-equal(
       "spreadsheet-for-component",
@@ -24,7 +25,8 @@ test:check-all-success({
         merge: "true"
       },
       function($b as item*) as item* { $b },
-      test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-one-en.jq")
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-one-en.jq"),
+      { TrimIdField: true }
     ),
     pl-one: test:invoke-and-assert-deep-equal(
       "spreadsheet-for-component",
@@ -36,7 +38,8 @@ test:check-all-success({
         merge: "true"
       },
       function($b as item*) as item* { $b },
-      test:get-expected-result("edinet/spreadsheet-for-component-expected-pl-one.jq")
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-pl-one.jq"),
+      { TrimIdField: true }
     ),
     cf-one: test:invoke-and-assert-deep-equal(
       "spreadsheet-for-component",
@@ -48,7 +51,8 @@ test:check-all-success({
         merge: "true"
       },
       function($b as item*) as item* { $b },
-      test:get-expected-result("edinet/spreadsheet-for-component-expected-cf-one.jq")
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-cf-one.jq"),
+      { TrimIdField: true }
     ),
     bs-companies: test:invoke-and-assert-deep-equal(
       "spreadsheet-for-component",
@@ -60,7 +64,8 @@ test:check-all-success({
         merge: "true"
       },
       function($b as item*) as item* { $b },
-      test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-companies.jq")
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-companies.jq"),
+      { TrimIdField: true }
     ),
     pl-companies: test:invoke-and-assert-deep-equal(
       "spreadsheet-for-component",
@@ -72,7 +77,8 @@ test:check-all-success({
         merge: "true"
       },
       function($b as item*) as item* { $b },
-      test:get-expected-result("edinet/spreadsheet-for-component-expected-pl-companies.jq")
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-pl-companies.jq"),
+      { TrimIdField: true }
     ),
     cf-companies: test:invoke-and-assert-deep-equal(
       "spreadsheet-for-component",
@@ -84,7 +90,8 @@ test:check-all-success({
         merge: "true"
       },
       function($b as item*) as item* { $b },
-      test:get-expected-result("edinet/spreadsheet-for-component-expected-cf-companies.jq")
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-cf-companies.jq"),
+      { TrimIdField: true }
     ),
     bs-periods: test:invoke-and-assert-deep-equal(
       "spreadsheet-for-component",
@@ -96,7 +103,8 @@ test:check-all-success({
         merge: "true"
       },
       function($b as item*) as item* { $b },
-      test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-periods.jq")
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-periods.jq"),
+      { TrimIdField: true }
     ),
     pl-periods: test:invoke-and-assert-deep-equal(
       "spreadsheet-for-component",
@@ -108,7 +116,8 @@ test:check-all-success({
         merge: "true"
       },
       function($b as item*) as item* { $b },
-      test:get-expected-result("edinet/spreadsheet-for-component-expected-pl-periods.jq")
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-pl-periods.jq"),
+      { TrimIdField: true }
     ),
     cf-periods: test:invoke-and-assert-deep-equal(
       "spreadsheet-for-component",
@@ -120,6 +129,7 @@ test:check-all-success({
         merge: "true"
       },
       function($b as item*) as item* { $b },
-      test:get-expected-result("edinet/spreadsheet-for-component-expected-cf-periods.jq")
+      test:get-expected-result("edinet/spreadsheet-for-component-expected-cf-periods.jq"),
+      { TrimIdField: true }
     )
 })
