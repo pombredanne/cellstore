@@ -131,54 +131,6 @@
       "y" : [ {
         "GroupLabels" : [ "Breakdown on concepts" ], 
         "GroupCells" : [ [ {
-          "CellLabels" : [ "四半期連結貸借対照表", "jppfs-cor:QuarterlyConsolidatedBalanceSheetHeading" ], 
-          "CellConstraints" : {
-            "" : {
-              "xbrl:Concept" : "jppfs-cor:QuarterlyConsolidatedBalanceSheetHeading"
-            }
-          }, 
-          "TagSelectors" : [  ], 
-          "CellSpan" : 62, 
-          "RollUp" : false, 
-          "IsRollUp" : false, 
-          "IsNegated" : false
-        } ], [ {
-          "CellLabels" : [ "連結貸借対照表", "jppfs-cor:BalanceSheetTable" ], 
-          "CellConstraints" : {
-            "" : {
-              "xbrl:Concept" : "jppfs-cor:BalanceSheetTable"
-            }
-          }, 
-          "TagSelectors" : [  ], 
-          "IsRollUp" : false, 
-          "IsNegated" : false, 
-          "Depth" : 1, 
-          "IsAbstract" : true
-        }, {
-          "CellLabels" : [ "連結個別", "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" ], 
-          "CellConstraints" : {
-            "" : {
-              "xbrl:Concept" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis"
-            }
-          }, 
-          "TagSelectors" : [  ], 
-          "IsRollUp" : false, 
-          "IsNegated" : false, 
-          "Depth" : 2, 
-          "IsAbstract" : true
-        }, {
-          "CellLabels" : [ "連結", "jppfs-cor:ConsolidatedMember" ], 
-          "CellConstraints" : {
-            "" : {
-              "xbrl:Concept" : "jppfs-cor:ConsolidatedMember"
-            }
-          }, 
-          "TagSelectors" : [  ], 
-          "IsRollUp" : false, 
-          "IsNegated" : false, 
-          "Depth" : 3, 
-          "IsAbstract" : false
-        }, {
           "CellLabels" : [ "連結貸借対照表", "jppfs-cor:BalanceSheetLineItems" ], 
           "CellConstraints" : {
             "" : {
@@ -186,11 +138,11 @@
             }
           }, 
           "TagSelectors" : [  ], 
+          "CellSpan" : 58, 
+          "RollUp" : false, 
           "IsRollUp" : false, 
-          "IsNegated" : false, 
-          "Depth" : 1, 
-          "IsAbstract" : true
-        }, {
+          "IsNegated" : false
+        } ], [ {
           "CellLabels" : [ "資産の部", "jppfs-cor:AssetsAbstract" ], 
           "CellConstraints" : {
             "" : {
@@ -200,7 +152,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 2, 
+          "Depth" : 1, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "流動資産", "jppfs-cor:CurrentAssetsAbstract" ], 
@@ -212,7 +164,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 3, 
+          "Depth" : 2, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "現金及び預金", "jppfs-cor:CashAndDeposits" ], 
@@ -224,7 +176,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "受取手形及び売掛金", "jppfs-cor:NotesAndAccountsReceivableTrade" ], 
@@ -236,7 +188,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "たな卸資産", "jppfs-cor:Inventories" ], 
@@ -248,7 +200,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "その他", "jppfs-cor:OtherCA" ], 
@@ -260,7 +212,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "貸倒引当金", "jppfs-cor:AllowanceForDoubtfulAccountsCA" ], 
@@ -272,7 +224,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "流動資産合計", "jppfs-cor:CurrentAssets" ], 
@@ -284,7 +236,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "固定資産", "jppfs-cor:NoncurrentAssetsAbstract" ], 
@@ -296,7 +248,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 3, 
+          "Depth" : 2, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "有形固定資産", "jppfs-cor:PropertyPlantAndEquipmentAbstract" ], 
@@ -308,7 +260,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "建物及び構築物（純額）", "jppfs-cor:BuildingsAndStructuresNet" ], 
@@ -320,7 +272,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 5
+          "Depth" : 4
         }, {
           "CellLabels" : [ "機械装置及び運搬具（純額）", "jppfs-cor:MachineryEquipmentAndVehiclesNet" ], 
           "CellConstraints" : {
@@ -331,7 +283,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 5
+          "Depth" : 4
         }, {
           "CellLabels" : [ "その他（純額）", "jppfs-cor:OtherNetPPE" ], 
           "CellConstraints" : {
@@ -342,7 +294,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 5
+          "Depth" : 4
         }, {
           "CellLabels" : [ "有形固定資産合計", "jppfs-cor:PropertyPlantAndEquipment" ], 
           "CellConstraints" : {
@@ -353,7 +305,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 5
+          "Depth" : 4
         }, {
           "CellLabels" : [ "無形固定資産", "jppfs-cor:IntangibleAssets" ], 
           "CellConstraints" : {
@@ -364,7 +316,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "投資その他の資産", "jppfs-cor:InvestmentsAndOtherAssetsAbstract" ], 
@@ -376,7 +328,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "投資有価証券", "jppfs-cor:InvestmentSecurities" ], 
@@ -388,7 +340,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 5
+          "Depth" : 4
         }, {
           "CellLabels" : [ "退職給付に係る資産", "jppfs-cor:NetDefinedBenefitAsset" ], 
           "CellConstraints" : {
@@ -399,7 +351,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 5
+          "Depth" : 4
         }, {
           "CellLabels" : [ "その他", "jppfs-cor:OtherIOA" ], 
           "CellConstraints" : {
@@ -410,7 +362,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 5
+          "Depth" : 4
         }, {
           "CellLabels" : [ "貸倒引当金", "jppfs-cor:AllowanceForDoubtfulAccountsIOAByGroup" ], 
           "CellConstraints" : {
@@ -421,7 +373,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 5
+          "Depth" : 4
         }, {
           "CellLabels" : [ "投資その他の資産合計", "jppfs-cor:InvestmentsAndOtherAssets" ], 
           "CellConstraints" : {
@@ -432,7 +384,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 5
+          "Depth" : 4
         }, {
           "CellLabels" : [ "固定資産合計", "jppfs-cor:NoncurrentAssets" ], 
           "CellConstraints" : {
@@ -443,7 +395,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "資産合計", "jppfs-cor:Assets" ], 
@@ -455,7 +407,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 3, 
+          "Depth" : 2, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "負債の部", "jppfs-cor:LiabilitiesAbstract" ], 
@@ -467,7 +419,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 2, 
+          "Depth" : 1, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "流動負債", "jppfs-cor:CurrentLiabilitiesAbstract" ], 
@@ -479,7 +431,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 3, 
+          "Depth" : 2, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "支払手形及び買掛金", "jppfs-cor:NotesAndAccountsPayableTrade" ], 
@@ -491,7 +443,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "短期借入金", "jppfs-cor:ShortTermLoansPayable" ], 
@@ -503,7 +455,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "コマーシャル・ペーパー", "jppfs-cor:CommercialPapersLiabilities" ], 
@@ -515,7 +467,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "1年内償還予定の社債", "jppfs-cor:CurrentPortionOfBonds" ], 
@@ -527,7 +479,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "未払法人税等", "jppfs-cor:IncomeTaxesPayable" ], 
@@ -539,7 +491,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "引当金", "jppfs-cor:ProvisionCL" ], 
@@ -551,7 +503,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "その他", "jppfs-cor:OtherCL" ], 
@@ -563,7 +515,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "流動負債合計", "jppfs-cor:CurrentLiabilities" ], 
@@ -575,7 +527,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "固定負債", "jppfs-cor:NoncurrentLiabilitiesAbstract" ], 
@@ -587,7 +539,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 3, 
+          "Depth" : 2, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "社債", "jppfs-cor:BondsPayable" ], 
@@ -599,7 +551,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "長期借入金", "jppfs-cor:LongTermLoansPayable" ], 
@@ -611,7 +563,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "引当金", "jppfs-cor:ProvisionNCL" ], 
@@ -623,7 +575,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "退職給付に係る負債", "jppfs-cor:NetDefinedBenefitLiability" ], 
@@ -635,7 +587,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "その他", "jppfs-cor:OtherNCL" ], 
@@ -647,7 +599,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "固定負債合計", "jppfs-cor:NoncurrentLiabilities" ], 
@@ -659,7 +611,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "負債合計", "jppfs-cor:Liabilities" ], 
@@ -671,7 +623,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 3, 
+          "Depth" : 2, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "純資産の部", "jppfs-cor:NetAssetsAbstract" ], 
@@ -683,7 +635,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 2, 
+          "Depth" : 1, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "株主資本", "jppfs-cor:ShareholdersEquityAbstract" ], 
@@ -695,7 +647,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 3, 
+          "Depth" : 2, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "資本金", "jppfs-cor:CapitalStock" ], 
@@ -707,7 +659,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "資本剰余金", "jppfs-cor:CapitalSurplus" ], 
@@ -719,7 +671,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "利益剰余金", "jppfs-cor:RetainedEarnings" ], 
@@ -731,7 +683,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "自己株式", "jppfs-cor:TreasuryStock" ], 
@@ -743,7 +695,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "株主資本合計", "jppfs-cor:ShareholdersEquity" ], 
@@ -755,7 +707,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "その他の包括利益累計額", "jppfs-cor:ValuationAndTranslationAdjustmentsAbstract" ], 
@@ -767,7 +719,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 3, 
+          "Depth" : 2, 
           "IsAbstract" : true
         }, {
           "CellLabels" : [ "その他有価証券評価差額金", "jppfs-cor:ValuationDifferenceOnAvailableForSaleSecurities" ], 
@@ -779,7 +731,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "繰延ヘッジ損益", "jppfs-cor:DeferredGainsOrLossesOnHedges" ], 
@@ -791,7 +743,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "土地再評価差額金", "jppfs-cor:RevaluationReserveForLand" ], 
@@ -803,7 +755,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "為替換算調整勘定", "jppfs-cor:ForeignCurrencyTranslationAdjustment" ], 
@@ -815,7 +767,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "退職給付に係る調整累計額", "jppfs-cor:RemeasurementsOfDefinedBenefitPlans" ], 
@@ -827,7 +779,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "その他の包括利益累計額合計", "jppfs-cor:ValuationAndTranslationAdjustments" ], 
@@ -839,7 +791,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 4, 
+          "Depth" : 3, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "少数株主持分", "jppfs-cor:MinorityInterests" ], 
@@ -851,7 +803,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : false, 
           "IsNegated" : false, 
-          "Depth" : 3, 
+          "Depth" : 2, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "純資産合計", "jppfs-cor:NetAssets" ], 
@@ -863,7 +815,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 3, 
+          "Depth" : 2, 
           "IsAbstract" : false
         }, {
           "CellLabels" : [ "負債純資産合計", "jppfs-cor:LiabilitiesAndNetAssets" ], 
@@ -875,7 +827,7 @@
           "TagSelectors" : [  ], 
           "IsRollUp" : true, 
           "IsNegated" : false, 
-          "Depth" : 2, 
+          "Depth" : 1, 
           "IsAbstract" : false
         } ] ]
       } ]
@@ -883,26 +835,6 @@
     "TableCells" : {
       "AxisOrder" : [ "y", "x" ], 
       "Facts" : [ [ null, null ], [ null, null ], [ {
-        "Aspects" : {
-          "xbrl:Period" : "2014-06-30", 
-          "xbrl:Concept" : "jppfs-cor:ConsolidatedMember", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember", 
-          "xbrl28:Archive" : "S1002Q54", 
-          "fsa:Submitted" : "2014-08-07"
-        }
-      }, {
-        "Aspects" : {
-          "xbrl:Period" : "2014-03-31", 
-          "xbrl:Concept" : "jppfs-cor:ConsolidatedMember", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember", 
-          "xbrl28:Archive" : "S1002Q54", 
-          "fsa:Submitted" : "2014-08-07"
-        }
-      } ], [ null, null ], [ null, null ], [ null, null ], [ {
         "_id" : "f0b6e4aa-1d82-4450-9371-d8f5bd77148c", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
@@ -5290,8 +5222,8 @@
   "GlobalConstraintLabels" : {
     "xbrl:Entity" : "Reporting Entity [Axis]", 
     "xbrl:Unit" : "Unit [Axis]", 
-    "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "連結個別", 
-    "jppfs-cor:ConsolidatedMember" : "連結", 
+    "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "Consolidated or non-consolidated", 
+    "jppfs-cor:ConsolidatedMember" : "Consolidated [member]", 
     "xbrl28:Archive" : "Archive [Axis]", 
     "fsa:Submitted" : "FSA Submission Date [Axis]"
   }

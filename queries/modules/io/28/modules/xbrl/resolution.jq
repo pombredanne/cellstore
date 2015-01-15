@@ -450,26 +450,25 @@ declare function resolution:expand-dimension-network(
     $parent-child-order as string?,
     $options as object?) as object
 {
-    let $value := $network.Name
-    let $label :=
-          if(not $options.Language != $components.$components:DEFAULT-LANGUAGE)
-          then $network.Label
-          else
-          resolution:labels(
+    let $value as string := $network.Name
+    let $labels as string* :=
+          if($options.Language != $components.$components:DEFAULT-LANGUAGE)
+          then resolution:labels(
             $value,
             $components,
             ($network.PreferredLabelRole, $concepts:STANDARD_LABEL_ROLE)[1],
             $options)
+          else $network.Label
     return
     {|
         {
-            Labels: [ $label],
+            Labels: [ $labels ],
             ConstraintSets: {
                 "" : { $dimension : $value }
             }
         },
-        let $sub-networks := values($network.Members)
-        let $converted-subnetworks :=
+        let $sub-networks as object* := $network.Members[]
+        let $converted-subnetworks as object* :=
             for $sub-network in $sub-networks
             return resolution:expand-dimension-network(
                         $dimension,
@@ -478,7 +477,7 @@ declare function resolution:expand-dimension-network(
                         $parent-child-order,
                         $options
                 )
-        let $roll-up :={
+        let $roll-up as object* :={
             Labels: [],
             RollUp: true
         }
@@ -642,11 +641,25 @@ declare function resolution:resolve(
         GlobalConstraintSet: $definition-model.TableFilters,
         GlobalConstraintLabels: {|
             for $dimension in keys($definition-model.TableFilters)
-            let $dimension-label as string* := resolution:metadata($components, $dimension).Label[1]
+            let $dimension-labels as string* := (
+                resolution:labels(
+                  $dimension, $components, $concepts:STANDARD_LABEL_ROLE, $options),
+                resolution:labels(
+                  $dimension, $components, $concepts:VERBOSE_LABEL_ROLE, $options
+                )
+            )
             let $value := $definition-model.TableFilters.$dimension
-            let $value-label as string* := if($value instance of string) then resolution:metadata($components, $value).Label else ()
-            return ({ $dimension: $dimension-label[1] }[exists($dimension-label)],
-                    { $value: $value-label[1] }[exists($value-label)]
+            let $value-labels as string* :=
+              if($value instance of string)
+              then (
+                resolution:labels(
+                  $value, $components, $concepts:VERBOSE_LABEL_ROLE, $options),
+                resolution:labels(
+                  $value, $components, $concepts:STANDARD_LABEL_ROLE, $options)
+              )
+              else ()
+            return ({ $dimension: $dimension-labels[1] }[exists($dimension-labels)],
+                    { $value: $value-labels[1] }[exists($value-labels)]
                     )
         |},
         DimensionDefaults: {|
