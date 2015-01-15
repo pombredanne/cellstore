@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rules-model', ['excel-parser', 'formula-parser'])
-    .factory('Rule', function (_, $q, $log, ExcelParser, FormulaParser, Mustache, EXCEL_RULE_TEMPLATE, EXCEL_RULE_ALTERNATIVE_TEMPLATE) {
+    .factory('Rule', function (_, $q, $log, ExcelParser, FormulaParser, EXCEL_RULE_TEMPLATE) {
 
         var ensureParameter = function (paramValue, paramName, paramType, functionName, regex, regexErrorMessage) {
             if (paramValue === null || paramValue === undefined) {
@@ -447,6 +447,15 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
             return _.unique(report.alignConceptPrefixes(facts));
         };
 
+        Rule.prototype.getRuleTemplate = function () {
+            if (!_.isFunction(this.template)) {
+                if (this.model.OriginalLanguage === 'SpreadsheetFormula') {
+                    this.template = _.template(EXCEL_RULE_TEMPLATE);
+                }
+            }
+            return this.template;
+        };
+
         Rule.prototype.toJsoniq = function () {
             var prefix = this.getPrefix();
             var report = this.report;
@@ -484,9 +493,7 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     }
                     data.Variables.push(variable);
                 });
-                if(_.isString(unit)) {
-                    data.Unit = unit;
-                }
+                data.Unit = unit;
                 if (this.model.Type === 'xbrl28:validation') {
                     var validatedFactVariable = validatedConcept.Name;
                     if (validatedConcept.indexOf(prefix + ':') === 0) {
@@ -495,13 +502,10 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                         validatedFactVariable = validatedConcept.replace(/:/g, '_');
                     }
                     data.ValidatedFactVariable = validatedFactVariable;
+                } else {
+                    data.ValidatedFactVariable = undefined;
                 }
-                if(_.isString(decimals)){
-                    data.DecimalsString = decimals;
-                } else if(_.isNumber(decimals)){
-                    data.DecimalsInt = decimals;
-                }
-
+                data.Decimals = decimals;
                 var that = this;
                 _.each(data.Formulae, function(alternative){
                     var body = alternative.Body;
@@ -536,10 +540,8 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                     auditTrail += toAuditTrail(body);
                     body.AuditTrail = auditTrail;
                 });
-                var partialTpl = {
-                    'excel-rule-alternative': EXCEL_RULE_ALTERNATIVE_TEMPLATE
-                };
-                var source = Mustache.render(EXCEL_RULE_TEMPLATE, data, partialTpl);
+                var template = this.getRuleTemplate();
+                var source = template(data);
                 return source;
             }
         };

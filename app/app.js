@@ -2,7 +2,6 @@
 
 angular.module('report-editor', [
     'lodash',
-    'Mustache',
     'ui.router',
     'ui.bootstrap',
     'ui.tree',
