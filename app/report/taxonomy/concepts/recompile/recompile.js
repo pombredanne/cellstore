@@ -56,11 +56,11 @@ angular
                         }
                     } catch (e) {
                         addBuggyRule(rule);
-                        addMessage('error', 'Validation failed:' + e.message);
+                        addMessage('error', 'Validation failed (' + rule.ComputableConcepts + '): ' + e.message);
                     }
                 } catch (e) {
                     addBuggyRule(rule);
-                    addMessage('error', 'Compilation failed:' + e.message);
+                    addMessage('error', 'Compilation failed (' + rule.ComputableConcepts + '): ' + e.message);
                 }
 
             } else {
