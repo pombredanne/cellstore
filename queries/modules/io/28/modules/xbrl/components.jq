@@ -704,10 +704,18 @@ declare function components:standard-definition-models-for-components($component
         components:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
         for $d as string in $column-dimensions
         let $metadata as object? := ($component.Concepts[])[$$.Name eq $d]
+        let $label as string? :=
+          concepts:labels(
+          $d,
+          $concepts:VERBOSE_LABEL_ROLE,
+          ($options.Language, "en")[1],
+          $components.Concepts[],
+          $options
+        )[1]
         return
             components:standard-explicit-dimension-breakdown(
                 $d,
-                $metadata.Label,
+                ($label, $metadata.Label)[1],
                 $table.Aspects.$d.Members[].Name,
                 $component.Role),
         components:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
