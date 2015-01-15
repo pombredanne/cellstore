@@ -26368,7 +26368,7 @@
   } ], 
   "GlobalConstraintLabels" : {
     "xbrl:Unit" : "Unit [Axis]", 
-    "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "連結個別", 
-    "jppfs-cor:ConsolidatedMember" : "連結"
+    "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "Consolidated or non-consolidated", 
+    "jppfs-cor:ConsolidatedMember" : "Consolidated [member]"
   }
 }

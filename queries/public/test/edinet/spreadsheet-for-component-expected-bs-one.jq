@@ -5222,8 +5222,8 @@
   "GlobalConstraintLabels" : {
     "xbrl:Entity" : "Reporting Entity [Axis]", 
     "xbrl:Unit" : "Unit [Axis]", 
-    "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "連結個別", 
-    "jppfs-cor:ConsolidatedMember" : "連結", 
+    "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "Consolidated or non-consolidated", 
+    "jppfs-cor:ConsolidatedMember" : "Consolidated [member]", 
     "xbrl28:Archive" : "Archive [Axis]", 
     "fsa:Submitted" : "FSA Submission Date [Axis]"
   }
