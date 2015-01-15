@@ -642,7 +642,7 @@ declare function resolution:resolve(
         GlobalConstraintSet: $definition-model.TableFilters,
         GlobalConstraintLabels: {|
             for $dimension in keys($definition-model.TableFilters)
-            let $dimension-label as string* := (
+            let $dimension-labels as string* := (
                 resolution:labels(
                   $dimension, $components, $concepts:STANDARD_LABEL_ROLE, $options),
                 resolution:labels(
@@ -650,7 +650,7 @@ declare function resolution:resolve(
                 )
             )
             let $value := $definition-model.TableFilters.$dimension
-            let $value-label as string* :=
+            let $value-labels as string* :=
               if($value instance of string)
               then (
                 resolution:labels(
@@ -659,8 +659,8 @@ declare function resolution:resolve(
                   $value, $components, $concepts:STANDARD_LABEL_ROLE, $options)
               )
               else ()
-            return ({ $dimension: $dimension-label[1] }[exists($dimension-label)],
-                    { $value: $value-label[1] }[exists($value-label)]
+            return ({ $dimension: $dimension-labels[1] }[exists($dimension-labels)],
+                    { $value: $value-labels[1] }[exists($value-labels)]
                     )
         |},
         DimensionDefaults: {|
