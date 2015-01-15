@@ -496,10 +496,10 @@ angular.module('rules-model', ['excel-parser', 'formula-parser'])
                 data.Unit = unit;
                 if (this.model.Type === 'xbrl28:validation') {
                     var validatedFactVariable = validatedConcept.Name;
-                    if (validatedConcept.indexOf(prefix + ':') === 0) {
-                        validatedFactVariable = validatedConcept.substring(prefix.length + 1);
+                    if (validatedFactVariable.indexOf(prefix + ':') === 0) {
+                        validatedFactVariable = validatedFactVariable.substring(prefix.length + 1);
                     } else {
-                        validatedFactVariable = validatedConcept.replace(/:/g, '_');
+                        validatedFactVariable = validatedFactVariable.replace(/:/g, '_');
                     }
                     data.ValidatedFactVariable = validatedFactVariable;
                 } else {
