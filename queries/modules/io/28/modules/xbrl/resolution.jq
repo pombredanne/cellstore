@@ -450,8 +450,8 @@ declare function resolution:expand-dimension-network(
     $parent-child-order as string?,
     $options as object?) as object
 {
-    let $value := $network.Name
-    let $label :=
+    let $value as string := $network.Name
+    let $label as string* :=
           if(not $options.Language != $components.$components:DEFAULT-LANGUAGE)
           then $network.Label
           else
@@ -468,8 +468,8 @@ declare function resolution:expand-dimension-network(
                 "" : { $dimension : $value }
             }
         },
-        let $sub-networks := values($network.Members)
-        let $converted-subnetworks :=
+        let $sub-networks as object* := $network.Members[]
+        let $converted-subnetworks as object* :=
             for $sub-network in $sub-networks
             return resolution:expand-dimension-network(
                         $dimension,
@@ -478,7 +478,7 @@ declare function resolution:expand-dimension-network(
                         $parent-child-order,
                         $options
                 )
-        let $roll-up :={
+        let $roll-up as object* :={
             Labels: [],
             RollUp: true
         }
