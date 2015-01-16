@@ -466,6 +466,7 @@
             }, {
                 "name": "cid",
                 "description": "[Deprecated] The id of a particular component",
+                "deprecated": true,
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -572,6 +573,7 @@
             }, {
                 "name": "cid",
                 "description": "[Deprecated] The id of the component",
+                "deprecated": true,
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -765,6 +767,7 @@
             }, {
                 "name": "cid",
                 "description": "[Deprecated] The id of the component",
+                "deprecated": true,
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -1067,6 +1070,7 @@
             }, {
                 "name": "cid",
                 "description": "[Deprecated] The id of the component",
+                "deprecated": true,
                 "required": false,
                 "type": "string",
                 "paramType": "query"
@@ -1626,6 +1630,7 @@
             }, {
                 "name": "map",
                 "description": "[Deprecated, use report] The concept map that should be used to resolve the concept (default: none)",
+                "deprecated": true,
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1636,6 +1641,7 @@
             }, {
                 "name": "rules",
                 "description": "[Deprecated, use report] The rules that should be used to resolve the concept (default: none)",
+                "deprecated": true,
                 "required": false,
                 "type": "string",
                 "enum": [
@@ -1685,6 +1691,7 @@
                 "paramType": "query"
             }, {
                 "name": "prefix:dimension",
+                "nameEditable": true,
                 "pattern": "[^:]+:[^:]+",
                 "description": "The name of a dimension used for filtering. Accepted format: prefix:dimension. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved",
                 "required": false,
@@ -1692,6 +1699,7 @@
                 "paramType": "query"
             }, {
                 "name": "prefix:dimension::default",
+                "nameEditable": true,
                 "pattern": "[^:]+:[^:]+::default",
                 "description": "The default value of the dimension [prefix:dimension] that should be returned if the dimension was not provided explicitly for a fact. Accepted format: prefix:dimension::default",
                 "required": false,
@@ -1754,14 +1762,26 @@
                     "format": "csv"
                 }
             }, {
-                "title": "Get text by company name/ID, period and element name",
+                "title": "Get value of Total Assets and Profit/Loss by company name/ID for Q3/2013",
                 "description": "Get text by company name/ID, period and element name.",
                 "profile": ["japan"],
                 "parameters": {
-                    "xbrl:Period": "2012-06-26",
-                    "xbrl:Entity": "http://info.edinet-fsa.go.jp E01225-000",
-                    "japan:Submitted": "ALL",
-                    "xbrl:Concept": "jp-o-di:ContextIDBeginningOfPeriodSCNonconsolidatedSS"
+                    "eid": "http://disclosure.edinet-fsa.go.jp E02529-000",
+                    "fiscalPeriod": "Q1",
+                    "fiscalYear": 2014,
+                    "concept": ["jpcrp-cor:TotalAssetsIFRSSummaryOfBusinessResults", "jpcrp-cor:ProfitLossAttributableToOwnersOfParentIFRSSummaryOfBusinessResults"]
+                }
+            }, {
+                "title": "Get Number of Shares held by major shareholders by company name/ID for FY/2013",
+                "description": "Get text by company name/ID, period and element name.",
+                "profile": ["japan"],
+                "parameters": {
+                    "eid": "http://disclosure.edinet-fsa.go.jp E02529-000",
+                    "fiscalPeriod": "Q2",
+                    "fiscalYear": 2014,
+                    "concept": ["jpcrp-cor:NumberOfSharesHeld", "jpcrp-cor:ShareholdingRatio"],
+                    "jpcrp-cor:MajorShareholdersAxis": "ALL",
+                    "jpcrp-cor:MajorShareholdersAxis::default": "jpcrp-cor:MajorShareholdersMember"
                 }
             }]
         }]
@@ -1877,6 +1897,7 @@
             }, {
                 "name": "map",
                 "description": "[Deprecated, use report] The concept map that should be used to resolve the concept (default: none)",
+                "deprecated": true,
                 "required": false,
                 "type": "string",
                 "enum": [
