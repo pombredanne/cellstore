@@ -85,8 +85,8 @@ return if(empty($component)) then {
 (: Fact resolution :)
 let $definition-model :=
 switch($profile-name)
-case "sec" return sec-networks:standard-definition-models-for-components($component, {})
-default return components:standard-definition-models-for-components($component, {})
+case "sec" return sec-networks:standard-definition-models-for-components($component, {Language: $language})
+default return components:standard-definition-models-for-components($component, {Language: $language})
 let $spreadsheet as object? :=
     components:spreadsheet(
         $component,

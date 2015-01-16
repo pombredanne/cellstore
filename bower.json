@@ -43,7 +43,6 @@
     "ng-file-upload-shim": "~1.6.12",
     "bootstrap-sass-official": "~3.3.1",
     "sass-flex-mixin": "https://github.com/mastastealth/sass-flex-mixin.git#ef4a13621c17e04c87786b26eef7d4d960a50209"
-
   },
   "resolutions": {
     "angular": "1.2.9",

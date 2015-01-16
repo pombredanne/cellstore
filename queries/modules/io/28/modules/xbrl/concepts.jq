@@ -67,6 +67,12 @@ declare variable $concepts:STANDARD_LABEL_ROLE as xs:string :=
     "http://www.xbrl.org/2003/role/label";
 
 (:~
+ : The verbose label role.
+ :)
+declare variable $concepts:VERBOSE_LABEL_ROLE as xs:string :=
+    "http://www.xbrl.org/2003/role/verboseLabel";
+
+(:~
  : A joker to ask for all concept names.
  :)
 declare variable $concepts:ALL_CONCEPT_NAMES as xs:string := "";
@@ -435,11 +441,9 @@ declare function concepts:labels(
 
   for $concept as object in $concepts
   where ($concepts:ALL_CONCEPT_NAMES, $concept.$concepts:NAME) = $concept-names
-  return
   for $concept-labels as object* in $concept.$concepts:LABELS[]
   let $role := $concept-labels.Role
   where $role = ($label-role, $label-role-translated)
-  group by $role
   let $perfect-match as object? := $concept-labels[$$.Language eq $normalized-language]
   let $approximate-languages as string* := concepts:approximate-languages(
     distinct-values($concept-labels.Language),

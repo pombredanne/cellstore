@@ -88,7 +88,8 @@ gulp.task('templates', ['load-config'], function(done){
                 DEBUG: false,
                 ACCOUNT_URL: '/account/info',
                 REGISTRATION_URL: '/auth',
-                PROFILE: Config.credentials.cellstore.profile
+                PROFILE: Config.credentials.cellstore.profile,
+                EXCEL_RULE_TEMPLATE: fs.readFileSync(__dirname + '/templates/excel-rule.template', 'utf-8').toString().replace(/[\r\n]+/g,'\\n')
             },
             dest: Config.paths.app + '/constants.js'
         }
