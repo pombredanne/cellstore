@@ -42,9 +42,9 @@
                         <table class="table">
                             <tr ng-repeat="param in op.parameters">
                                 <td ng-if="!param.nameEditable" ng-bind="param.name"></td>
-                                <td ng-if="param.nameEditable"><input type="text" placeholder="{{param.placeholder}}" data-ng-change="change(param)" ng-model="param.name"></td>
+                                <td ng-if="param.nameEditable"><input type="text" placeholder="{{param.placeholder}}" ng-model="param.name"></td>
                                 <td class="parameter">
-                                    <input type="text" ng-list ng-model="params[param.name]">
+                                    <input type="text" ng-list ng-model="param.value">
                                 </td>
                                 <td ng-bind-html="param.description"></td>
                             </tr>

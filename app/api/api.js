@@ -47,15 +47,30 @@ angular.module('report-editor')
         $scope.api = swagger;
         $scope.path = path;
         $scope.op = operation;
+        $scope.token = Session.getToken();
         $scope.params = {
             token: Session.getToken()
         };
 
+        var getParams = function(){
+            var params = {
+                token: $scope.token
+            };
+            var parameters = _.chain($scope.op.parameters)
+                .filter(function(param){ return param.value !== undefined; })
+                .value();
+            _.each(parameters, function(param){
+                params[param.name] = param.value;
+            });
+            return params;
+        };
+
         $scope.getUrl = function(inBrowser, inParam){
             var result = API_URL + '/_queries/public/api' + path;
-            if(Object.keys($scope.params).length > 0) {
+            var params = getParams();
+            if(Object.keys(params).length > 0) {
                 result += '?';
-                var params = _.clone($scope.params);
+                params = _.clone(params);
                 if(inBrowser) {
                     params._method = 'POST';
                 }
@@ -79,22 +94,6 @@ angular.module('report-editor')
             return 'curl -X ' + $scope.op.method + ' "' + $scope.getUrl() + '"';
         };
 
-        $scope.change = function(param){
-            var value = this;
-            if(param.oldName){
-                value = _.find($scope.params, function(val, key) {
-                    return key === param.oldName;
-                } );
-                // remove value under previous name
-                delete $scope.params[param.oldName];
-            }
-            param.oldName = param.name;
-            if(_.isArray(value)) {
-                // add value under new name
-                $scope.params[param.name] = value;
-            }
-        };
-
         $scope.test = function(p) {
             if(p) {
                 // make all values arrays
@@ -104,13 +103,46 @@ angular.module('report-editor')
                     }
                     return [paramValue];
                 });
-                p.token = $scope.params.token;
-                $scope.params = p;
+                $scope.op.parameters =
+                    _.chain($scope.op.parameters)
+                    .forEach(function(param){
+                        param.value = undefined;
+                        if(param.pattern){
+                            param.name = undefined;
+                        }
+                        var pattern = param.pattern ? new RegExp(param.pattern) : undefined;
+                        var patternMatches =
+                            pattern ?
+                                _.chain(_.pairs(p))
+                                .filter(function(pair){
+                                    return pattern.test( pair[0] );
+                                })
+                                .map(function(pair){
+                                    var key = pair[0];
+                                    var object = {};
+                                    object[key] = pair[1];
+                                    return object;
+                                })
+                                .value()[0]
+                            : undefined;
+                        if(p[param.name]){
+                            if(_.isArray(p[param.name])){
+                                param.value = p[param.name];
+                            } else {
+                                param.value = [p[param.name]];
+                            }
+                        } else if(patternMatches){
+                            param.value = _.chain(patternMatches).values().flatten().value();
+                            param.name = _.keys(patternMatches)[0];
+                        }
+                    })
+                    .value();
             }
             $scope.loading = true;
             $scope.error = undefined;
             $scope.body = undefined;
-            API.Queries[operation.nickname]($scope.params)
+            var params = getParams();
+            API.Queries[operation.nickname](params)
                 .then(function(body){
                     $scope.body = _.isString(body) ? body : JSON.stringify(body, null, 2);
 
