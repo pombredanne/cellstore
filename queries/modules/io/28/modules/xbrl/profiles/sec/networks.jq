@@ -462,7 +462,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
             else components:standard-explicit-dimension-breakdown(
                 $d,
                 $metadata.Label,
-                $table.Aspects.$d.Members[].Name,
+                $dimension-object.Members[].Name,
                 $component.Role),
         components:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
     )
