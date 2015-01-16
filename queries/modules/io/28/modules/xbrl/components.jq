@@ -702,6 +702,7 @@ declare function components:standard-definition-models-for-components($component
         "xbrl:Unit",
         "xbrl:Entity",
         "xbrl28:Archive",
+        $options.HideDimensions[],
         $auto-slice-dimensions,
         $user-slice-dimensions)]
 

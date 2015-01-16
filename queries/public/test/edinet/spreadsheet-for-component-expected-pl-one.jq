@@ -58,75 +58,6 @@
           "CellSpan" : 1, 
           "RollUp" : false
         } ] ]
-      }, {
-        "GroupLabels" : [ "Fiscal Year [Axis] breakdown" ], 
-        "GroupCells" : [ [ {
-          "CellLabels" : [ "Fiscal Year [Axis]" ], 
-          "CellConstraints" : {
-
-          }, 
-          "TagSelectors" : [  ], 
-          "CellSpan" : 1, 
-          "RollUp" : false, 
-          "IsRollUp" : false, 
-          "IsNegated" : false
-        }, {
-          "CellLabels" : [ "Fiscal Year [Axis]" ], 
-          "CellConstraints" : {
-
-          }, 
-          "TagSelectors" : [  ], 
-          "CellSpan" : 1, 
-          "RollUp" : false, 
-          "IsRollUp" : false, 
-          "IsNegated" : false
-        } ] ]
-      }, {
-        "GroupLabels" : [ "Fiscal Period [Axis] breakdown" ], 
-        "GroupCells" : [ [ {
-          "CellLabels" : [ "Fiscal Period [Axis]" ], 
-          "CellConstraints" : {
-
-          }, 
-          "TagSelectors" : [  ], 
-          "CellSpan" : 1, 
-          "RollUp" : false, 
-          "IsRollUp" : false, 
-          "IsNegated" : false
-        }, {
-          "CellLabels" : [ "Fiscal Period [Axis]" ], 
-          "CellConstraints" : {
-
-          }, 
-          "TagSelectors" : [  ], 
-          "CellSpan" : 1, 
-          "RollUp" : false, 
-          "IsRollUp" : false, 
-          "IsNegated" : false
-        } ] ]
-      }, {
-        "GroupLabels" : [ "Fiscal Period Type [Axis] breakdown" ], 
-        "GroupCells" : [ [ {
-          "CellLabels" : [ "Fiscal Period Type [Axis]" ], 
-          "CellConstraints" : {
-
-          }, 
-          "TagSelectors" : [  ], 
-          "CellSpan" : 1, 
-          "RollUp" : false, 
-          "IsRollUp" : false, 
-          "IsNegated" : false
-        }, {
-          "CellLabels" : [ "Fiscal Period Type [Axis]" ], 
-          "CellConstraints" : {
-
-          }, 
-          "TagSelectors" : [  ], 
-          "CellSpan" : 1, 
-          "RollUp" : false, 
-          "IsRollUp" : false, 
-          "IsNegated" : false
-        } ] ]
       } ], 
       "y" : [ {
         "GroupLabels" : [ "Breakdown on concepts" ], 
@@ -138,23 +69,11 @@
             }
           }, 
           "TagSelectors" : [  ], 
-          "CellSpan" : 26, 
+          "CellSpan" : 23, 
           "RollUp" : false, 
           "IsRollUp" : false, 
           "IsNegated" : false
         } ], [ {
-          "CellLabels" : [ "売上高", "jppfs-cor:NetSales" ], 
-          "CellConstraints" : {
-            "" : {
-              "xbrl:Concept" : "jppfs-cor:NetSales"
-            }
-          }, 
-          "TagSelectors" : [  ], 
-          "IsRollUp" : false, 
-          "IsNegated" : false, 
-          "Depth" : 1, 
-          "IsAbstract" : false
-        }, {
           "CellLabels" : [ "売上原価", "jppfs-cor:CostOfSales" ], 
           "CellConstraints" : {
             "" : {
@@ -337,18 +256,6 @@
           "IsNegated" : false, 
           "Depth" : 2
         }, {
-          "CellLabels" : [ "経常利益", "jppfs-cor:OrdinaryIncome" ], 
-          "CellConstraints" : {
-            "" : {
-              "xbrl:Concept" : "jppfs-cor:OrdinaryIncome"
-            }
-          }, 
-          "TagSelectors" : [  ], 
-          "IsRollUp" : false, 
-          "IsNegated" : false, 
-          "Depth" : 1, 
-          "IsAbstract" : false
-        }, {
           "CellLabels" : [ "特別利益", "jppfs-cor:ExtraordinaryIncomeAbstract" ], 
           "CellConstraints" : {
             "" : {
@@ -407,18 +314,6 @@
           "Depth" : 1, 
           "IsAbstract" : false
         }, {
-          "CellLabels" : [ "少数株主損益調整前四半期純利益", "jppfs-cor:IncomeBeforeMinorityInterests" ], 
-          "CellConstraints" : {
-            "" : {
-              "xbrl:Concept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-            }
-          }, 
-          "TagSelectors" : [  ], 
-          "IsRollUp" : false, 
-          "IsNegated" : false, 
-          "Depth" : 1, 
-          "IsAbstract" : false
-        }, {
           "CellLabels" : [ "少数株主利益", "jppfs-cor:MinorityInterestsInIncome" ], 
           "CellConstraints" : {
             "" : {
@@ -447,194 +342,8 @@
     }, 
     "TableCells" : {
       "AxisOrder" : [ "y", "x" ], 
-      "Facts" : [ [ [ {
-        "_id" : "7a02869d-1cde-4bde-9c59-ecad8ca22588", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:NetSales", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2014-04-01/2014-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:FiscalPeriod" : "Q1", 
-          "fsa:FiscalPeriodType" : "YTD", 
-          "fsa:FiscalYear" : 2014, 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember"
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 1361401000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:NetSales"
-          }
-        } ]
-      }, {
-        "_id" : "50cf1065-0291-4d55-92a5-88923bb88c42", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:NetSales", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2014-04-01/2014-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:FiscalPeriod" : "Q1", 
-          "fsa:FiscalPeriodType" : "YTD", 
-          "fsa:FiscalYear" : 2014, 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember"
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 1361401000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:NetSales"
-          }
-        } ]
-      } ], [ {
-        "_id" : "4375c60a-9557-4e0f-aee3-7725470a4d35", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:NetSales", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2013-04-01/2013-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember", 
-          "fsa:FiscalYear" : null, 
-          "fsa:FiscalPeriod" : null, 
-          "fsa:FiscalPeriodType" : null
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 1286864000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:NetSales"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalYear.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalYear", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:NetSales"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriod.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriod", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:NetSales"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriodType.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriodType", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:NetSales"
-          }
-        } ]
-      }, {
-        "_id" : "5b38604a-febf-45cc-8379-e864489447fc", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:NetSales", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2013-04-01/2013-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember", 
-          "fsa:FiscalYear" : null, 
-          "fsa:FiscalPeriod" : null, 
-          "fsa:FiscalPeriodType" : null
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 1286864000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:NetSales"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalYear.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalYear", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:NetSales"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriod.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriod", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:NetSales"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriodType.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriodType", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:NetSales"
-          }
-        } ]
-      } ] ], [ {
-        "_id" : "57ba5132-66d5-4ecf-b0cb-ebc9159ed584", 
+      "Facts" : [ [ {
+        "_id" : "26a3eff9-23ce-451f-ae2b-398abd0fddec", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -667,7 +376,7 @@
           }
         } ]
       }, {
-        "_id" : "d7f0d97c-2f56-4661-b624-7d1a5d25da5c", 
+        "_id" : "348354c8-4a9c-4faf-adf9-a1fd890a6227", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -727,7 +436,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "00f0bb41-9173-45dc-82ce-f184bc20ef2d", 
+        "_id" : "ce8ea3f4-1bd8-4077-a134-07d1f9585d71", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -760,7 +469,7 @@
           }
         } ]
       }, {
-        "_id" : "bb314629-712a-4837-a424-07514851a644", 
+        "_id" : "e41ef487-757e-456f-bd01-0d39fac5b89d", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -820,7 +529,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "82b005a8-0a3d-492b-a5e6-f38b2540baa6", 
+        "_id" : "f18dab07-4651-438c-9d18-8ce0271287ce", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -853,7 +562,7 @@
           }
         } ]
       }, {
-        "_id" : "6cac6c5e-d4c4-42ae-bb79-8f42fb096204", 
+        "_id" : "a2880839-9b56-4045-9acd-f837d9d6a1d3", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -913,7 +622,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "cc8c578b-ff01-4b27-bb6b-8b599e1a2b44", 
+        "_id" : "f68837e8-42cc-4b44-98c3-d2c4ea3d4e89", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -946,7 +655,7 @@
           }
         } ]
       }, {
-        "_id" : "2da1282c-2b20-4583-8e17-0346b89fb050", 
+        "_id" : "a2d017fd-0d9e-4370-b1e9-aefcd4388bb4", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1006,7 +715,7 @@
           }
         } ]
       } ], [ null, null ], [ {
-        "_id" : "5dfac38e-12bd-45c4-8f18-30c87de6936f", 
+        "_id" : "56405c2b-3134-48ca-8602-456e11741e10", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1039,7 +748,7 @@
           }
         } ]
       }, {
-        "_id" : "77991331-5d87-4bb8-8597-0ffa47049634", 
+        "_id" : "0a2b3895-8a4a-42be-ab2c-bcf2163538c2", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1099,7 +808,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "f83a8758-ca46-4a16-a235-4d22174e9f23", 
+        "_id" : "ab26b000-7696-4523-ad92-0bcc1c82d505", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1132,7 +841,7 @@
           }
         } ]
       }, {
-        "_id" : "abee3236-11fd-4e67-a108-60e986fcf139", 
+        "_id" : "cb0675f8-69f9-4e0e-acbf-0f5810f1515b", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1192,7 +901,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "77ee8b67-6e53-4790-9c97-b5c960517cac", 
+        "_id" : "196b655b-84c5-48b2-b8e8-a2fb5efef5c0", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1225,7 +934,7 @@
           }
         } ]
       }, {
-        "_id" : "5b803a08-99ad-4d54-ab73-3ae59bf1f194", 
+        "_id" : "65b969eb-ca8f-49a0-8933-eab8e5b524d8", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1285,7 +994,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "f996b523-a68d-4fa9-a599-51aa74510a49", 
+        "_id" : "4f31a3b6-aec7-436b-818e-7be81f1ede8a", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1318,7 +1027,7 @@
           }
         } ]
       }, {
-        "_id" : "ebc7ec46-cebc-4295-bacd-59b3a88b16cf", 
+        "_id" : "c56a0fc2-122b-4a4c-a925-eb335338def8", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1378,7 +1087,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "b9f3d5da-3844-4a93-ad8a-771932b32c60", 
+        "_id" : "2596b48e-1d1d-452d-b982-59dd94d64a47", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1411,7 +1120,7 @@
           }
         } ]
       }, {
-        "_id" : "cefb51e0-f048-4f78-aaee-536d35fc17d1", 
+        "_id" : "6642d6c4-0032-42ea-ade3-14496bbbf43e", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1471,7 +1180,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "115dcc80-afe7-4114-a3ab-977d67f1f2da", 
+        "_id" : "d7bfdabd-5d68-4d99-af95-56fae2e337aa", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1504,7 +1213,7 @@
           }
         } ]
       }, {
-        "_id" : "38c56cdf-1056-48b0-bfe1-fb3dac223483", 
+        "_id" : "c7b063a7-d7de-4967-acd8-f3bb089933c4", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1564,7 +1273,7 @@
           }
         } ]
       } ], [ null, null ], [ {
-        "_id" : "d70174b4-e8e5-4a8f-9edb-2f211e10b5b0", 
+        "_id" : "a693463f-476c-4cef-9055-6bda59f85ec6", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1597,7 +1306,7 @@
           }
         } ]
       }, {
-        "_id" : "a3ed153e-4810-4cbd-a5bc-5ec985a8e97e", 
+        "_id" : "d03a0c04-139c-4c92-83c6-0c45f243be47", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1657,7 +1366,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "7744a577-c3b5-4d17-8eb9-b204492c2b14", 
+        "_id" : "ad370a35-d820-45c0-b6cf-eea25e98ed47", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1690,7 +1399,7 @@
           }
         } ]
       }, {
-        "_id" : "f12179ac-8d67-4693-9ec8-b8db10c9d086", 
+        "_id" : "e5faa689-7015-4956-bba5-a59a521f53fa", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1750,7 +1459,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "2d6f1a39-d58f-47d3-8909-da50c3f7267b", 
+        "_id" : "9228014d-29bd-4d81-bc7f-b0189c0958ae", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1783,7 +1492,7 @@
           }
         } ]
       }, {
-        "_id" : "7832eeb8-0e7c-4fe7-b9c0-f30ef08add26", 
+        "_id" : "fea6ccb9-bf44-4bc6-aa51-5e6315d1cfa2", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1843,7 +1552,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "dc57e969-f6d9-4d22-9115-8e59613b564b", 
+        "_id" : "350dc451-3635-46f5-8b15-1c5e8b464625", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1876,7 +1585,7 @@
           }
         } ]
       }, {
-        "_id" : "95a54c45-e177-4f28-97d6-993b762a0b34", 
+        "_id" : "902a4161-9e08-46c2-9e42-23ff55960a73", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -1935,194 +1644,8 @@
             "OutputConcept" : "jppfs-cor:NonOperatingExpenses"
           }
         } ]
-      } ], [ [ {
-        "_id" : "e543a5bc-c368-4124-8533-c7b1efa9812f", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:OrdinaryIncome", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2014-04-01/2014-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:FiscalPeriod" : "Q1", 
-          "fsa:FiscalPeriodType" : "YTD", 
-          "fsa:FiscalYear" : 2014, 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember"
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 74319000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:OrdinaryIncome"
-          }
-        } ]
-      }, {
-        "_id" : "11806d6e-677d-4111-9f43-f7d4392a0ef9", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:OrdinaryIncome", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2014-04-01/2014-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:FiscalPeriod" : "Q1", 
-          "fsa:FiscalPeriodType" : "YTD", 
-          "fsa:FiscalYear" : 2014, 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember"
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 74319000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:OrdinaryIncome"
-          }
-        } ]
-      } ], [ {
-        "_id" : "df5a2ed1-39ae-4cb6-a441-1efef98ba365", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:OrdinaryIncome", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2013-04-01/2013-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember", 
-          "fsa:FiscalYear" : null, 
-          "fsa:FiscalPeriod" : null, 
-          "fsa:FiscalPeriodType" : null
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 86455000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:OrdinaryIncome"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalYear.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalYear", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:OrdinaryIncome"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriod.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriod", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:OrdinaryIncome"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriodType.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriodType", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:OrdinaryIncome"
-          }
-        } ]
-      }, {
-        "_id" : "22ca2294-9ce7-4a9e-8652-ed63022929e5", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:OrdinaryIncome", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2013-04-01/2013-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember", 
-          "fsa:FiscalYear" : null, 
-          "fsa:FiscalPeriod" : null, 
-          "fsa:FiscalPeriodType" : null
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 86455000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:OrdinaryIncome"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalYear.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalYear", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:OrdinaryIncome"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriod.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriod", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:OrdinaryIncome"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriodType.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriodType", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:OrdinaryIncome"
-          }
-        } ]
-      } ] ], [ null, null ], [ {
-        "_id" : "62c4a8ef-45f3-4f25-8302-1c606c0cfdf9", 
+      } ], [ null, null ], [ {
+        "_id" : "89dc25a5-bc62-4bf4-9559-a381c6f147af", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2155,7 +1678,7 @@
           }
         } ]
       }, {
-        "_id" : "aa92e3e3-d699-43f8-8e93-d4c0661faf04", 
+        "_id" : "b41574af-4b1d-4402-8421-f45710c5b7cf", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2215,7 +1738,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "404d71c3-2bdb-4945-810f-156ae4f0cbc6", 
+        "_id" : "e0975275-5b7c-40d4-ae4f-3303a3893c60", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2248,7 +1771,7 @@
           }
         } ]
       }, {
-        "_id" : "f4f89467-ff0c-4216-ab1a-b63b0d2159f4", 
+        "_id" : "766fb3e7-81a4-435e-8850-84c7048478b3", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2308,7 +1831,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "37916c6a-025f-4726-849e-2e65221c92fc", 
+        "_id" : "a9b4b5f7-f4df-4d07-827c-6b02346a3ae7", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2341,7 +1864,7 @@
           }
         } ]
       }, {
-        "_id" : "79f48714-c5e5-438f-9c52-48f84639831f", 
+        "_id" : "65fd2167-aca7-44f5-a352-f800cb8f1995", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2401,7 +1924,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "7fbd80f7-1c16-4fb0-afb8-bb7824ff75ba", 
+        "_id" : "f5e38da3-1132-4ca3-854e-32317d17441d", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2434,7 +1957,7 @@
           }
         } ]
       }, {
-        "_id" : "f9c635ca-ac4d-4a26-aa10-1afbd3d36f82", 
+        "_id" : "8ed043c0-c140-40ce-a5fc-51afd76b3038", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2493,194 +2016,8 @@
             "OutputConcept" : "jppfs-cor:IncomeTaxes"
           }
         } ]
-      } ], [ [ {
-        "_id" : "64cb1291-6b1d-4287-b474-706f7c4f6cc7", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:IncomeBeforeMinorityInterests", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2014-04-01/2014-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:FiscalPeriod" : "Q1", 
-          "fsa:FiscalPeriodType" : "YTD", 
-          "fsa:FiscalYear" : 2014, 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember"
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 51938000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-          }
-        } ]
-      }, {
-        "_id" : "4f34215f-a7dc-4e8f-b3a2-be18dec9a065", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:IncomeBeforeMinorityInterests", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2014-04-01/2014-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:FiscalPeriod" : "Q1", 
-          "fsa:FiscalPeriodType" : "YTD", 
-          "fsa:FiscalYear" : 2014, 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember"
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 51938000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-          }
-        } ]
       } ], [ {
-        "_id" : "25bae409-6c1a-4c10-a106-fba533d92264", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:IncomeBeforeMinorityInterests", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2013-04-01/2013-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember", 
-          "fsa:FiscalYear" : null, 
-          "fsa:FiscalPeriod" : null, 
-          "fsa:FiscalPeriodType" : null
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 66808000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalYear.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalYear", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriod.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriod", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriodType.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriodType", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-          }
-        } ]
-      }, {
-        "_id" : "82cd3c07-b5cb-4f0e-a788-73243865ea91", 
-        "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
-        "Aspects" : {
-          "xbrl28:Archive" : "S1002Q54", 
-          "xbrl:Concept" : "jppfs-cor:IncomeBeforeMinorityInterests", 
-          "xbrl:Entity" : "http://disclosure.edinet-fsa.go.jp E01225-000", 
-          "xbrl:Period" : "2013-04-01/2013-06-30", 
-          "xbrl:Unit" : "iso4217:JPY", 
-          "fsa:Submitted" : "2014-08-07", 
-          "jppfs-cor:ConsolidatedOrNonConsolidatedAxis" : "jppfs-cor:ConsolidatedMember", 
-          "fsa:FiscalYear" : null, 
-          "fsa:FiscalPeriod" : null, 
-          "fsa:FiscalPeriodType" : null
-        }, 
-        "Type" : "NumericValue", 
-        "Value" : 66808000000, 
-        "Decimals" : -6, 
-        "Concept" : {
-          "Balance" : "CREDIT", 
-          "PeriodType" : "duration", 
-          "DataType" : "xbrli:monetaryItemType"
-        }, 
-        "AuditTrails" : [ {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis.Default = \"jppfs-cor:ConsolidatedMember\"", 
-          "Data" : {
-            "Dimension" : "jppfs-cor:ConsolidatedOrNonConsolidatedAxis", 
-            "Member" : "jppfs-cor:ConsolidatedMember", 
-            "OutputConcept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalYear.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalYear", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriod.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriod", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-          }
-        }, {
-          "Type" : "xbrl28:dimension-default", 
-          "Label" : "Default dimension value", 
-          "Message" : "fsa:FiscalPeriodType.Default = \"null\"", 
-          "Data" : {
-            "Dimension" : "fsa:FiscalPeriodType", 
-            "Member" : null, 
-            "OutputConcept" : "jppfs-cor:IncomeBeforeMinorityInterests"
-          }
-        } ]
-      } ] ], [ {
-        "_id" : "514c0c0a-2eb4-4e59-a4ae-0de0537e4156", 
+        "_id" : "07759529-cd92-4b9b-9765-c0ecde7cbb25", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2713,7 +2050,7 @@
           }
         } ]
       }, {
-        "_id" : "7724df27-8251-46d3-bc9d-ab8286277892", 
+        "_id" : "82baff56-5561-4ab3-982f-6094aa64eac1", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2773,7 +2110,7 @@
           }
         } ]
       } ], [ {
-        "_id" : "dd9ea0b6-1d6e-40aa-baba-4d984b6d997e", 
+        "_id" : "b06835c5-cbc6-4b59-bb0c-dc5609d4bf0f", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -2806,7 +2143,7 @@
           }
         } ]
       }, {
-        "_id" : "fd25b445-4d58-4c9d-bf3a-cedf1d24c887", 
+        "_id" : "c83b6f8e-0334-49e3-ab9c-b87c0ac5b909", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "xbrl:Unit", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 

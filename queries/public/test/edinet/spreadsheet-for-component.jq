@@ -8,7 +8,8 @@ test:check-all-success({
         fiscalYear: "2014",
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
-        merge: "true"
+        merge: "true",
+        eliminate: "true"
       },
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-one.jq"),
@@ -22,7 +23,8 @@ test:check-all-success({
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
         language: "en",
-        merge: "true"
+        merge: "true",
+        eliminate: "true"
       },
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-one-en.jq"),
@@ -35,7 +37,8 @@ test:check-all-success({
         fiscalYear: "2014",
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
-        merge: "true"
+        merge: "true",
+        eliminate: "true"
       },
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-pl-one.jq"),
@@ -48,7 +51,8 @@ test:check-all-success({
         fiscalYear: "2014",
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
-        merge: "true"
+        merge: "true",
+        eliminate: "true"
       },
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-cf-one.jq"),
@@ -61,7 +65,8 @@ test:check-all-success({
         fiscalYear: "2014",
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_QuarterlyConsolidatedBalanceSheet",
-        merge: "true"
+        merge: "true",
+        eliminate: "true"
       },
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-companies.jq"),
@@ -74,7 +79,8 @@ test:check-all-success({
         fiscalYear: "2014",
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jppfs/rol_YearToQuarterEndConsolidatedStatementOfIncome",
-        merge: "true"
+        merge: "true",
+        eliminate: "true"
       },
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-pl-companies.jq"),
@@ -87,7 +93,8 @@ test:check-all-success({
         fiscalYear: "2014",
         fiscalPeriod: "Q1",
         role: "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_NotesQuarterlyConsolidatedStatementOfCashFlows",
-        merge: "true"
+        merge: "true",
+        eliminate: "true"
       },
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-cf-companies.jq"),
@@ -100,7 +107,8 @@ test:check-all-success({
         fiscalYear: "ALL",
         fiscalPeriod: "FY",
         role: "http://info.edinet-fsa.go.jp/jp/fr/gaap/role/ConsolidatedBalanceSheets",
-        merge: "true"
+        merge: "true",
+        eliminate: "true"
       },
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-bs-periods.jq"),
@@ -113,7 +121,8 @@ test:check-all-success({
         fiscalYear: "ALL",
         fiscalPeriod: "FY",
         role: "http://info.edinet-fsa.go.jp/jp/fr/gaap/role/ConsolidatedStatementsOfIncome",
-        merge: "true"
+        merge: "true",
+        eliminate: "true"
       },
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-pl-periods.jq"),
@@ -126,7 +135,8 @@ test:check-all-success({
         fiscalYear: "ALL",
         fiscalPeriod: "FY",
         role: "http://info.edinet-fsa.go.jp/jp/fr/gaap/role/ConsolidatedStatementsOfCashFlowsIndirect",
-        merge: "true"
+        merge: "true",
+        eliminate: "true"
       },
       function($b as item*) as item* { $b },
       test:get-expected-result("edinet/spreadsheet-for-component-expected-cf-periods.jq"),

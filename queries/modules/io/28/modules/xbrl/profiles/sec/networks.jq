@@ -453,7 +453,6 @@ declare function sec-networks:standard-definition-models-for-components($compone
             $options
           )[1]
         let $dimension-object as object := $table.Aspects.$d
-        let $is-typed as boolean := boolean($dimension-object.Kind eq "TypedDimension")
         return
             if($d = ("sec:Accepted", "sec:FiscalYear", "sec:FiscalPeriod", "sec:FiscalPeriodType"))
             then components:standard-typed-dimension-breakdown(

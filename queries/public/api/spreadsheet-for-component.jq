@@ -84,8 +84,15 @@ return if(empty($component)) then {
 } else
 (: Fact resolution :)
 let $definition-model :=
-switch($profile-name)
-case "sec" return sec-networks:standard-definition-models-for-components($component, {Language: $language})
+  switch($profile-name)
+  case "sec" return sec-networks:standard-definition-models-for-components($component, {Language: $language})
+  case "japan" return components:standard-definition-models-for-components(
+  $component,
+  {
+    Language: $language,
+    HideDimensions: [ "fsa:Submitted", "fsa:FiscalPeriod", "fsa:FiscalPeriodType", "fsa:FiscalYear" ]
+  }
+  )
 default return components:standard-definition-models-for-components($component, {Language: $language})
 let $spreadsheet as object? :=
     components:spreadsheet(

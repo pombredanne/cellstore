@@ -43,19 +43,6 @@
           "RollUp" : false
         } ] ]
       }, {
-        "GroupLabels" : [ "FSA Submission Date [Axis] breakdown" ], 
-        "GroupCells" : [ [ {
-          "CellLabels" : [ "FSA Submission Date [Axis]" ], 
-          "CellConstraints" : {
-
-          }, 
-          "TagSelectors" : [  ], 
-          "CellSpan" : 4, 
-          "RollUp" : false, 
-          "IsRollUp" : false, 
-          "IsNegated" : false
-        } ] ]
-      }, {
         "GroupLabels" : [ "Entity breakdown" ], 
         "GroupCells" : [ [ {
           "CellLabels" : [ "Entity [Axis]" ], 
@@ -151,7 +138,7 @@
     "TableCells" : {
       "AxisOrder" : [ "y", "x" ], 
       "Facts" : [ [ {
-        "_id" : "96d9a535-a46b-4c86-a096-8c05260ff3a6", 
+        "_id" : "5620fc2b-21b6-4a28-a127-a61e10780a12", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002Q54", 
@@ -191,7 +178,7 @@
           }
         } ]
       }, {
-        "_id" : "df6da002-bbc3-4e66-bc0c-1d8e29ec9fe8", 
+        "_id" : "24d5421b-c76d-4ca8-96aa-eaf59a2fc836", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002MRZ", 
@@ -231,7 +218,7 @@
           }
         } ]
       }, {
-        "_id" : "75089db7-98af-415c-b461-8799a50d3ed8", 
+        "_id" : "2717c301-52e4-4194-85da-f7ccf31c7cdc", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002NTM", 
@@ -315,7 +302,7 @@
           "fsa:FiscalPeriodType" : "YTD"
         }
       }, {
-        "_id" : "2ea2a63c-86ad-4f82-85c6-47cb7b90370d", 
+        "_id" : "fff777cd-d0f9-4d27-94da-2467c5bbaa50", 
         "KeyAspects" : [ "xbrl:Concept", "xbrl:Entity", "xbrl:Period", "fsa:Submitted" ], 
         "Aspects" : {
           "xbrl28:Archive" : "S1002NIQ", 
