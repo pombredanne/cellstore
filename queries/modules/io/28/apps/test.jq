@@ -105,6 +105,8 @@ declare %an:nondeterministic function test:invoke-and-assert-deep-equal(
                   default return test:invoke($endpoint, $parameters)
   let $status as integer := $request[1]
   let $actual as item* := $transform($request[2])
+  let $expected := if($options.TrimIdField) then test:trim-ids($expected) else $expected
+  let $actual := if($options.TrimIdField) then test:trim-ids($actual) else $actual
   return test:assert-deep-equal($expected, $actual, $status, test:url($endpoint, $parameters))
 };
 
@@ -115,6 +117,19 @@ declare %an:sequential function test:check-all-success($o as object) as object
     response:status-code(500);
     $o
   } else $o
+};
+
+declare %private function test:trim-ids($input as item*) as item*
+{
+  for $i in $input
+  return typeswitch($i)
+          case object return {|
+                                 for $key in keys($i)
+                                 where $key ne "_id"
+                                 return {$key: test:trim-ids($i.$key) }
+                               |}
+          case array return [ test:trim-ids($i[]) ]
+          default return $i
 };
 
 (:    return

@@ -12,7 +12,7 @@
         "Grantee" : "http://28.io/groups/AllUsers",
         "Permission" : "READ"
     } ],
-    "LastModified" : "2015-01-09T12:12:18.500268Z",
+    "LastModified" : "2015-01-15T15:09:46.207221Z",
     "Networks" : [ {
         "LinkName" : "link:presentationLink",
         "LinkRole" : "http://xbrl.io/fundamental-accounting-concepts",
@@ -1775,10 +1775,10 @@
                     "DomainRestriction" : {
                         "Name" : "xbrl:EntityDomain",
                         "Label" : "Reporting Entity [Domain]",
-                        "Enumeration" : [ "http://www.sec.gov/CIK 0000004962", "http://www.sec.gov/CIK 0000018230", "http://www.sec.gov/CIK 0000034088", "http://www.sec.gov/CIK 0000012927", "http://www.sec.gov/CIK 0000021344", "http://www.sec.gov/CIK 0000019617", "http://www.sec.gov/CIK 0000030554", "http://www.sec.gov/CIK 0000040545", "http://www.sec.gov/CIK 0000050863", "http://www.sec.gov/CIK 0000066740", "http://www.sec.gov/CIK 0000080424", "http://www.sec.gov/CIK 0000063908", "http://www.sec.gov/CIK 0000078003", "http://www.sec.gov/CIK 0000051143", "http://www.sec.gov/CIK 0000101829", "http://www.sec.gov/CIK 0000086312", "http://www.sec.gov/CIK 0000093410", "http://www.sec.gov/CIK 0000104169", "http://www.sec.gov/CIK 0000310158", "http://www.sec.gov/CIK 0000200406", "http://www.sec.gov/CIK 0000354950", "http://www.sec.gov/CIK 0000731766", "http://www.sec.gov/CIK 0000732712", "http://www.sec.gov/CIK 0000320187", "http://www.sec.gov/CIK 0000732717", "http://www.sec.gov/CIK 0000789019", "http://www.sec.gov/CIK 0000858877", "http://www.sec.gov/CIK 0000886982", "http://www.sec.gov/CIK 0001001039", "http://www.sec.gov/CIK 0001403161" ],
-                        "Id" : "6b480c99-3202-47db-86ea-388d27ec82d9"
+                        "Enumeration" : [ "http://www.sec.gov/CIK 0000004962", "http://www.sec.gov/CIK 0000012927", "http://www.sec.gov/CIK 0000018230", "http://www.sec.gov/CIK 0000019617", "http://www.sec.gov/CIK 0000021344", "http://www.sec.gov/CIK 0000030554", "http://www.sec.gov/CIK 0000034088", "http://www.sec.gov/CIK 0000040545", "http://www.sec.gov/CIK 0000050863", "http://www.sec.gov/CIK 0000051143", "http://www.sec.gov/CIK 0000063908", "http://www.sec.gov/CIK 0000066740", "http://www.sec.gov/CIK 0000078003", "http://www.sec.gov/CIK 0000080424", "http://www.sec.gov/CIK 0000086312", "http://www.sec.gov/CIK 0000093410", "http://www.sec.gov/CIK 0000101829", "http://www.sec.gov/CIK 0000104169", "http://www.sec.gov/CIK 0000200406", "http://www.sec.gov/CIK 0000310158", "http://www.sec.gov/CIK 0000320187", "http://www.sec.gov/CIK 0000354950", "http://www.sec.gov/CIK 0000731766", "http://www.sec.gov/CIK 0000732712", "http://www.sec.gov/CIK 0000732717", "http://www.sec.gov/CIK 0000789019", "http://www.sec.gov/CIK 0000858877", "http://www.sec.gov/CIK 0000886982", "http://www.sec.gov/CIK 0001001039", "http://www.sec.gov/CIK 0001403161" ],
+                        "Id" : "d3500b73-1f74-4ad5-91f3-4f045fdaa4c1"
                     },
-                    "Id" : "9e8349c2-e066-4d98-8a4d-f9d4b4ad5d62"
+                    "Id" : "e3968a36-1af2-4209-bebb-d9a167f9d9e0"
                 },
                 "dei:LegalEntityAxis" : {
                     "Name" : "dei:LegalEntityAxis",
@@ -1827,9 +1827,9 @@
                         "Name" : "sec:FiscalYearDomain",
                         "Label" : "Fiscal Year [Domain]",
                         "Enumeration" : [ 2013 ],
-                        "Id" : "7330d4bd-3cbe-4cf3-a307-a70681f79d1e"
+                        "Id" : "852bf9f0-b7f6-4886-9932-00342d1ac44f"
                     },
-                    "Id" : "e248bf59-2612-41db-b281-d36607948ab0"
+                    "Id" : "a2dd84a3-6937-4571-b128-6822ad82282b"
                 },
                 "sec:FiscalPeriod" : {
                     "Name" : "sec:FiscalPeriod",
@@ -1840,9 +1840,9 @@
                         "Name" : "sec:FiscalPeriodDomain",
                         "Label" : "Fiscal Period [Domain]",
                         "Enumeration" : [ "FY" ],
-                        "Id" : "2077b849-846d-4a1e-ae75-fe93e87a680c"
+                        "Id" : "9b7fe7f3-8ab6-4aed-a2c5-f0c0a1d4f3e6"
                     },
-                    "Id" : "712355ba-cfe2-484d-b032-26a9b18ac56c"
+                    "Id" : "2c9d8a6f-7999-4842-a64f-7595fe8b46dd"
                 },
                 "sec:FiscalPeriodType" : {
                     "Name" : "sec:FiscalPeriodType",
@@ -1853,9 +1853,9 @@
                         "Name" : "sec:FiscalPeriodTypeDomain",
                         "Label" : "Fiscal Period Type [Domain]",
                         "Enumeration" : [ "instant", "YTD" ],
-                        "Id" : "4cbbaa6d-c067-4b32-921f-d07778081820"
+                        "Id" : "494673d9-c6f9-4227-b6b1-0c4adc908556"
                     },
-                    "Id" : "351ca6ad-5f62-4068-8fe5-f9ac2284845b"
+                    "Id" : "545411bf-7cbf-45cf-8cdc-1765a82d0f14"
                 }
             },
             "Id" : "2d53e188-7097-4975-b527-d5b582a91949"

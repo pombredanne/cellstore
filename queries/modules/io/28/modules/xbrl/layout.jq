@@ -175,8 +175,8 @@ declare function layout:build-hypercube(
                         return $hypercube-members
                     case exists($table-domain-members)
                         return $table-domain-members
-                    default return () 
-                    
+                    default return ()
+
                 let $inferred-type as string? :=
                     typeswitch($actual-members[not ($$ instance of null)])
                     case string* return
@@ -239,29 +239,14 @@ declare function layout:matches-aspects(
     $participating-aspects as string*,
     $defaults as object?) as boolean
 {
-    (
-        every $aspect in $participating-aspects
-        satisfies
-            let $default-value := $defaults.$aspect
-            let $allowed-value := $aspect-constraints.$aspect
-            return (
-                exists($allowed-value)
-                or
-                $fact.Aspects.$aspect eq $default-value
-            )
-    )
-    and
-    (
-        every $aspect in keys($aspect-constraints)
-        satisfies
-            let $default-value := $defaults.$aspect
-            let $allowed-value := $aspect-constraints.$aspect
-            return (
-                $allowed-value eq $default-value
-                or
-                $fact.Aspects.$aspect eq $allowed-value
-            )
-    )
+  every $aspect in $participating-aspects
+  satisfies
+    let $default-value := $defaults.$aspect
+    let $allowed-value := $aspect-constraints.$aspect
+    return
+      $fact.Aspects.$aspect eq $allowed-value
+      or
+      (empty($allowed-value) and $fact.Aspects.$aspect eq $default-value)
 };
 
 (:
@@ -286,7 +271,7 @@ declare function layout:slices($table-headers as array, $tag-selectors as string
     return
     if(size($table-headers) le 1)
     then $first-slices
-    else 
+    else
         let $bottom-slices := layout:slices($bottom-rows-of-headers, $tag-selectors)
         for $i in 1 to count($first-slices)
         return
@@ -307,7 +292,7 @@ declare function layout:tag-selectors($table-headers as array) as array*
     return
     if(size($table-headers) le 1)
     then $first-tags
-    else 
+    else
         let $bottom-tags := layout:tag-selectors($bottom-rows-of-headers)
         for $i in 1 to count($first-tags)
         return [($first-tags[$i])[], ($bottom-tags[$i])[]]
@@ -511,7 +496,7 @@ declare function layout:layout(
         for $aspect in distinct-values(keys($facts.Aspects))
         return { $aspect : [ distinct-values($facts.Aspects.$aspect) ] }
     |}
-    let $defaults := 
+    let $defaults :=
     {|
         for $aspect in keys($hypercube.Aspects)
         let $default := $hypercube.Aspects.$aspect.Default

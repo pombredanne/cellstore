@@ -7,7 +7,7 @@
     "Prefix" : "fac",
     "Role" : "http://xbrl.io/basic-financial-information",
     "Owner" : "charlie@prudena.com",
-    "LastModified" : "2015-01-09T12:12:52.531177Z",
+    "LastModified" : "2015-01-15T15:10:34.748594Z",
     "ACL" : [  ],
     "Networks" : [ {
         "LinkName" : "link:presentationLink",
@@ -81,15 +81,15 @@
                     }, {
                         "Name" : "fac:CommonStockSharesAuthorized",
                         "Label" : "Common Stock Shares (authorized)",
-                        "Id" : "4f01784a-2c8a-41a9-8296-87f3714ae581"
+                        "Id" : "7c4b380f-1ea4-473a-9061-823fa1087a38"
                     }, {
                         "Name" : "fac:CommonStockSharesIssued",
                         "Label" : "Common Stock Shares (issued)",
-                        "Id" : "a7e07c77-e9fc-4846-8229-cf13d0949443"
+                        "Id" : "3309b18d-077e-45ce-bd2f-4b480b6756b6"
                     }, {
                         "Name" : "fac:CommonStockSharesOutstanding",
                         "Label" : "Common Stock Shares (outstanding)",
-                        "Id" : "2f2c45dc-fbcc-4586-a1d9-5ea49b1a5bac"
+                        "Id" : "d840ae19-f5db-4b7c-b42c-30eed4fe1b7d"
                     } ],
                     "Id" : "368e4683-e47f-4e04-854f-dfc5eb43e401",
                     "IsAbstract" : true
@@ -1352,30 +1352,30 @@
             "Label" : "Common Stock Shares (authorized)",
             "To" : [ {
                 "Name" : "us-gaap:CommonStockSharesAuthorized",
-                "Id" : "ae5d5874-0df0-41b9-ba80-c78d2e58ab2b"
+                "Id" : "a0c9fbfd-15fe-4bf3-a970-566d7027d30c"
             } ],
-            "Id" : "e2da21d2-b7ae-4807-ad96-6582cc19db76"
+            "Id" : "0afcaf27-e581-4353-94b3-e7e9a973f2cb"
         }, {
             "Name" : "fac:CommonStockSharesIssued",
             "Label" : "Common Stock Shares (issued)",
             "To" : [ {
                 "Name" : "us-gaap:CommonStockSharesIssued",
-                "Id" : "20822a8f-83a2-45f3-9dba-59f0a6ccdaa0"
+                "Id" : "4c8a3ce4-2a16-4bc0-8742-6ca0a94a7ab7"
             } ],
-            "Id" : "ef88d680-aa23-48d8-9e0d-62061d9210a3"
+            "Id" : "6d26b747-afc3-495b-bbe3-c978869a8e24"
         }, {
             "Name" : "fac:CommonStockSharesOutstanding",
             "Label" : "Common Stock Shares (outstanding)",
             "To" : [ {
                 "Name" : "dei:EntityCommonStockSharesOutstanding",
                 "Order" : 1,
-                "Id" : "bc716d86-7bea-4b13-a55c-1389ab24123a"
+                "Id" : "a822c045-6e86-4603-9fb4-fc7f105e7b27"
             }, {
                 "Name" : "us-gaap:CommonStockSharesOutstanding",
                 "Order" : 2,
-                "Id" : "f85a66ca-2189-4073-a186-888240f80d31"
+                "Id" : "e2be7115-2367-4e0a-bb64-4fff05d750b5"
             } ],
-            "Id" : "e5643461-e88f-4efa-8e70-9eef40227da4"
+            "Id" : "5897008a-1beb-496d-b161-163391cbe9e2"
         } ]
     } ],
     "Hypercubes" : {
@@ -1797,15 +1797,15 @@
                     }, {
                         "Name" : "fac:CommonStockSharesAuthorized",
                         "Label" : "Common Stock Shares (authorized)",
-                        "Id" : "cae8fe21-aa22-4704-b6bc-6344879b3487"
+                        "Id" : "fd8e2041-83e4-4e84-8e20-092ecdd7d2ad"
                     }, {
                         "Name" : "fac:CommonStockSharesIssued",
                         "Label" : "Common Stock Shares (issued)",
-                        "Id" : "434875ef-2999-462e-9c48-a69cf85f24cb"
+                        "Id" : "d3689c4b-79ab-4c52-a288-41c244a6ae86"
                     }, {
                         "Name" : "fac:CommonStockSharesOutstanding",
                         "Label" : "Common Stock Shares (outstanding)",
-                        "Id" : "48efefc7-e7ac-4ddc-a914-73d6e9ec6e39"
+                        "Id" : "de5df2ae-e663-4efd-a037-a083bb2dab01"
                     } ],
                     "Id" : "fdb26c35-d8f4-4005-a5e5-7692bcec5265"
                 },
@@ -1824,10 +1824,10 @@
                     "DomainRestriction" : {
                         "Name" : "xbrl:EntityDomain",
                         "Label" : "Reporting Entity [Domain]",
-                        "Enumeration" : [ "http://www.sec.gov/CIK 0000004962", "http://www.sec.gov/CIK 0000018230", "http://www.sec.gov/CIK 0000034088", "http://www.sec.gov/CIK 0000012927", "http://www.sec.gov/CIK 0000021344", "http://www.sec.gov/CIK 0000019617", "http://www.sec.gov/CIK 0000030554", "http://www.sec.gov/CIK 0000040545", "http://www.sec.gov/CIK 0000050863", "http://www.sec.gov/CIK 0000066740", "http://www.sec.gov/CIK 0000080424", "http://www.sec.gov/CIK 0000063908", "http://www.sec.gov/CIK 0000078003", "http://www.sec.gov/CIK 0000051143", "http://www.sec.gov/CIK 0000101829", "http://www.sec.gov/CIK 0000086312", "http://www.sec.gov/CIK 0000093410", "http://www.sec.gov/CIK 0000104169", "http://www.sec.gov/CIK 0000310158", "http://www.sec.gov/CIK 0000200406", "http://www.sec.gov/CIK 0000354950", "http://www.sec.gov/CIK 0000731766", "http://www.sec.gov/CIK 0000732712", "http://www.sec.gov/CIK 0000320187", "http://www.sec.gov/CIK 0000732717", "http://www.sec.gov/CIK 0000789019", "http://www.sec.gov/CIK 0000858877", "http://www.sec.gov/CIK 0000886982", "http://www.sec.gov/CIK 0001001039", "http://www.sec.gov/CIK 0001403161" ],
-                        "Id" : "dc5a237e-8151-49bd-8a92-57110a34f7ce"
+                        "Enumeration" : [ "http://www.sec.gov/CIK 0000004962", "http://www.sec.gov/CIK 0000012927", "http://www.sec.gov/CIK 0000018230", "http://www.sec.gov/CIK 0000019617", "http://www.sec.gov/CIK 0000021344", "http://www.sec.gov/CIK 0000030554", "http://www.sec.gov/CIK 0000034088", "http://www.sec.gov/CIK 0000040545", "http://www.sec.gov/CIK 0000050863", "http://www.sec.gov/CIK 0000051143", "http://www.sec.gov/CIK 0000063908", "http://www.sec.gov/CIK 0000066740", "http://www.sec.gov/CIK 0000078003", "http://www.sec.gov/CIK 0000080424", "http://www.sec.gov/CIK 0000086312", "http://www.sec.gov/CIK 0000093410", "http://www.sec.gov/CIK 0000101829", "http://www.sec.gov/CIK 0000104169", "http://www.sec.gov/CIK 0000200406", "http://www.sec.gov/CIK 0000310158", "http://www.sec.gov/CIK 0000320187", "http://www.sec.gov/CIK 0000354950", "http://www.sec.gov/CIK 0000731766", "http://www.sec.gov/CIK 0000732712", "http://www.sec.gov/CIK 0000732717", "http://www.sec.gov/CIK 0000789019", "http://www.sec.gov/CIK 0000858877", "http://www.sec.gov/CIK 0000886982", "http://www.sec.gov/CIK 0001001039", "http://www.sec.gov/CIK 0001403161" ],
+                        "Id" : "018ec4fc-6166-4433-be75-eac869bae6b5"
                     },
-                    "Id" : "1d08b5f6-a061-40b3-a090-826f41e5d71a"
+                    "Id" : "4803e3d7-9769-4f98-83e9-d4742da318bd"
                 },
                 "dei:LegalEntityAxis" : {
                     "Name" : "dei:LegalEntityAxis",
@@ -1876,9 +1876,9 @@
                         "Name" : "sec:FiscalYearDomain",
                         "Label" : "Fiscal Year [Domain]",
                         "Enumeration" : [ 2013 ],
-                        "Id" : "cba45aa2-1fb0-4b5b-96a1-7acf06ad9c80"
+                        "Id" : "79a018a2-e703-47ed-9603-04e969e72035"
                     },
-                    "Id" : "521558f5-cf7e-4b4d-a84d-5bd9be9c8afd"
+                    "Id" : "6ef8486b-19db-489d-b194-9df59b664b4b"
                 },
                 "sec:FiscalPeriod" : {
                     "Name" : "sec:FiscalPeriod",
@@ -1889,9 +1889,9 @@
                         "Name" : "sec:FiscalPeriodDomain",
                         "Label" : "Fiscal Period [Domain]",
                         "Enumeration" : [ "FY" ],
-                        "Id" : "7147b1d1-e34e-49ce-aa3d-e469ae206771"
+                        "Id" : "ee31863f-9876-451e-a730-ca7fea03f4bd"
                     },
-                    "Id" : "6926a773-9d62-45e7-9fc9-42167f980745"
+                    "Id" : "f8da3042-3548-4560-8d1a-d854a4cdb94e"
                 },
                 "sec:FiscalPeriodType" : {
                     "Name" : "sec:FiscalPeriodType",
@@ -1902,9 +1902,9 @@
                         "Name" : "sec:FiscalPeriodTypeDomain",
                         "Label" : "Fiscal Period Type [Domain]",
                         "Enumeration" : [ "instant", "YTD" ],
-                        "Id" : "4526e9e6-4d69-4adc-adeb-42447eb91467"
+                        "Id" : "a925fdd9-8423-4101-9ed6-5b720acebf91"
                     },
-                    "Id" : "8ddca885-bde6-43e6-b6e3-7f645a955a05"
+                    "Id" : "d790e4c4-0d55-4f5b-838b-d182329cb821"
                 }
             },
             "Id" : "2d53e188-7097-4975-b527-d5b582a91949"
@@ -4411,7 +4411,7 @@
         "DataType" : "xbrli:sharesItemType",
         "BaseType" : "xbrli:shares",
         "ClosestSchemaBuiltinType" : "xs:decimal",
-        "Id" : "82c018d1-c771-495a-b723-c9bd5294a12d"
+        "Id" : "b3f882f3-70dc-4705-bba8-d5a817272a8a"
     }, {
         "Name" : "fac:CommonStockSharesIssued",
         "Label" : "Common Stock Shares (issued)",
@@ -4425,7 +4425,7 @@
         "DataType" : "xbrli:sharesItemType",
         "BaseType" : "xbrli:shares",
         "ClosestSchemaBuiltinType" : "xs:decimal",
-        "Id" : "6bd1ca55-2851-4942-b345-7b9937e3f211"
+        "Id" : "26867672-6396-47f1-a4a6-a1e5251ec176"
     }, {
         "Name" : "fac:CommonStockSharesOutstanding",
         "Label" : "Common Stock Shares (outstanding)",
@@ -4439,7 +4439,7 @@
         "DataType" : "xbrli:sharesItemType",
         "BaseType" : "xbrli:shares",
         "ClosestSchemaBuiltinType" : "xs:decimal",
-        "Id" : "0e78fd50-12f8-4ead-8c10-8ff09f9b28c0"
+        "Id" : "15121812-772c-4948-8700-1bb3477115e4"
     } ],
     "Filters" : {
         "cik" : [  ],

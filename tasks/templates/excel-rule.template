@@ -1,0 +1,99 @@
+for $facts in facts:facts-for-internal((
+    <% _.forEach(Variables, function(variable) { %>"<%= variable.Concept %>",<% }); %>()
+  ), $hypercube, $aligned-filter, $concept-maps, $rules, $cache, $options)
+
+let $duration-period as object? := facts:duration-for-fact($facts, {Typed: false })
+let $instant-period as string?  := facts:instant-for-fact($facts, {Typed: false })
+let $aligned-period as string  := ( $duration-period.End, $instant-period, "forever")[1]
+
+group by $canonical-filter-string :=
+  facts:canonical-grouping-key($facts, ($facts:CONCEPT, $facts:UNIT <%  if(AllowCrossPeriod){ %>, $facts:PERIOD<%  } %> ))
+<%  if(AllowCrossPeriod){ %>    , $aligned-period<%  } %>
+
+for $duration-string as string? allowing empty in distinct-values($facts[$$.Concept.PeriodType eq "duration"].$facts:ASPECTS.$facts:PERIOD)
+let $facts := $facts[$$.$facts:ASPECTS.$facts:PERIOD = ($duration-string, $aligned-period)]
+let $warnings as string* := ()
+
+<% _.forEach(Variables, function(variable) { %>
+let $<%= variable.VarName %> as object* := $facts[$$.$facts:ASPECTS.$facts:CONCEPT eq "<%= variable.Concept %>"]
+let $warnings := ($warnings,
+  if(count($<%= variable.VarName %>) gt 1)
+  then if(count(distinct-values($<%= variable.VarName %>.Value)) gt 1)
+    then "Cell collision with conflicting values for concept <%= variable.VarName %>."
+    else "Cell collision with consistent values for concept <%= variable.VarName %>."
+  else ())
+let $<%= variable.VarName %> as object? := $<%= variable.VarName %>[1]
+<% }); %>
+
+<%  if(_.isString(Unit)){ %>
+let $_unit := "<%= Unit %>"
+<%  } else { %>
+let $_unit := ($facts.$facts:ASPECTS.$facts:UNIT)[1]
+<%  } %>
+
+return
+  switch (true())
+<%
+    var computedVariable = _.find(Variables, function(variable) { return _.isObject(variable); });
+    var computedConcept = computedVariable.ComputedConcept;
+%>
+    case exists($<%= computedVariable.VarName %>) return $<%= computedVariable.VarName %>
+
+<% _.forEach(Formulae, function(formula) { %>
+
+    case (exists($<%= formula.SourceFactVarName %>) and <%= formula.Prereq.Compiled %>)
+    return
+      let $computed-value := <%= formula.Body.Compiled %>
+      let $audit-trail-message as string* := <%= formula.Body.AuditTrail %>
+      let $audit-trail-message as string* := ($audit-trail-message, $warnings)
+      let $source-facts as object* := ( <% _.forEach(formula.UsedVariables, function(variable) { %>$<%= variable.VarName %>,<% }); %>())
+      let $rule as object :=
+        if(exists($rule("Label")))
+        then $rule
+        else
+          copy $newRule := $rule
+          modify insert json { "Label": "<%= computedConcept.Label %>" } into $newRule
+          return $newRule
+      let $fact as object :=
+        rules:create-computed-fact(
+          $<%= formula.SourceFactVarName %>,
+          "<%= computedConcept.Name %>",
+          $computed-value,
+          $rule,
+          $audit-trail-message,
+          $source-facts,
+<%  if(_.isString(ValidatedFactVariable)){ %>
+          $options,
+          $<%= ValidatedFactVariable %>,
+          $computed-value)
+<%  } else { %>
+          $options)
+<%  } %>
+      return
+        copy $newFact := $fact
+        modify (
+          if(exists($newFact("Aspects")("xbrl:Unit")))
+          then replace value of json $newFact("Aspects")("xbrl:Unit") with $_unit
+          else insert json { "xbrl:Unit": $_unit } into $newFact("Aspects"),
+<%  if(Decimals){ %>
+          if(exists($newFact("Decimals")))
+          then replace value of json $newFact("Decimals") with <%  if(_.isString(Decimals)){ %>"<% } %><%= Decimals %><%  if(_.isString(Decimals)){ %>"<% } %>
+          else insert json { "Decimals": <%  if(_.isString(Decimals)){ %>"<% } %><%= Decimals %><%  if(_.isString(Decimals)){ %>"<% } %> } into $newFact,<% } %>
+<%  if(computedConcept.Balance){ %>
+          if(exists($newFact("Concept")("Balance")))
+          then replace value of json $newFact("Concept")("Balance") with "<%= computedConcept.Balance %>"
+          else insert json { "Balance": "<%= computedConcept.Balance %>" } into $newFact("Concept"),<%  } %>
+<%  if(computedConcept.DataType){ %>
+          if(exists($newFact("Concept")("DataType")))
+          then replace value of json $newFact("Concept")("DataType") with "<%= computedConcept.DataType %>"
+          else insert json { "DataType": "<%= computedConcept.DataType %>" } into $newFact("Concept"),<%  } %>
+<%  if(computedConcept.PeriodType){ %>
+          if(exists($newFact("Concept")("PeriodType")))
+          then replace value of json $newFact("Concept")("PeriodType") with "<%= computedConcept.PeriodType %>"
+          else insert json { "PeriodType": "<%= computedConcept.PeriodType %>" } into $newFact("Concept"),<%  } %>
+          ()
+        )
+        return $newFact
+<% }); %>
+
+    default return ()

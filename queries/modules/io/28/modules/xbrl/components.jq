@@ -704,16 +704,24 @@ declare function components:standard-definition-models-for-components($component
         components:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
         for $d as string in $column-dimensions
         let $metadata as object? := ($component.Concepts[])[$$.Name eq $d]
+        let $label as string? :=
+          concepts:labels(
+            $d,
+            $concepts:VERBOSE_LABEL_ROLE,
+            ($options.Language, "en")[1],
+            $components.Concepts[],
+            $options
+          )[1]
         return
             components:standard-explicit-dimension-breakdown(
                 $d,
-                $metadata.Label,
+                ($label, $metadata.Label)[1],
                 $table.Aspects.$d.Members[].Name,
                 $component.Role),
         components:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
     )
 
-    let $lineitems as string* := ()
+    let $lineitems as string* := components:line-items($component)
     let $presentation-network as object? := networks:networks-for-components-and-short-names($component, "Presentation")
     let $roots as string* := $presentation-network.Trees[].Name
     let $lineitems as string* := if(exists($lineitems)) then $lineitems else $roots
@@ -793,4 +801,32 @@ declare function components:merge($components as object*) as object
             return $concept[1]
         ]
     }
+};
+
+(:~
+ : <p>Returns the line items, that is the top-level abstracts or concepts in the
+ : presentation network.</p>
+ :
+ : @param $components the input components.
+ :
+ : @return the line items report elements.
+ :)
+declare function components:line-items($components as object*) as string*
+{
+    let $presentation-networks as object* := networks:networks-for-components-and-short-names($components, "Presentation")
+    return components:line-items-recursive($components, $presentation-networks.Trees[])
+};
+
+declare %private function components:line-items-recursive($components as object*, $networks as object*) as string*
+{
+  let $concepts as object* := $components.Concepts[]
+  for $network in $networks
+  let $concept-name := $network.Name
+  let $substitution-group as string := $concepts[$$.Name eq $concept-name].SubstitutionGroup[1]
+  let $has-table-child as boolean := $concepts[$$.Name = $network.To[].Name].SubstitutionGroup = "xbrldt:hypercubeItem"
+  return switch(true)
+          case $has-table-child return components:line-items-recursive($components, $network.To[])
+          case $substitution-group eq "xbrldt:dimensionItem" return ()
+          case $substitution-group eq "xbrldt:hypercubeItem" return ()
+          default return $concept-name
 };
