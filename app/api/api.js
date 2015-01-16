@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('report-editor')
-    .controller('APICtrl', function(_, $scope, $state, $sce, $stateParams, swagger, API_URL, Session, API, PROFILE){
+    .controller('APICtrl', function(_, $log, $scope, $state, $sce, $stateParams, swagger, API_URL, Session, API, PROFILE){
 
         var method = $stateParams.method;
         var path = '/' + $stateParams.path;
@@ -24,11 +24,20 @@ angular.module('report-editor')
         }
 
         operation.notes = $sce.trustAsHtml(operation.notes);
-        operation.parameters = _.chain(operation.parameters).filter(function(param){
-            return param.name !== 'token' && param.name !== '_method' && (param.profile === undefined || param.profile.indexOf(PROFILE) !== -1);
-        }).forEach(function(param){
-            param.description = $sce.trustAsHtml(param.description);
-        }).value();
+        operation.parameters =
+            _.chain(operation.parameters)
+            .filter(function(param){
+                return !param.deprecated && param.name !== 'token' && param.name !== '_method' && (param.profile === undefined || param.profile.indexOf(PROFILE) !== -1);
+            })
+            .forEach(function(param){
+                param.description = $sce.trustAsHtml(param.description);
+                if(param.nameEditable){
+                    param.placeholder = param.name;
+                    param.oldName = undefined;
+                    param.name = undefined;
+                }
+            })
+            .value();
 
         $scope.examples = _.chain(operation.examples).filter(function(example){
             return example.profile === undefined || example.profile.indexOf(PROFILE) !== -1;
@@ -52,7 +61,7 @@ angular.module('report-editor')
                 }
                 result += _.chain(params).map(function(v, k){
                     if(_.isArray(v)) {
-                        return _.chain(v).map(function(v, k){
+                        return _.chain(v).map(function(v){
                             return k + '=' + encodeURIComponent(v);
                         }).value().join('&');
                     } else {
@@ -70,8 +79,31 @@ angular.module('report-editor')
             return 'curl -X ' + $scope.op.method + ' "' + $scope.getUrl() + '"';
         };
 
+        $scope.change = function(param){
+            var value = this;
+            if(param.oldName){
+                value = _.find($scope.params, function(val, key) {
+                    return key === param.oldName;
+                } );
+                // remove value under previous name
+                delete $scope.params[param.oldName];
+            }
+            param.oldName = param.name;
+            if(_.isArray(value)) {
+                // add value under new name
+                $scope.params[param.name] = value;
+            }
+        };
+
         $scope.test = function(p) {
             if(p) {
+                // make all values arrays
+                p = _.mapValues(p, function(paramValue){
+                    if(_.isArray(paramValue)){
+                        return paramValue;
+                    }
+                    return [paramValue];
+                });
                 p.token = $scope.params.token;
                 $scope.params = p;
             }
