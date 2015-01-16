@@ -1692,7 +1692,7 @@
             }, {
                 "name": "prefix:dimension",
                 "nameEditable": true,
-                "pattern": "[^:]+:[^:]+",
+                "pattern": "^[^:]+:[^:]+$",
                 "description": "The name of a dimension used for filtering. Accepted format: prefix:dimension. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved",
                 "required": false,
                 "type": "string",
@@ -1700,7 +1700,7 @@
             }, {
                 "name": "prefix:dimension::default",
                 "nameEditable": true,
-                "pattern": "[^:]+:[^:]+::default",
+                "pattern": "^[^:]+:[^:]+::default$",
                 "description": "The default value of the dimension [prefix:dimension] that should be returned if the dimension was not provided explicitly for a fact. Accepted format: prefix:dimension::default",
                 "required": false,
                 "type": "string",
