@@ -24,6 +24,7 @@ declare function local:param-values($name as string) as string*
      case $name eq "xbrl:Concept"
         return (request:param-values("concept"), request:param-values("xbrl:Concept"))
 
+    (: sec profile :)
      case $name eq "sec:FiscalYear" and $profile-name eq "sec"
         return ($fiscalYear, request:param-values("sec:FiscalYear"))[$$ ne "LATEST"]
      case $name eq "sec:FiscalYear::type" and $profile-name eq "sec"
@@ -41,7 +42,8 @@ declare function local:param-values($name as string) as string*
          if(empty((request:param-values("sec:LegalEntityAxis"), request:param-values("sec:LegalEntityAxis::default"))))
          then "sec:DefaultLegalEntity"
          else request:param-values("sec:LegalEntityAxis::default")
-     case $name eq "xbrl:Entity" and $profile-name eq "sec" return (
+
+     case $name eq "xbrl:Entity" and $profile-name = ("sec", "japan") return (
          let $companies := multiplexer:entities(
             $profile-name,
             $eid,
@@ -53,17 +55,29 @@ declare function local:param-values($name as string) as string*
                then $companies
                else "dummy",
         request:param-values("xbrl:Entity"))
-     case $name eq "xbrl28:Archive" and $profile-name eq "sec" return (
-            let $fiscalYears := ($fiscalYear, request:param-values("sec:FiscalYear"))
-            let $fiscalPeriods := local:param-values("sec:FiscalPeriod")
+     case $name eq "xbrl28:Archive" and $profile-name = ("sec", "japan") return (
+            let $prefix as string := ("sec"[$profile-name eq "sec"], "fsa"[$profile-name eq "japan"])
+            let $fiscalYears := ($fiscalYear, request:param-values( $prefix || ":FiscalYear"))
+            let $fiscalPeriods := local:param-values($prefix || ":FiscalPeriod")
             let $entities := entities:entities(local:param-values("xbrl:Entity"))
-            return 
+            return
                 if($fiscalYears = "LATEST")
                 then fiscal-core:latest-filings($entities, $fiscalPeriods)._id
                 else (),
             $aid,
             request:param-values("xbrl28:Archive")
         )
+
+     (: japan profile :)
+     case $name eq "fsa:FiscalYear" and $profile-name eq "japan"
+     return ($fiscalYear, request:param-values("fsa:FiscalYear"))[$$ ne "LATEST"]
+     case $name eq "fsa:FiscalYear::type" and $profile-name eq "japan"
+     return "integer"
+     case $name eq "fsa:FiscalPeriod" and $profile-name eq "japan"
+     return ($fiscalPeriod, request:param-values("fsa:FiscalPeriod"))
+     case $name eq "fsa:FiscalPeriodType" and $profile-name eq "japan"
+     return ($fiscalPeriodType, request:param-values("fsa:FiscalPeriodType"))
+
      default return request:param-values($name)
 };
 
@@ -71,9 +85,13 @@ declare function local:param-names() as string*
 {
     let $names := request:param-names()
     return distinct-values((
+        (: generic xbrl :)
         $names[contains($$, ":")],
+        "xbrl:Entity"[$names = ("eid")],
+        "xbrl28:Archive"[$profile-name = ("sec", "japan")],
         "xbrl:Concept"[$names = "concept"],
 
+        (: sec profile :)
         "sec:Accepted"[$profile-name eq "sec"],
         "sec:FiscalPeriod"[$profile-name eq "sec"],
         "sec:FiscalPeriodType"[$profile-name eq "sec"],
@@ -81,7 +99,13 @@ declare function local:param-names() as string*
         "xbrl:Entity"[$profile-name eq "sec" and $names = ("cik", "tag", "ticker", "sic")],
         "dei:LegalEntityAxis"[$profile-name eq "sec"],
         "dei:LegalEntityAxis::default"[$profile-name eq "sec"],
-        "xbrl28:Archive"[$profile-name eq "sec"]))
+
+        (: japan profile :)
+        "fsa:Submitted"[$profile-name eq "japan"],
+        "fsa:FiscalPeriod"[$profile-name eq "japan"],
+        "fsa:FiscalPeriodType"[$profile-name eq "japan"],
+        "fsa:FiscalYear"[$profile-name eq "japan"]
+    ))
 };
 
 declare function local:cast-sequence($values as atomic*, $type as string) as atomic*
@@ -164,7 +188,7 @@ let $format as string? := api:preprocess-format($format, $request-uri)
 let $tag as string* := api:preprocess-tags($tag)
 
 (: Object resolution :)
-let $entities as object* := 
+let $entities as object* :=
     companies:companies(
         $cik,
         $tag,
@@ -182,14 +206,14 @@ let $rule as item* :=
         if(exists($report))
         then reports:rules($report)
         else rules:rules($rule),
-        if(exists($additional-rules)) 
-        then rules:rules($additional-rules) 
+        if(exists($additional-rules))
+        then rules:rules($additional-rules)
         else ()
     )
 
 let $hypercube := local:hypercube()
 
-let $facts := 
+let $facts :=
     let $options := {|
       {
         Hypercube : $hypercube,
