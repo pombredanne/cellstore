@@ -386,7 +386,7 @@ declare function layout:empty-rows-and-columns($cells as array, $threshold as do
         Columns: [
             for $j in 1 to size($cells[[1]])
             let $column := $cells[][[$j]]
-            where count($column.Value) lt count($column) * $threshold
+            where count($column.Value) le count($column) * $threshold
             return $j
         ]
     }

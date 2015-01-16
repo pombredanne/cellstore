@@ -9,7 +9,7 @@ jsoniq version "1.0";
  : <p>SEC Networks are actually XBRL Components. In the SEC profiles, all XBRL networks
  : in an XBRL component must be consistent to each other. A way to look at it is that
  : the SEC Network can be identified with the XBRL presentation network it contains.</p>
- : 
+ :
  : <p>For XBRL-generic operations on XBRL components, use the
  : generic components module.</p>
  :
@@ -84,12 +84,12 @@ declare variable $sec-networks:DOCUMENT_AND_ENTITY_INFO as xs:string := "Documen
 
 (:~
  : <p>Retrieves all SEC Networks in a given filing.</p>
- : 
- : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs) 
- :                          or archive objects. 
+ :
+ : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs)
+ :                          or archive objects.
  :
  : @return all networks in the supplied filings.
- :) 
+ :)
 declare function sec-networks:networks-for-filings(
     $archives-or-ids as item*) as object*
 {
@@ -98,11 +98,11 @@ declare function sec-networks:networks-for-filings(
 
 (:~
  : <p>Retrieves all SEC Networks that bear the supplied disclosures.</p>
- : 
+ :
  : @param $disclosure a list of disclosures.
  :
  : @return all models that match one of the disclosures.
- :) 
+ :)
 declare function sec-networks:networks-for-disclosures(
     $disclosures as string*) as object*
 {
@@ -113,13 +113,13 @@ declare function sec-networks:networks-for-disclosures(
 (:~
  : <p>Retrieves all models that belong to the archives given as first
  : parameter and that match the supplied disclosures.</p>
- : 
- : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs) 
- :                          or archive objects. 
+ :
+ : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs)
+ :                          or archive objects.
  : @param $disclosures a list of disclosures.
  :
  : @return all models in the archives and that match one of the disclosures.
- :) 
+ :)
 declare function sec-networks:networks-for-filings-and-disclosures(
     $archive-or-ids as item*,
     $disclosures as string*) as object*
@@ -137,13 +137,13 @@ declare function sec-networks:networks-for-filings-and-disclosures(
  :
  : <p>A category can be any of "Statement", "Disclosure", "Document",
  : "Schedule", or "Unknown".</p>
- : 
- : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs) 
- :                          or archive objects. 
+ :
+ : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs)
+ :                          or archive objects.
  : @param $categories a list of categories.
  :
  : @return all said models
- :) 
+ :)
 declare function sec-networks:networks-for-filings-and-categories(
     $archive-or-ids as item*,
     $categories as string*) as object*
@@ -162,12 +162,12 @@ declare function sec-networks:networks-for-filings-and-categories(
  : <p>Retrieves all models that belong to the archives given as first
  : parameter and that match the supplied roles/network identifier.</p>
  :
- : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs) 
- :                          or archive objects. 
+ : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs)
+ :                          or archive objects.
  : @param $roles a list of roles.
  :
  : @return all said models
- :) 
+ :)
 declare function sec-networks:networks-for-filings-and-roles(
     $archive-or-ids as item*,
     $roles as string*) as object*
@@ -183,17 +183,17 @@ declare function sec-networks:networks-for-filings-and-roles(
  : <p>Retrieves all models that belong to the archives given as first
  : parameter and that contain at least one report element with a given name.</p>
  :
- : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs) 
- :                          or archive objects. 
+ : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs)
+ :                          or archive objects.
  : @param $report-elements a list of contained report element names.
  :
  : @return all said models
- :) 
+ :)
 declare function sec-networks:networks-for-filings-and-reportElements(
     $archive-or-ids as item*,
     $report-elements as string*) as object*
 {
-  let $ids := mw:find($concepts:col, 
+  let $ids := mw:find($concepts:col,
       {
          $components:ARCHIVE: { "$in" : [ $archive-or-ids ! archives:aid($$) ] },
          "Name" : { "$in" : [ $report-elements ] }
@@ -207,12 +207,12 @@ declare function sec-networks:networks-for-filings-and-reportElements(
  :
  : <p>The result of the function is limited to 100.</p>
  :
- : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs) 
- :                          or archive objects. 
+ : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs)
+ :                          or archive objects.
  : @param $label-search-term a search term to search in labels
  :
  : @return all said models
- :) 
+ :)
 declare function sec-networks:networks-for-filings-and-label(
     $archive-or-ids as item*,
     $label-search-term as string*) as object*
@@ -228,13 +228,13 @@ declare function sec-networks:networks-for-filings-and-label(
  :
  : <p>The result of the function is limited to 100.</p>
  :
- : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs) 
- :                          or archive objects. 
+ : @param $archive-or-ids an arbitrary number of archive identifiers (AIDs)
+ :                          or archive objects.
  : @param $label-search-term a search term to search in labels
  : @param $limit limit the number of search results
  :
  : @return all said models
- :) 
+ :)
 declare function sec-networks:networks-for-filings-and-label(
     $archive-or-ids as item*,
     $label-search-term as string*,
@@ -299,7 +299,7 @@ declare %private function sec-networks:model-structures-recursive(
 (:~
  : <p>Computes the model structure of the supplied SEC Network, which is a hierarchy
  : of SEC Report Elements (Tables, Axes, Members, LineItems, Abstracts, Concepts).</p>
- : 
+ :
  : @param $networks a sequence of SEC Network objects.
  :
  : @return the model structures of these SEC Networks.
@@ -329,7 +329,7 @@ declare function sec-networks:model-structures($networks as object*) as object*
  : @param $disclosures a sequence of disclosures.
  : @param $roles a sequence of role URIs.
  : @param $search a sequence of label search strings.
- : 
+ :
  : @return a sequence of components.
  :)
 declare function sec-networks:components(
@@ -363,7 +363,7 @@ declare function sec-networks:components(
  :
  : <p>One of the non-default hypercubes will be arbitrarily chosen. If none is available, the default hypercube will be picked.</p>
  : <p>Auto slicing will be performed against the fact table
- : 
+ :
  : @param $component a component object.
  :
  : @return a definition model
@@ -439,15 +439,26 @@ declare function sec-networks:standard-definition-models-for-components($compone
         "sec:FiscalPeriodType",
         $auto-slice-dimensions,
         $user-slice-dimensions)]
-    
+
     let $x-breakdowns as object* := (
         components:standard-period-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Period")],
         for $d as string in $column-dimensions
         let $metadata as object? := ($component.Concepts[])[$$.Name eq $d]
+        let $label as string? :=
+          concepts:labels(
+            $d,
+            $concepts:VERBOSE_LABEL_ROLE,
+            ($options.Language, "en")[1],
+            $components.Concepts[],
+            $options
+          )[1]
+        let $dimension-object as object := $table.Aspects.$d
+        let $is-typed as boolean := boolean($dimension-object.Kind eq "TypedDimension")
         return
             if($d = ("sec:Accepted", "sec:FiscalYear", "sec:FiscalPeriod", "sec:FiscalPeriodType"))
             then components:standard-typed-dimension-breakdown(
                 $d,
+                ($label, $metadata.Label)[1],
                 $values-by-dimension.$d[])
             else components:standard-explicit-dimension-breakdown(
                 $d,
@@ -491,7 +502,7 @@ declare function sec-networks:standard-definition-models-for-components($compone
  : <p>Returns all SEC Tables contained in the supplied SEC Networks.</p>
  :
  : <p>SEC Tables are XBRL hypercubes.</p>
- : 
+ :
  : @param $networks a sequence of SEC Network objects.
  : @param $options <a href="core#standard_options">standard SEC BizQL options</a>.
  :
@@ -517,7 +528,7 @@ declare function sec-networks:tables($networks as object*, $options as object?) 
  : <p>Returns the names of all SEC Tables contained in the supplied SEC Networks.</p>
  :
  : <p>SEC Tables are XBRL hypercubes.</p>
- : 
+ :
  : @param $networks a sequence of SEC Network objects.
  : @param $options <a href="core#standard_options">standard SEC BizQL options</a>.
  :
@@ -534,7 +545,7 @@ declare function sec-networks:table-names($networks as object*) as string*
  : <p>Returns all SEC Tables contained in the supplied SEC Networks.</p>
  :
  : <p>SEC Tables are XBRL hypercubes.</p>
- : 
+ :
  : @param $networks a sequence of SEC Network objects.
  :
  : @return the SEC Tables.
@@ -549,7 +560,7 @@ declare function sec-networks:tables($networks as object*) as object*
  : <p>Returns all SEC Axes contained in the supplied SEC Networks.</p>
  :
  : <p>SEC Axes are XBRL dimensions.</p>
- : 
+ :
  : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
  :
  : @return the SEC Axes.
@@ -569,7 +580,7 @@ declare function sec-networks:axes($networks-or-ids as item*) as object*
  :
  : <p>SEC Members are XBRL members that are in the transitive closure of SEC Axes
  : via the dimension-domain and domain-member relations.</p>
- : 
+ :
  : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
  :
  : @return the SEC Members.
@@ -591,7 +602,7 @@ declare function sec-networks:members($networks-or-ids as item*) as object*
  :
  : <p>SEC LineItems report elements are XBRL abstract primary items that are top-level in their
  : association with an XBRL hypercube (source of an all relation).</p>
- : 
+ :
  : @param $networks-or-ids a sequence of SEC Network objects, or their XBRL Component IDs.
  :
  : @return the SEC LineItems report elements.
@@ -611,7 +622,7 @@ declare function sec-networks:line-items-report-elements($networks-or-ids as ite
  :
  : <p>SEC Abstracts are XBRL abstract primary items that may or may not be associated
  : with a hypercube -- except those that are SEC LineItems (i.e., source of an all relation).</p>
- : 
+ :
  : @param $networks a sequence of SEC Network objects.
  :
  : @return the SEC Abstracts.
@@ -636,7 +647,7 @@ declare function sec-networks:abstracts($networks as object*) as object*
  :
  : <p>SEC Concepts are XBRL concrete primary items that may or may not be associated
  : with a hypercube.</p>
- : 
+ :
  : @param $networks a sequence of SEC Network objects.
  :
  : @return the SEC Concepts.
@@ -916,12 +927,12 @@ as object*
 };
 
 (:~
- : 
+ :
  : <p>Returns the disclosures of the suplied networks.</p>
  :
  : @param $networks a sequence of SEC Network objects.
  : @return the disclosure names, or "UncategorizedInformation" if none.
- : 
+ :
  :)
 declare function sec-networks:disclosures($networks as object*) as string+
 {
@@ -1037,4 +1048,3 @@ declare function sec-networks:summaries-to-csv($summaries as object*) as string*
 {
   csv:serialize($summaries, { serialize-null-as : "" })
 };
-

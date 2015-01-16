@@ -166,7 +166,7 @@ declare %private function resolution:convert-rule-node(
     let $labels := (
         $definition-node.Labels[],
         resolution:labels(
-            $main-members,
+            $main-members[$$ instance of string],
             $components,
             $concepts:STANDARD_LABEL_ROLE,
             $options)

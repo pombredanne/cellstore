@@ -535,15 +535,20 @@ declare function components:standard-period-breakdown() as object
     }
 };
 
-declare function components:standard-typed-dimension-breakdown($dimension-name as string, $dimension-values as atomic*) as object
+declare function components:standard-typed-dimension-breakdown(
+    $dimension-name as string,
+    $dimension-label as string?,
+    $dimension-values as atomic*) as object
 {
+    let $dimension-label as string := ($dimension-label, $dimension-name)[1]
+    return
     {
         BreakdownLabels: [ $dimension-name || " breakdown" ],
         BreakdownTrees: [
             {
                 Kind: "Rule",
                 Abstract: true,
-                Labels: [ $dimension-name || " [Axis]" ],
+                Labels: [ $dimension-label ],
                 Children: [
                     for $value in $dimension-values
                     return {
@@ -712,11 +717,20 @@ declare function components:standard-definition-models-for-components($component
             $components.Concepts[],
             $options
           )[1]
+        let $dimension-object as object := $table.Aspects.$d
+        let $is-typed as boolean := boolean($dimension-object.Kind eq "TypedDimension")
         return
-            components:standard-explicit-dimension-breakdown(
+            if($is-typed)
+            then
+              components:standard-typed-dimension-breakdown(
                 $d,
                 ($label, $metadata.Label)[1],
-                $table.Aspects.$d.Members[].Name,
+                $values-by-dimension.$d[])
+            else
+              components:standard-explicit-dimension-breakdown(
+                $d,
+                ($label, $metadata.Label)[1],
+                $dimension-object.Members[].Name,
                 $component.Role),
         components:standard-entity-breakdown()[not (($auto-slice-dimensions, $user-slice-dimensions) = "xbrl:Entity")]
     )
